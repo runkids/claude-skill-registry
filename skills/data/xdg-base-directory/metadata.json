@@ -1,7 +1,7 @@
 {
   "name": "xdg-base-directory",
-  "repo": "BbgnsurfTech/claude-skills-collection",
-  "path": "community/jamie-bitflight-claude-skills/xdg-base-directory/SKILL.md",
-  "source": "github.com/BbgnsurfTech/claude-skills-collection",
-  "downloaded_at": "2026-01-28T02:58:42.800183Z"
+  "repo": "Jamie-BitFlight/claude_skills",
+  "path": "plugins/xdg-base-directory/skills/xdg-base-directory/SKILL.md",
+  "source": "github.com/Jamie-BitFlight/claude_skills",
+  "downloaded_at": "2026-01-29T02:11:20.901688Z"
 }

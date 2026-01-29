@@ -1,9 +1,7 @@
 {
   "name": "style-guardian",
-  "description": "Ensures brand consistency and style quality across all blog content",
-  "repo": "Zura1555/agents",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/Zura1555/agents"
+  "repo": "tarrragon/claude",
+  "path": "skills/style-guardian/SKILL.md",
+  "source": "github.com/tarrragon/claude",
+  "downloaded_at": "2026-01-29T03:01:39.945044Z"
 }

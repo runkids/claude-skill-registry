@@ -1,7 +1,7 @@
 {
   "name": "form-cro",
-  "repo": "LeonMelamud/inspector-agents",
-  "path": ".agent/skills/form-cro/SKILL.md",
-  "source": "github.com/LeonMelamud/inspector-agents",
-  "downloaded_at": "2026-01-28T04:38:09.120187Z"
+  "repo": "kimny1143/claude-code-template",
+  "path": ".claude/skills/form-cro/SKILL.md",
+  "source": "github.com/kimny1143/claude-code-template",
+  "downloaded_at": "2026-01-29T04:45:18.662580Z"
 }

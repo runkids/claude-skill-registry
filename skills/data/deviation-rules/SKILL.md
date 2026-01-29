@@ -1,11 +1,16 @@
 ---
 name: deviation-rules
-description: "Handle unexpected work during execution. Use when: You encounter bugs, missing critical features, blockers, or potential architectural changes while executing a plan. Not for: Initial planning or non-execution contexts."
+description: "Handle unexpected work during execution. Use when encountering bugs, missing features, blockers, or architectural changes while executing a plan. Not for initial planning or non-execution contexts."
 disable-model-invocation: false
-allowed-tools: ["Read", "Write", "Edit", "Bash", "AskUserQuestion"]
+allowed-tools: Read, Write, Edit, Bash, AskUserQuestion
 ---
 
 # Deviation Rules Engine
+
+<mission_control>
+<objective>Handle unexpected work during execution with mechanistic decision trees</objective>
+<success_criteria>Deviations handled according to logic trees with full transparency</success_criteria>
+</mission_control>
 
 Automatic handling of discovered work during plan execution with clear rules and full transparency.
 
@@ -21,114 +26,119 @@ Apply deviation rules when encountering unexpected work during plan execution:
 
 **Key Innovation**: Handle real-world complexity automatically while maintaining full transparency.
 
-## When to Use
+## Logic Trees: Mechanistic Decision Making
 
-Use deviation rules when:
-- Executing plans and discovering additional work
-- Encountering bugs in existing code
-- Finding missing critical functionality
-- Facing blocking issues
-- Considering architectural changes
+<deviation_logic>
+<trigger condition="bug">
+<test>
 
-## The 5 Deviation Rules
+- Is this a logic error, syntax error, type error, security vulnerability, or performance issue?
+- Is the fix unambiguous (clear solution exists)?
+- Does the fix not change architecture?
+  </test>
+  <action>Auto-fix without asking</action>
+  <examples>
+- MD5 password hashing → Fix to bcrypt (security)
+- Missing semicolon → Add semicolon (syntax)
+- Unhandled exception → Add try/catch (logic)
+  </examples>
+  </trigger>
 
-### Rule 1: Auto-Fix Bugs
+<trigger condition="missing_critical">
+<test>
+- Is this essential for functionality that was clearly overlooked?
+- Would not adding it make the implementation non-functional?
+- Is the solution straightforward and unambiguous?
+</test>
+<action>Add without asking</action>
+<examples>
+- No error handling for database → Add error middleware
+- Missing input validation → Add validation
+- No logging for debugging → Add logs
+</examples>
+</trigger>
 
-**Definition**: Fix any bugs discovered during implementation without asking.
+<trigger condition="blocker">
+<test>
+- Does this block progress on planned work?
+- Is resolution necessary to continue?
+- Does solution not require architectural decision?
+</test>
+<action>Fix without asking</action>
+<examples>
+- Missing dependency → Install dependency
+- Wrong environment variable → Set variable
+- File permission issue → Fix permissions
+</examples>
+</trigger>
 
-**What counts as a bug**:
-- Logic errors in existing code
-- Syntax errors that prevent execution
-- Type errors that would cause runtime failures
-- Security vulnerabilities in existing implementations
-- Performance issues in critical paths
+<trigger condition="architecture_change">
+<test>
+- Does this change file/folder structure?
+- Does this add/remove major components?
+- Does this change data models or schemas?
+- Does this affect system architecture?
+</test>
+<action>STOP and ask user</action>
+<examples>
+- Need to add new service layer
+- Database schema change required
+- File restructure needed
+</examples>
+</trigger>
 
-**When to apply**:
-- Bug is discovered while implementing plan
-- Bug fix doesn't change architecture
-- Bug fix is unambiguous (clear solution exists)
+<trigger condition="enhancement">
+<test>
+- Is this a nice-to-have improvement?
+- Would this be better logged for later?
+- Is this not essential for current task?
+</test>
+<action>Log for later, continue</action>
+<examples>
+- Code refactoring opportunity
+- Performance optimization
+- Documentation improvement
+</examples>
+</trigger>
+</deviation_logic>
 
-**Example**:
-```
-Plan: "Add user authentication"
-Discovery: Existing password hashing uses MD5 (insecure)
-Action: Fix to use bcrypt without asking
-Reason: Security fix, unambiguous solution
-```
+## Decision Flow
 
-**Recognition**: "Is this a bug with a clear fix that doesn't change architecture?"
+<decision_flow>
+When encountering unexpected work:
 
-### Rule 2: Add Missing Critical
+1. **Classify**: What type of deviation is this?
+   - Bug? → Trigger: bug
+   - Missing critical? → Trigger: missing_critical
+   - Blocker? → Trigger: blocker
+   - Architecture change? → Trigger: architecture_change
+   - Enhancement? → Trigger: enhancement
 
-**Definition**: Add critical functionality that was clearly overlooked in planning.
+2. **Apply trigger rules**:
+   - If bug: Auto-fix
+   - If missing_critical: Add
+   - If blocker: Fix
+   - If architecture_change: STOP and ask
+   - If enhancement: Log and continue
 
-**What counts as missing critical**:
-- Error handling that would cause crashes
-- Input validation required for security
-- Logging needed for debugging
-- Configuration for required functionality
-- Dependencies required for operation
+3. **Report action**: Always explain what you did and why
+   </decision_flow>
 
-**When to apply**:
-- Functionality is essential for task completion
-- Not adding it would make the implementation non-functional
-- Solution is straightforward and unambiguous
+---
 
-**Example**:
-```
-Plan: "Create API endpoint"
-Discovery: No error handling for database failures
-Action: Add error handling middleware without asking
-Reason: Critical for operation, unambiguous implementation
-```
-
-**Recognition**: "Is this essential for functionality that was clearly overlooked?"
-
-### Rule 3: Fix Blockers
-
-**Definition**: Resolve any blocking issues that prevent task completion.
-
-**What counts as a blocker**:
-- Missing dependencies that prevent execution
-- Configuration issues preventing testing
-- Environment setup problems
-- File permissions blocking operations
-- Network/connectivity issues for required services
-
-**When to apply**:
-- Issue blocks progress on planned work
-- Resolution is necessary to continue
-- Solution doesn't require architectural decision
-
-**Example**:
-```
-Plan: "Deploy to production"
-Discovery: Environment variables not set in production
-Action: Set environment variables from documentation
-Reason: Blocks deployment, required configuration
-```
-
-**Recognition**: "Does this block progress and have an unambiguous fix?"
-
-### Rule 4: Ask About Architectural Changes
-
-**Definition**: STOP and ask user before making any architectural changes.
-
-**What counts as architectural**:
-- Changing file/folder structure
-- Adding/removing major components
-- Changing data models or schemas
 - Modifying system boundaries
 - Changing patterns or frameworks
 - Altering deployment architecture
 
 **When to apply**:
+
 - Change affects system structure
 - Change has multiple valid approaches
 - Change would require updating other components
 - Change conflicts with existing patterns
 
 **Example**:
+
 ```
 Plan: "Add user preferences"
 Discovery: Current data model doesn't support user-specific settings
@@ -143,6 +153,7 @@ Reason: Architectural decision, multiple valid options
 **Definition**: Log non-critical improvements for later consideration.
 
 **What counts as enhancements**:
+
 - Code refactoring for clarity
 - Adding convenience features
 - Performance optimizations (non-critical)
@@ -150,11 +161,13 @@ Reason: Architectural decision, multiple valid options
 - Test coverage expansions
 
 **When to apply**:
+
 - Improvement is valuable but not essential
 - Enhancement doesn't block current work
 - Can be deferred without impact
 
 **Example**:
+
 ```
 Plan: "Add payment processing"
 Discovery: Error messages could be more user-friendly
@@ -172,26 +185,33 @@ All deviations are documented in `SUMMARY.md`:
 # Execution Summary
 
 ## Original Plan
+
 [Original plan description]
 
 ## Deviations Log
 
 ### Auto-Fixed Bugs
+
 - [Bug description] → [Fix applied]
 - [Bug description] → [Fix applied]
 
 ### Added Missing Critical
+
 - [Missing functionality] → [What was added]
 
 ### Fixed Blockers
+
 - [Blocker] → [Resolution]
 
 ### Logged Enhancements
+
 - [Enhancement idea] (deferred)
 - [Enhancement idea] (deferred)
 
 ## Architectural Decisions
+
 [Only if Rule 4 was triggered]
+
 - [Decision point] → [User's decision]
 ```
 
@@ -263,40 +283,48 @@ Result: Authentication complete with documented deviations
 Before applying any rule, ask:
 
 **Rule 1 (Bugs)**:
+
 - "Is this a bug with a clear, unambiguous fix?"
 - "Does the fix preserve the intended architecture?"
 
 **Rule 2 (Missing Critical)**:
+
 - "Is this essential for functionality?"
 - "Was this clearly overlooked, not a new feature?"
 - "Is the implementation straightforward?"
 
 **Rule 3 (Blockers)**:
+
 - "Does this block progress?"
 - "Is there an unambiguous resolution?"
 
 **Rule 4 (Architectural)**:
+
 - "Does this change system structure?"
 - "Are there multiple valid approaches?"
 - "Would other components be affected?"
 
 **Rule 5 (Enhancements)**:
+
 - "Is this valuable but not essential?"
 - "Can this be deferred without impact?"
 
 ## Best Practices
 
 ### Transparency
+
 - Document EVERY deviation in SUMMARY.md
 - Explain WHY each deviation was necessary
 - Note what was done vs what was planned
 
 ### Judgement
+
 - Be conservative with Rule 4 (when in doubt, ask)
 - Be generous with Rule 2 (err on side of completeness)
 - Be honest with Rule 5 (log real improvements, don't ignore)
 
 ### Context
+
 - Consider project size and complexity
 - Consider team practices and standards
 - Consider long-term maintenance impact
@@ -317,17 +345,12 @@ Before applying any rule, ask:
 
 ## Integration with Planning
 
-Deviation rules integrate with planning systems:
-
-- **TDD Workflow**: Handle bugs found during test writing
-- **Component Creation**: Add missing critical during implementation
-- **Ralph/Orchestrate**: Automatic deviation handling during execution
-
 ## Related Skills
 
 This skill integrates with:
-- `tdd-workflow` - Test-driven development with deviation handling
-- `skill-development` - Component creation with automatic fixes
+
+- `engineering-lifecycle` - Test-driven development with deviation handling
+- `invocable-development` - Component creation with automatic fixes
 - `/orchestrate` - Native orchestration with deviation rules
 
 ## Arguments
@@ -335,6 +358,7 @@ This skill integrates with:
 This skill is loaded automatically during plan execution. No direct invocation needed.
 
 **Manual invocation** (for reference/testing):
+
 ```
 Skill: deviation-rules
 Args: [deviation description] [rule to apply]
@@ -343,6 +367,7 @@ Args: [deviation description] [rule to apply]
 ## Example Use Cases
 
 ### Use Case 1: API Development
+
 ```
 Plan: "Add user profile endpoint"
 Deviation 1: No input validation → Rule 2 (add validation)
@@ -351,6 +376,7 @@ Deviation 3: Response format inconsistent → Rule 4 (ask about standard)
 ```
 
 ### Use Case 2: Frontend Component
+
 ```
 Plan: "Create dashboard widget"
 Deviation 1: Missing loading state → Rule 2 (add critical)
@@ -359,6 +385,7 @@ Deviation 3: Color system doesn't support theme → Rule 4 (ask about theming)
 ```
 
 ### Use Case 3: Infrastructure
+
 ```
 Plan: "Set up CI/CD pipeline"
 Deviation 1: Docker build fails → Rule 3 (fix blocker)
@@ -367,3 +394,66 @@ Deviation 3: Could add deployment previews → Rule 5 (log enhancement)
 ```
 
 **Trust intelligence** - Deviation rules enable automatic handling of real-world complexity while maintaining transparency and architectural integrity.
+
+---
+
+## Genetic Code
+
+This component carries essential Seed System principles for context: fork isolation:
+
+<critical_constraint>
+MANDATORY: All components MUST be self-contained (zero .claude/rules dependency)
+MANDATORY: Achieve 80-95% autonomy (0-5 AskUserQuestion rounds per session)
+MANDATORY: Description MUST use What-When-Not format in third person
+MANDATORY: No component references another component by name in description
+MANDATORY: Progressive disclosure - references/ for detailed content
+MANDATORY: Use XML for control (mission_control, critical_constraint), Markdown for data
+No exceptions. Portability invariant must be maintained.
+</critical_constraint>
+
+**Delta Standard**: Good Component = Expert Knowledge − What Claude Already Knows
+
+**Recognition Questions**:
+
+- "Would Claude know this without being told?" → Delete (zero delta)
+- "Can this work standalone?" → Fix if no (non-self-sufficient)
+- "Did I read the actual file, or just see it in grep?" → Verify before claiming
+
+<critical_constraint>
+**MANDATORY: Use `<trigger>` logic trees for decisions**
+
+- Classify deviation type using trigger conditions
+- Apply mechanistic rules based on trigger
+- Never make interpretive decisions
+- Follow decision flow exactly
+
+**MANDATORY: Document every deviation**
+
+- Auto-fixes: Log bug and fix applied
+- Additions: Log what was added and why
+- Architectural: Document user decision
+- Enhancements: Log for later consideration
+
+**MANDATORY: Be conservative with architectural triggers**
+
+- Only use Rule 4 for structural changes
+- Multiple valid approaches = ask user
+- When in doubt, ask rather than assume
+- Never change architecture without explicit approval
+
+**MANDATORY: Be generous with missing critical**
+
+- Err on side of completeness
+- Add what's clearly overlooked
+- Don't ask for obvious essentials
+- Implementation must be functional
+
+**MANDATORY: Stop and ask for architectural changes**
+
+- File/folder structure changes
+- Major component additions/removals
+- Data model or schema changes
+- Pattern or framework changes
+
+**No exceptions. Logic trees make decisions mechanistic, not interpretive.**
+</critical_constraint>

@@ -1,195 +1,240 @@
 ---
 name: prompt-optimizer
-description: Transform vague prompts into precise, well-structured specifications using EARS (Easy Approach to Requirements Syntax) methodology. This skill should be used when users provide loose requirements, ambiguous feature descriptions, or need to enhance prompts for AI-generated code, products, or documents. Triggers include requests to "optimize my prompt", "improve this requirement", "make this more specific", or when raw requirements lack detail and structure.
+description: This skill should be used when users request help optimizing, improving, or refining their prompts or instructions for AI models. Use this skill when users provide vague, unclear, or poorly structured prompts and need assistance transforming them into clear, effective, and well-structured instructions that AI models can better understand and execute. This skill applies comprehensive prompt engineering best practices to enhance prompt quality, clarity, and effectiveness.
+license: Complete terms in LICENSE.txt
 ---
 
 # Prompt Optimizer
 
 ## Overview
 
-Optimize vague prompts into precise, actionable specifications using EARS (Easy Approach to Requirements Syntax) - a Rolls-Royce methodology for transforming natural language into structured, testable requirements.
+This skill transforms user-provided prompts into high-quality, clear, and effective instructions optimized for AI models. Apply proven prompt engineering principles to enhance clarity, specificity, structure, and effectiveness. The skill uses a systematic workflow to analyze, identify improvement opportunities, and restructure prompts based on industry best practices.
 
-**Methodology inspired by:** This skill's approach to combining EARS with domain theory grounding was inspired by [阿星AI工作室 (A-Xing AI Studio)](https://mp.weixin.qq.com/s/yUVX-9FovSq7ZGChkHpuXQ), which demonstrated practical EARS application for prompt enhancement.
+## When to Use This Skill
 
-**Four-layer enhancement process:**
+Activate this skill when users:
+- Explicitly request prompt optimization or improvement
+- Provide vague or unclear instructions that need refinement
+- Ask for help making their requests more effective
+- Submit poorly structured prompts that would benefit from reorganization
+- Request guidance on how to better communicate with AI models
+- Present complex tasks that need to be broken down into clearer instructions
 
-1. **EARS syntax transformation** - Convert descriptive language to normative specifications
-2. **Domain theory grounding** - Apply relevant industry frameworks (GTD, BJ Fogg, Gestalt, etc.)
-3. **Example extraction** - Surface concrete use cases with real data
-4. **Structured prompt generation** - Format using Role/Skills/Workflows/Examples/Formats framework
+## Optimization Workflow
 
-## When to Use
+Follow this systematic process to optimize any prompt:
 
-Apply when:
-- User provides vague feature requests ("build a dashboard", "create a reminder app")
-- Requirements lack specific conditions, triggers, or measurable outcomes
-- Natural language descriptions need conversion to testable specifications
-- User explicitly requests prompt optimization or requirement refinement
+### Step 1: Analyze the Original Prompt
 
-## Six-Step Optimization Workflow
+Examine the user's prompt and identify:
 
-### Step 1: Analyze Original Requirement
+**Clarity issues:**
+- Ambiguous terms or vague requirements
+- Implicit assumptions that should be explicit
+- Missing context or background information
 
-Identify weaknesses:
-- **Overly broad** - "Add user authentication" → Missing password requirements, session management
-- **Missing triggers** - "Send notifications" → Missing when/why notifications trigger
-- **Ambiguous actions** - "Make it user-friendly" → No measurable usability criteria
-- **No constraints** - "Process payments" → Missing security, compliance requirements
+**Specificity gaps:**
+- Lack of concrete constraints or requirements
+- Undefined success criteria
+- Missing audience or purpose information
+- Unclear scope or boundaries
 
-### Step 2: Apply EARS Transformation
+**Structure problems:**
+- Disorganized or stream-of-consciousness format
+- Missing logical flow
+- Lack of clear sections or hierarchy
 
-Convert requirements to EARS patterns. See `references/ears_syntax.md` for complete syntax rules.
+**Format considerations:**
+- No specified output format
+- Unclear expectations about length, tone, or style
+- Missing examples or templates
 
-**Five core patterns:**
-1. **Ubiquitous**: `The system shall <action>`
-2. **Event-driven**: `When <trigger>, the system shall <action>`
-3. **State-driven**: `While <state>, the system shall <action>`
-4. **Conditional**: `If <condition>, the system shall <action>`
-5. **Unwanted behavior**: `If <condition>, the system shall prevent <unwanted action>`
+**Complexity assessment:**
+- Determine if the task is too complex for a single prompt
+- Identify if the request would benefit from prompt chaining
+- Assess if step-by-step reasoning is needed
 
-**Quick example:**
+### Step 2: Identify the Core Intent
+
+Determine the fundamental objective behind the user's request:
+
+- What is the user ultimately trying to accomplish?
+- What problem are they trying to solve?
+- What would constitute a successful output?
+- Who is the intended audience or consumer of the output?
+
+Clarify these points with the user if they are not evident from the original prompt.
+
+### Step 3: Apply Optimization Principles
+
+Enhance the prompt using these core principles:
+
+**Make it clear and direct:**
+- State requirements explicitly without assuming inference
+- Remove ambiguity and vague language
+- Use concrete, specific terms
+
+**Provide context and motivation:**
+- Explain WHY certain requirements matter
+- Include relevant background information
+- Describe the use case or scenario
+
+**Add specificity:**
+- Define concrete constraints (length, format, scope)
+- Specify target audience
+- Include quality criteria
+- State any limitations or boundaries
+
+**Structure the request:**
+- Organize information logically
+- Use clear sections or numbered points
+- Separate different types of information (context, requirements, format)
+
+**Include examples when helpful:**
+- Provide input-output examples for complex formats
+- Show desired tone or style through examples
+- Demonstrate edge case handling
+
+**Allow for uncertainty:**
+- Explicitly permit expressing "I don't know"
+- Request acknowledgment of limitations
+- Prevent hallucination by encouraging honesty
+
+### Step 4: Consider Advanced Techniques
+
+Evaluate if any advanced techniques would enhance the prompt:
+
+**Chain of Thought:**
+- Apply when the task requires reasoning or analysis
+- Request step-by-step thinking for complex problems
+- Use structured format to separate reasoning from answer
+
+**Prefilling:**
+- Use when a specific format is absolutely required (JSON, XML)
+- Apply to eliminate unwanted preambles
+- Utilize to establish immediate tone or style
+
+**Prompt Chaining:**
+- Break complex tasks into sequential steps
+- Create a multi-stage workflow for intricate projects
+- Design each prompt to build on previous outputs
+
+**Structured Output:**
+- Specify exact format requirements
+- Provide schemas or templates
+- Use tags or delimiters for different sections
+
+Consult `references/prompt-best-practices.md` for detailed guidance on these techniques.
+
+### Step 5: Present the Optimized Prompt
+
+Deliver the optimization in this format:
+
+**Analysis Section:**
 ```
-Before: "Create a reminder app with task management"
-
-After (EARS):
-1. When user creates a task, the system shall guide decomposition into executable sub-tasks
-2. When task deadline is within 30 minutes AND user has not started, the system shall send notification with sound alert
-3. When user completes a sub-task, the system shall update progress and provide positive feedback
-```
-
-**Transformation checklist:**
-- [ ] Identify implicit conditions and make explicit
-- [ ] Specify triggering events or states
-- [ ] Use precise action verbs (shall, must, should)
-- [ ] Add measurable criteria ("within 30 minutes", "at least 8 characters")
-- [ ] Break compound requirements into atomic statements
-- [ ] Remove ambiguous language ("user-friendly", "fast")
-
-### Step 3: Identify Domain Theories
-
-Match requirements to established frameworks. See `references/domain_theories.md` for full catalog.
-
-**Common domain mappings:**
-- **Productivity** → GTD, Pomodoro, Eisenhower Matrix
-- **Behavior Change** → BJ Fogg Model (B=MAT), Atomic Habits
-- **UX Design** → Hick's Law, Fitts's Law, Gestalt Principles
-- **Security** → Zero Trust, Defense in Depth, Privacy by Design
-
-**Selection process:**
-1. Identify primary domain from requirement keywords
-2. Match to 2-4 complementary theories
-3. Apply theory principles to specific features
-4. Cite theories in enhanced prompt for credibility
-
-### Step 4: Extract Concrete Examples
-
-Generate specific examples with real data:
-- User scenarios: "When user logs in on mobile device..."
-- Data examples: "Product: 'Laptop', Price: $999, Stock: 15"
-- Workflow examples: "Task: Write report → Sub-tasks: Research (2h), Draft (3h), Edit (1h)"
-
-Examples must be **realistic**, **specific**, **varied** (success/error/edge cases), and **testable**.
-
-### Step 5: Generate Enhanced Prompt
-
-Structure using the standard framework:
-
-```markdown
-# Role
-[Specific expert role with domain expertise]
-
-## Skills
-- [Core capability 1]
-- [Core capability 2]
-[List 5-8 skills aligned with domain theories]
-
-## Workflows
-1. [Phase 1] - [Key activities]
-2. [Phase 2] - [Key activities]
-[Complete step-by-step process]
-
-## Examples
-[Concrete examples with real data, not placeholders]
-
-## Formats
-[Precise output specifications:
-- File types, structure requirements
-- Design/styling expectations
-- Technical constraints
-- Deliverable checklist]
-```
-
-**Quality criteria:**
-- **Role specificity**: "Product designer specializing in time management apps" > "Designer"
-- **Theory grounding**: Reference frameworks explicitly
-- **Actionable workflows**: Clear inputs/outputs and decision points
-- **Concrete examples**: Real data, not "Example 1", "Example 2"
-- **Measurable formats**: Specific requirements, not "good design"
-
-### Step 6: Present Optimization Results
-
-Output in structured format:
-
-```markdown
-## Original Requirement
-[User's vague requirement]
-
-**Identified Issues:**
-- [Issue 1: e.g., "Lacks specific trigger conditions"]
-- [Issue 2: e.g., "No measurable success criteria"]
-
-## EARS Transformation
-[Numbered list of EARS-formatted requirements]
-
-## Domain & Theories
-**Primary Domain:** [e.g., Authentication Security]
-
-**Applicable Theories:**
-- **[Theory 1]** - [Brief relevance]
-- **[Theory 2]** - [Brief relevance]
-
-## Enhanced Prompt
-[Complete Role/Skills/Workflows/Examples/Formats prompt]
-
----
-
-**How to use:**
-[Brief guidance on applying the prompt]
+Original prompt issues identified:
+- [List key problems with the original prompt]
 ```
 
-## Advanced Techniques
+**Optimized Prompt:**
+```
+[Present the complete optimized prompt in a code block for easy copying]
+```
 
-For complex scenarios, see `references/advanced_techniques.md`:
-- **Multi-stakeholder requirements** - EARS statements for each user type
-- **Non-functional requirements** - Performance, security, scalability with quantified thresholds
-- **Complex conditional logic** - Nested conditions with boolean operators
+**Improvement Explanation:**
+```
+Key improvements made:
+- [Explain major enhancements]
+- [Highlight added specificity]
+- [Note structural changes]
+- [Mention any advanced techniques applied]
+```
 
-## Quick Reference
+**Optional - Usage Tips:**
+```
+[If applicable, provide brief tips on how to further customize or use the optimized prompt]
+```
 
-**Do's:**
-✅ Break down compound requirements (one EARS statement per requirement)
-✅ Specify measurable criteria (numbers, timeframes, percentages)
-✅ Include error/edge cases
-✅ Ground in established theories
-✅ Use concrete examples with real data
+### Step 6: Iterate Based on Feedback
 
-**Don'ts:**
-❌ Avoid vague language ("fast", "user-friendly")
-❌ Don't assume implicit knowledge
-❌ Don't mix multiple actions in one statement
-❌ Don't use placeholders in examples
+After presenting the optimized prompt:
 
-## Resources
+- Ask if the optimization meets the user's needs
+- Offer to adjust tone, length, or specificity
+- Provide alternative formulations if requested
+- Refine based on user feedback
 
-Load these reference files as needed:
+## Practical Guidelines
 
-- **`references/ears_syntax.md`** - Complete EARS syntax rules, all 5 patterns, transformation guidelines, benefits
-- **`references/domain_theories.md`** - 40+ theories mapped to 10 domains (productivity, UX, gamification, learning, e-commerce, security, etc.)
-- **`references/examples.md`** - Four complete transformation examples (procrastination app, e-commerce product page, learning dashboard, password reset security) with before/after comparisons and reusable template
-- **`references/advanced_techniques.md`** - Multi-stakeholder requirements, non-functional specs, complex conditional logic patterns
+**Balance is key:** Not every prompt needs all advanced techniques. Match the optimization level to the task complexity.
 
-**When to load references:**
-- EARS syntax clarification needed → `ears_syntax.md`
-- Domain theory selection requires extensive options → `domain_theories.md`
-- User requests multiple optimization examples → `examples.md`
-- Complex requirements with multiple stakeholders or non-functional specs → `advanced_techniques.md`
+**Preserve user intent:** Enhance clarity without changing the fundamental goal or adding unwanted requirements.
+
+**Consider the model:** Modern models like Claude 4.x have strong instruction-following capabilities; leverage this by being direct and specific.
+
+**Stay practical:** Focus on improvements that materially impact output quality, not cosmetic changes.
+
+**Be educational:** When appropriate, briefly explain why certain changes improve the prompt, helping users learn to write better prompts independently.
+
+## Reference Resources
+
+This skill includes comprehensive reference materials:
+
+**references/prompt-best-practices.md**
+- Detailed explanations of all core principles
+- Advanced techniques with examples
+- Troubleshooting guide for common issues
+- Quality checklist and decision frameworks
+
+Load this reference when:
+- Users ask about specific prompt engineering concepts
+- Deep explanation of a technique is needed
+- Troubleshooting unusual or complex prompting challenges
+- Users want to learn prompt engineering principles
+
+**references/examples.md**
+- Before-and-after optimization examples across multiple domains
+- Real-world scenarios demonstrating transformation
+- Pattern library showing common improvements
+
+Load this reference when:
+- Users want to see concrete examples
+- Illustrating a specific type of optimization
+- Users are learning and need to understand patterns
+- Demonstrating the impact of optimization
+
+## Quality Standards
+
+Ensure every optimized prompt includes:
+
+- [ ] Clear, unambiguous objective
+- [ ] Sufficient context for the AI to understand the goal
+- [ ] Specific constraints and requirements
+- [ ] Target audience or use case (when relevant)
+- [ ] Expected output format or structure
+- [ ] Quality criteria or success definition
+- [ ] Permission to express uncertainty (when appropriate)
+
+## Common Optimization Patterns
+
+**Pattern 1: Vague Request → Specific Structured Task**
+- Original: "Write about marketing"
+- Optimized: Adds audience, scope, length, structure, key points, tone
+
+**Pattern 2: Implicit Context → Explicit Context**
+- Original: Assumes AI knows the background
+- Optimized: States context, explains why it matters, provides relevant details
+
+**Pattern 3: Single Complex Prompt → Prompt Chain**
+- Original: Tries to do everything in one request
+- Optimized: Breaks into logical sequential steps with clear outputs
+
+**Pattern 4: Generic Output → Formatted Output**
+- Original: No format specification
+- Optimized: Provides schema, template, or explicit structure
+
+**Pattern 5: Assumed Constraints → Stated Constraints**
+- Original: Expects AI to infer limits
+- Optimized: Explicitly states length, tone, scope, what to include/exclude
+
+Consult `references/examples.md` for detailed examples of each pattern.

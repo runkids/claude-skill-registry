@@ -3,7 +3,7 @@ name: notification-licenciement-selim-brihi
 description: Guide pour la rédaction de notifications de licenciement conformes au droit du travail français. Utiliser ce skill quand l'utilisateur demande de rédiger, préparer, créer ou éditer une lettre de notification de licenciement, notamment pour faute grave, faute lourde ou motif personnel. Le skill guide la collecte d'informations précises et la rédaction d'une notification juridiquement solide avec tous les éléments obligatoires du droit français.
 metadata:
   author: Sélim Brihi
-  license: Apache 2.0
+  license: AGPL-3.0
 ---
 
 # Notification de Licenciement - Droit Français

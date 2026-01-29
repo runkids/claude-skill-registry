@@ -1,13 +1,7 @@
 {
   "name": "fail-fast-no-hedging",
-  "description": "Eliminate component hedging anti-patterns that mask infrastructure failures. Build systems that fail loudly when broken instead of limping along in degraded states. Critical for production reliability",
   "repo": "taylorsatula/mira-OSS",
-  "category": "development",
-  "tags": [
-    "fail",
-    "fast",
-    "hedging"
-  ],
-  "stars": 334,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/fail-fast-no-hedging/SKILL.md",
+  "source": "github.com/taylorsatula/mira-OSS",
+  "downloaded_at": "2026-01-29T01:12:21.768659Z"
 }

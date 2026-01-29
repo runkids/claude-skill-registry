@@ -1,7 +1,7 @@
 {
   "name": "prpm-json-best-practices-skill",
-  "repo": "AgentWorkforce/relay",
+  "repo": "NangoHQ/ai-ide-prompts",
   "path": ".claude/skills/prpm-json-best-practices-skill/SKILL.md",
-  "source": "github.com/AgentWorkforce/relay",
-  "downloaded_at": "2026-01-28T01:08:44.633331Z"
+  "source": "github.com/NangoHQ/ai-ide-prompts",
+  "downloaded_at": "2026-01-29T03:39:17.762627Z"
 }

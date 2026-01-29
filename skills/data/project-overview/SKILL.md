@@ -1,241 +1,141 @@
 ---
-name: Project Overview
-description: Get overview of the Babylon.js first-person game project structure, statistics, and health metrics. Use when the user asks about project structure, codebase stats, file counts, or wants a project summary.
+name: project-overview
+description: Background knowledge about CaCrFeedFormula project architecture, features, and context. Automatically loaded for AI reference, not directly user-invocable.
+version: 1.0.0
+user-invocable: false
 ---
 
-# Project Overview
+# CaCrFeedFormula Project Overview
 
-Quick overview and statistics for the babylon_fp project.
+**Intelligent Feed Formula Optimization System** built with Tauri + Rust + React TypeScript.
 
-## Quick Stats
+## Project Context
 
-### Line count by file type
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-echo "TypeScript files:"
-find src -name "*.ts" -exec wc -l {} + | tail -1
-echo -e "\nHTML files:"
-find tools -name "*.html" -exec wc -l {} + | tail -1
-echo -e "\nJSON data files:"
-find public/data -name "*.json" -exec wc -l {} + | tail -1
-echo -e "\nTest files:"
-find tests -name "*.test.ts" -exec wc -l {} + | tail -1
-```
+**CaCrFeedFormula** is an industrial-grade desktop application for feed formula optimization, integrating AI-assisted optimization, linear programming (HiGHS solver), and comprehensive feed management capabilities.
 
-### File counts
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-echo "Source files: $(find src -name '*.ts' | wc -l)"
-echo "Test files: $(find tests -name '*.test.ts' | wc -l)"
-echo "Config files: $(find . -maxdepth 1 -name '*.json' -o -name '*.config.*' | wc -l)"
-echo "Tools: $(find tools -name '*.html' | wc -l)"
-echo "Data files: $(find public/data -name '*.json' | wc -l)"
-```
+### Core Technology Stack
+
+**Backend (Rust 2021)**:
+- **Framework**: Tauri 2.9.0 + Tokio 1.37 (full async runtime)
+- **Database**: SQLite + SQLx 0.7 (compile-time type safety)
+- **Optimization**: HiGHS 1.12 (industrial-grade LP solver)
+- **Caching**: Moka 0.12 (high-performance concurrent cache)
+- **Type Binding**: specta 2.0 + tauri-specta 2.0 (auto TypeScript generation)
+- **AI Integration**: reqwest + eventsource-stream (streaming responses)
+- **Parallel Compute**: Rayon 1.8
+
+**Frontend (React 19.1 + TypeScript 5.8)**:
+- **UI Framework**: Ant Design 5.26 + Tailwind CSS 4.1
+- **State Management**: TanStack Query 5.17
+- **Build Tool**: Vite 7.0
+- **Visualization**: Recharts 2.15
+- **Animation**: Framer Motion 11
 
 ## Project Structure
 
-### Main directories
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-tree -L 2 -d src/
+```
+cacrfeedformula/
+├── src/                          # Rust backend source
+│   ├── ai/                       # AI service module
+│   ├── database/                 # Database connection
+│   ├── formula/                  # Formula optimization core
+│   ├── material/                 # Material management
+│   ├── species/                  # Species management
+│   ├── factory/                  # Factory management
+│   ├── premix/                   # Premix design
+│   ├── profit/                   # Profit/loss analysis
+│   ├── prediction/               # Nutrition prediction
+│   ├── production_batch/         # Production batch management
+│   └── system/                   # System services
+├── frontend/                     # React frontend source
+│   └── src/
+│       ├── components/           # React components
+│       │   ├── AIChat/          # AI chat component
+│       │   └── common/          # Common components
+│       └── bindings.ts          # Auto-generated type bindings
+├── migrations/                   # Database migrations
+└── .claude/
+    ├── skills/                   # Custom Claude Code skills
+    └── rules/                    # Detailed development standards
 ```
 
-### List key systems
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-echo "=== Core Systems ==="
-ls -1 src/systems/*.ts | sed 's/.*\///' | sed 's/.ts$//'
-echo -e "\n=== Controllers ==="
-ls -1 src/controllers/*.ts 2>/dev/null | sed 's/.*\///' | sed 's/.ts$//' || echo "None"
-echo -e "\n=== UI Components ==="
-ls -1 src/ui/*.ts 2>/dev/null | sed 's/.*\///' | sed 's/.ts$//' || echo "None"
-```
+## Core Features
 
-## Code Health
+### 1. Formula Optimization System
+- Linear programming optimization (cost minimization)
+- Manual formula design
+- Premix reverse calculation design
+- Formula version management
+- Formula analysis and reporting
+- **167 Tauri commands** for comprehensive formula operations
 
-### TypeScript compilation check
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-npx tsc --noEmit 2>&1 | head -20
-```
+### 2. Data Management
+- Material management (built-in China Feed Composition & Nutrition Value Database)
+- Species management (multiple species, growth stages, nutrition standards)
+- Factory management (multi-factory data isolation)
+- Production batch management (batch lifecycle, material requirement calculation)
+- Inventory management (stock check, variance analysis, purchase planning)
 
-### Find TODO/FIXME comments
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-echo "=== TODOs ==="
-grep -r "TODO" src/ --include="*.ts" | wc -l
-echo "=== FIXMEs ==="
-grep -r "FIXME" src/ --include="*.ts" | wc -l
-```
+### 3. Analysis & Decision Support
+- Profit/loss analysis (comprehensive cost accounting, real-time P&L)
+- Nutrition prediction (NRC-based energy prediction)
+- Sensitivity analysis (shadow prices, bottleneck constraint identification)
 
-### List TODO items
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-echo "=== TODO List ==="
-grep -rn "TODO" src/ --include="*.ts" | head -10
-```
+### 4. AI Intelligent Assistant
+- Context-aware professional feed formula consultation
+- Streaming responses with typewriter effect
+- Multi-turn conversations
+- Supports OpenAI, DeepSeek, OpenRouter platforms
 
-## Dependencies
+## Project Characteristics
 
-### Show installed packages
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-echo "=== Main Dependencies ==="
-node -e "console.log(Object.keys(require('./package.json').dependencies || {}).join('\n'))"
-echo -e "\n=== Dev Dependencies ==="
-node -e "console.log(Object.keys(require('./package.json').devDependencies || {}).join('\n'))"
-```
+1. **Desktop Application**: Not a web app; cross-platform desktop app built with Tauri
+2. **High-Performance Computing**: Rust backend ensures speed and stability
+3. **Type Safety**: specta auto-generates TypeScript types, ensuring frontend-backend type consistency
+4. **Async-First**: Comprehensive use of Tokio async runtime
+5. **Industrial-Grade Optimization**: HiGHS solver supports large-scale formula optimization
+6. **AI Integration**: Streaming AI responses with real-time typewriter effect
 
-### Check for outdated packages
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-npm outdated
-```
+## Development Workflow Context
 
-### Check Babylon.js version
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-npm list @babylonjs/core
-```
+### Typical Development Scenarios:
+- **Formula Engine**: Implementing complex linear programming algorithms with HiGHS
+- **Material Database**: Managing large datasets with SQLite + SQLx
+- **Desktop UI**: Building responsive Ant Design interfaces with React 19
+- **Tauri Commands**: Creating type-safe Rust ↔ TypeScript communication
+- **AI Features**: Integrating streaming AI responses into desktop workflows
+- **Batch Processing**: Handling production batch calculations and scheduling
 
-## Data Overview
+### Key Integration Points:
+- **Rust ↔ TypeScript**: specta generates bindings.ts after every Rust change
+- **Database ↔ Business Logic**: SQLx macros provide compile-time SQL validation
+- **Frontend ↔ Backend**: TanStack Query manages server state via Tauri commands
+- **AI ↔ User**: Streaming SSE responses with real-time UI updates
 
-### Map data summary
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-echo "=== Map Data ==="
-for map in public/data/maps/*.json; do
-  echo "$(basename $map): $(wc -l < $map) lines"
-done
-```
+## Project Scale
 
-### NPC data summary
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-echo "=== NPC Data ==="
-echo "NPCs: $(ls -1 public/data/npcs/*.json 2>/dev/null | wc -l)"
-for npc in public/data/npcs/*.json; do
-  echo "  - $(basename $npc .json)"
-done
-```
+- **167 Tauri commands** across 10 modules
+- **Comprehensive feed database** with 1000+ materials
+- **Multi-tenancy support** with factory-level data isolation
+- **Complex optimization** handling 100+ variables and 50+ constraints
 
-### Event & Investigation data
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-echo "Events: $(ls -1 public/data/events/*.json 2>/dev/null | wc -l)"
-echo "Investigations: $(ls -1 public/data/investigations/*.json 2>/dev/null | wc -l)"
-```
+## Development Standards
 
-## Tools Overview
+The project follows strict development standards documented in `.claude/rules/`:
+- Rust backend standards (02-rust-backend-standards.md)
+- React frontend standards (03-react-frontend-standards.md)
+- Database standards (04-database-standards.md)
+- LSP usage standards (05-lsp-usage-standards.md)
 
-### List available tools
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-echo "=== Editor Tools ==="
-for tool in tools/*.html; do
-  NAME=$(grep -o '<title>.*</title>' "$tool" | sed 's/<title>\(.*\)<\/title>/\1/' | head -1)
-  echo "  - $(basename $tool): $NAME"
-done
-```
+All these standards are enforced via automated hooks and skills.
 
-## Recent Activity
+## When This Context Is Useful
 
-### Recent file changes (git)
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-echo "=== Recent Commits ==="
-git log --oneline -10 2>/dev/null || echo "Not a git repository or no commits"
-```
+This project overview is automatically loaded to help Claude understand:
+- **Architecture decisions** when proposing changes
+- **Technology choices** when solving problems
+- **Integration patterns** when adding features
+- **Scale considerations** when optimizing performance
+- **Domain context** (feed formulation, nutrition, optimization)
 
-### Recently modified files
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-echo "=== Recently Modified (last 7 days) ==="
-find src tests -name "*.ts" -mtime -7 -exec ls -lh {} \; | awk '{print $6, $7, $8, $9}'
-```
-
-## Build Info
-
-### Check build configuration
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-echo "=== Vite Config ==="
-ls -lh vite.config.ts
-echo -e "\n=== TypeScript Config ==="
-ls -lh tsconfig.json
-```
-
-### Check dist folder
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-if [ -d "dist" ]; then
-  echo "Build output size: $(du -sh dist | cut -f1)"
-  echo "Files in dist: $(find dist -type f | wc -l)"
-else
-  echo "No dist folder (run 'npm run build')"
-fi
-```
-
-## Quick Health Check
-
-Run a comprehensive health check:
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-echo "=== Babylon FP Project Health Check ==="
-echo -e "\n1. TypeScript Compilation:"
-npx tsc --noEmit && echo "✓ No errors" || echo "✗ Has errors"
-echo -e "\n2. Dependencies:"
-npm list --depth=0 > /dev/null 2>&1 && echo "✓ All installed" || echo "✗ Missing dependencies"
-echo -e "\n3. Tests:"
-npm test > /dev/null 2>&1 && echo "✓ All passing" || echo "✗ Some failing"
-echo -e "\n4. Data Files:"
-for f in public/data/**/*.json; do node -e "JSON.parse(require('fs').readFileSync('$f'))" 2>/dev/null || echo "✗ Invalid: $f"; done | grep -q "Invalid" && echo "✗ Invalid JSON found" || echo "✓ All valid"
-```
-
-## Recent Features & Enhancements
-
-### Game Systems
-- **Pause System**: Press 'P' to pause/resume game
-  - Freezes all movement, camera control, and time progression
-  - Exits pointer lock to show cursor
-  - Visual pause indicator in HUD
-  - Implemented in: `src/Game.ts`, `src/controllers/firstPersonController.ts`, `src/systems/dayNightCycle.ts`
-
-- **Enhanced Map Editor** (`tools/map-editor.html`):
-  - **NPC Type Modal**: On-demand dropdown for selecting NPC types (no always-visible UI clutter)
-  - **Auto Schedule Editor**: Opens automatically when NPC selected/placed, closes when done
-  - **Editable Waypoint Times**: Click time fields in schedule list to edit directly
-  - **Import/Export**: Full map JSON import functionality with schedule preservation
-  - **Click-and-Drag Painting**: Paint multiple wall/floor/window tiles by dragging
-  - **Select Tool**: Click NPCs to edit schedules, default tool on load
-  - **Default Player Spawn**: Auto-creates center spawn on new maps
-  - **Schedule Validation**: Ensures waypoint times are sequential
-
-### Editor Workflow Improvements
-- NPC type selector only appears when placing NPCs (cleaner UI)
-- Schedule editor context-aware (shows NPC name, emoji, position)
-- Save & Close button for schedule editor (returns to select tool)
-- JSON import reconstructs grid positions, rotations, and full NPC schedules
-- Drag painting works with zoom and pan, detects grid changes smartly
-
-### Code Organization
-- Modular functions: `openScheduleEditor()`, `closeScheduleEditor()`, `placeTile()`
-- Separated paintable tools (wall/floor/window) from special tools (door/spawn)
-- Helper functions for time conversion: `timeStringToMinutes()`, `minutesToTimeString()`
-
-## Project Summary
-
-Generate a complete summary:
-```bash
-cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
-echo "=== Babylon FP - First Person Game ==="
-echo "Babylon.js Version: $(npm list @babylonjs/core | grep @babylonjs/core | awk '{print $2}')"
-echo "Source Files: $(find src -name '*.ts' | wc -l) TypeScript files"
-echo "Test Files: $(find tests -name '*.test.ts' | wc -l) test files"
-echo "Total Lines: $(find src -name '*.ts' -exec cat {} + | wc -l) lines of code"
-echo "Tools: Map Editor (2000+ lines), NPC Editor"
-echo "Core Systems: Day/Night Cycle, NPC Scheduling, Photo System, Door System, Pause System"
-echo "Controllers: First-Person Camera with enable/disable support"
-echo "Data: $(find public/data -name '*.json' | wc -l) data files (NPCs, Maps, Events, Investigations)"
-echo "Features: Pausable gameplay, schedule editor, map import/export, drag painting"
-```
+This knowledge enables Claude to make more informed, project-appropriate recommendations without requiring repeated explanations of the project's nature and structure.

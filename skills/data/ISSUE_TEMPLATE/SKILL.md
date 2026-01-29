@@ -1,61 +1,57 @@
 ---
 name: New Skill Proposal
-about: Propose a new skill to be created
-title: '[NEW SKILL] '
-labels: 'enhancement, new-skill'
+about: Propose a new skill to add
+title: '[SKILL] '
+labels: new-skill
 assignees: ''
 ---
 
 ## Skill Name
-<!-- What should this skill be called? -->
-`theone-[name]`
+
+What should this skill be called?
+
+## Category
+
+- [ ] dbt
+- [ ] Snowflake
+- [ ] Airflow
+- [ ] Other: ___
 
 ## Purpose
-<!-- What problem does this skill solve? -->
 
-## When to Trigger
-<!-- When should this skill activate automatically? -->
+What workflow does this skill encode?
 
-## Key Patterns to Cover
-<!-- What patterns/practices should this skill enforce? -->
+## Trigger Conditions
 
-1. Pattern 1
-2. Pattern 2
-3. Pattern 3
+When should this skill activate? List keywords or patterns:
 
-## Examples
-<!-- Provide example scenarios -->
+- ...
+- ...
 
-### Example 1: [Scenario Name]
-**Before (Bad):**
-```csharp
-// Common mistake
-```
+## Workflow Steps
 
-**After (Good):**
-```csharp
-// Correct pattern
-```
+What steps should Claude follow?
 
-## Justification
-<!-- Why do we need this skill? -->
-- [ ] Common mistakes in code reviews
-- [ ] New technology/framework adoption
-- [ ] Company standard not documented
-- [ ] Complex pattern needs guidance
-- [ ] Other: _______________
+1. ...
+2. ...
+3. ...
 
-## Impact
-<!-- How many engineers will benefit? -->
-- Affected engineers: ___
-- Frequency of use: Daily / Weekly / Monthly
-- Current pain level: Low / Medium / High
+## Common Mistakes to Prevent
 
-## Related Resources
-<!-- Links to documentation, discussions, or examples -->
--
--
+What errors does this workflow help avoid?
 
-## Volunteers
-<!-- Tag engineers who might contribute -->
-@
+- ...
+- ...
+
+## Example Task
+
+**Task:** "..."
+
+**Expected behavior with skill:**
+...
+
+## Willingness to Contribute
+
+- [ ] I'd like to implement this skill myself
+- [ ] I'd like help implementing this
+- [ ] I'm just suggesting the idea

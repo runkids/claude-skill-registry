@@ -1,186 +1,100 @@
 ---
 name: beads
-description: Use for (1) onboarding beads for persistent agent memory, or (2) health check to verify this skill is accurate. NOT for ongoing usage (bd prime handles that).
+description: >
+  Git-backed issue tracker for multi-session work with dependencies and persistent
+  memory across conversation compaction. Use when work spans sessions, has blockers,
+  or needs context recovery after compaction.
+allowed-tools: "Read,Bash(bd:*)"
+version: "0.43.0"
+author: "Steve Yegge <https://github.com/steveyegge>"
+license: "MIT"
 ---
 
-# Beads Onboarding
+# Beads - Persistent Task Memory for AI Agents
 
-Beads provides **persistent agent memory** for large initiatives spanning multiple sessions. Issues live in your repo, travel with your code, and survive any context loss.
+Graph-based issue tracker that survives conversation compaction. Provides persistent memory for multi-session work with complex dependencies.
 
-**This skill is for:**
-- **Onboarding** — setting up beads from scratch
-- **Skill accuracy check** — verifying this skill matches current beads
+## bd vs TodoWrite
 
-Once set up, `bd prime` handles ongoing workflow.
+| bd (persistent) | TodoWrite (ephemeral) |
+|-----------------|----------------------|
+| Multi-session work | Single-session tasks |
+| Complex dependencies | Linear execution |
+| Survives compaction | Conversation-scoped |
+| Git-backed, team sync | Local to session |
 
-## Setting Up Beads (Claude Code)
+**Decision test**: "Will I need this context in 2 weeks?" → YES = bd
 
-### 1. Install CLI
+**When to use bd**:
+- Work spans multiple sessions or days
+- Tasks have dependencies or blockers
+- Need to survive conversation compaction
+- Exploratory/research work with fuzzy boundaries
+- Collaboration with team (git sync)
 
-```bash
-brew install beads
-```
+**When to use TodoWrite**:
+- Single-session linear tasks
+- Simple checklist for immediate work
+- All context is in current conversation
+- Will complete within current session
 
-### 2. Add marketplace (if not already present)
-
-```bash
-claude marketplace list | grep beads-marketplace || claude marketplace add steveyegge/beads
-```
-
-### 3. Install plugin
-
-```bash
-claude plugin install beads@beads-marketplace
-```
-
-The plugin provides:
-- SessionStart hook (`bd prime`)
-- PreCompact hook (`bd prime`)
-- Slash commands (`/beads:*`)
-
-### 4. Initialize in your project
+## Prerequisites
 
 ```bash
-cd your-project
-bd init
+bd --version  # Requires v0.34.0+
 ```
 
-Creates `.beads/` directory with the issue database.
+- **bd CLI** installed and in PATH
+- **Git repository** (bd requires git for sync)
+- **Initialization**: `bd init` run once (humans do this, not agents)
 
-### 5. Install git hooks
+## CLI Reference
 
-```bash
-bd hooks install
-```
+**Run `bd prime`** for AI-optimized workflow context (auto-loaded by hooks).
+**Run `bd <command> --help`** for specific command usage.
 
-### 6. Verify
+Essential commands: `bd ready`, `bd create`, `bd show`, `bd update`, `bd close`, `bd sync`
 
-```bash
-bd doctor
-```
+## Session Protocol
 
-Look for:
-- `✓ Claude Plugin` — plugin version matches CLI
-- `✓ Claude Integration` — "Plugin installed" (not just hooks)
-- `✓ Git Hooks` — all hooks installed
+1. `bd ready` — Find unblocked work
+2. `bd show <id>` — Get full context
+3. `bd update <id> --status in_progress` — Start work
+4. Add notes as you work (critical for compaction survival)
+5. `bd close <id> --reason "..."` — Complete task
+6. `bd sync` — Persist to git (always run at session end)
 
-### 7. Commit
+## Advanced Features
 
-```bash
-git add .beads/ AGENTS.md
-git commit -m "Initialize beads issue tracking"
-```
+| Feature | CLI | Resource |
+|---------|-----|----------|
+| Molecules (templates) | `bd mol --help` | [MOLECULES.md](resources/MOLECULES.md) |
+| Chemistry (pour/wisp) | `bd pour`, `bd wisp` | [CHEMISTRY_PATTERNS.md](resources/CHEMISTRY_PATTERNS.md) |
+| Agent beads | `bd agent --help` | [AGENTS.md](resources/AGENTS.md) |
+| Async gates | `bd gate --help` | [ASYNC_GATES.md](resources/ASYNC_GATES.md) |
+| Worktrees | `bd worktree --help` | [WORKTREES.md](resources/WORKTREES.md) |
 
-### 8. Restart Claude Code
+## Resources
 
-`Cmd+R` or relaunch to load the plugin.
+| Resource | Content |
+|----------|---------|
+| [BOUNDARIES.md](resources/BOUNDARIES.md) | bd vs TodoWrite detailed comparison |
+| [CLI_REFERENCE.md](resources/CLI_REFERENCE.md) | Complete command syntax |
+| [DEPENDENCIES.md](resources/DEPENDENCIES.md) | Dependency system deep dive |
+| [INTEGRATION_PATTERNS.md](resources/INTEGRATION_PATTERNS.md) | TodoWrite and tool integration |
+| [ISSUE_CREATION.md](resources/ISSUE_CREATION.md) | When and how to create issues |
+| [MOLECULES.md](resources/MOLECULES.md) | Proto definitions, component labels |
+| [PATTERNS.md](resources/PATTERNS.md) | Common usage patterns |
+| [RESUMABILITY.md](resources/RESUMABILITY.md) | Compaction survival guide |
+| [STATIC_DATA.md](resources/STATIC_DATA.md) | Database schema reference |
+| [TROUBLESHOOTING.md](resources/TROUBLESHOOTING.md) | Error handling and fixes |
+| [WORKFLOWS.md](resources/WORKFLOWS.md) | Step-by-step workflow patterns |
+| [AGENTS.md](resources/AGENTS.md) | Agent bead tracking (v0.40+) |
+| [ASYNC_GATES.md](resources/ASYNC_GATES.md) | Human-in-the-loop gates |
+| [CHEMISTRY_PATTERNS.md](resources/CHEMISTRY_PATTERNS.md) | Mol vs Wisp decision tree |
+| [WORKTREES.md](resources/WORKTREES.md) | Parallel development patterns |
 
-## Setup Checklist
+## Full Documentation
 
-- [ ] `brew install beads`
-- [ ] `claude marketplace add steveyegge/beads` (if missing)
-- [ ] `claude plugin install beads@beads-marketplace`
-- [ ] `bd init` (in project root)
-- [ ] `bd hooks install`
-- [ ] `bd doctor` (verify)
-- [ ] Commit `.beads/` and `AGENTS.md`
-- [ ] Restart Claude Code
-
-## Plugin vs `bd setup claude`
-
-| Method | What it does |
-|--------|--------------|
-| **beads plugin** (recommended) | Provides hooks + slash commands + agents |
-| `bd setup claude` | Only provides hooks (to `~/.claude/settings.json`) |
-
-**Use the plugin.** It's the complete integration. `bd setup claude` exists for non-plugin environments or users who can't install plugins.
-
-### Migrating from `bd setup claude`
-
-If you previously ran `bd setup claude` and now use the plugin, remove the duplicate hooks:
-
-```bash
-bd setup claude --remove
-```
-
-Or manually remove the `bd prime` entries from `~/.claude/settings.json` (SessionStart and PreCompact sections).
-
----
-
-## Troubleshooting Setup
-
-### "Claude Plugin" shows wrong version in `bd doctor`
-
-Plugin version should match CLI version. Update:
-
-```bash
-brew upgrade beads
-claude plugin update beads@beads-marketplace
-```
-
-Then restart Claude Code.
-
-### "Claude Integration" shows "Not configured"
-
-Plugin not installed or not enabled. Check:
-
-```bash
-claude plugin list | grep beads
-```
-
-If missing: install. If disabled: `claude plugin enable beads@beads-marketplace`.
-
-### Marketplace not found
-
-```bash
-claude marketplace add steveyegge/beads
-```
-
-### `bd prime` runs twice per session
-
-You have both plugin hooks AND `bd setup claude` hooks. Remove one:
-
-```bash
-bd setup claude --remove
-```
-
----
-
-## Skill Accuracy Check
-
-This is a **meta-check**: verifying this skill is still accurate with current beads.
-
-> **Note:** For beads installation health, use `bd doctor`. For beads version changes, use `bd upgrade review`. This section is about checking the skill itself.
-
-### Verify skill assumptions
-
-```bash
-bd --version                              # Current beads version
-bd setup --list                           # Available setup recipes
-cat ~/.claude/plugins/cache/beads-marketplace/beads/*/.claude-plugin/plugin.json | jq .hooks
-                                          # What hooks does plugin provide?
-bd doctor 2>&1 | grep -i claude           # What does doctor check?
-```
-
-### Check for breaking changes
-
-```bash
-bd upgrade review               # Full changelog since last version
-```
-
-### Signs this skill needs updating
-
-- Plugin structure changed (new hooks, removed hooks)
-- `bd doctor` checks for different things
-- New setup steps in `bd upgrade review`
-- Marketplace repo moved
-
-### If skill is stale
-
-Update this skill's setup steps and commands to match current beads, then test the onboarding flow on a fresh project.
-
----
-
-## Beads vs CC Tasks
-
-See [comparison.md](comparison.md) for when to use which.
+- **bd prime**: AI-optimized workflow context
+- **GitHub**: [github.com/steveyegge/beads](https://github.com/steveyegge/beads)

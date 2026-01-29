@@ -1,7 +1,7 @@
 {
   "name": "groq-install-auth",
-  "repo": "vasic-digital/SuperAgent",
+  "repo": "HelixDevelopment/HelixAgent",
   "path": "skills/plugins/saas-packs/groq-pack/groq-install-auth/SKILL.md",
-  "source": "github.com/vasic-digital/SuperAgent",
-  "downloaded_at": "2026-01-28T02:58:29.222249Z"
+  "source": "github.com/HelixDevelopment/HelixAgent",
+  "downloaded_at": "2026-01-29T04:14:11.656179Z"
 }

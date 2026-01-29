@@ -1,7 +1,7 @@
 {
   "name": "task-decomposition",
-  "repo": "rohitg00/skillkit",
-  "path": "packages/core/src/methodology/packs/planning/task-decomposition/SKILL.md",
-  "source": "github.com/rohitg00/skillkit",
-  "downloaded_at": "2026-01-28T03:20:25.367720Z"
+  "repo": "d-o-hub/rust-self-learning-memory",
+  "path": ".claude/skills/task-decomposition/SKILL.md",
+  "source": "github.com/d-o-hub/rust-self-learning-memory",
+  "downloaded_at": "2026-01-29T01:48:12.356534Z"
 }

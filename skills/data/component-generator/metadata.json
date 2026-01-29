@@ -1,12 +1,7 @@
 {
   "name": "component-generator",
-  "description": "Generate production-ready SolidJS components with Kobalte accessibility primitives, CVA variants, and Storybook stories. Use when creating UI components for the frontend application.",
-  "repo": "Hortashaorg/skills",
-  "category": "design",
-  "tags": [
-    "component",
-    "generator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "mesbahtanvir/ishkul",
+  "path": ".claude/skills/component-generator/SKILL.md",
+  "source": "github.com/mesbahtanvir/ishkul",
+  "downloaded_at": "2026-01-29T02:08:16.152501Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "repo-changelog",
-  "description": "Generates end-user friendly release notes and changelogs by analyzing git diffs, consolidating changes, and formatting for Slack and documentation",
   "repo": "Yona544/AIskils",
-  "category": "documents",
-  "tags": [
-    "repo",
-    "changelog"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "generated-skills/repo-changelog/SKILL.md",
+  "source": "github.com/Yona544/AIskils",
+  "downloaded_at": "2026-01-29T01:19:55.046281Z"
 }

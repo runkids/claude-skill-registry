@@ -1,13 +1,7 @@
 {
   "name": "mastering-git-cli",
-  "description": "Git CLI operations, workflows, and automation for modern development (2025). Use when working with repositories, commits, branches, merging, rebasing, worktrees, submodules, or multi-repo architecture",
-  "repo": "SpillwaveSolutions/mastering-git-cli-agent-skill",
-  "category": "productivity",
-  "tags": [
-    "mastering",
-    "git",
-    "cli"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "SpillwaveSolutions/code_agent_context_hooks",
+  "path": ".opencode/skill/mastering-git-cli/SKILL.md",
+  "source": "github.com/SpillwaveSolutions/code_agent_context_hooks",
+  "downloaded_at": "2026-01-29T04:19:27.304763Z"
 }

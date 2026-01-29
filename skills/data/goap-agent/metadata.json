@@ -1,12 +1,7 @@
 {
   "name": "goap-agent",
-  "description": "Invoke for complex multi-step tasks requiring intelligent planning and multi-agent coordination. Use when tasks need decomposition, dependency mapping, parallel/sequential/swarm/iterative execution st",
-  "repo": "d-o-hub/github-template-ai-agents",
-  "category": "productivity",
-  "tags": [
-    "goap",
-    "agent"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "d-o-hub/rust-self-learning-memory",
+  "path": ".opencode/skill/goap-agent/SKILL.md",
+  "source": "github.com/d-o-hub/rust-self-learning-memory",
+  "downloaded_at": "2026-01-29T01:48:13.663295Z"
 }

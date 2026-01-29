@@ -1,7 +1,7 @@
 {
   "category": "productivity",
-  "count": 1558,
-  "updated_at": "2026-01-28T04:46:46.654920Z",
+  "count": 1548,
+  "updated_at": "2026-01-29T04:49:19.223945Z",
   "skills": [
     {
       "name": "commit-helper",
@@ -4305,22 +4305,6 @@
       "name": "hammer-memory-profiler",
       "description": "Simplified memory profiling and leak detection for SDL3 HammerEngine using valgrind memcheck, AddressSanitizer, and massif. Identifies memory leaks, allocation hotspots, buffer reuse violations, and p",
       "repo": "Ronin15/SDL3_HammerEngine_Template",
-      "path": "data/hammer-memory-profiler",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "hammer",
-        "memory",
-        "profiler"
-      ],
-      "stars": 4,
-      "install": "Ronin15/SDL3_HammerEngine_Template",
-      "source": "local"
-    },
-    {
-      "name": "hammer-memory-profiler",
-      "description": "Simplified memory profiling and leak detection for SDL3 HammerEngine using valgrind memcheck, AddressSanitizer, and massif. Identifies memory leaks, allocation hotspots, buffer reuse violations, and p",
-      "repo": "Ronin15/SDL3_HammerEngine_Template",
       "path": ".claude/skills/hammer-memory-profiler",
       "branch": "main",
       "category": "productivity",
@@ -4752,21 +4736,6 @@
       "name": "context-retrieval",
       "description": "Retrieve relevant episodic context from memory for informed decision-making. Use when you need past episodes, patterns, or solutions to similar tasks.",
       "repo": "d-o-hub/rust-self-learning-memory",
-      "path": "data/context-retrieval",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "context",
-        "retrieval"
-      ],
-      "stars": 3,
-      "install": "d-o-hub/rust-self-learning-memory",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "context-retrieval",
-      "description": "Retrieve relevant episodic context from memory for informed decision-making. Use when you need past episodes, patterns, or solutions to similar tasks.",
-      "repo": "d-o-hub/rust-self-learning-memory",
       "path": ".claude/skills/context-retrieval",
       "branch": "main",
       "category": "productivity",
@@ -4797,21 +4766,6 @@
       "name": "episode-complete",
       "description": "Complete and score a learning episode to extract patterns and update heuristics. Use when finalizing a task to enable pattern extraction and future learning.",
       "repo": "d-o-hub/rust-self-learning-memory",
-      "path": "data/episode-complete",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "episode",
-        "complete"
-      ],
-      "stars": 3,
-      "install": "d-o-hub/rust-self-learning-memory",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "episode-complete",
-      "description": "Complete and score a learning episode to extract patterns and update heuristics. Use when finalizing a task to enable pattern extraction and future learning.",
-      "repo": "d-o-hub/rust-self-learning-memory",
       "path": ".claude/skills/episode-complete",
       "branch": "main",
       "category": "productivity",
@@ -4821,21 +4775,6 @@
       ],
       "stars": 3,
       "install": "d-o-hub/rust-self-learning-memory/.claude/skills/episode-complete",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "episode-start",
-      "description": "Start a new learning episode in the self-learning memory system with proper context. Use this skill when beginning a new task that should be tracked for learning from execution patterns.",
-      "repo": "d-o-hub/rust-self-learning-memory",
-      "path": "data/episode-start",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "episode",
-        "start"
-      ],
-      "stars": 3,
-      "install": "d-o-hub/rust-self-learning-memory",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -5818,22 +5757,6 @@
       ],
       "stars": 2,
       "install": "pradeepmouli/spec-kit-extensions/.claude/skills/rl-optimization",
-      "source": "local"
-    },
-    {
-      "name": "sdv-session-start",
-      "description": "ALWAYS invoke this skill FIRST at session start, after context reset/compaction, or when user mentions \"reset\", \"new session\", \"where were we\", \"what was I working on\". Do NOT skip this for specific t",
-      "repo": "liminalwarmth/StardewOutfitManager",
-      "path": "data/sdv-session-start",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "sdv",
-        "session",
-        "start"
-      ],
-      "stars": 2,
-      "install": "liminalwarmth/StardewOutfitManager",
       "source": "local"
     },
     {
@@ -7007,21 +6930,6 @@
       ],
       "stars": 1,
       "install": "pluginagentmarketplace/custom-plugin-go/skills/go-performance",
-      "source": "local"
-    },
-    {
-      "name": "goap-agent",
-      "description": "Invoke for complex multi-step tasks requiring intelligent planning and multi-agent coordination. Use when tasks need decomposition, dependency mapping, parallel/sequential/swarm/iterative execution st",
-      "repo": "d-o-hub/github-template-ai-agents",
-      "path": "data/goap-agent",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "goap",
-        "agent"
-      ],
-      "stars": 1,
-      "install": "d-o-hub/github-template-ai-agents",
       "source": "local"
     },
     {
@@ -13915,18 +13823,6 @@
       "name": "inbox",
       "description": "Process pending items from 0-inbox/ task queue.Assess scope and create appropriate KB artifacts (tickets, phases, PRDs).WHEN TO USE:- After completing primary work (ticket, phase, user request)- User ",
       "repo": "jayprimer/pmc-marketplace",
-      "path": "data/inbox",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jayprimer/pmc-marketplace",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "inbox",
-      "description": "Process pending items from 0-inbox/ task queue.Assess scope and create appropriate KB artifacts (tickets, phases, PRDs).WHEN TO USE:- After completing primary work (ticket, phase, user request)- User ",
-      "repo": "jayprimer/pmc-marketplace",
       "path": "plugins/pmc/skills/inbox",
       "branch": "main",
       "category": "productivity",
@@ -15180,22 +15076,6 @@
       "stars": 0,
       "install": "disusered/dotfiles-universal/ai/claude/skills/tools/managing-jira",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "mastering-git-cli",
-      "description": "Git CLI operations, workflows, and automation for modern development (2025). Use when working with repositories, commits, branches, merging, rebasing, worktrees, submodules, or multi-repo architecture",
-      "repo": "SpillwaveSolutions/mastering-git-cli-agent-skill",
-      "path": "data/mastering-git-cli",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "mastering",
-        "git",
-        "cli"
-      ],
-      "stars": 0,
-      "install": "SpillwaveSolutions/mastering-git-cli-agent-skill",
-      "source": "local"
     },
     {
       "name": "mastering-git-cli",
@@ -17816,18 +17696,6 @@
       "name": "remembering-conversations",
       "description": "Search previous Claude Code conversations for facts, patterns, decisions, and context using semantic or text search",
       "repo": "obra/superpowers-skills",
-      "path": "data/remembering-conversations",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "obra/superpowers-skills",
-      "source": "local"
-    },
-    {
-      "name": "remembering-conversations",
-      "description": "Search previous Claude Code conversations for facts, patterns, decisions, and context using semantic or text search",
-      "repo": "obra/superpowers-skills",
       "path": "skills/collaboration/remembering-conversations",
       "branch": "main",
       "category": "productivity",
@@ -19374,18 +19242,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/20-enterprise-workflows/status-report-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "storyboard-manager",
-      "description": "Assist writers with story planning, character development, plot structuring, chapter writing, timeline tracking, and consistency checking. Use this skill when working with creative writing projects or",
-      "repo": "agent-trust-protocol/atp-core",
-      "path": "data/storyboard-manager",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "agent-trust-protocol/atp-core",
       "source": "SkillsMP + GitHub Raw"
     },
     {

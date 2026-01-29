@@ -1,7 +1,7 @@
 {
   "name": "create-meta-prompts",
-  "repo": "Git-Fg/meta-plugin-manager",
-  "path": ".claude/skills/create-meta-prompts/SKILL.md",
-  "source": "github.com/Git-Fg/meta-plugin-manager",
-  "downloaded_at": "2026-01-28T03:35:37.646535Z"
+  "repo": "cedricfressin/claude-config",
+  "path": "skills/create-meta-prompts/SKILL.md",
+  "source": "github.com/cedricfressin/claude-config",
+  "downloaded_at": "2026-01-29T03:38:13.534805Z"
 }

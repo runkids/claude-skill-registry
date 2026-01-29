@@ -1,9 +1,7 @@
 {
   "name": "supabase-known-pitfalls",
-  "description": "Identify and avoid Supabase anti-patterns and common integration mistakes.Use when reviewing Supabase code for issues, onboarding new developers,or auditing existing Supabase integrations for best pra",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/supabase-known-pitfalls/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-29T03:34:17.401099Z"
 }

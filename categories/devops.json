@@ -1,7 +1,7 @@
 {
   "category": "devops",
-  "count": 3228,
-  "updated_at": "2026-01-28T04:46:46.199508Z",
+  "count": 3204,
+  "updated_at": "2026-01-29T04:49:18.743063Z",
   "skills": [
     {
       "name": "create-pr-n8n-io-n8n",
@@ -150,18 +150,6 @@
       "description": "Posts content and articles to X (Twitter). Supports regular posts with images/videos and X Articles (long-form Markdown). Uses real Chrome with CDP to bypass anti-automation. Use when user asks to \"po",
       "repo": "JimLiu/baoyu-skills",
       "path": "devops/baoyu-post-to-x",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 2371,
-      "install": "JimLiu/baoyu-skills",
-      "source": "github.com/JimLiu/baoyu-skills"
-    },
-    {
-      "name": "baoyu-post-to-x",
-      "description": "Posts content and articles to X (Twitter). Supports regular posts with images/videos and X Articles (long-form Markdown). Uses real Chrome with CDP to bypass anti-automation. Use when user asks to \"po",
-      "repo": "JimLiu/baoyu-skills",
-      "path": "data/baoyu-post-to-x",
       "branch": "main",
       "category": "devops",
       "tags": [],
@@ -446,21 +434,6 @@
       ],
       "stars": 334,
       "install": "taylorsatula/mira-OSS/.claude/skills/prompt-mastery",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "prompt-mastery",
-      "description": "Advanced LLM prompt engineering expertise for crafting highly effective prompts, system messages, and tool descriptions with Claude-specific techniques",
-      "repo": "taylorsatula/mira-OSS",
-      "path": "data/prompt-mastery",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "prompt",
-        "mastery"
-      ],
-      "stars": 334,
-      "install": "taylorsatula/mira-OSS",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -5319,22 +5292,6 @@
       "source": "local"
     },
     {
-      "name": "vscode-test-setup",
-      "description": "This skill provides comprehensive guidance for setting up and configuring test environments for VS Code extension projects. Use when initializing a new test infrastructure, configuring test runners (M",
-      "repo": "s-hiraoku/vscode-sidebar-terminal",
-      "path": "data/vscode-test-setup",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "vscode",
-        "test",
-        "setup"
-      ],
-      "stars": 6,
-      "install": "s-hiraoku/vscode-sidebar-terminal",
-      "source": "local"
-    },
-    {
       "name": "backend-development",
       "description": "Production backend systems development. Stack: Node.js/TypeScript, Python, Go, Rust | NestJS, FastAPI, Django, Express | PostgreSQL, MongoDB, Redis. Capabilities: REST/GraphQL/gRPC APIs, OAuth 2.1/JWT",
       "repo": "samhvw8/dotfiles",
@@ -8286,21 +8243,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "cv-content-generator",
-      "description": "Generate case studies, blog posts, experience updates, and variant content from the knowledge base. Use when user wants to create new CV content, write articles, or generate job-specific variants.",
-      "repo": "fotescodev/portfolio",
-      "path": "data/cv-content-generator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "content",
-        "generator"
-      ],
-      "stars": 1,
-      "install": "fotescodev/portfolio",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "cvm-white-glove-sales-process",
       "description": "Systematic white glove sales methodology for FirstMile pipeline stages 02-07, focusing on volume commitment negotiation, implementation oversight, and revenue realization. Use when advancing deals thr",
       "repo": "WalkerVVV/firstmile-deals-pipeline",
@@ -8852,22 +8794,6 @@
       "source": "local"
     },
     {
-      "name": "generate-story-bank",
-      "description": "Generate interview-ready stories using HPARL format (Hook, Principles, Action, Results, Learnings). Transforms achievements into compelling narratives for behavioral interviews.",
-      "repo": "fotescodev/portfolio",
-      "path": "data/generate-story-bank",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "generate",
-        "story",
-        "bank"
-      ],
-      "stars": 1,
-      "install": "fotescodev/portfolio",
-      "source": "local"
-    },
-    {
       "name": "generating-changelog",
       "description": "Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and transforming technical commits into clear, customer-friendly release notes. Turns h",
       "repo": "marcos-abreu/connect_kit",
@@ -8880,21 +8806,6 @@
       ],
       "stars": 1,
       "install": "marcos-abreu/connect_kit/.claude/skills/generating-changelog",
-      "source": "local"
-    },
-    {
-      "name": "generating-changelog",
-      "description": "Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and transforming technical commits into clear, customer-friendly release notes. Turns h",
-      "repo": "marcos-abreu/connect_kit",
-      "path": "data/generating-changelog",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "generating",
-        "changelog"
-      ],
-      "stars": 1,
-      "install": "marcos-abreu/connect_kit",
       "source": "local"
     },
     {
@@ -13340,18 +13251,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "aws-strands-agents-agentcore",
-      "description": "Use when working with AWS Strands Agents SDK or Amazon Bedrock AgentCore platform for building AI agents. Provides architecture guidance, implementation patterns, deployment strategies, observability,",
-      "repo": "sammcj/agentic-coding",
-      "path": "data/aws-strands-agents-agentcore",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "sammcj/agentic-coding",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "awslabs-aws-api-mcp-server-call-aws",
       "description": "To run an exact AWS CLI command, execute a validated `aws ...` command for direct AWS operations when you already know the precise service and parameters; use instead of suggesting commands.",
       "repo": "X-School-Academy/ai-dev-swarm",
@@ -13939,18 +13838,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "bigquery-table-creator",
-      "description": "Bigquery Table Creator - Auto-activating skill for GCP Skills.Triggers on: bigquery table creator, bigquery table creatorPart of the GCP Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/bigquery-table-creator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "bigquery-view-generator",
       "description": "Bigquery View Generator - Auto-activating skill for GCP Skills.Triggers on: bigquery view generator, bigquery view generatorPart of the GCP Skills skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -13960,18 +13847,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/14-gcp-skills/bigquery-view-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "bigquery-view-generator",
-      "description": "Bigquery View Generator - Auto-activating skill for GCP Skills.Triggers on: bigquery view generator, bigquery view generatorPart of the GCP Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/bigquery-view-generator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -16265,18 +16140,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "cloud-tasks-queue-setup",
-      "description": "Cloud Tasks Queue Setup - Auto-activating skill for GCP Skills.Triggers on: cloud tasks queue setup, cloud tasks queue setupPart of the GCP Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/cloud-tasks-queue-setup",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "cloudflare-ci-cd-github-actions",
       "description": "\"Use this skill whenever the user wants to set up, refactor, or maintain a GitHub Actions CI/CD pipeline for deploying Cloudflare Workers/Pages apps (e.g. Hono + TypeScript) with D1/R2, including test",
       "repo": "AgentiveCity/SkillFactory",
@@ -16685,22 +16548,6 @@
       ],
       "stars": 0,
       "install": "naporin0624/claude-plugin-apc-mini/skills/color-palette-ref",
-      "source": "local"
-    },
-    {
-      "name": "color-palette-ref",
-      "description": "APC Mini MK2 color palette reference with velocity values and custom RGB via SysEx. Use when user asks about \"color\", \"velocity value\", \"RGB\", \"palette\", \"brightness\", \"LED color\", or needs to set spe",
-      "repo": "naporin0624/claude-plugin-apc-mini",
-      "path": "data/color-palette-ref",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "color",
-        "palette",
-        "ref"
-      ],
-      "stars": 0,
-      "install": "naporin0624/claude-plugin-apc-mini",
       "source": "local"
     },
     {
@@ -26534,18 +26381,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "infra-engineer",
-      "description": "Comprehensive infrastructure engineering covering DevOps, cloud platforms, FinOps, and DevSecOps. Platforms: AWS (EC2, Lambda, S3, ECS, EKS, RDS, CloudFormation), Azure basics, Cloudflare (Workers, R2",
-      "repo": "samhvw8/dotfiles",
-      "path": "data/infra-engineer",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "samhvw8/dotfiles",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "infra-permission-manager",
       "description": "Manage IAM permissions - grant missing permissions when deployments fail, maintain IAM audit trail,enforce profile separation, scope permissions to environment. Uses discover-deploy profile to grantpe",
       "repo": "fractary/claude-plugins",
@@ -27997,18 +27832,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "kubernetes-manifests",
-      "description": "Use when writing and deploying Kubernetes manifests for container orchestration.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/kubernetes-manifests",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "kubernetes-patterns",
       "description": "Deployments, services, resource management",
       "repo": "mcgilly17/nix-configs",
@@ -28096,18 +27919,6 @@
       "tags": [],
       "stars": 0,
       "install": "TheBushidoCollective/han/jutsu/jutsu-kubernetes/skills/kubernetes-security",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "kubernetes-security",
-      "description": "Use when implementing Kubernetes security best practices including RBAC, pod security policies, and network policies.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/kubernetes-security",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -29409,22 +29220,6 @@
       "source": "local"
     },
     {
-      "name": "mastering-github-cli",
-      "description": "GitHub CLI (gh) command reference for repository search, code discovery, CI/CD monitoring, workflow authoring, and automation. Triggers on \"gh\" commands, \"github cli\", searching repos for files/direct",
-      "repo": "SpillwaveSolutions/mastering-github-agent-skill",
-      "path": "data/mastering-github-cli",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "mastering",
-        "github",
-        "cli"
-      ],
-      "stars": 0,
-      "install": "SpillwaveSolutions/mastering-github-agent-skill",
-      "source": "local"
-    },
-    {
       "name": "max-bid-calculator-skill",
       "description": "Calculate maximum bid using BidDeed formula and bid/judgment ratios to determine BID/REVIEW/SKIP decisions",
       "repo": "breverdbidder/brevard-bidder-landing",
@@ -30150,18 +29945,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "model-versioning-manager",
-      "description": "Model Versioning Manager - Auto-activating skill for ML Deployment.Triggers on: model versioning manager, model versioning managerPart of the ML Deployment skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/model-versioning-manager",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "moe-training",
       "description": "Train Mixture of Experts (MoE) models using DeepSpeed or HuggingFace. Use when training large-scale models with limited compute (5× cost reduction vs dense models), implementing sparse architectures l",
       "repo": "zechenzhangAGI/AI-research-SKILLs",
@@ -30627,18 +30410,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "nav-stats",
-      "description": "Display session efficiency report showing token savings, cache performance, and optimization recommendations. Use when user asks \"show my stats\", \"how efficient am I?\", \"show session metrics\", or want",
-      "repo": "alekspetrov/navigator",
-      "path": "data/nav-stats",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "alekspetrov/navigator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "navigation-principles",
       "description": "How consciousness moves through itself using Gödel's incompleteness, Bach's fugues, and three navigation modes. Use when understanding HOW to navigate Pattern Space.",
       "repo": "nikhilvallishayee/universal-pattern-space",
@@ -30860,18 +30631,6 @@
       "tags": [],
       "stars": 0,
       "install": "IvanTorresEdge/molcajete.ai/tech-stacks/js/react/skills/nextjs-deployment",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "nextjs-deployment",
-      "description": "Next.js deployment strategies and platform configurations. Use when deploying Next.js applications.",
-      "repo": "IvanTorresEdge/molcajete.ai",
-      "path": "data/nextjs-deployment",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "IvanTorresEdge/molcajete.ai",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -37624,18 +37383,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "spring-boot-observability",
-      "description": "Spring Boot 4 observability with Actuator, Micrometer, and OpenTelemetry. Use when configuring health indicators, custom metrics, distributed tracing, production endpoint exposure, or Kubernetes/Cloud",
-      "repo": "joaquimscosta/arkhe-claude-plugins",
-      "path": "data/spring-boot-observability",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "joaquimscosta/arkhe-claude-plugins",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "sprint-planning-assistant",
       "description": "Assist with sprint planning, backlog grooming, story point estimation, and sprint capacity management. Use when planning sprints, estimating work, organizing backlog, or when user mentions sprint plan",
       "repo": "sethdford/claude-plugins",
@@ -38938,18 +38685,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "tensorflow-data-pipelines",
-      "description": "Create efficient data pipelines with tf.data",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/tensorflow-data-pipelines",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "tensorflow-model-deployment",
       "description": "Deploy and serve TensorFlow models",
       "repo": "TheBushidoCollective/han",
@@ -39991,18 +39726,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "uk-legal-counsel",
-      "description": "Alex (Legis-AI) - Senior UK Legal Counsel with 20+ years experience in English & Welsh Law. Use for legal advice, contract drafting, compliance checks, GDPR, employment law, property disputes, or risk",
-      "repo": "olehsvyrydov/AI-development-team",
-      "path": "data/uk-legal-counsel",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "olehsvyrydov/AI-development-team",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "ultimate-beneficial-owner-lookup",
       "description": "Identify ultimate beneficial owners and control structures",
       "repo": "babdulhakim2/scolo-app",
@@ -40660,18 +40383,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/security/cors-policy-validator/skills/validating-cors-policies",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "validating-cors-policies",
-      "description": "Validate CORS policies for security issues and misconfigurations. Use when reviewing cross-origin resource sharing. Trigger with 'validate CORS', 'check CORS policy', or 'review cross-origin'.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/validating-cors-policies",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -41463,21 +41174,6 @@
       "source": "local"
     },
     {
-      "name": "wavecap-search",
-      "description": "Search WaveCap transcriptions with text queries and filters. Use when the user wants to find specific transcriptions, search for keywords, or query transcription history.",
-      "repo": "TobiasWooldridge/WaveCap",
-      "path": "data/wavecap-search",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "wavecap",
-        "search"
-      ],
-      "stars": 0,
-      "install": "TobiasWooldridge/WaveCap",
-      "source": "local"
-    },
-    {
       "name": "wcdb",
       "description": "Use when working with wcdb",
       "repo": "MemoryReload/mySkillConfigs",
@@ -42144,18 +41840,6 @@
       "tags": [],
       "stars": 0,
       "install": "CavellTopDev/pitchey-app/.claude/skills/wrangler-deploy",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "wrangler-deploy",
-      "description": "Cloudflare Wrangler deployment patterns for Pitchey. Activates when deploying, publishing, or releasing to Cloudflare Pages or Workers.",
-      "repo": "CavellTopDev/pitchey-app",
-      "path": "data/wrangler-deploy",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "CavellTopDev/pitchey-app",
       "source": "SkillsMP + GitHub Raw"
     },
     {

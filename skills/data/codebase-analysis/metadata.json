@@ -1,9 +1,7 @@
 {
   "name": "codebase-analysis",
-  "description": "Analyzes codebase to find similar features, reusable utilities, and architectural patterns",
   "repo": "mehdic/bazinga",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/mehdic/bazinga"
+  "path": ".claude/skills/codebase-analysis/SKILL.md",
+  "source": "github.com/mehdic/bazinga",
+  "downloaded_at": "2026-01-29T03:52:09.445089Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "wavecap-export",
-  "description": "Export WaveCap transcriptions and pager data. Use when the user wants to export transcriptions as JSON, download reviewed transcriptions with audio, or export pager feed data.",
   "repo": "TobiasWooldridge/WaveCap",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/TobiasWooldridge/WaveCap"
+  "path": ".claude/skills/wavecap-export/SKILL.md",
+  "source": "github.com/TobiasWooldridge/WaveCap",
+  "downloaded_at": "2026-01-29T01:26:22.788242Z"
 }

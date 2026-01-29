@@ -1,11 +1,7 @@
 {
   "name": "deepeval",
   "repo": "sammcj/agentic-coding",
-  "category": "data",
-  "description": "Use when discussing or working with DeepEval (the python AI evaluation framework)",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:52.119540Z",
-  "dir_name": "deepeval",
-  "github_path": "Claude/skills/deepeval",
-  "github_branch": "main"
+  "path": "Claude/skills/deepeval/SKILL.md",
+  "source": "github.com/sammcj/agentic-coding",
+  "downloaded_at": "2026-01-29T04:01:36.700388Z"
 }

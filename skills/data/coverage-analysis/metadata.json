@@ -1,7 +1,7 @@
 {
   "name": "coverage-analysis",
-  "repo": "sgcarstrends/sgcarstrends",
-  "path": ".claude/skills/coverage-analysis/SKILL.md",
-  "source": "github.com/sgcarstrends/sgcarstrends",
-  "downloaded_at": "2026-01-28T04:21:35.765518Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/testing-handbook-skills/skills/coverage-analysis/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-01-29T03:53:04.399478Z"
 }

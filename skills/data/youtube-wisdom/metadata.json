@@ -1,9 +1,7 @@
 {
   "name": "youtube-wisdom",
-  "description": "Extract wisdom, insights, and actionable takeaways from YouTube videos. Use when asked to analyse, summarise, or extract key learnings from YouTube content. Downloads video transcripts, performs analy",
   "repo": "sammcj/agentic-coding",
-  "category": "marketing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "Claude/skills/youtube-wisdom/SKILL.md",
+  "source": "github.com/sammcj/agentic-coding",
+  "downloaded_at": "2026-01-29T04:01:37.044217Z"
 }

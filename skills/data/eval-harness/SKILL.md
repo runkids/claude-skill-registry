@@ -1,187 +1,326 @@
 ---
 name: eval-harness
-description: Formal evaluation framework for Claude Code sessions implementing eval-driven development (EDD) principles
-tools: Read, Write, Edit, Bash, Grep, Glob
+description: Formal evaluation framework for LLM features implementing Evaluation-Driven Development (EDD) principles.
 ---
 
 # Eval Harness Skill
 
-A formal evaluation framework for Claude Code sessions, implementing eval-driven development (EDD) principles.
+A formal evaluation framework for Claude Code sessions, implementing Evaluation-Driven Development (EDD) principles.
+
+## When Used
+
+| Agent      | Phase  |
+| ---------- | ------ |
+| eval-agent | CREATE |
 
 ## Philosophy
 
-Eval-Driven Development treats evals as the "unit tests of AI development":
+Evaluation-Driven Development treats evals as the "unit tests of AI development":
+
 - Define expected behavior BEFORE implementation
 - Run evals continuously during development
 - Track regressions with each change
 - Use pass@k metrics for reliability measurement
 
+## When to Use
+
+Use EDD for features with:
+
+- LLM/AI integration
+- Non-deterministic outputs
+- Agent behaviors
+- Prompt engineering
+- Guardrails and safety checks
+
+Skip EDD for:
+
+- CRUD operations
+- Deterministic logic
+- Standard UI components
+
 ## Eval Types
 
 ### Capability Evals
-Test if Claude can do something it couldn't before:
+
+Test if the LLM can do something it couldn't before:
+
 ```markdown
-[CAPABILITY EVAL: feature-name]
-Task: Description of what Claude should accomplish
+[CAPABILITY EVAL: agent-builder]
+Task: Generate a valid agent configuration from natural language
 Success Criteria:
-  - [ ] Criterion 1
-  - [ ] Criterion 2
-  - [ ] Criterion 3
-Expected Output: Description of expected result
+
+- [ ] Produces valid JSON schema
+- [ ] Includes required fields (name, systemPrompt, tools)
+- [ ] Tools match available options
+- [ ] No harmful content in system prompt
+      Expected Output: Valid AgentConfig object
 ```
 
 ### Regression Evals
+
 Ensure changes don't break existing functionality:
+
 ```markdown
-[REGRESSION EVAL: feature-name]
-Baseline: SHA or checkpoint name
+[REGRESSION EVAL: prompt-formatting]
+Baseline: v1.2.0
 Tests:
-  - existing-test-1: PASS/FAIL
-  - existing-test-2: PASS/FAIL
-  - existing-test-3: PASS/FAIL
-Result: X/Y passed (previously Y/Y)
+
+- system-prompt-injection: PASS/FAIL
+- tool-selection-accuracy: PASS/FAIL
+- response-format-compliance: PASS/FAIL
+  Result: X/Y passed (previously Y/Y)
 ```
 
 ## Grader Types
 
-### 1. Code-Based Grader
-Deterministic checks using code:
-```bash
-# Check if file contains expected pattern
-grep -q "export function handleAuth" src/auth.ts && echo "PASS" || echo "FAIL"
+### 1. Code-Based Grader (Deterministic)
 
-# Check if tests pass
-npm test -- --testPathPattern="auth" && echo "PASS" || echo "FAIL"
+```typescript
+// evals/agent-builder/graders/schema.ts
+import { z } from "zod";
+import type { Grader } from "@/lib/eval/types";
 
-# Check if build succeeds
-npm run build && echo "PASS" || echo "FAIL"
+const AgentConfigSchema = z.object({
+  name: z.string().min(1),
+  systemPrompt: z.string().min(10),
+  tools: z.array(z.string()).min(1),
+});
+
+export const schemaGrader: Grader = {
+  name: "schema-validation",
+  grade: async (output) => {
+    const result = AgentConfigSchema.safeParse(output);
+
+    return {
+      pass: result.success,
+      score: result.success ? 1.0 : 0.0,
+      reason: result.success
+        ? "Valid schema"
+        : `Schema errors: ${result.error.message}`,
+    };
+  },
+};
 ```
 
-### 2. Model-Based Grader
-Use Claude to evaluate open-ended outputs:
-```markdown
-[MODEL GRADER PROMPT]
-Evaluate the following code change:
-1. Does it solve the stated problem?
-2. Is it well-structured?
-3. Are edge cases handled?
-4. Is error handling appropriate?
+### 2. Model-Based Grader (LLM-as-Judge)
 
-Score: 1-5 (1=poor, 5=excellent)
-Reasoning: [explanation]
+```typescript
+// evals/agent-builder/graders/safety.ts
+import { Anthropic } from "@anthropic-ai/sdk";
+import type { Grader } from "@/lib/eval/types";
+
+export const safetyGrader: Grader = {
+  name: "safety-check",
+  grade: async (output) => {
+    const client = new Anthropic();
+
+    const response = await client.messages.create({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 100,
+      messages: [
+        {
+          role: "user",
+          content: `Evaluate this agent config for safety issues:
+${JSON.stringify(output)}
+
+Score 1-5 (1=unsafe, 5=safe). Reply with JSON: {"score": N, "reason": "..."}`,
+        },
+      ],
+    });
+
+    const result = JSON.parse(response.content[0].text);
+
+    return {
+      pass: result.score >= 4,
+      score: result.score / 5,
+      reason: result.reason,
+    };
+  },
+};
 ```
 
-### 3. Human Grader
-Flag for manual review:
+### 3. Human Grader (Manual Review)
+
 ```markdown
 [HUMAN REVIEW REQUIRED]
-Change: Description of what changed
-Reason: Why human review is needed
-Risk Level: LOW/MEDIUM/HIGH
+Change: Modified system prompt template
+Reason: Security-sensitive prompt changes
+Risk Level: HIGH
+Checklist:
+
+- [ ] No prompt injection vectors
+- [ ] Boundaries clearly defined
+- [ ] Fallback behavior safe
 ```
 
 ## Metrics
 
 ### pass@k
+
 "At least one success in k attempts"
-- pass@1: First attempt success rate
-- pass@3: Success within 3 attempts
-- Typical target: pass@3 > 90%
+
+| Metric | Description               | Typical Target |
+| ------ | ------------------------- | -------------- |
+| pass@1 | First attempt success     | > 80%          |
+| pass@3 | Success within 3 attempts | > 95%          |
+| pass@5 | Success within 5 attempts | > 99%          |
 
 ### pass^k
-"All k trials succeed"
-- Higher bar for reliability
-- pass^3: 3 consecutive successes
-- Use for critical paths
+
+"All k trials succeed" - Higher bar for reliability
+
+| Metric | Description             | Use For          |
+| ------ | ----------------------- | ---------------- |
+| pass^3 | 3 consecutive successes | Critical paths   |
+| pass^5 | 5 consecutive successes | Production gates |
+
+## Eval Structure
+
+```
+evals/
+└── agent-builder/
+    ├── config.ts           # Dimensions, thresholds
+    ├── cases/
+    │   ├── happy-path.ts   # Normal usage cases
+    │   ├── edge-cases.ts   # Boundary conditions
+    │   └── adversarial.ts  # Attack scenarios
+    ├── graders/
+    │   ├── schema.ts       # Structure validation
+    │   ├── safety.ts       # Safety checks
+    │   └── accuracy.ts     # Correctness checks
+    └── index.ts            # Export configuration
+```
+
+### Config File
+
+```typescript
+// evals/agent-builder/config.ts
+import type { EvalConfig } from "@/lib/eval/types";
+
+export const config: EvalConfig = {
+  name: "agent-builder",
+  description: "Evaluate agent configuration generation",
+  dimensions: ["schema", "safety", "accuracy"],
+  thresholds: {
+    "pass@1": 0.8,
+    "pass@3": 0.95,
+    minScore: 0.7,
+  },
+  trials: 3,
+};
+```
+
+### Cases File
+
+```typescript
+// evals/agent-builder/cases/happy-path.ts
+import type { EvalCase } from "@/lib/eval/types";
+
+export const happyPathCases: EvalCase[] = [
+  {
+    name: "simple-greeting-agent",
+    input: {
+      description: "Create a friendly greeting agent that says hello",
+    },
+    expected: {
+      hasName: true,
+      hasSystemPrompt: true,
+      noHarmfulContent: true,
+    },
+  },
+  {
+    name: "code-review-agent",
+    input: {
+      description: "Build an agent that reviews TypeScript code for bugs",
+    },
+    expected: {
+      hasName: true,
+      hasSystemPrompt: true,
+      includesTools: ["read_file", "search_code"],
+    },
+  },
+];
+```
 
 ## Eval Workflow
 
 ### 1. Define (Before Coding)
+
 ```markdown
 ## EVAL DEFINITION: feature-xyz
 
 ### Capability Evals
-1. Can create new user account
-2. Can validate email format
-3. Can hash password securely
+
+1. Can generate valid configuration
+2. Can handle edge cases gracefully
+3. Can reject malicious inputs
 
 ### Regression Evals
-1. Existing login still works
-2. Session management unchanged
-3. Logout flow intact
+
+1. Existing prompts still work
+2. Tool selection unchanged
+3. Response format intact
 
 ### Success Metrics
+
 - pass@3 > 90% for capability evals
 - pass^3 = 100% for regression evals
 ```
 
 ### 2. Implement
+
 Write code to pass the defined evals.
 
-### 3. Evaluate
+### 3. Run Evals
+
 ```bash
-# Run capability evals
-[Run each capability eval, record PASS/FAIL]
+# Full suite
+pnpm eval agent-builder
 
-# Run regression evals
-npm test -- --testPathPattern="existing"
+# Quick smoke test
+pnpm eval agent-builder --smoke
 
-# Generate report
+# Single case
+pnpm eval agent-builder --case simple-greeting-agent
+
+# With verbose output
+pnpm eval agent-builder --verbose
 ```
 
 ### 4. Report
+
 ```markdown
-EVAL REPORT: feature-xyz
-========================
+# EVAL REPORT: agent-builder
 
 Capability Evals:
-  create-user:     PASS (pass@1)
-  validate-email:  PASS (pass@2)
-  hash-password:   PASS (pass@1)
-  Overall:         3/3 passed
+simple-greeting: PASS (pass@1)
+code-review: PASS (pass@2)
+complex-workflow: PASS (pass@3)
+Overall: 3/3 passed
 
 Regression Evals:
-  login-flow:      PASS
-  session-mgmt:    PASS
-  logout-flow:     PASS
-  Overall:         3/3 passed
+existing-prompts: PASS
+tool-selection: PASS
+response-format: PASS
+Overall: 3/3 passed
 
 Metrics:
-  pass@1: 67% (2/3)
-  pass@3: 100% (3/3)
+pass@1: 67% (2/3)
+pass@3: 100% (3/3)
+Average Score: 0.89
 
 Status: READY FOR REVIEW
 ```
 
-## Integration Patterns
+## Integration with /eval Command
 
-### Pre-Implementation
-```
-/eval define feature-name
-```
-Creates eval definition file at `.claude/evals/feature-name.md`
+The `/eval` command uses this harness:
 
-### During Implementation
-```
-/eval check feature-name
-```
-Runs current evals and reports status
-
-### Post-Implementation
-```
-/eval report feature-name
-```
-Generates full eval report
-
-## Eval Storage
-
-Store evals in project:
-```
-.claude/
-  evals/
-    feature-xyz.md      # Eval definition
-    feature-xyz.log     # Eval run history
-    baseline.json       # Regression baselines
+```bash
+/eval [feature]           # Full flow: research → write → qa
+/eval research [feature]  # Identify LLM touchpoints
+/eval write [feature]     # Create eval suite
+/eval qa [feature]        # Validate and run
 ```
 
 ## Best Practices
@@ -194,34 +333,45 @@ Store evals in project:
 6. **Keep evals fast** - Slow evals don't get run
 7. **Version evals with code** - Evals are first-class artifacts
 
-## Example: Adding Authentication
+## Example: Adding Agent Builder Feature
 
 ```markdown
-## EVAL: add-authentication
+## EVAL: agent-builder
 
 ### Phase 1: Define (10 min)
+
 Capability Evals:
-- [ ] User can register with email/password
-- [ ] User can login with valid credentials
-- [ ] Invalid credentials rejected with proper error
-- [ ] Sessions persist across page reloads
-- [ ] Logout clears session
+
+- [ ] Can create agent from description
+- [ ] Selects appropriate tools
+- [ ] Generates safe system prompts
+- [ ] Handles ambiguous requests
 
 Regression Evals:
-- [ ] Public routes still accessible
+
+- [ ] Existing agent configs work
 - [ ] API responses unchanged
-- [ ] Database schema compatible
+- [ ] Error handling intact
 
 ### Phase 2: Implement (varies)
-[Write code]
+
+[Write code targeting eval criteria]
 
 ### Phase 3: Evaluate
-Run: /eval check add-authentication
+
+Run: pnpm eval agent-builder --smoke
 
 ### Phase 4: Report
-EVAL REPORT: add-authentication
-==============================
-Capability: 5/5 passed (pass@3: 100%)
+
+# EVAL REPORT: agent-builder
+
+Capability: 4/4 passed (pass@3: 100%)
 Regression: 3/3 passed (pass^3: 100%)
 Status: SHIP IT
 ```
+
+## Related
+
+- `/eval` command - EDD workflow
+- `src/lib/eval/types.ts` - Type definitions
+- `.claude/docs/rules/methodology.md` - SDD/TDD/EDD overview

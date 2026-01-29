@@ -1,7 +1,7 @@
 {
   "name": "grpc-service-generator",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "path": "planned-skills/generated/06-backend-dev/grpc-service-generator/SKILL.md",
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
-  "downloaded_at": "2026-01-28T02:27:45.030561Z"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/grpc-service-generator/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-29T03:34:15.928684Z"
 }

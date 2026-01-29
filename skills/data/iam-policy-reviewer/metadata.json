@@ -1,9 +1,7 @@
 {
   "name": "iam-policy-reviewer",
-  "description": "Iam Policy Reviewer - Auto-activating skill for Security Advanced.Triggers on: iam policy reviewer, iam policy reviewerPart of the Security Advanced skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "security",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/iam-policy-reviewer/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-29T03:34:14.204384Z"
 }

@@ -1,191 +1,216 @@
 ---
-name: idea
-description: Capture and structure product ideas as backlog artifacts. Use when capturing new ideas, feature requests, or concepts for future refinement. Triggers on keywords like "capture idea", "new idea", "feature idea", "add to backlog", "quick idea".
-infer: true
-allowed-tools: Read, Write, Grep, Glob, TodoWrite, AskUserQuestion
+description: Brainstorm a feature idea, then generate PRDs for Ralph autonomous execution.
 ---
 
-# Idea Capture
+# /idea - From Brainstorm to PRD
 
-Capture raw ideas as structured artifacts for backlog consideration.
+You are helping the user go from a rough idea to executable PRDs for Ralph.
+
+**CRITICAL: This command does NOT write code. It produces documentation files only.**
 
 ## When to Use
-- User has new feature concept
-- Stakeholder request needs documentation
-- Quick capture without full refinement
 
-## Pre-Workflow
+| Workflow | Best For |
+|----------|----------|
+| **`/idea`** | Structured brainstorming with guided questions - Claude leads |
+| **Plan mode → save to `docs/ideas/`** | Free-form exploration - you lead the thinking |
+| **`/prd "description"`** | Quick PRD, no docs artifact needed |
 
-### Activate Skills
+**Both `/idea` and plan mode can produce `docs/ideas/*.md` files.** The difference is who drives the conversation:
+- `/idea` asks you structured questions (scope, UX, edge cases, etc.)
+- Plan mode lets you explore freely with Claude's help
 
-- Activate `product-owner` skill for idea capture best practices
+Use `/idea` when you want the structured checklist. Use plan mode when you prefer to think through it your way.
+
+## User Input
+
+```text
+$ARGUMENTS
+```
 
 ## Workflow
 
-### 0. Detect Module (Dynamic Discovery)
+### Step 1: Start Brainstorming
 
-Dynamic module discovery from YAML frontmatter:
+If `$ARGUMENTS` is empty, ask: "What feature or idea would you like to brainstorm?"
 
-1. **Glob**: Find all module documentation
+If `$ARGUMENTS` has content, acknowledge it and proceed.
+
+Say: "Let's brainstorm this idea. I'll help you think it through, then we'll create documentation for Ralph to execute."
+
+### Step 2: Explore and Ask Questions
+
+Help the user flesh out the idea through conversation:
+
+1. **Understand the goal** - What problem does this solve? Who benefits?
+2. **Explore the codebase** - Use Glob/Grep/Read to understand what exists and what patterns to follow
+3. **Ask clarifying questions** about:
+
+**Scope & UX:**
+- What's in scope vs out of scope?
+- What does the user see/do? (ask for mockup if UI)
+- What are the edge cases?
+
+**Security (IMPORTANT - ask if feature involves):**
+- Authentication: Who can access this? Login required?
+- Passwords: How stored? (must be hashed, never plain text)
+- User input: What validation needed? (SQL injection, XSS, command injection)
+- Sensitive data: What should NEVER be in API responses?
+- Rate limiting: Should this be rate limited? (login attempts, API calls)
+
+**Scale (IMPORTANT - ask if feature involves lists/data):**
+- How many items expected? (10s, 1000s, millions?)
+- Pagination needed? What's the max per page?
+- Caching needed? How fresh must data be?
+- Database indexes: What will be queried/sorted frequently?
+
+### Step 3: Summarize Before Writing
+
+When you have enough information, summarize what you've learned:
+
+Say: "Here's what I understand about the feature:
+
+**Problem:** [summary]
+**Solution:** [summary]
+**Key decisions:** [list]
+
+Ready to write this to `docs/ideas/{feature-name}.md`? Say **'yes'** or tell me what to adjust."
+
+**STOP and wait for user confirmation before writing any files.**
+
+### Step 4: Write the Idea File
+
+Once the user confirms, write the idea file:
+
+1. Create the directory if needed:
+   ```bash
+   mkdir -p docs/ideas
    ```
-   docs/business-features/*/README.md
+
+2. Write to `docs/ideas/{feature-name}.md` with this structure:
+   ```markdown
+   # {Feature Name}
+
+   ## Problem
+   What problem does this solve?
+
+   ## Solution
+   High-level description of the solution.
+
+   ## User Stories
+   - As a [user], I want to [action] so that [benefit]
+   - ...
+
+   ## Scope
+   ### In Scope
+   - ...
+
+   ### Out of Scope
+   - ...
+
+   ## Architecture
+   ### Directory Structure
+   - Where new files should go (be specific: `src/components/forms/`, not just `src/`)
+
+   ### Patterns to Follow
+   - Existing components/utilities to reuse
+   - Naming conventions
+
+   ### Do NOT Create
+   - List things that already exist (avoid duplication)
+
+   ## Security Requirements
+   - **Authentication**: Who can access? Login required?
+   - **Password handling**: Must be hashed with bcrypt (cost 10+), never in responses
+   - **Input validation**: What must be validated/sanitized?
+   - **Rate limiting**: What should be rate limited?
+   - **Sensitive data**: What must NEVER appear in logs/responses?
+
+   ## Scale Requirements
+   - **Expected volume**: How many users/items/requests?
+   - **Pagination**: Max items per page (recommend 100)
+   - **Caching**: What can be cached? For how long?
+   - **Database**: What indexes are needed?
+
+   ## UI Mockup (if applicable)
+   ```
+   ┌─────────────────────────────────┐
+   │  [ASCII mockup of the UI]       │
+   └─────────────────────────────────┘
    ```
 
-2. **Parse Frontmatter**: For each README, extract YAML between `---` markers
-   - Extract: `module`, `keywords`, `aliases`, `features`, `domain_path`
-
-3. **Match Keywords**: Compare user input (title/problem) against:
-   - `aliases` (exact match - highest priority)
-   - `keywords` (partial match)
-   - `features` (partial match for sub-features)
-   - Score = count of matching terms
-
-4. **Select Module**:
-   - If single match: Confirm "Is this related to {Module}?"
-   - If multiple matches: Show matches with scores, ask user to select
-   - If no match: List all discovered modules, ask selection or "new" for new module
-
-**Note**: Modules are self-describing via frontmatter. New modules auto-discovered when following template.
-
-### 1. Load Business Context
-
-- **⚠️ MUST READ:** `docs/business-features/{Module}/INDEX.md` (feature table)
-- **⚠️ MUST READ:** `docs/business-features/{Module}/README.md` (Overview + Business Requirements sections only, ~2000 token budget)
-- Note: "Loaded context from {Module} business documentation"
-- If module docs missing: Note absence and continue without context
-
-### 1.5. Show Existing Features
-
-- Display feature table from INDEX.md
-- Ask: "Does this idea relate to or extend any existing feature?"
-- Note related FR-XX IDs if applicable
-
-### 2. Inspect Related Entities
-
-Use `domain_path` from module frontmatter for targeted entity search:
-
-1. **Get Domain Path**:
-   - If module matched: Use frontmatter `domain_path` (e.g., `src/PlatformExampleApp/PlatformExampleApp.TextSnippet.Domain`)
-   - If no module: Skip entity inspection or use broad search
-
-2. **Entity Search**:
-   ```
-   {domain_path}/Entities/*.cs
+   ## Open Questions
+   - Any unresolved decisions
    ```
 
-3. **Extract**: Entity class names (classes extending `RootEntity<`), key properties, relationships
-4. **Show**: "Related entities found: {EntityName} with properties: [{list}]"
-5. **If no match**: "No existing entities match - this may be a new domain concept"
+3. Say: "I've written the idea to `docs/ideas/{feature-name}.md`.
 
-### 3. Gather Information
+   Review it and let me know:
+   - **'approved'** - Ready to generate PRD
+   - **'edit [changes]'** - Tell me what to change"
 
-- If no title provided, ask: "What's the idea in one sentence?"
-- Ask: "What problem does this solve?"
-- Ask: "Who benefits from this?"
-- Ask: "Any initial scope thoughts?"
+**STOP and wait for user response. Do not proceed until they say 'approved' or 'done'.**
 
-### 4. Generate Artifact
+### Step 5: Generate PRD
 
-- Create idea file using template from `team-artifacts/templates/idea-template.md`
-- Generate ID: `IDEA-{YYMMDD}-{NNN}` (sequential)
-- Set status: `draft`
-- Add frontmatter:
-  - `related_module: "{Module or N/A}"`
-  - `related_entities: [{list of entity names}]`
-  - `related_features: [{FR-XX IDs if applicable}]`
+**Only proceed here after user explicitly approves the idea file.**
 
-### 5. Save Artifact
+Say: "Now I'll generate the PRD from your idea file."
 
-- Path: `team-artifacts/ideas/{YYMMDD}-{role}-idea-{slug}.md`
-- Role: Infer from context or ask
-- Add to Related section: Link to `docs/business-features/{Module}/`
-
-### 6. Quick Validation (MANDATORY)
-
-After saving, conduct brief validation interview to confirm understanding before handoff.
-
-#### Question Selection (pick 2-3 most relevant)
-
-| Category            | Question                                                      |
-| ------------------- | ------------------------------------------------------------- |
-| **Problem Clarity** | "Is the problem statement clear? What's the root cause?"      |
-| **Value**           | "Who benefits most? What's the business impact if NOT built?" |
-| **Scope**           | "Is this one feature or multiple? Should it be split?"        |
-| **Timing**          | "Is this urgent or can it wait? Any deadline drivers?"        |
-| **Alternatives**    | "Any existing solutions or workarounds today?"                |
-
-#### Validation Process
-
-1. Select 2-3 questions based on idea complexity
-2. Use `AskUserQuestion` with concrete options
-3. Update idea artifact with clarifications
-4. Skip validation only for trivial/obvious ideas
-
-#### Validation Output
-
-Update the `## Quick Validation` section in the idea artifact:
-
-```markdown
-## Quick Validation
-
-**Validated:** {date}
-
-- **Problem clarity:** {Confirmed/Clarified: notes}
-- **Value confirmed:** {Yes/Needs discussion}
-- **Scope check:** {Single feature/Needs splitting}
+**Use the Skill tool** to invoke `/prd` with the idea file path:
+```
+Skill: prd
+Args: docs/ideas/{feature-name}.md
 ```
 
-### 7. Suggest Next Step
+This hands off to `/prd` which handles:
+- Reading the idea file
+- Splitting into stories
+- Writing `.ralph/prd.json`
+- All PRD schema details (testing, testSteps, MCP tools, etc.)
 
-- Output: "Idea captured and validated! To refine into a PBI, run: `/refine {filename}`"
+**DO NOT duplicate the PRD schema or guidelines here - /prd is the single source of truth.**
 
-## Output Format
+---
 
-Use template from `team-artifacts/templates/idea-template.md`
+## Error Handling
 
-Add these fields to frontmatter:
-```yaml
-related_module: "{Module name or N/A}"
-related_entities: []
-related_features: []
+- If user provides no arguments, ask what they want to brainstorm
+- If user abandons mid-flow, the idea file is still saved for later
+- If /prd fails, check the idea file has enough detail
+
+---
+
+## Guidelines
+
+### Idea File Quality
+
+A good idea file has:
+- **Clear problem statement** - What's broken or missing?
+- **Specific solution** - Not vague ("improve UX") but concrete ("add inline validation")
+- **Scope boundaries** - What's explicitly out of scope?
+- **Architecture hints** - Where do files go? What patterns to follow?
+
+### ASCII Art for UI
+
+If the feature involves UI, include ASCII mockups in the idea file:
+
+```
+┌─────────────────────────────────────┐
+│  Dashboard                    [⚙️]  │
+├─────────────────────────────────────┤
+│                                     │
+│  ┌─────────┐  ┌─────────┐          │
+│  │ Card 1  │  │ Card 2  │          │
+│  │  $1,234 │  │  89%    │          │
+│  └─────────┘  └─────────┘          │
+│                                     │
+│  ┌─────────────────────────────┐   │
+│  │ Recent Activity              │   │
+│  │ • Item 1                     │   │
+│  │ • Item 2                     │   │
+│  └─────────────────────────────┘   │
+└─────────────────────────────────────┘
 ```
 
-Add to Related section:
-```markdown
-## Related
-- **Module Docs**: [docs/business-features/{Module}/](docs/business-features/{Module}/)
-- **Related Features**: {FR-XX IDs from INDEX.md}
-- **Related Entities**: {Entity names from codebase}
-```
-
-## Module Discovery
-
-Modules are discovered dynamically from `docs/business-features/*/README.md` frontmatter.
-
-See `docs/templates/detailed-feature-docs-template.md` for frontmatter schema.
-
-## Example
-
-```bash
-/idea "Advanced search filters for snippets"
-```
-
-### Example Flow
-
-1. Detects "snippet" + "search" -> TextSnippet module
-2. Loads TextSnippet INDEX.md, README.md
-3. Shows existing Search Snippets feature (FR-TS-003)
-4. Finds TextSnippetEntity with SnippetText, FullText, Tags properties
-5. Gathers user input
-6. Creates: `team-artifacts/ideas/260119-po-idea-advanced-search-filters.md`
-7. **Validates**: Asks 2-3 quick questions about problem clarity, value, scope
-8. Updates idea with validation summary
-
-## Related
-- **Role Skill:** `product-owner`
-- **Next Step:** `/refine`
-
-## IMPORTANT Task Planning Notes
-
-- Always plan and break many small todo tasks
-- Always add a final review todo task to review the works done at the end to find any fix or enhancement needed
+Ralph will read these from the idea file via `story.contextFiles`.

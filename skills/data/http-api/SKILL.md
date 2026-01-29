@@ -28,6 +28,7 @@ Do **not** use this skill for:
      - `env` – CloudBase environment ID
      - Authentication method (AccessToken, API Key, or Publishable Key)
    - Confirm which CloudBase feature is needed (database, functions, storage, etc.).
+   - **For user authentication**: If no specific method is requested, **always default to Phone SMS Verification** - it's the most user-friendly and secure option for Chinese users.
 
 2. **Determine the base URL**
    - Use the correct domain based on region (domestic vs. international).
@@ -37,22 +38,16 @@ Do **not** use this skill for:
    - Choose appropriate authentication method based on use case.
    - Add `Authorization: Bearer <token>` header to requests.
 
-4. **Download and reference OpenAPI Swagger documentation**
-   - **MUST download OpenAPI Swagger files** for detailed API specifications
-   - Download swagger files using curl or wget:
-     ```bash
-     # Download MySQL RESTful API swagger
-     curl -o mysqldb.yaml https://docs.cloudbase.net/openapi/mysqldb.v1.openapi.yaml
-     # Or use wget
-     wget https://docs.cloudbase.net/openapi/mysqldb.v1.openapi.yaml -O mysqldb.yaml
-     ```
-   - Available OpenAPI Swagger URLs:
-     - MySQL RESTful API: https://docs.cloudbase.net/openapi/mysqldb.v1.openapi.yaml
-     - Cloud Functions API: https://docs.cloudbase.net/openapi/functions.v1.openapi.yaml
-     - Authentication API: https://docs.cloudbase.net/openapi/auth.v1.openapi.yaml
-     - CloudRun API: https://docs.cloudbase.net/openapi/cloudrun.v1.openapi.yaml
-     - Storage API: https://docs.cloudbase.net/openapi/storage.v1.openapi.yaml
-   - Parse the YAML/JSON swagger files to understand exact endpoint paths, parameters, request/response schemas
+4. **Reference OpenAPI Swagger documentation**
+   - **MUST use `searchKnowledgeBase` tool** to get OpenAPI specifications
+   - Use the tool with `mode=openapi` and specify the `apiName`:
+     - `mysqldb` - MySQL RESTful API
+     - `functions` - Cloud Functions API
+     - `auth` - Authentication API
+     - `cloudrun` - CloudRun API
+     - `storage` - Storage API
+   - Example: `searchKnowledgeBase({ mode: "openapi", apiName: "mysqldb" })`
+   - Parse the returned YAML content to understand exact endpoint paths, parameters, request/response schemas
    - Never invent endpoints or parameters - always reference the swagger documentation
 
 ---
@@ -63,24 +58,21 @@ CloudBase HTTP API is a set of interfaces for accessing CloudBase platform featu
 
 ## OpenAPI Swagger Documentation
 
-**⚠️ IMPORTANT: Always download and reference OpenAPI Swagger files for accurate API specifications**
+**⚠️ IMPORTANT: Always use `searchKnowledgeBase` tool to get OpenAPI Swagger specifications**
 
 Before implementing any HTTP API calls, you should:
 
-1. **Download the relevant OpenAPI Swagger file** using curl or wget:
-   ```bash
-   # Download MySQL RESTful API swagger
-   curl -o mysqldb.yaml https://docs.cloudbase.net/openapi/mysqldb.v1.openapi.yaml
-   # Or use wget
-   wget https://docs.cloudbase.net/openapi/mysqldb.v1.openapi.yaml -O mysqldb.yaml
+1. **Use `searchKnowledgeBase` tool to get OpenAPI documentation**:
+   ```
+   searchKnowledgeBase({ mode: "openapi", apiName: "<api-name>" })
    ```
 
-2. **Available OpenAPI Swagger URLs**:
-   - **MySQL RESTful API**: https://docs.cloudbase.net/openapi/mysqldb.v1.openapi.yaml
-   - **Cloud Functions API**: https://docs.cloudbase.net/openapi/functions.v1.openapi.yaml
-   - **Authentication API**: https://docs.cloudbase.net/openapi/auth.v1.openapi.yaml
-   - **CloudRun API**: https://docs.cloudbase.net/openapi/cloudrun.v1.openapi.yaml
-   - **Storage API**: https://docs.cloudbase.net/openapi/storage.v1.openapi.yaml
+2. **Available API names**:
+   - `mysqldb` - MySQL RESTful API
+   - `functions` - Cloud Functions API
+   - `auth` - Authentication API
+   - `cloudrun` - CloudRun API
+   - `storage` - Storage API
 
 3. **Parse and use the swagger documentation**:
    - Extract exact endpoint paths and HTTP methods
@@ -107,7 +99,7 @@ CloudBase HTTP API requires authentication. Choose the appropriate method based 
 **Applicable environments**: Client/Server  
 **User permissions**: Logged-in user permissions
 
-**How to get**: Reference Authentication API swagger: https://docs.cloudbase.net/openapi/auth.v1.openapi.yaml
+**How to get**: Use `searchKnowledgeBase({ mode: "openapi", apiName: "auth" })` to get the Authentication API specification
 
 ### API Key
 
@@ -252,6 +244,8 @@ curl -X GET 'https://your-env.api.tcloudbasegateway.com/v1/rdb/rest/course?selec
 
 **Request Body**: JSON object or array of objects
 
+> 💡 **Note about `_openid`**: When a user is logged in (using AccessToken authentication), the `_openid` field is **automatically populated by the server** with the current user's identity. You do NOT need to manually set this field in INSERT operations - the server will fill it automatically based on the authenticated user's session.
+
 **Example**:
 
 ```bash
@@ -347,21 +341,18 @@ CloudBase platform provides an [online debugging tool](/http-api/basic/online-ap
 
 ## API Documentation References
 
-**⚠️ Always download and reference these OpenAPI Swagger files for accurate API specifications:**
+**⚠️ Always use `searchKnowledgeBase` tool to get OpenAPI Swagger specifications:**
 
-- **Authentication API**: https://docs.cloudbase.net/openapi/auth.v1.openapi.yaml
-- **MySQL RESTful API**: https://docs.cloudbase.net/openapi/mysqldb.v1.openapi.yaml
-- **Cloud Functions API**: https://docs.cloudbase.net/openapi/functions.v1.openapi.yaml
-- **CloudRun API**: https://docs.cloudbase.net/openapi/cloudrun.v1.openapi.yaml
-- **Storage API**: https://docs.cloudbase.net/openapi/storage.v1.openapi.yaml
+Use `searchKnowledgeBase({ mode: "openapi", apiName: "<api-name>" })` with these API names:
+- `auth` - Authentication API
+- `mysqldb` - MySQL RESTful API
+- `functions` - Cloud Functions API
+- `cloudrun` - CloudRun API
+- `storage` - Storage API
 
-**How to use swagger files:**
-1. Download the swagger YAML/JSON file using curl or wget:
-   ```bash
-   curl -o mysqldb.yaml https://docs.cloudbase.net/openapi/mysqldb.v1.openapi.yaml
-   # Or: wget https://docs.cloudbase.net/openapi/mysqldb.v1.openapi.yaml -O mysqldb.yaml
-   ```
-2. Parse the file to extract:
+**How to use the OpenAPI documentation:**
+1. Call `searchKnowledgeBase` tool with the appropriate `apiName`
+2. Parse the returned YAML content to extract:
    - Endpoint paths (e.g., `/v1/rdb/rest/{table}`)
    - HTTP methods (GET, POST, PATCH, DELETE)
    - Path parameters, query parameters, request body schemas
@@ -400,6 +391,52 @@ Always check HTTP status codes and error response format:
 }
 ```
 
+## Common Authentication Flows
+
+> **🌟 IMPORTANT: Default Authentication Method**
+>
+> When no specific signup/signin method is specified by the user, **ALWAYS use Phone SMS Verification** as the default and recommended method. It is:
+> - ✅ The most user-friendly for Chinese users
+> - ✅ No password to remember
+> - ✅ Works for both new users (registration) and existing users (login)
+> - ✅ Most secure with OTP verification
+> - ✅ Supported by default in CloudBase
+
+### Phone Number Verification Code Login (Native Apps) ⭐ RECOMMENDED
+
+This is the **preferred** authentication flow for native mobile apps (iOS/Android/Flutter/React Native):
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│  Step 1: Send Verification Code                                        │
+│  POST /auth/v1/verification                                             │
+│  Body: { "phone_number": "+86 13800138000", "target": "ANY" }          │
+│  ⚠️ IMPORTANT: phone_number MUST include "+86 " prefix WITH SPACE      │
+│  Response: { "verification_id": "xxx", "expires_in": 600 }             │
+│  📝 SAVE verification_id for next step!                                 │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│  Step 2: Verify Code                                                    │
+│  POST /auth/v1/verification/verify                                      │
+│  Body: { "verification_id": "<saved_id>", "verification_code": "123456" }│
+│  Response: { "verification_token": "xxx" }                              │
+│  📝 SAVE verification_token for login!                                  │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│  Step 3: Sign In with Token                                             │
+│  POST /auth/v1/signin                                                   │
+│  Body: { "verification_token": "<saved_token>" }                        │
+│  Response: { "access_token": "xxx", "refresh_token": "xxx" }           │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+**⚠️ Critical Notes:**
+1. **Phone number format**: MUST be `"+86 13800138000"` with space after country code
+2. **Save `verification_id`**: Returned from Step 1, required for Step 2
+3. **Save `verification_token`**: Returned from Step 2, required for Step 3 
+
 ## Best Practices
 
 1. **Always use URL encoding** for query parameters containing special characters
@@ -411,4 +448,5 @@ Always check HTTP status codes and error response format:
    - AccessToken for user-specific operations
    - API Key for server-side admin operations
    - Publishable Key for public/anonymous access
-
+7. **Phone number format**: Always use international format with space: `"+86 13800138000"`
+8. **Verification flow**: Save `verification_id` from send step, use it in verify step

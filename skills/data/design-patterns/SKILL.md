@@ -1,259 +1,151 @@
 ---
-name: design-patterns
-description: Software design patterns for Python and C++ development. Use when implementing creational patterns (Factory, Builder, Singleton), structural patterns (Adapter, Decorator, Facade), or behavioral patterns (Strategy, Observer, Command). Covers Gang of Four patterns with language-specific implementations, when to use each pattern, and common anti-patterns to avoid.
+name: golang-design-patterns
+description: Go design patterns and refactoring skill. Use when refactoring complex code, reducing technical debt, or applying design patterns. Detects code smells and suggests pattern-based solutions.
+license: MIT
+metadata:
+  author: saifoelloh
+  version: "2.0.0"
+  parent_skill: golang-best-practices
+  sources:
+    - "Refactoring (Martin Fowler)"
+    - "Design Patterns (Gang of Four)"
+    - "Refactoring.Guru"
+  last_updated: "2026-01-22"
 ---
 
-# Software Design Patterns
+# Golang Design Patterns & Refactoring
 
-## Purpose
+Expert-level code refactoring and design pattern application for Go. Detects code smells, suggests refactoring strategies, and applies proven design patterns to improve maintainability.
 
-Guide for applying classic software design patterns in Python and C++ codebases. Patterns help solve common design problems with proven, reusable solutions.
+## When to Apply
 
-## When to Use This Skill
+Use this skill when:
+- Refactoring complex or legacy code
+- Reducing technical debt
+- Extracting reusable patterns
+- Simplifying large functions (God Objects)
+- Improving code maintainability
+- Applying Gang of Four patterns to Go
 
-Automatically activates when working on:
-- Creating factories or builders
-- Implementing plugin systems
-- Decoupling components
-- Managing object creation complexity
-- Adding extensibility to existing code
-- Refactoring tightly-coupled code
+## Rule Categories by Priority
 
----
+| Priority | Count | Focus |
+|----------|-------|-------|
+| High | 2 | Critical refactoring needs |
+| Medium | 11 | Code quality improvements |
 
-## Pattern Categories
+## Rules Covered (13 total)
 
-| Category | Purpose | Common Patterns |
-|----------|---------|-----------------|
-| **Creational** | Object creation mechanisms | Factory, Builder, Singleton |
-| **Structural** | Object composition | Adapter, Decorator, Facade |
-| **Behavioral** | Object communication | Strategy, Observer, Command |
+### High-Impact Patterns (2)
 
----
+- `high-god-object` - Extract logic from 300+ line functions
+- `high-extract-method` - Name complex code blocks with descriptive methods
 
-## Quick Reference: When to Use Each Pattern
+### Medium Improvements (11)
 
-| Problem | Pattern | Key Benefit |
-|---------|---------|-------------|
-| Create objects without specifying exact class | **Factory** | Decouples creation from usage |
-| Complex object with many optional parameters | **Builder** | Readable, step-by-step construction |
-| Ensure only one instance exists | **Singleton** | Global access (use sparingly!) |
-| Make incompatible interfaces work together | **Adapter** | Integration without modification |
-| Add behavior without modifying class | **Decorator** | Runtime extension |
-| Simplify complex subsystem | **Facade** | Single entry point |
-| Swap algorithms at runtime | **Strategy** | Flexible behavior |
-| Notify multiple objects of changes | **Observer** | Loose coupling |
-| Encapsulate requests as objects | **Command** | Undo/redo, queuing |
+- `medium-primitive-obsession` - Replace primitives with value objects
+- `medium-long-parameter-list` - Use parameter objects for >5 params
+- `medium-data-clumps` - Extract repeated parameter groups
+- `medium-feature-envy` - Move logic closer to data
+- `medium-magic-constants` - Replace magic numbers with named constants
+- `medium-builder-pattern` - Fluent API for complex construction
+- `medium-factory-constructor` - Validated object creation
+- `medium-introduce-parameter-object` - Group related parameters
+- `medium-switch-to-strategy` - Replace type switches with interfaces
+- `medium-middleware-decorator` - Decorator pattern for http.Handler
+- `medium-law-of-demeter` - Reduce coupling, avoid message chains
 
----
+## Common Refactoring Patterns
 
-## Most Common Patterns (Quick Examples)
+### God Object → Extracted Methods
+```go
+// ❌ 500 line function
+func (u *Usecase) Process() { ... }
 
-### Factory Method
-
-```python
-# Python
-class ControllerFactory:
-    _controllers = {"joint": JointController, "cartesian": CartesianController}
-
-    @classmethod
-    def create(cls, controller_type: str) -> Controller:
-        return cls._controllers[controller_type]()
-
-controller = ControllerFactory.create("joint")
+// ✅ Extracted methods
+func (u *Usecase) Process() {
+    u.validate()
+    u.transform()
+    u.persist()
+}
 ```
 
-```cpp
-// C++
-class ControllerFactory {
-public:
-    static std::unique_ptr<Controller> Create(const std::string& type) {
-        if (type == "joint") return std::make_unique<JointController>();
-        if (type == "cartesian") return std::make_unique<CartesianController>();
-        throw std::invalid_argument("Unknown type");
-    }
-};
+### Primitive Obsession → Value Object
+```go
+// ❌ Primitive types
+func CreateUser(email string) { ... }
+
+// ✅ Value object
+type Email struct { value string }
+func CreateUser(email Email) { ... }
 ```
 
-### Builder
+### Type Switch → Strategy Pattern
+```go
+// ❌ Type switch
+switch v := val.(type) { ... }
 
-```python
-# Python - Fluent builder
-config = (
-    RobotConfigBuilder("Apollo", joint_count=7)
-    .with_velocity(2.0)
-    .with_collision(False)
-    .build()
-)
+// ✅ Strategy pattern
+type Processor interface { Process() }
 ```
 
-```cpp
-// C++
-auto config = RobotConfig::Builder("Apollo", 7)
-    .WithVelocity(2.0)
-    .WithCollision(false)
-    .Build();
-```
+## Trigger Phrases
 
-### Strategy
+This skill activates when you say:
+- "Refactor this code"
+- "Reduce complexity"
+- "Extract methods from large function"
+- "Apply design patterns"
+- "Improve maintainability"
+- "Simplify this usecase"
+- "Find code smells"
 
-```python
-# Python - Swap algorithms at runtime
-class MotionController:
-    def __init__(self, generator: TrajectoryGenerator) -> None:
-        self._generator = generator
+## How to Use
 
-    def set_generator(self, generator: TrajectoryGenerator) -> None:
-        self._generator = generator
+### For Code Refactoring
 
-    def move(self, start: float, end: float) -> np.ndarray:
-        return self._generator.generate(start, end)
+1. Identify code smells (God Objects, long parameter lists, etc.)
+2. Apply appropriate refactoring pattern
+3. Verify tests still pass
+4. Check for improved readability
 
-controller = MotionController(LinearTrajectory())
-controller.set_generator(CubicTrajectory())  # Swap at runtime
-```
+### For Pattern Application
 
-### Observer
+1. Identify appropriate pattern for use case
+2. Apply pattern incrementally
+3. Ensure pattern improves, not complicates code
 
-```python
-# Python - Publish/subscribe
-class StatePublisher:
-    def __init__(self) -> None:
-        self._observers: list[StateObserver] = []
-
-    def subscribe(self, observer: StateObserver) -> None:
-        self._observers.append(observer)
-
-    def update_state(self, state: RobotState) -> None:
-        for observer in self._observers:
-            observer.on_state_change(state)
-
-publisher = StatePublisher()
-publisher.subscribe(Logger())
-publisher.subscribe(SafetyMonitor())
-```
-
-### Decorator
-
-```python
-# Python - Add behavior via decorators
-@timing
-@retry(max_attempts=3)
-@log_calls
-def send_command(joint_id: int, position: float) -> bool:
-    ...
-```
-
-### Facade
-
-```python
-# Python - Simplify complex subsystem
-class RobotFacade:
-    def move_to(self, target: Pose) -> bool:
-        if not self._safety.is_safe():
-            return False
-        trajectory = self._motion.plan(target)
-        if self._collision.check(trajectory):
-            return False
-        return self._controller.execute(trajectory)
-
-robot = RobotFacade()
-robot.move_to(target_pose)  # Simple interface
-```
-
----
-
-## Choosing the Right Pattern
-
-### Creational Patterns
-
-| Pattern | Choose When |
-|---------|-------------|
-| **Factory** | Don't know exact class until runtime |
-| **Abstract Factory** | Need families of related objects |
-| **Builder** | Many optional parameters, complex construction |
-| **Singleton** | Exactly one instance needed (hardware, config) |
-| **Prototype** | Cloning is cheaper than creating |
-
-### Structural Patterns
-
-| Pattern | Choose When |
-|---------|-------------|
-| **Adapter** | Converting interface A to interface B |
-| **Decorator** | Adding behavior without subclassing |
-| **Facade** | Simplifying complex API |
-| **Composite** | Tree structures, part-whole hierarchies |
-| **Proxy** | Lazy loading, access control, caching |
-| **Bridge** | Abstraction and implementation vary independently |
-
-### Behavioral Patterns
-
-| Pattern | Choose When |
-|---------|-------------|
-| **Strategy** | Multiple interchangeable algorithms |
-| **Observer** | One-to-many event notification |
-| **Command** | Undo/redo, request queuing |
-| **State** | Behavior depends on object state |
-| **Template Method** | Common algorithm, varying steps |
-| **Chain of Responsibility** | Multiple potential handlers |
-
----
-
-## Anti-Patterns to Avoid
-
-❌ **Singleton overuse** - Hides dependencies, makes testing hard
-❌ **God object** - One class that does everything
-❌ **Premature abstraction** - Adding patterns before they're needed
-❌ **Pattern mania** - Using patterns for their own sake
-❌ **Ignoring YAGNI** - Building extensibility you'll never use
-
----
-
-## Pattern Selection Flowchart
+## Output Format
 
 ```
-Need to create objects?
-├── Don't know class until runtime → Factory
-├── Many optional parameters → Builder
-├── Need exactly one instance → Singleton (carefully!)
-└── Need related object families → Abstract Factory
+## High Priority Refactoring: X
 
-Need to structure objects?
-├── Convert interface → Adapter
-├── Add behavior dynamically → Decorator
-├── Simplify complex API → Facade
-└── Tree structure → Composite
-
-Need to manage behavior?
-├── Swap algorithms → Strategy
-├── Notify on changes → Observer
-├── Undo/redo support → Command
-└── State-dependent behavior → State
+### [Rule Name] (Line Y)
+**Code Smell**: God Object / Long Parameter List / Primitive Obsession
+**Impact**: Hard to maintain / Test / Understand
+**Refactoring**: Extract Method / Introduce Parameter Object / Create Value Object
+**Example**:
+```go
+// Refactored code
 ```
 
----
+## Related Skills
 
-## Resource Files
+- [golang-clean-architecture](../clean-architecture/SKILL.md) - For usecase complexity patterns
+- [golang-idiomatic-go](../idiomatic-go/SKILL.md) - For interface design
 
-### [creational-patterns.md](resources/creational-patterns.md)
-Factory, Abstract Factory, Builder, Prototype, Singleton with full examples
+## Philosophy
 
-### [structural-patterns.md](resources/structural-patterns.md)
-Adapter, Bridge, Composite, Decorator, Facade, Proxy with full examples
+Based on Martin Fowler's Refactoring:
 
-### [behavioral-patterns.md](resources/behavioral-patterns.md)
-Strategy, Observer, Command, State, Template Method, Chain of Responsibility
+- **Code smells indicate problems** - Detect and address systematically
+- **Refactor incrementally** - Small, safe steps
+- **Patterns are solutions** - Apply when appropriate, not dogmatically
+- **Maintainability matters** - Code is read more than written
 
----
+## Notes
 
-## Related Resources
-
-- [Refactoring Guru - Design Patterns](https://refactoring.guru/design-patterns)
-- [python-dev-guidelines](../../python/python-dev-guidelines/SKILL.md)
-- [cpp-dev-guidelines](../../cpp/cpp-dev-guidelines/SKILL.md)
-
----
-
-**Skill Status**: COMPLETE ✅
-**Line Count**: < 450 ✅
-**Progressive Disclosure**: Resource files for detailed patterns ✅
+- Focus on common Go refactoring patterns
+- All patterns adapted for Go idioms
+- Emphasizes readability and maintainability
+- Includes Gang of Four patterns applicable to Go

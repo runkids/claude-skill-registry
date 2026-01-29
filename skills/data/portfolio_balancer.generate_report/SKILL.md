@@ -221,7 +221,7 @@ to perform in different economic conditions:
 - Cash/Treasuries (25%): Tight Money/Recession
 
 This workflow:
-1. Collects portfolio data via Claude Chrome extension (Robinhood) or manual CSV/PDF upload
+1. Collects portfolio data via `bin/robinhood positions --save` CLI
 2. Analyzes current allocation against 25/25/25/25 targets
 3. Tracks satellite stock picks (optional 10-20% of stock allocation)
 4. Evaluates margin usage efficiency vs fees paid

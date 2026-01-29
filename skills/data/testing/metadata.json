@@ -1,7 +1,7 @@
 {
   "name": "testing",
-  "repo": "appautomaton/agent-designer",
-  "path": ".codex/skills/testing/SKILL.md",
-  "source": "github.com/appautomaton/agent-designer",
-  "downloaded_at": "2026-01-28T04:39:13.997040Z"
+  "repo": "ZhiruiFeng/LocalAgentCrew",
+  "path": ".claude/skills/testing/SKILL.md",
+  "source": "github.com/ZhiruiFeng/LocalAgentCrew",
+  "downloaded_at": "2026-01-29T04:36:05.719502Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "fork-terminal",
-  "description": "Spawn parallel AI agents in new terminal windows for true concurrency",
   "repo": "agentpoet/Agentic-Coding-System-Self-Improving-Framework",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/agentpoet/Agentic-Coding-System-Self-Improving-Framework"
+  "path": ".claude/skills/fork-terminal/SKILL.md",
+  "source": "github.com/agentpoet/Agentic-Coding-System-Self-Improving-Framework",
+  "downloaded_at": "2026-01-29T03:04:38.822454Z"
 }

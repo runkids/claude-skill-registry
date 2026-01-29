@@ -283,3 +283,75 @@ const styles = StyleSheet.create({
 - [React Native TV Docs](https://reactnative.dev/docs/building-for-tv)
 - [Expo TV Guide](https://docs.expo.dev/guides/building-for-tv/)
 - [TVFocusGuideView Guide](https://dev.to/amazonappdev/tv-navigation-in-react-native-a-guide-to-using-tvfocusguideview-302i)
+
+
+---
+
+# Cross-Platform Troubleshooting (Also Applies to Apple TV)
+
+## TypeError: Cannot read property 'displayName' of undefined
+
+This error affects all TV platforms including Apple TV when using Expo.
+
+**Symptoms:**
+- App builds successfully but crashes immediately on launch
+- Metro shows: `ERROR TypeError: Cannot read property 'displayName' of undefined`
+
+**Common Causes & Fixes:**
+
+1. **Wrong import in index.js** (Most Common)
+   ```javascript
+   // ❌ WRONG - Named import when App uses default export
+   import { App } from './App';
+   
+   // ✅ CORRECT - Default import
+   import App from './App';
+   ```
+
+2. **Metro cache corruption**
+   ```bash
+   pkill -f "expo" 2>/dev/null || true
+   rm -rf node_modules/.cache /tmp/metro-* /tmp/haste-map-*
+   npx expo start --clear
+   ```
+
+3. **react-tv-space-navigation v6 missing configuration**
+   - v6.0.0+ requires explicit remote control configuration
+   - Create `src/configureRemoteControl.ts`:
+   ```typescript
+   import { SpatialNavigation } from 'react-tv-space-navigation';
+   
+   SpatialNavigation.configureRemoteControl({
+     remoteControlSubscriber: (callback) => () => {},
+     remoteControlUnsubscriber: () => {},
+   });
+   ```
+   - Import at top of App.tsx: `import './src/configureRemoteControl';`
+
+## Expo TV Build & Run Issues
+
+### Always Use Development Builds for TV
+
+```bash
+# ❌ May cause SDK version issues on TV simulators
+npx expo start
+
+# ✅ Correct for TV development
+npx expo run:ios   # Apple TV
+npx expo run:android  # Android TV
+# or
+npx expo start --dev-client
+```
+
+### Apple TV Simulator Quick Commands
+
+```bash
+# List available simulators
+xcrun simctl list devices available | grep -i tv
+
+# Boot Apple TV simulator
+xcrun simctl boot "Apple TV"
+
+# Run app
+npx expo run:ios --device "Apple TV"
+```

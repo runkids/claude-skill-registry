@@ -1,215 +1,141 @@
 ---
 name: drawio
-description: Create and edit draw.io diagrams in XML format. Use when the user wants to create flowcharts, architecture diagrams, sequence diagrams, or any visual diagrams. Handles XML structure, styling, fonts (Noto Sans JP), arrows, connectors, and PNG export.
+description: Generate draw.io diagrams programmatically using Python. Creates flowcharts, architecture diagrams, tree structures, network diagrams, and more. Use when the user requests a .drawio file, diagram, flowchart, or visual documentation.
+license: MIT
+metadata:
+  author: example
+  version: "1.1"
+  dependency-management: uv (PEP 723 inline script metadata)
 ---
 
-# Draw.io Diagram Skill
+# Draw.io Diagram Generation
 
-draw.ioファイル（.drawio）をXML形式で直接作成・編集するためのスキル。
+## Overview
 
-## XML基本構造
+This skill generates `.drawio` files using the **drawpyo** Python library. Draw.io diagrams are XML-based and can be opened in:
+- draw.io desktop app
+- diagrams.net (web)
+- VS Code draw.io extension
 
-```xml
-<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="Claude" version="21.0.0">
-  <diagram name="Page-1" id="page-1">
-    <mxGraphModel dx="1000" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0" defaultFontFamily="Noto Sans JP">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <!-- 図形要素をここに追加 -->
-      </root>
-    </mxGraphModel>
-  </diagram>
-</mxfile>
-```
+## Quick Start
 
-## mxCell要素
-
-### 矩形（Rectangle）
-
-```xml
-<mxCell id="rect-1" value="ラベル" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;" vertex="1" parent="1">
-  <mxGeometry x="100" y="100" width="120" height="60" as="geometry" />
-</mxCell>
-```
-
-### 角丸矩形（Rounded Rectangle）
-
-```xml
-<mxCell id="rounded-1" value="ラベル" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;arcSize=20;" vertex="1" parent="1">
-  <mxGeometry x="100" y="100" width="120" height="60" as="geometry" />
-</mxCell>
-```
-
-### 楕円（Ellipse）
-
-```xml
-<mxCell id="ellipse-1" value="ラベル" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;" vertex="1" parent="1">
-  <mxGeometry x="100" y="100" width="120" height="80" as="geometry" />
-</mxCell>
-```
-
-### ひし形（Diamond）
-
-```xml
-<mxCell id="diamond-1" value="条件" style="rhombus;whiteSpace=wrap;html=1;fontFamily=Noto Sans JP;fontSize=18;" vertex="1" parent="1">
-  <mxGeometry x="100" y="100" width="100" height="100" as="geometry" />
-</mxCell>
-```
-
-### テキスト（Text Only）
-
-```xml
-<mxCell id="text-1" value="テキスト" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Noto Sans JP;fontSize=18;" vertex="1" parent="1">
-  <mxGeometry x="100" y="100" width="120" height="30" as="geometry" />
-</mxCell>
-```
-
-## 矢印・コネクタ
-
-### 基本の矢印
-
-```xml
-<mxCell id="arrow-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Noto Sans JP;fontSize=14;" edge="1" parent="1" source="rect-1" target="rect-2">
-  <mxGeometry relative="1" as="geometry" />
-</mxCell>
-```
-
-### ラベル付き矢印
-
-```xml
-<mxCell id="arrow-2" value="ラベル" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Noto Sans JP;fontSize=14;" edge="1" parent="1" source="rect-1" target="rect-2">
-  <mxGeometry relative="1" as="geometry" />
-</mxCell>
-```
-
-### 点線矢印
-
-```xml
-<mxCell id="arrow-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;fontFamily=Noto Sans JP;fontSize=14;" edge="1" parent="1" source="rect-1" target="rect-2">
-  <mxGeometry relative="1" as="geometry" />
-</mxCell>
-```
-
-## スタイル設定ガイド
-
-### フォント設定（必須）
-
-1. `mxGraphModel`に`defaultFontFamily="Noto Sans JP"`を設定
-2. **すべてのテキスト要素**に`fontFamily=Noto Sans JP;`を明示的に追加
-
-### 推奨設定
-
-| 項目 | 推奨値 | 説明 |
-|------|--------|------|
-| fontSize | 18 | 標準の1.5倍、視認性向上 |
-| 日本語テキスト幅 | 30-40px/文字 | レイアウト計算用 |
-| 矢印とラベル間隔 | 20px以上 | 重なり防止 |
-
-### 色設定
-
-```text
-fillColor=#ffffff;      # 塗りつぶし色
-strokeColor=#000000;    # 枠線色
-fontColor=#333333;      # 文字色
-```
-
-### よく使う色
-
-| 用途 | 色コード |
-|------|----------|
-| 白背景 | #ffffff |
-| 薄い青 | #dae8fc |
-| 薄い緑 | #d5e8d4 |
-| 薄い黄 | #fff2cc |
-| 薄い赤 | #f8cecc |
-| 薄いグレー | #f5f5f5 |
-
-## 配置ルール
-
-### XMLの記述順 = 描画順
-
-- **先に書いたものが背面**に配置される
-- 矢印は図形より先（XMLの先頭側）に記述して最背面に配置
-
-### 推奨構造
-
-```xml
-<root>
-  <mxCell id="0" />
-  <mxCell id="1" parent="0" />
-
-  <!-- 1. 矢印・コネクタ（最背面） -->
-  <mxCell id="arrow-1" ... edge="1" ... />
-  <mxCell id="arrow-2" ... edge="1" ... />
-
-  <!-- 2. 図形（中間） -->
-  <mxCell id="rect-1" ... vertex="1" ... />
-  <mxCell id="rect-2" ... vertex="1" ... />
-
-  <!-- 3. テキストラベル（最前面） -->
-  <mxCell id="text-1" ... vertex="1" ... />
-</root>
-```
-
-## PNG変換
-
-### drawio-exportコマンド（推奨）
-
-Dockerコンテナ環境では、xvfb経由でヘッドレス実行する`drawio-export`コマンドを使用：
+All scripts include inline dependency metadata (PEP 723). Use `uv run` to execute them — dependencies are handled automatically in an isolated environment:
 
 ```bash
-drawio-export -x -f png -s 2 -t -o output.png input.drawio
+# No installation needed — uv handles dependencies automatically
+uv run scripts/create_flowchart.py steps.json /mnt/user-data/outputs/flow.drawio
 ```
 
-### drawio CLIコマンド（直接実行）
+For custom code, you can also use `uv run` with inline dependencies:
 
-ディスプレイ環境がある場合：
+```python
+#!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.10"
+# dependencies = ["drawpyo>=0.2.0"]
+# ///
+import drawpyo
 
-```bash
-drawio -x -f png -s 2 -t -o output.png input.drawio
+# Create a file and page
+file = drawpyo.File()
+file.file_path = "/home/claude"
+file.file_name = "diagram.drawio"
+page = drawpyo.Page(file=file)
+
+# Add a shape
+box = drawpyo.diagram.Object(page=page, value="Hello World")
+box.position = (100, 100)
+
+# Save
+file.write()
 ```
 
-### オプション一覧
+Then run with: `uv run my_script.py`
 
-| オプション | 説明 |
-|------------|------|
-| -x | エクスポートモード |
-| -f png | PNG形式（svg, pdf, vsdx等も可） |
-| -s 2 | 2倍スケール（高解像度） |
-| -t | 透明背景 |
-| -o | 出力ファイル指定 |
-| -p | ページ番号（0から開始） |
-| -b | ボーダーサイズ |
+## Decision Tree
 
-### 実行例
-
-```bash
-# 基本的なPNG出力
-drawio-export -x -f png -o diagram.png diagram.drawio
-
-# 高解像度（2倍スケール）+ 透明背景
-drawio-export -x -f png -s 2 -t -o diagram@2x.png diagram.drawio
-
-# SVG出力
-drawio-export -x -f svg -o diagram.svg diagram.drawio
-
-# 全ページをまとめてPDF出力
-drawio-export -x -f pdf -o diagram.pdf diagram.drawio
+```
+What type of diagram?
+├── Tree/Hierarchy (org chart, decision tree, file structure)
+│   └── Use TreeDiagram class (auto-layout) — see references/REFERENCE.md
+│
+├── Flowchart (sequential steps with decisions)
+│   └── Use helper script: scripts/create_flowchart.py
+│   └── Or write custom code with Object + Edge classes
+│
+├── Architecture/Network (boxes with connections)
+│   └── Write custom code using Object + Edge classes
+│   └── See references/REFERENCE.md
+│
+├── From structured data (CSV, JSON, dict)
+│   └── Use helper script: scripts/from_data.py
+│
+└── Complex/Custom
+    └── Write custom drawpyo code — see references/REFERENCE.md
 ```
 
-## 検証チェックリスト
+## Key Concepts
 
-作成後、以下を確認：
+### Objects (Shapes)
+```python
+# Basic rectangle
+obj = drawpyo.diagram.Object(page=page, value="Label")
+obj.position = (x, y)        # Coordinates in pixels
+obj.width = 120              # Default: 120
+obj.height = 60              # Default: 60
 
-- [ ] mxGraphModelにdefaultFontFamilyが設定されているか
-- [ ] 全テキスト要素にfontFamilyが明示的に設定されているか
-- [ ] fontSizeは18px程度か（視認性）
-- [ ] 矢印がXMLの先頭側に配置されているか（最背面）
-- [ ] 矢印とラベルの間隔は20px以上か
-- [ ] 日本語テキストの幅は十分か（30-40px/文字）
-- [ ] PNG出力で視覚確認したか
+# From draw.io shape library
+obj = drawpyo.diagram.object_from_library(
+    page=page,
+    library="general",       # or "flowchart", "basic", etc.
+    obj_name="process",      # shape name from library
+    value="Process Step"
+)
+```
 
-## テンプレート
+### Edges (Connections)
+```python
+edge = drawpyo.diagram.Edge(
+    page=page,
+    source=obj1,
+    target=obj2,
+    label="connects to"
+)
+```
 
-基本テンプレートは `references/templates/basic.drawio` を参照。
+### Styling
+```python
+# Apply a style string (same format as draw.io)
+obj.apply_style_string(
+    "rounded=1;whiteSpace=wrap;html=1;"
+    "fillColor=#dae8fc;strokeColor=#6c8ebf;"
+)
+```
+
+## Helper Scripts
+
+Run with `uv run` — dependencies are handled automatically:
+
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `scripts/create_flowchart.py` | Create flowcharts from step definitions | `uv run scripts/create_flowchart.py input.json output.drawio` |
+| `scripts/create_tree.py` | Create tree diagrams with auto-layout | `uv run scripts/create_tree.py input.json output.drawio` |
+| `scripts/from_data.py` | Create diagrams from JSON/dict data | `uv run scripts/from_data.py input.json output.drawio` |
+
+## Common Shape Libraries
+
+Use with `object_from_library(library=..., obj_name=...)`:
+
+- **general**: `rectangle`, `ellipse`, `process`, `diamond`, `parallelogram`, `hexagon`, `triangle`, `cylinder`, `cloud`, `document`, `note`, `actor`
+- **flowchart**: `terminator`, `process`, `decision`, `data`, `document`, `predefined_process`, `stored_data`, `internal_storage`, `manual_input`, `manual_operation`
+- **basic**: `rectangle`, `ellipse`, `rhombus`, `triangle`, `pentagon`, `hexagon`, `octagon`
+
+## Output
+
+Always save generated `.drawio` files to `/mnt/user-data/outputs/` and use the `present_files` tool to share with the user.
+
+## Next Steps
+
+- **references/REFERENCE.md**: Complete API documentation, styling options, all shape libraries
+- **references/examples.md**: Example code for common diagram types
+- **scripts/**: Ready-to-use helper scripts

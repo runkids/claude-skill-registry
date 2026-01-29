@@ -1,13 +1,7 @@
 {
   "name": "editing-hugo-documentation",
-  "description": "Senior editorial review for Hugo documentation sites. Performs comprehensive content audits including structure analysis, quality checks, consistency validation, information architecture review, front",
   "repo": "RogueRope/docs",
-  "category": "documents",
-  "tags": [
-    "editing",
-    "hugo",
-    "documentation"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/editing-hugo-documentation/SKILL.md",
+  "source": "github.com/RogueRope/docs",
+  "downloaded_at": "2026-01-29T02:34:28.916278Z"
 }

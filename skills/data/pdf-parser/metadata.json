@@ -1,9 +1,7 @@
 {
   "name": "pdf-parser",
-  "description": "Pdf Parser - Auto-activating skill for Business Automation.Triggers on: pdf parser, pdf parserPart of the Business Automation skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/pdf-parser/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-29T03:34:12.745382Z"
 }

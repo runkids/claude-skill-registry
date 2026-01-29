@@ -1,9 +1,7 @@
 {
   "name": "extracting-stitch-mockups",
-  "description": "Extracts generated mockup images from Google Stitch project pages. Use when user provides a Stitch project URL (stitch.withgoogle.com/projects/...), mentions extracting/downloading Stitch mockups, sav",
   "repo": "joaquimscosta/arkhe-claude-plugins",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/google-stitch/skills/extracting-stitch-mockups/SKILL.md",
+  "source": "github.com/joaquimscosta/arkhe-claude-plugins",
+  "downloaded_at": "2026-01-29T04:09:44.149678Z"
 }

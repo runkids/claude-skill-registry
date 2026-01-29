@@ -1,7 +1,7 @@
 {
   "name": "screen-reader-testing",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/accessibility-compliance/skills/screen-reader-testing/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-01-28T02:52:15.740869Z"
+  "repo": "Dknight203/AesopIDE",
+  "path": ".agent/skills/screen-reader-testing/SKILL.md",
+  "source": "github.com/Dknight203/AesopIDE",
+  "downloaded_at": "2026-01-29T04:04:30.338177Z"
 }

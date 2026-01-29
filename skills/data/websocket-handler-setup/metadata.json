@@ -1,9 +1,7 @@
 {
   "name": "websocket-handler-setup",
-  "description": "Websocket Handler Setup - Auto-activating skill for Backend Development.Triggers on: websocket handler setup, websocket handler setupPart of the Backend Development skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/websocket-handler-setup/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-29T03:34:16.830513Z"
 }

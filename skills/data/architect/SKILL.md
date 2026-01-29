@@ -1,282 +1,227 @@
 ---
 name: architect
-description: Design system and security architecture. Use for system design, architecture diagrams, technology selection, and security architecture.
-allowed-tools: Read, Write, Grep, Glob
-model_profile: architect_profile
+description: This skill designs industry-grade Cloudflare architectures with wrangler.toml generation, Mermaid diagrams, and Edge-Native Constraint validation. Use this skill when the user asks about "designing new systems", "planning migrations", "evaluating architecture options", or mentions "Node.js libraries" that may not work on Workers.
 ---
 
-# Architect Agent
+# Cloudflare Architect Skill
 
-## Identity
+Design production-ready Cloudflare architectures with proper service selection, wrangler configuration generation, visual diagrams, and Edge-Native Constraint enforcement.
 
-You are a senior system architect focused on designing scalable, secure, and maintainable systems. You specialize in:
+## Core Capabilities
 
-- **System Design**: Design system architecture for features and projects
-- **Architecture Diagrams**: Create component, sequence, deployment, and data flow diagrams
-- **Technology Selection**: Select appropriate technology stacks
-- **Security Architecture**: Design security architecture and threat models
-- **System Boundaries**: Define system boundaries and interfaces
-- **Context7 Integration**: Lookup architecture patterns and technology documentation from KB cache
-- **Industry Experts**: Consult domain experts for domain-specific architecture patterns
+1. **Architecture Design** - Service selection, data flow, scalability/cost trade-offs
+2. **Configuration Generation** - Complete wrangler.toml/jsonc with all bindings
+3. **Visual Documentation** - Mermaid diagrams for architecture and data flow
+4. **Edge-Native Validation** - Cross-reference code against Workers runtime compatibility
+5. **Workers + Assets** - Unified Worker with `[assets]` block for frontend + API
 
-## Instructions
+## Service Selection Matrix
 
-1. **Design System Architecture**:
-   - Analyze requirements and constraints
-   - Select appropriate architectural patterns
-   - Define system components and interactions
-   - Use Context7 KB cache for architecture patterns
-   - Consult Industry Experts for domain-specific patterns
+### Storage Selection
 
-2. **Create Architecture Diagrams**:
-   - Component diagrams (system structure)
-   - Sequence diagrams (interaction flows)
-   - Deployment diagrams (infrastructure)
-   - Data flow diagrams (data movement)
-   - Use text-based formats (ASCII, Mermaid, PlantUML)
+| Need | Service | Limits | Cost |
+|------|---------|--------|------|
+| Relational queries | D1 | 10GB, 128MB memory | $0.25/B reads, $1/M writes |
+| Key-value lookups | KV | 25MB/value, 1 write/sec/key | $0.50/M reads, $5/M writes |
+| Large files/blobs | R2 | 5TB/object | $0.36/M reads, $4.50/M writes |
+| Coordination/locks | Durable Objects | Per-object isolation | CPU time based |
+| Time-series metrics | Analytics Engine | Adaptive sampling | FREE |
+| Vector similarity | Vectorize | 1536 dims, 5M vectors | $0.01/M queries |
 
-3. **Select Technology Stack**:
-   - Evaluate options based on requirements
-   - Consider performance, scalability, cost
-   - Use Context7 KB cache for technology documentation
-   - Provide justification for selections
+### Compute Selection
 
-4. **Design Security Architecture**:
-   - Identify threats and vulnerabilities
-   - Design security controls and mitigations
-   - Follow OWASP Top 10 and security best practices
-   - Use Context7 KB cache for security patterns
+| Need | Service | Limits | Best For |
+|------|---------|--------|----------|
+| HTTP handlers | Workers (Isolates) | 128MB, 30s/req | API endpoints |
+| Background jobs | Queues | 128KB/msg, batches ≤100 | Async processing |
+| Long-running tasks | Workflows | 1024 steps, 1GB state | Multi-step pipelines |
+| Stateful coordination | Durable Objects | Per-object | Sessions, locks |
+| Scheduled jobs | Cron Triggers | 1-minute minimum | Periodic tasks |
+| OS-level dependencies | Containers (Beta) | Full Linux | FFmpeg, headless browsers |
 
-5. **Define System Boundaries**:
-   - Identify system boundaries and interfaces
-   - Define API contracts and data models
-   - Specify integration points
-   - Document external dependencies
+### AI/ML Selection
 
-## Commands
+| Need | Service | Cost | Best For |
+|------|---------|------|----------|
+| LLM inference | Workers AI | $0.011/1K neurons | Serverless AI |
+| LLM caching/logging | AI Gateway | Free tier + $0.10/M | Production AI |
+| Embeddings + search | Vectorize | Per-dimension | RAG, semantic search |
 
-### `*design-system {requirements} [--context] [--output-file]`
+## Workload Router
 
-Design system architecture for a feature or project.
+Select the right compute model:
 
-**Example:**
-```
-@design-system "Microservices e-commerce platform" --context "High traffic, multi-tenant" --output-file docs/architecture.md
-```
+- **Workers (Isolates)**: Standard APIs, database CRUD, AI inference via Workers AI
+- **Python Workers**: Pure Python scripts, AI SDKs (limited packages)
+- **Containers (Beta)**: FFmpeg, Puppeteer, numpy/pandas, long-running processes
 
-**Parameters:**
-- `requirements` (required): System requirements
-- `--context`: Additional context or constraints (project profile automatically included)
-- `--output-file`: Save architecture to file (default: `docs/architecture.md`)
+**See**: `references/workload-router.md` for decision trees and compatibility tables.
 
-**Project Profile Context:**
-- Project characteristics automatically included (deployment type, tenancy, scale, compliance, security)
-- Profile stored in `.tapps-agents/project-profile.yaml`
-- Ensures architecture aligns with project constraints (e.g., multi-tenant vs single-tenant, cloud vs on-prem)
+## Edge-Native Constraints
 
-**Context7 Integration:**
-- Looks up architecture patterns from KB cache
-- References microservices, monolith, serverless patterns
-- Uses cached documentation for technology stacks
+Workers use V8 isolates, NOT Node.js. Key incompatibilities:
 
-**Industry Experts:**
-- Auto-consults relevant domain experts
-- Uses weighted decision (51% primary expert, 49% split)
-- Incorporates domain-specific architecture patterns
+| Can't Use | Alternative |
+|-----------|-------------|
+| `express` | Hono, itty-router |
+| `fs` | R2 |
+| `pg`, `mysql2` | Hyperdrive |
+| `sharp` | Cloudflare Images |
+| `puppeteer` | Browser Rendering API |
+| `redis` | KV, Durable Objects |
 
-### `*architecture-diagram {description} [--diagram-type] [--output-file]`
+**See**: `references/edge-constraints.md` for full compatibility tables.
 
-Create architecture diagram (text-based).
+## Workers + Assets (Replaces Pages)
 
-**Example:**
-```
-@architecture-diagram "Microservices architecture with API gateway" --diagram-type component --output-file docs/diagram.txt
+For fullstack apps, use unified Worker with `[assets]` block:
+
+```jsonc
+{
+  "name": "fullstack-app",
+  "main": "src/worker.ts",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}
 ```
 
-**Diagram Types:**
-- `component`: Component diagram (system structure)
-- `sequence`: Sequence diagram (interaction flows)
-- `deployment`: Deployment diagram (infrastructure)
-- `class`: Class diagram (object relationships)
-- `data-flow`: Data flow diagram (data movement)
+**See**: `references/workers-assets.md` for migration from legacy `[site]` and Pages.
 
-**Output Formats:**
-- ASCII art
-- Mermaid syntax
-- PlantUML syntax
+## Wrangler Health Check
 
-### `*tech-selection {component} [--requirements] [--constraints]`
+Before designing, verify wrangler version:
 
-Select technology stack for a component.
-
-**Example:**
-```
-@tech-selection "Message queue service" --requirements "High throughput" "Low latency" --constraints "Python only"
+```bash
+npx wrangler --version
 ```
 
-**Context7 Integration:**
-- Looks up technology documentation from KB cache
-- Compares options using cached docs
-- Provides accurate API usage examples
+| Version | Status | Action |
+|---------|--------|--------|
+| 3.100+ | Current | Good to go |
+| 3.80-3.99 | Acceptable | Update when convenient |
+| <3.80 | Outdated | `npm install -g wrangler@latest` |
 
-### `*design-security {system} [--threat-model]`
+## Design Workflow
 
-Design security architecture.
+### Step 1: Requirements Gathering
 
-**Example:**
+Ask about:
+1. **Traffic patterns**: Requests/second, geographic distribution
+2. **Data characteristics**: Size, structure, access patterns
+3. **Processing needs**: Sync vs async, latency requirements
+4. **Budget constraints**: Target monthly cost
+5. **Compliance**: Data residency, encryption requirements
+
+### Step 2: Service Selection
+
+For each requirement, select appropriate service using the matrices above.
+
+### Step 3: Architecture Draft
+
+Create Mermaid diagram showing:
+- All Workers and their responsibilities
+- Storage bindings and data flow
+- Queue topology (if async processing)
+- External service integrations
+
+**See**: `references/architecture-templates.md` for pre-built templates.
+
+### Step 4: Configuration Generation
+
+Generate wrangler.jsonc with:
+- All bindings properly named
+- Environment-specific overrides
+- Proper placement mode
+- Observability enabled
+- Queue DLQs configured
+
+### Step 5: Cost Estimation
+
+Calculate monthly costs using service rates from the selection matrices.
+
+### Step 6: Review Checklist
+
+Before finalizing:
+- [ ] All queues have DLQs
+- [ ] D1 has appropriate indexes planned
+- [ ] Smart placement enabled for latency-sensitive
+- [ ] Observability configured
+- [ ] Secrets use wrangler secret (not vars)
+- [ ] Rate limiting for public APIs
+- [ ] `limits.cpu_ms` set appropriately
+
+## Billing Safety Limits
+
+**CRITICAL**: Set CPU limits to prevent runaway loops:
+
+```jsonc
+{
+  "limits": {
+    "cpu_ms": 100  // Kill execution if CPU churns >100ms
+  }
+}
 ```
-@design-security "Multi-tenant SaaS platform" --threat-model "OWASP Top 10"
-```
 
-**Context7 Integration:**
-- Looks up security patterns from KB cache
-- References OWASP Top 10, CWE, security best practices
-- Uses cached documentation for security frameworks
+| Use Case | cpu_ms |
+|----------|--------|
+| Simple API | 50-100 |
+| Database CRUD | 100-200 |
+| AI inference | 500-1000 |
+| Heavy processing | 5000 |
 
-### `*define-boundaries {system}`
-
-Define system boundaries and interfaces.
-
-**Example:**
-```
-@define-boundaries "Payment processing service"
-```
-
-### `*detect-patterns [--path {path}]`
-
-Detect architecture patterns from project layout (Layered, MVC, Clean/Hexagonal, CQRS, Microservices, etc.). Heuristics over directory structure; outputs pattern name, confidence, and evidence.
-
-**Example:** `@detect-patterns` or `@detect-patterns --path .`
-
-### `*docs {library}`
-
-Lookup library documentation from Context7 KB cache.
-
-**Example:**
-```
-@docs fastapi
-```
-
-## Context7 Integration
-
-**KB Cache Location:** `.tapps-agents/kb/context7-cache`
-
-**Usage:**
-- Lookup architecture patterns (microservices, monolith, serverless)
-- Reference technology documentation (frameworks, libraries)
-- Get security patterns and best practices
-- Auto-refresh stale entries (7 days default)
-
-**Commands:**
-- `*docs {library}` - Get library docs from KB cache
-- `*docs-refresh {library}` - Refresh library docs in cache
-
-**Cache Hit Rate Target:** 90%+ (pre-populate common libraries)
-
-## Project Profiling
-
-**Automatic Detection:**
-- Project characteristics are automatically detected and included in context
-- Profile includes: deployment type, tenancy model, user scale, compliance requirements, security level
-- Profile stored in `.tapps-agents/project-profile.yaml`
-- No manual configuration required
-
-**When Used:**
-- Automatically included in all architecture commands
-- Ensures architecture aligns with project constraints (e.g., multi-tenant vs single-tenant, cloud vs on-prem, compliance requirements)
-- Provides context-aware technology selection and security architecture
-
-## Industry Experts Integration
-
-**Configuration:** `.tapps-agents/experts.yaml`
-
-**Auto-Consultation:**
-- Automatically consults relevant domain experts for architecture patterns
-- Uses weighted decision system (51% primary expert, 49% split)
-- Incorporates domain-specific architecture knowledge
-
-**Domains:**
-- Software architecture experts
-- Domain-specific experts (healthcare, finance, etc.)
-- Security experts
-
-**Usage:**
-- Expert consultation happens automatically when relevant
-- Use `*consult {query} [domain]` for explicit consultation
-- Use `*validate {artifact} [artifact_type]` to validate architecture
-
-## Tiered Context System
-
-**Tier 2 (Extended Context):**
-- Current requirements and constraints
-- Existing system architecture
-- Related code files and patterns
-- Configuration files
-
-**Context Tier:** Tier 2 (needs extended context to understand existing systems)
-
-**Token Savings:** 70%+ by using extended context selectively
-
-## MCP Gateway Integration
-
-**Available Tools:**
-- `filesystem` (read/write): Read/write architecture files
-- `git`: Access version control history
-- `analysis`: Parse code structure and dependencies
-- `context7`: Library documentation lookup
-
-**Usage:**
-- Use MCP tools for file access and analysis
-- Context7 tool for library documentation
-- Git tool for architecture history and patterns
+**See**: `references/billing-safety.md` for anti-patterns and protection strategies.
 
 ## Output Format
 
-**Architecture Output:**
-```
-🏗️ System Architecture: {system}
+When designing an architecture, provide:
 
-Architecture Pattern: {pattern}
-Components:
-1. {component} - {description}
-   - Responsibilities: {responsibilities}
-   - Interfaces: {interfaces}
-   - Dependencies: {dependencies}
+1. **Requirements Summary** - Confirmed requirements
+2. **Architecture Diagram** - Mermaid visualization
+3. **Service Justification** - Why each service was chosen
+4. **Wrangler Configuration** - Complete, deployable config
+5. **Cost Estimate** - Monthly projection with breakdown
+6. **Migration Path** - If replacing existing system
+7. **Next Steps** - Implementation order
 
-Technology Stack:
-- {technology}: {justification}
+## Quick Reference Diagrams
 
-Security Architecture:
-- Threats: {threats}
-- Controls: {controls}
-- Mitigations: {mitigations}
-
-System Boundaries:
-- Internal: {internal}
-- External: {external}
-- Interfaces: {interfaces}
-
-Context7 References:
-- Pattern: {pattern}
-- Technology: {technology}
-
-Industry Expert Consultation:
-- {expert}: {insight}
+### Basic API
+```mermaid
+graph LR
+    Client --> W[Worker]
+    W --> D1[(D1)]
+    W --> KV[(KV Cache)]
 ```
 
-## Best Practices
+### Event Pipeline
+```mermaid
+graph LR
+    I[Ingest] --> Q[Queue] --> P[Processor]
+    P --> D1[(Storage)]
+    P -.->|failed| DLQ[Dead Letter]
+```
 
-1. **Always use Context7 KB cache** for architecture patterns and technology docs
-2. **Consult Industry Experts** for domain-specific architecture patterns
-3. **Consider scalability** - design for growth and change
-4. **Security first** - design security into the architecture
-5. **Document decisions** - explain why, not just what
-6. **Use tiered context** - extended context for complex systems
-7. **Validate with stakeholders** - ensure architecture meets requirements
+### Fullstack App
+```mermaid
+graph LR
+    Client -->|/*| Assets
+    Client -->|/api/*| API[Worker]
+    API --> D1[(D1)]
+```
 
-## Constraints
+## Related Skills
 
-- **No code execution** - focuses on design and documentation
-- **No implementation details** - focus on architecture, not code
-- **No deployment automation** - consult ops for deployment
+- **implement**: Scaffold code with Hono, Drizzle patterns
+- **loop-breaker**: Recursion guards for Worker-to-Worker calls
+- **guardian**: Security and budget auditing
+- **patterns**: Detailed architecture patterns (service-bindings, circuit-breaker, d1-batching)
 
+## Reference Files
+
+- `references/edge-constraints.md` - Node.js API and library compatibility
+- `references/workload-router.md` - Isolates vs Containers vs Python decision trees
+- `references/workers-assets.md` - Pages migration and unified Worker patterns
+- `references/architecture-templates.md` - Pre-built architecture configs
+- `references/billing-safety.md` - Loop protection and anti-patterns

@@ -1,9 +1,7 @@
 {
   "name": "api-endpoint",
-  "description": "Create REST or GraphQL API endpoints with proper validation, error handling, authentication, and documentation. Use when building backend APIs or serverless functions.",
-  "repo": "vapvarun/claude-backup",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/vapvarun/claude-backup"
+  "repo": "Holo00/IdeaForge",
+  "path": ".claude/skills/api-endpoint/SKILL.md",
+  "source": "github.com/Holo00/IdeaForge",
+  "downloaded_at": "2026-01-29T02:55:42.463921Z"
 }

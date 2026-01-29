@@ -1,119 +1,146 @@
 ---
 name: release
-description: Version management and release processes using Jetpack Changelogger. Use when creating releases, managing changelogs, bumping versions, or preparing patch releases.
+description: Releases Plain packages with intelligent version suggestions and parallel release notes generation. Use when releasing packages to PyPI.
 ---
 
-# ActivityPub Release Process
+# Release Packages
 
-Quick reference for managing releases and changelogs for the WordPress ActivityPub plugin.
+Release Plain packages with version bumping, changelog generation, and git tagging.
 
-## Quick Reference
+## Arguments
 
-### Release Commands
-```bash
-npm run release              # Create major/minor release PR.
+```
+/release [packages...] [--minor|--patch] [--force]
 ```
 
-### Version File Locations
-When updating versions manually, change these files:
-- `activitypub.php` - Plugin header (`Version: X.Y.Z`).
-- `readme.txt` - WordPress.org readme (`Stable tag: X.Y.Z`).
-- `package.json` - npm version (`"version": "X.Y.Z"`).
-- `CHANGELOG.md` - Changelog file (auto-updated by release script).
+- No args: discover all packages with changes, prompt for each
+- Package names: only release specified packages
+- `--minor`: auto-select minor release for all packages with changes
+- `--patch`: auto-select patch release for all packages with changes
+- `--force`: ignore dirty git status
 
-## Comprehensive Release Guide
+## Workflow
 
-See [Release Process](../../../docs/release-process.md) for complete release workflow and detailed steps.
+### Phase 1: Check Preconditions
 
-## Release Workflow
+1. Check git status is clean (unless `--force`):
 
-### Major/Minor Releases
+    ```
+    git status --porcelain
+    ```
 
-**Quick workflow:**
-```bash
-# 1. Run release script from plugin root.
-npm run release
+    If not clean, stop and ask user to commit or stash changes.
 
-# Script automatically:
-# - Determines version from changelog entries.
-# - Updates version numbers in all files.
-# - Updates CHANGELOG.md.
-# - Creates PR for review.
+### Phase 2: Discover Packages with Changes
 
-# 2. Review and merge the release PR.
+Run the discover-changes script to find packages with unreleased changes:
 
-# 3. Create GitHub release from trunk using the new tag.
+```
+./.claude/skills/release/discover-changes
 ```
 
-See [Release Process - Major/Minor](../../../docs/release-process.md) for detailed steps.
+This outputs JSON with each package's name, current version, and commits since last release.
+If specific packages were requested, filter the results to only those packages.
 
-### Patch Releases
+### Phase 3: Collect Release Decisions
 
-**Quick workflow:**
-```bash
-# 1. Create branch from the tag to patch.
-git fetch --tags
-git checkout -b tags/5.3.1 5.3.0  # Patch 5.3.0 -> 5.3.1
+For each package with changes:
 
-# 2. Cherry-pick merge commits from trunk (note -m 1 flag).
-git cherry-pick -m 1 <commit-hash>
+1. Display the commits since last version change
+2. **Analyze commits and suggest release type**:
+    - **Minor**: new features, breaking changes, significant additions, new APIs
+    - **Patch**: small bugfixes, minor tweaks, documentation updates, refactors
+3. Ask user to confirm or adjust (minor/patch/skip)
+    - If `--minor` or `--patch` was passed, auto-select that type
+    - Default to skip if user just presses Enter
 
-# 3. Update changelog and versions.
-composer changelog:write
+### Phase 4: Bump Versions
 
-# Manually update versions in:
-# - activitypub.php
-# - readme.txt
-# - package.json
+Run all version bumps in a single bash command to minimize context usage:
 
-# 4. Push branch and create GitHub release.
-git push -u origin tags/5.3.1
+```
+cd <path1> && uv version --bump <minor|patch> && cd <path2> && uv version --bump <minor|patch> && ...
 ```
 
-**Important:** Use `-m 1` flag when cherry-picking merge commits to select the mainline parent.
+Display the version changes (e.g., "plain-code: 0.19.0 → 0.20.0").
 
-See [Release Process - Patch Releases](../../../docs/release-process.md#patch-releases) for detailed steps.
+### Phase 5: Generate Release Notes
 
-## Changelog Management
+For each package to release, sequentially:
 
-### How It Works
+1. Get the file changes since the last release:
 
-Changelogs are managed automatically through the PR workflow:
+    ```
+    git diff <last_tag>..HEAD -- <name> ":(exclude)<name>/tests"
+    ```
 
-1. **PR Template** (`.github/PULL_REQUEST_TEMPLATE.md`):
-   - Check "Automatically create a changelog entry" checkbox.
-   - Select significance: Patch/Minor/Major.
-   - Select type: Added/Fixed/Changed/Deprecated/Removed/Security.
-   - Write message **ending with punctuation!**
+2. Read the existing `<changelog_path>` file.
 
-2. **GitHub Action** (`.github/workflows/changelog.yml`):
-   - Creates changelog file from PR description.
-   - Validates proper punctuation.
-   - Saves to `.github/changelog/` directory.
+3. Prepend a new release entry to the changelog with this format:
 
-3. **Release Process**:
-   - `npm run release` aggregates all entries.
-   - Updates `CHANGELOG.md` and `readme.txt` automatically.
-
-### Critical Requirements
-
-**Always end changelog messages with punctuation:**
 ```
-✅ Add support for custom post types.
-✅ Fix signature verification bug.
-❌ Add support for custom post types
-❌ Fix signature verification bug
+## [<new_version>](https://github.com/dropseed/plain/releases/<name>@<new_version>) (<today's date>)
+
+### What's changed
+
+- Summarize user-facing changes based on the actual diff (not just commit messages)
+- Include commit hash links: ([abc1234](https://github.com/dropseed/plain/commit/abc1234))
+- Skip test changes, internal refactors that don't affect public API
+
+### Upgrade instructions
+
+- Specific steps if any API changed
+- If no changes required: "- No changes required."
 ```
 
-**Never mention AI tools or coding assistants in changelog messages.**
+### Phase 6: Format and Sync
 
-See [PR Workflow - Changelog](../pr/SKILL.md#changelog-management) for complete changelog requirements.
+Run once after all changes:
 
-## Version Numbering
+```
+uv sync
+./scripts/fix
+```
 
-**Semantic versioning:**
-- **Major (X.0.0)** - Breaking changes.
-- **Minor (0.X.0)** - New features, backward compatible.
-- **Patch (0.0.X)** - Bug fixes only.
+### Phase 7: Commit Each Package
 
-The release script determines version automatically from changelog entry significance levels.
+Commit sub-packages first (plain-admin, plain-dev, etc.), then the core `plain` package last.
+
+For each sub-package:
+
+```
+git add <package>/pyproject.toml <package>/**/CHANGELOG.md
+git add-hunks uv.lock --grep "<package-with-dot>" --context
+git commit -m "Release <package> <version>" -n
+git tag -a "<package>@<version>" -m "Release <package> <version>"
+```
+
+Note: `<package-with-dot>` uses dot notation (e.g., "plain.dev" for plain-dev).
+
+For the core `plain` package (last), `git add uv.lock` directly since the grep pattern can't uniquely match it:
+
+```
+git add plain/pyproject.toml plain/**/CHANGELOG.md uv.lock
+git commit -m "Release plain <version>" -n
+git tag -a "plain@<version>" -m "Release plain <version>"
+```
+
+### Phase 8: Push
+
+Push all commits and tags:
+
+```
+git push --follow-tags
+```
+
+## Release Type Guidelines
+
+Since all packages are pre-1.0, use:
+
+- **Minor (0.x.0)**: New features, breaking changes, new APIs, significant additions
+- **Patch (0.0.x)**: Bugfixes, minor tweaks, documentation, refactors
+
+Analyze commit messages for keywords:
+
+- Minor indicators: "add", "new", "feature", "breaking", "remove", "rename API"
+- Patch indicators: "fix", "bugfix", "typo", "docs", "refactor", "update"

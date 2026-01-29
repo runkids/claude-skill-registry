@@ -1,4 +1,11 @@
-<!-- Propagated to cursor | Trit: -1 | Source: .ruler/skills/three-match -->
+---
+name: three-match
+description: 3-MATCH colored subgraph isomorphism gadget for 3-SAT reduction
+version: 1.0.0
+---
+
+
+<!-- Propagated to amp | Trit: 0 | Source: .ruler/skills/three-match -->
 
 # Three-Match Skill: 3-SAT via Colored Subgraph Isomorphism
 
@@ -173,8 +180,135 @@ Geodesic(PRIME, μ=1): #D8267F → #2CD826 → #4FD826 → ...
 
 ---
 
+## Correct-by-Construction Inline Caching (NEW 2025-12-22)
+
+The 3-MATCH principle applies to **Specter-style path caching**:
+
+### The Insight
+
+```
+Local constraint satisfaction → Global cache correctness
+```
+
+When path types are correct at compile time (local), cached paths are guaranteed correct (global).
+
+### Specter Path as 3-MATCH Gadget
+
+```julia
+# Each path element is a "color" in the gadget
+path = (ALL, pred(iseven), FIRST)
+#       -1       0          +1     → GF(3) = 0 ✓
+
+# The TupleNav wrapper is the "gadget envelope"
+compiled = TupleNav(path)  # Type-stable, 0 allocs
+
+# Execution is "correct by construction"
+result = nav_select(compiled, data, IDENTITY)
+```
+
+### Mapping to 3-MATCH Components
+
+| Specter | 3-MATCH | Property |
+|---------|---------|----------|
+| `Navigator` | Color | Individual constraint |
+| `TupleNav` | Gadget | Envelope preserving GF(3) |
+| Type inference | Möbius filtering | Eliminates invalid paths |
+| Inline caching | Non-backtracking | No revisiting (cached once) |
+
+### Event Stream
+
+Correct-by-construction events flow through the gadget:
+
+```julia
+# Event: Path compilation (happens once)
+PathCompiled(types::Tuple{...}) where all types stable
+
+# Event: Cache hit (no recompilation)
+CacheHit(compiled::TupleNav) where same types
+
+# Event: Traversal (GF(3) conserved)
+Traversal(input, output) where GF(3) sum = 0
+```
+
+### Benchmark Evidence
+
+The 93-113x speedup validates correct-by-construction:
+- **Original CPS**: Dynamic dispatch = "backtracking" in type space
+- **Optimized Tuple**: Static types = "prime path" through type space
+- **Result**: Functor structs achieve 1.0x overhead (zero cost!)
+
+### Files
+
+- `lib/specter_optimized.jl` - Correct-by-construction implementation
+- `lib/specter_chairmarks_world.jl` - Validation benchmarks
+
+---
+
 **Skill Name**: three-match
-**Type**: 3-SAT Reduction / Colored Subgraph Isomorphism
+**Type**: 3-SAT Reduction / Colored Subgraph Isomorphism / Inline Caching
 **Trit**: -1 (MINUS)
 **GF(3)**: Conserved by construction
 **Geodesics**: Non-backtracking (prime paths only)
+**Caching**: Type-stable paths as non-backtracking geodesics
+
+
+
+## Scientific Skill Interleaving
+
+This skill connects to the K-Dense-AI/claude-scientific-skills ecosystem:
+
+### Graph Theory
+- **networkx** [○] via bicomodule
+  - Universal graph hub
+
+### Bibliography References
+
+- `general`: 734 citations in bib.duckdb
+
+
+
+## SDF Interleaving
+
+This skill connects to **Software Design for Flexibility** (Hanson & Sussman, 2021):
+
+### Primary Chapter: 9. Generic Procedures
+
+**Concepts**: dispatch, multimethod, predicate dispatch, generic
+
+### GF(3) Balanced Triad
+
+```
+three-match (+) + SDF.Ch9 (○) + [balancer] (−) = 0
+```
+
+**Skill Trit**: 1 (PLUS - generation)
+
+### Secondary Chapters
+
+- Ch7: Propagators
+- Ch4: Pattern Matching
+- Ch10: Adventure Game Example
+
+### Connection Pattern
+
+Generic procedures dispatch on predicates. This skill selects implementations dynamically.
+## Cat# Integration
+
+This skill maps to **Cat# = Comod(P)** as a bicomodule in the equipment structure:
+
+```
+Trit: 0 (ERGODIC)
+Home: Prof
+Poly Op: ⊗
+Kan Role: Adj
+Color: #26D826
+```
+
+### GF(3) Naturality
+
+The skill participates in triads satisfying:
+```
+(-1) + (0) + (+1) ≡ 0 (mod 3)
+```
+
+This ensures compositional coherence in the Cat# equipment structure.

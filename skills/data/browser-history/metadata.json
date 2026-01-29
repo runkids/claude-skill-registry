@@ -1,9 +1,7 @@
 {
   "name": "browser-history",
-  "description": "Search local browser history. Use when user asks about visited pages, forgotten URLs, or time spent on sites.",
-  "repo": "samhvw8/dotfiles",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/samhvw8/dotfiles"
+  "repo": "brixtonpham/claude-config",
+  "path": "skills/browser-history/SKILL.md",
+  "source": "github.com/brixtonpham/claude-config",
+  "downloaded_at": "2026-01-29T04:18:23.010656Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "check-alerts",
-  "description": "Check currently firing Grafana alerts, analyze alert status, and investigate alert issues in the Kagenti platform",
   "repo": "redhat-et/kagenti-demo-deployment",
-  "category": "development",
-  "tags": [
-    "check",
-    "alerts"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/check-alerts/SKILL.md",
+  "source": "github.com/redhat-et/kagenti-demo-deployment",
+  "downloaded_at": "2026-01-29T03:52:14.237144Z"
 }

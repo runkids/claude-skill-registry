@@ -1,67 +1,144 @@
 ---
 name: agentic-patterns
-description: Design and operate multi-agent orchestration patterns (ReAct loops, evaluator-optimizer, orchestrator-workers, tool routing) for LLM systems. Use when building or debugging agent workflows, tool-use loops, or multi-step task delegation; triggers: agentic, multi-agent, orchestration, ReAct, evaluator-optimizer, tool-use, handoff.
+description: Agentic design patterns for building AI agents with Vercel AI SDK v5. Covers reflection, routing, parallelization, planning, tool-use, multi-agent, memory, and guardrails patterns with production-ready TypeScript implementations.
 ---
 
-# Agentic Patterns
+# Agentic Design Patterns for AI SDK v5
 
-## Overview
-Use simple, composable patterns to decide when to keep a deterministic workflow versus letting an LLM drive its own control flow with tools, retrieval, and memory. Prefer minimal patterns and add agentic loops only when they unlock necessary flexibility.
+A comprehensive guide to building intelligent AI agents using proven agentic design patterns, implemented with Vercel AI SDK v5 best practices.
 
-## When to Use
-- Use this skill when the request matches the frontmatter description and triggers; otherwise start with a deterministic workflow or a single prompt.
+## Available Patterns
 
-## Decision Tree
-1. Determine whether the task can be mapped to a fixed sequence.
-   - Yes: implement a workflow chain.
-   - No: continue.
-2. Determine whether the output can be evaluated with explicit criteria.
-   - Yes: use an evaluator-optimizer loop.
-   - No: continue.
-3. Determine whether the task decomposes into independent subtasks.
-   - Yes: use orchestrator-workers.
-   - No: add a routing step to clarify intent before tool calls.
+| Pattern | Description | Use When |
+|---------|-------------|----------|
+| [Reflection](#reflection) | Self-critique and iterative improvement | Quality-critical outputs, code generation |
+| [Routing](#routing) | Dynamic agent/model selection | Multi-domain tasks, specialized handlers |
+| [Parallelization](#parallelization) | Concurrent task execution | Independent subtasks, speed optimization |
+| [Planning](#planning) | Task decomposition and sequencing | Complex multi-step workflows |
+| [Tool Use](#tool-use) | External capability integration | API calls, database queries, actions |
+| [Multi-Agent](#multi-agent) | Orchestrated agent collaboration | Complex systems, specialized roles |
+| [Memory](#memory) | Context persistence and retrieval | Long conversations, knowledge bases |
+| [Guardrails](#guardrails) | Safety, validation, and constraints | Production systems, user-facing apps |
 
-## Workflows
+## Quick Reference
 
-### 1. Evaluator-Optimizer Loop
-1. Define an evaluator rubric with pass/fail criteria and required evidence.
-2. Generate an initial draft with the generator.
-3. Evaluate the draft with the rubric and capture structured feedback.
-4. Feed feedback into the generator and iterate until pass or max iterations.
+### Pattern Selection Guide
 
-### 2. Orchestrator-Worker Task Delegation
-1. Decompose the request into explicit subtasks with clear outputs.
-2. Assign each subtask to a specialized worker prompt or tool.
-3. Collect worker outputs and synthesize into a single answer.
-4. Run a final verification pass (self-check or evaluator) before returning.
+```
+Need self-improvement? ─────────────────────► Reflection
+Need specialized handling? ─────────────────► Routing
+Need speed with independent tasks? ─────────► Parallelization
+Need complex task breakdown? ────────────────► Planning
+Need external actions? ──────────────────────► Tool Use
+Need multiple specialized agents? ───────────► Multi-Agent
+Need persistent context? ────────────────────► Memory
+Need safety/validation? ─────────────────────► Guardrails
+```
 
-### 3. Tool Poka-Yoke Audit
-1. List all tools with names, parameters, and docstrings.
-2. Normalize parameter names and enforce concrete types (ids, paths, enums).
-3. Add minimal examples and edge cases to each docstring.
-4. Re-run a small task to confirm tool selection improves.
+### Pattern Combinations (Common)
 
-## Non-Obvious Insights
-- Composability beats complexity: small patterns are more reliable and easier to debug than full frameworks.
-- Tool metadata is part of the control surface; sloppy names or parameters cause misrouted tool selection.
-- Agentic systems rely on augmentations (retrieval, tools, memory), so design those explicitly, not as afterthoughts.
-- Poka-yoke tool design reduces execution errors without changing the model.
+| Combination | Use Case |
+|-------------|----------|
+| Planning + Tool Use | Task automation workflows |
+| Routing + Multi-Agent | Domain-specific expert systems |
+| Reflection + Guardrails | High-quality, safe outputs |
+| Memory + Multi-Agent | Persistent collaborative systems |
+| Parallelization + Routing | High-throughput classification |
 
-## Evidence
-- "the most successful implementations use simple, composable patterns rather than complex frameworks." - [Anthropic](https://www.anthropic.com/research/building-effective-agents)
-- "Workflows are systems where LLMs and tools are orchestrated through predefined code paths. Agents, on the other hand, are systems where LLMs dynamically direct their own processes and tool usage, maintaining control over how they accomplish tasks." - [Anthropic](https://www.anthropic.com/research/building-effective-agents)
-- "Evaluator-optimizer: one LLM call generates a response while another provides evaluation and feedback in a loop." - [Anthropic](https://www.anthropic.com/research/building-effective-agents)
-- "Poka-yoke your tools. Change the arguments so that it is harder to make mistakes." - [Anthropic](https://www.anthropic.com/research/building-effective-agents)
-- "When deciding what tool to use, your agent will use the tool's name, parameters, and docstring... So it's important to make sure the docstrings are descriptive and helpful." - [LlamaIndex](https://docs.llamaindex.ai/en/stable/understanding/agent/)
+## Pattern Details
 
-## Scripts
-- `scripts/agentic-patterns_tool.py`: CLI scaffolds for evaluator-optimizer, orchestrator-worker, and tool audit patterns.
-- `scripts/agentic-patterns_tool.js`: Node.js CLI with the same patterns.
+See individual pattern files in `patterns/` directory:
 
-## Dependencies
-- Python 3.11+ or Node 18+.
-- Optional: your LLM SDK (OpenAI/Anthropic/Gemini) for real generation/evaluation.
+- `patterns/reflection.md` - Self-critique loops
+- `patterns/routing.md` - Dynamic dispatch
+- `patterns/parallelization.md` - Concurrent execution
+- `patterns/planning.md` - Task decomposition
+- `patterns/tool-use.md` - External integrations
+- `patterns/multi-agent.md` - Agent orchestration
+- `patterns/memory.md` - Context management
+- `patterns/guardrails.md` - Safety patterns
 
-## References
-- [references/README.md](references/README.md)
+## AI SDK v5 Core Concepts
+
+### Key Functions
+
+```typescript
+import { generateText, streamText, generateObject } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { anthropic } from '@ai-sdk/anthropic';
+import { z } from 'zod';
+
+// Single response
+const { text } = await generateText({
+  model: openai('gpt-4o'),
+  prompt: 'Your prompt'
+});
+
+// Streaming response
+const { textStream } = await streamText({
+  model: anthropic('claude-sonnet-4-20250514'),
+  prompt: 'Your prompt'
+});
+
+// Structured output
+const { object } = await generateObject({
+  model: openai('gpt-4o'),
+  schema: z.object({ name: z.string() }),
+  prompt: 'Your prompt'
+});
+```
+
+### Agentic Loop Controls
+
+```typescript
+// Multi-step with termination control
+const { text, steps } = await generateText({
+  model: openai('gpt-4o'),
+  tools: { /* your tools */ },
+  maxSteps: 10,
+  stopWhen: stepCountIs(5), // Stop after 5 steps
+  onStepFinish: ({ stepType, toolCalls }) => {
+    console.log('Step completed:', stepType);
+  }
+});
+```
+
+### Tool Definition Pattern
+
+```typescript
+import { tool } from 'ai';
+import { z } from 'zod';
+
+const myTool = tool({
+  description: 'Clear description for LLM selection',
+  parameters: z.object({
+    param1: z.string().describe('What this parameter does'),
+    param2: z.number().optional()
+  }),
+  execute: async ({ param1, param2 }) => {
+    // Tool implementation
+    return { result: 'success' };
+  }
+});
+```
+
+## Usage
+
+When building an agent, invoke this skill to get pattern-specific guidance:
+
+1. **Describe your agent's goal**
+2. **Identify which patterns apply** (use selection guide above)
+3. **Read relevant pattern files** for implementation details
+4. **Combine patterns** as needed for complex agents
+
+## Credits
+
+Patterns informed by:
+- [Agentic Design Patterns by Antonio Gulli](https://github.com/sarwarbeing-ai/Agentic_Design_Patterns)
+- [Vercel AI SDK Documentation](https://ai-sdk.dev)
+- [Anthropic Agent Patterns](https://docs.anthropic.com)
+
+## Related Skills
+
+- `ai-sdk-best-practices` - Production best practices for AI SDK
+- `ai-sdk-planner` - Planning agent for AI SDK architectures

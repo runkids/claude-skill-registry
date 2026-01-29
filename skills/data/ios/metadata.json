@@ -1,7 +1,7 @@
 {
   "name": "ios",
-  "repo": "bytespell-oss/shella",
-  "path": ".claude/skills/ios/SKILL.md",
-  "source": "github.com/bytespell-oss/shella",
-  "downloaded_at": "2026-01-28T04:03:23.479601Z"
+  "repo": "raintree-technology/claude-starter",
+  "path": "templates/.claude/skills/ios/skill.md",
+  "source": "github.com/raintree-technology/claude-starter",
+  "downloaded_at": "2026-01-29T04:44:20.931548Z"
 }

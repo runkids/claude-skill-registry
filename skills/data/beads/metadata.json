@@ -1,7 +1,7 @@
 {
   "name": "beads",
-  "repo": "jasonkuhrt/dotfiles",
-  "path": "claude/skills/beads/SKILL.md",
-  "source": "github.com/jasonkuhrt/dotfiles",
-  "downloaded_at": "2026-01-28T04:15:10.377867Z"
+  "repo": "dbmcco/tmux-beads-loops",
+  "path": "skills/beads/SKILL.md",
+  "source": "github.com/dbmcco/tmux-beads-loops",
+  "downloaded_at": "2026-01-29T04:20:34.010290Z"
 }

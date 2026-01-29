@@ -1,7 +1,7 @@
 {
   "name": "gepetto",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/ai-research/gepetto/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-01-28T02:44:10.875209Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/gepetto/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-29T04:03:51.609106Z"
 }

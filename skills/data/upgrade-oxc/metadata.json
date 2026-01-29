@@ -1,7 +1,7 @@
 {
   "name": "upgrade-oxc",
-  "repo": "rolldown/rolldown",
-  "path": ".claude/skills/upgrade-oxc/SKILL.md",
-  "source": "github.com/rolldown/rolldown",
-  "downloaded_at": "2026-01-28T04:16:39.655807Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/upgrade-oxc/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-29T04:03:59.521473Z"
 }

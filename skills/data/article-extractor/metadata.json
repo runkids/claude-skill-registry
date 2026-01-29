@@ -1,7 +1,7 @@
 {
   "name": "article-extractor",
-  "repo": "tolgaio/neo",
-  "path": "skills/article-extractor/SKILL.md",
-  "source": "github.com/tolgaio/neo",
-  "downloaded_at": "2026-01-28T04:22:52.485126Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": ".claude/skills/article-extractor/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-29T04:39:15.488390Z"
 }

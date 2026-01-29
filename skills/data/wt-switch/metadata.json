@@ -1,11 +1,7 @@
 {
   "name": "wt-switch",
-  "description": "Switch development context to a different git worktree. Use when moving between different features or stories. Shows all available worktrees and provides navigation commands.",
   "repo": "michael-menard/monorepo",
-  "category": "development",
-  "tags": [
-    "switch"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/wt-switch/SKILL.md",
+  "source": "github.com/michael-menard/monorepo",
+  "downloaded_at": "2026-01-29T01:36:43.347517Z"
 }

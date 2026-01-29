@@ -1,9 +1,7 @@
 {
   "name": "ha-integration-reviewer",
-  "description": "严格的 Home Assistant 集成代码审查。用于提交 PR 前的全面检查，包括 Quality Scale 规则验证、代码风格、Config Flow、测试覆盖和文档。当用户说\"审查我的 HA 集成\"、\"检查我的代码是否符合 HA 规范\"、\"帮我 review 一下准备提交的代码\"时触发。",
   "repo": "niracler/skill",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "src/ha-integration-reviewer/SKILL.md",
+  "source": "github.com/niracler/skill",
+  "downloaded_at": "2026-01-29T02:49:00.671075Z"
 }

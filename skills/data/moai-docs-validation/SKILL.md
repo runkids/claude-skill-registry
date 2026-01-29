@@ -1,32 +1,21 @@
 ---
-name: moai-docs-validation
-version: 4.0.0
+name: "moai-docs-validation"
+version: "4.0.0"
 created: 2025-11-12
-updated: '2025-11-18'
+updated: 2025-11-12
 status: stable
 tier: specialization
-description: Enhanced docs validation with AI-powered features. Enhanced with Context7
-  MCP for up-to-date documentation.
-allowed-tools: Read, Glob, Grep, WebSearch, WebFetch, mcp__context7__resolve-library-id,
-  mcp__context7__get-library-docs
-primary-agent: doc-syncer
-secondary-agents:
-- alfred
-keywords:
-- docs
-- validation
-- auth
-- cd
-- test
-tags:
-- documentation
-orchestration: null
+description: "Enhanced docs validation with AI-powered features. Enhanced with Context7 MCP for up-to-date documentation."
+allowed-tools: "Read, Glob, Grep, WebSearch, WebFetch, mcp__context7__resolve-library-id, mcp__context7__get-library-docs"
+primary-agent: "doc-syncer"
+secondary-agents: [alfred]
+keywords: [docs, validation, auth, cd, test]
+tags: [documentation]
+orchestration: 
 can_resume: true
-typical_chain_position: terminal
+typical_chain_position: "terminal"
 depends_on: []
-stability: stable
 ---
-
 
 # moai-docs-validation
 
@@ -484,7 +473,7 @@ context7_references:
 
 ## 📈 Version History
 
-** .0** (2025-11-12)
+**v4.0.0** (2025-11-12)
 - ✨ Context7 MCP integration
 - ✨ Progressive Disclosure structure
 - ✨ 10+ code examples
@@ -497,6 +486,6 @@ context7_references:
 
 ---
 
-**Generated with**: MoAI-ADK Skill Factory    
+**Generated with**: MoAI-ADK Skill Factory v4.0  
 **Last Updated**: 2025-11-12  
 **Maintained by**: Primary Agent (doc-syncer)

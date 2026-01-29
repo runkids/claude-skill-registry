@@ -1,7 +1,7 @@
 {
   "name": "duckdb",
-  "repo": "silvainfm/paie_reflex",
-  "path": ".claude/skills/duckdb/SKILL.md",
-  "source": "github.com/silvainfm/paie_reflex",
-  "downloaded_at": "2026-01-28T04:37:03.665459Z"
+  "repo": "davidgasquez/dotfiles",
+  "path": "agents/skills/duckdb/SKILL.md",
+  "source": "github.com/davidgasquez/dotfiles",
+  "downloaded_at": "2026-01-29T02:41:55.050454Z"
 }

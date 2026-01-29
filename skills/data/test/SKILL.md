@@ -1,123 +1,46 @@
 ---
 name: test
-description: Testing patterns for PHPUnit and Playwright E2E tests. Use when writing tests, debugging test failures, setting up test coverage, or implementing test patterns for ActivityPub features.
+description: Use when you need to run tests for React core. Supports source, www, stable, and experimental channels.
 ---
 
-# ActivityPub Testing
+Run tests for the React codebase.
 
-This skill provides guidance on writing and running tests for the WordPress ActivityPub plugin.
+Arguments:
+- $ARGUMENTS: Channel, flags, and test pattern
 
-## Quick Reference
+Usage Examples:
+- `/test ReactFiberHooks` - Run with source channel (default)
+- `/test experimental ReactFiberHooks` - Run with experimental channel
+- `/test www ReactFiberHooks` - Run with www-modern channel
+- `/test www variant false ReactFiberHooks` - Test __VARIANT__=false
+- `/test stable ReactFiberHooks` - Run with stable channel
+- `/test classic ReactFiberHooks` - Run with www-classic channel
+- `/test watch ReactFiberHooks` - Run in watch mode (TDD)
 
-For complete testing commands and environment setup, see [Testing Reference](../../../tests/README.md).
+Release Channels:
+- `(default)` - Source/canary channel, uses ReactFeatureFlags.js defaults
+- `experimental` - Source/experimental channel with __EXPERIMENTAL__ flags = true
+- `www` - www-modern channel with __VARIANT__ flags = true
+- `www variant false` - www channel with __VARIANT__ flags = false
+- `stable` - What ships to npm
+- `classic` - Legacy www-classic (rarely needed)
 
-### Key Commands
-- **PHP:** `npm run env-test`
-- **E2E:** `npm run test:e2e`
-- **JavaScript:** `npm run test:unit`
+Instructions:
+1. Parse channel from arguments (default: source)
+2. Map to yarn command:
+   - (default) → `yarn test --silent --no-watchman <pattern>`
+   - experimental → `yarn test -r=experimental --silent --no-watchman <pattern>`
+   - stable → `yarn test-stable --silent --no-watchman <pattern>`
+   - classic → `yarn test-classic --silent --no-watchman <pattern>`
+   - www → `yarn test-www --silent --no-watchman <pattern>`
+   - www variant false → `yarn test-www --variant=false --silent --no-watchman <pattern>`
+3. Report test results and any failures
 
-## PHPUnit Testing
+Hard Rules:
+1. **Use --silent to see failures** - This limits the test output to only failures.
+2. **Use --no-watchman** - This is a common failure in sandboxing.
 
-### Test Structure
-
-```php
-<?php
-namespace Activitypub\Tests;
-
-use WP_UnitTestCase;
-
-class Test_Feature extends WP_UnitTestCase {
-    public function set_up(): void {
-        parent::set_up();
-        // Setup
-    }
-
-    public function tear_down(): void {
-        // Cleanup
-        parent::tear_down();
-    }
-
-    public function test_functionality() {
-        // Test implementation
-    }
-}
-```
-
-### Common Test Patterns
-
-For transformer and handler testing patterns, see [Testing Reference - Writing Effective Tests](../../../tests/README.md#writing-effective-tests).
-
-For mocking HTTP requests and other utilities, see [Testing Reference - Test Utilities](../../../tests/README.md#test-utilities).
-
-### Test Groups
-
-Use `@group` annotations:
-```php
-/**
- * @group activitypub
- * @group federation
- */
-public function test_federation_feature() {
-    // Test code
-}
-```
-
-## E2E Testing with Playwright
-
-### Basic E2E Test
-
-```javascript
-const { test, expect } = require('@playwright/test');
-
-test('ActivityPub settings page loads', async ({ page }) => {
-    await page.goto('/wp-admin/options-general.php?page=activitypub');
-    await expect(page.locator('h1')).toContainText('ActivityPub');
-});
-```
-
-### Testing Federation
-
-```javascript
-test('WebFinger discovery works', async ({ page }) => {
-    const response = await page.request.get('/.well-known/webfinger', {
-        params: {
-            resource: 'acct:admin@localhost:8888'
-        }
-    });
-
-    expect(response.ok()).toBeTruthy();
-    const json = await response.json();
-    expect(json.subject).toBe('acct:admin@localhost:8888');
-});
-```
-
-## Test Data Factories
-
-For creating test data (users, posts, comments), see [Testing Reference - Test Utilities](../../../tests/README.md#test-utilities).
-
-## Coverage Reports
-
-See [Testing Reference](../../../tests/README.md) for detailed coverage generation instructions.
-
-## Debugging Tests
-
-### Debug Output
-
-```php
-// In tests
-var_dump( $data );
-error_log( print_r( $result, true ) );
-
-// Run with verbose
-npm run env-test -- --verbose --debug
-```
-
-### Isolating Tests
-
-```bash
-# Run single test method
-npm run env-test -- --filter=test_specific_method
-
-# Stop on first failure
-npm run env-test -- --stop-on-failure
-```
+Common Mistakes:
+- **Running without a pattern** - Runs ALL tests, very slow. Always specify a pattern.
+- **Forgetting both www variants** - Test `www` AND `www variant false` for `__VARIANT__` flags.
+- **Test skipped unexpectedly** - Check for `@gate` pragma; see `feature-flags` skill.

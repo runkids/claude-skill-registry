@@ -1,12 +1,7 @@
 {
   "name": "terminal-expert",
-  "description": "This skill provides unified expert-level guidance for terminal implementation in VS Code extensions. Covers xterm.js API and addons, VS Code terminal architecture, PTY integration, session persistence",
   "repo": "s-hiraoku/vscode-sidebar-terminal",
-  "category": "development",
-  "tags": [
-    "terminal",
-    "expert"
-  ],
-  "stars": 6,
-  "source": "local"
+  "path": ".claude/skills/terminal-expert/SKILL.md",
+  "source": "github.com/s-hiraoku/vscode-sidebar-terminal",
+  "downloaded_at": "2026-01-29T02:49:56.403806Z"
 }

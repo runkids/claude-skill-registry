@@ -1,9 +1,7 @@
 {
   "name": "graphql-mutation-builder",
-  "description": "Graphql Mutation Builder - Auto-activating skill for API Development.Triggers on: graphql mutation builder, graphql mutation builderPart of the API Development skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/graphql-mutation-builder/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-29T03:34:18.659527Z"
 }

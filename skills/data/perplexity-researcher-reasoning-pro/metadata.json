@@ -1,9 +1,7 @@
 {
   "name": "perplexity-researcher-reasoning-pro",
-  "description": "Highest level of research and reasoning capabilities for complex decision-making with significant consequences, strategic planning, technical architecture decisions, multi-stakeholder problems, or hig",
   "repo": "d-o-hub/rust-self-learning-memory",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".opencode/skill/perplexity-researcher-reasoning-pro/SKILL.md",
+  "source": "github.com/d-o-hub/rust-self-learning-memory",
+  "downloaded_at": "2026-01-29T01:48:14.628541Z"
 }

@@ -1,11 +1,11 @@
-﻿---
+---
 name: repomix
 description: Package entire code repositories into single AI-friendly files using Repomix. Capabilities include pack codebases with customizable include/exclude patterns, generate multiple output formats (XML, Markdown, plain text), preserve file structure and context, optimize for AI consumption with token counting, filter by file types and directories, add custom headers and summaries. Use when packaging codebases for AI analysis, creating repository snapshots for LLM context, analyzing third-party libraries, preparing for security audits, generating documentation context, or evaluating unfamiliar codebases.
 ---
 
 # Repomix Skill
 
-Repomix packs entire repositories into single, AI-friendly files. Perfect for feeding codebases to LLMs like OpenCode, ChatGPT, and Gemini.
+Repomix packs entire repositories into single, AI-friendly files. Perfect for feeding codebases to LLMs like Claude, ChatGPT, and Gemini.
 
 ## When to Use
 
@@ -153,41 +153,9 @@ repomix --init  # creates repomix.config.json
 Repomix automatically counts tokens for individual files, total repository, and per-format output.
 
 Typical LLM context limits:
-- OpenCode Sonnet 4.5: ~200K tokens
+- Claude Sonnet 4.5: ~200K tokens
 - GPT-4: ~128K tokens
 - GPT-3.5: ~16K tokens
-
-### Token Count Optimization
-Understanding your codebase's token distribution is crucial for optimizing AI interactions. Use the --token-count-tree option to visualize token usage across your project:
-
-```bash
-repomix --token-count-tree
-```
-This displays a hierarchical view of your codebase with token counts:
-
-```
-ðŸ”¢ Token Count Tree:
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-â””â”€â”€ src/ (70,925 tokens)
-    â”œâ”€â”€ cli/ (12,714 tokens)
-    â”‚   â”œâ”€â”€ actions/ (7,546 tokens)
-    â”‚   â””â”€â”€ reporters/ (990 tokens)
-    â””â”€â”€ core/ (41,600 tokens)
-        â”œâ”€â”€ file/ (10,098 tokens)
-        â””â”€â”€ output/ (5,808 tokens)
-```
-You can also set a minimum token threshold to focus on larger files:
-
-```bash
-repomix --token-count-tree 1000  # Only show files/directories with 1000+ tokens
-```
-
-This helps you:
-
-- Identify token-heavy files that might exceed AI context limits
-- Optimize file selection using --include and --ignore patterns
-- Plan compression strategies by targeting the largest contributors
-- Balance content vs. context when preparing code for AI analysis
 
 ## Security Considerations
 
@@ -245,4 +213,3 @@ For detailed information, see:
 - GitHub: https://github.com/yamadashy/repomix
 - Documentation: https://repomix.com/guide/
 - MCP Server: Available for AI assistant integration
-

@@ -1,7 +1,7 @@
 {
   "name": "angular-di",
-  "repo": "ROU-Technology/ng-utils",
-  "path": ".agents/skills/angular-di/SKILL.md",
-  "source": "github.com/ROU-Technology/ng-utils",
-  "downloaded_at": "2026-01-28T03:52:59.005798Z"
+  "repo": "analogjs/angular-skills",
+  "path": "skills/angular-di/SKILL.md",
+  "source": "github.com/analogjs/angular-skills",
+  "downloaded_at": "2026-01-29T03:03:27.401747Z"
 }

@@ -1,424 +1,378 @@
 ---
 name: database-migration
-description: Execute database migrations across ORMs and platforms with zero-downtime strategies, data transformation, and rollback procedures. Use when migrating databases, changing schemas, performing data transformations, or implementing zero-downtime deployment strategies.
+description: Manage database schema changes with version control. Use when modifying DB schema, adding tables/columns, or setting up new projects. Covers Prisma, Drizzle, and migration best practices.
+allowed-tools: Read, Glob, Grep, Edit, Write, Bash
+license: MIT
+metadata:
+  author: antigravity-team
+  version: "1.0"
 ---
 
 # Database Migration
 
-Master database schema and data migrations across ORMs (Sequelize, TypeORM, Prisma), including rollback strategies and zero-downtime deployments.
+데이터베이스 스키마 변경을 버전 관리하는 스킬입니다.
 
-## When to Use This Skill
+## Core Principle
 
-- Migrating between different ORMs
-- Performing schema transformations
-- Moving data between databases
-- Implementing rollback procedures
-- Zero-downtime deployments
-- Database version upgrades
-- Data model refactoring
+> **"DB 스키마도 코드처럼 버전 관리한다."**
+> **"수동으로 ALTER TABLE 치는 순간, 협업이 망가진다."**
 
-## ORM Migrations
+## Rules
 
-### Sequelize Migrations
-```javascript
-// migrations/20231201-create-users.js
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users', {
-      id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-      },
-      email: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
-      },
-      createdAt: Sequelize.DATE,
-      updatedAt: Sequelize.DATE
-    });
-  },
+| 규칙 | 상태 | 설명 |
+|------|------|------|
+| 마이그레이션 파일 생성 | 🔴 필수 | 수동 SQL 실행 금지 |
+| 롤백 가능 | 🔴 필수 | down migration 필수 |
+| 순차 실행 | 🔴 필수 | 마이그레이션 순서 보장 |
+| 프로덕션 백업 | 🔴 필수 | 마이그레이션 전 백업 |
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('users');
-  }
-};
+## Prisma (권장)
 
-// Run: npx sequelize-cli db:migrate
-// Rollback: npx sequelize-cli db:migrate:undo
+### 초기 설정
+
+```bash
+# Prisma 설치
+npm install prisma @prisma/client
+
+# 초기화
+npx prisma init
+
+# .env에 DATABASE_URL 설정
+# DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
 ```
 
-### TypeORM Migrations
-```typescript
-// migrations/1701234567-CreateUsers.ts
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+### 스키마 정의
 
-export class CreateUsers1701234567 implements MigrationInterface {
-  public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.createTable(
-      new Table({
-        name: 'users',
-        columns: [
-          {
-            name: 'id',
-            type: 'int',
-            isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'increment'
-          },
-          {
-            name: 'email',
-            type: 'varchar',
-            isUnique: true
-          },
-          {
-            name: 'created_at',
-            type: 'timestamp',
-            default: 'CURRENT_TIMESTAMP'
-          }
-        ]
-      })
-    );
-  }
-
-  public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('users');
-  }
+```prisma
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
 }
 
-// Run: npm run typeorm migration:run
-// Rollback: npm run typeorm migration:revert
-```
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
-### Prisma Migrations
-```prisma
-// schema.prisma
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
+  name      String?
+  posts     Post[]
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-// Generate migration: npx prisma migrate dev --name create_users
-// Apply: npx prisma migrate deploy
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
 ```
 
-## Schema Transformations
+### 마이그레이션 워크플로우
 
-### Adding Columns with Defaults
-```javascript
-// Safe migration: add column with default
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn('users', 'status', {
-      type: Sequelize.STRING,
-      defaultValue: 'active',
-      allowNull: false
-    });
+```bash
+# 1. 스키마 변경 후 마이그레이션 생성
+npx prisma migrate dev --name add_user_table
+
+# 2. 마이그레이션 파일 확인
+ls prisma/migrations/
+
+# 3. 프로덕션 배포
+npx prisma migrate deploy
+
+# 4. 클라이언트 재생성
+npx prisma generate
+```
+
+### 마이그레이션 파일 구조
+
+```
+prisma/
+├── schema.prisma
+└── migrations/
+    ├── 20240101000000_init/
+    │   └── migration.sql
+    ├── 20240102000000_add_user_table/
+    │   └── migration.sql
+    └── migration_lock.toml
+```
+
+### 마이그레이션 명령어
+
+```bash
+# 개발: 마이그레이션 생성 + 적용
+npx prisma migrate dev --name <migration_name>
+
+# 프로덕션: 마이그레이션만 적용
+npx prisma migrate deploy
+
+# 상태 확인
+npx prisma migrate status
+
+# 리셋 (⚠️ 개발용만)
+npx prisma migrate reset
+```
+
+## Drizzle ORM
+
+### 초기 설정
+
+```bash
+# Drizzle 설치
+npm install drizzle-orm postgres
+npm install -D drizzle-kit
+```
+
+### 스키마 정의
+
+```typescript
+// src/db/schema.ts
+import { pgTable, serial, text, timestamp, boolean, integer } from 'drizzle-orm/pg-core';
+
+export const users = pgTable('users', {
+  id: serial('id').primaryKey(),
+  email: text('email').notNull().unique(),
+  name: text('name'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+
+export const posts = pgTable('posts', {
+  id: serial('id').primaryKey(),
+  title: text('title').notNull(),
+  content: text('content'),
+  published: boolean('published').default(false),
+  authorId: integer('author_id').references(() => users.id),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+```
+
+### drizzle.config.ts
+
+```typescript
+import type { Config } from 'drizzle-kit';
+
+export default {
+  schema: './src/db/schema.ts',
+  out: './drizzle',
+  driver: 'pg',
+  dbCredentials: {
+    connectionString: process.env.DATABASE_URL!,
   },
-
-  down: async (queryInterface) => {
-    await queryInterface.removeColumn('users', 'status');
-  }
-};
+} satisfies Config;
 ```
 
-### Renaming Columns (Zero Downtime)
-```javascript
-// Step 1: Add new column
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn('users', 'full_name', {
-      type: Sequelize.STRING
-    });
+### 마이그레이션 명령어
 
-    // Copy data from old column
-    await queryInterface.sequelize.query(
-      'UPDATE users SET full_name = name'
-    );
-  },
+```bash
+# 마이그레이션 생성
+npx drizzle-kit generate:pg
 
-  down: async (queryInterface) => {
-    await queryInterface.removeColumn('users', 'full_name');
-  }
-};
+# 마이그레이션 적용
+npx drizzle-kit push:pg
 
-// Step 2: Update application to use new column
-
-// Step 3: Remove old column
-module.exports = {
-  up: async (queryInterface) => {
-    await queryInterface.removeColumn('users', 'name');
-  },
-
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn('users', 'name', {
-      type: Sequelize.STRING
-    });
-  }
-};
+# 스키마 시각화
+npx drizzle-kit studio
 ```
 
-### Changing Column Types
-```javascript
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    // For large tables, use multi-step approach
+## 마이그레이션 Best Practices
 
-    // 1. Add new column
-    await queryInterface.addColumn('users', 'age_new', {
-      type: Sequelize.INTEGER
-    });
+### 1. 작은 단위로 마이그레이션
 
-    // 2. Copy and transform data
-    await queryInterface.sequelize.query(`
-      UPDATE users
-      SET age_new = CAST(age AS INTEGER)
-      WHERE age IS NOT NULL
-    `);
+```sql
+-- ❌ BAD: 한 번에 많은 변경
+-- migration: big_refactor
+ALTER TABLE users ADD COLUMN age INT;
+ALTER TABLE users ADD COLUMN address TEXT;
+ALTER TABLE users DROP COLUMN old_field;
+CREATE TABLE new_table (...);
+DROP TABLE old_table;
 
-    // 3. Drop old column
-    await queryInterface.removeColumn('users', 'age');
+-- ✅ GOOD: 작은 단위로 분리
+-- migration: add_user_age
+ALTER TABLE users ADD COLUMN age INT;
 
-    // 4. Rename new column
-    await queryInterface.renameColumn('users', 'age_new', 'age');
-  },
-
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.changeColumn('users', 'age', {
-      type: Sequelize.STRING
-    });
-  }
-};
+-- migration: add_user_address
+ALTER TABLE users ADD COLUMN address TEXT;
 ```
 
-## Data Transformations
+### 2. 안전한 컬럼 추가
 
-### Complex Data Migration
-```javascript
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    // Get all records
-    const [users] = await queryInterface.sequelize.query(
-      'SELECT id, address_string FROM users'
-    );
+```sql
+-- ❌ BAD: NOT NULL without default (기존 데이터 문제)
+ALTER TABLE users ADD COLUMN status TEXT NOT NULL;
 
-    // Transform each record
-    for (const user of users) {
-      const addressParts = user.address_string.split(',');
+-- ✅ GOOD: default 값 포함
+ALTER TABLE users ADD COLUMN status TEXT NOT NULL DEFAULT 'active';
 
-      await queryInterface.sequelize.query(
-        `UPDATE users
-         SET street = :street,
-             city = :city,
-             state = :state
-         WHERE id = :id`,
-        {
-          replacements: {
-            id: user.id,
-            street: addressParts[0]?.trim(),
-            city: addressParts[1]?.trim(),
-            state: addressParts[2]?.trim()
-          }
-        }
-      );
-    }
-
-    // Drop old column
-    await queryInterface.removeColumn('users', 'address_string');
-  },
-
-  down: async (queryInterface, Sequelize) => {
-    // Reconstruct original column
-    await queryInterface.addColumn('users', 'address_string', {
-      type: Sequelize.STRING
-    });
-
-    await queryInterface.sequelize.query(`
-      UPDATE users
-      SET address_string = CONCAT(street, ', ', city, ', ', state)
-    `);
-
-    await queryInterface.removeColumn('users', 'street');
-    await queryInterface.removeColumn('users', 'city');
-    await queryInterface.removeColumn('users', 'state');
-  }
-};
+-- 또는 nullable로 추가 후 나중에 마이그레이션
+ALTER TABLE users ADD COLUMN status TEXT;
+UPDATE users SET status = 'active' WHERE status IS NULL;
+ALTER TABLE users ALTER COLUMN status SET NOT NULL;
 ```
 
-## Rollback Strategies
+### 3. 안전한 컬럼 삭제
 
-### Transaction-Based Migrations
-```javascript
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction();
+```sql
+-- ❌ BAD: 바로 삭제
+ALTER TABLE users DROP COLUMN old_field;
 
-    try {
-      await queryInterface.addColumn(
-        'users',
-        'verified',
-        { type: Sequelize.BOOLEAN, defaultValue: false },
-        { transaction }
-      );
-
-      await queryInterface.sequelize.query(
-        'UPDATE users SET verified = true WHERE email_verified_at IS NOT NULL',
-        { transaction }
-      );
-
-      await transaction.commit();
-    } catch (error) {
-      await transaction.rollback();
-      throw error;
-    }
-  },
-
-  down: async (queryInterface) => {
-    await queryInterface.removeColumn('users', 'verified');
-  }
-};
+-- ✅ GOOD: 단계적 삭제
+-- Step 1: 코드에서 컬럼 사용 제거
+-- Step 2: 배포 후 안정화 확인
+-- Step 3: 마이그레이션으로 컬럼 삭제
 ```
 
-### Checkpoint-Based Rollback
-```javascript
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    // Create backup table
-    await queryInterface.sequelize.query(
-      'CREATE TABLE users_backup AS SELECT * FROM users'
-    );
+### 4. 인덱스 추가
 
-    try {
-      // Perform migration
-      await queryInterface.addColumn('users', 'new_field', {
-        type: Sequelize.STRING
-      });
+```sql
+-- ❌ BAD: 큰 테이블에 동기 인덱스 생성 (락 발생)
+CREATE INDEX idx_users_email ON users(email);
 
-      // Verify migration
-      const [result] = await queryInterface.sequelize.query(
-        "SELECT COUNT(*) as count FROM users WHERE new_field IS NULL"
-      );
-
-      if (result[0].count > 0) {
-        throw new Error('Migration verification failed');
-      }
-
-      // Drop backup
-      await queryInterface.dropTable('users_backup');
-    } catch (error) {
-      // Restore from backup
-      await queryInterface.sequelize.query('DROP TABLE users');
-      await queryInterface.sequelize.query(
-        'CREATE TABLE users AS SELECT * FROM users_backup'
-      );
-      await queryInterface.dropTable('users_backup');
-      throw error;
-    }
-  }
-};
+-- ✅ GOOD: CONCURRENTLY 사용 (PostgreSQL)
+CREATE INDEX CONCURRENTLY idx_users_email ON users(email);
 ```
 
-## Zero-Downtime Migrations
+## 롤백 전략
 
-### Blue-Green Deployment Strategy
-```javascript
-// Phase 1: Make changes backward compatible
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    // Add new column (both old and new code can work)
-    await queryInterface.addColumn('users', 'email_new', {
-      type: Sequelize.STRING
-    });
-  }
-};
+### Prisma 롤백
 
-// Phase 2: Deploy code that writes to both columns
+```bash
+# 마지막 마이그레이션 롤백
+npx prisma migrate resolve --rolled-back <migration_name>
 
-// Phase 3: Backfill data
-module.exports = {
-  up: async (queryInterface) => {
-    await queryInterface.sequelize.query(`
-      UPDATE users
-      SET email_new = email
-      WHERE email_new IS NULL
-    `);
-  }
-};
-
-// Phase 4: Deploy code that reads from new column
-
-// Phase 5: Remove old column
-module.exports = {
-  up: async (queryInterface) => {
-    await queryInterface.removeColumn('users', 'email');
-  }
-};
+# 또는 특정 시점으로 복구
+npx prisma migrate reset  # ⚠️ 개발용만!
 ```
 
-## Cross-Database Migrations
+### 수동 롤백 스크립트
 
-### PostgreSQL to MySQL
-```javascript
-// Handle differences
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    const dialectName = queryInterface.sequelize.getDialect();
-
-    if (dialectName === 'mysql') {
-      await queryInterface.createTable('users', {
-        id: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
-          autoIncrement: true
-        },
-        data: {
-          type: Sequelize.JSON  // MySQL JSON type
-        }
-      });
-    } else if (dialectName === 'postgres') {
-      await queryInterface.createTable('users', {
-        id: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
-          autoIncrement: true
-        },
-        data: {
-          type: Sequelize.JSONB  // PostgreSQL JSONB type
-        }
-      });
-    }
-  }
-};
+```sql
+-- migrations/20240102_add_status/down.sql
+ALTER TABLE users DROP COLUMN status;
 ```
 
-## Resources
+## CI/CD 통합
 
-- **references/orm-switching.md**: ORM migration guides
-- **references/schema-migration.md**: Schema transformation patterns
-- **references/data-transformation.md**: Data migration scripts
-- **references/rollback-strategies.md**: Rollback procedures
-- **assets/schema-migration-template.sql**: SQL migration templates
-- **assets/data-migration-script.py**: Data migration utilities
-- **scripts/test-migration.sh**: Migration testing script
+### GitHub Actions
 
-## Best Practices
+```yaml
+# .github/workflows/migrate.yml
+name: Database Migration
 
-1. **Always Provide Rollback**: Every up() needs a down()
-2. **Test Migrations**: Test on staging first
-3. **Use Transactions**: Atomic migrations when possible
-4. **Backup First**: Always backup before migration
-5. **Small Changes**: Break into small, incremental steps
-6. **Monitor**: Watch for errors during deployment
-7. **Document**: Explain why and how
-8. **Idempotent**: Migrations should be rerunnable
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'prisma/**'
 
-## Common Pitfalls
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-- Not testing rollback procedures
-- Making breaking changes without downtime strategy
-- Forgetting to handle NULL values
-- Not considering index performance
-- Ignoring foreign key constraints
-- Migrating too much data at once
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run migrations
+        run: npx prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+```
+
+### 마이그레이션 검증
+
+```yaml
+# PR에서 마이그레이션 유효성 검사
+jobs:
+  validate-migration:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run migrations on test DB
+        run: npx prisma migrate deploy
+        env:
+          DATABASE_URL: postgresql://postgres:test@localhost:5432/test
+```
+
+## 프로덕션 체크리스트
+
+### 마이그레이션 전
+
+- [ ] 데이터베이스 백업 완료
+- [ ] 마이그레이션 SQL 리뷰 완료
+- [ ] 테스트 환경에서 검증 완료
+- [ ] 롤백 계획 준비
+- [ ] 유지보수 알림 (필요시)
+
+### 마이그레이션 중
+
+- [ ] 모니터링 대시보드 확인
+- [ ] 에러 로그 모니터링
+- [ ] 락 타임아웃 확인
+
+### 마이그레이션 후
+
+- [ ] 애플리케이션 정상 동작 확인
+- [ ] 데이터 무결성 확인
+- [ ] 성능 저하 여부 확인
+
+## Workflow
+
+### 개발 시
+
+```
+1. 스키마 파일 수정 (schema.prisma)
+2. npx prisma migrate dev --name <description>
+3. 생성된 SQL 확인
+4. Git 커밋 (스키마 + 마이그레이션 파일)
+```
+
+### 배포 시
+
+```
+1. PR 머지
+2. CI에서 npx prisma migrate deploy 실행
+3. 프로덕션 확인
+4. (문제 시) 롤백 실행
+```
+
+## Checklist
+
+- [ ] 마이그레이션 도구 설정 (Prisma/Drizzle)
+- [ ] 마이그레이션 파일 Git 추적
+- [ ] CI/CD에 마이그레이션 단계 추가
+- [ ] 롤백 스크립트 준비
+- [ ] 프로덕션 백업 자동화
+
+## References
+
+- [Prisma Migrate](https://www.prisma.io/docs/concepts/components/prisma-migrate)
+- [Drizzle Kit](https://orm.drizzle.team/kit-docs/overview)
+- [Zero-downtime migrations](https://planetscale.com/blog/safely-making-database-schema-changes)

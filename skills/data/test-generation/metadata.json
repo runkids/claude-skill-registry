@@ -1,7 +1,7 @@
 {
   "name": "test-generation",
-  "repo": "NickCrew/claude-cortex",
-  "path": "skills/test-generation/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-28T03:14:41.087995Z"
+  "repo": "vneseyoungster/ChocoVine",
+  "path": ".claude/skills/validation/test-generation/SKILL.md",
+  "source": "github.com/vneseyoungster/ChocoVine",
+  "downloaded_at": "2026-01-29T03:15:26.070811Z"
 }

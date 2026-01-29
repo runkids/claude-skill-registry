@@ -1,38 +1,24 @@
 ---
-name: moai-baas-auth0-ext
-version: 4.0.0
+name: "moai-baas-auth0-ext"
+version: "4.0.0"
 created: 2025-11-11
-updated: '2025-11-18'
+updated: 2025-11-13
 status: stable
-description: Enterprise Auth0 Identity Platform with AI-powered authentication architecture,
-  Context7 integration, and intelligent identity orchestration for scalable enterprise
-  SSO and compliance
-keywords:
-- auth0
-- enterprise-authentication
-- sso
-- saml
-- oidc
-- identity-platform
-- compliance
-- context7-integration
-- ai-orchestration
-- production-deployment
-allowed-tools:
-- Read
-- Bash
-- Write
-- Edit
-- Glob
-- Grep
-- WebFetch
-- mcp__context7__resolve-library-id
-- mcp__context7__get-library-docs
-stability: stable
+description: Enterprise Auth0 Identity Platform with AI-powered authentication architecture, Context7 integration, and intelligent identity orchestration for scalable enterprise SSO and compliance
+keywords: ['auth0', 'enterprise-authentication', 'sso', 'saml', 'oidc', 'identity-platform', 'compliance', 'context7-integration', 'ai-orchestration', 'production-deployment']
+allowed-tools: 
+  - Read
+  - Bash
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebFetch
+  - mcp__context7__resolve-library-id
+  - mcp__context7__get-library-docs
 ---
 
-
-# Enterprise Auth0 Identity Platform Expert 
+# Enterprise Auth0 Identity Platform Expert v4.0.0
 
 ## Skill Metadata
 
@@ -50,7 +36,7 @@ stability: stable
 
 Enterprise Auth0 Identity Platform expert with AI-powered authentication architecture, Context7 integration, and intelligent identity orchestration for scalable enterprise SSO and compliance requirements.
 
-**Revolutionary  capabilities**:
+**Revolutionary v4.0.0 capabilities**:
 - 🤖 **AI-Powered Identity Architecture** using Context7 MCP for latest Auth0 documentation
 - 📊 **Intelligent SSO Orchestration** with automated provider integration optimization
 - 🚀 **Real-time Security Analytics** with AI-driven threat detection and response
@@ -431,7 +417,7 @@ class GDPRComplianceManager:
 
 ## Changelog
 
-- ** .0** (2025-11-13): Complete Enterprise   rewrite with 40% content reduction, 4-layer Progressive Disclosure structure, Context7 integration, November 2025 Auth0 platform updates, and advanced enterprise SSO patterns
+- **v4.0.0** (2025-11-13): Complete Enterprise v4.0 rewrite with 40% content reduction, 4-layer Progressive Disclosure structure, Context7 integration, November 2025 Auth0 platform updates, and advanced enterprise SSO patterns
 - **v2.0.0** (2025-11-11): Complete metadata structure, SSO patterns, security configurations
 - **v1.0.0** (2025-11-11): Initial Auth0 enterprise identity platform
 
@@ -456,4 +442,4 @@ class GDPRComplianceManager:
 
 ---
 
-**End of Enterprise Auth0 Identity Platform Expert **
+**End of Enterprise Auth0 Identity Platform Expert v4.0.0**

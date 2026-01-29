@@ -1,7 +1,7 @@
 {
   "name": "test-data-management",
-  "repo": "pmcfadin/cqlite",
+  "repo": "proffesor-for-testing/sentinel-api-testing",
   "path": ".claude/skills/test-data-management/SKILL.md",
-  "source": "github.com/pmcfadin/cqlite",
-  "downloaded_at": "2026-01-28T03:20:05.440177Z"
+  "source": "github.com/proffesor-for-testing/sentinel-api-testing",
+  "downloaded_at": "2026-01-29T01:56:46.608432Z"
 }

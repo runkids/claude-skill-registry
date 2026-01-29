@@ -1,7 +1,7 @@
 {
   "name": "convex-schema-validator",
-  "repo": "blocknavi/convex-batch-processor",
-  "path": ".claude/skills/convex-schema-validator/SKILL.md",
-  "source": "github.com/blocknavi/convex-batch-processor",
-  "downloaded_at": "2026-01-28T02:46:51.906015Z"
+  "repo": "waynesutton/convexskills",
+  "path": "skills/convex-schema-validator/SKILL.md",
+  "source": "github.com/waynesutton/convexskills",
+  "downloaded_at": "2026-01-29T03:56:15.552031Z"
 }

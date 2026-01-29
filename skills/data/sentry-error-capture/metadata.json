@@ -1,11 +1,7 @@
 {
   "name": "sentry-error-capture",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Advanced error capture and context enrichment with Sentry.Use when implementing detailed error tracking, adding context,or customizing error capture behavior.Trigger with phrases like \"sentry error ca",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:01.669142Z",
-  "dir_name": "sentry-error-capture",
-  "github_path": "plugins/saas-packs/sentry-pack/skills/sentry-error-capture",
-  "github_branch": "main"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/sentry-error-capture/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-29T03:34:14.492218Z"
 }

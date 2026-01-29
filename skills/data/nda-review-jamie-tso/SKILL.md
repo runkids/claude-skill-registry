@@ -3,7 +3,7 @@ name: nda-review-jamie-tso
 description: Guide to review incoming one-way (unilateral) commercial NDAs in a jurisdiction-agnostic way, from either a Recipient or Discloser perspective (user-selected), producing a clause-by-clause issue log with preferred redlines, fallbacks, rationales, owners, and deadlines.
 metadata:
   author: Jamie Tso
-  license: Apache 2.0
+  license: AGPL-3.0
 ---
 
 # NDA Review Playbook (Commercial, Jurisdiction-Agnostic)

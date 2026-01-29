@@ -1,11 +1,7 @@
 {
   "name": "jujutsu",
-  "description": "Guide to Jujutsu (jj) version control system. Use when working with commits, branches, version control, rebasing, or when the user mentions jj, git, or version control operations.",
-  "repo": "cryfs/cryfs",
-  "category": "design",
-  "tags": [
-    "jujutsu"
-  ],
-  "stars": 2188,
-  "source": "SkillsMP Synced Skills"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/jujutsu/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-29T04:03:52.105168Z"
 }

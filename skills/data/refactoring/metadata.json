@@ -1,7 +1,7 @@
 {
   "name": "refactoring",
-  "repo": "RomualdP/hoki",
-  "path": ".claude/skills/refactoring/SKILL.md",
-  "source": "github.com/RomualdP/hoki",
-  "downloaded_at": "2026-01-28T03:48:47.498188Z"
+  "repo": "tikazyq/agentic-spec-forge",
+  "path": "AGENTIC_SPEC_FORGE/spec_stage_skill/execspec_fulfill/refactoring/SKILL.md",
+  "source": "github.com/tikazyq/agentic-spec-forge",
+  "downloaded_at": "2026-01-29T04:12:10.983503Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "create-unit-test",
-  "description": "Create and run unit tests following the project's architecture and guidelines (Robolectric, naming, location).",
   "repo": "AnySoftKeyboard/janus",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/AnySoftKeyboard/janus"
+  "path": ".claude/skills/create-unit-test/SKILL.md",
+  "source": "github.com/AnySoftKeyboard/janus",
+  "downloaded_at": "2026-01-29T03:48:54.223521Z"
 }

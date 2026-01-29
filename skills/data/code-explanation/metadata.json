@@ -1,7 +1,7 @@
 {
   "name": "code-explanation",
-  "repo": "NickCrew/claude-cortex",
-  "path": "claude_ctx_py/assets/skills/code-explanation/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-28T03:14:43.532364Z"
+  "repo": "joaquimscosta/arkhe-claude-plugins",
+  "path": "plugins/doc/skills/code-explanation/SKILL.md",
+  "source": "github.com/joaquimscosta/arkhe-claude-plugins",
+  "downloaded_at": "2026-01-29T04:09:43.170311Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "create-skill",
-  "repo": "PackmindHub/packmind",
-  "path": ".github/skills/create-skill/SKILL.md",
-  "source": "github.com/PackmindHub/packmind",
-  "downloaded_at": "2026-01-28T04:36:27.418296Z"
+  "repo": "seanchiuai/path-finder",
+  "path": ".claude/skills/create-skill/SKILL.md",
+  "source": "github.com/seanchiuai/path-finder",
+  "downloaded_at": "2026-01-29T04:29:56.676106Z"
 }

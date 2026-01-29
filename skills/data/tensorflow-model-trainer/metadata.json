@@ -1,7 +1,7 @@
 {
   "name": "tensorflow-model-trainer",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "path": "skills/07-ml-training/tensorflow-model-trainer/SKILL.md",
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
-  "downloaded_at": "2026-01-27T03:43:03.734148Z"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/tensorflow-model-trainer/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-29T03:34:18.373236Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "database-schema-design",
-  "repo": "MUmerRazzaq/fast-next-todo",
-  "path": ".claude/skills/database-schema-design/SKILL.md",
-  "source": "github.com/MUmerRazzaq/fast-next-todo",
-  "downloaded_at": "2026-01-28T01:25:40.067663Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/database-schema-design/skills/database-schema-design/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-29T03:11:01.304253Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "kubernetes-manifests",
-  "description": "Use when writing and deploying Kubernetes manifests for container orchestration.",
-  "repo": "TheBushidoCollective/han",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "kcns008/cluster-skills",
+  "path": "skills/kubernetes-manifests/SKILL.md",
+  "source": "github.com/kcns008/cluster-skills",
+  "downloaded_at": "2026-01-29T01:25:48.581991Z"
 }

@@ -1,737 +1,368 @@
 ---
 name: api-testing
-description: Write and run API tests with Vitest for endpoints, middleware, and integrations. Use when testing API functionality, request/response validation, error handling.
-allowed-tools: Read, Edit, Write, Bash, Grep, Glob
+description: Test FastAPI endpoints with pytest and generate API documentation. Use when creating new APIs or verifying existing endpoints work correctly.
+allowed-tools: Read, Write, Bash, Glob, Grep
 ---
 
-# API Testing Skill
-
-This skill helps you write comprehensive API tests using Vitest for the Hono-based API service.
+You help test FastAPI endpoints for the QA Team Portal backend using pytest and manual testing tools.
 
 ## When to Use This Skill
 
-- Testing API endpoints and routes
-- Validating request/response payloads
-- Testing middleware and error handling
-- Integration testing with database
-- Testing workflows and background jobs
-- Authentication and authorization testing
-- Rate limiting and caching tests
+- Testing new API endpoints after creation
+- Verifying authentication/authorization works
+- Testing CRUD operations
+- Checking error handling and validation
+- Load/stress testing APIs
+- Generating API documentation examples
 
-## Testing Framework
+## Testing Approaches
 
-The project uses **Vitest** for API testing:
-- Fast execution with native ESM support
-- Compatible with Jest API
-- TypeScript support out of the box
-- V8 coverage reporting
-- Watch mode for development
+### 1. Automated Testing with Pytest
 
-## Project Configuration
+#### Unit Tests (Fast, Isolated)
 
-### Vitest Config
+```python
+# tests/unit/test_team_service.py
+import pytest
+from app.services.team_service import TeamService
 
-```typescript
-// apps/api/vitest.config.ts
-import { defineConfig } from "vitest/config";
+def test_validate_team_member_data():
+    service = TeamService()
+    data = {"name": "John Doe", "role": "QA Lead"}
+    assert service.validate(data) is True
 
-export default defineConfig({
-  test: {
-    globals: true,
-    environment: "node",
-    coverage: {
-      provider: "v8",
-      reporter: ["text", "json", "html"],
-      exclude: [
-        "node_modules/",
-        "__tests__/",
-        "dist/",
-        "*.config.ts",
-      ],
-    },
-    setupFiles: ["__tests__/setup.ts"],
-  },
-});
+def test_validate_rejects_invalid_email():
+    service = TeamService()
+    data = {"name": "John", "email": "invalid"}
+    with pytest.raises(ValueError):
+        service.validate(data)
 ```
 
-### Test Setup
+#### Integration Tests (Full API Flow)
 
-```typescript
-// apps/api/__tests__/setup.ts
-import { beforeAll, afterAll, beforeEach } from "vitest";
-import { db } from "../src/config/database";
+```python
+# tests/integration/test_api_team_members.py
+import pytest
+from fastapi.testclient import TestClient
+from app.main import app
 
-beforeAll(async () => {
-  // Connect to test database
-  console.log("Setting up test database...");
-});
+client = TestClient(app)
 
-afterAll(async () => {
-  // Clean up connections
-  console.log("Cleaning up test database...");
-});
+def test_get_team_members():
+    response = client.get("/api/v1/team-members")
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
 
-beforeEach(async () => {
-  // Clear test data before each test
-  // await db.delete(testTable);
-});
+def test_create_team_member_requires_auth():
+    data = {"name": "John Doe", "role": "QA Lead"}
+    response = client.post("/api/v1/team-members", json=data)
+    assert response.status_code == 401
+
+def test_create_team_member_with_auth(admin_token):
+    headers = {"Authorization": f"Bearer {admin_token}"}
+    data = {
+        "name": "John Doe",
+        "role": "QA Lead",
+        "email": "john@example.com"
+    }
+    response = client.post("/api/v1/team-members", json=data, headers=headers)
+    assert response.status_code == 201
+    assert response.json()["name"] == "John Doe"
+
+def test_update_team_member(admin_token, test_team_member):
+    headers = {"Authorization": f"Bearer {admin_token}"}
+    data = {"name": "Jane Doe"}
+    response = client.put(
+        f"/api/v1/team-members/{test_team_member.id}",
+        json=data,
+        headers=headers
+    )
+    assert response.status_code == 200
+    assert response.json()["name"] == "Jane Doe"
+
+def test_delete_team_member(admin_token, test_team_member):
+    headers = {"Authorization": f"Bearer {admin_token}"}
+    response = client.delete(
+        f"/api/v1/team-members/{test_team_member.id}",
+        headers=headers
+    )
+    assert response.status_code == 204
 ```
 
-## Test Structure
+#### Pytest Fixtures
 
-### File Organization
+```python
+# tests/conftest.py
+import pytest
+from fastapi.testclient import TestClient
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from app.main import app
+from app.db.base import Base
+from app.api.deps import get_db
 
-```
-apps/api/
-├── __tests__/
-│   ├── setup.ts                    # Test setup
-│   ├── helpers.ts                  # Test utilities
-│   ├── routes/
-│   │   ├── cars.test.ts           # Cars endpoints
-│   │   ├── coe.test.ts            # COE endpoints
-│   │   └── health.test.ts         # Health check
-│   ├── workflows/
-│   │   ├── update-car-data.test.ts
-│   │   └── social-media.test.ts
-│   └── middleware/
-│       ├── auth.test.ts           # Auth middleware
-│       └── error.test.ts          # Error handling
-```
+# Test database
+SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
+TestingSessionLocal = sessionmaker(bind=engine)
 
-## Testing Hono Endpoints
+@pytest.fixture(scope="function")
+def db():
+    Base.metadata.create_all(bind=engine)
+    db = TestingSessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+        Base.metadata.drop_all(bind=engine)
 
-### Basic Endpoint Test
+@pytest.fixture
+def client(db):
+    def override_get_db():
+        try:
+            yield db
+        finally:
+            db.close()
+    app.dependency_overrides[get_db] = override_get_db
+    return TestClient(app)
 
-```typescript
-// apps/api/__tests__/routes/health.test.ts
-import { describe, it, expect } from "vitest";
-import app from "../../src/index";
+@pytest.fixture
+def admin_token(client):
+    response = client.post("/api/v1/auth/login", json={
+        "email": "admin@test.com",
+        "password": "testpass123"
+    })
+    return response.json()["access_token"]
 
-describe("Health Check", () => {
-  it("should return 200 OK", async () => {
-    const res = await app.request("/health");
-
-    expect(res.status).toBe(200);
-    expect(await res.json()).toEqual({ status: "ok" });
-  });
-
-  it("should include timestamp", async () => {
-    const res = await app.request("/health");
-    const data = await res.json();
-
-    expect(data).toHaveProperty("timestamp");
-    expect(typeof data.timestamp).toBe("string");
-  });
-});
-```
-
-### Testing GET Endpoints
-
-```typescript
-// apps/api/__tests__/routes/cars.test.ts
-import { describe, it, expect, beforeEach } from "vitest";
-import app from "../../src/index";
-import { db } from "../../src/config/database";
-import { cars } from "@sgcarstrends/database/schema";
-
-describe("GET /api/v1/cars/makes", () => {
-  beforeEach(async () => {
-    // Seed test data
-    await db.insert(cars).values([
-      { make: "Toyota", model: "Corolla", month: "2024-01", number: 100 },
-      { make: "Honda", model: "Civic", month: "2024-01", number: 80 },
-    ]);
-  });
-
-  it("should return list of car makes", async () => {
-    const res = await app.request("/api/v1/cars/makes");
-
-    expect(res.status).toBe(200);
-
-    const data = await res.json();
-    expect(data).toHaveLength(2);
-    expect(data[0]).toHaveProperty("make");
-    expect(data[0]).toHaveProperty("count");
-  });
-
-  it("should filter by month", async () => {
-    const res = await app.request("/api/v1/cars/makes?month=2024-01");
-
-    expect(res.status).toBe(200);
-
-    const data = await res.json();
-    expect(data).toHaveLength(2);
-  });
-
-  it("should return 400 for invalid month format", async () => {
-    const res = await app.request("/api/v1/cars/makes?month=invalid");
-
-    expect(res.status).toBe(400);
-    expect(await res.json()).toHaveProperty("error");
-  });
-});
+@pytest.fixture
+def test_team_member(db):
+    from app.models.team_member import TeamMember
+    member = TeamMember(
+        name="Test User",
+        role="QA Engineer",
+        email="test@test.com"
+    )
+    db.add(member)
+    db.commit()
+    db.refresh(member)
+    return member
 ```
 
-### Testing POST Endpoints
+### 2. Manual Testing with curl
 
-```typescript
-// apps/api/__tests__/routes/blog.test.ts
-import { describe, it, expect } from "vitest";
-import app from "../../src/index";
+```bash
+# Health check
+curl http://localhost:8000/health
 
-describe("POST /api/v1/blog/posts", () => {
-  it("should create a new post", async () => {
-    const payload = {
-      title: "Test Post",
-      content: "Test content",
-      slug: "test-post",
-    };
+# Get all team members (public)
+curl http://localhost:8000/api/v1/team-members
 
-    const res = await app.request("/api/v1/blog/posts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+# Login
+TOKEN=$(curl -X POST http://localhost:8000/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@test.com","password":"pass"}' \
+  | jq -r '.access_token')
 
-    expect(res.status).toBe(201);
+# Create team member (admin)
+curl -X POST http://localhost:8000/api/v1/team-members \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "role": "QA Lead",
+    "email": "john@example.com"
+  }'
 
-    const data = await res.json();
-    expect(data).toHaveProperty("id");
-    expect(data.title).toBe(payload.title);
-  });
+# Upload profile photo
+curl -X POST http://localhost:8000/api/v1/team-members/123/photo \
+  -H "Authorization: Bearer $TOKEN" \
+  -F "file=@profile.jpg"
 
-  it("should validate required fields", async () => {
-    const res = await app.request("/api/v1/blog/posts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: "Test" }), // Missing content
-    });
-
-    expect(res.status).toBe(400);
-    expect(await res.json()).toHaveProperty("error");
-  });
-
-  it("should prevent duplicate slugs", async () => {
-    const payload = {
-      title: "Test Post",
-      content: "Test content",
-      slug: "duplicate",
-    };
-
-    // First insert
-    await app.request("/api/v1/blog/posts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-
-    // Duplicate insert
-    const res = await app.request("/api/v1/blog/posts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-
-    expect(res.status).toBe(409);
-  });
-});
+# Get with filters
+curl "http://localhost:8000/api/v1/team-members?role=QA%20Lead&active=true"
 ```
 
-## Testing Middleware
+### 3. Testing with HTTPie (Prettier Output)
 
-### Auth Middleware
+```bash
+# Install httpie
+pip install httpie
 
-```typescript
-// apps/api/__tests__/middleware/auth.test.ts
-import { describe, it, expect, vi } from "vitest";
-import { Hono } from "hono";
-import { authMiddleware } from "../../src/middleware/auth";
+# Login
+http POST localhost:8000/api/v1/auth/login email=admin@test.com password=pass
 
-describe("Auth Middleware", () => {
-  const app = new Hono();
-  app.use("*", authMiddleware);
-  app.get("/protected", (c) => c.json({ success: true }));
+# Create with auth
+http POST localhost:8000/api/v1/team-members \
+  Authorization:"Bearer $TOKEN" \
+  name="John Doe" \
+  role="QA Lead" \
+  email="john@example.com"
 
-  it("should allow requests with valid token", async () => {
-    const res = await app.request("/protected", {
-      headers: {
-        Authorization: "Bearer valid-token",
-      },
-    });
-
-    expect(res.status).toBe(200);
-  });
-
-  it("should reject requests without token", async () => {
-    const res = await app.request("/protected");
-
-    expect(res.status).toBe(401);
-    expect(await res.json()).toHaveProperty("error");
-  });
-
-  it("should reject requests with invalid token", async () => {
-    const res = await app.request("/protected", {
-      headers: {
-        Authorization: "Bearer invalid-token",
-      },
-    });
-
-    expect(res.status).toBe(401);
-  });
-});
-```
-
-### Error Handling Middleware
-
-```typescript
-// apps/api/__tests__/middleware/error.test.ts
-import { describe, it, expect } from "vitest";
-import { Hono } from "hono";
-import { errorHandler } from "../../src/middleware/error";
-
-describe("Error Handler", () => {
-  const app = new Hono();
-  app.onError(errorHandler);
-
-  app.get("/error", () => {
-    throw new Error("Test error");
-  });
-
-  it("should catch errors and return 500", async () => {
-    const res = await app.request("/error");
-
-    expect(res.status).toBe(500);
-
-    const data = await res.json();
-    expect(data).toHaveProperty("error");
-  });
-
-  it("should not expose stack traces in production", async () => {
-    process.env.NODE_ENV = "production";
-
-    const res = await app.request("/error");
-    const data = await res.json();
-
-    expect(data).not.toHaveProperty("stack");
-
-    process.env.NODE_ENV = "test";
-  });
-});
-```
-
-## Testing Workflows
-
-### QStash Workflow Testing
-
-```typescript
-// apps/api/__tests__/workflows/update-car-data.test.ts
-import { describe, it, expect, vi } from "vitest";
-import { updateCarDataWorkflow } from "../../src/lib/workflows/update-car-data";
-
-describe("Update Car Data Workflow", () => {
-  it("should fetch and process car data", async () => {
-    // Mock external API
-    const mockFetch = vi.fn().mockResolvedValue({
-      ok: true,
-      json: async () => ({
-        records: [
-          { make: "Toyota", model: "Corolla", number: 100 },
-        ],
-      }),
-    });
-
-    global.fetch = mockFetch;
-
-    const result = await updateCarDataWorkflow.execute();
-
-    expect(result.success).toBe(true);
-    expect(mockFetch).toHaveBeenCalled();
-  });
-
-  it("should handle API errors", async () => {
-    const mockFetch = vi.fn().mockResolvedValue({
-      ok: false,
-      status: 500,
-    });
-
-    global.fetch = mockFetch;
-
-    await expect(updateCarDataWorkflow.execute()).rejects.toThrow();
-  });
-
-  it("should save data to database", async () => {
-    // Mock successful fetch
-    const mockFetch = vi.fn().mockResolvedValue({
-      ok: true,
-      json: async () => ({
-        records: [{ make: "Toyota", model: "Corolla", number: 100 }],
-      }),
-    });
-
-    global.fetch = mockFetch;
-
-    await updateCarDataWorkflow.execute();
-
-    // Verify database insert
-    const cars = await db.query.cars.findMany({
-      where: eq(cars.make, "Toyota"),
-    });
-
-    expect(cars.length).toBeGreaterThan(0);
-  });
-});
-```
-
-## Mocking
-
-### Mock Database Queries
-
-```typescript
-// apps/api/__tests__/helpers.ts
-import { vi } from "vitest";
-import { db } from "../src/config/database";
-
-export const mockDbQuery = (mockData: any) => {
-  return vi.spyOn(db.query.cars, "findMany").mockResolvedValue(mockData);
-};
-
-// Use in tests
-import { mockDbQuery } from "./helpers";
-
-it("should return mocked data", async () => {
-  mockDbQuery([
-    { make: "Toyota", model: "Corolla", number: 100 },
-  ]);
-
-  const res = await app.request("/api/v1/cars/makes");
-  const data = await res.json();
-
-  expect(data[0].make).toBe("Toyota");
-});
-```
-
-### Mock External APIs
-
-```typescript
-// Mock fetch
-import { vi } from "vitest";
-
-const mockFetch = vi.fn();
-global.fetch = mockFetch;
-
-it("should fetch data from LTA", async () => {
-  mockFetch.mockResolvedValue({
-    ok: true,
-    json: async () => ({ records: [] }),
-  });
-
-  await fetchCarData();
-
-  expect(mockFetch).toHaveBeenCalledWith(
-    expect.stringContaining("lta.gov.sg"),
-    expect.any(Object)
-  );
-});
-```
-
-### Mock Redis
-
-```typescript
-// Mock Redis client
-import { vi } from "vitest";
-import { redis } from "@sgcarstrends/utils";
-
-vi.mock("@sgcarstrends/utils", () => ({
-  redis: {
-    get: vi.fn(),
-    set: vi.fn(),
-    del: vi.fn(),
-  },
-}));
-
-it("should cache results", async () => {
-  await cacheData("key", { data: "value" });
-
-  expect(redis.set).toHaveBeenCalledWith(
-    "key",
-    JSON.stringify({ data: "value" }),
-    expect.any(Object)
-  );
-});
-```
-
-## Integration Testing
-
-### Test with Real Database
-
-```typescript
-// apps/api/__tests__/integration/cars.test.ts
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import app from "../../src/index";
-import { db } from "../../src/config/database";
-import { cars } from "@sgcarstrends/database/schema";
-
-describe("Cars API Integration", () => {
-  beforeEach(async () => {
-    // Clear database
-    await db.delete(cars);
-
-    // Seed data
-    await db.insert(cars).values([
-      { make: "Toyota", model: "Corolla", month: "2024-01", number: 100 },
-    ]);
-  });
-
-  afterEach(async () => {
-    // Clean up
-    await db.delete(cars);
-  });
-
-  it("should perform full CRUD operations", async () => {
-    // Read
-    let res = await app.request("/api/v1/cars/makes");
-    expect(res.status).toBe(200);
-
-    // Update (if endpoint exists)
-    // res = await app.request("/api/v1/cars/1", { method: "PUT", ... });
-
-    // Delete (if endpoint exists)
-    // res = await app.request("/api/v1/cars/1", { method: "DELETE" });
-  });
-});
+# Pretty print JSON
+http GET localhost:8000/api/v1/team-members | jq '.'
 ```
 
 ## Running Tests
 
-### Common Commands
-
 ```bash
-# Run all API tests
-pnpm -F @sgcarstrends/api test
+cd backend
+
+# Run all tests
+uv run pytest
+
+# Run with verbose output
+uv run pytest -v
 
 # Run specific test file
-pnpm -F @sgcarstrends/api test routes/cars.test.ts
+uv run pytest tests/integration/test_api_team_members.py
 
-# Run tests in watch mode
-pnpm -F @sgcarstrends/api test:watch
+# Run specific test
+uv run pytest tests/integration/test_api_team_members.py::test_create_team_member
 
 # Run with coverage
-pnpm -F @sgcarstrends/api test:coverage
+uv run pytest --cov=app --cov-report=html
 
-# Run integration tests only
-pnpm -F @sgcarstrends/api test integration/
+# Run only integration tests
+uv run pytest tests/integration/
+
+# Show print statements
+uv run pytest -s
+
+# Stop on first failure
+uv run pytest -x
+
+# Run tests matching pattern
+uv run pytest -k "team_member"
 ```
 
-### Package.json Scripts
+## Test Coverage
 
-```json
-{
-  "scripts": {
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui"
-  }
-}
+```bash
+# Generate coverage report
+uv run pytest --cov=app --cov-report=term-missing
+
+# Generate HTML report
+uv run pytest --cov=app --cov-report=html
+open htmlcov/index.html
+
+# Coverage for specific module
+uv run pytest --cov=app.api.v1.endpoints --cov-report=term
 ```
 
-## Test Helpers
+## Load Testing
 
-### Create Test Utilities
+```bash
+# Install locust
+uv pip install locust
 
-```typescript
-// apps/api/__tests__/helpers.ts
-import { Hono } from "hono";
+# Create locustfile.py
+cat > locustfile.py <<'EOF'
+from locust import HttpUser, task, between
 
-export const createTestApp = () => {
-  const app = new Hono();
-  // Add middleware and routes
-  return app;
-};
+class APIUser(HttpUser):
+    wait_time = between(1, 3)
 
-export const createAuthHeader = (token: string) => ({
-  Authorization: `Bearer ${token}`,
-});
+    @task
+    def get_team_members(self):
+        self.client.get("/api/v1/team-members")
 
-export const seedDatabase = async (data: any[]) => {
-  await db.insert(cars).values(data);
-};
+    @task(3)
+    def get_updates(self):
+        self.client.get("/api/v1/updates")
+EOF
 
-export const clearDatabase = async () => {
-  await db.delete(cars);
-};
+# Run load test
+uv run locust -f locustfile.py --host=http://localhost:8000
 
-export const expectJson = async (res: Response) => {
-  expect(res.headers.get("Content-Type")).toContain("application/json");
-  return await res.json();
-};
+# Or headless mode
+uv run locust -f locustfile.py --host=http://localhost:8000 \
+  --users 100 --spawn-rate 10 --run-time 1m --headless
 ```
+
+## API Documentation Testing
+
+```bash
+# Access interactive docs
+open http://localhost:8000/api/v1/docs
+
+# Get OpenAPI schema
+curl http://localhost:8000/api/v1/openapi.json | jq '.' > openapi.json
+
+# Validate OpenAPI schema
+npx @stoplight/spectral-cli lint openapi.json
+```
+
+## Test Checklist
+
+For each endpoint, verify:
+
+- [ ] **Success cases** - Returns 200/201/204 as expected
+- [ ] **Authentication** - Returns 401 without token
+- [ ] **Authorization** - Returns 403 for insufficient permissions
+- [ ] **Validation** - Returns 422 for invalid data
+- [ ] **Not Found** - Returns 404 for non-existent resources
+- [ ] **Edge cases** - Empty lists, null values, boundary conditions
+- [ ] **Error handling** - Doesn't expose sensitive info in errors
+- [ ] **Rate limiting** - Enforced on sensitive endpoints
+- [ ] **CORS** - Allows configured origins only
+- [ ] **Response format** - Matches schema definition
+
+## Common Test Patterns
+
+### Testing Authentication
+
+```python
+def test_endpoint_requires_authentication(client):
+    response = client.post("/api/v1/admin/users")
+    assert response.status_code == 401
+
+def test_endpoint_rejects_expired_token(client, expired_token):
+    headers = {"Authorization": f"Bearer {expired_token}"}
+    response = client.get("/api/v1/admin/users", headers=headers)
+    assert response.status_code == 401
+```
+
+### Testing Validation
+
+```python
+def test_rejects_invalid_email(client, admin_token):
+    headers = {"Authorization": f"Bearer {admin_token}"}
+    data = {"name": "John", "email": "invalid"}
+    response = client.post("/api/v1/team-members", json=data, headers=headers)
+    assert response.status_code == 422
+    assert "email" in response.json()["detail"][0]["loc"]
+```
+
+### Testing Pagination
+
+```python
+def test_pagination_limits_results(client):
+    response = client.get("/api/v1/team-members?limit=5")
+    assert len(response.json()) <= 5
+
+def test_pagination_skip_offset(client):
+    response1 = client.get("/api/v1/team-members?skip=0&limit=2")
+    response2 = client.get("/api/v1/team-members?skip=2&limit=2")
+    assert response1.json()[0]["id"] != response2.json()[0]["id"]
+```
+
+## Output Format
+
+After testing, report:
+
+1. **Tests Run**: X passed, Y failed
+2. **Coverage**: X% of code covered
+3. **Failed Tests**: List with error messages
+4. **Performance**: Average response time for key endpoints
+5. **Issues Found**: Any bugs or unexpected behavior
+6. **Recommendations**: Suggested improvements
 
 ## Best Practices
 
-### 1. Isolate Tests
-
-```typescript
-// ❌ Tests depend on each other
-it("create car", async () => {
-  await createCar({ make: "Toyota" });
-});
-
-it("get car", async () => {
-  // Assumes car from previous test exists
-  const res = await app.request("/api/v1/cars/1");
-});
-
-// ✅ Independent tests
-it("get car", async () => {
-  // Create car in this test
-  await db.insert(cars).values({ make: "Toyota" });
-
-  const res = await app.request("/api/v1/cars/1");
-});
-```
-
-### 2. Test Error Cases
-
-```typescript
-describe("GET /api/v1/cars/:id", () => {
-  it("should return car when found", async () => {
-    // Test happy path
-  });
-
-  it("should return 404 when not found", async () => {
-    const res = await app.request("/api/v1/cars/999");
-    expect(res.status).toBe(404);
-  });
-
-  it("should return 400 for invalid ID", async () => {
-    const res = await app.request("/api/v1/cars/invalid");
-    expect(res.status).toBe(400);
-  });
-});
-```
-
-### 3. Use Descriptive Names
-
-```typescript
-// ❌ Vague test names
-it("works", async () => {});
-it("returns data", async () => {});
-
-// ✅ Descriptive test names
-it("should return 200 OK with list of car makes", async () => {});
-it("should validate month parameter format", async () => {});
-it("should cache results for 1 hour", async () => {});
-```
-
-### 4. Clean Up After Tests
-
-```typescript
-import { afterEach } from "vitest";
-
-afterEach(async () => {
-  // Clear database
-  await db.delete(cars);
-
-  // Clear cache
-  await redis.flushdb();
-
-  // Reset mocks
-  vi.clearAllMocks();
-});
-```
-
-## Coverage
-
-### Generate Coverage Reports
-
-```bash
-# Generate coverage
-pnpm -F @sgcarstrends/api test:coverage
-
-# View HTML report
-open apps/api/coverage/index.html
-```
-
-### Coverage Configuration
-
-```typescript
-// vitest.config.ts
-export default defineConfig({
-  test: {
-    coverage: {
-      provider: "v8",
-      reporter: ["text", "json", "html"],
-      thresholds: {
-        lines: 80,
-        functions: 80,
-        branches: 80,
-        statements: 80,
-      },
-      exclude: [
-        "__tests__/",
-        "*.config.ts",
-        "dist/",
-      ],
-    },
-  },
-});
-```
-
-## Troubleshooting
-
-### Tests Failing Randomly
-
-```typescript
-// Issue: Database state from previous tests
-// Solution: Clear database in beforeEach
-
-beforeEach(async () => {
-  await db.delete(cars);
-  await db.delete(coe);
-});
-```
-
-### Mock Not Working
-
-```typescript
-// Issue: Mock not applied
-// Solution: Ensure mock is defined before import
-
-vi.mock("@sgcarstrends/utils", () => ({
-  redis: {
-    get: vi.fn(),
-  },
-}));
-
-// Import after mock
-import { redis } from "@sgcarstrends/utils";
-```
-
-### Timeout Errors
-
-```typescript
-// Increase timeout for slow tests
-it("slow test", async () => {
-  // ...
-}, 10000); // 10 second timeout
-```
-
-## References
-
-- Vitest Documentation: https://vitest.dev
-- Hono Testing: https://hono.dev/docs/guides/testing
-- Related files:
-  - `apps/api/vitest.config.ts` - Vitest configuration
-  - Root CLAUDE.md - Testing guidelines
-
-## Best Practices Summary
-
-1. **Isolate Tests**: Each test should be independent
-2. **Test Error Cases**: Test both happy and error paths
-3. **Use Mocks**: Mock external dependencies
-4. **Clean Up**: Reset state after tests
-5. **Descriptive Names**: Clear test descriptions
-6. **Coverage Goals**: Aim for 80%+ coverage
-7. **Integration Tests**: Test real database interactions
-8. **Fast Tests**: Keep unit tests fast, integration tests separate
+1. **Test pyramid**: More unit tests, fewer integration tests
+2. **Independent tests**: Each test should be isolated
+3. **Descriptive names**: `test_create_team_member_requires_admin_role`
+4. **Use fixtures**: Share test data setup
+5. **Test error cases**: Not just happy path
+6. **Mock external services**: Don't depend on external APIs
+7. **Fast tests**: Keep test suite under 1 minute if possible

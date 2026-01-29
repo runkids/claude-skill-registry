@@ -1,9 +1,7 @@
 {
   "name": "debate",
-  "description": "Structured multi-perspective deliberation through adversarial dialogue",
   "repo": "SimHacker/moollm",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/SimHacker/moollm"
+  "path": "skills/debate/SKILL.md",
+  "source": "github.com/SimHacker/moollm",
+  "downloaded_at": "2026-01-29T01:33:20.450452Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "ascii-diagrams",
-  "description": "Create and fix ASCII diagrams, tables, wireframes, box-drawings. Use when message contains Unicode box characters (┌┐└┘│─), user asks to create/fix text visualization, align borders, or fix broken ASC",
   "repo": "djimontyp/task-tracker",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/djimontyp/task-tracker"
+  "path": ".claude/skills/ascii-diagrams/SKILL.md",
+  "source": "github.com/djimontyp/task-tracker",
+  "downloaded_at": "2026-01-29T01:19:31.421545Z"
 }

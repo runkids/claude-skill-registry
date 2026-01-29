@@ -1,110 +1,89 @@
 ---
-name: orchestration
-description: MANDATORY - Load this skill first. Routes to bootstrap + domain rules.
-impact: CRITICAL
-version: 3.0.0
-invokes:
-  - rlm-process
+context: fork
+allowed-tools: ["Read", "Glob", "Grep", "Bash", "Task"]
+user-invocable: true
 ---
 
-# Clorch -- Claude Orchestration
+# Multi-Claude Parallel Orchestration Skill
+
+## Overview
+
+This skill enables parallel execution of complex plans using multiple Claude instances in Kitty terminal tabs.
+
+## When to Use
+
+- Complex tasks with 4+ independent subtasks
+- Release preparations with multiple verification steps
+- Large refactoring across multiple file domains
+- Any plan created by `strategic-planner` agent
+
+## Requirements
+
+| Requirement | Details |
+|-------------|---------|
+| Terminal | **Kitty only** (not Warp/iTerm/Terminal.app) |
+| Config | `allow_remote_control yes` in kitty.conf |
+| Alias | `wildClaude='claude --dangerously-skip-permissions'` |
+| Max Workers | 4 (hard limit) |
+
+## Quick Start
+
+```bash
+# From Kitty:
+./scripts/orchestration/kitty-check.sh    # Verify setup
+./scripts/orchestration/claude-parallel.sh 4   # Launch workers
+./scripts/orchestration/claude-monitor.sh      # Monitor
+```
+
+## Integration with Agents
+
+### strategic-planner
+The `strategic-planner` agent can create plans with Claude assignments and execute them in parallel:
 
 ```
-   ─────────────────◆─────────────────
-           ░█████╗░██╗░░░░░░█████╗░██████╗░░█████╗░██╗░░██╗
-           ██╔══██╗██║░░░░░██╔══██╗██╔══██╗██╔══██╗██║░░██║
-           ██║░░╚═╝██║░░░░░██║░░██║██████╔╝██║░░╚═╝███████║
-           ██║░░██╗██║░░░░░██║░░██║██╔══██╗██║░░██╗██╔══██║
-           ╚█████╔╝███████╗╚█████╔╝██║░░██║╚█████╔╝██║░░██║
-           ░╚════╝░╚══════╝░╚════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝
-   ─────────────────◆─────────────────
+@strategic-planner Create an execution plan for [task] with parallel execution
 ```
 
----
+When asked "Vuoi eseguire in parallelo?", it will:
+1. Verify Kitty environment
+2. Launch Claude workers
+3. Send tasks to each worker
+4. Monitor progress
+5. Report completion
 
-## Step 1: Load Bootstrap (ALWAYS)
+## Plan Format
 
-**Read `bootstrap.md` first.** It contains:
-- Role detection (Orchestrator vs Worker)
-- Iron Law + Iron Claw (UNBREAKABLE)
-- Tool ownership table
-- Worker preamble templates
-- Memory recovery protocol
+Plans for parallel execution must include:
 
-Workers: Load bootstrap.md, execute task, return.
+```markdown
+## 🎭 RUOLI CLAUDE
 
----
+| Claude | Role | Tasks | Files |
+|--------|------|-------|-------|
+| CLAUDE 1 | Coordinator | Monitor | - |
+| CLAUDE 2 | Implementer | T-01, T-02 | src/api/ |
+| CLAUDE 3 | Implementer | T-03, T-04 | src/components/ |
+| CLAUDE 4 | Implementer | T-05 | src/lib/ |
+```
 
-## Step 2: Detect Task Type
+## Critical Rules
 
-| Request Pattern | Domain |
-|-----------------|--------|
-| "build", "implement", "add feature" | software-development |
-| "fix", "debug", "bug" | software-development |
-| "refactor", "clean up" | software-development |
-| "review PR", "security audit" | code-review |
-| "explore", "understand codebase" | research |
-| "write tests", "add coverage" | testing |
-| "document", "README" | documentation |
-| "deploy", "CI/CD", "pipeline" | devops |
-| "analyze data", "chart" | data-analysis |
-| "plan", "roadmap" | project-management |
-| "trading", "chart", "market", "stock", "crypto" | trading-analysis |
-| "UI", "UX", "design", "frontend", "CSS", "accessibility", "performance", "responsive" | frontend-development |
+1. **NO FILE OVERLAP** - Avoid git conflicts
+2. **MAX 4 WORKERS** - Beyond = chaos
+3. **VERIFY LAST** - lint/typecheck/build at end
+4. **GIT COORDINATION** - One commit at a time
 
----
-
-## Step 3: Load Rules JIT
-
-| Trigger | Load |
-|---------|------|
-| After compact detected | rules/memory-recovery.md |
-| Planning task decomposition | rules/swarm-patterns.md |
-| Choosing which agent | rules/agent-routing.md |
-| Large-context tasks | rules/rlm-routing.md |
-| External/current data needed | rules/mcp-integration.md |
-| Token pressure | rules/cost-management.md |
-| Managing multi-agent sessions | rules/context-management.md |
-| Multi-task coordination | rules/task-coordination.md |
-
----
-
-## Rule Index
-
-| Rule | Impact | Purpose |
-|------|--------|---------|
-| scope-discipline.md | UNBREAKABLE | Iron Claw details |
-| core-identity.md | CRITICAL | Clorch identity |
-| user-control.md | CRITICAL | Confirmation points |
-| worker-preamble.md | CRITICAL | Spawn templates |
-| memory-recovery.md | CRITICAL | Post-compact recovery |
-| task-coordination.md | HIGH | Claude Code Tasks integration |
-| swarm-patterns.md | HIGH | Task decomposition |
-| context-management.md | HIGH | Multi-agent sessions |
-| thread-pattern.md | HIGH | Output filtering |
-| agent-routing.md | HIGH | Agent selection |
-| rlm-routing.md | HIGH | Large-context routing |
-| mcp-integration.md | MEDIUM | External data |
-| cost-management.md | MEDIUM | Token optimization |
-| GITIGNORE.md | LOW | Project gitignore patterns |
-
----
-
-## Domain References
-
-| Domain | Path |
-|--------|------|
-| Software | references/domains/software-development.md |
-| Code Review | references/domains/code-review.md |
-| Research | references/domains/research.md |
-| Testing | references/domains/testing.md |
-| Documentation | references/domains/documentation.md |
-| DevOps | references/domains/devops.md |
-| Data | references/domains/data-analysis.md |
-| Planning | references/domains/project-management.md |
-| Trading | references/domains/trading-analysis.md |
-| Frontend | references/domains/frontend-development.md |
+## Scripts Location
 
 ```
-───◆─── Routing Ready ───◆───
+scripts/orchestration/
+├── README.md           # Full documentation
+├── kitty-check.sh      # Verify setup
+├── claude-parallel.sh  # Launch workers
+└── claude-monitor.sh   # Monitor progress
 ```
+
+## Related
+
+- Agent: `.claude/agents/core_utility/strategic-planner.md`
+- Global config: `~/.claude/commands/planner.md`

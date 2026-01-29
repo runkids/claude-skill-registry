@@ -1,9 +1,7 @@
 {
   "name": "bazinga-db-context",
-  "description": "Context packages and learning patterns. Use when managing context packages, error patterns, or strategies.",
   "repo": "mehdic/bazinga",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/bazinga-db-context/SKILL.md",
+  "source": "github.com/mehdic/bazinga",
+  "downloaded_at": "2026-01-29T03:52:08.556316Z"
 }

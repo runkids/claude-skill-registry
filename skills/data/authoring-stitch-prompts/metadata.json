@@ -1,9 +1,7 @@
 {
   "name": "authoring-stitch-prompts",
-  "description": "Converts natural-language descriptions or UI spec files into optimized Google Stitch prompts. Use when creating, refining, or validating design directives for Google Stitch. The Skill follows Stitch b",
   "repo": "joaquimscosta/arkhe-claude-plugins",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/google-stitch/skills/authoring-stitch-prompts/SKILL.md",
+  "source": "github.com/joaquimscosta/arkhe-claude-plugins",
+  "downloaded_at": "2026-01-29T04:09:44.005392Z"
 }

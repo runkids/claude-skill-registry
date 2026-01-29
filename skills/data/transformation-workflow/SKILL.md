@@ -643,7 +643,7 @@ The 6 HUMMBL transformations represent different cognitive operations:
 
 ## Transformation Selection Flowchart
 
-```text
+```
 START: What's your primary need?
 
 ├─ "Understand the problem"

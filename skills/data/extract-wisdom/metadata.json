@@ -1,9 +1,7 @@
 {
   "name": "extract-wisdom",
-  "description": "Extract wisdom, insights, and actionable takeaways from text sources. Use when asked to analyse, summarise, or extract key learnings from blog posts, articles, markdown files, or other text content.",
   "repo": "sammcj/agentic-coding",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "Claude/skills/extract-wisdom/SKILL.md",
+  "source": "github.com/sammcj/agentic-coding",
+  "downloaded_at": "2026-01-29T04:01:37.176091Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "whole-regrouper",
-  "description": "Phân tích, gom nhóm, và ĐỒNG BỘ THÔNG MINH giữa Tổng Quan listing và actual group headers.\nv5.1.0: Intelligent Analysis with agent integration - phân tích thực sự cả hai với hỗ trợ từ specialized agen",
   "repo": "Goobee811/Whole",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/Goobee811/Whole"
+  "path": ".claude/skills/whole-regrouper/SKILL.md",
+  "source": "github.com/Goobee811/Whole",
+  "downloaded_at": "2026-01-29T02:52:07.814312Z"
 }

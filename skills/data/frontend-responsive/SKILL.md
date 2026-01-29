@@ -1,25 +1,22 @@
 ---
 name: Frontend Responsive
-description: Design mobile-first responsive layouts using fluid containers, relative units, standard breakpoints, and touch-friendly interfaces that adapt seamlessly across devices from mobile to desktop. Use this skill when implementing responsive designs, media queries, viewport configurations, or testing across screen sizes. Applies to any frontend layout work requiring optimization for mobile phones, tablets, and desktop displays with readable typography and appropriate content prioritization.
+description: Build mobile-first, responsive layouts with fluid grids, standard breakpoints, relative units, and touch-friendly design. Use this skill when creating or modifying layouts that need to work across different screen sizes. When working on responsive styles, breakpoint definitions, media queries, or mobile/tablet/desktop layouts. When using percentage-based widths, rem/em units, or viewport units. When ensuring touch targets are appropriately sized, typography is readable at all sizes, or content is prioritized for mobile screens.
 ---
 
-# Frontend Responsive
+## When to use this skill:
 
-## When to use this skill
-
-- When implementing layouts that need to work on mobile, tablet, and desktop screen sizes
-- When using CSS media queries with standard breakpoints (mobile: 320-768px, tablet: 768-1024px, desktop: 1024px+)
-- When applying responsive Tailwind classes like `sm:`, `md:`, `lg:`, `xl:` modifiers
-- When creating fluid layouts with percentage-based widths or CSS Grid/Flexbox that adapt to screen size
-- When using relative units (`rem`, `em`) instead of fixed pixels for scalable, accessible sizing
-- When designing mobile-first with progressive enhancement for larger screens
-- When ensuring touch targets are at least 44x44px for mobile usability
-- When optimizing images and assets for mobile network conditions and different screen densities
-- When testing UI changes across multiple device sizes and verifying responsive behavior
-- When maintaining readable font sizes across breakpoints without requiring user zoom
-- When prioritizing content display on smaller screens (showing critical info first, hiding secondary content)
-- When configuring viewport meta tags for proper mobile rendering
-- When implementing responsive navigation patterns (hamburger menus, collapsible sections, drawer navigation)
+- When creating layouts that need to work on mobile, tablet, and desktop
+- When adding responsive breakpoints or media queries
+- When working on mobile-first CSS development
+- When using percentage-based or fluid widths
+- When choosing between px, rem, em, or viewport units
+- When sizing touch targets for mobile users (minimum 44x44px)
+- When adjusting typography for readability across screen sizes
+- When prioritizing content visibility on smaller screens
+- When testing UI across different device sizes
+- When optimizing images and assets for mobile performance
+- When implementing standard breakpoints consistently
+- When reviewing layouts for responsive behavior
 
 # Frontend Responsive
 

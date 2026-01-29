@@ -3,7 +3,7 @@ name: assignation-refere-communication-associe-selim-brihi
 description: Rédaction d'assignations en référé devant le tribunal de commerce ou des activités économiques pour le droit de communication d'un associé. Utiliser ce skill quand l'utilisateur demande de rédiger, préparer ou créer une assignation en référé fondée sur l'article L. 238-1 du code de commerce pour obtenir la communication forcée de documents sociaux (comptes annuels, rapports de gestion, PV d'assemblées, etc.) lorsqu'un dirigeant refuse ou fait obstruction à la communication de ces documents à un associé.
 metadata:
   author: Sélim Brihi
-  license: Apache 2.0
+  license: AGPL-3.0
 ---
 
 # Assignation en Référé - Communication de Documents Sociaux (Article L. 238-1)

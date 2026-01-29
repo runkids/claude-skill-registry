@@ -1,7 +1,7 @@
 {
   "name": "repo-cleanup",
-  "repo": "NickCrew/claude-cortex",
-  "path": "claude_ctx_py/assets/skills/repo-cleanup/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-28T03:14:41.685140Z"
+  "repo": "spaarke-dev/spaarke",
+  "path": ".claude/skills/repo-cleanup/SKILL.md",
+  "source": "github.com/spaarke-dev/spaarke",
+  "downloaded_at": "2026-01-29T02:08:03.567427Z"
 }

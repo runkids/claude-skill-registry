@@ -1,7 +1,7 @@
 {
   "name": "workflow",
-  "repo": "Chachamaru127/claude-code-harness",
-  "path": "opencode/skills/workflow/SKILL.md",
-  "source": "github.com/Chachamaru127/claude-code-harness",
-  "downloaded_at": "2026-01-28T04:13:04.391735Z"
+  "repo": "SOELexicon/clickup_framework",
+  "path": ".claude/skills/workflow/skill.md",
+  "source": "github.com/SOELexicon/clickup_framework",
+  "downloaded_at": "2026-01-29T03:18:23.748803Z"
 }

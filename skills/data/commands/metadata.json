@@ -1,7 +1,7 @@
 {
   "name": "commands",
-  "repo": "mgd34msu/goodvibes-plugin",
-  "path": "plugins/goodvibes/commands/load-skill.md",
-  "source": "github.com/mgd34msu/goodvibes-plugin",
-  "downloaded_at": "2026-01-28T04:33:53.855820Z"
+  "repo": "alfredolopez80/multi-agent-ralph-loop",
+  "path": ".claude/commands/skill.md",
+  "source": "github.com/alfredolopez80/multi-agent-ralph-loop",
+  "downloaded_at": "2026-01-29T04:40:05.739269Z"
 }

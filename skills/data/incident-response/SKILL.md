@@ -1,550 +1,333 @@
 ---
-name: runbooks-incident-response
-description: Use when creating incident response procedures and on-call playbooks. Covers incident management, communication protocols, and post-mortem documentation.
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Grep
-  - Glob
+name: incident-response
+description: |
+  Incident response documentation, timeline analysis, containment procedures,
+  and IR reporting. Support the full incident lifecycle from detection to
+  lessons learned. Use for security incidents, breach response, and IR planning.
+license: Apache-2.0
+compatibility: |
+  - Python 3.9+
+  - No external dependencies (standard library only)
+metadata:
+  author: SherifEldeeb
+  version: "1.0.0"
+  category: cybersecurity
 ---
 
-# Runbooks - Incident Response
+# Incident Response Skill
 
-Creating effective incident response procedures for handling production incidents and on-call scenarios.
+Support the complete incident response lifecycle with documentation, timeline analysis, and comprehensive reporting capabilities.
 
-## Incident Response Framework
+## Capabilities
 
-### Incident Severity Levels
+- **Timeline Analysis**: Build and analyze incident timelines with event correlation
+- **Incident Documentation**: Create structured incident records with full audit trail
+- **Evidence Tracking**: Maintain chain of custody documentation
+- **IR Reporting**: Generate reports for technical, executive, and regulatory audiences
+- **Playbook Support**: Follow and document playbook execution
+- **Lessons Learned**: Facilitate post-incident reviews
 
-**SEV-1 (Critical)**
+## Quick Start
 
-- Complete service outage
-- Data loss or security breach
-- Major customer impact (>50% of users)
-- **Response Time:** Immediate
-- **Escalation:** Page on-call + manager
+```python
+from ir_utils import Incident, IncidentTimeline, EvidenceTracker
 
-**SEV-2 (High)**
+# Create an incident
+incident = Incident('INC-2024-001', 'Ransomware Infection', 'Critical')
+incident.add_affected_system('WORKSTATION-15', 'Encrypted files detected')
+incident.set_phase('containment')
+incident.add_action('Isolated host from network', 'analyst1')
 
-- Partial service degradation
-- Affecting significant users (10-50%)
-- Performance issues (>50% slower)
-- **Response Time:** Within 15 minutes
-- **Escalation:** Page on-call
+# Build timeline
+timeline = IncidentTimeline('INC-2024-001')
+timeline.add_event('2024-01-15 10:30', 'Initial alert from EDR', 'detection')
+timeline.add_event('2024-01-15 10:35', 'Host isolated', 'containment')
+print(timeline.generate_timeline())
 
-**SEV-3 (Medium)**
-
-- Minor degradation
-- Affecting few users (<10%)
-- Non-critical features broken
-- **Response Time:** Within 1 hour
-- **Escalation:** On-call handles during business hours
-
-**SEV-4 (Low)**
-
-- Cosmetic issues
-- Internal tools affected
-- No customer impact
-- **Response Time:** Next business day
-- **Escalation:** Create ticket, no page
-
-## Incident Response Template
-
-```markdown
-# Incident Response: [Alert/Issue Name]
-
-**Severity:** SEV-1/SEV-2/SEV-3/SEV-4
-**Response Time:** Immediate / 15 min / 1 hour / Next day
-**Owner:** On-call Engineer
-
-## Incident Detection
-
-**This runbook is triggered by:**
-- PagerDuty alert: `api_error_rate_high`
-- Customer report in #support
-- Monitoring dashboard showing anomaly
-
-## Initial Response (First 5 Minutes)
-
-### 1. Acknowledge & Assess
-
-```bash
-# Check current status
-curl https://api.example.com/health
-kubectl get pods -n production
+# Track evidence
+evidence = EvidenceTracker('INC-2024-001')
+evidence.add_item('Memory dump', '/evidence/memdump.raw', 'analyst1')
 ```
 
-**Determine severity:**
+## Usage
 
-- All requests failing → SEV-1
-- Partial failures → SEV-2
-- Performance degraded → SEV-3
+### Incident Management
 
-### 2. Notify Stakeholders
+Create and manage incident records throughout the lifecycle.
 
-**SEV-1:**
+**Example**:
+```python
+from ir_utils import Incident
 
-- Create Slack incident channel: `/incident create SEV-1 API Outage`
-- Page engineering manager
-- Notify customer success team
+# Create incident
+incident = Incident(
+    incident_id='INC-2024-001',
+    title='Ransomware Infection on Finance Workstation',
+    severity='Critical'
+)
 
-**SEV-2:**
+# Add affected systems
+incident.add_affected_system('WORKSTATION-15', 'Primary infected host')
+incident.add_affected_system('FILESERVER-02', 'Encrypted shares detected')
 
-- Post in #incidents channel
-- Tag on-call team
+# Progress through phases
+incident.set_phase('identification')
+incident.add_action('Confirmed ransomware variant: LockBit 3.0', 'analyst1')
 
-**SEV-3:**
+incident.set_phase('containment')
+incident.add_action('Isolated WORKSTATION-15 from network', 'analyst1')
+incident.add_action('Blocked C2 domains at firewall', 'analyst2')
 
-- Post in #engineering channel
-- No pages needed
+incident.set_phase('eradication')
+incident.add_action('Reimaged affected workstation', 'admin1')
+incident.add_action('Reset compromised credentials', 'admin1')
 
-### 3. Start Incident Timeline
+incident.set_phase('recovery')
+incident.add_action('Restored files from backup', 'admin1')
+incident.add_action('Verified system integrity', 'analyst1')
 
-Create incident doc (copy template):
+incident.set_phase('lessons_learned')
+incident.add_action('Conducted post-incident review', 'manager1')
 
-```
-Incident: API Outage
-Started: 2025-01-15 14:30 UTC
-Severity: SEV-1
-
-Timeline:
-14:30 - Alert fired
-14:31 - On-call acknowledged
-14:32 - Assessed as SEV-1
-14:33 - Created incident channel
-```
-
-## Immediate Mitigation (First 15 Minutes)
-
-**Goal:** Stop the bleeding, restore service
-
-### Quick Mitigation Options
-
-**Option A: Rollback Recent Deploy**
-
-```bash
-# Check recent deploys
-kubectl rollout history deployment/api-server
-
-# Rollback if deployed < 30 min ago
-kubectl rollout undo deployment/api-server
+# Generate report
+print(incident.generate_report())
+print(incident.generate_executive_summary())
 ```
 
-**When to use:** Deploy coincides with incident start.
+### Timeline Analysis
 
-**Option B: Scale Up**
+Build detailed incident timelines for analysis.
 
-```bash
-# Increase replicas
-kubectl scale deployment/api-server --replicas=20
+**Example**:
+```python
+from ir_utils import IncidentTimeline
+
+timeline = IncidentTimeline('INC-2024-001')
+
+# Add events with categories
+timeline.add_event(
+    timestamp='2024-01-15 10:00:00',
+    description='Phishing email received by user',
+    category='initial_access',
+    source='Email logs'
+)
+
+timeline.add_event(
+    timestamp='2024-01-15 10:15:00',
+    description='User clicked malicious link',
+    category='execution',
+    source='Proxy logs'
+)
+
+timeline.add_event(
+    timestamp='2024-01-15 10:20:00',
+    description='Malware downloaded and executed',
+    category='execution',
+    source='EDR'
+)
+
+timeline.add_event(
+    timestamp='2024-01-15 10:25:00',
+    description='C2 beacon established',
+    category='command_and_control',
+    source='Network logs'
+)
+
+timeline.add_event(
+    timestamp='2024-01-15 10:30:00',
+    description='EDR alert triggered',
+    category='detection',
+    source='CrowdStrike'
+)
+
+# Generate outputs
+print(timeline.generate_timeline())  # Markdown timeline
+print(timeline.to_json())            # JSON export
+timeline.export_csv('incident_timeline.csv')
 ```
 
-**When to use:** High traffic, resource exhaustion.
+### Evidence Tracking
 
-**Option C: Restart Services**
+Maintain chain of custody for digital evidence.
 
-```bash
-# Restart pods
-kubectl rollout restart deployment/api-server
+**Example**:
+```python
+from ir_utils import EvidenceTracker
+
+evidence = EvidenceTracker('INC-2024-001')
+
+# Add evidence items
+evidence.add_item(
+    name='Memory Dump - WORKSTATION-15',
+    location='/evidence/INC-2024-001/memdump_ws15.raw',
+    collected_by='analyst1',
+    description='Full memory dump of infected workstation',
+    hash_value='sha256:abc123...'
+)
+
+evidence.add_item(
+    name='Malware Sample',
+    location='/evidence/INC-2024-001/malware.exe',
+    collected_by='analyst1',
+    description='Ransomware executable',
+    hash_value='sha256:def456...'
+)
+
+evidence.add_item(
+    name='Network Capture',
+    location='/evidence/INC-2024-001/traffic.pcap',
+    collected_by='analyst2',
+    description='Network traffic during incident',
+    hash_value='sha256:ghi789...'
+)
+
+# Transfer custody
+evidence.transfer_custody('Memory Dump - WORKSTATION-15', 'analyst1', 'forensics_team')
+
+# Generate chain of custody report
+print(evidence.generate_chain_of_custody())
+
+# List all evidence
+print(evidence.list_evidence())
 ```
 
-**When to use:** Memory leak, connection pool issues.
+### IR Playbooks
 
-**Option D: Enable Circuit Breaker**
+Document playbook execution during incidents.
 
-```bash
-# Disable failing external service calls
-kubectl set env deployment/api-server FEATURE_EXTERNAL_API=false
+**Example**:
+```python
+from ir_utils import PlaybookExecution
+
+playbook = PlaybookExecution(
+    playbook_name='Ransomware Response',
+    incident_id='INC-2024-001',
+    analyst='analyst1'
+)
+
+# Execute and document steps
+playbook.start_step('Isolate affected systems')
+playbook.complete_step('Isolated WORKSTATION-15 via EDR', success=True)
+
+playbook.start_step('Preserve evidence')
+playbook.complete_step('Memory dump and disk image collected', success=True)
+
+playbook.start_step('Identify ransomware variant')
+playbook.complete_step('Identified as LockBit 3.0', success=True)
+
+playbook.start_step('Check for decryption tools')
+playbook.complete_step('No free decryptor available', success=False,
+                       notes='Proceeding with restoration from backup')
+
+# Generate execution log
+print(playbook.generate_log())
 ```
 
-**When to use:** Third-party service degraded.
+### Lessons Learned
 
-## Communication Protocol
+Document post-incident reviews.
 
-### Update Frequency
+**Example**:
+```python
+from ir_utils import LessonsLearned
 
-**SEV-1:** Every 10 minutes
-**SEV-2:** Every 30 minutes
-**SEV-3:** Hourly
+review = LessonsLearned('INC-2024-001', 'Ransomware Infection')
 
-### Communication Template
+# Document what happened
+review.set_summary('''
+A phishing email bypassed email security and led to ransomware infection
+on a finance department workstation. The infection spread to shared drives
+before being contained. Recovery was achieved through backup restoration.
+''')
 
-```markdown
-**[14:45] UPDATE**
+# Add findings
+review.add_finding(
+    category='detection',
+    finding='EDR alert triggered within 10 minutes of execution',
+    assessment='positive'
+)
 
-**Status:** Investigating
-**Impact:** API returning 503 errors. ~75% of requests failing.
-**Actions Taken:**
-- Rolled back deploy from 14:25
-- Increased pod replicas to 15
-**Next Steps:**
-- Monitoring rollback impact
-- Investigating database connection issues
-**ETA:** Unknown
+review.add_finding(
+    category='prevention',
+    finding='Email security did not detect malicious attachment',
+    assessment='negative'
+)
 
-**Customer Impact:** Users cannot place orders.
-**Workaround:** None available.
+review.add_finding(
+    category='response',
+    finding='Containment took 5 minutes after alert',
+    assessment='positive'
+)
+
+# Add recommendations
+review.add_recommendation(
+    'Implement email sandboxing for attachments',
+    priority='High',
+    owner='Security Engineering'
+)
+
+review.add_recommendation(
+    'Conduct phishing awareness training for finance team',
+    priority='Medium',
+    owner='Security Awareness'
+)
+
+# Generate report
+print(review.generate_report())
 ```
 
-### Status Updates
+## Configuration
 
-```markdown
-## Status Messages
+### Environment Variables
 
-**Investigating:**
-> We are aware of elevated error rates on the API.
-> Investigating the root cause. Updates every 10 minutes.
+| Variable | Description | Required | Default |
+|----------|-------------|----------|---------|
+| `IR_EVIDENCE_PATH` | Base path for evidence storage | No | `./evidence` |
+| `IR_REPORT_PATH` | Path for generated reports | No | `./reports` |
 
-**Identified:**
-> Root cause identified: database connection pool exhausted.
-> Implementing fix now.
+## Incident Phases
 
-**Monitoring:**
-> Fix deployed. Error rate dropping.
-> Monitoring for 30 minutes before declaring resolved.
+The standard incident response phases:
 
-**Resolved:**
-> Incident resolved. Error rate back to baseline.
-> Post-mortem to follow.
+1. **identification** - Detect and validate the incident
+2. **containment** - Limit the scope and impact
+3. **eradication** - Remove the threat
+4. **recovery** - Restore normal operations
+5. **lessons_learned** - Post-incident review
+
+## Limitations
+
+- **No Orchestration**: Does not automate response actions
+- **Local Storage**: Evidence metadata stored locally
+- **No Integrations**: Manual data entry from tools
+
+## Troubleshooting
+
+### Invalid Phase Error
+
+Use only valid incident phases:
+```python
+incident.set_phase('containment')  # OK
+incident.set_phase('contain')      # Error!
 ```
 
-## Investigation (Concurrent with Mitigation)
-
-While service is recovering, investigate root cause:
-
-### 1. Gather Evidence
-
-```bash
-# Capture logs before they rotate
-kubectl logs deployment/api-server > incident-logs.txt
-
-# Snapshot metrics
-curl -H "Authorization: Bearer $DD_API_KEY" \
-  "https://api.datadoghq.com/api/v1/graph/snapshot?..." > metrics.png
-
-# Database state
-psql -c "SELECT * FROM pg_stat_activity" > db-state.txt
-```
-
-### 2. Timeline Reconstruction
-
-```markdown
-## Timeline
-
-| Time | Event | Evidence |
-|------|-------|----------|
-| 14:20 | Deploy started | GitHub Actions log |
-| 14:25 | Deploy completed | ArgoCD |
-| 14:30 | Error rate spike | Datadog alert |
-| 14:32 | Database connections maxed | CloudWatch |
-| 14:35 | Rollback initiated | kubectl history |
-| 14:38 | Service recovered | Datadog metrics |
-```
-
-### 3. Root Cause Analysis
-
-```markdown
-## Root Cause
-
-**Immediate Cause:**
-Deploy introduced N+1 query pattern in user endpoint.
-
-**Contributing Factors:**
-- Missing database index on users.created_at
-- No query performance testing in CI
-- Database connection pool too small for traffic spike
-
-**Why It Wasn't Caught:**
-- Staging has 10x less traffic than production
-- Load testing doesn't cover this endpoint
-- No alerting on query performance
-```
-
-## Resolution & Validation
-
-### Declare Incident Resolved
-
-**Criteria (ALL must be met):**
-
-- [ ] Error rate < 1% for 30 minutes
-- [ ] Response time p95 < 200ms
-- [ ] No customer complaints in 15 minutes
-- [ ] Root cause fix deployed (not just mitigation)
-- [ ] Monitoring confirms stable
-
-### Post-Incident Actions
-
-```markdown
-## Immediate (Within 1 hour)
-
-- [ ] Post resolution update to #incidents
-- [ ] Update status page to "operational"
-- [ ] Thank responders
-- [ ] Close PagerDuty incident
-
-## Short-term (Within 24 hours)
-
-- [ ] Create post-mortem ticket
-- [ ] Schedule post-mortem meeting
-- [ ] Extract action items
-- [ ] Update runbook with learnings
-
-## Long-term (Within 1 week)
-
-- [ ] Complete action items from post-mortem
-- [ ] Add monitoring/alerting to prevent recurrence
-- [ ] Document in incident database
-```
-
-## Post-Mortem Template
-
-```markdown
-# Post-Mortem: API Outage - 2025-01-15
-
-**Date:** 2025-01-15
-**Duration:** 14:30 UTC - 14:45 UTC (15 minutes)
-**Severity:** SEV-1
-**Impact:** 75% of API requests failing
-**Authors:** On-call engineer, Team lead
-
-## Summary
-
-On January 15th at 14:30 UTC, our API experienced a complete outage affecting
-75% of requests. The incident lasted 15 minutes and was caused by a database
-connection pool exhaustion triggered by an N+1 query in a recent deploy.
-
-## Impact
-
-**Customer Impact:**
-- ~1,500 users unable to complete purchases
-- Estimated revenue loss: $50,000
-- 47 support tickets filed
-
-**Internal Impact:**
-- 3 engineers pulled from other work
-- 15 minutes of complete outage
-- Engineering manager paged
-
-## Timeline (All times UTC)
-
-**14:20** - Deploy #1234 merged and started deployment
-**14:25** - Deploy completed, new code serving traffic
-**14:30** - Alert fired: `api_error_rate_high`
-**14:31** - On-call engineer acknowledged
-**14:32** - Assessed as SEV-1, created incident channel
-**14:33** - Identified database connection pool exhausted
-**14:35** - Initiated rollback to previous version
-**14:38** - Rollback complete, error rate dropping
-**14:40** - Service stabilized, monitoring
-**14:45** - Declared resolved
-
-## Root Cause
-
-The deploy introduced an N+1 query in the `/users/recent` endpoint. For each
-user returned, the code made an additional database query to fetch their
-profile picture URL. With 50 concurrent requests, this resulted in 50 × 20 =
-1,000 database queries, exhausting the connection pool (configured for 100
-connections).
-
-**Code change:**
-```diff
-- user.profile_picture_url  # Preloaded in query
-+ user.get_profile_picture()  # Additional query per user
-```
-
-## Contributing Factors
-
-1. **Missing Index:** `users.created_at` not indexed, making base query slow
-2. **Small Connection Pool:** 100 connections insufficient for traffic spike
-3. **No Query Monitoring:** No alerts on query count or duration
-4. **Insufficient Load Testing:** Staging has 10% of production traffic
-
-## What Went Well
-
-- ✅ Fast detection (< 1 minute from start)
-- ✅ Clear escalation path
-- ✅ Rollback worked smoothly
-- ✅ Good communication to stakeholders
-- ✅ Service fully recovered in 15 minutes
-
-## What Went Wrong
-
-- ❌ Code review didn't catch N+1 query
-- ❌ No automated query performance testing
-- ❌ Alert fired but root cause took 5 minutes to identify
-- ❌ No automatic rollback on error spike
-
-## Action Items
-
-| Action | Owner | Deadline | Priority |
-|--------|-------|----------|----------|
-| Add database index on users.created_at | Alice | 2025-01-16 | P0 |
-| Increase connection pool to 200 | Bob | 2025-01-16 | P0 |
-| Add query performance test to CI | Charlie | 2025-01-20 | P1 |
-| Implement automatic rollback on error spike | Dave | 2025-01-30 | P1 |
-| Create ORM query linter to detect N+1 | Eve | 2025-02-15 | P2 |
-
-## Lessons Learned
-
-1. **Prevention:** Need automated N+1 query detection in code review
-2. **Detection:** Should alert on database query count, not just errors
-3. **Mitigation:** Automatic rollback could reduce MTTR by 5+ minutes
-4. **Recovery:** Rollback was effective, keep this as primary strategy
-
-## Appendix
-
-- [Incident Timeline Doc](link)
-- [Datadog Metrics](link)
-- [Database Logs](link)
-- [Deploy PR #1234](link)
-
-```
-
-## On-Call Playbook
-
-```markdown
-# On-Call Playbook
-
-## Before Your On-Call Shift
-
-**1 week before:**
-- [ ] Review recent incidents
-- [ ] Update on-call runbooks if needed
-- [ ] Test PagerDuty notifications
-
-**1 day before:**
-- [ ] Verify laptop ready (charged, VPN working)
-- [ ] Test access to all systems
-- [ ] Review current system status
-- [ ] Check calendar for conflicting events
-
-## During Your Shift
-
-### When You Get Paged
-
-**Within 1 minute:**
-1. Acknowledge alert in PagerDuty
-2. Check alert details for severity
-3. Open relevant runbook
-
-**Within 5 minutes:**
-4. Assess severity (is it really SEV-1?)
-5. Create incident channel if SEV-1/SEV-2
-6. Post initial status update
-
-### Escalation Decision Tree
-
-```
-
-                Get paged
-                    |
-          Can I handle this alone?
-                /       \
-              Yes        No
-               |          |
-          Work it    Escalate
-               |          |
-          Fixed?     Loop in team
-          /   \           |
-        Yes   No     Work together
-         |     |          |
-      Close  Need     Fixed?
-             help       |
-               \       Yes
-                \       |
-                 \    Close
-                  \    |
-                 Escalate
-
-```
-
-### Handoff Procedure
-
-**End of shift checklist:**
-- [ ] No active incidents
-- [ ] Status doc updated
-- [ ] Next on-call acknowledged handoff
-- [ ] Brief next on-call on any ongoing issues
-
-**Handoff template:**
-```
-
-Hey @next-oncall! Handing off on-call. Here's the status:
-
-**Active Issues:** None
-
-**Watch Items:**
-
-- Database CPU elevated but stable (85%)
-- Deploy planned for tomorrow 10 AM
-
-**Recent Incidents:**
-
-- SEV-2 yesterday: Database slow queries (resolved)
-  Post-mortem: [link]
-
-**System Status:**
-
-- All services green
-- No upcoming maintenance
-
-Let me know if you have questions!
-
-```
-
-## After Your Shift
-
-- [ ] Update runbooks with any new learnings
-- [ ] Complete post-mortems for incidents
-- [ ] File bug tickets for issues found
-- [ ] Share feedback on alerting/runbooks
-```
-
-## Anti-Patterns
-
-### Don't Panic
-
-```markdown
-# Bad: Reactive chaos
-EVERYTHING IS DOWN! RESTART ALL THE THINGS!
-
-# Good: Calm assessment
-Service is degraded. Let me check:
-1. What's the actual impact?
-2. When did it start?
-3. What's the quickest safe mitigation?
-```
-
-### Don't Skip Communication
-
-```markdown
-# Bad: Silent fixing
-*Fixes issue without telling anyone*
-*Marks incident as resolved*
-
-# Good: Regular updates
-[14:30] Investigating API errors
-[14:40] Root cause identified, deploying fix
-[14:45] Fix deployed, monitoring
-[15:00] Service stable, incident resolved
-```
-
-### Don't Skip Post-Mortems
-
-```markdown
-# Bad: Move on quickly
-Fixed it! Moving on to next task.
-
-# Good: Learn from incidents
-- Document what happened
-- Identify action items
-- Prevent recurrence
-- Share learnings with team
+### Timeline Ordering
+
+Events are automatically sorted by timestamp:
+```python
+# Events can be added in any order
+timeline.add_event('2024-01-15 10:30', 'Event B', 'detection')
+timeline.add_event('2024-01-15 10:00', 'Event A', 'initial_access')
+# Timeline will display A before B
 ```
 
 ## Related Skills
 
-- **runbook-structure**: Organizing incident response procedures
-- **troubleshooting-guides**: Diagnosing issues during incidents
+- [soc-operations](../soc-operations/): Initial detection and triage
+- [threat-intelligence](../threat-intelligence/): Attribution and IOCs
+- [docx](../../baseline/docx/): Report generation
+
+## References
+
+- [Detailed API Reference](references/REFERENCE.md)
+- [NIST SP 800-61](https://csrc.nist.gov/publications/detail/sp/800-61/rev-2/final)

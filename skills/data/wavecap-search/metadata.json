@@ -1,12 +1,7 @@
 {
   "name": "wavecap-search",
-  "description": "Search WaveCap transcriptions with text queries and filters. Use when the user wants to find specific transcriptions, search for keywords, or query transcription history.",
   "repo": "TobiasWooldridge/WaveCap",
-  "category": "devops",
-  "tags": [
-    "wavecap",
-    "search"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/wavecap-search/SKILL.md",
+  "source": "github.com/TobiasWooldridge/WaveCap",
+  "downloaded_at": "2026-01-29T01:26:23.116170Z"
 }

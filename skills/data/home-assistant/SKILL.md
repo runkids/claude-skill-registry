@@ -28,7 +28,7 @@ When helping with Home Assistant tasks, follow this general approach:
 
 ## Available Scripts
 
-All scripts require the `HA_TOKEN` environment variable to be set, which contains the Home Assistant long-lived access token. The HA instance is available at `https://ha.cullen.rocks`.
+All scripts require the `HA_TOKEN` environment variable to be set, which contains the Home Assistant long-lived access token. The HA instance is available at `http://homeassistant.local:8123`.
 
 **Important:** All scripts now use `uv` with inline PEP 723 dependency declarations and the `homeassistant-api` library for consistent, maintainable code. Dependencies are automatically installed by `uv` on first run.
 

@@ -1,9 +1,7 @@
 {
   "name": "job-description-analysis",
-  "description": "Analyze job postings for requirements, culture, and values - outputs structured analysis matching lexicon categories for comparison and gap analysis",
   "repo": "AJBcoding/claude-skill-eval",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/job-description-analysis/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-29T04:39:16.299974Z"
 }

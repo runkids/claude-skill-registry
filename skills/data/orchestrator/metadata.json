@@ -1,7 +1,7 @@
 {
   "name": "orchestrator",
-  "repo": "draphonix/skills",
-  "path": ".agents/skills/orchestrator/SKILL.md",
-  "source": "github.com/draphonix/skills",
-  "downloaded_at": "2026-01-28T04:38:38.751549Z"
+  "repo": "alfredolopez80/multi-agent-ralph-loop",
+  "path": ".claude/skills/orchestrator/SKILL.md",
+  "source": "github.com/alfredolopez80/multi-agent-ralph-loop",
+  "downloaded_at": "2026-01-29T04:40:07.033821Z"
 }

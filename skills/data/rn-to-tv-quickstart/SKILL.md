@@ -27,20 +27,26 @@ On TV: Users navigate with D-pad (up/down/left/right) + select
 // Mobile: TouchableOpacity, Pressable just work
 // TV: You need spatial navigation
 
-import { useFocusable } from 'react-tv-space-navigation';
+import { SpatialNavigationNode } from 'react-tv-space-navigation';
 
 const TVButton = ({ onPress, children }) => {
-  const { ref, focused } = useFocusable({ onEnterPress: onPress });
-
   return (
-    <View ref={ref} style={[styles.button, focused && styles.focused]}>
-      {children}
-    </View>
+    <SpatialNavigationNode onSelect={onPress}>
+      {({ isFocused }) => (
+        <View style={[styles.button, isFocused && styles.focused]}>
+          {children}
+        </View>
+      )}
+    </SpatialNavigationNode>
   );
 };
 ```
 
 **Key library**: [react-tv-space-navigation](https://github.com/bamlab/react-tv-space-navigation)
+
+**Important**: v6.0.0+ uses a different API than v5.x:
+- v6: `<SpatialNavigationRoot>` wrapper + `<SpatialNavigationNode>` components
+- v5: `SpatialNavigation.init()` + `useFocusable()` hook
 
 ### 2. Focus is King
 
@@ -48,6 +54,32 @@ Every interactive element MUST have a visible focus state. Users can't tap what 
 
 ```typescript
 const styles = StyleSheet.create({
+  button: {
+    padding: 16,
+    backgroundColor: '#333',
+  },
+  // CRITICAL: Always show what's focused
+  focused: {
+    backgroundColor: '#555',
+    borderWidth: 3,
+    borderColor: '#fff',
+    transform: [{ scale: 1.05 }],
+  },
+});
+```
+
+**Focus Indicators (Use at least 2):**
+- ✅ Border (3px+ white/colored)
+- ✅ Scale (1.05x - 1.1x)
+- ✅ Background color change
+- ✅ Shadow/glow effect
+- ✅ Opacity change
+
+**Testing Focus:**
+- Navigate with D-pad/arrow keys
+- Focused element should be immediately obvious
+- Test in a dark room (10-foot viewing distance)
+- All interactive elements must be reachable
   button: {
     padding: 16,
     backgroundColor: '#333',
@@ -278,10 +310,37 @@ Update `apps/vega/package.json`:
 ```json
 {
   "name": "@<PROJECT_NAME>/vega",
+  "scripts": {
+    "build:debug": "react-native build-kepler --build-type Debug",
+    "build:release": "react-native build-kepler --build-type Release"
+  },
   "dependencies": {
-    "@<PROJECT_NAME>/shared-ui": "*"
+    "@<PROJECT_NAME>/shared-ui": "*",
+    "react-tv-space-navigation": "^6.0.0-beta1"
   }
 }
+```
+
+**CRITICAL: Update `apps/vega/manifest.toml`** - Add the `[processes]` section or the app will crash on launch:
+```toml
+schema-version = 1
+
+[package]
+title = "My App"
+version = "0.1.0"
+id = "com.mycompany.myapp"
+
+[components]
+[[components.interactive]]
+id = "com.mycompany.myapp.main"
+runtime-module = "/com.amazon.kepler.keplerscript.runtime.loader_2@IKeplerScript_2_0"
+launch-type = "singleton"
+categories = ["com.amazon.category.main"]
+
+# REQUIRED: Without this section, the app crashes immediately on launch
+[processes]
+[[processes.group]]
+component-ids = ["com.mycompany.myapp.main"]
 ```
 
 Create `apps/vega/metro.config.js`:
@@ -304,6 +363,70 @@ const config = {
 };
 
 module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+```
+
+### Step 6b: Configure Spatial Navigation for Vega
+
+`react-tv-space-navigation` works with Vega but requires a remote control configuration.
+
+**Create `packages/shared-ui/src/app/remote-control/SupportedKeys.ts`:**
+```typescript
+export enum SupportedKeys {
+  Up = 'up', Down = 'down', Left = 'left', Right = 'right',
+  Enter = 'enter', Back = 'back', PlayPause = 'playPause',
+  Rewind = 'rewind', FastForward = 'fastForward',
+}
+```
+
+**Create `packages/shared-ui/src/app/remote-control/RemoteControlManager.kepler.ts`:**
+```typescript
+import { SupportedKeys } from './SupportedKeys';
+
+const EVENT_MAP: Record<string, SupportedKeys> = {
+  left: SupportedKeys.Left, right: SupportedKeys.Right,
+  down: SupportedKeys.Down, up: SupportedKeys.Up,
+  select: SupportedKeys.Enter, back: SupportedKeys.Back,
+};
+
+class RemoteControlManager {
+  private listeners = new Set<(e: SupportedKeys) => void>();
+  constructor() {
+    const { TVEventHandler } = require('react-native');
+    new TVEventHandler().enable(this, (_: any, e: any) => {
+      if (e.eventKeyAction === 0 || e.eventKeyAction === undefined) {
+        const key = EVENT_MAP[e.eventType];
+        if (key) this.listeners.forEach(l => l(key));
+      }
+    });
+  }
+  addKeydownListener = (l: (e: SupportedKeys) => void) => { this.listeners.add(l); return l; };
+  removeKeydownListener = (l: (e: SupportedKeys) => void) => { this.listeners.delete(l); };
+}
+export default new RemoteControlManager();
+```
+
+**Create `packages/shared-ui/src/app/configureRemoteControl.ts`:**
+```typescript
+import { Directions, SpatialNavigation } from 'react-tv-space-navigation';
+import { SupportedKeys } from './remote-control/SupportedKeys';
+import RemoteControlManager from './remote-control/RemoteControlManager';
+
+SpatialNavigation.configureRemoteControl({
+  remoteControlSubscriber: (callback) => {
+    const map = {
+      [SupportedKeys.Right]: Directions.RIGHT, [SupportedKeys.Left]: Directions.LEFT,
+      [SupportedKeys.Up]: Directions.UP, [SupportedKeys.Down]: Directions.DOWN,
+      [SupportedKeys.Enter]: Directions.ENTER,
+    };
+    return RemoteControlManager.addKeydownListener((k) => callback(map[k] ?? null));
+  },
+  remoteControlUnsubscriber: (l) => RemoteControlManager.removeKeydownListener(l),
+});
+```
+
+**Import in Vega App.tsx:**
+```typescript
+import '../../../packages/shared-ui/src/app/configureRemoteControl';
 ```
 
 ### Step 7: Create Shared UI Package
@@ -400,8 +523,8 @@ export const useScale = () => {
 Create `packages/shared-ui/src/components/FocusablePressable.tsx`:
 ```typescript
 import React from 'react';
-import { View, StyleSheet, ViewStyle } from 'react-native';
-import { useFocusable } from 'react-tv-space-navigation';
+import { Pressable, StyleSheet, ViewStyle } from 'react-native';
+import { SpatialNavigationNode } from 'react-tv-space-navigation';
 
 interface FocusablePressableProps {
   children: React.ReactNode;
@@ -416,22 +539,22 @@ export const FocusablePressable: React.FC<FocusablePressableProps> = ({
   style,
   focusedStyle,
 }) => {
-  const { ref, focused } = useFocusable({
-    onEnterPress: onPress,
-  });
-
   return (
-    <View
-      ref={ref}
-      style={[
-        styles.container,
-        style,
-        focused && styles.focused,
-        focused && focusedStyle,
-      ]}
-    >
-      {children}
-    </View>
+    <SpatialNavigationNode onSelect={onPress}>
+      {({ isFocused }) => (
+        <Pressable
+          onPress={onPress}
+          style={[
+            styles.container,
+            style,
+            isFocused && styles.focused,
+            isFocused && focusedStyle,
+          ]}
+        >
+          {children}
+        </Pressable>
+      )}
+    </SpatialNavigationNode>
   );
 };
 
@@ -446,6 +569,36 @@ const styles = StyleSheet.create({
   },
 });
 ```
+
+**Important**: Pass `onPress` to both `SpatialNavigationNode` (for remote/D-pad) AND `Pressable` (for touch/click).
+
+**Focus Highlighting**: The `isFocused` prop from the render function is used to apply visual feedback:
+```typescript
+{({ isFocused }) => (
+  <Pressable
+    onPress={onPress}
+    style={[
+      styles.container,
+      style,
+      isFocused && styles.focused,  // Apply focus styles
+      isFocused && focusedStyle,    // Allow custom focus styles
+    ]}
+  >
+    {children}
+  </Pressable>
+)}
+```
+
+The default focus styles provide:
+- **3px white border** - Clear visual boundary
+- **1.05x scale** - Subtle size increase
+- **Custom focusedStyle prop** - Override with app-specific styles
+
+**Best Practices for Focus:**
+- Always use high-contrast colors (white/yellow on dark backgrounds)
+- Combine multiple indicators (border + scale + color)
+- Test on actual TV hardware (emulators may not show true visibility)
+- Ensure focus is visible from 10 feet away
 
 ### Step 11: Install Dependencies and Run
 
@@ -545,6 +698,199 @@ vega run --packageId <PACKAGE_ID>
 
 ---
 
+## Common Build Issues & Solutions
+
+### Java Version Error
+
+**Error:** `Android Gradle plugin requires Java 17 to run. You are currently using Java 11.`
+
+**Solution:** Create `android/gradle.properties`:
+```properties
+org.gradle.java.home=/path/to/java17
+org.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m
+hermesEnabled=true
+android.useAndroidX=true
+android.enableJetifier=true
+```
+
+### Metro Source Map Error (Monorepo)
+
+**Error:** `Cannot find module 'metro-source-map/private/source-map'`
+
+**Cause:** Expo's metro package expects a `private/` directory that doesn't exist in metro-source-map 0.80.x
+
+**Solution:** Create symlinks after `yarn install`:
+```bash
+cd node_modules/metro-source-map
+mkdir -p private/Consumer
+ln -sf ../src/source-map.js private/source-map.js
+for file in src/Consumer/*.js; do 
+  ln -sf "../../$file" "private/Consumer/$(basename $file)"
+done
+```
+
+**Better Solution:** Add to `package.json` scripts:
+```json
+{
+  "scripts": {
+    "postinstall": "node scripts/fix-metro-source-map.js"
+  }
+}
+```
+
+Create `scripts/fix-metro-source-map.js`:
+```javascript
+const fs = require('fs');
+const path = require('path');
+
+const metroSourceMapPath = path.join(__dirname, '../node_modules/metro-source-map');
+const privatePath = path.join(metroSourceMapPath, 'private');
+const consumerPath = path.join(privatePath, 'Consumer');
+
+if (!fs.existsSync(privatePath)) {
+  fs.mkdirSync(privatePath, { recursive: true });
+}
+if (!fs.existsSync(consumerPath)) {
+  fs.mkdirSync(consumerPath, { recursive: true });
+}
+
+// Create source-map.js symlink
+const sourceMapSrc = path.join(metroSourceMapPath, 'src/source-map.js');
+const sourceMapDest = path.join(privatePath, 'source-map.js');
+if (!fs.existsSync(sourceMapDest)) {
+  fs.symlinkSync(path.relative(privatePath, sourceMapSrc), sourceMapDest);
+}
+
+// Create Consumer symlinks
+const consumerSrcPath = path.join(metroSourceMapPath, 'src/Consumer');
+const files = fs.readdirSync(consumerSrcPath).filter(f => f.endsWith('.js'));
+files.forEach(file => {
+  const src = path.join(consumerSrcPath, file);
+  const dest = path.join(consumerPath, file);
+  if (!fs.existsSync(dest)) {
+    fs.symlinkSync(path.relative(consumerPath, src), dest);
+  }
+});
+
+console.log('✓ Fixed metro-source-map private paths');
+```
+
+### App Entry Point Error (Monorepo)
+
+**Error:** `Unable to resolve "../../App" from "node_modules/expo/AppEntry.js"`
+
+**Cause:** In monorepo, Expo's default AppEntry.js looks for App.tsx at wrong path
+
+**Solution:** Create `index.js` in app root:
+```javascript
+import { registerRootComponent } from 'expo';
+import App from './App';
+
+registerRootComponent(App);
+```
+
+This overrides Expo's default entry point and uses the correct relative path.
+
+### react-tv-space-navigation API Error
+
+**Error:** `TypeError: SpatialNavigation.init is not a function (it is undefined)`
+
+**Cause:** react-tv-space-navigation v6.0.0+ has breaking API changes from v5.x
+
+**v5.x API (OLD - Don't use):**
+```typescript
+import { SpatialNavigation, useFocusable } from 'react-tv-space-navigation';
+
+// Initialize
+SpatialNavigation.init({ debug: true });
+
+// Use hook
+const { ref, focused } = useFocusable({ onEnterPress: onPress });
+```
+
+**v6.0.0+ API (NEW - Use this):**
+```typescript
+import { SpatialNavigationRoot, SpatialNavigationNode } from 'react-tv-space-navigation';
+
+// Wrap app
+<SpatialNavigationRoot>
+  <App />
+</SpatialNavigationRoot>
+
+// Use component with render prop
+<SpatialNavigationNode onSelect={onPress}>
+  {({ isFocused }) => (
+    <View style={isFocused && styles.focused}>
+      {children}
+    </View>
+  )}
+</SpatialNavigationNode>
+```
+
+**Migration Steps:**
+1. Remove `SpatialNavigation.init()` calls
+2. Wrap root component in `<SpatialNavigationRoot>`
+3. Replace `useFocusable()` with `<SpatialNavigationNode>` render prop
+4. Change `focused` to `isFocused` in render prop
+5. Change `onEnterPress` to `onSelect`
+
+### Hermes Configuration Missing
+
+**Error:** `Could not get unknown property 'hermesEnabled'`
+
+**Solution:** Add to `android/gradle.properties`:
+```properties
+hermesEnabled=true
+```
+
+---
+
+## Focus Management Troubleshooting
+
+### Focus Not Visible
+
+**Problem:** Can't see which element is focused
+
+**Solutions:**
+1. Increase border width: `borderWidth: 4` or higher
+2. Use high-contrast colors: `borderColor: '#FFFF00'` (yellow)
+3. Add multiple indicators:
+```typescript
+focused: {
+  borderWidth: 4,
+  borderColor: '#fff',
+  transform: [{ scale: 1.1 }],
+  backgroundColor: '#444',
+  shadowColor: '#fff',
+  shadowOffset: { width: 0, height: 0 },
+  shadowOpacity: 0.8,
+  shadowRadius: 10,
+}
+```
+
+### Focus Not Moving Between Elements
+
+**Problem:** D-pad navigation doesn't move focus
+
+**Causes & Solutions:**
+1. **Missing SpatialNavigationRoot**: Wrap entire app
+2. **Elements not aligned**: Ensure buttons are in proper layout (Row/Column)
+3. **Check console**: Look for spatial navigation warnings
+4. **Test with multiple elements**: Need at least 2 focusable items
+
+### Button Press Not Working
+
+**Problem:** Focused button doesn't respond to Enter/Select
+
+**Solution:** Ensure both `onSelect` AND `onPress` are set:
+```typescript
+<SpatialNavigationNode onSelect={handlePress}>
+  {({ isFocused }) => (
+    <Pressable onPress={handlePress}>  {/* Both needed! */}
+```
+
+---
+
 ## Common Mistakes (Don't Do These)
 
 ### ❌ Using Pressable without Focus Management
@@ -572,6 +918,40 @@ vega run --packageId <PACKAGE_ID>
 
 // RIGHT
 <View style={{ width: 80, height: 80 }} />
+```
+
+---
+
+## Vega Troubleshooting
+
+### App Crashes Immediately on Launch (Black Screen)
+
+**Symptom:** App installs successfully, "Successfully launched" message appears, but app immediately crashes with black screen and no error.
+
+**Cause:** Missing `[processes]` section in `manifest.toml`
+
+**Fix:** Add to `apps/vega/manifest.toml`:
+```toml
+[processes]
+[[processes.group]]
+component-ids = ["com.yourcompany.yourapp.main"]
+```
+
+### Running on Vega Virtual Device
+
+```bash
+# Start simulator
+vega simulator
+
+# Check device is ready
+vega device list
+
+# Build and run
+yarn build:release  # or build:debug
+vega run-app build/aarch64-release/<APP_NAME>_aarch64.vpkg <PACKAGE_ID>
+
+# Check if running
+vega device is-app-running --appName <PACKAGE_ID>
 ```
 
 ---
@@ -623,3 +1003,93 @@ For a complete working example with all features implemented:
 - **Sample repo**: https://github.com/AmazonAppDev/react-native-multi-tv-app-sample
 
 Use this as a reference to see advanced patterns like video playback, navigation, and remote control handling.
+
+
+---
+
+# Android TV / Fire TV Runtime Troubleshooting
+
+## TypeError: Cannot read property 'displayName' of undefined
+
+**Symptoms:**
+- App builds successfully but crashes immediately
+- Metro shows: `ERROR TypeError: Cannot read property 'displayName' of undefined`
+- App returns to launcher after brief flash
+
+**Common Causes & Fixes:**
+
+1. **Wrong import in index.js** (Most Common)
+   ```javascript
+   // ❌ WRONG - Named import when App uses default export
+   import { App } from './App';
+   
+   // ✅ CORRECT - Default import
+   import App from './App';
+   ```
+
+2. **Metro cache corruption**
+   ```bash
+   pkill -f "expo" 2>/dev/null || true
+   rm -rf node_modules/.cache /tmp/metro-* /tmp/haste-map-*
+   npx expo start --clear
+   ```
+
+3. **react-tv-space-navigation v6 missing configuration**
+   ```typescript
+   // Create src/configureRemoteControl.ts
+   import { SpatialNavigation } from 'react-tv-space-navigation';
+   
+   SpatialNavigation.configureRemoteControl({
+     remoteControlSubscriber: (callback) => () => {},
+     remoteControlUnsubscriber: () => {},
+   });
+   ```
+
+## Metro Bundler Connection Issues
+
+**Symptoms:**
+- `Couldn't connect to "ws://localhost:8081/message..."`
+- App shows loading screen indefinitely
+
+**Fixes:**
+```bash
+# Set up ADB reverse port forwarding
+adb reverse tcp:8081 tcp:8081
+
+# Verify emulator connection
+adb devices -l
+
+# Restart ADB if stale
+adb kill-server && adb start-server
+```
+
+## Android TV Emulator Quick Commands
+
+```bash
+# Start emulator
+emulator -avd Android_TV_720p -no-snapshot-load &
+
+# Wait for boot
+adb wait-for-device
+
+# Force restart app
+adb shell am force-stop <package_name>
+adb shell am start -n <package_name>/.MainActivity
+
+# Check logs for JS errors
+adb logcat -d | grep -iE "(ReactNativeJS|error)" | tail -30
+```
+
+## Expo Go vs Development Builds
+
+**Important:** TV apps should use **development builds**, not Expo Go.
+
+```bash
+# ❌ May cause SDK version issues on TV
+npx expo start
+
+# ✅ Correct for TV development
+npx expo run:android
+# or
+npx expo start --dev-client
+```

@@ -1,9 +1,7 @@
 {
   "name": "inspira-ui",
-  "description": "120+ Vue/Nuxt animated components with TailwindCSS v4, motion-v, GSAP, Three.js. Use for hero sections, 3D effects, interactive backgrounds, or encountering setup, CSS variables, motion-v integration ",
   "repo": "secondsky/claude-skills",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/inspira-ui/skills/inspira-ui/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-29T03:11:06.407384Z"
 }

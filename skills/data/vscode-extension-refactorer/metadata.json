@@ -1,13 +1,7 @@
 {
   "name": "vscode-extension-refactorer",
-  "description": "This skill provides expert-level guidance for refactoring VS Code extension code. Use when extracting classes or functions, reducing code duplication, improving type safety, reorganizing module struct",
   "repo": "s-hiraoku/vscode-sidebar-terminal",
-  "category": "development",
-  "tags": [
-    "vscode",
-    "extension",
-    "refactorer"
-  ],
-  "stars": 6,
-  "source": "local"
+  "path": ".claude/skills/vscode-extension-refactorer/SKILL.md",
+  "source": "github.com/s-hiraoku/vscode-sidebar-terminal",
+  "downloaded_at": "2026-01-29T02:49:57.053363Z"
 }

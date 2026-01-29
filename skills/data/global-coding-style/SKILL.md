@@ -1,7 +1,22 @@
 ---
 name: Global Coding Style
-description: Your approach to handling global coding style. Use this skill when working on files where global coding style comes into play.
+description: Write clean, readable code with consistent naming conventions, proper formatting, small focused functions, and DRY principles. Use this skill when writing ANY code in the project regardless of language or framework. When naming variables, functions, classes, or files. When structuring functions and deciding on their size and scope. When removing dead code, unused imports, or commented-out blocks. When applying the DRY principle to extract common logic. When ensuring consistent indentation and formatting across the codebase.
 ---
+
+## When to use this skill:
+
+- When writing any new code in the project
+- When modifying existing code files
+- When naming variables, functions, classes, constants, or files
+- When deciding how to structure a function or method
+- When a function is getting too long and needs to be split
+- When removing dead code, unused variables, or imports
+- When deleting commented-out code blocks
+- When extracting duplicate logic into reusable functions
+- When applying consistent indentation (spaces or tabs)
+- When formatting code for readability
+- When reviewing code for style consistency
+- When choosing descriptive names that reveal intent
 
 # Global Coding Style
 

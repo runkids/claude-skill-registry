@@ -1,13 +1,7 @@
 {
   "name": "mastering-github-cli",
-  "description": "GitHub CLI (gh) command reference for repository search, code discovery, CI/CD monitoring, workflow authoring, and automation. Triggers on \"gh\" commands, \"github cli\", searching repos for files/direct",
-  "repo": "SpillwaveSolutions/mastering-github-agent-skill",
-  "category": "devops",
-  "tags": [
-    "mastering",
-    "github",
-    "cli"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "SpillwaveSolutions/code_agent_context_hooks",
+  "path": ".opencode/skill/mastering-github-cli/SKILL.md",
+  "source": "github.com/SpillwaveSolutions/code_agent_context_hooks",
+  "downloaded_at": "2026-01-29T04:19:27.602543Z"
 }

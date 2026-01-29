@@ -1,9 +1,7 @@
 {
   "name": "aks-deployment",
-  "description": "Deploying and debugging Toygres on AKS (Azure Kubernetes Service). Use when deploying, debugging pods, viewing logs, troubleshooting SSL, or managing Kubernetes resources.",
   "repo": "affandar/toygres",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/affandar/toygres"
+  "path": ".claude/skills/aks-deployment/SKILL.md",
+  "source": "github.com/affandar/toygres",
+  "downloaded_at": "2026-01-29T03:31:16.207142Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "implementation-verifier",
-  "repo": "turbobeest/squawk",
-  "path": ".claude/skills/implementation-verifier/SKILL.md",
-  "source": "github.com/turbobeest/squawk",
-  "downloaded_at": "2026-01-28T01:52:12.488675Z"
+  "repo": "turbobeest/cursor-dev-system",
+  "path": "skills/implementation-verifier/SKILL.md",
+  "source": "github.com/turbobeest/cursor-dev-system",
+  "downloaded_at": "2026-01-29T04:39:09.050463Z"
 }

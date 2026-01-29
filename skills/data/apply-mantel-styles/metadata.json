@@ -1,9 +1,7 @@
 {
   "name": "apply-mantel-styles",
-  "description": "Provides guidelines for applying Mantel's brand styles to diagrams and frontend components. Use when asked to create visuals that need to align with Mantel's branding.",
   "repo": "sammcj/agentic-coding",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "Claude/skills/apply-mantel-styles/SKILL.md",
+  "source": "github.com/sammcj/agentic-coding",
+  "downloaded_at": "2026-01-29T04:01:37.423480Z"
 }

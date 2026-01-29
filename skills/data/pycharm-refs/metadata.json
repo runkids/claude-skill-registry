@@ -1,9 +1,7 @@
 {
   "name": "pycharm-refs",
-  "description": "This skill should be used when agents need to provide clickable code references to users in reports, investigations, or bug findings. It ensures file references use the simple path:line_number format ",
   "repo": "djimontyp/task-tracker",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills-old/pycharm-refs/SKILL.md",
+  "source": "github.com/djimontyp/task-tracker",
+  "downloaded_at": "2026-01-29T01:19:31.483355Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "codebase-overview",
-  "description": "Quickly understand a new codebase's architecture, tech stack, and patterns. Use when user asks \"what is this project\", \"project overview\", \"how is this codebase structured\", \"what tech stack\", or when",
-  "repo": "lis186/SourceAtlas",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Hoang604/get-thing-done",
+  "path": ".claude/skills/codebase-overview/SKILL.md",
+  "source": "github.com/Hoang604/get-thing-done",
+  "downloaded_at": "2026-01-29T02:30:05.699611Z"
 }

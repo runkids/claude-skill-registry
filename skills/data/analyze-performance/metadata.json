@@ -1,12 +1,7 @@
 {
   "name": "analyze-performance",
-  "description": "Establish performance baselines and detect regressions using flamegraph analysis. Use when optimizing performance-critical code, investigating performance issues, or before creating commits with perfo",
-  "repo": "r3bl-org/r3bl-open-core",
-  "category": "development",
-  "tags": [
-    "analyze",
-    "performance"
-  ],
-  "stars": 433,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Hopin-inc/civicship-api",
+  "path": ".claude/skills/analyze-performance/SKILL.md",
+  "source": "github.com/Hopin-inc/civicship-api",
+  "downloaded_at": "2026-01-29T03:21:19.919153Z"
 }

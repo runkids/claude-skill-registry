@@ -1,13 +1,7 @@
 {
   "name": "mcp-chrome-devtools",
-  "description": "This skill provides guidance for using Chrome DevTools MCP for browser debugging and automation. Use when debugging web pages, analyzing performance, inspecting network requests, viewing console messa",
   "repo": "s-hiraoku/vscode-sidebar-terminal",
-  "category": "development",
-  "tags": [
-    "mcp",
-    "chrome",
-    "devtools"
-  ],
-  "stars": 6,
-  "source": "local"
+  "path": ".claude/skills/mcp-chrome-devtools/SKILL.md",
+  "source": "github.com/s-hiraoku/vscode-sidebar-terminal",
+  "downloaded_at": "2026-01-29T02:49:56.806490Z"
 }

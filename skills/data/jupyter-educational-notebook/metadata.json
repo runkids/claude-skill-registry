@@ -1,9 +1,7 @@
 {
   "name": "jupyter-educational-notebook",
-  "description": "Create educational and interactive Jupyter notebooks as SPAs that explain concepts, teach topics, create tutorials, illustrate ideas from text, or build blog posts. Use for interactive guides, demonst",
   "repo": "ddttom/allaboutv2",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/ddttom/allaboutv2"
+  "path": ".claude/skills/jupyter-educational-notebook/SKILL.md",
+  "source": "github.com/ddttom/allaboutv2",
+  "downloaded_at": "2026-01-29T01:10:06.903646Z"
 }

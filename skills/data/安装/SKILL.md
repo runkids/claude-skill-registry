@@ -1,6 +1,6 @@
 ---
 name: videocut:安装
-description: 环境准备。安装依赖、下载模型、验证环境。触发词：安装、环境准备、初始化
+description: 环境准备。安装依赖、配置 API Key、验证环境。触发词：安装、环境准备、初始化
 ---
 
 <!--
@@ -22,137 +22,93 @@ pos: 前置 skill，首次使用前运行
 ```
 用户: 安装环境
 用户: 初始化
-用户: 下载模型
 ```
 
 ## 依赖清单
 
 | 依赖 | 用途 | 安装命令 |
 |------|------|----------|
-| funasr | 口误识别 | `pip install funasr` |
-| modelscope | 模型下载 | `pip install modelscope` |
-| openai-whisper | 字幕生成 | `pip install openai-whisper` |
-| ffmpeg | 视频剪辑 | `brew install ffmpeg` |
+| Node.js | 运行脚本 | `brew install node` |
+| FFmpeg | 视频剪辑 | `brew install ffmpeg` |
+| curl | API 调用 | 系统自带 |
 
-## 模型清单
+## API 配置
 
-### FunASR 模型（口误识别用）
+### 火山引擎语音识别
 
-首次运行自动下载到 `~/.cache/modelscope/`：
+控制台：https://console.volcengine.com/speech/new/experience/asr?projectName=default
 
-| 模型 | 大小 | 用途 |
-|------|------|------|
-| paraformer-zh | 953MB | 语音识别（带时间戳） |
-| punc_ct | 1.1GB | 标点预测 |
-| fsmn-vad | 4MB | 语音活动检测 |
-| **小计** | **~2GB** | |
+1. 注册火山引擎账号
+2. 开通语音识别服务
+3. 获取 API Key
 
-### Whisper 模型（字幕生成用）
+配置到项目目录 `.claude/skills/.env`：
 
-首次运行自动下载到 `~/.cache/whisper/`：
-
-| 模型 | 大小 | 用途 |
-|------|------|------|
-| large-v3 | 2.9GB | 字幕转录（质量最好） |
-
-### 总计
-
-约 **5GB** 模型文件
+```bash
+# 文件路径：剪辑Agent/.claude/skills/.env
+VOLCENGINE_API_KEY=your_api_key_here
+```
 
 ## 安装流程
 
 ```
-1. 安装 Python 依赖
+1. 安装 Node.js + FFmpeg
        ↓
-2. 安装 FFmpeg
+2. 配置火山引擎 API Key
        ↓
-3. 下载 FunASR 模型（口误识别）
-       ↓
-4. 下载 Whisper 模型（字幕生成）
-       ↓
-5. 验证环境
+3. 验证环境
 ```
 
 ## 执行步骤
 
-### 1. 安装 Python 依赖
-
-```bash
-pip install funasr modelscope openai-whisper
-```
-
-### 2. 安装 FFmpeg
+### 1. 安装依赖
 
 ```bash
 # macOS
-brew install ffmpeg
-
-# Ubuntu
-sudo apt install ffmpeg
+brew install node ffmpeg
 
 # 验证
+node -v
 ffmpeg -version
 ```
 
-### 3. 下载 FunASR 模型（约2GB）
+### 2. 配置 API Key
 
-```python
-from funasr import AutoModel
-
-model = AutoModel(
-    model="paraformer-zh",
-    vad_model="fsmn-vad",
-    punc_model="ct-punc",
-)
-print("FunASR 模型下载完成")
+```bash
+# 在项目 .claude/skills/ 目录下创建 .env 文件
+echo "VOLCENGINE_API_KEY=your_key" >> .claude/skills/.env
 ```
 
-### 4. 下载 Whisper 模型（约3GB）
+### 3. 验证环境
 
-```python
-import whisper
+```bash
+# 检查 Node.js
+node -v
 
-model = whisper.load_model("large-v3")
-print("Whisper 模型下载完成")
-```
+# 检查 FFmpeg
+ffmpeg -version
 
-### 5. 验证环境
-
-```python
-from funasr import AutoModel
-
-model = AutoModel(
-    model="paraformer-zh",
-    vad_model="fsmn-vad",
-    punc_model="ct-punc",
-    disable_update=True
-)
-
-# 测试转录（用任意音频/视频）
-result = model.generate(input="test.mp4")
-print("文本:", result[0]['text'][:50])
-print("时间戳数量:", len(result[0]['timestamp']))
-print("✅ 环境就绪")
+# 检查 API Key（在项目目录下执行）
+cat .claude/skills/.env | grep VOLCENGINE
 ```
 
 ## 常见问题
 
-### Q1: 模型下载慢
+### Q1: API Key 在哪获取？
 
-**解决**：使用国内镜像或手动下载
+火山引擎控制台 → 语音技术 → 语音识别 → API Key
 
 ### Q2: ffmpeg 命令找不到
 
-**解决**：确认已安装并添加到 PATH
-
 ```bash
 which ffmpeg  # 应该输出路径
+# 如果没有，重新安装：brew install ffmpeg
 ```
 
-### Q3: funasr 导入报错
+### Q3: 文件名含冒号报错
 
-**解决**：检查 Python 版本（需要 3.8+）
+FFmpeg 命令需加 `file:` 前缀：
 
 ```bash
-python3 --version
+ffmpeg -i "file:2026:01:26 task.mp4" ...
 ```

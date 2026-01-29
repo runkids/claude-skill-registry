@@ -326,8 +326,8 @@ ng update @angular/core @angular/cli --force
 # Build with stats
 ng build -c production --stats-json
 
-# Analyze bundle (install webpack-bundle-analyzer)
-npx webpack-bundle-analyzer dist/my-app/browser/stats.json
+# Analyze bundle (install esbuild-visualizer)
+npx esbuild-visualizer --metadata dist/my-app/browser/stats.json --open
 ```
 
 ## Caching

@@ -1,7 +1,7 @@
 {
   "name": "ask-questions-if-underspecified",
-  "repo": "Dayopt/app",
-  "path": ".claude/skills/ask-questions-if-underspecified/SKILL.md",
-  "source": "github.com/Dayopt/app",
-  "downloaded_at": "2026-01-28T03:56:14.664672Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/ask-questions-if-underspecified/skills/ask-questions-if-underspecified/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-01-29T03:53:03.746837Z"
 }

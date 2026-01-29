@@ -1,12 +1,7 @@
 {
   "name": "backend-test",
-  "description": "Generate backend tests (unit, integration, mocks). Auto-invoke when user says \"write test for\", \"add test\", \"test this\", or \"create test\".",
-  "repo": "alekspetrov/navigator",
-  "category": "testing",
-  "tags": [
-    "backend",
-    "test"
-  ],
-  "stars": 46,
-  "source": "SkillsMP Synced Skills"
+  "repo": "dkyazzentwatwa/SuperNavigator",
+  "path": "navigator-main/skills/backend-test/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/SuperNavigator",
+  "downloaded_at": "2026-01-29T02:32:23.533211Z"
 }

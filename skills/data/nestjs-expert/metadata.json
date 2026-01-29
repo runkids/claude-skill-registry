@@ -1,7 +1,7 @@
 {
   "name": "nestjs-expert",
-  "repo": "cgyudistira/code-agents",
-  "path": "skills/nestjs-expert/SKILL.md",
-  "source": "github.com/cgyudistira/code-agents",
-  "downloaded_at": "2026-01-28T04:27:39.214301Z"
+  "repo": "GrupoUS/gpus",
+  "path": ".agent/skills/nestjs-expert/SKILL.md",
+  "source": "github.com/GrupoUS/gpus",
+  "downloaded_at": "2026-01-29T04:38:00.638452Z"
 }

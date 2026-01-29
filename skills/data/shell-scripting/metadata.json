@@ -1,7 +1,7 @@
 {
   "name": "shell-scripting",
-  "repo": "einverne/dotfiles",
-  "path": "claude/skills/shell-scripting/SKILL.md",
-  "source": "github.com/einverne/dotfiles",
-  "downloaded_at": "2026-01-28T02:45:52.130240Z"
+  "repo": "ancoleman/ai-design-components",
+  "path": "skills/shell-scripting/SKILL.md",
+  "source": "github.com/ancoleman/ai-design-components",
+  "downloaded_at": "2026-01-29T04:07:53.486890Z"
 }

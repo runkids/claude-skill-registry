@@ -16,22 +16,43 @@ Use this skill when:
 
 ## Process
 
+### CRITICAL: Setup First
+**ALWAYS check if `.linear.yaml` exists. If not, run:**
+```bash
+linear init  # Select default team - REQUIRED for cycle operations
+```
+
 1. **Analyze Historical Velocity**
    ```bash
-   linear cycles analyze --team ENG --count 5
+   linear cycles analyze --team ENG --count 10 --format full
    ```
+   Parse the JSON to extract velocity metrics, completion rates, and recommendations.
 
 2. **Review Available Capacity**
    - Check team size
    - Account for PTO/holidays
    - Consider focus time needs
+   - Use P20/P50/P80 recommendations from analyze command
 
-3. **Select Issues for Cycle**
-   - Start with P1/P2 issues
-   - Respect dependencies
+3. **Get Issues for Planning**
+   ```bash
+   # Get backlog issues (returns ALL issues, not just assigned)
+   linear issues list --state Backlog --format full --limit 100
+
+   # Get current cycle issues
+   linear issues list --cycle current --format full
+
+   # Get next cycle issues (if already planned)
+   linear issues list --cycle next --format full
+   ```
+
+4. **Select Issues for Cycle**
+   - Start with P1/P2 issues (`--priority 1` or `--priority 2`)
+   - Respect dependencies (use `linear deps --team ENG`)
    - Balance across team members
+   - Stay within recommended capacity
 
-4. **Validate Plan**
+5. **Validate Plan**
    - Total estimates <= capacity
    - No cross-cycle blockers
    - Even distribution
@@ -97,11 +118,25 @@ ENG-203 blocked by ENG-201 (same cycle - OK)
 ## Commands Used
 
 ```bash
-# Analyze velocity
-linear cycles analyze --team ENG --count 5
+# FIRST: Ensure team context is set
+linear init  # If .linear.yaml doesn't exist
 
-# List upcoming issues
-linear issues list --team ENG
+# Analyze velocity (ALWAYS do this first)
+linear cycles analyze --team ENG --count 10 --format full
+
+# Get backlog issues for planning (returns ALL issues, not just assigned)
+linear issues list --state Backlog --format full --limit 100
+
+# Get high priority issues
+linear issues list --priority 1 --format full
+
+# Get issues by cycle
+linear issues list --cycle current --format full
+linear issues list --cycle next --format full
+linear issues list --cycle 65 --format full  # Specific cycle number
+
+# Filter by multiple criteria
+linear issues list --state Backlog --priority 1 --labels customer --format full
 
 # Check dependencies
 linear deps --team ENG
@@ -109,7 +144,16 @@ linear deps --team ENG
 # Assign to cycle
 linear issues update ENG-201 --cycle current
 linear issues update ENG-202 --cycle next
+linear issues update ENG-203 --cycle 65  # Specific cycle number
 ```
+
+## Key Learnings
+
+- **`linear issues list` returns ALL issues** (not just assigned to you)
+- Use `--format full` for parsing output in scripts
+- Cycle numbers require team context from `linear init`
+- Always run `linear cycles analyze` before planning to understand capacity
+- Use filters to narrow results: `--state`, `--priority`, `--labels`, `--cycle`, `--assignee`
 
 ## Best Practices
 

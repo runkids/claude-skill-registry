@@ -1,65 +1,62 @@
 ---
-name: design-scalardb-analytics
-description: ScalarDB Analytics設計エージェント - ScalarDB Analyticsを使用した分析基盤の設計。Apache Sparkベースの分析クエリ、マルチDB横断分析を策定。/design-scalardb-analytics [対象パス] で呼び出し。
+name: design-scalardb
+description: ScalarDB設計エージェント - ScalarDB Clusterを使用したマイクロサービスのデータアーキテクチャ設計。分散トランザクション、スキーマ設計、ポリグロット永続化を策定。/design-scalardb [対象パス] で呼び出し。
 user_invocable: true
 ---
 
-# ScalarDB Analytics Design Agent
+# ScalarDB Design Agent
 
-**ScalarDB Analytics**を使用した分析基盤アーキテクチャを設計するエージェントです。
+**ScalarDB Cluster**を使用したマイクロサービスのデータアーキテクチャを設計するエージェントです。
 
 ## 概要
 
-このエージェントは、既存システムの分析結果をもとに、**ScalarDB Analytics**を活用した以下の設計を策定します：
+このエージェントは、既存システムの分析結果をもとに、**ScalarDB Cluster**を活用した以下の設計を策定します：
 
-1. **分析基盤アーキテクチャ設計** - Spark構成、データソース統合
-2. **データカタログ設計** - 論理スキーマ、物理マッピング
-3. **クエリ設計** - 分析クエリパターン、パフォーマンス最適化
-4. **データパイプライン設計** - ETL/ELTフロー、リアルタイム分析
+1. **ScalarDB Clusterアーキテクチャ設計** - クラスター構成、ストレージバックエンド選定
+2. **スキーマ設計** - テーブル設計、パーティションキー、クラスタリングキー
+3. **トランザクション設計** - 分散トランザクション戦略、Sagaパターン
+4. **マイグレーション計画** - 既存DBからの移行戦略
 
-> **注意**: 本設計はScalarDB Analyticsを前提としています。トランザクション処理には `/design-scalardb` を使用してください。
+> **注意**: 本設計はScalarDB Cluster（サーバーモード）を前提としています。ScalarDB Core（ライブラリモード）は対象外です。
+
+> **分析要件がある場合**: レポート、ダッシュボード、クロスDBクエリなどの分析要件がある場合は、`/design-scalardb-analytics` も併用してください。ScalarDB Analyticsを使用することで、HTAP（Hybrid Transactional/Analytical Processing）アーキテクチャを実現できます。
 
 ## 前提条件
 
 以下の中間ファイルが存在すること：
 - `01_analysis/` 配下の分析結果
 - `03_design/target_architecture.md`
-- `03_design/scalardb_schema.md`（オプション）
 
-## ScalarDB Analytics概要
+## ScalarDB Cluster概要
 
-ScalarDB Analyticsは、ScalarDBのHTAP（Hybrid Transactional/Analytical Processing）アーキテクチャの分析コンポーネントです。Apache Sparkをクエリエンジンとして使用し、複数のデータベースにまたがる統合的な分析クエリを実現します。
+ScalarDB Clusterは、異種データベース間で分散トランザクションを実現するエンタープライズ向けHTAPプラットフォームです。gRPCベースの集中型トランザクションコーディネーターとして動作し、マイクロサービスアーキテクチャに最適化されています。
 
-### アーキテクチャ
+### ScalarDB Cluster アーキテクチャ
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    Application Layer                         │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐                    │
-│  │ BI Tools │ │ Notebooks│ │ Reports  │                    │
-│  └────┬─────┘ └────┬─────┘ └────┬─────┘                    │
-└───────┼────────────┼────────────┼───────────────────────────┘
-        │   SQL      │  Spark SQL │   JDBC
-        ▼            ▼            ▼
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐       │
+│  │ Service A│ │ Service B│ │ Service C│ │ Service D│       │
+│  └────┬─────┘ └────┬─────┘ └────┬─────┘ └────┬─────┘       │
+└───────┼────────────┼────────────┼────────────┼──────────────┘
+        │  gRPC/SQL  │  GraphQL   │  gRPC      │
+        ▼            ▼            ▼            ▼
 ┌─────────────────────────────────────────────────────────────┐
-│               ScalarDB Analytics Server                      │
+│                  ScalarDB Cluster                            │
 │  ┌─────────────────────────────────────────────────────┐    │
-│  │              Apache Spark Engine                     │    │
-│  │  ┌──────────────────────────────────────────────┐   │    │
-│  │  │           Data Catalog                        │   │    │
-│  │  │  ┌────────┐ ┌────────┐ ┌────────┐           │   │    │
-│  │  │  │Schema A│ │Schema B│ │Schema C│           │   │    │
-│  │  │  └────────┘ └────────┘ └────────┘           │   │    │
-│  │  └──────────────────────────────────────────────┘   │    │
+│  │            Transaction Coordinator                   │    │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐            │    │
+│  │  │ Node 1   │ │ Node 2   │ │ Node 3   │ (HA構成)   │    │
+│  │  └──────────┘ └──────────┘ └──────────┘            │    │
 │  └─────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────┘
         │            │            │            │
         ▼            ▼            ▼            ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                    Data Sources                              │
+│                    Storage Layer                             │
 │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐       │
-│  │PostgreSQL│ │ DynamoDB │ │  MySQL   │ │ScalarDB  │       │
-│  │          │ │          │ │          │ │ Cluster  │       │
+│  │PostgreSQL│ │ DynamoDB │ │ Cassandra│ │  MySQL   │       │
 │  └──────────┘ └──────────┘ └──────────┘ └──────────┘       │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -68,345 +65,525 @@ ScalarDB Analyticsは、ScalarDBのHTAP（Hybrid Transactional/Analytical Proces
 
 | 機能 | 説明 |
 |-----|------|
-| **Federated Query** | 複数DBにまたがる統合クエリ |
-| **Spark SQL** | 標準SQLによる分析クエリ |
-| **Data Catalog** | 論理スキーマの一元管理 |
-| **Read Consistency** | トランザクション状態を考慮した読み取り |
-| **PostgreSQL FDW** | Foreign Data Wrapperによるデータアクセス |
-| **Scalable Processing** | Sparkによる分散処理 |
+| **Consensus Commit** | 単一ストレージでのACIDトランザクション |
+| **Two-Phase Commit** | 複数ストレージ間の分散トランザクション |
+| **Multi-Storage Transaction** | 異種DB間のアトミック操作 |
+| **gRPC API** | 高性能なサービス間通信 |
+| **SQL Interface** | JDBC互換のSQLアクセス |
+| **GraphQL Interface** | 柔軟なクエリAPI |
+| **Vector Search** | AIアプリケーション向けベクトル検索 |
+| **High Availability** | クラスター構成による高可用性 |
 
-### サポートデータソース
+### サポートストレージ
 
-| カテゴリ | データベース | 備考 |
-|---------|------------|-----|
-| **RDBMS** | PostgreSQL, MySQL, Oracle, SQL Server | 直接アクセス |
-| **NoSQL** | DynamoDB | 直接アクセス |
-| **ScalarDB** | Core/Cluster管理DB | ScalarDB経由アクセス |
+| カテゴリ | データベース |
+|---------|------------|
+| **JDBC** | MySQL, PostgreSQL, Oracle, SQL Server, Db2 |
+| **NoSQL** | Cassandra, DynamoDB, Cosmos DB, YugabyteDB |
+| **Object Storage** | S3, Azure Blob, GCS |
+
+### ScalarDB Cluster のメリット
+
+| 観点 | メリット |
+|-----|---------|
+| **運用** | 集中管理、統一的な監視・ログ |
+| **スケーラビリティ** | ノード追加による水平スケール |
+| **セキュリティ** | 認証・認可の一元化 |
+| **マルチテナント** | 名前空間による論理分離 |
+| **開発効率** | SQL/GraphQLによる簡易アクセス |
 
 ## 実行プロンプト
 
-あなたはScalarDB Analyticsを使用した分析基盤アーキテクチャの設計専門家です。以下の手順で設計を実行してください。
+あなたはScalarDB Clusterを使用したマイクロサービスデータアーキテクチャの設計専門家です。以下の手順で設計を実行してください。
 
-### Step 1: 分析要件の整理
+### Step 1: 現状分析
 
-分析要件を整理します：
-
-```markdown
-## 分析要件
-
-### ユースケース一覧
-| ID | ユースケース | データソース | 頻度 | SLA | 利用者 |
-|----|------------|-------------|-----|-----|-------|
-| A1 | 売上ダッシュボード | Orders, Products | リアルタイム | 5秒 | 経営層 |
-| A2 | 在庫分析レポート | Inventory, Suppliers | 日次 | 1時間 | 在庫管理者 |
-| A3 | 顧客行動分析 | Customers, Orders, Logs | 週次 | 6時間 | マーケティング |
-
-### クロスDBクエリ要件
-| クエリ | 関連DB | 結合キー | データ量 | 複雑度 |
-|-------|-------|---------|---------|-------|
-| 顧客別売上集計 | PostgreSQL + DynamoDB | customer_id | 100万件 | 中 |
-| 在庫×売上分析 | MySQL + Cassandra | product_id | 500万件 | 高 |
-
-### 非機能要件
-- レスポンス時間: ダッシュボード 5秒以内、レポート 1分以内
-- 同時接続数: 50ユーザー
-- データ鮮度: リアルタイム〜1時間
-```
-
-### Step 2: データソース統合設計
-
-#### データソースマッピング
+現在のデータアーキテクチャを分析：
 
 ```markdown
-## データソース統合
+## 現状分析
 
-### 物理データソース
-| ID | 名前 | 種別 | 接続情報 | 管理方式 |
-|----|-----|-----|---------|---------|
-| DS1 | order_db | PostgreSQL | jdbc:postgresql://... | ScalarDB Cluster |
-| DS2 | inventory_db | DynamoDB | dynamodb://... | ScalarDB Cluster |
-| DS3 | legacy_db | Oracle | jdbc:oracle://... | 直接接続 |
-| DS4 | logs | S3/Parquet | s3://... | 直接接続 |
+### データソース一覧
+| データソース | 種別 | 用途 | データ量 | トランザクション要件 |
+|-------------|-----|------|---------|-------------------|
 
-### 論理スキーマへのマッピング
-| 論理テーブル | 物理テーブル | データソース | 変換ロジック |
-|------------|-------------|-------------|------------|
-| unified_orders | orders | DS1 | そのまま |
-| unified_inventory | inventory | DS2 | JSON展開 |
-| unified_customers | customers | DS1 + DS3 | UNION |
+### クロスサービストランザクション
+| トランザクション名 | 関連サービス | 整合性要件 | 現状の実装 |
+|------------------|-------------|-----------|-----------|
+
+### 課題
+- [課題1]
+- [課題2]
 ```
 
-#### ScalarDB連携設定
+### Step 2: ScalarDB Cluster構成設計
 
-```properties
-# ScalarDB Analytics - ScalarDB Cluster連携
-scalardb.analytics.scalardb.enabled=true
-scalardb.analytics.scalardb.contact_points=scalardb-cluster:60053
+ScalarDB Clusterのクラスター構成を設計します。
 
-# ScalarDB管理テーブルのカタログ登録
-scalardb.analytics.catalog.scalardb.namespaces=order_service,inventory_service
+#### 構成パターン
+
+**シングルリージョン構成（推奨開始構成）**
+
+```yaml
+# 構成
+- クラスターノード数: 3（奇数推奨）
+- ロードバランサー: L4/L7
+- 認証: Kubernetes ServiceAccount / OAuth2
+
+# 適用
+- 単一リージョンでの高可用性
+- 低レイテンシー要件
 ```
 
-### Step 3: データカタログ設計
+**マルチリージョン構成（災害対策）**
+
+```yaml
+# 構成
+- プライマリリージョン: 3ノード
+- セカンダリリージョン: 3ノード（レプリカ）
+- グローバルロードバランサー
+
+# 適用
+- 地理的冗長性が必要
+- RPO/RTO要件が厳しい
+```
+
+#### クラスターサイジング
+
+| 規模 | ノード数 | CPU/ノード | メモリ/ノード | 想定TPS |
+|-----|---------|-----------|-------------|---------|
+| Small | 3 | 2 vCPU | 4 GB | ~1,000 |
+| Medium | 5 | 4 vCPU | 8 GB | ~5,000 |
+| Large | 7+ | 8 vCPU | 16 GB | ~10,000+ |
+
+#### 接続方式の選択
+
+| 方式 | ユースケース | 特徴 |
+|-----|------------|-----|
+| **gRPC API** | 高性能トランザクション | 低レイテンシー、型安全 |
+| **SQL Interface** | 既存JDBC資産活用 | 移行容易、標準SQL |
+| **GraphQL** | フロントエンド直接アクセス | 柔軟なクエリ、自動生成スキーマ |
+
+```mermaid
+graph TB
+    subgraph "Application Services"
+        A[Order Service<br/>gRPC]
+        B[Inventory Service<br/>gRPC]
+        C[Analytics<br/>SQL]
+        D[BFF<br/>GraphQL]
+    end
+
+    subgraph "ScalarDB Cluster"
+        LB[Load Balancer]
+        N1[Node 1]
+        N2[Node 2]
+        N3[Node 3]
+    end
+
+    A --> LB
+    B --> LB
+    C --> LB
+    D --> LB
+    LB --> N1
+    LB --> N2
+    LB --> N3
+```
+
+### Step 3: ストレージバックエンド設計
+
+各マイクロサービスに適したストレージを選定：
 
 ```markdown
-## データカタログ
+## ストレージ選定
 
-### カタログ構造
+### サービス別ストレージマッピング
+| サービス | 主ストレージ | 選定理由 | ScalarDB設定 |
+|---------|------------|---------|--------------|
+| Order Service | PostgreSQL | トランザクション重視 | JDBC |
+| Inventory Service | DynamoDB | スケーラビリティ | DynamoDB Native |
+| Analytics Service | Cassandra | 書き込み性能 | Cassandra Native |
+
+### マルチストレージ構成
+```mermaid
+graph TB
+    subgraph ScalarDB Cluster
+        Coordinator[Transaction Coordinator]
+    end
+
+    subgraph Services
+        OrderSvc[Order Service]
+        InvSvc[Inventory Service]
+        PaySvc[Payment Service]
+    end
+
+    subgraph Storage
+        PG[(PostgreSQL)]
+        DDB[(DynamoDB)]
+        Cassandra[(Cassandra)]
+    end
+
+    OrderSvc --> Coordinator
+    InvSvc --> Coordinator
+    PaySvc --> Coordinator
+
+    Coordinator --> PG
+    Coordinator --> DDB
+    Coordinator --> Cassandra
 ```
-analytics_catalog/
-├── raw/                    # 生データ層
-│   ├── order_service/      # ScalarDB namespace
-│   │   ├── orders
-│   │   └── order_items
-│   ├── inventory_service/
-│   │   └── inventory
-│   └── legacy/
-│       └── customers
-├── staging/                # 変換層
-│   ├── stg_orders
-│   └── stg_customers
-└── mart/                   # 分析マート層
-    ├── fact_sales
-    ├── dim_customers
-    └── dim_products
 ```
+
+### Step 4: スキーマ設計
+
+ScalarDBのスキーマ設計原則に従ってテーブルを設計：
+
+```markdown
+## スキーマ設計
+
+### 命名規則
+- Namespace: [service_name]
+- Table: [entity_name]
+- パーティションキー: ビジネスID（例：order_id, customer_id）
+- クラスタリングキー: 時系列やバージョン
 
 ### テーブル定義
 
-#### mart.fact_sales
-| カラム | 型 | ソース | 説明 |
-|-------|---|-------|------|
-| sale_id | STRING | orders.order_id | 売上ID |
-| sale_date | DATE | orders.created_at | 売上日 |
-| customer_key | STRING | dim_customers.key | 顧客キー |
-| product_key | STRING | dim_products.key | 商品キー |
-| quantity | INT | order_items.quantity | 数量 |
-| amount | DECIMAL | order_items.amount | 金額 |
+#### [Namespace].[Table]
+
+| カラム名 | データ型 | キー種別 | 説明 |
+|---------|---------|---------|------|
+| id | TEXT | PARTITION | 主キー |
+| created_at | TIMESTAMP | CLUSTERING | 作成日時 |
+| status | TEXT | - | ステータス |
+| data | TEXT | - | JSONデータ |
+
+**スキーマJSON:**
+```json
+{
+  "namespace": "order_service",
+  "table": "orders",
+  "partition_key": ["order_id"],
+  "clustering_key": ["created_at"],
+  "columns": {
+    "order_id": "TEXT",
+    "created_at": "TIMESTAMP",
+    "customer_id": "TEXT",
+    "status": "TEXT",
+    "total_amount": "BIGINT"
+  },
+  "secondary_index": ["customer_id"]
+}
+```
 ```
 
-### Step 4: クエリパターン設計
+### Step 5: トランザクション設計
 
-#### Federated Query例
+#### 単一ストレージトランザクション（Consensus Commit）
 
-```sql
--- クロスDBクエリ: PostgreSQL + DynamoDB
-SELECT
-    c.customer_name,
-    o.order_date,
-    SUM(oi.quantity) as total_quantity,
-    SUM(oi.amount) as total_amount
-FROM raw.order_service.orders o
-JOIN raw.order_service.order_items oi
-    ON o.order_id = oi.order_id
-JOIN raw.inventory_service.inventory i
-    ON oi.product_id = i.product_id
-JOIN raw.legacy.customers c
-    ON o.customer_id = c.customer_id
-WHERE o.order_date >= '2024-01-01'
-GROUP BY c.customer_name, o.order_date
-ORDER BY total_amount DESC;
+```java
+// 設定
+scalar.db.transaction_manager=consensus-commit
+scalar.db.storage=jdbc
+scalar.db.contact_points=jdbc:postgresql://localhost:5432/mydb
+
+// 使用パターン
+DistributedTransactionManager manager = ...;
+DistributedTransaction tx = manager.start();
+try {
+    // Get
+    Optional<Result> result = tx.get(Get.newBuilder()
+        .namespace("order_service")
+        .table("orders")
+        .partitionKey(Key.ofText("order_id", orderId))
+        .build());
+
+    // Put
+    tx.put(Put.newBuilder()
+        .namespace("order_service")
+        .table("orders")
+        .partitionKey(Key.ofText("order_id", orderId))
+        .textValue("status", "CONFIRMED")
+        .build());
+
+    tx.commit();
+} catch (Exception e) {
+    tx.rollback();
+    throw e;
+}
 ```
 
-#### パフォーマンス最適化
+#### マルチストレージトランザクション（Two-Phase Commit）
+
+```java
+// 設定
+scalar.db.transaction_manager=consensus-commit
+scalar.db.multi_storage.storages=postgres,dynamodb
+
+// PostgreSQL設定
+scalar.db.multi_storage.storages.postgres.storage=jdbc
+scalar.db.multi_storage.storages.postgres.contact_points=jdbc:postgresql://...
+
+// DynamoDB設定
+scalar.db.multi_storage.storages.dynamodb.storage=dynamo
+scalar.db.multi_storage.storages.dynamodb.contact_points=dynamodb.ap-northeast-1.amazonaws.com
+
+// Namespace-Storage マッピング
+scalar.db.multi_storage.namespace_mapping=order_service:postgres,inventory_service:dynamodb
+```
+
+#### Sagaパターン（長時間トランザクション）
 
 ```markdown
-## クエリ最適化戦略
+## Sagaオーケストレーション
 
-### プッシュダウン最適化
-| 最適化 | 適用条件 | 効果 |
-|-------|---------|------|
-| フィルタプッシュダウン | WHERE句 | データ転送削減 |
-| 射影プッシュダウン | SELECT句 | カラム限定 |
-| 集約プッシュダウン | GROUP BY | 事前集計 |
+### 注文作成Saga
+1. Order Service: 注文を作成（PENDING）
+2. Inventory Service: 在庫を予約
+3. Payment Service: 決済を実行
+4. Order Service: 注文を確定（CONFIRMED）
 
-### マテリアライズドビュー
-| ビュー名 | 更新頻度 | ソーステーブル | 用途 |
-|---------|---------|--------------|------|
-| mv_daily_sales | 1時間 | fact_sales | 日次売上 |
-| mv_customer_summary | 日次 | fact_sales, dim_customers | 顧客サマリー |
-
-### パーティショニング
-| テーブル | パーティションキー | 保持期間 |
-|---------|-----------------|---------|
-| fact_sales | sale_date | 3年 |
-| raw_logs | event_date | 90日 |
+### 補償トランザクション
+| ステップ | 正常処理 | 補償処理 |
+|---------|---------|---------|
+| 在庫予約 | reserveInventory() | releaseInventory() |
+| 決済実行 | processPayment() | refundPayment() |
+| 注文確定 | confirmOrder() | cancelOrder() |
 ```
-
-### Step 5: Spark構成設計
-
-```markdown
-## Spark構成
-
-### クラスター構成
-| パラメータ | 開発環境 | 本番環境 |
-|-----------|---------|---------|
-| Driver Memory | 2GB | 8GB |
-| Executor Memory | 4GB | 16GB |
-| Executor Cores | 2 | 4 |
-| Executor Instances | 2 | 10 |
-| Dynamic Allocation | OFF | ON |
-
-### 設定ファイル
-
-```properties
-# spark-defaults.conf
-spark.master=yarn
-spark.submit.deployMode=cluster
-
-# メモリ設定
-spark.driver.memory=8g
-spark.executor.memory=16g
-spark.executor.cores=4
-
-# Dynamic Allocation
-spark.dynamicAllocation.enabled=true
-spark.dynamicAllocation.minExecutors=2
-spark.dynamicAllocation.maxExecutors=20
-
-# シャッフル最適化
-spark.sql.shuffle.partitions=200
-spark.sql.adaptive.enabled=true
-spark.sql.adaptive.coalescePartitions.enabled=true
-
-# ScalarDB Analytics設定
-spark.jars.packages=com.scalar-labs:scalardb-analytics-spark-3.5_2.12:3.17.0
-```
-```
-
-### Step 6: データパイプライン設計
-
-```markdown
-## データパイプライン
-
-### ETLフロー
 
 ```mermaid
-graph LR
-    subgraph "Source Layer"
-        S1[(PostgreSQL)]
-        S2[(DynamoDB)]
-        S3[(Oracle)]
-    end
+sequenceDiagram
+    participant Client
+    participant OrderSvc as Order Service
+    participant InvSvc as Inventory Service
+    participant PaySvc as Payment Service
+    participant ScalarDB as ScalarDB Cluster
 
-    subgraph "ScalarDB Analytics"
-        E1[Extract]
-        T1[Transform]
-        L1[Load]
-    end
+    Client->>OrderSvc: 注文作成
+    OrderSvc->>ScalarDB: Begin 2PC
+    ScalarDB->>OrderSvc: TX Started
 
-    subgraph "Analytics Layer"
-        R[(Raw)]
-        ST[(Staging)]
-        M[(Mart)]
-    end
+    OrderSvc->>ScalarDB: Insert Order (PENDING)
+    OrderSvc->>InvSvc: Reserve Inventory
+    InvSvc->>ScalarDB: Update Inventory
 
-    S1 --> E1
-    S2 --> E1
-    S3 --> E1
-    E1 --> R
-    R --> T1
-    T1 --> ST
-    ST --> L1
-    L1 --> M
+    OrderSvc->>PaySvc: Process Payment
+    PaySvc->>ScalarDB: Insert Payment
+
+    OrderSvc->>ScalarDB: Prepare
+    ScalarDB-->>OrderSvc: Prepared
+
+    OrderSvc->>ScalarDB: Commit
+    ScalarDB-->>OrderSvc: Committed
+
+    OrderSvc->>Client: 注文完了
 ```
 
-### バッチジョブスケジュール
-| ジョブ | スケジュール | 依存関係 | SLA |
-|-------|------------|---------|-----|
-| raw_extraction | 毎時 | - | 15分 |
-| staging_transform | 毎時 | raw_extraction | 30分 |
-| mart_aggregation | 日次 00:00 | staging_transform | 2時間 |
-| mv_refresh | 日次 06:00 | mart_aggregation | 1時間 |
+### Step 6: 例外処理設計
 
-### リアルタイム分析（オプション）
-| パイプライン | ソース | 処理 | シンク |
-|------------|-------|------|-------|
-| order_stream | Kafka | Spark Streaming | mart.realtime_sales |
-| inventory_alert | DynamoDB Streams | Lambda + Analytics | Alert System |
+ScalarDBの例外カテゴリに基づく処理戦略：
+
+| 例外タイプ | 例外クラス | 対応戦略 |
+|----------|----------|---------|
+| **Transient** | CrudConflictException | リトライ（指数バックオフ） |
+| **Transient** | CommitConflictException | リトライ（指数バックオフ） |
+| **Non-Transient** | CrudException | 根本原因調査、エラー返却 |
+| **Unknown** | UnknownTransactionStatusException | 冪等性チェック後リトライ |
+
+```java
+// リトライパターン
+int maxRetries = 3;
+for (int i = 0; i < maxRetries; i++) {
+    try {
+        executeTransaction();
+        break;
+    } catch (CrudConflictException | CommitConflictException e) {
+        if (i == maxRetries - 1) throw e;
+        Thread.sleep((long) Math.pow(2, i) * 100);
+    } catch (UnknownTransactionStatusException e) {
+        // 冪等性キーでコミット状態を確認
+        if (isAlreadyCommitted(idempotencyKey)) {
+            return getExistingResult(idempotencyKey);
+        }
+        throw e;
+    }
+}
 ```
 
-### Step 7: 監視・運用設計
+### Step 7: パフォーマンス最適化
+
+#### Group Commit（書き込み最適化）
+
+```properties
+# 有効化
+scalar.db.consensus_commit.coordinator.group_commit.enabled=true
+
+# スロットサイズ（並列書き込み数）
+scalar.db.consensus_commit.coordinator.group_commit.slot_capacity=20
+
+# 遅延時間（ミリ秒）
+scalar.db.consensus_commit.coordinator.group_commit.group_size_fix_timeout_millis=20
+```
+
+#### Implicit Pre-Read
+
+```java
+// 存在チェックを自動化
+Put put = Put.newBuilder()
+    .namespace("order_service")
+    .table("orders")
+    .partitionKey(Key.ofText("order_id", orderId))
+    .textValue("status", "CONFIRMED")
+    .enableImplicitPreRead()  // 自動で存在チェック
+    .build();
+```
+
+### Step 8: マイグレーション計画
 
 ```markdown
-## 監視・運用
+## マイグレーション計画
 
-### メトリクス
-| カテゴリ | メトリクス | 閾値 | アラート |
-|---------|----------|------|---------|
-| クエリ性能 | 平均レスポンス時間 | > 30秒 | Warning |
-| クエリ性能 | 95%ile レスポンス時間 | > 60秒 | Critical |
-| リソース | Executor利用率 | > 80% | Warning |
-| データ品質 | NULL率 | > 5% | Warning |
+### Phase 1: 準備
+- ScalarDB Cluster環境構築
+- Coordinatorテーブル作成
+- スキーマ定義とテーブル作成
 
-### ログ・監査
-| ログ種別 | 保持期間 | 用途 |
-|---------|---------|------|
-| クエリログ | 90日 | パフォーマンス分析 |
-| 監査ログ | 1年 | コンプライアンス |
-| エラーログ | 30日 | トラブルシューティング |
+### Phase 2: Shadow Migration
+- 既存DBとScalarDB双方に書き込み
+- データ整合性検証
+- パフォーマンス計測
 
-### バックアップ
-| 対象 | 方式 | 頻度 | 保持期間 |
-|-----|------|------|---------|
-| カタログ | フルバックアップ | 日次 | 30日 |
-| マート | 増分バックアップ | 日次 | 7日 |
+### Phase 3: 段階的切り替え
+| サービス | 切り替え順 | 前提条件 | ロールバック計画 |
+|---------|----------|---------|----------------|
+| Master Data | 1 | - | 旧DB復元 |
+| Order Service | 2 | Master完了 | フラグ切り替え |
+| Payment Service | 3 | Order完了 | フラグ切り替え |
+
+### Phase 4: 完全移行
+- 旧DB参照の削除
+- モニタリング強化
+- ドキュメント更新
 ```
 
 ## 出力フォーマット
 
-### scalardb_analytics_architecture.md
+### scalardb_architecture.md
 
-分析基盤アーキテクチャ設計：
-- システム構成図
-- Spark構成
-- データソース統合設計
-- ネットワーク・セキュリティ設計
+ScalarDB Clusterアーキテクチャ設計：
+- クラスター構成（ノード数、リージョン構成）
+- 接続方式（gRPC/SQL/GraphQL）
+- ストレージ構成
+- ネットワーク設計
+- セキュリティ設計（認証・認可）
+- Kubernetes/Helmデプロイ設定
 
-### scalardb_analytics_catalog.md
+### scalardb_schema.md
 
-データカタログ設計：
-- カタログ構造
-- 論理スキーマ定義
-- 物理マッピング
-- データ系統（リネージ）
+スキーマ設計：
+- Namespace一覧
+- テーブル定義
+- インデックス設計
+- パーティション戦略
 
-### scalardb_analytics_query.md
+### scalardb_transaction.md
 
-クエリ設計：
-- クエリパターン集
-- パフォーマンス最適化
-- マテリアライズドビュー
-- インデックス戦略
+トランザクション設計：
+- トランザクションパターン
+- Saga設計
+- 例外処理戦略
+- 冪等性設計
 
-### scalardb_analytics_pipeline.md
+### scalardb_migration.md
 
-データパイプライン設計：
-- ETL/ELTフロー
-- ジョブスケジュール
-- リアルタイム処理
-- 監視・運用
+マイグレーション計画：
+- フェーズ別計画
+- データ移行手順
+- 検証計画
+- ロールバック手順
 
 ## ツール活用ガイドライン
 
-### 分析要件の抽出
+### 設計図作成
+
+- Mermaid記法を使用
+- アーキテクチャ図、シーケンス図を作成
+- ER図でスキーマを可視化
+
+### コード確認
 
 ```bash
-# ユースケースドキュメントの検索
-mcp__serena__search_for_pattern で "レポート" "ダッシュボード" "分析" を検索
-
-# 既存クエリの分析
-mcp__serena__find_symbol で Repository クラスの複雑なクエリメソッドを検索
+# 既存のデータアクセスパターンを確認
+mcp__serena__find_symbol で Repository/DAO クラスを検索
+mcp__serena__find_referencing_symbols でトランザクション境界を確認
 ```
 
-### ScalarDB連携確認
+### 設定ファイルテンプレート
 
-```bash
-# ScalarDBスキーマ定義の確認
-Read: 03_design/scalardb_schema.md
+#### ScalarDB Cluster サーバー設定
 
-# トランザクション境界の確認
-Read: 03_design/scalardb_transaction.md
+```properties
+# scalardb-cluster-node.properties テンプレート
+
+# Cluster設定
+scalar.db.cluster.node.standalone_mode.enabled=false
+scalar.db.cluster.membership.type=KUBERNETES
+
+# gRPC設定
+scalar.db.cluster.grpc.deadline_duration_millis=60000
+
+# トランザクション設定
+scalar.db.storage=multi-storage
+scalar.db.transaction_manager=consensus-commit
+
+# Coordinator設定
+scalar.db.consensus_commit.coordinator.namespace=coordinator
+scalar.db.consensus_commit.coordinator.group_commit.enabled=true
+
+# マルチストレージ設定
+scalar.db.multi_storage.storages=postgres,dynamodb,cassandra
+scalar.db.multi_storage.namespace_mapping=order_service:postgres,inventory_service:dynamodb
+
+# 認証設定
+scalar.db.cluster.auth.enabled=true
+scalar.db.cluster.auth.type=JWT
+```
+
+#### クライアント設定
+
+```properties
+# scalardb-cluster-client.properties
+
+# Cluster接続
+scalar.db.contact_points=indirect:scalardb-cluster-headless.default.svc.cluster.local
+scalar.db.contact_port=60053
+
+# 認証
+scalar.db.cluster.auth.enabled=true
+scalar.db.cluster.auth.credential.type=JWT
+```
+
+#### Kubernetes Helm Values
+
+```yaml
+# values.yaml (Helm Chart)
+scalardbCluster:
+  replicaCount: 3
+
+  resources:
+    requests:
+      cpu: "2"
+      memory: "4Gi"
+    limits:
+      cpu: "4"
+      memory: "8Gi"
+
+  scalardbClusterNodeProperties: |
+    scalar.db.cluster.membership.type=KUBERNETES
+    scalar.db.storage=multi-storage
+    # ... 追加設定
+
+  envoy:
+    enabled: true
+    replicaCount: 3
 ```
 
 ## アンチパターン
@@ -415,57 +592,22 @@ Read: 03_design/scalardb_transaction.md
 
 | アンチパターン | 問題 | 推奨 |
 |--------------|-----|-----|
-| 全データスキャン | パフォーマンス低下 | フィルタプッシュダウン活用 |
-| 過剰なJOIN | メモリ圧迫 | 事前集計・非正規化 |
-| リアルタイム偏重 | コスト増 | バッチ+キャッシュ併用 |
-| カタログ未整備 | 発見性低下 | メタデータ管理徹底 |
+| クロスパーティションスキャン多用 | パフォーマンス低下 | セカンダリインデックス活用 |
+| 大きなトランザクション | ロック競合 | トランザクション分割 |
+| Group Commit + カスタムTX ID | 未サポート | 自動生成ID使用 |
+| 非JDBC DBでSERIALIZABLE前提 | SNAPSHOTになる可能性 | 整合性レベル確認 |
 
-## ScalarDB Cluster との統合
+## 関連スキル
 
-ScalarDB Analyticsは、ScalarDB Clusterで管理されたデータに対して分析クエリを実行できます：
-
-```mermaid
-graph TB
-    subgraph "OLTP Layer"
-        App[Application]
-        Cluster[ScalarDB Cluster]
-    end
-
-    subgraph "OLAP Layer"
-        Analytics[ScalarDB Analytics]
-        Spark[Apache Spark]
-    end
-
-    subgraph "Storage"
-        DB1[(PostgreSQL)]
-        DB2[(DynamoDB)]
-    end
-
-    App --> Cluster
-    Cluster --> DB1
-    Cluster --> DB2
-
-    Analytics --> Cluster
-    Analytics --> Spark
-    Spark --> DB1
-    Spark --> DB2
-```
-
-### 連携設定
-
-```properties
-# ScalarDB Cluster経由でのデータアクセス
-scalardb.analytics.scalardb.enabled=true
-scalardb.analytics.scalardb.contact_points=indirect:scalardb-cluster:60053
-scalardb.analytics.scalardb.namespaces=order_service,inventory_service,payment_service
-
-# トランザクション整合性レベル
-scalardb.analytics.read_consistency=SNAPSHOT
-```
+| スキル | 用途 |
+|-------|-----|
+| `/design-scalardb-analytics` | 分析基盤設計（レポート、ダッシュボード、クロスDBクエリ） |
+| `/design-microservices` | マイクロサービスアーキテクチャ設計 |
+| `/map-domains` | ドメイン境界・コンテキスト設計 |
 
 ## 参考資料
 
 - [ScalarDB Documentation](https://scalardb.scalar-labs.com/docs/)
 - [ScalarDB Analytics](https://scalardb.scalar-labs.com/docs/latest/scalardb-analytics/)
-- [Apache Spark Documentation](https://spark.apache.org/docs/latest/)
-- [AWS Marketplace - ScalarDB Analytics](https://aws.amazon.com/marketplace/pp/prodview-53ik57autkmci)
+- [ScalarDB GitHub](https://github.com/scalar-labs/scalardb)
+- [ScalarDB Samples](https://github.com/scalar-labs/scalardb-samples)

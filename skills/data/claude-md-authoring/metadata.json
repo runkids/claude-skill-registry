@@ -1,9 +1,7 @@
 {
   "name": "claude-md-authoring",
-  "description": "Creating and maintaining CLAUDE.md project memory files that provide non-obvious codebase context. Use when (1) creating a new CLAUDE.md for a project, (2) adding architectural patterns or design deci",
   "repo": "sammcj/agentic-coding",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "Claude/skills/claude-md-authoring/SKILL.md",
+  "source": "github.com/sammcj/agentic-coding",
+  "downloaded_at": "2026-01-29T04:01:37.480041Z"
 }

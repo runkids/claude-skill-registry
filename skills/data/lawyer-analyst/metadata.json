@@ -1,7 +1,7 @@
 {
   "name": "lawyer-analyst",
-  "repo": "rysweet/AzureHayMaker",
+  "repo": "rysweet/azlin",
   "path": ".claude/skills/lawyer-analyst/SKILL.md",
-  "source": "github.com/rysweet/AzureHayMaker",
-  "downloaded_at": "2026-01-28T04:30:07.217668Z"
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-29T04:30:07.734317Z"
 }

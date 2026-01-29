@@ -1,7 +1,7 @@
 {
   "category": "marketing",
-  "count": 463,
-  "updated_at": "2026-01-28T04:46:46.917645Z",
+  "count": 460,
+  "updated_at": "2026-01-29T04:49:19.490599Z",
   "skills": [
     {
       "name": "social-media",
@@ -1338,21 +1338,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "cv-content-editor",
-      "description": "Edit and update existing CV content using the knowledge base as source of truth. Use when user wants to modify case studies, update experience, refine variants, or improve existing content.",
-      "repo": "fotescodev/portfolio",
-      "path": "data/cv-content-editor",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "content",
-        "editor"
-      ],
-      "stars": 1,
-      "install": "fotescodev/portfolio",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "cv-content-manager",
       "description": "Create, edit, and sync CV content using the knowledge base as source of truth. Unified skill for case studies, blog posts, experience updates, and variant content. Replaces cv-content-generator and cv",
       "repo": "fotescodev/portfolio",
@@ -1365,21 +1350,6 @@
       ],
       "stars": 1,
       "install": "fotescodev/portfolio/.claude/skills/cv-content-manager",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "cv-content-manager",
-      "description": "Create, edit, and sync CV content using the knowledge base as source of truth. Unified skill for case studies, blog posts, experience updates, and variant content. Replaces cv-content-generator and cv",
-      "repo": "fotescodev/portfolio",
-      "path": "data/cv-content-manager",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [
-        "content",
-        "manager"
-      ],
-      "stars": 1,
-      "install": "fotescodev/portfolio",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -6276,18 +6246,6 @@
       "tags": [],
       "stars": 0,
       "install": "sammcj/agentic-coding/Claude/skills/youtube-wisdom",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "youtube-wisdom",
-      "description": "Extract wisdom, insights, and actionable takeaways from YouTube videos. Use when asked to analyse, summarise, or extract key learnings from YouTube content. Downloads video transcripts, performs analy",
-      "repo": "sammcj/agentic-coding",
-      "path": "data/youtube-wisdom",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "sammcj/agentic-coding",
       "source": "SkillsMP + GitHub Raw"
     }
   ]

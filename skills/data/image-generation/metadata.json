@@ -1,7 +1,7 @@
 {
   "name": "image-generation",
-  "repo": "Kjdragan/universal_agent",
-  "path": ".claude/skills/image-generation/SKILL.md",
-  "source": "github.com/Kjdragan/universal_agent",
-  "downloaded_at": "2026-01-28T03:24:51.982554Z"
+  "repo": "SherifEldeeb/agentskills",
+  "path": "skills/baseline/image-generation/SKILL.md",
+  "source": "github.com/SherifEldeeb/agentskills",
+  "downloaded_at": "2026-01-29T04:24:43.761474Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "coderabbit-review",
-  "description": "Perform code review using CodeRabbit. Must use this skill if instructed to perform a CodeRabbit review.",
-  "repo": "shogogg/dotfiles",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "showcase-gig-platform/scg-ai-playbook",
+  "path": "skills/coderabbit-review/SKILL.md",
+  "source": "github.com/showcase-gig-platform/scg-ai-playbook",
+  "downloaded_at": "2026-01-29T01:58:21.278064Z"
 }

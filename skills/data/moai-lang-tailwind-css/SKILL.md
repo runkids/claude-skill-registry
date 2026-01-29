@@ -1,18 +1,10 @@
 ---
-name: moai-lang-tailwind-css
-version: 4.0.0
-updated: '2025-11-19'
+name: "moai-lang-tailwind-css"
+version: "4.0.0"
 status: stable
-stability: stable
-description: Enterprise Skill for advanced development
-allowed-tools:
-- Read
-- Bash
-- WebSearch
-- WebFetch
+description: "Enterprise Skill for advanced development"
+allowed-tools: "Read, Bash, WebSearch, WebFetch"
 ---
-
-
 
 # moai-lang-tailwind-css
 
@@ -20,7 +12,7 @@ allowed-tools:
 
 > **Primary Agent**: frontend-expert
 > **Secondary Agent**: ui-ux-expert
-> **Version**: 1.0.0 (Tailwind CSS  +)
+> **Version**: 1.0.0 (Tailwind CSS v4.0+)
 > **Keywords**: tailwind, tailwind css, utility-first, css framework, responsive, customization, design tokens, performance
 
 ---
@@ -40,7 +32,7 @@ allowed-tools:
 | **Customization** | Extend theme in config | `tailwind.config.js` |
 | **Performance** | Purges unused styles at build | Only shipped classes in CSS |
 
-**Installation ( +)**:
+**Installation (v4.0+)**:
 ```bash
 npm install -D tailwindcss
 

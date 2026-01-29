@@ -1,7 +1,7 @@
 {
   "name": "eval-recipes-runner",
-  "repo": "rysweet/AzureHayMaker",
+  "repo": "rysweet/amplihack",
   "path": ".claude/skills/eval-recipes-runner/SKILL.md",
-  "source": "github.com/rysweet/AzureHayMaker",
-  "downloaded_at": "2026-01-28T04:30:05.109793Z"
+  "source": "github.com/rysweet/amplihack",
+  "downloaded_at": "2026-01-29T04:15:08.703259Z"
 }

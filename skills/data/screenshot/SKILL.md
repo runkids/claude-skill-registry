@@ -1,54 +1,55 @@
 ---
 name: screenshot
-description: Take and analyze a screenshot of the current game state
-model: haiku
-allowed-tools:
-  - Bash
-  - mcp__automation__screenshot
-  - mcp__automation__getWindows
-  - mcp__automation__windowControl
+description: Take a screenshot of the plugin UI using the standalone app CLI for debugging and documentation
 ---
 
-# Screenshot Game State
+# Screenshot Plugin UI
 
-Capture and analyze the current state of GridRacer.
+Use this skill to capture screenshots of the plugin UI. This is useful for:
 
-## Steps
+- **Debugging UI design** - Quickly verify control layouts, colors, and positioning without launching a DAW
+- **Documentation** - Generate consistent screenshots for README files and wikis
+- **CI/CD pipelines** - Automated visual regression testing or asset generation
 
-### 1. Find Simulator Window
+## Prerequisites
+
+Build the standalone app (APP target) first:
 ```bash
-# Check if simulator is running
-xcrun simctl list devices booted
+cd [ProjectFolder]
+xcodebuild -project "./projects/[ProjectName]-macOS.xcodeproj" -target APP -configuration Debug
 ```
 
-### 2. Focus Simulator
-Use `mcp__automation__windowControl` to bring Simulator to front.
+The app will be built to `~/Applications/[PluginName].app`
 
-### 3. Capture Screenshot
-Use `mcp__automation__screenshot` with mode "window" for Simulator.
+## Take Screenshot
 
-### 4. Analyze
+### macOS
 
-Describe what you see:
-- **Track layout**: Shape, obstacles, boundaries
-- **Racer position**: Grid coordinates
-- **Velocity**: Current direction/speed indicators
-- **Move markers**: 9 options, which are green/red
-- **HUD**: Lives, laps, turn indicator
-- **Game phase**: Setup, playing, ended
-
-### 5. Report
-
+```bash
+~/Applications/[PluginName].app/Contents/MacOS/[PluginName] --screenshot /path/to/output.png
 ```
-Current State:
-- Position: (X, Y)
-- Velocity: (dX, dY)
-- Lives: N
-- Lap: M/Total
 
-Valid Moves: N green markers
-Crash Moves: M red markers
+### Example
 
-Observations:
-- [Any issues or notable state]
+```bash
+# Take screenshot of IPlugEffect
+~/Applications/IPlugEffect.app/Contents/MacOS/IPlugEffect --screenshot ./screenshot.png
 ```
+
+The app will:
+1. Launch and display the UI (audio/MIDI I/O is automatically disabled)
+2. Wait ~500ms for the UI to fully render
+3. Capture the window to a PNG file
+4. Exit automatically
+
+## Options
+
+- `--screenshot <path>` - Path to save the PNG screenshot (required)
+- `--no-io` - Explicitly disable audio/MIDI (implicit when using --screenshot)
+
+## Tips
+
+- Screenshots are high-DPI (Retina) resolution on supported displays
+- The screenshot captures the plugin content area
+- For iterative UI debugging, rebuild the APP target and re-run the screenshot command
+- Combine with the `build` skill: build first, then screenshot

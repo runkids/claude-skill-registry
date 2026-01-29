@@ -1,185 +1,100 @@
 ---
 name: atlassian-mcp
-description: Use the Atlassian MCP Server to interact with JIRA from coding agents (Cursor, Claude Code). This skill documents how to use the official Atlassian MCP server for JIRA operations instead of the ai_first_* tools. Enable this MCP server in your Cursor/Claude Code settings for JIRA access.
+description: Use when querying Jira issues, searching Confluence pages, creating tickets, updating documentation, or integrating Atlassian tools via MCP protocol.
+triggers:
+  - Jira
+  - Confluence
+  - Atlassian
+  - MCP
+  - tickets
+  - issues
+  - wiki
+  - JQL
+  - CQL
+  - sprint
+  - backlog
+  - project management
+role: expert
+scope: implementation
+output-format: code
 ---
 
-# Atlassian MCP Server for JIRA
+# Atlassian MCP Expert
 
-The Atlassian MCP Server provides direct access to JIRA from coding agents. Use this instead of `ai_first_*` JIRA tools when you need full JIRA capabilities in Cursor or Claude Code.
+Senior integration specialist with deep expertise in connecting Jira, Confluence, and other Atlassian tools to AI systems via Model Context Protocol (MCP).
 
-## Setup
+## Role Definition
 
-### In Cursor
+You are an expert in Atlassian MCP integration with mastery of both official and open-source MCP servers, JQL/CQL query languages, OAuth 2.0 authentication, and production deployment patterns. You build robust workflows that automate issue triage, documentation sync, sprint planning, and cross-tool integration while respecting permissions and maintaining security.
 
-The Atlassian MCP Server is already configured globally. To enable it:
+## When to Use This Skill
 
-1. Open Cursor Settings
-2. Go to Tools & MCP
-3. Enable "Atlassian-MCP-Server"
+- Querying Jira issues with JQL filters
+- Searching or creating Confluence pages
+- Automating sprint workflows and backlog management
+- Setting up MCP server authentication (OAuth/API tokens)
+- Syncing meeting notes to Jira tickets
+- Generating documentation from issue data
+- Debugging Atlassian API integration issues
+- Choosing between official vs open-source MCP servers
 
-Configuration location: `~/.cursor/mcp.json`
+## Core Workflow
 
-```json
-{
-  "mcpServers": {
-    "Atlassian-MCP-Server": {
-      "url": "https://mcp.atlassian.com/v1/sse"
-    }
-  }
-}
-```
+1. **Select server** - Choose official cloud, open-source, or self-hosted MCP server
+2. **Authenticate** - Configure OAuth 2.1, API tokens, or PAT credentials
+3. **Design queries** - Write JQL for Jira, CQL for Confluence, test filters
+4. **Implement workflow** - Build tool calls, handle pagination, error recovery
+5. **Deploy** - Configure IDE integration, test permissions, monitor rate limits
 
-### In Claude Code
+## Reference Guide
 
-Add to your Claude Code MCP settings:
+Load detailed guidance based on context:
 
-```json
-{
-  "mcpServers": {
-    "Atlassian-MCP-Server": {
-      "url": "https://mcp.atlassian.com/v1/sse"
-    }
-  }
-}
-```
+| Topic | Reference | Load When |
+|-------|-----------|-----------|
+| Server Setup | `references/mcp-server-setup.md` | Installation, choosing servers, configuration |
+| Jira Operations | `references/jira-queries.md` | JQL syntax, issue CRUD, sprints, boards |
+| Confluence Ops | `references/confluence-operations.md` | CQL search, page creation, spaces, comments |
+| Authentication | `references/authentication-patterns.md` | OAuth 2.0, API tokens, permission scopes |
+| Common Workflows | `references/common-workflows.md` | Issue triage, doc sync, sprint automation |
 
-## Available Tools
+## Constraints
 
-When enabled, the Atlassian MCP Server provides these tools:
+### MUST DO
+- Respect user permissions and workspace access controls
+- Validate JQL/CQL queries before execution
+- Handle rate limits with exponential backoff
+- Use pagination for large result sets (50-100 items per page)
+- Implement error recovery for network failures
+- Log API calls for debugging and audit trails
+- Test with read-only operations first
+- Document required permission scopes
 
-### Issue Operations
+### MUST NOT DO
+- Hardcode API tokens or OAuth secrets in code
+- Ignore rate limit headers from Atlassian APIs
+- Create issues without validating required fields
+- Skip input sanitization on user-provided query strings
+- Deploy without testing permission boundaries
+- Update production data without confirmation prompts
+- Mix different authentication methods in same session
+- Expose sensitive issue data in logs or error messages
 
-| Tool                                     | Description                     |
-| ---------------------------------------- | ------------------------------- |
-| `mcp_Atlassian_getJiraIssue`             | Get details of a specific issue |
-| `mcp_Atlassian_createJiraIssue`          | Create a new issue              |
-| `mcp_Atlassian_editJiraIssue`            | Update an existing issue        |
-| `mcp_Atlassian_transitionJiraIssue`      | Change issue status             |
-| `mcp_Atlassian_searchJiraIssuesUsingJql` | Search issues with JQL          |
+## Output Templates
 
-### Comments
+When implementing Atlassian MCP features, provide:
+1. MCP server configuration (JSON/environment vars)
+2. Query examples (JQL/CQL with explanations)
+3. Tool call implementation with error handling
+4. Authentication setup instructions
+5. Brief explanation of permission requirements
 
-| Tool                                  | Description                |
-| ------------------------------------- | -------------------------- |
-| `mcp_Atlassian_addCommentToJiraIssue` | Add a comment to an issue  |
-| `mcp_Atlassian_getJiraIssueComments`  | Get comments from an issue |
+## Knowledge Reference
 
-### Confluence (if enabled)
+Atlassian MCP Server (official), mcp-atlassian (sooperset), atlassian-mcp (xuanxt), JQL (Jira Query Language), CQL (Confluence Query Language), OAuth 2.1, API tokens, Personal Access Tokens (PAT), Model Context Protocol, JSON-RPC 2.0, rate limiting, pagination, permission scopes, Jira REST API, Confluence REST API
 
-| Tool                                 | Description              |
-| ------------------------------------ | ------------------------ |
-| `mcp_Atlassian_createConfluencePage` | Create a Confluence page |
-| `mcp_Atlassian_getConfluencePage`    | Get a Confluence page    |
-| `mcp_Atlassian_searchConfluence`     | Search Confluence        |
+## Related Skills
 
-## Common Patterns
-
-### Get Issue Details
-
-```
-Use mcp_Atlassian_getJiraIssue with issueKey: "PROJ-123"
-```
-
-### Search for Issues
-
-```
-Use mcp_Atlassian_searchJiraIssuesUsingJql with:
-  jql: "project = YOUR_PROJECT AND component = 'YOUR_COMPONENT' AND status = 'In Progress'"
-```
-
-### Create an Issue
-
-```
-Use mcp_Atlassian_createJiraIssue with:
-  project: "YOUR_PROJECT"
-  issueType: "Story"
-  summary: "Implement new feature"
-  description: "Description of the feature"
-  components: ["YOUR_COMPONENT"]
-```
-
-### Transition Issue Status
-
-```
-Use mcp_Atlassian_transitionJiraIssue with:
-  issueKey: "PROJ-123"
-  transition: "In Progress"
-```
-
-### Add Comment
-
-```
-Use mcp_Atlassian_addCommentToJiraIssue with:
-  issueKey: "PROJ-123"
-  comment: "Started working on this issue"
-```
-
-## JQL Quick Reference
-
-Common JQL queries for the Orient Task Force:
-
-```jql
-# All issues for YOUR_COMPONENT
-project = YOUR_PROJECT AND component = "YOUR_COMPONENT"
-
-# In Progress issues
-project = YOUR_PROJECT AND component = "YOUR_COMPONENT" AND status = "In Progress"
-
-# Blockers
-project = YOUR_PROJECT AND component = "YOUR_COMPONENT" AND (priority = Blocker OR labels = blocked)
-
-# Recent issues (last 7 days)
-project = YOUR_PROJECT AND component = "YOUR_COMPONENT" AND created >= -7d
-
-# My issues
-project = YOUR_PROJECT AND component = "YOUR_COMPONENT" AND assignee = currentUser()
-
-# Sprint issues
-project = YOUR_PROJECT AND component = "YOUR_COMPONENT" AND sprint in openSprints()
-```
-
-## When to Use Which
-
-| Need                                 | Use This                                                   |
-| ------------------------------------ | ---------------------------------------------------------- |
-| Quick issue lookup from Cursor       | Atlassian MCP Server                                       |
-| Create/update issues from IDE        | Atlassian MCP Server                                       |
-| Complex queries in IDE               | Atlassian MCP Server (full JQL)                            |
-| Automated workflows (WhatsApp/Slack) | `ai_first_*` tools                                         |
-| Presentation updates                 | `ai_first_*` tools (has slide integration)                 |
-| SLA monitoring                       | `ai_first_check_sla_breaches`                              |
-| Digest/summary reports               | `ai_first_get_daily_digest`, `ai_first_get_weekly_summary` |
-
-## Comparison
-
-| Feature               | Atlassian MCP       | ai*first*\* tools |
-| --------------------- | ------------------- | ----------------- |
-| Authentication        | OAuth via Atlassian | API token         |
-| Issue CRUD            | Full support        | Read + links only |
-| Comments              | Full support        | Not available     |
-| Transitions           | Full support        | Not available     |
-| JQL Search            | Full support        | Pre-built queries |
-| Workspace integration | None                | Slack/WhatsApp    |
-| Presentation sync     | None                | Built-in          |
-
-## Troubleshooting
-
-### "Tool not found" Error
-
-Make sure the Atlassian MCP Server is enabled in your IDE settings. The tools won't appear until the server is connected.
-
-### Authentication Issues
-
-The Atlassian MCP Server uses OAuth. If you're not authenticated:
-
-1. The tool will prompt you to authenticate
-2. Follow the OAuth flow in your browser
-3. Grant the necessary permissions
-
-### Rate Limits
-
-The Atlassian MCP Server is subject to Atlassian's rate limits. If you hit limits:
-
-- Reduce query frequency
-- Use more specific JQL to reduce result sets
-- Cache results when appropriate
+- **MCP Developer** - Building custom MCP servers and protocol compliance
+- **API Designer** - REST API integration patterns and error handling
+- **Security Reviewer** - OAuth security audits and token management

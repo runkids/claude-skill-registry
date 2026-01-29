@@ -1,7 +1,7 @@
 {
   "name": "docs-sync",
-  "repo": "sunholo-data/ailang",
-  "path": ".claude/skills/docs-sync/SKILL.md",
-  "source": "github.com/sunholo-data/ailang",
-  "downloaded_at": "2026-01-28T04:23:20.596075Z"
+  "repo": "zaziedlm/openai-agents-python",
+  "path": ".codex/skills/docs-sync/SKILL.md",
+  "source": "github.com/zaziedlm/openai-agents-python",
+  "downloaded_at": "2026-01-29T04:40:24.530696Z"
 }

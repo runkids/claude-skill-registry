@@ -1,9 +1,7 @@
 {
   "name": "duroxide-orchestrations",
-  "description": "Writing durable workflows using Duroxide in Rust. Use when creating orchestrations, activities, workflows, or when the user mentions duroxide, durable functions, or workflow orchestration.",
   "repo": "affandar/toygres",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/affandar/toygres"
+  "path": ".claude/skills/duroxide-orchestrations/SKILL.md",
+  "source": "github.com/affandar/toygres",
+  "downloaded_at": "2026-01-29T03:31:16.585747Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "worker-integration",
-  "repo": "ruvnet/claude-flow",
-  "path": "v3/@claude-flow/cli/.claude/skills/worker-integration/skill.md",
-  "source": "github.com/ruvnet/claude-flow",
-  "downloaded_at": "2026-01-28T04:26:39.220562Z"
+  "repo": "frankxai/agentic-creator-os",
+  "path": ".claude/skills/worker-integration/skill.md",
+  "source": "github.com/frankxai/agentic-creator-os",
+  "downloaded_at": "2026-01-29T03:39:25.321307Z"
 }

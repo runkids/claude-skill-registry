@@ -1,9 +1,7 @@
 {
   "name": "nuxt-core",
-  "description": "Nuxt 4 core framework fundamentals: project setup, configuration, routing,SEO, error handling, and directory structure.Use when: creating new Nuxt 4 projects, configuring nuxt.config.ts,setting up rou",
   "repo": "secondsky/claude-skills",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/nuxt-v4/skills/nuxt-core/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-29T03:11:03.893541Z"
 }

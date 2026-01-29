@@ -1,404 +1,251 @@
 ---
 name: api-integration
-description: Integrate Apidog + OpenAPI specifications with your React app. Covers MCP server setup, type generation, and query layer integration. Use when setting up API clients, generating types from OpenAPI, or integrating with Apidog MCP.
+description: Integrate external REST APIs with proper authentication, rate limiting, error handling, and caching patterns. Use when working with external APIs, building API clients, or fetching data from third-party services.
 ---
 
-# API Integration (Apidog + MCP)
+# API Integration Skill
 
-Integrate OpenAPI specifications with your frontend using Apidog MCP for single source of truth.
+## When to Activate
 
-## Goal
+Activate this skill when:
+- Integrating external APIs
+- Building API clients or wrappers
+- Handling API authentication
+- Implementing rate limiting
+- Caching API responses
 
-The AI agent always uses the latest API specification to generate types and implement features correctly.
+## Core Principles
 
-## Architecture
+1. **Respect rate limits** - APIs are shared resources
+2. **Secure authentication** - Keys in secrets.json, never in code
+3. **Handle errors gracefully** - Implement retries and backoff
+4. **Cache responses** - Reduce redundant requests
 
-```
-Apidog (or Backend)
-  → OpenAPI 3.0/3.1 Spec
-    → MCP Server (apidog-mcp-server)
-      → AI Agent reads spec
-        → Generate TypeScript types
-          → TanStack Query hooks
-            → React Components
-```
+## Authentication Setup
 
-## Process
-
-### 1. Expose OpenAPI from Apidog
-
-**Option A: Remote URL**
-- Export OpenAPI spec from Apidog
-- Host at a URL (e.g., `https://api.example.com/openapi.json`)
-
-**Option B: Local File**
-- Export OpenAPI spec to file
-- Place in project (e.g., `./api-spec/openapi.json`)
-
-### 2. Wire MCP Server
+### secrets.json
 
 ```json
-// .claude/mcp.json or settings
 {
-  "mcpServers": {
-    "API specification": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "apidog-mcp-server@latest",
-        "--oas=https://api.example.com/openapi.json"
-      ]
-    }
-  }
+  "github_token": "ghp_your_token_here",
+  "openweather_api_key": "your_key_here",
+  "comment": "Never commit this file"
 }
 ```
 
-**With Local File:**
-```json
-{
-  "mcpServers": {
-    "API specification": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "apidog-mcp-server@latest",
-        "--oas=./api-spec/openapi.json"
-      ]
+### Python Loading
+
+```python
+import os
+import json
+from pathlib import Path
+
+def load_secrets():
+    secrets_path = Path(__file__).parent / "secrets.json"
+    try:
+        with open(secrets_path) as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+secrets = load_secrets()
+API_KEY = secrets.get("github_token", os.getenv("GITHUB_TOKEN", ""))
+
+if not API_KEY:
+    raise ValueError("No API key found")
+```
+
+## Request Patterns
+
+### Basic GET (Python)
+
+```python
+import requests
+
+def api_request(url: str, api_key: str) -> dict:
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Accept": "application/json"
     }
-  }
-}
+    response = requests.get(url, headers=headers, timeout=10)
+    response.raise_for_status()
+    return response.json()
 ```
 
-**Multiple APIs:**
-```json
-{
-  "mcpServers": {
-    "Main API": {
-      "command": "npx",
-      "args": ["-y", "apidog-mcp-server@latest", "--oas=https://api.main.com/openapi.json"]
-    },
-    "Auth API": {
-      "command": "npx",
-      "args": ["-y", "apidog-mcp-server@latest", "--oas=https://api.auth.com/openapi.json"]
-    }
-  }
-}
+### With Retry and Backoff
+
+```python
+import time
+from typing import Optional
+
+def api_request_with_retry(
+    url: str,
+    api_key: str,
+    max_retries: int = 3
+) -> Optional[dict]:
+    headers = {"Authorization": f"Bearer {api_key}"}
+    wait_time = 1
+
+    for attempt in range(max_retries):
+        try:
+            response = requests.get(url, headers=headers, timeout=10)
+
+            if response.status_code == 200:
+                return response.json()
+            elif response.status_code == 429:
+                print(f"Rate limited. Waiting {wait_time}s...")
+                time.sleep(wait_time)
+                wait_time *= 2
+            else:
+                print(f"Error: HTTP {response.status_code}")
+                return None
+        except requests.exceptions.RequestException as e:
+            print(f"Request failed: {e}")
+            time.sleep(wait_time)
+            wait_time *= 2
+
+    return None
 ```
 
-### 3. Generate Types & Client
+### Bash Request
 
-Create `/src/api` directory for all API-related code:
-
-```
-/src/api/
-  ├── types.ts          # Generated from OpenAPI
-  ├── client.ts         # HTTP client (axios/fetch)
-  ├── queries/          # TanStack Query hooks
-  │   ├── users.ts
-  │   ├── posts.ts
-  │   └── ...
-  └── mutations/        # TanStack Mutation hooks
-      ├── users.ts
-      ├── posts.ts
-      └── ...
-```
-
-**Option A: Hand-Written Types (Lightweight)**
-```typescript
-// src/api/types.ts
-import { z } from 'zod'
-
-// Define schemas from OpenAPI
-export const UserSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  email: z.string().email(),
-  createdAt: z.string().datetime(),
-})
-
-export type User = z.infer<typeof UserSchema>
-
-export const CreateUserSchema = UserSchema.omit({ id: true, createdAt: true })
-export type CreateUserDTO = z.infer<typeof CreateUserSchema>
-```
-
-**Option B: Code Generation (Recommended for large APIs)**
 ```bash
-# Using openapi-typescript
-pnpm add -D openapi-typescript
-npx openapi-typescript https://api.example.com/openapi.json -o src/api/types.ts
+#!/bin/bash
+API_KEY=$(python3 -c "import json; print(json.load(open('secrets.json'))['github_token'])")
 
-# Using orval
-pnpm add -D orval
-npx orval --input https://api.example.com/openapi.json --output src/api
-```
-
-### 4. Create HTTP Client
-
-```typescript
-// src/api/client.ts
-import axios from 'axios'
-import createAuthRefreshInterceptor from 'axios-auth-refresh'
-
-export const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-})
-
-// Request interceptor - add auth token
-apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem('accessToken')
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
-  }
-  return config
-})
-
-// Response interceptor - handle token refresh
-const refreshAuth = async (failedRequest: any) => {
-  try {
-    const refreshToken = localStorage.getItem('refreshToken')
-    const response = await axios.post('/auth/refresh', { refreshToken })
-
-    const { accessToken } = response.data
-    localStorage.setItem('accessToken', accessToken)
-
-    failedRequest.response.config.headers.Authorization = `Bearer ${accessToken}`
-    return Promise.resolve()
-  } catch (error) {
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('refreshToken')
-    window.location.href = '/login'
-    return Promise.reject(error)
-  }
-}
-
-createAuthRefreshInterceptor(apiClient, refreshAuth, {
-  statusCodes: [401],
-  pauseInstanceWhileRefreshing: true,
-})
-```
-
-### 5. Build Query Layer
-
-**Feature-based query organization:**
-
-```typescript
-// src/api/queries/users.ts
-import { queryOptions } from '@tanstack/react-query'
-import { apiClient } from '../client'
-import { User, UserSchema } from '../types'
-
-// Query key factory
-export const usersKeys = {
-  all: ['users'] as const,
-  lists: () => [...usersKeys.all, 'list'] as const,
-  list: (filters: string) => [...usersKeys.lists(), { filters }] as const,
-  details: () => [...usersKeys.all, 'detail'] as const,
-  detail: (id: string) => [...usersKeys.details(), id] as const,
-}
-
-// API functions
-async function fetchUsers(): Promise<User[]> {
-  const response = await apiClient.get('/users')
-  return z.array(UserSchema).parse(response.data)
-}
-
-async function fetchUser(id: string): Promise<User> {
-  const response = await apiClient.get(`/users/${id}`)
-  return UserSchema.parse(response.data)
-}
-
-// Query options
-export function usersListQueryOptions() {
-  return queryOptions({
-    queryKey: usersKeys.lists(),
-    queryFn: fetchUsers,
-    staleTime: 30_000,
-  })
-}
-
-export function userQueryOptions(id: string) {
-  return queryOptions({
-    queryKey: usersKeys.detail(id),
-    queryFn: () => fetchUser(id),
-    staleTime: 60_000,
-  })
-}
-
-// Hooks
-export function useUsers() {
-  return useQuery(usersListQueryOptions())
-}
-
-export function useUser(id: string) {
-  return useQuery(userQueryOptions(id))
-}
-```
-
-**Mutations:**
-
-```typescript
-// src/api/mutations/users.ts
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { apiClient } from '../client'
-import { CreateUserDTO, User, UserSchema } from '../types'
-import { usersKeys } from '../queries/users'
-
-async function createUser(data: CreateUserDTO): Promise<User> {
-  const response = await apiClient.post('/users', data)
-  return UserSchema.parse(response.data)
-}
-
-export function useCreateUser() {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: createUser,
-    onSuccess: (newUser) => {
-      // Add to cache
-      queryClient.setQueryData(usersKeys.detail(newUser.id), newUser)
-
-      // Invalidate list
-      queryClient.invalidateQueries({ queryKey: usersKeys.lists() })
-    },
-  })
-}
-```
-
-## Validation Strategy
-
-**Always validate API responses:**
-
-```typescript
-import { z } from 'zod'
-
-// Runtime validation
-async function fetchUser(id: string): Promise<User> {
-  const response = await apiClient.get(`/users/${id}`)
-
-  try {
-    return UserSchema.parse(response.data)
-  } catch (error) {
-    console.error('API response validation failed:', error)
-    throw new Error('Invalid API response format')
-  }
-}
-```
-
-**Or use safe parse:**
-```typescript
-const result = UserSchema.safeParse(response.data)
-
-if (!result.success) {
-  console.error('Validation errors:', result.error.errors)
-  throw new Error('Invalid user data')
-}
-
-return result.data
+curl -s -H "Authorization: Bearer $API_KEY" \
+  -H "Accept: application/json" \
+  "https://api.github.com/user" | jq '.'
 ```
 
 ## Error Handling
 
-**Global error handling:**
-```typescript
-import { QueryCache } from '@tanstack/react-query'
+```python
+try:
+    response = requests.get(url, headers=headers, timeout=10)
+    response.raise_for_status()
+    data = response.json()
+except requests.exceptions.HTTPError as e:
+    if e.response.status_code == 429:
+        print("Rate limited - waiting")
+    elif e.response.status_code == 401:
+        print("Unauthorized - check API key")
+    else:
+        print(f"HTTP error: {e}")
+except requests.exceptions.ConnectionError:
+    print("Connection error")
+except requests.exceptions.Timeout:
+    print("Request timeout")
+```
 
-const queryCache = new QueryCache({
-  onError: (error, query) => {
-    if (axios.isAxiosError(error)) {
-      if (error.response?.status === 404) {
-        toast.error('Resource not found')
-      } else if (error.response?.status === 500) {
-        toast.error('Server error. Please try again.')
-      }
-    }
-  },
-})
+## HTTP Status Codes
+
+| Code | Meaning | Action |
+|------|---------|--------|
+| 200 | Success | Process response |
+| 401 | Unauthorized | Check API key |
+| 403 | Forbidden | Check permissions |
+| 404 | Not found | Verify endpoint |
+| 429 | Rate limited | Wait and retry |
+| 5xx | Server error | Retry with backoff |
+
+## Caching
+
+```python
+import time
+
+cache = {}
+CACHE_TTL = 3600  # 1 hour
+
+def cached_request(url: str, api_key: str) -> dict:
+    now = time.time()
+
+    if url in cache:
+        data, timestamp = cache[url]
+        if now - timestamp < CACHE_TTL:
+            return data
+
+    data = api_request(url, api_key)
+    cache[url] = (data, now)
+    return data
+```
+
+## Rate Limiting
+
+### Check Headers
+
+```bash
+curl -I -H "Authorization: Bearer $API_KEY" "https://api.github.com/user" | grep -i rate
+# x-ratelimit-limit: 5000
+# x-ratelimit-remaining: 4999
+```
+
+### Implement Delays
+
+```python
+import time
+
+def bulk_requests(urls: list, api_key: str, delay: float = 1.0):
+    results = []
+    for url in urls:
+        result = api_request(url, api_key)
+        results.append(result)
+        time.sleep(delay)
+    return results
+```
+
+## Pagination
+
+```python
+def fetch_all_pages(base_url: str, api_key: str) -> list:
+    all_items = []
+    page = 1
+
+    while True:
+        url = f"{base_url}?page={page}&per_page=100"
+        data = api_request(url, api_key)
+
+        if not data:
+            break
+
+        all_items.extend(data)
+        page += 1
+        time.sleep(1)  # Respect rate limits
+
+    return all_items
 ```
 
 ## Best Practices
 
-1. **Single Source of Truth** - OpenAPI spec via MCP is authoritative
-2. **Validate Responses** - Use Zod schemas for runtime validation
-3. **Encapsulation** - Keep all API details in `/src/api`
-4. **Type Safety** - Export types from generated/hand-written schemas
-5. **Error Handling** - Handle auth errors, network errors, validation errors
-6. **Query Key Factories** - Hierarchical keys for flexible invalidation
-7. **Feature-Based Organization** - Group queries/mutations by feature
+### DO ✅
+- Store keys in secrets.json
+- Implement retry with exponential backoff
+- Cache responses when appropriate
+- Respect rate limits
+- Handle errors gracefully
+- Log requests (without sensitive data)
 
-## Workflow with AI Agent
+### DON'T ❌
+- Hardcode API keys
+- Ignore rate limits
+- Skip error handling
+- Make requests in tight loops
+- Log API keys
 
-1. **Agent reads latest OpenAPI spec** via Apidog MCP
-2. **Agent generates or updates** types in `/src/api/types.ts`
-3. **Agent implements queries** following established patterns
-4. **Agent creates mutations** with proper invalidation
-5. **Agent updates components** to use new API hooks
+## API Etiquette Checklist
 
-## Example: Full Feature Implementation
+- [ ] Read API documentation and ToS
+- [ ] Check rate limits
+- [ ] Store keys securely
+- [ ] Implement rate limiting
+- [ ] Add error handling
+- [ ] Cache appropriately
+- [ ] Monitor usage
 
-```typescript
-// 1. Types (generated or hand-written)
-// src/api/types.ts
-export const TodoSchema = z.object({
-  id: z.string(),
-  text: z.string(),
-  completed: z.boolean(),
-})
-export type Todo = z.infer<typeof TodoSchema>
+## Related Resources
 
-// 2. Queries
-// src/api/queries/todos.ts
-export const todosKeys = {
-  all: ['todos'] as const,
-  lists: () => [...todosKeys.all, 'list'] as const,
-}
-
-export function todosQueryOptions() {
-  return queryOptions({
-    queryKey: todosKeys.lists(),
-    queryFn: async () => {
-      const response = await apiClient.get('/todos')
-      return z.array(TodoSchema).parse(response.data)
-    },
-  })
-}
-
-// 3. Mutations
-// src/api/mutations/todos.ts
-export function useCreateTodo() {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: async (text: string) => {
-      const response = await apiClient.post('/todos', { text })
-      return TodoSchema.parse(response.data)
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: todosKeys.lists() })
-    },
-  })
-}
-
-// 4. Component
-// src/features/todos/TodoList.tsx
-export function TodoList() {
-  const { data: todos } = useQuery(todosQueryOptions())
-  const createTodo = useCreateTodo()
-
-  return (
-    <div>
-      {todos?.map(todo => <TodoItem key={todo.id} {...todo} />)}
-      <AddTodoForm onSubmit={(text) => createTodo.mutate(text)} />
-    </div>
-  )
-}
-```
-
-## Related Skills
-
-- **tanstack-query** - Query and mutation patterns
-- **tooling-setup** - TypeScript configuration for generated types
-- **core-principles** - Project structure with `/src/api` directory
+See `AgentUsage/api_usage.md` for complete documentation including:
+- Bash request patterns
+- Conditional requests (ETags)
+- Advanced caching strategies
+- Specific API examples (GitHub, OpenWeather)

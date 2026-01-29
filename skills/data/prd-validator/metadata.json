@@ -1,7 +1,7 @@
 {
   "name": "prd-validator",
-  "repo": "turbobeest/squawk",
-  "path": ".claude/skills/prd-validator/SKILL.md",
-  "source": "github.com/turbobeest/squawk",
-  "downloaded_at": "2026-01-28T01:52:11.085303Z"
+  "repo": "turbobeest/cursor-dev-system",
+  "path": "skills/prd-validator/SKILL.md",
+  "source": "github.com/turbobeest/cursor-dev-system",
+  "downloaded_at": "2026-01-29T04:39:08.365192Z"
 }

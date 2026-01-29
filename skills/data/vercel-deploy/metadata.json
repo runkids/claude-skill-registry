@@ -1,7 +1,7 @@
 {
   "name": "vercel-deploy",
-  "repo": "skillcreatorai/Ai-Agent-Skills",
+  "repo": "ninehills/skills",
   "path": "skills/vercel-deploy/SKILL.md",
-  "source": "github.com/skillcreatorai/Ai-Agent-Skills",
-  "downloaded_at": "2026-01-28T03:46:55.760120Z"
+  "source": "github.com/ninehills/skills",
+  "downloaded_at": "2026-01-29T03:44:30.504229Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "document-writer",
-  "repo": "storyblok/monoblok",
-  "path": ".claude/skills/document-writer/SKILL.md",
-  "source": "github.com/storyblok/monoblok",
-  "downloaded_at": "2026-01-28T02:13:56.486088Z"
+  "repo": "Dknight203/AesopIDE",
+  "path": ".agent/skills/document-writer/SKILL.md",
+  "source": "github.com/Dknight203/AesopIDE",
+  "downloaded_at": "2026-01-29T04:04:27.195594Z"
 }

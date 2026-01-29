@@ -1,616 +1,327 @@
----
-name: doc-flow
-description: AI-Driven Specification-Driven Development (SDD) workflow orchestrator - guides skill selection and general SDD methodology
-tags:
-  - sdd-workflow
-  - layer-0-artifact
-  - shared-architecture
-  - required-both-approaches
-  - ai-assistant
-custom_fields:
-  layer: 0
-  artifact_type: META
-  architecture_approaches: [ai-agent-based, traditional-8layer]
-  priority: shared
-  development_status: active
-  skill_category: core-workflow
-  upstream_artifacts: []
-  downstream_artifacts: [BRD, PRD, EARS, BDD, ADR, SYS, REQ, IMPL, CTR, SPEC, TASKS, REF]
----
+# Doc-Flow SKILL
 
-# doc-flow (Orchestrator)
+五重文件管理系統 - 專案文件運作的核心控制中心
 
-## Purpose
+## 核心理念
 
-This skill serves as the **orchestrator** for the AI-Driven Specification-Driven Development (SDD) workflow. It provides:
-
-1. **Skill Selection Guidance**: Helps determine which artifact-specific skill to use
-2. **Workflow Overview**: Complete 15-layer SDD architecture
-3. **General SDD Principles**: Specification-driven methodology fundamentals
-4. **Integration Guidance**: How skills work together
-
-**For Artifact Creation**: Use the specific artifact skill (doc-brd, doc-prd, doc-ears, doc-bdd, doc-adr, doc-sys, doc-req, doc-impl, doc-ctr, doc-spec, doc-tasks, doc-ref, doc-naming).
-
-**Authoritative Reference**: [ai_dev_flow/SPEC_DRIVEN_DEVELOPMENT_GUIDE.md]({project_root}/ai_dev_flow/SPEC_DRIVEN_DEVELOPMENT_GUIDE.md)
+**每個文件有單一職責，工程師只需讀對應文件就能理解全部**
 
 ---
 
-## Prerequisites
+## 重要規範：禁用 Emoji
 
-**⚠️ For New Projects (Greenfield)**: If starting a brand new project with no existing folder structure, use the **`project-init`** skill FIRST to initialize project structure, select domain, create folders, and configure setup. Then return here to begin workflow execution.
+**所有五重文件系統中的文件禁止使用 emoji**
 
-**For Existing Projects**: If project is already initialized (docs/ folders exist, domain configured), proceed directly with this skill.
+原因：
+1. 交接文件需要專業、正式
+2. emoji 在某些環境可能顯示不正確
+3. Claude Code CLI 處理 markdown 表格中的 emoji 可能導致 Rust panic
 
----
-
-## Skill Selection Decision Tree
-
-### "Which Skill Do I Need?"
-
-Answer these questions to find the right skill:
-
-**Q1: What stage are you at in the workflow?**
-
-- **Starting new project with business requirements** → Use `doc-brd` skill
-- **Have BRD, need product requirements** → Use `doc-prd` skill
-- **Have PRD, need formal requirements** → Use `doc-ears` skill
-- **Have EARS, need test scenarios** → Use `doc-bdd` skill
-- **Have BDD, need architecture decisions** → Use `doc-adr` skill
-- **Have ADR, need system requirements** → Use `doc-sys` skill
-- **Have SYS, need atomic requirements** → Use `doc-req` skill
-- **Have REQ, need implementation planning** → Use `doc-impl` skill (if complex) or skip to `doc-spec`
-- **Have REQ/IMPL, need API contracts** → Use `doc-ctr` skill (if interface requirement)
-- **Have REQ/CTR, need technical specifications** → Use `doc-spec` skill
-- **Have SPEC, need task breakdown** → Use `doc-tasks` skill
-- **Have TASKS, need implementation contracts** → Add Section 8 to TASKS (see `doc-tasks` skill)
-- **Have TASKS, ready to code** → Implement code per TASKS
-- **Need supplementary documentation (overview, glossary, guides)** → Use `doc-ref` skill
-
-**Q2: What are you trying to do?**
-
-- **Define business needs and objectives** → `doc-brd`
-- **Define product features and KPIs** → `doc-prd`
-- **Write formal WHEN-THE-SHALL-WITHIN requirements** → `doc-ears`
-- **Create Gherkin test scenarios** → `doc-bdd`
-- **Document architecture decisions** → `doc-adr`
-- **Define system requirements** → `doc-sys`
-- **Define atomic requirements** → `doc-req`
-- **Plan project implementation (WHO/WHEN/WHAT)** → `doc-impl`
-- **Define API contracts** → `doc-ctr`
-- **Write technical specifications** → `doc-spec`
-- **Break down into AI tasks** → `doc-tasks`
-- **Define implementation contracts for parallel dev** → Add Section 8 to TASKS (see `doc-tasks` skill)
-- **Create supplementary documentation (project overview, glossary, guides)** → `doc-ref`
-- **General guidance or unsure** → Stay with `doc-flow` (this skill)
+適用範圍：
+- CHANGELOG.md
+- todolist.md
+- worklog (docs/work-logs/)
+- ticket (docs/work-logs/v*/tickets/)
+- error-patterns (docs/error-patterns/)
 
 ---
 
-## Complete SDD Workflow (15 Layers)
+## 五重文件系統
 
-**Authoritative Reference**: [ai_dev_flow/SPEC_DRIVEN_DEVELOPMENT_GUIDE.md]({project_root}/ai_dev_flow/SPEC_DRIVEN_DEVELOPMENT_GUIDE.md)
+### 職責定義
 
-### Workflow Sequence
+| 文件 | 核心問題 | 職責定位 | 更新時機 |
+|------|---------|---------|---------|
+| **CHANGELOG** | "這個版本做了什麼改變？" | 版本推進變化（給工程師看） | 版本發布時 |
+| **todo.md** | "還有哪些問題需要處理？" | 已知待處理問題（尚未排程） | 持續更新 |
+| **worklog** | "這個版本要達成什麼目標？" | 版本企劃（大方向 + 策略） | 版本開始/結束 |
+| **ticket** | "這個任務的執行細節是什麼？" | 任務執行歷程（細節記錄） | 執行過程中 |
+| **error-patterns** | "之前遇過類似問題嗎？" | 經驗學習（查詢/更新） | 執行前後 |
+
+### 關係圖
 
 ```
-Strategy (Layer 0)
-  ↓
-BRD (Layer 1) → doc-brd skill
-  ↓
-PRD (Layer 2) → doc-prd skill
-  ↓
-EARS (Layer 3) → doc-ears skill
-  ↓
-BDD (Layer 4) → doc-bdd skill
-  ↓
-ADR (Layer 5) → doc-adr skill
-  ↓
-SYS (Layer 6) → doc-sys skill
-  ↓
-REQ (Layer 7) → doc-req skill
-  ↓
-IMPL (Layer 8) [OPTIONAL] → doc-impl skill
-  ↓
-CTR (Layer 9) [OPTIONAL - IF INTERFACE] → doc-ctr skill
-  ↓
-SPEC (Layer 10) → doc-spec skill
-  ↓
-TASKS (Layer 11) → doc-tasks skill
-  ↓
-Code (Layer 12)
-  ↓
-Tests (Layer 13)
-  ↓
-Validation (Layer 14)
-```
-
-### Layer Descriptions
-
-| Layer | Artifact | Purpose | Skill |
-|-------|----------|---------|-------|
-| 0 | **Strategy** | Business owner documents | External (strategy/) |
-| 1 | **BRD** | Business requirements | `doc-brd` |
-| 2 | **PRD** | Product requirements | `doc-prd` |
-| 3 | **EARS** | Formal requirements (WHEN-THE-SHALL) | `doc-ears` |
-| 4 | **BDD** | Gherkin test scenarios | `doc-bdd` |
-| 5 | **ADR** | Architecture decisions | `doc-adr` |
-| 6 | **SYS** | System requirements | `doc-sys` |
-| 7 | **REQ** | Atomic requirements | `doc-req` |
-| 8 | **IMPL** | Implementation plans (WHO/WHEN) [OPTIONAL] | `doc-impl` |
-| 9 | **CTR** | API contracts [OPTIONAL - IF INTERFACE] | `doc-ctr` |
-| 10 | **SPEC** | Technical specifications (HOW) | `doc-spec` |
-| 11 | **TASKS** | Task breakdown for implementation | `doc-tasks` |
-| 11+ | **ICON** | Implementation Contracts (Section 8 of TASKS) | `doc-tasks` |
-| 12 | **Code** | Python implementation | Implementation |
-| 13 | **Tests** | Test suites | Implementation |
-| 14 | **Validation** | BDD + contract + traceability | Validation |
-
-### Optional Layers Decision Logic
-
-**When to Create IMPL (Layer 8)**:
-- **Create IMPL When**: Duration ≥2 weeks, teams ≥3, components ≥5, critical budget/timeline, external dependencies
-- **Skip IMPL When**: Single component, duration <2 weeks, single developer, low risk
-- **Reference**: [ai_dev_flow/WHEN_TO_CREATE_IMPL.md]({project_root}/ai_dev_flow/WHEN_TO_CREATE_IMPL.md)
-
-**When to Create CTR (Layer 9)**:
-- **Create CTR When**: Public APIs, event schemas, data models, version compatibility requirements, interface between components
-- **Skip CTR When**: Internal logic only, no external interface, no serialization
-- **Reference**: [ai_dev_flow/WHEN_TO_CREATE_IMPL.md#when-to-create-ctr-after-impl]({project_root}/ai_dev_flow/WHEN_TO_CREATE_IMPL.md#when-to-create-ctr-after-impl)
-
----
-
-## General SDD Principles
-
-### 1. Specification-Driven Development Philosophy
-
-**Core Principle**: Formalize before implementing
-
-- **Traditional Approach**: Code first, document later (or never)
-- **SDD Approach**: Document first, generate code from specifications
-
-**Why SDD Works**:
-- **Clarity**: Requirements are explicit before coding begins
-- **Traceability**: Every line of code traces to business requirements
-- **Validation**: Tests defined before implementation
-- **Consistency**: Templates ensure uniform structure
-- **Speed**: Code generation from YAML specifications (48x faster)
-
-### 2. Information Flow Hierarchy
-
-**Changes flow DOWN (never UP)**:
-
-```
-strategy/ (WHAT - Product Owner Voice)
-    ├── Strategy business logic
-    └── Performance targets
-              ↓
-              ↓ Referenced by
-              ↓
-📚 docs/ (WHY + HOW - Project Documentation)
-    ├── Requirements (WHY)
-    ├── Architecture (HOW)
-    └── Specifications (IMPLEMENTATION)
-              ↓
-              ↓ Generates
-              ↓
-💻 Source Code (Python/Infrastructure)
-
-📝 ai_dev_flow/ feeds into 📚 docs/ for consistency
-```
-
-**Golden Rules**:
-- Strategy → Documentation → Code (one-way flow)
-- Code cannot change strategy
-- Always use templates from `ai_dev_flow/` when creating docs in `docs/`
-- All business logic must reference `strategy/` sections
-
-### 3. Directory Structure and Roles
-
-**Critical Context**: This project has three key directories with distinct roles:
-
-#### `strategy/` - WHAT (Product Owner Voice)
-**Primary Authority**: Authoritative business strategy and domain logic
-
-- `core_algorithm.md` - Primary algorithm specifications
-- `strategy_overview.md` - Strategic framework and operating modes
-- `risk_management.md` - Risk management policies
-- `business_rules.md` - Domain-specific business rules
-- `selection_criteria/` - Entry criteria and scoring algorithms
-- Performance targets, state machines, resource budgets
-
-**Golden Rule**: All business logic must trace back to these strategy documents.
-
-#### 📚 `docs/` - PROJECT DOCUMENTATION
-**Implementation Documentation**: Requirements, architecture, specifications
-
-- `docs/BRD/` - Business Requirements Documents
-  - **Nested folder structure**: `docs/BRD/BRD-NN/BRD-NN.S_slug.md`
-- `docs/PRD/` - Product Requirements Documents
-  - **Nested folder structure**: `docs/PRD/PRD-NN/PRD-NN.S_slug.md`
-- `docs/ADR/` - Architecture Decision Records (HOW)
-  - **Nested folder structure**: `docs/ADR/ADR-NN/ADR-NN.S_slug.md`
-- `docs/BDD/` - BDD acceptance tests (Behavior-Driven Development)
-- `docs/CTR/` - API Contracts (dual-file format: .md + .yaml)
-- `docs/IMPL/` - Implementation Plans (Project Management: WHO/WHEN)
-- `docs/SPEC/` - YAML technical specifications
-- `docs/TASKS/` - Code Generation Plans (AI-structured implementation tasks)
-
-**Note**: BRD, PRD, ADR use section-based nested folders by default. Other types use flat structure.
-
-**Purpose**: Document how strategy is implemented through architecture and code.
-
-#### 📝 `ai_dev_flow/` - AUTHORITATIVE DEVELOPMENT STANDARD
-**Development Standard and Templates**: The single source of truth for SDD workflow
-
-- **Status**: Authoritative development standard for this project
-- **Contents**: Complete SDD workflow (BRD → PRD → EARS → BDD → ADR → SYS → REQ → IMPL → CTR → SPEC → TASKS → Code)
-- **Templates**: `{TYPE}-TEMPLATE.{ext}` for each artifact type (BRD, PRD, EARS, BDD, ADR, SYS, REQ, IMPL, CTR, SPEC, TASKS, REF)
-- **Indices**: `{TYPE}-00_index.{ext}` listing all documents of each type
-- **READMEs**: Detailed usage guides and best practices for each artifact type
-- **Standards**: ID naming, traceability format, cross-referencing rules
-- **Examples**: Reference implementations with full traceability chains
-
-**Purpose**: Define the complete development methodology with templates, standards, and examples for creating all artifacts.
-
-#### ⚠️ CRITICAL: Archived Documents Restriction
-
-**STRICTLY PROHIBITED: DO NOT access, reference, link to, or use ANY files or directories containing the word "archived" in their path.**
-
-**Automatic Filtering Rules:**
-- ❌ Skip any path containing `archived`, `Archived`, `ARCHIVED`, or `archive`
-- ❌ Ignore files in directories with "archived" in the name
-- ❌ Do not read, suggest, or reference archived content
-- ❌ Do not use archived documents even if they appear in search results
-
-**Active Documentation Only:**
-- `strategy/` (current strategy - excludes archived subdirs)
-- `docs/` (active project documentation)
-- `ai_dev_flow/` (authoritative templates and standards)
-
-**If archived content is needed:**
-- Stop immediately
-- Inform user that content is in archived location
-- Request explicit permission before proceeding
-
-### 4. Traceability Importance
-
-**Complete Audit Trail**: Every artifact must trace back to original business requirements
-
-**Benefits**:
-- **Impact Analysis**: Know what breaks when requirements change
-- **Regulatory Compliance**: Industry-specific audit requirements (ISO, SOC2, etc.)
-- **Change Management**: Track all changes through artifact chain
-- **Coverage Metrics**: Measure implementation completeness
-- **Quality Assurance**: Automated validation prevents gaps
-
-**Implementation**:
-- Cumulative tagging hierarchy (see SHARED_CONTENT.md)
-- Traceability section in every document
-- Bidirectional traceability matrices
-- Automated validation scripts
-
-### 5. Upstream Artifact Policy (CRITICAL)
-
-**⚠️ MANDATORY RULE**: Do NOT create missing upstream artifacts. Skip functionality instead.
-
-**Policy Statement**:
-If a required upstream artifact is missing, the downstream functionality **MUST NOT be implemented**. This enforces the SDD document hierarchy where every implementation must have proper business/product justification through the complete artifact chain.
-
-**Decision Rules**:
-
-| Situation | Action |
-|-----------|--------|
-| Upstream exists | Reference with exact document ID |
-| Upstream required but missing | **Skip that functionality** - do NOT implement |
-| Upstream optional and missing | Use `null` in traceability tag |
-| Upstream not applicable | Omit tag entirely |
-
-**Rationale**:
-- **Prevents orphaned code**: No implementation without business justification
-- **Enforces governance**: Changes must flow through proper channels
-- **Maintains audit trail**: Every feature traces to business need
-- **Reduces technical debt**: No undocumented "nice-to-have" features
-
-**When Upstream is Missing**:
-1. **Stop** - Do not proceed with implementation
-2. **Report** - Inform user which upstream artifact is missing
-3. **Advise** - Recommend creating upstream artifacts first through proper channels
-4. **Skip** - Move on to functionality that has complete upstream chain
-
-**Reference**: [ai_dev_flow/TRACEABILITY.md]({project_root}/ai_dev_flow/TRACEABILITY.md) - Section "Step 3: Decision Rules"
-
----
-
-## Integration with Other Skills
-
-### Core Workflow Skills
-
-**`project-init`** - Initialize new project structure
-- Use BEFORE doc-flow for greenfield projects
-- Creates folder structure, domain setup, baseline files
-- Reference: `.claude/skills/project-init/SKILL.md`
-
-**`trace-check`** - Validate traceability after artifact creation
-- Use AFTER doc-flow to verify bidirectional links
-- Validates cumulative tagging, ID formats, link resolution
-- Detects orphaned artifacts and traceability gaps
-- Reference: `.claude/skills/trace-check/SKILL.md`
-
-**`doc-naming`** - Unified ID naming standards enforcement
-- Use for ID format validation across all artifact types
-- Validates 4-segment element IDs (TYPE.NN.TT.SS)
-- Enforces variable-length DOC_NUM (2+ digits)
-- Reference: `.claude/skills/doc-naming/SKILL.md`
-
-**`doc-validator`** - Cross-document validation orchestrator
-- Validates traceability across all layers
-- Detects gaps, broken links, and format violations
-- Runs auto-fix actions for common issues
-- Reference: `.claude/skills/doc-validator/SKILL.md`
-
-### Planning & Architecture
-
-**`adr-roadmap`** - Generate implementation roadmaps from ADRs
-- Use AFTER creating ADR artifacts
-- Creates timeline, risk assessment, dependency mapping
-- Reference: `.claude/skills/adr-roadmap/SKILL.md`
-
-**`project-mngt`** - MVP/MMP/MMR planning
-- Use for strategic release planning
-- Integrates with IMPL artifacts
-- Reference: `.claude/skills/project-mngt/SKILL.md`
-
-### Typical Workflow Integration
-
-```text
-1. project-init    → Initialize project (greenfield only)
-2. doc-brd         → Create BRD
-3. doc-prd         → Create PRD
-4. doc-ears        → Create EARS
-5. doc-bdd         → Create BDD
-6. doc-adr         → Create ADR
-7. doc-sys         → Create SYS
-8. doc-req         → Create REQ
-9. doc-impl        → Create IMPL (if complex)
-10. doc-ctr        → Create CTR (if interface)
-11. doc-spec       → Create SPEC
-12. doc-tasks      → Create TASKS
-13. Implementation → Execute based on TASKS
-14. trace-check    → Validate traceability
+                    ┌─────────────────┐
+                    │   CHANGELOG     │  ← 版本發布時自動更新
+                    │  (版本間差異)    │
+                    └────────┬────────┘
+                             │ 提取
+                    ┌────────┴────────┐
+                    │    worklog      │  ← 版本企劃 + 目標
+                    │   (大方向)       │
+                    └────────┬────────┘
+                             │ 索引
+            ┌────────────────┼────────────────┐
+            │                │                │
+     ┌──────┴──────┐  ┌──────┴──────┐  ┌──────┴──────┐
+     │   ticket    │  │   todo.md   │  │error-patterns│
+     │ (執行細節)   │  │ (待處理問題) │  │ (經驗學習)   │
+     └─────────────┘  └─────────────┘  └─────────────┘
 ```
 
 ---
 
-## Shared Standards
+## 職責詳解
 
-**CRITICAL**: All artifact-specific skills share common standards defined in:
+### 1. CHANGELOG.md
 
-**`.claude/skills/doc-flow/SHARED_CONTENT.md`**
+**核心問題**：這個版本做了什麼改變？
 
-This document contains:
-1. Document ID Naming Standards
-2. Traceability Section Format
-3. Cumulative Tagging Hierarchy
-4. Quality Gates & Validation
-5. Traceability Matrix Enforcement
-6. Documentation Standards
-7. Document Control Section Requirements
+**內容範圍**：
+- 新增功能
+- 架構變更
+- Bug 修復
+- 重大決策
 
-**All artifact skills (doc-brd through doc-tasks, plus doc-ref, doc-naming) import these shared standards.**
+**寫作風格**：
+- 給其他工程師閱讀
+- 簡潔、技術導向
+- 按版本倒序排列
 
-### Diagram Standards (Global Requirement)
+**更新時機**：版本發布時（由 `/version-release` 觸發）
 
-**All diagrams MUST use Mermaid syntax.** Text-based diagrams (ASCII art, box drawings) are prohibited.
+**禁止內容**：
+- 過度詳細的實作細節
+- 開發過程中的嘗試錯誤
+- 用戶不關心的內部變更
 
-- **Authority Document**: `ai_dev_flow/DIAGRAM_STANDARDS.md`
-- **Syntax Generation**: `mermaid-gen` skill
-- **File Management**: `charts-flow` skill (SVG conversion, embedding)
+### 2. todo.md
 
-**Allowed Exception**: Directory tree structures (using `├── └── │`) are permitted as they represent file structure, not diagrams.
+**核心問題**：還有哪些問題需要處理？
+
+**內容範圍**：
+- 已知但尚未排程的問題
+- 技術債務清單
+- 未來版本的規劃項目
+
+**寫作風格**：
+- 清單形式
+- 簡短描述
+- 標記優先級或目標版本
+
+**更新時機**：
+- 發現新問題時新增
+- 問題解決時**移除**（不是標記完成）
+- 排入版本計畫時移至 worklog
+
+**關鍵規則**：
+- 已解決的問題必須移除
+- 已排入執行的任務應在 worklog 中追蹤
+
+### 3. worklog（版本企劃）
+
+**核心問題**：這個版本要達成什麼目標？怎麼規劃？
+
+**內容範圍**：
+- 版本目標（一句話描述）
+- 前情提要（為什麼需要這個版本）
+- 執行策略（Step-by-Step）
+- Ticket 總覽（連結到細節）
+- Context 還原指引
+
+**寫作風格**：
+- 大方向、高層次
+- 任何工程師不需其他 context 就能理解
+- 執行細節**下沉到 ticket**
+
+**更新時機**：
+- 版本開始時建立
+- 版本完成時更新狀態
+
+**禁止內容**：
+- 具體的程式碼變更
+- 詳細的執行日誌
+- 問題的完整分析過程（這些屬於 ticket）
+
+### 4. ticket（任務執行細節）
+
+**核心問題**：這個任務的完整執行歷程是什麼？
+
+**內容範圍**：
+- 任務來源和目標
+- 5W1H 設計
+- 問題分析
+- 解決方案
+- 測試結果
+- 執行進度
+
+**寫作風格**：
+- 詳細、完整
+- 記錄所有決策和變更
+- 直到任務完成
+
+**更新時機**：
+- 任務建立時（/ticket-create）
+- 執行過程中持續更新
+- 完成時標記狀態
+
+**格式**：Markdown + YAML Frontmatter
+
+### 5. error-patterns（經驗學習）
+
+**核心問題**：之前遇過類似問題嗎？
+
+**內容範圍**：
+- 錯誤症狀
+- 根因分析
+- 解決方案
+- 預防措施
+- 相關 Ticket
+
+**寫作風格**：
+- 模式化、可查詢
+- 按類型分類
+- 提供具體範例
+
+**更新時機**：
+- 執行 ticket 前查詢
+- 發現新模式時新增
+- 修復後補充預防措施
 
 ---
 
-## Validation Overview
+## 可用指令
 
-### Automated Validation Tools
+### 狀態查詢
 
-**Quality Gates Validation:**
 ```bash
-# Validate artifact meets layer transition requirements (≥90%)
-./scripts/validate_quality_gates.sh docs/REQ/risk/lim/REQ-03.md
-
-# Artifact-specific validation
-./ai_dev_flow/scripts/validate_brd_template.sh docs/BRD/BRD-01.md
-./ai_dev_flow/scripts/validate_req_template.sh docs/REQ/api/ib/REQ-02.md
-
-# Link integrity validation
-./ai_dev_flow/scripts/validate_links.py --path docs/ --check-anchors
+/doc-flow status                    # 查看五重文件系統整體狀態
+/doc-flow check                     # 檢查文件一致性
 ```
 
-**Tag-Based Traceability Validation:**
+### Worklog 管理
+
 ```bash
-# Complete workflow (extract → validate → generate)
-python ai_dev_flow/scripts/generate_traceability_matrices.py --auto
+/doc-flow worklog init <version>    # 初始化新版本 worklog
+/doc-flow worklog read <version>    # 讀取指定版本 worklog 摘要
+/doc-flow worklog update            # 更新當前版本 worklog 狀態
+```
 
-# Individual steps
-python ai_dev_flow/scripts/extract_tags.py --source src/ docs/ tests/
-python ai_dev_flow/scripts/validate_tags_against_docs.py --strict
-python ai_dev_flow/scripts/generate_traceability_matrices.py --output docs/generated/matrices/
+### Todo 管理
+
+```bash
+/doc-flow todo list                 # 列出所有待處理問題
+/doc-flow todo add <description>    # 新增待處理問題
+/doc-flow todo resolve <id>         # 標記問題已解決（移除）
+/doc-flow todo defer <id> <version> # 延遲到指定版本
+```
+
+### Changelog 管理
+
+```bash
+/doc-flow changelog preview         # 預覽即將發布的變更
+/doc-flow changelog update          # 版本發布時更新
+```
+
+### Error Pattern 整合
+
+```bash
+/doc-flow learn                     # 觸發錯誤模式學習流程
 ```
 
 ---
 
-## Cross-Document Validation (MANDATORY)
+## 工作流程整合
 
-**CRITICAL**: After creating each artifact, execute cross-document validation before proceeding to the next layer.
-
-### Validation Phases
-
-| Phase | Trigger | Command |
-|-------|---------|---------|
-| Phase 1 | Per-document | `python scripts/validate_cross_document.py --document {doc_path} --auto-fix` |
-| Phase 2 | Per-layer complete | `python scripts/validate_cross_document.py --layer {LAYER} --auto-fix` |
-| Phase 3 | Final (all layers) | `python scripts/validate_cross_document.py --full --auto-fix` |
-
-### Automatic Validation Loop
+### 開始新版本
 
 ```
-LOOP:
-  1. Run: python scripts/validate_cross_document.py --document {doc_path} --auto-fix
-  2. IF errors fixed: GOTO LOOP (re-validate)
-  3. IF warnings fixed: GOTO LOOP (re-validate)
-  4. IF unfixable issues: Log for manual review, continue
-  5. IF clean: Mark VALIDATED, proceed to next layer
+1. /doc-flow worklog init v0.26.0
+   - 建立版本企劃
+   - 定義目標和策略
+
+2. /ticket-create
+   - 建立具體任務 tickets
+   - worklog 自動索引 tickets
+
+3. 執行開發
+   - 更新 ticket 進度
+   - 查詢/新增 error-patterns
 ```
 
-### Layer-Specific Upstream Requirements
+### 執行任務前
 
-| Layer | Artifact | Required Upstream Tags | Tag Count |
-|-------|----------|------------------------|-----------|
-| 1 | BRD | (none - root) | 0 |
-| 2 | PRD | @brd | 1 |
-| 3 | EARS | @brd, @prd | 2 |
-| 4 | BDD | @brd, @prd, @ears | 3 |
-| 5 | ADR | @brd, @prd, @ears, @bdd | 4 |
-| 6 | SYS | @brd, @prd, @ears, @bdd, @adr | 5 |
-| 7 | REQ | @brd, @prd, @ears, @bdd, @adr, @sys | 6 |
-| 8 | IMPL | @brd, @prd, @ears, @bdd, @adr, @sys, @req | 7 |
-| 9 | CTR | @brd through @req (+ optional @impl) | 7-8 |
-| 10 | SPEC | @brd through @req (+ optional @impl, @ctr) | 7-9 |
-| 11 | TASKS | @brd through @spec (+ optional @impl, @ctr) | 8-10 |
+```
+1. /doc-flow check
+   - 確認文件同步狀態
 
-### Auto-Fix Actions (No Confirmation Required)
+2. /error-pattern query <關鍵字>
+   - 查詢既有經驗
 
-| Issue | Fix Action |
-|-------|------------|
-| Missing cumulative tag | Add with upstream document reference |
-| Invalid tag format | Correct to TYPE.NN.TT.SS (4-segment) or TYPE-NN format |
-| Broken link | Recalculate path from current location |
-| Missing traceability section | Insert from template |
+3. /ticket-track claim <ticket-id>
+   - 開始執行任務
+```
 
-### Validation Codes Reference
+### 完成版本
 
-| Code | Description | Severity |
-|------|-------------|----------|
-| XDOC-001 | Referenced requirement ID not found | ERROR |
-| XDOC-002 | Missing cumulative tag | ERROR |
-| XDOC-003 | Upstream document not found | ERROR |
-| XDOC-004 | Link target file missing | WARNING |
-| XDOC-005 | Anchor in link not found | WARNING |
-| XDOC-006 | Tag format invalid | ERROR |
-| XDOC-007 | Gap in cumulative tag chain | ERROR |
-| XDOC-008 | Circular reference detected | ERROR |
-| XDOC-009 | Missing traceability section | ERROR |
-| XDOC-010 | Orphaned document (no upstream refs) | WARNING |
+```
+1. /doc-flow worklog update
+   - 更新版本狀態為完成
 
-### Quality Gate
+2. /doc-flow changelog preview
+   - 預覽 CHANGELOG 更新
 
-**Blocking**: YES - Cannot proceed to next layer until Phase 1 validation passes with 0 errors for the current artifact.
+3. /version-release
+   - 發布版本
+   - 自動更新 CHANGELOG
+```
 
 ---
 
-## Related Resources
+## 與現有 SKILL 整合
 
-### Core Standards (ai_dev_flow/)
-
-**Primary References - Authoritative Development Standard:**
-
-- **Main Guide**: [SPEC_DRIVEN_DEVELOPMENT_GUIDE.md]({project_root}/ai_dev_flow/SPEC_DRIVEN_DEVELOPMENT_GUIDE.md) - Complete 15-layer workflow
-- **Workflow Diagram**: [index.md]({project_root}/ai_dev_flow/index.md#traceability-flow) - Complete Mermaid diagram
-- **ID Standards**: [ID_NAMING_STANDARDS.md]({project_root}/ai_dev_flow/ID_NAMING_STANDARDS.md) - File naming, ID format rules
-- **Traceability**: [TRACEABILITY.md]({project_root}/ai_dev_flow/TRACEABILITY.md) - Cross-reference format, link standards
-- **Quality Gates**: [TRACEABILITY_VALIDATION.md]({project_root}/ai_dev_flow/TRACEABILITY_VALIDATION.md) - Automated quality gates system
-- **Platform BRD Guide**: [PLATFORM_VS_FEATURE_BRD.md]({project_root}/ai_dev_flow/PLATFORM_VS_FEATURE_BRD.md) - Platform vs Feature BRD decision guide
-- **When to Create IMPL**: [WHEN_TO_CREATE_IMPL.md]({project_root}/ai_dev_flow/WHEN_TO_CREATE_IMPL.md) - IMPL vs direct REQ→SPEC decision guide
-- **README**: [README.md]({project_root}/ai_dev_flow/README.md) - Getting started guide
-
-### Templates Location
-
-**All templates located in `ai_dev_flow/{artifact_type}/`:**
-
-- **BRD** (`BRD/`): 3 templates available (comprehensive, simplified, domain-specific)
-- **PRD** (`PRD/`): `PRD-TEMPLATE.md`
-- **EARS** (`EARS/`): `EARS-TEMPLATE.md`
-- **BDD** (`BDD/`): `BDD-TEMPLATE.feature`
-- **ADR** (`ADR/`): `ADR-TEMPLATE.md`, Technology Stack reference (ADR-000)
-- **SYS** (`SYS/`): `SYS-TEMPLATE.md`
-- **REQ** (`REQ/`): `REQ-TEMPLATE.md` (v3.0 with 12 sections)
-- **IMPL** (`IMPL/`): `IMPL-TEMPLATE.md`
-- **CTR** (`CTR/`): `CTR-TEMPLATE.md` + `CTR-TEMPLATE.yaml` (dual-file)
-- **SPEC** (`10_SPEC/`): `SPEC-TEMPLATE.yaml`
-- **TASKS** (`TASKS/`): `TASKS-TEMPLATE.md` (includes Section 8 for Implementation Contracts)
-- **REF** (root): `REF-TEMPLATE.md` (Reference Documents)
-
-**Each artifact type directory also contains:**
-- Index file: `{TYPE}-00_index.{ext}`
-- README.md: Usage guide and best practices
-- Creation Rules: `{TYPE}_CREATION_RULES.md`
-- Validation Rules: `{TYPE}_VALIDATION_RULES.md`
+| 現有 SKILL | 整合方式 |
+|-----------|---------|
+| `/ticket-create` | worklog 自動索引新建的 tickets |
+| `/ticket-track` | 追蹤 ticket 狀態同步到 worklog |
+| `/tech-debt-capture` | 捕獲的 TD 同步到 todo.md |
+| `/version-release` | 發布時更新 CHANGELOG 和 worklog |
+| `/error-pattern` | 經驗學習系統整合 |
 
 ---
 
-## Quick Reference Card
+## 檔案位置
 
-### Decision Matrix
-
-| You Have | You Need | Use This Skill |
-|----------|----------|----------------|
-| Nothing | Business requirements | `doc-brd` |
-| BRD | Product requirements | `doc-prd` |
-| PRD | Formal requirements | `doc-ears` |
-| EARS | Test scenarios | `doc-bdd` |
-| BDD | Architecture decisions | `doc-adr` |
-| ADR | System requirements | `doc-sys` |
-| SYS | Atomic requirements | `doc-req` |
-| REQ (complex) | Implementation plan | `doc-impl` |
-| REQ (simple) | Technical specs | `doc-spec` |
-| REQ/IMPL (interface) | API contracts | `doc-ctr` |
-| REQ/CTR | Technical specs | `doc-spec` |
-| SPEC | Task breakdown | `doc-tasks` |
-| TASKS | Code | Implement! |
-| Any stage | Supplementary documentation | `doc-ref` |
-
-### Development ROI
-
-- Traditional: 70 hours/component
-- SDD: 1.5 hours/component
-- Speed increase: 48x faster
-- Consistency: 100% (template-based)
-- Traceability: Automatic, bidirectional
+```
+docs/
+├── CHANGELOG.md                     # 版本變更記錄
+├── todolist.md                      # 待處理問題清單
+├── error-patterns/                  # 錯誤模式知識庫
+│   ├── README.md
+│   └── categories/
+└── work-logs/
+    └── v{VERSION}/
+        ├── v{VERSION}-main.md       # 版本企劃（大方向）
+        └── tickets/                 # 執行細節
+            ├── {version}-W1-001.md
+            └── ...
+```
 
 ---
 
-## Usage Example
+## 設計原則
 
-**User**: "I need to implement position risk limit validation"
+### 1. 職責單一化
 
-**Assistant**: "I'll guide you through the SDD workflow. Let me check what artifacts you have:
+每個文件回答一個核心問題，不重疊、不混淆。
 
-**Current Status Check**:
-- Do you have a BRD documenting business requirements? [If no → **SKIP** this functionality]
-- Do you have a PRD with product requirements? [If no → **SKIP** this functionality]
-- Do you have EARS formal requirements? [If no → **SKIP** this functionality]
-- Do you have BDD test scenarios? [If no → **SKIP** this functionality]
-- Do you have ADR architecture decisions? [If no → **SKIP** this functionality]
-- Do you have SYS system requirements? [If no → **SKIP** this functionality]
-- Do you have REQ atomic requirements? [If no → **SKIP** this functionality]
+### 2. 自給自足原則
 
-**⚠️ CRITICAL: Upstream Artifact Policy**:
-If ANY required upstream artifact is missing, **do NOT create it** and **do NOT implement the downstream functionality**. The SDD workflow enforces strict document hierarchy - functionality without proper business/product justification should not exist.
+讀 worklog 就能理解版本全貌，不需要額外 context。
 
-**Next Steps**:
-Based on your current progress, I'll recommend the appropriate skill to use next. Each skill will guide you through creating that specific artifact type with proper templates, traceability, and validation."
+### 3. 細節下沉原則
+
+執行細節 → Ticket
+大方向 → Worklog
+
+### 4. 經驗累積原則
+
+每次修復都查詢/更新 error-patterns，持續改善工作模式。
 
 ---
 
-**For detailed artifact creation guidance, use the specific artifact skill (doc-brd, doc-prd, doc-ears, doc-bdd, doc-adr, doc-sys, doc-req, doc-impl, doc-ctr, doc-spec, doc-tasks, doc-ref, doc-naming).**
+## 相關文件
 
----
-
-## Version History
-
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.3 | 2026-01-17 | Updated to 15-layer architecture (Layers 0-14) |
-| 1.2 | 2025-12-29 | Fixed workflow sequence; Added doc-naming and doc-validator to Integration section |
-| 1.1 | 2025-11-30 | Added REF documents, ICON section |
-| 1.0 | 2025-11-01 | Initial skill creation |
+- 方法論：`.claude/methodologies/five-document-system-methodology.md`
+- 原有規範：`.claude/document-responsibilities.md`
+- Worklog 模板：`.claude/skills/doc-flow/templates/worklog.md.template`

@@ -1,7 +1,7 @@
 {
   "name": "statsmodels",
-  "repo": "danieldekay/copilot-config-promptops",
-  "path": "skills/statsmodels/SKILL.md",
-  "source": "github.com/danieldekay/copilot-config-promptops",
-  "downloaded_at": "2026-01-28T03:54:09.560680Z"
+  "repo": "jimmc414/Kosmos",
+  "path": "kosmos-claude-scientific-skills/scientific-skills/statsmodels/SKILL.md",
+  "source": "github.com/jimmc414/Kosmos",
+  "downloaded_at": "2026-01-29T04:45:46.048183Z"
 }

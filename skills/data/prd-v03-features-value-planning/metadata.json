@@ -1,9 +1,7 @@
 {
   "name": "prd-v03-features-value-planning",
-  "description": "Define and prioritize features with strategic traceability during PRD v0.3 Commercial Model. Triggers on requests to define features, prioritize capabilities, scope MVP, map features to pricing tiers,",
   "repo": "mattgierhart/PRD-driven-context-engineering",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/mattgierhart/PRD-driven-context-engineering"
+  "path": ".claude/skills/prd-v03-features-value-planning/SKILL.md",
+  "source": "github.com/mattgierhart/PRD-driven-context-engineering",
+  "downloaded_at": "2026-01-29T03:12:04.376557Z"
 }

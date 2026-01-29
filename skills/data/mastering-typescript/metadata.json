@@ -1,12 +1,7 @@
 {
   "name": "mastering-typescript",
-  "description": "Master enterprise-grade TypeScript development with type-safe patterns, modern tooling, and framework integration. This skill provides comprehensive guidance for TypeScript 5.9+, covering type system ",
-  "repo": "SpillwaveSolutions/mastering-typescript-skill",
-  "category": "development",
-  "tags": [
-    "mastering",
-    "typescript"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "SpillwaveSolutions/code_agent_context_hooks",
+  "path": ".opencode/skill/mastering-typescript/SKILL.md",
+  "source": "github.com/SpillwaveSolutions/code_agent_context_hooks",
+  "downloaded_at": "2026-01-29T04:19:27.743455Z"
 }

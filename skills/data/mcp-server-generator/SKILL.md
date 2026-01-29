@@ -1,6 +1,7 @@
 ---
-name: mcp-server-generator
-description: Generate complete, production-ready MCP (Model Context Protocol) servers with automatic setup, configuration, and Claude Code integration
+name: MCP Server Generator
+description: Expert guidance for creating, configuring, and deploying Model Context Protocol (MCP) servers. Use when building custom MCP servers, integrating external APIs, or extending Claude with new capabilities.
+version: 1.0.0
 allowed-tools:
   - Read
   - Write
@@ -8,634 +9,1116 @@ allowed-tools:
   - Bash
   - Glob
   - Grep
-  - Task
+  - WebSearch
 ---
 
 # MCP Server Generator
 
-Expert skill for generating complete, production-ready MCP (Model Context Protocol) servers. Specializes in automated server generation, setup, configuration, and seamless integration with Claude Code.
+Comprehensive system for creating high-quality Model Context Protocol (MCP) servers that integrate external APIs, databases, and services with Claude.
 
-## Core Capabilities
+## Core Concepts
 
-### 1. Complete Server Generation
-- Full TypeScript MCP server with all boilerplate
-- Tool implementations (not just templates)
-- Type-safe interfaces and schemas
-- Error handling and validation
-- Logging and debugging support
-- Production-ready code quality
+### What is MCP?
 
-### 2. Automatic Setup & Installation
-- Generate server code
-- Install dependencies (npm/pnpm/yarn)
-- Build TypeScript project
-- Configure Claude Code integration
-- Test server connection
-- Start server automatically
+Model Context Protocol (MCP) is an open standard that enables AI applications to connect to external data sources and tools. MCP servers provide:
 
-### 3. Tool Categories Support
-- **Browser Automation**: Playwright, Puppeteer
-- **Testing**: Visual regression, E2E, accessibility
-- **Development**: Live preview, hot reload, DevTools
-- **Performance**: Profiling, metrics, Core Web Vitals
-- **Utilities**: File operations, data processing, API calls
-- **Custom**: Any tool category you need
+- **Resources**: File-like data (documents, logs, database schemas)
+- **Tools**: Executable functions (API calls, calculations, searches)
+- **Prompts**: Reusable prompt templates
+- **Sampling**: LLM completion requests
 
-### 4. Smart Configuration
-- **Zero Config**: Works out of the box with sensible defaults
-- **Auto-Detection**: Detects project type, framework, tools
-- **Optional Override**: JSON/TypeScript config for customization
-- **Environment Variables**: Support for secrets and configuration
-- **Multiple Profiles**: Dev, staging, production configs
+### MCP Architecture
 
-### 5. Claude Code Integration
-- Automatic `.claude/config.json` configuration
-- Server registration and startup
-- Health check and monitoring
-- Automatic restart on failure
-- Logging to Claude Code console
-
-### 6. Template Library
-- Pre-built server templates for common use cases
-- UI Testing Server (Playwright + visual regression)
-- API Testing Server (HTTP client + validation)
-- File Processing Server (read/write/transform)
-- Web Scraping Server (browser automation + parsing)
-- Custom template creation
-
-## Workflow
-
-### Phase 1: Analysis & Planning
-1. **Understand Requirements**
-   - What tools does the server need to provide?
-   - What technologies to use? (Playwright, Puppeteer, etc.)
-   - Integration requirements (APIs, databases, etc.)
-   - Performance and scalability needs
-
-2. **Select Template**
-   - Use pre-built template if available
-   - Identify closest template and customize
-   - Create from scratch if needed
-
-3. **Plan Architecture**
-   - Tool organization (categories, naming)
-   - Configuration strategy (zero-config vs explicit)
-   - Dependencies and external services
-   - Error handling approach
-
-### Phase 2: Generation
-1. **Generate Server Structure**
-   - Create directory structure
-   - Generate package.json with dependencies
-   - Create tsconfig.json for TypeScript
-   - Set up build scripts
-
-2. **Implement Tools**
-   - Generate tool implementations
-   - Add input validation and schemas
-   - Implement error handling
-   - Add logging and debugging
-
-3. **Create Configuration**
-   - Auto-detection logic
-   - Default configuration
-   - Override mechanism
-   - Environment variable support
-
-4. **Add Documentation**
-   - README with setup instructions
-   - Tool documentation (inputs, outputs, examples)
-   - Troubleshooting guide
-   - API reference
-
-### Phase 3: Setup & Integration
-1. **Install & Build**
-   - Run npm install
-   - Compile TypeScript
-   - Run tests (if present)
-   - Verify build output
-
-2. **Configure Claude Code**
-   - Add server to `.claude/config.json`
-   - Set up environment variables
-   - Configure auto-start
-   - Set up logging
-
-3. **Test & Verify**
-   - Start server
-   - Test connection
-   - Verify tool registration
-   - Run sample tool calls
-   - Check error handling
-
-4. **Documentation & Handoff**
-   - Generate usage examples
-   - Document configuration options
-   - Provide troubleshooting steps
-   - Create quick start guide
-
-## MCP Server Architecture
-
-### Standard Structure
 ```
-mcp-server-name/
-├── package.json              # Dependencies and scripts
-├── tsconfig.json             # TypeScript configuration
-├── .env.example              # Environment variables template
-├── src/
-│   ├── index.ts             # Server entry point
-│   ├── config/
-│   │   ├── auto-detect.ts   # Auto-detection logic
-│   │   ├── defaults.ts      # Default configuration
-│   │   └── schema.ts        # Config validation schema
-│   ├── tools/
-│   │   ├── category1/
-│   │   │   ├── tool1.ts     # Tool implementation
-│   │   │   └── tool2.ts
-│   │   └── category2/
-│   │       └── tool3.ts
-│   ├── utils/
-│   │   ├── logger.ts        # Logging utility
-│   │   ├── errors.ts        # Error handling
-│   │   └── validation.ts    # Input validation
-│   └── types/
-│       └── index.ts         # TypeScript types
-├── scripts/
-│   ├── setup.sh             # Setup automation
-│   └── configure-claude.sh  # Claude Code config
-├── tests/
-│   └── server.test.ts       # Server tests
-└── README.md                # Documentation
+┌─────────────┐         ┌─────────────┐         ┌──────────────┐
+│   Claude    │ ◄─────► │ MCP Server  │ ◄─────► │ External API │
+│  (Client)   │   MCP   │  (Bridge)   │         │  or Service  │
+└─────────────┘         └─────────────┘         └──────────────┘
 ```
 
-### Server Entry Point Template
+## Implementation Patterns
+
+### 1. TypeScript/Node.js MCP Server
+
+**Basic Structure:**
 ```typescript
-// src/index.ts
-import { Server } from '@modelcontextprotocol/sdk/server/index.js'
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
-import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js'
+#!/usr/bin/env node
+import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import {
+  CallToolRequestSchema,
+  ListToolsRequestSchema,
+  ListResourcesRequestSchema,
+  ReadResourceRequestSchema,
+} from "@modelcontextprotocol/sdk/types.js";
 
-import { loadConfig } from './config/auto-detect.js'
-import { registerTools } from './tools/index.js'
-import { logger } from './utils/logger.js'
-
+// Initialize server
 const server = new Server(
   {
-    name: 'mcp-server-name',
-    version: '1.0.0',
+    name: "my-mcp-server",
+    version: "1.0.0",
   },
   {
     capabilities: {
       tools: {},
+      resources: {},
+      prompts: {},
     },
   }
-)
+);
 
-// Load configuration
-const config = await loadConfig()
-logger.info('Configuration loaded', config)
-
-// Register all tools
-const tools = registerTools(config)
-logger.info(`Registered ${tools.length} tools`)
-
-// Handle tool list request
-server.setRequestHandler(ListToolsRequestSchema, async () => ({
-  tools: tools.map(tool => ({
-    name: tool.name,
-    description: tool.description,
-    inputSchema: tool.inputSchema,
-  })),
-}))
-
-// Handle tool execution request
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  const tool = tools.find(t => t.name === request.params.name)
-
-  if (!tool) {
-    throw new Error(`Tool not found: ${request.params.name}`)
-  }
-
-  logger.info(`Executing tool: ${tool.name}`, request.params.arguments)
-
-  try {
-    const result = await tool.execute(request.params.arguments)
-    logger.info(`Tool completed: ${tool.name}`)
-    return result
-  } catch (error) {
-    logger.error(`Tool failed: ${tool.name}`, error)
-    throw error
-  }
-})
-
-// Start server
-const transport = new StdioServerTransport()
-await server.connect(transport)
-logger.info('MCP Server started')
-```
-
-### Tool Implementation Template
-```typescript
-// src/tools/category/example-tool.ts
-import { z } from 'zod'
-import { Tool } from '../../types/index.js'
-
-// Input validation schema
-const inputSchema = z.object({
-  param1: z.string().describe('Description of param1'),
-  param2: z.number().optional().describe('Optional param2'),
-  options: z.object({
-    option1: z.boolean().default(true),
-  }).optional(),
-})
-
-export const exampleTool: Tool = {
-  name: 'example_tool',
-  description: 'Does something useful',
-
-  inputSchema: {
-    type: 'object',
-    properties: {
-      param1: { type: 'string', description: 'Description of param1' },
-      param2: { type: 'number', description: 'Optional param2' },
-      options: {
-        type: 'object',
-        properties: {
-          option1: { type: 'boolean', default: true },
+// List available tools
+server.setRequestHandler(ListToolsRequestSchema, async () => {
+  return {
+    tools: [
+      {
+        name: "example_tool",
+        description: "An example tool that does something useful",
+        inputSchema: {
+          type: "object",
+          properties: {
+            query: {
+              type: "string",
+              description: "The query parameter",
+            },
+          },
+          required: ["query"],
         },
       },
-    },
-    required: ['param1'],
+    ],
+  };
+});
+
+// Handle tool calls
+server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  const { name, arguments: args } = request.params;
+
+  if (name === "example_tool") {
+    const result = await performAction(args.query);
+    return {
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(result, null, 2),
+        },
+      ],
+    };
+  }
+
+  throw new Error(`Unknown tool: ${name}`);
+});
+
+// List resources
+server.setRequestHandler(ListResourcesRequestSchema, async () => {
+  return {
+    resources: [
+      {
+        uri: "example://resource/1",
+        name: "Example Resource",
+        description: "An example resource",
+        mimeType: "application/json",
+      },
+    ],
+  };
+});
+
+// Read resource
+server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
+  const { uri } = request.params;
+
+  if (uri === "example://resource/1") {
+    return {
+      contents: [
+        {
+          uri,
+          mimeType: "application/json",
+          text: JSON.stringify({ data: "example" }, null, 2),
+        },
+      ],
+    };
+  }
+
+  throw new Error(`Resource not found: ${uri}`);
+});
+
+// Start server
+async function main() {
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+  console.error("MCP Server running on stdio");
+}
+
+main().catch(console.error);
+```
+
+**package.json:**
+```json
+{
+  "name": "my-mcp-server",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "my-mcp-server": "./dist/index.js"
   },
+  "scripts": {
+    "build": "tsc && chmod +x dist/index.js",
+    "dev": "tsc --watch",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0"
+  }
+}
+```
 
-  async execute(args: unknown) {
-    // Validate input
-    const params = inputSchema.parse(args)
+**tsconfig.json:**
+```json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+```
 
-    // Implement tool logic
-    try {
-      const result = await doSomething(params)
+### 2. Python MCP Server
 
+**Basic Structure:**
+```python
+#!/usr/bin/env python3
+import asyncio
+import logging
+from typing import Any
+
+from mcp.server import Server
+from mcp.server.stdio import stdio_server
+from mcp.types import (
+    Tool,
+    TextContent,
+    Resource,
+    INTERNAL_ERROR,
+)
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Initialize server
+app = Server("my-mcp-server")
+
+@app.list_tools()
+async def list_tools() -> list[Tool]:
+    """List available tools."""
+    return [
+        Tool(
+            name="example_tool",
+            description="An example tool that does something useful",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "The query parameter",
+                    },
+                },
+                "required": ["query"],
+            },
+        ),
+    ]
+
+@app.call_tool()
+async def call_tool(name: str, arguments: Any) -> list[TextContent]:
+    """Handle tool calls."""
+    if name == "example_tool":
+        query = arguments.get("query")
+        result = await perform_action(query)
+
+        return [
+            TextContent(
+                type="text",
+                text=str(result),
+            )
+        ]
+
+    raise ValueError(f"Unknown tool: {name}")
+
+@app.list_resources()
+async def list_resources() -> list[Resource]:
+    """List available resources."""
+    return [
+        Resource(
+            uri="example://resource/1",
+            name="Example Resource",
+            description="An example resource",
+            mimeType="application/json",
+        ),
+    ]
+
+@app.read_resource()
+async def read_resource(uri: str) -> str:
+    """Read resource content."""
+    if uri == "example://resource/1":
+        return '{"data": "example"}'
+
+    raise ValueError(f"Resource not found: {uri}")
+
+async def perform_action(query: str) -> dict:
+    """Perform the actual action."""
+    # Your implementation here
+    return {"query": query, "result": "success"}
+
+async def main():
+    """Run the MCP server."""
+    async with stdio_server() as (read_stream, write_stream):
+        await app.run(
+            read_stream,
+            write_stream,
+            app.create_initialization_options()
+        )
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+**pyproject.toml:**
+```toml
+[project]
+name = "my-mcp-server"
+version = "1.0.0"
+description = "MCP server for..."
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=0.9.0",
+]
+
+[project.scripts]
+my-mcp-server = "my_mcp_server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+```
+
+### 3. Common MCP Server Patterns
+
+#### API Integration Server
+
+```typescript
+// GitHub API MCP Server Example
+import { Octokit } from "@octokit/rest";
+
+const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+
+server.setRequestHandler(ListToolsRequestSchema, async () => {
+  return {
+    tools: [
+      {
+        name: "search_repositories",
+        description: "Search GitHub repositories",
+        inputSchema: {
+          type: "object",
+          properties: {
+            query: { type: "string", description: "Search query" },
+            language: { type: "string", description: "Filter by language" },
+            limit: { type: "number", description: "Max results", default: 10 },
+          },
+          required: ["query"],
+        },
+      },
+      {
+        name: "get_repository",
+        description: "Get repository details",
+        inputSchema: {
+          type: "object",
+          properties: {
+            owner: { type: "string", description: "Repository owner" },
+            repo: { type: "string", description: "Repository name" },
+          },
+          required: ["owner", "repo"],
+        },
+      },
+      {
+        name: "create_issue",
+        description: "Create a new issue",
+        inputSchema: {
+          type: "object",
+          properties: {
+            owner: { type: "string" },
+            repo: { type: "string" },
+            title: { type: "string" },
+            body: { type: "string" },
+            labels: { type: "array", items: { type: "string" } },
+          },
+          required: ["owner", "repo", "title"],
+        },
+      },
+    ],
+  };
+});
+
+server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  const { name, arguments: args } = request.params;
+
+  switch (name) {
+    case "search_repositories": {
+      const result = await octokit.search.repos({
+        q: `${args.query}${args.language ? ` language:${args.language}` : ""}`,
+        per_page: args.limit || 10,
+      });
       return {
         content: [
           {
-            type: 'text',
-            text: JSON.stringify(result, null, 2),
+            type: "text",
+            text: JSON.stringify(
+              result.data.items.map((item) => ({
+                name: item.full_name,
+                description: item.description,
+                stars: item.stargazers_count,
+                url: item.html_url,
+              })),
+              null,
+              2
+            ),
           },
         ],
+      };
+    }
+
+    case "get_repository": {
+      const result = await octokit.repos.get({
+        owner: args.owner,
+        repo: args.repo,
+      });
+      return {
+        content: [
+          { type: "text", text: JSON.stringify(result.data, null, 2) },
+        ],
+      };
+    }
+
+    case "create_issue": {
+      const result = await octokit.issues.create({
+        owner: args.owner,
+        repo: args.repo,
+        title: args.title,
+        body: args.body,
+        labels: args.labels,
+      });
+      return {
+        content: [
+          { type: "text", text: `Issue created: ${result.data.html_url}` },
+        ],
+      };
+    }
+
+    default:
+      throw new Error(`Unknown tool: ${name}`);
+  }
+});
+```
+
+#### Database Integration Server
+
+```python
+# PostgreSQL MCP Server Example
+import asyncpg
+from mcp.server import Server
+from mcp.types import Tool, TextContent
+
+app = Server("postgres-mcp-server")
+
+# Connection pool
+pool = None
+
+async def init_db():
+    global pool
+    pool = await asyncpg.create_pool(
+        host=os.getenv("DB_HOST", "localhost"),
+        port=int(os.getenv("DB_PORT", "5432")),
+        database=os.getenv("DB_NAME"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+    )
+
+@app.list_tools()
+async def list_tools() -> list[Tool]:
+    return [
+        Tool(
+            name="query_database",
+            description="Execute a read-only SQL query",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "SQL SELECT query to execute",
+                    },
+                },
+                "required": ["query"],
+            },
+        ),
+        Tool(
+            name="get_schema",
+            description="Get database schema information",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "table_name": {
+                        "type": "string",
+                        "description": "Optional table name to filter",
+                    },
+                },
+            },
+        ),
+    ]
+
+@app.call_tool()
+async def call_tool(name: str, arguments: Any) -> list[TextContent]:
+    if name == "query_database":
+        query = arguments.get("query", "")
+
+        # Security: Only allow SELECT queries
+        if not query.strip().upper().startswith("SELECT"):
+            raise ValueError("Only SELECT queries are allowed")
+
+        async with pool.acquire() as conn:
+            results = await conn.fetch(query)
+            return [
+                TextContent(
+                    type="text",
+                    text=json.dumps([dict(row) for row in results], indent=2),
+                )
+            ]
+
+    elif name == "get_schema":
+        table_filter = arguments.get("table_name")
+
+        query = """
+            SELECT table_name, column_name, data_type, is_nullable
+            FROM information_schema.columns
+            WHERE table_schema = 'public'
+        """
+
+        if table_filter:
+            query += f" AND table_name = '{table_filter}'"
+
+        async with pool.acquire() as conn:
+            results = await conn.fetch(query)
+            return [
+                TextContent(
+                    type="text",
+                    text=json.dumps([dict(row) for row in results], indent=2),
+                )
+            ]
+
+    raise ValueError(f"Unknown tool: {name}")
+```
+
+#### File System Server
+
+```typescript
+// File System MCP Server
+import fs from "fs/promises";
+import path from "path";
+
+const ALLOWED_DIRECTORIES = [
+  process.env.DOCS_PATH || "./docs",
+  process.env.DATA_PATH || "./data",
+];
+
+function isPathAllowed(filePath: string): boolean {
+  const absPath = path.resolve(filePath);
+  return ALLOWED_DIRECTORIES.some((dir) =>
+    absPath.startsWith(path.resolve(dir))
+  );
+}
+
+server.setRequestHandler(ListResourcesRequestSchema, async () => {
+  const resources = [];
+
+  for (const dir of ALLOWED_DIRECTORIES) {
+    const files = await fs.readdir(dir, { recursive: true });
+    for (const file of files) {
+      const fullPath = path.join(dir, file);
+      const stats = await fs.stat(fullPath);
+
+      if (stats.isFile()) {
+        resources.push({
+          uri: `file://${fullPath}`,
+          name: file,
+          description: `File at ${fullPath}`,
+          mimeType: getMimeType(fullPath),
+        });
       }
-    } catch (error) {
-      throw new Error(`Tool execution failed: ${error.message}`)
     }
-  },
-}
+  }
 
-async function doSomething(params: z.infer<typeof inputSchema>) {
-  // Implementation here
-  return { success: true, data: params }
-}
-```
+  return { resources };
+});
 
-### Auto-Detection Example
-```typescript
-// src/config/auto-detect.ts
-import { existsSync, readFileSync } from 'fs'
-import { join } from 'path'
+server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
+  const { uri } = request.params;
+  const filePath = uri.replace("file://", "");
 
-export async function loadConfig() {
-  const cwd = process.cwd()
+  if (!isPathAllowed(filePath)) {
+    throw new Error("Access denied");
+  }
 
-  // Detect package.json
-  const packageJsonPath = join(cwd, 'package.json')
-  const packageJson = existsSync(packageJsonPath)
-    ? JSON.parse(readFileSync(packageJsonPath, 'utf-8'))
-    : {}
+  const content = await fs.readFile(filePath, "utf-8");
 
-  // Detect framework
-  const framework = detectFramework(packageJson)
-
-  // Detect test runner
-  const testRunner = detectTestRunner(packageJson)
-
-  // Detect available ports
-  const port = await findAvailablePort(3000)
-
-  // Load user config (if exists)
-  const userConfig = loadUserConfig()
-
-  // Merge with defaults
   return {
-    port,
-    framework,
-    testRunner,
-    ...getDefaults(),
-    ...userConfig,
-  }
-}
-
-function detectFramework(packageJson: any): string {
-  if (packageJson.dependencies?.react) return 'react'
-  if (packageJson.dependencies?.vue) return 'vue'
-  if (packageJson.dependencies?.svelte) return 'svelte'
-  return 'unknown'
-}
-
-function detectTestRunner(packageJson: any): string {
-  if (packageJson.devDependencies?.vitest) return 'vitest'
-  if (packageJson.devDependencies?.jest) return 'jest'
-  return 'unknown'
-}
-
-function loadUserConfig() {
-  // Try .claude/mcp-config.json
-  const configPath = join(process.cwd(), '.claude', 'mcp-config.json')
-  if (existsSync(configPath)) {
-    return JSON.parse(readFileSync(configPath, 'utf-8'))
-  }
-
-  // Try package.json mcp-server field
-  const packageJsonPath = join(process.cwd(), 'package.json')
-  if (existsSync(packageJsonPath)) {
-    const pkg = JSON.parse(readFileSync(packageJsonPath, 'utf-8'))
-    if (pkg['mcp-server']) {
-      return pkg['mcp-server']
-    }
-  }
-
-  return {}
-}
-```
-
-## Claude Code Integration
-
-### Configuration File
-```json
-// .claude/config.json
-{
-  "mcpServers": {
-    "server-name": {
-      "command": "node",
-      "args": ["./path/to/server/dist/index.js"],
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "info"
+    contents: [
+      {
+        uri,
+        mimeType: getMimeType(filePath),
+        text: content,
       },
-      "autoStart": true
-    }
-  }
-}
+    ],
+  };
+});
+
+server.setRequestHandler(ListToolsRequestSchema, async () => {
+  return {
+    tools: [
+      {
+        name: "search_files",
+        description: "Search for files by name or content",
+        inputSchema: {
+          type: "object",
+          properties: {
+            query: { type: "string", description: "Search query" },
+            type: {
+              type: "string",
+              enum: ["name", "content"],
+              description: "Search by filename or content",
+            },
+          },
+          required: ["query", "type"],
+        },
+      },
+      {
+        name: "write_file",
+        description: "Write content to a file",
+        inputSchema: {
+          type: "object",
+          properties: {
+            path: { type: "string", description: "File path" },
+            content: { type: "string", description: "File content" },
+          },
+          required: ["path", "content"],
+        },
+      },
+    ],
+  };
+});
 ```
 
-### Setup Script
-```bash
-#!/bin/bash
-# scripts/setup.sh
+### 4. Configuration & Deployment
 
-set -e
+**Claude Desktop Configuration:**
 
-echo "🚀 Setting up MCP Server..."
+On macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+On Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
-# Install dependencies
-echo "📦 Installing dependencies..."
-npm install
-
-# Build TypeScript
-echo "🔨 Building server..."
-npm run build
-
-# Configure Claude Code
-echo "⚙️  Configuring Claude Code..."
-./scripts/configure-claude.sh
-
-# Test server
-echo "🧪 Testing server..."
-node dist/index.js --test
-
-echo "✅ Setup complete!"
-echo "Server is ready to use."
-```
-
-### Configure Claude Script
-```bash
-#!/bin/bash
-# scripts/configure-claude.sh
-
-CLAUDE_CONFIG=".claude/config.json"
-SERVER_NAME="$1"
-SERVER_PATH="$(pwd)/dist/index.js"
-
-# Create .claude directory if not exists
-mkdir -p .claude
-
-# Add server to config
-if [ -f "$CLAUDE_CONFIG" ]; then
-  # Update existing config
-  jq ".mcpServers[\"$SERVER_NAME\"] = {
-    \"command\": \"node\",
-    \"args\": [\"$SERVER_PATH\"],
-    \"autoStart\": true
-  }" "$CLAUDE_CONFIG" > "$CLAUDE_CONFIG.tmp"
-  mv "$CLAUDE_CONFIG.tmp" "$CLAUDE_CONFIG"
-else
-  # Create new config
-  cat > "$CLAUDE_CONFIG" << EOF
+```json
 {
   "mcpServers": {
-    "$SERVER_NAME": {
+    "my-mcp-server": {
       "command": "node",
-      "args": ["$SERVER_PATH"],
-      "autoStart": true
+      "args": ["/path/to/my-mcp-server/dist/index.js"],
+      "env": {
+        "API_KEY": "your-api-key",
+        "LOG_LEVEL": "info"
+      }
+    },
+    "python-mcp-server": {
+      "command": "python",
+      "args": ["-m", "my_mcp_server"],
+      "env": {
+        "DATABASE_URL": "postgresql://localhost/mydb"
+      }
+    },
+    "npx-server": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_..."
+      }
     }
   }
 }
-EOF
-fi
-
-echo "✅ Claude Code configured"
 ```
 
-## Pre-built Templates
+**Environment Variables Best Practices:**
 
-### UI Testing Server
-Complete server for UI component testing with:
-- Visual regression (screenshot, compare, baseline)
-- E2E testing (navigate, click, type, forms)
-- Component preview (live server, hot reload)
-- Performance monitoring (render time, Core Web Vitals)
-- Accessibility auditing (WCAG, keyboard nav, ARIA)
-
-**Location:** `templates/ui-testing-server/`
-
-### API Testing Server
-Server for API testing and validation with:
-- HTTP client (GET, POST, PUT, DELETE, etc.)
-- Request validation (schema, headers, auth)
-- Response assertion (status, body, headers)
-- Mock server setup
-- Load testing support
-
-### File Processing Server
-Server for file operations with:
-- Read/write operations
-- Format conversion (JSON, CSV, YAML, XML)
-- Data transformation
-- Archive operations (zip, tar)
-- File watching
-
-### Web Scraping Server
-Server for web scraping with:
-- Page navigation and rendering
-- Element selection and extraction
-- Data parsing and cleaning
-- Pagination handling
-- Anti-bot bypass techniques
-
-## Best Practices
-
-### Server Design
-1. **Single Responsibility**: One server, one domain
-2. **Tool Granularity**: Fine-grained tools over monolithic ones
-3. **Input Validation**: Always validate and sanitize inputs
-4. **Error Handling**: Descriptive errors with context
-5. **Logging**: Comprehensive logging for debugging
-
-### Configuration
-1. **Zero Config First**: Work without configuration
-2. **Smart Defaults**: Sensible defaults for common cases
-3. **Easy Override**: Simple config file structure
-4. **Env Variables**: Support for secrets and sensitive data
-5. **Validation**: Validate configuration at startup
-
-### Performance
-1. **Lazy Loading**: Load dependencies only when needed
-2. **Resource Pooling**: Reuse expensive resources (browsers, connections)
-3. **Timeouts**: Set reasonable timeouts for all operations
-4. **Cleanup**: Properly dispose resources after use
-5. **Caching**: Cache when appropriate
-
-### Security
-1. **Input Sanitization**: Never trust user input
-2. **File System Access**: Restrict to safe directories
-3. **Network Calls**: Validate URLs and domains
-4. **Secrets**: Use environment variables, never hardcode
-5. **Error Messages**: Don't leak sensitive information
-
-## Tool Naming Conventions
-
-### Naming Rules
-- Use `snake_case` for tool names
-- Start with verb (action): `create_`, `get_`, `update_`, `delete_`
-- Be specific and descriptive
-- Group related tools with prefixes
-
-### Examples
 ```typescript
-// Good
-'screenshot_component'
-'navigate_to_url'
-'audit_accessibility'
-'measure_performance'
-'compare_visual_diff'
+// Load from .env file
+import dotenv from "dotenv";
+dotenv.config();
 
-// Bad (too vague)
-'take_pic'
-'go'
-'check'
-'test'
+// Validate required env vars
+const requiredEnvVars = ["API_KEY", "DATABASE_URL"];
+for (const varName of requiredEnvVars) {
+  if (!process.env[varName]) {
+    throw new Error(`Missing required environment variable: ${varName}`);
+  }
+}
+
+// Use with defaults
+const config = {
+  apiKey: process.env.API_KEY,
+  apiUrl: process.env.API_URL || "https://api.example.com",
+  timeout: parseInt(process.env.TIMEOUT || "30000"),
+  maxRetries: parseInt(process.env.MAX_RETRIES || "3"),
+};
 ```
 
-### Category Prefixes
+### 5. Error Handling & Logging
+
+**Comprehensive Error Handling:**
+
 ```typescript
-// Visual
-'visual_screenshot'
-'visual_compare'
-'visual_baseline'
+import { McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
 
-// Performance
-'perf_measure'
-'perf_profile'
-'perf_trace'
+server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  const { name, arguments: args } = request.params;
 
-// Accessibility
-'a11y_audit'
-'a11y_check_wcag'
-'a11y_keyboard_nav'
+  try {
+    // Validate arguments
+    if (!args.query) {
+      throw new McpError(
+        ErrorCode.InvalidParams,
+        "Missing required parameter: query"
+      );
+    }
+
+    // Perform action
+    const result = await performAction(args.query);
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(result, null, 2),
+        },
+      ],
+    };
+  } catch (error) {
+    // Log error
+    console.error(`Error in tool ${name}:`, error);
+
+    // Return user-friendly error
+    if (error instanceof McpError) {
+      throw error;
+    }
+
+    throw new McpError(
+      ErrorCode.InternalError,
+      `Failed to execute tool: ${error.message}`
+    );
+  }
+});
 ```
 
-## Troubleshooting
+**Structured Logging:**
 
-### Common Issues
+```python
+import logging
+import json
+from datetime import datetime
 
-**Server Won't Start**
-```bash
-# Check Node version (requires 18+)
-node --version
+# Configure JSON logging
+class JSONFormatter(logging.Formatter):
+    def format(self, record):
+        log_data = {
+            "timestamp": datetime.utcnow().isoformat(),
+            "level": record.levelname,
+            "message": record.getMessage(),
+            "module": record.module,
+            "function": record.funcName,
+        }
+        if record.exc_info:
+            log_data["exception"] = self.formatException(record.exc_info)
+        return json.dumps(log_data)
 
-# Check dependencies
-npm install
+handler = logging.StreamHandler()
+handler.setFormatter(JSONFormatter())
+logger = logging.getLogger(__name__)
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
 
-# Rebuild
-npm run build
-
-# Check logs
-tail -f .claude/logs/mcp-server-name.log
+# Use in code
+logger.info("Tool called", extra={"tool_name": name, "args": arguments})
+logger.error("API request failed", extra={"status_code": 500, "url": api_url})
 ```
 
-**Tool Not Found**
+### 6. Testing Strategies
+
+**Unit Testing:**
+
 ```typescript
-// Verify tool registration
-server.setRequestHandler(ListToolsRequestSchema, async () => {
-  console.log('Registered tools:', tools.map(t => t.name))
-  return { tools }
-})
+import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+
+describe("MCP Server", () => {
+  let client: Client;
+  let transport: StdioClientTransport;
+
+  beforeAll(async () => {
+    transport = new StdioClientTransport({
+      command: "node",
+      args: ["./dist/index.js"],
+    });
+
+    client = new Client(
+      {
+        name: "test-client",
+        version: "1.0.0",
+      },
+      {
+        capabilities: {},
+      }
+    );
+
+    await client.connect(transport);
+  });
+
+  afterAll(async () => {
+    await client.close();
+  });
+
+  it("should list tools", async () => {
+    const response = await client.listTools();
+    expect(response.tools).toHaveLength(3);
+    expect(response.tools[0].name).toBe("example_tool");
+  });
+
+  it("should call tool successfully", async () => {
+    const response = await client.callTool({
+      name: "example_tool",
+      arguments: { query: "test" },
+    });
+    expect(response.content).toBeDefined();
+  });
+
+  it("should handle errors gracefully", async () => {
+    await expect(
+      client.callTool({
+        name: "non_existent_tool",
+        arguments: {},
+      })
+    ).rejects.toThrow();
+  });
+});
 ```
 
-**Connection Issues**
+**Integration Testing:**
+
 ```bash
 # Test server manually
-echo '{"jsonrpc":"2.0","method":"initialize","id":1}' | node dist/index.js
+node dist/index.js &
+SERVER_PID=$!
 
-# Check Claude Code config
-cat .claude/config.json
+# Send test requests
+echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | node dist/index.js
+
+# Cleanup
+kill $SERVER_PID
 ```
 
-**Performance Issues**
+### 7. Performance Optimization
+
+**Caching:**
+
 ```typescript
-// Add timeouts
-const result = await Promise.race([
-  tool.execute(args),
-  new Promise((_, reject) =>
-    setTimeout(() => reject(new Error('Timeout')), 30000)
-  )
-])
+import NodeCache from "node-cache";
 
-// Profile execution
-console.time('tool-execution')
-const result = await tool.execute(args)
-console.timeEnd('tool-execution')
+const cache = new NodeCache({ stdTTL: 600 }); // 10 minutes
+
+server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  const { name, arguments: args } = request.params;
+
+  if (name === "expensive_operation") {
+    const cacheKey = `${name}:${JSON.stringify(args)}`;
+
+    // Check cache
+    const cached = cache.get(cacheKey);
+    if (cached) {
+      return {
+        content: [{ type: "text", text: JSON.stringify(cached) }],
+      };
+    }
+
+    // Perform operation
+    const result = await expensiveOperation(args);
+
+    // Store in cache
+    cache.set(cacheKey, result);
+
+    return {
+      content: [{ type: "text", text: JSON.stringify(result) }],
+    };
+  }
+});
 ```
 
-## When to Use This Skill
+**Rate Limiting:**
 
-Activate this skill when you need to:
-- Generate a new MCP server from scratch
-- Create custom tools for Claude Code
-- Automate server setup and configuration
-- Integrate external services with Claude Code
-- Build browser automation tools
-- Create testing infrastructure
-- Implement file processing pipelines
-- Set up web scraping capabilities
-- Extend Claude Code with new capabilities
+```typescript
+import rateLimit from "express-rate-limit";
 
-## Output Format
+const limiter = new Map();
 
-When generating MCP servers, provide:
-1. **Complete Server Code**: Production-ready, type-safe implementation
-2. **Configuration Files**: package.json, tsconfig.json, config templates
-3. **Setup Scripts**: Automated installation and configuration
-4. **Documentation**: README, tool docs, troubleshooting guide
-5. **Usage Examples**: How to use each tool
-6. **Integration Guide**: How to add to Claude Code
+function checkRateLimit(key: string): boolean {
+  const now = Date.now();
+  const record = limiter.get(key) || { count: 0, resetAt: now + 60000 };
 
-Always generate complete, working code that can be installed and used immediately with minimal configuration.
+  if (now > record.resetAt) {
+    record.count = 0;
+    record.resetAt = now + 60000;
+  }
+
+  record.count++;
+  limiter.set(key, record);
+
+  return record.count <= 100; // 100 requests per minute
+}
+
+server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  if (!checkRateLimit("global")) {
+    throw new McpError(ErrorCode.InternalError, "Rate limit exceeded");
+  }
+
+  // Handle request...
+});
+```
+
+### 8. Security Best Practices
+
+**Input Validation:**
+
+```typescript
+import { z } from "zod";
+
+const toolInputSchemas = {
+  search_query: z.object({
+    query: z.string().min(1).max(500),
+    limit: z.number().int().min(1).max(100).optional(),
+    filters: z.record(z.string()).optional(),
+  }),
+};
+
+server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  const { name, arguments: args } = request.params;
+
+  // Validate input
+  const schema = toolInputSchemas[name];
+  if (!schema) {
+    throw new McpError(ErrorCode.InvalidParams, `Unknown tool: ${name}`);
+  }
+
+  try {
+    const validatedArgs = schema.parse(args);
+    // Use validatedArgs...
+  } catch (error) {
+    throw new McpError(
+      ErrorCode.InvalidParams,
+      `Invalid arguments: ${error.message}`
+    );
+  }
+});
+```
+
+**Access Control:**
+
+```typescript
+function checkPermissions(userId: string, action: string): boolean {
+  const permissions = {
+    admin: ["read", "write", "delete"],
+    user: ["read"],
+    guest: [],
+  };
+
+  const userRole = getUserRole(userId);
+  return permissions[userRole]?.includes(action) || false;
+}
+
+server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  const userId = request.params._meta?.userId;
+  const action = getActionFromTool(request.params.name);
+
+  if (!checkPermissions(userId, action)) {
+    throw new McpError(ErrorCode.InvalidParams, "Permission denied");
+  }
+
+  // Proceed with request...
+});
+```
+
+### 9. Publishing & Distribution
+
+**NPM Package:**
+
+```json
+{
+  "name": "@company/mcp-server-example",
+  "version": "1.0.0",
+  "description": "MCP server for...",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-server-example": "dist/index.js"
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "keywords": ["mcp", "claude", "mcp-server"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/company/mcp-server-example"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
+```
+
+**Docker Distribution:**
+
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY dist ./dist
+USER node
+CMD ["node", "dist/index.js"]
+```
+
+### 10. Documentation Template
+
+**README.md:**
+
+```markdown
+# My MCP Server
+
+> [Brief description of what this server does]
+
+## Features
+
+- Feature 1
+- Feature 2
+- Feature 3
+
+## Installation
+
+\`\`\`bash
+npm install -g my-mcp-server
+\`\`\`
+
+## Configuration
+
+Add to your Claude Desktop config:
+
+\`\`\`json
+{
+  "mcpServers": {
+    "my-server": {
+      "command": "my-mcp-server",
+      "env": {
+        "API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+\`\`\`
+
+## Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| API_KEY | Yes | Your API key |
+| API_URL | No | API endpoint (default: https://api.example.com) |
+
+## Available Tools
+
+### tool_name
+
+Description of what this tool does.
+
+**Parameters:**
+- `param1` (string, required): Description
+- `param2` (number, optional): Description
+
+**Example:**
+\`\`\`
+Use the tool_name tool with parameter "value"
+\`\`\`
+
+## Available Resources
+
+### resource://example/1
+
+Description of this resource.
+
+## Development
+
+\`\`\`bash
+git clone https://github.com/company/my-mcp-server
+cd my-mcp-server
+npm install
+npm run build
+npm run dev
+\`\`\`
+
+## License
+
+MIT
+```
+
+## Quick Start Checklist
+
+- [ ] Choose implementation language (TypeScript/Python)
+- [ ] Set up project structure with proper tooling
+- [ ] Implement tools with clear input schemas
+- [ ] Add comprehensive error handling
+- [ ] Implement caching for expensive operations
+- [ ] Add input validation and sanitization
+- [ ] Set up structured logging
+- [ ] Write unit and integration tests
+- [ ] Create detailed documentation
+- [ ] Configure environment variables properly
+- [ ] Add rate limiting if needed
+- [ ] Implement access control if needed
+- [ ] Test with Claude Desktop
+- [ ] Publish to npm/PyPI or Docker
+
+## Common Use Cases
+
+1. **API Integration**: GitHub, Jira, Slack, Linear, Notion
+2. **Database Access**: PostgreSQL, MongoDB, Redis, Elasticsearch
+3. **File Systems**: Local files, S3, Google Drive, Dropbox
+4. **Developer Tools**: Git operations, CI/CD, deployment
+5. **Business Tools**: CRM, ERP, analytics platforms
+6. **AI/ML**: Vector databases, model APIs, embeddings
+7. **Communication**: Email, SMS, webhooks, notifications
+8. **Monitoring**: Logs, metrics, alerts, dashboards
+
+---
+
+**When to Use This Skill:**
+
+Invoke when building new MCP servers, troubleshooting existing servers, or integrating external services with Claude.

@@ -1,7 +1,7 @@
 {
   "name": "v3-performance-optimization",
-  "repo": "ruvnet/claude-flow",
+  "repo": "EarthmanWeb/claude-flow-plugin",
   "path": "v3/@claude-flow/mcp/.claude/skills/v3-performance-optimization/SKILL.md",
-  "source": "github.com/ruvnet/claude-flow",
-  "downloaded_at": "2026-01-28T04:26:41.400611Z"
+  "source": "github.com/EarthmanWeb/claude-flow-plugin",
+  "downloaded_at": "2026-01-29T03:24:37.349603Z"
 }

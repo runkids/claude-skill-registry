@@ -1,9 +1,7 @@
 {
   "name": "spaarke-conventions",
-  "description": "Apply Spaarke coding standards from CLAUDE.md - naming, structure, file organization, and technology patterns",
   "repo": "spaarke-dev/spaarke",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/spaarke-conventions/SKILL.md",
+  "source": "github.com/spaarke-dev/spaarke",
+  "downloaded_at": "2026-01-29T02:08:02.067938Z"
 }

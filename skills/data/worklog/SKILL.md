@@ -1,68 +1,116 @@
 ---
 name: worklog
-description: Generate a recap of recent Claude Code sessions with summaries of what was discussed and accomplished
+description: "Add timestamped work log entries to track progress and decisions. Use for documenting work, decisions, gotchas, and handoffs between agents."
+model: claude-sonnet-4-20250514
+allowed-tools: Read, Write, Edit, Glob
 ---
 
-# Worklog - Session Recap Generator
+# /worklog
 
-Generate a human-readable recap of recent Claude Code conversations.
+Add structured JSON entries to track work, decisions, and learnings.
 
 ## Usage
 
-```
-/worklog                    # Sessions since yesterday 8am
-/worklog --since today      # Today's sessions
-/worklog --since week       # Last 7 days
-/worklog --since "2026-01-15 08:00"  # Specific datetime
-```
-
-## Process
-
-1. **Extract**: Run `python3 ~/.claude/skills/worklog/extract.py --since <timespec> --pretty`
-   - Default `<timespec>` to `yesterday` if not provided
-   - Run `--help` for all options
-
-2. **Generate recap** from the JSON output:
-
-```markdown
-# Worklog: <date range>
-
-## Summary
-<2-3 sentence overview of what was accomplished across all sessions>
-
-## Sessions
-
-### 🗨️ "<title>"
-`<project path>`
-- **Session:** `<session_id>`
-- **Time:** <started> → <ended> (<duration>)
-- **Context:** <context_pct>% (<context_tokens> tokens)
-- **Compactions:** <count> (hit context limit: yes/no)
-
-**What was discussed:**
-<2-4 bullets synthesized from compaction summaries, removing redundancy>
-
-**Git commits:**
-<List commits if any, otherwise "None">
-
-If title is null, use project path as heading instead: `### <project path>`
-
----
+```bash
+/worklog yourbench YB-2 "Added login button to header"
+/worklog yourbench YB-2 --decision "Using Clerk for auth"
+/worklog yourbench YB-2 --gotcha "Token refresh needs cleanup"
+/worklog coordinatr 003 --handoff code-reviewer "Ready for review"
+/worklog yourbench YB-2 --state              # Show current state
+/worklog yourbench YB-2 --migrate            # Migrate from WORKLOG.md
 ```
 
-3. **Offer next steps**: Resume a session? Save to file? More details?
+## Directory Structure
 
-## Common Mistakes
+```
+ideas/yourbench/issues/YB-2-auth/
+├── TASK.md
+├── PLAN.md
+└── worklog/
+    ├── _state.json              # Current state (quick context load)
+    ├── 001-phase-init.json      # Entry files
+    └── 002-handoff-review.json
+```
 
-- **Wrong date format**: Use `"YYYY-MM-DD HH:MM"` with quotes, or keywords: `yesterday`, `today`, `week`
-- **Empty results**: Check if the timespec is correct; sessions must have activity in that window
-- **Missing git commits**: Commits only show if made during the session timeframe in the session's cwd
+## Entry Types
 
-## Guidelines
+| Type | Flag | Use Case |
+|------|------|----------|
+| Manual | (default) | General progress update |
+| Decision | `--decision` | Document architectural choice |
+| Gotcha | `--gotcha` | Capture lesson learned |
+| Handoff | `--handoff TO` | Agent transition |
+| Phase | `--phase NUM` | Phase completion |
+| Blocker | `--blocker` | Record impediment |
+| Resolution | `--resolve ID` | Resolve blocker |
 
-- **Session title** comes from compaction summary, or fallback to first user message (truncated)
-- **Title is null** only for sessions with no meaningful user input (use project name instead)
-- **Compaction summaries** are the primary source for "what was discussed"
-- **Git commits** show concrete output from the session
-- **Context %** indicates session intensity; many compactions = hit context limit
-- Keep recaps concise - quick reference, not detailed log
+## Execution Flow
+
+### 1. Parse Arguments
+
+```
+/worklog PROJECT ISSUE_ID [--type] "message"
+```
+
+### 2. Locate Worklog Directory
+
+```bash
+ideas/[project]/issues/[issue_id]-*/worklog/
+mkdir -p [path] if missing
+```
+
+### 3. Get Next Sequence Number
+
+```bash
+ls worklog/*.json | grep -v _state | wc -l
+# Next = count + 1
+```
+
+### 4. Create Entry File
+
+Filename: `{sequence:03d}-{type}-{slug}.json`
+
+**Required fields:**
+- `$schema`: "worklog-entry-v1"
+- `id`: "ISSUE-SEQ"
+- `sequence`: number
+- `timestamp`: ISO 8601
+- `type`: entry type
+- `author`: { agent: string | null, human: string | null }
+- `summary`: description
+
+### 5. Update `_state.json`
+
+After every entry:
+- Update `last_entry`
+- Update `last_updated`
+- Increment `entries_count`
+- Add to `key_decisions` if decision
+- Update `blockers` if blocker/resolution
+
+## Viewing State
+
+```bash
+/worklog yourbench YB-2 --state
+```
+
+Outputs:
+```
+Issue: YB-2 - Initialize Next.js project
+Status: in_progress (Phase 3)
+Progress: 5/5 phases complete
+Key Decisions: ...
+Blockers: none
+```
+
+## Schema Reference
+
+See [references/schema.md](references/schema.md) for full JSON schema specification.
+
+## Best Practices
+
+1. **Be specific**: Include enough context for future AI
+2. **Tag consistently**: Use established tag taxonomy
+3. **Capture gotchas immediately**: Don't wait until end
+4. **Handoff explicitly**: Create handoff entry when switching agents
+5. **Update state**: `_state.json` should always reflect current reality

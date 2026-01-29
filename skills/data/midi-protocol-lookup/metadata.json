@@ -1,15 +1,7 @@
 {
   "name": "midi-protocol-lookup",
-  "description": "Look up APC Mini MK2 MIDI protocol details including note numbers, MIDI channels, velocity values, and SysEx format. Use when user asks about \"MIDI note\", \"channel\", \"velocity\", \"status byte\", \"SysEx\"",
   "repo": "naporin0624/claude-plugin-apc-mini",
-  "category": "data",
-  "tags": [
-    "midi",
-    "protocol",
-    "lookup"
-  ],
-  "stars": 0,
-  "dir_name": "midi-protocol-lookup",
-  "github_path": "skills/midi-protocol-lookup",
-  "github_branch": "main"
+  "path": "skills/midi-protocol-lookup/SKILL.md",
+  "source": "github.com/naporin0624/claude-plugin-apc-mini",
+  "downloaded_at": "2026-01-29T04:03:43.845971Z"
 }

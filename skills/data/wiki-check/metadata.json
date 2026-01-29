@@ -1,9 +1,7 @@
 {
   "name": "wiki-check",
-  "description": "Validate wiki integrity using Kimi. Checks broken wikilinks, missing frontmatter, orphan pages, and structural issues in the Obsidian vault.",
   "repo": "KvFxKaido/SENTINEL",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/KvFxKaido/SENTINEL"
+  "path": ".claude/skills/wiki-check/SKILL.md",
+  "source": "github.com/KvFxKaido/SENTINEL",
+  "downloaded_at": "2026-01-29T03:33:00.988943Z"
 }

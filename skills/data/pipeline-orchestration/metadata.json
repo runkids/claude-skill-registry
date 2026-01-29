@@ -1,7 +1,7 @@
 {
   "name": "pipeline-orchestration",
-  "repo": "turbobeest/squawk",
-  "path": ".claude/skills/pipeline-orchestration/SKILL.md",
-  "source": "github.com/turbobeest/squawk",
-  "downloaded_at": "2026-01-28T01:52:10.338619Z"
+  "repo": "turbobeest/cursor-dev-system",
+  "path": "skills/pipeline-orchestration/SKILL.md",
+  "source": "github.com/turbobeest/cursor-dev-system",
+  "downloaded_at": "2026-01-29T04:39:09.112778Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "antigravity-aws-serverless",
-  "description": "Specialized skill for building production-ready serverless applications on AWS. Covers Lambda functions, API Gateway, DynamoDB, SQS/SNS event-driven patterns, SAM/CDK deployment, and cold start optimi",
   "repo": "boisenoise/skills-collections",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/boisenoise/skills-collections"
+  "path": "skills/antigravity-aws-serverless/SKILL.md",
+  "source": "github.com/boisenoise/skills-collections",
+  "downloaded_at": "2026-01-29T02:04:57.074394Z"
 }

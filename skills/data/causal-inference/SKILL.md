@@ -1,301 +1,300 @@
 ---
-name: Causal Inference
-description: Determine cause-and-effect relationships using propensity scoring, instrumental variables, and causal graphs for policy evaluation and treatment effects
+name: causal-inference
+description: "Bengio's causal inference for AI: Interventional reasoning, counterfactuals, and System 2 deep learning. World models with causal structure."
+version: 1.0.0
 ---
 
-# Causal Inference
+
+# Causal Inference Skill
+
+> *"Current deep learning is System 1: fast, intuitive, but easily fooled. We need System 2: slow, deliberate, causal."*
+> — Yoshua Bengio
 
 ## Overview
 
-Causal inference determines cause-and-effect relationships and estimates treatment effects, going beyond correlation to understand what causes what.
+**Causal inference** enables:
+1. **Interventional reasoning**: What happens if I *do* X?
+2. **Counterfactual reasoning**: What *would have* happened if...?
+3. **Transfer**: Causal structure generalizes across domains
+4. **Robustness**: Causal models resist distribution shift
 
-## When to Use
+## Pearl's Causal Hierarchy
 
-- Evaluating the impact of policy interventions or business decisions
-- Estimating treatment effects when randomized experiments aren't feasible
-- Controlling for confounding variables in observational data
-- Determining if a marketing campaign or product change caused an outcome
-- Analyzing heterogeneous treatment effects across different user segments
-- Making causal claims from non-experimental data using propensity scores or instrumental variables
-
-## Key Concepts
-
-- **Treatment**: Intervention or exposure
-- **Outcome**: Result or consequence
-- **Confounding**: Variables affecting both treatment and outcome
-- **Causal Graph**: Visual representation of relationships
-- **Treatment Effect**: Impact of intervention
-- **Selection Bias**: Non-random treatment assignment
-
-## Causal Methods
-
-- **Randomized Controlled Trials (RCT)**: Gold standard
-- **Propensity Score Matching**: Balance treatment/control
-- **Difference-in-Differences**: Before/after comparison
-- **Instrumental Variables**: Handle endogeneity
-- **Causal Forests**: Heterogeneous treatment effects
-
-## Implementation with Python
-
-```python
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.linear_model import LinearRegression, LogisticRegression
-from sklearn.preprocessing import StandardScaler
-from scipy import stats
-
-# Generate observational data with confounding
-np.random.seed(42)
-
-n = 1000
-
-# Confounder: Age (affects both treatment and outcome)
-age = np.random.uniform(25, 75, n)
-
-# Treatment: Training program (more likely for younger people)
-treatment_prob = 0.3 + 0.3 * (75 - age) / 50  # Inverse relationship with age
-treatment = (np.random.uniform(0, 1, n) < treatment_prob).astype(int)
-
-# Outcome: Salary (affected by both treatment and age)
-# True causal effect of treatment: +$5000
-salary = 40000 + 500 * age + 5000 * treatment + np.random.normal(0, 10000, n)
-
-df = pd.DataFrame({
-    'age': age,
-    'treatment': treatment,
-    'salary': salary,
-})
-
-print("Observational Data Summary:")
-print(df.describe())
-print(f"\nTreatment Rate: {df['treatment'].mean():.1%}")
-print(f"Average Salary (Control): ${df[df['treatment']==0]['salary'].mean():.0f}")
-print(f"Average Salary (Treatment): ${df[df['treatment']==1]['salary'].mean():.0f}")
-
-# 1. Naive Comparison (BIASED - ignores confounding)
-naive_effect = df[df['treatment']==1]['salary'].mean() - df[df['treatment']==0]['salary'].mean()
-print(f"\n1. Naive Comparison: ${naive_effect:.0f} (BIASED)")
-
-# 2. Regression Adjustment (Covariate Adjustment)
-X = df[['treatment', 'age']]
-y = df['salary']
-model = LinearRegression()
-model.fit(X, y)
-regression_effect = model.coef_[0]
-
-print(f"\n2. Regression Adjustment: ${regression_effect:.0f}")
-
-# 3. Propensity Score Matching
-# Estimate probability of treatment given covariates
-ps_model = LogisticRegression()
-ps_model.fit(df[['age']], df['treatment'])
-df['propensity_score'] = ps_model.predict_proba(df[['age']])[:, 1]
-
-print(f"\n3. Propensity Score Matching:")
-print(f"PS range: [{df['propensity_score'].min():.3f}, {df['propensity_score'].max():.3f}]")
-
-# Matching: find control for each treated unit
-matched_pairs = []
-treated_units = df[df['treatment'] == 1].index
-for treated_idx in treated_units:
-    treated_ps = df.loc[treated_idx, 'propensity_score']
-    treated_age = df.loc[treated_idx, 'age']
-
-    # Find closest control unit
-    control_units = df[(df['treatment'] == 0) &
-                      (df['propensity_score'] >= treated_ps - 0.1) &
-                      (df['propensity_score'] <= treated_ps + 0.1)].index
-
-    if len(control_units) > 0:
-        closest_control = min(control_units,
-                             key=lambda x: abs(df.loc[x, 'propensity_score'] - treated_ps))
-        matched_pairs.append({
-            'treated_idx': treated_idx,
-            'control_idx': closest_control,
-            'treated_salary': df.loc[treated_idx, 'salary'],
-            'control_salary': df.loc[closest_control, 'salary'],
-        })
-
-matched_df = pd.DataFrame(matched_pairs)
-psm_effect = (matched_df['treated_salary'] - matched_df['control_salary']).mean()
-print(f"PSM Effect: ${psm_effect:.0f}")
-print(f"Matched pairs: {len(matched_df)}")
-
-# 4. Stratification by Propensity Score
-df['ps_stratum'] = pd.qcut(df['propensity_score'], q=5, labels=False, duplicates='drop')
-
-stratified_effects = []
-for stratum in df['ps_stratum'].unique():
-    stratum_data = df[df['ps_stratum'] == stratum]
-    if (stratum_data['treatment'] == 0).sum() > 0 and (stratum_data['treatment'] == 1).sum() > 0:
-        treated_mean = stratum_data[stratum_data['treatment'] == 1]['salary'].mean()
-        control_mean = stratum_data[stratum_data['treatment'] == 0]['salary'].mean()
-        effect = treated_mean - control_mean
-        stratified_effects.append(effect)
-
-stratified_effect = np.mean(stratified_effects)
-print(f"\n4. Stratification by PS: ${stratified_effect:.0f}")
-
-# 5. Visualization
-fig, axes = plt.subplots(2, 2, figsize=(14, 10))
-
-# Treatment distribution by age
-ax = axes[0, 0]
-treated = df[df['treatment'] == 1]
-control = df[df['treatment'] == 0]
-ax.hist(control['age'], bins=20, alpha=0.6, label='Control', color='blue')
-ax.hist(treated['age'], bins=20, alpha=0.6, label='Treated', color='red')
-ax.set_xlabel('Age')
-ax.set_ylabel('Frequency')
-ax.set_title('Age Distribution by Treatment')
-ax.legend()
-ax.grid(True, alpha=0.3, axis='y')
-
-# Salary vs Age (colored by treatment)
-ax = axes[0, 1]
-ax.scatter(control['age'], control['salary'], alpha=0.5, label='Control', s=30)
-ax.scatter(treated['age'], treated['salary'], alpha=0.5, label='Treated', s=30, color='red')
-ax.set_xlabel('Age')
-ax.set_ylabel('Salary')
-ax.set_title('Salary vs Age by Treatment')
-ax.legend()
-ax.grid(True, alpha=0.3)
-
-# Propensity Score Distribution
-ax = axes[1, 0]
-ax.hist(df[df['treatment'] == 0]['propensity_score'], bins=20, alpha=0.6, label='Control', color='blue')
-ax.hist(df[df['treatment'] == 1]['propensity_score'], bins=20, alpha=0.6, label='Treated', color='red')
-ax.set_xlabel('Propensity Score')
-ax.set_ylabel('Frequency')
-ax.set_title('Propensity Score Distribution')
-ax.legend()
-ax.grid(True, alpha=0.3, axis='y')
-
-# Treatment Effect Comparison
-ax = axes[1, 1]
-methods = ['Naive', 'Regression', 'PSM', 'Stratified']
-effects = [naive_effect, regression_effect, psm_effect, stratified_effect]
-true_effect = 5000
-
-ax.bar(methods, effects, color=['red', 'orange', 'yellow', 'lightgreen'], alpha=0.7, edgecolor='black')
-ax.axhline(y=true_effect, color='green', linestyle='--', linewidth=2, label=f'True Effect (${true_effect:.0f})')
-ax.set_ylabel('Treatment Effect ($)')
-ax.set_title('Treatment Effect Estimates by Method')
-ax.legend()
-ax.grid(True, alpha=0.3, axis='y')
-
-for i, effect in enumerate(effects):
-    ax.text(i, effect + 200, f'${effect:.0f}', ha='center', va='bottom')
-
-plt.tight_layout()
-plt.show()
-
-# 6. Doubly Robust Estimation
-from sklearn.ensemble import RandomForestRegressor
-
-# Propensity score model
-ps_model_dr = LogisticRegression().fit(df[['age']], df['treatment'])
-ps_scores = ps_model_dr.predict_proba(df[['age']])[:, 1]
-
-# Outcome model
-outcome_model = RandomForestRegressor(n_estimators=50, random_state=42)
-outcome_model.fit(df[['treatment', 'age']], df['salary'])
-
-# Doubly robust estimator
-treated_mask = df['treatment'] == 1
-control_mask = df['treatment'] == 0
-
-# Adjust for propensity score
-treated_adjusted = (treated_mask.astype(int) * df['salary']) / (ps_scores + 0.01)
-control_adjusted = (control_mask.astype(int) * df['salary']) / (1 - ps_scores + 0.01)
-
-# Outcome predictions
-pred_treated = outcome_model.predict(df[['treatment', 'age']].replace({'treatment': 0, 1: 1}))
-pred_control = outcome_model.predict(df[['treatment', 'age']].replace({'treatment': 1, 0: 0}))
-
-dr_effect = treated_adjusted.sum() / treated_mask.sum() - control_adjusted.sum() / control_mask.sum()
-print(f"\n6. Doubly Robust Estimation: ${dr_effect:.0f}")
-
-# 7. Heterogeneous Treatment Effects
-print(f"\n7. Heterogeneous Treatment Effects (by Age Quartile):")
-
-for age_q in pd.qcut(df['age'], q=4, duplicates='drop').unique():
-    mask = (df['age'] >= age_q.left) & (df['age'] < age_q.right)
-    stratum_data = df[mask]
-
-    if (stratum_data['treatment'] == 0).sum() > 0 and (stratum_data['treatment'] == 1).sum() > 0:
-        treated_mean = stratum_data[stratum_data['treatment'] == 1]['salary'].mean()
-        control_mean = stratum_data[stratum_data['treatment'] == 0]['salary'].mean()
-        effect = treated_mean - control_mean
-
-        print(f"  Age {age_q.left:.0f}-{age_q.right:.0f}: ${effect:.0f}")
-
-# 8. Sensitivity Analysis
-print(f"\n8. Sensitivity Analysis (Hidden Confounder Impact):")
-
-# Vary hidden confounder correlation with outcome
-for hidden_effect in [1000, 2000, 5000, 10000]:
-    adjusted_effect = regression_effect - hidden_effect * 0.1
-    print(f"  If hidden confounder worth ${hidden_effect}: Effect = ${adjusted_effect:.0f}")
-
-# 9. Summary Table
-print(f"\n" + "="*60)
-print("CAUSAL INFERENCE SUMMARY")
-print("="*60)
-print(f"True Treatment Effect: ${true_effect:,.0f}")
-print(f"\nEstimates:")
-print(f"  Naive (BIASED): ${naive_effect:,.0f}")
-print(f"  Regression Adjustment: ${regression_effect:,.0f}")
-print(f"  Propensity Score Matching: ${psm_effect:,.0f}")
-print(f"  Stratification: ${stratified_effect:,.0f}")
-print(f"  Doubly Robust: ${dr_effect:,.0f}")
-print("="*60)
-
-# 10. Causal Graph (Text representation)
-print(f"\n10. Causal Graph (DAG):")
-print(f"""
-Age → Treatment ← (Selection Bias)
-  ↓        ↓
-  └─→ Salary
-
-Interpretation:
-- Age is a confounder
-- Treatment causally affects Salary
-- Age directly affects Salary
-- Age affects probability of Treatment
-""")
+```
+Level 3: Counterfactual (Imagining)
+  "What would have happened if I had done X?"
+  P(y_x | x', y')
+          ▲
+Level 2: Intervention (Doing)
+  "What happens if I do X?"
+  P(y | do(X))
+          ▲
+Level 1: Association (Seeing)
+  "What does X tell me about Y?"
+  P(y | x)
 ```
 
-## Causal Assumptions
+## Structural Causal Models (SCM)
 
-- **Unconfoundedness**: No unmeasured confounders
-- **Overlap**: Common support on propensity scores
-- **SUTVA**: No interference between units
-- **Consistency**: Single version of treatment
+```python
+class StructuralCausalModel:
+    """
+    SCM: Variables, causal graph, structural equations.
+    """
+    
+    def __init__(self, variables: List[str], graph: DAG, equations: Dict):
+        self.variables = variables
+        self.graph = graph  # Directed Acyclic Graph
+        self.equations = equations  # X_i = f_i(parents(X_i), U_i)
+    
+    def intervene(self, intervention: Dict[str, float]) -> "SCM":
+        """
+        do(X = x): Replace equation for X with constant.
+        
+        This breaks incoming edges to X.
+        """
+        new_equations = self.equations.copy()
+        for var, value in intervention.items():
+            new_equations[var] = lambda *_: value
+        
+        new_graph = self.graph.remove_edges_to(intervention.keys())
+        
+        return StructuralCausalModel(
+            self.variables, new_graph, new_equations
+        )
+    
+    def counterfactual(self, evidence: Dict, intervention: Dict) -> Dict:
+        """
+        Counterfactual: What would Y be if X had been x, given we observed evidence?
+        
+        Three steps:
+        1. Abduction: Infer noise terms from evidence
+        2. Action: Apply intervention
+        3. Prediction: Compute counterfactual outcome
+        """
+        # Step 1: Abduction - infer noise terms U
+        noise_terms = self.abduct_noise(evidence)
+        
+        # Step 2: Action - apply intervention
+        intervened_scm = self.intervene(intervention)
+        
+        # Step 3: Prediction - forward propagate with inferred noise
+        counterfactual_world = intervened_scm.forward(noise_terms)
+        
+        return counterfactual_world
 
-## Treatment Effect Types
 
-- **ATE**: Average Treatment Effect (overall)
-- **ATT**: Average Treatment on Treated
-- **CATE**: Conditional Average Treatment Effect
-- **HTE**: Heterogeneous Treatment Effects
+class CausalDiscovery:
+    """
+    Learn causal structure from data.
+    """
+    
+    def __init__(self, data: pd.DataFrame):
+        self.data = data
+        
+    def pc_algorithm(self) -> DAG:
+        """
+        PC Algorithm: Constraint-based causal discovery.
+        
+        1. Start with complete undirected graph
+        2. Remove edges based on conditional independence tests
+        3. Orient edges using v-structures and rules
+        """
+        from causallearn.search.ConstraintBased.PC import pc
+        
+        result = pc(self.data.values)
+        return result.G
+    
+    def gflownet_discovery(self) -> Distribution[DAG]:
+        """
+        Use GFlowNet to sample DAGs proportional to likelihood.
+        
+        This gives a DISTRIBUTION over causal graphs,
+        properly accounting for uncertainty.
+        """
+        from gflownet import CausalDAGGFlowNet
+        
+        gfn = CausalDAGGFlowNet(n_variables=len(self.data.columns))
+        gfn.train(reward=lambda g: self.bayesian_score(g))
+        
+        # Sample multiple DAGs
+        dag_samples = [gfn.sample() for _ in range(1000)]
+        return dag_samples
+```
 
-## Method Strengths
+## System 2 Deep Learning
 
-- **RCT**: Gold standard, controls all confounders
-- **Matching**: Balances groups, preserves overlap
-- **Regression**: Adjusts for covariates
-- **Instrumental Variables**: Handles endogeneity
-- **Causal Forests**: Learns heterogeneous effects
+```python
+class System2Network:
+    """
+    Bengio's vision: Combine System 1 (fast) with System 2 (slow).
+    
+    System 1: Neural pattern matching (current DL)
+    System 2: Deliberate causal reasoning (compositional, symbolic)
+    """
+    
+    def __init__(self):
+        self.system1 = NeuralNetwork()  # Fast intuition
+        self.system2 = CausalReasoner()  # Slow reasoning
+        self.attention = DynamicAttention()  # Which to use when
+    
+    def forward(self, x: Tensor, requires_reasoning: bool = False) -> Tensor:
+        """
+        Hybrid forward pass.
+        """
+        # System 1: quick answer
+        fast_answer = self.system1(x)
+        
+        if not requires_reasoning:
+            return fast_answer
+        
+        # System 2: verify/refine via causal reasoning
+        slow_answer = self.system2.reason(x, fast_answer)
+        
+        # Combine based on confidence
+        confidence = self.attention(x, fast_answer, slow_answer)
+        return confidence * fast_answer + (1 - confidence) * slow_answer
+    
+    def causal_attention(self, query: Tensor) -> Tensor:
+        """
+        Attention guided by causal relevance, not just correlation.
+        
+        Standard attention: A(Q, K, V) = softmax(QK^T/√d) V
+        Causal attention: Weight by causal effect, not correlation
+        """
+        correlational_weights = self.compute_attention(query)
+        causal_effects = self.system2.estimate_effects(query)
+        
+        # Reweight by causal importance
+        causal_weights = correlational_weights * causal_effects
+        return self.apply_attention(causal_weights)
+```
 
-## Deliverables
+## GF(3) Triads
 
-- Causal graph visualization
-- Treatment effect estimates
-- Sensitivity analysis
-- Heterogeneous treatment effects
-- Covariate balance assessment
-- Propensity score diagnostics
-- Final causal inference report
+```
+# Causal-Categorical Triad
+sheaf-cohomology (-1) ⊗ causal-inference (0) ⊗ gflownet (+1) = 0 ✓
+
+# System 2 Triad
+proofgeneral-narya (-1) ⊗ causal-inference (0) ⊗ forward-forward-learning (+1) = 0 ✓
+
+# World Model Triad
+persistent-homology (-1) ⊗ causal-inference (0) ⊗ self-evolving-agent (+1) = 0 ✓
+```
+
+## Integration with Interaction Entropy
+
+```ruby
+module CausalInference
+  def self.intervene(interaction_sequence, intervention)
+    # Build causal graph from interaction sequence
+    graph = build_causal_graph(interaction_sequence)
+    
+    # Apply intervention
+    intervened = graph.do(intervention)
+    
+    # Predict outcome
+    outcome = intervened.forward_propagate
+    
+    {
+      original_graph: graph,
+      intervention: intervention,
+      predicted_outcome: outcome,
+      trit: 0  # Coordinator (bridges observational and interventional)
+    }
+  end
+  
+  def self.counterfactual(interaction, alternative_action)
+    # What would have happened if we'd done alternative_action?
+    noise = abduct_noise(interaction)
+    intervened = apply_intervention(alternative_action)
+    counterfactual_outcome = propagate_with_noise(intervened, noise)
+    
+    {
+      actual_outcome: interaction[:outcome],
+      counterfactual_outcome: counterfactual_outcome,
+      difference: interaction[:outcome] - counterfactual_outcome
+    }
+  end
+end
+```
+
+## Key Properties
+
+1. **Invariance**: Causal mechanisms are stable across environments
+2. **Modularity**: Can change one mechanism without affecting others
+3. **Compositionality**: Complex models from simple causal primitives
+4. **Identifiability**: Can (sometimes) learn causal structure from data
+
+## References
+
+1. Bengio, Y. et al. (2019). "A Meta-Transfer Objective for Learning to Disentangle Causal Mechanisms."
+2. Schölkopf, B. et al. (2021). "Toward Causal Representation Learning."
+3. Pearl, J. (2009). *Causality: Models, Reasoning, and Inference*.
+4. Bengio, Y. (2017). "The Consciousness Prior."
+
+
+
+## Scientific Skill Interleaving
+
+This skill connects to the K-Dense-AI/claude-scientific-skills ecosystem:
+
+### Graph Theory
+- **networkx** [○] via bicomodule
+  - Universal graph hub
+
+### Bibliography References
+
+- `general`: 734 citations in bib.duckdb
+
+
+
+## SDF Interleaving
+
+This skill connects to **Software Design for Flexibility** (Hanson & Sussman, 2021):
+
+### Primary Chapter: 3. Variations on an Arithmetic Theme
+
+**Concepts**: generic arithmetic, coercion, symbolic, numeric
+
+### GF(3) Balanced Triad
+
+```
+causal-inference (+) + SDF.Ch3 (○) + [balancer] (−) = 0
+```
+
+**Skill Trit**: 1 (PLUS - generation)
+
+### Secondary Chapters
+
+- Ch10: Adventure Game Example
+- Ch8: Degeneracy
+- Ch4: Pattern Matching
+- Ch5: Evaluation
+- Ch1: Flexibility through Abstraction
+- Ch7: Propagators
+
+### Connection Pattern
+
+Generic arithmetic crosses type boundaries. This skill handles heterogeneous data.
+## Cat# Integration
+
+This skill maps to **Cat# = Comod(P)** as a bicomodule in the equipment structure:
+
+```
+Trit: 0 (ERGODIC)
+Home: Prof
+Poly Op: ⊗
+Kan Role: Adj
+Color: #26D826
+```
+
+### GF(3) Naturality
+
+The skill participates in triads satisfying:
+```
+(-1) + (0) + (+1) ≡ 0 (mod 3)
+```
+
+This ensures compositional coherence in the Cat# equipment structure.

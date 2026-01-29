@@ -1,9 +1,7 @@
 {
   "name": "nextjs-turborepo",
-  "description": "Full-stack web development with Next.js and Turborepo. Stack: Next.js 14+ (App Router, RSC, Server Actions, PPR, SSR, SSG, ISR), Turborepo (monorepo, pipelines, remote caching), RemixIcon (3100+ icons",
-  "repo": "samhvw8/dotfiles",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "brixtonpham/claude-config",
+  "path": "skills/nextjs-turborepo/SKILL.md",
+  "source": "github.com/brixtonpham/claude-config",
+  "downloaded_at": "2026-01-29T04:18:26.995222Z"
 }

@@ -3,7 +3,7 @@ name: skill-creator-openai
 description: Guide for creating effective skills. Use when users want to create a new skill (or update an existing skill) that extends the model's capabilities with specialized knowledge, workflows, or tool integrations.
 metadata:
   author: OpenAI
-  license: Apache 2.0
+  license: AGPL-3.0
   short-description: Create or update a skill
 ---
 

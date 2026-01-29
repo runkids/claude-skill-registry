@@ -1,9 +1,7 @@
 {
   "name": "jules-api",
-  "description": "Delegate asynchronous coding tasks to Jules (Google's AI coding agent) to maximize efficiency. Use for code reviews, refactoring, adding tests, bug fixes, and documentation. Proactively suggest Jules ",
-  "repo": "franklinbaldo/egregora",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Git-Fg/meta-plugin-manager",
+  "path": ".claude/skills/jules-api/SKILL.md",
+  "source": "github.com/Git-Fg/meta-plugin-manager",
+  "downloaded_at": "2026-01-29T01:47:00.599344Z"
 }

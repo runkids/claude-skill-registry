@@ -1,307 +1,363 @@
 ---
 name: safe-refactoring
-description: |
-  Systematic code refactoring while preserving all external behavior.
-  Use when identifying code smells, planning refactoring sequences,
-  executing safe structural improvements, or validating behavior preservation.
-  Includes code smell catalog (reference.md) and refactoring execution protocol.
-allowed-tools: Task, TodoWrite, Bash, Grep, Glob, Read, Edit
+description: Change code structure without changing behavior, with zero tolerance for behavioral changes
+tags: [refactoring, testing, scientific, quality]
+version: 1.0
 ---
 
-# Refactoring Methodology Skill
+# Safe Refactoring for Scientific Code
 
-You are a refactoring methodology specialist that improves code quality while strictly preserving all external behavior.
+## Overview
 
-## When to Activate
+Change code structure without changing behavior. Zero tolerance for behavioral changes during refactoring.
 
-Activate this skill when you need to:
-- **Identify code smells** and improvement opportunities
-- **Plan refactoring sequences** safely
-- **Execute structural improvements** without changing behavior
-- **Validate behavior preservation** through testing
-- **Apply safe refactoring patterns** systematically
+**Core principle:** Establish baseline, refactor, verify exact match (within floating-point noise).
 
-## Core Principle
+**Announce at start:** "I'm using the safe-refactoring skill to restructure this code."
 
-**Behavior preservation is mandatory.** External functionality must remain identical. Refactoring changes structure, never functionality.
+## When to Use This Skill
 
-## Mandatory Constraints
+**Use for:**
+- Improving code readability without changing logic
+- Extracting reusable functions
+- Renaming variables/functions for clarity
+- Reorganizing code structure
+- Performance optimization (without changing numerical behavior)
 
-### Preserved Behaviors (Immutable)
+**Don't use for:**
+- Changing behavior or algorithms (use scientific-tdd instead)
+- Adding new features (use scientific-tdd instead)
+- Fixing bugs (use scientific-tdd or fix directly with tests)
 
-- All external behavior remains identical
-- All public APIs maintain same contracts
-- All business logic produces same results
-- All side effects occur in same order
+## Process Checklist
 
-### Allowed Changes
-
-- Code structure and organization
-- Internal implementation details
-- Variable and function names for clarity
-- Removal of duplication
-- Simplification of complex logic
-
-## Refactoring Process
-
-### Phase 1: Establish Baseline
-
-Before ANY refactoring:
-
-1. **Run existing tests** - Establish passing baseline
-2. **Document current behavior** - If tests don't cover it
-3. **Verify test coverage** - Identify uncovered paths
-4. **If tests failing** - Stop and report to user
+Copy to TodoWrite:
 
 ```
-📊 Refactoring Baseline
-
-Tests: [X] passing, [Y] failing
-Coverage: [Z]%
-Uncovered areas: [List critical paths]
-
-Baseline Status: [READY / TESTS FAILING / COVERAGE GAP]
+Safe Refactoring Progress:
+- [ ] Run full test suite (establish baseline)
+- [ ] Run snapshot tests (establish baseline)
+- [ ] Capture coverage report
+- [ ] Perform refactoring
+- [ ] Run full test suite (must match baseline exactly)
+- [ ] Run snapshot tests (must match baseline exactly)
+- [ ] Compare coverage (should stay same or improve)
+- [ ] Run quality checks (ruff + black)
+- [ ] Verify no numerical differences
+- [ ] Commit refactoring
 ```
 
-### Phase 2: Identify Code Smells
+## Strict Rules
 
-Use the code smells catalog (reference.md) to identify issues:
+**ZERO tolerance for:**
+- Any test that passed before and fails after
+- Any test that failed before and passes after (suggests test was broken)
+- Any snapshot differences (not even floating-point noise)
+- Decreased test coverage
+- Any behavioral changes
 
-**Method-Level Smells**:
-- Long Method (>20 lines, multiple responsibilities)
-- Long Parameter List (>3-4 parameters)
-- Duplicate Code
-- Complex Conditionals
+**If any of these occur:** Revert and investigate why.
 
-**Class-Level Smells**:
-- Large Class (>200 lines)
-- Feature Envy
-- Data Clumps
-- Primitive Obsession
+## Detailed Steps
 
-**Architecture-Level Smells**:
-- Circular Dependencies
-- Inappropriate Intimacy
-- Shotgun Surgery
+### Step 1: Run Full Test Suite (Baseline)
 
-### Phase 3: Plan Refactoring Sequence
-
-Order refactorings by:
-1. **Independence** - Start with isolated changes
-2. **Risk** - Lower risk first
-3. **Impact** - Building blocks before dependent changes
-
-```
-📋 Refactoring Plan
-
-1. [Refactoring] - [Risk: Low/Medium/High] - [Target file:line]
-2. [Refactoring] - [Risk: Low/Medium/High] - [Target file:line]
-3. [Refactoring] - [Risk: Low/Medium/High] - [Target file:line]
-
-Dependencies: [Any ordering requirements]
-Estimated changes: [N] files
+```bash
+/Users/edeno/miniconda3/envs/non_local_detector/bin/pytest -v 2>&1 | tee /tmp/baseline_tests.txt
 ```
 
-### Phase 4: Execute Refactorings
+**Record:**
+- Total tests: `grep "passed" /tmp/baseline_tests.txt`
+- Any failures (if refactoring existing code with known issues)
+- Test execution time
 
-**CRITICAL**: One refactoring at a time!
+**Expected:** All tests pass (or document any known failures)
 
-For EACH refactoring:
+### Step 2: Run Snapshot Tests (Baseline)
 
-1. **Apply single change**
-2. **Run tests immediately**
-3. **If pass** → Mark complete, continue
-4. **If fail** → Revert, investigate
-
-```
-🔄 Refactoring Execution
-
-Step: [N] of [Total]
-Refactoring: [Name]
-Target: [file:line]
-
-Status: [Applying / Testing / Complete / Reverted]
-Tests: [Passing / Failing]
+```bash
+/Users/edeno/miniconda3/envs/non_local_detector/bin/pytest -m snapshot -v 2>&1 | tee /tmp/baseline_snapshots.txt
 ```
 
-### Phase 5: Final Validation
+**CRITICAL:** Snapshots must match exactly after refactoring.
 
-After all refactorings:
+**Expected:** All snapshot tests pass
 
-1. Run complete test suite
-2. Compare behavior with baseline
-3. Review all changes together
-4. Verify no business logic altered
+### Step 3: Capture Coverage Report
 
-```
-✅ Refactoring Complete
-
-Refactorings Applied: [N]
-Tests: All passing
-Behavior: Preserved ✓
-
-Changes Summary:
-- [File 1]: [What changed]
-- [File 2]: [What changed]
-
-Quality Improvements:
-- [Improvement 1]
-- [Improvement 2]
+```bash
+/Users/edeno/miniconda3/envs/non_local_detector/bin/pytest --cov=non_local_detector --cov-report=term --cov-report=json:coverage_baseline.json
 ```
 
-## Refactoring Catalog
+**Record:** Coverage percentage for files being refactored
 
-See `reference.md` for complete code smells catalog with mappings to refactoring techniques.
+**Why:** Coverage should not decrease during refactoring (ideally improves)
 
-### Quick Reference: Common Refactorings
+### Step 4: Perform Refactoring
 
-| Smell | Refactoring |
-|-------|-------------|
-| Long Method | Extract Method |
-| Duplicate Code | Extract Method, Pull Up Method |
-| Long Parameter List | Introduce Parameter Object |
-| Complex Conditional | Decompose Conditional, Guard Clauses |
-| Large Class | Extract Class |
-| Feature Envy | Move Method |
+**Refactoring techniques:**
 
-## Safe Refactoring Patterns
+1. **Extract function:**
+   ```python
+   # Before
+   def complex_function():
+       # ... 50 lines of code
+       result = x * 2 + y
+       # ... more code
+       return final_result
 
-### Extract Method
+   # After
+   def complex_function():
+       # ... code
+       result = _calculate_intermediate(x, y)
+       # ... code
+       return final_result
 
-```
-Before: Long method with embedded logic
-After: Short method calling well-named extracted methods
-Safety: Run tests after each extraction
-```
+   def _calculate_intermediate(x, y):
+       return x * 2 + y
+   ```
 
-### Rename
+2. **Rename for clarity:**
+   ```python
+   # Before
+   def f(x):
+       return x * 2
 
-```
-Before: Unclear names (x, temp, doIt)
-After: Intention-revealing names (userId, cachedResult, processPayment)
-Safety: Use IDE refactoring tools for automatic updates
-```
+   # After
+   def calculate_doubled_value(value):
+       return value * 2
+   ```
 
-### Move Method/Field
+3. **Reorganize structure:**
+   ```python
+   # Before: All in one file
 
-```
-Before: Method in class A uses mostly class B's data
-After: Method moved to class B
-Safety: Update all callers, run tests
-```
+   # After: Separated into modules
+   # - core_logic.py
+   # - utilities.py
+   # - validation.py
+   ```
 
-## Behavior Preservation Checklist
+4. **Optimize performance (numerically equivalent):**
+   ```python
+   # Before
+   for i in range(n):
+       result[i] = f(x[i])
 
-Before EVERY refactoring:
+   # After (JAX)
+   result = jax.vmap(f)(x)
+   ```
 
-- [ ] Tests exist and pass
-- [ ] Baseline behavior documented
-- [ ] Single refactoring at a time
-- [ ] Tests run after EVERY change
-- [ ] No functional changes mixed with refactoring
+**During refactoring:**
+- Make small, incremental changes
+- Test after each change if possible
+- Keep numerical operations identical
+- Maintain exact same algorithms
 
-## Agent Delegation for Refactoring
+### Step 5: Run Full Test Suite (Verify Match)
 
-When delegating refactoring tasks:
-
-```
-FOCUS: [Specific refactoring]
-  - Apply [refactoring technique] to [target]
-  - Preserve all external behavior
-  - Run tests after change
-
-EXCLUDE: [Other code, unrelated improvements]
-  - Stay within specified scope
-  - Preserve existing feature set
-  - Maintain identical behavior
-
-CONTEXT:
-  - Baseline tests passing
-  - Target smell: [What we're fixing]
-  - Expected improvement: [What gets better]
-
-OUTPUT:
-  - Refactored code
-  - Test results
-  - Summary of changes
-
-SUCCESS:
-  - Tests still pass
-  - Smell eliminated
-  - Behavior preserved
-
-TERMINATION: Refactoring complete OR tests fail
+```bash
+/Users/edeno/miniconda3/envs/non_local_detector/bin/pytest -v 2>&1 | tee /tmp/refactored_tests.txt
 ```
 
-## Error Recovery
-
-### If Tests Fail After Refactoring
-
-1. **Stop immediately** - Preserve working state
-2. **Revert the change** - Restore working state
-3. **Investigate** - Why did behavior change?
-4. **Options**:
-   - Try different approach
-   - Add tests first
-   - Skip this refactoring
-   - Get user guidance
-
-```
-⚠️ Refactoring Failed
-
-Refactoring: [Name]
-Reason: Tests failing
-
-Reverted: ✓ Working state restored
-
-Options:
-1. Try alternative approach
-2. Add missing tests first
-3. Skip this refactoring
-4. Get guidance
-
-Awaiting your decision...
+**Compare to baseline:**
+```bash
+diff /tmp/baseline_tests.txt /tmp/refactored_tests.txt
 ```
 
-## Output Format
+**MUST verify:**
+- Same number of tests run
+- Same tests pass
+- Same tests fail (if any)
+- Similar execution time (within 20%)
 
-When reporting refactoring progress:
+**If differences:**
+- Any new test failures: REVERT IMMEDIATELY
+- Any new test passes: Investigate (test was broken?)
+- Different test count: Investigate (tests missing or duplicated?)
 
-```
-🔄 Refactoring Status
+### Step 6: Run Snapshot Tests (Verify Match)
 
-Phase: [Baseline / Analysis / Planning / Execution / Validation]
-
-Current Refactoring: [N] of [Total]
-Target: [file:line]
-Technique: [Refactoring name]
-
-Tests: [Passing / Failing]
-Behavior: [Preserved / Changed]
-
-Next: [What happens next]
+```bash
+/Users/edeno/miniconda3/envs/non_local_detector/bin/pytest -m snapshot -v 2>&1 | tee /tmp/refactored_snapshots.txt
 ```
 
-## Quick Reference
+**CRITICAL:** Must match baseline EXACTLY.
 
-### Golden Rules
+**Expected:** All snapshot tests pass, no differences
 
-1. **Tests first** - Ensure tests pass before refactoring
-2. **One at a time** - Single refactoring per cycle
-3. **Test after each** - Verify immediately
-4. **Revert on failure** - Undo immediately, debug separately
-5. **Structure only** - Preserve all behavior
+**If snapshot differences:**
+1. **DO NOT UPDATE SNAPSHOTS**
+2. Investigate why behavior changed
+3. This is NOT a refactoring if behavior changed
+4. Revert and reconsider approach
 
-### Stop Conditions
+### Step 7: Compare Coverage
 
-- Tests failing (revert and investigate)
-- Behavior changed (revert immediately)
-- Uncovered code (add tests first or skip)
-- User requests stop
+```bash
+/Users/edeno/miniconda3/envs/non_local_detector/bin/pytest --cov=non_local_detector --cov-report=term --cov-report=json:coverage_refactored.json
+```
 
-### Success Criteria
+**Compare:**
+```bash
+# If you have jq installed
+jq '.totals.percent_covered' coverage_baseline.json
+jq '.totals.percent_covered' coverage_refactored.json
+```
 
-- All tests pass
-- Behavior identical to baseline
-- Code quality improved
-- Changes reviewed
+**Expected:**
+- Coverage stays same or improves
+- Never decreases
+
+**If coverage decreased:**
+- Some code paths no longer tested
+- Investigate and fix or revert
+
+### Step 8: Run Quality Checks
+
+```bash
+/Users/edeno/miniconda3/envs/spectral_connectivity/bin/ruff check src/
+/Users/edeno/miniconda3/envs/spectral_connectivity/bin/ruff format src/
+/Users/edeno/miniconda3/envs/non_local_detector/bin/black src/
+```
+
+**Expected:** All checks pass
+
+**Fix any issues:** Refactoring is good opportunity to improve code quality
+
+### Step 9: Verify No Numerical Differences
+
+For mathematical code, verify numerical equivalence:
+
+```bash
+# Run golden regression
+/Users/edeno/miniconda3/envs/non_local_detector/bin/pytest \
+  src/non_local_detector/tests/test_golden_regression.py -v
+```
+
+**Expected:** Exact match (or differences < 1e-14)
+
+**If differences > 1e-14:**
+- This is NOT a pure refactoring
+- Behavior has changed
+- Use numerical-validation skill instead
+
+### Step 10: Commit Refactoring
+
+**Only commit if ALL checks pass:**
+
+```bash
+git add <refactored_files> <test_files>
+git commit -m "refactor: improve <component> code structure
+
+- Extract <function> for reusability
+- Rename <variable> for clarity
+- Reorganize <module> structure
+
+No behavioral changes:
+- All tests pass (N tests)
+- Snapshots unchanged
+- Coverage: X% → Y%
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+```
+
+## Performance Optimization Refactoring
+
+When optimizing for performance:
+
+1. **Capture performance baseline:**
+   ```bash
+   pytest --durations=10 > /tmp/baseline_durations.txt
+   ```
+
+2. **Make optimization**
+
+3. **Verify numerical equivalence** (use numerical-validation skill)
+
+4. **Measure performance improvement:**
+   ```bash
+   pytest --durations=10 > /tmp/optimized_durations.txt
+   ```
+
+5. **Document improvement:**
+   ```
+   Optimization: Use JAX vmap instead of for loop
+   Speedup: 3.2x (450ms → 140ms)
+   Numerical difference: < 1e-14 (verified)
+   ```
+
+## Integration with Other Skills
+
+- **Before refactoring:** Consider if change actually needs new behavior (use scientific-tdd instead)
+- **With numerical-validation:** If refactoring mathematical code, use numerical-validation to verify equivalence
+- **With jax skill:** When optimizing JAX code, use jax skill for best practices
+
+## Example Workflow
+
+**Task:** Extract position decoding logic into reusable function
+
+```
+1. Baseline:
+   - Run pytest: 427 passed, 0 failed
+   - Run snapshots: 15 passed, 0 failed
+   - Coverage: 69%
+
+2. Refactor:
+   - Extract _decode_position_from_posterior() function
+   - Update 3 call sites to use new function
+   - No logic changes, just extraction
+
+3. Verify:
+   - Run pytest: 427 passed, 0 failed ✓
+   - Run snapshots: 15 passed, 0 failed ✓
+   - Coverage: 69% (unchanged) ✓
+
+4. Quality:
+   - Ruff: All checks pass ✓
+   - Black: Formatted ✓
+
+5. Commit:
+   "refactor: extract position decoding into reusable function"
+```
+
+## Red Flags
+
+**STOP and revert if:**
+- Any test changes status (pass → fail or fail → pass)
+- Any snapshot differences appear
+- Coverage decreases
+- Numerical differences > 1e-14
+- You're tempted to update snapshots
+- You're adding new logic (use scientific-tdd instead)
+
+**Safe to proceed if:**
+- All tests match baseline exactly
+- No snapshot changes
+- Coverage same or better
+- Code quality improves
+- No new functionality added
+
+## Common Mistakes
+
+**"It's just a small behavioral change"**
+- No such thing in refactoring
+- Any behavioral change = not refactoring
+- Use scientific-tdd for behavioral changes
+
+**"I'll update the snapshots since the new output is better"**
+- That's not refactoring, it's changing behavior
+- Refactoring = zero snapshot changes
+- Use scientific-tdd if output should change
+
+**"Tests are slow, I'll skip them"**
+- Never skip tests during refactoring
+- Tests are your safety net
+- Without tests, you can't verify it's a refactoring
+
+**"Coverage went down but the code is better"**
+- Better code shouldn't lose coverage
+- Investigate why coverage decreased
+- Fix or revert

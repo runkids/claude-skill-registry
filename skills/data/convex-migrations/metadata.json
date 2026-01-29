@@ -1,7 +1,7 @@
 {
   "name": "convex-migrations",
-  "repo": "blocknavi/convex-batch-processor",
-  "path": ".claude/skills/convex-migrations/SKILL.md",
-  "source": "github.com/blocknavi/convex-batch-processor",
-  "downloaded_at": "2026-01-28T02:46:50.765912Z"
+  "repo": "waynesutton/convexskills",
+  "path": "skills/convex-migrations/SKILL.md",
+  "source": "github.com/waynesutton/convexskills",
+  "downloaded_at": "2026-01-29T03:56:15.085375Z"
 }

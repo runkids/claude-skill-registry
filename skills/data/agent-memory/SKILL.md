@@ -1,154 +1,386 @@
 ---
 name: agent-memory
-description: "Use this skill when the user asks to save, remember, recall, or organize memories. Triggers on: 'remember this', 'save this', 'note this', 'what did we discuss about...', 'check your notes', 'clean up memories'. Also use proactively when discovering valuable findings worth preserving."
+description: "Retain and recall work context across sessions. Use when user asks to remember something, recall previous work, or reference past discussions. Triggered by phrases like 'remember this', 'save for later', 'recall', 'what did we discuss about'."
+enabled: true
+visibility: default
+allowedTools: ["read", "write", "grep", "glob", "bash"]
 ---
 
-# Agent Memory
+# Agent Memory Skill
 
-A persistent memory space for storing knowledge that survives across conversations.
+Enable context retention across Claude Code sessions by saving and recalling work memories.
 
-**Location:** `.claude/skills/agent-memory/memories/`
+## Purpose
 
-## Proactive Usage
+This skill allows Claude to:
+- **Remember** important context, decisions, and work items
+- **Recall** previous discussions and findings
+- **Maintain continuity** across multiple sessions
+- **Reduce repetition** by referencing past work
 
-Save memories when you discover something worth preserving:
-- Research findings that took effort to uncover
-- Non-obvious patterns or gotchas in the codebase
-- Solutions to tricky problems
-- Architectural decisions and their rationale
-- In-progress work that may be resumed later
+## When to Use
 
-Check memories when starting related work:
-- Before investigating a problem area
-- When working on a feature you've touched before
-- When resuming work after a conversation break
+Automatically triggered by phrases like:
+- "Remember this for later"
+- "Save this information"
+- "Recall what we discussed about X"
+- "What was our approach for Y?"
+- "Retrieve memory about Z"
 
-Organize memories when needed:
-- Consolidate scattered memories on the same topic
-- Remove outdated or superseded information
-- Update status field when work completes, gets blocked, or is abandoned
+## Memory Operations
 
-## Folder Structure
+### 1. Saving Memories
 
-When possible, organize memories into category folders. No predefined structure - create categories that make sense for the content.
+When the user asks to remember something, create a new memory file:
 
-Guidelines:
-- Use kebab-case for folder and file names
-- Consolidate or reorganize as the knowledge base evolves
+**Process**:
+1. Identify the topic/context to remember
+2. Generate a descriptive memory ID (e.g., `issue-123`, `feature-auth`, `bug-database`)
+3. Create markdown file in `memories/` directory
+4. Include YAML frontmatter with metadata
+5. Write detailed context in markdown body
 
-Example:
-```text
-memories/
-├── file-processing/
-│   └── large-file-memory-issue.md
-├── dependencies/
-│   └── iconv-esm-problem.md
-└── project-context/
-    └── december-2025-work.md
-```
-
-This is just an example. Structure freely based on actual content.
-
-## Frontmatter
-
-All memories must include frontmatter with a `summary` field. The summary should be concise enough to determine whether to read the full content.
-
-**Summary is the decision point**: Agents scan summaries via `rg "^summary:"` to decide which memories to read in full. Write summaries that contain enough context to make this decision - what the memory is about, the key problem or topic, and why it matters.
-
-**Required:**
+**File Format**:
 ```yaml
 ---
-summary: "1-2 line description of what this memory contains"
-created: 2025-01-15  # YYYY-MM-DD format
+summary: "Brief one-line description"
+topic: "Main topic or feature"
+created: "2026-01-14"
+tags: ["tag1", "tag2"]
+related: ["other-memory-id"]
 ---
+
+# Detailed Context
+
+## Background
+[What led to this discussion]
+
+## Key Points
+- Important point 1
+- Important point 2
+- Decision made
+
+## Next Steps
+- [ ] Action item 1
+- [ ] Action item 2
+
+## References
+- File: `src/module.js:42`
+- PR: #123
+- Issue: #456
 ```
 
-**Optional:**
-```yaml
----
-summary: "Worker thread memory leak during large file processing - cause and solution"
-created: 2025-01-15
-updated: 2025-01-20
-status: in-progress  # in-progress | resolved | blocked | abandoned
-tags: [performance, worker, memory-leak]
-related: [src/core/file/fileProcessor.ts]
----
-```
-
-## Search Workflow
-
-Use summary-first approach to efficiently find relevant memories:
-
+**Example Memory Creation**:
 ```bash
-# 1. List categories
-ls .claude/skills/agent-memory/memories/
-
-# 2. View all summaries
-rg "^summary:" .claude/skills/agent-memory/memories/ --no-ignore --hidden
-
-# 3. Search summaries for keyword
-rg "^summary:.*keyword" .claude/skills/agent-memory/memories/ --no-ignore --hidden -i
-
-# 4. Search by tag
-rg "^tags:.*keyword" .claude/skills/agent-memory/memories/ --no-ignore --hidden -i
-
-# 5. Full-text search (when summary search isn't enough)
-rg "keyword" .claude/skills/agent-memory/memories/ --no-ignore --hidden -i
-
-# 6. Read specific memory file if relevant
-```
-
-**Note:** Memory files are gitignored, so use `--no-ignore` and `--hidden` flags with ripgrep.
-
-## Operations
-
-### Save
-
-1. Determine appropriate category for the content
-2. Check if existing category fits, or create new one
-3. Write file with required frontmatter (use `date +%Y-%m-%d` for current date)
-
-```bash
-mkdir -p .claude/skills/agent-memory/memories/category-name/
-# Note: Check if file exists before writing to avoid accidental overwrites
-cat > .claude/skills/agent-memory/memories/category-name/filename.md << 'EOF'
+# Create memory file
+cat > .claude/skills/agent-memory/memories/database-migration.md << 'EOF'
 ---
-summary: "Brief description of this memory"
-created: 2025-01-15
+summary: "Database migration strategy for user profiles"
+topic: "database"
+created: "2026-01-14"
+tags: ["database", "migration", "users"]
 ---
 
-# Title
+# Database Migration Strategy
 
-Content here...
+## Context
+We need to add a `preferences` column to the users table to support
+dark mode and notification settings.
+
+## Decisions Made
+- Use Alembic for migrations
+- Add JSONB column for flexibility
+- Default value: `{}`
+- Backfill existing users in separate migration
+
+## Code Location
+- Migration script: `migrations/versions/add_user_preferences.py`
+- Model: `src/models/user.py:15`
+
+## Next Steps
+- [ ] Create migration script
+- [ ] Test on staging database
+- [ ] Deploy during maintenance window
 EOF
 ```
 
-### Maintain
+### 2. Recalling Memories
 
-- **Update**: When information changes, update the content and add `updated` field to frontmatter
-- **Delete**: Remove memories that are no longer relevant
-  ```bash
-  trash .claude/skills/agent-memory/memories/category-name/filename.md
-  # Remove empty category folders
-  rmdir .claude/skills/agent-memory/memories/category-name/ 2>/dev/null || true
-  ```
-- **Consolidate**: Merge related memories when they grow
-- **Reorganize**: Move memories to better-fitting categories as the knowledge base evolves
+When asked to recall information:
 
-## Guidelines
+**Progressive Disclosure Search**:
 
-1. **Write for resumption**: Memories exist to resume work later. Capture all key points needed to continue without losing context - decisions made, reasons why, current state, and next steps.
-2. **Write self-contained notes**: Include full context so the reader needs no prior knowledge to understand and act on the content
-3. **Keep summaries decisive**: Reading the summary should tell you if you need the details
-4. **Stay current**: Update or delete outdated information
-5. **Be practical**: Save what's actually useful, not everything
+1. **Quick scan** - Search summaries first:
+   ```bash
+   # Search memory summaries
+   grep -r "^summary:" .claude/skills/agent-memory/memories/ | \
+     grep -i "search_term"
+   ```
 
-## Content Reference
+2. **Detailed search** - If needed, search full content:
+   ```bash
+   # Full-text search across memories
+   grep -r "search_term" .claude/skills/agent-memory/memories/ \
+     --include="*.md"
+   ```
 
-When writing detailed memories, consider including:
-- **Context**: Goal, background, constraints
-- **State**: What's done, in progress, or blocked
-- **Details**: Key files, commands, code snippets
-- **Next steps**: What to do next, open questions
+3. **Read relevant memories** - Load matching files:
+   ```bash
+   # Read specific memory
+   cat .claude/skills/agent-memory/memories/topic-name.md
+   ```
 
-Not all memories need all sections - use what's relevant.
+**Search Strategy**:
+- First, scan summaries to identify relevant memories
+- Then, read only the most relevant files in detail
+- Report findings in a structured format
+
+### 3. Listing Memories
+
+Show available memories:
+
+```bash
+# List all memories
+find .claude/skills/agent-memory/memories/ -name "*.md" -type f
+
+# Show summaries
+for file in .claude/skills/agent-memory/memories/*.md; do
+  echo "Memory: $(basename $file .md)"
+  grep "^summary:" "$file" || echo "  (no summary)"
+done
+```
+
+### 4. Updating Memories
+
+When new information relates to existing memory:
+
+```bash
+# Append to existing memory
+cat >> .claude/skills/agent-memory/memories/topic.md << 'EOF'
+
+## Update: $(date +%Y-%m-%d)
+
+New information or progress update:
+- Updated point
+EOF
+```
+
+### 5. Organizing Memories
+
+Optionally organize into subdirectories:
+
+```
+memories/
+├── features/
+│   ├── auth-system.md
+│   └── payment-flow.md
+├── bugs/
+│   ├── issue-123.md
+│   └── memory-leak.md
+├── decisions/
+│   └── architecture-choice.md
+└── investigations/
+    └── performance-analysis.md
+```
+
+## Memory Content Guidelines
+
+### What to Remember
+
+✅ **Do Save**:
+- Design decisions and rationale
+- Investigation findings
+- Approaches tried (what worked/didn't work)
+- Key conversation insights
+- Important file locations
+- Configuration details
+- Action items and next steps
+- Links to related issues/PRs
+
+❌ **Don't Save**:
+- Entire code files (reference them instead)
+- Trivial information
+- Easily searchable facts
+- Sensitive credentials (never!)
+- Temporary debugging notes
+
+### Writing Good Memories
+
+**Be Specific**:
+```markdown
+# Good
+summary: "JWT token expiration issue - increased from 1h to 24h based on user feedback"
+
+# Too Vague
+summary: "Changed some settings"
+```
+
+**Include Context**:
+```markdown
+# Good
+## Background
+Users complained about frequent re-logins. Analytics showed
+average session length is 6 hours. Increased token TTL to 24h
+with sliding window refresh.
+
+# Incomplete
+## Background
+Increased token expiration.
+```
+
+**Reference Code Locations**:
+```markdown
+# Good
+- Implementation: `src/auth/jwt.js:45-67`
+- Config: `config/auth.json`
+- Tests: `tests/auth.test.js:120`
+
+# Less Useful
+- Changed auth code
+```
+
+## Usage Examples
+
+### Example 1: Saving Investigation Results
+
+**User**: "Remember our findings about the performance issue"
+
+**Claude Response**:
+```
+I'll save our investigation findings about the performance issue.
+
+[Creates memory file: performance-investigation.md]
+
+Saved memory: "Performance bottleneck in database queries - added indexes"
+Location: .claude/skills/agent-memory/memories/performance-investigation.md
+
+Key points saved:
+- Identified N+1 query problem in user dashboard
+- Added composite index on (user_id, created_at)
+- Reduced query time from 2.5s to 80ms
+- Next: Monitor production metrics
+```
+
+### Example 2: Recalling Previous Work
+
+**User**: "What did we decide about the authentication approach?"
+
+**Claude Response**:
+```
+Let me search our memories about authentication...
+
+[Searches summaries, finds auth-strategy.md]
+
+Found memory from 2026-01-10:
+
+Summary: "OAuth 2.0 with PKCE for authentication"
+
+Key decisions:
+- Use OAuth 2.0 with PKCE flow (more secure than implicit)
+- Support Google and GitHub providers initially
+- Store tokens in httpOnly cookies
+- Session duration: 7 days with refresh
+
+Implementation status:
+- ✅ OAuth integration complete
+- ✅ Google provider working
+- 🔄 GitHub provider in progress
+- ⏳ Token refresh mechanism pending
+
+Would you like me to continue work on the GitHub provider?
+```
+
+### Example 3: Creating Feature Memory
+
+**User**: "Save our plan for the notification system"
+
+**Claude Response**:
+```
+I'll create a memory for the notification system plan.
+
+[Creates: notification-system.md]
+
+Memory created: "notification-system"
+
+Saved details:
+- Architecture: Event-driven with message queue
+- Tech stack: Redis pub/sub + WebSockets
+- Notification types: Email, push, in-app
+- Priority levels: urgent, normal, low
+- User preferences: per-channel opt-in/out
+
+Next steps saved:
+- [ ] Set up Redis pub/sub
+- [ ] Implement WebSocket server
+- [ ] Create notification preferences UI
+- [ ] Email template system
+- [ ] Push notification service (FCM)
+
+This memory is available for future sessions.
+```
+
+## Memory Management
+
+### Periodic Cleanup
+
+Suggest cleanup when memories accumulate:
+
+```bash
+# List old memories (>90 days)
+find .claude/skills/agent-memory/memories/ -name "*.md" -mtime +90
+
+# Archive completed work
+mkdir -p .claude/skills/agent-memory/archive/
+mv memories/completed-*.md archive/
+```
+
+### Memory Hygiene
+
+- Review and update memories when context changes
+- Archive completed work
+- Consolidate related memories
+- Remove obsolete information
+
+## Best Practices
+
+1. **Be Proactive**: Suggest saving important context without being asked
+2. **Use Clear Names**: Memory IDs should be descriptive (`auth-oauth-impl`, not `temp-123`)
+3. **Link Related Memories**: Cross-reference related work
+4. **Update, Don't Duplicate**: Add to existing memories when relevant
+5. **Progressive Detail**: Summaries for scanning, details for deep reading
+6. **Action-Oriented**: Include clear next steps
+7. **Context-Rich**: Explain "why", not just "what"
+
+## Tips for Users
+
+- Ask Claude to "remember this" for important discussions
+- Request "recall memories about X" to continue previous work
+- Use "list all memories" to see what's been saved
+- Say "update memory about X" to add new information
+
+## Technical Notes
+
+- Memories are stored as markdown files (human-readable)
+- `.gitignore` excludes `memories/` (private workspace)
+- Uses ripgrep for fast searching
+- YAML frontmatter for structured metadata
+- Works across Claude Code sessions
+- Repository-scoped (each project has own memories)
+
+## Limitations
+
+- Not suitable for very large codebases (use search instead)
+- Manual memory creation (not automatic)
+- Local only (not synced across machines)
+- Requires user to explicitly save/recall
+
+## Integration
+
+Works with other skills:
+- **code-review**: Save review findings for future reference
+- **systematic-debugging**: Remember investigation results
+- **testing-patterns**: Store testing decisions and approaches
+
+---
+
+**Remember**: This skill helps maintain continuity and reduces context-switching overhead. Use it liberally to preserve valuable discussions and decisions.

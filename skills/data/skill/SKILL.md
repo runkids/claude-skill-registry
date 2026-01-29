@@ -1,728 +1,1047 @@
 ---
-name: ralph
-description: Create and run Ralph loops for structured AI-driven development. Triggered by "create a ralph loop for X" or "ralph plan for X". Uses interview to clarify requirements, expert review via rp-cli, creates phased task plans, and executes in YOLO mode.
+description: Generate project-specific Claude Code skills from codebase patterns or framework best practices
+version: 1.0
+encoding: UTF-8
 ---
 
-# Ralph Loop Skill
+# Add Skill Workflow
 
-Create bulletproof development plans that execute reliably in YOLO mode.
+## Overview
 
-## Trigger Phrases
+Generate customized Claude Code skill files based on either:
+- **Mode A (--analyze)**: Analyze existing codebase patterns
+- **Mode B (--best-practices)**: Use framework best practices templates
 
-- "create a ralph loop for..."
-- "ralph plan for..."
-- "make a ralph loop and start with an interview"
-- "yolo this feature..."
+## Process Flow
 
-## The Bulletproof Process
+<process_flow>
 
-```
-1. RESEARCH      - Understand the codebase
-       ↓
-2. INTERVIEW     - Gather requirements from user
-       ↓
-3. DESIGN        - Create architecture document
-       ↓
-4. EXPERT REVIEW - rp-cli plan mode review of design
-       ↓
-5. ORACLE        - (if complex) Deep architecture review
-       ↓
-6. CREATE PLAN   - Write atomic, complete tasks
-       ↓
-7. PLAN REVIEW   - rp-cli plan mode review of tasks
-       ↓
-8. FINALIZE      - User approval
-       ↓
-9. EXECUTE       - ralph yolo
-       ↓
-10. POST-REVIEW  - codex review of changes
-```
+<step number="1" name="parse_arguments">
 
----
+### Step 1: Parse Command Arguments
 
-## Phase 1: RESEARCH (Required)
+Parse and validate user-provided arguments.
 
-**Before creating ANY interview, understand the codebase.**
+<instructions>
+  ACTION: Extract arguments from user command
 
-### What to Research
+  REQUIRED_ARGS:
+    skill_type: Extract from --type argument
+      VALID_VALUES: ["api", "component", "testing", "deployment"]
+      IF missing: ERROR "Missing required --type argument. Use: api, component, testing, or deployment"
 
-1. **Find existing patterns** - How does similar functionality work?
-2. **Identify files to modify** - What will change?
-3. **Understand the architecture** - Where does this fit?
-4. **Note naming conventions** - Match existing style
+    mode: Determine from mode flags
+      IF --analyze provided: SET mode = "analyze"
+      ELSE IF --best-practices provided: SET mode = "best-practices"
+      ELSE: ERROR "Mode required. Use --analyze or --best-practices"
 
-### Research Commands
+  OPTIONAL_ARGS:
+    framework: Extract from --framework argument (can be null)
 
-```bash
-# Find relevant files
-rg -l "keyword" --type swift
-find . -name "*.swift" -path "*/Views/*" | head -20
+  VALIDATE:
+    IF skill_type NOT IN ["api", "component", "testing", "deployment"]:
+      ERROR "Invalid skill type. Use: api, component, testing, or deployment"
 
-# Understand existing patterns  
-rg -A5 "struct.*View.*:" --type swift | head -50
+    IF framework provided:
+      VALIDATE framework matches skill_type
+        api: spring-boot, express, fastapi, django, rails
+        component: react, angular, vue, svelte
+        testing: playwright, jest, vitest, pytest, rspec, cypress
+        deployment: github-actions, gitlab-ci, jenkins, docker
 
-# Check file structure
-tree -L 3 path/to/relevant/code/
+      IF invalid:
+        ERROR "Framework '{framework}' not valid for skill type '{skill_type}'"
 
-# Read key files
-cat path/to/existing/similar/feature.swift | head -100
-```
-
-### Research Output
-
-Document findings:
-```markdown
-## Research Findings
-
-**Existing patterns:**
-- Views are in Features/*/Views/
-- State is in Features/*/State/
-- Uses @Observable pattern
-
-**Files that will change:**
-- MainSplitView.swift (add new component)
-- SomeState.swift (add new property)
-
-**Files to create:**
-- NewFeatureView.swift
-- NewFeatureState.swift
-
-**Naming conventions:**
-- Views: SomethingView.swift
-- State: SomethingState.swift
-```
-
----
-
-## Phase 2: INTERVIEW (Required)
-
-**Use the interview tool to gather requirements. Never guess.**
-
-### Interview Question Categories
-
-Every interview MUST cover:
-
-1. **Scope** - What exactly are we building?
-2. **Location** - Where does it appear/integrate?
-3. **Behavior** - How does it work?
-4. **Edge Cases** - What could go wrong?
-5. **Acceptance** - How do we know it's done?
-
-### Interview Template
-
-```json
-{
-  "title": "Ralph Plan: [Feature Name]",
-  "description": "I've researched the codebase. Help me understand the requirements.\n\n**What I found:**\n[Brief research summary]",
-  "questions": [
+  OUTPUT: Parsed arguments
     {
-      "id": "scope",
-      "type": "single",
-      "question": "What exactly should this feature do?",
-      "options": ["Option A (describe)", "Option B (describe)", "Both", "Something else (explain below)"],
-      "context": "Based on my research, [context]"
-    },
-    {
-      "id": "scope_details",
-      "type": "text",
-      "question": "Any additional scope details?",
-      "required": false
-    },
-    {
-      "id": "location",
-      "type": "single",
-      "question": "Where should [feature] appear?",
-      "options": ["Location A", "Location B", "New location"],
-      "context": "Currently, similar features are in [location]"
-    },
-    {
-      "id": "behavior_primary",
-      "type": "single",
-      "question": "When [trigger], what should happen?",
-      "options": ["Behavior A", "Behavior B", "Configurable"]
-    },
-    {
-      "id": "behavior_secondary",
-      "type": "single",
-      "question": "[Follow-up behavior question]?",
-      "options": ["Option A", "Option B", "Option C"]
-    },
-    {
-      "id": "edge_cases",
-      "type": "multi",
-      "question": "Which edge cases should I handle?",
-      "options": ["Error state", "Empty state", "Loading state", "Offline mode", "Other (specify)"]
-    },
-    {
-      "id": "edge_case_details",
-      "type": "text",
-      "question": "Any specific edge case handling?",
-      "required": false
-    },
-    {
-      "id": "acceptance",
-      "type": "text",
-      "question": "How will you verify this works correctly?",
-      "context": "Describe what you'll test or look for"
-    },
-    {
-      "id": "constraints",
-      "type": "text",
-      "question": "Any constraints or requirements I should know?",
-      "required": false
+      skill_type: "api",
+      mode: "analyze",
+      framework: null | "spring-boot"
     }
-  ]
-}
-```
-
----
-
-## Phase 3: DESIGN (Required)
-
-**After interview, design the solution before writing tasks.**
-
-### Design Document Template
-
-```markdown
-## Design: [Feature Name]
-
-### Interview Summary
-- Scope: [answer]
-- Location: [answer]  
-- Behavior: [answer]
-- Edge cases: [answer]
-- Acceptance: [answer]
-
-### Architecture
-
-**New files to create:**
-| File | Purpose |
-|------|---------|
-| NewView.swift | Main UI component |
-| NewState.swift | State management |
-
-**Files to modify:**
-| File | Changes |
-|------|---------|
-| MainSplitView.swift | Add NewView to layout |
-| AppState.swift | Add newState property |
-
-**Integration points:**
-- NewView will be added to MainSplitView in the detail area
-- NewState will be owned by AppState
-- NewView observes NewState via @Environment
-
-### UI Mockup (if applicable)
-```
-┌─────────────────────────────────────┐
-│  [Existing UI]                      │
-├─────────────────────────────────────┤
-│  [New Feature Here]                 │
-│  - Element A                        │
-│  - Element B                        │
-└─────────────────────────────────────┘
-```
-
-### Verification Checklist
-- [ ] Feature appears in correct location
-- [ ] Primary behavior works
-- [ ] Edge cases handled
-- [ ] User acceptance criteria met
-```
-
----
-
-## Phase 4: EXPERT REVIEW (Required)
-
-**Use rp-cli plan mode to get expert review of the design.**
-
-### Select Context Files
-
-```bash
-# Select files relevant to the design
-rp-cli manage_selection '{
-  "op": "set",
-  "paths": [
-    "path/to/existing/similar.swift",
-    "path/to/where/integration/happens.swift"
-  ]
-}'
-```
-
-### Request Design Review
-
-```bash
-rp-cli chat_send '{
-  "mode": "plan",
-  "new_chat": true,
-  "chat_name": "Design Review: [Feature Name]",
-  "message": "Please review this design for a new feature.\n\n## Design\n[paste design document]\n\n## Questions\n1. Is this architecture sound?\n2. Am I missing any integration points?\n3. Are there existing patterns I should follow?\n4. Any potential issues or edge cases?"
-}'
-```
-
-### Process Review Feedback
-
-- Update design based on feedback
-- Note any architectural changes
-- If major issues found, return to Phase 3
-
----
-
-## Phase 5: ORACLE (Complex Features Only)
-
-**For complex features, get deep architecture review from Oracle (GPT-5 Pro).**
-
-### When to Use Oracle
-
-- Multiple subsystems involved
-- New architectural patterns needed
-- Cross-cutting concerns (auth, sync, caching)
-- Integration with external services
-- Performance-critical paths
-
-### Oracle Query Template
-
-```
-I need architecture advice for: [feature name]
-
-## Context
-[Brief project description]
-[Current architecture]
-
-## What I'm Building
-[Feature description]
-[Current design]
-
-## Specific Questions
-1. [Architecture question]
-2. [Pattern question]
-3. [Integration question]
-
-## Constraints
-[Performance, compatibility, etc.]
-```
-
-### Process Oracle Response
-
-- Update design with Oracle recommendations
-- Document key decisions and rationale
-- If significant changes, re-run Phase 4 review
-
----
-
-## Phase 6: CREATE PLAN (Critical)
-
-**Write tasks that are atomic, complete, and verifiable.**
-
-### Task Anatomy
-
-Every task MUST have:
-
-1. **WHAT** - The specific change to make
-2. **WHERE** - The exact file(s) to modify
-3. **HOW** - Brief implementation approach (if not obvious)
-4. **VERIFY** - How to confirm it worked
-
-### Task Sizing (Critical)
-
-**All tasks should be similar size** - the LLM struggles with inconsistent sizing.
-
-| Task Size | Time Estimate | Example |
-|-----------|---------------|---------|
-| Too small | < 2 min | "Add import statement" |
-| ✅ Right | 5-15 min | "Create SyncConsolePanel view with basic layout" |
-| Too large | > 30 min | "Implement entire sync feature with all UI" |
-
-**Why this matters:** Large tasks get "swallowed up" - the LLM runs out of context window before finishing, producing incomplete or buggy code. If a task would take a human > 30 minutes, split it.
-
-### Task Writing Rules
-
-#### Rule 1: Atomic = One Concern
-
-❌ BAD: "Add sync panel with drag handle and animations"
-✅ GOOD: Three separate tasks
-
-#### Rule 2: Consistent Size
-
-❌ BAD: Mix of tiny ("add import") and huge ("implement feature") tasks
-✅ GOOD: All tasks take roughly 5-15 minutes of LLM work
-
-#### Rule 3: Complete = Create + Integrate
-
-❌ BAD: "Create SyncConsolePanel view"
-✅ GOOD: "Create SyncConsolePanel view in SharedUI/Common/ AND replace SyncProgressView with it in MainSplitView.swift"
-
-#### Rule 4: Specific Files Named
-
-❌ BAD: "Add the button to the toolbar"
-✅ GOOD: "Add refresh button to toolbar in MediaOrganizationView.swift toolbarContent"
-
-#### Rule 5: Verification Included
-
-❌ BAD: "Add drag handle"
-✅ GOOD: "Add drag handle to panel. VERIFY: Dragging handle resizes panel height"
-
-### Plan Structure
-
-```markdown
-# Plan: [Feature Name]
-
-## Context
-[What we're building and why]
-
-## Interview Responses ([date])
-- Scope: [answer]
-- Location: [answer]
-- Behavior: [answer]
-
-## Design Review Notes
-[Key feedback from rp-cli review]
-[Oracle recommendations if applicable]
-
-## Tasks
-
-### Phase 1: Foundation
-- [ ] 1.1 [Task with WHAT, WHERE, VERIFY]
-- [ ] 1.2 [Task with WHAT, WHERE, VERIFY]
-
-### Phase 2: Core Implementation  
-- [ ] 2.1 [Task with WHAT, WHERE, VERIFY]
-- [ ] 2.2 [Task with WHAT, WHERE, VERIFY]
-
-### Phase 3: Integration
-- [ ] 3.1 [Task with WHAT, WHERE, VERIFY]
-
-### Phase 4: Verification
-- [ ] 4.1 VERIFY: [Acceptance criteria 1]
-- [ ] 4.2 VERIFY: [Acceptance criteria 2]
-
-## Success Criteria
-- [ ] [Criterion 1 from interview]
-- [ ] [Criterion 2 from interview]
-
-## Files Changed
-| File | Action |
-|------|--------|
-| path/to/new.swift | CREATE |
-| path/to/existing.swift | MODIFY |
-```
-
----
-
-## Phase 7: PLAN REVIEW (Required)
-
-**Use rp-cli plan mode to review the task list before execution.**
-
-### Select Plan Context
-
-```bash
-# Select files that will be modified
-rp-cli manage_selection '{
-  "op": "set", 
-  "paths": [
-    "path/to/file1.swift",
-    "path/to/file2.swift"
-  ]
-}'
-```
-
-### Request Plan Review
-
-```bash
-rp-cli chat_send '{
-  "mode": "plan",
-  "new_chat": true,
-  "chat_name": "Plan Review: [Feature Name]",
-  "message": "Please review this implementation plan.\n\n## Plan\n[paste full plan]\n\n## Review Checklist\n1. Does every CREATE task have a corresponding INTEGRATE task?\n2. Are all file paths correct and specific?\n3. Is each task atomic (one concern)?\n4. Does each task have a VERIFY step?\n5. Are there any missing tasks or integration points?\n6. Will this plan work in YOLO mode (non-interactive)?"
-}'
-```
-
-### Process Review Feedback
-
-- Fix any issues identified
-- Add missing tasks
-- Clarify ambiguous descriptions
-- Ensure all integration points covered
-
----
-
-## Phase 8: FINALIZE (Required)
-
-**Get user approval before execution.**
-
-### Finalization Checklist
-
-Before presenting to user, verify:
-
-- [ ] Every "create" task has a corresponding "integrate" task
-- [ ] Every task names specific files
-- [ ] Every task has a VERIFY step
-- [ ] Phase 4 has explicit verification tasks
-- [ ] Success criteria match interview answers
-- [ ] Files Changed table is complete
-- [ ] Design review feedback incorporated
-- [ ] Plan review feedback incorporated
-
-### Present to User
-
-```markdown
-## Plan Ready: [Feature Name]
-
-**Summary:**
-- [N] tasks across [M] phases
-- [X] files to create, [Y] files to modify
-
-**Reviews completed:**
-- ✅ Design review (rp-cli plan mode)
-- ✅ Plan review (rp-cli plan mode)
-- [✅ Oracle review (if applicable)]
-
-**Key decisions:**
-- [Decision 1 from interview/reviews]
-- [Decision 2 from interview/reviews]
-
-**How to proceed:**
-1. **Review full plan** - See all tasks
-2. **Edit plan** - Make changes before running
-3. **Launch YOLO** - Execute all tasks automatically
-4. **Interactive mode** - Work task by task
-
-Ready to launch?
-```
-
----
-
-## Phase 9: EXECUTE
-
-### Launch YOLO Mode
-
-```bash
-cd /path/to/project
-ralph yolo
-# Type 'yolo' to confirm
-# Runs all tasks non-interactively
-# Auto-commits each task
-# Codex review runs automatically at end
-```
-
-### Monitor Execution
-
-- Watch for build failures
-- Note any tasks that seem to struggle
-- Be ready to intervene if needed
-
-### On Failure
-
-```bash
-ralph status    # See where we stopped
-ralph next      # Fix the issue interactively
-ralph yolo      # Continue from current task
-```
-
----
-
-## Phase 10: POST-REVIEW (Required)
-
-**After YOLO completes, review the changes.**
-
-### Automatic Codex Review
-
-Ralph automatically runs codex review after YOLO completes:
-```
-Running final codex review on N commits (abc123..def456)...
-```
-
-If codex review doesn't run automatically:
-```bash
-codex review --base <start-commit>
-```
-
-### Manual Verification
-
-For UI changes, verify visually:
-```bash
-gj run ms  # Or appropriate run command
-# Check that feature works as expected
-```
-
-### rp-cli Post-Implementation Review (Optional)
-
-For complex changes, request a post-implementation review:
-
-```bash
-rp-cli manage_selection '{
-  "op": "set",
-  "paths": ["files/that/changed.swift"]
-}'
-
-rp-cli chat_send '{
-  "mode": "plan",
-  "new_chat": true,
-  "chat_name": "Post-Review: [Feature Name]",
-  "message": "Please review these changes for:\n1. Code quality issues\n2. Missing error handling\n3. Performance concerns\n4. Consistency with project patterns"
-}'
-```
-
----
-
-## Anti-Patterns (DO NOT DO)
-
-| Anti-Pattern | Why It Fails |
-|--------------|--------------|
-| Skipping research | Questions are vague, plan is wrong |
-| Skipping interview | Assumptions lead to rework |
-| Skipping design review | Architecture issues caught too late |
-| Skipping plan review | Missing tasks, broken YOLO |
-| "Create X" without integration | Component built but never used |
-| No file paths in tasks | Agent guesses wrong location |
-| No verification tasks | Feature broken but marked done |
-| Huge tasks | Too much scope, partial completion |
-| Inconsistent task sizes | Large tasks "swallowed up", small tasks waste iterations |
-| No success criteria | No way to know if done |
-| Skipping post-review | Bugs ship to production |
-| Not appending to progress.txt | Lost learnings, repeated mistakes |
-
----
-
-## rp-cli Quick Reference
-
-### Setup Selection
-```bash
-rp-cli manage_selection '{"op": "set", "paths": ["file1.swift", "file2.swift"]}'
-rp-cli manage_selection '{"op": "get", "view": "files"}'
-```
-
-### Plan Mode Review
-```bash
-rp-cli chat_send '{
-  "mode": "plan",
-  "new_chat": true,
-  "chat_name": "Review: Topic",
-  "message": "Review request..."
-}'
-```
-
-### Continue Conversation
-```bash
-rp-cli chat_send '{
-  "mode": "plan",
-  "new_chat": false,
-  "message": "Follow-up question..."
-}'
-```
-
-### List Available Models
-```bash
-rp-cli list_models
-```
-
----
-
-## Example: Complete Flow
-
-**User:** "Create a ralph loop for Xcode-style bottom console panel"
-
-### 1. Research
-```bash
-rg -l "SyncProgress" --type swift
-# Found: SyncProgressView.swift (current implementation)
-# Found: MainSplitView.swift (where it's used)
-
-cat "SharedUI/Common/SyncProgressView.swift" | head -50
-# Current: floating card overlay
-
-cat "Features/MediaOrganization/Views/MainSplitView.swift" | grep -A10 "SyncProgress"
-# Integration point identified
-```
-
-### 2. Interview
-```json
-{
-  "title": "Ralph Plan: Xcode-style Console Panel",
-  "description": "Currently using floating card. You want Xcode-style bottom panel.",
-  "questions": [
-    {"id": "style", "question": "Confirm: Bottom slide-up panel like Xcode console?"},
-    {"id": "resize", "question": "Should panel be resizable via drag?"},
-    {"id": "collapse", "question": "Should panel collapse to header-only?"},
-    {"id": "shortcut", "question": "Keyboard shortcut? (suggest ⌘⇧C)"},
-    {"id": "acceptance", "question": "How will you verify it works?"}
-  ]
-}
-```
-
-### 3. Design
-```markdown
-## Design: Xcode-style Console Panel
-
-### Architecture
-- CREATE: SyncConsolePanel.swift (new component)
-- MODIFY: MainSplitView.swift (replace SyncProgressView)
-- MODIFY: AppState.swift (add showSyncConsole toggle)
-
-### Integration
-- SyncConsolePanel replaces SyncProgressView in StatusFooter
-- Same callbacks (onCancel, onPause, etc.)
-- AppState.showSyncConsole controls visibility
-```
-
-### 4. Expert Review (rp-cli)
-```bash
-rp-cli manage_selection '{"op":"set","paths":["SharedUI/Common/SyncProgressView.swift","Features/MediaOrganization/Views/MainSplitView.swift"]}'
-
-rp-cli chat_send '{"mode":"plan","new_chat":true,"chat_name":"Design Review: Console Panel","message":"Review this design..."}'
-```
-
-### 5. Create Plan
-```markdown
-## Tasks
-
-### Phase 1: Create Component
-- [ ] 1.1 Create SyncConsolePanel.swift in SharedUI/Common/
-      VERIFY: File compiles, preview renders
-
-### Phase 2: Integration  
-- [ ] 2.1 Replace SyncProgressView with SyncConsolePanel in MainSplitView.swift StatusFooter
-      VERIFY: New panel appears at bottom when sync starts
-
-### Phase 3: Features
-- [ ] 3.1 Add drag handle for resizing
-      VERIFY: Dragging changes panel height
-- [ ] 3.2 Add collapse/expand toggle
-      VERIFY: Panel collapses to header only
-
-### Phase 4: Verification
-- [ ] 4.1 VERIFY: Panel slides up from bottom (not floating)
-- [ ] 4.2 VERIFY: ⌘⇧C toggles visibility
-- [ ] 4.3 VERIFY: Drag handle resizes panel
-```
-
-### 6. Plan Review (rp-cli)
-```bash
-rp-cli chat_send '{"mode":"plan","new_chat":true,"message":"Review this plan for YOLO execution..."}'
-```
-
-### 7. Finalize & Execute
-```bash
-ralph yolo
-# All tasks execute
-# Codex review runs automatically
-```
-
-### 8. Post-Review
-```bash
-# Verify visually
-gj run ms
-# Check panel appears at bottom, drag works, etc.
-```
-
----
-
-## Key Principles
-
-1. **Research first** - Understand before asking
-2. **Interview always** - Never assume requirements  
-3. **Design before tasks** - Architecture drives implementation
-4. **Review twice** - Design review + Plan review via rp-cli
-5. **Atomic + Complete** - One thing, fully integrated
-6. **Verify everything** - Build passing ≠ feature working
-7. **Post-review always** - Codex + manual verification
+</instructions>
+
+</step>
+
+<step number="2" name="detect_framework">
+
+### Step 2: Detect Framework
+
+Auto-detect framework if not provided by user.
+
+<instructions>
+  IF framework argument provided:
+    SKIP: Auto-detection
+    USE: User-specified framework
+    LOG: "Using user-specified framework: {framework}"
+    PROCEED: To step 3
+
+  ELSE:
+    EXECUTE: Framework detection based on skill_type
+
+    IF skill_type == "api":
+      ACTION: Detect backend framework
+
+      USE: Glob tool to check for indicator files:
+        - SEARCH pattern="pom.xml" → If found: Likely Spring Boot
+        - SEARCH pattern="build.gradle*" → If found: Likely Spring Boot
+        - SEARCH pattern="package.json" → If found: Check for express dependency
+        - SEARCH pattern="requirements.txt" → If found: Check for fastapi/django
+        - SEARCH pattern="pyproject.toml" → If found: Check for fastapi/django
+        - SEARCH pattern="Gemfile" → If found: Check for rails gem
+        - SEARCH pattern="manage.py" → If found: Likely Django
+
+      IF pom.xml OR build.gradle found:
+        READ: File content
+        SEARCH: For "spring-boot" in content
+        IF found:
+          SET framework = "spring-boot"
+          EXTRACT: Version from dependency
+          CONFIDENCE: high
+
+      ELSE IF package.json found:
+        READ: package.json
+        PARSE: JSON content
+        CHECK: dependencies["express"] exists
+        IF yes:
+          SET framework = "express"
+          EXTRACT: Version
+          CONFIDENCE: high
+
+      ELSE IF requirements.txt OR pyproject.toml found:
+        READ: File content
+        IF "fastapi" in content:
+          SET framework = "fastapi"
+        ELSE IF "django" in content OR manage.py found:
+          SET framework = "django"
+
+      ELSE IF Gemfile found:
+        READ: Gemfile
+        IF "rails" in content:
+          SET framework = "rails"
+
+      ELSE:
+        framework = null
+        CONFIDENCE: none
+
+    ELSE IF skill_type == "component":
+      ACTION: Detect frontend framework
+
+      USE: Glob tool:
+        - SEARCH pattern="package.json"
+        - SEARCH pattern="angular.json"
+        - SEARCH pattern="**/*.vue"
+        - SEARCH pattern="**/*.svelte"
+
+      IF package.json found:
+        READ: package.json
+        PARSE: JSON
+
+        IF dependencies["react"]:
+          SET framework = "react"
+          CHECK: devDependencies["typescript"] for TypeScript usage
+
+        ELSE IF dependencies["@angular/core"]:
+          SET framework = "angular"
+
+        ELSE IF dependencies["vue"]:
+          SET framework = "vue"
+          EXTRACT: Version to determine Vue 2 vs 3
+
+        ELSE IF dependencies["svelte"]:
+          SET framework = "svelte"
+          CHECK: dependencies["@sveltejs/kit"] for SvelteKit
+
+    ELSE IF skill_type == "testing":
+      ACTION: Detect testing framework
+
+      USE: Glob tool:
+        - SEARCH pattern="playwright.config.*"
+        - SEARCH pattern="jest.config.*"
+        - SEARCH pattern="pytest.ini"
+        - SEARCH pattern=".rspec"
+
+      IF playwright.config found:
+        SET framework = "playwright"
+      ELSE IF jest.config found OR package.json has jest:
+        SET framework = "jest"
+      ELSE IF pytest.ini found OR requirements.txt has pytest:
+        SET framework = "pytest"
+      ELSE IF .rspec found OR Gemfile has rspec:
+        SET framework = "rspec"
+
+    ELSE IF skill_type == "deployment":
+      ACTION: Detect CI/CD platform
+
+      USE: Glob tool:
+        - SEARCH pattern=".github/workflows/*.yml"
+        - SEARCH pattern=".gitlab-ci.yml"
+        - SEARCH pattern="Jenkinsfile"
+        - SEARCH pattern="Dockerfile"
+
+      IF .github/workflows found:
+        SET framework = "github-actions"
+      ELSE IF .gitlab-ci.yml found:
+        SET framework = "gitlab-ci"
+      ELSE IF Jenkinsfile found:
+        SET framework = "jenkins"
+      ELSE IF Dockerfile found:
+        SET framework = "docker"
+
+  IF framework == null:
+    IF mode == "best-practices":
+      ACTION: Ask user to select framework
+      USE: AskUserQuestion
+      QUESTION: "Which {skill_type} framework are you using?"
+      OPTIONS: [List of frameworks for skill_type]
+      RECEIVE: User selection
+      SET framework = user_selection
+
+    ELSE:
+      ERROR: "Could not detect framework. Use --framework to specify, or use --best-practices mode."
+
+  OUTPUT:
+    detected_framework: {
+      name: "spring-boot",
+      version: "3.2.0",
+      confidence: "high",
+      source: "pom.xml"
+    }
+</instructions>
+
+</step>
+
+<step number="3" name="mode_routing">
+
+### Step 3: Route to Appropriate Workflow
+
+Branch based on selected mode.
+
+<instructions>
+  IF mode == "analyze":
+    LOG: "Mode A: Analyzing existing codebase patterns"
+    EXECUTE: Steps 4-7 (Pattern discovery, validation, improvement selection)
+
+  ELSE IF mode == "best-practices":
+    LOG: "Mode B: Using framework best practices"
+    SKIP: Steps 4-7
+    EXECUTE: Step 8 (Load best practices directly)
+
+  PROCEED: To appropriate next step
+</instructions>
+
+</step>
+
+<step number="4" subagent="Explore" name="discover_patterns" conditional="mode==analyze">
+
+### Step 4: Discover Patterns (Mode A Only)
+
+Use Explore agent to find code patterns in the codebase.
+
+<instructions>
+  ACTION: Use Task tool with subagent_type="Explore"
+  THOROUGHNESS: "medium"
+
+  IF skill_type == "api":
+    CONSTRUCT: Prompt for API pattern discovery
+
+    PROMPT:
+      "Discover {framework} API patterns in the codebase:
+
+      Search for:
+      - Controller/Route files
+      - Service files
+      - Repository/Data access files
+
+      For {framework}, look for these patterns:
+      [Framework-specific file patterns based on detected framework]
+
+      Find the top 10-15 most representative files and extract:
+      - Routing/endpoint patterns
+      - Request validation patterns
+      - Error handling approaches
+      - Data access patterns
+      - Transaction management
+
+      Return file paths and key pattern observations."
+
+    EXECUTE: Explore agent task
+    WAIT: For agent completion
+    RECEIVE: List of discovered files and patterns
+
+    THEN:
+      FOR each discovered_file in results:
+        USE: Read tool to get file content
+        EXTRACT: Relevant code patterns
+        CATEGORIZE: By pattern type (routing, validation, error_handling, etc.)
+
+  ELSE IF skill_type == "component":
+    PROMPT:
+      "Discover {framework} component patterns:
+
+      Search for component files and extract:
+      - Component structure and organization
+      - Props/interface definitions
+      - State management approaches
+      - Event handling patterns
+      - Styling approaches
+
+      Return top 10-15 representative components."
+
+    EXECUTE: Explore agent task
+    PROCESS: Results similar to API
+
+  ELSE IF skill_type == "testing":
+    PROMPT:
+      "Discover {framework} testing patterns:
+
+      Search for test files and extract:
+      - Test structure (describe/it blocks)
+      - Assertion patterns
+      - Mocking strategies
+      - Setup/teardown approaches
+      - Page object patterns (if E2E)
+
+      Return top 10-15 test files."
+
+    EXECUTE: Explore agent task
+    PROCESS: Results
+
+  ELSE IF skill_type == "deployment":
+    PROMPT:
+      "Discover CI/CD and deployment patterns:
+
+      Search for:
+      - Workflow/pipeline files
+      - Docker configurations
+      - Build scripts
+
+      Extract:
+      - Build process
+      - Test execution in CI
+      - Deployment strategies
+      - Caching patterns
+
+      Return all relevant files."
+
+    EXECUTE: Explore agent task
+    PROCESS: Results
+
+  OUTPUT:
+    discovered_patterns: {
+      files_analyzed: 15,
+      patterns: [
+        {
+          category: "routing",
+          code: "...",
+          file: "UserController.java",
+          occurrences: 12
+        },
+        ...
+      ]
+    }
+</instructions>
+
+</step>
+
+<step number="5" name="validate_patterns" conditional="mode==analyze">
+
+### Step 5: Validate Patterns Against Best Practices (Mode A Only)
+
+Compare discovered patterns with framework best practices.
+
+<instructions>
+  ACTION: Load best practices for detected framework
+
+  READ: @agent-os/workflows/skill/validation/best-practices/{framework}.md
+
+  COMPARE: Discovered patterns vs best practices
+    FOR each discovered_pattern:
+      CHECK: Does it match a best practice pattern?
+      CALCULATE: Similarity score
+      IDENTIFY: Gaps or issues
+
+  DETECT: Anti-patterns
+    CHECK: For common anti-patterns:
+      - SQL injection (string concatenation in queries)
+      - Missing error handling
+      - Security vulnerabilities
+      - Performance issues
+
+  GENERATE: Improvement suggestions
+    FOR each gap or anti-pattern:
+      CREATE: Improvement suggestion
+        - Severity: critical | warning | info
+        - Current pattern
+        - Recommended pattern
+        - Code examples (before/after)
+        - Impact assessment
+
+  CATEGORIZE: By severity
+    critical_improvements: [...]
+    warning_improvements: [...]
+    info_improvements: [...]
+
+  OUTPUT:
+    validation_results: {
+      overall_score: 72,
+      improvements: [
+        {
+          id: "imp_001",
+          severity: "critical",
+          title: "Fix SQL Injection",
+          current: "String concatenation",
+          recommended: "Parameterized queries",
+          files_affected: 2
+        },
+        ...
+      ]
+    }
+</instructions>
+
+</step>
+
+<step number="6" name="present_improvements" conditional="mode==analyze">
+
+### Step 6: Present Improvements to User (Mode A Only)
+
+Show improvement suggestions and collect user selections.
+
+<instructions>
+  IF improvements.length == 0:
+    MESSAGE: "No improvements needed - your code follows best practices!"
+    SKIP: To step 8
+
+  ELSE:
+    DISPLAY: Improvement summary
+      MESSAGE:
+        "Found {total} improvement opportunities:
+        - ❌ {critical_count} Critical
+        - ⚠️ {warning_count} Warnings
+        - ℹ️ {info_count} Suggestions"
+
+    FOR each improvement IN [critical, warnings, info]:
+      DISPLAY: Improvement details
+        "═══════════════════════════════════════════
+        {severity_icon} {title}
+        ═══════════════════════════════════════════
+
+        Impact: {impact}
+        Effort: {effort}
+        Files: {file_count}
+
+        Current: {current_pattern_description}
+        Issues: {issues}
+
+        Recommended: {recommended_pattern_description}
+        Benefits: {benefits}
+        "
+
+      USE: AskUserQuestion
+      QUESTION: "Include this improvement?"
+      OPTIONS:
+        - "✅ Yes, include (Recommended)"
+        - "📖 Show code examples"
+        - "❌ No, skip"
+
+      RECEIVE: User decision
+
+      IF "Show code examples":
+        DISPLAY: Before/after code
+        ASK: Again for decision
+
+      IF "Yes":
+        RECORD: In accepted_improvements list
+      ELSE:
+        RECORD: In rejected_improvements list
+
+    DISPLAY: Selection summary
+      "You selected {accepted_count} out of {total_count} improvements.
+
+      Critical: {critical_accepted}/{critical_total}
+      Warnings: {warning_accepted}/{warning_total}
+      Info: {info_accepted}/{info_total}"
+
+    CONFIRM: "Continue with skill generation?"
+    IF no: EXIT workflow
+
+  OUTPUT:
+    user_selections: {
+      accepted: [imp_001, imp_002, ...],
+      rejected: [imp_008, ...],
+      accepted_count: 8
+    }
+</instructions>
+
+</step>
+
+<step number="7" name="apply_improvements" conditional="mode==analyze">
+
+### Step 7: Apply Selected Improvements (Mode A Only)
+
+Merge selected improvements into pattern data.
+
+<instructions>
+  FOR each accepted_improvement:
+    FIND: Related discovered pattern
+
+    IF pattern exists:
+      ENHANCE: Pattern with improvement
+        UPDATE: Pattern code with recommended version
+        ADD: Improvement metadata
+        MARK: As enhanced
+
+    ELSE:
+      ADD: New pattern from improvement
+        CREATE: Pattern entry
+        MARK: As added from improvement
+
+  FOR each rejected_critical_improvement:
+    CREATE: Warning note
+      ADD: To "Known Issues" section
+      DOCUMENT: Risk and recommendation
+
+  OUTPUT:
+    enhanced_patterns: {
+      patterns: [
+        {
+          category: "error_handling",
+          code: "[Enhanced code]",
+          status: "enhanced",
+          improvement_applied: "Centralized exception handling"
+        },
+        ...
+      ],
+      known_issues: [
+        {
+          issue: "SQL injection in UserRepository",
+          severity: "critical",
+          rejected_by_user: true
+        }
+      ]
+    }
+</instructions>
+
+</step>
+
+<step number="8" name="load_best_practices" conditional="mode==best-practices">
+
+### Step 8: Load Best Practices (Mode B Only)
+
+Load framework-specific best practices templates.
+
+<instructions>
+  ACTION: Confirm framework with user if auto-detected
+
+  IF framework auto-detected:
+    MESSAGE: "Detected framework: {framework} {version}"
+    USE: AskUserQuestion
+    QUESTION: "Use {framework} for skill generation?"
+    OPTIONS:
+      - "Yes, use {framework} (Recommended)"
+      - "No, choose different framework"
+
+    IF "No":
+      USE: AskUserQuestion
+      QUESTION: "Which {skill_type} framework?"
+      OPTIONS: [Framework options for skill_type]
+      SET framework = user_selection
+
+  ELSE IF framework == null:
+    USE: AskUserQuestion
+    QUESTION: "Which {skill_type} framework?"
+    OPTIONS: [Framework options for skill_type]
+    SET framework = user_selection
+
+  ACTION: Load best practices
+    READ: @agent-os/workflows/skill/validation/best-practices/{framework}.md
+    EXTRACT: All pattern sections
+    STORE: As pattern_content
+
+  OUTPUT:
+    best_practices_content: {
+      framework: "spring-boot",
+      patterns: [Extracted from best practices file],
+      examples: [Code examples from best practices],
+      anti_patterns: [Anti-patterns to avoid]
+    }
+</instructions>
+
+</step>
+
+<step number="9" name="detect_project_name">
+
+### Step 9: Detect Project Name
+
+Auto-detect project name for skill file naming.
+
+<instructions>
+  ACTION: Try multiple detection sources in priority order
+
+  PRIORITY_1: Check agent-os/config.yml
+    USE: Glob pattern="agent-os/config.yml"
+    IF found:
+      READ: File
+      PARSE: YAML (look for project.name field)
+      IF project.name exists:
+        SET project_name = value
+        SOURCE: "agent-os-config"
+        SKIP: Further detection
+
+  PRIORITY_2: Check package.json (if not found in step 1)
+    USE: Glob pattern="package.json"
+    IF found:
+      READ: File
+      PARSE: JSON
+      EXTRACT: name field
+      IF name starts with "@":
+        REMOVE: Scope (e.g., "@company/app" → "app")
+      SET project_name = cleaned_name
+      SOURCE: "package.json"
+      SKIP: Further detection
+
+  PRIORITY_3: Check Gemfile/gemspec
+    USE: Glob pattern="*.gemspec"
+    IF found:
+      READ: File
+      SEARCH: For spec.name = "..."
+      EXTRACT: Gem name
+      CONVERT: Underscores to hyphens
+      SET project_name = gem_name
+
+  PRIORITY_4: Use directory name
+    GET: Current working directory
+    EXTRACT: Last path component
+    CLEAN:
+      - Convert to lowercase
+      - Replace spaces/underscores with hyphens
+      - Remove special characters
+
+    IF name is generic (src, app, test, project):
+      SKIP: Too generic
+    ELSE:
+      SET project_name = cleaned_dir_name
+      SOURCE: "directory-name"
+
+  PRIORITY_5: Ask user
+    IF project_name still null:
+      USE: AskUserQuestion
+      QUESTION: "What is your project name?"
+      DEFAULT: Cleaned directory name (if available)
+      RECEIVE: User input
+      NORMALIZE: User input (lowercase, hyphens, no special chars)
+      SET project_name = normalized_input
+      SOURCE: "user-input"
+
+  ACTION: Confirm with user
+    MESSAGE: "Project name: {project_name} (from {source})"
+    USE: AskUserQuestion
+    QUESTION: "Is this correct?"
+    OPTIONS: ["Yes", "Enter different name"]
+
+    IF "Enter different name":
+      ASK: For new name
+      NORMALIZE: Input
+      SET project_name = new_name
+
+  OPTIONAL: Save to config
+    IF agent-os/config.yml exists:
+      ASK: "Save project name to agent-os/config.yml?"
+      IF yes:
+        READ: agent-os/config.yml
+        UPDATE: project.name field (or add if missing)
+        WRITE: Updated config
+
+  OUTPUT:
+    project_name: "my-app",
+    source: "package.json"
+</instructions>
+
+</step>
+
+<step number="10" name="process_template">
+
+### Step 10: Process Skill Template
+
+Load template and replace markers with content.
+
+<instructions>
+  ACTION: Load appropriate template
+    template_path = "@agent-os/templates/skills/{skill_type}-patterns.md.template"
+
+    IF skill_type == "api":
+      READ: @agent-os/templates/skills/api-patterns.md.template
+    ELSE IF skill_type == "component":
+      READ: @agent-os/templates/skills/component-patterns.md.template
+    ELSE IF skill_type == "testing":
+      READ: @agent-os/templates/skills/testing-patterns.md.template
+    ELSE IF skill_type == "deployment":
+      READ: @agent-os/templates/skills/deployment-patterns.md.template
+
+    STORE: template_content
+
+  ACTION: Build replacement map
+
+    project_replacements = {
+      "NAME": project_name,
+      "FRAMEWORK": framework,
+      "FRAMEWORK_VERSION": detected_version,
+      "DATE": current_date,
+      "LANGUAGE": programming_language,
+      "MODE": mode,
+      "MODE_DESCRIPTION": mode == "analyze" ? "Analyzed from existing codebase" : "Generated from best practices"
+    }
+
+    glob_replacements = {
+      "API_GLOBS": [Framework-specific globs],
+      "COMPONENT_GLOBS": [Framework-specific globs],
+      "TEST_GLOBS": [Framework-specific globs],
+      "DEPLOYMENT_GLOBS": [Framework-specific globs]
+    }
+
+    IF mode == "analyze":
+      customize_replacements = {
+        "CONTROLLER_PATTERNS": Extract from discovered_patterns,
+        "SERVICE_PATTERNS": Extract from discovered_patterns,
+        "ROUTING_EXAMPLE": Best example from patterns,
+        "VALIDATION_PATTERNS": Extract from patterns,
+        "ERROR_HANDLING_PATTERNS": Extract from enhanced_patterns (with improvements),
+        ...
+      }
+
+    ELSE IF mode == "best-practices":
+      customize_replacements = {
+        "CONTROLLER_PATTERNS": Extract from best_practices_content,
+        "SERVICE_PATTERNS": Extract from best_practices_content,
+        "ROUTING_EXAMPLE": Framework example from best practices,
+        ...
+      }
+
+  ACTION: Replace markers in template
+
+    processed_content = template_content
+
+    FOR each [PROJECT:MARKER] in template:
+      REPLACE: With project_replacements[MARKER]
+
+    FOR each [PROJECT:TYPE_GLOBS] in template:
+      REPLACE: With formatted YAML array of globs
+
+    FOR each [CUSTOMIZE:MARKER] in template:
+      REPLACE: With customize_replacements[MARKER]
+
+    VALIDATE: No unresolved markers remain
+      SEARCH: For any remaining [PROJECT: or [CUSTOMIZE:
+      IF found:
+        WARN: "Unresolved marker: {marker}"
+        REPLACE: With placeholder or empty string
+
+  OUTPUT:
+    processed_template: "[Complete markdown with replacements]"
+</instructions>
+
+</step>
+
+<step number="11" name="generate_skill_file">
+
+### Step 11: Generate Final Skill File
+
+Assemble frontmatter and content into complete skill file.
+
+<instructions>
+  ACTION: Generate frontmatter YAML
+
+    skill_name = "{project_name}-{skill_type}-patterns"
+    skill_description = "{framework} {skill_type} patterns for {project_name}"
+
+    IF mode == "analyze":
+      skill_description += " (analyzed from existing codebase)"
+
+    frontmatter_yaml = """---
+name: {skill_name}
+description: {skill_description}
+version: {framework_version}
+framework: {framework}
+created: {current_date}
+mode: {mode}
+globs:
+{glob_list_formatted}
+---"""
+
+  ACTION: Assemble complete skill file
+
+    skill_content = frontmatter_yaml + "\n\n" + processed_template
+
+  ACTION: Validate structure
+    CHECK: Valid YAML frontmatter
+    CHECK: All required sections present
+    CHECK: Code blocks have language identifiers
+    CHECK: No empty required sections
+
+    IF validation fails:
+      ERROR: "Skill generation failed validation: {errors}"
+      OFFER: "Show preview anyway?" | "Cancel"
+
+  OUTPUT:
+    skill_file: {
+      content: "[Complete skill markdown]",
+      name: "my-app-api-patterns.md",
+      path: ".claude/skills/my-app-api-patterns.md",
+      size: "12.5 KB",
+      lines: 542
+    }
+</instructions>
+
+</step>
+
+<step number="12" name="preview_and_confirm">
+
+### Step 12: Preview and Confirm with User
+
+Show skill preview and save on approval.
+
+<instructions>
+  ACTION: Generate preview (abbreviated version)
+
+    DISPLAY:
+      "═══════════════════════════════════════════════════════════════
+      📄 SKILL PREVIEW
+      ═══════════════════════════════════════════════════════════════
+
+      Skill Name: {skill_name}
+      Framework: {framework} {version}
+      Type: {skill_type}
+      Mode: {mode}
+
+      ─────────────────────────────────────────────────────────────
+      📋 FRONTMATTER
+      ─────────────────────────────────────────────────────────────
+
+      {frontmatter_yaml}
+
+      ─────────────────────────────────────────────────────────────
+      🎯 KEY PATTERNS (Top 3)
+      ─────────────────────────────────────────────────────────────
+
+      1. {pattern_1_title}
+         {brief_description}
+         {code_snippet_abbreviated}
+
+      2. {pattern_2_title}
+      ...
+
+      ─────────────────────────────────────────────────────────────
+      📁 FILE COVERAGE
+      ─────────────────────────────────────────────────────────────
+
+      Active for files matching:
+      {glob_list}
+
+      ─────────────────────────────────────────────────────────────
+      📊 STATISTICS
+      ─────────────────────────────────────────────────────────────
+
+      Total Patterns: {pattern_count}
+      Code Examples: {example_count}
+      {If mode A: Improvements Applied: {improvement_count}}
+
+      ═══════════════════════════════════════════════════════════════
+      "
+
+  ACTION: Ask for user decision
+    USE: AskUserQuestion
+    QUESTION: "What would you like to do?"
+    OPTIONS:
+      - "✅ Yes, save it (Recommended)"
+      - "📖 Show full content"
+      - "❌ No, cancel"
+
+    IF "Show full content":
+      DISPLAY: Complete skill_content
+      ASK: Again "Save this skill?"
+      OPTIONS: ["Yes, save it", "No, cancel"]
+
+    IF "Yes, save it":
+      PROCEED: To save
+
+    ELSE IF "No, cancel":
+      MESSAGE: "Skill generation cancelled."
+      EXIT: Workflow
+</instructions>
+
+</step>
+
+<step number="13" name="save_skill_file">
+
+### Step 13: Save Skill File
+
+Write skill file to disk.
+
+<instructions>
+  ACTION: Determine file path
+    skill_file_name = "{project_name}-{skill_type}-patterns.md"
+    skill_file_path = ".claude/skills/{skill_file_name}"
+
+  ACTION: Check if file exists
+    USE: Glob pattern=".claude/skills/{skill_file_name}"
+
+    IF file exists:
+      USE: AskUserQuestion
+      QUESTION: "File already exists. Overwrite?"
+      OPTIONS: ["Yes, overwrite", "Use different name", "Cancel"]
+
+      IF "Use different name":
+        skill_file_name = "{project_name}-{skill_type}-patterns-2.md"
+        skill_file_path = ".claude/skills/{skill_file_name}"
+
+      ELSE IF "Cancel":
+        EXIT: Workflow
+
+      ELSE IF "Yes, overwrite":
+        CREATE: Backup
+          USE: Bash command: cp "{skill_file_path}" "{skill_file_path}.backup"
+
+  ACTION: Create .claude/skills directory if needed
+    USE: Bash command: mkdir -p .claude/skills
+
+  ACTION: Write skill file
+    USE: Write tool
+    FILE_PATH: {skill_file_path}
+    CONTENT: {skill_content}
+    ENCODING: UTF-8
+
+  ACTION: Verify file was written
+    USE: Glob pattern="{skill_file_path}"
+    IF not found:
+      ERROR: "Failed to write skill file"
+
+    USE: Bash command: wc -l "{skill_file_path}"
+    VERIFY: Line count matches expected
+
+  OUTPUT:
+    saved_file: {
+      path: ".claude/skills/my-app-api-patterns.md",
+      size: "12.5 KB",
+      lines: 542
+    }
+</instructions>
+
+</step>
+
+<step number="14" name="display_success">
+
+### Step 14: Display Success Message
+
+Show completion message with next steps.
+
+<instructions>
+  DISPLAY: Success message
+    "✅ Skill created successfully!
+
+    📄 File: {skill_file_path}
+    📊 Patterns: {pattern_count}
+    {If mode A: ✨ Improvements: {improvement_count}}
+
+    🚀 Next Steps:
+
+    1. The skill is now active for files matching:
+       {glob_list}
+
+    2. Test the skill:
+       - Open a file that matches the globs
+       - Claude will automatically use these patterns
+
+    3. Optional: Reference in .claude/claude.json
+       - Add to 'skills' array for explicit activation
+
+    4. Update anytime:
+       - Run /add-skill again to regenerate with latest patterns
+    "
+
+  OPTIONAL_OFFERS:
+    USE: AskUserQuestion
+    QUESTION: "Would you like to do anything else?"
+    OPTIONS:
+      - "Create another skill (different type)"
+      - "View the generated skill file"
+      - "Done"
+
+    IF "Create another skill":
+      MESSAGE: "Run /add-skill with different --type to create another skill."
+
+    ELSE IF "View the generated skill file":
+      READ: {skill_file_path}
+      DISPLAY: Content
+
+  LOG: Operation completed
+    "Skill generation complete: {skill_file_path}"
+</instructions>
+
+</step>
+
+</process_flow>
+
+## Error Handling
+
+<error_protocols>
+  <invalid_arguments>
+    ERROR: "Invalid arguments. See usage examples above."
+    DISPLAY: Valid options for each argument
+    EXIT: Workflow
+  </invalid_arguments>
+
+  <framework_detection_failed>
+    IF mode == "analyze":
+      ERROR: "Could not detect framework. Please specify with --framework flag."
+      EXIT: Workflow
+    ELSE:
+      FALLBACK: Ask user to select framework
+      CONTINUE: Workflow
+  </framework_detection_failed>
+
+  <pattern_discovery_failed>
+    WARN: "Limited patterns found in codebase."
+    ASK: "Continue with available patterns or switch to --best-practices mode?"
+    IF switch:
+      SET mode = "best-practices"
+      GOTO: Step 8
+  </pattern_discovery_failed>
+
+  <file_write_failed>
+    ERROR: "Failed to write skill file: {error}"
+    CHECK: Directory permissions
+    SUGGEST: Manual file creation or different location
+  </file_write_failed>
+</error_protocols>
+
+## Quick Reference for Claude
+
+**When user runs:** `/add-skill --analyze --type api`
+
+**Execute:**
+1. Parse args (skill_type=api, mode=analyze)
+2. Detect backend framework (use Glob + Read for pom.xml, package.json, etc.)
+3. Run Explore agent to find API patterns
+4. Validate patterns against best practices
+5. Present improvements to user (AskUserQuestion)
+6. Apply selected improvements
+7. Detect project name (check config, package.json, directory)
+8. Load template (api-patterns.md.template)
+9. Replace all markers (PROJECT, CUSTOMIZE, GLOBS)
+10. Generate frontmatter
+11. Show preview to user
+12. Save on user approval (Write tool)
+13. Display success message
+
+**When user runs:** `/add-skill --best-practices --type component --framework react`
+
+**Execute:**
+1. Parse args (skill_type=component, mode=best-practices, framework=react)
+2. Skip framework detection (user specified)
+3. Skip pattern discovery (Mode B)
+4. Load React best practices (read best-practices/react.md)
+5. Detect project name
+6. Load template (component-patterns.md.template)
+7. Replace markers with best practices content
+8. Show preview
+9. Save on approval
+10. Display success

@@ -1,7 +1,7 @@
 {
   "name": "moai-foundation-git",
-  "repo": "jg-chalk-io/Nora-LiveKit",
-  "path": ".claude/skills/moai-foundation-git/SKILL.md",
-  "source": "github.com/jg-chalk-io/Nora-LiveKit",
-  "downloaded_at": "2026-01-28T03:15:36.208821Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-foundation-git/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-29T04:39:15.953484Z"
 }

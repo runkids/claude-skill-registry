@@ -1,9 +1,7 @@
 {
   "name": "workflow-orchestration",
-  "description": "Coordinates multi-step CI/CD pipelines by chaining autonomous-ci, code-review, smart-commit, and jules-integration plugins. Use when executing validation-to-PR workflows or recovering from CI failures",
-  "repo": "ANcpLua/ancplua-claude-plugins",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "joaquimscosta/arkhe-claude-plugins",
+  "path": "plugins/core/skills/workflow-orchestration/SKILL.md",
+  "source": "github.com/joaquimscosta/arkhe-claude-plugins",
+  "downloaded_at": "2026-01-29T04:09:43.314393Z"
 }

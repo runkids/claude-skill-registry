@@ -1,15 +1,7 @@
 {
   "name": "security-headers-configuration",
-  "description": "Configure HTTP security headers including CSP, HSTS, X-Frame-Options, and XSS protection. Use when hardening web applications against common attacks.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "data",
-  "tags": [
-    "security",
-    "headers",
-    "configuration"
-  ],
-  "stars": 25,
-  "dir_name": "security-headers-configuration",
-  "github_path": "skills/security-headers-configuration",
-  "github_branch": "main"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/security-headers-configuration/skills/security-headers-configuration/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-29T03:11:06.083453Z"
 }

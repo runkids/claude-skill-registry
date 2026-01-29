@@ -1,42 +1,53 @@
 ---
 name: brainstorming
-description: Explores user intent, requirements, and design before implementation. Use before creating features, building components, or modifying behavior to turn ideas into designs through collaborative dialogue.
+description: Collaborative design exploration that refines ideas into validated specs through iterative questioning. Use before any creative work including creating features, building components, adding functionality, or modifying behavior.
 ---
 
 # Brainstorming Ideas Into Designs
 
-## When to use this skill
-- When the user has a vague idea or feature request.
-- Before writing any code or implementation plans.
-- When you need to understand purpose, constraints, and success criteria.
+## Overview
 
-## Workflow
-1.  **Understand the Idea**: Ask questions one at a time to refine the user's intent.
-2.  **Explore Approaches**: Propose 2-3 approaches with trade-offs.
-3.  **Present Design**: Present the design in small sections (200-300 words) for validation.
-4.  **Finalize**: Save the validated design to a markdown file.
+Help turn ideas into fully formed designs and specs through natural collaborative dialogue.
 
-## Instructions
+Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design in small sections (200-300 words), checking after each section whether it looks right so far.
 
-### 1. Understanding the Idea
-*   **Context First**: Check current project state (files, docs) before asking.
-*   **One Question at a Time**: Never overwhelm the user; ask one focused question per turn.
-*   **Multiple Choice**: When possible, offer options to choose from.
-*   **Focus**: Nail down the purpose, constraints, and success criteria.
+## The Process
 
-### 2. Exploring Approaches
-*   **Propose Alternatives**: Always offer 2-3 different ways to solve the problem (e.g., "Option A: Quick & Dirty", "Option B: Robust & Scalable").
-*   **Trade-offs**: Explain pros/cons of each.
-*   **Recommendation**: State which option you recommend and why.
+**Understanding the idea:**
+- Check out the current project state first (files, docs, recent commits)
+- Ask questions one at a time to refine the idea
+- Prefer multiple choice questions when possible, but open-ended is fine too
+- Only one question per message - if a topic needs more exploration, break it into multiple questions
+- Focus on understanding: purpose, constraints, success criteria
 
-### 3. Presenting the Design
-*   **Incremental**: Break the design into sections of 200-300 words.
-*   **Validation**: Stop after each section and ask: "Does this look right so far?"
-*   **Content**: Cover architecture, components, data flow, error handling, and testing.
+**Exploring approaches:**
+- Propose 2-3 different approaches with trade-offs
+- Present options conversationally with your recommendation and reasoning
+- Lead with your recommended option and explain why
 
-### 4. Output
-*   Once agreed, write the full design to `docs/plans/YYYY-MM-DD-<topic>-design.md`.
-*   Ask the user if they are ready to proceed to the **Planning** phase.
+**Presenting the design:**
+- Once you believe you understand what you're building, present the design
+- Break it into sections of 200-300 words
+- Ask after each section whether it looks right so far
+- Cover: architecture, components, data flow, error handling, testing
+- Be ready to go back and clarify if something doesn't make sense
 
-## Resources
-*   [Planning Skill](../planning/SKILL.md) - For converting the design into actionable tasks.
+## After the Design
+
+**Documentation:**
+- Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
+- Commit the design document to git
+
+**Implementation (if continuing):**
+- Ask: "Ready to set up for implementation?"
+- Use `using-git-worktrees` skill to create isolated workspace
+- Use `writing-plans skill` to create detailed implementation plan
+
+## Key Principles
+
+- **One question at a time** - Don't overwhelm with multiple questions
+- **Multiple choice preferred** - Easier to answer than open-ended when possible
+- **YAGNI ruthlessly** - Remove unnecessary features from all designs
+- **Explore alternatives** - Always propose 2-3 approaches before settling
+- **Incremental validation** - Present design in sections, validate each
+- **Be flexible** - Go back and clarify when something doesn't make sense

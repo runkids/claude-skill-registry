@@ -1,66 +1,34 @@
 ---
 name: create-branch
-description: Issue 番号に基づいて feature ブランチを自動作成する。「ブランチ作成」「ブランチを作って」「新しいブランチ」「feature ブランチ」「Issue からブランチ」「作業ブランチを作成」「ブランチ切って」などで起動。feature/[issue番号] 形式でブランチを作成。
-allowed-tools: [Read, Bash]
+description: Create timestamped topic branch.
+allowed-tools: Bash
+user-invocable: false
 ---
 
 # Create Branch
 
-Issue 番号に基づいて feature ブランチを自動作成します。
+Create a new timestamped topic branch.
 
-## ワークフロー
+## Instructions
 
-### 1. Issue 番号の確認
-
-ユーザーに Issue 番号を確認。または以下から推測:
-
-- 直前の会話コンテキスト
-- 「Issue #5 のブランチを作って」のような指示
-
-### 2. Issue 情報の取得
+Run the bundled script with a branch prefix:
 
 ```bash
-gh issue view {issue番号} --json title,labels
+bash .claude/skills/create-branch/sh/create.sh <prefix>
 ```
 
-### 3. ブランチ名の決定
+### Valid Prefixes
 
-**命名規則**:
+- **feat** - New feature
+- **fix** - Bug fix
+- **refact** - Refactoring
 
-| Issue タイプ | ブランチ形式 |
-|--------------|--------------|
-| 機能追加（enhancement） | `feature/{issue番号}` |
-| バグ修正（bug） | `fix/{issue番号}` |
-| ドキュメント（documentation） | `docs/{issue番号}` |
-| リファクタリング | `refactor/{issue番号}` |
-| その他 | `feature/{issue番号}` |
+### Output
 
-### 4. ブランチ作成
-
-```bash
-# main ブランチから最新を取得
-git fetch origin main
-git checkout main
-git pull origin main
-
-# 新しいブランチを作成
-git checkout -b feature/{issue番号}
-```
-
-### 5. 結果報告
+The script outputs the created branch name:
 
 ```
-ブランチ `feature/{issue番号}` を作成しました。
-
-関連 Issue: #{issue番号} - {issue タイトル}
-
-作業を開始できます。
+feat-20260120-205418
 ```
 
-## 重要な注意事項
-
-- ✅ main ブランチから派生
-- ✅ Issue 番号をブランチ名に含める
-- ✅ Issue タイプに応じたプレフィックス
-- ❌ 既存ブランチを上書きしない
-- ❌ main ブランチ以外から派生しない（明示的な指示がない限り）
+The branch is automatically checked out after creation.

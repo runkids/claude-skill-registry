@@ -1,195 +1,328 @@
 ---
 name: component
-description: Base skill for working with electronic components in this library. Use when adding new component types, manufacturer handlers, or working with MPN (Manufacturer Part Number) operations, BOM entries, or component classification.
+description: Generate React Native components following established conventions. Use when creating reusable UI components, form inputs, modals, cards, lists, or any UI elements.
 ---
 
-# Electronic Component Skill
+# Component Generator
 
-This skill provides guidance for working with electronic components in the lib-electronic-components library.
+Generate React Native components following established patterns.
 
-## Core Concepts
+## Directory Structure
 
-### Component Type Hierarchy
+```
+src/components/
+├── ComponentName/
+│   └── index.tsx           # Main component file
+├── ComplexComponent/
+│   ├── index.tsx           # Main component
+│   └── components/         # Sub-components
+│       ├── SubComponent1/
+│       └── SubComponent2/
+└── index.ts                # Barrel exports
+```
 
-Components are classified using `ComponentType` enum with two levels:
-- **Base types**: `RESISTOR`, `CAPACITOR`, `MOSFET`, `OPAMP`, etc.
-- **Manufacturer-specific types**: `MOSFET_INFINEON`, `CAPACITOR_CERAMIC_MURATA`, etc.
+## Component Template
 
-Use `getBaseType()` to map specific types to their base type.
+```tsx
+import React from 'react';
+import { View, Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
-### Key Classes
+import { cn } from '@/lib/utils';
 
-| Class | Purpose |
-|-------|---------|
-| `ComponentType` | Enum of ~200 component types with passive/semiconductor flags |
-| `ComponentManufacturer` | Enum of manufacturers with regex patterns |
-| `ManufacturerHandler` | Interface for manufacturer-specific MPN parsing |
-| `MPNUtils` | Static utilities for MPN normalization, similarity, type detection |
-| `BOMEntry` | Component entry in a bill of materials |
-
-## Adding a New Manufacturer Handler
-
-1. Create handler in `src/main/java/no/cantara/electronic/component/lib/manufacturers/`:
-
-```java
-public class NewMfrHandler implements ManufacturerHandler {
-    @Override
-    public void initializePatterns(PatternRegistry registry) {
-        registry.registerPattern(ComponentType.RESISTOR,
-            Pattern.compile("^NMF[0-9]{4}.*", Pattern.CASE_INSENSITIVE));
-    }
-
-    @Override
-    public String extractPackageCode(String mpn) { /* ... */ }
-
-    @Override
-    public String extractSeries(String mpn) { /* ... */ }
-
-    @Override
-    public boolean isOfficialReplacement(String mpn1, String mpn2) { return false; }
-
-    @Override
-    public Set<ManufacturerComponentType> getManufacturerTypes() { return Set.of(); }
-
-    @Override
-    public Set<ComponentType> getSupportedTypes() {
-        return Set.of(ComponentType.RESISTOR);
-    }
+export interface ComponentNameProps extends TouchableOpacityProps {
+  title: string;
+  variant?: 'primary' | 'secondary' | 'outline';
+  className?: string;
 }
+
+const ComponentName: React.FC<ComponentNameProps> = ({
+  title,
+  variant = 'primary',
+  className,
+  ...props
+}) => {
+  return (
+    <TouchableOpacity
+      className={cn(
+        'flex-row items-center justify-center rounded-2xl p-4',
+        variant === 'primary' && 'bg-primary',
+        variant === 'secondary' && 'bg-secondary',
+        variant === 'outline' && 'border-2 border-primary bg-transparent',
+        className,
+      )}
+      {...props}
+    >
+      <Text className="text-base font-semibold text-primary-foreground">{title}</Text>
+    </TouchableOpacity>
+  );
+};
+
+export default ComponentName;
 ```
 
-2. Add entry to `ComponentManufacturer` enum:
+## Variant Pattern
 
-```java
-NEW_MFR("(?:NMF)[0-9]", "New Manufacturer", new NewMfrHandler()),
+```tsx
+const getBgVariantStyle = (variant: ButtonProps['variant']) => {
+  switch (variant) {
+    case 'secondary':
+      return 'bg-secondary';
+    case 'danger':
+      return 'bg-destructive';
+    case 'success':
+      return 'bg-primary';
+    case 'outline':
+      return 'bg-card border-2 border-primary/15';
+    case 'text':
+      return 'bg-transparent';
+    default:
+      return 'bg-primary';
+  }
+};
+
+const getTextVariantStyle = (variant: ButtonProps['variant']) => {
+  switch (variant) {
+    case 'secondary':
+      return 'text-secondary-foreground';
+    case 'danger':
+      return 'text-destructive-foreground';
+    case 'outline':
+      return 'text-foreground';
+    case 'text':
+      return 'text-primary';
+    default:
+      return 'text-primary-foreground';
+  }
+};
 ```
 
-## Adding a New Component Type
+## ForwardRef Pattern (for inputs)
 
-1. Add to `ComponentType` enum with passive/semiconductor flags:
-```java
-NEW_TYPE(false, true),  // (isPassive, isSemiconductor)
-NEW_TYPE_MANUFACTURER(false, true),
+```tsx
+import React, { forwardRef, useState } from 'react';
+import { Text, TextInput, TextInputProps, View } from 'react-native';
+import { FieldError } from 'react-hook-form';
+
+import { cn } from '@/lib/utils';
+
+interface InputProps extends TextInputProps {
+  label?: string;
+  leftIcon?: React.ReactElement;
+  rightIcon?: React.ReactElement;
+  error?: FieldError;
+  className?: string;
+  inputClassName?: string;
+}
+
+const Input = forwardRef<TextInput, InputProps>(
+  ({ label, leftIcon, rightIcon, error, className, inputClassName, ...props }, ref) => {
+    const [isFocused, setIsFocused] = useState(false);
+
+    return (
+      <View className={cn('w-full gap-2', className)}>
+        {label && <Text className="text-base font-medium text-foreground">{label}</Text>}
+        <View
+          className={cn(
+            'flex flex-row items-center rounded-2xl border-2 bg-background px-4 py-3',
+            isFocused ? 'border-primary' : 'border-border',
+            error && 'border-destructive',
+          )}
+        >
+          {leftIcon && <View className="mr-2">{leftIcon}</View>}
+          <TextInput
+            ref={ref}
+            className={cn('flex-1 text-base text-foreground', inputClassName)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            placeholderTextColor="#999"
+            {...props}
+          />
+          {rightIcon && <View className="ml-2">{rightIcon}</View>}
+        </View>
+        {error && <Text className="text-sm text-destructive">{error.message}</Text>}
+      </View>
+    );
+  },
+);
+
+Input.displayName = 'Input';
+export default Input;
 ```
 
-2. Update `getBaseType()` switch to map specific types to base:
-```java
-case NEW_TYPE_INFINEON, NEW_TYPE_ST -> NEW_TYPE;
+## Modal Component Pattern
+
+```tsx
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import Modal from 'react-native-modal';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { X } from 'lucide-react-native';
+
+import { MODAL_ANIMATION_DURATION } from '@/constants/common';
+import Button from '../Button';
+
+interface MyModalProps {
+  isVisible: boolean;
+  onClose: () => void;
+  onConfirm: (data: SomeData) => void;
+}
+
+const MyModal: React.FC<MyModalProps> = ({ isVisible, onClose, onConfirm }) => {
+  const handleClose = () => {
+    onClose();
+  };
+
+  const handleConfirm = (data: SomeData) => {
+    setTimeout(() => {
+      onConfirm(data);
+    }, MODAL_ANIMATION_DURATION);
+    handleClose();
+  };
+
+  return (
+    <Modal
+      isVisible={isVisible}
+      onBackdropPress={handleClose}
+      animationIn="fadeInUp"
+      animationOut="fadeOutDown"
+      backdropTransitionOutTiming={0}
+      hideModalContentWhileAnimating={true}
+      useNativeDriverForBackdrop={true}
+      backdropOpacity={0.5}
+      style={{ justifyContent: 'flex-end', margin: 0 }}
+    >
+      <SafeAreaView className="rounded-t-2xl bg-background p-6">
+        <View className="mb-4 flex-row items-center justify-between">
+          <Text className="text-lg font-semibold text-foreground">Modal Title</Text>
+          <TouchableOpacity onPress={handleClose} className="p-1">
+            <X color="hsl(var(--muted-foreground))" size={20} />
+          </TouchableOpacity>
+        </View>
+        {/* Modal content */}
+        <Button title="Confirm" onPress={() => handleConfirm(data)} className="mt-4" />
+      </SafeAreaView>
+    </Modal>
+  );
+};
+
+export default MyModal;
 ```
 
-3. Add patterns in relevant manufacturer handlers
+## Collapsible List Pattern
 
-## MPN Operations
+```tsx
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react-native';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
-```java
-// Normalize MPN (removes special characters)
-String normalized = MPNUtils.normalize("LM358-N"); // "LM358N"
+import { cn } from '@/lib/utils';
+import { SHADOWS } from '@/constants/theme';
 
-// Strip package suffix to get base part number
-String base = MPNUtils.stripPackageSuffix("MAX3483EESA+"); // "MAX3483EESA"
-String base2 = MPNUtils.stripPackageSuffix("LTC2053HMS8#PBF"); // "LTC2053HMS8"
+interface Item {
+  id: string;
+  title: string;
+}
 
-// Generate search variations (for datasheet/component searches)
-List<String> vars = MPNUtils.getSearchVariations("TJA1050T/CM,118");
-// ["TJA1050T/CM,118", "TJA1050T"]
+interface CollapsibleListProps {
+  title: string;
+  items: Item[];
+  onRemove: (index: number) => void;
+}
 
-// Check component equivalence (ignoring package suffixes)
-boolean equiv = MPNUtils.isEquivalentMPN("LTC2053HMS8#PBF", "LTC2053HMS8#TR"); // true
+const CollapsibleList: React.FC<CollapsibleListProps> = ({ title, items, onRemove }) => {
+  const [isExpanded, setIsExpanded] = useState(true);
 
-// Extract package suffix
-Optional<String> suffix = MPNUtils.getPackageSuffix("MAX3483EESA+"); // Optional.of("+")
+  if (items.length === 0) return null;
 
-// Detect manufacturer
-ComponentManufacturer mfr = ComponentManufacturer.fromMPN("STM32F103C8T6");
+  return (
+    <View className="rounded-2xl bg-card p-4" style={SHADOWS.calm}>
+      <TouchableOpacity
+        onPress={() => setIsExpanded(!isExpanded)}
+        className="flex-row items-center justify-between"
+      >
+        <Text className="text-base font-semibold text-foreground">
+          {title} ({items.length})
+        </Text>
+        {isExpanded ? (
+          <ChevronUp color="hsl(var(--muted-foreground))" size={20} />
+        ) : (
+          <ChevronDown color="hsl(var(--muted-foreground))" size={20} />
+        )}
+      </TouchableOpacity>
 
-// Detect component type
-ComponentType type = ComponentType.fromMPN("IRF540N"); // MOSFET
+      {isExpanded && (
+        <Animated.View entering={FadeIn} exiting={FadeOut} className="mt-3 gap-2">
+          {items.map((item, index) => (
+            <View
+              key={item.id}
+              className="flex-row items-center justify-between rounded-xl bg-secondary p-3"
+            >
+              <Text className="text-sm text-foreground">{item.title}</Text>
+              <TouchableOpacity onPress={() => onRemove(index)}>
+                <Trash2 color="hsl(var(--destructive))" size={18} />
+              </TouchableOpacity>
+            </View>
+          ))}
+        </Animated.View>
+      )}
+    </View>
+  );
+};
 
-// Calculate similarity
-double sim = MPNUtils.calculateSimilarity("LM358", "MC1458"); // 0.9
+export default CollapsibleList;
 ```
 
-### Package Suffix Support
+## Shadows (CSS-in-JS)
 
-MPNUtils now supports manufacturer-specific package suffixes:
-- **Maxim/AD**: `+` (lead-free) - e.g., `MAX3483EESA+`
-- **Linear Tech**: `#PBF`, `#TR` (RoHS, Tape & Reel) - e.g., `LTC2053HMS8#PBF`
-- **NXP**: `/CM,118` (ordering codes) - e.g., `TJA1050T/CM,118`
-- **Various**: `,315` (ordering codes) - e.g., `NC7WZ04,315`
+```tsx
+import { SHADOWS } from '@/constants/theme';
 
-**Use cases:**
-- Datasheet searches: Try both original and base MPN
-- Component deduplication: Same base = same component
-- BOM validation: Match supplier MPNs to design MPNs
-- Inventory matching: Ignore packaging differences
+<View style={SHADOWS.calm} className="rounded-2xl bg-card p-4">
+  {/* Content */}
+</View>
 
-## Similarity Calculators
-
-Each component type can have a dedicated similarity calculator in `componentsimilaritycalculators/`:
-- `ResistorSimilarityCalculator` - compares resistance values, tolerances, packages
-- `CapacitorSimilarityCalculator` - compares capacitance, voltage, dielectric
-- `MosfetSimilarityCalculator` - compares Vds, Rds(on), package
-- etc.
-
-Implement `ComponentSimilarityCalculator` interface and add to list in `MPNUtils`.
-
-## Testing
-
-Run component-related tests:
-```bash
-mvn test -Dtest=MPNUtilsTest
-mvn test -Dtest=ComponentTypeDetectorTest
-mvn test -Dtest=MPNExtractionTest
+// Available: calm, calmLg, calmXl, none
 ```
 
-## Related Skills
+## Icons (lucide-react-native)
 
-Use specialized skills for specific component types:
-- `/resistor` - Resistor patterns and value extraction
-- `/capacitor` - Capacitor patterns and specifications
-- `/semiconductor` - Diodes, transistors, MOSFETs
-- `/ic` - Microcontrollers, op-amps, voltage regulators
-- `/connector` - Connector manufacturer patterns
-- `/memory` - Flash, EEPROM, RAM components
+```tsx
+import { ArrowLeft, Check, ChevronDown, X, Plus, Minus, Trash2 } from 'lucide-react-native';
 
-## See Also
+<ArrowLeft color="hsl(var(--primary))" size={20} />
+<Check color="hsl(var(--muted-foreground))" size={20} />
+```
 
-### Advanced Skills
-- `/handler-pattern-design` - Handler patterns, anti-patterns, and testing strategies
-- `/mpn-normalization` - MPN suffix handling and normalization patterns
-- `/component-type-detection-hierarchy` - Type hierarchy, specificity levels, getBaseType() mapping
-- `/component-spec-extraction` - Spec extraction patterns and naming conventions
-- `/manufacturer-detection-from-mpn` - Manufacturer regex patterns and detection ordering
+## Barrel Exports
 
-### Documentation
-- **HISTORY.md** - Handler bug patterns and fixes (PR #89, handler cleanup PRs #73-88)
-- **.docs/history/HANDLER_IMPLEMENTATION_PATTERNS.md** - Detailed handler development patterns
-- **.docs/history/BUG_FIX_ANALYSIS.md** - Critical bugs and prevention strategies
+```tsx
+// src/components/index.ts
+export { default as Button, type ButtonProps } from './Button';
+export { default as Input } from './Input';
+export { default as MyComponent, type MyComponentProps } from './MyComponent';
+export type { PickerOption } from './Picker';
+```
 
-## Recording Learnings
+## Theme Colors
 
-**Important**: When you discover quirks, edge cases, or important patterns while working on components:
+```
+bg-background / text-foreground     - Main background/text
+bg-primary / text-primary           - Brand primary
+bg-secondary / text-secondary       - Secondary
+bg-destructive / text-destructive   - Error/danger
+bg-muted / text-muted-foreground    - Muted elements
+bg-card                             - Card background
+border-border                       - Borders
+```
 
-1. **General/cross-cutting learnings** → Add to `CLAUDE.md` under "Learnings & Quirks"
-2. **Component-specific learnings** → Add to the relevant skill file below
+## Checklist
 
-Examples of what to record:
-- MPN patterns that don't follow expected conventions
-- Manufacturer-specific quirks in part numbering
-- Edge cases in similarity calculation
-- Test failures that revealed unexpected behavior
-- Regex patterns that needed adjustment
-
----
-
-## Learnings & Quirks
-
-### Handler Patterns
-- Use `registry.addPattern()` not `registry.registerPattern()` - the latter requires a compiled Pattern object
-- Handler order in `ComponentManufacturer` enum affects detection priority for ambiguous MPNs
-
-### MPN Edge Cases
-- Some MPNs contain hyphens that are significant (e.g., Molex `43045-0212`) vs decorative (e.g., `LM358-N`)
-- Yageo resistors: `RC0603FR-0710KL` - the `-07` is TCR code, not a separator
-
-<!-- Add new learnings above this line -->
+- [ ] Directory: `src/components/ComponentName/index.tsx`
+- [ ] TypeScript interface extending base RN props
+- [ ] NativeWind classes via `cn()` utility
+- [ ] `className` prop for customization
+- [ ] `SHADOWS` constant for shadows (not Tailwind shadow classes)
+- [ ] `lucide-react-native` for icons
+- [ ] Exported from `src/components/index.ts`
+- [ ] ForwardRef for ref-needing components

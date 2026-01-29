@@ -1,7 +1,7 @@
 {
   "category": "product",
-  "count": 1081,
-  "updated_at": "2026-01-28T04:46:46.904173Z",
+  "count": 1079,
+  "updated_at": "2026-01-29T04:49:19.477200Z",
   "skills": [
     {
       "name": "using-git-worktrees",
@@ -939,21 +939,6 @@
       ],
       "stars": 2,
       "install": "mehdic/bazinga/.claude/skills/quality-dashboard",
-      "source": "local"
-    },
-    {
-      "name": "quality-dashboard",
-      "description": "Unified project health dashboard aggregating all quality metrics",
-      "repo": "mehdic/bazinga",
-      "path": "data/quality-dashboard",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "quality",
-        "dashboard"
-      ],
-      "stars": 2,
-      "install": "mehdic/bazinga",
       "source": "local"
     },
     {
@@ -4057,21 +4042,6 @@
       "description": "Creates Jira tickets with proper formatting, acceptance criteria, and optionally sets up git branches and pull requests. Use when users want to create a new ticket, log a bug, request a feature, or wh",
       "repo": "IHKREDDY/agent-skills-ts",
       "path": "product/create-ticket",
-      "branch": "main",
-      "category": "product",
-      "tags": [
-        "create",
-        "ticket"
-      ],
-      "stars": 0,
-      "install": "IHKREDDY/agent-skills-ts",
-      "source": "local"
-    },
-    {
-      "name": "create-ticket",
-      "description": "Creates Jira tickets with proper formatting, acceptance criteria, and optionally sets up git branches and pull requests. Use when users want to create a new ticket, log a bug, request a feature, or wh",
-      "repo": "IHKREDDY/agent-skills-ts",
-      "path": "data/create-ticket",
       "branch": "main",
       "category": "product",
       "tags": [

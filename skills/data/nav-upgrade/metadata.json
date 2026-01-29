@@ -1,9 +1,7 @@
 {
   "name": "nav-upgrade",
-  "description": "Automates Navigator plugin updates. Detects current version, updates plugin, verifies installation, updates project CLAUDE.md, and validates new features. Auto-invoke when user mentions upgrading Navi",
   "repo": "dkyazzentwatwa/SuperNavigator",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/dkyazzentwatwa/SuperNavigator"
+  "path": "skills/os-layer/project-management/nav-upgrade/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/SuperNavigator",
+  "downloaded_at": "2026-01-29T02:32:25.271339Z"
 }

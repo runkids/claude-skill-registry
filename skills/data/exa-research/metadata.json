@@ -1,9 +1,7 @@
 {
   "name": "exa-research",
-  "description": "Use Exa AI for neural search, content retrieval, and automated deep research. Requires EXA_API_KEY.",
-  "repo": "closedloop-technologies/awesome-deep-researchers",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/closedloop-technologies/awesome-deep-researchers"
+  "repo": "ahonn/dotfiles",
+  "path": ".claude/skills/exa-research/SKILL.md",
+  "source": "github.com/ahonn/dotfiles",
+  "downloaded_at": "2026-01-29T04:36:13.909798Z"
 }

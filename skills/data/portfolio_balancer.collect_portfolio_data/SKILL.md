@@ -1,6 +1,6 @@
 ---
 name: portfolio_balancer.collect_portfolio_data
-description: "Gather current portfolio positions, values, and prices from Robinhood"
+description: "Gather current portfolio positions, values, and prices from Robinhood using bin/robinhood CLI"
 user-invocable: false
 ---
 
@@ -13,7 +13,7 @@ user-invocable: false
 
 ## Instructions
 
-**Goal**: Gather current portfolio positions, values, and prices from Robinhood
+**Goal**: Gather current portfolio positions, values, and prices from Robinhood using bin/robinhood CLI
 
 # Collect Portfolio Data
 
@@ -23,29 +23,33 @@ Gather current portfolio positions, values, and prices from Robinhood to create 
 
 ## Task
 
-Collect all portfolio data needed to analyze the Permanent Portfolio allocation. This step supports two data collection methods: Claude Chrome extension (browser automation) or manual CSV/PDF upload.
+Collect all portfolio data needed to analyze the Permanent Portfolio allocation using the `bin/robinhood` CLI.
 
 ### Process
 
 1. **Ask structured questions to gather user inputs**
    Use the AskUserQuestion tool to collect:
-   - `data_source`: "chrome" for Claude Chrome extension, "upload" for manual file
    - `drift_threshold`: Percentage that triggers rebalancing (e.g., 5 or 10)
    - `satellite_enabled`: Whether to track satellite stock picks separately
 
-2. **Collect portfolio data based on data source**
+2. **Collect portfolio data using the Robinhood CLI**
 
-   **Option A: Chrome Extension (data_source = "chrome")**
-   - Use Claude in Chrome tools to navigate to Robinhood
-   - Navigate to the portfolio/positions page
-   - Extract all holdings with quantities and current values
-   - Capture margin usage if applicable
-   - Download or scrape the data into structured format
+   Run the positions command to save today's snapshot:
+   ```bash
+   bin/robinhood positions --save
+   ```
 
-   **Option B: Manual Upload (data_source = "upload")**
-   - Ask the user to provide their Robinhood export file (CSV or PDF)
-   - Parse the uploaded file to extract positions
-   - Handle both CSV format (direct parsing) and PDF format (text extraction)
+   This command is **idempotent** - it will skip if today's snapshot already exists.
+   Use `--force` to overwrite an existing snapshot.
+
+   If not authenticated, prompt user to run `bin/robinhood auth` first.
+
+   **Snapshot location**: `portfolio_balancer/data/snapshots/YYYY-MM-DD.json`
+
+   **Fallback: Manual Upload**
+   If the CLI is unavailable, ask for a Robinhood export file (CSV or PDF).
+
+   **Note**: Chrome extension browser automation is NOT supported - Robinhood blocks automated access.
 
 3. **Categorize holdings into Permanent Portfolio asset classes**
    - **Stocks**: Individual stocks, stock ETFs (e.g., VTI, SPY, VOO)
@@ -177,7 +181,7 @@ to perform in different economic conditions:
 - Cash/Treasuries (25%): Tight Money/Recession
 
 This workflow:
-1. Collects portfolio data via Claude Chrome extension (Robinhood) or manual CSV/PDF upload
+1. Collects portfolio data via `bin/robinhood positions --save` CLI
 2. Analyzes current allocation against 25/25/25/25 targets
 3. Tracks satellite stock picks (optional 10-20% of stock allocation)
 4. Evaluates margin usage efficiency vs fees paid
@@ -191,7 +195,6 @@ All recommendations require manual review and execution.
 ## Required Inputs
 
 **User Parameters** - Gather from user before starting:
-- **data_source**: How to collect data: 'chrome' for Claude Chrome extension, 'upload' for manual CSV/PDF
 - **drift_threshold**: Percentage drift that triggers rebalancing recommendations (e.g., 5 or 10)
 - **satellite_enabled**: Whether to track satellite stock picks separately (true/false)
 
@@ -206,6 +209,7 @@ Use branch format: `deepwork/portfolio_balancer-[instance]-YYYYMMDD`
 ## Outputs
 
 **Required outputs**:
+- `portfolio_balancer/data/snapshots/[DATE].json`
 - `portfolio_balancer/data/portfolio_snapshot.yml`
 
 ## Guardrails
@@ -218,7 +222,7 @@ Use branch format: `deepwork/portfolio_balancer-[instance]-YYYYMMDD`
 ## On Completion
 
 1. Verify outputs are created
-2. Inform user: "Step 1/4 complete, outputs: portfolio_balancer/data/portfolio_snapshot.yml"
+2. Inform user: "Step 1/4 complete, outputs: portfolio_balancer/data/snapshots/[DATE].json, portfolio_balancer/data/portfolio_snapshot.yml"
 3. **Continue workflow**: Use Skill tool to invoke `/portfolio_balancer.analyze_allocation`
 
 ---

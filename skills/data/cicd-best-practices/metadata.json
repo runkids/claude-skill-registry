@@ -1,9 +1,7 @@
 {
   "name": "cicd-best-practices",
-  "description": "Use when optimizing GitLab CI/CD pipelines for performance, reliability, or maintainability. Covers pipeline optimization and organizational patterns.",
   "repo": "TheBushidoCollective/han",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/TheBushidoCollective/han"
+  "path": "jutsu/jutsu-gitlab-ci/skills/cicd-best-practices/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-29T04:12:54.872219Z"
 }

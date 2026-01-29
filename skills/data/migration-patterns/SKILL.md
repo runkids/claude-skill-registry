@@ -1,199 +1,189 @@
 ---
 name: migration-patterns
-description: Query Angular migration patterns and examples. Use when looking up patterns (table, form, dialog, layout, button, store) or asking questions about migration guidelines.
+description: Database migration creation with mandatory RLS policies and ARCHitect approval workflow. Use when creating migrations, adding tables with RLS, or updating Prisma schema.
 ---
 
-Query Angular migration patterns and examples. This skill loads the migration documentation and helps with pattern lookup and answering migration questions.
+# Migration Patterns Skill
 
-## Arguments
+## Purpose
 
-- `$ARGUMENTS` - Query keyword or question:
-  - `table` - Table migration patterns (CommonTableComponent)
-  - `form` - Form patterns (validators, NonNullableFormBuilder)
-  - `dialog` - Dialog patterns (config, loading, viewContainerRef)
-  - `layout` - Page layout (gl-page-content, content-wrapper)
-  - `button` - Button patterns (mat-flat-button, loading states)
-  - `ddd` - DDD architecture (domain/features/ui/shell)
-  - `api` - API type definitions
-  - `store` - SignalStore patterns
-  - `syntax` - Angular 20 syntax (@if, @for, inject, signal)
-  - `validator` - OneValidators usage
-  - `error` - Error handling patterns
-  - `pitfall` - Common pitfalls to avoid
-  - Or ask any question about migration
+Guide database migration creation with mandatory RLS policies, following security-first architecture and approval workflow.
 
-**Note:** For code review/linting, use `/migration-lint` instead.
+## When This Skill Applies
 
-## Workflow
+Invoke this skill when:
 
-### Step 1: Load Relevant Documentation
+- Creating database migrations
+- Adding new tables (all tables need RLS)
+- Updating Prisma schema
+- Adding GRANT statements
+- Schema impact analysis
+- Data migration planning
 
-Based on the query, read the appropriate documentation files from `rules/`:
+## Stop-the-Line Conditions
 
-| Query | Files to Read |
-|-------|---------------|
-| `table` | tables/basics.md, tables/columns.md, tables/advanced.md |
-| `form` | forms/validators.md, forms/patterns.md, ui/forms.md |
-| `dialog` | ui/dialogs.md |
-| `layout` | ui/page-layout.md |
-| `button` | ui/buttons.md |
-| `ddd` | ddd-architecture.md |
-| `api` | api-types.md |
-| `store` | state-management.md |
-| `syntax` | angular-syntax.md |
-| `validator` | forms/validators.md |
-| `error` | forms/error-handling.md |
-| `pitfall` | pitfalls/index.md |
+### FORBIDDEN Patterns
 
-### Step 2: Process Query
+```sql
+-- FORBIDDEN: RLS policies in separate file
+-- RLS MUST be in the same migration.sql file as the table creation
 
-**For keyword queries (table, form, etc.):**
-- Summarize the key patterns and rules
-- Provide code examples
-- List common mistakes to avoid
+-- FORBIDDEN: Table without RLS
+CREATE TABLE user_data (...);
+-- Missing: ALTER TABLE user_data ENABLE ROW LEVEL SECURITY;
 
-**For questions:**
-- Search through all migration docs
-- Provide specific answers with code examples
-- Reference the source document
+-- FORBIDDEN: Resolve applied migrations
+npx prisma migrate resolve --applied "migration_name"
+-- This bypasses migration verification
 
-## Quick Reference
+-- FORBIDDEN: Missing user_id index
+CREATE TABLE payments (...);
+-- Missing: CREATE INDEX idx_payments_user_id ON payments(user_id);
 
-### Table Components (UI Layer)
-
-```typescript
-// Required imports for custom column templates
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
-
-@Component({
-  imports: [
-    CommonTableComponent,
-    MatSortModule,   // Required for mat-sort-header
-    MatTableModule,  // Required for matColumnDef, *matCellDef
-  ]
-})
+-- FORBIDDEN: Schema changes without ARCHitect approval
+-- All migrations require approval before PR
 ```
 
-### Form Validation
+### CORRECT Patterns
 
-```typescript
-import { OneValidators } from '@one-ui/mxsecurity/shared/domain';
+```sql
+-- CORRECT: Complete migration with RLS in same file
+CREATE TABLE user_data (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id TEXT NOT NULL,
+  data JSONB,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
 
-// Correct
-this.#fb.group({
-  name: ['', [OneValidators.required, OneValidators.maxLength(32)]],
-  ip: ['', [OneValidators.required, ipv4Validator]]
-});
+-- Enable RLS (SAME FILE - MANDATORY)
+ALTER TABLE user_data ENABLE ROW LEVEL SECURITY;
+
+-- User policy
+CREATE POLICY user_data_user_select ON user_data
+  FOR SELECT TO {PROJECT}_app_user
+  USING (user_id = current_setting('app.current_user_id', true));
+
+-- Index for RLS performance (MANDATORY)
+CREATE INDEX idx_user_data_user_id ON user_data(user_id);
+
+-- Grant permissions
+GRANT SELECT, INSERT, UPDATE ON user_data TO {PROJECT}_app_user;
 ```
 
-### Form Field Tooltip (mxLabelTooltip)
+## Migration Workflow (MANDATORY)
 
-**DO NOT use `mat-icon` with `matTooltip`**. Use `mxLabelTooltip` directive on `mat-label` instead.
+### Step 1: Get ARCHitect Approval
 
-```html
-<!-- WRONG - Don't use mat-icon with info tooltip -->
-<div class="form-row">
-  <mat-form-field>
-    <mat-label>{{ t('field.label') }}</mat-label>
-    <mat-select formControlName="field">...</mat-select>
-  </mat-form-field>
-  <mat-icon class="info-icon" [matTooltip]="t('field.hint')">info</mat-icon>
-</div>
+Before ANY schema change:
 
-<!-- CORRECT - Use mxLabelTooltip -->
-<mat-form-field>
-  <mat-label mxLabel [mxLabelTooltip]="t('field.hint')">
-    {{ t('field.label') }}
-  </mat-label>
-  <mat-select formControlName="field">...</mat-select>
-</mat-form-field>
+```text
+1. Document proposed changes
+2. Get ARCHitect approval (create issue or discussion)
+3. Only proceed after explicit approval
 ```
 
-**Required import:**
+### Step 2: Create Migration
 
-```typescript
-import { MxLabelDirective } from '@moxa/formoxa/mx-label';
+```bash
+# Generate migration
+npx prisma migrate dev --name descriptive_name
 
-@Component({
-  imports: [MxLabelDirective]
-})
+# Verify migration file created
+ls prisma/migrations/
 ```
 
-### Button Types
+### Step 3: Add RLS to Migration
 
-```html
-<!-- Form submit button -->
-<button mat-flat-button color="primary" type="submit">Apply</button>
+Edit the generated migration to include:
 
-<!-- Table toolbar button -->
-<button mat-stroked-button>Create</button>
+- [ ] `ALTER TABLE ... ENABLE ROW LEVEL SECURITY`
+- [ ] User SELECT policy
+- [ ] User INSERT policy (if applicable)
+- [ ] User UPDATE policy (if applicable)
+- [ ] Admin policies (if needed)
+- [ ] System policies (for background jobs)
+- [ ] Index on user_id column
+- [ ] GRANT statements
+
+### Step 4: Verify Locally
+
+```bash
+# Test migration
+DATABASE_URL="..." npx prisma migrate dev
+
+# Verify RLS is enabled
+psql -c "SELECT tablename, rowsecurity FROM pg_tables WHERE schemaname = 'public';"
 ```
 
-### Page Layout
+### Step 5: Update Documentation
 
-```html
-<div *transloco="let t" class="gl-page-content">
-  <one-ui-breadcrumb />
-  <mx-page-title [title]="t('page.title')" />
+After successful migration:
 
-  <div class="content-wrapper">
-    <!-- content here -->
-  </div>
-</div>
+- [ ] Update `docs/database/DATA_DICTIONARY.md` (MANDATORY)
+- [ ] Update RLS policy catalog if new policies added
+- [ ] Document in Linear ticket
+
+## RLS Policy Templates
+
+### User Read Policy
+
+```sql
+CREATE POLICY {table}_user_select ON {table}
+  FOR SELECT TO {PROJECT}_app_user
+  USING (user_id = current_setting('app.current_user_id', true));
 ```
 
-### Card Container (IMPORTANT)
+### User Write Policy
 
-**DO NOT use `<mat-card>`**. Always use `class="content-wrapper"` instead.
-
-```html
-<!-- WRONG - Don't use mat-card -->
-<mat-card>
-  <mat-card-header>...</mat-card-header>
-  <mat-card-content>...</mat-card-content>
-</mat-card>
-
-<!-- CORRECT - Use content-wrapper -->
-<div class="content-wrapper">
-  <!-- content here -->
-</div>
-
-<!-- If you need mat-card structure, add content-wrapper class -->
-<mat-card class="content-wrapper">
-  <mat-card-header>...</mat-card-header>
-  <mat-card-content>...</mat-card-content>
-</mat-card>
+```sql
+CREATE POLICY {table}_user_insert ON {table}
+  FOR INSERT TO {PROJECT}_app_user
+  WITH CHECK (user_id = current_setting('app.current_user_id', true));
 ```
 
-The `content-wrapper` class provides:
-- Consistent padding (16px)
-- Border radius (8px)
-- Surface background color
-- Gap between child elements (8px)
+### Admin Policy
 
-### Dialog Config
-
-```typescript
-import { mediumDialogConfig } from '@one-ui/mxsecurity/shared/domain';
-
-this.#dialog.open(MyDialog, {
-  ...mediumDialogConfig,
-  data: dialogData,
-  viewContainerRef: this.#viewContainerRef  // Required if dialog uses store
-});
+```sql
+CREATE POLICY {table}_admin_all ON {table}
+  FOR ALL TO {PROJECT}_app_user
+  USING (current_setting('app.user_role', true) = 'admin');
 ```
 
-## Output Format
+### System Policy (Background Jobs)
 
-### For keyword queries:
-Provide a concise summary with:
-1. Key rules (do's and don'ts)
-2. Code examples
-3. Common mistakes
+```sql
+CREATE POLICY {table}_system_all ON {table}
+  FOR ALL TO {PROJECT}_app_user
+  USING (current_setting('app.context_type', true) = 'system');
+```
 
-### For questions:
-Provide the answer with:
-1. Direct answer
-2. Code example
-3. Source reference (which doc file)
+## Migration Checklist
+
+Before PR:
+
+- [ ] ARCHitect approval obtained
+- [ ] RLS policies in same migration file
+- [ ] User policies created
+- [ ] user_id index created
+- [ ] GRANT statements added
+- [ ] Local migration test passed
+- [ ] DATA_DICTIONARY.md updated
+- [ ] Evidence attached to Linear
+
+## PROD Migration Requirements
+
+For production migrations:
+
+- [ ] @cheddarfox must be present (MANDATORY)
+- [ ] Backup taken before migration
+- [ ] Rollback plan documented
+- [ ] Post-migration validation steps defined
+- [ ] Data integrity checks planned
+
+## Authoritative References
+
+- **Migration SOP**: `docs/database/RLS_DATABASE_MIGRATION_SOP.md` (MANDATORY)
+- **Data Dictionary**: `docs/database/DATA_DICTIONARY.md` (update after changes)
+- **RLS Implementation**: `docs/database/RLS_IMPLEMENTATION_GUIDE.md`
+- **RLS Policies**: `docs/database/RLS_POLICY_CATALOG.md`
+- **Security First**: `docs/guides/SECURITY_FIRST_ARCHITECTURE.md`

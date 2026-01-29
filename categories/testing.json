@@ -1,7 +1,7 @@
 {
   "category": "testing",
-  "count": 4080,
-  "updated_at": "2026-01-28T04:46:46.239953Z",
+  "count": 4060,
+  "updated_at": "2026-01-29T04:49:18.784023Z",
   "skills": [
     {
       "name": "frontend-testing-langgenius-dify",
@@ -684,22 +684,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "data-stats-analysis",
-      "description": "Perform statistical tests, hypothesis testing, correlation analysis, and multiple testing corrections using scipy and statsmodels. Works with ANY LLM provider (GPT, Gemini, Claude, etc.).",
-      "repo": "Starlitnightly/omicverse",
-      "path": "data/data-stats-analysis",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "data",
-        "stats",
-        "analysis"
-      ],
-      "stars": 783,
-      "install": "Starlitnightly/omicverse",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "run-tests",
       "description": ">",
       "repo": "DataDog/dd-trace-py",
@@ -926,22 +910,6 @@
       ],
       "stars": 334,
       "install": "taylorsatula/mira-OSS/.claude/skills/contextvar-opportunity-finder",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "contextvar-opportunity-finder",
-      "description": "Detect explicit user_id parameters in functions to identify potential opportunities for using ambient context. This is an investigation tool that flags instances for human review, not a prescriptive a",
-      "repo": "taylorsatula/mira-OSS",
-      "path": "data/contextvar-opportunity-finder",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "contextvar",
-        "opportunity",
-        "finder"
-      ],
-      "stars": 334,
-      "install": "taylorsatula/mira-OSS",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -3401,21 +3369,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "backend-test",
-      "description": "Generate backend tests (unit, integration, mocks). Auto-invoke when user says \"write test for\", \"add test\", \"test this\", or \"create test\".",
-      "repo": "alekspetrov/navigator",
-      "path": "data/backend-test",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "backend",
-        "test"
-      ],
-      "stars": 46,
-      "install": "alekspetrov/navigator",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "testing-coverage",
       "description": "Your approach to handling testing coverage. Use this skill when working on files where testing coverage comes into play.",
       "repo": "nanorepublica/django-prodserver",
@@ -5589,23 +5542,6 @@
       ],
       "stars": 15,
       "install": "AnySoftKeyboard/janus/.claude/skills/write-app-change-log",
-      "source": "local"
-    },
-    {
-      "name": "write-app-change-log",
-      "description": "Generates and updates the latest app changelog based on git history since the last version tag.",
-      "repo": "AnySoftKeyboard/janus",
-      "path": "data/write-app-change-log",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "write",
-        "app",
-        "change",
-        "log"
-      ],
-      "stars": 15,
-      "install": "AnySoftKeyboard/janus",
       "source": "local"
     },
     {
@@ -8396,21 +8332,6 @@
       "source": "local"
     },
     {
-      "name": "mcp-playwright",
-      "description": "This skill provides guidance for using Playwright MCP for browser automation. Use when navigating web pages, interacting with web elements, taking screenshots, filling forms, running browser tests, or",
-      "repo": "s-hiraoku/vscode-sidebar-terminal",
-      "path": "data/mcp-playwright",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "mcp",
-        "playwright"
-      ],
-      "stars": 6,
-      "install": "s-hiraoku/vscode-sidebar-terminal",
-      "source": "local"
-    },
-    {
       "name": "reclassify-tests",
       "description": "Reclassify tests by adding @pytest.mark.functionality to tests not explicitly shown in the spec. Invoke with /reclassify-tests <problem> <checkpoint>.",
       "repo": "SprocketLab/slop-code-bench",
@@ -8970,21 +8891,6 @@
       "source": "local"
     },
     {
-      "name": "ipynb-validator",
-      "description": "Validate Jupyter notebooks (.ipynb files) for production readiness. Checks smart links consistency, layout structure, transition cells with action cards, numbered part flow, cell ordering, and overall",
-      "repo": "ddttom/webcomponents-with-eds",
-      "path": "data/ipynb-validator",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "ipynb",
-        "validator"
-      ],
-      "stars": 5,
-      "install": "ddttom/webcomponents-with-eds",
-      "source": "local"
-    },
-    {
       "name": "jupyter-notebook-testing",
       "description": "Create and manage Jupyter notebooks for testing Adobe Edge Delivery Services (EDS) blocks interactively in the browser using the ipynb-viewer block. Interactive JavaScript execution, overlay previews ",
       "repo": "ddttom/webcomponents-with-eds",
@@ -9076,21 +8982,6 @@
       ],
       "stars": 5,
       "install": "dbmcco/claude-agent-toolkit/skills/perplexity-research",
-      "source": "local"
-    },
-    {
-      "name": "perplexity-research",
-      "description": "Use when conducting web research with Perplexity API - covers authentication, search strategies, structured output generation, and integration patterns for Claude-interpretable results",
-      "repo": "dbmcco/claude-agent-toolkit",
-      "path": "data/perplexity-research",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "perplexity",
-        "research"
-      ],
-      "stars": 5,
-      "install": "dbmcco/claude-agent-toolkit",
       "source": "local"
     },
     {
@@ -9491,23 +9382,6 @@
       ],
       "stars": 4,
       "install": "Ronin15/SDL3_HammerEngine_Template/.claude/skills/hammer-test-suite-generator",
-      "source": "local"
-    },
-    {
-      "name": "hammer-test-suite-generator",
-      "description": "Generates complete test suite infrastructure (test scripts, functional tests, benchmark tests, output directories, CMake integration) for a new SDL3 HammerEngine system or manager following project co",
-      "repo": "Ronin15/SDL3_HammerEngine_Template",
-      "path": "data/hammer-test-suite-generator",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "hammer",
-        "test",
-        "suite",
-        "generator"
-      ],
-      "stars": 4,
-      "install": "Ronin15/SDL3_HammerEngine_Template",
       "source": "local"
     },
     {
@@ -10383,22 +10257,6 @@
       "source": "local"
     },
     {
-      "name": "quality-unit-testing",
-      "description": "Write high-quality Rust unit tests following best practices. Use when writing new tests, reviewing test code, or improving test quality. Emphasizes clear naming, AAA pattern, isolation, and deployment",
-      "repo": "d-o-hub/rust-self-learning-memory",
-      "path": "data/quality-unit-testing",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "quality",
-        "unit",
-        "testing"
-      ],
-      "stars": 3,
-      "install": "d-o-hub/rust-self-learning-memory",
-      "source": "local"
-    },
-    {
       "name": "scale-game-huydepzai121-skill",
       "description": "Test at extremes (1000x bigger/smaller, instant/year-long) to expose fundamental truths hidden at normal scales",
       "repo": "huydepzai121/skill",
@@ -10927,22 +10785,6 @@
       ],
       "stars": 2,
       "install": "RogueRope/docs/.claude/skills/content-strategic-review",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "content-strategic-review",
-      "description": "Comprehensive content strategy review from reader's perspective. Acts as Chief Web Editor + Technical Writer to audit site clarity, practical information completeness, instructional quality, informati",
-      "repo": "RogueRope/docs",
-      "path": "data/content-strategic-review",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "content",
-        "strategic",
-        "review"
-      ],
-      "stars": 2,
-      "install": "RogueRope/docs",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -11652,22 +11494,6 @@
       ],
       "stars": 2,
       "install": "mehdic/bazinga/.claude/skills/test-pattern-analysis",
-      "source": "local"
-    },
-    {
-      "name": "test-pattern-analysis",
-      "description": "Analyze existing tests to identify patterns, fixtures, and conventions before writing new tests",
-      "repo": "mehdic/bazinga",
-      "path": "data/test-pattern-analysis",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "test",
-        "pattern",
-        "analysis"
-      ],
-      "stars": 2,
-      "install": "mehdic/bazinga",
       "source": "local"
     },
     {
@@ -13473,22 +13299,6 @@
       ],
       "stars": 1,
       "install": "fotescodev/portfolio/.claude/skills/gandalf-the-prompt",
-      "source": "local"
-    },
-    {
-      "name": "gandalf-the-prompt",
-      "description": "Audits prompts and skills against Claude best practices. Finds clarity issues, structural problems, and enhancement opportunities. Provides fixes and grades.",
-      "repo": "fotescodev/portfolio",
-      "path": "data/gandalf-the-prompt",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "gandalf",
-        "the",
-        "prompt"
-      ],
-      "stars": 1,
-      "install": "fotescodev/portfolio",
       "source": "local"
     },
     {
@@ -29670,18 +29480,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "ha-integration-reviewer",
-      "description": "严格的 Home Assistant 集成代码审查。用于提交 PR 前的全面检查，包括 Quality Scale 规则验证、代码风格、Config Flow、测试覆盖和文档。当用户说\"审查我的 HA 集成\"、\"检查我的代码是否符合 HA 规范\"、\"帮我 review 一下准备提交的代码\"时触发。",
-      "repo": "niracler/skill",
-      "path": "data/ha-integration-reviewer",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "niracler/skill",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "happyflow-generator",
       "description": "Automatically generate and execute Python test scripts from OpenAPI specifications",
       "repo": "Chaim12345/happyflow-generator-skill",
@@ -32944,18 +32742,6 @@
       "tags": [],
       "stars": 0,
       "install": "TheCardGoat/tcg-engines/.claude/skills/lorcana-test-generation",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "lorcana-test-generation",
-      "description": "Generate basic happy-path tests for Lorcana card abilities. Tests verify ability behavior only - NO property validation tests. Use when implementing or updating card tests. Effects are tested separate",
-      "repo": "TheCardGoat/tcg-engines",
-      "path": "data/lorcana-test-generation",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "TheCardGoat/tcg-engines",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -38487,21 +38273,6 @@
       "source": "local"
     },
     {
-      "name": "playwright-e2e",
-      "description": "Visual E2E testing workflow for frontend UI changes. Use after modifying Svelte components, layouts, or styles to verify the UI renders correctly.",
-      "repo": "TrevorS/strieber-gpt-3",
-      "path": "data/playwright-e2e",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "playwright",
-        "e2e"
-      ],
-      "stars": 0,
-      "install": "TrevorS/strieber-gpt-3",
-      "source": "local"
-    },
-    {
       "name": "playwright-flow-recorder",
       "description": "Creates Playwright test scripts from natural language user flow descriptions. This skill should be used when generating E2E tests from scenarios, converting user stories to test code, recording user f",
       "repo": "hopeoverture/worldbuilding-app-skills",
@@ -40966,18 +40737,6 @@
       "tags": [],
       "stars": 0,
       "install": "TheBushidoCollective/han/jutsu/jutsu-react-native-web/skills/react-native-web-testing",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "react-native-web-testing",
-      "description": "Use when testing React Native Web applications. Provides patterns for Jest, React Native Testing Library, component testing, and web-specific testing strategies.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/react-native-web-testing",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -43797,18 +43556,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "shfmt-configuration",
-      "description": "Use when configuring shfmt for shell script formatting including .shfmt.toml setup, EditorConfig integration, and project-specific settings.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/shfmt-configuration",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "shopify-api-patterns",
       "description": "Common Shopify Admin GraphQL API patterns for product queries, metafield operations, webhooks, and bulk operations. Auto-invoked when working with Shopify API integration.",
       "repo": "sarojpunde/shopify-dev-toolkit-claude-plugins",
@@ -45305,18 +45052,6 @@
       "tags": [],
       "stars": 0,
       "install": "joaquimscosta/arkhe-claude-plugins/plugins/spring-boot/skills/spring-boot-modulith",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "spring-boot-modulith",
-      "description": "Spring Modulith 2.0 implementation for bounded contexts in Spring Boot 4. Use when structuring application modules, implementing @ApplicationModuleListener for event-driven communication, testing with",
-      "repo": "joaquimscosta/arkhe-claude-plugins",
-      "path": "data/spring-boot-modulith",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "joaquimscosta/arkhe-claude-plugins",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -49826,21 +49561,6 @@
       "source": "local"
     },
     {
-      "name": "testing-standards",
-      "description": "Testing conventions, test runner configurations, coverage requirements, and failure interpretation for the Klassenzeit monorepo.",
-      "repo": "Spycner/Klassenzeit",
-      "path": "data/testing-standards",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "testing",
-        "standards"
-      ],
-      "stars": 0,
-      "install": "Spycner/Klassenzeit",
-      "source": "local"
-    },
-    {
       "name": "testing-strategies",
       "description": "Provides test design patterns, coverage strategies, and best practices for comprehensive test suite development",
       "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
@@ -50849,18 +50569,6 @@
       "tags": [],
       "stars": 0,
       "install": "olehsvyrydov/AI-development-team/claude/skills/compliance/regions/uk/uk-accountant",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "uk-accountant",
-      "description": "Inga (Ledger-AI) - Senior UK Accountant & Strategic CFO with 20+ years experience in UK tech sector. Use for tax planning, VAT compliance, R&D tax credits, financial forecasting, IR35 assessment, or a",
-      "repo": "olehsvyrydov/AI-development-team",
-      "path": "data/uk-accountant",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "olehsvyrydov/AI-development-team",
       "source": "SkillsMP + GitHub Raw"
     },
     {

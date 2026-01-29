@@ -1,33 +1,49 @@
 ---
 name: readme
-description: Update the project README.md with comprehensive documentation based on the current codebase state. Use when the README needs updating or is outdated.
-disable-model-invocation: true
+description: Guidelines for writing and editing Plain package READMEs. Use this when creating or updating README files.
 ---
 
-# Update README
+# README Guidelines
 
-Update the project README.md with comprehensive documentation.
+Each top-level package directory (e.g., `plain-api/`) has a `README.md` symlink pointing to the actual README inside the package (e.g., `plain-api/plain/api/README.md`). **Only edit the README inside the package itself.**
 
-1. **Analyze Project Structure and State**
-   - List the files in the root directory to identify the project type (Node.js, Python, etc.).
-   - Read key configuration files if they exist (e.g., `package.json`, `tsconfig.json`, `shopify.app.toml`, `fly.toml`, `requirements.txt`, `Gemfile`, `cargo.toml`).
-   - List the contents of valid source directories (e.g., `app/`, `src/`, `lib/`, `components/`) to understand the architecture.
+See [`plain-jobs/plain/jobs/README.md`](plain-jobs/plain/jobs/README.md) as a good example.
 
-2. **Read Existing Documentation**
-   - Read the current `README.md` to preserve any manual sections or specific instructions the user has added.
-   - If available, read `.agent/brain/task.md` or `implementation_plan.md` to understand recent changes and current features (optional, do not fail if missing).
+## Purpose
 
-3. **Generate/Update README.md**
-   - Rewrite `README.md` to include the following sections (adapt as necessary for the project type):
-     - **Project Title & Description**: A clear summary of what the project does.
-     - **Features**: A list of key features inferred from the codebase and installed packages/skills.
-     - **Tech Stack**: Languages, frameworks, and key libraries used.
-     - **Prerequisites**: Tools needed to run the project (Node, Python, Docker, etc.).
-     - **Getting Started / Installation**: Step-by-step instructions to install dependencies and run the project (e.g., `npm install`, `npm run dev`).
-     - **Project Structure**: A high-level overview of the main directories.
-     - **Workflows & Skills**: Mention available workflows (like this one) or skills if relevant.
-     - **License**: If a license file exists, mention it.
+The README answers: "How do I use this?" It gets users productive quickly and points them to code for deeper exploration. It is not a complete API reference.
 
-4. **Review and Verification**
-   - Ensure the new `README.md` is formatted correctly in Markdown.
-   - Check that all links (if any) are valid.
+## Required Structure
+
+Every README follows this order:
+
+1. **h1** with package name
+2. **Bold one-liner** describing the package
+3. **Table of contents** with links to h2s and h3s
+4. **Overview** section with basic working examples
+5. **Feature sections** as needed
+6. **FAQs** section (second to last) using h4s for questions
+7. **Installation** section (always last)
+
+## Style
+
+- **Conversational tone**: "You can..." not "The module provides..."
+- **First code example must be copy-paste ready** with imports included
+- **Subsequent examples can be minimal**, building on what was shown
+- **Link to source for advanced features**: `[ClassName](./file.py#ClassName)`
+- **Cross-package references**: `[plain.auth](../../plain-auth/plain/auth/README.md)`
+
+## What to Document
+
+- **If users import it, document it**
+- **Mention all public features**, even advanced ones briefly, then link to code
+- **Internal APIs stay undocumented** (`_prefix` functions and `@internalcode`)
+- **Don't fully document every parameter** - mention features exist, link to code
+
+## Writing Tips
+
+- Keep paragraphs short
+- Put takeaways up front
+- Use bullets and tables
+- Bold important text
+- Keep sentences simple and unambiguous

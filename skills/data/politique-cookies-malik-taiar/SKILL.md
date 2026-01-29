@@ -3,7 +3,7 @@ name: politique-cookies-malik-taiar
 description: Guide pour la rédaction de politiques cookies conformes au RGPD et à la directive ePrivacy. Contient les recommandations CNIL 2020, un template de référence et les bonnes pratiques. À utiliser lors de la rédaction ou révision d'une politique cookies pour un site web ou une application.
 metadata:
   author: Malik Taiar
-  license: Apache 2.0
+  license: AGPL-3.0
 ---
 
 # Guide des Politiques Cookies

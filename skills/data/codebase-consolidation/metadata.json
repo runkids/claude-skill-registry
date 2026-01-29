@@ -1,12 +1,7 @@
 {
   "name": "codebase-consolidation",
-  "description": "Analyze, consolidate, and document codebases through multi-perspective analysis. Identifies duplicate code, refactoring opportunities, architectural patterns, and generates comprehensive reports. Use ",
   "repo": "d-o-hub/rust-self-learning-memory",
-  "category": "development",
-  "tags": [
-    "codebase",
-    "consolidation"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/codebase-consolidation/SKILL.md",
+  "source": "github.com/d-o-hub/rust-self-learning-memory",
+  "downloaded_at": "2026-01-29T01:48:13.105483Z"
 }

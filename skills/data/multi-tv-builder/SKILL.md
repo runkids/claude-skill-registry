@@ -1278,6 +1278,293 @@ brew update && brew install binutils coreutils gawk findutils grep jq lz4 gnu-se
 
 ---
 
+# Vega App in Monorepo
+
+## Critical Configuration
+
+### 1. Prevent Dependency Hoisting
+
+Add to `apps/vega/package.json`:
+```json
+{
+  "installConfig": {
+    "hoistingLimits": "dependencies"
+  }
+}
+```
+
+### 2. Fix Metro Source Map
+
+Create `apps/vega/fix-metro.js`:
+```javascript
+const fs = require('fs');
+const path = require('path');
+
+const metroSourceMapPath = path.join(__dirname, 'node_modules/metro-source-map');
+const packageJsonPath = path.join(metroSourceMapPath, 'package.json');
+
+if (!fs.existsSync(packageJsonPath)) {
+  console.log('⚠ metro-source-map not found');
+  process.exit(0);
+}
+
+const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+pkg.exports = {
+  ".": "./src/source-map.js",
+  "./package.json": "./package.json",
+  "./private/*": "./src/*.js",
+  "./src/*": "./src/*.js"
+};
+
+fs.writeFileSync(packageJsonPath, JSON.stringify(pkg, null, 2));
+console.log('✓ Patched metro-source-map exports for Vega');
+```
+
+### 3. Add Postinstall Script
+
+In `apps/vega/package.json`:
+```json
+{
+  "scripts": {
+    "postinstall": "node fix-metro.js",
+    "build:debug": "react-native build-kepler --build-type Debug",
+    "build:release": "react-native build-kepler --build-type Release"
+  }
+}
+```
+
+**Note:** Use `build-kepler` command, not `build-vega`.
+
+### 4. Manifest Configuration (CRITICAL)
+
+The `manifest.toml` **MUST** include a `[processes]` section or the app will crash immediately on launch with no error message.
+
+`apps/vega/manifest.toml`:
+```toml
+schema-version = 1
+
+[package]
+title = "My Vega App"
+version = "0.1.0"
+id = "com.mycompany.myapp"
+
+[components]
+[[components.interactive]]
+id = "com.mycompany.myapp.main"
+runtime-module = "/com.amazon.kepler.keplerscript.runtime.loader_2@IKeplerScript_2_0"
+launch-type = "singleton"
+categories = ["com.amazon.category.main"]
+
+# CRITICAL: This section is REQUIRED or the app will crash on launch
+[processes]
+[[processes.group]]
+component-ids = ["com.mycompany.myapp.main"]
+```
+
+**Common Symptom:** App installs successfully, shows "Successfully launched the app", but immediately crashes (black screen) with no visible error. The fix is adding the `[processes]` section.
+
+### 5. Metro Configuration
+
+`apps/vega/metro.config.js`:
+```javascript
+const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+const path = require('path');
+
+const config = {
+  watchFolders: [
+    path.resolve(__dirname, '../../packages/shared-ui'),
+  ],
+  resolver: {
+    unstable_enableSymlinks: true,
+    sourceExts: ['kepler.tsx', 'kepler.ts', 'kepler.js', 'tsx', 'ts', 'jsx', 'js', 'json'],
+    nodeModulesPaths: [
+      path.resolve(__dirname, 'node_modules'),
+      path.resolve(__dirname, '../../node_modules'),
+    ],
+  },
+};
+
+module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+```
+
+### 5. Required Dependencies
+
+In `apps/vega/package.json`:
+```json
+{
+  "dependencies": {
+    "@amazon-devices/react-native-kepler": "^2.0.0",
+    "@babel/runtime": "^7.28.6",
+    "react": "18.2.0",
+    "react-native": "0.72.0",
+    "react-tv-space-navigation": "^6.0.0-beta1"
+  },
+  "devDependencies": {
+    "@amazon-devices/kepler-cli-platform": "^0",
+    "@amazon-devices/kepler-module-manifest-builder": "^0.1.0",
+    "@react-native/metro-config": "^0.72.6",
+    "jest-worker": "^28.0.0"
+  }
+}
+```
+
+### 6. Spatial Navigation with Vega (react-tv-space-navigation)
+
+`react-tv-space-navigation` is compatible with Vega but requires a remote control configuration to map Vega's TVEventHandler to spatial navigation directions.
+
+**Create `packages/shared-ui/src/app/remote-control/SupportedKeys.ts`:**
+```typescript
+export enum SupportedKeys {
+  Up = 'up',
+  Down = 'down',
+  Left = 'left',
+  Right = 'right',
+  Enter = 'enter',
+  Back = 'back',
+  PlayPause = 'playPause',
+  Rewind = 'rewind',
+  FastForward = 'fastForward',
+}
+```
+
+**Create `packages/shared-ui/src/app/remote-control/RemoteControlManager.kepler.ts`:**
+```typescript
+import { SupportedKeys } from './SupportedKeys';
+
+type Listener = (event: SupportedKeys) => void;
+
+const EVENT_TYPE_MAPPING: Record<string, SupportedKeys> = {
+  left: SupportedKeys.Left,
+  right: SupportedKeys.Right,
+  down: SupportedKeys.Down,
+  up: SupportedKeys.Up,
+  select: SupportedKeys.Enter,
+  back: SupportedKeys.Back,
+  playpause: SupportedKeys.PlayPause,
+  skip_backward: SupportedKeys.Rewind,
+  skip_forward: SupportedKeys.FastForward,
+};
+
+class RemoteControlManager {
+  private listeners: Set<Listener> = new Set();
+  private tvEventHandler: any;
+
+  constructor() {
+    const { TVEventHandler } = require('react-native');
+    this.tvEventHandler = new TVEventHandler();
+    this.tvEventHandler.enable(this, this.handleHWEvent);
+  }
+
+  private handleHWEvent = (_component: any, event: any): void => {
+    if (event.eventKeyAction === 0 || event.eventKeyAction === undefined) {
+      const mappedKey = EVENT_TYPE_MAPPING[event.eventType];
+      if (mappedKey) {
+        this.listeners.forEach(listener => listener(mappedKey));
+      }
+    }
+  };
+
+  addKeydownListener = (listener: Listener) => {
+    this.listeners.add(listener);
+    return listener;
+  };
+
+  removeKeydownListener = (listener: Listener) => {
+    this.listeners.delete(listener);
+  };
+}
+
+export default new RemoteControlManager();
+```
+
+**Create `packages/shared-ui/src/app/configureRemoteControl.ts`:**
+```typescript
+import { Directions, SpatialNavigation } from 'react-tv-space-navigation';
+import { SupportedKeys } from './remote-control/SupportedKeys';
+import RemoteControlManager from './remote-control/RemoteControlManager';
+
+SpatialNavigation.configureRemoteControl({
+  remoteControlSubscriber: (callback) => {
+    const mapping: { [key in SupportedKeys]: Directions | null } = {
+      [SupportedKeys.Right]: Directions.RIGHT,
+      [SupportedKeys.Left]: Directions.LEFT,
+      [SupportedKeys.Up]: Directions.UP,
+      [SupportedKeys.Down]: Directions.DOWN,
+      [SupportedKeys.Enter]: Directions.ENTER,
+      [SupportedKeys.Back]: null,
+      [SupportedKeys.PlayPause]: null,
+      [SupportedKeys.Rewind]: null,
+      [SupportedKeys.FastForward]: null,
+    };
+
+    const remoteControlListener = (keyEvent: SupportedKeys) => {
+      callback(mapping[keyEvent]);
+    };
+
+    return RemoteControlManager.addKeydownListener(remoteControlListener);
+  },
+  remoteControlUnsubscriber: (remoteControlListener) => {
+    RemoteControlManager.removeKeydownListener(remoteControlListener);
+  },
+});
+```
+
+**Import in Vega App.tsx:**
+```typescript
+import '../../../packages/shared-ui/src/app/configureRemoteControl';
+```
+
+## Build Commands
+
+```bash
+# Install dependencies
+yarn install
+
+# Build JS bundle and VPKG (from root)
+yarn workspace @your-app/vega run build:debug
+
+# Or from vega directory
+cd apps/vega
+npm run build:debug
+
+# Build VPKG separately
+vega build -t armv7 -b Debug
+```
+
+## Why This Works
+
+- **installConfig.hoistingLimits** - Forces Yarn to install dependencies locally instead of hoisting to monorepo root
+- **Metro fix** - Patches package.json exports for Node.js 23+ compatibility with strict package exports
+- **nodeModulesPaths** - Tells Metro to check local node_modules first, then fall back to root
+- **Local dependencies** - `@babel/runtime` and `jest-worker` installed locally prevent monorepo version conflicts
+- **kepler-module-manifest-builder** - Required Vega SDK tool for building VPKG
+
+## Common Issues
+
+**App crashes immediately on launch (black screen, no error)**
+- Cause: Missing `[processes]` section in `manifest.toml`
+- Fix: Add the following to your `manifest.toml`:
+  ```toml
+  [processes]
+  [[processes.group]]
+  component-ids = ["com.yourcompany.yourapp.main"]
+  ```
+- Note: The component-id must match the one defined in `[[components.interactive]]`
+
+**Error: "Package subpath './src/DeltaBundler/Worker' not exported"**
+- Cause: jest-worker loading metro from wrong location
+- Fix: Install jest-worker locally + run postinstall script
+
+**Error: "Unable to resolve @babel/runtime"**
+- Cause: Yarn hoisted @babel/runtime to root
+- Fix: Add installConfig.hoistingLimits + install @babel/runtime locally
+
+**Error: "Could not find binary kepler-module-manifest-builder"**
+- Cause: Missing Vega SDK tool
+- Fix: Install @amazon-devices/kepler-module-manifest-builder
+
+---
+
 # Next Steps
 
 ## Recommended Path (Quick Start)
@@ -1313,3 +1600,222 @@ Follow the step-by-step "Build from Scratch" guide above to understand:
 - `multi-tv-builder/steering/structure.md` - Project structure details
 - `multi-tv-builder/steering/tech.md` - Technology stack reference
 - `multi-tv-builder/steering/VEGA_TO_MONOREPO_MIGRATION_GUIDE.md` - Migration guide
+
+
+---
+
+# Android TV / Fire TV Troubleshooting
+
+## Common Runtime Errors
+
+### TypeError: Cannot read property 'displayName' of undefined
+
+**Symptoms:**
+- App builds successfully but crashes immediately on launch
+- Metro shows: `ERROR TypeError: Cannot read property 'displayName' of undefined, js engine: hermes`
+- App returns to launcher after brief flash
+
+**Common Causes & Fixes:**
+
+1. **Wrong import in index.js** (Most Common)
+   ```javascript
+   // ❌ WRONG - Named import when App uses default export
+   import { App } from './App';
+   
+   // ✅ CORRECT - Default import
+   import App from './App';
+   ```
+
+2. **Metro cache corruption**
+   ```bash
+   # Clear all caches
+   pkill -f "expo" 2>/dev/null || true
+   pkill -f "metro" 2>/dev/null || true
+   rm -rf node_modules/.cache
+   rm -rf /tmp/metro-*
+   rm -rf /tmp/haste-map-*
+   npx expo start --clear
+   ```
+
+3. **react-tv-space-navigation v6 missing configuration**
+   - v6 requires explicit remote control configuration
+   - Create `src/configureRemoteControl.ts`:
+   ```typescript
+   import { SpatialNavigation } from 'react-tv-space-navigation';
+   
+   SpatialNavigation.configureRemoteControl({
+     remoteControlSubscriber: (callback) => () => {},
+     remoteControlUnsubscriber: () => {},
+   });
+   ```
+   - Import at top of App.tsx: `import './src/configureRemoteControl';`
+
+### App Launches But Shows Black Screen / Returns to Launcher
+
+**Diagnostic Steps:**
+
+1. **Check if app process is running:**
+   ```bash
+   adb shell "ps -A | grep <package_name>"
+   ```
+
+2. **Check Metro bundler connection:**
+   ```bash
+   # Verify Metro is running
+   curl -s http://localhost:8081/status
+   
+   # Set up ADB reverse port forwarding
+   adb reverse tcp:8081 tcp:8081
+   ```
+
+3. **Check device logs for JS errors:**
+   ```bash
+   adb logcat -d | grep -iE "(ReactNativeJS|ERROR|TypeError)" | tail -30
+   ```
+
+4. **Verify bundle is loading:**
+   ```bash
+   adb logcat -d | grep -i "bundled" | tail -5
+   ```
+
+### Metro Bundler Connection Issues
+
+**Symptoms:**
+- `Couldn't connect to "ws://localhost:8081/message..."`
+- App shows loading screen indefinitely
+- `ReactInstanceManager: Instance detached from instance manager`
+
+**Fixes:**
+
+1. **Set up ADB reverse port forwarding:**
+   ```bash
+   adb reverse tcp:8081 tcp:8081
+   ```
+
+2. **Verify emulator is connected:**
+   ```bash
+   adb devices -l
+   ```
+
+3. **Restart ADB if stale:**
+   ```bash
+   adb kill-server && adb start-server
+   ```
+
+4. **Use correct Metro start command:**
+   ```bash
+   # For development builds (not Expo Go)
+   npx expo start --dev-client --clear
+   
+   # Or run directly
+   npx expo run:android
+   ```
+
+## Android TV Emulator Setup
+
+### Starting the Emulator
+
+```bash
+# List available emulators
+emulator -list-avds
+
+# Start Android TV emulator (cold boot recommended for stability)
+emulator -avd Android_TV_720p -no-snapshot-load -gpu swiftshader_indirect &
+
+# Wait for boot and verify
+adb wait-for-device
+adb devices -l
+```
+
+### Emulator Not Responding
+
+```bash
+# Kill stale processes
+pkill -9 qemu-system 2>/dev/null || true
+pkill -9 emulator 2>/dev/null || true
+adb kill-server
+sleep 1
+adb start-server
+
+# Start fresh
+emulator -avd Android_TV_720p -no-snapshot-load &
+```
+
+### Fire TV Emulator Specific Issues
+
+The Fire TV emulator (Android_TV_720p with Fire OS) may show system errors in logs like:
+- `NEO_DIAL_SVC: DIAL_register_app error allocating memory`
+- `libc++abi: terminating with uncaught exception`
+
+**These are system service errors unrelated to your app** - ignore them and focus on `ReactNativeJS` or your package name in logs.
+
+## Build & Launch Commands
+
+### Quick Launch Sequence
+
+```bash
+# 1. Ensure emulator is running
+adb devices
+
+# 2. Set up port forwarding
+adb reverse tcp:8081 tcp:8081
+
+# 3. Build and run (from app directory)
+cd apps/expo-multi-tv
+yarn android
+# or: npx expo run:android
+
+# 4. If app crashes, force restart
+adb shell am force-stop <package_name>
+adb shell am start -n <package_name>/.MainActivity
+```
+
+### Debugging Workflow
+
+```bash
+# Clear logs before launch
+adb logcat -c
+
+# Launch app
+adb shell am start -n com.example.app/.MainActivity
+
+# Wait and capture logs
+sleep 5
+adb logcat -d | grep -iE "(ReactNativeJS|error|exception)" | tail -50
+```
+
+## Expo Go vs Development Builds
+
+**Important:** TV apps should use **development builds**, not Expo Go.
+
+- Expo Go has SDK version mismatches on TV emulators
+- Use `npx expo run:android` or `npx expo start --dev-client`
+- If prompted about Expo Go version, choose development build instead
+
+```bash
+# ❌ May cause issues on TV
+npx expo start
+
+# ✅ Correct for TV development
+npx expo run:android
+# or
+npx expo start --dev-client
+```
+
+
+## Vega Virtual Device Notes
+
+### `is-app-running` Command May Report False Negatives
+
+The command `vega device is-app-running --appName <package>` may incorrectly report that an app is not running even when it's visible and functioning on the virtual device.
+
+**Workaround:** Visually verify the app is running in the virtual device window rather than relying on the CLI command.
+
+```bash
+# This may report "not running" even when app is visible
+vega device is-app-running --appName com.example.app
+
+# Instead, just launch and visually verify
+vega run-app <vpkg-path> <package-id>
+# Check the virtual device window
+```

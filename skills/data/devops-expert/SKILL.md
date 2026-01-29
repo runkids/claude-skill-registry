@@ -1,142 +1,487 @@
 ---
 name: devops-expert
-description: 全面的DevOps和云原生专家，精通CI/CD流水线、容器化、Kubernetes部署和基础设施自动化。帮助企业实现现代化运维和持续交付。
+version: 1.0.0
+description: Expert-level DevOps practices, culture, automation, and continuous delivery
+category: devops
+tags: [devops, ci-cd, automation, infrastructure, culture]
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash(*)
 ---
 
-# DevOps云原生专家
+# DevOps Expert
 
-这个技能将您的Claude Code转变为专业的DevOps工程师，能够设计、实施和维护现代化的云基础设施和部署流水线。
+Expert guidance for DevOps practices, culture, CI/CD pipelines, infrastructure automation, and operational excellence.
 
-## 何时使用此技能
+## Core Concepts
 
-- 需要设置CI/CD流水线时
-- 容器化应用并部署到Kubernetes
-- 设计云原生架构
-- 自动化基础设施部署
-- 监控和日志系统搭建
-- 故障排查和性能优化
+### DevOps Culture
+- Collaboration and communication
+- Shared responsibility
+- Continuous improvement
+- Breaking down silos
+- Blameless culture
+- Measuring everything
 
-## 此技能的功能
+### Automation
+- Infrastructure as Code (IaC)
+- Configuration management
+- Deployment automation
+- Testing automation
+- Monitoring automation
+- Self-service platforms
 
-### CI/CD流水线设计
-- GitHub Actions、GitLab CI、Jenkins配置
-- 多环境部署策略（开发、测试、生产）
-- 自动化测试集成
-- 回滚机制和蓝绿部署
-- 构建优化和缓存策略
+### CI/CD
+- Continuous Integration
+- Continuous Delivery
+- Continuous Deployment
+- Pipeline as Code
+- Artifact management
+- Release strategies
 
-### 容器化和编排
-- Docker最佳实践和多阶段构建
-- Kubernetes集群管理
-- 服务发现和负载均衡
-- 配置管理和密钥管理
-- 资源限制和自动扩缩容
+## CI/CD Pipeline
 
-### 基础设施即代码
-- Terraform模块化设计
-- Ansible配置管理
-- 云资源标签和成本优化
-- 多云部署策略
-- 灾难恢复和备份方案
+```yaml
+# GitHub Actions Example
+name: CI/CD Pipeline
 
-### 监控和可观察性
-- Prometheus + Grafana监控栈
-- ELK/Loki日志聚合
-- 分布式追踪（Jaeger、Zipkin）
-- 告警策略和值班轮换
-- SLA/SLO监控和报告
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
 
-### 安全最佳实践
-- 容器安全扫描
-- 网络策略和RBAC
-- 密钥管理（Vault、AWS Secrets Manager）
-- 合规性检查和审计日志
-- 漏洞管理和补丁策略
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
-## 支持的工具和平台
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-### 云服务提供商
-- **AWS**: ECS、EKS、Lambda、CloudFormation
-- **Azure**: AKS、Azure DevOps、ARM Templates
-- **Google Cloud**: GKE、Cloud Build、Deployment Manager
-- **多云**: Kubernetes、Terraform、Crossplane
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
 
-### CI/CD工具
-- **GitHub Actions**: Workflows、Actions、Self-hosted runners
-- **GitLab CI**: GitLab CI/CD、Auto DevOps
-- **Jenkins**: Pipeline as Code、Plugin生态
-- **CircleCI**: Orbs、并行构建、资源类
+      - name: Install dependencies
+        run: npm ci
 
-### 容器和编排
-- **Docker**: 多阶段构建、安全最佳实践
-- **Kubernetes**: Deployment、Service、Ingress、Helm
-- **容器运行时**: containerd、CRI-O、Podman
+      - name: Run linting
+        run: npm run lint
 
-### 监控工具
-- **Prometheus**: 指标收集、PromQL、告警规则
-- **Grafana**: 仪表板、可视化、告警集成
-- **Jaeger**: 分布式追踪、服务拓扑
-- **Fluentd/Fluent Bit**: 日志收集、转换、路由
+      - name: Run tests
+        run: npm test
 
-## 使用示例
+      - name: Run security scan
+        run: npm audit
 
-### 1. 设置CI/CD流水线
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  deploy-staging:
+    needs: build
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - name: Deploy to staging
+        run: |
+          kubectl set image deployment/myapp \
+            myapp=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
+            --namespace=staging
+
+      - name: Wait for rollout
+        run: kubectl rollout status deployment/myapp -n staging
+
+      - name: Run smoke tests
+        run: npm run test:smoke
+
+  deploy-production:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Deploy to production
+        run: |
+          kubectl set image deployment/myapp \
+            myapp=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
+            --namespace=production
+
+      - name: Wait for rollout
+        run: kubectl rollout status deployment/myapp -n production
 ```
-"帮我为这个React应用设置GitHub Actions CI/CD流水线，
-包括自动化测试、构建Docker镜像、部署到Kubernetes集群。"
+
+## Infrastructure as Code
+
+```python
+# Pulumi Infrastructure as Code
+import pulumi
+import pulumi_aws as aws
+
+# VPC
+vpc = aws.ec2.Vpc("main-vpc",
+    cidr_block="10.0.0.0/16",
+    enable_dns_hostnames=True,
+    enable_dns_support=True,
+    tags={"Name": "main-vpc"})
+
+# Subnets
+public_subnet = aws.ec2.Subnet("public-subnet",
+    vpc_id=vpc.id,
+    cidr_block="10.0.1.0/24",
+    availability_zone="us-east-1a",
+    map_public_ip_on_launch=True,
+    tags={"Name": "public-subnet"})
+
+private_subnet = aws.ec2.Subnet("private-subnet",
+    vpc_id=vpc.id,
+    cidr_block="10.0.2.0/24",
+    availability_zone="us-east-1b",
+    tags={"Name": "private-subnet"})
+
+# Internet Gateway
+igw = aws.ec2.InternetGateway("igw",
+    vpc_id=vpc.id,
+    tags={"Name": "main-igw"})
+
+# Route Table
+route_table = aws.ec2.RouteTable("public-rt",
+    vpc_id=vpc.id,
+    routes=[
+        aws.ec2.RouteTableRouteArgs(
+            cidr_block="0.0.0.0/0",
+            gateway_id=igw.id,
+        )
+    ],
+    tags={"Name": "public-rt"})
+
+# Security Group
+security_group = aws.ec2.SecurityGroup("web-sg",
+    vpc_id=vpc.id,
+    description="Allow HTTP and HTTPS traffic",
+    ingress=[
+        aws.ec2.SecurityGroupIngressArgs(
+            protocol="tcp",
+            from_port=80,
+            to_port=80,
+            cidr_blocks=["0.0.0.0/0"],
+        ),
+        aws.ec2.SecurityGroupIngressArgs(
+            protocol="tcp",
+            from_port=443,
+            to_port=443,
+            cidr_blocks=["0.0.0.0/0"],
+        ),
+    ],
+    egress=[
+        aws.ec2.SecurityGroupEgressArgs(
+            protocol="-1",
+            from_port=0,
+            to_port=0,
+            cidr_blocks=["0.0.0.0/0"],
+        )
+    ])
+
+# EKS Cluster
+cluster = aws.eks.Cluster("app-cluster",
+    role_arn=cluster_role.arn,
+    vpc_config=aws.eks.ClusterVpcConfigArgs(
+        subnet_ids=[public_subnet.id, private_subnet.id],
+        security_group_ids=[security_group.id],
+    ))
+
+# Export outputs
+pulumi.export("vpc_id", vpc.id)
+pulumi.export("cluster_name", cluster.name)
+pulumi.export("cluster_endpoint", cluster.endpoint)
 ```
 
-### 2. Kubernetes部署
+## Deployment Strategies
+
+```python
+from typing import List, Dict
+import time
+
+class DeploymentStrategy:
+    """Implement various deployment strategies"""
+
+    def __init__(self, service_name: str):
+        self.service_name = service_name
+
+    def blue_green_deployment(self, blue_version: str, green_version: str):
+        """Blue-Green deployment"""
+        # Deploy green environment
+        self.deploy_environment("green", green_version)
+
+        # Run tests on green
+        if self.run_tests("green"):
+            # Switch traffic to green
+            self.switch_traffic("green")
+
+            # Keep blue for rollback
+            print(f"Deployment successful. Blue ({blue_version}) kept for rollback.")
+        else:
+            # Rollback - keep blue active
+            print("Tests failed on green. Keeping blue active.")
+
+    def canary_deployment(self, current_version: str, new_version: str,
+                         canary_percentage: int = 10):
+        """Canary deployment"""
+        # Deploy canary with small percentage
+        self.deploy_canary(new_version, canary_percentage)
+
+        # Monitor metrics
+        metrics = self.monitor_canary_metrics(duration_minutes=10)
+
+        if metrics['error_rate'] < 0.1 and metrics['latency_p95'] < 500:
+            # Gradually increase canary traffic
+            for percentage in [25, 50, 75, 100]:
+                self.update_canary_traffic(percentage)
+                time.sleep(300)  # 5 minutes between increases
+
+                if not self.check_health():
+                    self.rollback(current_version)
+                    return False
+
+            print(f"Canary deployment successful: {new_version}")
+            return True
+        else:
+            self.rollback(current_version)
+            print("Canary deployment failed - rolled back")
+            return False
+
+    def rolling_deployment(self, version: str, batch_size: int = 1):
+        """Rolling deployment"""
+        instances = self.get_instances()
+
+        for i in range(0, len(instances), batch_size):
+            batch = instances[i:i + batch_size]
+
+            # Update batch
+            for instance in batch:
+                self.update_instance(instance, version)
+                self.wait_for_healthy(instance)
+
+            # Verify batch health
+            if not self.check_health():
+                print(f"Rolling deployment failed at batch {i//batch_size + 1}")
+                return False
+
+        print(f"Rolling deployment successful: {version}")
+        return True
+
+    def feature_flag_deployment(self, feature_name: str, enabled: bool,
+                               rollout_percentage: int = 100):
+        """Feature flag based deployment"""
+        return {
+            'feature': feature_name,
+            'enabled': enabled,
+            'rollout_percentage': rollout_percentage,
+            'targeting': {
+                'user_segments': ['beta_users'] if rollout_percentage < 100 else ['all']
+            }
+        }
 ```
-"设计一个高可用的微服务架构，使用Kubernetes部署，
-包括自动扩缩容、服务发现、负载均衡和监控。"
+
+## Configuration Management
+
+```python
+from typing import Dict, Any
+import yaml
+import json
+
+class ConfigurationManager:
+    """Manage application configuration"""
+
+    def __init__(self, environment: str):
+        self.environment = environment
+        self.config = {}
+
+    def load_config(self, config_file: str):
+        """Load configuration from file"""
+        with open(config_file, 'r') as f:
+            if config_file.endswith('.yaml') or config_file.endswith('.yml'):
+                self.config = yaml.safe_load(f)
+            elif config_file.endswith('.json'):
+                self.config = json.load(f)
+
+    def get(self, key: str, default: Any = None) -> Any:
+        """Get configuration value"""
+        keys = key.split('.')
+        value = self.config
+
+        for k in keys:
+            if isinstance(value, dict):
+                value = value.get(k)
+            else:
+                return default
+
+            if value is None:
+                return default
+
+        return value
+
+    def merge_environment_config(self, env_config: Dict):
+        """Merge environment-specific configuration"""
+        self.config = self._deep_merge(self.config, env_config)
+
+    def _deep_merge(self, base: Dict, override: Dict) -> Dict:
+        """Deep merge two dictionaries"""
+        result = base.copy()
+
+        for key, value in override.items():
+            if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+                result[key] = self._deep_merge(result[key], value)
+            else:
+                result[key] = value
+
+        return result
+
+    def validate_required_keys(self, required_keys: List[str]) -> List[str]:
+        """Validate that required configuration keys exist"""
+        missing = []
+
+        for key in required_keys:
+            if self.get(key) is None:
+                missing.append(key)
+
+        return missing
 ```
 
-### 3. 基础设施自动化
+## Monitoring and Observability
+
+```python
+import logging
+from opencensus.ext.azure import metrics_exporter
+from opencensus.stats import aggregation as aggregation_module
+from opencensus.stats import measure as measure_module
+from opencensus.stats import stats as stats_module
+from opencensus.stats import view as view_module
+from opencensus.tags import tag_map as tag_map_module
+
+class ObservabilityStack:
+    """Implement observability best practices"""
+
+    def __init__(self):
+        self.logger = self._setup_logging()
+        self.stats = stats_module.stats
+        self.view_manager = self.stats.view_manager
+
+    def _setup_logging(self) -> logging.Logger:
+        """Setup structured logging"""
+        logger = logging.getLogger(__name__)
+        handler = logging.StreamHandler()
+
+        formatter = logging.Formatter(
+            '{"time": "%(asctime)s", "level": "%(levelname)s", '
+            '"service": "%(name)s", "message": "%(message)s"}'
+        )
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+        logger.setLevel(logging.INFO)
+
+        return logger
+
+    def log_with_context(self, level: str, message: str, **context):
+        """Log with additional context"""
+        log_func = getattr(self.logger, level)
+        log_func(message, extra=context)
+
+    def track_custom_metric(self, metric_name: str, value: float,
+                           tags: Dict[str, str]):
+        """Track custom application metric"""
+        # Implementation would send to metrics backend
+        pass
+
+    def create_distributed_trace(self, operation_name: str):
+        """Create distributed trace span"""
+        # Implementation would use OpenTelemetry or similar
+        pass
 ```
-"使用Terraform创建完整的AWS基础设施，
-包括VPC、EKS集群、RDS数据库和S3存储。"
-```
 
-### 4. 监控系统
-```
-"设置完整的监控栈，包括Prometheus指标收集、
-Grafana仪表板、告警规则和日志聚合。"
-```
+## Best Practices
 
-## 最佳实践指导
+### Culture & Process
+- Foster collaboration between Dev and Ops
+- Automate everything possible
+- Measure and monitor continuously
+- Practice blameless post-mortems
+- Share knowledge and documentation
+- Encourage experimentation
+- Celebrate successes and learn from failures
 
-### 1. 基础设施设计
-- 遵循云原生最佳实践
-- 实施最小权限原则
-- 设计高可用和容错架构
-- 考虑成本优化和资源效率
+### CI/CD
+- Keep builds fast (<10 minutes)
+- Run tests in parallel
+- Use pipeline as code
+- Implement automated rollbacks
+- Require code review before merge
+- Use trunk-based development
+- Deploy small, frequent changes
 
-### 2. 安全集成
-- 集成安全扫描到CI/CD流水线
-- 实施网络分段和访问控制
-- 定期安全审计和漏洞评估
-- 遵循合规要求（SOC2、GDPR、HIPAA）
+### Infrastructure
+- Use Infrastructure as Code
+- Version everything (code, config, infrastructure)
+- Implement disaster recovery
+- Practice chaos engineering
+- Use immutable infrastructure
+- Automate security scanning
+- Monitor cloud costs
 
-### 3. 性能优化
-- 实施缓存策略
-- 数据库查询优化
-- CDN配置和静态资源优化
-- 负载测试和性能基准
+## Anti-Patterns
 
-### 4. 运维自动化
-- 自动化故障恢复
-- 智能告警和降噪
-- 定期备份和恢复测试
-- 容量规划和预测
+❌ Manual deployments
+❌ Configuration drift
+❌ No automated testing
+❌ Long-lived feature branches
+❌ Blame culture
+❌ Siloed teams
+❌ Ignoring technical debt
 
-## 相关技能集成
+## Resources
 
-- **architecture-skill**: 系统架构设计
-- **security-skill**: 安全审计和合规
-- **backend-dev-skill**: 微服务架构
-- **webapp-testing**: 自动化测试策略
-
----
-
-**通过此技能，您的Claude Code将成为专业的DevOps工程师，能够设计和管理现代化的云基础设施。**
+- The Phoenix Project: https://itrevolution.com/the-phoenix-project/
+- DevOps Handbook: https://itrevolution.com/the-devops-handbook/
+- State of DevOps Report: https://www.devops-research.com/research.html
+- GitLab CI/CD: https://docs.gitlab.com/ee/ci/
+- GitHub Actions: https://docs.github.com/en/actions

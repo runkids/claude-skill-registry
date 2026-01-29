@@ -1,7 +1,7 @@
 {
   "name": "sns",
-  "repo": "itsmostafa/aws-agent-skills",
-  "path": "skills/sns/SKILL.md",
-  "source": "github.com/itsmostafa/aws-agent-skills",
-  "downloaded_at": "2026-01-28T02:14:17.284846Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/devops/sns/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-29T04:03:50.609279Z"
 }

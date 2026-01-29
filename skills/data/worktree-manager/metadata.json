@@ -1,7 +1,7 @@
 {
   "name": "worktree-manager",
-  "repo": "Michael0520/milo-claudekit",
-  "path": "plugins/worktree-manager/skills/worktree-manager/SKILL.md",
-  "source": "github.com/Michael0520/milo-claudekit",
-  "downloaded_at": "2026-01-28T03:53:18.951819Z"
+  "repo": "orient-bot/orient",
+  "path": ".claude/skills/worktree-manager/SKILL.md",
+  "source": "github.com/orient-bot/orient",
+  "downloaded_at": "2026-01-29T03:21:30.228423Z"
 }

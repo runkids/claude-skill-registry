@@ -1,19 +1,45 @@
 ---
-name: Bun SQLite
-description: Use for bun:sqlite, SQLite operations, prepared statements, transactions, and queries.
-version: 1.0.0
+name: jutsu-bun:bun-sqlite
+description: Use when working with SQLite databases in Bun. Covers Bun's built-in SQLite driver, database operations, prepared statements, and transactions with high performance.
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Grep
+  - Glob
 ---
 
 # Bun SQLite
 
-Bun has a built-in, high-performance SQLite driver via `bun:sqlite`.
+Use this skill when working with SQLite databases using Bun's built-in, high-performance SQLite driver.
 
-## Quick Start
+## Key Concepts
+
+### Opening a Database
+
+Bun includes a native SQLite driver:
 
 ```typescript
 import { Database } from "bun:sqlite";
 
-// Create/open database
+// Open or create database
+const db = new Database("mydb.sqlite");
+
+// In-memory database
+const memDb = new Database(":memory:");
+
+// Read-only database
+const readOnlyDb = new Database("mydb.sqlite", { readonly: true });
+```
+
+### Basic Queries
+
+Execute SQL queries:
+
+```typescript
+import { Database } from "bun:sqlite";
+
 const db = new Database("mydb.sqlite");
 
 // Create table
@@ -21,7 +47,8 @@ db.run(`
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    email TEXT UNIQUE
+    email TEXT UNIQUE NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )
 `);
 
@@ -32,321 +59,434 @@ db.run("INSERT INTO users (name, email) VALUES (?, ?)", ["Alice", "alice@example
 const users = db.query("SELECT * FROM users").all();
 console.log(users);
 
-// Close
+// Close database
 db.close();
 ```
 
-## Opening Databases
+### Prepared Statements
+
+Use prepared statements for better performance:
 
 ```typescript
 import { Database } from "bun:sqlite";
 
-// File-based database
-const db = new Database("data.sqlite");
+const db = new Database("mydb.sqlite");
 
-// In-memory database
-const memDb = new Database(":memory:");
+// Prepare statement
+const insertUser = db.prepare("INSERT INTO users (name, email) VALUES (?, ?)");
 
-// Read-only mode
-const readDb = new Database("data.sqlite", { readonly: true });
+// Execute multiple times
+insertUser.run("Alice", "alice@example.com");
+insertUser.run("Bob", "bob@example.com");
 
-// Create if not exists (default)
-const createDb = new Database("new.sqlite", { create: true });
+// Prepared query
+const findUser = db.prepare("SELECT * FROM users WHERE email = ?");
+const user = findUser.get("alice@example.com");
 
-// Strict mode (recommended)
-const strictDb = new Database("strict.sqlite", { strict: true });
+console.log(user);
 ```
 
-## Running Queries
+## Best Practices
 
-### Direct Execution
+### Use Prepared Statements
 
-```typescript
-// Run (for INSERT, UPDATE, DELETE, DDL)
-db.run("CREATE TABLE items (id INTEGER PRIMARY KEY, name TEXT)");
-db.run("INSERT INTO items (name) VALUES (?)", ["Item 1"]);
-db.run("DELETE FROM items WHERE id = ?", [1]);
-
-// Get changes info
-const result = db.run("DELETE FROM items WHERE id > ?", [10]);
-console.log(result.changes); // Rows affected
-console.log(result.lastInsertRowid); // Last inserted ID
-```
-
-### Prepared Statements (Recommended)
+Prepared statements are faster and prevent SQL injection:
 
 ```typescript
-// Create prepared statement
+// Good - Prepared statement
 const stmt = db.prepare("SELECT * FROM users WHERE id = ?");
+const user = stmt.get(userId);
 
-// Get single row
-const user = stmt.get(1);
-
-// Get all rows
-const allUsers = db.prepare("SELECT * FROM users").all();
-
-// Get values as array
-const values = db.prepare("SELECT name, email FROM users").values();
-// [[name1, email1], [name2, email2], ...]
-
-// Iterate with for...of
-const iter = db.prepare("SELECT * FROM users");
-for (const user of iter.iterate()) {
-  console.log(user);
-}
+// Bad - String interpolation (SQL injection risk)
+const user = db.query(`SELECT * FROM users WHERE id = ${userId}`).get();
 ```
 
-## Parameters
+### Transactions
 
-### Positional Parameters
-
-```typescript
-const stmt = db.prepare("INSERT INTO users (name, email) VALUES (?, ?)");
-stmt.run("Bob", "bob@example.com");
-
-// Or as array
-stmt.run(["Charlie", "charlie@example.com"]);
-```
-
-### Named Parameters
+Use transactions for atomic operations:
 
 ```typescript
-const stmt = db.prepare("INSERT INTO users (name, email) VALUES ($name, $email)");
-stmt.run({ $name: "Dave", $email: "dave@example.com" });
+import { Database } from "bun:sqlite";
 
-// Also works with : and @
-const stmt2 = db.prepare("SELECT * FROM users WHERE name = :name");
-stmt2.get({ name: "Dave" }); // Note: no colon in object key
-```
+const db = new Database("mydb.sqlite");
 
-## Query Methods
+// Transaction with automatic rollback on error
+const insertUsers = db.transaction((users: Array<{ name: string; email: string }>) => {
+  const insert = db.prepare("INSERT INTO users (name, email) VALUES (?, ?)");
 
-```typescript
-const stmt = db.prepare("SELECT * FROM users WHERE active = ?");
-
-// .get() - First row or null
-const first = stmt.get(true);
-
-// .all() - All rows as array
-const all = stmt.all(true);
-
-// .values() - Rows as arrays (not objects)
-const values = stmt.values(true);
-// [[1, "Alice", true], [2, "Bob", true]]
-
-// .iterate() - Iterator for memory efficiency
-for (const row of stmt.iterate(true)) {
-  processRow(row);
-}
-
-// .run() - Execute without returning data
-db.prepare("DELETE FROM cache WHERE expires < ?").run(Date.now());
-```
-
-## Transactions
-
-```typescript
-// Simple transaction
-const insertMany = db.transaction((users: { name: string; email: string }[]) => {
-  const insert = db.prepare("INSERT INTO users (name, email) VALUES ($name, $email)");
   for (const user of users) {
-    insert.run(user);
-  }
-  return users.length;
-});
-
-const count = insertMany([
-  { name: "User1", email: "user1@example.com" },
-  { name: "User2", email: "user2@example.com" },
-]);
-
-// Transaction modes
-const tx = db.transaction(() => {
-  db.run('INSERT INTO users (name, email) VALUES (?, ?)', ['Alice', 'alice@example.com']);
-  db.run('UPDATE accounts SET balance = balance - 100 WHERE user_id = ?', [1]);
-});
-
-tx.deferred();   // Default: defer lock until first write
-tx.immediate();  // Lock immediately on transaction start
-tx.exclusive();  // Exclusive lock, blocks all other connections
-```
-
-## Batch Operations
-
-```typescript
-// WAL mode for better concurrent performance
-db.run("PRAGMA journal_mode = WAL");
-
-// Bulk insert with transaction
-const insertBulk = db.transaction((items: string[]) => {
-  const stmt = db.prepare("INSERT INTO items (name) VALUES (?)");
-  for (const item of items) {
-    stmt.run(item);
+    insert.run(user.name, user.email);
   }
 });
-
-insertBulk(["A", "B", "C", "D", "E"]);
-```
-
-## Column Types
-
-```typescript
-// SQLite types map to JavaScript
-/*
-  SQLite      JavaScript
-  ------      ----------
-  INTEGER     number | bigint
-  REAL        number
-  TEXT        string
-  BLOB        Uint8Array
-  NULL        null
-*/
-
-// Handle BigInt for large integers
-const bigStmt = db.prepare("SELECT COUNT(*) as count FROM users");
-const result = bigStmt.get();
-// result.count may be bigint if > Number.MAX_SAFE_INTEGER
-
-// Store/retrieve Uint8Array
-db.run("INSERT INTO files (data) VALUES (?)", [new Uint8Array([1, 2, 3])]);
-const file = db.prepare("SELECT data FROM files WHERE id = ?").get(1);
-// file.data is Uint8Array
-```
-
-## Column Definitions
-
-```typescript
-// Get column info
-const stmt = db.prepare("SELECT * FROM users");
-const columns = stmt.columnNames;
-// ["id", "name", "email"]
-
-// Type annotations (Bun extension)
-const typedStmt = db.prepare<{ id: number; name: string }, [number]>(
-  "SELECT id, name FROM users WHERE id = ?"
-);
-const user = typedStmt.get(1);
-// user is typed as { id: number; name: string } | null
-```
-
-## Error Handling
-
-```typescript
-import { Database, SQLiteError } from "bun:sqlite";
 
 try {
-  db.run("INSERT INTO users (email) VALUES (?)", ["duplicate@example.com"]);
+  insertUsers([
+    { name: "Alice", email: "alice@example.com" },
+    { name: "Bob", email: "bob@example.com" },
+  ]);
+  console.log("All users inserted");
 } catch (error) {
-  if (error instanceof SQLiteError) {
-    console.error("SQLite error:", error.code, error.message);
-    // error.code: "SQLITE_CONSTRAINT_UNIQUE"
-  }
-  throw error;
+  console.error("Transaction failed:", error);
 }
 ```
 
-## Database Management
+### Query Methods
+
+Different methods for different use cases:
 
 ```typescript
-// Close database
-db.close();
+const db = new Database("mydb.sqlite");
 
-// Check if open
-console.log(db.inTransaction); // Is in transaction
+// .all() - Get all rows
+const allUsers = db.query("SELECT * FROM users").all();
 
-// Serialize to buffer
-const buffer = db.serialize();
-await Bun.write("backup.sqlite", buffer);
+// .get() - Get first row
+const firstUser = db.query("SELECT * FROM users").get();
 
-// Load from buffer
-const data = await Bun.file("backup.sqlite").arrayBuffer();
-const restored = Database.deserialize(data);
+// .values() - Get array of arrays
+const userValues = db.query("SELECT name, email FROM users").values();
 
-// Filename
-console.log(db.filename); // Path or ":memory:"
+// .run() - Execute without returning rows
+db.run("DELETE FROM users WHERE id = ?", [userId]);
+```
+
+### Error Handling
+
+Properly handle database errors:
+
+```typescript
+import { Database } from "bun:sqlite";
+
+try {
+  const db = new Database("mydb.sqlite");
+
+  const stmt = db.prepare("INSERT INTO users (name, email) VALUES (?, ?)");
+  stmt.run("Alice", "alice@example.com");
+
+  db.close();
+} catch (error) {
+  if (error instanceof Error) {
+    console.error("Database error:", error.message);
+  }
+}
 ```
 
 ## Common Patterns
 
-### Repository Pattern
+### CRUD Operations
 
 ```typescript
 import { Database } from "bun:sqlite";
 
+interface User {
+  id?: number;
+  name: string;
+  email: string;
+  created_at?: string;
+}
+
+class UserRepository {
+  private db: Database;
+
+  constructor(dbPath: string) {
+    this.db = new Database(dbPath);
+    this.createTable();
+  }
+
+  private createTable() {
+    this.db.run(`
+      CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+  }
+
+  create(user: User): User {
+    const stmt = this.db.prepare("INSERT INTO users (name, email) VALUES (?, ?) RETURNING *");
+    return stmt.get(user.name, user.email) as User;
+  }
+
+  findById(id: number): User | null {
+    const stmt = this.db.prepare("SELECT * FROM users WHERE id = ?");
+    return (stmt.get(id) as User) || null;
+  }
+
+  findAll(): User[] {
+    return this.db.query("SELECT * FROM users").all() as User[];
+  }
+
+  update(id: number, user: Partial<User>): User | null {
+    const stmt = this.db.prepare(`
+      UPDATE users
+      SET name = COALESCE(?, name), email = COALESCE(?, email)
+      WHERE id = ?
+      RETURNING *
+    `);
+    return (stmt.get(user.name, user.email, id) as User) || null;
+  }
+
+  delete(id: number): boolean {
+    const stmt = this.db.prepare("DELETE FROM users WHERE id = ?");
+    const result = stmt.run(id);
+    return result.changes > 0;
+  }
+
+  close() {
+    this.db.close();
+  }
+}
+
+// Usage
+const users = new UserRepository("mydb.sqlite");
+const newUser = users.create({ name: "Alice", email: "alice@example.com" });
+console.log(newUser);
+```
+
+### Bulk Inserts with Transaction
+
+```typescript
+import { Database } from "bun:sqlite";
+
+const db = new Database("mydb.sqlite");
+
+const bulkInsert = db.transaction((items: Array<{ name: string; email: string }>) => {
+  const stmt = db.prepare("INSERT INTO users (name, email) VALUES (?, ?)");
+
+  for (const item of items) {
+    stmt.run(item.name, item.email);
+  }
+});
+
+// Insert 1000 users atomically
+const users = Array.from({ length: 1000 }, (_, i) => ({
+  name: `User ${i}`,
+  email: `user${i}@example.com`,
+}));
+
+bulkInsert(users);
+```
+
+### Migrations
+
+```typescript
+import { Database } from "bun:sqlite";
+
+class DatabaseMigration {
+  private db: Database;
+
+  constructor(dbPath: string) {
+    this.db = new Database(dbPath);
+    this.initMigrationTable();
+  }
+
+  private initMigrationTable() {
+    this.db.run(`
+      CREATE TABLE IF NOT EXISTS migrations (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        applied_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+  }
+
+  private hasRun(name: string): boolean {
+    const stmt = this.db.prepare("SELECT COUNT(*) as count FROM migrations WHERE name = ?");
+    const result = stmt.get(name) as { count: number };
+    return result.count > 0;
+  }
+
+  private recordMigration(name: string) {
+    this.db.run("INSERT INTO migrations (name) VALUES (?)", [name]);
+  }
+
+  migrate(name: string, sql: string) {
+    if (this.hasRun(name)) {
+      console.log(`Migration ${name} already applied`);
+      return;
+    }
+
+    const migration = this.db.transaction(() => {
+      this.db.run(sql);
+      this.recordMigration(name);
+    });
+
+    migration();
+    console.log(`Migration ${name} applied successfully`);
+  }
+
+  close() {
+    this.db.close();
+  }
+}
+
+// Usage
+const migration = new DatabaseMigration("mydb.sqlite");
+
+migration.migrate(
+  "001_create_users",
+  `
+  CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL
+  )
+`
+);
+
+migration.migrate(
+  "002_add_timestamps",
+  `
+  ALTER TABLE users ADD COLUMN created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+`
+);
+
+migration.close();
+```
+
+### Query Builder Pattern
+
+```typescript
+import { Database } from "bun:sqlite";
+
+class QueryBuilder<T> {
+  private db: Database;
+  private tableName: string;
+  private whereClause: string[] = [];
+  private whereValues: any[] = [];
+  private limitValue?: number;
+  private offsetValue?: number;
+
+  constructor(db: Database, tableName: string) {
+    this.db = db;
+    this.tableName = tableName;
+  }
+
+  where(column: string, value: any): this {
+    this.whereClause.push(`${column} = ?`);
+    this.whereValues.push(value);
+    return this;
+  }
+
+  limit(n: number): this {
+    this.limitValue = n;
+    return this;
+  }
+
+  offset(n: number): this {
+    this.offsetValue = n;
+    return this;
+  }
+
+  getAll(): T[] {
+    let sql = `SELECT * FROM ${this.tableName}`;
+
+    if (this.whereClause.length > 0) {
+      sql += ` WHERE ${this.whereClause.join(" AND ")}`;
+    }
+
+    if (this.limitValue) {
+      sql += ` LIMIT ${this.limitValue}`;
+    }
+
+    if (this.offsetValue) {
+      sql += ` OFFSET ${this.offsetValue}`;
+    }
+
+    const stmt = this.db.prepare(sql);
+    return stmt.all(...this.whereValues) as T[];
+  }
+
+  getOne(): T | null {
+    let sql = `SELECT * FROM ${this.tableName}`;
+
+    if (this.whereClause.length > 0) {
+      sql += ` WHERE ${this.whereClause.join(" AND ")}`;
+    }
+
+    sql += " LIMIT 1";
+
+    const stmt = this.db.prepare(sql);
+    return (stmt.get(...this.whereValues) as T) || null;
+  }
+}
+
+// Usage
 interface User {
   id: number;
   name: string;
   email: string;
 }
 
-class UserRepository {
-  private db: Database;
-  private stmts: {
-    findById: ReturnType<Database["prepare"]>;
-    findAll: ReturnType<Database["prepare"]>;
-    create: ReturnType<Database["prepare"]>;
-    update: ReturnType<Database["prepare"]>;
-    delete: ReturnType<Database["prepare"]>;
-  };
+const db = new Database("mydb.sqlite");
 
-  constructor(db: Database) {
-    this.db = db;
-    this.stmts = {
-      findById: db.prepare("SELECT * FROM users WHERE id = ?"),
-      findAll: db.prepare("SELECT * FROM users"),
-      create: db.prepare("INSERT INTO users (name, email) VALUES ($name, $email)"),
-      update: db.prepare("UPDATE users SET name = $name, email = $email WHERE id = $id"),
-      delete: db.prepare("DELETE FROM users WHERE id = ?"),
-    };
-  }
+const query = new QueryBuilder<User>(db, "users");
+const users = query.where("name", "Alice").limit(10).getAll();
+console.log(users);
+```
 
-  findById(id: number): User | null {
-    return this.stmts.findById.get(id) as User | null;
-  }
+## Anti-Patterns
 
-  findAll(): User[] {
-    return this.stmts.findAll.all() as User[];
-  }
+### Don't Use String Interpolation
 
-  create(user: Omit<User, "id">): number {
-    const result = this.stmts.create.run(user);
-    return Number(result.lastInsertRowid);
-  }
+```typescript
+// Bad - SQL injection vulnerability
+const userId = "1 OR 1=1";
+const user = db.query(`SELECT * FROM users WHERE id = ${userId}`).get();
+
+// Good - Use prepared statements
+const stmt = db.prepare("SELECT * FROM users WHERE id = ?");
+const user = stmt.get(userId);
+```
+
+### Don't Forget to Close Database
+
+```typescript
+// Bad - Database remains open
+const db = new Database("mydb.sqlite");
+db.run("INSERT INTO users (name, email) VALUES (?, ?)", ["Alice", "alice@example.com"]);
+
+// Good - Close when done
+const db = new Database("mydb.sqlite");
+try {
+  db.run("INSERT INTO users (name, email) VALUES (?, ?)", ["Alice", "alice@example.com"]);
+} finally {
+  db.close();
 }
 ```
 
-## Common Errors
+### Don't Use Transactions for Single Operations
 
-| Error | Cause | Fix |
-|-------|-------|-----|
-| `SQLITE_CONSTRAINT` | Constraint violation | Check UNIQUE/FK constraints |
-| `SQLITE_BUSY` | Database locked | Use WAL mode, add retry logic |
-| `no such table` | Table doesn't exist | Run CREATE TABLE first |
-| `database is locked` | Concurrent access | Enable WAL mode |
+```typescript
+// Bad - Unnecessary transaction
+const insert = db.transaction(() => {
+  db.run("INSERT INTO users (name, email) VALUES (?, ?)", ["Alice", "alice@example.com"]);
+});
+insert();
 
-## Performance Tips
-
-```sql
--- Enable WAL mode (better concurrency)
-PRAGMA journal_mode = WAL;
-
--- Faster writes (less durable)
-PRAGMA synchronous = NORMAL;
-
--- Increase cache size
-PRAGMA cache_size = 10000;
-
--- Enable foreign keys
-PRAGMA foreign_keys = ON;
+// Good - Direct execution
+db.run("INSERT INTO users (name, email) VALUES (?, ?)", ["Alice", "alice@example.com"]);
 ```
 
-## When to Load References
+### Don't Reparse Queries
 
-Load `references/pragmas.md` when:
-- Performance tuning
-- Journal modes
-- Memory configuration
+```typescript
+// Bad - Reparsing query each iteration
+for (let i = 0; i < 1000; i++) {
+  db.run("INSERT INTO users (name, email) VALUES (?, ?)", [`User ${i}`, `user${i}@example.com`]);
+}
 
-Load `references/fts.md` when:
-- Full-text search
-- FTS5 configuration
+// Good - Prepare once, execute many times
+const stmt = db.prepare("INSERT INTO users (name, email) VALUES (?, ?)");
+for (let i = 0; i < 1000; i++) {
+  stmt.run(`User ${i}`, `user${i}@example.com`);
+}
+```
+
+## Related Skills
+
+- **bun-runtime**: Core Bun runtime features and file I/O
+- **bun-testing**: Testing database operations
+- **bun-bundler**: Bundling applications with SQLite

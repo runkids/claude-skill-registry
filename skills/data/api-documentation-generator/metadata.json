@@ -1,7 +1,7 @@
 {
   "name": "api-documentation-generator",
-  "repo": "cgyudistira/code-agents",
-  "path": "skills/api-documentation-generator/SKILL.md",
-  "source": "github.com/cgyudistira/code-agents",
-  "downloaded_at": "2026-01-28T04:27:49.364765Z"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/api-documentation-generator/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-29T03:58:10.487538Z"
 }

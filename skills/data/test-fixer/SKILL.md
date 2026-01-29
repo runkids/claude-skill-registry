@@ -1,571 +1,420 @@
 ---
 name: test-fixer
-description: Fix failing tests based on failure reports, verify fixes, and iterate until all tests pass. This skill should be used after test-executor generates failure reports, providing systematic debugging and fixing strategies that work with any framework or language.
+description: |
+  Automatically debug and fix failing Playwright tests by navigating to the failed step using browser automation.
+  Use when: (1) A Playwright test fails after creation or execution, (2) Test selectors are broken or outdated,
+  (3) Page structure has changed and tests need updating, (4) Need to visually inspect what the test sees vs expects.
+  Triggers on: "test failed", "fix the test", "selector not found", "element not visible", "timeout", test errors.
 ---
 
-# Test Fixer Skill
+# Test Fixer
 
-## Purpose
+Debug and fix failing Playwright tests by visually inspecting the actual page state.
 
-Systematically fix failing tests by analyzing failure reports, diagnosing root causes, implementing fixes, and verifying corrections. Works universally with any testing framework, language, or project structure through generic debugging strategies.
+> **⚠️ CRITICAL: Browser Session Behavior**
+>
+> Each MCP call = new browser session. Browser CLOSES after each call.
+> You CANNOT navigate in one call and interact in another.
+> Use `browser_run_code` for ALL test debugging.
+> If you need to return to a specific state (e.g., after login), you MUST redo ALL steps from scratch.
 
-## When to Use This Skill
+## Workflow
 
-Use this skill when:
+1. **Parse the error** - Extract failing test file, line number, selector, and error type
+2. **Capture page state** - Use `browser_run_code` to navigate AND interact in one session
+3. **Analyze the issue** - Compare expected vs actual selectors/state
+4. **Fix the code** - Update page object and/or test spec
+5. **Verify** - Re-run the single failing test
 
-- `test-executor` has generated a failure report (test-failures.md)
-- Tests are failing and need fixes
-- Need systematic approach to debugging test failures
-- Want to iterate on fixes until tests pass
-- Need to understand and resolve test failure patterns
+## Step 1: Parse Error
 
-## Fixing Workflow
+Extract from test output:
+- **File path**: e.g., `tests/olx-landing.spec.ts:45`
+- **Error type**: timeout, strict mode violation, element not found, assertion failed
+- **Failing selector**: the locator that failed
+- **Expected vs received**: for assertion errors
 
-### Phase 1: Read and Understand Failures
+## Step 2: Capture Page State
 
-1. **Read Failure Report**
-   - Locate test-failures.md
-   - Review summary statistics
-   - Identify number and types of failures
-   - Prioritize fixes (critical → non-critical)
+### CRITICAL: Browser Session Behavior
 
-2. **Analyze Failure Patterns**
-   - Are failures related? (common root cause)
-   - Are failures independent?
-   - Which failure to fix first?
+**Each MCP call creates a NEW browser session. For multi-step operations, use `browser_run_code`!**
 
-3. **Categorize by Type**
-   - Timeout errors
-   - Assertion failures
-   - Connection errors
-   - Authentication errors
-   - Data errors
-   - Environment issues
+### Option A: Single `browser_run_code` Call (Recommended)
 
-### Phase 2: Diagnose Root Cause
+Run all exploration steps in one session:
 
-For each failing test:
+```bash
+python .claude/skills/mcp-client/scripts/mcp_client.py call playwright browser_run_code '{
+  "code": "
+    // Navigate to page
+    await page.goto(\"https://www.olx.ro\");
 
-1. **Read Error Message Carefully**
-   - Extract key information
-   - Identify line numbers and files
-   - Understand what was expected vs actual
+    // Handle cookies
+    const acceptBtn = page.getByRole(\"button\", { name: \"Accept\" });
+    if (await acceptBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
+      await acceptBtn.click();
+      await page.waitForTimeout(500);
+    }
 
-2. **Locate Relevant Code**
-   - Find test file
-   - Find implementation code being tested
-   - Read both test and implementation
+    // Replicate test steps up to failure
+    const categoryLink = page.getByRole(\"link\", { name: /Auto, moto/i }).first();
+    await categoryLink.click();
+    await page.waitForTimeout(1500);
 
-3. **Reproduce Locally (if possible)**
-   - Run single failing test
-   - Observe behavior
-   - Add debug logging if needed
-
-4. **Identify Root Cause**
-   - Is test correct and implementation wrong?
-   - Is test incorrect and implementation right?
-   - Is environment/setup the issue?
-   - Is test flaky/timing-dependent?
-
-### Phase 3: Implement Fix
-
-1. **Choose Fix Strategy**
-   - Fix implementation code
-   - Fix test code
-   - Fix environment/configuration
-   - Fix test data/fixtures
-
-2. **Implement Fix**
-   - Make minimal change to fix issue
-   - Don't over-engineer
-   - Maintain code style consistency
-   - Add comments if fix is non-obvious
-
-3. **Local Verification**
-   - Run fixed test locally
-   - Verify it passes consistently
-   - Check no regressions in related tests
-
-### Phase 4: Verify and Iterate
-
-1. **Re-run Test**
-   - Use `test-executor` to re-run
-   - Or run test command directly
-   - Capture results
-
-2. **If Test Passes:**
-   - Mark test as fixed
-   - Update test-failures.md or create test-fixes.md
-   - Move to next failing test
-
-3. **If Test Still Fails:**
-   - Analyze new error (may be different)
-   - Refine diagnosis
-   - Implement additional fix
-   - Iterate
-
-4. **Once All Tests Pass:**
-   - Update implementation plan
-   - Document any significant changes
-   - Ready for next phase or completion
-
-## Debugging Strategies by Failure Type
-
-### 1. Timeout Errors
-
-**Symptom:**
-```
-Error: Timeout waiting for element to appear
-Error: Request timeout after 30000ms
+    // Capture state at failure point
+    const snapshot = await page.accessibility.snapshot();
+    return JSON.stringify({
+      url: page.url(),
+      didNavigate: page.url().includes(\"auto\"),
+      snapshot: snapshot
+    }, null, 2);
+  "
+}'
 ```
 
-**Common Causes:**
-- Service not running
-- Service too slow
-- Incorrect wait condition
-- Element never appears (wrong selector)
+### Option B: Simple Navigate (When No Interactions Needed)
 
-**Diagnostic Steps:**
-1. Verify all services are running
-2. Manually test the operation (browser, curl, etc.)
-3. Check response times in service logs
-4. Verify selectors/conditions are correct
+`browser_navigate` returns both page AND snapshot in one call:
 
-**Fix Strategies:**
-- Start missing services
-- Optimize slow queries/operations
-- Increase timeout (if legitimately slow)
-- Fix incorrect wait conditions
-- Use better selectors (E2E tests)
+```bash
+python .claude/skills/mcp-client/scripts/mcp_client.py call playwright browser_navigate '{"url": "https://example.com"}'
+```
 
-**Example Fix:**
+### Option C: Run Test in Debug Mode
+
+For complex scenarios requiring visual debugging:
+
+```bash
+# Run the specific failing test with headed browser and pause on failure
+npx playwright test "tests/example.spec.ts:45" --headed --debug
+```
+
+### Option D: Use Test Artifacts
+
+Check the test-results folder for screenshots and traces:
+
+```bash
+# View trace from failed test
+npx playwright show-trace test-results/*/trace.zip
+```
+
+## Step 3: Analyze Issue
+
+| Error Type | Analysis | Typical Fix |
+|------------|----------|-------------|
+| `strict mode violation` | Multiple elements match | Add `.first()`, use more specific selector |
+| `element not visible` | Element exists but hidden | Wait for visibility, check cookie banners |
+| `timeout waiting for selector` | Selector outdated | Update to match actual DOM |
+| `toHaveURL failed` | Navigation didn't happen | Add waitForURL, check click target |
+| `toContainText failed` | **Wrong assumed text** | Discover actual error message text |
+| `click opens submenu, not page` | Multi-step interaction needed | Add click on "View all" or final nav link |
+
+### Common Issue: Wrong Assumed Text
+
+If assertion fails on `toContainText` or `toHaveText`, the test probably assumed the wrong error message.
+
+**Fix:** Discover the actual text:
+
+```bash
+python .claude/skills/mcp-client/scripts/mcp_client.py call playwright browser_run_code '{
+  "code": "
+    await page.goto(\"https://example.com/login\");
+
+    // Cookies
+    const acceptBtn = page.getByRole(\"button\", { name: /accept/i });
+    if (await acceptBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
+      await acceptBtn.click();
+    }
+
+    // Trigger the error condition
+    await page.fill(\"input[type=email]\", \"wrong@test.com\");
+    await page.fill(\"input[type=password]\", \"wrongpass\");
+    await page.click(\"button[type=submit]\");
+    await page.waitForTimeout(3000);
+
+    // Capture ACTUAL error text
+    const errors = await page.locator(\"[class*=error], [role=alert]\").evaluateAll(els =>
+      els.filter(e => e.offsetParent !== null).map(e => ({
+        text: e.textContent?.trim(),
+        selector: e.className ? \".\" + e.className.split(\" \")[0] : \"[role=alert]\"
+      }))
+    );
+
+    return JSON.stringify({ errors }, null, 2);
+  "
+}'
+```
+
+Then update test with actual text:
 ```typescript
-// Before: Too short timeout
-await page.waitForSelector('.success-message', { timeout: 1000 });
+// Before (assumed)
+await expect(page.locator('.error')).toContainText('Invalid credentials');
 
-// After: Reasonable timeout
-await page.waitForSelector('.success-message', { timeout: 5000 });
+// After (discovered)
+await expect(page.getByRole('alert')).toContainText('Email sau parolă incorectă');
 ```
 
-### 2. Assertion Failures
+### Selector Priority (best to worst)
 
-**Symptom:**
+1. `getByRole()` - Accessible, stable
+2. `getByTestId()` - Stable if devs maintain it
+3. `getByText()` - Readable, somewhat stable
+4. `locator('[href="..."]')` - For links
+5. CSS selectors - Last resort
+
+### Understanding Element Behavior
+
+Use `browser_run_code` to test what clicking does:
+
+```bash
+python .claude/skills/mcp-client/scripts/mcp_client.py call playwright browser_run_code '{
+  "code": "
+    await page.goto(\"https://www.olx.ro\");
+
+    // Dismiss cookies
+    const acceptBtn = page.getByRole(\"button\", { name: \"Accept\" });
+    if (await acceptBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
+      await acceptBtn.click();
+    }
+
+    // Record initial state
+    const initialUrl = page.url();
+
+    // Click the element that failed
+    const element = page.getByRole(\"link\", { name: /Auto, moto/i }).first();
+    await element.click();
+    await page.waitForTimeout(1500);
+
+    // Analyze what happened
+    const finalUrl = page.url();
+    const didNavigate = finalUrl !== initialUrl;
+
+    // Look for submenus or dropdowns
+    const submenuVisible = await page.locator(\"[class*=submenu], [class*=dropdown], [class*=menu]\").first().isVisible().catch(() => false);
+
+    // Get visible links that might be \"View all\" type
+    const navLinks = await page.getByRole(\"link\").filter({ hasText: /vezi|view|all|toate/i }).allTextContents();
+
+    const snapshot = await page.accessibility.snapshot();
+
+    return JSON.stringify({
+      initialUrl,
+      finalUrl,
+      didNavigate,
+      submenuVisible,
+      navLinks,
+      snapshot
+    }, null, 2);
+  "
+}'
 ```
-Expected: 200
-Received: 404
 
-AssertionError: expected 'success' to equal 'error'
-```
+## Step 4: Fix the Code
 
-**Common Causes:**
-- Logic error in implementation
-- Incorrect test expectations
-- Data fixtures incorrect
-- API contract mismatch
+### Page Object Updates
 
-**Diagnostic Steps:**
-1. Understand what test expects
-2. Understand what implementation returns
-3. Determine which is correct
-4. Check data flowing through system
+When selectors break, update the page object locator:
 
-**Fix Strategies:**
-- Fix implementation logic (if test is correct)
-- Fix test expectations (if implementation is correct)
-- Fix data fixtures
-- Align API contract
-
-**Example Fix (Implementation Error):**
-```csharp
-// Before: Wrong status code
-return NotFound(); // 404
-
-// After: Correct status code
-return Ok(result); // 200
-```
-
-**Example Fix (Test Error):**
 ```typescript
-// Before: Wrong expectation
-expect(response.status).toBe(404);
+// Before (broken)
+this.searchButton = page.getByRole('button', { name: 'Search' });
 
-// After: Correct expectation
-expect(response.status).toBe(200);
+// After (from snapshot showing actual name)
+this.searchButton = page.getByRole('button', { name: /Căutare/i });
 ```
 
-### 3. Connection Errors
+### Test Updates
 
-**Symptom:**
-```
-Error: connect ECONNREFUSED 127.0.0.1:5001
-Error: getaddrinfo ENOTFOUND localhost
-```
+When assertions fail, update test logic:
 
-**Common Causes:**
-- Service not running
-- Wrong port or URL
-- Firewall blocking connection
-- Service crashed
-
-**Diagnostic Steps:**
-1. Check if service process is running
-2. Verify port matches configuration
-3. Test connection manually (curl, browser)
-4. Check service logs for crashes
-
-**Fix Strategies:**
-- Start the service
-- Fix port/URL in configuration
-- Restart crashed service
-- Check firewall rules
-
-**Example Fix:**
 ```typescript
-// Before: Wrong port
-const API_URL = 'http://localhost:3000';
+// Before (navigation not waiting)
+await categoryLink.click();
+await expect(page).toHaveURL(/category/);
 
-// After: Correct port
-const API_URL = 'http://localhost:5001';
+// After (proper navigation wait)
+await Promise.all([
+  page.waitForURL(/category/),
+  categoryLink.click()
+]);
 ```
 
-### 4. Authentication Errors
+### Multi-Step Navigation Fixes
 
-**Symptom:**
-```
-Error: 401 Unauthorized
-Error: 403 Forbidden
-Error: Invalid token
-```
+When click opens submenu instead of navigating:
 
-**Common Causes:**
-- Missing authentication header
-- Expired token
-- Wrong credentials
-- Incorrect auth flow
-
-**Diagnostic Steps:**
-1. Check if token is being sent
-2. Verify token is valid
-3. Check token hasn't expired
-4. Verify auth flow is correct
-
-**Fix Strategies:**
-- Add authentication header
-- Refresh/regenerate token
-- Use correct credentials
-- Fix auth flow logic
-
-**Example Fix:**
 ```typescript
-// Before: Missing auth header
-const response = await fetch('/api/forms');
+// Before (assumes direct navigation)
+async navigateToCategory(categoryName: string) {
+  await this.page.getByRole('link', { name: categoryName }).click();
+}
 
-// After: Include auth header
-const response = await fetch('/api/forms', {
-  headers: {
-    'Authorization': `Bearer ${token}`
+// After (handles submenu)
+async navigateToCategory(categoryName: string) {
+  // Click category to open submenu
+  const categoryLink = this.page.getByRole('link', { name: categoryName }).first();
+  await categoryLink.click();
+
+  // Click "View all" to actually navigate
+  const viewAllLink = this.page.getByRole('link', { name: /Vezi toate anunturile/i });
+  await viewAllLink.click();
+}
+```
+
+## Common Fixes Reference
+
+### Cookie Banner Blocking
+
+```typescript
+// Add to page object
+async acceptCookies() {
+  const banner = this.page.getByRole('dialog').filter({ hasText: /cookie|privacy/i });
+  if (await banner.isVisible({ timeout: 2000 }).catch(() => false)) {
+    await this.page.getByRole('button', { name: /accept|agree/i }).click();
   }
-});
+}
 ```
 
-### 5. Data Errors
-
-**Symptom:**
-```
-TypeError: Cannot read property 'name' of undefined
-NullReferenceException: Object reference not set
-```
-
-**Common Causes:**
-- Missing data in response
-- Null/undefined values
-- Wrong data shape
-- Database empty/wrong state
-
-**Diagnostic Steps:**
-1. Log actual data being received
-2. Check database state
-3. Verify API response structure
-4. Check data fixtures
-
-**Fix Strategies:**
-- Add null checks
-- Fix data fixtures
-- Ensure database has required data
-- Fix API to return correct shape
-
-**Example Fix:**
-```typescript
-// Before: No null check
-const userName = user.name.toUpperCase();
-
-// After: Safe null check
-const userName = user?.name?.toUpperCase() ?? 'Unknown';
-```
-
-### 6. Environment / Configuration Issues
-
-**Symptom:**
-```
-Error: Missing environment variable
-Error: Configuration not found
-Error: Module not found
-```
-
-**Common Causes:**
-- Missing .env file
-- Missing dependencies
-- Wrong configuration
-- Environment variables not set
-
-**Diagnostic Steps:**
-1. Check .env file exists
-2. Verify dependencies installed
-3. Check configuration files
-4. Verify environment variables
-
-**Fix Strategies:**
-- Create .env file
-- Install dependencies
-- Fix configuration
-- Set environment variables
-
-**Example Fix:**
-```bash
-# Create missing .env file
-cp .env.example .env
-
-# Install missing dependencies
-npm install
-
-# Set environment variable
-export DATABASE_URL="postgresql://localhost:5432/db"
-```
-
-## Systematic Debugging Approach
-
-### The 5 Whys Technique
-
-Ask "why" repeatedly to find root cause:
-
-**Example:**
-1. **Why did test fail?** → API returned 500
-2. **Why did API return 500?** → Database query failed
-3. **Why did query fail?** → Connection string wrong
-4. **Why is connection string wrong?** → .env file missing
-5. **Why is .env file missing?** → Not in .gitignore, not documented
-
-**Root cause:** Missing .env file
-**Fix:** Create .env file and document in README
-
-### Rubber Duck Debugging
-
-Explain the failure out loud (or in comments):
-
-```
-# What should happen:
-# 1. User clicks submit
-# 2. Form data is sent to API
-# 3. API validates and saves to DB
-# 4. API returns 200 with submission ID
-# 5. UI shows success message
-
-# What actually happens:
-# 1-2: OK
-# 3: API validation fails ← Problem here!
-# 4-5: Never reached
-
-# Why does validation fail?
-# - Required field "email" is missing
-# - Frontend not sending email field ← Root cause!
-```
-
-### Binary Search Debugging
-
-For complex failures, narrow down:
-
-1. **Add logging at midpoint of flow**
-2. **Run test**
-3. **Check logs**
-4. **If before midpoint:** Search first half
-5. **If after midpoint:** Search second half
-6. **Repeat** until issue found
-
-### Comparative Debugging
-
-Compare working vs failing:
-
-- Working test vs failing test (what's different?)
-- Working environment vs failing environment
-- Previous commit (working) vs current commit (failing)
-
-## Fixing Multiple Related Failures
-
-### Pattern Recognition
-
-If multiple tests fail similarly:
-
-**Example:**
-```
-Test A: Expected 200, got 500
-Test B: Expected 200, got 500
-Test C: Expected 200, got 500
-```
-
-**Pattern:** All tests hitting same endpoint fail
-**Root cause:** Likely in shared code (endpoint implementation)
-**Fix:** Fix endpoint once, all tests should pass
-
-### Dependency Fixing
-
-Fix failures in dependency order:
-
-**Example:**
-```
-Test A: Create user (fails)
-Test B: Login as user (fails - depends on A)
-Test C: User updates profile (fails - depends on A, B)
-```
-
-**Fix order:** A → B → C
-- Fix Test A first
-- Tests B and C may pass automatically
-
-### Batch Fixing
-
-For independent failures:
-- Fix multiple in parallel (if team)
-- Fix in order of priority/severity
-- Re-run all tests together at end
-
-## Verification
-
-### Single Test Verification
-
-```bash
-# Run only the fixed test
-npm test -- specific-test.spec.ts
-dotnet test --filter TestName
-pytest tests/test_specific.py::test_function
-```
-
-### Regression Check
-
-After fixing, ensure no new failures:
-
-```bash
-# Run full test suite
-npm test
-dotnet test
-pytest
-```
-
-### Multiple Runs (Flaky Tests)
-
-If test seems flaky:
-
-```bash
-# Run multiple times to verify stability
-for i in {1..5}; do npm test; done
-```
-
-If still flaky, fix the flakiness (timing issues, race conditions, etc.)
-
-## Documenting Fixes
-
-### In Code Comments
-
-For non-obvious fixes:
+### Multiple Elements Match
 
 ```typescript
-// Fix: Added timeout to wait for async operation to complete
-// Issue: Test was checking result before operation finished
-await new Promise(resolve => setTimeout(resolve, 100));
+// Use .first() for first match
+await page.getByRole('link', { name: 'Category' }).first().click();
+
+// Or use more specific parent context
+await page.locator('nav').getByRole('link', { name: 'Category' }).click();
+
+// Or use getByTestId if available
+await page.getByTestId('login-submit-button').click();
 ```
 
-### In test-fixes.md
+### Element Not Ready
 
-Create report of fixes:
+```typescript
+// Wait for element to be actionable
+await expect(element).toBeVisible();
+await element.click();
 
-```markdown
-# Test Fixes Report
-
-**Date:** [Date]
-
-## Fixed Tests
-
-### Test: User can submit form
-**Issue:** Timeout waiting for success message
-**Root Cause:** Service startup slow in CI environment
-**Fix:** Increased timeout from 1s to 5s
-**File:** `tests/e2e/form-submission.spec.ts:42`
-
-### Test: API validates SIRET
-**Issue:** Validation always failed
-**Root Cause:** Wrong validation logic (bug in implementation)
-**Fix:** Corrected Luhn algorithm in ValidationService
-**File:** `src/services/ValidationService.cs:67`
+// Or wait for network idle
+await page.waitForLoadState('networkidle');
 ```
 
-### In Implementation Plan
+### Navigation Not Completing
 
-Update plan with any significant changes:
-
-```markdown
-- [x] Phase 4: Testing (100%)
-  **Note:** Fixed timeout issues in E2E tests, fixed SIRET validation bug
+```typescript
+// Wait for URL change explicitly
+await Promise.all([
+  page.waitForURL(/expected-path/),
+  triggerElement.click()
+]);
 ```
 
-## Iteration with test-executor
+## Step 5: Verify
 
-### Fix Loop
+Re-run only the failing test:
 
-```
-1. test-executor runs tests → test-failures.md
-2. test-fixer fixes failures
-3. test-executor re-runs tests
-   → If all pass: Done!
-   → If still failures: Go to step 2
+```bash
+npx playwright test "tests/olx-landing.spec.ts" -g "Category links navigate correctly"
 ```
 
-### Incremental Progress
+Or run by line number:
 
-Track progress across iterations:
-
-```markdown
-# Test Failure Report - Iteration 1
-- Failed: 10/15 tests
-
-# Test Failure Report - Iteration 2
-- Failed: 3/15 tests (7 fixed!)
-
-# Test Failure Report - Iteration 3
-- Failed: 0/15 tests (All passing! ✅)
+```bash
+npx playwright test tests/olx-landing.spec.ts:45
 ```
 
-## Tips for Effective Test Fixing
+## Checklist Before Fixing
 
-1. **Read Error Messages Carefully**: They often tell you exactly what's wrong
-2. **Start Simple**: Check obvious things first (services running, config correct)
-3. **One Fix at a Time**: Don't change multiple things simultaneously
-4. **Verify Locally**: Run test locally before marking fixed
-5. **Consider Root Cause**: Fix the cause, not just the symptom
-6. **Document Non-Obvious Fixes**: Help future developers
-7. **Check for Regressions**: Ensure fix doesn't break other tests
-8. **Ask for Help**: If stuck, consult user or team
-9. **Take Breaks**: Fresh eyes spot issues faster
-10. **Learn Patterns**: Similar failures often have similar fixes
+- [ ] Read the failing test file
+- [ ] Navigate to the URL the test uses (with `browser_run_code`)
+- [ ] Accept cookies/dismiss popups if present
+- [ ] **Replicate test steps up to failure**
+- [ ] Capture fresh DOM snapshot
+- [ ] **Understand actual UI behavior** (dropdowns, submenus, multi-step flows)
+- [ ] Find the actual element in snapshot
+- [ ] Update selector AND flow to match reality
+- [ ] Re-run the single failing test to verify
 
-## Common Mistakes to Avoid
+## Common Misunderstandings
 
-❌ **Changing Tests to Match Bugs**: Fix implementation, not tests
-❌ **Adding Arbitrary Delays**: Understand why timing is an issue
-❌ **Ignoring Flaky Tests**: Fix flakiness, don't just retry
-❌ **Skipping Verification**: Always re-run test after fix
-❌ **Fixing Symptoms**: Find and fix root cause
-❌ **Over-Complicating**: Simple fixes are usually best
+| Assumption | Reality | Fix |
+|------------|---------|-----|
+| Click navigates directly | Opens submenu first | Add step to click "View all" or similar |
+| Element is immediately visible | Requires scroll or hover | Add `scrollIntoViewIfNeeded()` or hover action |
+| Form submits on button click | Requires Enter key or specific trigger | Use correct submission method |
+| Modal closes on outside click | Requires explicit close button | Click the close/X button |
+| Page loads immediately | Redirect to different domain | Add `waitForURL` with correct domain pattern |
 
-## Bundled Resources
+## References
 
-- `references/debugging-strategies.md` - Universal debugging strategies
-- `references/common-test-failures.md` - Common failures and solutions
+See **[references/error-patterns.md](references/error-patterns.md)** for detailed diagnosis and fixes for:
+- Timeout errors (selector, URL)
+- Strict mode violations
+- Assertion failures (text, URL)
+- Element state errors (not visible, disabled)
+- Navigation issues
+
+## Quick Debug Script
+
+For complex debugging, use this exploration script:
+
+```bash
+python .claude/skills/mcp-client/scripts/mcp_client.py call playwright browser_run_code '{
+  "code": "
+    // ====== CUSTOMIZE THIS SECTION ======
+    const URL = \"https://www.olx.ro/cont/\";
+    const WAIT_FOR_REDIRECT = /login\\.olx\\.ro/;
+    // =====================================
+
+    await page.goto(URL);
+
+    // Handle cookies
+    const acceptBtn = page.getByRole(\"button\", { name: /accept/i });
+    if (await acceptBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
+      await acceptBtn.click();
+      await page.waitForTimeout(500);
+    }
+
+    // Wait for redirect if specified
+    if (WAIT_FOR_REDIRECT) {
+      await page.waitForURL(WAIT_FOR_REDIRECT, { timeout: 10000 });
+    }
+
+    // Get comprehensive element info
+    const inputs = await page.locator(\"input\").evaluateAll(els =>
+      els.map(e => ({
+        type: e.type,
+        name: e.name,
+        placeholder: e.placeholder,
+        testid: e.dataset.testid
+      }))
+    );
+
+    const buttons = await page.locator(\"button\").evaluateAll(els =>
+      els.map(e => ({
+        text: e.textContent?.trim(),
+        testid: e.dataset.testid,
+        type: e.type
+      }))
+    );
+
+    const links = await page.getByRole(\"link\").evaluateAll(els =>
+      els.slice(0, 20).map(e => ({
+        text: e.textContent?.trim()?.substring(0, 50),
+        href: e.href
+      }))
+    );
+
+    const snapshot = await page.accessibility.snapshot();
+
+    return JSON.stringify({
+      url: page.url(),
+      inputs,
+      buttons,
+      links,
+      snapshot
+    }, null, 2);
+  "
+}'
+```

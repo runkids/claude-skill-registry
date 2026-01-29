@@ -1,9 +1,7 @@
 {
   "name": "lazy-loading-implementer",
-  "description": "Lazy Loading Implementer - Auto-activating skill for Frontend Development.Triggers on: lazy loading implementer, lazy loading implementerPart of the Frontend Development skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/lazy-loading-implementer/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-29T03:34:18.953496Z"
 }

@@ -1,174 +1,43 @@
 ---
 name: gitflow
-description: Gitflow Workflow Rules. These rules should be applied when performing git operations.
-version: 1.0.0
-model: sonnet
-invoked_by: both
-user_invocable: true
-tools: [Read, Write, Edit, Bash]
-
-best_practices:
-  - Follow the guidelines consistently
-  - Apply rules during code review
-  - Use as reference when writing new code
-error_handling: graceful
-streaming: supported
+description: Use this skill when managing git branches, releases, or hotfixes according to the Gitflow workflow. It enforces naming conventions and synchronization policies.
+metadata:
+  short-description: Expert guidance on Gitflow branching and release management.
 ---
 
-# Gitflow Skill
+# Gitflow Expert
 
-<identity>
-You are a coding standards expert specializing in gitflow.
-You help developers write better code by applying established guidelines and best practices.
-</identity>
+You are an expert in the Gitflow branching model. Your goal is to guide the user through the lifecycle of features, releases, and hotfixes while maintaining strict repository hygiene.
 
-<capabilities>
-- Review code for guideline compliance
-- Suggest improvements based on best practices
-- Explain why certain patterns are preferred
-- Help refactor code to meet standards
-</capabilities>
+## Core Mandates
 
-<instructions>
-When reviewing or writing code, apply these guidelines:
+1.  **Sync First**: ALWAYS instruct the user to update their local source branch from upstream *before* creating a new branch.
+2.  **Strict Naming**: Enforce the `feature/*`, `bugfix/*`, `release/*`, and `hotfix/*` naming conventions defined in the references.
+3.  **Correct Targets**: Ensure PRs are targeted correctly (e.g., Hotfixes go to `master` AND `develop`).
 
-# Gitflow Workflow Rules
+## Branching Strategy
 
-## Main Branches
+The project uses a standard Gitflow model.
+-   **Branch Types & Lifecycles**: See [references/branching-model.md](references/branching-model.md).
 
-### main (or master)
+## Developer Policies
 
-- Contains production-ready code
-- Never commit directly to main
-- Only accepts merges from:
-  - hotfix/\* branches
-  - release/\* branches
-- Must be tagged with version number after each merge
+-   **Upstream Sync & PR Rules**: See [references/policies.md](references/policies.md).
 
-### develop
+## Workflow
 
-- Main development branch
-- Contains latest delivered development changes
-- Source branch for feature branches
-- Never commit directly to develop
-
-## Supporting Branches
-
-### feature/\*
-
-- Branch from: develop
-- Merge back into: develop
-- Naming convention: feature/[issue-id]-descriptive-name
-- Example: feature/123-user-authentication
-- Must be up-to-date with develop before creating PR
-- Delete after merge
-
-### release/\*
-
-- Branch from: develop
-- Merge back into:
-  - main
-  - develop
-- Naming convention: release/vX.Y.Z
-- Example: release/v1.2.0
-- Only bug fixes, documentation, and release-oriented tasks
-- No new features
-- Delete after merge
-
-### hotfix/\*
-
-- Branch from: main
-- Merge back into:
-  - main
-  - develop
-- Naming convention: hotfix/vX.Y.Z
-- Example: hotfix/v1.2.1
-- Only for urgent production fixes
-- Delete after merge
-
-## Commit Messages
-
-- Format: `type(scope): description`
-- Types:
-  - feat: New feature
-  - fix: Bug fix
-  - docs: Documentation changes
-  - style: Formatting, missing semicolons, etc.
-  - refactor: Code refactoring
-  - test: Adding tests
-  - chore: Maintenance tasks
-
-## Version Control
-
-### Semantic Versioning
-
-- MAJOR version for incompatible API changes
-- MINOR version for backwards-compatible functionality
-- PATCH version for backwards-compatible bug fixes
-
-## Pull Request Rules
-
-1. All changes must go through Pull Requests
-2. Required approvals: minimum 1
-3. CI checks must pass
-4. No direct commits to protected branches (main, develop)
-5. Branch must be up to date before merging
-6. Delete branch after merge
-
-## Branch Protection Rules
-
-### main & develop
-
-- Require pull request reviews
-- Require status checks to pass
-- Require branches to be up to date
-- Include administrators in restrictions
-- No force pushes
-- No deletions
-
-## Release Process
-
-1. Create release branch from develop
-2. Bump version numbers
-3. Fix any release-specific issues
-4. Create PR to main
-5. After merge to main:
-   - Tag release
-   - Merge back to develop
-   - Delete release branch
-
-## Hotfix Process
-
-1. Create hotfix branch from main
-2. Fix the issue
-3. Bump patch version
-4. Create PR to main
-5. After merge to main:
-   - Tag release
-   - Merge back to develop
-   - Delete hotfix branch
-     </instructions>
-
-<examples>
-Example usage:
-```
-User: "Review this code for gitflow compliance"
-Agent: [Analyzes code against guidelines and provides specific feedback]
-```
-</examples>
-
-## Related Skills
-
-- [`git-expert`](../git-expert/SKILL.md) - Git operations and commands for implementing workflow
-
-## Memory Protocol (MANDATORY)
-
-**Before starting:**
-
+### 1. Starting Work
+Before creating any branch, run:
 ```bash
-cat .claude/context/memory/learnings.md
+git checkout <source_branch>
+git pull origin <source_branch>
+git checkout -b <new_branch_name>
 ```
+*Ref: [references/policies.md](references/policies.md)*
 
-**After completing:** Record any new patterns or exceptions discovered.
-
-> ASSUME INTERRUPTION: Your context may reset. If it's not in memory, it didn't happen.
+### 2. Choosing a Branch Type
+-   **New Feature** -> `feature/` (from `develop`)
+-   **Non-critical Bug** -> `bugfix/` (from `develop`)
+-   **Production Release** -> `release/` (from `develop`)
+-   **Critical Production Fix** -> `hotfix/` (from `master`)
+*Ref: [references/branching-model.md](references/branching-model.md)*

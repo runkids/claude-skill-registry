@@ -1,89 +1,451 @@
 ---
-name: code-generator
-description: 帮助生成高质量的代码，包括函数、类、模块和完整项目。支持多种编程语言，遵循最佳实践和设计模式。适用于快速开发、代码示例生成或教学演示。
+name: dapr-code-generator
+description: Generate Python boilerplate code for DAPR microservices, workflows, and actors. Creates properly structured services with DAPR SDK integration, health endpoints, logging, and best practices. Use when creating new services, adding DAPR features, or scaffolding projects.
+allowed-tools: Read, Write, Glob
 ---
 
-# 代码生成技能
+# DAPR Code Generator
 
-## 概述
+This skill generates production-ready Python code for DAPR applications following best practices.
 
-本技能帮助您生成高质量的代码，支持多种编程语言，遵循最佳实践和设计模式。
+## When to Use
 
-**关键词**: 代码生成、编程、函数、类、模块、项目开发、代码示例
+Claude automatically uses this skill when:
+- User creates a new DAPR service
+- Adding DAPR features to existing code
+- Scaffolding microservice projects
+- Creating workflows or actors
 
-## 核心功能
+## Code Templates
 
-### 1. 函数和类生成
+### FastAPI Microservice
 
-- 生成符合规范的函数和类
-- 添加完整的文档注释
-- 实现错误处理和边界检查
-- 遵循语言特定的最佳实践
+```python
+"""
+{service_name} - DAPR-enabled FastAPI microservice
+"""
+import json
+import logging
+from contextlib import asynccontextmanager
+from typing import Any
 
-### 2. 模块和包开发
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+from dapr.clients import DaprClient
+from dapr.ext.fastapi import DaprApp
 
-- 创建结构化的模块和包
-- 设计清晰的 API 接口
-- 实现模块间的依赖管理
-- 创建配置文件和初始化代码
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
-### 3. 项目脚手架
+# Constants
+DAPR_STORE_NAME = "statestore"
+DAPR_PUBSUB_NAME = "pubsub"
 
-- 生成完整的项目结构
-- 创建配置文件（package.json, requirements.txt 等）
-- 设置构建和测试环境
-- 添加 README 和文档
 
-### 4. 代码优化和重构
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Application lifespan handler."""
+    logger.info("Starting {service_name}")
+    yield
+    logger.info("Shutting down {service_name}")
 
-- 优化代码性能和可读性
-- 应用设计模式和最佳实践
-- 重构代码结构
-- 添加单元测试
 
-## 使用指南
+app = FastAPI(
+    title="{service_name}",
+    lifespan=lifespan
+)
+dapr_app = DaprApp(app)
 
-### 代码生成原则
 
-1. **清晰性**: 代码应清晰易懂，命名规范
-2. **可维护性**: 结构良好，易于修改和扩展
-3. **健壮性**: 包含错误处理和边界检查
-4. **文档化**: 提供完整的注释和文档
-5. **测试性**: 代码应易于测试
+# Health endpoints
+@app.get("/health")
+async def health():
+    """Health check endpoint."""
+    return {"status": "healthy"}
 
-### 支持的编程语言
 
-- Python
-- JavaScript/TypeScript
-- Java
-- Go
-- Rust
-- 其他常见编程语言
+@app.get("/ready")
+async def ready():
+    """Readiness check endpoint."""
+    return {"status": "ready"}
 
-### 代码结构要求
 
-- **导入部分**: 清晰的导入语句
-- **文档字符串**: 函数和类的文档
-- **实现代码**: 核心逻辑实现
-- **测试代码**: 单元测试（如需要）
-- **示例代码**: 使用示例（如需要）
+# DAPR State Management
+async def save_state(key: str, value: Any) -> None:
+    """Save state to DAPR state store."""
+    async with DaprClient() as client:
+        await client.save_state(
+            store_name=DAPR_STORE_NAME,
+            key=key,
+            value=json.dumps(value)
+        )
+        logger.info(f"State saved: {key}")
 
-## 输出格式
 
-生成的代码应包含：
+async def get_state(key: str) -> Any:
+    """Get state from DAPR state store."""
+    async with DaprClient() as client:
+        state = await client.get_state(
+            store_name=DAPR_STORE_NAME,
+            key=key
+        )
+        if state.data:
+            return json.loads(state.data)
+        return None
 
-- **代码文件**: 完整的源代码文件
-- **文档注释**: 函数、类、模块的文档
-- **使用示例**: 代码使用示例
-- **依赖说明**: 所需的依赖和版本
-- **测试代码**: 相关的测试用例
 
-## 最佳实践
+# DAPR Pub/Sub
+async def publish_event(topic: str, data: Any) -> None:
+    """Publish event to DAPR pub/sub."""
+    async with DaprClient() as client:
+        await client.publish_event(
+            pubsub_name=DAPR_PUBSUB_NAME,
+            topic_name=topic,
+            data=json.dumps(data),
+            data_content_type="application/json"
+        )
+        logger.info(f"Event published to {topic}")
 
-- 遵循语言的编码规范和风格指南
-- 使用有意义的变量和函数名
-- 添加类型提示（如适用）
-- 实现适当的错误处理
-- 编写清晰的文档注释
-- 考虑性能和可扩展性
-- 遵循 SOLID 原则和设计模式
+
+# DAPR Service Invocation
+async def invoke_service(app_id: str, method: str, data: Any = None) -> Any:
+    """Invoke another DAPR service."""
+    async with DaprClient() as client:
+        response = await client.invoke_method(
+            app_id=app_id,
+            method_name=method,
+            data=json.dumps(data) if data else None,
+            content_type="application/json"
+        )
+        return response.json() if response.data else None
+
+
+# Example API endpoints - customize as needed
+class ItemModel(BaseModel):
+    id: str
+    name: str
+    data: dict = {}
+
+
+@app.post("/items")
+async def create_item(item: ItemModel):
+    """Create a new item."""
+    await save_state(f"item-{item.id}", item.model_dump())
+    await publish_event("items", {"action": "created", "item": item.model_dump()})
+    return {"status": "created", "id": item.id}
+
+
+@app.get("/items/{item_id}")
+async def get_item(item_id: str):
+    """Get an item by ID."""
+    item = await get_state(f"item-{item_id}")
+    if not item:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return item
+
+
+# DAPR Pub/Sub subscription
+@dapr_app.subscribe(pubsub=DAPR_PUBSUB_NAME, topic="items")
+async def handle_item_event(event: dict):
+    """Handle item events from pub/sub."""
+    logger.info(f"Received event: {event}")
+    return {"status": "SUCCESS"}
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+```
+
+### Workflow Service
+
+```python
+"""
+{workflow_name} - DAPR Workflow Service
+"""
+import logging
+from datetime import timedelta
+from dapr.ext.workflow import (
+    WorkflowRuntime,
+    DaprWorkflowClient,
+    DaprWorkflowContext,
+    WorkflowActivityContext,
+    RetryPolicy
+)
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Initialize workflow runtime
+wf_runtime = WorkflowRuntime()
+
+# Retry policy for activities
+default_retry = RetryPolicy(
+    max_number_of_attempts=3,
+    first_retry_interval=timedelta(seconds=1),
+    backoff_coefficient=2.0,
+    max_retry_interval=timedelta(seconds=30)
+)
+
+
+# Workflow definition
+@wf_runtime.workflow(name="{workflow_name}")
+def {workflow_name}_workflow(ctx: DaprWorkflowContext, input_data: dict):
+    """
+    Main workflow definition.
+
+    Args:
+        ctx: Workflow context
+        input_data: Input data for the workflow
+
+    Returns:
+        Workflow result
+    """
+    logger.info(f"Starting workflow with input: {input_data}")
+
+    # Step 1: First activity
+    step1_result = yield ctx.call_activity(
+        activity=step1_activity,
+        input=input_data
+    )
+    logger.info(f"Step 1 completed: {step1_result}")
+
+    # Step 2: Second activity
+    step2_result = yield ctx.call_activity(
+        activity=step2_activity,
+        input=step1_result
+    )
+    logger.info(f"Step 2 completed: {step2_result}")
+
+    # Step 3: Final activity
+    final_result = yield ctx.call_activity(
+        activity=step3_activity,
+        input=step2_result
+    )
+
+    return {"status": "completed", "result": final_result}
+
+
+# Activity definitions
+@wf_runtime.activity(name="step1_activity")
+def step1_activity(ctx: WorkflowActivityContext, data: dict) -> dict:
+    """First step of the workflow."""
+    logger.info(f"Executing step 1 with: {data}")
+    # Your logic here
+    return {"step": 1, "data": data}
+
+
+@wf_runtime.activity(name="step2_activity")
+def step2_activity(ctx: WorkflowActivityContext, data: dict) -> dict:
+    """Second step of the workflow."""
+    logger.info(f"Executing step 2 with: {data}")
+    # Your logic here
+    return {"step": 2, "data": data}
+
+
+@wf_runtime.activity(name="step3_activity")
+def step3_activity(ctx: WorkflowActivityContext, data: dict) -> dict:
+    """Third step of the workflow."""
+    logger.info(f"Executing step 3 with: {data}")
+    # Your logic here
+    return {"step": 3, "data": data}
+
+
+# Start workflow runtime
+if __name__ == "__main__":
+    logger.info("Starting workflow runtime...")
+    wf_runtime.start()
+
+    # Keep the runtime running
+    import time
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        logger.info("Shutting down workflow runtime...")
+        wf_runtime.shutdown()
+```
+
+### Actor Service
+
+```python
+"""
+{actor_name} - DAPR Virtual Actor
+"""
+import logging
+from abc import abstractmethod
+from dapr.actor import Actor, ActorInterface, ActorProxy, Remindable, actormethod
+from dapr.actor.runtime.config import ActorRuntimeConfig, ActorTypeConfig
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+# Actor interface
+class {actor_name}Interface(ActorInterface):
+    """Interface for {actor_name} actor."""
+
+    @abstractmethod
+    async def get_state(self) -> dict:
+        """Get the current state of the actor."""
+        ...
+
+    @abstractmethod
+    async def set_state(self, data: dict) -> None:
+        """Set the state of the actor."""
+        ...
+
+    @abstractmethod
+    async def process(self, input_data: dict) -> dict:
+        """Process input data and return result."""
+        ...
+
+
+# Actor implementation
+class {actor_name}(Actor, {actor_name}Interface, Remindable):
+    """
+    {actor_name} virtual actor implementation.
+
+    This actor maintains state and can process requests.
+    """
+
+    def __init__(self, ctx, actor_id):
+        super().__init__(ctx, actor_id)
+        self._state = {}
+
+    async def _on_activate(self) -> None:
+        """Called when actor is activated."""
+        logger.info(f"Actor {self.id} activated")
+        # Load state if exists
+        has_state, state = await self._state_manager.try_get_state("actor_state")
+        if has_state:
+            self._state = state
+
+    async def _on_deactivate(self) -> None:
+        """Called when actor is deactivated."""
+        logger.info(f"Actor {self.id} deactivated")
+
+    @actormethod(name="GetState")
+    async def get_state(self) -> dict:
+        """Get the current state of the actor."""
+        return self._state
+
+    @actormethod(name="SetState")
+    async def set_state(self, data: dict) -> None:
+        """Set the state of the actor."""
+        self._state = data
+        await self._state_manager.set_state("actor_state", self._state)
+        await self._state_manager.save_state()
+
+    @actormethod(name="Process")
+    async def process(self, input_data: dict) -> dict:
+        """Process input data and return result."""
+        logger.info(f"Processing: {input_data}")
+        # Your processing logic here
+        result = {"processed": True, "input": input_data}
+        return result
+
+    async def receive_reminder(self, name: str, state: bytes, due_time, period) -> None:
+        """Handle reminder callback."""
+        logger.info(f"Reminder received: {name}")
+        # Handle the reminder
+
+
+# Actor runtime configuration
+actor_runtime_config = ActorRuntimeConfig()
+actor_runtime_config.register_actor({actor_name})
+
+
+# FastAPI integration
+from fastapi import FastAPI
+from dapr.ext.fastapi import DaprActor
+
+app = FastAPI(title="{actor_name} Service")
+actor = DaprActor(app)
+
+
+@app.on_event("startup")
+async def startup():
+    await actor.register_actor({actor_name})
+
+
+@app.get("/health")
+async def health():
+    return {"status": "healthy"}
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+```
+
+## Generated File Structure
+
+When generating a new service, create:
+
+```
+{service_name}/
+├── src/
+│   ├── __init__.py
+│   ├── main.py              # Main application
+│   ├── models.py            # Pydantic models
+│   ├── services.py          # Business logic
+│   └── config.py            # Configuration
+├── components/
+│   ├── statestore.yaml      # State store component
+│   ├── pubsub.yaml          # Pub/sub component
+│   └── secrets.yaml         # Secrets component
+├── tests/
+│   ├── __init__.py
+│   └── test_main.py         # Unit tests
+├── dapr.yaml                # DAPR configuration
+├── requirements.txt         # Python dependencies
+├── Dockerfile               # Container image
+└── README.md                # Documentation
+```
+
+## Requirements Template
+
+```txt
+# DAPR SDK
+dapr>=1.12.0
+dapr-ext-fastapi>=1.12.0
+dapr-ext-workflow>=0.4.0
+
+# Web framework
+fastapi>=0.104.0
+uvicorn>=0.24.0
+
+# Utilities
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+
+# Observability
+opentelemetry-api>=1.20.0
+opentelemetry-sdk>=1.20.0
+opentelemetry-instrumentation-fastapi>=0.41b0
+```
+
+## Dockerfile Template
+
+```dockerfile
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application
+COPY src/ ./src/
+
+# Run application
+EXPOSE 8000
+CMD ["python", "src/main.py"]
+```

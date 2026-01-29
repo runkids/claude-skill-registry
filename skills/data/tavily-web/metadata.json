@@ -1,7 +1,7 @@
 {
   "name": "tavily-web",
-  "repo": "cgyudistira/code-agents",
-  "path": "skills/tavily-web/SKILL.md",
-  "source": "github.com/cgyudistira/code-agents",
-  "downloaded_at": "2026-01-28T04:27:45.323134Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/tavily-web/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-29T04:03:56.879556Z"
 }

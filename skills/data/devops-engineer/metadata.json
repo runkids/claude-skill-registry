@@ -1,7 +1,7 @@
 {
   "name": "devops-engineer",
-  "repo": "ref-docs/sdd-stl",
-  "path": "src/templates/agents/claude-code/skills/devops-engineer/SKILL.md",
-  "source": "github.com/ref-docs/sdd-stl",
-  "downloaded_at": "2026-01-28T03:33:31.773509Z"
+  "repo": "KeyArc/keyarc",
+  "path": ".claude/skills/devops-engineer/SKILL.md",
+  "source": "github.com/KeyArc/keyarc",
+  "downloaded_at": "2026-01-29T04:23:27.359601Z"
 }

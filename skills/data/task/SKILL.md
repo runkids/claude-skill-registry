@@ -1,362 +1,94 @@
 ---
 name: task
-description: Implement a single task by ID using TDD.
-version: 1.1.0
-tags: [implementation, tdd, tasks]
-owner: orchestration
-status: active
+description: Quick task creation for MASTER_PLAN.md with auto-generated IDs. This skill should be used when the user wants to add a new task, bug, feature, or inquiry to the project's master plan. Triggers on "/task", "add task", "new task", "create task", "track this", "investigate".
 ---
 
-# Task Skill
+# Task Creator
 
-Implement a single task by ID using TDD.
+Quickly add new tasks to `docs/MASTER_PLAN.md` with automatic ID generation.
 
-## Overview
+## Workflow
 
-This skill implements one task from the plan. It:
-1. Shows the task scope to the user
-2. Confirms before starting
-3. Implements with TDD (tests first)
-4. Reports completion status
-5. Updates task status in state
+### Step 1: Generate and Announce Task ID (FIRST!)
 
-## Usage
+**CRITICAL**: Before doing ANYTHING else, run the ID generator and tell the user:
 
-```
-/task T1
-/task T1-a
+```bash
+node ./scripts/utils/get-next-task-id.cjs
 ```
 
-## Prerequisites
-
-- Plan exists in `phase_outputs` (type=plan)
-- Task ID exists in the plan
-- Dependencies are completed
-
-## Purpose
-
-**Focused implementation** - One task at a time with clear boundaries.
-
-By working task-by-task:
-- Progress is visible
-- Errors are localized
-- Rollback is simple
-- Review is focused
-
-## Workflow Steps
-
-### Step 1: Load Task
-
-Read the plan from `phase_outputs` and find the task:
-
-```json
-{
-  "id": "T1",
-  "title": "Create user model and database schema",
-  "description": "...",
-  "acceptance_criteria": [...],
-  "files_to_create": [...],
-  "files_to_modify": [...],
-  "test_files": [...],
-  "dependencies": [...],
-  "status": "pending"
-}
+**Immediately output to user:**
+```
+Using task number: [ID]
 ```
 
-### Step 2: Check Dependencies
+This must happen BEFORE asking any questions or gathering details.
 
-Verify all dependencies are completed:
-```
-Dependencies: T1, T2
-  T1: completed
-  T2: completed
-Ready to proceed.
-```
+### Step 2: Gather Task Information
 
-If dependencies are incomplete:
-```
-Cannot start T3 - dependencies not met:
-  T1: completed
-  T2: pending  <- Not done
+Use `AskUserQuestion` tool to collect task details in a SINGLE question with multiple parts:
 
-Run /task T2 first, or use /status to see progress.
-```
+**Questions to ask:**
 
-### Step 3: Show Task Scope
+1. **Task Type** (header: "Type")
+   - `TASK` - New feature or improvement
+   - `BUG` - Bug fix
+   - `FEATURE` - Major new feature
+   - `INQUIRY` - Investigation to understand behavior, errors, or unexpected results (not a bug fix)
 
-Present the task details to the user:
+2. **Priority** (header: "Priority")
+   - `P0` - Critical/Blocker
+   - `P1` - High priority
+   - `P2` - Medium priority (Recommended)
+   - `P3` - Low priority
+
+Then ask for the task title and optional description via the "Other" free-text option or follow-up.
+
+### Step 3: Add to MASTER_PLAN.md
+
+Read `docs/MASTER_PLAN.md` and insert the new task in the Roadmap table:
 
 ```markdown
-## Task T1: Create user model and database schema
-
-### Description
-Create the User model with TypeScript types and database migration.
-
-### Acceptance Criteria
-- [ ] User model with id, email, password_hash, created_at
-- [ ] Email must be unique
-- [ ] Database migration for users table
-
-### Files to Create
-- src/models/user.ts
-- prisma/migrations/001_users.sql
-
-### Files to Modify
-- (none)
-
-### Test Files
-- tests/models/user.test.ts
-
-### Ready to implement?
+| **[TYPE]-[ID]** | **[Title]** | **[Priority]** | IN PROGRESS | [Dependencies or -] |
 ```
 
-### Step 4: Confirm Start
-
-Wait for user confirmation before implementing.
-
-If user confirms, proceed. If not, wait for instructions.
-
-### Step 5: Implement with TDD
-
-Use the Task tool to spawn a worker for implementation:
-
-```
-Task(
-  subagent_type="general-purpose",
-  prompt="""
-  ## Task: {task.title}
-
-  ## Acceptance Criteria
-  {criteria_list}
-
-  ## Files to Create
-  {files_to_create}
-
-  ## Files to Modify
-  {files_to_modify}
-
-  ## Test Files
-  {test_files}
-
-  ## Instructions
-
-  1. Read CLAUDE.md for coding standards
-  2. Write failing tests FIRST:
-     - Create test file
-     - Write tests for each acceptance criterion
-     - Run tests (should fail)
-  3. Implement code:
-     - Create/modify source files
-     - Write minimal code to pass tests
-     - Run tests (should pass)
-  4. Refactor if needed (keep tests green)
-  5. Final verification:
-     - All tests pass
-     - No lint errors
-     - Code follows CLAUDE.md standards
-
-  ## Constraints
-  - ONLY modify files listed above
-  - Follow existing code patterns
-  - No security vulnerabilities
-  - Do NOT add features beyond acceptance criteria
-
-  Signal completion with: TASK_COMPLETE
-  """,
-  run_in_background=false
-)
+**Example:**
+```markdown
+| **TASK-301** | **Implement Dark Mode Toggle** | **P2** | IN PROGRESS | - |
 ```
 
-### Step 6: Verify Completion
+### Step 4: Add Active Work Section (P0/P1 only)
 
-After worker completes:
-1. Run tests to confirm they pass
-2. Check all files were created/modified
-3. Verify acceptance criteria met
-
-### Step 7: Report Status
-
-Show completion report:
+For P0 or P1 tasks, also add under "## Active Work (Summary)":
 
 ```markdown
-## Task T1 Complete
+### [TYPE]-[ID]: [Title] (IN PROGRESS)
+**Priority**: [Priority]
+**Status**: IN PROGRESS (YYYY-MM-DD)
 
-### Files Created
-- src/models/user.ts (45 lines)
-- prisma/migrations/001_users.sql (23 lines)
+[Description from user]
 
-### Files Modified
-- (none)
-
-### Tests
-- tests/models/user.test.ts
-  - 4 tests passing
-
-### Acceptance Criteria
-- [x] User model with id, email, password_hash, created_at
-- [x] Email must be unique
-- [x] Database migration for users table
-
----
-
-Next: /task T2 or /status to see progress
+**Tasks**:
+- [ ] [First step]
+- [ ] [Additional steps as needed]
 ```
 
-### Step 8: Update State
+### Step 5: Confirm
 
-Update `workflow_state` in SurrealDB:
-```json
-{
-  "current_task_id": null,
-  "tasks_completed": 1,
-  "tasks_total": 6
-}
+Report to user:
+```
+Task added to MASTER_PLAN.md:
+- ID: [TYPE]-[ID]
+- Title: [Title]
+- Priority: [Priority]
+- Status: IN PROGRESS
+
+Ready to begin work.
 ```
 
-## Error Handling
+## Important Rules
 
-### Test Failures
-
-If tests fail after implementation:
-1. Show failing test output
-2. Ask user how to proceed:
-   - Fix the issues (retry implementation)
-   - Skip for now (mark as blocked)
-   - Modify acceptance criteria
-
-### Implementation Errors
-
-If worker encounters errors:
-1. Show error context
-2. Suggest possible fixes
-3. Offer to retry with different approach
-
-### Dependency Failures
-
-If a dependency task failed:
-1. Show dependency status
-2. Suggest fixing dependency first
-3. Offer to skip if acceptable
-
-## Key Behaviors
-
-### DO
-- Show task scope before starting
-- Wait for confirmation
-- Use TDD (tests first)
-- Report clear completion status
-- Update state after completion
-- Check dependencies before starting
-
-### DON'T
-- Start without confirmation
-- Skip writing tests
-- Modify files outside task scope
-- Add features beyond acceptance criteria
-- Leave task in indeterminate state
-
-## Task States
-
-| State | Meaning |
-|-------|---------|
-| `pending` | Not started |
-| `in_progress` | Currently being implemented |
-| `completed` | Successfully finished |
-| `blocked` | Cannot proceed (dependency/error) |
-| `failed` | Failed after max retries |
-
-## Outputs
-
-Task implementation updates:
-- Source files in `src/` or equivalent
-- Test files in `tests/` or equivalent
-- `workflow_state` updates in SurrealDB (task status / overall progress)
-
-## Transition
-
-After task completion:
-
-```
-Task T1 complete!
-
-Progress: 1/6 tasks (17%)
-
-Next steps:
-  /task T2 - Continue to next task
-  /status  - View full progress
-
-Or for code review:
-  /verify-code  - Run Cursor + Gemini review
-```
-
-## Example Session
-
-```
-User: /task T1
-
-Claude: ## Task T1: Create user model and database schema
-
-### Description
-Create the User model with TypeScript types and database migration.
-
-### Acceptance Criteria
-- [ ] User model with id, email, password_hash, created_at
-- [ ] Email must be unique
-- [ ] Database migration for users table
-
-### Files to Create
-- src/models/user.ts
-- prisma/migrations/001_users.sql
-
-### Test Files
-- tests/models/user.test.ts
-
-Ready to implement?
-
-User: Yes, go ahead.
-
-Claude: Starting implementation with TDD...
-
-[Worker implements the task]
-
-## Task T1 Complete
-
-### Files Created
-- src/models/user.ts (45 lines)
-- prisma/migrations/001_users.sql (23 lines)
-
-### Tests
-- tests/models/user.test.ts: 4 tests passing
-
-### Acceptance Criteria
-- [x] User model with id, email, password_hash, created_at
-- [x] Email must be unique
-- [x] Database migration for users table
-
----
-
-Progress: 1/6 tasks (17%)
-
-Next: /task T2 or /status
-```
-
-## Parallel Tasks
-
-If multiple tasks have no dependencies, you can suggest parallel execution:
-
-```
-Tasks T1, T2, T3 have no dependencies and can run in parallel.
-
-Would you like to:
-1. Run them sequentially (/task T1, then T2, then T3)
-2. Run them in parallel (experimental)
-
-Sequential is safer. Parallel is faster but may have merge conflicts.
-```
-
-## Related Skills
-
-- `/plan` - Create the task breakdown
-- `/status` - View progress
-- `/verify-code` - Run code review on completed tasks
-- `/discover` - Go back to discovery if requirements unclear
+- **NEVER reuse existing task IDs** - Always run get-next-task-id.cjs first
+- **Use strikethrough** (~~ID~~) only when marking tasks DONE
+- **Keep titles concise** - Under 50 characters when possible
+- **P0 tasks always need** an Active Work section

@@ -1,12 +1,7 @@
 {
   "name": "doc-flow",
-  "description": "AI-Driven Specification-Driven Development (SDD) workflow orchestrator - guides skill selection and general SDD methodology",
-  "repo": "vladm3105/aidoc-flow-framework",
-  "category": "development",
-  "tags": [
-    "doc",
-    "flow"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "tarrragon/claude",
+  "path": "skills/doc-flow/SKILL.md",
+  "source": "github.com/tarrragon/claude",
+  "downloaded_at": "2026-01-29T03:01:39.004325Z"
 }

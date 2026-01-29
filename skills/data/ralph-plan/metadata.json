@@ -1,7 +1,7 @@
 {
   "name": "ralph-plan",
-  "repo": "otrebu/all-agents",
-  "path": ".claude/skills/ralph-plan/SKILL.md",
-  "source": "github.com/otrebu/all-agents",
-  "downloaded_at": "2026-01-28T02:32:01.875777Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/ralph-plan/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-29T04:03:58.565968Z"
 }

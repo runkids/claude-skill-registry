@@ -1,7 +1,7 @@
 {
   "name": "moai-alfred-ask-user-questions",
-  "repo": "kivo360/quickhooks",
-  "path": ".claude/skills/moai-alfred-ask-user-questions/SKILL.md",
-  "source": "github.com/kivo360/quickhooks",
-  "downloaded_at": "2026-01-28T02:08:46.473990Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-alfred-ask-user-questions/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-29T04:39:14.813618Z"
 }

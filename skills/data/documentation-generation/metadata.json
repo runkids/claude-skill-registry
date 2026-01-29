@@ -1,7 +1,7 @@
 {
   "name": "documentation-generation",
-  "repo": "hgeldenhuys/claude-code-sdk",
-  "path": "skills/documentation-generation/SKILL.md",
-  "source": "github.com/hgeldenhuys/claude-code-sdk",
-  "downloaded_at": "2026-01-28T02:21:22.515462Z"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/documentation-generation/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-29T03:58:10.329584Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "perplexity-research",
-  "description": "Use when conducting web research with Perplexity API - covers authentication, search strategies, structured output generation, and integration patterns for Claude-interpretable results",
-  "repo": "dbmcco/claude-agent-toolkit",
-  "category": "testing",
-  "tags": [
-    "perplexity",
-    "research"
-  ],
-  "stars": 5,
-  "source": "local"
+  "repo": "faisalanjum/EventTrader",
+  "path": ".claude/skills/perplexity-research/SKILL.md",
+  "source": "github.com/faisalanjum/EventTrader",
+  "downloaded_at": "2026-01-29T01:32:07.143800Z"
 }

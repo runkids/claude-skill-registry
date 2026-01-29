@@ -1,345 +1,314 @@
 ---
-name: Agent Inbox
-description: Check and process messages from autonomous AILANG agents. Use when starting a session, after agent handoffs, or when checking for completion notifications.
+name: agent-inbox
+description: >
+  File-based inter-agent messaging. Check inbox, send bugs/requests to other projects,
+  acknowledge resolved issues. Use for cross-project agent communication.
+allowed-tools: Bash, Read
+triggers:
+  - check your inbox
+  - check inbox
+  - check messages
+  - any messages
+  - any pending messages
+  - check for messages
+  - agent sent you
+  - sent you an issue
+  - sent you a bug
+  - address the bug
+  - fix the issue from
+  - message from agent
+  - inter-agent message
+  - send message to
+  - send bug to
+  - notify the agent
+  - tell the other agent
+  - cross-project message
+  - pending issues
+  - pending bugs
+metadata:
+  short-description: Inter-agent messaging for cross-project communication
 ---
 
-# Agent Inbox
+# Agent Inbox Skill
 
-**Check for messages from autonomous agents at session start and process completion notifications.**
+Simple file-based inter-agent message system. Allows agents working on different projects to communicate bugs, requests, and information without manual copy/paste.
+
+## When to Use
+
+- Agent A finds a bug in project B's code
+- Agent needs to request help from another project's agent
+- Passing information between project workspaces
+- Any cross-project agent communication
+
+## Proactive Checking (Important!)
+
+**Agents should check inbox automatically when:**
+
+- Starting a new session
+- User mentions another agent or project by name
+- User says "check your inbox" or similar
+- Switching projects or context
+- Before starting major work (in case blockers exist)
+
+**If you're an AI agent reading this:** Run `.agents/skills/agent-inbox/agent-inbox check` proactively when the user mentions inter-project communication. Don't wait to be explicitly told.
+
+## Running the Skill (No Global Install Needed)
+
+The repo already includes a wrapper script (`.agents/skills/agent-inbox/agent-inbox`). Run it directly or invoke the Python entrypoint—no global install or PATH hacks required.
+
+```bash
+# Preferred: run the bundled wrapper
+.agents/skills/agent-inbox/agent-inbox check
+
+# Alternate: call Python explicitly
+python .agents/skills/agent-inbox/inbox.py check
+```
+
+If you want convenience aliases, you can add the skill folder to `PATH`, but it’s optional and not assumed anywhere in this doc.
+
+## Setup (One-Time)
+
+Register your projects so agent-inbox knows where they are:
+
+```bash
+# Register projects (use direct path if agent-inbox not on PATH)
+.agents/skills/agent-inbox/agent-inbox register memory /home/user/workspace/memory
+.agents/skills/agent-inbox/agent-inbox register scillm /home/user/workspace/litellm
+
+# List registered projects
+.agents/skills/agent-inbox/agent-inbox projects
+
+# Check which project current directory maps to
+.agents/skills/agent-inbox/agent-inbox whoami
+
+# Unregister if needed
+.agents/skills/agent-inbox/agent-inbox unregister old-project
+```
 
 ## Quick Start
 
-**Most common usage:**
 ```bash
-# List all messages
-ailang messages list
+# Send a bug report to the scillm project
+.agents/skills/agent-inbox/agent-inbox send --to scillm --type bug --priority high "
+File: scillm/extras/providers.py:328
+Error: UnboundLocalError on 'options'
+Fix: Rename local variable to avoid shadowing
+"
 
-# Show only unread messages
-ailang messages list --unread
+# Check for pending messages (anytime)
+.agents/skills/agent-inbox/agent-inbox check
 
-# Read full message content
-ailang messages read MSG_ID
+# List all pending messages
+.agents/skills/agent-inbox/agent-inbox list
 
-# Acknowledge (mark as read)
-ailang messages ack MSG_ID
-ailang messages ack --all
+# Read a specific message
+.agents/skills/agent-inbox/agent-inbox read scillm_abc123
 
-# Send a message
-ailang messages send user "Your message" --title "Title" --from "agent-name"
-
-# Send bug/feature to GitHub (for cross-instance visibility)
-ailang messages send user "Bug report" --type bug --github
+# Acknowledge when fixed
+.agents/skills/agent-inbox/agent-inbox ack scillm_abc123 --note "Fixed: renamed to merged_options"
 ```
 
-**Expected output (at session start):**
-```
-📬 AGENT INBOX: 2 unread message(s) from autonomous agents
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## CLI Commands (Wrapper ≙ `python inbox.py`)
 
-ID: msg_20251210_143021_abc123
-From: sprint-executor
-Title: Sprint M-S1 complete
-Time: 2025-12-10T14:30:21Z
-
-ID: msg_20251210_143055_def456
-From: stapledon
-Title: Parser Bug
-Time: 2025-12-10T14:30:55Z
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
-## When to Use This Skill
-
-**Invoke this skill when:**
-- **Session starts** - First action in every Claude Code session (required by CLAUDE.md)
-- **After handoffs** - When you've sent work to autonomous agents
-- **Periodic checks** - User asks "any updates from agents?"
-- **Debugging** - To see agent communication history
-
-## Storage Backend
-
-All messages stored in SQLite database:
-- **Location**: `~/.ailang/state/collaboration.db`
-- **Accessible via**: CLI (`ailang messages`) and Collaboration Hub dashboard
-- **Message statuses**: `unread`, `read`, `archived`, `deleted`
-
-## Available Commands
-
-### List Messages
+### `register` - Register a project (one-time setup)
 
 ```bash
-ailang messages list                    # All messages
-ailang messages list --unread           # Only unread
-ailang messages list --inbox user       # Filter by inbox
-ailang messages list --from agent-name  # Filter by sender
-ailang messages list --json             # JSON output
-ailang messages list --limit 50         # Limit results
+.agents/skills/agent-inbox/agent-inbox register <name> <path>
+
+# Examples:
+.agents/skills/agent-inbox/agent-inbox register memory /home/user/workspace/memory
+.agents/skills/agent-inbox/agent-inbox register scillm /home/user/workspace/litellm
 ```
 
-### Read Full Message
+### `unregister` - Remove a project
 
 ```bash
-ailang messages read MSG_ID             # Full content, marks as read
-ailang messages read MSG_ID --peek      # View without marking read
-ailang messages read MSG_ID --json      # JSON output
+.agents/skills/agent-inbox/agent-inbox unregister <name>
 ```
 
-### Acknowledge Messages
+### `projects` - List registered projects
 
 ```bash
-ailang messages ack MSG_ID              # Mark specific message as read
-ailang messages ack --all               # Mark all as read
-ailang messages ack --all --inbox user  # Mark all in inbox as read
+.agents/skills/agent-inbox/agent-inbox projects
+.agents/skills/agent-inbox/agent-inbox projects --json
 ```
 
-### Un-acknowledge (Mark Unread)
+### `whoami` - Show detected project for current directory
 
 ```bash
-ailang messages unack MSG_ID            # Move back to unread
+.agents/skills/agent-inbox/agent-inbox whoami
 ```
 
-### Send Messages
+### `send` - Send a message to another project
 
 ```bash
-# Basic send (local only - for coordination)
-ailang messages send INBOX "message" --title "Title" --from "agent"
+.agents/skills/agent-inbox/agent-inbox send --to PROJECT --type TYPE --priority PRIORITY "message"
 
-# With GitHub sync (for bugs/features - cross-instance visibility)
-ailang messages send INBOX "message" --type bug --github
-ailang messages send INBOX "message" --type feature --github
-ailang messages send INBOX "message" --github --repo owner/repo
+# Types: bug, request, info, question
+# Priority: low, normal, high, critical
+
+# Examples:
+.agents/skills/agent-inbox/agent-inbox send --to memory --type request "Please add 'proved_only' parameter to search()"
+.agents/skills/agent-inbox/agent-inbox send --to scillm --type bug --priority critical "Server crashes on startup"
+
+# Read message from stdin (useful for multi-line)
+cat error.log | .agents/skills/agent-inbox/agent-inbox send --to scillm --type bug
 ```
 
-### Import from GitHub
+### `list` - List messages
 
 ```bash
-ailang messages import-github                    # Import from default repo
-ailang messages import-github --repo owner/repo  # Specific repo
-ailang messages import-github --labels bug,help  # Filter by labels
-ailang messages import-github --dry-run          # Preview without importing
+.agents/skills/agent-inbox/agent-inbox list                      # All pending
+.agents/skills/agent-inbox/agent-inbox list --project scillm     # For specific project
+.agents/skills/agent-inbox/agent-inbox list --status done        # Completed messages
+.agents/skills/agent-inbox/agent-inbox list --json               # JSON output
 ```
 
-## Workflow
-
-### 1. Session Start Check (REQUIRED)
-
-**SessionStart hook runs automatically and shows unread messages.**
-
-**If messages exist:**
-- Read and summarize each message to user
-- Identify message type (completion, error, handoff)
-- Ask user if they want action taken
-- Acknowledge after handling: `ailang messages ack --all`
-
-### 2. Process Completion Notifications
-
-**When agent reports completion:**
-```bash
-# 1. Read the full message
-ailang messages read MSG_ID
-
-# 2. Review results mentioned in payload
-ls -la eval_results/baselines/v0.4.2/
-
-# 3. Report to user
-echo "Sprint complete! Results at: eval_results/baselines/v0.4.2/"
-
-# 4. Acknowledge after processing
-ailang messages ack MSG_ID
-```
-
-### 3. Handle Error Reports
-
-**When agent reports errors:**
-```bash
-# 1. Read the full error details
-ailang messages read MSG_ID
-
-# 2. Check logs if mentioned
-cat .ailang/state/logs/sprint-executor.log
-
-# 3. Diagnose and report to user
-echo "Agent encountered error: Tests failing at milestone 3/5"
-
-# 4. Either fix manually or send corrective instructions
-```
-
-### 4. Respond to Agent or User
+### `read` - Read a specific message
 
 ```bash
-# Send response to an agent
-ailang messages send sprint-executor "Approved, proceed" \
-  --title "Approval" --from "user"
-
-# Send notification to user inbox
-ailang messages send user "Issue resolved" \
-  --title "Status update" --from "claude-code"
+.agents/skills/agent-inbox/agent-inbox read MSG_ID
+.agents/skills/agent-inbox/agent-inbox read MSG_ID --json
 ```
 
-## GitHub Integration (Bi-directional)
-
-### Message Types and Routing
-
-| Type | Purpose | Goes to GitHub? |
-|------|---------|-----------------|
-| `bug` | Bug report | Yes (with `--github`) |
-| `feature` | Feature request | Yes (with `--github`) |
-| `general` | Coordination | No (local only) |
-
-**Routing guidance:**
-- **Bugs and features** → Use `--github` for visibility across all AILANG instances
-- **Coordination messages** → Local only, for agent-to-agent communication
-- **Instructions from humans** → Create GitHub issues, they'll be imported automatically
-
-### Sending to GitHub (Agent → GitHub)
+### `ack` - Acknowledge/complete a message
 
 ```bash
-# Bug reports and feature requests go to GitHub for visibility
-ailang messages send user "Parser crash" --type bug --github
-ailang messages send user "Need async support" --type feature --github
+.agents/skills/agent-inbox/agent-inbox ack MSG_ID
+.agents/skills/agent-inbox/agent-inbox ack MSG_ID --note "Fixed in commit abc123"
 ```
 
-### Importing from GitHub (GitHub → Local)
+### `check` - Check inbox (for hooks)
 
 ```bash
-# Runs automatically on session start (if auto_import: true in config)
-ailang messages import-github
-
-# Or manually with filters
-ailang messages import-github --labels help-wanted
+.agents/skills/agent-inbox/agent-inbox check                     # Check all
+.agents/skills/agent-inbox/agent-inbox check --project scillm    # Check specific project
+.agents/skills/agent-inbox/agent-inbox check --quiet             # Just return count (exit code 1 if messages)
 ```
 
-### Human Instructions via GitHub
+## Integration with Claude Code Hooks
 
-You can write instructions as GitHub issues and have agents pick them up:
-
-1. Create issue on GitHub with `ailang-message` label
-2. Next session, `import-github` runs automatically
-3. Issue appears in agent's inbox as a message
-4. Agent reads and acts on the instructions
-
-### Configuration
-
-Create `~/.ailang/config.yaml`:
-
-```yaml
-github:
-  expected_user: YourGitHubUsername   # REQUIRED: Must match gh auth status
-  default_repo: sunholo-data/ailang   # Default repo for issues
-  create_labels:
-    - ailang-message
-  watch_labels:
-    - ailang-message
-  auto_import: true                   # Auto-import on session start
-```
-
-**Prerequisites:**
-1. Install GitHub CLI: `brew install gh`
-2. Authenticate: `gh auth login`
-3. Check account: `gh auth status`
-4. Switch if needed: `gh auth switch --user USERNAME`
-
-**Auto-label creation:** Labels are automatically created if they don't exist:
-- `from:agent-name` (purple) - who sent the message
-- `bug` (red), `feature` (cyan), `general` (light blue)
-- `ailang-message` (blue) - identifies AILANG messages
-
-## Correlation IDs
-
-**Messages support correlation IDs for tracking handoff chains:**
+Add to your project's `.claude/settings.json`:
 
 ```json
 {
-  "message_id": "msg_20251210_103045_abc123",
-  "correlation_id": "sprint_M-S1",
-  "from_agent": "sprint-executor",
-  "to_inbox": "user",
-  "title": "Sprint complete",
-  "payload": "All milestones complete"
-}
-```
-
-**Benefits:**
-- Track entire workflow: design-doc → sprint-plan → execution
-- Filter messages by workflow
-- Debug multi-agent interactions
-- Resume work from where you left off
-
-**For complete specification**, see [`resources/message_format.md`](resources/message_format.md)
-
-## Message Types (Payloads)
-
-### Completion Notification
-```json
-{
-  "type": "sprint_complete",
-  "correlation_id": "sprint_M-S1",
-  "payload": {
-    "sprint_id": "M-S1",
-    "milestones_complete": 5,
-    "result": "All tests passing"
+  "hooks": {
+    "on_session_start": [
+      ".agents/skills/agent-inbox/agent-inbox check --project $(basename $PWD) || true"
+    ]
   }
 }
 ```
 
-### Error Report
-```json
-{
-  "type": "error",
-  "correlation_id": "sprint_M-S1",
-  "payload": {
-    "error": "Tests failing: 5 benchmarks broken",
-    "details": ".ailang/state/logs/sprint-executor.log"
-  }
-}
-```
+Or add to your shell profile to check on every new terminal:
 
-### Handoff Instruction
-```json
-{
-  "type": "plan_ready",
-  "correlation_id": "sprint_M-S1",
-  "payload": {
-    "sprint_id": "M-S1",
-    "plan_path": "design_docs/planned/M-S1-plan.md"
-  }
-}
-```
-
-## Resources
-
-### Message Format Reference
-See [`resources/message_format.md`](resources/message_format.md) for complete message format specification.
-
-### Troubleshooting Guide
-See [`resources/troubleshooting.md`](resources/troubleshooting.md) for common issues and solutions.
-
-## CLI Command Reference
-
-| Command | Purpose |
-|---------|---------|
-| `ailang messages list` | View all messages |
-| `ailang messages list --unread` | View only unread |
-| `ailang messages read MSG_ID` | View full message |
-| `ailang messages ack MSG_ID` | Mark as read |
-| `ailang messages ack --all` | Mark all as read |
-| `ailang messages unack MSG_ID` | Mark as unread |
-| `ailang messages send INBOX "msg"` | Send message |
-| `ailang messages reply MSG_ID "text"` | Reply to GitHub issue thread |
-| `ailang messages import-github` | Import from GitHub |
-| `ailang messages watch` | Watch for new messages |
-| `ailang messages cleanup` | Remove old messages |
-
-**Aliases:** `msg` is an alias for `messages`
 ```bash
-ailang msg list        # Same as: ailang messages list
+# ~/.bashrc or ~/.zshrc
+alias claude-start='.agents/skills/agent-inbox/agent-inbox check --project $(basename $PWD); claude'
 ```
 
-## Notes
+## Message Format
 
-- **Required by CLAUDE.md**: Session start check is mandatory
-- **SQLite backend**: All messages in `~/.ailang/state/collaboration.db`
-- **Hook integration**: SessionStart hook auto-imports GitHub issues and shows unread
-- **Auto-marking**: Messages marked as read when using `ailang messages read`
-- **Message lifecycle**: Unread → Read → Archived (optional)
-- **GitHub sync**: Optional, for bugs/features that need cross-instance visibility
+Messages are stored as JSON in `~/.agent-inbox/`:
+
+```
+~/.agent-inbox/
+├── pending/
+│   └── scillm_abc123.json
+└── done/
+    └── memory_def456.json
+```
+
+Each message:
+
+```json
+{
+  "id": "scillm_abc123",
+  "to": "scillm",
+  "from": "extractor",
+  "type": "bug",
+  "priority": "high",
+  "status": "pending",
+  "created_at": "2026-01-11T20:30:00Z",
+  "message": "File: providers.py:328\nError: UnboundLocalError..."
+}
+```
+
+## Environment Variables
+
+| Variable          | Description                             | Default          |
+| ----------------- | --------------------------------------- | ---------------- |
+| `AGENT_INBOX_DIR` | Inbox directory location                | `~/.agent-inbox` |
+| `CLAUDE_PROJECT`  | Current project name (for `from` field) | `unknown`        |
+
+## Workflow Example
+
+**Agent A (extractor project) finds bug:**
+
+```bash
+.agents/skills/agent-inbox/agent-inbox send --to scillm --type bug --priority high "
+Bug in scillm/extras/providers.py:328
+
+Error: UnboundLocalError: cannot access local variable 'options'
+
+The _worker function references 'options' on line 328 before it's
+assigned on line 345. This is because the assignment makes Python
+treat it as a local variable throughout the function.
+
+Suggested fix: Rename line 345 'options = dict(options or {})' to
+'merged_options = dict(options or {})' and update subsequent references.
+"
+```
+
+**User switches to scillm project:**
+
+```bash
+cd /path/to/scillm
+claude  # Or .agents/skills/agent-inbox/agent-inbox check runs automatically via hook
+```
+
+**Agent B (scillm project) sees message:**
+
+```
+=== 1 pending message(s) ===
+Project: scillm
+
+[HIGH]
+  scillm_a1b2c3d4: bug from extractor
+    Bug in scillm/extras/providers.py:328...
+```
+
+**Agent B fixes and acknowledges:**
+
+```bash
+.agents/skills/agent-inbox/agent-inbox ack scillm_a1b2c3d4 --note "Fixed: renamed to merged_options in commit abc123"
+```
+
+## Python API
+
+```python
+from inbox import (
+    register_project, unregister_project, list_projects,
+    send, list_messages, read_message, ack_message, check_inbox
+)
+
+# Setup (one-time)
+register_project("memory", "/home/user/workspace/memory")
+register_project("scillm", "/home/user/workspace/litellm")
+list_projects()  # {"memory": "/home/...", "scillm": "/home/..."}
+
+# Send
+send("scillm", "Bug report...", msg_type="bug", priority="high")
+
+# List
+messages = list_messages(project="scillm")
+
+# Read
+msg = read_message("scillm_abc123")
+
+# Ack
+ack_message("scillm_abc123", note="Fixed")
+
+# Check (returns count)
+count = check_inbox(project="scillm", quiet=True)
+```

@@ -1,41 +1,40 @@
 INFO:__main__:============================================================
 INFO:__main__:STEP 3: Downloading SKILL.md files
 INFO:__main__:============================================================
-INFO:__main__:Total skills in registry: 77621
-INFO:__main__:Already downloaded: 38221
-INFO:__main__:To download: 6990
-INFO:__main__:Batch 1/24: ✅ 0 | ❌ 300 | ⚡ 0.0/s
-INFO:__main__:Batch 2/24: ✅ 0 | ❌ 600 | ⚡ 0.0/s
-INFO:__main__:Batch 3/24: ✅ 0 | ❌ 900 | ⚡ 0.0/s
-INFO:__main__:Batch 4/24: ✅ 2 | ❌ 1198 | ⚡ 0.1/s
-INFO:__main__:Batch 5/24: ✅ 8 | ❌ 1492 | ⚡ 0.3/s
-INFO:__main__:Batch 6/24: ✅ 11 | ❌ 1789 | ⚡ 0.4/s
-INFO:__main__:Batch 7/24: ✅ 17 | ❌ 2083 | ⚡ 0.5/s
-INFO:__main__:Batch 8/24: ✅ 21 | ❌ 2379 | ⚡ 0.6/s
-INFO:__main__:Batch 9/24: ✅ 27 | ❌ 2673 | ⚡ 0.6/s
-INFO:__main__:Batch 10/24: ✅ 32 | ❌ 2968 | ⚡ 0.7/s
-INFO:__main__:Batch 11/24: ✅ 35 | ❌ 3265 | ⚡ 0.7/s
-INFO:__main__:Batch 12/24: ✅ 36 | ❌ 3564 | ⚡ 0.7/s
-INFO:__main__:Batch 13/24: ✅ 40 | ❌ 3860 | ⚡ 0.7/s
-INFO:__main__:Batch 14/24: ✅ 43 | ❌ 4157 | ⚡ 0.7/s
-INFO:__main__:Batch 15/24: ✅ 47 | ❌ 4453 | ⚡ 0.7/s
-INFO:__main__:Batch 16/24: ✅ 48 | ❌ 4752 | ⚡ 0.7/s
-INFO:__main__:Batch 17/24: ✅ 72 | ❌ 5028 | ⚡ 1.0/s
-INFO:__main__:Batch 18/24: ✅ 76 | ❌ 5324 | ⚡ 1.0/s
-INFO:__main__:Batch 19/24: ✅ 81 | ❌ 5619 | ⚡ 1.0/s
-INFO:__main__:Batch 20/24: ✅ 85 | ❌ 5915 | ⚡ 1.0/s
-INFO:__main__:Batch 21/24: ✅ 87 | ❌ 6213 | ⚡ 1.0/s
-INFO:__main__:Batch 22/24: ✅ 88 | ❌ 6512 | ⚡ 0.9/s
-INFO:__main__:Batch 23/24: ✅ 94 | ❌ 6806 | ⚡ 0.9/s
-INFO:__main__:Batch 24/24: ✅ 94 | ❌ 6896 | ⚡ 0.9/s
+INFO:__main__:Total skills in registry: 78837
+INFO:__main__:Already downloaded: 39086
+INFO:__main__:To download: 6844
+INFO:__main__:Batch 1/23: ✅ 1 | ❌ 299 | ⚡ 0.4/s
+INFO:__main__:Batch 2/23: ✅ 1 | ❌ 599 | ⚡ 0.2/s
+INFO:__main__:Batch 3/23: ✅ 1 | ❌ 899 | ⚡ 0.2/s
+INFO:__main__:Batch 4/23: ✅ 1 | ❌ 1199 | ⚡ 0.1/s
+INFO:__main__:Batch 5/23: ✅ 1 | ❌ 1499 | ⚡ 0.1/s
+INFO:__main__:Batch 6/23: ✅ 1 | ❌ 1799 | ⚡ 0.1/s
+INFO:__main__:Batch 7/23: ✅ 1 | ❌ 2099 | ⚡ 0.1/s
+INFO:__main__:Batch 8/23: ✅ 1 | ❌ 2399 | ⚡ 0.1/s
+INFO:__main__:Batch 9/23: ✅ 1 | ❌ 2699 | ⚡ 0.0/s
+INFO:__main__:Batch 10/23: ✅ 1 | ❌ 2999 | ⚡ 0.0/s
+INFO:__main__:Batch 11/23: ✅ 1 | ❌ 3299 | ⚡ 0.0/s
+INFO:__main__:Batch 12/23: ✅ 1 | ❌ 3599 | ⚡ 0.0/s
+INFO:__main__:Batch 13/23: ✅ 1 | ❌ 3899 | ⚡ 0.0/s
+INFO:__main__:Batch 14/23: ✅ 1 | ❌ 4199 | ⚡ 0.0/s
+INFO:__main__:Batch 15/23: ✅ 1 | ❌ 4499 | ⚡ 0.0/s
+INFO:__main__:Batch 16/23: ✅ 1 | ❌ 4799 | ⚡ 0.0/s
+INFO:__main__:Batch 17/23: ✅ 1 | ❌ 5099 | ⚡ 0.0/s
+INFO:__main__:Batch 18/23: ✅ 1 | ❌ 5399 | ⚡ 0.0/s
+INFO:__main__:Batch 19/23: ✅ 1 | ❌ 5699 | ⚡ 0.0/s
+INFO:__main__:Batch 20/23: ✅ 1 | ❌ 5999 | ⚡ 0.0/s
+INFO:__main__:Batch 21/23: ✅ 1 | ❌ 6299 | ⚡ 0.0/s
+INFO:__main__:Batch 22/23: ✅ 1 | ❌ 6599 | ⚡ 0.0/s
+INFO:__main__:Batch 23/23: ✅ 1 | ❌ 6843 | ⚡ 0.0/s
 INFO:__main__:============================================================
 INFO:__main__:DOWNLOAD COMPLETE
 INFO:__main__:============================================================
-INFO:__main__:Downloaded: 94
-INFO:__main__:Failed: 6896
-INFO:__main__:Total skills: 38316
+INFO:__main__:Downloaded: 1
+INFO:__main__:Failed: 6843
+INFO:__main__:Total skills: 39088
 INFO:__main__:Failure report saved to /home/runner/work/claude-skill-registry/claude-skill-registry/failure_report.json
 INFO:__main__:============================================================
 INFO:__main__:PIPELINE COMPLETE
-INFO:__main__:Total time: 103.7s (1.7 min)
+INFO:__main__:Total time: 52.9s (0.9 min)
 INFO:__main__:============================================================

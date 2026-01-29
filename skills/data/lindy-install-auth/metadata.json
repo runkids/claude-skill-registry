@@ -1,7 +1,7 @@
 {
   "name": "lindy-install-auth",
-  "repo": "vasic-digital/SuperAgent",
+  "repo": "HelixDevelopment/HelixAgent",
   "path": "skills/plugins/saas-packs/lindy-pack/lindy-install-auth/SKILL.md",
-  "source": "github.com/vasic-digital/SuperAgent",
-  "downloaded_at": "2026-01-28T02:58:33.461633Z"
+  "source": "github.com/HelixDevelopment/HelixAgent",
+  "downloaded_at": "2026-01-29T04:14:14.142685Z"
 }

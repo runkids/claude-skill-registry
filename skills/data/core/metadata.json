@@ -1,7 +1,7 @@
 {
   "name": "core",
-  "repo": "creatifcoding/gbg",
-  "path": "packages/tmnl/src/lib/iiot/seed/ctl/skills/core/SKILL.md",
-  "source": "github.com/creatifcoding/gbg",
-  "downloaded_at": "2026-01-28T02:25:05.035707Z"
+  "repo": "ngxtm/devkit",
+  "path": "rules/golang/core/SKILL.md",
+  "source": "github.com/ngxtm/devkit",
+  "downloaded_at": "2026-01-29T03:59:22.044118Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "csrf-protection",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "path": "skills/csrf-protection/SKILL.md",
-  "source": "github.com/aj-geddes/useful-ai-prompts",
-  "downloaded_at": "2026-01-28T02:01:33.286511Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/csrf-protection/skills/csrf-protection/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-29T03:11:02.405761Z"
 }

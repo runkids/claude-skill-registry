@@ -7,19 +7,7 @@ description: Configure Turborepo for efficient monorepo builds with local and re
 
 Production patterns for Turborepo build optimization.
 
-## Do not use this skill when
-
-- The task is unrelated to turborepo caching
-- You need a different domain or tool outside this scope
-
-## Instructions
-
-- Clarify goals, constraints, and required inputs.
-- Apply relevant best practices and validate outcomes.
-- Provide actionable steps and verification.
-- If detailed examples are required, open `resources/implementation-playbook.md`.
-
-## Use this skill when
+## When to Use This Skill
 
 - Setting up new Turborepo projects
 - Configuring build pipelines

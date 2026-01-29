@@ -1,11 +1,7 @@
 {
   "name": "transcribe",
-  "description": "Speech-to-text transcription using Groq Whisper API. Supports m4a, mp3, wav, ogg, flac, webm.",
-  "repo": "badlogic/pi-skills",
-  "category": "development",
-  "tags": [
-    "transcribe"
-  ],
-  "stars": 72,
-  "source": "SkillsMP Synced Skills"
+  "repo": "grandamenium/short-form-video-transcriber",
+  "path": ".claude/skills/transcribe/SKILL.md",
+  "source": "github.com/grandamenium/short-form-video-transcriber",
+  "downloaded_at": "2026-01-29T02:12:18.524399Z"
 }

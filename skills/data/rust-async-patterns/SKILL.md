@@ -1,581 +1,517 @@
 ---
 name: rust-async-patterns
-description: Use when Rust async programming with tokio, async/await, and futures. Use when writing asynchronous Rust code.
-allowed-tools:
-  - Bash
-  - Read
+description: Master Rust async programming with Tokio, async traits, error handling, and concurrent patterns. Use when building async Rust applications, implementing concurrent systems, or debugging async code.
 ---
 
 # Rust Async Patterns
 
-Master asynchronous programming in Rust using async/await syntax, tokio
-runtime, and the futures ecosystem for concurrent I/O operations.
+Production patterns for async Rust programming with Tokio runtime, including tasks, channels, streams, and error handling.
 
-## Async/Await Basics
+## When to Use This Skill
 
-**Basic async function:**
+- Building async Rust applications
+- Implementing concurrent network services
+- Using Tokio for async I/O
+- Handling async errors properly
+- Debugging async code issues
+- Optimizing async performance
 
-```rust
-async fn fetch_data() -> String {
-    String::from("data")
-}
+## Core Concepts
 
-#[tokio::main]
-async fn main() {
-    let data = fetch_data().await;
-    println!("{}", data);
-}
+### 1. Async Execution Model
+
+```
+Future (lazy) → poll() → Ready(value) | Pending
+                ↑           ↓
+              Waker ← Runtime schedules
 ```
 
-**Cargo.toml setup:**
+### 2. Key Abstractions
+
+| Concept | Purpose |
+|---------|---------|
+| `Future` | Lazy computation that may complete later |
+| `async fn` | Function returning impl Future |
+| `await` | Suspend until future completes |
+| `Task` | Spawned future running concurrently |
+| `Runtime` | Executor that polls futures |
+
+## Quick Start
 
 ```toml
+# Cargo.toml
 [dependencies]
 tokio = { version = "1", features = ["full"] }
+futures = "0.3"
+async-trait = "0.1"
+anyhow = "1.0"
+tracing = "0.1"
+tracing-subscriber = "0.3"
 ```
-
-## Tokio Runtime
-
-**Different runtime configurations:**
 
 ```rust
-// Multi-threaded runtime (default)
-#[tokio::main]
-async fn main() {
-    // Code here
-}
-
-// Single-threaded runtime
-#[tokio::main(flavor = "current_thread")]
-async fn main() {
-    // Code here
-}
-
-// Manual runtime creation
-use tokio::runtime::Runtime;
-
-fn main() {
-    let rt = Runtime::new().unwrap();
-    rt.block_on(async {
-        println!("Running async code");
-    });
-}
-```
-
-## Spawning Tasks
-
-**Creating concurrent tasks:**
-
-```rust
-use tokio::task;
+use tokio::time::{sleep, Duration};
+use anyhow::Result;
 
 #[tokio::main]
-async fn main() {
-    let task1 = task::spawn(async {
-        println!("Task 1");
-        42
-    });
+async fn main() -> Result<()> {
+    // Initialize tracing
+    tracing_subscriber::fmt::init();
 
-    let task2 = task::spawn(async {
-        println!("Task 2");
-        100
-    });
+    // Async operations
+    let result = fetch_data("https://api.example.com").await?;
+    println!("Got: {}", result);
 
-    let result1 = task1.await.unwrap();
-    let result2 = task2.await.unwrap();
-
-    println!("Results: {}, {}", result1, result2);
-}
-```
-
-**Spawning with move:**
-
-```rust
-#[tokio::main]
-async fn main() {
-    let data = String::from("hello");
-
-    let handle = task::spawn(async move {
-        println!("{}", data);
-    });
-
-    handle.await.unwrap();
-}
-```
-
-## Async HTTP with reqwest
-
-**Install reqwest:**
-
-```toml
-[dependencies]
-reqwest = { version = "0.11", features = ["json"] }
-serde = { version = "1.0", features = ["derive"] }
-```
-
-**Making HTTP requests:**
-
-```rust
-use reqwest;
-
-#[tokio::main]
-async fn main() -> Result<(), reqwest::Error> {
-    let response = reqwest::get("https://api.github.com/users/rust-lang")
-        .await?
-        .text()
-        .await?;
-
-    println!("{}", response);
     Ok(())
 }
+
+async fn fetch_data(url: &str) -> Result<String> {
+    // Simulated async operation
+    sleep(Duration::from_millis(100)).await;
+    Ok(format!("Data from {}", url))
+}
 ```
 
-**Concurrent requests:**
+## Patterns
+
+### Pattern 1: Concurrent Task Execution
 
 ```rust
-use reqwest;
+use tokio::task::JoinSet;
+use anyhow::Result;
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let urls = vec![
-        "https://api.github.com/users/rust-lang",
-        "https://api.github.com/users/tokio-rs",
-    ];
-
-    let mut handles = vec![];
+// Spawn multiple concurrent tasks
+async fn fetch_all_concurrent(urls: Vec<String>) -> Result<Vec<String>> {
+    let mut set = JoinSet::new();
 
     for url in urls {
-        let handle = tokio::spawn(async move {
-            reqwest::get(url).await?.text().await
+        set.spawn(async move {
+            fetch_data(&url).await
         });
-        handles.push(handle);
     }
 
-    for handle in handles {
-        let response = handle.await??;
-        println!("{}", response);
-    }
-
-    Ok(())
-}
-```
-
-## Select and Join
-
-**tokio::select! for racing futures:**
-
-```rust
-use tokio::time::{sleep, Duration};
-
-#[tokio::main]
-async fn main() {
-    tokio::select! {
-        _ = sleep(Duration::from_secs(1)) => {
-            println!("Timer finished first");
-        }
-        _ = async_operation() => {
-            println!("Operation finished first");
+    let mut results = Vec::new();
+    while let Some(res) = set.join_next().await {
+        match res {
+            Ok(Ok(data)) => results.push(data),
+            Ok(Err(e)) => tracing::error!("Task failed: {}", e),
+            Err(e) => tracing::error!("Join error: {}", e),
         }
     }
+
+    Ok(results)
 }
 
-async fn async_operation() {
-    sleep(Duration::from_secs(2)).await;
+// With concurrency limit
+use futures::stream::{self, StreamExt};
+
+async fn fetch_with_limit(urls: Vec<String>, limit: usize) -> Vec<Result<String>> {
+    stream::iter(urls)
+        .map(|url| async move { fetch_data(&url).await })
+        .buffer_unordered(limit) // Max concurrent tasks
+        .collect()
+        .await
+}
+
+// Select first to complete
+use tokio::select;
+
+async fn race_requests(url1: &str, url2: &str) -> Result<String> {
+    select! {
+        result = fetch_data(url1) => result,
+        result = fetch_data(url2) => result,
+    }
 }
 ```
 
-**tokio::join! for concurrent execution:**
+### Pattern 2: Channels for Communication
 
 ```rust
-use tokio::time::{sleep, Duration};
+use tokio::sync::{mpsc, broadcast, oneshot, watch};
 
-#[tokio::main]
-async fn main() {
-    let (r1, r2, r3) = tokio::join!(
-        async { sleep(Duration::from_secs(1)).await; 1 },
-        async { sleep(Duration::from_secs(1)).await; 2 },
-        async { sleep(Duration::from_secs(1)).await; 3 },
-    );
+// Multi-producer, single-consumer
+async fn mpsc_example() {
+    let (tx, mut rx) = mpsc::channel::<String>(100);
 
-    println!("Results: {}, {}, {}", r1, r2, r3);
-}
-```
-
-## Channels
-
-**mpsc channel for message passing:**
-
-```rust
-use tokio::sync::mpsc;
-
-#[tokio::main]
-async fn main() {
-    let (tx, mut rx) = mpsc::channel(32);
-
+    // Spawn producer
+    let tx2 = tx.clone();
     tokio::spawn(async move {
-        for i in 0..10 {
-            tx.send(i).await.unwrap();
-        }
+        tx2.send("Hello".to_string()).await.unwrap();
     });
 
-    while let Some(value) = rx.recv().await {
-        println!("Received: {}", value);
-    }
-}
-```
-
-**Multiple producers:**
-
-```rust
-use tokio::sync::mpsc;
-
-#[tokio::main]
-async fn main() {
-    let (tx, mut rx) = mpsc::channel(32);
-
-    for i in 0..3 {
-        let tx = tx.clone();
-        tokio::spawn(async move {
-            tx.send(format!("Message from {}", i)).await.unwrap();
-        });
-    }
-
-    drop(tx); // Close channel when all senders dropped
-
+    // Consume
     while let Some(msg) = rx.recv().await {
-        println!("{}", msg);
+        println!("Got: {}", msg);
     }
 }
-```
 
-**oneshot channel:**
+// Broadcast: multi-producer, multi-consumer
+async fn broadcast_example() {
+    let (tx, _) = broadcast::channel::<String>(100);
 
-```rust
-use tokio::sync::oneshot;
+    let mut rx1 = tx.subscribe();
+    let mut rx2 = tx.subscribe();
 
-#[tokio::main]
-async fn main() {
-    let (tx, rx) = oneshot::channel();
+    tx.send("Event".to_string()).unwrap();
+
+    // Both receivers get the message
+    let _ = rx1.recv().await;
+    let _ = rx2.recv().await;
+}
+
+// Oneshot: single value, single use
+async fn oneshot_example() -> String {
+    let (tx, rx) = oneshot::channel::<String>();
 
     tokio::spawn(async move {
-        tx.send("result").unwrap();
+        tx.send("Result".to_string()).unwrap();
     });
 
-    let result = rx.await.unwrap();
-    println!("{}", result);
-}
-```
-
-## Synchronization Primitives
-
-**Mutex for shared state:**
-
-```rust
-use tokio::sync::Mutex;
-use std::sync::Arc;
-
-#[tokio::main]
-async fn main() {
-    let counter = Arc::new(Mutex::new(0));
-    let mut handles = vec![];
-
-    for _ in 0..10 {
-        let counter = Arc::clone(&counter);
-        let handle = tokio::spawn(async move {
-            let mut num = counter.lock().await;
-            *num += 1;
-        });
-        handles.push(handle);
-    }
-
-    for handle in handles {
-        handle.await.unwrap();
-    }
-
-    println!("Result: {}", *counter.lock().await);
-}
-```
-
-**RwLock for read-write access:**
-
-```rust
-use tokio::sync::RwLock;
-use std::sync::Arc;
-
-#[tokio::main]
-async fn main() {
-    let data = Arc::new(RwLock::new(vec![1, 2, 3]));
-
-    // Multiple readers
-    let data1 = Arc::clone(&data);
-    let data2 = Arc::clone(&data);
-
-    let reader1 = tokio::spawn(async move {
-        let d = data1.read().await;
-        println!("Reader 1: {:?}", *d);
-    });
-
-    let reader2 = tokio::spawn(async move {
-        let d = data2.read().await;
-        println!("Reader 2: {:?}", *d);
-    });
-
-    // One writer
-    let data3 = Arc::clone(&data);
-    let writer = tokio::spawn(async move {
-        let mut d = data3.write().await;
-        d.push(4);
-    });
-
-    reader1.await.unwrap();
-    reader2.await.unwrap();
-    writer.await.unwrap();
-}
-```
-
-**Semaphore for limiting concurrency:**
-
-```rust
-use tokio::sync::Semaphore;
-use std::sync::Arc;
-
-#[tokio::main]
-async fn main() {
-    let semaphore = Arc::new(Semaphore::new(3));
-    let mut handles = vec![];
-
-    for i in 0..10 {
-        let permit = semaphore.clone();
-        let handle = tokio::spawn(async move {
-            let _permit = permit.acquire().await.unwrap();
-            println!("Task {} acquired permit", i);
-            tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
-            println!("Task {} releasing permit", i);
-        });
-        handles.push(handle);
-    }
-
-    for handle in handles {
-        handle.await.unwrap();
-    }
-}
-```
-
-## Streams
-
-**Using async streams:**
-
-```rust
-use tokio_stream::{self as stream, StreamExt};
-
-#[tokio::main]
-async fn main() {
-    let mut stream = stream::iter(vec![1, 2, 3, 4, 5]);
-
-    while let Some(value) = stream.next().await {
-        println!("{}", value);
-    }
-}
-```
-
-**Creating custom streams:**
-
-```rust
-use tokio_stream::{Stream, StreamExt};
-use std::pin::Pin;
-use std::task::{Context, Poll};
-
-struct Counter {
-    count: usize,
-    max: usize,
+    rx.await.unwrap()
 }
 
-impl Stream for Counter {
-    type Item = usize;
+// Watch: single producer, multi-consumer, latest value
+async fn watch_example() {
+    let (tx, mut rx) = watch::channel("initial".to_string());
 
-    fn poll_next(
-        mut self: Pin<&mut Self>,
-        _cx: &mut Context<'_>
-    ) -> Poll<Option<Self::Item>> {
-        if self.count < self.max {
-            let current = self.count;
-            self.count += 1;
-            Poll::Ready(Some(current))
-        } else {
-            Poll::Ready(None)
+    tokio::spawn(async move {
+        loop {
+            // Wait for changes
+            rx.changed().await.unwrap();
+            println!("New value: {}", *rx.borrow());
         }
-    }
-}
+    });
 
-#[tokio::main]
-async fn main() {
-    let mut counter = Counter { count: 0, max: 5 };
-
-    while let Some(value) = counter.next().await {
-        println!("{}", value);
-    }
+    tx.send("updated".to_string()).unwrap();
 }
 ```
 
-## Timeouts and Intervals
-
-**Using timeout:**
+### Pattern 3: Async Error Handling
 
 ```rust
-use tokio::time::{timeout, Duration};
+use anyhow::{Context, Result, bail};
+use thiserror::Error;
 
-async fn slow_operation() -> String {
+#[derive(Error, Debug)]
+pub enum ServiceError {
+    #[error("Network error: {0}")]
+    Network(#[from] reqwest::Error),
+
+    #[error("Database error: {0}")]
+    Database(#[from] sqlx::Error),
+
+    #[error("Not found: {0}")]
+    NotFound(String),
+
+    #[error("Timeout after {0:?}")]
+    Timeout(std::time::Duration),
+}
+
+// Using anyhow for application errors
+async fn process_request(id: &str) -> Result<Response> {
+    let data = fetch_data(id)
+        .await
+        .context("Failed to fetch data")?;
+
+    let parsed = parse_response(&data)
+        .context("Failed to parse response")?;
+
+    Ok(parsed)
+}
+
+// Using custom errors for library code
+async fn get_user(id: &str) -> Result<User, ServiceError> {
+    let result = db.query(id).await?;
+
+    match result {
+        Some(user) => Ok(user),
+        None => Err(ServiceError::NotFound(id.to_string())),
+    }
+}
+
+// Timeout wrapper
+use tokio::time::timeout;
+
+async fn with_timeout<T, F>(duration: Duration, future: F) -> Result<T, ServiceError>
+where
+    F: std::future::Future<Output = Result<T, ServiceError>>,
+{
+    timeout(duration, future)
+        .await
+        .map_err(|_| ServiceError::Timeout(duration))?
+}
+```
+
+### Pattern 4: Graceful Shutdown
+
+```rust
+use tokio::signal;
+use tokio::sync::broadcast;
+use tokio_util::sync::CancellationToken;
+
+async fn run_server() -> Result<()> {
+    // Method 1: CancellationToken
+    let token = CancellationToken::new();
+    let token_clone = token.clone();
+
+    // Spawn task that respects cancellation
+    tokio::spawn(async move {
+        loop {
+            tokio::select! {
+                _ = token_clone.cancelled() => {
+                    tracing::info!("Task shutting down");
+                    break;
+                }
+                _ = do_work() => {}
+            }
+        }
+    });
+
+    // Wait for shutdown signal
+    signal::ctrl_c().await?;
+    tracing::info!("Shutdown signal received");
+
+    // Cancel all tasks
+    token.cancel();
+
+    // Give tasks time to cleanup
     tokio::time::sleep(Duration::from_secs(5)).await;
-    String::from("done")
+
+    Ok(())
 }
 
-#[tokio::main]
-async fn main() {
-    match timeout(Duration::from_secs(2), slow_operation()).await {
-        Ok(result) => println!("Success: {}", result),
-        Err(_) => println!("Operation timed out"),
-    }
-}
-```
+// Method 2: Broadcast channel for shutdown
+async fn run_with_broadcast() -> Result<()> {
+    let (shutdown_tx, _) = broadcast::channel::<()>(1);
 
-**Using intervals:**
+    let mut rx = shutdown_tx.subscribe();
+    tokio::spawn(async move {
+        tokio::select! {
+            _ = rx.recv() => {
+                tracing::info!("Received shutdown");
+            }
+            _ = async { loop { do_work().await } } => {}
+        }
+    });
 
-```rust
-use tokio::time::{interval, Duration};
+    signal::ctrl_c().await?;
+    let _ = shutdown_tx.send(());
 
-#[tokio::main]
-async fn main() {
-    let mut interval = interval(Duration::from_secs(1));
-
-    for _ in 0..5 {
-        interval.tick().await;
-        println!("Tick");
-    }
-}
-```
-
-## Error Handling
-
-**Propagating errors with ?:**
-
-```rust
-use reqwest;
-
-async fn fetch_url(url: &str) -> Result<String, reqwest::Error> {
-    let response = reqwest::get(url).await?;
-    let body = response.text().await?;
-    Ok(body)
-}
-
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let content = fetch_url("https://example.com").await?;
-    println!("{}", content);
     Ok(())
 }
 ```
 
-## Blocking Operations
-
-**Running CPU-intensive tasks:**
-
-```rust
-use tokio::task;
-
-fn blocking_operation() -> u64 {
-    // CPU-intensive work
-    (0..1_000_000).sum()
-}
-
-#[tokio::main]
-async fn main() {
-    let result = task::spawn_blocking(|| {
-        blocking_operation()
-    }).await.unwrap();
-
-    println!("Result: {}", result);
-}
-```
-
-## Async Traits
-
-**Using async-trait crate:**
-
-```toml
-[dependencies]
-async-trait = "0.1"
-```
+### Pattern 5: Async Traits
 
 ```rust
 use async_trait::async_trait;
 
 #[async_trait]
-trait Repository {
-    async fn find(&self, id: u64) -> Option<String>;
-    async fn save(&self, data: String) -> Result<(), String>;
+pub trait Repository {
+    async fn get(&self, id: &str) -> Result<Entity>;
+    async fn save(&self, entity: &Entity) -> Result<()>;
+    async fn delete(&self, id: &str) -> Result<()>;
 }
 
-struct UserRepository;
+pub struct PostgresRepository {
+    pool: sqlx::PgPool,
+}
 
 #[async_trait]
-impl Repository for UserRepository {
-    async fn find(&self, id: u64) -> Option<String> {
-        tokio::time::sleep(tokio::time::Duration::from_millis(100)).await;
-        Some(format!("User {}", id))
+impl Repository for PostgresRepository {
+    async fn get(&self, id: &str) -> Result<Entity> {
+        sqlx::query_as!(Entity, "SELECT * FROM entities WHERE id = $1", id)
+            .fetch_one(&self.pool)
+            .await
+            .map_err(Into::into)
     }
 
-    async fn save(&self, data: String) -> Result<(), String> {
-        println!("Saving: {}", data);
+    async fn save(&self, entity: &Entity) -> Result<()> {
+        sqlx::query!(
+            "INSERT INTO entities (id, data) VALUES ($1, $2)
+             ON CONFLICT (id) DO UPDATE SET data = $2",
+            entity.id,
+            entity.data
+        )
+        .execute(&self.pool)
+        .await?;
         Ok(())
+    }
+
+    async fn delete(&self, id: &str) -> Result<()> {
+        sqlx::query!("DELETE FROM entities WHERE id = $1", id)
+            .execute(&self.pool)
+            .await?;
+        Ok(())
+    }
+}
+
+// Trait object usage
+async fn process(repo: &dyn Repository, id: &str) -> Result<()> {
+    let entity = repo.get(id).await?;
+    // Process...
+    repo.save(&entity).await
+}
+```
+
+### Pattern 6: Streams and Async Iteration
+
+```rust
+use futures::stream::{self, Stream, StreamExt};
+use async_stream::stream;
+
+// Create stream from async iterator
+fn numbers_stream() -> impl Stream<Item = i32> {
+    stream! {
+        for i in 0..10 {
+            tokio::time::sleep(Duration::from_millis(100)).await;
+            yield i;
+        }
+    }
+}
+
+// Process stream
+async fn process_stream() {
+    let stream = numbers_stream();
+
+    // Map and filter
+    let processed: Vec<_> = stream
+        .filter(|n| futures::future::ready(*n % 2 == 0))
+        .map(|n| n * 2)
+        .collect()
+        .await;
+
+    println!("{:?}", processed);
+}
+
+// Chunked processing
+async fn process_in_chunks() {
+    let stream = numbers_stream();
+
+    let mut chunks = stream.chunks(3);
+
+    while let Some(chunk) = chunks.next().await {
+        println!("Processing chunk: {:?}", chunk);
+    }
+}
+
+// Merge multiple streams
+async fn merge_streams() {
+    let stream1 = numbers_stream();
+    let stream2 = numbers_stream();
+
+    let merged = stream::select(stream1, stream2);
+
+    merged
+        .for_each(|n| async move {
+            println!("Got: {}", n);
+        })
+        .await;
+}
+```
+
+### Pattern 7: Resource Management
+
+```rust
+use std::sync::Arc;
+use tokio::sync::{Mutex, RwLock, Semaphore};
+
+// Shared state with RwLock (prefer for read-heavy)
+struct Cache {
+    data: RwLock<HashMap<String, String>>,
+}
+
+impl Cache {
+    async fn get(&self, key: &str) -> Option<String> {
+        self.data.read().await.get(key).cloned()
+    }
+
+    async fn set(&self, key: String, value: String) {
+        self.data.write().await.insert(key, value);
+    }
+}
+
+// Connection pool with semaphore
+struct Pool {
+    semaphore: Semaphore,
+    connections: Mutex<Vec<Connection>>,
+}
+
+impl Pool {
+    fn new(size: usize) -> Self {
+        Self {
+            semaphore: Semaphore::new(size),
+            connections: Mutex::new((0..size).map(|_| Connection::new()).collect()),
+        }
+    }
+
+    async fn acquire(&self) -> PooledConnection<'_> {
+        let permit = self.semaphore.acquire().await.unwrap();
+        let conn = self.connections.lock().await.pop().unwrap();
+        PooledConnection { pool: self, conn: Some(conn), _permit: permit }
+    }
+}
+
+struct PooledConnection<'a> {
+    pool: &'a Pool,
+    conn: Option<Connection>,
+    _permit: tokio::sync::SemaphorePermit<'a>,
+}
+
+impl Drop for PooledConnection<'_> {
+    fn drop(&mut self) {
+        if let Some(conn) = self.conn.take() {
+            let pool = self.pool;
+            tokio::spawn(async move {
+                pool.connections.lock().await.push(conn);
+            });
+        }
     }
 }
 ```
 
-## When to Use This Skill
+## Debugging Tips
 
-Use rust-async-patterns when you need to:
+```rust
+// Enable tokio-console for runtime debugging
+// Cargo.toml: tokio = { features = ["tracing"] }
+// Run: RUSTFLAGS="--cfg tokio_unstable" cargo run
+// Then: tokio-console
 
-- Build async web servers or clients
-- Handle concurrent I/O operations efficiently
-- Make multiple HTTP requests concurrently
-- Implement producer-consumer patterns
-- Work with async streams of data
-- Manage shared state across async tasks
-- Control concurrency limits
-- Handle timeouts and cancellation
-- Build event-driven systems
-- Process data asynchronously
+// Instrument async functions
+use tracing::instrument;
+
+#[instrument(skip(pool))]
+async fn fetch_user(pool: &PgPool, id: &str) -> Result<User> {
+    tracing::debug!("Fetching user");
+    // ...
+}
+
+// Track task spawning
+let span = tracing::info_span!("worker", id = %worker_id);
+tokio::spawn(async move {
+    // Enters span when polled
+}.instrument(span));
+```
 
 ## Best Practices
 
-- Use tokio::spawn for CPU-independent tasks
-- Use spawn_blocking for CPU-intensive work
-- Prefer channels over shared state with locks
-- Use select! for racing futures
-- Use join! for concurrent independent operations
-- Set appropriate timeouts for network operations
-- Use Semaphore to limit concurrent operations
-- Avoid holding locks across await points
-- Use Arc for shared ownership in async context
-- Handle errors properly with Result
+### Do's
+- **Use `tokio::select!`** - For racing futures
+- **Prefer channels** - Over shared state when possible
+- **Use `JoinSet`** - For managing multiple tasks
+- **Instrument with tracing** - For debugging async code
+- **Handle cancellation** - Check `CancellationToken`
 
-## Common Pitfalls
-
-- Holding std::sync::Mutex across await (use tokio::sync::Mutex)
-- Not using move with closures in spawn
-- Forgetting to await futures
-- Blocking the runtime with CPU-intensive work
-- Creating too many tasks without limits
-- Not handling cancellation properly
-- Using the wrong channel type
-- Deadlocks with improper lock ordering
-- Not configuring runtime appropriately
-- Ignoring errors in spawned tasks
+### Don'ts
+- **Don't block** - Never use `std::thread::sleep` in async
+- **Don't hold locks across awaits** - Causes deadlocks
+- **Don't spawn unboundedly** - Use semaphores for limits
+- **Don't ignore errors** - Propagate with `?` or log
+- **Don't forget Send bounds** - For spawned futures
 
 ## Resources
 
 - [Tokio Tutorial](https://tokio.rs/tokio/tutorial)
 - [Async Book](https://rust-lang.github.io/async-book/)
-- [tokio Documentation](https://docs.rs/tokio/)
-- [reqwest Documentation](https://docs.rs/reqwest/)
-- [async-trait Documentation](https://docs.rs/async-trait/)
+- [Tokio Console](https://github.com/tokio-rs/console)

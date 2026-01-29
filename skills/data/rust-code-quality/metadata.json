@@ -1,9 +1,7 @@
 {
   "name": "rust-code-quality",
-  "description": "Perform comprehensive Rust code quality reviews against best practices for async Rust, error handling, testing, and project structure",
   "repo": "d-o-hub/rust-self-learning-memory",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".opencode/skill/rust-code-quality/SKILL.md",
+  "source": "github.com/d-o-hub/rust-self-learning-memory",
+  "downloaded_at": "2026-01-29T01:48:12.431958Z"
 }

@@ -1,290 +1,119 @@
 ---
 name: workflow-orchestration
-description: Coordinates multi-step CI/CD pipelines by chaining autonomous-ci, code-review, smart-commit, and jules-integration plugins. Use when executing validation-to-PR workflows or recovering from CI failures.
+description: >
+  Coordinate structured thinking and multi-agent parallel execution for complex tasks.
+  Use when tackling multi-step projects, planning parallel work, breaking down complex
+  problems, coordinating specialist tasks, facing architectural decisions, or when user
+  mentions "workflow", "orchestration", "multi-step", "coordinate", "parallel execution",
+  "structured thinking", "break this down", "plan this out", "how should I approach",
+  or needs help planning complex implementations.
 ---
 
-# Skill: workflow-orchestration
+# Workflow Orchestration
 
-## Overview
+Guide users through structured thinking and recommend appropriate tools for complex tasks.
 
-This skill orchestrates complex workflows by chaining existing plugins into pipelines.
-It maintains state awareness through CHANGELOG.md and coordinates cross-plugin operations.
+## Quick Decision
 
-## When to Use
+| Situation | Recommendation |
+|-----------|----------------|
+| Multi-step project, full SDLC | `/develop` command |
+| Plan only, implement later | `/develop --plan-only` |
+| Resume existing plan | `/develop @path/to/plan.md` |
+| Single complex problem needing deep analysis | `/think` command |
+| Security-sensitive or high-stakes work | `/develop --validate` |
+| Strategic decision with long-term impact | `deep-think-partner` agent |
+| Simple task, clear steps | Inline guidance (no command needed) |
 
-- **Pre-commit validation**: Before any commit, ensure all quality gates pass
-- **PR creation**: When changes are ready for review and PR creation
-- **CI recovery**: When CI fails and automated diagnosis/fix is needed
-- **Multi-step automation**: Any task requiring coordinated plugin execution
+## When to Orchestrate
 
-## Prerequisites
+Detect these signals for structured thinking:
 
-**Required Plugins:**
+**Keyword triggers:**
+- "workflow", "orchestration", "coordinate", "parallel"
+- "multi-step", "sequential", "dependencies"
+- "break down", "plan this out", "how should I approach"
 
-- `autonomous-ci` - Validation and CI monitoring
-- `code-review` - Quality analysis
-- `smart-commit` - Commit message generation
+**Context triggers:**
+- Architectural decisions affecting multiple components
+- Multi-file changes requiring coordination
+- Problems with unclear scope needing discovery
+- Tasks that benefit from specialist agents
 
-**Optional Plugins:**
+## Orchestration Pattern
 
-- `jules-integration` - Async PR delegation
+When structured approach is needed:
 
-**Required Skills (from Superpowers):**
-
-- `systematic-debugging` - For failure analysis
-- `verification-before-completion` - For evidence-based completion
-
-## Process
-
-### Phase 1: Context Gathering
-
-Before executing any pipeline:
-
-```bash
-# 1. Read CHANGELOG for recent context
-Read the file: CHANGELOG.md
-# Focus on [Unreleased] section to understand pending work
-
-# 2. Check git state
-git status --porcelain
-git log --oneline -5
-
-# 3. Verify required plugins are available
-claude plugin list
+```
+1. GATE     → Is the request clear and actionable?
+2. CONTEXT  → What files/patterns are relevant?
+3. PLAN     → What tasks? Parallel vs sequential?
+4. EXECUTE  → Deploy specialists, maximize parallelism
+5. VALIDATE → Confidence scoring (if needed)
+6. REPORT   → Summary with next steps
 ```
 
-### Phase 2: Pipeline Selection
+## Command Reference
 
-Choose the appropriate pipeline based on the task:
+### `/develop <request> [flags]`
 
-| Task | Pipeline | Plugins Used |
-|------|----------|--------------|
-| Validate before commit | `pre-commit` | autonomous-ci, code-review, smart-commit |
-| Create PR | `pr-create` | All + jules-integration |
-| Fix CI failure | `ci-recover` | autonomous-ci + systematic-debugging |
+Unified SDLC command with 6-phase pipeline and multi-agent orchestration.
 
-### Phase 3: Pipeline Execution
+**Flags:**
+- `--plan-only` - Stop after Phase 2 (save plan, don't implement)
+- `--validate` - Enable deep validation with opus agent
+- `--phase=N` - Execute specific phase only
+- `--auto` - Autonomous mode (no checkpoints)
 
-#### Pre-Commit Pipeline
+**Best for:** Feature implementations, refactoring projects, any multi-step development task.
 
-```text
-Step 1: Validate
-├── Run: ./tooling/scripts/local-validate.sh
-├── On success: Continue
-└── On failure: STOP, report issues
+**Resume mode:** `/develop @path/to/plan.md` loads existing plan and continues.
 
-Step 2: Review
-├── Invoke: code-review skill
-├── Analyze: Security, style, performance
-├── On success: Continue
-└── On failure: Report issues, suggest fixes
+### `/think [problem]`
 
-Step 3: Commit Message
-├── Invoke: smart-commit skill
-├── Generate: Conventional commit message
-├── On success: Present message for human approval
-└── On failure: Provide manual template
-```
+Invoke deep-think-partner for collaborative reasoning.
 
-#### PR-Create Pipeline
+**Best for:** Single complex problems, decision analysis, reasoning validation, architectural decisions.
 
-```text
-Step 1: Pre-Commit Pipeline
-├── Execute full pre-commit pipeline
-└── On failure: STOP
+## Inline Guidance
 
-Step 2: Stage Changes
-├── Present diff for human review
-├── REQUIRE: Human approval for git commit
-└── On approval: Continue
+For simpler tasks, provide structured thinking directly:
 
-Step 3: Delegate to Jules
-├── Invoke: jules-integration skill
-├── Create: Jules session with PR task
-├── Set: requirePlanApproval = true
-└── Monitor: Session status
-```
+1. **Clarify scope** - What exactly needs to be done?
+2. **Identify dependencies** - What must happen first?
+3. **Plan sequence** - Parallel where possible, sequential where required
+4. **Execute** - Work through each step
+5. **Verify** - Check results meet requirements
 
-#### CI-Recover Pipeline
+## Model Tier Strategy
 
-```text
-Step 1: Diagnose
-├── Invoke: systematic-debugging skill
-├── Analyze: CI failure logs
-├── Identify: Root cause
-└── On failure: Escalate to human
+| Task Type | Model | Use Case |
+|-----------|-------|----------|
+| Gating, routing | haiku | Quick decisions, simple queries |
+| Implementation | sonnet | Standard coding, documentation |
+| Deep analysis | opus | Architecture, complex reasoning |
 
-Step 2: Fix
-├── Implement fix based on diagnosis
-├── Follow TDD if adding code
-└── On failure: Escalate with context
+## Output
 
-Step 3: Re-validate
-├── Run: ./tooling/scripts/local-validate.sh
-├── On success: Report recovery
-├── On failure: Retry (max 3 times)
-└── On max retries: Escalate
-```
-
-### Phase 4: Completion
-
-**ALWAYS verify before claiming complete:**
-
-```bash
-# Run validation
-./tooling/scripts/local-validate.sh
-
-# Check all tests pass
-# (if applicable)
-
-# Update CHANGELOG.md under [Unreleased]
-```
-
-**Report with evidence:**
+When providing orchestration guidance:
 
 ```markdown
-## Pipeline Execution Summary
+## Recommended Approach
 
-| Step | Status | Evidence |
-|------|--------|----------|
-| Validation | ✅ | local-validate.sh passed |
-| Review | ✅ | No critical issues |
-| Commit | ⏳ | Awaiting human approval |
+**Complexity:** [Low | Medium | High]
+**Suggested tool:** [command or inline]
 
-### Artifacts
+### Why
+[Brief explanation of why this approach fits]
 
-- Commit message: `feat: add workflow orchestration`
-- Files changed: 5
-- Lines: +230 / -12
+### Steps
+1. [First step]
+2. [Second step]
+...
 ```
 
-## State Management
+## Additional Resources
 
-The orchestrator reads state from multiple sources:
-
-### CHANGELOG.md
-
-```bash
-# Extract pending work
-grep -A 50 "\[Unreleased\]" CHANGELOG.md
-```
-
-Provides:
-
-- What's been added/changed/fixed
-- What's pending
-- Recent decisions and context
-
-### Git State
-
-```bash
-git status --porcelain    # Working directory state
-git log --oneline -5      # Recent commits
-git diff --stat           # Changes summary
-```
-
-### CI State
-
-```bash
-# Via autonomous-ci skill
-./plugins/autonomous-ci/scripts/wait-for-ci.sh
-```
-
-## Error Handling
-
-### Validation Failures
-
-1. Parse error output
-2. Identify failing check (shellcheck, markdownlint, plugin validation)
-3. Attempt automatic fix if deterministic
-4. Re-run validation
-5. If still failing after 3 attempts, report with full context
-
-### Review Failures
-
-1. Collect all review issues
-2. Categorize by severity (critical, warning, info)
-3. For critical issues: STOP and report
-4. For warnings: Report and continue with human acknowledgment
-
-### Jules API Failures
-
-1. Check API key validity
-2. Retry with exponential backoff (5s, 15s, 30s)
-3. If persistent, report and suggest manual PR creation
-
-## Integration with Other Skills
-
-### From Superpowers
-
-| Skill | When Used |
-|-------|-----------|
-| `systematic-debugging` | CI failure diagnosis |
-| `test-driven-development` | Writing fixes |
-| `verification-before-completion` | Before claiming done |
-| `brainstorming` | Complex architectural decisions |
-
-### From This Repo
-
-| Skill | When Used |
-|-------|-----------|
-| `autonomous-ci` | Validation and monitoring |
-| `code-review` | Quality analysis |
-| `smart-commit` | Commit generation |
-| `jules-integration` | PR delegation |
-| `working-on-ancplua-plugins` | Repo conventions |
-
-## Examples
-
-### Example 1: Pre-Commit Flow
-
-**Trigger:** Developer requests validation before commit
-
-```text
-1. Read CHANGELOG.md → Understand context
-2. Run local-validate.sh → All checks pass
-3. Invoke code-review → No critical issues
-4. Invoke smart-commit → Generate: "feat(agent): add workflow orchestrator"
-5. Present summary → Human approves
-6. Report complete with evidence
-```
-
-### Example 2: CI Recovery
-
-**Trigger:** CI fails on shellcheck
-
-```text
-1. Detect failure via autonomous-ci monitoring
-2. Invoke systematic-debugging:
-   - Phase 1: Gather evidence (CI logs)
-   - Phase 2: Identify cause (SC2086 unquoted variable)
-   - Phase 3: Hypothesize fix (add quotes)
-   - Phase 4: Verify fix locally
-3. Apply fix to script
-4. Run local-validate.sh → Passes
-5. Report recovery with evidence
-```
-
-### Example 3: Full PR Pipeline
-
-**Trigger:** Feature complete, ready for review
-
-```text
-1. Execute pre-commit pipeline → All green
-2. Present diff for human review
-3. Human approves commit
-4. Invoke jules-integration:
-   - Create session: "Create PR for workflow-orchestrator agent"
-   - Set requirePlanApproval: true
-   - Monitor session
-5. Report PR URL when created
-```
-
-## Maintenance Rules for Claude
-
-1. **Never skip validation** - Always run local-validate.sh before completion
-2. **Always read CHANGELOG first** - Context prevents duplicate work
-3. **Chain skills, don't reinvent** - Use existing plugins instead of custom logic
-4. **Require human approval for commits** - Orchestration ≠ autonomous commits
-5. **Report with evidence** - Tables with status and artifacts
-6. **Update CHANGELOG** - Every pipeline execution that changes files
+- [WORKFLOW.md](WORKFLOW.md) - Detailed orchestration patterns
+- [EXAMPLES.md](EXAMPLES.md) - Real-world usage scenarios
+- [TROUBLESHOOTING.md](TROUBLESHOOTING.md) - Common issues and solutions

@@ -1,9 +1,7 @@
 {
   "name": "release-guard",
-  "description": "STRICT GitHub release gatekeeper. Blocks premature releases (from develop, incomplete CI). Verifies PR merged to main + ALL CI passed before allowing tag/release. Triggers on \"release\", \"tag\", \"publis",
   "repo": "d-o-hub/rust-self-learning-memory",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/release-guard/SKILL.md",
+  "source": "github.com/d-o-hub/rust-self-learning-memory",
+  "downloaded_at": "2026-01-29T01:48:11.278991Z"
 }

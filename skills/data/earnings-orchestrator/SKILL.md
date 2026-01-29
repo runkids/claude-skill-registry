@@ -1,0 +1,196 @@
+---
+name: earnings-orchestrator
+description: Master orchestrator for batch earnings analysis
+# No context: fork - orchestrator is always entry point, enables Task tool for parallel execution
+allowed-tools:
+  - Task
+  - Bash
+  - Write
+  - Read
+  - Edit
+  - EnterPlanMode
+  - ExitPlanMode
+permissionMode: dontAsk
+---
+
+# Earnings Orchestrator
+
+## Input
+
+`$ARGUMENTS` = `TICKER`
+
+- TICKER: Company ticker (required)
+
+## Task - MUST COMPLETE ALL STEPS
+
+### Step 1: Get Earnings Data
+
+```bash
+source /home/faisal/EventMarketDB/venv/bin/activate && python /home/faisal/EventMarketDB/scripts/earnings/get_earnings.py {TICKER}
+```
+
+**Output columns:** accession|date|fiscal_year|fiscal_quarter|market_session|daily_stock|daily_adj|sector_adj|industry_adj|trailing_vol|vol_days|vol_status
+
+**Parse:** Extract E1 (first data row), E2 (second data row) - oldest quarters first. Note `trailing_vol` for each.
+
+**If ERROR returned:** Stop and report error to user.
+
+### Step 1b: Check News Cache
+
+Check `earnings-analysis/news_processed.csv` for {TICKER}.
+
+- Read CSV (format: `ticker|quarter|fiscal_year|processed_date`)
+- Find row where `ticker={TICKER}` AND `quarter={E1.fiscal_quarter}` AND `fiscal_year=FY{E1.fiscal_year}`
+- If row exists → Q1 already done, skip Steps 2-3c entirely
+- If no matching row → continue to Step 2
+- Repeat check for Q2
+
+### Step 2: Get Significant Moves for Q1
+
+Calculate:
+- `START` = E1 date minus 3 months (or earliest available data)
+- `END` = E1 date (just the date part, e.g., 2024-02-01)
+
+```bash
+source /home/faisal/EventMarketDB/venv/bin/activate && python /home/faisal/EventMarketDB/scripts/earnings/get_significant_moves.py {TICKER} {START} {END} {E1.trailing_vol}
+```
+
+**Output columns:** date|daily_stock|daily_macro|daily_adj
+
+**Parse:** List of dates with significant moves.
+
+**If OK|NO_MOVES returned:** No significant moves for Q1, skip to Step 4.
+
+### Step 3a: Benzinga News Analysis (PARALLEL)
+
+For EACH significant date from Step 2, spawn a `bz-news-driver` sub-agent.
+
+**Task tool call for each date:**
+```
+subagent_type: "bz-news-driver"
+description: "BZ news {TICKER} {DATE}"
+prompt: "{TICKER} {DATE} {DAILY_STOCK} {DAILY_ADJ}"
+```
+
+**IMPORTANT:**
+- Spawn ALL sub-agents in parallel (one per date, no cap)
+- All sub-agents return: `date|news_id|driver|confidence|daily_stock|daily_adj|market_session|source|external_research|source_pub_date`
+
+**Collect all results. Separate into:**
+- `explained`: where `external_research=false`
+- `needs_research`: where `external_research=true`
+
+### Step 3b: External Research for Q1 Gaps (PARALLEL)
+
+For EACH date in `needs_research` from Step 3a, spawn an `external-news-driver` sub-agent.
+
+**Task tool call for each gap date:**
+```
+subagent_type: "external-news-driver"
+description: "External research {TICKER} {DATE}"
+prompt: "{TICKER} {DATE} {DAILY_STOCK} {DAILY_ADJ}"
+```
+
+**IMPORTANT:**
+- Spawn ALL sub-agents in parallel (one per date, no cap)
+- Returns same format with `source=websearch` or `source=perplexity`
+
+**Merge results:** For each date in `needs_research`, DISCARD the original bz-news-driver row entirely and use ONLY the complete external-news-driver output. Do NOT merge individual fields - replace the whole row.
+
+### Step 3c: Save Q1 Results
+
+1. Create directory if needed: `earnings-analysis/Companies/{TICKER}/`
+2. Append Q1 results to `earnings-analysis/Companies/{TICKER}/news.csv`:
+   - Add `quarter` column with value `{E1.fiscal_quarter}_FY{E1.fiscal_year}` (e.g., `Q1_FY2024`)
+   - Format: `quarter|date|news_id|driver|confidence|daily_stock|daily_adj|market_session|source|external_research|source_pub_date`
+   - Create file with header if it doesn't exist
+3. Update `earnings-analysis/news_processed.csv`:
+   - Format: `ticker|quarter|fiscal_year|processed_date`
+   - Append row: `{TICKER}|{E1.fiscal_quarter}|FY{E1.fiscal_year}|{today YYYY-MM-DD}`
+   - Create file with header if it doesn't exist
+
+### Step 4a: Repeat Benzinga Analysis for Q2
+
+Calculate:
+- `START` = E1 date + 1 day (exclude E1 earnings reaction)
+- `END` = E2 date (exclusive, excludes E2 earnings reaction)
+
+Run `get_significant_moves.py {TICKER} {START} {END} {E2.trailing_vol}` and spawn `bz-news-driver` sub-agents for Q2 dates (same as Step 3a).
+
+### Step 4b: External Research for Q2 Gaps (PARALLEL)
+
+For dates where `external_research=true` from Step 4a, spawn `external-news-driver` sub-agents (same as Step 3b).
+
+### Step 4c: Save Q2 Results
+
+Same as Step 3c but for Q2:
+1. Append to `earnings-analysis/Companies/{TICKER}/news.csv` with `quarter={E2.fiscal_quarter}_FY{E2.fiscal_year}`
+2. Append to `news_processed.csv`: `{TICKER}|{E2.fiscal_quarter}|FY{E2.fiscal_year}|{today YYYY-MM-DD}`
+
+### Step 5: Return Combined Results
+
+```
+=== EARNINGS ORCHESTRATOR: {TICKER} ===
+
+--- EARNINGS DATA ---
+E1: {accession} | {date} | FY{fiscal_year} {fiscal_quarter} | {daily_adj}% adj | vol={trailing_vol}% ({vol_days}d) {vol_status}
+E2: {accession} | {date} | FY{fiscal_year} {fiscal_quarter} | {daily_adj}% adj | vol={trailing_vol}% ({vol_days}d) {vol_status}
+...
+
+--- Q1 ANALYSIS ({START} to {E1}) ---
+Filter: |stock|>=4%, |adj|>=max(2×{trailing_vol}%,3%)
+Significant dates: {count}
+
+date|news_id|driver|confidence|daily_stock|daily_adj|market_session|source|external_research|source_pub_date
+...
+
+--- Q2 ANALYSIS ({E1} to {E2}) ---
+Filter: |stock|>=4%, |adj|>=max(2×{trailing_vol}%,3%)
+Significant dates: {count}
+
+date|news_id|driver|confidence|daily_stock|daily_adj|market_session|source|external_research|source_pub_date
+...
+
+--- SUMMARY ---
+Total dates analyzed: {N}
+Explained by Benzinga: {B}
+Explained by WebSearch/Perplexity: {W}
+Still unknown (confidence=0): {U}
+
+=== COMPLETE ===
+```
+
+## Rules
+
+- **Full row replacement for external research** - When external-news-driver returns a result, use its COMPLETE 10-field output. Never mix fields from bz-news-driver with external-news-driver. The external result replaces the bz result entirely.
+- **Always run get_earnings.py first** - provides trailing_vol for each quarter
+- **Skip if done** - check news_processed.csv, skip quarters already processed
+- **All sub-agents in parallel** - spawn one per date, no cap
+- **Q1 complete before Q2** - finish bz + external + save for Q1, then Q2
+- **Extract date only** - E1 date "2024-02-01T16:30:33-05:00" → use "2024-02-01"
+- **Preserve news_id EXACTLY** - Copy URLs verbatim. NEVER shorten, summarize, or create short IDs. If sub-agent returns a URL, save the full URL exactly as returned.
+- **Pass through raw output** - don't summarize or lose data
+- **Always save results** - append to news.csv and mark done in news_processed.csv
+
+## Error Handling
+
+Script errors return structured format: `ERROR|CODE|MESSAGE|HINT`
+
+If any script returns ERROR:
+1. Log the error in output
+2. Try to continue with remaining steps if possible
+3. Report all errors in summary
+
+## Example
+
+Input: `AAPL`
+
+Flow:
+1. get_earnings.py AAPL → E1=2024-02-01 (Q1_FY2024, vol=0.90), E2=2024-05-02 (Q2_FY2024, vol=0.99)
+2. Check news_processed.csv → no row for AAPL|Q1|FY2024 → process Q1
+3. get_significant_moves.py AAPL 2023-11-01 2024-02-01 0.90 → internally: |stock|>=4%, |adj|>=max(2×0.90,3)=3%
+4. Spawn 5 bz-news-driver agents → 3 explained, 2 need research
+5. Spawn 2 external-news-driver agents for gaps → 1 found, 1 unknown
+6. Save Q1 to Companies/AAPL/news.csv, mark Q1_FY2024 done
+7. Check news_processed.csv → row exists for AAPL|Q2|FY2024 → skip Q2
+8. Return results (Q1 only, Q2 was cached)

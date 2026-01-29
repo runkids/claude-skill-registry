@@ -1,13 +1,7 @@
 {
   "name": "api-contract-sync",
-  "description": "Use this skill when backend API contracts change and frontend types need synchronization. Triggers on: Pydantic model changes, REST endpoint updates, WebSocket message formats, or GraphQL schema modif",
   "repo": "djimontyp/task-tracker",
-  "category": "design",
-  "tags": [
-    "api",
-    "contract",
-    "sync"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/api-contract-sync/SKILL.md",
+  "source": "github.com/djimontyp/task-tracker",
+  "downloaded_at": "2026-01-29T01:19:30.926977Z"
 }

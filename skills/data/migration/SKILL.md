@@ -1,90 +1,80 @@
 ---
 name: migration
-description: "Validate Prisma schema changes for safety and generate migration reports. Use when modifying schema.prisma, creating database migrations, or when the user asks about migrations."
-event: schema-change
-auto_trigger: true
-version: "2.0.0"
-last_updated: "2026-01-26"
-
-# Inputs/Outputs
-inputs:
-  - schema_diff
-  - existing_data
-  - migration_history
-output: migration_report
-output_format: "Risk assessment + migration commands"
-
-# Auto-Trigger Rules
-auto_invoke:
-  events:
-    - "schema-change"
-    - "prisma-schema-save"
-  file_patterns:
-    - "prisma/schema.prisma"
-  conditions:
-    - "schema.prisma modified"
-
-# Validation
-validation_rules:
-  - "destructive changes require approval"
-  - "required columns need defaults"
-  - "data migration plan for type changes"
-
-# Chaining
-chain_after: []
-chain_before: [schema-doc-sync]
-
-# Agent Association
-called_by: ["@DataArchitect", "@Backend"]
-mcp_tools:
-  - prisma-migrate-dev
-  - activate_prisma_migration_tools
+description: Create reversible database migrations with rollback scripts.
+  Use when modifying database schemas.
 ---
 
-# Migration Safety Skill
+# Migration Skill
 
-> **Purpose:** Validate Prisma schema changes for safety and generate migration reports.
+## Purpose
+Create safe, reversible database migrations.
 
-## Trigger
+## Migration Template
+Use: [templates/migration-template.sql](templates/migration-template.sql)
 
-**When:** `prisma/schema.prisma` is modified
-**Context Needed:** Schema diff, current database state
-**MCP Tools:** `prisma-migrate-dev`, `activate_prisma_migration_tools`
+```sql
+-- Migration: [description]
+-- Created: [date]
+-- Author: [name]
 
-## Risk Levels
+-- ==================== UP ====================
+BEGIN;
 
-| Change                 | Risk        | Action            |
-| :--------------------- | :---------- | :---------------- |
-| Drop table             | 🔴 Critical | Backup + approval |
-| Drop column            | 🔴 Critical | Backup + approval |
-| Remove enum value      | 🔴 Critical | Check usage       |
-| Change column type     | 🟠 High     | Validate data     |
-| Make nullable→required | 🟠 High     | Check nulls       |
-| Add required column    | 🟡 Medium   | Default needed    |
-| Add optional column    | 🟢 Low      | Safe              |
-| Add index              | 🟢 Low      | Safe              |
+-- Your migration here
+CREATE TABLE users (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  email VARCHAR(255) NOT NULL UNIQUE,
+  created_at TIMESTAMP DEFAULT NOW()
+);
 
-## Migration Checklist
+COMMIT;
 
-- [ ] Descriptive migration name
-- [ ] Backup before destructive changes
-- [ ] Test on staging first
-- [ ] Update related documentation
+-- ==================== DOWN ====================
+BEGIN;
 
-## Commands
+DROP TABLE IF EXISTS users;
 
-```bash
-# Generate migration
-bunx prisma migrate dev --name [description]
-
-# Check status
-bunx prisma migrate status
-
-# Apply to production
-bunx prisma migrate deploy
+COMMIT;
 ```
 
-## Reference
+## Pre-Migration Checklist
+Use: [checklists/pre-migration.md](checklists/pre-migration.md)
 
-- [DATABASE-DESIGN.md](/docs/technical/backend/DATABASE-DESIGN.md)
-- [.github/instructions/prisma.instructions.md](../instructions/prisma.instructions.md)
+- [ ] Down migration works
+- [ ] Tested on production-like data
+- [ ] Performance impact assessed
+- [ ] Backup plan documented
+- [ ] Deployment timing considered
+
+## Migration Types
+
+### Safe Migrations
+- Add table
+- Add nullable column
+- Add index (CONCURRENTLY)
+- Add foreign key (without validation)
+
+### Risky Migrations
+- Drop table (verify no references)
+- Drop column (verify no usage)
+- Rename column (may break app)
+- Change column type (may lose data)
+
+### Dangerous Migrations
+- Truncate table
+- Drop database
+- Remove constraints
+
+## Large Table Migrations
+For tables with >1M rows:
+1. Create new structure
+2. Backfill in batches
+3. Add constraints
+4. Switch over
+5. Clean up old structure
+
+## Rollback Strategy
+- Test down migration before running up
+- Document manual rollback steps
+- Have production backup
+- Consider feature flags for code changes

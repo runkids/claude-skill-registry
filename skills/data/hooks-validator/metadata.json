@@ -1,9 +1,7 @@
 {
   "name": "hooks-validator",
-  "description": "Validates React code for Rules of Hooks violations. Catches issues like hooks called after conditional returns that cause production crashes (React error",
   "repo": "mesbahtanvir/ishkul",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/hooks-validator/SKILL.md",
+  "source": "github.com/mesbahtanvir/ishkul",
+  "downloaded_at": "2026-01-29T02:08:15.801040Z"
 }

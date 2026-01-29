@@ -1,710 +1,409 @@
----
-name: github-actions
-description: Create and maintain GitHub Actions workflows for CI/CD, testing, deployment, and automation. Use when setting up pipelines, automating tasks, or configuring continuous integration.
-allowed-tools: Read, Edit, Write, Bash, Grep, Glob
----
-
 # GitHub Actions Skill
 
-This skill helps you create and maintain GitHub Actions workflows for continuous integration and deployment.
+## Purpose
 
-## When to Use This Skill
-
-- Setting up CI/CD pipelines
-- Automating tests and builds
-- Configuring deployment workflows
-- Creating release automation
-- Running scheduled jobs
-- Automating dependency updates
-- Setting up code quality checks
+Master GitHub Actions workflow patterns, triggers, optimization, and best practices for CI/CD pipelines.
 
 ## Workflow Structure
 
-```
-.github/
-├── workflows/
-│   ├── test.yml              # Run tests on PR/push
-│   ├── deploy-staging.yml    # Deploy to staging
-│   ├── deploy-prod.yml       # Deploy to production
-│   ├── release.yml           # Create releases
-│   ├── security.yml          # Security audits
-│   └── cron-jobs.yml         # Scheduled tasks
-├── actions/
-│   └── setup/                # Reusable actions
-│       └── action.yml
-└── dependabot.yml            # Dependency updates
-```
-
-## Basic Workflow
-
-### Test Workflow
-
+### Basic Anatomy
 ```yaml
-# .github/workflows/test.yml
-name: Test
+name: Workflow Name          # Display name in GitHub UI
 
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main, develop]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Run linter
-        run: pnpm biome check .
-
-      - name: Type check
-        run: pnpm tsc --noEmit
-
-      - name: Run tests
-        run: pnpm test
-
-      - name: Upload coverage
-        uses: codecov/codecov-action@v3
-        with:
-          files: ./coverage/lcov.info
-```
-
-## Deployment Workflows
-
-### Deploy to Staging
-
-```yaml
-# .github/workflows/deploy-staging.yml
-name: Deploy to Staging
-
-on:
-  push:
-    branches: [develop]
-  workflow_dispatch:
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    environment:
-      name: staging
-      url: https://staging.sgcarstrends.com
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Run tests
-        run: pnpm test
-
-      - name: Build
-        run: pnpm build
-
-      - name: Deploy API
-        run: pnpm -F @sgcarstrends/api deploy:staging
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: Deploy Web
-        run: pnpm -F @sgcarstrends/web deploy:staging
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: Run migrations
-        run: pnpm db:migrate
-        env:
-          DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
-
-      - name: Notify Slack
-        if: always()
-        uses: slackapi/slack-github-action@v1
-        with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          payload: |
-            {
-              "text": "Staging deployment ${{ job.status }}"
-            }
-```
-
-### Deploy to Production
-
-```yaml
-# .github/workflows/deploy-prod.yml
-name: Deploy to Production
-
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-    inputs:
-      confirm:
-        description: "Type 'deploy' to confirm"
-        required: true
-
-jobs:
-  confirm:
-    if: github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Confirm deployment
-        run: |
-          if [ "${{ github.event.inputs.confirm }}" != "deploy" ]; then
-            echo "Deployment not confirmed"
-            exit 1
-          fi
-
-  deploy:
-    needs: [confirm]
-    if: always() && (needs.confirm.result == 'success' || github.event_name == 'push')
-    runs-on: ubuntu-latest
-    environment:
-      name: production
-      url: https://sgcarstrends.com
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Run tests
-        run: pnpm test
-
-      - name: Run security audit
-        run: pnpm audit --audit-level=high
-
-      - name: Build
-        run: pnpm build
-
-      - name: Deploy API
-        run: pnpm -F @sgcarstrends/api deploy:prod
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: Deploy Web
-        run: pnpm -F @sgcarstrends/web deploy:prod
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: Run migrations
-        run: pnpm db:migrate
-        env:
-          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
-
-      - name: Create deployment
-        uses: chrnorm/deployment-action@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          environment: production
-          state: success
-
-      - name: Notify team
-        if: always()
-        uses: slackapi/slack-github-action@v1
-        with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          payload: |
-            {
-              "text": "🚀 Production deployment ${{ job.status }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*Production Deployment*\nStatus: ${{ job.status }}\nCommit: ${{ github.sha }}\nAuthor: ${{ github.actor }}"
-                  }
-                }
-              ]
-            }
-```
-
-## Release Workflow
-
-### Automated Release
-
-```yaml
-# .github/workflows/release.yml
-name: Release
-
-on:
+on:                          # Trigger events
   push:
     branches: [main]
 
-permissions:
-  contents: write
-  issues: write
+permissions:                 # Required permissions (use minimal)
+  contents: read
   pull-requests: write
 
+jobs:                        # One or more jobs
+  job-id:                   # Unique job identifier
+    runs-on: ubuntu-latest   # Runner environment
+    steps:                   # Sequential steps
+      - name: Step name
+        run: command
+```
+
+## Common Triggers
+
+### Push Events
+```yaml
+# Push to any branch
+on: push
+
+# Push to specific branches
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+# Push to branches matching pattern
+on:
+  push:
+    branches:
+      - 'releases/**'
+      - 'feature/*'
+
+# Exclude branches
+on:
+  push:
+    branches-ignore:
+      - 'docs/**'
+```
+
+### Pull Request Events
+```yaml
+# Any pull request
+on: pull_request
+
+# PR to specific branches
+on:
+  pull_request:
+    branches: [main]
+
+# PR types
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+```
+
+### Manual and Scheduled Triggers
+```yaml
+# Manual trigger (workflow_dispatch)
+on: workflow_dispatch
+
+# With inputs
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        type: choice
+        options:
+          - dev
+          - staging
+          - production
+
+# Scheduled (cron)
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight UTC
+    - cron: '0 */6 * * *'  # Every 6 hours
+```
+
+## Optimization Patterns
+
+### Dependency Caching
+```yaml
+# Automatic npm caching (recommended)
+- uses: actions/setup-node@v3
+  with:
+    node-version: '18'
+    cache: 'npm'
+
+# Manual caching (more control)
+- uses: actions/cache@v3
+  with:
+    path: ~/.npm
+    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+    restore-keys: |
+      ${{ runner.os }}-node-
+```
+
+### Build Artifact Caching
+```yaml
+- name: Cache build
+  uses: actions/cache@v3
+  with:
+    path: build/
+    key: build-${{ github.sha }}
+
+- name: Upload artifacts
+  uses: actions/upload-artifact@v3
+  with:
+    name: build-files
+    path: build/
+    retention-days: 7
+```
+
+### Parallel Jobs
+```yaml
 jobs:
-  release:
+  lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          persist-credentials: false
+      - run: npm run lint
 
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
-
-      - name: Get new version
-        id: version
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ steps.version.outputs.version }}
-          release_name: Release v${{ steps.version.outputs.version }}
-          draft: false
-          prerelease: false
-```
-
-## Reusable Workflows
-
-### Shared Setup Action
-
-```yaml
-# .github/actions/setup/action.yml
-name: "Setup Project"
-description: "Setup Node.js, pnpm, and install dependencies"
-
-inputs:
-  node-version:
-    description: "Node.js version"
-    required: false
-    default: "20"
-
-runs:
-  using: "composite"
-  steps:
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: 8
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ inputs.node-version }}
-        cache: "pnpm"
-
-    - name: Install dependencies
-      shell: bash
-      run: pnpm install --frozen-lockfile
-
-    - name: Cache Turbo
-      uses: actions/cache@v3
-      with:
-        path: .turbo
-        key: ${{ runner.os }}-turbo-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-turbo-
-```
-
-### Use Reusable Workflow
-
-```yaml
-# .github/workflows/test.yml
-name: Test
-
-on: [push, pull_request]
-
-jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - run: npm test
 
-      - name: Setup project
-        uses: ./.github/actions/setup
-
-      - name: Run tests
-        run: pnpm test
+  build:
+    runs-on: ubuntu-latest
+    needs: [lint, test]  # Wait for lint and test
+    steps:
+      - run: npm run build
 ```
 
-## Matrix Strategy
+## Conditional Execution
+
+### If Conditions
+```yaml
+# Run only on push to main
+- name: Deploy
+  if: github.ref == 'refs/heads/main'
+  run: npm run deploy
+
+# Run only on pull requests
+- name: Preview
+  if: github.event_name == 'pull_request'
+  run: npm run preview
+
+# Run only on merged PR
+- name: Cleanup
+  if: github.event.pull_request.merged == true
+  run: ./cleanup.sh
+
+# Complex conditions
+- name: Deploy to prod
+  if: |
+    github.ref == 'refs/heads/main' &&
+    github.event_name == 'push' &&
+    !contains(github.event.head_commit.message, '[skip ci]')
+  run: deploy
+```
+
+## Environment Variables and Secrets
+
+### Using Secrets
+```yaml
+env:
+  # Global environment variables
+  NODE_VERSION: '18'
+  API_KEY: ${{ secrets.API_KEY }}
+
+jobs:
+  deploy:
+    steps:
+      - name: Deploy with secrets
+        env:
+          # Step-specific environment variables
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          API_URL: ${{ secrets.API_URL }}
+        run: |
+          echo "Deploying..."
+          firebase deploy --token $FIREBASE_TOKEN
+```
+
+### GitHub Context Variables
+```yaml
+# Common context variables
+${{ github.repository }}     # owner/repo
+${{ github.ref }}            # refs/heads/main
+${{ github.sha }}            # commit SHA
+${{ github.event_name }}     # push, pull_request, etc.
+${{ github.actor }}          # User who triggered workflow
+${{ github.run_id }}         # Unique run ID
+
+# Pull request specific
+${{ github.event.pull_request.number }}
+${{ github.event.pull_request.title }}
+${{ github.head_ref }}       # PR source branch
+${{ github.base_ref }}       # PR target branch
+```
+
+## Matrix Builds
 
 ### Test Multiple Versions
-
 ```yaml
-name: Test Matrix
-
-on: [push, pull_request]
-
 jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        node: [18, 20, 21]
-        exclude:
-          - os: windows-latest
-            node: 18
-
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [16, 18, 20]
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
-          cache: "pnpm"
-
-      - run: pnpm install
-      - run: pnpm test
+          node-version: ${{ matrix.node-version }}
+      - run: npm test
 ```
 
-## Conditional Execution
-
-### Run Jobs Conditionally
-
+### Matrix with Exclusions
 ```yaml
-name: Deploy
+strategy:
+  matrix:
+    os: [ubuntu-latest, windows-latest]
+    node: [16, 18, 20]
+    exclude:
+      - os: windows-latest
+        node: 16  # Skip Windows + Node 16
+```
 
-on:
-  push:
-    branches: [main]
+## Common Patterns
+
+### React App CI
+```yaml
+name: React CI
+
+on: [push, pull_request]
 
 jobs:
-  deploy-api:
-    if: contains(github.event.head_commit.message, '[deploy-api]')
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: pnpm -F @sgcarstrends/api deploy:prod
+      - uses: actions/checkout@v3
 
-  deploy-web:
-    if: contains(github.event.head_commit.message, '[deploy-web]')
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: pnpm -F @sgcarstrends/web deploy:prod
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
 
-  deploy-all:
-    if: |
-      !contains(github.event.head_commit.message, '[deploy-api]') &&
-      !contains(github.event.head_commit.message, '[deploy-web]')
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: pnpm deploy:prod
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test -- --coverage --watchAll=false
+        env:
+          CI: true
+
+      - name: Build
+        run: npm run build
 ```
 
-## Caching
-
-### Cache Dependencies
-
-```yaml
-- name: Cache pnpm store
-  uses: actions/cache@v3
-  with:
-    path: ~/.pnpm-store
-    key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-    restore-keys: |
-      ${{ runner.os }}-pnpm-
-
-- name: Cache Turbo
-  uses: actions/cache@v3
-  with:
-    path: .turbo
-    key: ${{ runner.os }}-turbo-${{ github.sha }}
-    restore-keys: |
-      ${{ runner.os }}-turbo-
-
-- name: Cache Next.js
-  uses: actions/cache@v3
-  with:
-    path: apps/web/.next/cache
-    key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}
-```
-
-## Secrets Management
-
-### Using Secrets
-
-```yaml
-- name: Deploy
-  env:
-    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    DATABASE_URL: ${{ secrets.DATABASE_URL }}
-    REDIS_URL: ${{ secrets.REDIS_URL }}
-  run: pnpm deploy:prod
-```
-
-### Environment-Specific Secrets
-
+### Deployment with Approval
 ```yaml
 jobs:
   deploy:
-    environment: production
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://myapp.com
     steps:
-      - name: Deploy
-        env:
-          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
-        run: pnpm deploy:prod
+      - run: npm run deploy
 ```
 
-## Scheduled Workflows
-
-### Cron Jobs
-
+### Conditional Deployment
 ```yaml
-# .github/workflows/cron-jobs.yml
-name: Scheduled Jobs
-
-on:
-  schedule:
-    # Run every day at 2 AM UTC
-    - cron: "0 2 * * *"
-  workflow_dispatch:
-
 jobs:
-  update-data:
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
-
-      - name: Update car data
-        run: pnpm -F @sgcarstrends/api run-workflow update-car-data
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          LTA_API_KEY: ${{ secrets.LTA_API_KEY }}
-
-  cleanup:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
-
-      - name: Clean old data
-        run: pnpm -F @sgcarstrends/api run-script cleanup-old-data
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      - name: Deploy to production
+        run: ./deploy.sh
 ```
 
-## Notifications
+## Performance Optimization
 
-### Slack Notifications
-
+### Fast npm Install
 ```yaml
-- name: Notify Slack on success
-  if: success()
-  uses: slackapi/slack-github-action@v1
-  with:
-    webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-    payload: |
-      {
-        "text": "✅ Deployment successful",
-        "blocks": [
-          {
-            "type": "section",
-            "text": {
-              "type": "mrkdwn",
-              "text": "*Deployment Successful*\nCommit: ${{ github.sha }}\nAuthor: ${{ github.actor }}"
-            }
-          }
-        ]
-      }
+# ✅ Use npm ci (faster, more reliable)
+- run: npm ci
 
-- name: Notify Slack on failure
-  if: failure()
-  uses: slackapi/slack-github-action@v1
-  with:
-    webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-    payload: |
-      {
-        "text": "❌ Deployment failed",
-        "blocks": [
-          {
-            "type": "section",
-            "text": {
-              "type": "mrkdwn",
-              "text": "*Deployment Failed*\nCommit: ${{ github.sha }}\nAuthor: ${{ github.actor }}\nWorkflow: ${{ github.workflow }}"
-            }
-          }
-        ]
-      }
+# ❌ Don't use npm install in CI
+- run: npm install  # Slower, non-deterministic
 ```
 
-## Artifacts
-
-### Upload and Download
-
+### Caching Strategy
 ```yaml
-# Upload artifacts
-- name: Upload build artifacts
-  uses: actions/upload-artifact@v3
+# Cache node_modules
+- uses: actions/cache@v3
   with:
-    name: build-output
-    path: |
-      dist/
-      .next/
-    retention-days: 7
+    path: node_modules
+    key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
 
-# Download artifacts in another job
-- name: Download build artifacts
-  uses: actions/download-artifact@v3
+# Cache .npm directory (smaller, faster)
+- uses: actions/cache@v3
   with:
-    name: build-output
+    path: ~/.npm
+    key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+```
+
+### Skip Unnecessary Runs
+```yaml
+# Skip CI for docs-only changes
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+
+# Run only for specific paths
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'package*.json'
 ```
 
 ## Best Practices
 
-### 1. Use Specific Versions
+### ✅ Do
+- Use `npm ci` not `npm install`
+- Cache dependencies
+- Set specific Node version
+- Use latest action versions (`@v3`, `@v4`)
+- Set minimal permissions
+- Quote strings with special characters
+- Use meaningful job and step names
 
-```yaml
-# ❌ Using latest
-- uses: actions/checkout@latest
+### ❌ Don't
+- Hardcode secrets in workflow files
+- Use deprecated actions
+- Skip dependency caching
+- Use `npm install` in CI
+- Leave complex workflows undocumented
+- Ignore workflow failures
 
-# ✅ Using specific version
-- uses: actions/checkout@v4
+## Debugging Workflows
+
+```bash
+# View workflow runs
+gh run list --workflow=workflow-name.yml
+
+# View specific run with logs
+gh run view RUN_ID --log
+
+# Re-run failed workflow
+gh run rerun RUN_ID
+
+# Download logs
+gh run download RUN_ID
+
+# Watch workflow in real-time
+gh run watch
 ```
 
-### 2. Pin Action Versions
+## Common Issues
 
-```yaml
-# ✅ Good: Pinned to major version
-- uses: actions/checkout@v4
-- uses: actions/setup-node@v4
+**Issue**: Workflow not triggering
+**Solution**: Check trigger conditions, branch names, path filters
 
-# ✅ Better: Pinned to commit SHA (most secure)
-- uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
-```
+**Issue**: `npm ci` fails
+**Solution**: Ensure package-lock.json is committed, check Node version
 
-### 3. Use Concurrency Controls
+**Issue**: Secrets not available
+**Solution**: Verify secret exists (`gh secret list`), check spelling
 
-```yaml
-name: Deploy
+**Issue**: Slow builds
+**Solution**: Enable caching, use `npm ci`, parallelize jobs
 
-on:
-  push:
-    branches: [main]
+## Project Usage
 
-concurrency:
-  group: deploy-${{ github.ref }}
-  cancel-in-progress: false  # Don't cancel in-progress deployments
-```
+Music-app workflows:
+- `trunk-based-checks.yml`: PR validation, testing, build verification
+- `firebase-hosting-merge.yml`: Production deployment (manual trigger)
+- `firebase-hosting-pull-request.yml`: PR preview (manual trigger)
 
-### 4. Fail Fast
-
-```yaml
-jobs:
-  test:
-    strategy:
-      fail-fast: true  # Stop all jobs if one fails
-      matrix:
-        node: [18, 20, 21]
-```
-
-## Troubleshooting
-
-### Workflow Not Triggering
-
-```yaml
-# Issue: Workflow not running
-# Solution: Check triggers and permissions
-
-on:
-  push:
-    branches: [main]  # Ensure branch name matches
-  pull_request:
-    branches: [main]
-
-permissions:
-  contents: read
-  pull-requests: write
-```
-
-### Secret Not Found
-
-```yaml
-# Issue: Secret not available
-# Solution: Check secret name and environment
-
-- name: Deploy
-  environment: production  # Ensure environment exists
-  env:
-    SECRET: ${{ secrets.MY_SECRET }}  # Check secret name
-```
-
-### Cache Not Working
-
-```yaml
-# Issue: Cache not restoring
-# Solution: Verify cache key
-
-- uses: actions/cache@v3
-  with:
-    path: ~/.pnpm-store
-    key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-    # Ensure lockfile exists and path is correct
-```
-
-## References
-
-- GitHub Actions Documentation: https://docs.github.com/en/actions
-- Workflow Syntax: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-- Actions Marketplace: https://github.com/marketplace?type=actions
-- Related files:
-  - `.github/workflows/` - Workflow files
-  - Root CLAUDE.md - CI/CD guidelines
-
-## Best Practices Summary
-
-1. **Pin Versions**: Use specific action versions
-2. **Cache Dependencies**: Cache pnpm, Turbo, Next.js
-3. **Parallel Jobs**: Run independent jobs in parallel
-4. **Fail Fast**: Stop on first failure in matrix
-5. **Secrets Management**: Use GitHub Secrets for sensitive data
-6. **Notifications**: Alert team on deployment status
-7. **Reusable Workflows**: Share common setup steps
-8. **Environment Protection**: Use environment rules for production
+All workflows use Node 18, npm caching, and trunk-based development checks.

@@ -1,101 +1,42 @@
 ---
 name: pr
-description: INVOKE THIS SKILL before creating any PR to ensure compliance with branch naming, changelog requirements, and reviewer assignment.
+description: Rules and checklist for preparing PRs, creating changesets, and releasing packages in the monorepo.
 ---
 
-# ActivityPub PR Workflow
+# PR Skill
 
-## Branch Naming
+This skill instructs agents on PR preconditions, changeset usage, and reviewer expectations.
 
-| Prefix | Use |
-|--------|-----|
-| `add/{feature}` | New features |
-| `update/{feature}` | Iterating on existing features |
-| `fix/{bug}` | Bug fixes |
-| `try/{idea}` | Experimental ideas |
+## When to Use
 
-**Reserved:** `release/{X.Y.Z}` (releases only), `trunk` (main branch).
+- When a user asks how to prepare a PR or what checks are required before merging
+- When guiding contributors to create changesets or update the changelog
 
-## PR Creation
+## What It Does
 
-**Every PR must:**
-- Assign `@me`
-- Add `Automattic/fediverse` as reviewer
-- Include changelog entry OR "Skip Changelog" label
-- Pass CI checks
-- Merge cleanly with trunk
+- Enforces the PR checklist: `format, lint, typecheck, tests`
+- Instructs on creating and using changesets for version bumps
+- Describes release/merge expectations and documentation updates
+
+## Commands to Suggest
 
 ```bash
-# Create PR (includes required assignment/reviewer)
-gh pr create --assignee @me --reviewer Automattic/fediverse
+pnpm format && pnpm lint:fix
+pnpm typecheck
+pnpm test
+pnpm changeset
 ```
 
-**Use the exact template from `.github/PULL_REQUEST_TEMPLATE.md`** — do not create custom formatting.
+## Checklist
 
-## Changelog
+- [ ] CI green (unit tests, linters, typechecks)
+- [ ] Documentation updated if public behavior changed
+- [ ] No secrets in the PR
+- [ ] Appropriate version bump via changeset
 
-End all changelog messages with punctuation:
-```
-✅ Add support for custom post types.
-❌ Add support for custom post types
-```
+## Related Skills
 
-Add manually if forgotten:
-```bash
-composer changelog:add
-git add . && git commit -m "Add changelog entry" && git push
-```
+| Skill                                   | Use For                          |
+|-----------------------------------------|----------------------------------|
+| **[../changelog/SKILL.md](../changelog/SKILL.md)** | Update changelogs and changesets |
 
-See [release](../release/SKILL.md) for complete changelog details.
-
-## Workflow
-
-### Create Branch
-```bash
-git checkout trunk && git pull origin trunk
-git checkout -b fix/notification-issue
-```
-
-### Pre-Push Checks
-```bash
-composer lint         # PHP standards (composer lint:fix to auto-fix)
-npm run lint:js       # If JS changed
-npm run lint:css      # If CSS changed
-npm run env-test      # Run tests
-npm run build         # If assets changed
-```
-
-See [dev](../dev/SKILL.md) for complete commands.
-
-### Keep Branch Updated
-```bash
-git fetch origin
-git rebase origin/trunk
-# Resolve conflicts if any
-git push --force-with-lease
-```
-
-## Special Cases
-
-**Hotfixes:** Branch `fix/critical-issue`, minimal changes, add "Hotfix" label, request expedited review.
-
-**Experimental:** Use `try/` prefix, mark as draft, get early feedback, convert to proper branch type once confirmed.
-
-**Multi-PR features:** Create tracking issue, link all PRs, use consistent naming (`add/feature-part-1`, etc.), merge in order.
-
-## Labels
-
-| Label | Use |
-|-------|-----|
-| `Bug` | Bug fixes |
-| `Enhancement` | New features |
-| `Documentation` | Doc updates |
-| `Code Quality` | Refactoring, cleanup, etc. |
-| `Skip Changelog` | No changelog needed |
-| `Needs Review` | Ready for review |
-| `In Progress` | Still working |
-| `Hotfix` | Urgent fix |
-
-## Reference
-
-See [Pull Request Guide](../../../docs/pull-request.md) for complete workflow details.

@@ -1,7 +1,7 @@
 {
   "name": "api-error-handling",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "path": "skills/api-error-handling/SKILL.md",
-  "source": "github.com/aj-geddes/useful-ai-prompts",
-  "downloaded_at": "2026-01-28T02:01:38.681198Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/api-error-handling/skills/api-error-handling/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-29T03:11:03.682805Z"
 }

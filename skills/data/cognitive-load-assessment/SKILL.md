@@ -1,395 +1,200 @@
 ---
-name: cognitive-load-assessment
-description: Measure and manage team cognitive load
-allowed-tools: Read, Glob, Grep, Write, Edit
+name: cognitive-load
+description: "認知負擔評估工具。作為決策樹、代理人、Code Review 的基本參考標準。用於: (1) 任務複雜度評估, (2) 代理人升級判斷, (3) 任務拆分建議, (4) 程式碼品質評估"
 ---
 
-# Cognitive Load Assessment Skill
+# 認知負擔評估工具
 
-## When to Use This Skill
+## 核心理念
 
-Use this skill when:
+> **所有程式碼設計原則的終極目標：降低閱讀者的認知負擔**
 
-- **Cognitive Load Assessment tasks** - Working on measure and manage team cognitive load
-- **Planning or design** - Need guidance on Cognitive Load Assessment approaches
-- **Best practices** - Want to follow established patterns and standards
-
-## Overview
-
-Measure and manage team cognitive load to optimize productivity and sustainability.
-
-## MANDATORY: Documentation-First Approach
-
-Before assessing cognitive load:
-
-1. **Invoke `docs-management` skill** for cognitive load patterns
-2. **Verify concepts** via MCP servers (perplexity)
-3. **Base guidance on cognitive load theory and Team Topologies**
-
-## Cognitive Load Theory for Teams
-
-```text
-Three Types of Cognitive Load:
-
-┌─────────────────────────────────────────────────────────────┐
-│                    TOTAL COGNITIVE LOAD                     │
-├─────────────────────────────────────────────────────────────┤
-│  ┌───────────────┐  ┌───────────────┐  ┌───────────────┐    │
-│  │   INTRINSIC   │  │  EXTRANEOUS   │  │    GERMANE    │    │
-│  │   (Domain)    │  │  (Accidental) │  │  (Learning)   │    │
-│  │               │  │               │  │               │    │
-│  │ • Business    │  │ • Bad tools   │  │ • New skills  │    │
-│  │   complexity  │  │ • Tech debt   │  │ • Growth      │    │
-│  │ • Domain      │  │ • Manual      │  │ • Innovation  │    │
-│  │   knowledge   │  │   processes   │  │               │    │
-│  └───────────────┘  └───────────────┘  └───────────────┘    │
-│                                                              │
-│  GOAL: Reduce extraneous, manage intrinsic, allow germane   │
-└─────────────────────────────────────────────────────────────┘
-```
-
-## Intrinsic Cognitive Load
-
-```text
-INTRINSIC LOAD: Inherent complexity of the domain
-
-Sources:
-• Business domain complexity
-• Required domain knowledge
-• Problem space difficulty
-• Integration complexity
-• Compliance requirements
-
-Management Strategies:
-• Clear bounded contexts
-• Domain-driven design
-• Right team for right domain
-• Specialists where needed
-• Documentation and training
-
-Assessment Questions:
-□ How complex is the business domain?
-□ How much domain knowledge is required?
-□ How many systems must team understand?
-□ How many stakeholders to coordinate with?
-□ How complex are compliance requirements?
-```
-
-## Extraneous Cognitive Load
-
-```text
-EXTRANEOUS LOAD: Unnecessary complexity (waste)
-
-Sources:
-• Poor tooling and processes
-• Technical debt
-• Unclear requirements
-• Manual deployments
-• Legacy systems
-• Poor documentation
-• Meeting overload
-
-Management Strategies:
-• Invest in developer experience
-• Reduce technical debt
-• Automate repetitive tasks
-• Clear communication
-• Self-service platforms
-• Reduce handoffs
-
-Assessment Questions:
-□ How much time on non-value work?
-□ How painful are deployments?
-□ How much context switching?
-□ How many manual processes?
-□ How much waiting for others?
-```
-
-## Germane Cognitive Load
-
-```text
-GERMANE LOAD: Productive learning and growth
-
-Sources:
-• Learning new technologies
-• Skill development
-• Innovation work
-• Process improvement
-• Mastering the domain
-
-Management Strategies:
-• Protected learning time
-• Conference attendance
-• Hackathons
-• Mentoring programs
-• Stretch assignments
-
-Assessment Questions:
-□ How much time for learning?
-□ How much innovation work?
-□ Are people growing skills?
-□ Is knowledge being shared?
-□ Is there time for experimentation?
-```
-
-## Cognitive Load Assessment
-
-### Assessment Framework
-
-```text
-Team Cognitive Load Formula:
-
-TOTAL LOAD = Intrinsic + Extraneous + Germane
-
-HEALTHY: Total Load < Capacity
-STRESSED: Total Load ≈ Capacity
-OVERLOADED: Total Load > Capacity
-
-Capacity Factors:
-• Team size
-• Experience level
-• Tool quality
-• Process maturity
-• Support availability
-```
-
-### Assessment Questionnaire
-
-```text
-Rate each item 1-5 (1=Low load, 5=High load):
-
-INTRINSIC LOAD (Domain Complexity)
-□ ___ Business domain complexity
-□ ___ Number of systems owned
-□ ___ Integration complexity
-□ ___ Stakeholder coordination
-□ ___ Compliance requirements
-Intrinsic Score: ___/25
-
-EXTRANEOUS LOAD (Unnecessary Complexity)
-□ ___ Tooling and infrastructure friction
-□ ___ Manual processes and deployments
-□ ___ Technical debt burden
-□ ___ Waiting time for dependencies
-□ ___ Context switching frequency
-Extraneous Score: ___/25
-
-GERMANE LOAD (Learning & Growth)
-□ ___ New technology adoption rate
-□ ___ Process change frequency
-□ ___ Skill development demands
-□ ___ Innovation expectations
-□ ___ Documentation/training work
-Germane Score: ___/25
-
-TOTAL COGNITIVE LOAD: ___/75
-
-Interpretation:
-< 30: Low load (capacity available)
-30-45: Moderate load (sustainable)
-45-60: High load (at risk)
-> 60: Overloaded (unsustainable)
-```
-
-## Domain Complexity Assessment
-
-### Domain Complexity Matrix
-
-| Factor | Low (1) | Medium (3) | High (5) |
-|--------|---------|------------|----------|
-| **Entities** | <10 | 10-50 | >50 |
-| **Rules** | Simple | Moderate | Complex |
-| **Integrations** | 0-2 | 3-5 | >5 |
-| **Stakeholders** | 1-2 | 3-5 | >5 |
-| **Regulations** | None | Some | Heavy |
-
-### Team-Domain Fit
-
-```text
-Domain Size Assessment:
-
-SMALL DOMAIN (Team can fully own):
-• Limited bounded context
-• Clear boundaries
-• Manageable complexity
-• 5-9 person team appropriate
-
-MEDIUM DOMAIN (Stretching team limits):
-• Multiple sub-domains
-• Some complexity
-• Some dependencies
-• May need splitting
-
-LARGE DOMAIN (Team overloaded):
-• Multiple bounded contexts
-• High complexity
-• Many dependencies
-• MUST split into multiple teams
-```
-
-## Cognitive Load Reduction Strategies
-
-### Reduce Extraneous Load
-
-```text
-Platform Strategies:
-• Self-service infrastructure
-• Golden paths for common tasks
-• Automated testing and deployment
-• Centralized observability
-• Clear documentation
-
-Process Strategies:
-• Reduce meetings
-• Async communication
-• Clear ownership
-• Reduce handoffs
-• Eliminate approval bottlenecks
-
-Tooling Strategies:
-• Developer experience investment
-• IDE integration
-• Local development parity
-• Fast feedback loops
-• Reduced context switching
-```
-
-### Manage Intrinsic Load
-
-```text
-Team Design Strategies:
-• Right-size bounded contexts
-• Align teams to domains
-• Specialists for complex subsystems
-• Clear team APIs
-• Reduce dependencies
-
-Knowledge Strategies:
-• Domain documentation
-• Onboarding programs
-• Pair programming
-• Knowledge sharing
-• Cross-training
-```
-
-### Protect Germane Load
-
-```text
-Learning Strategies:
-• 20% time for learning
-• Conference budget
-• Training programs
-• Innovation sprints
-• Mentoring relationships
-
-Growth Strategies:
-• Stretch assignments
-• Rotation programs
-• Leadership development
-• Technical career tracks
-• Community involvement
-```
-
-## Assessment Template
-
-```markdown
-# Cognitive Load Assessment: [Team Name]
-
-## Team Profile
-- **Size:** [N people]
-- **Age:** [Months/years together]
-- **Domain:** [Description]
-- **Current Load:** [High/Medium/Low]
-
-## Intrinsic Load Analysis
-
-### Domain Complexity
-[Description of domain complexity]
-
-### Score: [X/25]
-
-| Factor | Score | Notes |
-|--------|-------|-------|
-| Business complexity | [1-5] | [Details] |
-| Systems owned | [1-5] | [Details] |
-| Integration complexity | [1-5] | [Details] |
-| Stakeholder coordination | [1-5] | [Details] |
-| Compliance requirements | [1-5] | [Details] |
-
-## Extraneous Load Analysis
-
-### Pain Points
-[Description of unnecessary complexity]
-
-### Score: [X/25]
-
-| Factor | Score | Notes |
-|--------|-------|-------|
-| Tooling friction | [1-5] | [Details] |
-| Manual processes | [1-5] | [Details] |
-| Technical debt | [1-5] | [Details] |
-| Waiting/blocking | [1-5] | [Details] |
-| Context switching | [1-5] | [Details] |
-
-## Germane Load Analysis
-
-### Learning Capacity
-[Description of learning demands]
-
-### Score: [X/25]
-
-| Factor | Score | Notes |
-|--------|-------|-------|
-| New technology | [1-5] | [Details] |
-| Process changes | [1-5] | [Details] |
-| Skill development | [1-5] | [Details] |
-| Innovation work | [1-5] | [Details] |
-| Documentation work | [1-5] | [Details] |
-
-## Total Assessment
-
-| Load Type | Score | Status |
-|-----------|-------|--------|
-| Intrinsic | [X/25] | [Good/Warning/Critical] |
-| Extraneous | [X/25] | [Good/Warning/Critical] |
-| Germane | [X/25] | [Good/Warning/Critical] |
-| **Total** | **[X/75]** | **[Overall status]** |
-
-## Recommendations
-
-### Immediate Actions (Reduce Extraneous)
-1. [Action]
-2. [Action]
-
-### Short-term (Manage Intrinsic)
-1. [Action]
-2. [Action]
-
-### Long-term (Protect Germane)
-1. [Action]
-2. [Action]
-
-## Reassessment Schedule
-- Next review: [Date]
-- Metrics to track: [List]
-```
-
-## Workflow
-
-When assessing cognitive load:
-
-1. **Gather Team Input**: Survey or interview team members
-2. **Score Each Type**: Rate intrinsic, extraneous, germane
-3. **Identify Hotspots**: Where is load highest?
-4. **Analyze Causes**: Why is load high?
-5. **Prioritize Reductions**: Focus on extraneous first
-6. **Plan Actions**: Specific improvements
-7. **Track Progress**: Reassess periodically
-
-## References
-
-For detailed guidance:
+認知負擔是指閱讀者在理解程式碼時需要**同時記住**的資訊量。當認知負擔超過人類工作記憶的容量（約 7 個項目），理解和維護程式碼就會變得困難。
 
 ---
 
-**Last Updated:** 2025-12-26
+## 量化標準快速參考
+
+### 任務複雜度閾值
+
+| 指標 | 低複雜度 | 中複雜度 | 高複雜度（需拆分） |
+|------|---------|---------|------------------|
+| 變數狀態數 | 1-3 | 4-5 | > 5 |
+| 修改檔案數 | 1-3 | 4-5 | > 5 |
+| 架構層級數 | 1 | 2 | > 2 |
+| 依賴模組數 | 0-1 | 2-3 | > 3 |
+| 呼叫追蹤層 | 1-2 | 3 | > 3 |
+
+### 代理人升級閾值
+
+| 指標 | 閾值 | 行動 |
+|------|------|------|
+| 需追蹤概念數 | > 7 | 升級到 PM |
+| 無法 5 分鐘理解 | 是 | 升級到 PM |
+| 跨 2+ 架構層 | 是 | 請求拆分或協作 |
+
+### 並行派發判斷
+
+| 條件 | 可並行 | 需序列 |
+|------|--------|--------|
+| 架構層級 | 同一層 | 跨層 |
+| 邏輯依賴 | 無 | 有 |
+| 操作類型 | 重命名/格式化 | 設計變更 |
+
+---
+
+## 認知負擔的來源
+
+### 1. 變數狀態追蹤
+
+每個變數都是閱讀者需要「記住」的項目：
+
+| 情況 | 認知負擔 | 建議 |
+|------|---------|------|
+| 變數數 <= 3 | 低 | 維持 |
+| 變數數 4-5 | 中 | 考慮重構 |
+| 變數數 > 5 | 高 | 必須拆分 |
+
+### 2. 呼叫層級追蹤
+
+追蹤呼叫鏈需要「堆疊」記憶：
+
+| 層級 | 認知負擔 | 建議 |
+|------|---------|------|
+| 1-2 層 | 低 | 維持 |
+| 3 層 | 中 | 考慮扁平化 |
+| > 3 層 | 高 | 必須重構 |
+
+### 3. 命名品質
+
+不佳的命名增加「翻譯」負擔：
+
+| 問題 | 範例 | 解決 |
+|------|------|------|
+| 縮寫不明 | `btn`, `mgr`, `idx` | `button`, `manager`, `index` |
+| 含義模糊 | `data`, `info`, `value` | 具體化：`userData`, `bookInfo` |
+| 型別前綴 | `strName`, `intCount` | 直接用 `name`, `count` |
+
+### 4. 條件分支複雜度
+
+每個分支都是需要考慮的「路徑」：
+
+| 分支數 | 認知負擔 | 建議 |
+|--------|---------|------|
+| 1-2 | 低 | 維持 |
+| 3-4 | 中 | 考慮策略模式 |
+| > 4 | 高 | 必須重構 |
+
+---
+
+## 降低認知負擔的原則
+
+### 原則 1：單一責任
+
+> 一個函式只做一件事，讓讀者只需理解一個概念
+
+檢查問題：「這個函式做了幾件事？」
+
+### 原則 2：自說明命名
+
+> 名稱本身就是文件，讓讀者不需要額外資訊
+
+檢查問題：「不看實作，能從名稱理解功能嗎？」
+
+### 原則 3：避免副作用
+
+> 函式的行為應該可預測，讓讀者不需要追蹤隱藏狀態
+
+檢查問題：「這個函式有沒有修改輸入以外的東西？」
+
+### 原則 4：扁平化結構
+
+> 減少巢狀，讓讀者不需要追蹤深層上下文
+
+檢查問題：「最深的巢狀層級是多少？（應 <= 3）」
+
+### 原則 5：資訊就近原則
+
+> 相關的資訊應該放在一起，讓讀者不需要跳轉尋找
+
+檢查問題：「理解這段程式碼需要跳到幾個地方？」
+
+---
+
+## 自我檢查清單
+
+### 任務開始前
+
+- [ ] 我需要同時記住多少個概念？（應 < 7）
+- [ ] 我需要閱讀多少個檔案才能完成？（應 < 5）
+- [ ] 我能用一句話說明這個任務嗎？
+- [ ] 5 分鐘後我還記得任務目標嗎？
+
+### 程式碼撰寫時
+
+- [ ] 這個函式需要追蹤幾個變數？（應 < 5）
+- [ ] 讀者能在當下理解這段程式碼嗎？
+- [ ] 函式名稱說明「做什麼」而非「怎麼做」？
+- [ ] 巢狀層級是否超過 3 層？
+
+### Code Review 時
+
+- [ ] 新程式碼是否增加了模組的複雜度？
+- [ ] 有沒有更簡單的方式達成同樣目的？
+- [ ] 命名是否清晰自說明？
+- [ ] 是否需要額外註解才能理解？（應該不需要）
+
+---
+
+## 與其他方法論的關係
+
+| 方法論 | 認知負擔視角 |
+|--------|-------------|
+| DRY | 減少重複 = 減少需要記憶的版本 |
+| SOLID | 每個原則都在降低特定類型的認知負擔 |
+| Clean Code | 可讀性 = 低認知負擔 |
+| 自然語言程式設計 | 讓程式碼像閱讀文章一樣自然 |
+
+---
+
+## 使用方式
+
+### 評估任務複雜度
+
+```bash
+# 在開始任務前，快速評估
+# 回答以下問題：
+
+1. 這個任務需要修改幾個檔案？
+2. 需要追蹤幾個變數狀態？
+3. 跨越幾個架構層級？
+4. 依賴幾個其他模組？
+
+# 如果任一項超過閾值，考慮拆分任務
+```
+
+### 程式碼品質評估
+
+```bash
+# 在 Code Review 時，檢查：
+
+1. 函式長度（應 5-15 行）
+2. 參數數量（應 <= 3）
+3. 巢狀深度（應 <= 3）
+4. 變數數量（應 < 5）
+```
+
+---
+
+## 相關文件
+
+- [認知負擔量化標準](./thresholds.md) - 詳細閾值參考
+- [認知負擔設計方法論]($CLAUDE_PROJECT_DIR/.claude/methodologies/cognitive-load-design-methodology.md) - 完整理論基礎
+- [自然語言程式設計方法論]($CLAUDE_PROJECT_DIR/.claude/methodologies/natural-language-programming-methodology.md) - 命名最佳實踐
+- [代理人職責矩陣]($CLAUDE_PROJECT_DIR/.claude/rules/agents/overview.md) - 升級判斷標準
+- [任務拆分指南]($CLAUDE_PROJECT_DIR/.claude/rules/guides/task-splitting.md) - 拆分方法
+
+---
+
+**Last Updated**: 2026-01-28
+**Version**: 1.1.0

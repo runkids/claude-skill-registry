@@ -1,7 +1,7 @@
 {
   "name": "skill",
-  "repo": "carmandale/ralph-loop",
-  "path": "pi-integration/skill/SKILL.md",
-  "source": "github.com/carmandale/ralph-loop",
-  "downloaded_at": "2026-01-28T02:59:11.361681Z"
+  "repo": "michsindlinger/agent-os-extended",
+  "path": "agent-os/workflows/skill/add-skill.md",
+  "source": "github.com/michsindlinger/agent-os-extended",
+  "downloaded_at": "2026-01-29T04:44:37.103536Z"
 }

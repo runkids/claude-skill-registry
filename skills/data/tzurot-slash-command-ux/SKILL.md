@@ -1,7 +1,7 @@
 ---
 name: tzurot-slash-command-ux
 description: Use when implementing Discord slash commands, building list/browse UX, adding buttons or pagination, or creating dashboard patterns. Covers standard naming, shared utilities, and confirmation flows.
-lastUpdated: '2026-01-23'
+lastUpdated: '2026-01-27'
 ---
 
 # Slash Command UX Patterns
@@ -12,6 +12,35 @@ lastUpdated: '2026-01-23'
 - Adding list/browse functionality with pagination
 - Creating button-based interactions (confirm, navigate)
 - Building dashboard-style editors
+
+## Standardization Principle
+
+**Centralize patterns to fail fast and prevent inconsistencies.**
+
+The goal of standardization is NOT just code reduction - it's ensuring that if something breaks, it breaks everywhere visibly rather than silently creating inconsistent behavior.
+
+### Why This Matters
+
+- **Arbitrary uniqueness creates bugs** - When each command reimplements the same pattern slightly differently, bugs appear randomly and are hard to track down
+- **Fail fast is good** - If a shared utility has a bug, ALL commands using it fail, making the bug immediately visible and easy to fix
+- **Inconsistencies confuse users** - Different behaviors for similar operations erode trust
+
+### Required: Use Shared Utilities
+
+When implementing browse, dashboard, or API patterns, **ALWAYS check for existing shared utilities**:
+
+| Pattern            | Shared Utility                | Location                              |
+| ------------------ | ----------------------------- | ------------------------------------- |
+| Browse pagination  | `createBrowseCustomIdHelpers` | `utils/browse/customIdFactory.ts`     |
+| Browse buttons     | `buildBrowseButtons`          | `utils/browse/buttonBuilder.ts`       |
+| Truncation         | `truncateForSelect`           | `utils/browse/truncation.ts`          |
+| Dashboard messages | `DASHBOARD_MESSAGES`          | `utils/dashboard/messages.ts`         |
+| Dashboard refresh  | `createRefreshHandler`        | `utils/dashboard/refreshHandler.ts`   |
+| Dashboard close    | `handleDashboardClose`        | `utils/dashboard/closeHandler.ts`     |
+| Session management | `fetchOrCreateSession`        | `utils/dashboard/sessionHelpers.ts`   |
+| Permission checks  | `checkPermissionOrReply`      | `utils/dashboard/permissionChecks.ts` |
+
+**Never reimplement these patterns locally.** If a shared utility doesn't fit your use case, extend it rather than creating a one-off version.
 
 ## Quick Reference
 
@@ -33,6 +62,7 @@ lastUpdated: '2026-01-23'
 | File                                                    | Purpose                             |
 | ------------------------------------------------------- | ----------------------------------- |
 | `src/commands/preset/browse.ts`                         | **Browse → Dashboard reference**    |
+| `src/utils/browse/`                                     | Shared browse utilities (NEW)       |
 | `src/utils/autocomplete/personalityAutocomplete.ts`     | Shared personality autocomplete     |
 | `packages/common-types/src/utils/autocompleteFormat.ts` | Autocomplete formatting utility     |
 | `src/utils/listSorting.ts`                              | Shared sorting comparators          |
@@ -40,6 +70,107 @@ lastUpdated: '2026-01-23'
 | `src/utils/dashboard/settings/types.ts`                 | Settings custom ID builders/parsers |
 | `docs/reference/standards/SLASH_COMMAND_UX.md`          | Full UX documentation               |
 | `docs/reference/standards/INTERACTION_PATTERNS.md`      | State passing patterns guide        |
+
+### File Structure Rules
+
+Commands follow a **flat file structure** by default:
+
+```
+commands/
+├── persona/
+│   ├── index.ts        # Command definition, routing
+│   ├── browse.ts       # /persona browse handler
+│   ├── create.ts       # /persona create handler
+│   ├── edit.ts         # /persona edit handler
+│   └── api.ts          # API calls for persona
+├── preset/
+│   ├── index.ts
+│   ├── browse.ts
+│   └── ...
+```
+
+**Rules:**
+
+1. **Flat files for subcommands** - Each subcommand gets its own file
+2. **Subdirectories only for subcommand groups** - `/settings timezone get` → `settings/timezone/get.ts`
+3. **Handler filename matches subcommand name** - `/persona browse` → `persona/browse.ts`
+4. **Use `index.ts` for routing** - Contains command definition and routes to handlers
+
+## Shared Browse Utilities
+
+The `src/utils/browse/` module provides shared utilities for browse/list commands:
+
+```typescript
+import {
+  ITEMS_PER_PAGE, // Standard page size (10)
+  MAX_SELECT_LABEL_LENGTH, // Discord limit (100)
+  truncateForSelect, // Truncate text for select menu labels
+  createListComparator, // Type-safe sorting comparator
+} from '../../utils/browse/index.js';
+
+// Truncate long descriptions for select menus
+const label = truncateForSelect(item.description); // "A very long desc..."
+
+// Strip newlines for single-line display
+const clean = truncateForSelect(item.content, { stripNewlines: true });
+
+// Create a type-safe comparator for sorting
+const comparator = createListComparator<Item>(
+  item => item.name, // Name accessor for A-Z
+  item => item.createdAt // Date accessor for chronological
+);
+items.sort(comparator('name', false)); // false = ascending
+```
+
+## Button Emoji Pattern
+
+**ALWAYS use `.setEmoji()` separately from `.setLabel()`** for consistent button sizing.
+
+### Why This Matters
+
+When emojis are embedded directly in the label string, Discord renders buttons with inconsistent sizing - they appear narrower/skinnier than buttons using `.setEmoji()`. This is visually jarring, especially in button rows.
+
+### Implementation
+
+```typescript
+// ❌ WRONG - Emoji embedded in label (buttons look skinny)
+new ButtonBuilder()
+  .setCustomId('back')
+  .setLabel('◀️ Back to List') // Embedded emoji
+  .setStyle(ButtonStyle.Secondary);
+
+// ✅ CORRECT - Emoji set separately (consistent button sizing)
+new ButtonBuilder()
+  .setCustomId('back')
+  .setLabel('Back to List')
+  .setEmoji('◀️') // Separate emoji
+  .setStyle(ButtonStyle.Secondary);
+```
+
+### Standard Button Emojis
+
+| Action    | Emoji | Label        |
+| --------- | ----- | ------------ |
+| Previous  | ◀️    | Previous     |
+| Next      | ▶️    | Next         |
+| Back      | ◀️    | Back         |
+| Edit      | ✏️    | Edit         |
+| Delete    | 🗑️    | Delete       |
+| Lock      | 🔒    | Lock         |
+| Unlock    | 🔓    | Unlock       |
+| Refresh   | 🔄    | Refresh      |
+| Close     | ❌    | Close        |
+| Sort A-Z  | 🔤    | Sort A-Z     |
+| Sort Date | 📅    | Sort by Date |
+
+### Standard Button Order
+
+Buttons should follow this order (left to right):
+
+1. **Primary actions** - Edit, Lock/Unlock, other actions
+2. **View actions** - View Full, etc.
+3. **Navigation** - Back to List
+4. **Destructive** - Delete (always last, uses `ButtonStyle.Danger`)
 
 ## Pagination Pattern
 
@@ -249,6 +380,16 @@ await interaction.reply({
 ## Autocomplete
 
 Use for **entity selection** (characters, presets, personalities) and **large lists** (>10 items).
+
+### Standard Ordering by Data Type
+
+| Data Type         | Ordering                             | Rationale                             |
+| ----------------- | ------------------------------------ | ------------------------------------- |
+| **Timezones**     | By region (Americas → Europe → Asia) | Users know their region, scan quickly |
+| **Personas**      | User's own first, then alphabetical  | Most users want their own personas    |
+| **Characters**    | User's own first, then alphabetical  | Same as personas                      |
+| **Presets**       | Free first → user's → global → paid  | Surface free options for new users    |
+| **Personalities** | Alphabetical within visibility scope | Consistent with Discord's defaults    |
 
 ### Standard Formatting (REQUIRED)
 

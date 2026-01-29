@@ -3,7 +3,7 @@ name: skill-optimizer-malik-taiar
 description: Guide to analyze a current work session and propose improvements to skills. Use (1) automatically after working with a skill to capture learnings, (2) when the user suggests improvements, corrections, or additions during a skill-related session, or (3) when the user manually invokes `self-improve`.
 metadata:
   author: Malik Taiar
-  license: Apache 2.0
+  license: AGPL-3.0
 ---
 
 # Self-Improve Skill

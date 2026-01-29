@@ -1,312 +1,286 @@
 ---
-name: typescript-type-safety
-description: Use when encountering TypeScript any types, type errors, or lax type checking - eliminates type holes and enforces strict type safety through proper interfaces, type guards, and module augmentation
+name: TypeScript Type Safety Expert
+description: Expert guidance for advanced TypeScript type safety, generics, type inference, and compile-time validation. Use when implementing complex type systems, improving type safety, or eliminating runtime errors.
+version: 1.0.0
+allowed-tools:
+  - Read
+  - Write
+  - Edit
 ---
 
-# TypeScript Type Safety
+# TypeScript Type Safety Expert
 
-## Overview
+Advanced TypeScript patterns for bulletproof type safety.
 
-**Zero tolerance for `any` types.** Every `any` is a runtime bug waiting to happen.
+## Advanced Type Patterns
 
-Replace `any` with proper types using interfaces, `unknown` with type guards, or generic constraints. Use `@ts-expect-error` with explanation only when absolutely necessary.
-
-## When to Use
-
-**Use when you see:**
-- `: any` in function parameters or return types
-- `as any` type assertions
-- TypeScript errors you're tempted to ignore
-- External libraries without proper types
-- Catch blocks with implicit `any`
-
-**Don't use for:**
-- Already properly typed code
-- Third-party `.d.ts` files (contribute upstream instead)
-
-## Type Safety Hierarchy
-
-**Prefer in this order:**
-1. Explicit interface/type definition
-2. Generic type parameters with constraints
-3. Union types
-4. `unknown` (with type guards)
-5. `never` (for impossible states)
-
-**Never use:** `any`
-
-## Quick Reference
-
-| Pattern | Bad | Good |
-|---------|-----|------|
-| **Error handling** | `catch (error: any)` | `catch (error) { if (error instanceof Error) ... }` |
-| **Unknown data** | `JSON.parse(str) as any` | `const data = JSON.parse(str); if (isValid(data)) ...` |
-| **Type assertions** | `(request as any).user` | `(request as AuthRequest).user` |
-| **Double casting** | `return data as unknown as Type` | Align interfaces instead: make types compatible |
-| **External libs** | `const server = fastify() as any` | `declare module 'fastify' { ... }` |
-| **Generics** | `function process(data: any)` | `function process<T extends Record<string, unknown>>(data: T)` |
-
-## Implementation
-
-### Error Handling
+### Branded Types
 
 ```typescript
-// ❌ BAD
-try {
-  await operation();
-} catch (error: any) {
-  console.error(error.message);
-}
+// Prevent mixing incompatible types
+type Brand<K, T> = K & { __brand: T };
 
-// ✅ GOOD - Use unknown and type guard
-try {
-  await operation();
-} catch (error) {
-  if (error instanceof Error) {
-    console.error(error.message);
+type UserId = Brand<string, 'UserId'>;
+type ProductId = Brand<string, 'ProductId'>;
+
+const userId = 'user_123' as UserId;
+const productId = 'prod_456' as ProductId;
+
+function getUser(id: UserId) { /* ... */ }
+
+getUser(userId);      // ✅ OK
+getUser(productId);   // ❌ Type error!
+```
+
+### Discriminated Unions
+
+```typescript
+type Success<T> = { success: true; data: T };
+type Error = { success: false; error: string };
+type Result<T> = Success<T> | Error;
+
+function handleResult<T>(result: Result<T>) {
+  if (result.success) {
+    // TypeScript knows result.data exists
+    console.log(result.data);
   } else {
-    console.error('Unknown error:', String(error));
+    // TypeScript knows result.error exists
+    console.error(result.error);
   }
-}
-
-// ✅ BETTER - Helper function
-function toError(error: unknown): Error {
-  if (error instanceof Error) return error;
-  return new Error(String(error));
-}
-
-try {
-  await operation();
-} catch (error) {
-  const err = toError(error);
-  console.error(err.message);
 }
 ```
 
-### Unknown Data Validation
+### Template Literal Types
 
 ```typescript
-// ❌ BAD
-const data = await response.json() as any;
-console.log(data.user.name);
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+type Route = `/${string}`;
+type Endpoint = `${HttpMethod} ${Route}`;
 
-// ✅ GOOD - Type guard
-interface UserResponse {
-  user: {
-    name: string;
-    email: string;
+const endpoint: Endpoint = 'GET /users';  // ✅
+const invalid: Endpoint = 'FETCH /data'; // ❌ Type error
+
+// Dynamic key generation
+type EventName = `on${Capitalize<string>}`;
+const onClick: EventName = 'onClick';  // ✅
+const invalid: EventName = 'click';    // ❌
+```
+
+### Recursive Types
+
+```typescript
+type JSONValue =
+  | string
+  | number
+  | boolean
+  | null
+  | JSONValue[]
+  | { [key: string]: JSONValue };
+
+const validJSON: JSONValue = {
+  name: "Alice",
+  age: 30,
+  tags: ["developer", "typescript"],
+  metadata: {
+    created: "2024-01-01",
+    nested: {
+      deep: true
+    }
+  }
+};
+```
+
+### Utility Type Combinations
+
+```typescript
+// Make all properties optional recursively
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
+
+// Make specific keys required
+type RequireKeys<T, K extends keyof T> = T & Required<Pick<T, K>>;
+
+// Exclude null and undefined
+type NonNullableKeys<T> = {
+  [P in keyof T]: NonNullable<T[P]>;
+};
+
+// Extract function parameters
+type Params<T extends (...args: any) => any> = T extends (...args: infer P) => any ? P : never;
+```
+
+### Type-Safe API Client
+
+```typescript
+type API = {
+  '/users': {
+    GET: { response: User[] };
+    POST: { body: UserCreate; response: User };
   };
+  '/users/:id': {
+    GET: { params: { id: string }; response: User };
+    PUT: { params: { id: string }; body: UserUpdate; response: User };
+    DELETE: { params: { id: string }; response: void };
+  };
+};
+
+type ExtractParams<T extends string> =
+  T extends `${infer _Start}:${infer Param}/${infer Rest}`
+    ? { [K in Param | keyof ExtractParams<Rest>]: string }
+    : T extends `${infer _}:${infer Param}`
+    ? { [K in Param]: string }
+    : {};
+
+async function apiCall<
+  Path extends keyof API,
+  Method extends keyof API[Path]
+>(
+  method: Method,
+  path: Path,
+  options?: API[Path][Method] extends { body: infer B }
+    ? { body: B; params?: ExtractParams<Path> }
+    : { params?: ExtractParams<Path> }
+): Promise<API[Path][Method] extends { response: infer R } ? R : never> {
+  // Implementation
+  return {} as any;
 }
 
-function isUserResponse(data: unknown): data is UserResponse {
-  return (
-    typeof data === 'object' &&
-    data !== null &&
-    'user' in data &&
-    typeof data.user === 'object' &&
-    data.user !== null &&
-    'name' in data.user &&
-    typeof data.user.name === 'string'
-  );
-}
+// Usage - fully type-safe!
+const user = await apiCall('GET', '/users/:id', {
+  params: { id: '123' }  // ✅ Required
+});
 
-const data = await response.json();
-if (isUserResponse(data)) {
-  console.log(data.user.name); // Type-safe
-}
+const newUser = await apiCall('POST', '/users', {
+  body: { email: 'test@test.com', name: 'Test' }  // ✅ Required
+});
 ```
 
-### Module Augmentation
+### Builder Pattern with Type State
 
 ```typescript
-// ❌ BAD
-const user = (request as any).user;
-const db = (server as any).pg;
+class QueryBuilder<T extends Record<string, any>, HasWhere = false> {
+  private whereClause?: string;
 
-// ✅ GOOD - Augment third-party types
-import { FastifyRequest, FastifyInstance } from 'fastify';
-
-interface AuthUser {
-  user_id: string;
-  username: string;
-  email: string;
-}
-
-declare module 'fastify' {
-  interface FastifyRequest {
-    user?: AuthUser;
+  where<K extends keyof T>(key: K, value: T[K]): QueryBuilder<T, true> {
+    this.whereClause = `${String(key)} = ${value}`;
+    return this as any;
   }
 
-  interface FastifyInstance {
-    pg: PostgresPlugin;
+  // execute() only available after where() is called
+  execute(this: QueryBuilder<T, true>): Promise<T[]> {
+    return Promise.resolve([]);
   }
 }
 
-// Now type-safe everywhere
-const user = request.user; // AuthUser | undefined
-const db = server.pg;      // PostgresPlugin
+const query = new QueryBuilder<User>();
+query.execute();  // ❌ Type error - must call where() first
+query.where('id', 123).execute();  // ✅ OK
 ```
 
-### Generic Constraints
+### Strict Event Emitter
 
 ```typescript
-// ❌ BAD
-function merge(a: any, b: any): any {
-  return { ...a, ...b };
-}
+type EventMap = {
+  'user:created': { id: string; name: string };
+  'user:deleted': { id: string };
+  'data:update': { data: any[] };
+};
 
-// ✅ GOOD - Constrained generic
-function merge<
-  T extends Record<string, unknown>,
-  U extends Record<string, unknown>
->(a: T, b: U): T & U {
-  return { ...a, ...b };
-}
-```
+class TypedEventEmitter<T extends Record<string, any>> {
+  private listeners: {
+    [K in keyof T]?: Array<(data: T[K]) => void>;
+  } = {};
 
-### Type Alignment (Avoid Double Casts)
+  on<K extends keyof T>(event: K, callback: (data: T[K]) => void) {
+    if (!this.listeners[event]) {
+      this.listeners[event] = [];
+    }
+    this.listeners[event]!.push(callback);
+  }
 
-```typescript
-// ❌ BAD - Double cast indicates misaligned types
-interface SearchPackage {
-  id: string;
-  type: string;  // Too loose
-}
-
-interface RegistryPackage {
-  id: string;
-  type: PackageType;  // Specific enum
-}
-
-return data.packages as unknown as RegistryPackage[];  // Hiding incompatibility
-
-// ✅ GOOD - Align types from the source
-interface SearchPackage {
-  id: string;
-  type: PackageType;  // Use same specific type
-}
-
-interface RegistryPackage {
-  id: string;
-  type: PackageType;  // Now compatible
-}
-
-return data.packages;  // No cast needed - types match
-```
-
-**Rule:** If you need `as unknown as Type`, your interfaces are misaligned. Fix the root cause, don't hide it with double casts.
-
-## ESM Import Extensions
-
-**Always use `.js` extension for relative imports in ESM projects.**
-
-Node.js ESM requires explicit file extensions. TypeScript compiles `.ts` → `.js`, so imports must reference the output extension.
-
-```typescript
-// ❌ BAD - Will fail at runtime in ESM
-import { helper } from './utils';
-import { CLIError } from '../utils/cli-error';
-import type { Package } from './types/package';
-
-// ✅ GOOD - Explicit .js extensions
-import { helper } from './utils.js';
-import { CLIError } from '../utils/cli-error.js';
-import type { Package } from './types/package.js';
-```
-
-**Why this is a TypeScript/type safety issue:**
-- TypeScript doesn't catch missing extensions at compile time
-- Errors only appear at runtime: `ERR_MODULE_NOT_FOUND`
-- CI builds fail but local development works (cached modules)
-- This is one of the most common "works locally, fails in CI" issues
-
-**TSConfig for ESM:**
-```json
-{
-  "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    // OR
-    "module": "ESNext",
-    "moduleResolution": "bundler"
+  emit<K extends keyof T>(event: K, data: T[K]) {
+    this.listeners[event]?.forEach(cb => cb(data));
   }
 }
+
+const emitter = new TypedEventEmitter<EventMap>();
+
+emitter.on('user:created', (data) => {
+  console.log(data.id, data.name);  // ✅ Fully typed
+});
+
+emitter.emit('user:created', { id: '1', name: 'Alice' });  // ✅ OK
+emitter.emit('user:created', { wrong: 'data' });  // ❌ Type error
 ```
 
-**Common Import Mistakes:**
+### Zod Integration
 
-| Pattern | Issue | Fix |
-|---------|-------|-----|
-| `import { x } from './file'` | Missing extension | `import { x } from './file.js'` |
-| `import { x } from './dir'` | Missing index | `import { x } from './dir/index.js'` |
-| `import pkg from 'pkg/subpath'` | Package export | Check package.json `exports` field |
+```typescript
+import { z } from 'zod';
 
-**Linting for Import Extensions:**
-```bash
-# Find imports missing .js extension
-grep -rn "from '\.\.\?/[^']*[^j][^s]'" --include="*.ts" src/
+const UserSchema = z.object({
+  id: z.string().uuid(),
+  email: z.string().email(),
+  age: z.number().min(0).max(150),
+  role: z.enum(['admin', 'user', 'guest']),
+  metadata: z.record(z.unknown()).optional(),
+});
 
-# ESLint rule (if using eslint)
-# "import/extensions": ["error", "always", { "ignorePackages": true }]
+type User = z.infer<typeof UserSchema>;
+
+// Runtime validation with compile-time types
+function validateUser(data: unknown): User {
+  return UserSchema.parse(data);
+}
 ```
 
-## Common Mistakes
-
-| Mistake | Why It Fails | Fix |
-|---------|--------------|-----|
-| Using `any` for third-party libs | Loses all type safety | Use module augmentation or `@types/*` package |
-| `as any` for complex types | Hides real type errors | Create proper interface or use `unknown` |
-| `as unknown as Type` double casts | Misaligned interfaces | Align types at source - same enums/unions |
-| Skipping catch block types | Unsafe error access | Use `unknown` with type guards or toError helper |
-| Generic functions without constraints | Allows invalid operations | Add `extends` constraint |
-| Ignoring `ts-ignore` accumulation | Tech debt compounds | Fix root cause, use `@ts-expect-error` with comment |
-| Missing `.js` import extensions | ESM runtime failures | Always use `.js` for relative imports |
-
-## TSConfig Strict Settings
-
-Enable all strict options for maximum type safety:
+## TSConfig Best Practices
 
 ```json
 {
   "compilerOptions": {
     "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   }
 }
 ```
 
-## Type Audit Workflow
+## Quick Patterns
 
-1. **Find**: `grep -r ": any\|as any" --include="*.ts" src/`
-2. **Categorize**: Group by pattern (errors, requests, external libs)
-3. **Define**: Create interfaces/types for each category
-4. **Replace**: Systematic replacement with proper types
-5. **Validate**: `npm run build` must succeed
-6. **Test**: All tests must pass
+```typescript
+// Const assertions
+const config = {
+  apiUrl: 'https://api.example.com',
+  timeout: 5000,
+} as const;
+// Type: { readonly apiUrl: "https://api.example.com"; readonly timeout: 5000 }
 
-## Real-World Impact
+// Satisfies operator
+const colors = {
+  red: [255, 0, 0],
+  green: [0, 255, 0],
+} satisfies Record<string, [number, number, number]>;
 
-**Before type safety:**
-- Runtime errors from undefined properties
-- Silent failures from type mismatches
-- Hours debugging production issues
-- Difficult refactoring
+// Index signatures with template literals
+type HTTPHeaders = {
+  [K in `x-${string}`]: string;
+};
 
-**After type safety:**
-- Errors caught at compile time
-- IntelliSense shows all available properties
-- Confident refactoring with compiler help
-- Self-documenting code
+// Conditional types
+type IsArray<T> = T extends any[] ? true : false;
+type Test1 = IsArray<string[]>;  // true
+type Test2 = IsArray<string>;    // false
+```
 
 ---
 
-**Remember:** Type safety isn't about making TypeScript happy - it's about preventing runtime bugs. Every `any` you eliminate is a production bug you prevent.
+**When to Use:** Advanced TypeScript features, eliminating runtime errors, type-safe APIs, complex type systems.

@@ -1,12 +1,7 @@
 {
   "name": "idempotency-handling",
-  "description": "Implement idempotency keys and handling to ensure operations can be safely retried without duplicate effects. Use when building payment systems, APIs with retries, or distributed transactions.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "idempotency",
-    "handling"
-  ],
-  "stars": 25,
-  "source": "local"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/idempotency-handling/skills/idempotency-handling/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-29T03:11:00.177677Z"
 }

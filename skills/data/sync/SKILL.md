@@ -1,63 +1,46 @@
 ---
 name: sync
-description: Use when user says "sync" or wants to commit, push, pull, and run the dotfiles sync script. Also use when creating migrations for one-time cleanup on existing machines, or when a migration fails.
+description: Real-time sync with Supabase, Loro CRDT, and IndexedDB. Use when working on files in src/lib/sync/.
 ---
 
-# Sync
+# Sync Guidelines
 
-Full dotfiles sync: commit, git sync, resolve conflicts, run sync script.
+## Core Principles
 
-For migrations (one-time cleanup scripts), see @migrations.md.
+1. **Server is source of truth** - IndexedDB is a cache
+2. **All ops kept forever** - no pruning, enables full audit trail
+3. **Shallow snapshots for fast start** - performance only, not compaction
+4. **Encryption at rest** - server sees encrypted blobs + plaintext version metadata
 
-## Steps
+## Persistence Flow
 
-1. **Check for changes**
-   ```bash
-   git status
-   git diff
-   ```
+| Event            | IndexedDB              | Server                    |
+| ---------------- | ---------------------- | ------------------------- |
+| Local change     | **Immediate**          | **Throttled** (~2s)       |
+| Tab hidden/close | Immediate              | Flush pending             |
+| Cold start       | Load snapshot → usable | Background sync           |
 
-2. **Commit if changes exist**
-   - Analyze diff for distinct semantic changes
-   - Make multiple commits if changes span different scopes/concerns
-   - Use conventional commit format with scope from CLAUDE.md
-   - Example: fish config change + claude settings change = 2 commits
+## Critical Rules
 
-3. **Git sync**
-   ```bash
-   git sync  # alias for: git pull --rebase && git push
-   ```
+1. **IndexedDB writes immediate** - crash safety
+2. **Server pushes throttled** - use `lodash-es` throttle, ~2s
+3. **Encrypt before storage** - never plaintext in IndexedDB or server
+4. **Version vector plaintext** - enables server filtering without decryption
+5. **`has_unpushed` flag critical** - server must send ops (not snapshot) if client has local changes
+6. **Flush on visibility change** - don't lose data on tab switch
 
-4. **Resolve conflicts if any**
-   - Autostash conflicts are common with `claude/settings.json`
-   - Read conflicted file, resolve intelligently, then:
-     ```bash
-     git add <file>
-     git stash drop  # if autostash conflict
-     ```
-   - Commit and push resolution
+## Key Details
 
-5. **Run sync script** (Claude Code runs this directly)
-   ```bash
-   ./sync
-   ```
-   - Use `./sync -v` for verbose output if debugging
+- loro-mirror auto-commits on `setState()` - no manual debouncing
+- `subscribeLocalUpdates` fires after each commit with binary update
+- Snapshot refresh: ops > 1000 OR bytes > 1MB (not time-based)
 
-6. **Relay sudo reminder if shown**
-   - The script auto-detects if `sync-sudo` is needed
-   - If output shows "Next: Run sudo ./sync-sudo", relay that to user
-   - If no reminder shown, everything is configured - done!
+## Conflict Resolution
 
-## What Sync Does
+Loro handles automatically: last-write-wins per field, set union for arrays.
 
-**`./sync`** (Claude Code runs directly):
-- Symlinks config files (fish, git, zed, nvim, ssh, etc.)
-- Installs Homebrew packages from Brewfile
-- Sets up Node.js via pnpm
-- Configures macOS defaults (keyboard, Finder, Dock)
-- Installs Fisher plugins and npm global packages
+## UI States
 
-**`./sync-sudo`** (user runs manually, only if needed):
-- Power management (display sleep)
-- Touch ID for sudo
-- Fish as default shell (/etc/shells + chsh)
+- **Saved** - all pushed
+- **Saving...** - pending in buffer
+- **Offline** - can't reach server

@@ -1,7 +1,7 @@
 {
   "name": "database-migrations",
-  "repo": "dadbodgeoff/drift",
-  "path": "skills/database-migrations/SKILL.md",
-  "source": "github.com/dadbodgeoff/drift",
-  "downloaded_at": "2026-01-28T04:30:52.807243Z"
+  "repo": "cliangdev/specflux",
+  "path": ".claude/skills/database-migrations/SKILL.md",
+  "source": "github.com/cliangdev/specflux",
+  "downloaded_at": "2026-01-29T03:47:48.432308Z"
 }

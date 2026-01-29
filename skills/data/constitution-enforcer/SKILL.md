@@ -381,7 +381,6 @@ Run all Phase -1 Gates:
 **CRITICAL: コンテキスト長オーバーフロー防止**
 
 **出力方式の原則:**
-
 - ✅ 1セクションずつ順番に生成・保存
 - ✅ 各セクション生成後に進捗を報告
 - ✅ エラー発生時も部分的なレポートが残る
@@ -569,34 +568,6 @@ Once all gates pass:
 - [ ] Constitution Enforcer approval
 - [ ] Project Manager approval
 - [ ] Proceed to implementation
-```
-
-## Guardrails Commands (v3.9.0 NEW)
-
-Use these commands to enforce constitutional compliance programmatically:
-
-| Command                                                     | Purpose                                  | Example                                                                |
-| ----------------------------------------------------------- | ---------------------------------------- | ---------------------------------------------------------------------- |
-| `musubi-validate guardrails --type safety`                  | Validate content against safety rules    | `npx musubi-validate guardrails "content" --type safety`               |
-| `musubi-validate guardrails --type safety --constitutional` | Full constitutional validation           | `npx musubi-validate guardrails "code" --type safety --constitutional` |
-| `musubi-validate guardrails --type input`                   | Validate input against injection attacks | `npx musubi-validate guardrails "input" --type input`                  |
-| `musubi-validate guardrails-chain`                          | Run full guardrail chain                 | `npx musubi-validate guardrails-chain "content" --parallel`            |
-
-**Constitutional Safety Levels**:
-
-- `--level low` - Permissive (development)
-- `--level medium` - Balanced (default)
-- `--level high` - Strict (production)
-- `--level critical` - Maximum (security-critical)
-
-**Use with Constitution Validation**:
-
-```bash
-# Validate code against constitutional articles
-npx musubi-validate guardrails "$(cat src/feature.js)" --type safety --constitutional --level high
-
-# Check multiple files
-npx musubi-validate guardrails --type safety --constitutional --file src/**/*.js
 ```
 
 ## Project Memory Integration

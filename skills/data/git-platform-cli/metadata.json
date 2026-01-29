@@ -1,7 +1,7 @@
 {
   "name": "git-platform-cli",
-  "repo": "liauw-media/household-expense-tracker",
-  "path": ".claude/skills/workflow/git-platform-cli/SKILL.md",
-  "source": "github.com/liauw-media/household-expense-tracker",
-  "downloaded_at": "2026-01-28T04:02:39.142282Z"
+  "repo": "liauw-media/CodeAssist",
+  "path": "skills/workflow/git-platform-cli/SKILL.md",
+  "source": "github.com/liauw-media/CodeAssist",
+  "downloaded_at": "2026-01-29T01:06:35.203169Z"
 }

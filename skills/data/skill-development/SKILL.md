@@ -1,149 +1,88 @@
 ---
 name: skill-development
-description: "Create portable, self-sufficient skills. Use when: You need to create a new reusable capability or specialized knowledge block. Not for: One-off scripts, user-triggered commands (use command-development), or single-session fixes."
+description: Use when the user wants to create or refine Codex skills, improve skill descriptions, organize skill resources, or follow Codex skill best practices.
 ---
 
-# Skill Development
+# Skill Development (Codex)
 
-Skills are reusable capabilities that provide domain-specific knowledge and logic. Unlike commands (which are human-triggered), skills are contextually invoked by Claude to perform specific tasks.
-
-**Core principle**: Skills must be self-contained and work in isolation without external dependencies.
-
----
+This skill provides guidance for creating effective Codex skills and aligning with current Codex CLI conventions.
 
 ## What Skills Are
 
-Skills provide:
+Skills are modular packages that give Codex reusable workflows, domain knowledge, and tooling. Codex uses a skill in two ways:
 
-- Reusable logic blocks
-- Domain-specific knowledge
-- Contextual capabilities
-- Compositional building blocks
+- **Implicit invocation:** Codex selects a skill when the user's request matches its description.
+- **Explicit invocation:** The user mentions `$skill-name` (or uses the `/skills` picker in supported clients).
 
-### Skill vs Command
+## Where to Save Skills (Codex Scopes)
 
-- **Skills**: Model-invoked capabilities (contextual use)
-- **Commands**: Human-invoked orchestrators (explicit triggers)
+Codex loads skills from these locations, in precedence order (highest to lowest):
 
----
+1. `$CWD/.codex/skills`
+2. `$CWD/../.codex/skills` (if inside a git repo)
+3. `$REPO_ROOT/.codex/skills` (git repo root)
+4. `$CODEX_HOME/skills` (default `~/.codex/skills`)
+5. `/etc/codex/skills`
 
-## Core Structure
+Notes:
+- Higher-precedence skills override lower-precedence ones with the same name.
+- Codex ignores symlinked skill directories.
 
-### Frontmatter
+## Skill Structure
+
+```
+skill-name/
+├── SKILL.md   (required)
+├── scripts/   (optional)
+├── references/ (optional)
+└── assets/    (optional)
+```
+
+## SKILL.md Requirements
+
+`SKILL.md` must include YAML frontmatter with:
+
+- `name`: non-empty, <= 100 characters, single line
+- `description`: non-empty, <= 500 characters, single line
+
+Extra keys are ignored by Codex.
+
+Example:
 
 ```yaml
 ---
-name: skill-name
-description: Clear, actionable description
+name: draft-commit-message
+description: Draft a conventional commit message when the user asks for help writing a commit message.
 ---
 ```
 
-### Skill Body
+## Creation Workflow
 
-- **Trigger phrases**: When to use this skill
-- **Core instructions**: How to apply the skill
-- **Examples**: Concrete usage patterns
-- **Integration**: How it works with other components
+1. **Clarify triggers**
+   Define concrete user phrases that should activate the skill. Keep the description specific.
 
----
+2. **Plan reusable resources**
+   Decide which scripts, references, or assets will save time. Prefer scripts for deterministic steps.
+
+3. **Create the skill folder**
+   Put it in a valid Codex skill path (see scopes above).
+
+4. **Write SKILL.md**
+   Keep it lean. Use imperative instructions and link out to references for detailed material.
+
+5. **Add references or scripts**
+   Store long docs in `references/` and reusable code in `scripts/`.
+
+6. **Restart Codex**
+   Codex loads skills at startup. Restart to pick up changes.
 
 ## Best Practices
 
-### Portability
+- **Be explicit in descriptions** so Codex can trigger correctly.
+- **Use progressive disclosure**: keep SKILL.md short and move details into references.
+- **Avoid overlapping descriptions** to prevent ambiguous triggers.
+- **Validate frontmatter length and single-line fields** to avoid startup validation errors.
 
-- Self-contained (no external dependencies)
-- Include all necessary context
-- Work in isolation
+## Related Resources
 
-### Autonomy
-
-- 80-95% autonomy (0-5 questions)
-- Clear triggering conditions
-- Progressive disclosure
-
-### Quality
-
-- Imperative form
-- Clear examples
-- Single source of truth
-
-### Advanced Logic: Diagrams > Tables
-
-For complex conditional logic or state machines, diagrams are unambiguous and token-efficient.
-
-**A. Semantic Routing (Mermaid)**
-Use inside `<router>` tags when decisions depend on natural language analysis.
-
-```markdown
-<router>
-flowchart TD
-    Input --> Analyze{Category?}
-    Analyze -- Bug --> FixPath
-    Analyze -- Feature --> PlanPath
-    FixPath --> Test
-</router>
-```
-
-**B. Strict State Machines (DOT/Graphviz)**
-Use inside `<logic_flow>` tags for strict loops, retries, and error handling. **Preferred for high density.**
-
-```markdown
-<logic_flow>
-digraph RetryLogic {
-Start -> Attempt;
-Attempt -> Success [label="200 OK"];
-Attempt -> Backoff [label="5xx"];
-Backoff -> Attempt;
-}
-</logic_flow>
-```
-
-### Persuasion Principles for Critical Skills
-
-**CRITICAL**: Skills that enforce discipline require strong psychological enforcement to ensure compliance.
-
-**Use authority language for non-negotiables:**
-
-- MANDATORY: Must follow this workflow
-- NEVER: Prohibited actions
-- ALWAYS: Required steps
-
-**Apply commitment techniques for multi-step workflows:**
-
-- Require explicit user acknowledgment
-- Force choices between approaches
-- Create psychological barriers to shortcuts
-
-**Examples:**
-
-❌ Weak language (easily skipped):
-
-```
-"It's good to write tests first"
-"You should probably use TDD"
-"Maybe run the tests"
-```
-
-✅ Strong language (enforces compliance):
-
-```
-MANDATORY: Complete RED phase before GREEN
-NEVER skip verification before completion
-ALWAYS provide evidence for claims
-```
-
-**Red Flag Recognition**: If skill content is critical for quality or compliance, use absolute language to prevent rationalization and skipping.
-
----
-
-## Navigation
-
-| If you need...         | Reference                              |
-| ---------------------- | -------------------------------------- |
-| Description guidelines | `references/description-guidelines.md` |
-| Progressive disclosure | `references/progressive-disclosure.md` |
-| Autonomy design        | `references/autonomy-design.md`        |
-| Orchestration patterns | `references/orchestration-patterns.md` |
-| Anti-patterns          | `references/anti-patterns.md`          |
-| Quality framework      | `references/quality-framework.md`      |
-| Advanced execution     | `references/advanced-execution.md`     |
+- `references/skill-creator-original.md` for deeper guidance on structure and progressive disclosure

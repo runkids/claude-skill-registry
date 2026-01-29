@@ -1,13 +1,7 @@
 {
   "name": "routing",
-  "description": "Routes queries to appropriate data sources (vectordb, web_search, direct_llm) and selects collections to search. Use when analyzing user queries, determining search strategy, or when the user mentions",
-  "repo": "edangx100/adaptive_rag_vercel",
-  "category": "data",
-  "tags": [
-    "routing"
-  ],
-  "stars": 0,
-  "dir_name": "routing",
-  "github_path": ".claude/skills/routing",
-  "github_branch": "main"
+  "repo": "BenjaminRose805/react-basecamp",
+  "path": ".claude/skills/routing/SKILL.md",
+  "source": "github.com/BenjaminRose805/react-basecamp",
+  "downloaded_at": "2026-01-29T02:30:11.393710Z"
 }

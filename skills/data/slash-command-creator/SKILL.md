@@ -1,377 +1,208 @@
 ---
-name: slash-command-creator
-description: This skill should be used when users want to create custom slash commands for Claude Code. It guides the creation of project-specific or personal slash commands with proper frontmatter, argument handling, and Claude Code standards.
+name: slash-commands
+description: Create custom slash commands for Claude Code. Use when users want to create, modify, or understand slash commands for Claude Code CLI tool. Slash commands are markdown files that define reusable prompts and workflows with custom behavior, parameters, and tool access controls.
 ---
 
-# Slash Command Creator Skill
+# Slash Commands
 
-This skill helps create custom slash commands for Claude Code by analyzing requirements and generating properly formatted command files with appropriate frontmatter, argument handling, and execution logic.
+Create custom slash commands for Claude Code that enable reusable workflows and specialized prompts.
 
-## When to Use This Skill
+## Overview
 
-Use this skill when users say:
+Slash commands are custom commands for Claude Code that control Claude's behavior during interactive sessions. They are markdown files with frontmatter that define specialized prompts, workflows, and tool configurations.
 
-- "Create a slash command for..."
-- "Help me make a custom command"
-- "I need a new slash command that..."
-- "Can you create a command to..."
+Commands are triggered by typing `/command-name [arguments]` in Claude Code.
 
-## Command Creation Process
+## Command Structure
 
-### 1. Analyze Command Requirements
+Every slash command is a markdown file with:
 
-First, understand what the command should do:
+1. **YAML frontmatter** - Metadata defining behavior
+2. **Markdown body** - The prompt/instructions for Claude
 
-- Identify the primary purpose and functionality
-- Determine if it needs arguments (positional or all arguments)
-- Check if it requires special tools (Bash, Read, Write, etc.)
-- Decide if it's a project command (.claude/commands/) or personal command (~/.claude/commands/)
-
-### 2. Determine Command Type
-
-Based on requirements, choose the appropriate command pattern:
-
-**Simple Text Expansion**: No arguments, static prompt
+### Frontmatter Fields
 
 ```yaml
 ---
-description: Brief description of the command
+description: Brief description of what the command does
+allowed-tools: [Bash, Edit]  # Optional: restrict tool access
+argument-hint: <arg1> <arg2>  # Optional: show expected arguments
+model: claude-sonnet-4-20250514  # Optional: specify model
 ---
-Static prompt text here
 ```
 
-**Single Argument**: Uses $ARGUMENTS for all input
+**Field details:**
 
-```yaml
----
-description: Description of what the command does
-argument-hint: [optional-hint]
-allowed-tools: Tool1, Tool2
----
-Process $ARGUMENTS here
-```
+- `description` - Brief description shown in `/help` (uses first line of prompt if omitted)
+- `allowed-tools` - List of tools the command can use (inherits from conversation if omitted)
+  - Built-in tools: `Bash`, `Edit`, `View`, `CreateFile`
+  - MCP tools: Use format `mcp__servername__toolname` or `mcp__servername` to approve all tools from a server
+- `argument-hint` - Shows expected parameters in autocomplete (e.g., `<filename>` or `add <id> | remove <id> | list`)
+- `model` - Specific model string to use for this command
 
-**Positional Arguments**: Uses $1, $2, etc. for specific parameters
+### Command Body (The Prompt)
 
-```yaml
----
-description: Description with parameter roles
-argument-hint: [param1] [param2] [optional-param3]
-allowed-tools: Tool1, Tool2
----
-Process $1 as first parameter, $2 as second, etc.
-```
+The markdown body is the actual prompt sent to Claude. Use argument placeholders:
 
-**Bash Integration**: Execute shell commands with `Exclamation mark` prefix
+- `$ARGUMENTS` - All arguments as a single string
+- `$1`, `$2`, `$3`, etc. - Individual positional arguments
 
-```yaml
----
-allowed-tools: Bash(git:*), Bash(npm:*)
-description: Command that needs shell execution
----
+**Context references:**
 
-## Context
-- Git: Exclamation mark`git --help`
+- `@filename.ext` - Include file contents in prompt
+- `!command` - Execute bash command and include output (requires `Bash` in `allowed-tools`)
 
-## Your task
-Execute based on the above context
-```
+## Command Locations
 
-**File References**: Include files with `@` prefix
+### Project-Level Commands
 
-```yaml
----
-description: Command that references files
----
-Analyze the implementation in @src/components/Button.tsx
-Compare @src/old-file.js with @src/new-file.js
-```
+**Location:** `.claude/commands/`
 
-### 3. Command Templates
+Stored in the project repository, shared with team, version controlled.
 
-Use these common templates as starting points:
+**Example:** `.claude/commands/optimize.md` creates `/optimize` command
 
-#### Component Testing Command
+Shows as "(project)" in `/help`
 
-````markdown
----
-description: Run tests for a specific component with coverage and debugging
-argument-hint: [component-name] [--coverage] [--debug]
-allowed-tools: Bash, Read, Glob
----
+### User-Level Commands
 
-# Component Testing
+**Location:** `~/.claude/commands/`
 
-Testing component: $1
-Options: $2
+Personal commands available across all projects.
 
-## Test Execution
+**Example:** `~/.claude/commands/security-review.md` creates `/security-review` command
 
-1. Find test files for component: $1
-2. Run appropriate test command
-3. If --coverage flag, generate coverage report
-4. If --debug flag, run in debug mode
+Shows as "(user)" in `/help`
 
-## Commands to Execute
+### Subdirectories for Organization
 
-```bash
-npm test -- --testPathPattern=$1 $2
-```
-````
+Organize commands in subdirectories:
 
-Check test results and report any failures.
+- `.claude/commands/frontend/component.md` → `/component` (project:frontend)
+- `.claude/commands/backend/api.md` → `/api` (project:backend)
+- `~/.claude/commands/personal/todo.md` → `/todo` (user:personal)
 
-````
+Note: Conflicts between user and project commands are not supported.
 
-#### API Implementation Command
+## Common Patterns
+
+### Simple Prompt Template
+
 ```markdown
 ---
-description: Implement component using provided curl APIs and response data
-argument-hint: [component-name] [api-endpoints]
-allowed-tools: Read, Write, Bash, WebFetch
+description: Optimize code for performance
 ---
 
-# API Component Implementation
+Analyze the following code for performance issues and suggest optimizations:
 
-Create component: $1
-Using APIs: $2
-
-## Implementation Steps
-
-1. Parse the provided curl commands to understand:
-   - HTTP methods (GET, POST, PUT, DELETE)
-   - Request endpoints
-   - Headers and authentication
-   - Request body structure
-
-2. Analyze response data to understand:
-   - Data structure and types
-   - Required fields vs optional
-   - Error responses
-
-3. Create React component with:
-   - TypeScript interfaces for API responses
-   - State management for data fetching
-   - Loading and error states
-   - Proper API integration
-
-4. Follow project patterns:
-   - Use @/ path aliases
-   - Apply Mitra theme styling
-   - Include proper accessibility
-   - Handle edge cases
-
-## API Integration Pattern
-
-```typescript
-// Example API integration
-interface ApiResponse {
-  // Define based on provided response
-}
-
-const ComponentName = () => {
-  const [data, setData] = useState<ApiResponse | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Implement API call using provided curl
-  }, []);
-
-  // Render component
-};
-````
-
-````
-
-#### Documentation Generation Command
-```markdown
----
-description: Generate comprehensive documentation for a component
-argument-hint: [component-path] [--include-examples]
-allowed-tools: Read, Write, Glob
----
-
-# Component Documentation Generator
-
-Generate docs for: $1
-Include examples: $2
-
-## Documentation Structure
-
-1. **Component Analysis**:
-   - Read component file(s)
-   - Identify props and their types
-   - Understand component behavior
-   - Note any special requirements
-
-2. **Generate Documentation**:
-   - Component description
-   - Props interface with types and descriptions
-   - Usage examples
-   - Accessibility notes
-   - Styling customization
-   - Dependencies
-
-3. **Create README.md** if it doesn't exist
-4. **Update existing README.md** if it exists
-
-## Documentation Template
-
-```markdown
-# Component Name
-
-Brief description of what this component does and when to use it.
-
-## Props Interface
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| propName | string | - | Description of the prop |
-
-## Usage Examples
-
-### Basic Usage
-\`\`\`tsx
-<ComponentName propName="value" />
-\`\`\`
-
-### Advanced Usage
-\`\`\`tsx
-<ComponentName propName="value" optionalProp={true} />
-\`\`\`
-
-## Accessibility
-
-- ARIA labels automatically handled
-- Keyboard navigation support
-- Screen reader compatibility
-
-## Styling & Customization
-
-Uses CSS variables from the Mitra theme:
-- `--color-mitra-blue` for primary elements
-- Customizable via style prop
-
-## Dependencies
-
-- React hooks: useState, useEffect
-- No external dependencies
-````
-
-````
-
-#### Issue Fixing Command
-```markdown
----
-description: Fix a specific issue by number with automated git workflow
-argument-hint: [issue-number] [--branch-name]
-allowed-tools: Bash, Read, Edit, Write, WebFetch
----
-
-# Issue Fixer
-
-Fixing issue: #$1
-Branch name: $2
-
-## Issue Resolution Process
-
-1. **Fetch Issue Details**:
-   - Get issue information from GitHub
-   - Understand requirements and acceptance criteria
-   - Note any related issues or dependencies
-
-2. **Create Feature Branch**:
-   ```bash
-   git checkout -b fix/issue-$1
-````
-
-3. **Implement Fix**:
-   - Locate relevant files
-   - Implement solution
-   - Follow coding standards
-   - Add tests if needed
-
-4. **Verify Fix**:
-   - Run existing tests
-   - Test the specific issue scenario
-   - Check for regressions
-
-5. **Commit Changes**:
-
-   ```bash
-   git add .
-   git commit -m "fix: Resolve issue #$1 - [brief description]"
-   git push -u origin fix/issue-$1
-   ```
-
-6. **Create Pull Request** (optional):
-   - Link to the original issue
-   - Include description of changes
-   - Request review if needed
-
+$ARGUMENTS
 ```
 
-### 4. Best Practices for Command Creation
+### Command with File Context
 
-**Frontmatter Requirements**:
-- Always include `description` (required for SlashCommand tool)
-- Use `argument-hint` to show expected arguments in autocomplete
-- Specify `allowed-tools` when command needs specific tools
-- Use `model` to override default model if needed
+```markdown
+---
+description: Review security of specified file
+argument-hint: <filepath>
+allowed-tools: [View]
+---
 
-**Argument Handling**:
-- Use `$ARGUMENTS` for simple, single-parameter commands
-- Use positional arguments ($1, $2, etc.) for structured input
-- Provide clear hints in `argument-hint` with square brackets
-- Use optional arguments sparingly
-
-**Command Quality**:
-- Write clear, actionable instructions
-- Include examples when helpful
-- Handle edge cases and errors
-- Follow existing project conventions
-- Use imperative language ("Do X" not "You should do X")
-
-**File Organization**:
-- Store project commands in `.claude/commands/`
-- Store personal commands in `~/.claude/commands/`
-- Use kebab-case for file names
-- Group related commands in subdirectories
-
-### 5. Command Validation Checklist
-
-Before finalizing a command, verify:
-
-- [ ] Frontmatter includes required fields
-- [ ] Argument placeholders are correct ($1, $2, $ARGUMENTS)
-- [ ] File references use @ prefix
-- [ ] Bash commands use Exclamation mark prefix in allowed sections
-- [ ] Tools are properly declared in allowed-tools
-- [ ] Description is clear and concise
-- [ ] Argument hint shows expected parameters
-- [ ] Command follows project naming conventions
-- [ ] File is saved in correct location (.claude/commands/ or ~/.claude/commands/)
-
-### 6. Testing Commands
-
-Test newly created commands by:
-1. Running `/help` to see the command in the list
-2. Executing the command with sample arguments
-3. Verifying it works as expected
-4. Checking that it appears in available commands for the SlashCommand tool
-
-### 7. Resources Reference
-
-For complex command patterns, refer to:
-- `references/slash-command-examples.md` - Collection of advanced command patterns
-- `references/api-integration-templates.md` - Templates for API-related commands
-- `references/testing-workflows.md` - Testing and QA command patterns
-
-### 8. Scripts Utility
-
-Use the provided scripts for common tasks:
-- `scripts/validate-command.js` - Validate command syntax and frontmatter
-- `scripts/test-command.js` - Test command execution with sample inputs
-- `scripts/generate-template.js` - Generate command templates for specific patterns
+Review @$1 for security vulnerabilities. Focus on:
+- Input validation
+- Authentication/authorization  
+- SQL injection risks
+- XSS vulnerabilities
 ```
+
+### Command with Bash Execution
+
+```markdown
+---
+description: Show git status and suggest next steps
+allowed-tools: [Bash]
+---
+
+Current git status:
+!git status
+
+!git log --oneline -5
+
+Analyze the current state and suggest appropriate next steps.
+```
+
+### Multi-Argument Command
+
+```markdown
+---
+description: Create a new component
+argument-hint: <component-name> <type>
+allowed-tools: [CreateFile, Edit]
+---
+
+Create a new $2 component named $1.
+
+Component name: $1
+Type: $2
+
+Follow project conventions and include:
+- Proper imports
+- TypeScript types
+- Basic structure
+- Example usage
+```
+
+### MCP Tool Integration
+
+```markdown
+---
+description: Search GitHub issues
+allowed-tools: [mcp__github__search_issues, mcp__github__get_issue]
+argument-hint: <search-query>
+---
+
+Search GitHub issues for: $ARGUMENTS
+
+Provide a summary of relevant issues and suggest next actions.
+```
+
+## Workflow for Creating Commands
+
+1. **Identify the repetitive task** - What do you find yourself asking Claude to do repeatedly?
+
+2. **Choose command scope** - Project-level (`.claude/commands/`) or user-level (`~/.claude/commands/`)?
+
+3. **Create the markdown file** - Name it `command-name.md`
+
+4. **Write frontmatter** - Add description, tools, and argument hints
+
+5. **Write the prompt** - Include clear instructions and use argument placeholders
+
+6. **Test the command** - Run `/command-name [args]` in Claude Code
+
+7. **Iterate** - Refine based on real usage
+
+## Tips for Effective Commands
+
+**Be specific:** Clear, detailed prompts produce better results than vague ones.
+
+**Use context:** Reference files with `@` and include relevant code/docs in the prompt.
+
+**Restrict tools thoughtfully:** Limit tool access to only what's needed for security and focus.
+
+**Add argument hints:** Help users know what parameters to provide.
+
+**Include examples:** Show expected format for complex inputs.
+
+**Organize with subdirectories:** Group related commands for discoverability.
+
+**Version control project commands:** Share `.claude/commands/` with your team via git.
+
+## Resources
+
+See references/examples.md for complete working examples including:
+- Code review command
+- Component generator  
+- Test writer
+- Documentation updater
+- Git workflow helper
+- API schema validator

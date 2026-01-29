@@ -1,7 +1,7 @@
 {
   "name": "git-worktree",
-  "repo": "manastalukdar/claude-devstudio",
-  "path": "skills/git-worktree/SKILL.md",
-  "source": "github.com/manastalukdar/claude-devstudio",
-  "downloaded_at": "2026-01-28T02:30:47.003313Z"
+  "repo": "kimny1143/claude-code-template",
+  "path": ".claude/skills/git-worktree/SKILL.md",
+  "source": "github.com/kimny1143/claude-code-template",
+  "downloaded_at": "2026-01-29T04:45:18.882785Z"
 }

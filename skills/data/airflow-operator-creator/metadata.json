@@ -1,11 +1,7 @@
 {
   "name": "airflow-operator-creator",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Airflow Operator Creator - Auto-activating skill for Data Pipelines.Triggers on: airflow operator creator, airflow operator creatorPart of the Data Pipelines skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:57.260437Z",
-  "dir_name": "airflow-operator-creator",
-  "github_path": "planned-skills/generated/11-data-pipelines/airflow-operator-creator",
-  "github_branch": "main"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/airflow-operator-creator/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-29T03:34:17.773144Z"
 }

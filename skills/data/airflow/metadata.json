@@ -1,7 +1,7 @@
 {
   "name": "airflow",
-  "repo": "astronomer/agents",
-  "path": "skills/airflow/SKILL.md",
-  "source": "github.com/astronomer/agents",
-  "downloaded_at": "2026-01-28T03:04:42.727651Z"
+  "repo": "vamseeachanta/digitalmodel",
+  "path": ".claude/skills/automation/airflow/SKILL.md",
+  "source": "github.com/vamseeachanta/digitalmodel",
+  "downloaded_at": "2026-01-29T02:10:13.282343Z"
 }

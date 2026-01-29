@@ -1,9 +1,7 @@
 {
   "name": "smart-commit",
-  "description": "This skill should be used when user asks to commit changes to git repository. Triggers on Ukrainian/English phrases like \"закоміть зміни\", \"commit changes\", \"створи коміт\", \"зроби коміт\", or any reque",
   "repo": "djimontyp/task-tracker",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/smart-commit/SKILL.md",
+  "source": "github.com/djimontyp/task-tracker",
+  "downloaded_at": "2026-01-29T01:19:31.005013Z"
 }

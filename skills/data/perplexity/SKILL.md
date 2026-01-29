@@ -1,108 +1,132 @@
 ---
 name: perplexity
-description: AI-powered search engine with real-time answers.
-category: ai
+description: >
+  Paid research assistant with real-time web search. Use when user asks "what's the latest",
+  "current pricing for", "recent news about", "search the web for", "fact check this",
+  "what's new in", or needs up-to-date information beyond training data.
+allowed-tools: Bash, Read
+triggers:
+  - what's the latest
+  - current pricing
+  - recent news
+  - search the web
+  - fact check
+  - what's new in
+  - look up online
+  - research this topic
+  - paid search
+metadata:
+  short-description: AI research with web search
 ---
+
 # Perplexity Skill
 
-AI-powered search engine with real-time answers.
+AI-powered research assistant with real-time web search capabilities.
 
-## Quick Install
+## Prerequisites
+
+- `PERPLEXITY_API_KEY` in `.env` (get from https://www.perplexity.ai/settings/api)
+
+## When to Use
+
+- Current information (news, recent releases, pricing)
+- Technical questions requiring up-to-date docs
+- Fact-checking and verification
+- Research questions needing multiple sources
+- Comparisons (libraries, tools, approaches)
+
+## Quick Start
 
 ```bash
-curl -sSL https://canifi.com/skills/perplexity/install.sh | bash
+# Simple query (quick answer)
+python .agents/skills/perplexity/perplexity.py ask "What's new in Python 3.12?"
+
+# With citations (JSON output)
+python .agents/skills/perplexity/perplexity.py research "ArangoDB vs Neo4j for knowledge graphs"
+
+# With specific model
+python .agents/skills/perplexity/perplexity.py ask --model large "Best practices for Lean4 proofs"
 ```
 
-Or manually:
+## Commands at a Glance
+
+| Command | What it does | Notes |
+|---------|--------------|-------|
+| `ask` | Fast answer with short citations preview | Matches the Typer command implemented in `perplexity.py ask` |
+| `research` | Full answer + citations JSON | Equivalent to calling `_research()` and prints JSON unless `--no-json` |
+| `models` | Lists available model aliases → API IDs | Useful when wiring the skill into other agents |
+
+Every CLI example **must** include the subcommand (`ask`, `research`, or `models`) because the Typer app requires it; omitting the subcommand will raise a usage error. The shipped SKILL docs now mirror the exact runner arguments, so you can copy/paste them without edits.
+
+## CLI Usage
+
+Two commands: `ask` (quick answer) and `research` (with citations):
+
 ```bash
-cp -r skills/perplexity ~/.canifi/skills/
+# Quick answer
+python .agents/skills/perplexity/perplexity.py ask [OPTIONS] "your question"
+
+# Research with citations (JSON output)
+python .agents/skills/perplexity/perplexity.py research [OPTIONS] "your question"
+
+Options:
+  --model, -m     small|large|huge  (default: small, fast)
+  --system, -s    Custom system prompt
+  --json/--no-json  JSON output (research default: --json)
 ```
 
-## Setup
+## Python API
 
-Configure via [canifi-env](https://canifi.com/setup/scripts):
+```python
+# Import the internal function
+from perplexity import _research
 
+# Research with citations
+result = _research("What is BM25 scoring?", model="small")
+print(result["answer"])
+print(result["citations"])
+```
+
+Note: The CLI commands `ask` and `research` are the primary interface. For Python usage, use `_research()` directly.
+
+## Shared Helpers
+
+- `.agents/skills/dotenv_helper.py` is auto-imported so `.env` keys (e.g., `PERPLEXITY_API_KEY`) load without manual sourcing.
+- `.agents/skills/json_utils.py` is available if you need to repair downstream JSON before writing it to files; the `research` command already emits valid JSON, so most callers can stream it directly.
+
+## Models
+
+| Model | API Name | Speed | Use Case |
+|-------|----------|-------|----------|
+| `small` | sonar | Fast | Quick lookups, simple questions |
+| `large` | sonar-pro | Medium | Technical research, comparisons |
+| `huge` | sonar-reasoning | Slow | Complex analysis, reasoning |
+
+## Examples
+
+### Technical Research
 ```bash
-# First, ensure canifi-env is installed:
-# curl -sSL https://canifi.com/install.sh | bash
-
-canifi-env set PERPLEXITY_API_KEY "your_api_key"
+python .agents/skills/perplexity/perplexity.py ask "How to implement hybrid search with BM25 and vector similarity?"
 ```
 
-## Privacy & Authentication
-
-**Your credentials, your choice.** Canifi LifeOS respects your privacy.
-
-### Option 1: Manual Browser Login (Recommended)
-If you prefer not to share credentials with Claude Code:
-1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode
-2. Login to the service manually in the Playwright-controlled Chrome window
-3. Claude will use your authenticated session without ever seeing your password
-
-### Option 2: Environment Variables
-If you're comfortable sharing credentials, you can store them locally:
+### Current Information
 ```bash
-canifi-env set SERVICE_EMAIL "your-email"
-canifi-env set SERVICE_PASSWORD "your-password"
+python .agents/skills/perplexity/perplexity.py ask "Latest Anthropic Claude API changes 2024"
 ```
 
-**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.
-
-## Capabilities
-
-1. **Search Answers**: Get sourced responses
-2. **Pro Search**: Deep research mode
-3. **Collections**: Organize research
-4. **Focus Modes**: Academic, writing, etc.
-5. **Follow-ups**: Refine queries
-
-## Usage Examples
-
-### Quick Search
-```
-User: "Ask Perplexity about recent AI developments"
-Assistant: Returns sourced answer
+### Comparison
+```bash
+python .agents/skills/perplexity/perplexity.py ask --model large "sentence-transformers vs OpenAI embeddings for code search"
 ```
 
-### Pro Research
-```
-User: "Do a deep dive on climate technology"
-Assistant: Runs comprehensive research
-```
+## vs Context7
 
-### Academic Search
-```
-User: "Find academic sources on this topic"
-Assistant: Returns scholarly citations
-```
+| Perplexity | Context7 |
+|------------|----------|
+| General research | Library-specific docs |
+| Real-time web search | Curated documentation |
+| Any topic | Code libraries only |
+| Synthesized answers | Raw doc snippets |
 
-### Follow Up
-```
-User: "Tell me more about that third source"
-Assistant: Expands on specific result
-```
-
-## Authentication Flow
-
-1. API key authentication
-2. Pro subscription for advanced
-3. OAuth for integrations
-4. Rate limits apply
-
-## Error Handling
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| Auth Failed | Invalid key | Check API key |
-| Rate Limited | Too many queries | Wait |
-| Pro Required | Feature limited | Upgrade |
-| Search Failed | Query issue | Rephrase |
-
-## Notes
-
-- Real-time web search
-- Source citations
-- Pro Search depth
-- Focus modes
-- Collections
-- API available
+Use **Context7** for: specific library API syntax, exact function signatures
+Use **Perplexity** for: research, comparisons, current information, general questions

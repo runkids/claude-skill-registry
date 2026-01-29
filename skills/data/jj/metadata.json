@@ -1,9 +1,7 @@
 {
   "name": "jj",
-  "description": "Jujutsu (jj) skill for the ikigai project",
-  "repo": "mgreenly/ikigai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/mgreenly/ikigai"
+  "repo": "jbott/nix-config",
+  "path": "home-manager/programs/claude-code/skills/jj/SKILL.md",
+  "source": "github.com/jbott/nix-config",
+  "downloaded_at": "2026-01-29T02:16:16.815776Z"
 }

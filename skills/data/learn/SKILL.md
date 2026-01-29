@@ -1,155 +1,185 @@
 ---
 name: learn
-description: Teach Claude a new pattern, preference, or convention explicitly. Use when you want to save a correction, preference, or coding pattern for future sessions. Triggers on keywords like "remember this", "always do", "never do", "learn this pattern", "/learn".
-allowed-tools: Read, Write, Edit, Bash
-infer: true
+description: >
+  Learn from any content type. Auto-detects source (arXiv, YouTube, GitHub, PDF, URL)
+  and routes to appropriate backend skill for extraction and storage.
+allowed-tools: ["Bash", "Read"]
+triggers:
+  - learn
+  - learn this
+  - study
+metadata:
+  short-description: Learn from any content type
 ---
 
-# Pattern Learning Skill
+# Learn
 
-Explicitly teach Claude patterns, preferences, or conventions that should be remembered across sessions.
+**ONE command to learn from ANY content type.**
 
-## Quick Usage
+## Quick Start
 
-```
-/learn always use PlatformValidationResult instead of throwing ValidationException
-/learn [wrong] var x = 1 [right] const x = 1 - always prefer const
-/learn prefer async/await over .then() chains in this codebase
-```
+```bash
+# Learn from arXiv
+./run.sh https://arxiv.org/abs/2302.02083 --scope horus_lore
 
-## Teaching Formats
+# Learn from YouTube
+./run.sh https://youtube.com/watch?v=xyz --scope project_kb
 
-### Format 1: Natural Language
+# Learn from PDF
+./run.sh ./document.pdf --scope project_kb --context "technical docs"
 
-```
-/learn always use IGrowthRootRepository instead of generic IPlatformRootRepository
-```
+# Learn from any URL
+./run.sh https://example.com/article --scope research
 
-Detected patterns: "always use X instead of Y", "prefer X over Y", "never do X"
-
-### Format 2: Explicit Wrong/Right
-
-```
-/learn [wrong] throw new ValidationException("Invalid") [right] return PlatformValidationResult.Invalid("Invalid")
+# List learned content
+./run.sh --list --scope horus_lore
 ```
 
-Best for code-level corrections with exact examples.
+## Options
 
-### Format 3: Code Block Comparison
+| Option | Short | Description |
+|--------|-------|-------------|
+| `--scope` | `-s` | **Required.** Memory scope (e.g., `horus_lore`, `project_kb`) |
+| `--context` | `-c` | Domain context for better extraction |
+| `--force` | `-f` | Re-learn even if already learned |
+| `--dry-run` | `-n` | Preview without learning |
+| `--list` | `-l` | List learned content for scope |
+| `--request` | `-r` | Request content if not available (saved to requests.json) |
+| `--from-gaps` | `-g` | Reflect on past errors/questions to find knowledge gaps |
 
-```
-/learn
-Wrong:
-```csharp
-public void Process() {
-    if (x == null) throw new ArgumentNullException();
-}
-```
+## Source Types
 
-Right:
-```csharp
-public PlatformValidationResult Process() {
-    return x == null
-        ? PlatformValidationResult.Invalid("X required")
-        : PlatformValidationResult.Valid();
-}
-```
-```
+| Type | Detection | Backend |
+|------|-----------|---------|
+| arXiv | `arxiv.org` URL | `/arxiv` |
+| YouTube | `youtube.com` | `/youtube-transcripts` + `/distill` |
+| GitHub | `github.com` | `/fetcher` + `/distill` |
+| PDF | `.pdf` extension | `/extractor` + `/distill` |
+| Audiobook | `.aax`, `.m4b` | `/audiobook-ingest` + `/distill` |
+| URL | any HTTP(S) | `/fetcher` + `/distill` |
+| File | local path | `/distill` |
 
-### Format 4: Category-Specific
+## Requesting Content
 
-```
-/learn backend: always add [ComputedEntityProperty] attribute to computed properties with empty setter
-/learn frontend: extend AppBaseComponent instead of using raw Component
-/learn workflow: always use TodoWrite before starting multi-step tasks
-```
+For content not yet available (e.g., audiobooks you want to purchase):
 
-## How It Works
+```bash
+# Request an audiobook
+./run.sh "Horus Rising by Dan Abnett" --scope horus_lore --request
 
-1. **Detection**: The pattern-learner hook detects your teaching input
-2. **Extraction**: Extracts wrong/right pair, keywords, and context
-3. **Storage**: Saves to `.claude/learned-patterns/{category}/{slug}.yaml`
-4. **Injection**: Future sessions automatically inject relevant patterns based on context
-
-## Pattern Categories
-
-| Category | Use For |
-|----------|---------|
-| `backend` | C#, .NET, API, Entity, Repository patterns |
-| `frontend` | Angular, TypeScript, Component, Store patterns |
-| `workflow` | Development process, git, planning patterns |
-| `general` | Cross-cutting concerns |
-
-## Confidence System
-
-- Explicit teaching starts at **80% confidence**
-- Implicit corrections (detected from "no, do X instead") start at **40% confidence**
-- Confidence increases when pattern is:
-  - Confirmed by user
-  - Injected and followed
-- Confidence decreases when:
-  - Pattern conflicts with user action
-  - 30 days pass without use (decay)
-- Patterns below **20% confidence** are auto-archived
-
-## Conflict Checking
-
-Patterns that conflict with `docs/claude/*.md` documentation are blocked to prevent inconsistencies.
-
-## Examples
-
-### Backend Pattern
-```
-/learn backend: DTO mapping should be in the DTO class using MapToEntity(), not in command handlers
+# View pending requests
+cat ~/.learn/<scope>/requests.json
 ```
 
-### Frontend Pattern
-```
-/learn frontend: always use .pipe(this.untilDestroyed()) for subscriptions in components
-```
+## Reflection Mode (--from-gaps)
 
-### Anti-Pattern
-```
-/learn never call external APIs directly in command handlers - use Entity Event Handlers for side effects
-```
+Query past conversations and logs to find knowledge gaps. This enables **curiosity-driven learning** by reflecting on:
 
-### Code Style
-```
-/learn [wrong] items.Select(x => new Dto(x)).ToList() [right] items.SelectList(x => new Dto(x))
-```
+- **Skill failures** - Skills like `/fixture-graph`, `/code-review`, `/anvil` that repeatedly failed
+- **Learning failures** - Content that couldn't be learned
+- **Errors** - Past errors from episodic memory
+- **Questions** - Unanswered or recurring questions
 
-## Related Commands
+```bash
+# Find what I should learn based on past problems
+./run.sh --from-gaps --scope horus_lore
 
-| Command | Purpose |
-|---------|---------|
-| `/learned-patterns` | List and manage learned patterns |
-| `/learned-patterns view <id>` | View specific pattern details |
-| `/learned-patterns archive <id>` | Archive a pattern |
-| `/learned-patterns boost <id>` | Increase pattern confidence |
-
-## Storage Location
-
-Patterns are stored in:
-```
-.claude/learned-patterns/
-  index.yaml              # Pattern lookup index
-  backend/                # Backend patterns
-  frontend/               # Frontend patterns
-  workflow/               # Workflow patterns
-  general/                # General patterns
-  archive/                # Archived patterns
+# Output shows gaps like:
+# | Type          | Content                        | Reason                         |
+# |---------------|--------------------------------|--------------------------------|
+# | skill_failure | fixture-graph failed to gen... | /fixture-graph failed - deeper |
+# | skill_failure | code-review didn't solve bug   | /code-review failed - deeper   |
+# | error         | Failed to parse PDF table...   | From episodic memory           |
 ```
 
-## Tips
+**Sources checked:**
+1. Skill execution logs (`~/workspace/.../logs/*.log`)
+2. Learning history (`~/.learn/*/learned.json`)
+3. Episodic memory (`agent_conversations` in ArangoDB)
 
-1. **Be Specific**: Include context about when the pattern applies
-2. **Use Examples**: Code blocks help clarify exact patterns
-3. **Categorize**: Prefix with category for better organization
-4. **Review Periodically**: Use `/learned-patterns` to review and prune
+This creates a **learning feedback loop**:
+```
+Past failures → Identify gaps → Generate curiosity → /dogpile → /learn → Better future responses
+```
 
-## Technical Details
+## Tracking
 
-- Storage: YAML files in `.claude/learned-patterns/`
-- Detection: `pattern-learner.cjs` hook on UserPromptSubmit
-- Injection: `pattern-injector.cjs` hook on SessionStart and PreToolUse
-- Max injection: 5 patterns per context, ~400 tokens budget
+Learned content is tracked per-scope in `~/.learn/<scope>/learned.json`.
+
+## Nightly Automation
+
+Automated learning cycle that collects transcripts and learns from knowledge gaps.
+
+### Commands
+
+```bash
+# Full nightly cycle (transcripts + learning)
+./run.sh full --scope horus_lore --since 24
+
+# Just collect transcripts from coding agents
+./run.sh collect-transcripts --since 24
+
+# Just learn from knowledge gaps
+./run.sh nightly learn --scope horus_lore --max-gaps 5
+
+# Dry run to see what would happen
+./run.sh full --scope horus_lore --dry-run
+```
+
+### Transcript Collection
+
+Collects and archives transcripts from:
+
+| Agent | Location | Format |
+|-------|----------|--------|
+| Claude Code | `~/.claude/projects/` | JSONL |
+| Codex | `~/.codex/sessions/` | JSONL |
+| Pi | `~/.pi/sessions/` | JSON |
+| KiloCode | `~/.kilocode/cli/` | JSON |
+
+**Note:** Each agent has platform-specific transcript formats. Failed extractions are logged for manual review.
+
+### Scheduler Integration
+
+Register with `/scheduler` for automated nightly runs:
+
+```bash
+# Register nightly learning
+.pi/skills/scheduler/run.sh register \
+  --name "nightly-learn-horus" \
+  --cron "0 2 * * *" \
+  --command ".pi/skills/learn/run.sh full --scope horus_lore" \
+  --workdir "/home/graham/workspace/experiments/pi-mono"
+
+# Register transcript collection (more frequent)
+.pi/skills/scheduler/run.sh register \
+  --name "collect-transcripts" \
+  --cron "0 */6 * * *" \
+  --command ".pi/skills/learn/run.sh collect-transcripts --since 12"
+```
+
+### The Nightly Loop
+
+```
+Transcripts → Archive → Detect unresolved → Store gaps
+                                    ↓
+                           Knowledge gaps
+                                    ↓
+                           /dogpile research
+                                    ↓
+                           /distill → Memory
+                                    ↓
+                           Better future responses
+```
+
+## Composing with /taxonomy
+
+For tagged storage with graph traversal support:
+
+```bash
+# Get taxonomy tags
+tags=$(/path/to/taxonomy/run.sh --text "$content" --collection operational)
+
+# Check if worth remembering
+worth=$(echo "$tags" | jq -r '.worth_remembering')
+```

@@ -1,7 +1,7 @@
 {
   "name": "red-team-tactics",
-  "repo": "cgyudistira/code-agents",
-  "path": "skills/red-team-tactics/SKILL.md",
-  "source": "github.com/cgyudistira/code-agents",
-  "downloaded_at": "2026-01-28T04:27:46.469392Z"
+  "repo": "GrupoUS/gpus",
+  "path": ".agent/skills/red-team-tactics/SKILL.md",
+  "source": "github.com/GrupoUS/gpus",
+  "downloaded_at": "2026-01-29T04:38:01.725879Z"
 }

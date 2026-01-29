@@ -1,37 +1,36 @@
 ---
 name: ui
-description: "Generates UI components and feedback forms. Use when user mentions components, UI, hero sections, forms, feedback, or contact requests. Do NOT load for: authentication features, backend implementation, database operations, or business logic."
+description: "Generates UI components and feedback forms. Use when user mentions コンポーネント, component, UI, ヒーロー, hero, フォーム, form, フィードバック, feedback, 問い合わせ. Do NOT load for: 認証機能, バックエンド実装, データベース操作, ビジネスロジック."
 allowed-tools: ["Read", "Write", "Edit", "Bash"]
+metadata:
+  skillport:
+    category: ui
+    tags: [ui, component, form, feedback]
+    alwaysApply: false
 ---
 
 # UI Skills
 
 UIコンポーネントとフォームの生成を担当するスキル群です。
 
-## 制約の優先順位と適用条件
+## 含まれる小スキル
 
-1. 基本は `references/ui-skills.md` の制約を最優先で適用する。
-2. `references/frontend-design.md` は「尖った/独自/表現強め/ブランド強化」などが**明示**された場合のみ適用する。
-3. UI Skills の MUST/NEVER は原則維持。ただし**ユーザーが明示的に要求した場合のみ**以下の例外を許可する:
-   - グラデーション、発光、強い装飾
-   - アニメーション（追加・拡張）
-   - カスタム easing
+| スキル | 用途 |
+|--------|------|
+| component | UIコンポーネント生成 |
+| feedback | フィードバックフォーム生成 |
 
-## 機能詳細
+## ルーティング
 
-| 機能 | 詳細 |
-|------|------|
-| **制約セット** | See [references/ui-skills.md](references/ui-skills.md) / [references/frontend-design.md](references/frontend-design.md) |
-| **コンポーネント生成** | See [references/component-generation.md](references/component-generation.md) |
-| **フィードバックフォーム** | See [references/feedback-forms.md](references/feedback-forms.md) |
+- コンポーネント生成: component/doc.md
+- フィードバックフォーム: feedback/doc.md
 
 ## 実行手順
 
-1. **制約セットを適用**（優先順位に従う）
-2. **品質判定ゲート**（Step 0）
-3. ユーザーのリクエストを分類
-4. 上記の「機能詳細」から適切な参照ファイルを読む
-5. その内容に従って生成
+1. **品質判定ゲート**（Step 0）
+2. ユーザーのリクエストを分類
+3. 適切な小スキルの doc.md を読む
+4. その内容に従って生成
 
 ### Step 0: 品質判定ゲート（a11y チェックリスト）
 

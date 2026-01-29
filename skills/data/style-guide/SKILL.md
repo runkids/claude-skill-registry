@@ -1,78 +1,40 @@
 ---
 name: style-guide
-description: Apply language-specific style guide rules to your code. Use when writing or reviewing code to ensure consistency with best practices.
+description: Coding style guidelines for NixOS, Neovim, and Git. Use when writing or formatting Nix code, Neovim config, or working with Git workflow.
+user-invocable: true
 ---
 
-# Style Guide Skill
+# Style Guidelines
 
-You are a code style expert. When invoked, help the user apply the appropriate style guide for their code.
+## NixOS/Home-Manager Style
 
-## Trigger Conditions
+- Use 2-space indentation in all files
+- Format Nix files with `nixfmt`
+- Follow functional programming patterns
+- Group related settings in modules
+- Use descriptive names for options
+- Document non-obvious settings with comments
+- When creating new files for Nix flakes, ensure they are tracked by git before testing with nix commands
+  - Untracked files can cause errors like "path '/nix/store/hash-source/path/to/file' does not exist"
+  - Solution: Track files without staging using `git add --intent-to-add path/to/file` or `git add -N path/to/file`
 
-Use this skill when:
+## Neovim Style
 
-- User asks about code style or formatting
-- User wants to review code for style compliance
-- User is writing new code and wants style guidance
-- User mentions: "style guide", "code style", "formatting", "lint"
+- Use Lua for all configuration
+- 2-space indentation, no tabs
+- Leader key is `;`
+- Format with proper whitespace and bracing style
+- Wrap related plugin configs in feature-based groups
+- Prefer native LSP functions over plugin equivalents
 
-## Available Style Guides
+## Git Workflow
 
-Based on the detected language, apply the relevant guide:
-
-### Language Detection
-
-1. Check file extension or code context
-2. Match to appropriate style guide below
-3. Provide specific, actionable guidance
-
-### Python (PEP 8 + Google Style)
-
-- 4 spaces indentation, 80 char lines
-- `snake_case` for functions/variables, `PascalCase` for classes
-- Docstrings with Args/Returns/Raises sections
-- Type hints for public APIs
-
-### TypeScript/JavaScript (Google Style)
-
-- 2 spaces indentation, 80 char lines
-- `const` by default, `let` if needed, never `var`
-- Named exports only, no default exports
-- Semicolons required, single quotes for strings
-
-### Go (Effective Go)
-
-- Run `gofmt` always
-- `MixedCaps` naming, no underscores
-- Short package names, explicit error handling
-- Small interfaces, goroutines for concurrency
-
-### Rust (API Guidelines)
-
-- Run `rustfmt` always
-- `snake_case` for functions, `UpperCamelCase` for types
-- `Result<T, E>` for errors, avoid `unwrap()` in prod
-- Derive common traits: Debug, Clone, PartialEq
-
-### Swift (Apple Guidelines)
-
-- 4 spaces indentation
-- `lowerCamelCase` for functions, `UpperCamelCase` for types
-- Prefer `guard let` for early exits
-- Use `async/await` for concurrency
-
-### Dart (Effective Dart)
-
-- Run `dart format` always
-- `lowerCamelCase` for everything except types
-- Use `///` doc comments for public APIs
-- Prefer `final` for non-reassigned variables
-
-## Response Format
-
-When providing style guidance:
-
-1. Identify the language/context
-2. List specific violations (if any)
-3. Show corrected code examples
-4. Reference the source style guide
+- Create focused, atomic commits
+- Use `hub` as git wrapper
+- Use `lazygit` for interactive Git operations
+- Prefer rebase over merge for linear history
+- Do not include co-authored by Claude information in commits
+- Git config location: `~/.config/git/config`
+- Credential storage: git-credential-manager with GPG backend
+  - Initialize pass: `pass init YOUR_GPG_KEY_ID`
+  - Credentials stored securely with GPG encryption

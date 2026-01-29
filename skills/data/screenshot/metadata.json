@@ -1,7 +1,7 @@
 {
   "name": "screenshot",
-  "repo": "Pjpj42/GridRacer",
-  "path": ".claude/skills/screenshot/SKILL.md",
-  "source": "github.com/Pjpj42/GridRacer",
-  "downloaded_at": "2026-01-28T04:28:55.041338Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/other/screenshot/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-29T04:03:58.347288Z"
 }

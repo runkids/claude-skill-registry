@@ -1,7 +1,7 @@
 {
   "name": "moai-learning-optimizer",
-  "repo": "kivo360/quickhooks",
-  "path": ".claude/skills/moai-learning-optimizer/SKILL.md",
-  "source": "github.com/kivo360/quickhooks",
-  "downloaded_at": "2026-01-28T02:08:44.222849Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-learning-optimizer/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-29T04:39:12.976817Z"
 }

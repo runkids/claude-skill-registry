@@ -1,416 +1,303 @@
 ---
-name: moai-docs-generation
-version: 4.0.0
-created: 2025-11-12
-updated: '2025-11-18'
-status: stable
-tier: specialization
-description: Enhanced docs generation with AI-powered features. Enhanced with Context7
-  MCP for up-to-date documentation.
-allowed-tools: Read, Glob, Grep, WebSearch, WebFetch, mcp__context7__resolve-library-id,
-  mcp__context7__get-library-docs
-primary-agent: doc-syncer
-secondary-agents:
-- alfred
-keywords:
-- docs
-- generation
-- test
-- api
-- spec
-tags:
-- documentation
-orchestration: null
-can_resume: true
-typical_chain_position: terminal
-depends_on: []
-stability: stable
+name: "moai-docs-generation"
+description: "Documentation generation patterns for technical specs, API docs, user guides, and knowledge bases using real tools like Sphinx, MkDocs, TypeDoc, and Nextra. Use when creating docs from code, building doc sites, or automating documentation workflows."
+version: 2.1.0
+category: "workflow"
+modularized: true
+user-invocable: false
+context: fork
+agent: general-purpose
+tags: ['workflow', 'documentation', 'sphinx', 'mkdocs', 'typedoc', 'api-docs', 'static-sites']
+updated: 2026-01-08
+status: "active"
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Grep
+  - Glob
+  - Bash
+  - mcp__context7__resolve-library-id
+  - mcp__context7__get-library-docs
 ---
 
+# Documentation Generation Patterns
 
-# moai-docs-generation
+## Quick Reference (30 seconds)
 
-**Docs Generation**
+Purpose: Generate professional documentation using established tools and frameworks.
 
-> **Primary Agent**: doc-syncer  
-> **Secondary Agents**: alfred  
-> **Version**: 4.0.0  
-> **Keywords**: docs, generation, test, api, spec
+Core Documentation Tools:
+- Python: Sphinx with autodoc, MkDocs with Material theme, pydoc
+- TypeScript/JavaScript: TypeDoc, JSDoc, TSDoc
+- API Documentation: OpenAPI/Swagger from FastAPI/Express, Redoc, Stoplight
+- Static Sites: Nextra (Next.js), Docusaurus (React), VitePress (Vue)
+- Universal: Markdown, MDX, reStructuredText
 
----
-
-## 📖 Progressive Disclosure
-
-### Level 1: Quick Reference (Core Concepts)
-
-Overview
-Brief description of what this guide covers.
+When to Use This Skill:
+- Generating API documentation from code annotations
+- Building documentation sites with search and navigation
+- Creating user guides and technical specifications
+- Automating documentation updates in CI/CD pipelines
+- Converting between documentation formats
 
 ---
 
-### Level 2: Practical Implementation (Common Patterns)
+## Implementation Guide (5 minutes)
 
-Metadata
+### Python Documentation with Sphinx
 
-```yaml
-skill_id: moai-docs-generation
-skill_name: Documentation Generation & Template Management
-version: 1.0.0
-created_date: 2025-11-10
-updated_date: 2025-11-10
-language: english
-word_count: 1400
-triggers:
-  - keywords: [documentation generation, doc template, scaffold, generate docs, api documentation, readme generation]
-  - contexts: [docs-generation, @docs:generate, documentation-template, doc-scaffold]
-agents:
-  - docs-manager
-  - spec-builder
-  - frontend-expert
-  - backend-expert
-freedom_level: high
-context7_references:
-  - url: "https://www.typescriptlang.org/docs/handbook/"
-    topic: "TypeScript Documentation Pattern"
-  - url: "https://github.com/prettier/prettier"
-    topic: "Code Formatting Standards"
-```
+Sphinx Setup and Configuration:
 
----
+Install Sphinx and extensions with pip install sphinx sphinx-autodoc-typehints sphinx-rtd-theme myst-parser
 
-Step-by-Step Tutorial
-### Step 1: [Action]
-Detailed explanation...
+Initialize a Sphinx project by running sphinx-quickstart docs which creates the basic structure.
 
-```code-example```
+Configure conf.py with the following key settings:
+- Set extensions to include autodoc, napoleon, typehints, and myst_parser
+- Configure html_theme to sphinx_rtd_theme for a professional look
+- Add autodoc_typehints set to description for inline type hints
 
-### Step 2: [Next Action]
-...
+Generate API documentation by running sphinx-apidoc with the source directory, outputting to docs/api, then run make html in the docs directory.
 
----
+### Python Documentation with MkDocs
 
-Usage
+MkDocs Material Setup:
 
-### Method: [methodName]
+Install with pip install mkdocs mkdocs-material mkdocstrings mkdocstrings-python
 
-**Signature**:
-\`\`\`typescript
-function methodName(param1: Type1, param2: Type2): ReturnType
-\`\`\`
+Create mkdocs.yml configuration:
+- Set site_name and site_url
+- Configure theme with name material and desired color palette
+- Add plugins including search and mkdocstrings
+- Define nav structure with sections and pages
 
-**Parameters**:
-| Name | Type | Description |
-|------|------|-------------|
-| param1 | Type1 | What it does |
+Use mkdocstrings syntax in Markdown files with ::: module.path to auto-generate API docs from docstrings.
 
-**Returns**: Description of return value
+Serve locally with mkdocs serve, build with mkdocs build, deploy with mkdocs gh-deploy.
 
-**Example**:
-\`\`\`typescript
-const result = methodName(arg1, arg2);
-\`\`\`
+### TypeScript Documentation with TypeDoc
 
-**Throws**: Possible exceptions
+TypeDoc Setup:
 
----
+Install with npm install typedoc --save-dev
 
-Examples
+Add to package.json scripts: typedoc --out docs/api src/index.ts
 
-### Example 1: Basic Usage
-...
+Configure with typedoc.json:
+- Set entryPoints to source files
+- Configure out to docs/api
+- Enable includeVersion and categorizeByGroup
+- Set theme to default or install custom themes
 
-### Example 2: Advanced Usage
-...
+Generate documentation by running npm run docs:generate
 
----
+### JavaScript Documentation with JSDoc
 
-Core Concepts
+JSDoc Setup:
 
-### Concept 1: [Name]
-Explanation with examples.
+Install with npm install jsdoc --save-dev
 
-### Concept 2: [Name]
-Explanation with examples.
+Create jsdoc.json configuration:
+- Set source include paths and includePattern
+- Configure templates and output destination
+- Enable markdown plugin for rich formatting
 
----
+Document functions with JSDoc comments using tags:
+- @param for parameters with type and description
+- @returns for return value documentation
+- @example for usage examples
+- @throws for error documentation
 
-License
-[License Type](LICENSE)
-```
+### OpenAPI/Swagger Documentation
 
-### Section 3: Scaffold Generation
+FastAPI Auto-Documentation:
 
-**Directory Structure Generation**:
+FastAPI provides automatic OpenAPI docs. Access Swagger UI at /docs and ReDoc at /redoc.
 
-```python
-class DocumentationScaffold:
-    def __init__(self, project_name: str):
-        self.project_name = project_name
+Enhance documentation by:
+- Adding docstrings to route handlers
+- Using response_model for typed responses
+- Defining examples in Pydantic model Config class
+- Setting tags for endpoint grouping
+- Adding detailed descriptions in route decorators
 
-    def create_guide_structure(self, guide_name: str) -> None:
-        """Create guide directory and template files"""
-        guide_dir = Path(f"docs/guides/{guide_name}")
-        guide_dir.mkdir(parents=True, exist_ok=True)
+Export OpenAPI spec programmatically with app.openapi() and save to openapi.json.
 
-        # Create index.md with guide template
-        index_path = guide_dir / "index.md"
-        index_path.write_text(GUIDE_TEMPLATE)
+Express with Swagger:
 
-        # Create subdirectories
-        (guide_dir / "examples").mkdir(exist_ok=True)
-        (guide_dir / "images").mkdir(exist_ok=True)
-        (guide_dir / "code-samples").mkdir(exist_ok=True)
+Install swagger-jsdoc and swagger-ui-express.
 
-    def create_api_docs(self, module_name: str) -> None:
-        """Generate API documentation structure"""
-        api_dir = Path(f"docs/api/{module_name}")
-        api_dir.mkdir(parents=True, exist_ok=True)
+Configure swagger-jsdoc with OpenAPI definition and API file paths.
 
-        # Create main API doc
-        api_path = api_dir / "index.md"
-        api_path.write_text(API_TEMPLATE)
+Add @openapi comments to route handlers documenting paths, parameters, and responses.
 
-    def create_multilingual_structure(self, doc_name: str) -> None:
-        """Create docs in ko/, en/, ja/, zh/"""
-        for lang in ["ko", "en", "ja", "zh"]:
-            doc_dir = Path(f"docs/src/{lang}/{doc_name}")
-            doc_dir.mkdir(parents=True, exist_ok=True)
+Serve Swagger UI at /api-docs endpoint.
 
-            doc_path = doc_dir / "index.md"
-            doc_path.write_text(self._get_template_for_lang(lang))
-```
+### Static Documentation Sites
 
-### Section 4: Auto-Documentation from Code
+Nextra (Next.js):
 
-**TypeScript/JavaScript**:
+Reference Skill("moai-library-nextra") for comprehensive Nextra patterns.
 
-```typescript
-/**
- * Calculate sum of two numbers
- * @param a First number
- * @param b Second number
- * @returns Sum of a and b
- * @example
- * const result = sum(2, 3);  // Returns 5
- */
-function sum(a: number, b: number): number {
-    return a + b;
-}
-```
+Key advantages: MDX support, file-system routing, built-in search, theme customization.
 
-Generate documentation:
-```markdown
-### Function: sum
+Create with npx create-nextra-app, configure theme.config.tsx, organize pages in pages directory.
 
-Calculate sum of two numbers
+Docusaurus (React):
 
-**Signature**:
-```typescript
-function sum(a: number, b: number): number
-```
+Initialize with npx create-docusaurus@latest my-docs classic
 
-**Parameters**:
-- `a`: First number
-- `b`: Second number
+Configure in docusaurus.config.js:
+- Set siteMetadata with title, tagline, url
+- Configure presets with docs and blog settings
+- Add themeConfig for navbar and footer
+- Enable search with algolia plugin
 
-**Returns**: Sum of a and b
+Organize documentation in docs folder with category.json files for sidebar structure.
 
-**Example**:
-```typescript
-const result = sum(2, 3);  // Returns 5
-```
-```
+VitePress (Vue):
 
-**Python**:
+Initialize with npm init vitepress
 
-```python
-def calculate_mean(numbers: List[float]) -> float:
-    """
-    Calculate arithmetic mean of numbers.
+Configure in .vitepress/config.js:
+- Set title, description, base path
+- Define themeConfig with nav and sidebar
+- Configure search and social links
 
-    Args:
-        numbers: List of numerical values
-
-    Returns:
-        Arithmetic mean of the values
-
-    Raises:
-        ValueError: If list is empty
-
-    Example:
-        >>> calculate_mean([1, 2, 3])
-        2.0
-    """
-    if not numbers:
-        raise ValueError("Cannot calculate mean of empty list")
-    return sum(numbers) / len(numbers)
-```
-
-### Section 5: Batch Generation
-
-**Generate all project documentation**:
-
-```bash
-# Generate README for each module
-/docs:generate --type readme --scope all
-
-# Generate API documentation from code
-/docs:generate --type api --language typescript
-
-# Create guides for new features
-/docs:generate --type guide --feature-spec SPEC-001
-
-# Generate multilingual structure
-/docs:generate --type i18n --languages ko,en,ja,zh
-```
+Use Markdown with Vue components, code highlighting, and frontmatter.
 
 ---
 
-✅ Validation Checklist
+## Advanced Patterns (10+ minutes)
 
-- [x] Template library comprehensive
-- [x] Scaffold generation patterns included
-- [x] Auto-documentation examples provided
-- [x] Multilingual support documented
-- [x] Code examples included
-- [x] Integration patterns shown
-- [x] English language confirmed
+### Documentation from SPEC Files
 
----
+Pattern for generating documentation from MoAI SPEC files:
 
-### Level 3: Advanced Patterns (Expert Reference)
+Read SPEC file content and extract key sections: id, title, description, requirements, api_endpoints.
 
-> **Note**: Advanced patterns for complex scenarios.
+Generate structured Markdown documentation:
+- Create overview section from description
+- List requirements as feature bullets
+- Document each API endpoint with method, path, and description
+- Add usage examples based on endpoint definitions
 
-**Coming soon**: Deep dive into expert-level usage.
+Save generated docs to appropriate location in docs directory.
 
+### CI/CD Documentation Pipeline
 
----
+GitHub Actions Workflow:
 
-## 🎯 Best Practices Checklist
+Create .github/workflows/docs.yml that triggers on push to main branch when src or docs paths change.
 
-**Must-Have:**
-- ✅ [Critical practice 1]
-- ✅ [Critical practice 2]
+Workflow steps:
+- Checkout repository
+- Setup language runtime (Python, Node.js)
+- Install documentation dependencies
+- Generate documentation using appropriate tool
+- Deploy to GitHub Pages, Netlify, or Vercel
 
-**Recommended:**
-- ✅ [Recommended practice 1]
-- ✅ [Recommended practice 2]
+Example for Python/Sphinx:
+- Install with pip install sphinx sphinx-rtd-theme
+- Generate with sphinx-build -b html docs/source docs/build
+- Deploy using actions-gh-pages action
 
-**Security:**
-- 🔒 [Security practice 1]
+Example for TypeScript/TypeDoc:
+- Install with npm ci
+- Generate with npm run docs:generate
+- Deploy to Pages
 
+### Documentation Validation
 
----
+Link Checking:
 
-## 🔗 Context7 MCP Integration
+Use linkchecker for local link validation in HTML output.
 
-**When to Use Context7 for This Skill:**
+For Markdown, use markdown-link-check in pre-commit hooks.
 
-This skill benefits from Context7 when:
-- Working with [docs]
-- Need latest documentation
-- Verifying technical details
+Spell Checking:
 
-**Example Usage:**
+Use pyspelling with Aspell for automated spell checking.
 
-```python
-# Fetch latest documentation
-from moai_adk.integrations import Context7Helper
+Configure .pyspelling.yml with matrix entries for different file types.
 
-helper = Context7Helper()
-docs = await helper.get_docs(
-    library_id="/org/library",
-    topic="docs",
-    tokens=5000
-)
-```
+Documentation Coverage:
 
-**Relevant Libraries:**
+For Python, use interrogate to check docstring coverage.
 
-| Library | Context7 ID | Use Case |
-|---------|-------------|----------|
-| [Library 1] | `/org/lib1` | [When to use] |
+Configure minimum coverage thresholds in pyproject.toml.
 
+Fail CI builds if coverage drops below threshold.
 
----
+### Multi-Language Documentation
 
-## 📊 Decision Tree
+Internationalization with Nextra:
 
-**When to use moai-docs-generation:**
+Configure i18n in next.config.js with locales array and defaultLocale.
 
-```
-Start
-  ├─ Need docs?
-  │   ├─ YES → Use this skill
-  │   └─ NO → Consider alternatives
-  └─ Complex scenario?
-      ├─ YES → See Level 3
-      └─ NO → Start with Level 1
-```
+Create locale-specific pages in pages/[locale] directory.
 
+Use next-intl or similar for translations.
+
+Internationalization with Docusaurus:
+
+Configure i18n in docusaurus.config.js with defaultLocale and locales.
+
+Use docusaurus write-translations to generate translation files.
+
+Organize translations in i18n/[locale] directory structure.
 
 ---
 
-## 🔄 Integration with Other Skills
+## Works Well With
 
-**Prerequisite Skills:**
-- Skill("prerequisite-1") – [Why needed]
+Skills:
+- moai-library-nextra - Comprehensive Nextra documentation framework patterns
+- moai-lang-python - Python docstring conventions and typing
+- moai-lang-typescript - TypeScript/JSDoc documentation patterns
+- moai-domain-backend - API documentation for backend services
+- moai-workflow-project - Project documentation integration
 
-**Complementary Skills:**
-- Skill("complementary-1") – [How they work together]
+Agents:
+- manager-docs - Documentation workflow orchestration
+- expert-backend - API endpoint documentation
+- expert-frontend - Component documentation
 
-**Next Steps:**
-- Skill("next-step-1") – [When to use after this]
-
-
----
-
-## 📚 Official References
-
-Metadata
-
-```yaml
-skill_id: moai-docs-generation
-skill_name: Documentation Generation & Template Management
-version: 1.0.0
-created_date: 2025-11-10
-updated_date: 2025-11-10
-language: english
-word_count: 1400
-triggers:
-  - keywords: [documentation generation, doc template, scaffold, generate docs, api documentation, readme generation]
-  - contexts: [docs-generation, @docs:generate, documentation-template, doc-scaffold]
-agents:
-  - docs-manager
-  - spec-builder
-  - frontend-expert
-  - backend-expert
-freedom_level: high
-context7_references:
-  - url: "https://www.typescriptlang.org/docs/handbook/"
-    topic: "TypeScript Documentation Pattern"
-  - url: "https://github.com/prettier/prettier"
-    topic: "Code Formatting Standards"
-```
+Commands:
+- /moai:3-sync - Documentation synchronization with code changes
 
 ---
 
-## 📈 Version History
+## Tool Reference
 
-** .0** (2025-11-12)
-- ✨ Context7 MCP integration
-- ✨ Progressive Disclosure structure
-- ✨ 10+ code examples
-- ✨ Primary/secondary agents defined
-- ✨ Best practices checklist
-- ✨ Decision tree
-- ✨ Official references
+Python Documentation:
+- Sphinx: https://www.sphinx-doc.org/
+- MkDocs: https://www.mkdocs.org/
+- MkDocs Material: https://squidfunk.github.io/mkdocs-material/
+- mkdocstrings: https://mkdocstrings.github.io/
 
+JavaScript/TypeScript Documentation:
+- TypeDoc: https://typedoc.org/
+- JSDoc: https://jsdoc.app/
+- TSDoc: https://tsdoc.org/
 
+API Documentation:
+- OpenAPI Specification: https://spec.openapis.org/
+- Swagger UI: https://swagger.io/tools/swagger-ui/
+- Redoc: https://redocly.github.io/redoc/
+- Stoplight: https://stoplight.io/
+
+Static Site Generators:
+- Nextra: https://nextra.site/
+- Docusaurus: https://docusaurus.io/
+- VitePress: https://vitepress.dev/
+
+Style Guides:
+- Google Developer Documentation Style Guide: https://developers.google.com/style
+- Microsoft Writing Style Guide: https://learn.microsoft.com/style-guide/
 
 ---
 
-**Generated with**: MoAI-ADK Skill Factory    
-**Last Updated**: 2025-11-12  
-**Maintained by**: Primary Agent (doc-syncer)
+Version: 2.0.0
+Last Updated: 2025-12-30

@@ -1,13 +1,9 @@
 ---
 name: nav-init
-description: Initialize SuperNavigator (OS + App layers) documentation structure in a project. Auto-invokes when user says "Initialize SuperNavigator", "Initialize Navigator", "Set up SuperNavigator", etc.
+description: Initialize Navigator documentation structure in a project. Auto-invokes when user says "Initialize Navigator", "Set up Navigator", "Create Navigator structure", or "Bootstrap Navigator".
 allowed-tools: Write, Bash, Read, Glob
-version: 6.0.0
+version: 1.0.0
 triggers:
-  - "initialize supernavigator"
-  - "init supernavigator"
-  - "set up supernavigator"
-  - "setup supernavigator"
   - "initialize navigator"
   - "init navigator"
   - "set up navigator"
@@ -17,27 +13,18 @@ triggers:
   - "start navigator project"
 ---
 
-# SuperNavigator Initialization Skill
+# Navigator Initialization Skill
 
 ## Purpose
 
-Creates the SuperNavigator documentation structure (`.agent/`) in a new project, copies templates, and sets up initial configuration for both OS Layer (Navigator context management) and App Layer (Superpowers workflows).
+Creates the Navigator documentation structure (`.agent/`) in a new project, copies templates, and sets up initial configuration.
 
 ## When This Skill Auto-Invokes
 
-- "Initialize SuperNavigator in this project"
-- "Set up SuperNavigator"
-- "Initialize Navigator in this project" (legacy, still works)
-- "Create .agent folder for SuperNavigator"
-- "Bootstrap SuperNavigator for my project"
-
-## SuperNavigator Layered Architecture
-
-This skill initializes **both layers**:
-- **OS Layer** (Navigator): Context management, Theory of Mind, session persistence
-- **App Layer** (Superpowers): TDD workflows, code review, systematic debugging
-
-Both layers communicate via shared `.agent/` data store with implicit integration.
+- "Initialize Navigator in this project"
+- "Set up Navigator documentation structure"
+- "Create .agent folder for Navigator"
+- "Bootstrap Navigator for my project"
 
 ## What This Skill Does
 
@@ -118,52 +105,17 @@ Copy from plugin's `templates/` directory to `.agent/`:
 - Replace `${TECH_STACK}` with detected stack
 - Replace `${DATE}` with current date
 
-**`.nav-config.json`** (SuperNavigator enhanced):
+**`.nav-config.json`**:
 ```json
 {
-  "version": "6.0.0",
+  "version": "4.6.0",
   "project_name": "${PROJECT_NAME}",
   "tech_stack": "${TECH_STACK}",
-  "layers": {
-    "os_layer_enabled": true,
-    "app_layer_enabled": true
-  },
   "project_management": "none",
   "task_prefix": "TASK",
   "team_chat": "none",
   "auto_load_navigator": true,
-  "compact_strategy": "conservative",
-  "tom_features": {
-    "verification_checkpoints": true,
-    "confirmation_threshold": "high-stakes",
-    "profile_enabled": true,
-    "diagnose_enabled": true,
-    "belief_anchors": false
-  },
-  "loop_mode": {
-    "enabled": false,
-    "max_iterations": 5,
-    "stagnation_threshold": 3,
-    "exit_requires_explicit_signal": true,
-    "show_status_block": true
-  },
-  "app_layer_features": {
-    "tdd_enforced": true,
-    "git_worktrees_enabled": true,
-    "subagent_development": true,
-    "systematic_debugging": true
-  },
-  "implicit_integration": {
-    "auto_save_markers": true,
-    "auto_compact_threshold": 0.85,
-    "auto_update_nav_tasks": true,
-    "trigger_boundaries": [
-      "before_brainstorming",
-      "after_plan_complete",
-      "after_code_review",
-      "on_branch_finish"
-    ]
-  }
+  "compact_strategy": "conservative"
 }
 ```
 
@@ -249,33 +201,27 @@ Add to `.gitignore` if not present:
 ### 8. Success Message
 
 ```
-✅ SuperNavigator Initialized Successfully!
+✅ Navigator Initialized Successfully!
 
 Created structure:
-  📁 .agent/                    SuperNavigator documentation
-  📁 .agent/tasks/              Implementation plans (App layer writes, OS layer indexes)
+  📁 .agent/                    Navigator documentation
+  📁 .agent/tasks/              Implementation plans
   📁 .agent/system/             Architecture docs
   📁 .agent/sops/               Standard procedures
   📁 .agent/grafana/            Metrics dashboard
-  📄 .agent/.nav-config.json    Configuration (both layers enabled)
+  📄 .agent/.nav-config.json    Configuration
   📁 .claude/                   Claude Code hooks
   📄 .claude/settings.json      Token monitoring config
-  📄 CLAUDE.md                  Updated with SuperNavigator workflow
-
-Layers initialized:
-  ✓ OS Layer (Navigator): Context management, Theory of Mind, Loop Mode
-  ✓ App Layer (Superpowers): TDD, code review, systematic debugging
-  ✓ Implicit integration: Auto-markers, auto-compact, workflow boundaries
+  📄 CLAUDE.md                  Updated with Navigator workflow
 
 Next steps:
-  1. Start session: "Start my SuperNavigator session"
+  1. Start session: "Start my Navigator session"
   2. Optional: Enable metrics - see .agent/sops/integrations/opentelemetry-setup.md
   3. Optional: Launch Grafana - cd .agent/grafana && docker compose up -d
 
 Token monitoring is active - you'll be warned when approaching context limits.
 
 Documentation: Read .agent/DEVELOPMENT-README.md
-Learn more: README.md (layered architecture)
 ```
 
 ## Error Handling

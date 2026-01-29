@@ -1,7 +1,7 @@
 {
   "name": "ralph-tui",
-  "repo": "hathbanger/fridas-choppers-gtm",
-  "path": ".claude/skills/ralph-tui/SKILL.md",
-  "source": "github.com/hathbanger/fridas-choppers-gtm",
-  "downloaded_at": "2026-01-28T04:00:17.936199Z"
+  "repo": "carmandale/agent-config",
+  "path": "skills/tools/ralph-tui/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-29T01:33:42.782596Z"
 }

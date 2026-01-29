@@ -1,9 +1,7 @@
 {
   "name": "supabase-local-dev-loop",
-  "description": "Configure Supabase local development with hot reload and testing.Use when setting up a development environment, configuring test workflows,or establishing a fast iteration cycle with Supabase.Trigger ",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/supabase-local-dev-loop/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-29T03:34:17.192609Z"
 }

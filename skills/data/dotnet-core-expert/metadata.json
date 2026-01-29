@@ -1,7 +1,7 @@
 {
   "name": "dotnet-core-expert",
-  "repo": "hainamchung/agent-assistant",
+  "repo": "Jeffallan/claude-skills",
   "path": "skills/dotnet-core-expert/SKILL.md",
-  "source": "github.com/hainamchung/agent-assistant",
-  "downloaded_at": "2026-01-28T02:13:22.714828Z"
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-29T02:13:27.213221Z"
 }

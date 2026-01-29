@@ -1,194 +1,150 @@
 ---
-jupyter:
-  jupytext:
-    formats: ipynb,md
-    text_representation:
-      extension: .md
-      format_name: markdown
-      format_version: '1.3'
-      jupytext_version: 1.16.1
-  kernelspec:
-    display_name: ds-aa-cub-hurricanes
-    language: python
-    name: ds-aa-cub-hurricanes
+name: exploration
+description: "Code exploration strategies for understanding unfamiliar codebases. Use when exploring unknown code, debugging, or analyzing architecture."
+allowed-tools: Read, Grep, Glob, Task
 ---
 
-# CHIRPS-GEFS / CHIRPS / IMERG comparison
+# 代码库探索
 
-```python
-%load_ext jupyter_black
-%load_ext autoreload
-%autoreload 2
+本技能提供代码库探索的通用方法论，包含两种策略模式。
+
+## 子文件
+
+- [isolated-research.md](isolated-research.md) - 隔离研究（快速一次性探索）
+- [iterative-retrieval.md](iterative-retrieval.md) - 渐进式检索（多轮迭代探索）
+
+## 策略选择
+
+| 场景                 | 推荐策略            | 原因                     |
+| -------------------- | ------------------- | ------------------------ |
+| 快速了解某个模块     | isolated-research   | 一次性探索，不污染上下文 |
+| 理解复杂的跨模块流程 | iterative-retrieval | 需要多轮精炼             |
+| 简单的文件/函数定位  | 直接 Grep/Glob      | 无需完整探索流程         |
+| 新项目初始理解       | iterative-retrieval | 需要建立全局认知         |
+| 调试特定 Bug         | isolated-research   | 聚焦单一问题             |
+| 架构分析和文档化     | iterative-retrieval | 需要完整依赖图           |
+
+---
+
+## 通用探索方法
+
+### 搜索工具选择
+
+| 目标               | 工具 | 示例                      |
+| ------------------ | ---- | ------------------------- |
+| 按文件名/路径查找  | Glob | `**/auth/**/*.ts`         |
+| 按代码内容查找     | Grep | `"function authenticate"` |
+| 读取完整文件       | Read | 直接读取已知路径文件      |
+| 深度子任务（隔离） | Task | 派发子代理执行            |
+
+### 搜索策略模式
+
+```markdown
+## 入口点搜索
+
+- 路由/API 端点
+- 中间件
+- main/index 文件
+- 配置文件
+
+## 定义搜索
+
+- class/function 定义
+- type/interface 定义
+- 常量/枚举定义
+
+## 使用搜索
+
+- import/require 语句
+- 函数调用点
+- 类实例化
+
+## 依赖搜索
+
+- package.json
+- import 图谱
+- 模块边界
 ```
 
-```python
-import ocha_stratus as stratus
-import matplotlib.pyplot as plt
-import pandas as pd
+---
 
-from src.datasources import chirps_gefs
-from src.constants import *
+## 输出格式（通用）
+
+所有探索结果应遵循统一格式：
+
+```markdown
+## 探索报告
+
+### 问题/目标
+
+[描述探索的目标]
+
+### 关键发现
+
+| 文件                | 行号 | 功能说明       |
+| ------------------- | ---- | -------------- |
+| `src/auth/login.ts` | 42   | 登录验证入口   |
+| `src/lib/jwt.ts`    | 15   | Token 生成逻辑 |
+
+### 依赖关系
+
+[可选：模块依赖图、调用链]
+
+### 结论
+
+[对问题的回答]
+
+### 后续建议
+
+[可选：建议的下一步动作]
 ```
 
-## For storms specifically
+---
 
-```python
-blob_name = f"{PROJECT_PREFIX}/processed/fcast_obsv_combined_stats.parquet"
-df_stats = stratus.load_parquet_from_blob(blob_name)
-```
+## 子策略
 
-```python
-blob_name = f"{PROJECT_PREFIX}/processed/chirps/chirps_stats.parquet"
-df_stats_chirps = stratus.load_parquet_from_blob(blob_name)
-```
+### 1. isolated-research（隔离研究）
 
-```python
-df_stats = df_stats.merge(df_stats_chirps)
-```
+**特点**：
 
-```python
-df_stats
-```
+- 在子代理中执行，不污染主上下文
+- 一次性任务，快速返回
+- 适合聚焦的单一问题
 
-```python
-df_stats_corr = df_stats.corr(numeric_only=True)
-```
+详细指南参阅 `isolated-research.md`
 
-```python
-def plot_rain_comparison(xcol, ycol):
-    fig, ax = plt.subplots(dpi=150, figsize=(7, 7))
-    df_stats.plot(x=xcol, y=ycol, ax=ax, linewidth=0, legend=False)
-    xthresh = df_stats[xcol].quantile(2 / 3)
-    ythresh = df_stats[ycol].quantile(2 / 3)
+### 2. iterative-retrieval（迭代检索）
 
-    df_stats["P"] = df_stats[xcol] >= xthresh
-    df_stats["TP"] = (df_stats[ycol] >= ythresh) & df_stats["P"]
+**特点**：
 
-    tpr = df_stats["TP"].sum() / df_stats["P"].sum()
+- 多轮迭代，逐步精炼
+- 置信度评估驱动
+- 适合复杂跨模块问题
 
-    ax.axhline(ythresh)
-    ax.axvline(xthresh)
-    for _, row in df_stats.iterrows():
-        ax.annotate(
-            row["name"].capitalize() + "\n" + str(row["year"]),
-            (row[xcol], row[ycol]),
-            ha="center",
-            va="center",
-        )
-    ax.set_ylim(bottom=0)
-    ax.set_xlim(left=0)
-    corr = df_stats_corr.loc[xcol, ycol]
-    ax.set_title(f"{xcol}\n{corr=:.02f}\n{tpr=:.02f}")
-    return fig, ax
-```
+详细指南参阅 `iterative-retrieval.md`
 
-```python
-aggs = ["mean"] + [f"q{x}" for x in [50, 80, 90, 95]]
+---
 
-for agg in aggs:
-    xcol, ycol = agg, f"{agg}_obsv"
-    fig, ax = plot_rain_comparison(xcol, ycol)
-    ax.set_xlabel("CHIRPS-GEFS")
-    ax.set_ylabel("IMERG")
-```
+## 与角色系统配合
 
-```python
-xcol, ycol = "mean", "chirps_roll2_mean"
-fig, ax = plot_rain_comparison(xcol, ycol)
-ax.set_xlabel("CHIRPS-GEFS")
-ax.set_ylabel("CHIRPS")
-```
+| 角色     | 探索场景           | 推荐策略            |
+| -------- | ------------------ | ------------------- |
+| `/pm`    | 理解现有功能       | isolated-research   |
+| `/lead`  | 架构分析、技术设计 | iterative-retrieval |
+| `/dev`   | 实现前了解相关代码 | isolated-research   |
+| `/qa`    | 理解测试范围       | isolated-research   |
+| `/debug` | 追踪 Bug 根因      | iterative-retrieval |
 
-```python
-xcol, ycol = "mean_obsv", "chirps_roll2_mean"
-fig, ax = plot_rain_comparison(xcol, ycol)
-ax.set_xlabel("IMERG")
-ax.set_ylabel("CHIRPS")
-```
+---
 
-## In general daily
+## 最佳实践
 
-```python
-blob_name = f"{PROJECT_PREFIX}/processed/chirps/20240524_chirps_daily_historical_cuba.csv"
-df_daily_chirps = stratus.load_csv_from_blob(blob_name, parse_dates=["date"])
-df_daily_chirps = df_daily_chirps[["value", "date"]].rename(
-    columns={"date": "valid_date"}
-)
-```
+1. **先评估再选择** - 根据问题复杂度选择策略
+2. **记录路径** - 始终包含文件路径和行号
+3. **限制范围** - 明确探索边界，避免发散
+4. **输出结构化** - 使用统一格式便于后续使用
+5. **复用结果** - 探索结果可保存到 memory-bank
 
-```python
-df_daily_chirps = df_daily_chirps.sort_values("valid_date")
-```
+---
 
-```python
-df_daily_chirps["roll2"] = df_daily_chirps["value"].rolling(2).sum()
-```
-
-```python
-df_daily_gefs = chirps_gefs.load_processed_chirps_gefs(variable_name="mean")
-df_daily_gefs = df_daily_gefs.drop(columns="variable").rename(
-    columns={"value": "roll2"}
-)
-```
-
-```python
-df_daily = df_daily_chirps.merge(
-    df_daily_gefs, on="valid_date", suffixes=("_o", "_f")
-)
-```
-
-```python
-df_daily["leadtime"] = df_daily["valid_date"] - df_daily["issued_date"]
-```
-
-```python
-xymax = df_daily[["roll2_f", "roll2_o"]].max().max()
-
-dicts = []
-
-xcol = "roll2_f"
-ycol = "roll2_o"
-
-for lt, group in df_daily.groupby("leadtime"):
-    if lt.days == 0:
-        continue
-    fig, ax = plt.subplots(figsize=(7, 7))
-    group.plot(
-        x=xcol,
-        y=ycol,
-        ax=ax,
-        linewidth=0,
-        marker=".",
-        markersize=1,
-        alpha=0.5,
-        legend=False,
-    )
-
-    xthresh = group[xcol].quantile(2 / 3)
-    ythresh = group[ycol].quantile(2 / 3)
-
-    group["P"] = group[xcol] >= xthresh
-    group["TP"] = (group[ycol] >= ythresh) & group["P"]
-
-    tpr = group["TP"].sum() / group["P"].sum()
-    corr = group.corr().loc[xcol, ycol]
-    ax.set_xlim((0, xymax))
-    ax.set_ylim((0, xymax))
-    ax.set_xlabel("CHIRPS-GEFS")
-    ax.set_ylabel("CHIRPS")
-    ax.set_title(f"leadtime={lt.days} days\n{corr=:0.2f}")
-
-    dicts.append({"lt": lt.days, "corr": corr, "tpr": tpr})
-```
-
-```python
-df_metrics = pd.DataFrame(dicts)
-```
-
-```python
-df_metrics[df_metrics["lt"] <= 9].set_index("lt").plot()
-```
-
-```python
-df_daily.groupby("leadtime")["roll2_f"].mean().plot()
-```
+**核心理念**：探索是理解的基础，好的探索策略能显著提升开发效率。

@@ -3,7 +3,7 @@ name: politique-confidentialite-malik-taiar
 description: Guide pour la rédaction de politiques de confidentialité conformes au RGPD. Contient les recommandations CNIL 2020, un template de référence et les bonnes pratiques. À utiliser lors de la rédaction ou révision d'une politique de confidentialité pour un site web ou une application.
 metadata:
   author: Malik Taiar
-  license: Apache 2.0
+  license: AGPL-3.0
 ---
 
 # Guide des Politiques de Confidentialité - RGPD

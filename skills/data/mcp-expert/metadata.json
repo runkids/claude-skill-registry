@@ -1,12 +1,7 @@
 {
   "name": "mcp-expert",
-  "description": "Expert in Model Context Protocol (MCP) server development. Use when building MCP servers, creating tools for Claude, implementing resources, debugging MCP connections, or integrating databases with Cl",
-  "repo": "fabriciofs/mcp-sql-server",
-  "category": "development",
-  "tags": [
-    "mcp",
-    "expert"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "brixtonpham/claude-config",
+  "path": "skills/mcp-expert/SKILL.md",
+  "source": "github.com/brixtonpham/claude-config",
+  "downloaded_at": "2026-01-29T04:18:26.535560Z"
 }

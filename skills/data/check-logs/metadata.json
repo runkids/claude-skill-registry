@@ -1,12 +1,7 @@
 {
   "name": "check-logs",
-  "description": "Query and analyze logs using Grafana Loki for the Kagenti platform, search for errors, and investigate issues",
   "repo": "redhat-et/kagenti-demo-deployment",
-  "category": "development",
-  "tags": [
-    "check",
-    "logs"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/check-logs/SKILL.md",
+  "source": "github.com/redhat-et/kagenti-demo-deployment",
+  "downloaded_at": "2026-01-29T03:52:14.170389Z"
 }

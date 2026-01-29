@@ -1,71 +1,80 @@
 ---
-name: playwright-e2e
-description: Visual E2E testing workflow for frontend UI changes. Use after modifying Svelte components, layouts, or styles to verify the UI renders correctly.
-allowed-tools: Bash, Read, Glob
+name: Playwright E2E Testing
+description: Deep integration with Playwright for browser automation and end-to-end testing
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
 ---
 
-# Playwright E2E Testing
+# Playwright E2E Testing Skill
 
-Visual testing workflow for the Strieber chat UI frontend.
+## Overview
 
-## When to Use
+This skill provides expert-level capabilities for Playwright-based end-to-end testing, enabling comprehensive browser automation, test generation, and result analysis.
 
-After making changes to:
-- Svelte components (`frontend/src/**/*.svelte`)
-- CSS/styles (`frontend/src/app.css`, Tailwind classes)
-- Layout structure
-- Any visible UI element
+## Capabilities
 
-## Run Tests
+### Test Execution
+- Execute Playwright tests with custom configurations
+- Run tests in headed/headless modes
+- Configure parallel execution and sharding
+- Handle browser contexts and viewport settings
 
-```bash
-docker compose run --rm playwright-test
+### Code Generation
+- Generate Page Object classes from page analysis
+- Create test code from user flow descriptions
+- Implement reusable test utilities and helpers
+
+### Debugging & Analysis
+- Debug test failures with trace analysis
+- Analyze Playwright reports and screenshots
+- Identify flaky test patterns
+- Provide remediation recommendations
+
+### Network & Mocking
+- Handle network interception and mocking
+- Configure API response stubs
+- Implement request/response validation
+
+### Cross-Browser Support
+- Configure tests for Chrome, Firefox, Safari, Edge
+- Handle browser-specific quirks
+- Implement responsive testing across viewports
+
+## Target Processes
+
+- `e2e-test-suite.js` - Full E2E test suite implementation
+- `cross-browser-testing.js` - Cross-browser compatibility testing
+- `visual-regression.js` - Visual regression with Playwright screenshots
+- `accessibility-testing.js` - Accessibility testing with axe-playwright
+
+## Dependencies
+
+- `@playwright/test` - Playwright test runner
+- `playwright` - Browser automation library
+- Node.js 18+
+
+## Usage Example
+
+```javascript
+{
+  kind: 'skill',
+  skill: {
+    name: 'playwright-e2e',
+    context: {
+      action: 'execute-tests',
+      testPath: 'tests/e2e/**/*.spec.ts',
+      browsers: ['chromium', 'firefox'],
+      parallel: true
+    }
+  }
+}
 ```
 
-This builds the production bundle and runs Playwright tests in headless Chromium.
+## Configuration
 
-## View Screenshots
-
-After tests complete, read the screenshots:
-
-```
-frontend/test-results/screenshots/layout-desktop.png  # 1280x720 desktop view
-frontend/test-results/screenshots/layout-mobile.png   # 375x667 mobile view
-```
-
-Use the Read tool on these PNG files to visually verify the UI.
-
-## Verification Checklist
-
-1. Layout renders correctly (sidebar, main area)
-2. Colors/theme applied properly
-3. Responsive behavior works (mobile hides sidebar)
-4. No visual regressions from previous state
-5. Text is readable and properly positioned
-
-## Adding New Tests
-
-Create tests in `frontend/e2e/<feature>.spec.ts`:
-
-```typescript
-import { test, expect } from '@playwright/test';
-
-test('my feature test', async ({ page }) => {
-  await page.goto('/');
-
-  // Take screenshot for visual verification
-  await page.screenshot({
-    path: 'test-results/screenshots/my-feature.png',
-    fullPage: true
-  });
-
-  // Add assertions
-  await expect(page.locator('.my-element')).toBeVisible();
-});
-```
-
-## Test Locations
-
-- Config: `frontend/playwright.config.ts`
-- Tests: `frontend/e2e/*.spec.ts`
-- Results: `frontend/test-results/` (gitignored)
+The skill respects `playwright.config.ts` or `playwright.config.js` in the project root and can override settings as needed for specific test runs.

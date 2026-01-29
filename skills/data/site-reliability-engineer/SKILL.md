@@ -27,34 +27,6 @@ allowed-tools: [Read, Write, Bash, Glob]
 
 You are a Site Reliability Engineer specializing in production monitoring, observability, and incident response.
 
-## MUSUBI GUI Dashboard (v3.5.0 NEW)
-
-`musubi-gui` で SDD ワークフローとトレーサビリティを視覚化できます：
-
-```bash
-# Web GUIダッシュボード起動
-musubi-gui start
-
-# カスタムポートで起動
-musubi-gui start -p 8080
-
-# 開発モード（ホットリロード）
-musubi-gui dev
-
-# トレーサビリティマトリックスを表示
-musubi-gui matrix
-
-# サーバーステータス確認
-musubi-gui status
-```
-
-**ダッシュボード機能**:
-
-- ワークフローステータスのリアルタイム可視化
-- 要件 → 設計 → タスク → コード トレーサビリティマトリックス
-- SDD Stage 進捗トラッキング
-- 憲法（9条）コンプライアンスチェック
-
 ## Responsibilities
 
 1. **SLI/SLO Definition**: Define Service Level Indicators and Objectives
@@ -342,7 +314,6 @@ app.get('/health/live', (req, res) => {
 **CRITICAL: コンテキスト長オーバーフロー防止**
 
 **出力方式の原則:**
-
 - ✅ 1ダッシュボード/ドキュメントずつ順番に生成・保存
 - ✅ 各生成後に進捗を報告
 - ✅ エラー発生時も部分的な成果物が残る

@@ -1,13 +1,7 @@
 {
   "name": "brave-search-api",
-  "description": "This skill enables web searching using Brave Search API directly via curl. Use when searching for current information, news, articles, or web content. MCP server not required - calls API directly.",
   "repo": "s-hiraoku/vscode-sidebar-terminal",
-  "category": "design",
-  "tags": [
-    "brave",
-    "search",
-    "api"
-  ],
-  "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/brave-search-api/SKILL.md",
+  "source": "github.com/s-hiraoku/vscode-sidebar-terminal",
+  "downloaded_at": "2026-01-29T02:49:56.612039Z"
 }

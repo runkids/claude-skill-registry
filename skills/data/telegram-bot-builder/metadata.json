@@ -1,9 +1,7 @@
 {
   "name": "telegram-bot-builder",
-  "description": "Build Telegram bots in Node.js. Use when a request mentions Telegram bot, BotFather, bot token, webhook, long polling, commands, inline keyboards, callback queries, or handling Telegram Bot API update",
-  "repo": "paulpham157/cloudFall",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "cgyudistira/code-agents",
+  "path": "skills/telegram-bot-builder/SKILL.md",
+  "source": "github.com/cgyudistira/code-agents",
+  "downloaded_at": "2026-01-29T01:02:57.853490Z"
 }

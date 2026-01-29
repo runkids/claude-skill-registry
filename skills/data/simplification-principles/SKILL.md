@@ -1,6 +1,6 @@
 ---
 name: simplification-principles
-description: "Apply simplification principles (Occam's Razor). Use when: Debugging complex issues, evaluating competing theories, or simplifying designs. Not for: Ignoring necessary complexity or oversimplifying."
+description: "Apply simplification principles (Occam's Razor) when debugging complex issues, evaluating competing theories, or simplifying designs. Not for ignoring necessary complexity or oversimplifying."
 ---
 
 # Simplification Principles
@@ -10,6 +10,7 @@ Find the simplest explanation that accounts for all the facts. Among competing h
 ## Core Pattern
 
 Apply Occam's Razor by:
+
 1. Identifying the problem or phenomenon to explain
 2. Listing all possible explanations
 3. Counting assumptions required for each explanation
@@ -21,6 +22,7 @@ Apply Occam's Razor by:
 ## When to Use
 
 Use this principle when:
+
 - Debugging complex issues
 - Diagnosing problems
 - Evaluating competing theories
@@ -38,6 +40,7 @@ Use this principle when:
 ## Step-by-Step Process
 
 ### Step 1: List all facts
+
 ```
 **Known Facts:**
 1. [Observable fact 1]
@@ -46,6 +49,7 @@ Use this principle when:
 ```
 
 ### Step 2: Generate explanations
+
 ```
 **Explanation A**: [Description]
 Assumptions: [List assumptions]
@@ -58,9 +62,11 @@ Assumptions: [List assumptions]
 ```
 
 ### Step 3: Count assumptions
+
 - Fewer assumptions = more likely to be correct
 
 ### Step 4: Verify the simple explanation
+
 - Does it actually explain all the facts?
 - Any contradictions or gaps?
 
@@ -71,6 +77,7 @@ Assumptions: [List assumptions]
 ### Example 1: Debugging
 
 **Facts**:
+
 1. API returns 500 error
 2. Error occurs only for requests with > 100 items
 3. Error started after recent deployment
@@ -78,23 +85,26 @@ Assumptions: [List assumptions]
 
 **Explanations**:
 
-*A) Complex conspiracy*:
+_A) Complex conspiracy_:
+
 - Database was compromised
 - Hacker is targeting large requests specifically
 - Security team knows and hasn't told us
-Assumptions: 4 (very unlikely)
+  Assumptions: 4 (very unlikely)
 
-*B) Configuration issue*:
+_B) Configuration issue_:
+
 - Request size limit was lowered in recent deployment
 - Large requests exceed new limit
 - Error handler returns 500 for size limit
-Assumptions: 3 (possible)
+  Assumptions: 3 (possible)
 
-*C) Simple bug*:
+_C) Simple bug_:
+
 - Recent deployment added code that crashes on large arrays
 - The bug is in the endpoint handler only
 - No other endpoints have this code path
-Assumptions: 2 (most likely)
+  Assumptions: 2 (most likely)
 
 **Winner**: Explanation C - Simple bug in recent deployment
 
@@ -103,6 +113,7 @@ Assumptions: 2 (most likely)
 ### Example 2: User Behavior
 
 **Facts**:
+
 1. Users are abandoning checkout at payment step
 2. Abandonment rate increased last week
 3. No UI changes were made
@@ -110,23 +121,26 @@ Assumptions: 2 (most likely)
 
 **Explanations**:
 
-*A) Market shift*:
+_A) Market shift_:
+
 - Economy changed last week
 - Users suddenly can't afford products
 - This affects only checkout step
-Assumptions: 4 (unconvincing)
+  Assumptions: 4 (unconvincing)
 
-*B) Technical issue*:
+_B) Technical issue_:
+
 - Payment provider had outage last week
 - Some users experienced errors
 - They're now hesitant to complete payment
-Assumptions: 3 (possible)
+  Assumptions: 3 (possible)
 
-*C) Simple change*:
+_C) Simple change_:
+
 - Payment processing time increased last week
 - Users think it's broken and leave
 - Nothing else changed
-Assumptions: 2 (most likely)
+  Assumptions: 2 (most likely)
 
 **Winner**: Explanation C - Payment got slower
 
@@ -138,17 +152,19 @@ Assumptions: 2 (most likely)
 
 **Explanations**:
 
-*A) Build notification microservice with queue, workers, retry logic, multiple channels, templates, preferences, scheduling, analytics*:
+_A) Build notification microservice with queue, workers, retry logic, multiple channels, templates, preferences, scheduling, analytics_:
+
 - Complex architecture
 - Multiple systems to build and maintain
 - Many moving parts
-Assumptions: Many (complexity for its own sake)
+  Assumptions: Many (complexity for its own sake)
 
-*B) Use existing email service, add simple notification table*:
+_B) Use existing email service, add simple notification table_:
+
 - Single database table
 - Simple cron job to send
 - Email service handles delivery
-Assumptions: Few (sufficient for current needs)
+  Assumptions: Few (sufficient for current needs)
 
 **Winner**: Explanation B - Simple solution
 
@@ -162,6 +178,7 @@ After analysis, produce structured output:
 # Occam's Razor Analysis: [Problem]
 
 ## Known Facts
+
 1. [Observable fact 1]
 2. [Observable fact 2]
 3. [Observable fact 3]
@@ -169,51 +186,64 @@ After analysis, produce structured output:
 ## Possible Explanations
 
 ### Explanation A: [Name]
+
 **Description**: [What this explanation proposes]
 **Assumptions** (count: N):
+
 - [Assumption 1]
 - [Assumption 2]
 - [Assumption 3]
 
 ### Explanation B: [Name]
+
 **Description**: [What this explanation proposes]
 **Assumptions** (count: M):
+
 - [Assumption 1]
 - [Assumption 2]
 
 ### Explanation C: [Name]
+
 **Description**: [What this explanation proposes]
 **Assumptions** (count: P):
+
 - [Assumption 1]
 
 ## Simplest Explanation
+
 **[Winning explanation]** - [X assumptions]
 
 **Why it's simplest**: [Fewest assumptions, most direct]
 
 **Verification**:
+
 - ✓ Explains fact 1
 - ✓ Explains fact 2
 - ✓ Explains fact 3
 
 ## Recommended Action
+
 [What to do based on this explanation]
 
 ## Confidence
+
 [High/Medium/Low] - [Reason for confidence level]
 ```
 
 ## Recognition Questions
 
 **Before applying**:
+
 - "What are the observable facts?"
 - "Am I distinguishing facts from assumptions?"
 
 **During analysis**:
+
 - "How many assumptions does this explanation require?"
 - "Is there evidence for each assumption?"
 
 **After choosing**:
+
 - "Does this actually explain ALL the facts?"
 - "Am I choosing simple because it's easy or because it's correct?"
 
@@ -234,6 +264,7 @@ After analysis, produce structured output:
 ## When NOT to Use
 
 Don't use this principle when:
+
 - You have clear evidence of complex causes
 - The simple explanation leaves important facts unexplained
 - Time horizons are long (complex systems emerge over time)
@@ -258,3 +289,37 @@ Don't use this principle when:
 "If you can't explain it simply, you don't understand it well enough." - Albert Einstein
 
 **Trust intelligence** - Occam's Razor is a heuristic, not a law. Simple explanations are usually right, but not always. Verify before committing.
+
+---
+
+## Genetic Code
+
+This component carries essential Seed System principles for context: fork isolation:
+
+<critical_constraint>
+MANDATORY: All components MUST be self-contained (zero .claude/rules dependency)
+MANDATORY: Achieve 80-95% autonomy (0-5 AskUserQuestion rounds per session)
+MANDATORY: Description MUST use What-When-Not format in third person
+MANDATORY: No component references another component by name in description
+MANDATORY: Progressive disclosure - references/ for detailed content
+MANDATORY: Use XML for control (mission_control, critical_constraint), Markdown for data
+No exceptions. Portability invariant must be maintained.
+</critical_constraint>
+
+**Delta Standard**: Good Component = Expert Knowledge − What Claude Already Knows
+
+**Recognition Questions**:
+
+- "Would Claude know this without being told?" → Delete (zero delta)
+- "Can this work standalone?" → Fix if no (non-self-sufficient)
+- "Did I read the actual file, or just see it in grep?" → Verify before claiming
+
+---
+
+<critical_constraint>
+MANDATORY: Verify simple explanation actually explains ALL facts
+MANDATORY: Count assumptions explicitly for each explanation
+MANDATORY: Don't oversimplify when complexity is necessary
+MANDATORY: Each independent assumption counts separately
+No exceptions. The simplest explanation must account for all evidence.
+</critical_constraint>

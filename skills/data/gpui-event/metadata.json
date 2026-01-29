@@ -1,7 +1,7 @@
 {
   "name": "gpui-event",
-  "repo": "zerx-lab/zTerm",
-  "path": ".claude/skills/gpui-event/SKILL.md",
-  "source": "github.com/zerx-lab/zTerm",
-  "downloaded_at": "2026-01-28T03:59:27.415888Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/gpui-event/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-29T04:03:55.823592Z"
 }

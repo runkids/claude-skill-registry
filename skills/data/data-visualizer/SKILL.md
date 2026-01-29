@@ -1,853 +1,521 @@
 ---
 name: data-visualizer
-description: Expert in creating charts, dashboards, and data visualizations using modern libraries
-version: 1.0.0
-tags: [data-viz, charts, dashboards, d3, recharts, analytics]
+description: |
+  Automated data visualization for EDA, model performance, and business reporting. Activates for "visualize data", "create plots", "EDA", "exploratory analysis", "confusion matrix", "ROC curve", "feature distribution", "correlation heatmap", "plot results", "dashboard". Generates publication-quality visualizations integrated with SpecWeave increments.
 ---
 
-# Data Visualizer Skill
+# Data Visualizer
 
-I help you build beautiful, interactive data visualizations and dashboards.
+## Overview
 
-## What I Do
+Automated visualization generation for exploratory data analysis, model performance reporting, and stakeholder communication. Creates publication-quality plots, interactive dashboards, and business-friendly reports—all integrated with SpecWeave's increment workflow.
 
-**Chart Creation:**
+## Visualization Categories
 
-- Line charts, bar charts, pie charts
-- Area charts, scatter plots, heatmaps
-- Complex visualizations (Sankey, treemaps, network graphs)
+### 1. Exploratory Data Analysis (EDA)
 
-**Dashboard Building:**
+**Automated EDA Report**:
+```python
+from specweave import EDAVisualizer
 
-- KPI cards and metrics
-- Real-time data dashboards
-- Interactive filters and drill-downs
-- Responsive layouts
+visualizer = EDAVisualizer(increment="0042")
 
-**Data Presentation:**
+# Generates comprehensive EDA report
+report = visualizer.generate_eda_report(df)
 
-- Data storytelling
-- Color schemes and accessibility
-- Animation and interactions
-- Export capabilities
-
-## Library Selection Guide
-
-### Recharts (Recommended for React)
-
-**Best for:**
-
-- Quick, simple charts
-- React/Next.js projects
-- Standard chart types
-- Responsive design
-
-**Example:**
-
-```typescript
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
-
-const data = [
-  { month: 'Jan', revenue: 4000, expenses: 2400 },
-  { month: 'Feb', revenue: 3000, expenses: 1398 },
-  { month: 'Mar', revenue: 2000, expenses: 9800 },
-]
-
-function RevenueChart() {
-  return (
-    <LineChart width={600} height={300} data={data}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="month" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Line type="monotone" dataKey="revenue" stroke="#8884d8" />
-      <Line type="monotone" dataKey="expenses" stroke="#82ca9d" />
-    </LineChart>
-  )
-}
+# Creates:
+# - Dataset overview (rows, columns, memory, missing values)
+# - Numerical feature distributions (histograms + KDE)
+# - Categorical feature counts (bar charts)
+# - Correlation heatmap
+# - Missing value pattern
+# - Outlier detection plots
+# - Feature relationships (pairplot for top features)
 ```
 
----
-
-### Chart.js (Recommended for Vue/Angular)
-
-**Best for:**
-
-- Framework-agnostic
-- Simple API
-- Good documentation
-- Standard chart types
-
-**Example:**
-
-```typescript
-import { Chart } from 'chart.js/auto'
-
-const ctx = document.getElementById('myChart')
-const chart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    datasets: [
-      {
-        label: 'Sales',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: 'rgba(54, 162, 235, 0.5)'
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: { position: 'top' },
-      title: { display: true, text: 'Monthly Sales' }
-    }
-  }
-})
-```
-
----
-
-### D3.js (Advanced)
-
-**Best for:**
-
-- Custom visualizations
-- Complex interactions
-- Full control over rendering
-- Data-driven documents
-
-**When to use:**
-
-- Need custom chart type
-- Complex data transformations
-- Advanced interactions
-- Publication-quality graphics
-
-**Example:**
-
-```typescript
-import * as d3 from 'd3'
-
-function createBarChart(data: Array<{ name: string; value: number }>) {
-  const width = 600
-  const height = 400
-  const margin = { top: 20, right: 20, bottom: 30, left: 40 }
-
-  const svg = d3.select('#chart').append('svg').attr('width', width).attr('height', height)
-
-  const x = d3
-    .scaleBand()
-    .domain(data.map(d => d.name))
-    .range([margin.left, width - margin.right])
-    .padding(0.1)
-
-  const y = d3
-    .scaleLinear()
-    .domain([0, d3.max(data, d => d.value)])
-    .range([height - margin.bottom, margin.top])
-
-  svg
-    .selectAll('rect')
-    .data(data)
-    .join('rect')
-    .attr('x', d => x(d.name))
-    .attr('y', d => y(d.value))
-    .attr('height', d => y(0) - y(d.value))
-    .attr('width', x.bandwidth())
-    .attr('fill', 'steelblue')
-
-  // Add axes
-  svg
-    .append('g')
-    .attr('transform', `translate(0,${height - margin.bottom})`)
-    .call(d3.axisBottom(x))
-
-  svg.append('g').attr('transform', `translate(${margin.left},0)`).call(d3.axisLeft(y))
-}
-```
-
----
-
-## Dashboard Patterns
-
-### Pattern 1: KPI Dashboard
-
-**Use case:** Executive dashboard with key metrics
-
-```typescript
-// components/KPIDashboard.tsx
-import { Card } from '@/components/ui/card'
-
-interface KPICardProps {
-  title: string
-  value: string | number
-  change: number
-  trend: 'up' | 'down'
-}
-
-function KPICard({ title, value, change, trend }: KPICardProps) {
-  const trendColor = trend === 'up' ? 'text-green-600' : 'text-red-600'
-  const trendIcon = trend === 'up' ? '↑' : '↓'
-
-  return (
-    <Card className="p-6">
-      <h3 className="text-sm font-medium text-gray-600">{title}</h3>
-      <div className="mt-2 flex items-baseline">
-        <p className="text-3xl font-semibold">{value}</p>
-        <span className={`ml-2 text-sm ${trendColor}`}>
-          {trendIcon} {Math.abs(change)}%
-        </span>
-      </div>
-    </Card>
-  )
-}
-
-export default function Dashboard() {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <KPICard title="Total Revenue" value="$45,231" change={12.5} trend="up" />
-      <KPICard title="Active Users" value="2,350" change={-5.2} trend="down" />
-      <KPICard title="Conversion Rate" value="3.24%" change={8.1} trend="up" />
-      <KPICard title="Avg Order Value" value="$158" change={2.3} trend="up" />
-    </div>
-  )
-}
-```
-
----
-
-### Pattern 2: Real-Time Dashboard
-
-**Use case:** Live data monitoring
-
-```typescript
-// components/RealtimeDashboard.tsx
-'use client'
-
-import { useEffect, useState } from 'react'
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
-
-interface DataPoint {
-  time: string
-  value: number
-}
-
-export default function RealtimeDashboard() {
-  const [data, setData] = useState<DataPoint[]>([])
-
-  useEffect(() => {
-    // Fetch initial data
-    fetch('/api/metrics/realtime')
-      .then(res => res.json())
-      .then(setData)
-
-    // Subscribe to real-time updates
-    const eventSource = new EventSource('/api/metrics/stream')
-
-    eventSource.onmessage = (event) => {
-      const newDataPoint = JSON.parse(event.data)
-
-      setData(prev => {
-        const updated = [...prev, newDataPoint]
-        // Keep last 20 data points
-        return updated.slice(-20)
-      })
-    }
-
-    return () => eventSource.close()
-  }, [])
-
-  return (
-    <div className="p-6 bg-white rounded-lg shadow">
-      <h2 className="text-xl font-bold mb-4">Live Traffic</h2>
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={data}>
-          <XAxis dataKey="time" />
-          <YAxis />
-          <Tooltip />
-          <Line
-            type="monotone"
-            dataKey="value"
-            stroke="#8884d8"
-            strokeWidth={2}
-            dot={false}
-            isAnimationActive={false}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
-  )
-}
-```
-
-**API Route for SSE:**
-
-```typescript
-// app/api/metrics/stream/route.ts
-export async function GET(req: Request) {
-  const encoder = new TextEncoder()
-
-  const stream = new ReadableStream({
-    async start(controller) {
-      const interval = setInterval(async () => {
-        const value = Math.floor(Math.random() * 100)
-        const time = new Date().toLocaleTimeString()
-
-        const data = `data: ${JSON.stringify({ time, value })}\n\n`
-        controller.enqueue(encoder.encode(data))
-      }, 1000)
-
-      // Cleanup on close
-      req.signal.addEventListener('abort', () => {
-        clearInterval(interval)
-        controller.close()
-      })
-    }
-  })
-
-  return new Response(stream, {
-    headers: {
-      'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-      Connection: 'keep-alive'
-    }
-  })
-}
-```
-
----
-
-### Pattern 3: Interactive Dashboard with Filters
-
-```typescript
-// components/SalesDashboard.tsx
-'use client'
-
-import { useState } from 'react'
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
-
-type Period = '7d' | '30d' | '90d'
-type Region = 'all' | 'us' | 'eu' | 'asia'
-
-export default function SalesDashboard() {
-  const [period, setPeriod] = useState<Period>('30d')
-  const [region, setRegion] = useState<Region>('all')
-
-  const { data, loading } = useSalesData({ period, region })
-
-  return (
-    <div className="space-y-6">
-      {/* Filters */}
-      <div className="flex gap-4">
-        <select
-          value={period}
-          onChange={(e) => setPeriod(e.target.value as Period)}
-          className="px-4 py-2 border rounded"
-        >
-          <option value="7d">Last 7 days</option>
-          <option value="30d">Last 30 days</option>
-          <option value="90d">Last 90 days</option>
-        </select>
-
-        <select
-          value={region}
-          onChange={(e) => setRegion(e.target.value as Region)}
-          className="px-4 py-2 border rounded"
-        >
-          <option value="all">All Regions</option>
-          <option value="us">United States</option>
-          <option value="eu">Europe</option>
-          <option value="asia">Asia</option>
-        </select>
-      </div>
-
-      {/* Chart */}
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <ResponsiveContainer width="100%" height={400}>
-          <BarChart data={data}>
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="sales" fill="#8884d8" />
-          </BarChart>
-        </ResponsiveContainer>
-      )}
-    </div>
-  )
-}
-
-// Custom hook for data fetching
-function useSalesData({ period, region }: { period: Period, region: Region }) {
-  const [data, setData] = useState([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    setLoading(true)
-    fetch(`/api/sales?period=${period}&region=${region}`)
-      .then(res => res.json())
-      .then(data => {
-        setData(data)
-        setLoading(false)
-      })
-  }, [period, region])
-
-  return { data, loading }
-}
-```
-
----
-
-## Chart Types Guide
-
-### Line Chart
-
-**Best for:** Trends over time, continuous data
-
-```typescript
-<LineChart data={data}>
-  <Line type="monotone" dataKey="value" stroke="#8884d8" />
-</LineChart>
-```
-
-**Use when:**
-
-- Stock prices, temperature, website traffic
-- Showing change over time
-- Multiple data series comparison
-
----
-
-### Bar Chart
-
-**Best for:** Comparing categories
-
-```typescript
-<BarChart data={data}>
-  <Bar dataKey="value" fill="#8884d8" />
-</BarChart>
-```
-
-**Use when:**
-
-- Sales by product, users by country
-- Discrete categories
-- Ranking/comparison
-
----
-
-### Pie/Donut Chart
-
-**Best for:** Part-to-whole relationships
-
-```typescript
-<PieChart>
-  <Pie data={data} dataKey="value" nameKey="name" fill="#8884d8" />
-</PieChart>
-```
-
-**Use when:**
-
-- Market share, budget allocation
-- Proportions (max 5-7 slices)
-- Simple percentages
-
-⚠️ **Avoid when:**
-
-- Too many categories (> 7)
-- Precise comparison needed (use bar chart)
-
----
-
-### Area Chart
-
-**Best for:** Volume over time
-
-```typescript
-<AreaChart data={data}>
-  <Area type="monotone" dataKey="value" fill="#8884d8" />
-</AreaChart>
-```
-
-**Use when:**
-
-- Cumulative totals
-- Filled regions show magnitude
-- Stacked categories
-
----
-
-### Scatter Plot
-
-**Best for:** Correlation between variables
-
-```typescript
-<ScatterChart>
-  <Scatter data={data} fill="#8884d8" />
-</ScatterChart>
-```
-
-**Use when:**
-
-- Finding correlations
-- Outlier detection
-- Distribution analysis
-
----
-
-### Heatmap
-
-**Best for:** Intensity across two dimensions
-
-```typescript
-// Using D3
-const colorScale = d3.scaleSequential(d3.interpolateBlues).domain([0, d3.max(data)])
-
-svg
-  .selectAll('rect')
-  .data(data)
-  .join('rect')
-  .attr('fill', d => colorScale(d.value))
-```
-
-**Use when:**
-
-- Time-based patterns (day/hour)
-- Geographic intensity
-- Matrix data
-
----
-
-## Responsive Design
-
-### Pattern: Mobile-Friendly Charts
-
-```typescript
-'use client'
-
-import { useEffect, useState } from 'react'
-import { LineChart, Line, ResponsiveContainer } from 'recharts'
-
-export default function ResponsiveChart({ data }) {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return (
-    <ResponsiveContainer width="100%" height={isMobile ? 200 : 400}>
-      <LineChart data={data}>
-        <Line
-          dataKey="value"
-          stroke="#8884d8"
-          strokeWidth={isMobile ? 1 : 2}
-        />
-      </LineChart>
-    </ResponsiveContainer>
-  )
-}
-```
-
----
-
-## Color Schemes
-
-### Accessible Colors
-
-```typescript
-// colors.ts
-export const chartColors = {
-  // WCAG AA compliant
-  primary: '#0066CC', // Blue
-  success: '#007A3D', // Green
-  warning: '#C87000', // Orange
-  danger: '#D32F2F', // Red
-
-  // Multi-series (colorblind-safe)
-  series: [
-    '#0066CC', // Blue
-    '#CC6600', // Orange
-    '#7A00CC', // Purple
-    '#00CC66', // Green
-    '#CC0066' // Magenta
-  ]
-}
-```
-
-**Colorblind-Safe Palettes:**
-
-```typescript
-// For up to 5 data series
-const colorblindSafe = [
-  '#000000', // Black
-  '#E69F00', // Orange
-  '#56B4E9', // Sky Blue
-  '#009E73', // Green
-  '#F0E442' // Yellow
-]
-```
-
----
-
-## Data Formatting
-
-### Number Formatting
-
-```typescript
-// utils/formatters.ts
-
-export function formatCurrency(value: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(value)
-}
-
-export function formatPercent(value: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'percent',
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  }).format(value / 100)
-}
-
-export function formatNumber(value: number): string {
-  if (value >= 1000000) {
-    return `${(value / 1000000).toFixed(1)}M`
-  }
-  if (value >= 1000) {
-    return `${(value / 1000).toFixed(1)}K`
-  }
-  return value.toFixed(0)
-}
-
-// Usage in chart
-<YAxis tickFormatter={formatCurrency} />
-```
-
----
-
-## Export Functionality
-
-### Export Chart as PNG
-
-```typescript
-'use client'
-
-import html2canvas from 'html2canvas'
-
-export function ExportableChart({ children }) {
-  const chartRef = useRef<HTMLDivElement>(null)
-
-  const exportToPNG = async () => {
-    if (!chartRef.current) return
-
-    const canvas = await html2canvas(chartRef.current)
-    const link = document.createElement('a')
-    link.download = 'chart.png'
-    link.href = canvas.toDataURL()
-    link.click()
-  }
-
-  return (
-    <div>
-      <button onClick={exportToPNG} className="mb-4 px-4 py-2 bg-blue-600 text-white rounded">
-        Export as PNG
-      </button>
-      <div ref={chartRef}>
-        {children}
-      </div>
-    </div>
-  )
-}
-```
-
-### Export Data as CSV
-
-```typescript
-export function exportToCSV(data: any[], filename: string) {
-  const headers = Object.keys(data[0])
-  const csv = [
-    headers.join(','),
-    ...data.map(row => headers.map(h => row[h]).join(','))
-  ].join('\n')
-
-  const blob = new Blob([csv], { type: 'text/csv' })
-  const link = document.createElement('a')
-  link.download = `${filename}.csv`
-  link.href = URL.createObjectURL(blob)
-  link.click()
-}
-
-// Usage
-<button onClick={() => exportToCSV(data, 'sales-data')}>
-  Export to CSV
-</button>
-```
-
----
-
-## Performance Optimization
-
-### Lazy Loading Charts
-
-```typescript
-// Lazy load chart libraries (reduce initial bundle)
-import dynamic from 'next/dynamic'
-
-const LineChart = dynamic(
-  () => import('recharts').then(mod => mod.LineChart),
-  { ssr: false }
+**Individual EDA Plots**:
+```python
+# Distribution plots
+visualizer.plot_distribution(
+    data=df['age'],
+    title="Age Distribution",
+    bins=30
 )
 
-export default function ChartPage() {
-  return <LineChart data={data} />
-}
+# Correlation heatmap
+visualizer.plot_correlation_heatmap(
+    data=df[numerical_columns],
+    method='pearson'  # or 'spearman', 'kendall'
+)
+
+# Missing value patterns
+visualizer.plot_missing_values(df)
+
+# Outlier detection (boxplots)
+visualizer.plot_outliers(df[numerical_columns])
 ```
 
-### Virtualization for Large Datasets
+### 2. Model Performance Visualizations
 
-```typescript
-import { useVirtualizer } from '@tanstack/react-virtual'
+**Classification Performance**:
+```python
+from specweave import ClassificationVisualizer
 
-export function LargeDataTable({ data }: { data: any[] }) {
-  const parentRef = useRef<HTMLDivElement>(null)
+viz = ClassificationVisualizer(increment="0042")
 
-  const virtualizer = useVirtualizer({
-    count: data.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 50,
-  })
+# Confusion matrix
+viz.plot_confusion_matrix(
+    y_true=y_test,
+    y_pred=y_pred,
+    classes=['Negative', 'Positive']
+)
 
-  return (
-    <div ref={parentRef} className="h-96 overflow-auto">
-      <div style={{ height: `${virtualizer.getTotalSize()}px` }}>
-        {virtualizer.getVirtualItems().map((virtualRow) => (
-          <div key={virtualRow.index} className="py-2 border-b">
-            {data[virtualRow.index].name}: {data[virtualRow.index].value}
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
+# ROC curve
+viz.plot_roc_curve(
+    y_true=y_test,
+    y_proba=y_proba
+)
+
+# Precision-Recall curve
+viz.plot_precision_recall_curve(
+    y_true=y_test,
+    y_proba=y_proba
+)
+
+# Learning curves (train vs val)
+viz.plot_learning_curve(
+    train_scores=train_scores,
+    val_scores=val_scores
+)
+
+# Calibration curve (are probabilities well-calibrated?)
+viz.plot_calibration_curve(
+    y_true=y_test,
+    y_proba=y_proba
+)
 ```
 
----
+**Regression Performance**:
+```python
+from specweave import RegressionVisualizer
 
-## Animation Best Practices
+viz = RegressionVisualizer(increment="0042")
 
-### Smooth Transitions
+# Predicted vs Actual
+viz.plot_predictions(
+    y_true=y_test,
+    y_pred=y_pred
+)
 
-```typescript
-<LineChart data={data}>
-  <Line
-    type="monotone"
-    dataKey="value"
-    stroke="#8884d8"
-    animationDuration={500}
-    animationEasing="ease-in-out"
-  />
-</LineChart>
+# Residual plot
+viz.plot_residuals(
+    y_true=y_test,
+    y_pred=y_pred
+)
+
+# Residual distribution (should be normal)
+viz.plot_residual_distribution(
+    residuals=y_test - y_pred
+)
+
+# Error by feature value
+viz.plot_error_analysis(
+    y_true=y_test,
+    y_pred=y_pred,
+    features=X_test
+)
 ```
 
-### Disable Animation for Real-Time
+### 3. Feature Analysis Visualizations
 
-```typescript
-// For real-time dashboards, disable animation
-<Line
-  dataKey="value"
-  isAnimationActive={false}
-/>
+**Feature Importance**:
+```python
+from specweave import FeatureVisualizer
+
+viz = FeatureVisualizer(increment="0042")
+
+# Feature importance (bar chart)
+viz.plot_feature_importance(
+    feature_names=feature_names,
+    importances=model.feature_importances_,
+    top_n=20
+)
+
+# SHAP summary plot
+viz.plot_shap_summary(
+    shap_values=shap_values,
+    features=X_test
+)
+
+# Partial dependence plots
+viz.plot_partial_dependence(
+    model=model,
+    features=['age', 'income'],
+    X=X_train
+)
+
+# Feature interaction
+viz.plot_feature_interaction(
+    model=model,
+    features=('age', 'income'),
+    X=X_train
+)
 ```
 
----
+### 4. Time Series Visualizations
 
-## Common Patterns
+**Time Series Plots**:
+```python
+from specweave import TimeSeriesVisualizer
 
-### Pattern: Drill-Down Chart
+viz = TimeSeriesVisualizer(increment="0042")
 
-```typescript
-'use client'
+# Time series with trend
+viz.plot_timeseries(
+    data=sales_data,
+    show_trend=True
+)
 
-import { useState } from 'react'
-import { BarChart, Bar, XAxis, YAxis } from 'recharts'
+# Seasonal decomposition
+viz.plot_seasonal_decomposition(
+    data=sales_data,
+    period=12  # Monthly seasonality
+)
 
-export default function DrillDownChart() {
-  const [level, setLevel] = useState<'year' | 'month' | 'day'>('year')
-  const [selectedYear, setSelectedYear] = useState<number | null>(null)
+# Autocorrelation (ACF, PACF)
+viz.plot_autocorrelation(data=sales_data)
 
-  const handleBarClick = (data: any) => {
-    if (level === 'year') {
-      setSelectedYear(data.year)
-      setLevel('month')
-    } else if (level === 'month') {
-      setLevel('day')
+# Forecast with confidence intervals
+viz.plot_forecast(
+    actual=test_data,
+    forecast=forecast,
+    confidence_intervals=(0.80, 0.95)
+)
+```
+
+### 5. Model Comparison Visualizations
+
+**Compare Multiple Models**:
+```python
+from specweave import ModelComparisonVisualizer
+
+viz = ModelComparisonVisualizer(increment="0042")
+
+# Compare metrics across models
+viz.plot_model_comparison(
+    models=['Baseline', 'XGBoost', 'LightGBM', 'Neural Net'],
+    metrics={
+        'accuracy': [0.65, 0.87, 0.86, 0.85],
+        'roc_auc': [0.70, 0.92, 0.91, 0.90],
+        'training_time': [1, 45, 32, 320]
     }
-  }
+)
 
-  const goBack = () => {
-    if (level === 'day') setLevel('month')
-    else if (level === 'month') {
-      setLevel('year')
-      setSelectedYear(null)
+# ROC curves for multiple models
+viz.plot_roc_curves_comparison(
+    models_predictions={
+        'XGBoost': (y_test, y_proba_xgb),
+        'LightGBM': (y_test, y_proba_lgbm),
+        'Neural Net': (y_test, y_proba_nn)
     }
-  }
-
-  return (
-    <div>
-      {level !== 'year' && (
-        <button onClick={goBack} className="mb-4">← Back</button>
-      )}
-
-      <BarChart data={getData(level, selectedYear)} width={600} height={300}>
-        <Bar dataKey="value" fill="#8884d8" onClick={handleBarClick} />
-        <XAxis dataKey="name" />
-        <YAxis />
-      </BarChart>
-    </div>
-  )
-}
+)
 ```
 
----
+## Interactive Visualizations
 
-## When to Use Me
+**Plotly Integration**:
+```python
+from specweave import InteractiveVisualizer
 
-**Perfect for:**
+viz = InteractiveVisualizer(increment="0042")
 
-- Building analytics dashboards
-- Creating interactive charts
-- Data storytelling
-- Real-time monitoring
-- Visualizing complex datasets
+# Interactive scatter plot (zoom, pan, hover)
+viz.plot_interactive_scatter(
+    x=X_test[:, 0],
+    y=X_test[:, 1],
+    colors=y_pred,
+    hover_data=df[['id', 'amount', 'merchant']]
+)
 
-**I'll help you:**
+# Interactive confusion matrix (click for details)
+viz.plot_interactive_confusion_matrix(
+    y_true=y_test,
+    y_pred=y_pred
+)
 
-- Choose the right chart type
-- Implement responsive layouts
-- Add interactivity
-- Optimize performance
-- Ensure accessibility
-
-## What I'll Create
-
-```
-📊 Charts and Visualizations
-📈 KPI Dashboards
-🎨 Custom Color Schemes
-📱 Responsive Layouts
-⚡ Real-Time Updates
-💾 Export Functionality
+# Interactive feature importance (sortable, filterable)
+viz.plot_interactive_feature_importance(
+    feature_names=feature_names,
+    importances=importances
+)
 ```
 
-Let's make your data beautiful and understandable!
+## Business Reporting
+
+**Automated ML Report**:
+```python
+from specweave import MLReportGenerator
+
+generator = MLReportGenerator(increment="0042")
+
+# Generate executive summary report
+report = generator.generate_report(
+    model=model,
+    test_data=(X_test, y_test),
+    business_metrics={
+        'false_positive_cost': 5,
+        'false_negative_cost': 500
+    }
+)
+
+# Creates:
+# - Executive summary (1 page, non-technical)
+# - Key metrics (accuracy, precision, recall)
+# - Business impact ($$ saved, ROI)
+# - Model performance visualizations
+# - Recommendations
+# - Technical appendix
+```
+
+**Report Output** (HTML/PDF):
+```markdown
+# Fraud Detection Model - Executive Summary
+
+## Key Results
+- **Accuracy**: 87% (target: >85%) ✅
+- **Fraud Detection Rate**: 62% (catching 310 frauds/day)
+- **False Positive Rate**: 38% (190 false alarms/day)
+
+## Business Impact
+- **Fraud Prevented**: $155,000/day
+- **Review Cost**: $950/day (190 transactions × $5)
+- **Net Benefit**: $154,050/day ✅
+- **Annual Savings**: $56.2M
+
+## Model Performance
+[Confusion Matrix Visualization]
+[ROC Curve]
+[Feature Importance]
+
+## Recommendations
+1. ✅ Deploy to production immediately
+2. Monitor fraud patterns weekly
+3. Retrain model monthly with new data
+```
+
+## Dashboard Creation
+
+**Real-Time Dashboard**:
+```python
+from specweave import DashboardCreator
+
+creator = DashboardCreator(increment="0042")
+
+# Create Grafana/Plotly dashboard
+dashboard = creator.create_dashboard(
+    title="Model Performance Dashboard",
+    panels=[
+        {'type': 'metric', 'query': 'prediction_latency_p95'},
+        {'type': 'metric', 'query': 'predictions_per_second'},
+        {'type': 'timeseries', 'query': 'accuracy_over_time'},
+        {'type': 'timeseries', 'query': 'error_rate'},
+        {'type': 'heatmap', 'query': 'prediction_distribution'},
+        {'type': 'table', 'query': 'recent_anomalies'}
+    ]
+)
+
+# Exports to Grafana JSON or Plotly Dash app
+dashboard.export(format='grafana')
+```
+
+## Visualization Best Practices
+
+### 1. Publication-Quality Plots
+
+```python
+# Set consistent styling
+visualizer.set_style(
+    style='seaborn',  # Or 'ggplot', 'fivethirtyeight'
+    context='paper',  # Or 'notebook', 'talk', 'poster'
+    palette='colorblind'  # Accessible colors
+)
+
+# High-resolution exports
+visualizer.save_figure(
+    filename='model_performance.png',
+    dpi=300,  # Publication quality
+    bbox_inches='tight'
+)
+```
+
+### 2. Accessible Visualizations
+
+```python
+# Colorblind-friendly palettes
+visualizer.use_colorblind_palette()
+
+# Add alt text for accessibility
+visualizer.add_alt_text(
+    plot=fig,
+    description="Confusion matrix showing 87% accuracy"
+)
+
+# High contrast for presentations
+visualizer.set_high_contrast_mode()
+```
+
+### 3. Annotation and Context
+
+```python
+# Add reference lines
+viz.add_reference_line(
+    y=0.85,  # Target accuracy
+    label='Target',
+    color='red',
+    linestyle='--'
+)
+
+# Add annotations
+viz.annotate_point(
+    x=optimal_threshold,
+    y=optimal_f1,
+    text='Optimal threshold: 0.47'
+)
+```
+
+## Integration with SpecWeave
+
+### Automated Visualization in Increments
+
+```python
+# All visualizations auto-saved to increment folder
+visualizer = EDAVisualizer(increment="0042")
+
+# Creates:
+# .specweave/increments/0042-fraud-detection/
+# ├── visualizations/
+# │   ├── eda/
+# │   │   ├── distributions.png
+# │   │   ├── correlation_heatmap.png
+# │   │   └── missing_values.png
+# │   ├── model_performance/
+# │   │   ├── confusion_matrix.png
+# │   │   ├── roc_curve.png
+# │   │   ├── precision_recall.png
+# │   │   └── learning_curves.png
+# │   ├── feature_analysis/
+# │   │   ├── feature_importance.png
+# │   │   ├── shap_summary.png
+# │   │   └── partial_dependence/
+# │   └── reports/
+# │       ├── executive_summary.html
+# │       └── technical_report.pdf
+```
+
+### Living Docs Integration
+
+```bash
+/sw:sync-docs update
+```
+
+Updates:
+```markdown
+<!-- .specweave/docs/internal/architecture/ml-model-performance.md -->
+
+## Fraud Detection Model Performance (Increment 0042)
+
+### Model Accuracy
+![Confusion Matrix](../../../increments/0042-fraud-detection/visualizations/confusion_matrix.png)
+
+### Key Metrics
+- Accuracy: 87%
+- Precision: 85%
+- Recall: 62%
+- ROC AUC: 0.92
+
+### Feature Importance
+![Top Features](../../../increments/0042-fraud-detection/visualizations/feature_importance.png)
+
+Top 5 features:
+1. amount_vs_user_average (0.18)
+2. days_since_last_purchase (0.12)
+3. merchant_risk_score (0.10)
+4. velocity_24h (0.08)
+5. location_distance_from_home (0.07)
+```
+
+## Commands
+
+```bash
+# Generate EDA report
+/ml:visualize-eda 0042
+
+# Generate model performance report
+/ml:visualize-performance 0042
+
+# Create interactive dashboard
+/ml:create-dashboard 0042
+
+# Export all visualizations
+/ml:export-visualizations 0042 --format png,pdf,html
+```
+
+## Advanced Features
+
+### 1. Automated Report Generation
+
+```python
+# Generate full increment report with all visualizations
+generator = IncrementReportGenerator(increment="0042")
+
+report = generator.generate_full_report()
+
+# Includes:
+# - EDA visualizations
+# - Experiment comparisons
+# - Best model performance
+# - Feature importance
+# - Business impact
+# - Deployment readiness
+```
+
+### 2. Custom Visualization Templates
+
+```python
+# Create reusable templates
+template = VisualizationTemplate(name="fraud_analysis")
+
+template.add_panel("confusion_matrix")
+template.add_panel("roc_curve")
+template.add_panel("top_fraud_features")
+template.add_panel("fraud_trends_over_time")
+
+# Apply to any increment
+template.apply(increment="0042")
+```
+
+### 3. Version Control for Visualizations
+
+```python
+# Track visualization changes across model versions
+viz_tracker = VisualizationTracker(increment="0042")
+
+# Compare model v1 vs v2 visualizations
+viz_tracker.compare_versions(
+    version_1="model-v1",
+    version_2="model-v2"
+)
+
+# Shows: Confusion matrix improved, ROC curve comparison, etc.
+```
+
+## Summary
+
+Data visualization is critical for:
+- ✅ Exploratory data analysis (understand data before modeling)
+- ✅ Model performance communication (stakeholder buy-in)
+- ✅ Feature analysis (understand what drives predictions)
+- ✅ Business reporting (translate metrics to impact)
+- ✅ Model debugging (identify issues visually)
+
+This skill automates visualization generation, ensuring all ML work is visual, accessible, and business-friendly within SpecWeave's increment workflow.

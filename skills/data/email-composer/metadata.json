@@ -1,7 +1,7 @@
 {
   "name": "email-composer",
-  "repo": "dy9759/Text2KnowledgeCards",
-  "path": "skills/aitemplates-skills/email-composer/SKILL.md",
-  "source": "github.com/dy9759/Text2KnowledgeCards",
-  "downloaded_at": "2026-01-28T04:14:12.605787Z"
+  "repo": "erichowens/some_claude_skills",
+  "path": ".claude/skills/email-composer/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-29T02:05:55.322779Z"
 }

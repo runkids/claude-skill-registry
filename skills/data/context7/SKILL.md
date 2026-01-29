@@ -1,173 +1,153 @@
 ---
 name: context7
-description: Context7 MCP - Intelligent documentation search and context for any library
+description: >
+  Fetch up-to-date library documentation from Context7 API. Use when user asks
+  "how do I use this library", "show me docs for", "library documentation",
+  "API reference for", or needs current documentation for any code library.
+allowed-tools: Bash, Read
+triggers:
+  - library documentation
+  - show me docs for
+  - API reference
+  - how to use this library
+  - latest docs for
+  - context7 lookup
 metadata:
-  version: 1.0.3
-  tags: ["documentation", "search", "context", "mcp", "llm"]
-  clawdbot:
-    requires:
-      bins: ["node"]
-      npm: true
-    install:
-      - id: "skill-install"
-        kind: "skill"
-        source: "clawdhub"
-        slug: "context7"
-        label: "Install Context7 skill"
+  short-description: Library documentation lookup via Context7
 ---
 
-# Context7 MCP
+# Context7 Documentation Lookup Skill
 
-Context7 provides intelligent documentation search and context for any library, powered by LLMs.
+Fetch up-to-date library documentation from Context7 API for ANY code library.
 
-## Setup
+## Prerequisites
 
-1. Copy `.env.example` to `.env` and add your Context7 API key:
-   ```bash
-   cp .env.example .env
-   ```
+- `CONTEXT7_API_KEY` environment variable set (check `.env`)
 
-   Add your API key to `.env`:
-   ```
-   CONTEXT7_API_KEY=your-api-key-here
-   ```
-
-   Get your key from [context7.com/dashboard](https://context7.com/dashboard)
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-## Usage
-
-Context7 provides two main commands:
-
-### Search Command
-
-Search for libraries by name with intelligent LLM-powered ranking:
+## Quick Start
 
 ```bash
-npx tsx query.ts search <library_name> <query>
+# Step 1: Find the library ID
+python .agents/skills/context7/context7.py search <library-name> "<your-query>"
 
-# Examples:
-npx tsx query.ts search "nextjs" "setup ssr"
-npx tsx query.ts search "react" "useEffect cleanup"
-npx tsx query.ts search "better-auth" "authentication flow"
+# Step 2: Get documentation context
+python .agents/skills/context7/context7.py context <library-id> "<your-query>" --tokens 5000
 ```
 
-This calls the Context7 Search API:
-```
-GET https://context7.com/api/v2/libs/search?libraryName=<name>&query=<query>
-```
+## Commands at a Glance
 
-**Response includes:**
-- id: Library ID (e.g., `/vercel/next.js`)
-- name: Display name
-- trustScore: Source reputation (0-100)
-- benchmarkScore: Quality indicator (0-100)
-- versions: Available version tags
+| Command | Description | Example |
+|---------|-------------|---------|
+| `search` | Rank repositories by relevance to your query | `python .agents/skills/context7/context7.py search arangodb "bm25 search"` |
+| `context` | Download reranked doc chunks for a specific library ID | `python .agents/skills/context7/context7.py context /arangodb/arangodb "vector search"` |
+| `find` | Convenience multi-library search across common stacks | `python .agents/skills/context7/context7.py find "binary search"` |
 
-### Context Command
+These are the only supported subcommands; invoking the script without one will show Typer’s usage error. The table mirrors the exact signatures implemented in `context7.py`, so copy/paste examples will work as-is.
 
-Retrieve intelligent, LLM-reranked documentation context:
+## API Endpoints
+
+### 1. Search for ANY Library
+
+Find libraries by name with LLM-powered ranking. Works with ANY library on GitHub:
 
 ```bash
-npx tsx query.ts context <owner/repo> <query>
+# Search for any library - just change the libraryName
+curl -s -X GET "https://context7.com/api/v2/libs/search?libraryName=<YOUR-LIBRARY>&query=<your-query>" \
+  -H "Authorization: Bearer $CONTEXT7_API_KEY" | jq '.results[:3]'
 
-# Examples:
-npx tsx query.ts context "vercel/next.js" "setup ssr"
-npx tsx query.ts context "facebook/react" "useState hook"
+# Examples for different libraries:
+curl -s "https://context7.com/api/v2/libs/search?libraryName=pandas&query=dataframe+merge" ...
+curl -s "https://context7.com/api/v2/libs/search?libraryName=tensorflow&query=keras+model" ...
+curl -s "https://context7.com/api/v2/libs/search?libraryName=django&query=orm+query" ...
 ```
 
-This calls the Context7 Context API:
-```
-GET https://context7.com/api/v2/context?libraryId=<repo>&query=<query>&type=txt
-```
+Response includes library IDs like `/owner/repo` that you use in the context endpoint.
 
-**Response includes:**
-- title: Documentation section title
-- content: Documentation text/snippet
-- source: URL to source page
+### 2. Get Documentation Context (PRIMARY)
 
-### Quick Reference
+Retrieve LLM-reranked documentation snippets for a query:
 
 ```bash
-# Search for documentation
-npx tsx query.ts search "library-name" "your search query"
+# Get ArangoDB BM25 documentation
+curl -s -X GET "https://context7.com/api/v2/context?libraryId=/arangodb/arangodb&query=bm25+search+arangosearch&tokens=5000" \
+  -H "Authorization: Bearer $CONTEXT7_API_KEY"
 
-# Get context from a specific repo
-npx tsx query.ts context "owner/repo" "your question"
+# Get Lean4 tactic documentation
+curl -s -X GET "https://context7.com/api/v2/context?libraryId=/leanprover/lean4&query=simp+tactic&tokens=3000" \
+  -H "Authorization: Bearer $CONTEXT7_API_KEY"
+
+# Get sentence-transformers embedding docs
+curl -s -X GET "https://context7.com/api/v2/context?libraryId=/UKPLab/sentence-transformers&query=encode+embeddings+cosine&tokens=3000" \
+  -H "Authorization: Bearer $CONTEXT7_API_KEY"
 ```
 
-## Best Practices
+Parameters:
+- `libraryId`: Library ID from search (e.g., `/arangodb/arangodb`)
+- `query`: Natural language query
+- `tokens`: Max tokens to return (default ~5000)
 
-Get the most out of the Context7 API with these best practices:
+## Common Library IDs
 
-### Optimize Search Relevance
+Use `python context7.py search <name> "<query>"` to find ANY library's ID.
 
-When using the `/libs/search` endpoint, always include the user's original question in the query parameter. This allows the API to use LLM-powered ranking to find the most relevant library for the specific task, rather than relying on a simple name match.
+| Library | Library ID |
+|---------|------------|
+| ArangoDB | `/arangodb/arangodb` |
+| Lean 4 | `/leanprover/lean4` |
+| sentence-transformers | `/UKPLab/sentence-transformers` |
+| PyTorch | `/pytorch/pytorch` |
+| TensorFlow | `/tensorflow/tensorflow` |
+| Pandas | `/pandas-dev/pandas` |
+| NumPy | `/numpy/numpy` |
+| Django | `/django/django` |
+| Flask | `/pallets/flask` |
+| FastAPI | `/tiangolo/fastapi` |
+| Next.js | `/vercel/next.js` |
+| React | `/facebook/react` |
+| Vue.js | `/vuejs/vue` |
+| Svelte | `/sveltejs/svelte` |
+| Express | `/expressjs/express` |
+| Rust std | `/rust-lang/rust` |
+| Go std | `/golang/go` |
 
-**Example:** If a user asks about SSR in Next.js, search with:
-- `libraryName=nextjs`
-- `query=setup+ssr`
+## Usage Examples
 
-This ensures the best ranking for the specific task.
-
-### Use Specific Library IDs
-
-For the fastest and most accurate results with the `/context` endpoint, provide the full libraryId (e.g., `/vercel/next.js`). If you already know the library the user is asking about, skipping the search step and calling the context endpoint directly reduces latency.
-
-### Leverage Versioning
-
-To ensure documentation accuracy for older or specific project requirements, include the version in the libraryId using the `/owner/repo/version` format. You can find available version tags in the response from the search endpoint.
-
-### Choose the Right Response Type
-
-Tailor the `/context` response to your needs using the `type` parameter:
-- Use `type=json` when you need to programmatically handle titles, content snippets, and source URLs (ideal for UI display).
-- Use `type=txt` when you want to pipe the documentation directly into an LLM prompt as plain text.
-
-### Filter by Quality Scores
-
-When programmatically selecting a library from search results, use the `trustScore` and `benchmarkScore` to prioritize high-quality, reputable documentation sources for your users.
-
-### Find Navigation Pages
-
-Find navigation and other pages in this documentation by fetching the `llms.txt` file at:
-```
-https://context7.com/docs/llms.txt
-```
-
-## API Reference
-
-### Context7 REST API
-
-**Search Endpoint:**
-```
-GET https://context7.com/api/v2/libs/search
-  ?libraryName=<library_name>
-  &query=<user_query>
+### Get ArangoDB AQL syntax for vector search
+```bash
+CONTEXT7_API_KEY=$(grep CONTEXT7_API_KEY .env | cut -d= -f2) \
+curl -s "https://context7.com/api/v2/context?libraryId=/arangodb/arangodb&query=cosine+similarity+vector+search&tokens=3000" \
+  -H "Authorization: Bearer $CONTEXT7_API_KEY"
 ```
 
-**Context Endpoint:**
+### Get Lean4 proof tactics
+```bash
+CONTEXT7_API_KEY=$(grep CONTEXT7_API_KEY .env | cut -d= -f2) \
+curl -s "https://context7.com/api/v2/context?libraryId=/leanprover/lean4&query=omega+tactic+natural+numbers&tokens=3000" \
+  -H "Authorization: Bearer $CONTEXT7_API_KEY"
 ```
-GET https://context7.com/api/v2/context
-  ?libraryId=<owner/repo>
-  &query=<user_query>
-  &type=txt|json
+
+## Python Usage
+
+The CLI surface is the preferred interface. If you embed it elsewhere, import
+the Typer app or the helper functions directly:
+
+```python
+from .context7 import app, _search_libs, _get_context
+
+result = _search_libs("arangodb", "bm25 search")
+docs = _get_context("/arangodb/arangodb", "bm25 arangosearch scoring")
 ```
 
-## Troubleshooting
+This matches the shipped code (`context7.py`).
 
-**No results found?**
-- Check your API key is valid
-- Verify the library name is correct (e.g., 'react' not 'React')
+## Shared Helpers
 
-**Authentication errors?**
-- Ensure CONTEXT7_API_KEY is set in `.env`
-- Check your key hasn't expired at context7.com/dashboard
+- `.agents/skills/dotenv_helper.py` loads `.env` automatically so `CONTEXT7_API_KEY` is present even when skills run via `uvx`.
+- `.agents/skills/json_utils.py` can be imported to repair JSON before forwarding it to downstream tooling if you extend the skill; the built-in CLI already prints valid JSON.
 
-## License
+## When to Use
 
-MIT
+1. When you need current documentation for a library
+2. When official docs may have changed since training cutoff
+3. When implementing features using unfamiliar APIs
+4. To verify correct syntax for AQL, Lean4, or other DSLs

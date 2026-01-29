@@ -1,7 +1,7 @@
 {
   "name": "issue-maker",
-  "repo": "pollinations/pollinations",
-  "path": ".claude/skills/issue-maker/SKILL.md",
-  "source": "github.com/pollinations/pollinations",
-  "downloaded_at": "2026-01-28T03:09:59.013585Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/issue-maker/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-29T04:03:59.434733Z"
 }

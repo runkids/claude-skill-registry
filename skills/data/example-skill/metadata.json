@@ -1,7 +1,7 @@
 {
   "name": "example-skill",
-  "repo": "okgoogle13/careercopilot",
-  "path": ".claude/skills/example-skill/SKILL.md",
-  "source": "github.com/okgoogle13/careercopilot",
-  "downloaded_at": "2026-01-28T04:20:45.971991Z"
+  "repo": "sendaifun/skills",
+  "path": "skills/example-skill/SKILL.md",
+  "source": "github.com/sendaifun/skills",
+  "downloaded_at": "2026-01-29T03:23:41.645001Z"
 }

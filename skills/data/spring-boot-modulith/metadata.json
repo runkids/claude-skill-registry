@@ -1,9 +1,7 @@
 {
   "name": "spring-boot-modulith",
-  "description": "Spring Modulith 2.0 implementation for bounded contexts in Spring Boot 4. Use when structuring application modules, implementing @ApplicationModuleListener for event-driven communication, testing with",
   "repo": "joaquimscosta/arkhe-claude-plugins",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/spring-boot/skills/spring-boot-modulith/SKILL.md",
+  "source": "github.com/joaquimscosta/arkhe-claude-plugins",
+  "downloaded_at": "2026-01-29T04:09:43.607360Z"
 }

@@ -1,14 +1,7 @@
 {
   "name": "ticket-track",
-  "description": "Frontmatter-based Ticket tracking system. Provides two core capabilities: (1) READ operations for querying ticket info without loading full files - use query/list/summary commands, (2) UPDATE operatio",
   "repo": "tarrragon/claude",
-  "category": "data",
-  "tags": [
-    "ticket",
-    "track"
-  ],
-  "stars": 1,
-  "dir_name": "ticket-track",
-  "github_path": "skills/ticket-track",
-  "github_branch": "main"
+  "path": "skills/ticket-track/SKILL.md",
+  "source": "github.com/tarrragon/claude",
+  "downloaded_at": "2026-01-29T03:01:39.647729Z"
 }

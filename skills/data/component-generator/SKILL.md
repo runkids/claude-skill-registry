@@ -1,230 +1,572 @@
 ---
 name: component-generator
-description: Generate production-ready SolidJS components with Kobalte accessibility primitives, CVA variants, and Storybook stories. Use when creating UI components for the frontend application.
+description: Generates new React Native components following Ishkul patterns. Creates component with proper TypeScript types, theme integration, variant support, accessibility, and matching test file. Use when creating reusable UI components.
 ---
 
-# SolidJS Component Generator
+# Component Generator
 
-Generate fully-functional SolidJS components following established architecture patterns.
+Creates new React Native components following Ishkul's established patterns.
 
-## Critical Constraints
+## What Gets Created
 
-**Components MUST be purely presentational:**
-- ✅ Accept props, render UI, emit events via callbacks
-- ✅ Use Kobalte primitives for accessibility where appropriate
-- ✅ Support both light and dark themes
-- ✅ Pass biome + TypeScript checks
-- ✅ Have Storybook stories for testing
+When generating a new component, create:
 
-**Components must NOT:**
-- ❌ Make API calls or import backend packages
-- ❌ Contain business logic (belongs in pages/features)
-- ❌ Manage application state (use props/callbacks)
+1. **Component file**: `frontend/src/components/ComponentName.tsx`
+2. **Test file**: `frontend/src/components/__tests__/ComponentName.test.tsx`
 
-## Required Reading (BEFORE ANY GENERATION)
+## Component Template
 
-**Read these files in order before writing code:**
+```typescript
+import React, { useCallback } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ViewStyle,
+  TextStyle,
+  ActivityIndicator,
+  AccessibilityProps,
+} from 'react-native';
 
-1. **`/skills/services/frontend/src/components/ui/button/button.tsx`** - PRIMARY REFERENCE pattern
-2. **`/skills/.claude/skills/component-generator/kobalte-primitives.md`** - Primitive catalog with import paths
-3. **`/skills/.claude/skills/component-generator/accessibility-guidelines.md`** - Props to expose per component type
-4. **`/skills/.claude/skills/component-generator/color-reference.md`** - Theme tokens (NEVER use default Tailwind colors)
-5. **`/skills/.claude/skills/component-generator/themed-story-pattern.md`** - Story pattern with Light/Dark variants
+import { useTheme } from '../hooks/useTheme';
+import { Spacing } from '../theme/spacing';
+import { Typography } from '../theme/typography';
 
-**Additional references:**
-- `/skills/services/frontend/src/components/ui/badge/badge.tsx` - Plain HTML + CVA pattern
-- `/skills/services/frontend/src/components/composite/search-input/search-input.tsx` - Complex Kobalte Combobox
+// =============================================================================
+// Types
+// =============================================================================
 
-## Workflow
+export type ComponentVariant = 'primary' | 'secondary' | 'outline' | 'ghost';
+export type ComponentSize = 'small' | 'medium' | 'large';
 
-### Stage 1: Discovery
+export interface ComponentNameProps extends AccessibilityProps {
+  /** Main title text */
+  title: string;
 
-Gather these requirements:
+  /** Optional subtitle text */
+  subtitle?: string;
 
-1. **Component Name** - PascalCase (e.g., "IconButton", "UserCard")
-2. **Tier** - Where it belongs:
-   - `primitives` - Layout elements (Flex, Stack, Text)
-   - `ui` - Interactive components (Button, Badge, Card)
-   - `composite` - Combined ui components (SearchInput, IconButton)
-   - `feature` - Domain-specific layouts (Navbar, Footer)
-3. **Purpose** - Brief description for Kobalte matching
+  /** Handler for press events */
+  onPress?: () => void;
 
-### Stage 2: Design
+  /** Visual variant of the component */
+  variant?: ComponentVariant;
 
-1. **Kobalte Primitive Selection:**
-   - Read `kobalte-primitives.md`
-   - Match keywords from user's purpose description
-   - Suggest top matches or "none" for plain HTML
-   - User confirms choice
+  /** Size of the component */
+  size?: ComponentSize;
 
-2. **Variants:**
-   - Color variants: primary, secondary, info, success, warning, danger, outline (based on component type)
-   - Size variants: sm, md, lg, xl (based on Button pattern)
-   - User can accept suggestions or customize
+  /** Show loading state */
+  loading?: boolean;
 
-3. **Props:**
-   - Read `accessibility-guidelines.md` for component type
-   - Determine which accessibility props to expose
-   - Ask about additional props (icon, loading, etc.)
+  /** Disable interactions */
+  disabled?: boolean;
 
-### Stage 3: Confirm
+  /** Custom container style */
+  style?: ViewStyle;
 
-Present summary:
-```
-I'll create {{NAME}} with:
-- Tier: {{TIER}}
-- Base: {{PRIMITIVE or "Plain HTML"}}
-- Variants: {{COLORS}}, {{SIZES}}
-- Files: index.ts, {{name}}.tsx, {{name}}.stories.tsx
+  /** Custom title style */
+  titleStyle?: TextStyle;
 
-Generate?
-```
+  /** Custom subtitle style */
+  subtitleStyle?: TextStyle;
 
-### Stage 4: Generate & Validate
+  /** Test ID for testing */
+  testID?: string;
+}
 
-**Pre-generation:**
-- Check if component already exists
-- Create tier directory if needed
+// =============================================================================
+// Component
+// =============================================================================
 
-**Generate 3 files:**
+export const ComponentName: React.FC<ComponentNameProps> = ({
+  title,
+  subtitle,
+  onPress,
+  variant = 'primary',
+  size = 'medium',
+  loading = false,
+  disabled = false,
+  style,
+  titleStyle,
+  subtitleStyle,
+  testID,
+  accessibilityLabel,
+  accessibilityHint,
+  accessibilityRole = 'button',
+  ...accessibilityProps
+}) => {
+  const { colors } = useTheme();
 
-1. **{name}.tsx** - Component implementation:
-   - Determine pattern: USE_KOBALTE (true/false), HAS_VARIANTS (true/false)
-   - Follow Button.tsx structure exactly
-   - Use color-reference.md for variant classes
-   - Use accessibility-guidelines.md for props
-   - Always spread `{...others}` for HTML attribute passthrough
+  // ==========================================================================
+  // Computed Styles
+  // ==========================================================================
 
-2. **index.ts** - Barrel export:
-   ```typescript
-   export { ComponentName, type ComponentNameProps } from "./component-name";
-   ```
+  const getVariantStyle = useCallback((): ViewStyle => {
+    switch (variant) {
+      case 'secondary':
+        return {
+          backgroundColor: colors.gray100,
+          borderWidth: 0,
+        };
+      case 'outline':
+        return {
+          backgroundColor: 'transparent',
+          borderWidth: 1,
+          borderColor: colors.gray300,
+        };
+      case 'ghost':
+        return {
+          backgroundColor: 'transparent',
+          borderWidth: 0,
+        };
+      case 'primary':
+      default:
+        return {
+          backgroundColor: colors.primary,
+          borderWidth: 0,
+        };
+    }
+  }, [variant, colors]);
 
-3. **{name}.stories.tsx** - Themed stories:
-   - Follow themed-story-pattern.md exactly
-   - Create Light/Dark variant pairs for each variant
-   - Include AllVariants showcase story
+  const getTextColor = useCallback((): string => {
+    if (disabled) {
+      return colors.gray400;
+    }
 
-**Validate (must all pass before proceeding):**
-```bash
-cd /skills/services/frontend && pnpm check      # Biome
-cd /skills/services/frontend && pnpm typecheck  # TypeScript
-cd /skills/services/frontend && pnpm test       # Storybook tests
-```
+    switch (variant) {
+      case 'primary':
+        return colors.white;
+      case 'secondary':
+      case 'outline':
+      case 'ghost':
+        return colors.text;
+      default:
+        return colors.text;
+    }
+  }, [variant, disabled, colors]);
 
-**If validation fails:** Fix errors properly (no workarounds), re-run validation.
+  const getSizeStyle = useCallback((): ViewStyle => {
+    switch (size) {
+      case 'small':
+        return {
+          paddingVertical: Spacing.sm,
+          paddingHorizontal: Spacing.md,
+          minHeight: Spacing.buttonHeight.small,
+        };
+      case 'large':
+        return {
+          paddingVertical: Spacing.lg,
+          paddingHorizontal: Spacing.xl,
+          minHeight: Spacing.buttonHeight.large,
+        };
+      case 'medium':
+      default:
+        return {
+          paddingVertical: Spacing.md,
+          paddingHorizontal: Spacing.lg,
+          minHeight: Spacing.buttonHeight.medium,
+        };
+    }
+  }, [size]);
 
-**Post-generation response:**
-```
-✅ Generated {{NAME}} successfully!
+  const getTitleSize = useCallback((): TextStyle => {
+    switch (size) {
+      case 'small':
+        return Typography.bodySmall;
+      case 'large':
+        return Typography.bodyLarge;
+      case 'medium':
+      default:
+        return Typography.body;
+    }
+  }, [size]);
 
-Files: index.ts, {{name}}.tsx, {{name}}.stories.tsx
-Location: /skills/services/frontend/src/components/{{tier}}/{{name}}/
+  // ==========================================================================
+  // Handlers
+  // ==========================================================================
 
-Validation: ✅ Biome ✅ TypeScript ✅ Tests
+  const handlePress = useCallback(() => {
+    if (!disabled && !loading && onPress) {
+      onPress();
+    }
+  }, [disabled, loading, onPress]);
 
-Import: import { {{NAME}} } from "@/components/{{tier}}/{{name}}"
-Usage: <{{NAME}} variant="primary" size="md">Content</{{NAME}}>
-```
+  // ==========================================================================
+  // Render
+  // ==========================================================================
 
-## Component Patterns
+  const textColor = getTextColor();
+  const isInteractive = !disabled && !loading && !!onPress;
 
-**Determine based on requirements:**
+  const content = (
+    <View
+      style={[
+        styles.container,
+        getVariantStyle(),
+        getSizeStyle(),
+        disabled && styles.disabled,
+        style,
+      ]}
+    >
+      {loading ? (
+        <ActivityIndicator
+          size="small"
+          color={textColor}
+          testID={`${testID}-loading`}
+        />
+      ) : (
+        <>
+          <Text
+            style={[
+              styles.title,
+              getTitleSize(),
+              { color: textColor },
+              titleStyle,
+            ]}
+            numberOfLines={1}
+          >
+            {title}
+          </Text>
 
-| Pattern | USE_KOBALTE | HAS_VARIANTS | Example |
-|---------|-------------|--------------|---------|
-| Kobalte + CVA | true | true | Button |
-| Plain HTML + CVA | false | true | Badge |
-| Plain HTML only | false | false | Label |
-| Kobalte only | true | false | (rare) |
+          {subtitle && (
+            <Text
+              style={[
+                styles.subtitle,
+                { color: colors.textSecondary },
+                subtitleStyle,
+              ]}
+              numberOfLines={2}
+            >
+              {subtitle}
+            </Text>
+          )}
+        </>
+      )}
+    </View>
+  );
 
-## Story Pattern
+  // Wrap in TouchableOpacity only if interactive
+  if (isInteractive) {
+    return (
+      <TouchableOpacity
+        onPress={handlePress}
+        disabled={disabled || loading}
+        activeOpacity={0.7}
+        testID={testID}
+        accessibilityLabel={accessibilityLabel || title}
+        accessibilityHint={accessibilityHint}
+        accessibilityRole={accessibilityRole}
+        accessibilityState={{
+          disabled: disabled,
+          busy: loading,
+        }}
+        {...accessibilityProps}
+      >
+        {content}
+      </TouchableOpacity>
+    );
+  }
 
-**All stories use themed Light/Dark variants:**
-
-```tsx
-import { createThemedStories } from "@/components/story-helpers";
-
-const primaryBase: Story = {
-  args: { variant: "primary", children: "Primary" },
+  // Non-interactive: render as View
+  return (
+    <View
+      testID={testID}
+      accessibilityLabel={accessibilityLabel || title}
+      {...accessibilityProps}
+    >
+      {content}
+    </View>
+  );
 };
 
-const primaryThemed = createThemedStories({
-  story: primaryBase,
-  testMode: "both",
+// =============================================================================
+// Styles
+// =============================================================================
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: Spacing.borderRadius.md,
+  },
+  title: {
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  subtitle: {
+    marginTop: Spacing.xs,
+    textAlign: 'center',
+    ...Typography.caption,
+  },
+  disabled: {
+    opacity: 0.5,
+  },
 });
-
-export const PrimaryLight = primaryThemed.Light;
-export const PrimaryDark = primaryThemed.Dark;
 ```
 
-**testMode options:** `"both"` | `"light"` | `"dark"` | `"none"`
+## Test File Template
 
-## Key Principles
+Create `frontend/src/components/__tests__/ComponentName.test.tsx`:
 
-1. **Read reference files BEFORE generation** - Button.tsx is PRIMARY REFERENCE
-2. **Follow existing patterns exactly** - Don't invent new patterns
-3. **Accessibility first** - Use Kobalte, expose accessibility props
-4. **Dark mode mandatory** - Theme colors need `-dark` variants, shared colors don't
-5. **Always spread `{...others}`** - Enables HTML attribute passthrough
-6. **No workarounds** - Fix errors properly, never use type assertions
-7. **One component at a time** - Complete and validate before proceeding
-8. **Use `rounded-radius`** - Not `rounded-md` or `rounded-lg` (badges use `rounded-full`)
+```typescript
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react-native';
+import { ComponentName, ComponentNameProps, ComponentVariant, ComponentSize } from '../ComponentName';
 
-## Error Handling
+// Mock theme hook
+jest.mock('../../hooks/useTheme', () => ({
+  useTheme: () => ({
+    colors: {
+      primary: '#0066FF',
+      white: '#FFFFFF',
+      text: '#1A1A1A',
+      textSecondary: '#666666',
+      gray100: '#F5F5F5',
+      gray300: '#D4D4D4',
+      gray400: '#A3A3A3',
+    },
+  }),
+}));
 
-**Component exists:** Ask to overwrite or choose new name
+describe('ComponentName', () => {
+  const defaultProps: ComponentNameProps = {
+    title: 'Test Title',
+    onPress: jest.fn(),
+    testID: 'component-name',
+  };
 
-**Validation fails:**
-1. Read error message
-2. Fix the actual issue (no workarounds)
-3. Re-run validation
-4. Repeat until clean
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
-**Invalid tier:** Show valid options (primitives, ui, composite, feature)
+  describe('Rendering', () => {
+    it('should render with title', () => {
+      const { getByText } = render(<ComponentName {...defaultProps} />);
+      expect(getByText('Test Title')).toBeTruthy();
+    });
 
-## Example
+    it('should render with subtitle when provided', () => {
+      const { getByText } = render(
+        <ComponentName {...defaultProps} subtitle="Test Subtitle" />
+      );
+      expect(getByText('Test Subtitle')).toBeTruthy();
+    });
 
+    it('should not render subtitle when not provided', () => {
+      const { queryByText } = render(<ComponentName {...defaultProps} />);
+      expect(queryByText('Test Subtitle')).toBeNull();
+    });
+
+    it('should show loading indicator when loading', () => {
+      const { getByTestId, queryByText } = render(
+        <ComponentName {...defaultProps} loading />
+      );
+      expect(getByTestId('component-name-loading')).toBeTruthy();
+      expect(queryByText('Test Title')).toBeNull();
+    });
+
+    it('should hide loading indicator when not loading', () => {
+      const { queryByTestId } = render(<ComponentName {...defaultProps} />);
+      expect(queryByTestId('component-name-loading')).toBeNull();
+    });
+  });
+
+  describe('Variants', () => {
+    const variants: ComponentVariant[] = ['primary', 'secondary', 'outline', 'ghost'];
+
+    variants.forEach((variant) => {
+      it(`should render ${variant} variant without crashing`, () => {
+        const { getByText } = render(
+          <ComponentName {...defaultProps} variant={variant} />
+        );
+        expect(getByText('Test Title')).toBeTruthy();
+      });
+    });
+  });
+
+  describe('Sizes', () => {
+    const sizes: ComponentSize[] = ['small', 'medium', 'large'];
+
+    sizes.forEach((size) => {
+      it(`should render ${size} size without crashing`, () => {
+        const { getByText } = render(
+          <ComponentName {...defaultProps} size={size} />
+        );
+        expect(getByText('Test Title')).toBeTruthy();
+      });
+    });
+  });
+
+  describe('Interactions', () => {
+    it('should call onPress when pressed', () => {
+      const onPressMock = jest.fn();
+      const { getByTestId } = render(
+        <ComponentName {...defaultProps} onPress={onPressMock} />
+      );
+
+      fireEvent.press(getByTestId('component-name'));
+
+      expect(onPressMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not call onPress when disabled', () => {
+      const onPressMock = jest.fn();
+      const { getByTestId } = render(
+        <ComponentName {...defaultProps} onPress={onPressMock} disabled />
+      );
+
+      fireEvent.press(getByTestId('component-name'));
+
+      expect(onPressMock).not.toHaveBeenCalled();
+    });
+
+    it('should not call onPress when loading', () => {
+      const onPressMock = jest.fn();
+      const { getByTestId } = render(
+        <ComponentName {...defaultProps} onPress={onPressMock} loading />
+      );
+
+      fireEvent.press(getByTestId('component-name'));
+
+      expect(onPressMock).not.toHaveBeenCalled();
+    });
+
+    it('should not wrap in TouchableOpacity when no onPress', () => {
+      const { getByText } = render(
+        <ComponentName title="Static" testID="static-component" />
+      );
+      expect(getByText('Static')).toBeTruthy();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('should have correct accessibility label', () => {
+      const { getByLabelText } = render(
+        <ComponentName {...defaultProps} accessibilityLabel="Custom Label" />
+      );
+      expect(getByLabelText('Custom Label')).toBeTruthy();
+    });
+
+    it('should default accessibility label to title', () => {
+      const { getByLabelText } = render(<ComponentName {...defaultProps} />);
+      expect(getByLabelText('Test Title')).toBeTruthy();
+    });
+
+    it('should have correct accessibility role', () => {
+      const { getByRole } = render(<ComponentName {...defaultProps} />);
+      expect(getByRole('button')).toBeTruthy();
+    });
+  });
+
+  describe('Custom Styles', () => {
+    it('should apply custom container style', () => {
+      const customStyle = { marginTop: 20 };
+      const { getByTestId } = render(
+        <ComponentName {...defaultProps} style={customStyle} />
+      );
+      expect(getByTestId('component-name')).toBeTruthy();
+    });
+
+    it('should apply custom title style', () => {
+      const customTitleStyle = { fontWeight: 'bold' as const };
+      const { getByText } = render(
+        <ComponentName {...defaultProps} titleStyle={customTitleStyle} />
+      );
+      expect(getByText('Test Title')).toBeTruthy();
+    });
+  });
+
+  describe('Edge Cases', () => {
+    it('should handle empty title', () => {
+      const { container } = render(
+        <ComponentName {...defaultProps} title="" />
+      );
+      expect(container).toBeTruthy();
+    });
+
+    it('should handle very long title', () => {
+      const longTitle = 'A'.repeat(200);
+      const { getByText } = render(
+        <ComponentName {...defaultProps} title={longTitle} />
+      );
+      expect(getByText(longTitle)).toBeTruthy();
+    });
+
+    it('should handle undefined onPress', () => {
+      const { getByText } = render(
+        <ComponentName title="No Press Handler" />
+      );
+      expect(getByText('No Press Handler')).toBeTruthy();
+    });
+  });
+});
 ```
-User: Create a Badge component
 
-Agent: Which tier? (primitives/ui/composite/feature)
+## Component Categories
 
-User: ui
+### Interactive Components
+- Buttons, Cards, List Items
+- Use TouchableOpacity/Pressable
+- Handle loading/disabled states
+- Include onPress handlers
 
-Agent: Purpose?
+### Display Components
+- Text, Labels, Badges, Icons
+- Pure presentation, no interaction
+- Focus on styling variants
 
-User: Small label for status or categories
+### Input Components
+- TextInput, Checkbox, Radio, Switch
+- Handle value/onChange
+- Validation states (error, success)
+- Controlled component pattern
 
-Agent: No direct Kobalte match. Use plain HTML?
+### Layout Components
+- Container, Row, Column, Spacer
+- Composition-focused
+- Accept children
 
-User: Yes
+## Design System Integration
 
-Agent: Color variants? Suggested: primary, secondary, info, success, warning, danger
-
-User: Use suggestions
-
-Agent: Size variants? Suggested: sm, md
-
-User: sm and md
-
-Agent:
-Creating Badge:
-- Tier: ui | Base: span | Variants: 6 colors, 2 sizes
-- Files: index.ts, badge.tsx, badge.stories.tsx
-
-Generate?
-
-User: Yes
-
-Agent: [Reads reference files, generates, validates]
-
-✅ Generated Badge successfully!
-Location: /skills/services/frontend/src/components/ui/badge/
-Validation: ✅ Biome ✅ TypeScript ✅ Tests
-Import: import { Badge } from "@/components/ui/badge"
+### Theme Colors
+```typescript
+const { colors } = useTheme();
+// Available: primary, background, text, textSecondary, error, success, warning, white, gray100-900
 ```
 
-## Start
+### Spacing
+```typescript
+import { Spacing } from '../theme/spacing';
+// Available: xs (4), sm (8), md (16), lg (24), xl (32), xxl (48)
+// Also: buttonHeight, borderRadius, icon, touchTarget
+```
 
-Greet the user and ask what component they'd like to create.
+### Typography
+```typescript
+import { Typography } from '../theme/typography';
+// Available: h1, h2, h3, body, bodySmall, bodyLarge, caption, button
+```
+
+## Checklist Before Completing
+
+- [ ] Component file created with TypeScript types
+- [ ] Props interface exported for consumers
+- [ ] Theme integration (useTheme hook)
+- [ ] Variant support (if applicable)
+- [ ] Size support (if applicable)
+- [ ] Loading state (if interactive)
+- [ ] Disabled state (if interactive)
+- [ ] Accessibility props included
+- [ ] Custom style props for overrides
+- [ ] Test file with comprehensive coverage
+- [ ] TypeScript compiles: `npm run type-check`
+- [ ] Tests pass: `npm test -- --testPathPattern="ComponentName"`
+
+## When to Use
+
+- When creating reusable UI elements
+- When building design system components
+- When abstracting repeated patterns
+- When creating interactive controls

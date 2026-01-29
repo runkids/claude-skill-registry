@@ -1,201 +1,112 @@
 ---
 name: weekly-review
-description: Summarize the past week's daily journal entries. Use when asked to "weekly review", "review the week", "summarize this week", or "week summary".
-allowed-tools: Read, Write, Edit, Glob, Grep, AskUserQuestion
+description: Weekly review and planning session. Use at end of week or weekend to review progress, plan next week, and set priorities. Triggers on "weekly review", "plan my week", "what did I do this week", "Sunday planning".
+model: claude-opus-4-5-20251101
+allowed-tools: Read, Write, Edit, Glob, Bash(gh:*, date:*)
 ---
 
-# Weekly Review
+Run a weekly review and planning session. Keep it conversational - one section at a time.
 
-Summarize the past week's daily entries into a weekly review note.
+## Step 0: Get Week Info
 
-## Location
-
-All private notes live in `content/private/` with flat structure (no subfolders).
-
-## Date Format
-
-- Weekly reviews: `YYYY-Www.md` (ISO week number)
-- Example: `2024-W02.md` for week 2 of 2024
-
----
-
-## Phase 1: Determine Week Boundaries
-
-Calculate the current ISO week:
-- Week starts Monday, ends Sunday
-- Use ISO 8601 week numbering
-
-Find date range for the week being reviewed (default: current week).
-
----
-
-## Phase 2: Gather Daily Notes
-
-### 2.1 Find Daily Notes
-
-Search for all daily notes in the week's date range:
-
-```text
-Glob: content/private/YYYY-MM-DD.md
+```bash
+date +%Y-%m-%d        # Today
+date +%Y-W%V          # Current ISO week
+date -d "last sunday" +%Y-%m-%d  # Week start (for lookback)
 ```
 
-Filter to notes where date falls within the week.
+## Step 1: Weekly Note Setup
 
-### 2.2 Load Content
+1. Check if this week's note exists: `my-vault/02 Calendar/YYYY-Www.md`
+2. If not, create from `09 System/Templates/Weekly Template.md`
+   - Replace Templater placeholders with actual dates
+   - The week note format is `YYYY-[W]ww` (e.g., `2026-W03`)
 
-Read each daily note found and extract:
-- Morning Thoughts
-- Done Today items
-- Learnings
-- Links Captured
+## Step 2: Journal Completeness Check
 
-### 2.3 Present Summary
+**Critical**: Verify all 7 days have journal entries and content.
 
-Display to user:
-- Number of daily entries found (e.g., "Found 5 of 7 days")
-- Key themes identified
-- Most linked public notes
-
----
-
-## Phase 3: Generate Weekly Summary
-
-### 3.1 Ask for User Input
-
-```yaml
-question: "What were the main themes this week?"
-header: "Themes"
-options:
-  - label: "Auto-generate"
-    description: "Identify themes from daily entries"
-  - label: "Manual"
-    description: "I'll describe the themes"
+```bash
+# List last 7 days' journal files
+for i in {0..6}; do
+  d=$(date -d "$i days ago" +%Y-%m-%d)
+  f="my-vault/02 Calendar/$d.md"
+  if [[ -f "$f" ]]; then
+    lines=$(wc -l < "$f")
+    echo "$d: EXISTS ($lines lines)"
+  else
+    echo "$d: MISSING"
+  fi
+done
 ```
 
-If user chooses manual, gather their input.
+For each existing entry, check if sections are filled in:
+- "# What Did I Do?" - should have content
+- "# What Did I Work On?" - should have content
+- "# What Did I Study?" - optional but note if empty
 
-### 3.2 Create Weekly Note
+**Report gaps**: "These days are missing entries: ..." or "These entries look empty: ..."
+**Offer to fill in**: "Want me to check GitHub for commits on those days to help fill them in?"
 
-**Frontmatter:**
-```yaml
----
-title: "Week {N}, {YYYY}"
-type: weekly
-week: YYYY-Www
-date: {week end date YYYY-MM-DD}
-dailies:
-  - "[[YYYY-MM-DD]]"
-  - "[[YYYY-MM-DD]]"
-private: true
----
+## Step 3: Review the Week
+
+### GitHub Activity (all week)
+```bash
+gh search commits --author=TaylorHuston --committer-date=YYYY-MM-DD..YYYY-MM-DD --limit=50
 ```
+Summarize by project/repo.
 
-**Body structure:**
-```markdown
-## Week Summary
+### Journal Highlights
+Read each day's journal and extract:
+- **Personal**: From "What Did I Do?"
+- **Technical**: From "What Did I Work On?"
+- **Learning**: From "What Did I Study?"
 
-{user themes or auto-generated summary}
+Present as a brief week summary, not raw dump.
 
-## Key Events
+### Learning Progress
+1. Check `.claude/learning-sessions/learning-plan.json` if exists
+2. Note topics covered, sessions completed
 
-- {aggregated from Done Today sections}
+### Project Progress
+1. Scan `ideas/*/issues/` for any WORKLOG.md updates this week
+2. Note completed tasks, status changes
 
-## Learnings
+## Step 4: Fill In Weekly Note
 
-- {consolidated from daily Learnings sections}
+Update the weekly note (`my-vault/02 Calendar/YYYY-Www.md`) sections:
+- **What Went Well**: Ask Taylor
+- **What Didn't Go Well**: Ask Taylor
+- **Key Accomplishments**: Summarize from review
+- **Lessons Learned**: Ask Taylor
 
-## Public Notes Created
+## Step 5: Plan Next Week
 
-- [[note-1]] - {brief context}
-- [[note-2]] - {brief context}
-```
+Ask Taylor (one at a time):
+1. "Any interviews or job search priorities this week?"
+2. "What's the one thing that would make next week a success?"
+3. "Any personal commitments to work around?"
 
-### 3.3 Review with User
+Fill in "Next Week's Focus" section with their answers.
 
-Present the generated weekly review:
+## Step 6: Memory Capture
 
-```yaml
-question: "Does this weekly summary look good?"
-header: "Review"
-options:
-  - label: "Save"
-    description: "Create the weekly review file"
-  - label: "Edit"
-    description: "Make changes before saving"
-```
+Review conversation for memory-worthy items:
+- Job search updates
+- New preferences or workflow changes
+- Project decisions
+- Personal context changes
 
----
+Update `.claude/memories/about-taylor.md` if job status or major context changed.
 
-## Phase 4: Save Weekly Review
+## Conversational Flow
 
-Save to `content/private/{YYYY-Www}.md`.
-
-Confirm with:
-- File path
-- Number of days covered
-- Key themes captured
-
----
-
-## Template Reference
-
-Full weekly review template:
-
-```markdown
----
-title: "Week N, YYYY"
-type: weekly
-week: YYYY-Www
-date: YYYY-MM-DD
-dailies:
-  - "[[2024-01-08]]"
-  - "[[2024-01-09]]"
-  - "[[2024-01-10]]"
-  - "[[2024-01-11]]"
-  - "[[2024-01-12]]"
-private: true
----
-
-## Week Summary
-
-High-level themes and patterns from the week.
-
-## Key Events
-
-- Monday: ...
-- Tuesday: ...
-- Notable accomplishment
-
-## Learnings
-
-- Insight 1 from [[2024-01-08]]
-- Insight 2 from [[2024-01-10]]
-
-## Public Notes Created
-
-- [[book-title]] - Finished reading and captured notes
-- [[podcast-episode]] - Great episode on X topic
-```
-
----
-
-## Quality Checklist
-
-Before saving:
-- [ ] Filename matches `YYYY-Www.md` format (w lowercase)
-- [ ] Frontmatter has `type: weekly` and `private: true`
-- [ ] Week number in title and frontmatter match
-- [ ] `dailies` array lists all daily notes included
-- [ ] Summary synthesizes themes, not just lists
-- [ ] Wiki-links use correct `[[slug]]` format
-
----
-
-## Edge Cases
-
-| Situation | Handling |
-|-----------|----------|
-| No daily notes found | Warn user, offer to create anyway |
-| Partial week (< 7 days) | Proceed with available entries |
-| Weekly review already exists | Offer to update or skip |
-| User wants different week | Allow specifying week number |
+Don't dump everything at once. Flow should be:
+1. "Let me check your journal entries for this week..." → Report gaps
+2. "Here's what I found from your week..." → Brief summary
+3. "What went well this week?" → Capture response
+4. "What didn't go well?" → Capture response
+5. "Any lessons learned?" → Capture response
+6. "Looking ahead - any job search priorities?" → Plan next week
+7. "What would make next week a success?" → Set focus
+8. "I've updated your weekly note. Anything else?"

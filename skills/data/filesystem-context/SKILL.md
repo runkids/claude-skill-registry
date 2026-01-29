@@ -1,421 +1,387 @@
 ---
-name: filesystem-context
-description: "Manage filesystem context. Use when: Offloading large context to files, persisting state between sessions, or reducing token usage. Not for: Small temporary data or in-memory variables."
+name: Filesystem Context Manager
+description: Maintain context across Claude Code sessions using filesystem persistence. Prevents context loss, enables plan continuity, and supports multi-session workflows.
+version: 1.0.0
+dependencies: none
 ---
 
-# Filesystem-Based Context Engineering
+# Filesystem Context Manager
 
-The filesystem provides unlimited context capacity through dynamic discovery. Instead of stuffing everything into the context window, agents write once and read selectively, pulling relevant context on demand.
+A skill for maintaining context across Claude Code sessions using filesystem-based persistence. Implements the six patterns from Context Engineering to prevent context loss during long or multi-session tasks.
 
-## Core Concept
+## When This Skill Activates
 
-**Problem**: Context windows are limited but tasks often require more information than fits
+This skill automatically activates when you:
+- Start a new session and need to resume previous work
+- Work on tasks spanning multiple conversations
+- Need to preserve decisions, context, or learnings
+- Want to maintain continuity across sessions
+- Are working on complex multi-step implementations
 
-**Solution**: Use filesystem as persistent layer where agents:
-1. Write once (large outputs, state, plans)
-2. Read selectively (targeted retrieval via search)
-3. Discover dynamically (find relevant files on-demand)
+**Keywords**: save context, resume work, continue session, persist context, remember this, don't forget, maintain context, session continuity, pick up where we left off
 
-**Benefit**: Unlimited context capacity with natural progressive disclosure
+## Core Concepts
 
-## Context Engineering Patterns
+### The Context Problem
 
-### Pattern 1: Filesystem as Scratch Pad
+| Issue | Impact | Solution |
+|-------|--------|----------|
+| Context window fills up | Early context forgotten | Write to files, read selectively |
+| Session ends mid-task | Progress lost | Persist plans and state |
+| Complex decisions made | Reasoning forgotten | Document decisions in files |
+| Patterns discovered | Must re-learn each session | Store in memory files |
 
-**Problem**: Tool calls return massive outputs (10k+ tokens for web search, hundreds of rows for database queries). If this enters message history, it remains for entire conversation, bloating tokens and degrading attention.
+### File-Based Context Hierarchy
 
-**Solution**: Write large tool outputs to files instead of returning to context. Agent uses targeted retrieval to extract only relevant portions.
-
-**Implementation**:
-```python
-def handle_tool_output(output: str, threshold: int = 2000) -> str:
-    if len(output) < threshold:
-        return output  # Small output, return directly
-
-    # Write to scratch pad
-    file_path = f"scratch/{tool_name}_{timestamp}.txt"
-    write_file(file_path, output)
-
-    # Return reference with summary
-    summary = extract_summary(output, max_tokens=200)
-    return f"[Output written to {file_path}. Summary: {summary}]"
+```
+.claude/
+├── context/              # Current session state
+│   ├── current-task.md   # Active task description
+│   ├── decisions.md      # Decisions made this session
+│   └── blockers.md       # Current blockers
+├── memory/               # Persistent learnings (survives sessions)
+│   ├── patterns.md       # Codebase patterns discovered
+│   ├── gotchas.md        # Things to remember
+│   └── preferences.md    # User preferences
+├── scratch/              # Temporary working files
+│   └── tool-outputs/     # Large command outputs
+├── plans/                # Implementation plans
+│   └── *.md              # Individual plan files
+└── skills/               # Skill definitions
 ```
 
-**Usage**:
-- Web search results → `scratch/web_search_20260126_143022.txt`
-- Database queries → `scratch/db_query_users_active.txt`
-- API responses → `scratch/api_response_20260126_143045.json`
+## Pattern 1: Scratch Pad for Large Outputs
 
-**Benefits**:
-- Reduces token accumulation over long conversations
-- Preserves full output for later reference
-- Enables targeted retrieval instead of carrying everything
-- Natural progressive disclosure
+When tool outputs exceed ~2000 tokens, write to file instead of keeping in context.
 
-### Pattern 2: Plan Persistence
+### Implementation
 
-**Problem**: Long-horizon tasks require plans. But as conversations extend, plans fall out of attention or get lost to summarization. Agent loses track of objectives.
-
-**Solution**: Write plans to filesystem. Agent can re-read plan anytime to re-orient.
-
-**Implementation**:
-```yaml
-# scratch/current_plan.yaml
-objective: "Refactor authentication module"
-status: in_progress
-steps:
-  - id: 1
-    description: "Audit current auth endpoints"
-    status: completed
-  - id: 2
-    description: "Design new token validation flow"
-    status: in_progress
-  - id: 3
-    description: "Implement and test changes"
-    status: pending
-
-progress:
-  current_step: 2
-  blockers: ["Waiting for security review"]
-  next_action: "Complete token validation design"
-```
-
-**Usage**:
-- Agent reads `scratch/current_plan.yaml` at start of each turn
-- Updates progress as work completes
-- Re-orients when context degrades
-
-**Benefits**:
-- Maintains objective visibility throughout long tasks
-- Survives context compaction
-- Enables "manipulating attention through recitation"
-
-### Pattern 3: Sub-Agent Communication via Filesystem
-
-**Problem**: In multi-agent systems, sub-agents report to coordinator through message passing. This creates "telephone game" where information degrades through summarization at each hop.
-
-**Solution**: Sub-agents write findings directly to filesystem. Coordinator reads files directly, bypassing intermediate passing.
-
-**Implementation**:
-```
-workspace/
-  agents/
-    research_agent/
-      findings.md        # Research agent writes here
-      sources.jsonl      # Source tracking
-    code_agent/
-      changes.md         # Code agent writes here
-      test_results.txt   # Test output
-  coordinator/
-    synthesis.md         # Coordinator reads outputs, writes synthesis
-```
-
-**Usage**:
-- Research agent: `workspace/agents/research_agent/findings.md`
-- Code agent: `workspace/agents/code_agent/changes.md`
-- Coordinator: reads both, writes synthesis
-
-**Benefits**:
-- Preserves fidelity (no telephone game)
-- Reduces coordinator context accumulation
-- Enables asynchronous collaboration
-- Natural audit trail
-
-### Pattern 4: Dynamic Skill Loading
-
-**Problem**: Agents may have many skills/instructions, but most irrelevant to any given task. Stuffing all into system prompt wastes tokens and can confuse with contradictory guidance.
-
-**Solution**: Store skills as files. Include only skill names/brief descriptions in static context. Load relevant skill content when task requires it.
-
-**Implementation**:
-```markdown
-Available skills (load with read_file when relevant):
-- database-optimization: Query tuning and indexing strategies
-- api-design: REST/GraphQL best practices
-- testing-strategies: Unit, integration, and e2e patterns
-- security-review: OWASP Top 10, authentication patterns
-```
-
-**Usage**:
-```python
-# Agent working on database task
-skill_content = read_file("skills/database-optimization/SKILL.md")
-
-# Agent working on API task
-skill_content = read_file("skills/api-design/SKILL.md")
-```
-
-**Benefits**:
-- Minimal static context
-- On-demand skill activation
-- No contradictory guidance
-- Scales to hundreds of skills
-
-### Pattern 5: Terminal and Log Persistence
-
-**Problem**: Terminal output from long-running processes accumulates rapidly. Copying/pasting into agent input is manual and inefficient.
-
-**Solution**: Sync terminal output to files automatically. Agent greps for relevant sections without loading entire histories.
-
-**Implementation**:
 ```bash
-# Auto-sync terminal to file
-script -c "npm run dev" scratch/terminal.log
+# Instead of showing full output in chat
+npm run build 2>&1 | tee .claude/scratch/build-output.txt
 
-# Agent searches for specific patterns
-grep "ERROR" scratch/terminal.log
-grep -A5 "failed" scratch/terminal.log
+# Then reference specific parts
+grep -n "error" .claude/scratch/build-output.txt
 ```
 
-**Benefits**:
-- Automatic log capture
-- Targeted error finding
-- No manual copy/paste
-- Historical terminal access
+### When to Use
+- Build outputs with many warnings
+- Large database query results
+- Extensive grep/search results
+- API responses with large payloads
 
-## Filesystem Navigation
-
-### Discovery Patterns
-
-**Find files by name**:
-```bash
-Glob patterns:
-- "**/*.yaml" - All YAML files
-- "**/scratch/*" - Scratch pad directory
-- "**/plans/*" - Plan files
-- "**/logs/*" - Log files
-```
-
-**Search file contents**:
-```bash
-Grep patterns:
-- "TODO|FIXME|BUG" - Find action items
-- "ERROR|Exception" - Find errors
-- "summary|conclusion" - Find summaries
-- "^# .*" - Find headings
-```
-
-**Targeted reading**:
-```bash
-Read specific sections:
-- First 50 lines: `read_file(path, limit=50)`
-- Last 50 lines: `read_file(path, offset=-50)`
-- Around pattern: `grep(pattern)`, then `read_file(path, offset=X, limit=Y)`
-```
-
-### File Metadata Hints
-
-**File sizes suggest complexity**:
-- Small (<1KB): summaries, metadata
-- Medium (1-10KB): full outputs, reports
-- Large (>10KB): raw data, logs
-
-**Naming conventions**:
-- `YYYYMMDD_HHMMSS_*` - Timestamped files
-- `*_summary.*` - Summarized outputs
-- `*_raw.*` - Raw data
-- `current_*.*` - Current state
-
-**Timestamps**:
-- Newer files likely more relevant
-- Timestamps show activity patterns
-- Enable time-based filtering
-
-## JSONL Append-Only Design
-
-**Pattern**: All logs use JSONL (JSON Lines) format
-
-**Benefits**:
-- Agent-friendly parsing
-- History preservation
-- Pattern analysis capability
-- Never-delete integrity
-
-**Example**:
-```jsonl
-{"timestamp": "2026-01-26T14:30:00Z", "type": "post", "content": "...", "status": "published"}
-{"timestamp": "2026-01-26T14:35:00Z", "type": "contact", "name": "Sarah", "updated": true}
-{"timestamp": "2026-01-26T14:40:00Z", "type": "plan_update", "step": 2, "status": "completed"}
-```
-
-**Reading JSONL**:
-```python
-# Read as list of dicts
-logs = [json.loads(line) for line in open('logs.jsonl')]
-
-# Filter by type
-posts = [log for log in logs if log['type'] == 'post']
-
-# Query by timestamp
-recent = [log for log in logs if log['timestamp'] > '2026-01-26']
-```
-
-## Ralph Integration
-
-### Validation Artifacts in Filesystem
-
-**Current Ralph**: Markdown reports in `ralph_validated/`
-
-**Enhanced Ralph**: Filesystem-based artifacts
-```
-ralph_validated/
-├── artifacts/
-│   └── .claude/
-│       └── skills/
-│           └── my-skill/
-│               └── SKILL.md
-├── evidence/
-│   ├── blueprint.yaml
-│   ├── test_spec.json
-│   └── raw_execution.log
-├── reports/
-│   ├── validation_report.json
-│   └── evaluation_scores.json
-└── context/
-    ├── loaded_files.jsonl
-    └── discovery_log.jsonl
-```
-
-**Benefits**:
-- Unlimited context for validation
-- Targeted retrieval of evidence
-- Natural progressive disclosure
-- Append-only audit trail
-
-### Dynamic Context Discovery
-
-**Ralph validation**:
-1. Load blueprint summary (Level 1)
-2. Load full blueprint if needed (Level 2)
-3. Search evidence files for specific patterns (Level 3)
-4. Retrieve relevant sections via targeted reads
-
-**Example**:
-```python
-# Find all test failures
-failures = grep("FAIL|ERROR", "evidence/raw_execution.log")
-
-# Read around failures
-for failure in failures:
-    context = read_file("evidence/raw_execution.log",
-                       offset=failure.line-10,
-                       limit=20)
-    analyze_failure(context)
-```
-
-## Progressive Disclosure in Filesystem
-
-### Level 1: Metadata
+### Example Workflow
 
 ```markdown
-# Component Index
-
-skills/my-skill/
-├── overview.yaml      # 200 tokens - auto-loaded
-├── trigger_phrases.md # 100 tokens - auto-loaded
-└── references/        # On-demand
-    ├── examples/
-    └── patterns/
+1. Run command, pipe to scratch file
+2. Return summary to chat: "Build completed with 3 errors, see .claude/scratch/build-output.txt"
+3. When debugging, grep specific errors from file
+4. Delete scratch file when done
 ```
 
-### Level 2: Instructions
+## Pattern 2: Plan Persistence
+
+Store implementation plans in structured files for continuity.
+
+### Plan File Template
 
 ```markdown
-# Full Skill (1500 tokens)
-- Load when skill activated
-- Contains all instructions
-- Progressive disclosure enabled
+# Plan: [Feature/Task Name]
+
+## Metadata
+- **Status**: PLANNING | IN_PROGRESS | BLOCKED | COMPLETE
+- **Created**: YYYY-MM-DD
+- **Updated**: YYYY-MM-DD HH:MM
+- **Priority**: HIGH | MEDIUM | LOW
+
+## Objective
+[Clear statement of what we're trying to achieve]
+
+## Context
+[Background information and why this matters]
+
+## Implementation Steps
+- [ ] Step 1: Description
+  - Files: `path/to/file.ts`
+  - Notes: Implementation details
+- [ ] Step 2: Description
+- [ ] Step 3: Description
+
+## Files to Modify
+| File | Purpose | Status |
+|------|---------|--------|
+| `app/api/route.ts` | Main endpoint | Pending |
+| `lib/service.ts` | Business logic | Done |
+
+## Decisions Made
+1. **[Decision]**: [Rationale]
+2. **[Decision]**: [Rationale]
+
+## Blockers
+- [ ] Blocker 1: Description
+- [ ] Blocker 2: Description
+
+## Notes
+[Any additional context]
 ```
 
-### Level 3: Data
+### Usage
+
+```bash
+# Create new plan
+echo "# Plan: Feature X" > .claude/plans/feature-x.md
+
+# Resume work - read plan first
+cat .claude/plans/feature-x.md
+
+# Update progress
+# Edit the plan file as steps complete
+```
+
+## Pattern 3: Session Context Persistence
+
+Maintain current session state for continuity.
+
+### Current Task File
 
 ```markdown
-# References/ (As needed)
-- examples/ - Usage examples
-- patterns/ - Implementation patterns
-- scripts/ - Automation scripts
-- data/ - Sample data
+# Current Task
+
+## What I'm Working On
+[Brief description of current focus]
+
+## Recent Actions
+- [Action 1] - [Result]
+- [Action 2] - [Result]
+
+## Next Steps
+1. [Next immediate action]
+2. [Following action]
+
+## Files Currently Open/Relevant
+- `path/to/file1.ts` - [Why relevant]
+- `path/to/file2.ts` - [Why relevant]
+
+## Session Notes
+[Any important context for this session]
 ```
+
+### Decisions File
+
+```markdown
+# Session Decisions
+
+## [Date]
+
+### Decision: [Title]
+- **Context**: [Why this came up]
+- **Options Considered**:
+  - Option A: [Description]
+  - Option B: [Description]
+- **Chosen**: Option A
+- **Rationale**: [Why this was chosen]
+- **Impact**: [What this affects]
+```
+
+## Pattern 4: Memory Persistence
+
+Store learnings that should survive across all sessions.
+
+### Patterns File
+
+```markdown
+# Codebase Patterns
+
+## Authentication
+- Always use `createClient` from `@/lib/supabase/server` for API routes
+- Check BOTH Authorization header AND cookies (see commit ac642e8)
+
+## API Routes
+- Next.js 15 requires async params: `context: { params: Promise<{ id: string }> }`
+- Always await params before use
+
+## Database
+- Use service role client for admin operations
+- RLS policies apply to anon key only
+
+## Testing
+- Run `npm run type-check:memory` to avoid heap errors
+- Use `npm run dev:memory` for development server
+```
+
+### Gotchas File
+
+```markdown
+# Gotchas & Lessons Learned
+
+## [Category]
+
+### [Issue Title]
+- **Symptom**: [What you see]
+- **Cause**: [Why it happens]
+- **Fix**: [How to resolve]
+- **Prevention**: [How to avoid]
+- **Reference**: [Commit/PR/Doc]
+```
+
+### Preferences File
+
+```markdown
+# User Preferences
+
+## Code Style
+- Prefer explicit types over inference
+- Use early returns for guard clauses
+- Keep functions under 50 lines
+
+## Workflow
+- Always run type-check before committing
+- Use conventional commits (feat:, fix:, etc.)
+- Test in staging before production
+
+## Communication
+- Be concise, skip unnecessary explanations
+- Show code diffs for changes
+- Summarize at end of complex tasks
+```
+
+## Pattern 5: Sub-Agent Communication
+
+When using multiple agents, use filesystem for state sharing.
+
+### Agent Workspace Structure
+
+```
+.claude/
+└── agents/
+    ├── research/         # Research agent outputs
+    │   └── findings.md
+    ├── implementation/   # Implementation agent state
+    │   └── progress.md
+    └── review/           # Review agent feedback
+        └── issues.md
+```
+
+### Handoff Protocol
+
+```markdown
+# Agent Handoff: [From Agent] → [To Agent]
+
+## Completed Work
+[What was accomplished]
+
+## Key Findings
+1. [Finding 1]
+2. [Finding 2]
+
+## Files Created/Modified
+- `path/to/file.ts` - [What was done]
+
+## Recommendations for Next Agent
+1. [Recommendation]
+2. [Recommendation]
+
+## Open Questions
+- [Question needing resolution]
+```
+
+## Pattern 6: Self-Updating Memory
+
+Capture learnings automatically during sessions.
+
+### Auto-Capture Triggers
+
+When these occur, update memory files:
+- Error resolved after debugging → Add to gotchas.md
+- Pattern discovered in codebase → Add to patterns.md
+- User states preference → Add to preferences.md
+- Workaround found → Add to gotchas.md
+
+### Update Protocol
+
+```bash
+# Append new learning to appropriate file
+echo "
+### [New Learning Title]
+- **Context**: [When this applies]
+- **Details**: [The learning]
+- **Added**: $(date +%Y-%m-%d)
+" >> .claude/memory/patterns.md
+```
+
+## Quick Start Commands
+
+### Start New Session
+
+```bash
+# 1. Check for existing context
+cat .claude/context/current-task.md 2>/dev/null || echo "No active task"
+
+# 2. Check active plans
+ls -la .claude/plans/*.md 2>/dev/null || echo "No active plans"
+
+# 3. Review memory
+cat .claude/memory/gotchas.md 2>/dev/null | head -50
+```
+
+### Save Session Context
+
+```bash
+# Before ending session, update current-task.md with:
+# - What was accomplished
+# - What's next
+# - Any blockers
+```
+
+### Resume Previous Work
+
+```bash
+# 1. Read the plan
+cat .claude/plans/[plan-name].md
+
+# 2. Read current context
+cat .claude/context/current-task.md
+
+# 3. Check recent decisions
+cat .claude/context/decisions.md | tail -30
+```
+
+## Integration with Existing Skills
+
+| Skill | Integration |
+|-------|-------------|
+| **context-manager** | Use scratch/ for large context analyzer outputs |
+| **project-sync** | Store sync status in context/sync-status.md |
+| **bug-fixing** | Document debugging journey in context/debug-log.md |
+| **session-manager** | Named sessions map to plan files |
 
 ## Best Practices
 
-### File Organization
+1. **Update incrementally** - Don't wait until session end
+2. **Be specific** - Vague notes don't help future sessions
+3. **Clean up scratch/** - Delete temporary files when done
+4. **Review memory/** - Periodically prune outdated information
+5. **Use consistent format** - Templates make parsing easier
+6. **Reference file paths** - Future sessions need to find relevant code
+7. **Date entries** - Know when context was captured
+8. **Keep plans updated** - Stale plans cause confusion
 
-1. **Use descriptive names**: `auth_plan_20260126.yaml` not `plan1.yaml`
-2. **Timestamp files**: `scratch/web_search_20260126_143022.txt`
-3. **Group related files**: `evidence/`, `scratch/`, `context/`
-4. **Use extensions**: `.yaml`, `.jsonl`, `.md`, `.txt`
+## Cleanup Commands
 
-### Content Guidelines
-
-1. **Write summaries**: Extract key info for quick reference
-2. **Preserve full data**: Keep raw outputs for later analysis
-3. **Use structured formats**: YAML, JSONL for machine-readability
-4. **Include metadata**: Timestamps, types, status
-
-### Performance
-
-1. **Write once, read many**: Optimize for read patterns
-2. **Use targeted reads**: Line ranges, not full files
-3. **Search before read**: Grep to find relevant sections
-4. **Cache frequently accessed**: Keep metadata in memory
-
-## Example Workflow
-
-**Task**: Validate component with Ralph
-
-**Step 1**: Write large outputs to scratch
 ```bash
-# Test results
-[Output written to scratch/test_results.json. Summary: 15 tests run, 14 passed, 1 failed]
+# Clean old scratch files (older than 7 days)
+find .claude/scratch -type f -mtime +7 -delete
+
+# Archive completed plans
+mv .claude/plans/completed-*.md .claude/plans/archive/
+
+# Prune old context
+# Keep only last 5 days of context files
 ```
 
-**Step 2**: Update plan in structured format
-```yaml
-# scratch/current_plan.yaml
-status: validation_in_progress
-current_step: "Evaluate component quality"
-evidence:
-  test_results: "scratch/test_results.json"
-  blueprint: "evidence/blueprint.yaml"
-```
+---
 
-**Step 3**: Use targeted retrieval
-```python
-# Find failures
-failures = grep("FAIL", "scratch/test_results.json")
-
-# Read specific test
-test_output = read_file("scratch/test_results.json",
-                       offset=failures[0].line,
-                       limit=10)
-
-# Analyze
-analyze_failure(test_output)
-```
-
-**Step 4**: Write structured validation report
-```jsonl
-{"timestamp": "2026-01-26T14:30:00Z", "type": "validation", "step": "evaluation", "result": "partial"}
-{"timestamp": "2026-01-26T14:35:00Z", "type": "validation", "step": "test_execution", "result": "failed", "details": "test_user_auth_failed"}
-```
-
-## Guidelines
-
-1. **Write once, read selectively** - Don't return large outputs to context
-2. **Use descriptive names** - Enable quick discovery
-3. **Timestamp files** - Show temporal relationships
-4. **Preserve full data** - Keep raw outputs for analysis
-5. **Structure formats** - YAML/JSONL for machine-readability
-6. **Search before read** - Grep to find relevant sections
-7. **Progressive disclosure** - Load only what you need
-8. **Append-only logs** - Preserve history for pattern analysis
-
-## References
-
-**Related Skills**:
-- `context-fundamentals` - Progressive disclosure principles
-- `evaluation` - Multi-dimensional quality assessment
-- `filesystem-context` - Context management patterns
-
-**Key Principle**: Filesystem provides unlimited context capacity through dynamic discovery. Write once, read selectively, discover on-demand.
+**Version**: 1.0.0
+**Last Updated**: 2025-01-08
+**Maintained By**: CircleTel Development Team
+**Based On**: https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering

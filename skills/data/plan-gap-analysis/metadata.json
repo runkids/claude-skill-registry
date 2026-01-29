@@ -1,9 +1,7 @@
 {
   "name": "plan-gap-analysis",
-  "description": "Analyze gaps between implementation plans and actual codebase implementation for the Rust self-learning memory project",
   "repo": "d-o-hub/rust-self-learning-memory",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/plan-gap-analysis/SKILL.md",
+  "source": "github.com/d-o-hub/rust-self-learning-memory",
+  "downloaded_at": "2026-01-29T01:48:11.936100Z"
 }

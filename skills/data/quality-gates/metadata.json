@@ -1,7 +1,7 @@
 {
   "name": "quality-gates",
-  "repo": "involvex/involvex-claude-marketplace",
-  "path": "plugins/orchestration/skills/quality-gates/SKILL.md",
-  "source": "github.com/involvex/involvex-claude-marketplace",
-  "downloaded_at": "2026-01-28T04:22:24.203959Z"
+  "repo": "michsindlinger/agent-os-extended",
+  "path": "agent-os/templates/skills/quality-gates/Skill.md",
+  "source": "github.com/michsindlinger/agent-os-extended",
+  "downloaded_at": "2026-01-29T04:44:42.482342Z"
 }

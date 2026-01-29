@@ -1,9 +1,7 @@
 {
   "name": "safe-refactoring",
-  "description": "Systematic code refactoring while preserving all external behavior.Use when identifying code smells, planning refactoring sequences,executing safe structural improvements, or validating behavior prese",
-  "repo": "rsmdt/the-startup",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "LorenFrankLab/non_local_detector",
+  "path": ".claude/skills/safe-refactoring/skill.md",
+  "source": "github.com/LorenFrankLab/non_local_detector",
+  "downloaded_at": "2026-01-29T01:14:27.939924Z"
 }

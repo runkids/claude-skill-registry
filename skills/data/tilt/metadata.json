@@ -1,7 +1,7 @@
 {
   "name": "tilt",
-  "repo": "NeverSight/skills.sh_feed",
-  "path": "data/skills-md/0xbigboss/claude-code/tilt/SKILL.md",
-  "source": "github.com/NeverSight/skills.sh_feed",
-  "downloaded_at": "2026-01-28T02:26:07.971354Z"
+  "repo": "0xBigBoss/claude-code",
+  "path": ".claude/skills/tilt/SKILL.md",
+  "source": "github.com/0xBigBoss/claude-code",
+  "downloaded_at": "2026-01-29T03:30:01.027695Z"
 }

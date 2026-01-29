@@ -1,11 +1,7 @@
 {
   "name": "subjects",
-  "description": "Explore denmark statistics subject hierarchy for all fact tables",
   "repo": "josca42/varro",
-  "category": "development",
-  "tags": [
-    "subjects"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/subjects/SKILL.md",
+  "source": "github.com/josca42/varro",
+  "downloaded_at": "2026-01-29T04:06:36.398742Z"
 }

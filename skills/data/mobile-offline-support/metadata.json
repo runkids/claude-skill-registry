@@ -1,10 +1,7 @@
 {
   "name": "mobile-offline-support",
-  "description": "Implement offline-first mobile apps with local storage, sync strategies, and conflict resolution. Covers AsyncStorage, Realm, SQLite, and background sync patterns.",
-  "category": "data",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "path": "skills/mobile-offline-support/SKILL.md",
-  "stars": 45,
-  "source": "github.com/aj-geddes/useful-ai-prompts",
-  "downloaded_at": "2026-01-24T16:15:45.320673Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/mobile-offline-support/skills/mobile-offline-support/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-29T03:11:01.382629Z"
 }

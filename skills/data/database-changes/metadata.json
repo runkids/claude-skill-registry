@@ -1,9 +1,7 @@
 {
   "name": "database-changes",
-  "description": "Making database schema changes to the CMS database. Use when adding columns, tables, running migrations, or updating the backend API and TypeScript types for new database fields.",
   "repo": "affandar/toygres",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/affandar/toygres"
+  "path": ".claude/skills/database-changes/SKILL.md",
+  "source": "github.com/affandar/toygres",
+  "downloaded_at": "2026-01-29T03:31:16.358238Z"
 }

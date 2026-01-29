@@ -1,9 +1,7 @@
 {
   "name": "form-builder-helper",
-  "description": "Form Builder Helper - Auto-activating skill for Business Automation.Triggers on: form builder helper, form builder helperPart of the Business Automation skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/form-builder-helper/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-29T03:34:14.424797Z"
 }

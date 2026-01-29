@@ -1,9 +1,7 @@
 {
   "name": "uiux-ops",
-  "description": "UI/UX 設計・改善を進めるための運用手順とチェックリストをまとめたスキル。",
-  "repo": "A-Genno/Polaris",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "aiskillstore/marketplace",
+  "path": "skills/a-genno/uiux-ops/SKILL.md",
+  "source": "github.com/aiskillstore/marketplace",
+  "downloaded_at": "2026-01-29T04:17:16.529728Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "moai-lang-swift",
-  "repo": "mosif16/codex-Skills",
-  "path": "skills/moai-lang-swift/SKILL.md",
-  "source": "github.com/mosif16/codex-Skills",
-  "downloaded_at": "2026-01-28T03:15:11.333214Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "moai-adk-main/src/moai_adk/templates/.claude/skills/moai-lang-swift/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-29T04:39:14.480990Z"
 }

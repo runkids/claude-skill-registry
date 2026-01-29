@@ -1,7 +1,7 @@
 {
   "name": "semgrep-rule-creator",
-  "repo": "plurigrid/asi",
-  "path": "skills/semgrep-rule-creator/SKILL.md",
-  "source": "github.com/plurigrid/asi",
-  "downloaded_at": "2026-01-28T01:53:16.190943Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/semgrep-rule-creator/skills/semgrep-rule-creator/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-01-29T03:53:04.265786Z"
 }

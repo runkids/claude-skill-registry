@@ -1,9 +1,7 @@
 {
   "name": "oauth-implementation",
-  "description": "OAuth 2.0 and OpenID Connect authentication with secure flows. Use for third-party integrations, SSO systems, token-based API access, or encountering authorization code flow, PKCE, token refresh, scop",
   "repo": "secondsky/claude-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/secondsky/claude-skills"
+  "path": "plugins/oauth-implementation/skills/oauth-implementation/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-29T03:11:04.339479Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "wt-status",
-  "description": "Show comprehensive status of current and all git worktrees. Use when checking uncommitted changes, sync status, or getting overview of all active worktrees.",
   "repo": "michael-menard/monorepo",
-  "category": "development",
-  "tags": [
-    "status"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/wt-status/SKILL.md",
+  "source": "github.com/michael-menard/monorepo",
+  "downloaded_at": "2026-01-29T01:36:43.480241Z"
 }

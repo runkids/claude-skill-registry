@@ -1,7 +1,7 @@
 {
   "name": "supabase",
-  "repo": "mmbianco78/signalroom",
-  "path": ".claude/skills/supabase/SKILL.md",
-  "source": "github.com/mmbianco78/signalroom",
-  "downloaded_at": "2026-01-28T04:20:21.486687Z"
+  "repo": "raintree-technology/claude-starter",
+  "path": "templates/.claude/skills/supabase/skill.md",
+  "source": "github.com/raintree-technology/claude-starter",
+  "downloaded_at": "2026-01-29T04:44:21.078811Z"
 }

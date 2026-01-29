@@ -1,9 +1,7 @@
 {
   "name": "comment-cleanup",
-  "description": "Guidelines for comments in code. Use when adding, editing, or removing comments.",
-  "repo": "motlin/claude-code-plugins",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "ahonn/dotfiles",
+  "path": ".claude/skills/comment-cleanup/SKILL.md",
+  "source": "github.com/ahonn/dotfiles",
+  "downloaded_at": "2026-01-29T04:36:15.239695Z"
 }

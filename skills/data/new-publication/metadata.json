@@ -1,9 +1,7 @@
 {
   "name": "new-publication",
-  "description": "Add an academic publication entry with proper metadata, links, and optional academic badges. Use when adding papers, preprints, or other scholarly works.",
   "repo": "glennmatlin/website",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/glennmatlin/website"
+  "path": ".claude/skills/new-publication/SKILL.md",
+  "source": "github.com/glennmatlin/website",
+  "downloaded_at": "2026-01-29T02:46:44.352385Z"
 }

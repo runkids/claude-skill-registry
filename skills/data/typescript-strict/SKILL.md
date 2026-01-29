@@ -1,368 +1,342 @@
 ---
 name: typescript-strict
-description: Configure TypeScript strict mode with additional safety flags. Catch bugs at compile time instead of production. Includes branded types, exhaustive switches, and Result types.
+description: Enforce TypeScript strict mode and type safety. Use when setting up projects, reviewing code, or when type errors are ignored. Covers strict flags, no-any rules, and type inference best practices.
+allowed-tools: Read, Glob, Grep, Edit, Write, Bash
 license: MIT
-compatibility: TypeScript
 metadata:
-  category: foundations
-  time: 1h
-  source: drift-masterguide
+  author: antigravity-team
+  version: "1.0"
 ---
 
 # TypeScript Strict Mode
 
-Catch errors at build time, not in production.
+TypeScript 엄격 모드와 타입 안전성을 강제하는 스킬입니다.
 
-## When to Use This Skill
+## 2025 Context
 
-- Starting a new TypeScript project
-- Tightening an existing codebase
-- Preventing `any` types from leaking through
-- Want compile-time guarantees for runtime safety
+> **TypeScript 5.x에서 strict 모드가 새 프로젝트의 기본값으로 권장됨**
+> **"any 사용은 TypeScript를 쓰는 의미를 없앤다"**
 
-## Core Concepts
+## Core Rules
 
-1. **Strict mode** - Enables all strict type checks
-2. **Index safety** - Array access returns `T | undefined`
-3. **Exhaustiveness** - Compiler ensures all cases handled
-4. **Branded types** - Prevent mixing up IDs and primitives
+| 규칙 | 상태 | 설명 |
+|------|------|------|
+| `strict: true` | 🔴 필수 | 모든 엄격 검사 활성화 |
+| `any` 금지 | 🔴 필수 | `unknown` 또는 제네릭 사용 |
+| `// @ts-ignore` 금지 | 🔴 필수 | 타입 에러 해결 필수 |
+| `as` 캐스팅 최소화 | 🟡 권장 | 타입 가드 우선 |
 
-## TypeScript Implementation
-
-### tsconfig.json (Strict Configuration)
+## tsconfig.json 권장 설정
 
 ```json
 {
   "compilerOptions": {
-    // Target modern JS
-    "target": "ES2022",
-    "lib": ["ES2022"],
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    
-    // STRICT MODE - The important part
+    // 🔴 필수: strict 플래그
     "strict": true,
+
+    // strict가 포함하는 옵션들 (개별 비활성화 금지)
+    // "strictNullChecks": true,
+    // "strictFunctionTypes": true,
+    // "strictBindCallApply": true,
+    // "strictPropertyInitialization": true,
+    // "noImplicitAny": true,
+    // "noImplicitThis": true,
+    // "alwaysStrict": true,
+
+    // 🔴 추가 필수 옵션
     "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "exactOptionalPropertyTypes": true,
-    
-    // Additional safety
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    
-    // Interop
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    
-    // Output
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true
+
+    // 🟡 권장 옵션
+    "exactOptionalPropertyTypes": true,
+    "noPropertyAccessFromIndexSignature": true
   }
 }
 ```
 
-### What Each Flag Does
+## any 금지
 
-| Flag | Effect |
-|------|--------|
-| `strict` | Enables all strict type checks |
-| `noUncheckedIndexedAccess` | `arr[0]` returns `T \| undefined` |
-| `noImplicitOverride` | Must use `override` keyword |
-| `exactOptionalPropertyTypes` | `undefined` ≠ missing property |
-| `noImplicitReturns` | All code paths must return |
-| `noFallthroughCasesInSwitch` | Require break/return in switch |
+### 문제: any 사용
 
-### Path Aliases
+```typescript
+// ❌ BAD: any 사용
+function processData(data: any) {
+  return data.value;  // 런타임 에러 가능
+}
 
-```json
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/types/*": ["./src/types/*"]
-    }
+const result: any = fetchData();
+result.nonExistent();  // 컴파일 통과, 런타임 에러
+```
+
+### 해결: unknown 또는 타입 명시
+
+```typescript
+// ✅ GOOD: unknown + 타입 가드
+function processData(data: unknown) {
+  if (isValidData(data)) {
+    return data.value;
   }
+  throw new Error('Invalid data');
+}
+
+function isValidData(data: unknown): data is { value: string } {
+  return typeof data === 'object'
+    && data !== null
+    && 'value' in data;
+}
+
+// ✅ GOOD: 제네릭 사용
+function processData<T extends { value: string }>(data: T) {
+  return data.value;
 }
 ```
 
-```typescript
-// Before (fragile)
-import { Button } from '../../../components/ui/Button';
+### any → unknown 마이그레이션
 
-// After (clean)
-import { Button } from '@/components/ui/Button';
+```typescript
+// Before
+function parse(json: string): any {
+  return JSON.parse(json);
+}
+
+// After
+function parse(json: string): unknown {
+  return JSON.parse(json);
+}
+
+// 사용 시 타입 체크 필요
+const result = parse('{"name": "test"}');
+if (isUser(result)) {
+  console.log(result.name);  // 안전
+}
 ```
 
-## Type Patterns
+## 타입 단언(as) 최소화
 
-### Branded Types (Prevent ID Mixups)
+### 문제: 과도한 타입 단언
 
 ```typescript
-// types/branded.ts
-declare const brand: unique symbol;
+// ❌ BAD: 위험한 타입 단언
+const user = response.data as User;
+user.name.toUpperCase();  // null이면 에러
 
-type Brand<T, B> = T & { [brand]: B };
-
-export type UserId = Brand<string, 'UserId'>;
-export type OrderId = Brand<string, 'OrderId'>;
-export type ProductId = Brand<string, 'ProductId'>;
-
-// Helper to create branded values
-export const UserId = (id: string) => id as UserId;
-export const OrderId = (id: string) => id as OrderId;
-
-// Usage - compiler prevents mixing IDs
-function getOrder(id: OrderId): Promise<Order>;
-function getUser(id: UserId): Promise<User>;
-
-const userId = UserId('user_123');
-const orderId = OrderId('order_456');
-
-getUser(userId);   // ✅ OK
-getOrder(orderId); // ✅ OK
-getOrder(userId);  // ❌ Type error! Can't use UserId as OrderId
+// ❌ BAD: 이중 단언 (매우 위험)
+const value = data as unknown as TargetType;
 ```
 
-### Exhaustive Switch
+### 해결: 타입 가드 사용
 
 ```typescript
-// Ensure all enum cases handled
-type Status = 'pending' | 'active' | 'completed' | 'failed';
-
-function getStatusColor(status: Status): string {
-  switch (status) {
-    case 'pending':
-      return 'yellow';
-    case 'active':
-      return 'blue';
-    case 'completed':
-      return 'green';
-    case 'failed':
-      return 'red';
-    default:
-      // This line ensures exhaustiveness
-      const _exhaustive: never = status;
-      throw new Error(`Unhandled status: ${_exhaustive}`);
-  }
-}
-
-// If you add a new status, TypeScript will error until you handle it
-```
-
-### Result Type (No Exceptions)
-
-```typescript
-// types/result.ts
-export type Result<T, E = Error> = 
-  | { ok: true; value: T }
-  | { ok: false; error: E };
-
-export function ok<T>(value: T): Result<T, never> {
-  return { ok: true, value };
-}
-
-export function err<E>(error: E): Result<never, E> {
-  return { ok: false, error };
-}
-
-// Usage
-type FetchError = 'NOT_FOUND' | 'NETWORK_ERROR' | 'UNAUTHORIZED';
-
-async function fetchUser(id: string): Promise<Result<User, FetchError>> {
-  try {
-    const response = await fetch(`/api/users/${id}`);
-    
-    if (response.status === 404) return err('NOT_FOUND');
-    if (response.status === 401) return err('UNAUTHORIZED');
-    if (!response.ok) return err('NETWORK_ERROR');
-    
-    const user = await response.json();
-    return ok(user);
-  } catch {
-    return err('NETWORK_ERROR');
-  }
-}
-
-// Caller must handle both cases
-const result = await fetchUser('123');
-
-if (!result.ok) {
-  // TypeScript knows: result.error is FetchError
-  switch (result.error) {
-    case 'NOT_FOUND':
-      return notFound();
-    case 'UNAUTHORIZED':
-      return redirect('/login');
-    case 'NETWORK_ERROR':
-      return serverError();
-  }
-}
-
-// TypeScript knows: result.value is User
-console.log(result.value.name);
-```
-
-### Type Guards
-
-```typescript
-// Type guard function
-function isUser(value: unknown): value is User {
+// ✅ GOOD: 타입 가드
+function isUser(data: unknown): data is User {
   return (
-    typeof value === 'object' &&
-    value !== null &&
-    'id' in value &&
-    'email' in value &&
-    typeof (value as User).id === 'string' &&
-    typeof (value as User).email === 'string'
+    typeof data === 'object' &&
+    data !== null &&
+    'name' in data &&
+    typeof (data as { name: unknown }).name === 'string'
   );
 }
 
-// Usage with unknown data
-function handleWebhook(body: unknown) {
-  if (isUser(body)) {
-    // TypeScript knows body is User here
-    console.log(body.email);
+if (isUser(response.data)) {
+  response.data.name.toUpperCase();  // 안전
+}
+
+// ✅ GOOD: Zod 스키마 검증
+import { z } from 'zod';
+
+const UserSchema = z.object({
+  name: z.string(),
+  email: z.string().email(),
+});
+
+const user = UserSchema.parse(response.data);
+```
+
+## Null 안전성
+
+### strictNullChecks 활용
+
+```typescript
+// ❌ BAD: null 체크 없음
+function getLength(str: string | null) {
+  return str.length;  // 에러: null일 수 있음
+}
+
+// ✅ GOOD: null 체크
+function getLength(str: string | null) {
+  if (str === null) return 0;
+  return str.length;
+}
+
+// ✅ GOOD: 옵셔널 체이닝
+function getLength(str: string | null) {
+  return str?.length ?? 0;
+}
+```
+
+### 배열 인덱스 접근
+
+```typescript
+// noUncheckedIndexedAccess: true 일 때
+
+const arr = [1, 2, 3];
+const first = arr[0];  // number | undefined
+
+// ❌ BAD: undefined 체크 없음
+console.log(first.toFixed(2));  // 에러
+
+// ✅ GOOD: undefined 체크
+if (first !== undefined) {
+  console.log(first.toFixed(2));
+}
+
+// ✅ GOOD: 논리 연산자
+console.log(arr[0]?.toFixed(2) ?? 'N/A');
+```
+
+## 함수 타입
+
+### 반환 타입 명시 (권장)
+
+```typescript
+// ❌ BAD: 반환 타입 추론 의존
+function fetchUser(id: string) {
+  return api.get(`/users/${id}`);  // 반환 타입?
+}
+
+// ✅ GOOD: 명시적 반환 타입
+async function fetchUser(id: string): Promise<User> {
+  return api.get(`/users/${id}`);
+}
+```
+
+### 함수 오버로드
+
+```typescript
+// ✅ GOOD: 오버로드로 정확한 타입
+function process(input: string): string;
+function process(input: number): number;
+function process(input: string | number): string | number {
+  if (typeof input === 'string') {
+    return input.toUpperCase();
+  }
+  return input * 2;
+}
+
+const str = process('hello');  // string
+const num = process(42);       // number
+```
+
+## 제네릭 활용
+
+```typescript
+// ❌ BAD: any 사용
+function first(arr: any[]): any {
+  return arr[0];
+}
+
+// ✅ GOOD: 제네릭
+function first<T>(arr: T[]): T | undefined {
+  return arr[0];
+}
+
+// ✅ GOOD: 제약 있는 제네릭
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
+}
+```
+
+## ESLint 규칙
+
+```json
+{
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-unsafe-assignment": "error",
+    "@typescript-eslint/no-unsafe-member-access": "error",
+    "@typescript-eslint/no-unsafe-call": "error",
+    "@typescript-eslint/no-unsafe-return": "error",
+    "@typescript-eslint/explicit-function-return-type": "warn",
+    "@typescript-eslint/no-non-null-assertion": "warn",
+    "@typescript-eslint/prefer-nullish-coalescing": "warn"
   }
 }
 ```
 
-### Zod for Runtime Validation
+## 금지 패턴
 
 ```typescript
-// schemas/user.ts
-import { z } from 'zod';
+// 🔴 절대 금지
+// @ts-ignore
+// @ts-nocheck
+// @ts-expect-error (테스트 제외)
+// eslint-disable @typescript-eslint/no-explicit-any
 
-export const UserSchema = z.object({
-  id: z.string().uuid(),
-  email: z.string().email(),
-  name: z.string().min(1).max(100),
-  role: z.enum(['admin', 'user', 'guest']),
-  createdAt: z.string().datetime(),
-});
+// 🔴 금지: any 캐스팅
+data as any
+(data as unknown) as TargetType
 
-// Infer TypeScript type from schema
-export type User = z.infer<typeof UserSchema>;
-
-// Validate external data
-function handleWebhook(body: unknown): User {
-  return UserSchema.parse(body); // Throws ZodError if invalid
-}
-
-// Safe parse (no throw)
-const result = UserSchema.safeParse(body);
-if (!result.success) {
-  console.error(result.error.issues);
-  return;
-}
-// result.data is User
+// 🟡 최소화
+data!  // non-null assertion
+data as Type  // 타입 가드 우선
 ```
 
-## Common Strict Mode Fixes
+## Workflow
 
-### Fix 1: Array Index Access
+### 1. 새 프로젝트 설정
 
-```typescript
-// ❌ Error with noUncheckedIndexedAccess
-const items = ['a', 'b', 'c'];
-const first = items[0].toUpperCase(); // items[0] is string | undefined
+```bash
+# TypeScript 초기화
+npx tsc --init
 
-// ✅ Fix: Optional chaining
-const first = items[0]?.toUpperCase();
-
-// ✅ Fix: Check first
-const first = items[0];
-if (first) {
-  console.log(first.toUpperCase());
-}
-
-// ✅ Fix: Non-null assertion (when you're certain)
-const first = items[0]!.toUpperCase();
-
-// ✅ Fix: Use .at() with check
-const first = items.at(0);
-if (first !== undefined) {
-  console.log(first.toUpperCase());
-}
+# strict 활성화 확인
+grep -n "strict" tsconfig.json
 ```
 
-### Fix 2: Optional Properties
+### 2. 기존 프로젝트 마이그레이션
 
-```typescript
-// ❌ Error with exactOptionalPropertyTypes
-interface Config {
-  timeout?: number;
-}
-const config: Config = { timeout: undefined }; // Error!
+```bash
+# 1. strict 활성화
+# tsconfig.json: "strict": true
 
-// ✅ Fix: Omit the property
-const config: Config = {};
+# 2. 에러 확인
+npx tsc --noEmit
 
-// ✅ Fix: Explicitly allow undefined
-interface Config {
-  timeout?: number | undefined;
-}
+# 3. 점진적 수정
+# - any → unknown
+# - as → 타입 가드
+# - null 체크 추가
 ```
 
-### Fix 3: Object Index Signature
+### 3. 코드 리뷰 체크
 
-```typescript
-// ❌ Error with noPropertyAccessFromIndexSignature
-interface Cache {
-  [key: string]: string;
-}
-const cache: Cache = {};
-const value = cache.someKey; // Error: use bracket notation
-
-// ✅ Fix: Use bracket notation
-const value = cache['someKey'];
+```
+타입 안전성 체크:
+- [ ] any 사용하지 않음
+- [ ] @ts-ignore 없음
+- [ ] 타입 단언 최소화
+- [ ] null 체크 적절함
 ```
 
-### Fix 4: Override Keyword
+## Checklist
 
-```typescript
-// ❌ Error with noImplicitOverride
-class Animal {
-  speak() { console.log('...'); }
-}
+- [ ] `strict: true` 설정
+- [ ] `noUncheckedIndexedAccess: true` 설정
+- [ ] ESLint @typescript-eslint 규칙 적용
+- [ ] any 0개
+- [ ] @ts-ignore 0개
+- [ ] 타입 가드 함수 구현
+- [ ] 명시적 반환 타입 (공개 API)
 
-class Dog extends Animal {
-  speak() { console.log('Woof!'); } // Error: missing override
-}
+## References
 
-// ✅ Fix: Add override keyword
-class Dog extends Animal {
-  override speak() { console.log('Woof!'); }
-}
-```
-
-## Best Practices
-
-1. **Start strict** - Enable strict mode from day one
-2. **No `any`** - Use `unknown` + type guards instead
-3. **Validate boundaries** - Use Zod for external data (API, forms)
-4. **Branded types** - Prevent ID mixups in domain logic
-5. **Result types** - Make error handling explicit
-
-## Common Mistakes
-
-- Using `any` to silence errors (use `unknown` instead)
-- Ignoring `noUncheckedIndexedAccess` warnings
-- Not validating data at system boundaries
-- Mixing up IDs without branded types
-- Using `!` non-null assertion without certainty
-
-## Related Skills
-
-- [Environment Config](../environment-config/)
-- [Request Validation](../request-validation/)
-- [Error Handling](../error-handling/)
+- [TypeScript Handbook - Strict Mode](https://www.typescriptlang.org/tsconfig#strict)
+- [typescript-eslint](https://typescript-eslint.io/)
+- [Zod](https://zod.dev/)

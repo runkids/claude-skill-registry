@@ -1,9 +1,7 @@
 {
   "name": "restartability",
-  "description": "STATUS.md format and guidance for tracking progress and resuming work after interruptions.",
   "repo": "amattas/retail-demo",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/restartability/SKILL.md",
+  "source": "github.com/amattas/retail-demo",
+  "downloaded_at": "2026-01-29T04:14:03.847811Z"
 }

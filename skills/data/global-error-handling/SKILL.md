@@ -1,7 +1,22 @@
 ---
 name: Global Error Handling
-description: Your approach to handling global error handling. Use this skill when working on files where global error handling comes into play.
+description: Implement robust error handling with user-friendly messages, specific exception types, centralized handling, and graceful degradation. Use this skill when adding try-catch blocks, error boundaries, or exception handling. When creating custom error types or exception classes. When deciding where to handle errors (controller vs. service layer). When writing user-facing error messages. When implementing retry logic with exponential backoff. When ensuring resources are cleaned up in finally blocks or equivalent patterns.
 ---
+
+## When to use this skill:
+
+- When adding try-catch blocks or error handling code
+- When creating custom error or exception classes
+- When deciding where to catch and handle errors
+- When writing error messages that users will see
+- When implementing centralized error handling at API boundaries
+- When designing systems to degrade gracefully on failure
+- When implementing retry strategies for external service calls
+- When using exponential backoff for transient failures
+- When ensuring resources (connections, file handles) are cleaned up
+- When validating inputs and failing fast with clear messages
+- When choosing between specific and generic exception types
+- When reviewing code for proper error handling patterns
 
 # Global Error Handling
 

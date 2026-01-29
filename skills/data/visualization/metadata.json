@@ -1,7 +1,7 @@
 {
   "name": "visualization",
-  "repo": "T-Klug/aws-cur-report-generator",
-  "path": ".claude/skills/visualization/SKILL.md",
-  "source": "github.com/T-Klug/aws-cur-report-generator",
-  "downloaded_at": "2026-01-28T03:06:00.195323Z"
+  "repo": "marketcalls/openalgo-claude-plugin",
+  "path": "plugins/openalgo-python/skills/visualization/SKILL.md",
+  "source": "github.com/marketcalls/openalgo-claude-plugin",
+  "downloaded_at": "2026-01-29T03:43:54.860389Z"
 }

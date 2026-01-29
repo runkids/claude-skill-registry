@@ -1,7 +1,7 @@
 {
   "name": "audit",
-  "repo": "jasonkuhrt/dotfiles",
+  "repo": "alfredolopez80/multi-agent-ralph-loop",
   "path": ".claude/skills/audit/SKILL.md",
-  "source": "github.com/jasonkuhrt/dotfiles",
-  "downloaded_at": "2026-01-28T04:15:10.504297Z"
+  "source": "github.com/alfredolopez80/multi-agent-ralph-loop",
+  "downloaded_at": "2026-01-29T04:40:05.996113Z"
 }

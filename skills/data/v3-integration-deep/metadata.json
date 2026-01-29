@@ -1,7 +1,7 @@
 {
   "name": "v3-integration-deep",
-  "repo": "ruvnet/claude-flow",
+  "repo": "EarthmanWeb/claude-flow-plugin",
   "path": "v3/@claude-flow/mcp/.claude/skills/v3-integration-deep/SKILL.md",
-  "source": "github.com/ruvnet/claude-flow",
-  "downloaded_at": "2026-01-28T04:26:43.376805Z"
+  "source": "github.com/EarthmanWeb/claude-flow-plugin",
+  "downloaded_at": "2026-01-29T03:24:38.542515Z"
 }

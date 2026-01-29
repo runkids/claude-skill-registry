@@ -1,9 +1,7 @@
 {
   "name": "design-component",
-  "description": "Design Component skill for Empathy Ledger. Use for storyteller cards, story cards, profile displays, and any UI component requiring cultural sensitivity. Provides data mapping, AI enrichment patterns,",
   "repo": "Acurioustractor/empathy-ledger-v2",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/local/design-component/SKILL.md",
+  "source": "github.com/Acurioustractor/empathy-ledger-v2",
+  "downloaded_at": "2026-01-29T02:36:17.717164Z"
 }

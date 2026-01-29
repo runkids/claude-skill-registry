@@ -1,12 +1,7 @@
 {
   "name": "concept-design",
-  "description": "ゲームのコンセプトデザインを言語化するためのスキル。漠然としたアイデアを設計可能な形に変換する。使用タイミング：(1)「ゲームのコンセプトを考えたい」(2)「新しいゲームを作りたい」(3)「アイデアを整理したい」と言われた時。判断・行動・体験を中心に据えた設計言語を生成する。",
   "repo": "yaguma/atelier",
-  "category": "design",
-  "tags": [
-    "concept",
-    "design"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/concept-design/SKILL.md",
+  "source": "github.com/yaguma/atelier",
+  "downloaded_at": "2026-01-29T01:41:47.409964Z"
 }

@@ -1,207 +1,293 @@
 ---
 name: session-end
-description: Generate end-of-session documentation for paleoseismic research. Use at end of work session to update SESSION_LOG.md and GAPS_AND_PRIORITIES.md. Triggers on "end session", "session summary", "wrap up", "document session".
+description: Generate comprehensive summary and archive session to appropriate project directory
+disable-model-invocation: true
 ---
 
-# /session-end - Session Documentation Skill
+# Procedure for Ending and Archiving a Development Session
 
-## Purpose
+This procedure archives the work from the current session into a permanent, detailed log for future reference.
 
-Generate end-of-session documentation to update `memory/SESSION_LOG.md` and mark completed tasks in `GAPS_AND_PRIORITIES.md`. Ensures all work is properly recorded for continuity.
+## Token Optimization
 
-## Usage
+This skill optimizes summary generation through Bash-based analysis and template structures:
 
-```
-/session-end [optional: brief description of session focus]
-```
+### 1. Bash-Based Session Analysis (1,500 token savings)
 
-**Examples:**
-```
-/session-end                              # Auto-infer from conversation
-/session-end "Brazil dark earthquake verification"
-/session-end "Yok Balum 1976 validation failure analysis"
-```
+**Pattern:** Use git commands and file metadata instead of reading files
 
-## Workflow
+```bash
+# Bash-based analysis (400 tokens)
+SESSION_FILE=$(cat .claude/sessions/.current-session)
+START_TIME=$(head -1 "$SESSION_FILE" | grep -oP '\d{4}-\d{2}-\d{2} \d{2}:\d{2}')
+END_TIME=$(date '+%Y-%m-%d %H:%M')
 
-### Step 1: Gather Session Information
+# Git summary
+FILES_CHANGED=$(git diff --name-status HEAD@{1 hour ago} | wc -l)
+COMMITS=$(git log --since="$START_TIME" --oneline | wc -l)
+GIT_STATUS=$(git status --porcelain)
 
-Review the conversation to identify:
-
-1. **Focus**: What was the main task/question this session?
-2. **Key Findings**: What discoveries, reclassifications, or insights emerged?
-3. **Files Modified**: Which files were created/updated?
-4. **Tasks Completed**: Which GAPS_AND_PRIORITIES.md tasks were finished?
-5. **New Tasks Discovered**: What new work items emerged?
-6. **Blocking Issues**: What is preventing progress?
-7. **Next Priority**: What should the next session focus on?
-
-### Step 2: Generate SESSION_LOG.md Entry
-
-Format entry following the established pattern:
-
-```markdown
-## YYYY-MM-DD | [SHORT TITLE]: [Key Finding]
-
-**Focus**: [What the session aimed to accomplish]
-
-### Key Finding: [Most Important Discovery]
-
-[1-3 paragraph description of the main finding, with tables if relevant]
-
-| Column1 | Column2 | Column3 |
-|---------|---------|---------|
-| data    | data    | data    |
-
-### [Additional Findings]
-
-[Other significant work done]
-
-### Files Updated
-
-| File | Change |
-|------|--------|
-| `path/to/file.md` | [Brief description of change] |
-| `another/file.md` | [Brief description of change] |
-
-### Statistics Update (if applicable)
-
-[Any changes to project statistics - detection rates, event counts, etc.]
-
-### Next Priority
-
-[What should be tackled next, any blocking issues]
-
----
+# File changes breakdown
+ADDED=$(echo "$GIT_STATUS" | grep '^A' | wc -l)
+MODIFIED=$(echo "$GIT_STATUS" | grep '^M' | wc -l)
+DELETED=$(echo "$GIT_STATUS" | grep '^D' | wc -l)
 ```
 
-### Step 3: Update GAPS_AND_PRIORITIES.md
+**Savings:**
+- Bash commands: ~400 tokens (metadata only)
+- File reading approach: ~1,900 tokens (read all changed files)
+- **1,500 token savings (79%)**
 
-For each completed task:
-1. Change task line to add `✅ COMPLETE` or strikethrough `~~TaskCode~~`
-2. Add completion date if relevant
-3. Add pointer to created documentation
+### 2. Early Exit for No Active Session (95% savings)
 
-For new tasks discovered:
-1. Add to appropriate section with new task code
-2. Include notes and cross-references
+**Pattern:** Detect missing session immediately
 
-### Step 4: Present for Approval
+```bash
+# Quick check (60 tokens)
+if [ ! -f ".claude/sessions/.current-session" ] || [ ! -s ".claude/sessions/.current-session" ]; then
+    echo "⚠️  No active session to end"
+    echo "   Start one with /session-start"
+    exit 0  # 60 tokens total
+fi
 
-Show the user:
-1. Proposed SESSION_LOG.md entry
-2. Proposed GAPS_AND_PRIORITIES.md changes
-3. Ask for approval before writing
-
-## Entry Format Guidelines
-
-### Title Format
-```
-## YYYY-MM-DD | [CODE] [STATUS]: [Key Finding]
+# Otherwise: Full session end workflow (800+ tokens)
 ```
 
-**Examples:**
-- `## 2026-01-03 | IC1 COMPLETE: Pallett Creek Confirms ~1285 CE SAF`
-- `## 2024-12-30 | ~1075 CE RECLASSIFIED: "Drought" → SEISMIC CANDIDATE`
-- `## 2024-12-30 | "RIDLEY PARADOX" RESOLVED - Maya Mountains Local Fault`
+**Savings:**
+- No session: ~60 tokens (early exit)
+- Full workflow: ~800+ tokens
+- **740+ token savings (92%)** when no active session
 
-### Files Updated Table
-Always include this table - it's critical for tracking changes:
+### 3. Template-Based Summary Structure (800 token savings)
 
-```markdown
-| File | Change |
-|------|--------|
-| `regions/italy/THE_1394_DARK_EARTHQUAKE.md` | Added DISS verification section |
-| `DARK_EARTHQUAKE_AUDIT.md` | New Caribbean audit entry |
-| `PAPER_2_DARK_EARTHQUAKES.md` | Section 5.2 updated with findings |
-| `CLAUDE.md` | Statistics table updated |
+**Pattern:** Use template with placeholder variables instead of LLM-generated narrative
+
+```bash
+# Template-based summary (300 tokens)
+cat >> "$SESSION_FILE" <<EOF
+
+## Session Summary
+
+**Duration**: $START_TIME to $END_TIME
+**Branch**: $(git branch --show-current)
+
+### Changes
+- Files changed: $FILES_CHANGED
+- Commits: $COMMITS
+- Added: $ADDED, Modified: $MODIFIED, Deleted: $DELETED
+
+### File List
+$(git diff --name-status HEAD@{1 hour ago})
+
+### Commit History
+$(git log --since="$START_TIME" --oneline)
+
+### Final Status
+$(git status --short)
+EOF
 ```
 
-### Key Finding Format
-For discoveries/reclassifications:
-- State the finding clearly in 1 sentence
-- Provide supporting data in a table
-- Explain significance in 1-2 sentences
+**Savings:**
+- Template-based: ~300 tokens (variable substitution)
+- LLM-generated narrative: ~1,100 tokens (comprehensive summary with analysis)
+- **800 token savings (73%)**
 
-### Next Priority Format
-```markdown
-### Next Priority
+### 4. Incremental TODO Status (Optional)
 
-[Task code from GAPS]: [Brief description]
+**Pattern:** Read TODO cache if available, skip comprehensive analysis if not
 
-**Blocking issues** (if any):
-- [Issue 1]
-- [Issue 2]
+```bash
+# Optional TODO status (150 tokens if cached, 0 if not)
+if [ -f ".claude/cache/todos/summary.json" ]; then
+    TODO_SUMMARY=$(jq -r '{completed, in_progress, pending}' .claude/cache/todos/summary.json)
+    cat >> "$SESSION_FILE" <<EOF
+
+### TODO Progress
+$TODO_SUMMARY
+EOF
+fi
+
+# Don't scan codebase for TODOs (would be 800+ tokens)
 ```
 
-## Output Format
+**Token Usage:**
+- Cached TODO status: ~150 tokens
+- Scan codebase: ~800+ tokens
+- **Skip if unavailable: 0 tokens** (graceful degradation)
 
-The skill outputs:
+### 5. Session Categorization Caching (200 token savings)
 
-1. **SESSION_LOG.md entry** (ready to prepend)
-2. **GAPS_AND_PRIORITIES.md changes** (specific edits)
-3. **Summary** of session statistics
+**Pattern:** Cache directory structure to avoid repeated analysis
 
-Then asks for approval to:
-- Write entry to SESSION_LOG.md (prepend after header)
-- Edit GAPS_AND_PRIORITIES.md (mark completions, add new tasks)
+```bash
+# Cache file: .claude/sessions/.structure-cache.json
+# Format: {"directories": ["feature-a", "feature-b", ...]}
+# TTL: Session-based (until structure changes)
 
-## Example Output
-
-```
-📝 SESSION DOCUMENTATION
-
-Generated entry for SESSION_LOG.md:
-
----
-## 2026-01-03 | DARK_EARTHQUAKE_AUDIT: Global Verification Complete
-
-**Focus**: Audit all dark earthquake claims against modern fault databases
-
-### Key Finding: Only 4 TRUE Dark Earthquakes
-
-| Region | Event(s) | Classification | Reason |
-|--------|----------|----------------|--------|
-| Italy 1394 | ~1394 CE | **TRUE DARK** | NNW/SW faults not in ANY database |
-| Brazil | ~96, ~867, ~1006 CE | **TRUE DARK** | No fault databases exist |
-| California | 1741, 1580, 1825 | Pre-Historical | Faults ARE mapped (SCEC CFM) |
-| Caribbean | ~1400, ~1062 CE | Pre-Columbian | Faults ARE mapped (GEM CCAF-DB) |
-
-### Files Updated
-
-| File | Change |
-|------|--------|
-| `DARK_EARTHQUAKE_AUDIT.md` | Complete global audit |
-| `CLAUDE.md` | Updated definitions |
-| `regions/brazil/BRAZIL_FAULT_DATABASE_RESEARCH.md` | New file |
-
-### Next Priority
-
-MS5: Update papers with fault database verification findings
-
----
-
-GAPS_AND_PRIORITIES.md changes:
-- ✅ Mark MS5 as COMPLETE
-- Add new task: "Update California terminology (Pre-Spanish, not dark)"
-
-Write these updates? [Y/n]
+if [ -f ".claude/sessions/.structure-cache.json" ]; then
+    DIRS=$(jq -r '.directories[]' .claude/sessions/.structure-cache.json)
+else
+    DIRS=$(ls -1 .claude/sessions/)
+    echo "{\"directories\": $(echo "$DIRS" | jq -R . | jq -s .)}" > .claude/sessions/.structure-cache.json
+fi
 ```
 
-## Important Notes
+**Savings:**
+- Cached structure: ~100 tokens
+- Fresh analysis: ~300 tokens (directory listing + analysis)
+- **200 token savings (67%)** for subsequent session ends
 
-1. **Newest entries at top** - SESSION_LOG.md has reverse chronological order
-2. **Be specific** - Include file paths, task codes, specific findings
-3. **Cross-reference** - Always link to detailed documentation
-4. **Don't duplicate** - Put analysis in regional files, summaries in session log
-5. **Track statistics** - Note any changes to detection rates, event counts
-6. **Identify blockers** - Document what's preventing progress
+### 6. Smart File Archival (No File Splitting)
 
-## Files Modified
+**Pattern:** Simple move operation instead of complex splitting logic
 
-| File | Action |
-|------|--------|
-| `paleoseismic_caves/memory/SESSION_LOG.md` | Prepend new entry |
-| `paleoseismic_caves/GAPS_AND_PRIORITIES.md` | Mark completions, add tasks |
-| `paleoseismic_caves/memory/FACTS.md` | Add new verified facts (optional) |
-| `paleoseismic_caves/memory/DEAD_ENDS.md` | Add failed approaches (optional) |
+```bash
+# Simple archival (100 tokens)
+TARGET_DIR=".claude/sessions/general"  # Default category
+
+# Move session file
+mv "$SESSION_FILE" "$TARGET_DIR/"
+[ -f "$TARGET_DIR/.gitkeep" ] && rm "$TARGET_DIR/.gitkeep"
+
+# Clear current session
+> .claude/sessions/.current-session
+```
+
+**Token Usage:**
+- Simple move: ~100 tokens
+- Complex splitting logic: ~500+ tokens (analyze, split, categorize)
+- Default to simple approach - **80% savings**
+
+### 7. Real-World Token Usage Distribution
+
+**Typical Scenarios:**
+
+1. **Standard Session End (600-900 tokens)**
+   - Session validation: 60 tokens
+   - Bash-based analysis: 400 tokens
+   - Template summary: 300 tokens
+   - TODO status (cached): 150 tokens
+   - File archival: 100 tokens
+   - **Total: ~1,010 tokens**
+
+2. **Minimal Session End (500-700 tokens)**
+   - Session validation: 60 tokens
+   - Bash-based analysis: 400 tokens
+   - Template summary: 300 tokens
+   - Simple archival: 100 tokens
+   - **Total: ~860 tokens** (no TODO status)
+
+3. **No Active Session - Early Exit (50-80 tokens)**
+   - Session check: 60 tokens
+   - **Total: ~60 tokens**
+
+4. **Long Session with Updates (700-1,000 tokens)**
+   - Session validation: 60 tokens
+   - Bash-based analysis: 400 tokens
+   - Read session updates: 200 tokens (previous updates)
+   - Template summary: 300 tokens
+   - Archival: 100 tokens
+   - **Total: ~1,060 tokens**
+
+**Expected Token Savings:**
+- **Average 60% reduction** from baseline (1,500 → 600 tokens)
+- **92% reduction** when no active session
+- **Aggregate savings: 700-900 tokens** per session end
+
+### Optimization Summary
+
+| Strategy | Savings | When Applied |
+|----------|---------|--------------|
+| Bash-based session analysis | 1,500 tokens (79%) | Always |
+| Early exit for no session | 740 tokens (92%) | No active session |
+| Template-based summary | 800 tokens (73%) | Always (vs LLM narrative) |
+| Incremental TODO status | 650 tokens (81%) | When cache unavailable |
+| Session categorization caching | 200 tokens (67%) | Subsequent ends |
+| Smart file archival | 400 tokens (80%) | Simple move vs splitting |
+
+**Key Insight:** Session ending benefits significantly from Bash-based analysis and template structures, avoiding expensive file reads and LLM-generated narratives. The combination of git commands, cached TODO status, and simple archival provides 60-70% token reduction while maintaining comprehensive session documentation.
+
+## Phase 1: Verify the Active Session
+
+1. I will check for an active session by reading the `.claude/sessions/.current-session` file.
+2. If the file is empty or doesn't exist, I will inform the user that there is no active session to end and stop the process.
+
+## Phase 2: Generate the Session Summary
+
+1. Let me analyze what we accomplished by:
+   - Reviewing files created/modified during our session
+   - Checking git changes and commit history
+   - Summarizing completed work and pending items
+2. I will append comprehensive information to the end of the active session file. The information will be structured and detailed enough for another developer to understand the session's context and outcomes. It will include:
+   - Session summary and accomplishments
+   - Files modified and their purposes
+   - Decisions made and rationale
+   - Pending work and next steps
+   - Any important context for future sessions
+3. Expanding on the above point, the comprehensive information must include:
+   - Session Metadata:
+     - Session duration
+     - Session Start and End timestamps
+   - Version Control Summary (Git):
+     - Total files added, modified, or deleted with their purposes.
+     - A list of all changed files with their status (e.g., `A`, `M`, `D`)
+     - Number of commits made during the session
+     - Final `git status` output
+   - Task Management Summary (To-Do):
+     - Totals for completed vs. remaining tasks
+     - A list of all completed tasks
+     - A list of all incomplete tasks and their current status
+   - Development Narrative:
+     - Session summary
+     - All accomplishments
+     - Key architectural decisions made
+     - Features and fixes implemented
+     - Problems encountered and their implemented solutions
+     - Known issues requiring attention
+     - Important context for other developers. Lessons learned and tips for future developers
+   - Project Impact:
+     - Breaking changes or other important findings
+     - Any blockers or dependencies identified
+     - Dependencies added or removed
+     - Configuration changes made
+     - Technical debt considerations
+     - Deployment steps taken (if any)
+     - Work that was planned but not completed
+     - Recommended next steps
+
+## Phase 3: File the Session Log
+
+This phase determines the correct location for the session file based on its content.
+
+1. Ensure Directory Structure Exists: Check for sub-directories inside `.claude/sessions`.
+   - If no directories exist, create them by running the `sessions-init.md` command.
+
+2. Analyze and Categorize the Session: Review the session summary to determine which feature or product area it relates to. Compare this against the existing sub-directory names.
+
+3. Handle Filing Scenarios:
+    - A) Simple Match: If the session clearly maps to one sub-directory, proceed to Phase 4.
+    - B) No Match: If the session content does not match any existing directory:
+        1. The project structure may have changed. Re-run the `sessions-init.md` command to update the directories.
+        2. Attempt to categorize the session again against the updated directories.
+        3. If there is still no match, halt the process. Inform the user that a suitable directory could not be found and that manual action is required.
+    - C) Multiple Matches: If the session covers more than one feature area:
+        1. Split the session file into multiple files.
+        2. Use the naming convention: `[original_timestamp]-[feature_name].md`.
+        3. Each new file should contain the relevant parts of the summary for that specific feature.
+
+## Phase 4: Finalize and Clean Up
+
+1. Archive the File(s): Move the session file (or the newly split files) into the appropriate sub-directory (or directories) identified in Phase 3.
+2. Clean Up Directory: If the destination directory contained a `.gitkeep` file, delete it, as the directory is no longer empty.
+3. End the Session: Clear the contents of the `.claude/sessions/.current-session` file. Do not delete the file itself.
+4. Notify the User: Confirm that the session has been successfully documented and archived. Print the final location(s) of the session file(s).
+
+**Important**: I will NEVER:\
+
+- Add "Co-authored-by" or any Claude signatures
+- Include "Generated with Claude Code" or similar messages
+- Modify git config or user credentials
+- Add any AI/assistant attribution to the commit
+- Use emojis in commits, PRs, or git-related content
+
+I'll preserve this summary in your custom memory system, ensuring continuity for future sessions and seamless handoffs to other developers.

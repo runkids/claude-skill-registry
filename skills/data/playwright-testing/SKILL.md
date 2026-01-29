@@ -1,148 +1,391 @@
 ---
 name: playwright-testing
-description: Browser automation with Playwright for Python. Recommended for visual testing. (project)
+description: Use when writing, debugging, or reviewing Playwright tests for web apps; before writing test code; when tests are flaky, slow, or brittle; when seeing timeout errors, element not found, or race conditions; when using getByRole, locators, or assertions
 ---
 
 # Playwright Testing
 
-## When to Use
+Write reliable, fast, maintainable Playwright tests for SPAs.
 
-- Visual testing, screenshots, UI verification
-- Mentions: "playwright", "screenshot", "visual test"
+## Contents
+- Core Concepts (Locators, Waiting, Assertions)
+- Test Structure → See [reference/structure.md](reference/structure.md)
+- Performance → See [reference/performance.md](reference/performance.md)
+- Debugging → See [reference/debugging.md](reference/debugging.md)
+- CI Configuration → See [reference/ci.md](reference/ci.md)
 
-## Canonical Repo Rules
+**Core principle:** Test what users see and do. If a user can't find an element by its role or text, neither should your test.
 
-For Skriptoteket-specific setup (login env vars, SPA dev server vs built assets, macOS Intel vs Apple Silicon), follow:
+**Quality layers:** Reliable (no flakes) → Fast (parallel, minimal waits) → Maintainable (survives refactors)
 
-- `.agent/rules/075-browser-automation.md`
-- For CodeMirror (CM6) editor interaction patterns (hover, autocomplete, lint tooltips), follow:
-  `.agent/rules/075-browser-automation.md` → “CodeMirror (CM6) interaction patterns (REQUIRED)”.
+**Philosophy:** User-centric locators by default. Implementation details (test-ids, CSS selectors) are escape hatches, not first choices.
 
-## Repo Commands
+## The Process
+
+1. **Identify:** What user behavior are we testing?
+2. **Locate:** Find elements the way users would (role, label, text)
+3. **Act:** Perform user actions (click, fill, navigate)
+4. **Assert:** Verify visible outcomes, not internal state
+5. **Stabilize:** Handle async, add appropriate waits
+
+## Red Flags - STOP
+
+- `page.locator('.btn-primary')` - CSS class selectors
+- `page.waitForTimeout(1000)` - arbitrary sleeps
+- `page.locator('[data-testid="x"]')` as first choice
+- Testing component internals instead of user outcomes
+- Long test files with no page objects or fixtures
+
+## Locator Priority
+
+```dot
+digraph locator_priority {
+    rankdir=TB;
+    node [shape=box];
+
+    "Need to find element" [shape=diamond];
+    "Has accessible role?" [shape=diamond];
+    "Has label/placeholder?" [shape=diamond];
+    "Has visible text?" [shape=diamond];
+    "getByRole" [style=filled fillcolor=lightgreen];
+    "getByLabel/getByPlaceholder" [style=filled fillcolor=lightgreen];
+    "getByText" [style=filled fillcolor=lightgreen];
+    "getByTestId" [style=filled fillcolor=lightyellow];
+
+    "Need to find element" -> "Has accessible role?";
+    "Has accessible role?" -> "getByRole" [label="yes"];
+    "Has accessible role?" -> "Has label/placeholder?" [label="no"];
+    "Has label/placeholder?" -> "getByLabel/getByPlaceholder" [label="yes"];
+    "Has label/placeholder?" -> "Has visible text?" [label="no"];
+    "Has visible text?" -> "getByText" [label="yes"];
+    "Has visible text?" -> "getByTestId" [label="no (last resort)"];
+}
+```
+
+| Priority | Locator | When to Use | Example |
+|----------|---------|-------------|---------|
+| 1st | `getByRole` | Buttons, links, inputs, headings, lists | `getByRole('button', { name: 'Submit' })` |
+| 2nd | `getByLabel` | Form inputs with labels | `getByLabel('Email address')` |
+| 3rd | `getByPlaceholder` | Inputs with placeholder text | `getByPlaceholder('Search...')` |
+| 4th | `getByText` | Static text content, paragraphs | `getByText('Welcome back')` |
+| 5th | `getByAltText` | Images | `getByAltText('Company logo')` |
+| Last | `getByTestId` | Dynamic content, no semantic meaning | `getByTestId('total-price')` |
+
+### Role Examples
+
+```typescript
+// Buttons
+page.getByRole('button', { name: 'Save changes' })
+page.getByRole('button', { name: /submit/i })  // regex for flexibility
+
+// Links
+page.getByRole('link', { name: 'View profile' })
+
+// Form inputs
+page.getByRole('textbox', { name: 'Username' })
+page.getByRole('checkbox', { name: 'Remember me' })
+page.getByRole('combobox', { name: 'Country' })
+
+// Structure
+page.getByRole('heading', { name: 'Dashboard', level: 1 })
+page.getByRole('list').getByRole('listitem')
+page.getByRole('dialog', { name: 'Confirm deletion' })
+
+// Tables
+page.getByRole('table').getByRole('row', { name: /john/i })
+```
+
+### Disambiguating Multiple Matches
+
+```typescript
+// Specify which match you want
+await page.getByRole('button', { name: 'Delete' }).first().click();
+await page.getByRole('listitem').last().click();
+await page.getByRole('row').nth(2).click();  // 0-indexed
+
+// Filter by content or child elements
+await page.getByRole('listitem').filter({ hasText: 'John' }).click();
+await page.getByRole('listitem').filter({
+    has: page.getByRole('button', { name: 'Edit' })
+}).click();
+
+// Chain locators to scope
+await page.getByRole('dialog').getByRole('button', { name: 'Confirm' }).click();
+```
+
+### Locator Anti-patterns
+
+| Bad | Why | Good |
+|-----|-----|------|
+| `.locator('.submit-btn')` | Breaks on class rename | `getByRole('button', { name: 'Submit' })` |
+| `.locator('#email-input')` | Coupled to implementation | `getByLabel('Email')` |
+| `.locator('div > span:nth-child(2)')` | Extremely brittle | `getByText('...')` or add test-id |
+| `getByTestId` everywhere | Misses accessibility bugs | Use semantic locators first |
+| Unscoped locator with multiple matches | Flaky, might click wrong element | Use `.first()`, `.filter()`, or scope with parent |
+
+## Waiting & Async
+
+**Playwright auto-waits for most actions.** Don't add manual waits unless you have a specific reason.
+
+```dot
+digraph waiting {
+    rankdir=TB;
+    node [shape=box];
+
+    "What are you waiting for?" [shape=diamond];
+    "Element to appear" [shape=diamond];
+    "Auto-wait (built-in)" [style=filled fillcolor=lightgreen];
+    "expect + toBeVisible" [style=filled fillcolor=lightgreen];
+    "waitForResponse" [style=filled fillcolor=lightyellow];
+    "waitForURL" [style=filled fillcolor=lightyellow];
+    "NEVER waitForTimeout" [style=filled fillcolor=lightpink];
+
+    "What are you waiting for?" -> "Auto-wait (built-in)" [label="clicking/filling"];
+    "What are you waiting for?" -> "Element to appear" [label="element"];
+    "What are you waiting for?" -> "waitForResponse" [label="API call"];
+    "What are you waiting for?" -> "waitForURL" [label="navigation"];
+    "Element to appear" -> "expect + toBeVisible" [label="use assertion"];
+    "Element to appear" -> "NEVER waitForTimeout" [label="don't guess"];
+}
+```
+
+### Built-in Auto-Waiting
+
+These actions auto-wait - no manual wait needed:
+
+```typescript
+// All of these wait automatically for element to be actionable
+await page.getByRole('button', { name: 'Submit' }).click();
+await page.getByLabel('Email').fill('test@example.com');
+await page.getByRole('checkbox').check();
+await page.getByRole('combobox').selectOption('US');
+```
+
+### Explicit Waits (When Needed)
+
+```typescript
+// Wait for element state (prefer assertions)
+await expect(page.getByText('Success')).toBeVisible();
+await expect(page.getByRole('button')).toBeEnabled();
+await expect(page.getByRole('list')).not.toBeEmpty();
+
+// Wait for navigation
+await page.waitForURL('**/dashboard');
+await page.waitForURL(url => url.searchParams.has('token'));
+
+// Wait for API response (useful for loading states)
+await page.getByRole('button', { name: 'Load data' }).click();
+await page.waitForResponse(resp =>
+    resp.url().includes('/api/data') && resp.status() === 200
+);
+
+// Wait for network idle (use sparingly - can be slow)
+await page.waitForLoadState('networkidle');
+
+// Wait for specific request to complete before asserting
+const responsePromise = page.waitForResponse('/api/users');
+await page.getByRole('button', { name: 'Refresh' }).click();
+await responsePromise;
+await expect(page.getByRole('list')).toContainText('John');
+
+// Promise.all pattern - click and wait simultaneously
+await Promise.all([
+    page.waitForResponse(resp => resp.url().includes('/api/data')),
+    page.getByRole('button', { name: 'Submit' }).click()
+]);
+```
+
+### Waiting Anti-patterns
+
+| Bad | Why | Good |
+|-----|-----|------|
+| `waitForTimeout(2000)` | Arbitrary, slow, still flaky | Wait for specific condition |
+| `waitForTimeout(100)` in loop | Polling manually | Use `expect` with auto-retry |
+| `waitForLoadState('networkidle')` everywhere | Slow, unreliable with polling | Wait for specific response |
+| No wait + immediate assert | Race condition | `expect` auto-retries assertions |
+
+### Assertion Auto-Retry
+
+Playwright assertions auto-retry until timeout. Use this instead of manual waits:
+
+```typescript
+// BAD: manual wait then check
+await page.waitForTimeout(1000);
+const text = await page.getByTestId('status').textContent();
+expect(text).toBe('Complete');
+
+// GOOD: auto-retrying assertion
+await expect(page.getByText('Complete')).toBeVisible();
+```
+
+### Soft Assertions
+
+Use `expect.soft()` to continue testing after assertion failure (collect multiple failures):
+
+```typescript
+test('validates all form fields', async ({ page }) => {
+    await page.goto('/profile');
+
+    // Soft assertions don't stop the test - useful for checking multiple things
+    await expect.soft(page.getByLabel('Name')).toHaveValue('John');
+    await expect.soft(page.getByLabel('Email')).toHaveValue('john@example.com');
+    await expect.soft(page.getByLabel('Phone')).toHaveValue('555-1234');
+
+    // Test continues even if some assertions fail
+    // All failures reported at end
+});
+```
+
+### Handling Overlays and Popups
+
+Use `addLocatorHandler` when overlays might interfere with test actions:
+
+```typescript
+// Setup handler for cookie consent popup
+await page.addLocatorHandler(
+    page.getByRole('dialog', { name: 'Cookie consent' }),
+    async () => {
+        await page.getByRole('button', { name: 'Accept' }).click();
+    }
+);
+
+// Now write test normally - handler auto-dismisses popup if it appears
+await page.goto('/dashboard');
+await page.getByRole('button', { name: 'Settings' }).click();
+```
+
+## Test Structure
+
+For page objects, fixtures, and test organization, see [reference/structure.md](reference/structure.md).
+
+**Quick tips:**
+- Page objects encapsulate interactions, not assertions
+- Fixtures handle common setup/teardown
+- One behavior per test
+- Use `test.describe` for grouping related tests
+
+## Performance
+
+For parallel execution, auth optimization, and API shortcuts, see [reference/performance.md](reference/performance.md).
+
+**Quick tips:**
+- Reuse auth state via `storageState`
+- Create test data via API, not UI
+- Use `fullyParallel: true`
+- Avoid `waitForLoadState('networkidle')`
+
+## Debugging
+
+For debug mode, traces, and common scenarios, see [reference/debugging.md](reference/debugging.md).
+
+**Quick tips:**
+- `npx playwright test --debug` for local debugging
+- View traces for CI failures: `npx playwright show-trace trace.zip`
+- Use `await page.pause()` to stop and inspect
+
+## CI Configuration
+
+For GitHub Actions, sharding, and CI-specific config, see [reference/ci.md](reference/ci.md).
+
+**Quick tips:**
+- `forbidOnly: !!process.env.CI` prevents test.only in CI
+- `retries: 2` for CI to handle transient failures
+- Upload artifacts for debugging failures
+
+## Quality Checklist
+
+**Create TodoWrite items for each applicable check before finalizing tests.**
+
+### Layer 1: Reliable (No Flakes)
+
+- [ ] No `waitForTimeout()` calls - using condition-based waits
+- [ ] Assertions use `expect()` with auto-retry, not manual checks
+- [ ] Tests are independent - no shared state between tests
+- [ ] Waiting for specific API responses, not `networkidle`
+- [ ] Locators are specific enough (single element match)
+- [ ] Tests pass consistently (run 5x locally before committing)
+
+### Layer 2: Fast
+
+- [ ] Authentication reused via `storageState`
+- [ ] Test data created via API, not UI
+- [ ] Tests run in parallel (`fullyParallel: true`)
+- [ ] No unnecessary `waitForLoadState('networkidle')`
+- [ ] Heavy setup in fixtures, not repeated per test
+- [ ] Sharding configured for large test suites
+
+### Layer 3: Maintainable
+
+- [ ] Locators use roles/labels, not CSS selectors
+- [ ] Page objects encapsulate interactions
+- [ ] Test names describe user action + expected outcome
+- [ ] One behavior per test - not testing multiple things
+- [ ] Fixtures handle common setup/teardown
+- [ ] No magic strings - constants for repeated values
+
+## Common Patterns Reference
+
+| Need | Pattern |
+|------|---------|
+| Authenticated user | `storageState` fixture |
+| Test data setup | API calls in `beforeEach` or fixture |
+| Wait for data load | `waitForResponse('/api/...')` |
+| Click + wait for response | `Promise.all([waitForResponse(...), click()])` |
+| Multiple similar tests | `test.describe` + parameterized data |
+| Slow operation | Increase timeout for specific test |
+| Modal/dialog | `getByRole('dialog')` then scope within |
+| Dropdown selection | `getByRole('combobox').selectOption()` |
+| File upload | `setInputFiles()` on file input |
+| Hover menu | `locator.hover()` then click revealed item |
+| Drag and drop | `locator.dragTo(target)` |
+| iframes | `frameLocator()` then scope within |
+| New tab/window | `page.waitForEvent('popup')` |
+| Multiple matches | `.first()`, `.last()`, `.nth(n)`, `.filter()` |
+| Check multiple things | `expect.soft()` for non-blocking assertions |
+| Dismiss popups/overlays | `addLocatorHandler()` |
+
+## When to Add data-testid
+
+Use `data-testid` as escape hatch when:
+
+- Element has no semantic role (decorative container)
+- Dynamic content with no stable text (generated IDs, prices)
+- Multiple identical elements where position matters
+- Third-party components without accessible markup
+
+```typescript
+// Acceptable: price that changes dynamically
+<span data-testid="cart-total">{formatCurrency(total)}</span>
+page.getByTestId('cart-total')
+
+// Still prefer scoping with semantic locators
+page.getByRole('region', { name: 'Cart' }).getByTestId('total')
+```
+
+## Quick Reference Commands
 
 ```bash
-# Existing smoke tests
-pdm run ui-smoke
-pdm run ui-editor-smoke
-pdm run ui-runtime-smoke
+# Run all tests
+npx playwright test
 
-# Test tool fixtures: use repo script bank (no ad-hoc demo tools/scripts in DB)
-pdm run seed-script-bank --slug <tool-slug>
-pdm run seed-script-bank --slug <tool-slug> --sync-code
+# Run specific file
+npx playwright test login.spec.ts
 
-# Dev/HMR (Vite): use --base-url http://127.0.0.1:5173
+# Run tests matching name
+npx playwright test -g "login"
 
-# Prod (recommended): gitignored `.env.prod-smoke` with `BASE_URL` + `PLAYWRIGHT_*`
-pdm run ui-smoke --dotenv .env.prod-smoke
-pdm run ui-editor-smoke --dotenv .env.prod-smoke
-pdm run ui-runtime-smoke --dotenv .env.prod-smoke
+# Run in headed mode
+npx playwright test --headed
 
-# Run an ad-hoc script
-pdm run python -m scripts.<module>
+# Debug mode with inspector
+npx playwright test --debug
+
+# Update snapshots
+npx playwright test --update-snapshots
+
+# Generate test from recording
+npx playwright codegen localhost:3000
+
+# Show last HTML report
+npx playwright show-report
 ```
-
-## Script Bank Fixtures (REQUIRED)
-
-If a Playwright script depends on a “demo tool/script” by slug, do **not** create it ad hoc in the dev DB and do not
-overwrite other demo tools. Add a dedicated entry to the repo script bank (`src/skriptoteket/script_bank/`) and seed it
-before running Playwright.
-
-Refs:
-
-- `.agent/rules/075-browser-automation.md`
-- `docs/runbooks/runbook-script-bank-seeding.md`
-- `docs/backlog/stories/story-06-09-playwright-test-isolation.md`
-
-## One-Time Setup (Browsers)
-
-Playwright needs browser binaries installed locally (per Playwright version).
-
-```bash
-# Install default browsers (Chromium + Firefox + WebKit)
-pdm run playwright install
-
-# Install a single browser
-pdm run playwright install chromium
-
-# CI/Linux: install browsers + OS deps
-pdm run playwright install --with-deps
-
-# List installed browsers
-pdm run playwright install --list
-
-# Force reinstall (useful if cache is inconsistent)
-pdm run playwright install --force
-
-# Uninstall browsers (all Playwright installs on this machine)
-pdm run playwright uninstall --all
-```
-
-Playwright-managed browser cache locations:
-
-- Windows: `%USERPROFILE%\\AppData\\Local\\ms-playwright`
-- macOS: `~/Library/Caches/ms-playwright`
-- Linux: `~/.cache/ms-playwright`
-
-## macOS (Intel vs Apple Silicon)
-
-On macOS, Playwright downloads different browser binaries depending on your architecture.
-
-```bash
-python -c "import platform; print(platform.machine())"
-# Expect: arm64 (Apple Silicon) or x86_64 (Intel)
-```
-
-If you are on Apple Silicon but see Playwright looking for `mac-x64` binaries, you are likely running an x86_64
-Python/terminal (Rosetta). Fix by using an arm64 Python/terminal, then reinstall browsers:
-
-```bash
-pdm run playwright uninstall --all
-pdm run playwright install
-```
-
-## Troubleshooting
-
-- Debug browser launches: `DEBUG=pw:browser pdm run ui-editor-smoke`
-- Custom browser download location: set `PLAYWRIGHT_BROWSERS_PATH=/path` before `playwright install` (and when running tests).
-- Use a system Node.js instead of Playwright's bundled driver: set `PLAYWRIGHT_NODEJS_PATH=/absolute/path/to/node`
-- Disable automatic stale-browser cleanup: `PLAYWRIGHT_SKIP_BROWSER_GC=1`
-
-## Quick Pattern (sync)
-
-```python
-from scripts._playwright_config import get_config
-
-from playwright.sync_api import sync_playwright
-
-config = get_config()
-base_url = config.base_url
-email = config.email
-password = config.password
-
-with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True)
-    page = browser.new_page()
-    page.set_viewport_size({"width": 1440, "height": 900})
-
-    # Login
-    page.goto(f"{base_url}/login")
-    page.fill('input[name="email"]', email)
-    page.fill('input[name="password"]', password)
-    page.click('button[type="submit"]')  # prefer role/label locators in repo scripts
-    page.wait_for_url('**/dashboard**')
-
-    # Screenshot
-    page.goto(f"{base_url}/admin/tools")
-    page.screenshot(path='/tmp/admin-tools.png')
-    browser.close()
-```
-
-## Navigation Caveat
-
-SPA route changes (and any legacy HTMX-style flows) do not always trigger full navigation events.
-Prefer `page.wait_for_url()`, locator waits, or `expect(...)` over navigation waits.
-
-## Context7
-
-- Prefer `/websites/playwright_dev_python` for installation, browsers, env vars (topics: `browsers`, `ci`, `PLAYWRIGHT_BROWSERS_PATH`).
-- Use `/microsoft/playwright-python` for Python API reference (sync/async APIs).

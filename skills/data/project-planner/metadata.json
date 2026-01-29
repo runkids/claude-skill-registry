@@ -1,12 +1,7 @@
 {
   "name": "project-planner",
-  "description": "Transforms project ideas into structured documentation (overview + specifications). Use when starting new projects or when brief needs project-level planning with vision, features, and technical requi",
-  "repo": "MacroMan5/claude-code-workflow-plugins",
-  "category": "documents",
-  "tags": [
-    "project",
-    "planner"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "brixtonpham/claude-config",
+  "path": "skills/project-planner/SKILL.md",
+  "source": "github.com/brixtonpham/claude-config",
+  "downloaded_at": "2026-01-29T04:18:26.925612Z"
 }

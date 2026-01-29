@@ -1,9 +1,7 @@
 {
   "name": "elixir-pattern-matching",
-  "description": "Use when Elixir pattern matching including function clauses, case statements, with statements, and destructuring. Use for elegant control flow.",
   "repo": "TheBushidoCollective/han",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-elixir/skills/elixir-pattern-matching/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-29T04:12:56.773546Z"
 }

@@ -1,12 +1,12 @@
 ---
 name: videocut:剪辑
-description: 执行视频剪辑。根据确认的删除任务执行FFmpeg剪辑，循环直到零口误，生成字幕。触发词：执行剪辑、开始剪、确认剪辑
+description: 执行视频剪辑。根据确认的删除任务执行FFmpeg剪辑。触发词：执行剪辑、开始剪、确认剪辑
 ---
 
 <!--
-input: 删除任务 TodoList（口误+静音）
-output: 剪辑后视频、字幕文件
-pos: 执行 skill，用户确认删除任务后调用
+input: delete_segments.json（审核网页导出）
+output: 剪辑后视频
+pos: 执行 skill，用户在审核网页确认后调用
 
 架构守护者：一旦我被修改，请同步更新：
 1. ../README.md 的 Skill 清单
@@ -15,7 +15,7 @@ pos: 执行 skill，用户确认删除任务后调用
 
 # 剪辑
 
-> 执行删除 → 重新审查 → 循环直到零口误 → 生成字幕
+> 用户在审核网页一次性确认好 → 执行剪辑 → 完成
 
 ## 快速使用
 
@@ -27,12 +27,14 @@ pos: 执行 skill，用户确认删除任务后调用
 
 ## 前置条件
 
-需要先执行 `/videocut:剪口播` 生成删除任务 TodoList
+需要先执行 `/videocut:剪口播v2` 生成删除任务 TodoList
 
 ## 流程
 
 ```
-1. 读取用户确认的删除任务
+前置：用户在审核网页（/videocut:剪口播v2）一次性确认所有删除
+    ↓
+1. 读取 delete_segments.json（网页导出）
     ↓
 2. 计算保留时间段
     ↓
@@ -40,112 +42,71 @@ pos: 执行 skill，用户确认删除任务后调用
     ↓
 4. 执行剪辑
     ↓
-5. 重新转录 + 审查 ←───┐
-    ↓                   │
-   有口误? ──是─────────┘
-    ↓ 否
-6. 生成字幕（SRT）
-    ↓
-7. 完成
+5. 完成
 ```
+
+**核心原则**：所有审核在前置阶段完成，剪辑阶段只执行，不再循环。
 
 ## 进度 TodoList
 
 启动时创建：
 
 ```
-- [ ] 确认删除任务
+- [ ] 读取 delete_segments.json
+- [ ] 计算保留时间段
 - [ ] 执行 FFmpeg 剪辑
-- [ ] 重新转录审查
-- [ ] 生成字幕
+- [ ] 验证输出视频
 ```
-
-循环时更新版本号（v2→v3→...）
 
 ---
 
-## 一、读取删除任务（时间戳驱动）
+## 一、读取删除任务
 
-从 `/videocut:剪口播` 输出的 TodoList 读取。**直接使用时间戳，不要搜索文本**：
+从审核网页导出的 `delete_segments.json` 读取：
 
-```
-口误（N处）：
-- [x] 1. `(start-end)` 删"错误文本" → 保留"正确文本"  ← 勾选=删除
-
-语气词（N处）：
-- [x] 1. `(前字end-后字start)` 删"嗯"  ← 勾选=删除
-
-静音（N处）：
-- [x] 1. `(start-end)` 静音Xs  ← 勾选=删除
-- [ ] 2. `(start-end)` 静音Xs  ← 未勾选=保留
+```json
+[
+  {"start": 0, "end": 20.2},
+  {"start": 29.06, "end": 36.4}
+]
 ```
 
-### ⚠️ 关键规则
-
-1. **直接用时间戳**：从 `(start-end)` 解析，不要搜索文本
-2. **不要重新搜索**：审查稿已经计算好精确时间戳
-3. 勾选 = 删除，未勾选 = 保留
+**直接使用时间戳**，网页已确保精确边界。
 
 ---
 
 ## 二、FFmpeg 命令
 
+**必须用 `filter_complex + trim`**，不能用 concat demuxer（口播片段多且短，必须帧级别精确）。
+
 ```bash
-ffmpeg -y -i input.mp4 \
-  -filter_complex_script filter.txt \
+ffmpeg -y -i "file:input.mp4" \
+  -filter_complex "$FILTER" \
   -map "[outv]" -map "[outa]" \
-  -c:v libx264 -crf 18 -c:a aac \
-  output.mp4
+  -c:v libx264 -preset fast -crf 18 \
+  -c:a aac -b:a 192k \
+  "file:output.mp4"
 ```
 
-### filter.txt 格式
+### filter_complex 格式
 
 ```
 [0:v]trim=start=0:end=1.36,setpts=PTS-STARTPTS[v0];
 [0:a]atrim=start=0:end=1.36,asetpts=PTS-STARTPTS[a0];
 [0:v]trim=start=2.54:end=10.5,setpts=PTS-STARTPTS[v1];
+[0:a]atrim=start=2.54:end=10.5,asetpts=PTS-STARTPTS[a1];
 ...
-[v0][a0][v1][a1]...concat=n=N:v=1:a=1[outv][outa]
+[v0][v1]...concat=n=N:v=1:a=0[outv];
+[a0][a1]...concat=n=N:v=0:a=1[outa]
 ```
+
+**注意**：文件名含冒号需加 `file:` 前缀。
 
 ---
 
-## 三、重新转录审查
-
-剪辑后必须：
-1. 用 FunASR 重新转录
-2. 检查是否还有口误
-3. 有 → 回到 `/videocut:剪口播` 重新识别
-4. 无 → 生成字幕
-
----
-
-## 四、输出文件
+## 三、输出文件
 
 ```
-01-xxx-v2.mp4              # 剪辑后视频
-01-xxx-v2_transcript.json  # 重新转录（验证用）
-01-xxx-v2.srt              # 字幕文件
+output.mp4    # 剪辑后视频
 ```
 
-版本递增：v1→v2→v3...
-
----
-
-## 五、反馈记录
-
-### 2026-01-15
-- **语气词删除边界不精确**：删语气词时把前面的字也删了
-  - 原因：直接用语气词的时间戳删除
-  - 正确：从前一字 end 到后一字 start
-- **语气词 + 静音要一起删**：`A [静音] 语气词 B` 要删整段 (A.end - B.start)
-- **教训**：删除语气词时，边界是 `前一字.end` 到 `后一字.start`
-
-### 2026-01-14
-- 口误文字没删干净，只删了静音段
-- 教训：直接从 TodoList 读取时间戳，不要重新查找
-- **"拉满新"删成了"会的时候"**：搜索"拉满新"时间戳跨度7秒（含6秒静音），把"拉满"也删了
-  - 教训：对于"删前面保后面"的口误，只删差异部分
-- **"AI就是AI"出现两次AI**：只删了"就是"，没删第一个"AI"
-  - 教训：替换型口误必须删完整的第一个版本
-- **系统性解决**：时间戳驱动，审查稿直接标注 `(start-end)`，剪辑脚本不再搜索文本

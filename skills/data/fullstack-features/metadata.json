@@ -1,9 +1,7 @@
 {
   "name": "fullstack-features",
-  "description": "Building full-stack features in Toygres from UI to database. Use when adding new features, API endpoints, React components, or implementing end-to-end functionality.",
   "repo": "affandar/toygres",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/affandar/toygres"
+  "path": ".claude/skills/fullstack-features/SKILL.md",
+  "source": "github.com/affandar/toygres",
+  "downloaded_at": "2026-01-29T03:31:16.428622Z"
 }

@@ -1,37 +1,24 @@
 ---
-name: moai-baas-clerk-ext
-version: 4.0.0
+name: "moai-baas-clerk-ext"
+version: "4.0.0"
 created: 2025-11-11
-updated: '2025-11-18'
+updated: 2025-11-13
 status: stable
-description: Enterprise Clerk Authentication Platform with AI-powered modern identity
-  architecture, Context7 integration, and intelligent user management orchestration
-  for scalable applications
-keywords:
-- clerk
-- modern-authentication
-- user-management
-- multi-platform
-- webauthn
-- organizations
-- context7-integration
-- ai-orchestration
-- production-deployment
-allowed-tools:
-- Read
-- Bash
-- Write
-- Edit
-- Glob
-- Grep
-- WebFetch
-- mcp__context7__resolve-library-id
-- mcp__context7__get-library-docs
-stability: stable
+description: Enterprise Clerk Authentication Platform with AI-powered modern identity architecture, Context7 integration, and intelligent user management orchestration for scalable applications
+keywords: ['clerk', 'modern-authentication', 'user-management', 'multi-platform', 'webauthn', 'organizations', 'context7-integration', 'ai-orchestration', 'production-deployment']
+allowed-tools: 
+  - Read
+  - Bash
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebFetch
+  - mcp__context7__resolve-library-id
+  - mcp__context7__get-library-docs
 ---
 
-
-# Enterprise Clerk Authentication Platform Expert 
+# Enterprise Clerk Authentication Platform Expert v4.0.0
 
 ## Skill Metadata
 
@@ -49,7 +36,7 @@ stability: stable
 
 Enterprise Clerk Authentication Platform expert with AI-powered modern identity architecture, Context7 integration, and intelligent user management orchestration for scalable applications.
 
-**Revolutionary  capabilities**:
+**Revolutionary v4.0.0 capabilities**:
 - 🤖 **AI-Powered Clerk Architecture** using Context7 MCP for latest authentication patterns
 - 📊 **Intelligent User Management** with automated organization and workflow optimization
 - 🚀 **Advanced Multi-Platform Auth** with AI-driven cross-platform integration
@@ -576,7 +563,7 @@ export function M2MAuthentication() {
 
 ## Changelog
 
-- ** .0** (2025-11-13): Complete Enterprise   rewrite with 40% content reduction, 4-layer Progressive Disclosure structure, Context7 integration, November 2025 Clerk platform updates, and advanced WebAuthn implementation
+- **v4.0.0** (2025-11-13): Complete Enterprise v4.0 rewrite with 40% content reduction, 4-layer Progressive Disclosure structure, Context7 integration, November 2025 Clerk platform updates, and advanced WebAuthn implementation
 - **v2.0.0** (2025-11-11): Complete metadata structure, auth patterns, organization management
 - **v1.0.0** (2025-11-11): Initial Clerk authentication platform
 
@@ -600,4 +587,4 @@ export function M2MAuthentication() {
 
 ---
 
-**End of Enterprise Clerk Authentication Platform Expert **
+**End of Enterprise Clerk Authentication Platform Expert v4.0.0**

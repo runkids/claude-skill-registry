@@ -1,364 +1,526 @@
 ---
 name: crawl4ai
-description: "Web crawling and content extraction to clean markdown files. Use this skill when the user wants to: (1) Crawl a website or webpage, (2) Extract and clean content from URLs, (3) Create markdown documentation from websites, (4) Analyze website structure before crawling, (5) Download website content including subpages. Typical triggers include 'crawl this website', 'extract content from URL', 'download this site as markdown', 'analyze website structure'."
+description: Complete toolkit for web crawling and data extraction using Crawl4AI. This skill should be used when users need to scrape websites, extract structured data, handle JavaScript-heavy pages, crawl multiple URLs, or build automated web data pipelines. Includes optimized extraction patterns with schema generation for efficient, LLM-free extraction.
+version: 0.7.4
+crawl4ai_version: ">=0.7.4"
+last_updated: 2025-01-19
 ---
 
-# Crawl4AI - Website Crawling & Content Extraction
+# Crawl4AI
 
 ## Overview
 
-This skill enables crawling entire websites and extracting clean, structured content with proper metadata separation. It uses an efficient **2-phase approach** that separates bulk crawling from content processing.
+This skill provides comprehensive support for web crawling and data extraction using the Crawl4AI library, including the complete SDK reference, ready-to-use scripts for common patterns, and optimized workflows for efficient data extraction.
 
-### Two-Phase Architecture
+## Quick Start
 
-**Phase 1: Bulk Crawling** (`bulk_crawl.py`)
-- Recursively crawls entire website tree (configurable depth)
-- Parallel loading of multiple pages simultaneously
-- Excludes nav/header/footer elements during crawl
-- Saves raw data: `raw.html`, `raw.md`, `metadata.json`
-- Fast and efficient - no per-page processing overhead
-
-**Phase 2: Post-Processing** (`postprocess.py`)
-- Processes all crawled pages offline
-- Cleans markdown content (removes pagination, duplicates, nav remnants)
-- Enriches metadata with AI (description, keywords) or heuristic methods
-- Saves final: `content.md` (clean, NO frontmatter!) + enriched `metadata.json`
-- Metadata stays in JSON - markdown stays pure
-
-**Key Benefits:**
-- **Separation of Concerns:** Crawling ≠ Processing
-- **Scalability:** Crawl entire sites in parallel, process later
-- **Flexibility:** Re-process data without re-crawling
-- **Clean Output:** Markdown without frontmatter, metadata in JSON
-- **Cost Efficient:** Batch AI calls for metadata generation
-
-## Workflow
-
-**For Single Pages:**
-Use `crawl_to_markdown.py` for quick single-page extraction with intelligent content filtering.
-
-**For Entire Websites (Recommended):**
-
-**Step 1: Bulk Crawl**
+### Installation Check
 ```bash
-python scripts/bulk_crawl.py <url> --output-dir ./site --max-depth 3
-```
-- Crawls entire website recursively
-- Parallel loading of pages
-- Saves raw data for all pages
+# Verify installation
+crawl4ai-doctor
 
-**Step 2: Post-Process**
+# If issues, run setup
+crawl4ai-setup
+```
+
+### Basic First Crawl
+```python
+import asyncio
+from crawl4ai import AsyncWebCrawler
+
+async def main():
+    async with AsyncWebCrawler() as crawler:
+        result = await crawler.arun("https://example.com")
+        print(result.markdown[:500])  # First 500 chars
+
+asyncio.run(main())
+```
+
+### Using Provided Scripts
 ```bash
-python scripts/postprocess.py ./site
-```
-- Cleans all markdown files
-- Generates metadata with AI
-- Creates final `content.md` + enriched `metadata.json` for each page
+# Simple markdown extraction
+python scripts/basic_crawler.py https://example.com
 
-**Result:**
-```
-site/
-  index/
-    raw.html          # Original HTML (for reference)
-    raw.md            # Original markdown from crawl4ai
-    content.md        # ✨ Clean markdown (NO frontmatter!)
-    metadata.json     # ✨ All metadata here
-  about/
-    raw.html
-    raw.md
-    content.md
-    metadata.json
-  ...
+# Batch processing
+python scripts/batch_crawler.py urls.txt
+
+# Data extraction
+python scripts/extraction_pipeline.py --generate-schema https://shop.com "extract products"
 ```
 
-## Crawling Process
+## Core Crawling Fundamentals
 
-### Phase 1: Bulk Crawl (`bulk_crawl.py`)
+### 1. Basic Crawling
 
-Crawls an entire website recursively and saves raw data:
+Understanding the core components for any crawl:
+
+```python
+from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig
+
+# Browser configuration (controls browser behavior)
+browser_config = BrowserConfig(
+    headless=True,  # Run without GUI
+    viewport_width=1920,
+    viewport_height=1080,
+    user_agent="custom-agent"  # Optional custom user agent
+)
+
+# Crawler configuration (controls crawl behavior)
+crawler_config = CrawlerRunConfig(
+    page_timeout=30000,  # 30 seconds timeout
+    screenshot=True,  # Take screenshot
+    remove_overlay_elements=True  # Remove popups/overlays
+)
+
+# Execute crawl with arun()
+async with AsyncWebCrawler(config=browser_config) as crawler:
+    result = await crawler.arun(
+        url="https://example.com",
+        config=crawler_config
+    )
+
+    # CrawlResult contains everything
+    print(f"Success: {result.success}")
+    print(f"HTML length: {len(result.html)}")
+    print(f"Markdown length: {len(result.markdown)}")
+    print(f"Links found: {len(result.links)}")
+```
+
+### 2. Configuration Deep Dive
+
+**BrowserConfig** - Controls the browser instance:
+- `headless`: Run with/without GUI
+- `viewport_width/height`: Browser dimensions
+- `user_agent`: Custom user agent string
+- `cookies`: Pre-set cookies
+- `headers`: Custom HTTP headers
+
+**CrawlerRunConfig** - Controls each crawl:
+- `page_timeout`: Maximum page load/JS execution time (ms)
+- `wait_for`: CSS selector or JS condition to wait for (optional)
+- `cache_mode`: Control caching behavior
+- `js_code`: Execute custom JavaScript
+- `screenshot`: Capture page screenshot
+- `session_id`: Persist session across crawls
+
+### 3. Content Processing
+
+Basic content operations available in every crawl:
+
+```python
+result = await crawler.arun(url)
+
+# Access extracted content
+markdown = result.markdown  # Clean markdown
+html = result.html  # Raw HTML
+text = result.cleaned_html  # Cleaned HTML
+
+# Media and links
+images = result.media["images"]
+videos = result.media["videos"]
+internal_links = result.links["internal"]
+external_links = result.links["external"]
+
+# Metadata
+title = result.metadata["title"]
+description = result.metadata["description"]
+```
+
+## Markdown Generation (Primary Use Case)
+
+### 1. Basic Markdown Extraction
+
+Crawl4AI excels at generating clean, well-formatted markdown:
+
+```python
+# Simple markdown extraction
+async with AsyncWebCrawler() as crawler:
+    result = await crawler.arun("https://docs.example.com")
+
+    # High-quality markdown ready for LLMs
+    with open("documentation.md", "w") as f:
+        f.write(result.markdown)
+```
+
+### 2. Fit Markdown (Content Filtering)
+
+Use content filters to get only relevant content:
+
+```python
+from crawl4ai.content_filter_strategy import PruningContentFilter, BM25ContentFilter
+from crawl4ai.markdown_generation_strategy import DefaultMarkdownGenerator
+
+# Option 1: Pruning filter (removes low-quality content)
+pruning_filter = PruningContentFilter(threshold=0.4, threshold_type="fixed")
+
+# Option 2: BM25 filter (relevance-based filtering)
+bm25_filter = BM25ContentFilter(user_query="machine learning tutorials", bm25_threshold=1.0)
+
+md_generator = DefaultMarkdownGenerator(content_filter=bm25_filter)
+
+config = CrawlerRunConfig(markdown_generator=md_generator)
+
+result = await crawler.arun(url, config=config)
+# Access filtered content
+print(result.markdown.fit_markdown)  # Filtered markdown
+print(result.markdown.raw_markdown)  # Original markdown
+```
+
+### 3. Markdown Customization
+
+Control markdown generation with options:
+
+```python
+config = CrawlerRunConfig(
+    # Exclude elements from markdown
+    excluded_tags=["nav", "footer", "aside"],
+
+    # Focus on specific CSS selector
+    css_selector=".main-content",
+
+    # Clean up formatting
+    remove_forms=True,
+    remove_overlay_elements=True,
+
+    # Control link handling
+    exclude_external_links=True,
+    exclude_internal_links=False
+)
+
+# Custom markdown generation
+from crawl4ai.markdown_generation_strategy import DefaultMarkdownGenerator
+
+generator = DefaultMarkdownGenerator(
+    options={
+        "ignore_links": False,
+        "ignore_images": False,
+        "image_alt_text": True
+    }
+)
+```
+
+## Data Extraction
+
+### 1. Schema-Based Extraction (Most Efficient)
+
+For repetitive patterns, generate schema once and reuse:
 
 ```bash
-python scripts/bulk_crawl.py <url> [options]
+# Step 1: Generate schema with LLM (one-time)
+python scripts/extraction_pipeline.py --generate-schema https://shop.com "extract products"
+
+# Step 2: Use schema for fast extraction (no LLM)
+python scripts/extraction_pipeline.py --use-schema https://shop.com generated_schema.json
 ```
 
-**Parameters:**
-- `<url>`: Start URL to crawl (required)
-- `--output-dir PATH`: Output directory (default: ./crawled_site)
-- `--max-depth N`: Maximum crawl depth (default: 3)
-- `--wait-time N`: JavaScript wait time in seconds (default: 5.0)
-- `--allow-external`: Allow crawling external domains (default: same-domain only)
+### 2. Manual CSS/JSON Extraction
 
-**What it does:**
-1. Starts from given URL
-2. Extracts all internal links
-3. Crawls pages in parallel (depth-first)
-4. Excludes nav/header/footer during crawl
-5. Saves for each page:
-   - `raw.html` - Original HTML
-   - `raw.md` - Raw markdown from crawl4ai
-   - `metadata.json` - Basic metadata (url, title, links, crawled_at)
+When you know the structure:
 
-**Examples:**
-
-Crawl entire site with max depth 3:
-```bash
-python scripts/bulk_crawl.py https://example.com --max-depth 3
-```
-
-Shallow crawl (only start page + direct links):
-```bash
-python scripts/bulk_crawl.py https://example.com --max-depth 1
-```
-
-### Phase 2: Post-Processing (`postprocess.py`)
-
-Processes bulk-crawled data and generates final output:
-
-```bash
-python scripts/postprocess.py <crawled_dir> [options]
-```
-
-**Parameters:**
-- `<crawled_dir>`: Directory with bulk-crawled data (required)
-- `--no-ai`: Disable AI metadata generation (use heuristic methods)
-
-**What it does:**
-1. Finds all pages with `raw.md` files
-2. For each page:
-   - Cleans markdown (removes pagination, duplicates, nav remnants)
-   - Generates description & keywords (AI or heuristic)
-   - Detects language from HTML
-   - Calculates content hash and token estimate
-   - Saves `content.md` (clean, NO frontmatter!)
-   - Enriches `metadata.json` with all metadata
-
-**Examples:**
-
-Post-process with AI (requires ANTHROPIC_API_KEY):
-```bash
-export ANTHROPIC_API_KEY=sk-ant-...
-python scripts/postprocess.py ./crawled_site
-```
-
-Post-process without AI (heuristic methods):
-```bash
-python scripts/postprocess.py ./crawled_site --no-ai
-```
-
-### Legacy: Single-Page Crawl (`crawl_to_markdown.py`)
-
-For quick single-page extraction (legacy mode):
-
-```bash
-python scripts/crawl_to_markdown.py <url> --output-dir ./output
-```
-
-**Note:** For multi-page sites, use the 2-phase approach (bulk_crawl.py + postprocess.py) instead.
-
-## Metadata Structure
-
-Metadata is stored separately in `metadata.json` (NO frontmatter in markdown!):
-
-```json
-{
-  "url": "https://example.com/page",
-  "crawled_at": "2025-11-04T15:18:23.075744",
-  "title": "Page Title",
-  "links": ["https://example.com/about", ...],
-  "description": "AI-generated or heuristic description (1-2 sentences)",
-  "keywords": ["keyword1", "keyword2", ...],
-  "language": "en",
-  "content_hash": "b2ddd73c87e2af...",
-  "estimated_tokens": 1250,
-  "processed_at": "2025-11-04T15:18:47.280333"
+```python
+schema = {
+    "name": "articles",
+    "baseSelector": "article.post",
+    "fields": [
+        {"name": "title", "selector": "h2", "type": "text"},
+        {"name": "date", "selector": ".date", "type": "text"},
+        {"name": "content", "selector": ".content", "type": "text"}
+    ]
 }
+
+extraction_strategy = JsonCssExtractionStrategy(schema=schema)
+config = CrawlerRunConfig(extraction_strategy=extraction_strategy)
 ```
 
-**Advantages:**
-- **Clean Separation:** Content in `.md`, metadata in `.json`
-- **Easy Processing:** Parse JSON without markdown parsing
-- **Flexible:** Add metadata fields without touching content
-- **Portable:** Markdown files work anywhere without frontmatter issues
+### 3. LLM-Based Extraction
 
-## Content Cleaning
+For complex or irregular content:
 
-The script automatically removes:
-- Navigation menus (main nav, submenu controls)
-- Page headers and footers
-- Pagination controls (1|2|3, Weiter, Zurück, etc.)
-- Slider/carousel controls
-- Duplicate sections
-- Empty sections and excessive whitespace
-- Menu/navigation links
-
-It preserves:
-- Main content text and headings
-- Content links relevant to the topic
-- Images within the main content
-- Structured data (lists, tables where present)
-- Proper markdown formatting
-
-## Output Structure
-
-### 2-Phase Approach Output
-
-```
-crawled_site/
-├── crawl_summary.json    # Summary of crawl (total pages, urls, etc.)
-├── index/
-│   ├── raw.html          # Original HTML from crawl
-│   ├── raw.md            # Original markdown from crawl4ai
-│   ├── content.md        # ✨ Clean content (after post-processing)
-│   └── metadata.json     # ✨ All metadata (enriched after post-processing)
-├── about/
-│   ├── raw.html
-│   ├── raw.md
-│   ├── content.md
-│   └── metadata.json
-└── contact/
-    ├── raw.html
-    ├── raw.md
-    ├── content.md
-    └── metadata.json
+```python
+extraction_strategy = LLMExtractionStrategy(
+    provider="openai/gpt-4o-mini",
+    instruction="Extract key financial metrics and quarterly trends"
+)
 ```
 
-**File Roles:**
-- `raw.html` - Reference/debugging, contains original HTML
-- `raw.md` - Raw output from crawl4ai (before cleaning)
-- `content.md` - **Final clean markdown** (NO frontmatter!)
-- `metadata.json` - **All metadata** (title, description, keywords, etc.)
+## Advanced Patterns
 
-### Legacy Single-Page Output
+### 1. Deep Crawling
 
-```
-crawled_site/
-└── index.md              # Content + frontmatter (legacy mode)
-```
+Discover and crawl links from a page:
 
-## Usage Workflow
+```python
+# Basic link discovery
+async with AsyncWebCrawler() as crawler:
+    result = await crawler.arun(url)
 
-### Recommended: 2-Phase Workflow
+    # Extract and process discovered links
+    internal_links = result.links.get("internal", [])
+    external_links = result.links.get("external", [])
 
-**Step 1: Bulk Crawl**
-```bash
-# Crawl entire website
-python scripts/bulk_crawl.py https://example.com --max-depth 3 --output-dir ./mysite
-```
+    # Crawl discovered internal links
+    for link in internal_links:
+        if "/blog/" in link and "/tag/" not in link:  # Filter links
+            sub_result = await crawler.arun(link)
+            # Process sub-page
 
-**Step 2: Post-Process**
-```bash
-# Process all pages
-export ANTHROPIC_API_KEY=sk-ant-...  # Optional, for AI metadata
-python scripts/postprocess.py ./mysite
+    # For advanced deep crawling, consider using URL seeding patterns
+    # or custom crawl strategies (see complete-sdk-reference.md)
 ```
 
-**Result:** Clean `content.md` + enriched `metadata.json` for each page!
+### 2. Batch & Multi-URL Processing
 
-### Quick Single-Page Extraction (Legacy)
+Efficiently crawl multiple URLs:
 
-```bash
-# For single pages only
-python scripts/crawl_to_markdown.py https://example.com
+```python
+urls = ["https://site1.com", "https://site2.com", "https://site3.com"]
+
+async with AsyncWebCrawler() as crawler:
+    # Concurrent crawling with arun_many()
+    results = await crawler.arun_many(
+        urls=urls,
+        config=crawler_config,
+        max_concurrent=5  # Control concurrency
+    )
+
+    for result in results:
+        if result.success:
+            print(f"✅ {result.url}: {len(result.markdown)} chars")
 ```
 
-### Advanced Options
+### 3. Session & Authentication
 
-**Control crawl depth:**
-```bash
-python scripts/bulk_crawl.py https://example.com --max-depth 2  # Shallow crawl
+Handle login-required content:
+
+```python
+# First crawl - establish session and login
+login_config = CrawlerRunConfig(
+    session_id="user_session",
+    js_code="""
+    document.querySelector('#username').value = 'myuser';
+    document.querySelector('#password').value = 'mypass';
+    document.querySelector('#submit').click();
+    """,
+    wait_for="css:.dashboard"  # Wait for post-login element
+)
+
+await crawler.arun("https://site.com/login", config=login_config)
+
+# Subsequent crawls - reuse session
+config = CrawlerRunConfig(session_id="user_session")
+await crawler.arun("https://site.com/protected-content", config=config)
 ```
 
-**JavaScript-heavy sites:**
-```bash
-python scripts/bulk_crawl.py https://example.com --wait-time 10.0
+### 4. Dynamic Content Handling
+
+For JavaScript-heavy sites:
+
+```python
+config = CrawlerRunConfig(
+    # Wait for dynamic content
+    wait_for="css:.ajax-content",
+
+    # Execute JavaScript
+    js_code="""
+    // Scroll to load content
+    window.scrollTo(0, document.body.scrollHeight);
+
+    // Click load more button
+    document.querySelector('.load-more')?.click();
+    """,
+
+    # Note: For virtual scrolling (Twitter/Instagram-style),
+    # use virtual_scroll_config parameter (see docs)
+
+    # Extended timeout for slow loading
+    page_timeout=60000
+)
 ```
 
-**Skip AI metadata generation:**
-```bash
-python scripts/postprocess.py ./mysite --no-ai  # Use heuristic methods
+### 5. Anti-Detection & Proxies
+
+Avoid bot detection:
+
+```python
+# Proxy configuration
+browser_config = BrowserConfig(
+    headless=True,
+    proxy_config={
+        "server": "http://proxy.server:8080",
+        "username": "user",
+        "password": "pass"
+    }
+)
+
+# For stealth/undetected browsing, consider:
+# - Rotating user agents via user_agent parameter
+# - Using different viewport sizes
+# - Adding delays between requests
+
+# Rate limiting
+import asyncio
+for url in urls:
+    result = await crawler.arun(url)
+    await asyncio.sleep(2)  # Delay between requests
 ```
 
-## KI-gestützte Metadaten (Optional)
+## Common Use Cases
 
-Der Skill kann **Claude Haiku** nutzen, um intelligente Descriptions und Keywords zu generieren.
+### Documentation to Markdown
+```python
+# Convert entire documentation site to clean markdown
+async with AsyncWebCrawler() as crawler:
+    result = await crawler.arun("https://docs.example.com")
 
-### Mit KI (Empfohlen):
-```bash
-export ANTHROPIC_API_KEY=sk-ant-...
+    # Save as markdown for LLM consumption
+    with open("docs.md", "w") as f:
+        f.write(result.markdown)
 ```
 
-**Vorteile:**
-- Intelligente, kontextbezogene Descriptions
-- Semantisch sinnvolle Keywords mit korrekter Großschreibung
-- Versteht den Inhalt und fasst ihn zusammen
-
-**Kosten:** ~0.2 Cent pro Seite (Claude Haiku)
-
-### Ohne KI (Fallback):
-Wenn kein API-Key gesetzt ist, nutzt der Skill automatisch heuristische Methoden:
-- Extrahiert erste substantielle Textzeile als Description
-- Ermittelt Keywords nach Häufigkeit
-- Funktioniert gut, aber weniger präzise
-
-**Der Skill zeigt beim Start an, welcher Modus verwendet wird:**
-- `✨ KI-Metadaten-Generierung aktiviert (Claude Haiku)` - KI wird genutzt
-- `ℹ️  KI-Metadaten-Generierung nicht verfügbar` - Fallback-Methoden werden genutzt
-
-## Installation Requirements
-
-The crawl4ai library must be installed in a virtual environment. If the venv doesn't exist yet, create and install:
-
-```bash
-# Navigate to skill directory
-cd /Users/tobiasbrummer/.claude/skills/crawl4ai
-
-# Create virtual environment (if not exists)
-python3 -m venv venv
-
-# Activate and install crawl4ai
-source venv/bin/activate
-pip install crawl4ai
-
-# Install anthropic for KI-based metadata generation (optional but recommended)
-pip install anthropic
-
-# Install playwright browsers (one-time setup)
-playwright install chromium
+### E-commerce Product Monitoring
+```python
+# Generate schema once for product pages
+# Then monitor prices/availability without LLM costs
+schema = load_json("product_schema.json")
+products = await crawler.arun_many(product_urls,
+    config=CrawlerRunConfig(extraction_strategy=JsonCssExtractionStrategy(schema)))
 ```
 
-**Important:** All scripts must be run using the venv's Python interpreter:
-```bash
-/Users/tobiasbrummer/.claude/skills/crawl4ai/venv/bin/python3 scripts/crawl_to_markdown.py <url>
+### News Aggregation
+```python
+# Crawl multiple news sources concurrently
+news_urls = ["https://news1.com", "https://news2.com", "https://news3.com"]
+results = await crawler.arun_many(news_urls, max_concurrent=5)
+
+# Extract articles with Fit Markdown
+for result in results:
+    if result.success:
+        # Get only relevant content
+        article = result.fit_markdown
 ```
 
-See `references/crawl4ai_reference.md` for detailed API documentation.
+### Research & Data Collection
+```python
+# Academic paper collection with focused extraction
+config = CrawlerRunConfig(
+    fit_markdown=True,
+    fit_markdown_options={
+        "query": "machine learning transformers",
+        "max_tokens": 10000
+    }
+)
+```
 
-## Common Issues and Solutions
+## Resources
 
-**Issue: Pages taking too long**
-- Reduce `--wait-time` if site doesn't need much JavaScript
-- Increase `--wait-time` if content is missing (up to 10s for heavy JS sites)
+### scripts/
+- **extraction_pipeline.py** - Three extraction approaches with schema generation
+- **basic_crawler.py** - Simple markdown extraction with screenshots
+- **batch_crawler.py** - Multi-URL concurrent processing
 
-**Issue: Wrong content extracted**
-- The script uses intelligent heuristics to find main content
-- If it picks the wrong element, the site may have unusual structure
-- Check the console output to see what selector was used
+### references/
+- **complete-sdk-reference.md** - Complete SDK documentation (23K words) with all parameters, methods, and advanced features
 
-**Issue: Missing content**
-- Some sites may need longer `--wait-time` for JavaScript
-- Try increasing from 5s to 8-10s for dynamic content
-- Check if site requires authentication (not supported)
+### Example Code Repository
 
-**Issue: Still seeing some navigation**
-- The 3-stage cleaning is aggressive but may miss some edge cases
-- The script will continuously improve pattern matching
-- Most navigation is successfully removed (85-95% reduction typical)
+The Crawl4AI repository includes extensive examples in `docs/examples/`:
 
-## Tips for Best Results
+#### Core Examples
+- **quickstart.py** - Comprehensive starter with all basic patterns:
+  - Simple crawling, JavaScript execution, CSS selectors
+  - Content filtering, link analysis, media handling
+  - LLM extraction, CSS extraction, dynamic content
+  - Browser comparison, SSL certificates
 
-1. **Default settings work well** for most sites
-2. **Check token estimate** in output to verify content size
-3. **Content hash in frontmatter** allows easy change detection for re-crawls
-4. **Review the extracted content** to ensure quality
-5. **Adjust wait-time** for JavaScript-heavy sites
-6. **Use descriptive output directories** when crawling multiple pages
+#### Specialized Examples
+- **amazon_product_extraction_*.py** - Three approaches for e-commerce scraping
+- **extraction_strategies_examples.py** - All extraction strategies demonstrated
+- **deepcrawl_example.py** - Advanced deep crawling patterns
+- **crypto_analysis_example.py** - Complex data extraction with analysis
+- **parallel_execution_example.py** - High-performance concurrent crawling
+- **session_management_example.py** - Authentication and session handling
+- **markdown_generation_example.py** - Advanced markdown customization
+- **hooks_example.py** - Custom hooks for crawl lifecycle events
+- **proxy_rotation_example.py** - Proxy management and rotation
+- **router_example.py** - Request routing and URL patterns
+
+#### Advanced Patterns
+- **adaptive_crawling/** - Intelligent crawling strategies
+- **c4a_script/** - C4A script examples
+- **docker_*.py** - Docker deployment patterns
+
+To explore examples:
+```python
+# The examples are located in your Crawl4AI installation:
+# Look in: docs/examples/ directory
+
+# Start with quickstart.py for comprehensive patterns
+# It includes: simple crawl, JS execution, CSS selectors,
+# content filtering, LLM extraction, dynamic pages, and more
+
+# For specific use cases:
+# - E-commerce: amazon_product_extraction_*.py
+# - High performance: parallel_execution_example.py
+# - Authentication: session_management_example.py
+# - Deep crawling: deepcrawl_example.py
+
+# Run any example directly:
+# python docs/examples/quickstart.py
+```
+
+## Best Practices
+
+1. **Start with basic crawling** - Understand BrowserConfig, CrawlerRunConfig, and arun() before moving to advanced features
+2. **Use markdown generation** for documentation and content - Crawl4AI excels at clean markdown extraction
+3. **Try schema generation first** for structured data - 10-100x more efficient than LLM extraction
+4. **Enable caching during development** - `cache_mode=CacheMode.ENABLED` to avoid repeated requests
+5. **Set appropriate timeouts** - 30s for normal sites, 60s+ for JavaScript-heavy sites
+6. **Respect rate limits** - Use delays and `max_concurrent` parameter
+7. **Reuse sessions** for authenticated content instead of re-logging
+
+## Troubleshooting
+
+**JavaScript not loading:**
+```python
+config = CrawlerRunConfig(
+    wait_for="css:.dynamic-content",  # Wait for specific element
+    page_timeout=60000  # Increase timeout
+)
+```
+
+**Bot detection issues:**
+```python
+browser_config = BrowserConfig(
+    headless=False,  # Sometimes visible browsing helps
+    viewport_width=1920,
+    viewport_height=1080,
+    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+)
+# Add delays between requests
+await asyncio.sleep(random.uniform(2, 5))
+```
+
+**Content extraction problems:**
+```python
+# Debug what's being extracted
+result = await crawler.arun(url)
+print(f"HTML length: {len(result.html)}")
+print(f"Markdown length: {len(result.markdown)}")
+print(f"Links found: {len(result.links)}")
+
+# Try different wait strategies
+config = CrawlerRunConfig(
+    wait_for="js:document.querySelector('.content') !== null"
+)
+```
+
+**Session/auth issues:**
+```python
+# Verify session is maintained
+config = CrawlerRunConfig(session_id="test_session")
+result = await crawler.arun(url, config=config)
+print(f"Session ID: {result.session_id}")
+print(f"Cookies: {result.cookies}")
+```
+
+For more details on any topic, refer to `references/complete-sdk-reference.md` which contains comprehensive documentation of all features, parameters, and advanced usage patterns.

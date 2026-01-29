@@ -1,7 +1,7 @@
 {
   "name": "pr-workflow",
-  "repo": "Lobbi-Docs/claude",
-  "path": "plugins/jira-orchestrator/skills/pr-workflow/SKILL.md",
-  "source": "github.com/Lobbi-Docs/claude",
-  "downloaded_at": "2026-01-28T02:24:51.345594Z"
+  "repo": "fcakyon/claude-codex-settings",
+  "path": "plugins/github-dev/skills/pr-workflow/SKILL.md",
+  "source": "github.com/fcakyon/claude-codex-settings",
+  "downloaded_at": "2026-01-29T03:06:42.884222Z"
 }

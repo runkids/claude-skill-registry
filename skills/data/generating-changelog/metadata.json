@@ -1,12 +1,7 @@
 {
   "name": "generating-changelog",
-  "description": "Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and transforming technical commits into clear, customer-friendly release notes. Turns h",
-  "repo": "marcos-abreu/connect_kit",
-  "category": "devops",
-  "tags": [
-    "generating",
-    "changelog"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "joaquimscosta/arkhe-claude-plugins",
+  "path": "plugins/git/skills/generating-changelog/SKILL.md",
+  "source": "github.com/joaquimscosta/arkhe-claude-plugins",
+  "downloaded_at": "2026-01-29T04:09:43.238384Z"
 }

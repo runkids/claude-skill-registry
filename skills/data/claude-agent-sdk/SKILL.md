@@ -1,372 +1,535 @@
 ---
 name: claude-agent-sdk
-description: Anthropic Claude Agent SDK for autonomous agents and multi-step workflows. Use for subagents, tool orchestration, MCP servers, or encountering CLI not found, context length exceeded errors.
-
-  Keywords: claude agent sdk, @anthropic-ai/claude-agent-sdk, query(), createSdkMcpServer, AgentDefinition, tool(), claude subagents, mcp servers, autonomous agents, agentic loops, session management, permissionMode, canUseTool, multi-agent orchestration, settingSources, CLI not found, context length exceeded
-license: MIT
+description: Use when working with Anthropic Claude Agent SDK. Provides architecture guidance, implementation patterns, best practices, and common pitfalls.
 ---
 
 # Claude Agent SDK
 
-**Status**: Production Ready
-**Last Updated**: 2025-11-21
-**Dependencies**: @anthropic-ai/claude-code, zod
-**Latest Versions**: @anthropic-ai/claude-code@2.0.49+, zod@3.23.0+
+## Overview
 
----
+The Claude Agent SDK enables building autonomous AI agents with Claude through a feedback loop architecture. Available for Python (3.10+) and TypeScript (Node 18+).
 
-## Quick Start (5 Minutes)
+**Repository:**
+- Python: https://github.com/anthropics/claude-agent-sdk-python
+- TypeScript: https://github.com/anthropics/claude-agent-sdk-typescript
 
-### 1. Install SDK
+**Documentation:** https://platform.claude.com/docs/en/agent-sdk/overview
 
-```bash
-bun add @anthropic-ai/claude-agent-sdk zod
-```
-
-**Why these packages:**
-- `@anthropic-ai/claude-agent-sdk` - Main Agent SDK
-- `zod` - Type-safe schema validation for tools
-
-### 2. Set API Key
+## Installation
 
 ```bash
-export ANTHROPIC_API_KEY="sk-ant-..."
+# Python
+pip install claude-agent-sdk
+
+# TypeScript
+npm install @anthropic-ai/agent-sdk
 ```
 
-**CRITICAL:**
-- API key required for all agent operations
-- Never commit API keys to version control
-- Use environment variables
+## Core Architecture: Feedback Loop Pattern
 
-### 3. Basic Query
+Every agent follows this cycle:
+
+1. **Gather Context** → filesystem navigation, subagents, tools
+2. **Take Action** → tools, bash, code generation, MCP
+3. **Verify Work** → rules-based, visual, LLM-as-judge
+4. **Repeat** → iterate until completion
+
+This pattern applies whether you're building a simple script or a complex multi-agent system.
+
+## Execution Mechanisms (Priority Order)
+
+Choose mechanisms based on task requirements:
+
+1. **Custom Tools** → Primary workflows (appear prominently in context)
+2. **Bash** → Flexible one-off operations
+3. **Code Generation** → Complex, reusable outputs (prefer TypeScript for linting feedback)
+4. **MCP** → Pre-built external integrations (Slack, GitHub, databases)
+
+**Rule:** Use tools for repeatable operations, bash for exploration, code generation when you need structured output that can be validated.
+
+## Quick Start Patterns
+
+### Python: Basic Query
+
+```python
+from claude_agent_sdk import query
+
+result = await query(
+    model="claude-sonnet-4-5",
+    system_prompt="You are a helpful coding assistant.",
+    user_message="List files in current directory",
+    working_dir=".",
+)
+print(result.final_message)
+```
+
+### TypeScript: Session Management
 
 ```typescript
-import { query } from "@anthropic-ai/claude-agent-sdk";
+import { ClaudeSdkClient } from '@anthropic-ai/agent-sdk';
 
-const response = query({
-  prompt: "Analyze the codebase and suggest improvements",
-  options: {
-    model: "claude-sonnet-4-5",
-    workingDirectory: process.cwd(),
-    allowedTools: ["Read", "Grep", "Glob"]
-  }
+const client = new ClaudeSdkClient({ apiKey: process.env.ANTHROPIC_API_KEY });
+
+const result = await client.query({
+  model: 'claude-sonnet-4-5',
+  systemPrompt: 'You are a helpful coding assistant.',
+  userMessage: 'List files in current directory',
+  workingDir: '.',
 });
 
-for await (const message of response) {
-  if (message.type === 'assistant') {
-    console.log(message.content);
+console.log(result.finalMessage);
+```
+
+## Key Components
+
+### 1. Custom Tools (SDK MCP Servers)
+
+In-process tools with no subprocess overhead. Primary building block for agents.
+
+**Python:**
+```python
+from claude_agent_sdk.mcp import tool, create_sdk_mcp_server
+
+@tool(
+    name="calculator",
+    description="Perform calculations",
+    input_schema={"expression": str}
+)
+async def calculator(args):
+    result = eval(args["expression"])  # Use safe eval in production
+    return {"content": [{"type": "text", "text": str(result)}]}
+
+server = create_sdk_mcp_server(name="math", tools=[calculator])
+```
+
+**TypeScript:**
+```typescript
+import { createSdkMcpServer, tool } from '@anthropic-ai/agent-sdk';
+import { z } from 'zod';
+
+const calculator = tool({
+  name: 'calculator',
+  description: 'Perform calculations',
+  inputSchema: z.object({ expression: z.string() }),
+  async execute({ expression }) {
+    const result = eval(expression); // Use safe eval in production
+    return { content: [{ type: 'text', text: String(result) }] };
+  },
+});
+
+const server = createSdkMcpServer({ name: 'math', tools: [calculator] });
+```
+
+**Benefits over external MCP:** Better performance, easier debugging, shared memory space, no IPC overhead.
+
+### 2. Hooks (Lifecycle Callbacks)
+
+Intercept and modify agent behaviour at specific points.
+
+**Available hooks:**
+- `PreToolUse` → Validate/modify/deny tool calls before execution
+- `PostToolUse` → Process/log/modify tool results
+- `Stop` → Handle completion events
+
+**Python validation example:**
+```python
+async def validate_command(input_data, tool_use_id, context):
+    if "rm -rf" in input_data["tool_input"].get("command", ""):
+        return {
+            "hookSpecificOutput": {
+                "permissionDecision": "deny",
+                "permissionDecisionReason": "Dangerous command blocked"
+            }
+        }
+```
+
+**TypeScript logging example:**
+```typescript
+const loggingHook = {
+  matcher: (input) => input.toolName === 'bash',
+  async handler(input, toolUseId, context) {
+    console.log(`Executing: ${input.toolInput.command}`);
   }
+};
+```
+
+### 3. Permission System
+
+Four modes with progressively less restriction:
+
+- `default` → Prompt for each tool use
+- `plan` → Agent can read/explore freely, prompts for modifications
+- `acceptEdits` → Auto-approve file edits, prompt for bash/destructive ops
+- `bypassPermissions` → Fully autonomous (use carefully)
+
+**Dynamic control with `canUseTool`:**
+```python
+async def permission_callback(tool_name, tool_input, context):
+    if tool_name == "bash" and "git push" in tool_input.get("command", ""):
+        return False  # Deny
+    return True  # Allow
+```
+
+### 4. Subagents
+
+Isolated agents with separate context windows and specialised capabilities.
+
+**When to use:**
+- Parallel processing of independent tasks
+- Context isolation (prevent one task from bloating main context)
+- Specialised agents with different tools/models
+
+**Python:**
+```python
+from claude_agent_sdk import ClaudeAgentOptions
+
+options = ClaudeAgentOptions(
+    subagent_definitions={
+        "researcher": {
+            "tools": ["read", "grep", "glob"],
+            "model": "claude-haiku-4",
+            "description": "Fast research agent"
+        }
+    }
+)
+```
+
+**TypeScript:**
+```typescript
+const options = {
+  subagentDefinitions: {
+    researcher: {
+      tools: ['read', 'grep', 'glob'],
+      model: 'claude-haiku-4',
+      description: 'Fast research agent'
+    }
+  }
+};
+```
+
+### 5. Context Management
+
+**Agentic Search (Preferred):**
+Use bash + filesystem navigation (grep, ls, tail) before reaching for semantic search. Simpler and more reliable.
+
+**Automatic Compaction:**
+SDK automatically summarises messages when approaching token limits. Transparent and automatic.
+
+**Folder Structure as Context Engineering:**
+Organise files intentionally—directory structure is visible to the agent and influences its understanding.
+
+## Verification Patterns
+
+### Rules-Based (Preferred)
+Explicit validation enables self-correction:
+```python
+# In PostToolUse hook
+if tool_name == "write":
+    # Run linter on generated file
+    lint_result = run_linter(tool_output)
+    if lint_result.has_errors:
+        return {"continue": True}  # Let agent fix errors
+```
+
+### Visual Feedback
+For UI tasks, screenshot and re-evaluate:
+```python
+@tool(name="check_ui", description="Verify UI matches requirements")
+async def check_ui(args):
+    screenshot = take_screenshot(args["url"])
+    # Return screenshot to agent for evaluation
+    return {"content": [{"type": "image", "source": screenshot}]}
+```
+
+### LLM-as-Judge
+Only for fuzzy criteria where rules don't work (higher latency):
+```python
+judge_result = await secondary_model.evaluate(
+    criteria="Does output match tone guidelines?",
+    output=agent_output
+)
+```
+
+## Common Pitfalls & Solutions
+
+### 1. System Prompt Not Loading
+**Symptom:** CLAUDE.md ignored, custom prompts not applied
+**Solution:** Set `setting_sources=["project"]` or `["user", "project"]`
+
+```python
+# Python
+options = ClaudeAgentOptions(setting_sources=["project"])
+
+# TypeScript
+const options = { settingSources: ['project'] };
+```
+
+### 2. Tool Not Available
+**Symptom:** "Tool not found" errors
+**Solution:** Check MCP tool naming: `mcp__{server_name}__{tool_name}`
+
+### 3. Permission Denied
+**Symptom:** Agent can't access directories
+**Solution:** Add directories explicitly:
+
+```python
+options = ClaudeAgentOptions(add_dirs=["/path/to/data"])
+```
+
+### 4. Python Keyword Conflicts
+**Symptom:** Syntax errors with `async` or `continue` parameters
+**Solution:** Use `async_` and `continue_` (SDK auto-converts)
+
+```python
+# Use async_ not async
+hook_result = {"async_": True, "continue_": False}
+```
+
+### 5. Context Overflow
+**Symptom:** Token limit errors
+**Solution:** Use subagents for isolation or let automatic compaction handle it
+
+### 6. Tool Execution Failures
+**Symptom:** Tools fail silently or with unclear errors
+**Solution:** Return structured error messages in tool responses:
+
+```python
+return {
+    "content": [{
+        "type": "text",
+        "text": "Error: Invalid input. Expected format: ...",
+        "isError": True
+    }]
 }
 ```
 
----
+### 7. External MCP Server Not Connecting
+**Symptom:** stdio/SSE MCP servers timeout
+**Solution:** Verify server is executable and logs are accessible:
 
-## The Complete Claude Agent SDK Reference
-
-## Table of Contents
-
-1. [Core Query API](#core-query-api)
-2. [Tool Integration](#tool-integration-built-in--custom)
-3. [MCP Servers](#mcp-servers-model-context-protocol)
-4. [Subagent Orchestration](#subagent-orchestration)
-5. [Session Management](#session-management)
-6. [Permission Control](#permission-control)
-7. [Filesystem Settings](#filesystem-settings)
-8. [Message Types & Streaming](#message-types--streaming)
-9. [Error Handling](#error-handling)
-10. [Known Issues](#known-issues-prevention)
-
----
-
-## When to Load References
-
-The skill includes comprehensive reference files for deep dives. Load these when needed:
-
-- **`references/query-api-reference.md`** - Load when configuring query() options, working with message types, understanding filesystem settings, or debugging API behavior
-- **`references/mcp-servers-guide.md`** - Load when creating custom tools, integrating external MCP servers, or debugging server connections
-- **`references/subagents-patterns.md`** - Load when designing multi-agent systems, orchestrating specialized agents, or optimizing agent workflows
-- **`references/session-management.md`** - Load when implementing persistent conversations, forking sessions, or managing long-running interactions
-- **`references/permissions-guide.md`** - Load when implementing custom permission logic, securing agent capabilities, or controlling tool access
-- **`references/top-errors.md`** - Load when encountering errors, debugging issues, or implementing error handling
-
----
-
-## Core Query API
-
-The `query()` function is the primary interface for interacting with Claude Code CLI programmatically. It returns an AsyncGenerator that streams messages as the agent works.
-
-**For complete API details, options, and advanced patterns**: Load `references/query-api-reference.md` when working with advanced configurations, message streaming, or filesystem settings.
-
-### Basic Usage
-
-```typescript
-import { query } from "@anthropic-ai/claude-agent-sdk";
-
-const response = query({
-  prompt: "Review this code for bugs",
-  options: {
-    model: "claude-sonnet-4-5",        // or "haiku", "opus"
-    workingDirectory: "/path/to/project",
-    allowedTools: ["Read", "Grep", "Glob"],
-    permissionMode: "default"
-  }
-});
-
-for await (const message of response) {
-  // Process streaming messages
-}
+```python
+# Check server stderr in context.mcp_server_logs
+async def debug_hook(input_data, tool_use_id, context):
+    print(context.mcp_server_logs.get("server_name"))
 ```
 
-### Model Selection
+## Language-Specific Considerations
 
-| Model | ID | Best For | Speed | Capability |
-|-------|-----|----------|-------|------------|
-| **Haiku** | `"haiku"` | Fast tasks, monitoring | Fastest | Basic |
-| **Sonnet** | `"sonnet"` or `"claude-sonnet-4-5"` | Balanced | Medium | High |
-| **Opus** | `"opus"` | Complex reasoning | Slowest | Highest |
+### Python vs TypeScript
 
----
+| Aspect | Python | TypeScript |
+|--------|--------|------------|
+| **Runtime** | `anyio.run(main)` | Native async/await |
+| **Min Version** | Python 3.10+ | Node.js 18+ |
+| **Type Safety** | Type hints optional | Strict types with Zod |
+| **Hook Fields** | `async_`, `continue_` | `async`, `continue` |
+| **CLI** | Bundled (no install) | Separate install needed |
+| **Tool Validation** | Dict-based schemas | Zod schemas |
 
-## Tool Integration (Built-in + Custom)
+### TypeScript Advantages
+- Linting provides extra feedback layer for generated code
+- Stronger type safety catches errors earlier
+- Better IDE integration
 
-Claude Code provides built-in tools (Read, Write, Edit, Bash, Grep, Glob, WebSearch, WebFetch, Task) that can be controlled via `allowedTools` and `disallowedTools` options.
+### Python Advantages
+- Simpler setup for data science workflows
+- Direct integration with ML/data tools
+- More concise for scripting tasks
 
-**For complete tool configuration, custom monitoring, and advanced patterns**: Load `references/query-api-reference.md` when implementing tool restrictions or monitoring.
+## Decision Frameworks
 
-### Allowing/Disallowing Tools
+### When to Use Claude Agent SDK
 
-```typescript
-// Whitelist approach (recommended)
-const response = query({
-  prompt: "Analyze code but don't modify anything",
-  options: {
-    allowedTools: ["Read", "Grep", "Glob"]
-    // ONLY these tools can be used
-  }
-});
+✅ **Use when:**
+- Building autonomous agents that need computer access
+- Iterative workflows with verification loops
+- Multi-step tasks requiring context and tool use
+- Custom tool integration requirements
+- Need for permission control and safety
 
-// Blacklist approach
-const response = query({
-  prompt: "Review and fix issues",
-  options: {
-    disallowedTools: ["Bash"]
-    // Everything except Bash allowed
-  }
-});
-```
+❌ **Don't use when:**
+- Simple API calls sufficient (use Messages API)
+- No tool/computer access needed
+- Purely conversational applications
+- Real-time streaming responses critical
 
-**CRITICAL**: `allowedTools` = whitelist (only these tools), `disallowedTools` = blacklist (everything except these). If both specified, `allowedTools` wins.
+### Tool vs Bash vs Code Generation
 
----
+**Use Custom Tools when:**
+- Operation repeats frequently
+- Need structured input/output validation
+- Want prominent placement in agent context
+- Require error handling and retry logic
 
-## MCP Servers (Model Context Protocol)
+**Use Bash when:**
+- One-off exploration or debugging
+- System operations (git, file management)
+- Flexible scripting without formal structure
 
-MCP servers extend agent capabilities with custom tools via `createSdkMcpServer()` (in-process) or external servers (stdio, HTTP, SSE).
+**Use Code Generation when:**
+- Need structured, reusable output
+- Can validate with linting/compilation
+- Building components or modules
+- TypeScript preferred for feedback quality
 
-**For complete MCP server implementation guide**: Load `references/mcp-servers-guide.md` when creating custom tools or integrating MCP servers.
+### SDK MCP vs External MCP
 
-**Quick Example**: Create server with `tool(name, description, zodSchema, handler)`, use with `mcpServers` option and `allowedTools: ["mcp__<server>__<tool>"]`
+**Use SDK MCP (in-process) when:**
+- Building custom tools for your agent
+- Performance matters (no subprocess overhead)
+- Need shared state with main process
+- Debugging tool logic
 
----
-
-## Subagent Orchestration
-
-Specialized agents with focused expertise, custom tools, different models, and dedicated prompts for multi-agent workflows.
-
-**For complete subagent patterns and orchestration strategies**: Load `references/subagents-patterns.md` when designing multi-agent systems.
-
-**AgentDefinition**: Use `agents` option with objects containing `description`, `prompt`, `tools` (optional), `model` (optional)
-
----
+**Use External MCP (stdio/SSE) when:**
+- Integrating third-party services
+- Tool needs isolation
+- Using pre-built MCP servers
+- Cross-language tool requirements
 
 ## Session Management
 
-Sessions enable persistent conversations, context preservation, and alternative exploration paths (forking).
+### Resuming Sessions
 
-**For complete session patterns and workflows**: Load `references/session-management.md` when implementing persistent conversations.
+**Python:**
+```python
+# First run
+result1 = await query(user_message="Create a file", working_dir=".")
 
-**Usage**: Capture `session_id` from system init message, resume with `resume: sessionId` option, fork with `forkSession: true`
-
----
-
-## Permission Control
-
-Control agent capabilities with permission modes: `"default"` (standard checks), `"acceptEdits"` (auto-approve edits), `"bypassPermissions"` (skip all checks - use with caution).
-
-**For complete permission patterns and security policies**: Load `references/permissions-guide.md` when implementing custom permission logic.
-
-**Custom Logic**: Use `canUseTool: async (toolName, input) => ({ behavior: "allow" | "deny" | "ask", message?: string })` callback
-
----
-
-## Filesystem Settings
-
-Control which settings files load via `settingSources` array: `"user"` (~/.claude/settings.json), `"project"` (.claude/settings.json), `"local"` (.claude/settings.local.json).
-
-**For complete configuration and priority rules**: Load `references/query-api-reference.md` when configuring settings sources.
-
-**Default**: `[]` (no settings loaded). **Priority**: Programmatic > local > project > user
-
----
-
-## Message Types & Streaming
-
-The SDK streams messages: `system` (init/completion), `assistant` (responses), `tool_call` (tool requests), `tool_result` (tool outputs), `error` (failures).
-
-**For complete message type reference and streaming patterns**: Load `references/query-api-reference.md` when implementing advanced message handling.
-
-**Usage**: Process messages in `for await (const message of response)` loop, switch on `message.type`
-
----
-
-## Error Handling
-
-Common errors: `CLI_NOT_FOUND`, `AUTHENTICATION_FAILED`, `RATE_LIMIT_EXCEEDED`, `CONTEXT_LENGTH_EXCEEDED`, `PERMISSION_DENIED`.
-
-**For complete error catalog with solutions**: Load `references/top-errors.md` when encountering errors or implementing error handling.
-
-**Pattern**: Wrap query in try/catch, check `error.code`, handle `message.type === 'error'` in streaming loop
-
----
-
-## Known Issues Prevention
-
-This skill prevents **12** documented issues. The top 3 most common:
-
-### Issue #1: CLI Not Found Error
-**Error**: `"Claude Code CLI not installed"`
-**Prevention**: Install before using SDK: `bun add -g @anthropic-ai/claude-code`
-
-### Issue #2: Authentication Failed
-**Error**: `"Invalid API key"`
-**Prevention**: Always set `export ANTHROPIC_API_KEY="sk-ant-..."`
-
-### Issue #3: Permission Denied Errors
-**Error**: Tool execution blocked
-**Prevention**: Use `allowedTools` or custom `canUseTool` callback
-
-**For all 12 errors with complete solutions**: Load `references/top-errors.md` when debugging or implementing error prevention.
-
----
-
-## Critical Rules
-
-### Always Do
-
-✅ Install Claude Code CLI before using SDK
-✅ Set `ANTHROPIC_API_KEY` environment variable
-✅ Capture `session_id` from `system` messages for resuming
-✅ Use `allowedTools` to restrict agent capabilities
-✅ Implement `canUseTool` for custom permission logic
-✅ Handle all message types in streaming loop
-✅ Use Zod schemas for tool input validation
-✅ Set `workingDirectory` for multi-project environments
-✅ Test MCP servers in isolation before integration
-✅ Use `settingSources: ["project"]` in CI/CD
-✅ Monitor tool execution with `tool_call` messages
-✅ Implement error handling for all queries
-
-### Never Do
-
-❌ Commit API keys to version control
-❌ Use `bypassPermissions` in production (unless sandboxed)
-❌ Assume tools executed (check `tool_result` messages)
-❌ Ignore error messages in stream
-❌ Skip session ID capture if planning to resume
-❌ Use duplicate tool names across MCP servers
-❌ Allow unrestricted Bash access without `canUseTool`
-❌ Load settings from user in CI/CD (`settingSources: ["user"]`)
-❌ Trust tool results without validation
-❌ Hardcode file paths (use `workingDirectory`)
-❌ Use `acceptEdits` mode with untrusted prompts
-❌ Skip Zod validation for tool inputs
-
----
-
-## Dependencies
-
-**Required**:
-- `@anthropic-ai/claude-agent-sdk@0.1.0+` - Agent SDK
-- `zod@3.23.0+` - Schema validation
-
-**Optional**:
-- `@types/node@20.0.0+` - TypeScript types
-- `@modelcontextprotocol/sdk@latest` - MCP server development
-
-**System Requirements**:
-- Node.js 18.0.0+
-- Claude Code CLI (install: `bun add -g @anthropic-ai/claude-code`)
-- Valid ANTHROPIC_API_KEY
-
----
-
-## Official Documentation
-
-- **Agent SDK Overview**: https://docs.claude.com/en/api/agent-sdk/overview
-- **TypeScript API**: https://docs.claude.com/en/api/agent-sdk/typescript
-- **Python API**: https://docs.claude.com/en/api/agent-sdk/python
-- **Model Context Protocol**: https://modelcontextprotocol.io/
-- **GitHub (TypeScript)**: https://github.com/anthropics/claude-agent-sdk-typescript
-- **GitHub (Python)**: https://github.com/anthropics/claude-agent-sdk-python
-- **Context7 Library ID**: /anthropics/claude-agent-sdk-typescript
-
----
-
-## Package Versions (Verified 2025-10-25)
-
-```json
-{
-  "dependencies": {
-    "@anthropic-ai/claude-agent-sdk": "^0.1.0",
-    "zod": "^3.23.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.0.0",
-    "typescript": "^5.3.0"
-  }
-}
+# Resume with new message
+result2 = await query(
+    user_message="Now modify it",
+    working_dir=".",
+    session_id=result1.session_id
+)
 ```
 
----
+**TypeScript:**
+```typescript
+// First run
+const result1 = await client.query({ userMessage: 'Create a file' });
 
-## Production Examples
+// Resume
+const result2 = await client.query({
+  userMessage: 'Now modify it',
+  sessionId: result1.sessionId
+});
+```
 
-This skill is based on official Anthropic documentation and SDK patterns:
-- **Documentation**: https://docs.claude.com/en/api/agent-sdk/
-- **Validation**: ✅ All patterns tested with SDK 0.1.0+
-- **Use Cases**: Coding agents, SRE systems, security auditors, CI/CD automation
-- **Platform Support**: Node.js 18+, TypeScript 5.3+
+### Forking Sessions
 
----
+Create alternative branches from a point:
 
-## Complete Setup Checklist
+```python
+# Fork for different approach
+result_fork = await query(
+    user_message="Try different implementation",
+    session_id=original_result.session_id,
+    fork_session=True
+)
+```
 
-- [ ] Node.js 18.0.0+ installed
-- [ ] Claude Code CLI installed (`bun add -g @anthropic-ai/claude-code`)
-- [ ] SDK installed (`bun add @anthropic-ai/claude-agent-sdk zod`)
-- [ ] ANTHROPIC_API_KEY environment variable set
-- [ ] workingDirectory set for project
-- [ ] allowedTools configured (or using default)
-- [ ] permissionMode chosen (default recommended)
-- [ ] Error handling implemented
-- [ ] Session management (if needed)
-- [ ] MCP servers configured (if using custom tools)
-- [ ] Subagents defined (if needed)
+## Budget Control
 
----
+Set USD spending limits:
 
-**Questions? Issues?**
+```python
+options = ClaudeAgentOptions(budget={"usd": 5.00})
+```
 
-1. Check [references/query-api-reference.md](references/query-api-reference.md) for complete API details
-2. Review [references/mcp-servers-guide.md](references/mcp-servers-guide.md) for custom tools
-3. See [references/subagents-patterns.md](references/subagents-patterns.md) for orchestration
-4. Check [references/session-management.md](references/session-management.md) for persistent conversations
-5. Review [references/permissions-guide.md](references/permissions-guide.md) for security policies
-6. Check [references/top-errors.md](references/top-errors.md) for common issues
-7. Consult official docs: https://docs.claude.com/en/api/agent-sdk/
+Agent stops when budget exceeded. Useful for cost control in production.
 
----
+## Testing Patterns
 
-**Token Efficiency**: ~65% savings vs manual Agent SDK integration (estimated)
-**Error Prevention**: 100% (all 12 documented issues prevented)
-**Development Time**: 30 minutes with skill vs 3-4 hours manual
+### Mock Tools for Testing
+
+**Python:**
+```python
+import pytest
+from unittest.mock import AsyncMock
+
+@pytest.fixture
+def mock_tool():
+    return AsyncMock(return_value={
+        "content": [{"type": "text", "text": "mocked"}]
+    })
+
+async def test_agent(mock_tool):
+    server = create_sdk_mcp_server(name="test", tools=[mock_tool])
+    # Test with mocked tool
+```
+
+**TypeScript:**
+```typescript
+import { jest } from '@jest/globals';
+
+const mockTool = {
+  name: 'test',
+  execute: jest.fn().mockResolvedValue({
+    content: [{ type: 'text', text: 'mocked' }]
+  })
+};
+```
+
+### Integration Testing
+
+Test with real tools in isolated environment:
+
+```python
+import tempfile
+import os
+
+async def test_file_operations():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        result = await query(
+            user_message="Create test.txt with content 'hello'",
+            working_dir=tmpdir,
+            permission_mode="bypassPermissions"
+        )
+        assert os.path.exists(f"{tmpdir}/test.txt")
+```
+
+## Migration from Claude Code SDK
+
+If migrating from the deprecated `claude-code-sdk`:
+
+1. **Package renamed:** `claude-code-sdk` → `claude-agent-sdk`
+2. **System prompt not default:** Must explicitly set or enable via `setting_sources`
+3. **Type renamed (Python):** `ClaudeCodeOptions` → `ClaudeAgentOptions`
+4. **Settings sources not automatic:** Must set `setting_sources=["project"]`
+
+See migration guide: https://platform.claude.com/docs/en/agent-sdk/migration-guide
+
+## Performance Optimisation
+
+1. **Use Haiku for simple tasks** → 5x cheaper, faster for research/exploration
+2. **SDK MCP over external** → No subprocess overhead
+3. **Batch operations** → Combine file operations when possible
+4. **Set turn limits** → Prevent infinite loops (`turn_limit` parameter)
+5. **Monitor token usage** → Use budget controls in production
+
+## Security Best Practices
+
+1. **Always validate tool inputs** → Never trust unchecked input
+2. **Use permission callbacks** → Deny dangerous operations dynamically
+3. **Restrict filesystem access** → Use `add_dirs` to limit scope
+4. **Sandbox external MCP servers** → Isolate third-party tools
+5. **Set budgets** → Prevent runaway costs
+6. **Log all tool uses** → Audit trail via PostToolUse hooks
+7. **Never hardcode API keys** → Use environment variables
+
+## Key Principles
+
+1. **Folder structure is context engineering** → Organise intentionally
+2. **Rules-based feedback enables self-correction** → Add linting and validation
+3. **Start with agentic search** → Bash navigation before semantic search
+4. **Tools are primary, bash is secondary** → Use tools for repeatable operations
+5. **TypeScript for generated code** → Extra feedback layer improves quality
+6. **Verification closes the loop** → Always validate agent work
+7. **Use subagents for isolation** → Prevent context bloat and enable parallelism
+
+## Additional Resources
+
+- **API Reference (Python):** https://platform.claude.com/docs/en/agent-sdk/python
+- **API Reference (TypeScript):** https://platform.claude.com/docs/en/agent-sdk/typescript
+- **Examples Repository:** https://github.com/anthropics/claude-agent-sdk-demos
+- **Engineering Blog:** https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk

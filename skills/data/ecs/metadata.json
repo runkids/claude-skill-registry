@@ -1,7 +1,7 @@
 {
   "name": "ecs",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/devops/ecs/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-28T02:30:05.443902Z"
+  "repo": "itsmostafa/aws-agent-skills",
+  "path": "skills/ecs/SKILL.md",
+  "source": "github.com/itsmostafa/aws-agent-skills",
+  "downloaded_at": "2026-01-29T03:20:18.168203Z"
 }

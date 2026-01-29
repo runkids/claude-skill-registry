@@ -1,7 +1,7 @@
 {
   "name": "trpc",
-  "repo": "mgd34msu/goodvibes-plugin",
-  "path": "plugins/goodvibes/skills/webdev/api-layer/trpc/SKILL.md",
-  "source": "github.com/mgd34msu/goodvibes-plugin",
-  "downloaded_at": "2026-01-28T04:33:56.113372Z"
+  "repo": "pascallammers/mylo-travel-concierge-v2",
+  "path": ".factory/skills/trpc/SKILL.md",
+  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
+  "downloaded_at": "2026-01-29T03:58:03.560825Z"
 }

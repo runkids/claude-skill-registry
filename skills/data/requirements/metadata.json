@@ -1,7 +1,7 @@
 {
   "name": "requirements",
-  "repo": "nicepkg/ai-workflow",
-  "path": "workflows/product-manager-workflow/.claude/skills/requirements/SKILL.md",
-  "source": "github.com/nicepkg/ai-workflow",
-  "downloaded_at": "2026-01-28T03:30:10.868320Z"
+  "repo": "infinith4/dev-flutter-realestate",
+  "path": ".claude/skills/requirements/SKILL.md",
+  "source": "github.com/infinith4/dev-flutter-realestate",
+  "downloaded_at": "2026-01-29T01:35:29.553317Z"
 }

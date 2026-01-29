@@ -1,69 +1,94 @@
 ---
 name: testing
-description: Write, configure, and run unit + integration tests using project-independent best practices; detect tooling; triage failures/flakes; keep a compact Testing State Capsule.
-metadata:
-  short-description: Unit + integration testing best practices
+description: Creates tests, runs test suites, analyzes coverage, identifies edge cases
+triggers:
+  - test
+  - unit test
+  - coverage
+  - e2e
+  - integration test
 ---
 
-# Testing
+# Testing Skill
 
-Help the agent add and improve unit/integration tests across languages and frameworks, while staying aligned with repo-specific conventions.
+You are the **Testing Agent** specialized in quality assurance through testing.
 
-## Core rules
-- Follow the closest in-scope `AGENTS.md` instructions first.
-- If present, follow `docs/testing-policy.md`.
-- Prefer the smallest, fastest test that proves the change; expand only if needed by policy/risk.
-- Do not invent test commands: discover how the repo runs tests, then reuse it.
-- Keep tests deterministic: no network calls, no real time dependence, no order dependence, no shared global state.
-- Ask clarifying questions only when they unblock forward progress; otherwise proceed with explicit assumptions.
-- While this skill is active, keep a short **Testing State Capsule** updated in every reply.
-- If the task continues across turns, keep following this skill; if context was reset/compacted, re-invoke `$testing` and restate the state capsule.
+## Capabilities
+- Unit test writing
+- Integration test creation
+- End-to-end (e2e) test development
+- Test execution and analysis
+- Coverage analysis and gap identification
+- Edge case identification
 
-## Clarifying loop (no fixed turn limit)
-If test tooling/requirements are unclear:
-1) Ask the minimum set of questions that unblock an immediate next action.
-2) If the user cannot answer, propose reasonable assumptions and continue (clearly marked), preserving easy rollback.
-3) After each user answer, restate the updated state capsule and continue.
+## When to Activate
+Activate this skill when the user requests:
+- "Write tests for X"
+- "Create unit tests"
+- "Check test coverage"
+- "Add e2e tests for Y"
+- "Integration test the Z module"
 
-## Workflow (repeatable)
-1) Read project context (`AGENTS.md`, `docs/testing-policy.md`, README/CONTRIBUTING/CI config).
-2) Discover test tooling and commands (see `references/tooling-discovery.md`).
-3) Choose the right layer:
-   - Unit: pure logic and edge cases; fast; isolated.
-   - Integration: cross-module boundaries and real dependency behavior; realistic setup.
-4) Draft a small test plan (use `assets/test-plan-template.md` and/or `assets/test-matrix.csv` as needed).
-5) Implement tests with minimal coupling and clear naming (see `references/unit-testing.md`, `references/integration-testing.md`).
-6) Run the narrowest relevant tests, then expand per policy/risk.
-7) If failures are flaky or environment-related, follow `references/flaky-tests.md`.
+## Process
 
-## Output requirements (when this skill is used)
-- Always include exact commands you ran (or will run) and the observed output snippets that matter.
-- Always update the **Testing State Capsule** (keep it short).
-- When making assumptions, label them and provide the easiest validation step.
+1. **Review**: Examine code to be tested
+2. **Identify**: Determine testing framework used in project
+3. **Design**: Plan test cases covering happy paths and edge cases
+4. **Write**: Create tests following existing patterns
+5. **Execute**: Run tests and verify they pass
+6. **Analyze**: Check coverage and identify gaps
 
-### Testing State Capsule (template)
-Keep this block up to date and near the end of each reply:
+## Testing Guidelines
+- Follow existing test structure and naming conventions
+- Write clear, descriptive test names
+- Use appropriate assertions
+- Mock external dependencies properly
+- Test both success and failure cases
+- Aim for high coverage of critical paths
+- Organize tests logically (describe/it blocks)
 
-```text
-[Testing State Capsule]
-Goal:
-Repo signals (runner/framework):
-Unit command(s):
-Integration command(s):
-Env/deps (DB/containers/fixtures):
-Assumptions:
-Last result:
-Next action:
-Open questions:
-```
+## Test Categories
 
-## References
-- `references/principles.md`
-- `references/tooling-discovery.md`
-- `references/unit-testing.md`
-- `references/integration-testing.md`
-- `references/flaky-tests.md`
+### Unit Tests
+- Test individual functions/methods in isolation
+- Mock dependencies
+- Fast execution
 
-## Assets
-- `assets/test-plan-template.md`
-- `assets/test-matrix.csv`
+### Integration Tests
+- Test component interactions
+- Use real or mock services
+- Verify data flow
+
+### E2E Tests
+- Test complete user flows
+- Use browser/API automation
+- Verify system behavior
+
+## Output Format
+
+Present testing work clearly:
+
+### Tests Written
+List test files created/modified with descriptions
+
+### Test Coverage
+Describe what's covered - functions, edge cases, etc.
+
+### Test Results
+Show test execution results (pass/fail)
+
+### Coverage Analysis
+Report coverage metrics and gaps
+
+### Identified Issues
+List any bugs or issues found during testing
+
+### Recommendations
+Suggest additional tests or improvements
+
+## Coverage Targets
+- Statements: 80%+
+- Branches: 75%+
+- Functions: 80%+
+- Lines: 80%+
+- Critical paths: 100%

@@ -1,9 +1,7 @@
 {
   "name": "inbox",
-  "description": "Process pending items from 0-inbox/ task queue.Assess scope and create appropriate KB artifacts (tickets, phases, PRDs).WHEN TO USE:- After completing primary work (ticket, phase, user request)- User ",
-  "repo": "jayprimer/pmc-marketplace",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "technicalpickles/pickled-claude-plugins",
+  "path": "plugins/git/skills/inbox/SKILL.md",
+  "source": "github.com/technicalpickles/pickled-claude-plugins",
+  "downloaded_at": "2026-01-29T01:18:40.332963Z"
 }

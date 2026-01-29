@@ -1,12 +1,7 @@
 {
   "name": "chapter-analyzer",
-  "description": "Validates and analyzes Docusaurus MDX chapters for structure, pedagogical quality, and component usage.",
   "repo": "AbdulSamad94/Hackhaton-SpecsKitPlus",
-  "category": "documents",
-  "tags": [
-    "chapter",
-    "analyzer"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/chapter-analyzer/SKILL.md",
+  "source": "github.com/AbdulSamad94/Hackhaton-SpecsKitPlus",
+  "downloaded_at": "2026-01-29T03:08:10.334236Z"
 }

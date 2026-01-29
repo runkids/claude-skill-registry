@@ -1,93 +1,232 @@
 ---
 name: research
-description: Company due diligence, technology deep-dives, market analysis, and topic exploration for cyber•Fund investment decisions, content creation, and personal projects. Supports 3 intensity levels (quick/standard/deep) for speed-quality tradeoffs.
+description: Comprehensive research, analysis, and content extraction system. Multi-source parallel research using available researcher agents. Deep content analysis with extended thinking. Intelligent retrieval for difficult sites. Fabric pattern selection for 242+ specialized prompts. USE WHEN user says 'do research', 'extract wisdom', 'analyze content', 'find information about', or requests web/content research.
 ---
 
 # Research Skill
 
-Company due diligence, technology deep-dives, market analysis, and topic exploration for cyber•Fund investment decisions, content creation, and personal projects.
+## API Keys Required
 
-## Capabilities
+**This skill works best with these optional API keys configured in `~/.env`:**
 
-- **Company Research**: Comprehensive DD on target companies
-- **Technology Research**: Deep technical analysis of technologies
-- **Market Research**: Market sizing, dynamics, and opportunity assessment
-- **Topic Research (Content)**: Ideas, narratives, people for essays/tweets
-- **Topic Research (Investment)**: Market dynamics and opportunities for investment thesis
+| Feature | API Key | Get It From |
+|---------|---------|-------------|
+| Perplexity Research | `PERPLEXITY_API_KEY` | https://perplexity.ai/settings/api |
+| Gemini Research | `GOOGLE_API_KEY` | https://aistudio.google.com/app/apikey |
+| BrightData Scraping | `BRIGHTDATA_API_KEY` | https://brightdata.com |
 
-## Research Intensity Levels
+**Works without API keys:**
+- Claude-based research (uses built-in WebSearch)
+- Basic web fetching (uses built-in WebFetch)
+- Fabric patterns (if Fabric CLI installed)
 
-- **🔍 Quick** (10-30s): 1 agent
-- **🔬 Standard** (2-5m): 2-3 agents [DEFAULT]
-- **🔎 Deep** (5-15m): 3-5 agents + quality-reviewer
+---
 
-See `shared/intensity-tiers.md` for full specification.
+## Workflow Routing
 
-## Workflow
+### Multi-Source Research Workflows
 
-All research types use **one universal workflow**:
-- `workflows/orchestrator.md`
+**When user requests comprehensive parallel research:**
+Examples: "do research on X", "research this topic", "find information about Y", "investigate this subject"
+→ **READ:** `${PAI_DIR}/skills/research/workflows/conduct.md`
+→ **EXECUTE:** Parallel multi-agent research using available researcher agents
 
-The orchestrator dynamically selects agents based on research type and intensity.
+**When user requests Claude-based research (FREE - no API keys):**
+Examples: "use claude for research", "claude research on X", "use websearch to research Y"
+→ **READ:** `${PAI_DIR}/skills/research/workflows/claude-research.md`
+→ **EXECUTE:** Intelligent query decomposition with Claude's WebSearch
 
-## Agent Selection
+**When user requests Perplexity research (requires PERPLEXITY_API_KEY):**
+Examples: "use perplexity to research X", "perplexity research on Y"
+→ **READ:** `${PAI_DIR}/skills/research/workflows/perplexity-research.md`
+→ **EXECUTE:** Fast web search with query decomposition via Perplexity API
 
-See `shared/agent-selection-matrix.md` for full matrix.
+**When user requests interview preparation:**
+Examples: "prepare interview questions for X", "interview research on Y"
+→ **READ:** `${PAI_DIR}/skills/research/workflows/interview-research.md`
+→ **EXECUTE:** Interview prep with diverse question generation
 
-| Research Type | Quick | Standard | Deep |
-|---------------|-------|----------|------|
-| Company DD | company | company + market + financial | +team +quality-reviewer |
-| Technology | tech | tech + market | +company +quality-reviewer |
-| Market | market | market + financial | +company +quality-reviewer |
-| Topic-Content | content | content | +quality-reviewer |
-| Topic-Investment | investment | investment + market | +financial +quality-reviewer |
+### Content Retrieval Workflows
 
-## Agents
+**When user indicates difficulty accessing content:**
+Examples: "can't get this content", "site is blocking me", "CAPTCHA blocking"
+→ **READ:** `${PAI_DIR}/skills/research/workflows/retrieve.md`
+→ **EXECUTE:** Escalation through layers (WebFetch → BrightData → Apify)
 
-**Research agents** (autonomous MCP access):
-- `company-researcher`: Business model, product, traction
-- `market-researcher`: TAM, dynamics, trends
-- `financial-researcher`: Funding, metrics, comparables
-- `team-researcher`: Founder backgrounds, team assessment
-- `tech-researcher`: Technology deep-dives
-- `content-researcher`: Academic papers, social media, first-principles (for content)
-- `investment-researcher`: Market dynamics, opportunities, timing (for investment)
+**When user provides YouTube URL:**
+Examples: "get this youtube video", "extract from youtube URL"
+→ **READ:** `${PAI_DIR}/skills/research/workflows/youtube-extraction.md`
+→ **EXECUTE:** YouTube content extraction using fabric -y
 
-**Quality & Synthesis**:
-- `quality-reviewer`: Gap analysis, contradiction detection (deep only, max 1 iteration)
-- `synthesizer`: Consolidate parallel research outputs
+**When user requests web scraping:**
+Examples: "scrape this site", "extract data from this website"
+→ **READ:** `${PAI_DIR}/skills/research/workflows/web-scraping.md`
+→ **EXECUTE:** Web scraping techniques and tools
 
-## Common References
+### Fabric Pattern Processing
 
-- `shared/agent-selection-matrix.md` - Dynamic agent selection
-- `shared/investment-lens.md` - cyber•Fund investment philosophy
-- `shared/mcp-strategy.md` - MCP tool selection
-- `shared/output-standards.md` - Formats and emoji conventions
-- `shared/intensity-tiers.md` - 3-tier intensity spec
+**When user requests Fabric pattern usage:**
+Examples: "use fabric to X", "create threat model", "summarize with fabric"
+→ **READ:** `${PAI_DIR}/skills/research/workflows/fabric.md`
+→ **EXECUTE:** Auto-select best pattern from 242+ Fabric patterns
 
-## Output Locations
+### Content Enhancement Workflows
 
-All research creates timestamped workspace:
+**When user requests content enhancement:**
+Examples: "enhance this content", "improve this draft"
+→ **READ:** `${PAI_DIR}/skills/research/workflows/enhance.md`
+→ **EXECUTE:** Content improvement and refinement
 
+**When user requests knowledge extraction:**
+Examples: "extract knowledge from X", "get insights from this"
+→ **READ:** `${PAI_DIR}/skills/research/workflows/extract-knowledge.md`
+→ **EXECUTE:** Knowledge extraction and synthesis
+
+---
+
+## Multi-Source Research
+
+### Three Research Modes
+
+**QUICK RESEARCH MODE:**
+- User says "quick research" → Launch 1 agent per researcher type
+- **Timeout: 2 minutes**
+- Best for: Simple queries, straightforward questions
+
+**STANDARD RESEARCH MODE (Default):**
+- Default for most research requests → Launch 3 agents per researcher type
+- **Timeout: 3 minutes**
+- Best for: Most research needs, comprehensive coverage
+
+**EXTENSIVE RESEARCH MODE:**
+- User says "extensive research" → Launch 8 agents per researcher type
+- **Timeout: 10 minutes**
+- Best for: Deep-dive research, comprehensive reports
+
+### Available Research Agents
+
+Check `${PAI_DIR}/agents/` for agents with "researcher" in their name:
+- `claude-researcher` - Uses Claude's WebSearch (FREE, no API key needed)
+- `perplexity-researcher` - Uses Perplexity API (requires PERPLEXITY_API_KEY)
+- `gemini-researcher` - Uses Gemini API (requires GOOGLE_API_KEY)
+
+### Speed Benefits
+
+- ❌ **Old approach**: Sequential searches → 5-10 minutes
+- ✅ **Quick mode**: 1 agent per type → **2 minute timeout**
+- ✅ **Standard mode**: 3 agents per type → **3 minute timeout**
+- ✅ **Extensive mode**: 8 agents per type → **10 minute timeout**
+
+---
+
+## Intelligent Content Retrieval
+
+### Three-Layer Escalation System
+
+**Layer 1: Built-in Tools (Try First - FREE)**
+- WebFetch - Standard web content fetching
+- WebSearch - Search engine queries
+- When to use: Default for all content retrieval
+
+**Layer 2: BrightData MCP (requires BRIGHTDATA_API_KEY)**
+- CAPTCHA solving via Scraping Browser
+- Advanced JavaScript rendering
+- When to use: Bot detection blocking, CAPTCHA protection
+
+**Layer 3: Apify MCP (requires Apify account)**
+- Specialized site scrapers (Instagram, LinkedIn, etc.)
+- Complex extraction logic
+- When to use: Layers 1 and 2 both failed
+
+**Critical Rules:**
+- Always try simplest approach first (Layer 1)
+- Escalate only when previous layer fails
+- Document which layers were used and why
+
+---
+
+## Fabric Pattern Selection
+
+### Categories (242+ Patterns)
+
+**Threat Modeling & Security:**
+- `create_threat_model`, `create_stride_threat_model`
+- `analyze_threat_report`, `analyze_incident`
+
+**Summarization:**
+- `summarize`, `create_5_sentence_summary`
+- `summarize_meeting`, `summarize_paper`, `youtube_summary`
+
+**Wisdom Extraction:**
+- `extract_wisdom`, `extract_article_wisdom`
+- `extract_insights`, `extract_main_idea`
+
+**Analysis:**
+- `analyze_claims`, `analyze_code`, `analyze_debate`
+- `analyze_logs`, `analyze_paper`
+
+**Content Creation:**
+- `create_prd`, `create_design_document`
+- `create_mermaid_visualization`, `create_user_story`
+
+**Improvement:**
+- `improve_writing`, `improve_prompt`, `review_code`
+
+### Usage
+
+```bash
+# Auto-select pattern based on intent
+fabric [input] -p [selected_pattern]
+
+# From URL
+fabric -u "URL" -p [pattern]
+
+# From YouTube
+fabric -y "YOUTUBE_URL" -p [pattern]
 ```
-~/CybosVault/private/deals/<company>~/CybosVault/private/research/MMDD-<slug>-YY/   # Company
-~/CybosVault/private/research/<topic>/MMDD-<slug>-YY/           # Tech/Market/Topic
-├── raw/                                     # Agent outputs
-└── report.md                                # Final synthesis
+
+---
+
+## File Organization
+
+### Working Directory (Scratchpad)
 ```
+${PAI_DIR}/scratchpad/YYYY-MM-DD-HHMMSS_research-[topic]/
+├── raw-outputs/
+├── synthesis-notes.md
+└── draft-report.md
+```
+
+### Permanent Storage (History)
+```
+${PAI_DIR}/history/research/YYYY-MM/YYYY-MM-DD_[topic]/
+├── README.md
+├── research-report.md
+└── metadata.json
+```
+
+---
 
 ## Key Principles
 
-1. **Agents do ALL data gathering** - Main session orchestrates, agents make MCP calls
-2. **No redundancy** - Each agent makes its own calls autonomously
-3. **Dynamic selection** - Agents chosen based on research type + intensity
-4. **Quality loop** - Deep mode includes quality-reviewer (max 1 iteration)
+1. **Parallel execution** - Launch multiple agents simultaneously
+2. **Hard timeouts** - Don't wait indefinitely, proceed with partial results
+3. **Simplest first** - Always try free tools before paid services
+4. **Auto-routing** - Skill analyzes intent and activates appropriate workflow
 
-## Investment Context
+---
 
-All research applies cyber•Fund's investment philosophy:
-- Path to $1B+ revenue (not niche $50M ARR outcomes)
-- Defensible moat (data, network effects, hard tech)
-- Clear business model (revenue > token speculation)
-- Strong founders (high energy, sales DNA, deep expertise)
-- Market timing ("why now?")
+## Workflow Files
+
+| Workflow | File | API Keys Needed |
+|----------|------|-----------------|
+| Multi-Source Research | `workflows/conduct.md` | Varies by agent |
+| Claude Research | `workflows/claude-research.md` | None (FREE) |
+| Perplexity Research | `workflows/perplexity-research.md` | PERPLEXITY_API_KEY |
+| Interview Prep | `workflows/interview-research.md` | None |
+| Content Retrieval | `workflows/retrieve.md` | Optional: BRIGHTDATA_API_KEY |
+| YouTube Extraction | `workflows/youtube-extraction.md` | None (uses Fabric) |
+| Web Scraping | `workflows/web-scraping.md` | Optional: BRIGHTDATA_API_KEY |
+| Fabric Patterns | `workflows/fabric.md` | None |
+| Content Enhancement | `workflows/enhance.md` | None |
+| Knowledge Extraction | `workflows/extract-knowledge.md` | None |

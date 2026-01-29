@@ -3,7 +3,7 @@ name: tabular-review-antoine-louis
 description: "Guide to analyze multiple documents (PDF, DOCX) against user-defined columns and produce a structured Excel output with citations. Use when the user wants to: (1) Extract specific information from multiple documents into a table, (2) Compare clauses or provisions across contracts, (3) Create a document review matrix with source citations. Triggers on: 'tabular review', 'document matrix', 'extract from documents', 'compare across documents', 'review multiple contracts'."
 metadata:
   author: Antoine Louis
-  license: Apache 2.0
+  license: AGPL-3.0
 ---
 
 # Tabular Review

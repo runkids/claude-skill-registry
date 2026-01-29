@@ -3,7 +3,7 @@ name: assignation-refere-recouvrement-creance-selim-brihi
 description: Rédaction d'assignations en référé devant le tribunal de commerce ou des activités économiques pour le recouvrement de créances commerciales. Utiliser ce skill quand l'utilisateur demande de rédiger, préparer ou créer une assignation en référé pour obtenir le paiement d'une créance impayée (factures, prestations de services, ventes de marchandises, etc.) lorsque le débiteur n'a pas honoré ses obligations de paiement et qu'il n'existe pas de contestation sérieuse.
 metadata:
   author: Sélim Brihi
-  license: Apache 2.0
+  license: AGPL-3.0
 ---
 
 # Assignation en Référé - Recouvrement de Créance

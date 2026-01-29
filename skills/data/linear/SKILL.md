@@ -1,87 +1,255 @@
 ---
 name: linear
-description: Manage issues, projects & team workflows in Linear. Use when the user wants to read, create or updates tickets in Linear.
-metadata:
-  short-description: Manage Linear issues in Codex
+description: Manages Linear issues, teams, and projects via CLI. Lists issues, creates tasks, views details, links issues, and runs GraphQL queries. Must use for "my Linear issues", "create Linear task", "link issues in Linear", "Linear API query", or any Linear project management request.
 ---
 
-# Linear
+# Linear CLI
 
-## Overview
+Interacts with Linear for issue tracking and project management using the `linear` command.
 
-This skill provides a structured workflow for managing issues, projects & team workflows in Linear. It ensures consistent integration with the Linear MCP server, which offers natural-language project management for issues, projects, documentation, and team collaboration.
+## Scope
+- Use for Linear issue/project/teams management via the CLI or GraphQL (`linear gql`).
+- Prefer built-in commands over raw GraphQL unless functionality is missing.
+- Keep defaults in sync with the user's config; do not hard-code team IDs/outputs.
+
+## Install & Setup
+- Install: `npm install -g @0xbigboss/linear-cli`
+- Auth: `linear auth set` or set `LINEAR_API_KEY`
+- Defaults: `linear config set default_team_id TEAM_KEY`, `linear config set default_output json|table`, `linear config set default_state_filter completed,canceled`
+- Inspect or reset defaults: `linear config show`, `linear config unset default_output`
+- Config path: `~/.config/linear/config.json` (override with `--config PATH` or `LINEAR_CONFIG`)
 
 ## Prerequisites
-- Linear MCP server must be connected and accessible via OAuth
-- Confirm access to the relevant Linear workspace, teams, and projects
+- CLI installed and on PATH
+- Valid Linear API key available
+- Team defaults set or provided per command (team key/UUID)
 
-## Required Workflow
+## Hygiene
 
-**Follow these steps in order. Do not skip steps.**
+- **Branches**: Name as `{TICKET}-{short-name}` (e.g., `ENG-123-fix-auth`); prefer git worktrees for parallel work
+- **Commits**: Use conventional commits; ticket ID in body or trailer, not subject
+- **Assignment**: Assign yourself when starting work (`linear issue update ENG-123 --assignee me --yes`)
+- **Sub-issues**: Set parent to associate related work (requires UUID: `linear issue update ENG-123 --parent PARENT_UUID --yes`)
+- **Scope creep**: Create separate issues for discovered work; link with blocks relation (`linear issue link ENG-123 --blocks ENG-456 --yes`)
+- **Cycles/projects**: Ask user preference when creating issues
 
-### Step 0: Set up Linear MCP (if not already configured)
+## Quick Recipes
 
-If any MCP call fails because Linear MCP is not connected, pause and set it up:
-
-1. Add the Linear MCP:
-   - `codex mcp add linear --url https://mcp.linear.app/mcp`
-2. Enable remote MCP client:
-   - Set `[features] rmcp_client = true` in `config.toml` **or** run `codex --enable rmcp_client`
-3. Log in with OAuth:
-   - `codex mcp login linear`
-
-After successful login, the user will have to restart codex. You should finish your answer and tell them so when they try again they can continue with Step 1.
-
-**Windows/WSL note:** If you see connection errors on Windows, try configuring the Linear MCP to run via WSL:
-```json
-{"mcpServers": {"linear": {"command": "wsl", "args": ["npx", "-y", "mcp-remote", "https://mcp.linear.app/sse", "--transport", "sse-only"]}}}
+### List my issues
+```bash
+linear issues list --team TEAM_KEY --assignee me --human-time
 ```
 
-### Step 1
-Clarify the user's goal and scope (e.g., issue triage, sprint planning, documentation audit, workload balance). Confirm team/project, priority, labels, cycle, and due dates as needed.
+### Search issues
+```bash
+linear search "keyword" --team TEAM_KEY --limit 10
+```
 
-### Step 2
-Select the appropriate workflow (see Practical Workflows below) and identify the Linear MCP tools you will need. Confirm required identifiers (issue ID, project ID, team key) before calling tools.
+### Create an issue
+```bash
+linear issue create --team TEAM_KEY --title "Fix bug" --yes
+# Returns identifier (e.g., ENG-123)
+```
 
-### Step 3
-Execute Linear MCP tool calls in logical batches:
-- Read first (list/get/search) to build context.
-- Create or update next (issues, projects, labels, comments) with all required fields.
-- For bulk operations, explain the grouping logic before applying changes.
+### View issue details
+```bash
+linear issue view ENG-123
+```
 
-### Step 4
-Summarize results, call out remaining gaps or blockers, and propose next actions (additional issues, label changes, assignments, or follow-up comments).
+### Get issue as JSON for processing
+```bash
+linear issue view ENG-123 --json
+```
 
-## Available Tools
+### Get issue with full context (for agents/analysis)
+```bash
+linear issue view ENG-123 --fields identifier,title,state,assignee,priority,url,description,parent,sub_issues,comments --json
+```
 
-Issue Management: `list_issues`, `get_issue`, `create_issue`, `update_issue`, `list_my_issues`, `list_issue_statuses`, `list_issue_labels`, `create_issue_label`
+### List all teams
+```bash
+linear teams list
+```
 
-Project & Team: `list_projects`, `get_project`, `create_project`, `update_project`, `list_teams`, `get_team`, `list_users`
+### Verify authentication
+```bash
+linear auth test
+```
 
-Documentation & Collaboration: `list_documents`, `get_document`, `search_documentation`, `list_comments`, `create_comment`, `list_cycles`
+### List projects
+```bash
+linear projects list --limit 10
+```
 
-## Practical Workflows
+### View or change CLI defaults
+```bash
+linear config show
+linear config set default_output json
+linear config unset default_state_filter
+```
 
-- Sprint Planning: Review open issues for a target team, pick top items by priority, and create a new cycle (e.g., "Q1 Performance Sprint") with assignments.
-- Bug Triage: List critical/high-priority bugs, rank by user impact, and move the top items to "In Progress."
-- Documentation Audit: Search documentation (e.g., API auth), then open labeled "documentation" issues for gaps or outdated sections with detailed fixes.
-- Team Workload Balance: Group active issues by assignee, flag anyone with high load, and suggest or apply redistributions.
-- Release Planning: Create a project (e.g., "v2.0 Release") with milestones (feature freeze, beta, docs, launch) and generate issues with estimates.
-- Cross-Project Dependencies: Find all "blocked" issues, identify blockers, and create linked issues if missing.
-- Automated Status Updates: Find your issues with stale updates and add status comments based on current state/blockers.
-- Smart Labeling: Analyze unlabeled issues, suggest/apply labels, and create missing label categories.
-- Sprint Retrospectives: Generate a report for the last completed cycle, note completed vs. pushed work, and open discussion issues for patterns.
+### Add a comment to an issue
+```bash
+linear issue comment ENG-123 --body "Comment text here" --yes
 
-## Tips for Maximum Productivity
+# Or from a file/stdin
+cat notes.md | linear issue comment ENG-123 --body-file - --yes
+```
 
-- Batch operations for related changes; consider smart templates for recurring issue structures.
-- Use natural queries when possible ("Show me what John is working on this week").
-- Leverage context: reference prior issues in new requests.
-- Break large updates into smaller batches to avoid rate limits; cache or reuse filters when listing frequently.
+### Create and manage a project
+```bash
+# Create project (team UUID required)
+linear project create --team TEAM_UUID --name "My Project" --state planned --yes
 
-## Troubleshooting
+# Update project state
+linear project update PROJECT_ID --state started --yes
 
-- Authentication: Clear browser cookies, re-run OAuth, verify workspace permissions, ensure API access is enabled.
-- Tool Calling Errors: Confirm the model supports multiple tool calls, provide all required fields, and split complex requests.
-- Missing Data: Refresh token, verify workspace access, check for archived projects, and confirm correct team selection.
-- Performance: Remember Linear API rate limits; batch bulk operations, use specific filters, or cache frequent queries.
+# Add issue to project
+linear project add-issue PROJECT_ID ISSUE_UUID --yes
+```
+
+## Command Reference
+
+| Command | Purpose |
+|---------|---------|
+| `linear issues list` | List issues with filters |
+| `linear search "keyword"` | Search issues by text |
+| `linear issue view ID` | View single issue |
+| `linear issue create` | Create new issue |
+| `linear issue update ID` | Update issue (assign, state, priority, parent*) |
+| `linear issue link ID` | Link issues (blocks, related, duplicate) |
+| `linear issue comment ID` | Add comment to issue |
+| `linear issue delete ID` | Archive an issue |
+| `linear projects list` | List projects |
+| `linear project view ID` | View project details |
+| `linear project create` | Create new project |
+| `linear project update ID` | Update project (state, name, dates) |
+| `linear project delete ID` | Archive a project |
+| `linear project add-issue` | Add issue to project |
+| `linear project remove-issue` | Remove issue from project |
+| `linear teams list` | List available teams |
+| `linear me` | Show current user |
+| `linear gql` | Run raw GraphQL |
+| `linear help CMD` | Command-specific help |
+
+*`--parent` requires UUIDs, not identifiers. See [Finding IDs](#finding-ids).
+
+## Common Flags
+
+- `--team ID\|KEY` - Specify team (required for most commands)
+- `--json` - Output as JSON
+- `--yes` - Confirm mutations without prompt
+- `--human-time` - Show relative timestamps
+- `--fields LIST` - Select specific fields
+- `--help` - Show command help
+
+## Workflow: Creating and Linking Issues
+
+**Note:** `--parent` requires UUIDs. Get UUID with `linear issue view ID --json | jq -r '.issue.id'`
+
+```
+Progress:
+- [ ] List teams to get TEAM_KEY: `linear teams list`
+- [ ] Create parent issue: `linear issue create --team KEY --title "Epic" --yes`
+- [ ] Create child issue: `linear issue create --team KEY --title "Task" --yes`
+- [ ] Get parent UUID: `linear issue view PARENT_ID --json | jq -r '.issue.id'`
+- [ ] Set parent (UUID required): `linear issue update CHILD_ID --parent PARENT_UUID --yes`
+- [ ] Create another issue to link: `linear issue create --team KEY --title "Blocked" --yes`
+- [ ] Link blocking issue: `linear issue link ISSUE_ID --blocks OTHER_ID --yes`
+- [ ] Verify: `linear issue view ISSUE_ID --json`
+```
+
+## Common Gotchas
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| Empty results | No team specified | Add `--team TEAM_KEY` |
+| 401 Unauthorized | Invalid/missing API key | Run `linear auth test` |
+| Mutation does nothing | Missing confirmation | Add `--yes` flag |
+| Can't find issue | Wrong ID or missing access | `issue view` accepts identifier or UUID; verify spelling and permissions |
+| --parent fails | Using identifier | `--parent` flag requires UUID, not identifier |
+
+**ID format summary:** Most commands accept identifiers (ENG-123). Exception: `--parent` requires UUIDs.
+
+## Advanced Operations
+
+For operations not covered by built-in commands, use `linear gql` with GraphQL:
+
+- **Add attachments** - See `graphql-recipes.md` → "Attach URL to Issue"
+- **Upload files** - See `graphql-recipes.md` → "Upload File"
+
+Note: Adding comments is now available via `linear issue comment`. Setting parent is available via `issue update --parent`, but requires UUIDs. Use `linear issue view ID --json` to get UUIDs.
+
+## Finding IDs
+
+**Important:** `issue update --parent` requires UUIDs.
+
+```bash
+# Get issue UUID from identifier
+linear issue view ENG-123 --json | jq -r '.issue.id'
+
+# Current user UUID
+linear me --json | jq -r '.viewer.id'
+
+# All teams with UUIDs
+linear teams list --json
+
+# Issue full details including UUID
+linear issue view ENG-123 --json
+```
+
+Or in Linear app: Cmd/Ctrl+K → "Copy model UUID"
+
+## JSON Output Structures
+
+Commands with `--json` return nested structures. Use these jq paths:
+
+| Command | Root path | Items path |
+|---------|-----------|------------|
+| `issue view ID` | `.issue` | N/A (single object) |
+| `issue view ID --fields ...` | `.` | N/A (flat object of selected fields) |
+| `issues list` | `.issues` | `.issues.nodes[]` |
+| `project view ID` | `.project` | N/A (single object) |
+| `projects list` | `.projects` | `.projects.nodes[]` |
+| `teams list` | `.teams` | `.teams.nodes[]` |
+| `me` | `.viewer` | N/A (single object) |
+| `search` | `.issues` | `.issues.nodes[]` |
+
+**Null handling:** Many fields can be null (name, description, dates, assignee). Use null-safe filters.
+
+### jq Patterns
+
+```bash
+# List all projects (correct path)
+linear projects list --json | jq '.projects.nodes[]'
+
+# Filter projects by name (null-safe)
+linear projects list --json | jq '.projects.nodes[] | select(.name) | select(.name | ascii_downcase | contains("keyword"))'
+
+# Get project names as array
+linear projects list --json | jq '[.projects.nodes[].name]'
+
+# Filter issues by title
+linear issues list --team TEAM --json | jq '.issues.nodes[] | select(.title | ascii_downcase | contains("bug"))'
+
+# Extract specific fields
+linear issues list --team TEAM --json | jq '.issues.nodes[] | {id: .identifier, title, state: .state.name}'
+
+# Get issue UUID from identifier
+linear issue view ENG-123 --json | jq -r '.issue.id'
+```
+
+**Common mistakes:**
+- `.[]` on root - use `.projects.nodes[]` or `.issues.nodes[]`
+- `test("pattern"; "i")` on null - filter nulls first with `select(.field)`
+- Escaping `!=` in shells - use `select(.field)` instead of `select(.field != null)`
+
+## Reference Files
+
+- `graphql-recipes.md` - GraphQL mutations for attachments, relations, comments, file uploads
+- `troubleshooting.md` - Common errors and debugging steps
+
+## External Links
+
+- [Linear API Docs](https://linear.app/developers/graphql)
+- [Schema Explorer](https://studio.apollographql.com/public/Linear-API/variant/current/schema/reference)

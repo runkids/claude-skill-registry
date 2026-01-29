@@ -1,9 +1,7 @@
 {
   "name": "today",
-  "description": "Get today's date for web searches and date-sensitive tasks. Auto-invoke before any WebSearch that includes a year (e.g., \"React 2024\", \"Python 2025\"), when searching for current documentation, latest ",
-  "repo": "zopu/dotfiles",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "pwarnock/pwarnock.github.io",
+  "path": ".claude/skills/today/SKILL.md",
+  "source": "github.com/pwarnock/pwarnock.github.io",
+  "downloaded_at": "2026-01-29T04:16:05.786257Z"
 }

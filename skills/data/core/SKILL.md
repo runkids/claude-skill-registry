@@ -1,85 +1,210 @@
 ---
-name: iiot-seed/core
-description: IIoT database seeding CLI built with @gbg/ctl
+name: Go Core
+description: Go language fundamentals, concurrency, error handling, and project patterns.
+metadata:
+  labels: [golang, core, language]
+  triggers:
+    files: ['go.mod', '**/*.go']
+    keywords: [func, package, import, goroutine, chan]
 ---
 
-# iiot-seed/core
+# Go Core Standards
 
-CLI tool for seeding the IIoT database with mock data.
+## Goroutines & Channels
 
-## When to Use
+```go
+// Spawn goroutine
+go func() {
+    result := process(data)
+    resultChan <- result
+}()
 
-- Need to seed IIoT database with test data
-- Need to check current data statistics
-- Need to clear mock data
+// Unbuffered channel (synchronous)
+ch := make(chan int)
 
-## Commands
+// Buffered channel
+ch := make(chan int, 100)
 
-### seed
+// Send and receive
+ch <- value      // Send
+value := <-ch    // Receive
 
-Seed the database with mock data.
-
-```bash
-# Default (fast mode, all data)
-bun run src/lib/iiot/seed/ctl/src/index.ts seed
-
-# Validated mode (schema validation)
-bun run src/lib/iiot/seed/ctl/src/index.ts seed --mode validated
-
-# Assets only (skip readings/alarms)
-bun run src/lib/iiot/seed/ctl/src/index.ts seed --assets-only
-
-# Clear before seeding
-bun run src/lib/iiot/seed/ctl/src/index.ts seed --clear --verbose
+// Select for multiplexing
+select {
+case msg := <-msgChan:
+    handle(msg)
+case <-time.After(5 * time.Second):
+    return errors.New("timeout")
+case <-ctx.Done():
+    return ctx.Err()
+}
 ```
 
-### stats
+**Patterns**:
+- Worker pools with buffered channels
+- Fan-out/fan-in for parallel processing
+- Done channel for cancellation
 
-Show current data statistics.
+## Error Handling
 
-```bash
-bun run src/lib/iiot/seed/ctl/src/index.ts stats
+```go
+// Return errors, don't panic
+func fetchUser(id int) (*User, error) {
+    user, err := db.FindUser(id)
+    if err != nil {
+        return nil, fmt.Errorf("fetch user %d: %w", id, err)
+    }
+    return user, nil
+}
+
+// Error wrapping (Go 1.13+)
+if errors.Is(err, sql.ErrNoRows) {
+    return nil, ErrNotFound
+}
+
+// Type assertion for custom errors
+var apiErr *APIError
+if errors.As(err, &apiErr) {
+    log.Printf("API error: %d", apiErr.Code)
+}
+
+// Sentinel errors
+var ErrNotFound = errors.New("not found")
 ```
 
-### clear
+**Rules**:
+- Always check errors immediately
+- Wrap with context: `fmt.Errorf("operation: %w", err)`
+- Use `errors.Is` and `errors.As` for comparison
+- **Never**: `panic` for recoverable errors
 
-Clear all mock data.
+## Interfaces
 
-```bash
-bun run src/lib/iiot/seed/ctl/src/index.ts clear
+```go
+// Small interfaces
+type Reader interface {
+    Read(p []byte) (n int, err error)
+}
+
+type Writer interface {
+    Write(p []byte) (n int, err error)
+}
+
+// Composition
+type ReadWriter interface {
+    Reader
+    Writer
+}
+
+// Accept interfaces, return structs
+func ProcessData(r Reader) (*Result, error) {
+    data, err := io.ReadAll(r)
+    // ...
+    return &Result{}, nil
+}
 ```
 
-## Options
+**Best Practices**:
+- Define interfaces where used, not where implemented
+- Keep interfaces small (1-3 methods)
+- Use `interface{}` sparingly; prefer generics (Go 1.18+)
 
-| Option | Alias | Description |
-|--------|-------|-------------|
-| `--mode` | `-m` | fast (generate_series) or validated (repo batch) |
-| `--clear` | `-c` | Clear existing mock data before seeding |
-| `--assets-only` | `-a` | Only seed assets (skip readings/alarms) |
-| `--verbose` | `-v` | Show detailed output |
+## Context
 
-## Architecture
+```go
+// Pass context as first parameter
+func fetchData(ctx context.Context, id int) (*Data, error) {
+    // Respect cancellation
+    select {
+    case <-ctx.Done():
+        return nil, ctx.Err()
+    default:
+    }
 
-Uses tiered seeding approach:
-- **Tier 1**: Assets/Alarms via repos (full validation)
-- **Tier 2**: Readings via generate_series (performance)
+    // Use context with HTTP requests
+    req, _ := http.NewRequestWithContext(ctx, "GET", url, nil)
+    return client.Do(req)
+}
 
-## Layer Composition
+// Add timeout
+ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+defer cancel()
 
-```typescript
-const FullSeedLayer = Layer.merge(
-  SeedPgClientWithMigrations,  // PgClient + Migrator
-  IIoTRepositoriesLive         // All repos
-)
+// Add values (use sparingly)
+ctx = context.WithValue(ctx, requestIDKey, reqID)
 ```
 
-## Database
+**Rules**:
+- Never store context in structs
+- Always call cancel function (use defer)
+- Use for cancellation, deadlines, request-scoped values only
 
-- Host: localhost:5433
-- Database: iiot_mock
-- User: iiot
+## Project Structure
 
-Ensure database is running:
-```bash
-docker compose -f docker/docker-compose.iiot.yml up -d
 ```
+project/
+├── cmd/
+│   └── myapp/
+│       └── main.go       # Entry point
+├── internal/             # Private packages
+│   ├── handler/
+│   ├── service/
+│   └── repository/
+├── pkg/                  # Public packages
+├── api/                  # API definitions (proto, OpenAPI)
+├── configs/
+├── go.mod
+└── go.sum
+```
+
+**Conventions**:
+- `internal/` prevents external imports
+- `cmd/` for multiple entry points
+- Flat structure for small projects
+
+## Testing
+
+```go
+// Table-driven tests
+func TestAdd(t *testing.T) {
+    tests := []struct {
+        name     string
+        a, b     int
+        expected int
+    }{
+        {"positive", 1, 2, 3},
+        {"negative", -1, -1, -2},
+        {"zero", 0, 0, 0},
+    }
+
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            result := Add(tt.a, tt.b)
+            if result != tt.expected {
+                t.Errorf("Add(%d, %d) = %d; want %d", tt.a, tt.b, result, tt.expected)
+            }
+        })
+    }
+}
+
+// Parallel tests
+func TestParallel(t *testing.T) {
+    t.Parallel()
+    // ...
+}
+
+// Benchmarks
+func BenchmarkProcess(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+        Process(data)
+    }
+}
+```
+
+## Performance
+
+1. **Preallocate slices**: `make([]T, 0, expectedLen)`
+2. **Avoid allocations**: Reuse buffers, use `sync.Pool`
+3. **Profile first**: `go tool pprof` before optimizing
+4. **Escape analysis**: `go build -gcflags='-m'` to check heap escapes
+5. **String building**: Use `strings.Builder` not `+` concatenation

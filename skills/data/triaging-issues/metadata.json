@@ -1,7 +1,7 @@
 {
   "name": "triaging-issues",
-  "repo": "C0ntr0lledCha0s/claude-code-plugin-automations",
-  "path": "github-workflows/skills/triaging-issues/SKILL.md",
-  "source": "github.com/C0ntr0lledCha0s/claude-code-plugin-automations",
-  "downloaded_at": "2026-01-27T03:44:21.028147Z"
+  "repo": "pytorch/pytorch",
+  "path": ".claude/skills/triaging-issues/SKILL.md",
+  "source": "github.com/pytorch/pytorch",
+  "downloaded_at": "2026-01-29T02:59:30.677392Z"
 }

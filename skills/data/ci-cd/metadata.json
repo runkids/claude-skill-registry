@@ -1,9 +1,7 @@
 {
   "name": "ci-cd",
-  "description": "Designs and implements CI/CD pipelines for automated testing, building, deployment, and security scanning across multiple platforms. Covers pipeline optimization, test integration, artifact management",
-  "repo": "cosmix/loom",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/cosmix/loom"
+  "repo": "spaarke-dev/spaarke",
+  "path": ".claude/skills/ci-cd/SKILL.md",
+  "source": "github.com/spaarke-dev/spaarke",
+  "downloaded_at": "2026-01-29T02:08:00.149155Z"
 }

@@ -1,117 +1,173 @@
 ---
 name: project-init
-description: 初始化新專案。觸發：init、新專案、初始化、create project。
+description: |
+
+Triggers: project, init
+  Interactive project initialization with git setup, workflows, hooks, and build configuration.
+
+  Triggers: project setup, initialization, scaffold, bootstrap, new project
+  Use when: starting new projects or initializing repositories
+model: claude-sonnet-4
+tools: [Read, Write, Bash, Glob]
+modules:
+  - ./modules/language-detection.md
+  - ./modules/metadata-collection.md
+  - ./modules/template-rendering.md
+version: 1.3.5
 ---
+## Table of Contents
 
-# 專案初始化技能
+- [Use When](#use-when)
+- [Workflow](#workflow)
+- [1. Detect or Select Language](#1-detect-or-select-language)
+- [2. Collect Project Metadata](#2-collect-project-metadata)
+- [3. Review Existing Files](#3-review-existing-files)
+- [4. Render and Apply Templates](#4-render-and-apply-templates)
+- [5. Initialize Git (if needed)](#5-initialize-git-(if-needed))
+- [6. Verify Setup](#6-verify-setup)
+- [7. Next Steps](#7-next-steps)
+- [Error Handling](#error-handling)
+- [Success Criteria](#success-criteria)
+- [Examples](#examples)
+- [Example 1: New Python Project](#example-1:-new-python-project)
 
-## 觸發條件
 
-| 用戶說法 | 觸發 |
-|----------|------|
-| 初始化新專案、create project | ✅ |
-| 從模板建立專案 | ✅ |
-| bootstrap、scaffold | ✅ |
+# Project Initialization Skill
 
----
+Interactive workflow for initializing new software projects with complete development infrastructure.
 
-## 可用工具
+## Use When
 
-| 操作 | 工具 |
-|------|------|
-| 建立目錄 | `create_directory()` |
-| 建立檔案 | `create_file()` |
-| 終端指令 | `run_in_terminal()` |
-| VS Code | `create_new_workspace()` |
+- Starting a new Python, Rust, or TypeScript project
+- Updating existing project tooling to current standards
+- Need to set up git, GitHub workflows, pre-commit hooks, Makefile
+- Want consistent project structure across team
+- Converting unstructured project to best practices
+- Adding missing configurations to established codebases
 
----
+## Workflow
 
-## 專案結構模板
+### 1. Detect or Select Language
+
+Load `modules/language-detection.md`
+
+- Auto-detect from existing files (pyproject.toml, Cargo.toml, package.json)
+- If ambiguous or empty directory, ask user to select
+- Validate language is supported (python, rust, typescript)
+
+### 2. Collect Project Metadata
+
+Load `modules/metadata-collection.md`
+
+Gather:
+- Project name (default: directory name)
+- Author name and email
+- Project description
+- Language-specific settings:
+  - Python: version (default 3.10)
+  - Rust: edition (default 2021)
+  - TypeScript: framework (React, Vue, etc.)
+- License type (MIT, Apache, GPL, etc.)
+
+### 3. Review Existing Files
+
+Check for existing configurations:
+```bash
+ls -la
+```
+**Verification:** Run the command with `--help` flag to verify availability.
+
+If files exist (Makefile, .gitignore, etc.):
+- Show what would be overwritten
+- Ask for confirmation or selective overwrite
+- Offer merge mode (preserve custom content)
+
+### 4. Render and Apply Templates
+
+Load `modules/template-rendering.md`
+
+Run initialization script:
+```bash
+python3 plugins/attune/scripts/attune_init.py \
+  --lang {{LANGUAGE}} \
+  --name {{PROJECT_NAME}} \
+  --author {{AUTHOR}} \
+  --email {{EMAIL}} \
+  --python-version {{PYTHON_VERSION}} \
+  --description {{DESCRIPTION}} \
+  --path .
+```
+**Verification:** Run the command with `--help` flag to verify availability.
+
+### 5. Initialize Git (if needed)
+
+```bash
+# Check if git is initialized
+if [ ! -d .git ]; then
+  git init
+  echo "Git repository initialized"
+fi
+```
+**Verification:** Run `git status` to confirm working tree state.
+
+### 6. Verify Setup
+
+Validate setup:
+```bash
+# Check Makefile targets
+make help
+
+# List created files
+git status
+```
+**Verification:** Run `git status` to confirm working tree state.
+
+### 7. Next Steps
+
+Advise user to:
+```bash
+# Install dependencies and hooks
+make dev-setup
+
+# Run tests to verify setup
+make test
+
+# See all available commands
+make help
+```
+**Verification:** Run `pytest -v` to verify tests pass.
+
+## Error Handling
+
+- **Language detection fails**: Ask user to specify `--lang`
+- **Script not found**: Guide to plugin installation location
+- **Permission denied**: Suggest `chmod +x` on scripts
+- **Git conflicts**: Offer to stash or commit existing work
+
+## Success Criteria
+
+- All template files created successfully
+- No overwrites without user confirmation
+- Git repository initialized
+- `make help` shows available targets
+- `make test` runs without errors (even if no tests yet)
+
+## Examples
+
+### Example 1: New Python Project
 
 ```
-new-project/
-├── .github/
-│   ├── bylaws/           # 子法
-│   └── prompts/          # Prompt Files
-├── .claude/
-│   └── skills/           # Skills
-├── memory-bank/          # Memory Bank
-│   ├── activeContext.md
-│   ├── progress.md
-│   └── decisionLog.md
-├── src/                  # 原始碼
-├── tests/                # 測試
-├── CONSTITUTION.md       # 憲法
-├── README.md
-├── CHANGELOG.md
-└── pyproject.toml
-```
+**Verification:** Run `pytest -v` to verify tests pass.
+User: /attune:project-init
+## Troubleshooting
 
----
+### Common Issues
 
-## 標準工作流程
+**Command not found**
+Ensure all dependencies are installed and in PATH
 
-```python
-# 1. 取得專案資訊
-project_name = "my-new-project"
-project_path = f"/home/user/projects/{project_name}"
+**Permission errors**
+Check file permissions and run with appropriate privileges
 
-# 2. 建立目錄結構
-create_directory(f"{project_path}/src")
-create_directory(f"{project_path}/tests")
-create_directory(f"{project_path}/memory-bank")
-create_directory(f"{project_path}/.github/bylaws")
-create_directory(f"{project_path}/.claude/skills")
-
-# 3. 建立基礎檔案
-create_file(f"{project_path}/README.md", "# {project_name}\n...")
-create_file(f"{project_path}/CHANGELOG.md", "# Changelog\n\n## [Unreleased]\n")
-create_file(f"{project_path}/pyproject.toml", "[project]\nname = '...'")
-
-# 4. 初始化 Git
-run_in_terminal(f"cd {project_path} && git init")
-
-# 5. 初始化 Python 環境
-run_in_terminal(f"cd {project_path} && uv venv && uv sync")
-```
-
----
-
-## 互動式設定
-
-詢問用戶：
-
-| 項目 | 選項 |
-|------|------|
-| 專案名稱 | 自訂 |
-| 程式語言 | Python / TypeScript / Other |
-| 授權 | MIT / Apache-2.0 / GPL-3.0 |
-| Docker | 是 / 否 |
-| CI/CD | GitHub Actions / None |
-
----
-
-## 輸出範例
-
-```
-🚀 專案初始化
-
-專案名稱: my-new-project
-位置: ~/projects/my-new-project
-
-✅ 目錄結構已建立
-✅ 基礎檔案已建立
-✅ Git 已初始化
-✅ Python 環境已設定
-
-下一步：
-  cd ~/projects/my-new-project
-  code .
-```
-
----
-
-## 相關技能
-
-- `ddd-architect` - 設計專案架構
-- `memory-updater` - 初始化 Memory Bank
+**Unexpected behavior**
+Enable verbose logging with `--verbose` flag

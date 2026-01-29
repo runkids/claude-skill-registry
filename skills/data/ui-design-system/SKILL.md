@@ -1,199 +1,470 @@
 ---
 name: ui-design-system
-description: Enforce modern dashboard UI patterns with pill-shaped design, professional colour scheme, and typography standards. Use when building or reviewing UI components for the web application.
+description: "React UI component systems with TailwindCSS + Radix + shadcn/ui. Stack: TailwindCSS (styling), Radix UI (primitives), shadcn/ui (components), React/Next.js. Capabilities: design system architecture, accessible components, responsive layouts, theming, dark mode, component composition. Actions: review, design, build, improve, refactor UI components. Keywords: TailwindCSS, Radix UI, shadcn/ui, design system, component library, accessibility, ARIA, responsive, dark mode, theming, CSS variables, component architecture, atomic design, design tokens, variant, slot, composition. Use when: building component libraries, implementing shadcn/ui, creating accessible UIs, setting up design systems, adding dark mode/theming, reviewing UI component architecture."
+license: MIT
+version: 2.0.0
 ---
 
-# UI Design System Skill
+# UI/UX Design & Development Expert
 
-This skill enforces consistent UI patterns across the SG Cars Trends web application, ensuring a modern, professional dashboard design.
+**Comprehensive UI/UX design, review, and improvement for modern web applications.**
 
-## When to Activate
+Production-ready implementations with **TailwindCSS + Radix UI + shadcn/ui** and modern React patterns.
 
-- Building new dashboard components or pages
-- Reviewing existing UI for consistency
-- Implementing navigation, cards, buttons, or metrics displays
-- Applying colour scheme or typography
-- Creating new features that require UI components
-- Migrating or refactoring existing components
+## Stack Architecture
 
-## Design Principles
+### The Three Pillars
 
-1. **No sidebar** - Horizontal pill navigation only
-2. **Pill-shaped elements** - Use `rounded-full` for interactive elements
-3. **Large rounded cards** - Use `rounded-2xl` or `rounded-3xl`
-4. **Professional automotive aesthetic** - Navy Blue primary, clean typography
-5. **Generous whitespace** - Grid-based layouts with `gap-6` or `gap-8`
+**Layer 1: TailwindCSS (Styling Foundation)**
+- Utility-first CSS framework with build-time generation
+- Zero runtime overhead, minimal production bundles
+- Design tokens: colors, spacing, typography, breakpoints
+- Responsive utilities and dark mode support
 
-## Colour Palette (GitHub Issue #406)
+**Layer 2: Radix UI (Behavior & Accessibility)**
+- Unstyled, accessible component primitives
+- WAI-ARIA compliant with keyboard navigation
+- Focus management and screen reader support
+- Unopinionated - full styling control
 
-| Role | Colour | Hex | Tailwind Class |
-|------|--------|-----|----------------|
-| Primary | Navy Blue | `#191970` | `bg-primary`, `text-primary` |
-| Secondary | Slate Gray | `#708090` | `bg-secondary`, `text-secondary` |
-| Accent | Cyan | `#00FFFF` | `bg-accent`, `text-accent` |
-| Background | Powder Blue | `#B0E0E6` | `bg-muted` |
-| Text | Dark Slate Gray | `#2F4F4F` | `text-foreground` |
+**Layer 3: shadcn/ui (Beautiful Components)**
+- Pre-built components = Radix primitives + Tailwind styling
+- Copy-paste distribution (you own the code)
+- Built-in React Hook Form + Zod validation
+- Customizable variants with type safety
 
-### Semantic Colour Usage
+### Architecture Hierarchy
 
-- `text-primary` / `bg-primary` - Brand elements, primary buttons
-- `text-foreground` - Body text (Dark Slate Gray)
-- `text-default-900` - Strong emphasis (H4 headings)
-- `text-default-600` - Secondary text (TextSm)
-- `text-muted-foreground` - Captions, metadata
-
-### Opacity Scale
-
-- `text-foreground/60` - Secondary text
-- `text-foreground/40` - Muted text
-- `text-white` - Only for image overlays
-
-## Component Patterns
-
-### Navigation (Horizontal Pill Tabs)
-
-```tsx
-<div className="flex items-center gap-2 rounded-full border p-1">
-  <Button className="rounded-full" color="primary">Dashboard</Button>
-  <Button className="rounded-full" variant="light">Calendar</Button>
-  <Button className="rounded-full" variant="light">Projects</Button>
-</div>
+```
+Application Layer
+    ↓
+shadcn/ui Components (Beautiful defaults, ready-to-use)
+    ↓
+Radix UI Primitives (Accessible behavior, unstyled)
+    ↓
+TailwindCSS Utilities (Design system, styling)
 ```
 
-### Cards
+**Key Principle:** Each layer enhances the one below. Start with Tailwind for styling, add Radix for accessible behavior, use shadcn/ui for complete components.
 
-```tsx
-import { Card, CardHeader, CardBody } from "@heroui/card";
-import Typography from "@web/components/typography";
+## Core Capabilities
 
-<Card className="rounded-2xl shadow-sm">
-  <CardHeader className="flex flex-col items-start gap-2">
-    <Typography.H4>Card Title</Typography.H4>
-    <Typography.TextSm>Description text</Typography.TextSm>
-  </CardHeader>
-  <CardBody>{/* Content */}</CardBody>
-</Card>
+### UI/UX Review & Audit
+Systematic evaluation of existing interfaces:
+- **Component Architecture Review:** Analyze component composition, reusability, and single responsibility
+- **Accessibility Audit:** WCAG 2.1/2.2 AA/AAA compliance, keyboard navigation, screen reader support
+- **Performance Analysis:** Core Web Vitals (LCP, FID, CLS), bundle size, render performance
+- **Responsive Design Review:** Mobile-first implementation, breakpoint usage, container queries
+- **Design System Consistency:** Token usage, spacing scale adherence, color palette compliance
+- **Code Quality:** React best practices, hooks usage, state management patterns
+- **Visual Hierarchy:** Typography scale, spacing rhythm, color contrast, focus indicators
+
+### UI/UX Design
+Creating production-ready interface designs:
+- **Component Design:** Atomic design principles, composition patterns, variant systems
+- **Layout Architecture:** Grid systems, flexbox patterns, responsive containers
+- **Interaction Design:** Hover states, focus states, loading states, error states
+- **Design Tokens:** Three-tier token system (primitive → semantic → component)
+- **Color Systems:** OKLCH color space, accessible palettes, dark mode support
+- **Typography Systems:** Scale design, hierarchy, readability optimization
+- **Animation & Transitions:** Micro-interactions, loading feedback, state changes
+
+### UI/UX Improvement
+Enhancing existing implementations:
+- **Accessibility Enhancement:** ARIA patterns, semantic HTML, keyboard navigation
+- **Performance Optimization:** Code splitting, lazy loading, virtualization, image optimization
+- **Responsive Refinement:** Breakpoint optimization, mobile-first improvements
+- **Component Refactoring:** Extract shared patterns, reduce complexity, improve reusability
+- **Visual Polish:** Spacing consistency, typography refinement, color harmony
+- **State Management:** Optimistic updates, error handling, loading states
+- **Developer Experience:** Component documentation, Storybook stories, type safety
+
+### Styling Integration
+Framework-agnostic styling approaches:
+- **Tailwind with Components:** Utility-first styling for any framework
+- **CSS-in-JS:** emotion, styled-components, vanilla-extract
+- **CSS Modules:** Scoped styles without runtime overhead
+- **Design System Integration:** Token-based styling across frameworks
+
+## When to Use Each Layer
+
+### Use TailwindCSS Directly When:
+- Building custom layouts and spacing
+- Styling static content and containers
+- Rapid prototyping without complex interactions
+- Non-interactive UI elements
+
+**Example scenarios:** Hero sections, grid layouts, cards without interaction, text styling
+
+### Use Radix UI Primitives When:
+- Building custom component libraries
+- Need accessibility but require custom design
+- shadcn/ui doesn't have the component you need
+- Full control over component structure required
+
+**Example scenarios:** Custom date picker, unique navigation pattern, specialized modal behavior
+
+### Use shadcn/ui Components When:
+- Building standard UI components quickly
+- Need beautiful defaults with customization options
+- Enterprise application development
+- Form-heavy applications with validation
+
+**Example scenarios:** Admin dashboards, CRUD applications, settings pages, data tables
+
+## Critical Design Principles
+
+### 1. Progressive Enhancement
+Start simple, enhance as needed:
+1. Tailwind utilities for basic styling
+2. Add Radix primitives for interaction
+3. Use shadcn/ui for complete solutions
+4. Customize components in your codebase
+
+### 2. Composition Over Complexity
+Build complex UIs from simple, reusable components:
+- Small, focused components (single responsibility)
+- Compose primitives rather than creating monoliths
+- Leverage component slots and children patterns
+
+### 3. Accessibility First
+Radix UI handles accessibility automatically:
+- ARIA attributes applied correctly
+- Keyboard navigation built-in
+- Focus management and trapping
+- Screen reader compatibility
+
+**Never override accessibility features** - enhance them.
+
+### 4. Design Token Consistency
+Use Tailwind's design system consistently:
+- Stick to spacing scale (4, 8, 16, 24px)
+- Use color palette (50-950 shades)
+- Apply typography scale systematically
+- Avoid arbitrary values unless necessary
+
+### 5. Mobile-First Responsive
+Always design mobile-first, scale up:
+- Base styles for mobile
+- Use breakpoints (sm, md, lg, xl, 2xl) to enhance
+- Test on actual devices, not just browser resize
+
+## Setup Strategy
+
+### Installation Order
+1. **TailwindCSS** - Foundation
+2. **shadcn/ui CLI** - Includes Radix dependencies
+3. **Add components** - Install only what you need
+4. **Configure theme** - CSS variables + Tailwind config
+5. **Setup dark mode** - Theme provider + toggle
+
+### Configuration Best Practices
+
+**Tailwind Config:**
+- Use `content` paths correctly (scan all component files)
+- Extend theme with CSS variables, not hardcoded values
+- Enable dark mode with `class` strategy
+- Install `tailwindcss-animate` plugin
+
+**CSS Variables (Three-Tier System):**
+```css
+:root {
+  /* Tier 1: Primitives (immutable) */
+  --gray-50: 250 250 250;
+  --gray-900: 24 24 27;
+  --blue-500: oklch(0.55 0.22 264);
+
+  /* Tier 2: Semantics (theme-aware) */
+  --background: var(--gray-50);
+  --foreground: var(--gray-900);
+  --primary: var(--blue-500);
+
+  /* Tier 3: Components */
+  --button-height: 2.5rem;
+  --card-padding: 1.5rem;
+}
+
+.dark {
+  /* Only semantic tokens change */
+  --background: var(--gray-900);
+  --foreground: var(--gray-50);
+}
 ```
 
-### Buttons
+**Color Space Recommendation:**
+- **Modern**: Use OKLCH for perceptual uniformity
+- **Legacy support**: Use HSL with fallbacks
+- **Avoid**: RGB/HEX for design tokens (not human-readable)
 
-- Primary: `<Button className="rounded-full" color="primary">Action</Button>`
-- Secondary: `<Button className="rounded-full" variant="bordered">Cancel</Button>`
-- Icon: `<Button className="rounded-full" isIconOnly><Icon /></Button>`
+**Token Storage:**
+- Store in JSON for platform-agnostic distribution
+- Transform to CSS variables, Swift, XML using Style Dictionary
+- Version control tokens separately from component code
 
-### Status Badges
+**Path Aliases:**
+- Configure `@/components` and `@/lib` in tsconfig
+- Ensure consistency between Next.js and TypeScript configs
+- Use aliases in imports for cleaner code
 
-```tsx
-<Chip className="rounded-full" color="success" size="sm">
-  <span className="mr-1">●</span> Done
-</Chip>
-<Chip className="rounded-full" color="warning" size="sm">
-  <span className="mr-1">●</span> Waiting
-</Chip>
-<Chip className="rounded-full" color="danger" size="sm">
-  <span className="mr-1">●</span> Failed
-</Chip>
-```
+## Integration Patterns
 
-### Metrics Display
+### Pattern 1: shadcn/ui + Custom Tailwind
+Use shadcn/ui components as base, customize with Tailwind classes:
+- Apply custom spacing, colors via className prop
+- Override default styles with Tailwind utilities
+- Maintain component accessibility
 
-```tsx
-<div className="flex flex-col gap-1">
-  <Typography.Caption>Total Registrations</Typography.Caption>
-  <div className="flex items-baseline gap-2">
-    <span className="font-bold text-3xl">46,500</span>
-    <Chip className="rounded-full" color="success" size="sm">+2.5%</Chip>
-  </div>
-</div>
-```
+### Pattern 2: Radix Primitives + Tailwind
+Build custom components from scratch:
+- Use Radix for behavior (Dialog, Dropdown, etc.)
+- Style completely with Tailwind utilities
+- Full control over structure and appearance
 
-## Typography Rules
+### Pattern 3: Hybrid Approach
+Modify shadcn/ui components in your codebase:
+- Edit component files in `components/ui/`
+- Add new variants, sizes, or styles
+- Maintain type safety with CVA (Class Variance Authority)
 
-Always use Typography components from `@web/components/typography`:
+### Pattern 4: Component Composition
+Combine multiple primitives for complex UIs:
+- Popover + Select for searchable dropdown
+- Dialog + Form for modal forms
+- Tabs + Cards for multi-section interfaces
 
-| Component | Usage | Styles |
-|-----------|-------|--------|
-| `Typography.H1` | Page titles | `font-semibold text-4xl text-foreground` |
-| `Typography.H2` | Section titles | `font-semibold text-3xl text-foreground` |
-| `Typography.H3` | Subsection titles | `font-medium text-2xl text-foreground` |
-| `Typography.H4` | Card titles | `font-medium text-xl text-default-900` |
-| `Typography.TextLg` | Lead paragraphs | `text-lg text-foreground` |
-| `Typography.Text` | Body text | `text-base text-foreground` |
-| `Typography.TextSm` | Secondary text | `text-sm text-default-600` |
-| `Typography.Label` | Form labels | `font-medium text-sm text-foreground` |
-| `Typography.Caption` | Metadata | `text-xs text-muted-foreground` |
+## Design Token Architecture
 
-### Enforcement Rules
+Use three-tier token system for scalable, maintainable design systems:
+- **Tier 1 (Primitive)**: Raw values (`gray-50`, `spacing-4`)
+- **Tier 2 (Semantic)**: Purpose-driven (`background-primary`, `text-error`)
+- **Tier 3 (Component)**: Component-specific (`button-height`, `card-padding`)
 
-- ✅ Always use `Typography.H4` for CardHeader titles
-- ✅ Always use `Typography.TextSm` for CardHeader descriptions
-- ✅ Use `Typography.H2` for section headings
-- ❌ Avoid raw `<h1>`, `<h2>`, `<h3>`, `<h4>` tags outside MDX content
-- ⚠️ Exception: Raw tags allowed for MDX blog content and image overlays
+**Modern Color:** Use OKLCH color space for perceptual uniformity and better accessibility calculations.
 
-## Layout Guidelines
+**📖 See [DESIGN_TOKENS.md](references/DESIGN_TOKENS.md) for:**
+- Complete three-tier token system implementation
+- OKLCH color space guide and examples
+- Token naming conventions and best practices
+- CSS variable configuration
+- Multi-theme support patterns
 
-### Spacing
+## Responsive Design Strategy
 
-- Use `flex flex-col gap-*` for vertical spacing (not `space-y-*`)
-- Standard gaps: `gap-2`, `gap-4`, `gap-6`, `gap-8`
-- Avoid `margin-top` for sibling spacing
+**Mobile-first approach:** Start with mobile (0-639px), scale up through sm/md/lg/xl/2xl breakpoints.
 
-### Grid Layouts
+**Key patterns:** Layout shifts (column→row), component switching (Dialog→Drawer), container queries for modular responsiveness.
 
-```tsx
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  <Card className="rounded-2xl">{/* ... */}</Card>
-  <Card className="rounded-2xl">{/* ... */}</Card>
-  <Card className="rounded-2xl">{/* ... */}</Card>
-</div>
-```
+**📖 See [RESPONSIVE_PATTERNS.md](references/RESPONSIVE_PATTERNS.md) for:**
+- Complete breakpoint strategy and implementation
+- Responsive component patterns and examples
+- Container queries guide
+- Image optimization strategies
+- Performance considerations for responsive design
+- Comprehensive testing checklist
 
-## Anti-Patterns (What NOT to Do)
+## Form Architecture
 
-### Navigation
-- ❌ Vertical sidebar navigation
-- ❌ Square/rectangular tabs
-- ❌ Dropdown-only navigation
+**Strategy:** React Hook Form + Zod for schema-first validation with type inference and accessible error handling.
 
-### Cards
-- ❌ Sharp corners (`rounded-none`, `rounded-sm`)
-- ❌ Heavy shadows (`shadow-lg`, `shadow-xl`)
-- ❌ Raw `<h3>` tags in CardHeader
+**📖 See [CUSTOMIZATION.md](references/CUSTOMIZATION.md#form-architecture) for:**
+- Complete React Hook Form + Zod setup
+- Reusable field wrapper patterns
+- Multi-step form implementation
+- Accessibility requirements checklist
 
-### Buttons
-- ❌ Square buttons (`rounded-none`, `rounded-md`)
-- ❌ Hardcoded colours (`bg-blue-500`)
-- ❌ Missing hover states
+## Performance Best Practices
 
-### Colours
-- ❌ Hardcoded hex values in components
-- ❌ `text-white` outside image overlays
-- ❌ Inconsistent opacity values
+**Core strategies:** Code splitting (React.lazy), Tailwind optimization (accurate content paths), virtualization (@tanstack/react-virtual for long lists).
 
-### Spacing
-- ❌ `space-y-*` utilities
-- ❌ `mt-*` for sibling spacing
-- ❌ Odd gap values (`gap-3`, `gap-5`, `gap-7`)
+**📖 See [PERFORMANCE_OPTIMIZATION.md](references/PERFORMANCE_OPTIMIZATION.md) for:**
+- Complete performance optimization guide
+- Core Web Vitals optimization strategies
+- Bundle analysis and tree shaking
+- Common pitfalls and solutions
+- Performance monitoring setup
 
-## Tools Used
+## Component Customization & Dark Mode
 
-- **Read**: Examine existing component implementations
-- **Grep**: Find similar patterns in codebase
-- **Context7 MCP**: Fetch latest HeroUI documentation
-  - `mcp__context7__resolve-library-id` - Find library ID
-  - `mcp__context7__get-library-docs` - Get component docs
+### Customization Strategies
+1. **Direct Modification**: Edit shadcn/ui files in your codebase
+2. **Variant Extension**: Use CVA for type-safe variants
+3. **Wrapper Components**: Add custom logic around base components
+4. **Theme Customization**: Modify CSS variables globally
 
-## Accessibility Requirements (WCAG AA)
+### Dark Mode Setup
+1. **ThemeProvider** with next-themes
+2. **Class strategy** (`class`, not media query)
+3. **CSS variables** in `.dark` class
+4. **Accessible toggle** component
 
-- Normal text: Minimum 4.5:1 contrast ratio
-- Large text: Minimum 3:1 contrast ratio
-- Interactive elements: Minimum 3:1 for focus indicators
-- Information must not be conveyed by colour alone
-- All interactive elements must be keyboard accessible
+**📖 See [CUSTOMIZATION.md](references/CUSTOMIZATION.md) for:**
+- Complete customization strategies with examples
+- CVA variant implementation guide
+- Dark mode setup and configuration
+- Design considerations and testing
+- Form architecture patterns
 
-## Related Documentation
+## Accessibility Standards
 
-- `apps/web/CLAUDE.md` - Full UI guidelines
-- GitHub Issue #406 - Colour scheme specification
-- HeroUI documentation - Component API reference
+### Radix UI Built-In Guarantees
+- ✅ ARIA attributes applied correctly
+- ✅ Keyboard navigation functional
+- ✅ Focus management and trapping automatic
+- ✅ Screen reader compatible
+
+### WCAG Contrast Requirements (Critical)
+
+**WCAG 2.1 Level AA (Legal Minimum):**
+- Normal text: **4.5:1** minimum contrast ratio
+- Large text (18pt/14pt bold+): **3:1** minimum
+- UI components/graphics: **3:1** minimum
+- **Industry standard**: Most legal requirements specify AA
+
+**WCAG Level AAA (Enhanced):**
+- Normal text: **7:1** contrast ratio
+- Large text: **4.5:1** contrast ratio
+- **Best practice**: Aim for AAA when design constraints allow
+
+**Measurement:**
+- Contrast ratio range: 1:1 (white on white) to 21:1 (black on white)
+- Use tools: WebAIM Color Contrast Checker, browser DevTools
+- Test during design phase, not after implementation
+
+**OKLCH Advantage:**
+Perceptually uniform color space makes contrast calculations more reliable and predictable compared to HSL.
+
+### Implementation Checklist
+- ✅ All text meets 4.5:1 minimum (AA standard)
+- ✅ Interactive elements meet 3:1 minimum
+- ✅ Provide descriptive labels (`aria-label`, `<label>`)
+- ✅ Test complete keyboard navigation flow
+- ✅ Verify visible focus indicators (not just browser default)
+- ✅ Test with screen readers (NVDA, JAWS, VoiceOver)
+- ✅ Use semantic HTML elements (`<button>`, `<nav>`, `<main>`)
+- ✅ Provide alternative text for images and icons
+- ✅ Ensure dark mode maintains contrast standards
+
+### Testing Strategy
+1. **Automated**: Use contrast checkers during design
+2. **Manual**: Tab through entire interface
+3. **Screen readers**: Test with at least one screen reader
+4. **Real users**: Include users with disabilities in testing
+
+## Common Pitfalls
+
+Avoid these frequent issues:
+1. **Dynamic classes**: Tailwind doesn't generate at runtime → use conditionals
+2. **Content config**: Verify paths include all component files
+3. **Import paths**: Check tsconfig.json aliases
+4. **Dark mode**: Ensure ThemeProvider setup and CSS variables
+5. **Accessibility**: Never remove ARIA attributes
+
+**📖 See [PERFORMANCE_OPTIMIZATION.md](references/PERFORMANCE_OPTIMIZATION.md#common-pitfalls) for complete troubleshooting guide with 10+ common issues and solutions.**
+
+## Resources
+
+### Official Documentation
+- **TailwindCSS:** https://tailwindcss.com/docs
+- **Radix UI:** https://www.radix-ui.com/primitives
+- **shadcn/ui:** https://ui.shadcn.com | https://ui.shadcn.com/llms.txt
+
+### Authoritative Design System Sources
+- **USWDS Design Tokens:** https://designsystem.digital.gov/design-tokens/
+- **Smashing Magazine Naming:** https://www.smashingmagazine.com/2024/05/naming-best-practices/
+- **OKLCH Color Space:** https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl
+- **WCAG Contrast:** https://webaim.org/articles/contrast/
+
+### Reference Files (Detailed Guides & Patterns)
+
+**Core Concepts:**
+- **[DESIGN_TOKENS.md](references/DESIGN_TOKENS.md)** - Three-tier token system, OKLCH, naming
+- **[RESPONSIVE_PATTERNS.md](references/RESPONSIVE_PATTERNS.md)** - Breakpoints, container queries, testing
+- **[CUSTOMIZATION.md](references/CUSTOMIZATION.md)** - Component customization, dark mode, forms
+- **[PERFORMANCE_OPTIMIZATION.md](references/PERFORMANCE_OPTIMIZATION.md)** - Performance, Core Web Vitals, pitfalls
+
+**Implementation References:**
+- **[TAILWIND_REFERENCE.md](references/TAILWIND_REFERENCE.md)** - Complete utilities
+- **[RADIX_REFERENCE.md](references/RADIX_REFERENCE.md)** - Primitives with code
+- **[SHADCN_REFERENCE.md](references/SHADCN_REFERENCE.md)** - Components with install
+- **[INTEGRATION_PATTERNS.md](references/INTEGRATION_PATTERNS.md)** - Advanced patterns
+
+## Triggers & Use Cases
+
+**Activate for:** UI/UX review/audit | Design system architecture | Accessibility audit (WCAG) | Design tokens (3-tier system) | Color systems (OKLCH) | Typography systems | Spacing/layout design | Tailwind/Radix/shadcn/ui setup | Responsive design patterns | Dark mode theming | Component library design
+
+**Do NOT activate for:** React/Next.js architecture (use react-nextjs-expert) | State management | Server Components | Backend APIs | Database design | Infrastructure/DevOps
+
+## Behavioral Traits
+
+**Core Philosophy:** User-centric | Performance-aware (Core Web Vitals) | Accessibility-first (WCAG AA) | Evidence-based | Maintainable | Type-safe
+
+**Design Principles:** Progressive enhancement | Mobile-first | Atomic design | Consistent tokens (3-tier) | Semantic HTML | Comprehensive error handling
+
+**Code Quality:** Component composition | Single responsibility | Proper hooks usage | Optimized rendering | Comprehensive testing
+
+## Response Approach
+
+**Review:** Understand context → Systematic audit → Identify issues → Provide evidence → Recommend solutions → Prioritize
+
+**Design:** Gather requirements → Choose architecture → Design tokens → Component structure → Implement accessibly → Include states → Responsive → Document
+
+**Improve:** Analyze current state → Identify bottlenecks → Plan improvements → Implement incrementally → Measure impact → Document → Test
+
+**Integration:** Verify compatibility → Follow official patterns → Best practices → Type safety → Performance budget → Error boundaries
+
+## Implementation Checklist
+
+**Setup:** Install Tailwind + shadcn/ui | Configure three-tier tokens | Set up dark mode | Create `cn()` helper
+
+**Development:** Apply mobile-first design | Implement dark mode | Test accessibility | Verify WCAG AA contrast
+
+**Production:** Validate Tailwind purging | Test all states | Cross-browser testing | Performance audit
+
+**📖 Detailed checklists available in:**
+- [DESIGN_TOKENS.md](references/DESIGN_TOKENS.md#implementation-checklist)
+- [RESPONSIVE_PATTERNS.md](references/RESPONSIVE_PATTERNS.md#testing-checklist)
+- [CUSTOMIZATION.md](references/CUSTOMIZATION.md#accessibility-requirements)
+- [PERFORMANCE_OPTIMIZATION.md](references/PERFORMANCE_OPTIMIZATION.md#optimization-checklist)
+
+## Best Practices Summary
+
+**Design Tokens:** Three-tier system | OKLCH color space | Purpose-driven naming
+**Accessibility:** WCAG AA minimum (4.5:1 text, 3:1 UI) | Keyboard navigation | Screen readers
+**Performance:** Code splitting | Virtualization | Tailwind optimization
+**Maintenance:** Modular components | Documentation | Version control tokens
+
+## Skill Summary
+
+**Primary Functions:**
+1. **Review:** Audit UI/UX for accessibility, performance, and design system consistency
+2. **Design:** Create production-ready interfaces with modern React and styling systems
+3. **Improve:** Enhance existing implementations for better UX, performance, and maintainability
+
+**Technology Focus:**
+- TailwindCSS, Radix UI, shadcn/ui (styling layer)
+- Design tokens and design systems
+- Accessibility standards (WCAG 2.1/2.2)
+- Responsive design and mobile-first patterns
+- Color systems (OKLCH) and typography
+
+**Activation Triggers:**
+- UI/UX review, audit, or analysis requests
+- Design system architecture and token design
+- Accessibility improvements (WCAG compliance)
+- Tailwind/Radix/shadcn/ui implementation
+- Responsive design and mobile-first development
+- Color system and typography design
+
+**Boundaries:**
+✅ Design systems, styling, accessibility, design tokens, UI patterns
+❌ React architecture (react-nextjs-expert), state management, backend APIs, infrastructure
+
+---
+
+**Skill Version:** 2.1.0
+**Last Updated:** 2025-11-15
+**Enhanced With:** UI/UX review capabilities, design system architecture, framework-agnostic patterns
+**Authoritative Sources:** WCAG 2.1/2.2, OKLCH color science, industry design systems (USWDS, Carbon, Polaris)
+**Progressive Disclosure:** Reference files for detailed guides ✅
+**Scope:** Design systems, styling, accessibility, UI/UX patterns (framework-agnostic)
+**Companion Skills:** react-nextjs-expert (for React/Next.js architecture and state management)

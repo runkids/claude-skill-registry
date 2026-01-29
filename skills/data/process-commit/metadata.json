@@ -1,7 +1,7 @@
 {
   "name": "process-commit",
-  "repo": "KanayaActa/ai-driven-dev-template",
-  "path": ".claude/skills/process-commit/SKILL.md",
-  "source": "github.com/KanayaActa/ai-driven-dev-template",
-  "downloaded_at": "2026-01-28T02:39:06.831179Z"
+  "repo": "HikaruEgashira/agent-skills",
+  "path": "wf/skills/process-commit/SKILL.md",
+  "source": "github.com/HikaruEgashira/agent-skills",
+  "downloaded_at": "2026-01-29T03:52:05.745567Z"
 }

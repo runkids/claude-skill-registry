@@ -1,7 +1,7 @@
 {
   "name": "hatchling",
-  "repo": "BbgnsurfTech/claude-skills-collection",
-  "path": "community/jamie-bitflight-claude-skills/hatchling/SKILL.md",
-  "source": "github.com/BbgnsurfTech/claude-skills-collection",
-  "downloaded_at": "2026-01-28T02:58:38.266778Z"
+  "repo": "Jamie-BitFlight/claude_skills",
+  "path": "plugins/hatchling/skills/hatchling/SKILL.md",
+  "source": "github.com/Jamie-BitFlight/claude_skills",
+  "downloaded_at": "2026-01-29T02:11:18.182688Z"
 }

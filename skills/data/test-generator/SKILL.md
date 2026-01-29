@@ -1,277 +1,307 @@
 ---
 name: test-generator
-description: 生成測試套件。觸發：test、測試、寫測試、coverage、覆蓋率、pytest、unittest、驗證、TG、unit test、整合測試、e2e、static、ruff、mypy、lint。
+description: Generate test scaffolding for modules with proper structure, fixtures,
+  and mock configurations.
+allowed-tools: Read, Write, Edit
 ---
 
-# 測試生成技能
+# Test Generator Skill
 
-## 測試金字塔
+## Purpose
 
+This skill provides comprehensive test scaffolding and templates for quickly setting up unit and integration tests with proper structure, fixtures, and mocking configurations. It guides the creation of well-structured, maintainable tests following best practices.
+
+## Activation
+
+**On-demand via command:** `/generate-tests <file-path>`
+
+Example:
+```bash
+/generate-tests src/tools/example/core.py
 ```
-    /\  E2E (少量)
-   /--\ Integration (中等)
-  /----\ Unit (大量)
- /------\ Static Analysis (基礎)
-```
 
----
+## When to Use
 
-## 靜態分析工具 (Static Analysis)
+- Starting tests for a new module
+- Need test structure quickly
+- Adding tests to existing code
+- Setting up test fixtures and mocks
+- Creating integration test scaffolding
+- Following pytest or Jest best practices
 
-### 工具總覽
+## Resources
 
-| 工具 | 用途 | 命令 |
-|------|------|------|
-| **ruff** | Linter + Formatter | `uv run ruff check src/` |
-| **mypy** | 類型檢查 | `uv run mypy src/ --ignore-missing-imports` |
-| **bandit** | 安全漏洞掃描 | `uv run bandit -r src/ -ll` |
-| **vulture** | 死代碼檢測 | `uv run vulture src/ --min-confidence 80` |
+### testing-templates/unit-test.py
+Complete pytest unit test template with:
+- Proper import structure
+- Fixture definitions (sample data, temp files, mocks)
+- Test function templates (Arrange-Act-Assert pattern)
+- Test class templates
+- Parametrize examples
+- Mock/patch configurations
+- Common assertion patterns
 
-### Bandit 安全掃描
+### testing-templates/integration-test.py
+Complete integration test template with:
+- Service integration patterns
+- Database integration examples
+- File system test patterns
+- End-to-end workflow examples
+- Cleanup patterns (tmp_path, fixtures)
+- Real dependency testing (not mocked)
+
+## Provides
+
+### Test File Scaffolding
+- Proper file structure and organization
+- Naming conventions (`test_*.py` or `*_test.py`)
+- Import statements
+- Test class/function structure
+
+### Fixture Setup
+- **pytest**: Sample fixtures for common use cases
+- **Jest**: Mock implementations and spy configurations
+- Reusable test data fixtures
+- Setup/teardown patterns
+
+### Mock Configurations
+- **unittest.mock**: Mock and patch examples
+- **pytest-mock**: pytest-specific mocking
+- **Jest**: Mock modules and functions
+- Spy and stub patterns
+
+### Coverage Analysis Helpers
+- Test organization for better coverage
+- Edge case identification
+- Boundary testing patterns
+
+## Usage Examples
+
+### Example 1: Generate Unit Tests for Module
 
 ```bash
-# 只顯示 Medium+ 嚴重度 (推薦)
-uv run bandit -r src/ -ll
-
-# 顯示所有問題 (包含 Low)
-uv run bandit -r src/ -l
-
-# 常見 nosec 註解
-# nosec B110 - 有意的 try_except_pass
-# nosec B404 - 有意使用 subprocess
-# nosec B603 - 信任的 subprocess 呼叫
-# nosec B607 - 信任的部分路徑執行
+/generate-tests src/tools/doc_fetcher/core.py
 ```
 
-### Vulture 死代碼檢測
+**Provides:**
+- `tests/test_doc_fetcher_core.py` structure
+- Fixtures for test data
+- Test cases for each public function
+- Mock configurations for external dependencies
+
+### Example 2: Generate Integration Tests for API
 
 ```bash
-# 80% 置信度以上
-uv run vulture src/ --min-confidence 80
-
-# 產生 whitelist（排除誤報）
-uv run vulture src/ --make-whitelist > vulture_whitelist.py
+/generate-tests src/api/endpoints.py
 ```
 
-### Ruff 配置 (pyproject.toml)
+**Provides:**
+- `tests/integration/test_endpoints.py` structure
+- API client fixtures
+- Request/response test patterns
+- End-to-end workflow tests
 
-```toml
-[tool.ruff]
-target-version = "py310"
-line-length = 100
-
-[tool.ruff.lint]
-select = ["E", "F", "W", "I", "UP", "B", "SIM"]
-ignore = ["E501"]  # 行長由 formatter 處理
-
-[tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["F401"]  # 允許 re-export
-"tests/**" = ["S101"]  # 允許 assert
-
-[tool.ruff.format]
-quote-style = "double"
-```
-
-### Mypy 配置 (pyproject.toml)
-
-```toml
-[tool.mypy]
-python_version = "3.10"
-warn_return_any = true
-warn_unused_ignores = true
-disallow_untyped_defs = true
-no_implicit_optional = true
-
-[[tool.mypy.overrides]]
-module = ["mcp.*", "docx.*", "PyPDF2.*"]
-ignore_missing_imports = true
-```
-
-### 靜態分析執行流程
+### Example 3: TypeScript/Jest Tests
 
 ```bash
-# 1. Ruff 自動修復 (先執行)
-uv run ruff check src/ --fix --unsafe-fixes
-uv run ruff format src/
-
-# 2. Mypy 類型檢查
-uv run mypy src/ --ignore-missing-imports
-
-# 3. Bandit 安全掃描
-uv run bandit -r src/ -ll
-
-# 4. Vulture 死代碼檢測 (可選)
-uv run vulture src/ --min-confidence 80
-
-# 完整一次執行
-uv run ruff check src/; uv run mypy src/ --ignore-missing-imports; uv run bandit -r src/ -ll
-```
-uv run mypy src/ --ignore-missing-imports
-
-# 3. 安全掃描 (可選)
-uv run bandit -r src/ -ll
+/generate-tests src/components/Button.tsx
 ```
 
-### 常見 Mypy 錯誤修復
+**Provides:**
+- `src/components/Button.test.tsx` structure
+- Jest mock configurations
+- Component testing patterns
+- Snapshot testing examples
 
-| 錯誤 | 解法 |
-|------|------|
-| `no_implicit_optional` | `def foo(x: str = None)` → `def foo(x: Optional[str] = None)` |
-| `var-annotated` | `results = []` → `results: List[T] = []` |
-| `arg-type` | 檢查 Optional 是否需要 `or default` |
-| `return-value` | 確保函數返回類型與聲明一致 |
-| `call-overload` | 使用 `# type: ignore[call-overload]` |
+## Test Structure Patterns
 
----
-
-## Python 測試工具
-
-| 層級 | 工具 | 配置 |
-|------|------|------|
-| Static | `mypy`, `ruff`, `bandit` | pyproject.toml |
-| Unit | `pytest` | tests/unit/ |
-| Integration | `pytest` + `httpx` | tests/integration/ |
-| E2E | `playwright` | tests/e2e/ |
-| Coverage | `pytest-cov` | 目標 ≥80% |
-
----
-
-## 目錄結構
-
-```
-tests/
-├── conftest.py          # 共用 fixtures
-├── unit/                # 單元測試
-│   └── test_domain/
-├── integration/         # 整合測試
-│   └── test_api/
-└── e2e/                 # 端對端測試
-```
-
----
-
-## 單元測試模式
-
-### 必須涵蓋
-1. **Happy Path** - 正常流程
-2. **Edge Cases** - 邊界條件
-3. **Error Handling** - 錯誤處理
-4. **Null/None** - 空值處理
-
-### 範例結構
-```python
-class TestUser:
-    def test_create_user_valid(self):          # Happy path
-        ...
-    def test_create_user_min_length(self):     # Edge case
-        ...
-    def test_create_user_empty_raises(self):   # Error handling
-        with pytest.raises(ValidationError):
-            ...
-    @pytest.mark.parametrize(...)              # 多參數測試
-    def test_variations(self, input, expected):
-        ...
-```
-
----
-
-## 整合測試模式
-
-### API 測試
-```python
-@pytest.mark.integration
-async def test_create_endpoint(async_client):
-    response = await async_client.post("/api/users", json={...})
-    assert response.status_code == 201
-```
-
-### DB 測試
-```python
-@pytest.mark.integration
-async def test_save_and_retrieve(repository, db_session):
-    saved = await repository.save(entity)
-    retrieved = await repository.get_by_id(saved.id)
-    assert retrieved is not None
-```
-
----
-
-## 常用 Fixtures
+### Arrange-Act-Assert (AAA) Pattern
 
 ```python
-# conftest.py
+def test_function_name_condition_expected():
+    """Test description."""
+    # Arrange - Set up test data and conditions
+    input_data = {"key": "value"}
+    expected = "result"
+
+    # Act - Execute the function under test
+    result = function_under_test(input_data)
+
+    # Assert - Verify the outcome
+    assert result == expected
+```
+
+### Test Class Organization
+
+```python
+class TestClassName:
+    """Tests for ClassName."""
+
+    @pytest.fixture
+    def instance(self):
+        """Create test instance."""
+        return ClassName()
+
+    def test_method_success(self, instance):
+        """Test successful method execution."""
+        result = instance.method()
+        assert result is not None
+
+    def test_method_error_handling(self, instance):
+        """Test method handles errors."""
+        with pytest.raises(ValueError):
+            instance.method(invalid_input)
+```
+
+### Parametrized Tests
+
+```python
+@pytest.mark.parametrize("input,expected", [
+    ("test1", "result1"),
+    ("test2", "result2"),
+    ("test3", "result3"),
+])
+def test_function_with_parameters(input, expected):
+    """Test function with multiple inputs."""
+    result = function_under_test(input)
+    assert result == expected
+```
+
+## Mocking Patterns
+
+### Mock External Dependencies
+
+```python
+from unittest.mock import Mock, patch
+
+@patch('module.external_service')
+def test_with_mocked_service(mock_service):
+    """Test with mocked external service."""
+    # Configure mock
+    mock_service.return_value = "mocked_response"
+
+    # Test function that uses service
+    result = function_that_calls_service()
+
+    # Verify
+    assert result == "expected"
+    mock_service.assert_called_once()
+```
+
+### Fixture-Based Mocks
+
+```python
 @pytest.fixture
-def sample_user():
-    return User(name="Test", email="test@test.com")
+def mock_database():
+    """Mock database connection."""
+    db = Mock()
+    db.query.return_value = [{"id": 1, "name": "test"}]
+    return db
 
-@pytest_asyncio.fixture
-async def async_client():
-    async with AsyncClient(app=app) as client:
-        yield client
-
-@pytest_asyncio.fixture
-async def db_session():
-    async with AsyncSession() as session:
-        yield session
-        await session.rollback()
+def test_database_query(mock_database):
+    """Test database query."""
+    result = get_data(mock_database)
+    assert len(result) == 1
+    mock_database.query.assert_called()
 ```
 
----
+## Integration Test Patterns
 
-## 執行命令
+### API Integration Testing
+
+```python
+def test_api_endpoint_integration(client):
+    """Test API endpoint with real client."""
+    # Arrange
+    payload = {"data": "test"}
+
+    # Act
+    response = client.post("/api/endpoint", json=payload)
+
+    # Assert
+    assert response.status_code == 200
+    assert response.json()["status"] == "success"
+```
+
+### Database Integration Testing
+
+```python
+def test_database_integration(db_session):
+    """Test database operations."""
+    # Arrange
+    record = Model(name="test", value=123)
+
+    # Act
+    db_session.add(record)
+    db_session.commit()
+
+    # Assert
+    result = db_session.query(Model).filter_by(name="test").first()
+    assert result is not None
+    assert result.value == 123
+```
+
+## Coverage Considerations
+
+### Testing Requirements
+- Aim for 80%+ test coverage
+- Test all public functions and methods
+- Test edge cases and boundary conditions
+- Test error handling paths
+- Test integration points
+
+### Coverage Tools
 
 ```bash
-# 靜態分析
-mypy src/
-ruff check src/
+# Python with pytest-cov
+pytest --cov=src --cov-report=html
 
-# 單元測試
-pytest tests/unit -v
+# JavaScript with Jest
+jest --coverage
 
-# 整合測試
-pytest tests/integration -v -m integration
-
-# 全部 + 覆蓋率
-pytest --cov=src --cov-report=term-missing --cov-fail-under=80
-
-# E2E
-pytest tests/e2e -v --headed  # 顯示瀏覽器
+# View coverage report
+open htmlcov/index.html  # Python
+open coverage/lcov-report/index.html  # JavaScript
 ```
 
----
+## Best Practices
 
-## pyproject.toml 配置
+### Test Naming
+- Use descriptive names: `test_function_condition_expected`
+- Example: `test_process_data_invalid_input_raises_error`
 
-```toml
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-markers = ["unit", "integration", "e2e", "slow"]
-asyncio_mode = "auto"
+### Test Organization
+- One test file per source file
+- Group related tests in classes
+- Use fixtures for common setup
 
-[tool.coverage.run]
-source = ["src"]
-branch = true
-omit = ["tests/*", "*/__init__.py"]
+### Test Independence
+- Tests should not depend on each other
+- Each test should set up its own data
+- Clean up resources after tests
 
-[tool.coverage.report]
-fail_under = 80
-show_missing = true
-```
+### Test Readability
+- Clear test descriptions
+- Simple, focused test cases
+- Readable assertions
 
----
+### Mock Judiciously
+- Mock external dependencies
+- Test real code paths when possible
+- Verify mock interactions
 
-## 生成 Checklist
+## Notes
 
-- [ ] 確認測試目錄結構
-- [ ] Happy path 測試
-- [ ] Edge cases 測試
-- [ ] Error handling 測試
-- [ ] Fixtures 設定
-- [ ] CI workflow 整合
-- [ ] 覆蓋率 ≥ 80%
+- **Guidance Only**: This skill provides templates and guidance. It does not automatically generate test files.
+- **Language Support**: Primary support for Python (pytest) and TypeScript/JavaScript (Jest).
+- **Customization**: Templates should be adapted to specific project needs.
+- **Best Practices**: Follow project-specific testing conventions and standards.
 
----
+## Used When
 
-## 相關技能
-
-- `code-reviewer` - 審查測試品質
+- Starting test implementation for a new module
+- Need quick test structure setup
+- Learning test patterns for the project
+- Ensuring consistent test organization
+- Setting up complex fixtures or mocks
+- Creating integration test scaffolding

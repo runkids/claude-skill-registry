@@ -1,128 +1,128 @@
 ---
 name: create-ticket
-description: Creates Jira tickets with proper formatting, acceptance criteria, and optionally sets up git branches and pull requests. Use when users want to create a new ticket, log a bug, request a feature, or when they mention "create ticket", "new ticket", "log issue", "file bug", or "create Jira".
-license: MIT
-metadata:
-  author: IHKREDDY
-  version: "1.0"
-  category: development
-compatibility: Requires Node.js 18+ and npm
+description: Create implementation tickets with proper format and conventions.
+user-invocable: false
 ---
 
-# Create Ticket Skill
+# Create Ticket
 
-## When to Use This Skill
+Guidelines for creating implementation tickets in `.workaholic/tickets/`.
 
-Use this skill when:
-- Creating a new Jira ticket/issue
-- Logging a bug or defect
-- Creating a feature request
-- Filing a task or story
-- Users mention "create ticket", "new issue", "log bug", "file ticket"
-- Users want to create a ticket AND start working on it
+## Frontmatter Template (REQUIRED - DO NOT SKIP)
 
-## Prerequisites
-
-### 1. Install Dependencies
-
-```bash
-cd .github/skills && npm install
+```yaml
+---
+created_at: <run: date -Iseconds>
+author: <run: git config user.email>
+type: <enhancement | bugfix | refactoring | housekeeping>
+layer: [<UX | Domain | Infrastructure | DB | Config>]
+effort: <leave empty - filled after implementation>
+commit_hash: <leave empty - filled when archived>
+category: <leave empty - filled when archived>
+---
 ```
 
-### 2. Configure Jira Credentials
+**All fields are mandatory.** Run the shell commands to fill `created_at` and `author`.
 
-Create a `.env` file in your project root:
+## Filename Convention
 
-```env
-JIRA_URL=https://ihkreddy.atlassian.net
-JIRA_EMAIL=your-email@example.com
-JIRA_API_TOKEN=your-api-token
-JIRA_DEFAULT_PROJECT=SAM1
+Format: `YYYYMMDDHHmmss-<short-description>.md`
+
+Use current timestamp: `date +%Y%m%d%H%M%S`
+
+Example: `20260114153042-add-dark-mode.md`
+
+## File Structure
+
+```markdown
+---
+created_at: YYYY-MM-DDTHH:MM:SS+TZ
+author: <git user.email>
+type: enhancement | bugfix | refactoring | housekeeping
+layer: [<layers affected>]
+effort: <filled after implementation>
+commit_hash: <filled when archived>
+category: <filled when archived>
+---
+
+# <Title>
+
+## Overview
+
+<Brief description of what will be implemented>
+
+## Key Files
+
+- `path/to/file.ts` - <why this file is relevant>
+
+## Related History
+
+<1-2 sentence summary synthesizing what historical tickets reveal about this area>
+
+Past tickets that touched similar areas:
+
+- [20260127010716-rename-terminology-to-terms.md](.workaholic/tickets/archive/<branch>/20260127010716-rename-terminology-to-terms.md) - Renamed terminology directory (same layer: Config)
+- [20260125113858-auto-commit-ticket-on-creation.md](.workaholic/tickets/archive/<branch>/20260125113858-auto-commit-ticket-on-creation.md) - Modified ticket.md (same file)
+
+## Implementation Steps
+
+1. <Step 1>
+2. <Step 2>
+   ...
+
+## Considerations
+
+- <Any trade-offs, risks, or things to watch out for>
 ```
 
-Get your API token from: https://id.atlassian.com/manage-profile/security/api-tokens
+## Frontmatter Fields
 
-## Workflow Process
+### Required at Creation
 
-### 1. Create a Simple Ticket
+- **created_at**: Creation timestamp in ISO 8601 format. Use `date -Iseconds`
+- **author**: Git email. Use `git config user.email`
+- **type**: Infer from request context:
+  - `enhancement` - New features or capabilities (keywords: add, create, implement, new)
+  - `bugfix` - Fixing broken behavior (keywords: fix, bug, broken, error)
+  - `refactoring` - Restructuring without changing behavior (keywords: refactor, restructure, reorganize)
+  - `housekeeping` - Maintenance, cleanup, documentation (keywords: clean, update, remove, deprecate)
+- **layer**: Architectural layers affected (YAML array, can specify multiple):
+  - `UX` - User interface, components, styling
+  - `Domain` - Business logic, models, services
+  - `Infrastructure` - External integrations, APIs, networking
+  - `DB` - Database, storage, migrations
+  - `Config` - Configuration, build, tooling
 
-```bash
-npx ts-node --esm .github/skills/skills/create-ticket/scripts/create-ticket.ts \
-  --summary "Add user authentication feature" \
-  --type Story
+### Filled After Implementation
+
+- **effort**: Time spent in numeric hours. Valid: `0.1h`, `0.25h`, `0.5h`, `1h`, `2h`, `4h`. Invalid: `XS`, `S`, `M`, `10m`. Leave empty when creating ticket.
+- **commit_hash**: Short git commit hash. Set automatically by archive script.
+- **category**: Change category (Added, Changed, or Removed). Set automatically by archive script based on commit message verb.
+
+## Exploring the Codebase
+
+Before writing a ticket:
+
+- Use Glob, Grep, and Read tools to find relevant files
+- Understand existing patterns, architecture, and conventions
+- Identify files that will need to be modified or created
+
+## Related History
+
+The Related History section is populated by the `history-discoverer` subagent (invoked by `/ticket` command).
+
+**Link format**: Use markdown links with repository-relative paths:
+```markdown
+- [filename.md](.workaholic/tickets/archive/<branch>/filename.md) - Description (match reason)
 ```
 
-### 2. Create a Detailed Ticket
+The full path includes the branch directory from the search results (e.g., `feat-20260126-214833`).
 
-```bash
-npx ts-node --esm .github/skills/skills/create-ticket/scripts/create-ticket.ts \
-  --summary "Implement password reset functionality" \
-  --description "Users should be able to reset their password via email" \
-  --type Story \
-  --priority High \
-  --labels "authentication,security" \
-  --acceptance-criteria "User receives reset email within 5 minutes" \
-  --acceptance-criteria "Reset link expires after 24 hours"
-```
+If the subagent returns no matches, omit the Related History section entirely.
 
-### 3. Create Ticket with Branch and PR
+## Writing Guidelines
 
-```bash
-npx ts-node --esm .github/skills/skills/create-ticket/scripts/create-ticket.ts \
-  --summary "Add flight search filters" \
-  --type Story \
-  --create-branch \
-  --create-pr
-```
-
-## Script Options
-
-| Option | Short | Required | Description |
-|--------|-------|----------|-------------|
-| `--summary` | `-s` | Yes | Ticket title/summary |
-| `--project` | `-p` | No | Project key (default: SAM1) |
-| `--type` | `-t` | No | Issue type: Story, Task, Bug, Epic |
-| `--description` | `-d` | No | Detailed description |
-| `--priority` | | No | Highest, High, Medium, Low, Lowest |
-| `--labels` | | No | Comma-separated labels |
-| `--acceptance-criteria` | `-ac` | No | Add criteria (repeatable) |
-| `--create-branch` | | No | Create git branch |
-| `--create-pr` | | No | Create pull request |
-
-## Issue Type Guidelines
-
-### Story
-New features or user-facing functionality:
-- "Add user profile page"
-- "Implement flight search filters"
-
-### Task
-Technical work or internal tasks:
-- "Update dependencies"
-- "Configure CI/CD pipeline"
-
-### Bug
-Defects or issues:
-- "Fix login timeout error"
-- "Correct price calculation"
-
-### Epic
-Large features spanning multiple stories:
-- "User Authentication System"
-- "Flight Booking Module"
-
-## Best Practices
-
-### Writing Good Summaries
-- Start with a verb: "Add", "Fix", "Update", "Implement"
-- Be specific and concise
-- Avoid vague terms
-
-**Good:** "Add password reset via email"
-**Bad:** "Fix login stuff"
-
-### Writing Acceptance Criteria
-Write testable criteria:
-- "User sees confirmation message after booking"
-- "API returns 400 for invalid input"
-- "Page loads in under 2 seconds"
+- Focus on the "why" and "what", not just "how"
+- Keep implementation steps actionable and specific
+- Reference existing code patterns when applicable
+- Use the Write tool directly - it creates parent directories automatically

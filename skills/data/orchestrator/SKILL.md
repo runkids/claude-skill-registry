@@ -1,291 +1,421 @@
 ---
+# VERSION: 2.47.2
 name: orchestrator
-description: Plan and coordinate multi-agent bead execution. Use when starting a new epic, assigning tracks to agents, or monitoring parallel work progress.
+description: "Full orchestration workflow with Smart Memory-Driven context (v2.47), RLM-inspired routing (v2.46), and quality gates: clarify, smart memory search, classify 3D, plan, delegate, execute with parallel memory, validate quality-first, retrospect. Use when: (1) implementing features, (2) complex refactoring, (3) multi-file changes, (4) tasks requiring coordination. Triggers: /orchestrator, /orch, 'orchestrate', 'full workflow', 'implement feature'."
+context: fork
+user-invocable: true
+agent: orchestrator
+allowed-tools:
+  - Task
+  - AskUserQuestion
+  - EnterPlanMode
+  - ExitPlanMode
+  - TodoWrite
+  - Read
+  - Edit
+  - Write
+  - Bash
+  - Glob
+  - Grep
+  - mcp__plugin_claude-mem_*
+hooks:
+  SessionStart:
+    - path: ~/.claude/hooks/orchestrator-init.sh
+      once: true
+  PreToolUse:
+    - event: "Task"
+      path: ~/.claude/hooks/smart-memory-search.sh
+  PostToolUse:
+    - event: "Task"
+      path: ~/.claude/hooks/parallel-explore.sh
+  Stop:
+    - path: ~/.claude/hooks/orchestrator-report.sh
 ---
 
-# Orchestrator Skill: Autonomous Multi-Agent Coordination
+# Orchestrator - Multi-Agent Ralph v2.52
 
-This skill spawns and monitors parallel worker agents that execute beads autonomously.
+**Smart Memory-Driven Orchestration** with parallel memory search, RLM-inspired routing, and quality-first validation.
 
-**Prerequisite**: Run the `planning` skill first to generate `history/<feature>/execution-plan.md`.
+Based on @PerceptualPeak Smart Forking concept:
+> "Why not utilize the knowledge gained from your hundreds/thousands of other Claude code sessions? Don't let that valuable context go to waste!!"
 
-## Architecture (Mode B: Autonomous)
-
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                              ORCHESTRATOR                                   │
-│                              (This Agent)                                   │
-├─────────────────────────────────────────────────────────────────────────────┤
-│  1. Read execution-plan.md (from planning skill)                            │
-│  2. Initialize Agent Mail                                                   │
-│  3. Spawn worker subagents via Task tool                                    │
-│  4. Monitor progress via Agent Mail                                         │
-│  5. Handle cross-track blockers                                             │
-│  6. Announce completion                                                     │
-└─────────────────────────────────────────────────────────────────────────────┘
-           │
-           │ Task tool spawns parallel workers
-           ▼
-┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
-│  BlueLake        │  │  GreenCastle     │  │  RedStone        │
-│  Track 1         │  │  Track 2         │  │  Track 3         │
-│  [a → b → c]     │  │  [x → y]         │  │  [m → n → o]     │
-├──────────────────┤  ├──────────────────┤  ├──────────────────┤
-│  For each bead:  │  │  For each bead:  │  │  For each bead:  │
-│  • Reserve files │  │  • Reserve files │  │  • Reserve files │
-│  • Do work       │  │  • Do work       │  │  • Do work       │
-│  • Report mail   │  │  • Report mail   │  │  • Report mail   │
-│  • Next bead     │  │  • Next bead     │  │  • Next bead     │
-└──────────────────┘  └──────────────────┘  └──────────────────┘
-           │                   │                   │
-           └───────────────────┼───────────────────┘
-                               ▼
-                    ┌─────────────────────┐
-                    │     Agent Mail      │
-                    │  ─────────────────  │
-                    │  Epic Thread:       │
-                    │  • Progress reports │
-                    │  • Bead completions │
-                    │  • Blockers         │
-                    │                     │
-                    │  Track Threads:     │
-                    │  • Bead context     │
-                    │  • Learnings        │
-                    └─────────────────────┘
-```
-
----
-
-## Phase 1: Read Execution Plan
-
-Use the **Read** tool to load the execution plan:
-
-- **path**: `history/<feature>/execution-plan.md`
-
-Extract:
-
-- `EPIC_ID` - the epic bead id
-- `TRACKS` - array of {agent_name, beads[], file_scope}
-- `CROSS_DEPS` - any cross-track dependencies
-
----
-
-## Phase 2: Initialize Agent Mail
-
-### Step 1: Ensure project exists
-
-**Tool**: `mcp__mcp_agent_mail__ensure_project`
-
-| Parameter   | Value                     |
-| ----------- | ------------------------- |
-| `human_key` | `<absolute-project-path>` |
-
-### Step 2: Register orchestrator identity
-
-**Tool**: `mcp__mcp_agent_mail__register_agent`
-
-| Parameter          | Value                                 |
-| ------------------ | ------------------------------------- |
-| `project_key`      | `<absolute-project-path>`             |
-| `name`             | `<OrchestratorName>` (e.g. `GoldFox`) |
-| `program`          | `amp`                                 |
-| `model`            | `<model>`                             |
-| `task_description` | `Orchestrator for <epic-id>`          |
-
----
-
-## Phase 3: Spawn Worker Subagents
-
-**Spawn all workers in parallel using the Task tool.**
-
-For each track, invoke:
-
-**Tool**: `Task`
-
-| Parameter     | Value                                         |
-| ------------- | --------------------------------------------- |
-| `description` | `Worker <AgentName>: Track N - <description>` |
-| `prompt`      | See `reference/worker-template.md`            |
-
-### Example Task prompt for Track 1
-
-```
-You are agent BlueLake working on Track 1 of epic bd-42.
-
-## Setup
-1. Read /path/to/project/AGENTS.md for tool preferences
-2. Load the worker skill: skill worker
-
-## Your Track
-Beads to complete IN ORDER: bd-43, bd-44, bd-45
-File scope: packages/sdk/**
-
-## Protocol for EACH bead:
-
-### Start Bead
-1. mcp__mcp_agent_mail__register_agent with name="BlueLake", task_description="<bead-id>"
-2. mcp__mcp_agent_mail__summarize_thread with thread_id="track:BlueLake:bd-42"
-3. mcp__mcp_agent_mail__file_reservation_paths with paths=["packages/sdk/**"], reason="<bead-id>"
-4. Run: bd update <bead-id> --status in_progress
-
-### Work on Bead
-- Use preferred tools from AGENTS.md (gkg for exploration, morph for edits)
-- Check inbox periodically with mcp__mcp_agent_mail__fetch_inbox
-
-### Complete Bead
-1. Run: bd close <bead-id> --reason "Summary of work"
-2. mcp__mcp_agent_mail__send_message:
-   - to: ["GoldFox"]
-   - thread_id: "bd-42"
-   - subject: "[<bead-id>] COMPLETE"
-   - body_md: "Done: <summary>. Next: <next-bead-id>"
-3. mcp__mcp_agent_mail__send_message (context for next bead):
-   - to: ["BlueLake"]
-   - thread_id: "track:BlueLake:bd-42"
-   - subject: "<bead-id> Complete - Context for next"
-   - body_md: "## Learnings\n- ...\n## Gotchas\n- ..."
-4. mcp__mcp_agent_mail__release_file_reservations
-
-### Continue to Next Bead
-- Loop back to "Start Bead" with next bead in track
-- Read your track thread for context from previous bead
-
-## When Track Complete
-mcp__mcp_agent_mail__send_message:
-- to: ["GoldFox"]
-- thread_id: "bd-42"
-- subject: "[Track 1] COMPLETE"
-- body_md: "All beads done. Summary: ..."
-
-Return a summary of all work completed.
-```
-
----
-
-## Phase 4: Monitor Progress
-
-While workers execute, monitor via Agent Mail.
-
-### Check Epic Thread for Updates
-
-**Tool**: `mcp__mcp_agent_mail__search_messages`
-
-| Parameter     | Value       |
-| ------------- | ----------- |
-| `project_key` | `<path>`    |
-| `query`       | `<epic-id>` |
-| `limit`       | `20`        |
-
-### Check for Blockers
-
-**Tool**: `mcp__mcp_agent_mail__fetch_inbox`
-
-| Parameter        | Value                |
-| ---------------- | -------------------- |
-| `project_key`    | `<path>`             |
-| `agent_name`     | `<OrchestratorName>` |
-| `urgent_only`    | `true`               |
-| `include_bodies` | `true`               |
-
-### Check Bead Status
+## Quick Start
 
 ```bash
-bv --robot-triage --graph-root <epic-id> 2>/dev/null | jq '.quick_ref'
+# Via skill invocation
+/orchestrator Implement OAuth2 authentication with Google
+
+# Via CLI
+ralph orch "Migrate database from MySQL to PostgreSQL"
 ```
 
----
+## Core Workflow (v2.52.0 - 8 Major Steps, 23 Sub-steps)
 
-## Phase 5: Handle Cross-Track Issues
+### Step 0: EVALUATE (3-Dimension Classification)
 
-### If Worker Reports Blocker
+**0a. Classification (v2.46 RLM)**:
+| Dimension | Values | Purpose |
+|-----------|--------|---------|
+| Complexity | 1-10 | Scope, risk, ambiguity |
+| Information Density | CONSTANT / LINEAR / QUADRATIC | How answer scales |
+| Context Requirement | FITS / CHUNKED / RECURSIVE | Decomposition needs |
 
-**Tool**: `mcp__mcp_agent_mail__reply_message`
+**0b. SMART MEMORY SEARCH (v2.47 NEW)**:
 
-| Parameter     | Value                |
-| ------------- | -------------------- |
-| `project_key` | `<path>`             |
-| `message_id`  | `<blocker-msg-id>`   |
-| `sender_name` | `<OrchestratorName>` |
-| `body_md`     | `Resolution: ...`    |
+```
+┌────────────────────────────────────────────────────────────────┐
+│              SMART MEMORY SEARCH (PARALLEL)                    │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│   ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐        │
+│   │claude-mem│ │ memvid   │ │ handoffs │ │ ledgers  │        │
+│   └────┬─────┘ └────┬─────┘ └────┬─────┘ └────┬─────┘        │
+│        │ PARALLEL   │ PARALLEL   │ PARALLEL   │ PARALLEL      │
+│        └────────────┴────────────┴────────────┘               │
+│                         ↓                                      │
+│              .claude/memory-context.json                       │
+│              ├── past_successes                                │
+│              ├── past_errors                                   │
+│              ├── recommended_patterns                          │
+│              └── fork_suggestions (top 5)                      │
+└────────────────────────────────────────────────────────────────┘
+```
 
-### If File Conflict
+**AUTOMATIC**: Triggered by PreToolUse hook on Task invocation.
 
-**Tool**: `mcp__mcp_agent_mail__send_message`
+**Workflow Routing**:
+| Density | Context | Complexity | Route |
+|---------|---------|------------|-------|
+| CONSTANT | FITS | 1-3 | **FAST_PATH** (3 steps) |
+| CONSTANT | FITS | 4-10 | STANDARD |
+| LINEAR | CHUNKED | ANY | PARALLEL_CHUNKS |
+| QUADRATIC | ANY | ANY | RECURSIVE_DECOMPOSE |
 
-| Parameter     | Value                                      |
-| ------------- | ------------------------------------------ |
-| `project_key` | `<path>`                                   |
-| `sender_name` | `<OrchestratorName>`                       |
-| `to`          | `["<HolderAgent>"]`                        |
-| `thread_id`   | `<epic-id>`                                |
-| `subject`     | `File conflict resolution`                 |
-| `body_md`     | `<Worker> needs <files>. Can you release?` |
+### Step 0c: FAST_PATH Decision
 
----
+If FAST_PATH eligible (complexity <= 3, CONSTANT, FITS):
+```
+DIRECT_EXECUTE -> MICRO_VALIDATE -> DONE (3 steps)
+```
+Otherwise, continue to Step 1.
 
-## Phase 6: Epic Completion
+### Step 1: CLARIFY (Memory-Enhanced)
 
-When all workers report track complete:
+**AUTOMATIC TLDR + MEMORY CONTEXT**:
+```bash
+# 1. Check memory context for similar past implementations
+cat .claude/memory-context.json | jq '.fork_suggestions[:3]'
 
-### Verify All Done
+# 2. Semantic search for existing code
+tldr semantic "$USER_TASK_KEYWORDS" .
+```
+
+**MUST_HAVE Questions** (Blocking):
+```yaml
+AskUserQuestion:
+  questions:
+    - question: "What is the primary goal?"
+      header: "Goal"
+      options:
+        - label: "New feature"
+        - label: "Bug fix"
+        - label: "Refactoring"
+        - label: "Performance"
+```
+
+### Step 1b: GAP-ANALYST (Memory-Enhanced)
+
+Pre-implementation gap analysis using memory context:
+- Check `past_errors` to avoid known pitfalls
+- Review `recommended_patterns` for best practices
+- Identify requirements not covered by memory
+
+### Step 1c: PARALLEL_EXPLORE (5 Concurrent + Memory)
+
+Launch 5 parallel exploration tasks:
+1. **Semantic Search** - Code patterns
+2. **Structure Analysis** - Codebase overview
+3. **Dependency Scan** - Understanding deps
+4. **Pattern Search** - Similar implementations
+5. **Memory Correlation** - Match with past sessions
+
+Results aggregated to `.claude/exploration-context.json`
+
+### Step 2: CLASSIFY (3-Dimension)
+
+| Score | Complexity | Model | Adversarial |
+|-------|------------|-------|-------------|
+| 1-2 | Trivial | MiniMax-lightning | No |
+| 3-4 | Simple | MiniMax M2.1 | No |
+| 5-6 | Medium | Sonnet | Optional |
+| 7-8 | Complex | Opus | Yes |
+| 9-10 | Critical | Opus (thinking) | Yes |
+
+### Step 2b: WORKTREE DECISION
+
+```yaml
+AskUserQuestion:
+  questions:
+    - question: "Requires isolated worktree?"
+      header: "Isolation"
+      options:
+        - label: "Yes, create worktree"
+        - label: "No, current branch"
+```
+
+### Step 3: PLAN (Memory-Informed)
+
+**Use memory context in planning**:
+```bash
+# Review what worked before
+cat .claude/memory-context.json | jq '.insights.past_successes'
+
+# Review what to avoid
+cat .claude/memory-context.json | jq '.insights.past_errors'
+```
+
+Write plan with:
+- Summary (informed by memory)
+- Files to modify/create
+- Dependencies
+- Testing strategy
+- Risks (include known issues from memory)
+
+### Step 3b: PERSIST
+
+Write to `.claude/orchestrator-analysis.md`
+
+### Step 3c: PLAN-STATE
+
+Initialize `.claude/plan-state.json` with spec vs actual tracking.
+
+### Step 3d: RECURSIVE_DECOMPOSE (if needed)
+
+For QUADRATIC or RECURSIVE tasks, spawn sub-orchestrators (max depth 3).
+
+### Step 4: PLAN MODE
+
+```yaml
+EnterPlanMode: {}  # Claude Code reads orchestrator-analysis.md
+```
+
+Exit with `ExitPlanMode` when approved.
+
+### Step 5: DELEGATE (Parallel-First)
+
+**PRIORITY: Parallel execution when possible**
+
+```yaml
+# PARALLEL: Independent tasks
+Task:
+  subagent_type: "security-auditor"
+  model: "opus"
+  run_in_background: true
+  prompt: "Audit: $FILES"
+
+Task:
+  subagent_type: "test-architect"
+  model: "sonnet"
+  run_in_background: true
+  prompt: "Generate tests: $FILES"
+
+# SEQUENTIAL: Dependent tasks
+# Wait for results before continuing
+```
+
+### Step 6: EXECUTE-WITH-SYNC
+
+Nested loop with parallel substeps:
+
+```
+EXTERNAL RALPH LOOP (max 25)
+└── For EACH step:
+    ├── LSA-VERIFY (architecture check)
+    ├── IMPLEMENT (parallel if independent)
+    ├── PLAN-SYNC (drift detection)
+    └── MICRO-GATE (max 3 retries)
+```
+
+**CRITICAL: model: "sonnet" for all subagents**
+
+### Step 6b.5: QUALITY-PARALLEL (NEW v2.80)
+
+**Trigger**: `complexity >= 5` OR security-related code
+
+**Launch parallel quality checks**:
+```bash
+# Launch 4 quality subagents in parallel
+QUALITY_RESULT=$(./.claude/scripts/quality-coordinator.sh "$TARGET_FILE" "$COMPLEXITY")
+
+# Parse result and extract run_id
+RUN_ID=$(echo "$QUALITY_RESULT" | jq -r '.run_id')
+
+# Store run_id for step 7
+echo "$RUN_ID" > .claude/quality-results/current_run_id.txt
+```
+
+**Quality Agents Launched** (parallel, non-blocking):
+1. **Security** (27 patterns, P0/P1/P2)
+2. **Code Review** (4 agents, confidence ≥80)
+3. **Deslop** (AI code cleanup)
+4. **Stop-Slop** (AI prose cleanup)
+
+**Store RUN_ID** for retrieval in step 7a.
+
+### Step 7: VALIDATE (Quality-First v2.46)
+
+### Step 7a: READ QUALITY RESULTS (NEW v2.80)
+
+**Check if quality checks completed**:
+```bash
+# Read current run_id
+if [[ -f .claude/quality-results/current_run_id.txt ]]; then
+    CURRENT_RUN_ID=$(cat .claude/quality-results/current_run_id.txt)
+
+    # Read aggregated results
+    QUALITY_RESULTS=$(./.claude/scripts/read-quality-results.sh "$CURRENT_RUN_ID")
+
+    # Parse results
+    CRITICAL_COUNT=$(echo "$QUALITY_RESULTS" | jq -r '.summary.critical_findings // 0')
+    TOTAL_FINDINGS=$(echo "$QUALITY_RESULTS" | jq -r '.summary.total_findings // 0')
+
+    echo "Quality Results: $TOTAL_FINDINGS findings ($CRITICAL_COUNT critical)"
+fi
+```
+
+**Decision Logic**:
+- `CRITICAL_COUNT > 0`: BLOCK and require fixes
+- `TOTAL_FINDINGS == 0`: Proceed to validation
+- `TOTAL_FINDINGS > 0` but `CRITICAL_COUNT == 0`: Proceed with warnings
+
+### Step 7: VALIDATE (Quality-First v2.46)
+
+**Stage 1: CORRECTNESS (BLOCKING)**
+- Meets requirements?
+- Edge cases handled?
+
+**Stage 2: QUALITY (BLOCKING)**
+- Security verified?
+- Performance OK?
+- Tests adequate?
+
+**Stage 3: CONSISTENCY (ADVISORY - not blocking)**
+- Follows patterns?
+- Style matches?
+
+**Stage 4: ADVERSARIAL (if complexity >= 7)**
+```bash
+ralph adversarial "Design review"
+```
+
+### Step 8: RETROSPECTIVE (Mandatory)
 
 ```bash
-bv --robot-triage --graph-root <epic-id> 2>/dev/null | jq '.quick_ref.open_count'
-# Should be 0
+ralph retrospective
 ```
 
-### Send Completion Summary
+**NEW v2.47**: Save learnings to memory for future sessions:
+```bash
+# Save successful patterns
+ralph memvid save "Implemented OAuth2 successfully: [pattern details]"
 
-**Tool**: `mcp__mcp_agent_mail__send_message`
-
-| Parameter     | Value                                     |
-| ------------- | ----------------------------------------- |
-| `project_key` | `<path>`                                  |
-| `sender_name` | `<OrchestratorName>`                      |
-| `to`          | `["BlueLake", "GreenCastle", "RedStone"]` |
-| `thread_id`   | `<epic-id>`                               |
-| `subject`     | `[<epic-id>] EPIC COMPLETE`               |
-| `body_md`     | See template below                        |
-
-```markdown
-## Epic Complete: <title>
-
-### Track Summaries
-
-- Track 1 (BlueLake): <summary>
-- Track 2 (GreenCastle): <summary>
-- Track 3 (RedStone): <summary>
-
-### Deliverables
-
-- <what was built>
-
-### Learnings
-
-- <key insights>
+# Record errors to avoid
+ralph memvid save "AVOID: [error pattern] caused [issue]"
 ```
 
-### Close Epic
+-> **VERIFIED_DONE**
+
+## Model Routing (v2.47)
+
+| Route | Primary | Secondary | Max Iter |
+|-------|---------|-----------|----------|
+| FAST_PATH | sonnet | - | 3 |
+| STANDARD (1-4) | minimax-m2.1 | sonnet | 25 |
+| STANDARD (5-6) | sonnet | opus | 25 |
+| STANDARD (7-10) | opus | sonnet | 25 |
+| PARALLEL_CHUNKS | sonnet (chunks) | opus (aggregate) | 15/chunk |
+| RECURSIVE | opus (root) | sonnet (sub) | 15/sub |
+
+## Integration Points
+
+| Component | Role | When |
+|-----------|------|------|
+| **smart-memory-search.sh** | **PARALLEL memory search** | **Step 0b (NEW)** |
+| /smart-fork | Find relevant sessions | Manual invocation |
+| /fast-path-check | Trivial task detection | Step 0c |
+| /parallel-explore | 5 concurrent exploration | Step 1c |
+| /classify | 3-dimension classification | Step 2 |
+| /gates | Quality validation | Step 7 |
+| /adversarial | Spec refinement | Step 7 |
+| /retrospective | Post-analysis | Step 8 |
+
+## Memory Sources (Searched in Parallel)
+
+| Source | Content | Speed |
+|--------|---------|-------|
+| **claude-mem MCP** | Semantic observations | Fast |
+| **memvid** | Vector-encoded context | Sub-5ms |
+| **handoffs** | Session snapshots | Fast |
+| **ledgers** | Continuity data | Fast |
+
+## Anti-Patterns
+
+- Never start without smart memory search
+- Never skip clarification
+- Never use model: "haiku" for subagents
+- Never skip retrospective
+- Never attempt more than 3 fixes (3-Fix Rule)
+- **Never block on consistency issues** (quality over consistency)
+- **Never ignore memory context** (learn from history)
+
+## Completion Criteria
+
+`VERIFIED_DONE` requires ALL:
+1. Smart Memory Search complete (memory-context.json exists)
+2. Task classified (3 dimensions)
+3. MUST_HAVE questions answered
+4. Plan approved
+5. Implementation complete
+6. CORRECTNESS passed (blocking)
+7. QUALITY passed (blocking)
+8. Adversarial passed (if complexity >= 7)
+9. Retrospective done + learnings saved to memory
+
+## Examples
+
+### Standard Task with Memory
+
+```
+User: "Add JWT authentication"
+
+Step 0a: Classify -> Complexity: 7, LINEAR, FITS
+Step 0b: Smart Memory Search
+  -> Found: 3 past sessions with auth implementations
+  -> past_successes: "Use passport.js for OAuth"
+  -> past_errors: "Don't store tokens in localStorage"
+  -> fork_suggestion: session-abc123
+
+Step 1: Clarify (informed by memory)
+  -> Skip questions about token storage (already known)
+  -> Focus on new requirements
+
+... (continue with memory-informed implementation)
+
+Step 8: Retrospective
+  -> Save: "JWT with refresh tokens implemented successfully"
+  -> Save: "AVOID: Token expiry not handled - fix applied"
+```
+
+## CLI Commands (v2.47)
 
 ```bash
-bd close <epic-id> --reason "All tracks complete"
+# Smart memory search
+ralph memory-search "OAuth implementation"
+ralph fork-suggest "Add authentication"
+ralph memory-stats
+
+# Standard orchestration
+ralph orch "task description"
+ralph gates
+ralph adversarial "spec"
 ```
-
----
-
-## Quick Reference
-
-| Phase      | Tool / Command                                                               |
-| ---------- | ---------------------------------------------------------------------------- |
-| Read Plan  | `Read` tool → `history/<feature>/execution-plan.md`                          |
-| Initialize | `mcp__mcp_agent_mail__ensure_project`, `mcp__mcp_agent_mail__register_agent` |
-| Spawn      | `Task` tool for each track (parallel)                                        |
-| Monitor    | `mcp__mcp_agent_mail__fetch_inbox`, `mcp__mcp_agent_mail__search_messages`   |
-| Resolve    | `mcp__mcp_agent_mail__reply_message` for blockers                            |
-| Complete   | Verify all done, send summary, `bd close`                                    |
-
----
-
-## Additional Resources
-
-- **Worker Prompt Template**: See `reference/worker-template.md` for the full template with variable substitution

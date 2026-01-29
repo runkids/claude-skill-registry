@@ -1,7 +1,7 @@
 {
   "name": "helm",
-  "repo": "mjunaidca/mjs-agent-skills",
-  "path": ".claude/skills/helm/SKILL.md",
-  "source": "github.com/mjunaidca/mjs-agent-skills",
-  "downloaded_at": "2026-01-28T03:33:55.144609Z"
+  "repo": "jyasuu/cheat-sheet",
+  "path": "skills/helm/SKILL.md",
+  "source": "github.com/jyasuu/cheat-sheet",
+  "downloaded_at": "2026-01-29T03:31:11.196417Z"
 }

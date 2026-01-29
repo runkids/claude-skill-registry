@@ -1,9 +1,7 @@
 {
   "name": "switch-feature",
-  "description": "Commit or stash current work, then switch to another existing worktree. Use when switching between features or stories, ensures changes are saved before switching.",
   "repo": "michael-menard/monorepo",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/michael-menard/monorepo"
+  "path": ".claude/skills/switch-feature/SKILL.md",
+  "source": "github.com/michael-menard/monorepo",
+  "downloaded_at": "2026-01-29T01:36:43.769021Z"
 }

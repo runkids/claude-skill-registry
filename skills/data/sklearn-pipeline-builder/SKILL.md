@@ -1,18 +1,18 @@
 ---
-name: "sklearn-pipeline-builder"
+name: sklearn-pipeline-builder
 description: |
-  Build sklearn pipeline builder operations. Auto-activating skill for ML Training.
+  Sklearn Pipeline Builder - Auto-activating skill for ML Training.
   Triggers on: sklearn pipeline builder, sklearn pipeline builder
-  Part of the ML Training skill category. Use when working with sklearn pipeline builder functionality. Trigger with phrases like "sklearn pipeline builder", "sklearn builder", "sklearn".
-allowed-tools: "Read, Write, Edit, Bash(python:*), Bash(pip:*)"
+  Part of the ML Training skill category.
+allowed-tools: Read, Write, Edit, Bash(python:*), Bash(pip:*)
 version: 1.0.0
 license: MIT
-author: "Jeremy Longshore <jeremy@intentsolutions.io>"
+author: Jeremy Longshore <jeremy@intentsolutions.io>
 ---
 
 # Sklearn Pipeline Builder
 
-## Overview
+## Purpose
 
 This skill provides automated assistance for sklearn pipeline builder tasks within the ML Training domain.
 
@@ -23,48 +23,18 @@ This skill activates automatically when you:
 - Ask about sklearn pipeline builder patterns or best practices
 - Need help with machine learning training skills covering data preparation, model training, hyperparameter tuning, and experiment tracking.
 
-## Instructions
+## Capabilities
 
-1. Provides step-by-step guidance for sklearn pipeline builder
-2. Follows industry best practices and patterns
-3. Generates production-ready code and configurations
-4. Validates outputs against common standards
+- Provides step-by-step guidance for sklearn pipeline builder
+- Follows industry best practices and patterns
+- Generates production-ready code and configurations
+- Validates outputs against common standards
 
-## Examples
+## Example Triggers
 
-**Example: Basic Usage**
-Request: "Help me with sklearn pipeline builder"
-Result: Provides step-by-step guidance and generates appropriate configurations
-
-
-## Prerequisites
-
-- Relevant development environment configured
-- Access to necessary tools and services
-- Basic understanding of ml training concepts
-
-
-## Output
-
-- Generated configurations and code
-- Best practice recommendations
-- Validation results
-
-
-## Error Handling
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| Configuration invalid | Missing required fields | Check documentation for required parameters |
-| Tool not found | Dependency not installed | Install required tools per prerequisites |
-| Permission denied | Insufficient access | Verify credentials and permissions |
-
-
-## Resources
-
-- Official documentation for related tools
-- Best practices guides
-- Community examples and tutorials
+- "Help me with sklearn pipeline builder"
+- "Set up sklearn pipeline builder"
+- "How do I implement sklearn pipeline builder?"
 
 ## Related Skills
 

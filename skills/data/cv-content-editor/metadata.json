@@ -1,12 +1,7 @@
 {
   "name": "cv-content-editor",
-  "description": "Edit and update existing CV content using the knowledge base as source of truth. Use when user wants to modify case studies, update experience, refine variants, or improve existing content.",
   "repo": "fotescodev/portfolio",
-  "category": "marketing",
-  "tags": [
-    "content",
-    "editor"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/cv-content-editor/SKILL.md",
+  "source": "github.com/fotescodev/portfolio",
+  "downloaded_at": "2026-01-29T03:14:07.354933Z"
 }

@@ -1,104 +1,243 @@
 ---
 name: changelog-generator
-description: Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and transforming technical commits into clear, customer-friendly release notes. Turns hours of manual changelog writing into minutes of automated generation.
+description: Automatische Release Notes aus Git Commits. Kategorisiert Commits (Features, Fixes, Breaking Changes), wandelt technische Sprache in kundenfreundliche Beschreibungen um. Aktivieren mit /changelog, /changelog v1.2.0..v1.3.0, oder /changelog --week.
+triggers:
+  - /changelog
+  - changelog erstellen
+  - release notes
+  - what changed
+  - was hat sich geaendert
 ---
 
 # Changelog Generator
 
-This skill transforms technical git commits into polished, user-friendly changelogs that your customers and users will actually understand and appreciate.
+Dieser Skill analysiert die Git-History und erstellt automatisch kundenfreundliche Release Notes.
 
-## When to Use This Skill
+## Verwendung
 
-- Preparing release notes for a new version
-- Creating weekly or monthly product update summaries
-- Documenting changes for customers
-- Writing changelog entries for app store submissions
-- Generating update notifications
-- Creating internal release documentation
-- Maintaining a public changelog/product updates page
-
-## What This Skill Does
-
-1. **Scans Git History**: Analyzes commits from a specific time period or between versions
-2. **Categorizes Changes**: Groups commits into logical categories (features, improvements, bug fixes, breaking changes, security)
-3. **Translates Technical → User-Friendly**: Converts developer commits into customer language
-4. **Formats Professionally**: Creates clean, structured changelog entries
-5. **Filters Noise**: Excludes internal commits (refactoring, tests, etc.)
-6. **Follows Best Practices**: Applies changelog guidelines and your brand voice
-
-## How to Use
-
-### Basic Usage
-
-From your project repository:
-
-```
-Create a changelog from commits since last release
+```bash
+/changelog              # Seit letztem Tag
+/changelog v1.2.0..v1.3.0  # Zwischen zwei Versionen
+/changelog --week       # Letzte 7 Tage
+/changelog --since=2025-12-01  # Seit Datum
 ```
 
-```
-Generate changelog for all commits from the past week
+## Kategorien und Emojis
+
+| Prefix | Kategorie | Emoji | Kundenfreundlicher Titel |
+|--------|-----------|-------|--------------------------|
+| `feat:` | Features | ✨ | Neue Funktionen |
+| `fix:` | Bug Fixes | 🐛 | Fehlerbehebungen |
+| `perf:` | Performance | 🔧 | Verbesserungen |
+| `refactor:` | Refactoring | 🔧 | Verbesserungen |
+| `BREAKING:` | Breaking Changes | 💥 | Wichtige Aenderungen |
+| `security:` | Security | 🔒 | Sicherheit |
+| `docs:` | Documentation | 📚 | Dokumentation |
+
+## Workflow
+
+### Schritt 1: Git-History abrufen
+
+```bash
+# Seit letztem Tag
+git log $(git describe --tags --abbrev=0 2>/dev/null || echo "HEAD~50")..HEAD --oneline --no-merges
+
+# Zwischen Versionen
+git log v1.2.0..v1.3.0 --oneline --no-merges
+
+# Letzte Woche
+git log --since="7 days ago" --oneline --no-merges
+
+# Mit Datum und Autor
+git log --pretty=format:"%h|%s|%ad|%an" --date=short --since="7 days ago" --no-merges
 ```
 
-```
-Create release notes for version 2.5.0
-```
+### Schritt 2: Commits kategorisieren
 
-### With Specific Date Range
+Analysiere jeden Commit und ordne ihn einer Kategorie zu:
 
 ```
-Create a changelog for all commits between March 1 and March 15
+feat: Add export button → ✨ Features
+fix: Resolve login error → 🐛 Bug Fixes
+perf: Optimize database queries → 🔧 Verbesserungen
+BREAKING: Remove deprecated API → 💥 Wichtige Aenderungen
 ```
 
-### With Custom Guidelines
+### Schritt 3: Technisch → Kundenfreundlich
 
-```
-Create a changelog for commits since v2.4.0, using my changelog 
-guidelines from CHANGELOG_STYLE.md
-```
+Transformiere technische Commit-Messages:
 
-## Example
+| Technisch | Kundenfreundlich |
+|-----------|------------------|
+| `feat: Add CSV export to dashboard` | Daten koennen jetzt als CSV-Datei heruntergeladen werden |
+| `fix: Resolve null pointer in auth module` | Anmeldeprobleme bei einigen Nutzern behoben |
+| `perf: Optimize SQL query for reports` | Berichte laden jetzt deutlich schneller |
+| `BREAKING: Remove legacy API v1` | API v1 wird nicht mehr unterstuetzt - bitte auf v2 aktualisieren |
 
-**User**: "Create a changelog for commits from the past 7 days"
+### Schritt 4: Markdown formatieren
 
-**Output**:
+## Output-Format
+
 ```markdown
-# Updates - Week of March 10, 2024
+## [VERSION] - DATUM
 
-## ✨ New Features
+### ✨ Neue Funktionen
+- Beschreibung der Funktion (kundenfreundlich)
+- Weitere neue Funktion
 
-- **Team Workspaces**: Create separate workspaces for different 
-  projects. Invite team members and keep everything organized.
+### 🐛 Fehlerbehebungen
+- Problem X wurde behoben
+- Stabilitaet bei Y verbessert
 
-- **Keyboard Shortcuts**: Press ? to see all available shortcuts. 
-  Navigate faster without touching your mouse.
+### 🔧 Verbesserungen
+- Performance-Optimierungen
+- Interne Verbesserungen
 
-## 🔧 Improvements
+### 💥 Wichtige Aenderungen
+- Beschreibung der Breaking Change
+- Migration erforderlich: [Anleitung]
 
-- **Faster Sync**: Files now sync 2x faster across devices
-- **Better Search**: Search now includes file contents, not just titles
+### 🔒 Sicherheit
+- Sicherheitsluecke geschlossen
 
-## 🐛 Fixes
-
-- Fixed issue where large images wouldn't upload
-- Resolved timezone confusion in scheduled posts
-- Corrected notification badge count
+### 📚 Dokumentation
+- Dokumentation aktualisiert
 ```
 
-**Inspired by:** Manik Aggarwal's use case from Lenny's Newsletter
+## Beispiel-Ausgabe
 
-## Tips
+```markdown
+## [1.3.0] - 2025-12-26
 
-- Run from your git repository root
-- Specify date ranges for focused changelogs
-- Use your CHANGELOG_STYLE.md for consistent formatting
-- Review and adjust the generated changelog before publishing
-- Save output directly to CHANGELOG.md
+### ✨ Neue Funktionen
+- **Export-Button**: Analyseergebnisse koennen jetzt als Markdown-Datei heruntergeladen werden
+- **Chat-Assistent**: Fragen Sie den KI-Assistenten zu Ihren Analyseergebnissen
 
-## Related Use Cases
+### 🐛 Fehlerbehebungen
+- Anmeldeprobleme bei Google OAuth behoben
+- Timeout-Fehler bei grossen Dateien (>5MB) korrigiert
 
-- Creating GitHub release notes
-- Writing app store update descriptions
-- Generating email updates for users
-- Creating social media announcement posts
+### 🔧 Verbesserungen
+- Ladezeiten um 40% reduziert durch optimierte Datenbankabfragen
+- Bessere Fehlermeldungen bei ungueltigem Dateiformat
 
+### 🔒 Sicherheit
+- Aktualisierung der Stripe-API auf Version 2025-12-15
+```
+
+## Git-Befehle Referenz
+
+```bash
+# Letzten Tag finden
+git describe --tags --abbrev=0
+
+# Alle Tags auflisten
+git tag -l --sort=-v:refname
+
+# Commits zwischen Tags
+git log v1.2.0..v1.3.0 --oneline --no-merges
+
+# Commits mit Details
+git log --pretty=format:"%h|%s|%ad|%an" --date=short HEAD~20..HEAD
+
+# Commits nach Datum
+git log --since="2025-12-01" --until="2025-12-26" --oneline
+
+# Breaking Changes finden
+git log --grep="BREAKING" --oneline
+
+# Alle feat: Commits
+git log --grep="^feat:" --oneline
+```
+
+## Konventionen
+
+### Commit-Message-Format (Conventional Commits)
+
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**Types:**
+- `feat` - Neue Funktion
+- `fix` - Fehlerbehebung
+- `perf` - Performance-Verbesserung
+- `refactor` - Code-Refactoring ohne Funktionsaenderung
+- `docs` - Dokumentation
+- `style` - Formatierung (kein Code-Aenderung)
+- `test` - Tests hinzugefuegt/geaendert
+- `chore` - Build-Prozess, Abhaengigkeiten
+- `ci` - CI/CD Konfiguration
+
+**Breaking Changes:**
+- `BREAKING CHANGE:` im Footer
+- `!` nach Type: `feat!: Remove deprecated API`
+
+## Spezielle Regeln
+
+### Commits ignorieren
+
+Diese Commits werden nicht in den Changelog aufgenommen:
+- `chore:` (interne Aenderungen)
+- `style:` (nur Formatierung)
+- `test:` (nur Tests)
+- `ci:` (nur CI/CD)
+- Merge-Commits
+
+### Gruppierung
+
+Commits mit gleichem Scope werden gruppiert:
+```
+feat(auth): Add Google OAuth
+feat(auth): Add Magic Link
+→ **Authentifizierung**: Google OAuth und Magic Link hinzugefuegt
+```
+
+### Mehrsprachigkeit
+
+Der Changelog wird in der Sprache des Projekts erstellt:
+- Pruefen: Sprache in README.md oder package.json
+- Default: Deutsch fuer fabrikIQ, Englisch fuer andere Projekte
+
+## Integration
+
+### Pre-Release Workflow
+
+1. `/changelog` ausfuehren
+2. Output in CHANGELOG.md einfuegen
+3. Version in package.json aktualisieren
+4. Commit: `chore: Release v1.3.0`
+5. Tag: `git tag v1.3.0`
+6. Push: `git push && git push --tags`
+
+### Automatische Versionierung
+
+Basierend auf Commit-Types:
+- `feat:` → Minor Version (1.2.0 → 1.3.0)
+- `fix:` → Patch Version (1.2.0 → 1.2.1)
+- `BREAKING:` → Major Version (1.2.0 → 2.0.0)
+
+## Fehlerbehandlung
+
+### Kein Tag vorhanden
+
+```bash
+# Fallback: Letzte 50 Commits
+git log HEAD~50..HEAD --oneline --no-merges
+```
+
+### Keine Conventional Commits
+
+Falls Commits nicht dem Format folgen:
+- Commits nach Schlagwoertern kategorisieren (add, fix, update, remove)
+- Warnung ausgeben: "Empfehlung: Conventional Commits verwenden"
+
+### Leerer Changelog
+
+Falls keine relevanten Commits gefunden:
+- Meldung: "Keine oeffentlichen Aenderungen seit [Version/Datum]"
+- Interne Commits (chore, style, test) erwaehnen

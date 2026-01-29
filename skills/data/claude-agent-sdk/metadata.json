@@ -1,7 +1,7 @@
 {
   "name": "claude-agent-sdk",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/claude-agent-sdk/skills/claude-agent-sdk/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-28T01:54:38.915295Z"
+  "repo": "sammcj/agentic-coding",
+  "path": "Claude/skills/claude-agent-sdk/SKILL.md",
+  "source": "github.com/sammcj/agentic-coding",
+  "downloaded_at": "2026-01-29T04:01:37.374798Z"
 }

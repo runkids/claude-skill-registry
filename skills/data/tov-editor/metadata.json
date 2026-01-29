@@ -1,9 +1,7 @@
 {
   "name": "tov-editor",
-  "description": "Brand voice editor trained on the Tone & Writing Style Guide. Reviews copy for alignment with intimate, bold, consent-forward, sex-positive tone. Audits microcopy, red flags, lexicon, rhythm, consent ",
   "repo": "RogueRope/docs",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/tov-editor/SKILL.md",
+  "source": "github.com/RogueRope/docs",
+  "downloaded_at": "2026-01-29T02:34:28.136812Z"
 }

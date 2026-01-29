@@ -1,7 +1,7 @@
 {
   "name": "test-engineer",
-  "repo": "ref-docs/sdd-stl",
-  "path": "src/templates/agents/claude-code/skills/test-engineer/SKILL.md",
-  "source": "github.com/ref-docs/sdd-stl",
-  "downloaded_at": "2026-01-28T03:33:31.316875Z"
+  "repo": "nahisaho/CodeGraphMCPServer",
+  "path": ".claude/skills/test-engineer/SKILL.md",
+  "source": "github.com/nahisaho/CodeGraphMCPServer",
+  "downloaded_at": "2026-01-29T04:20:16.630392Z"
 }

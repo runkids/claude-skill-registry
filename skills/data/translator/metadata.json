@@ -1,7 +1,7 @@
 {
   "name": "translator",
-  "repo": "ntaksh42/agents",
-  "path": ".claude/skills/translator/SKILL.md",
-  "source": "github.com/ntaksh42/agents",
-  "downloaded_at": "2026-01-28T02:25:29.677901Z"
+  "repo": "anton-abyzov/specweave",
+  "path": "plugins/specweave/skills/translator/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-29T03:07:05.199641Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "specflux-api",
-  "description": "SpecFlux REST API for creating and managing projects, PRDs, epics, tasks, and acceptance criteria. Use when running /prd, /epic, /task, or /implement commands to create or update entities in SpecFlux ",
   "repo": "cliangdev/specflux",
-  "category": "design",
-  "tags": [
-    "specflux",
-    "api"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "src/plugin/skills/specflux-api/SKILL.md",
+  "source": "github.com/cliangdev/specflux",
+  "downloaded_at": "2026-01-29T03:47:48.088590Z"
 }

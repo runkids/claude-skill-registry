@@ -1,108 +1,143 @@
 ---
 name: front
-description: Manage team inbox and customer communication with Front's collaborative platform.
-category: business
+description: Front.app API for managing conversations, messages, comments, and team collaboration.
+homepage: https://front.com
+metadata: {"clawdbot":{"emoji":"📬","requires":{"bins":["curl"],"env":["FRONT_API_TOKEN"]},"primaryEnv":"FRONT_API_TOKEN"}}
 ---
-# Front Skill
 
-Manage team inbox and customer communication with Front's collaborative platform.
+# Front
 
-## Quick Install
-
-```bash
-curl -sSL https://canifi.com/skills/front/install.sh | bash
-```
-
-Or manually:
-```bash
-cp -r skills/front ~/.canifi/skills/
-```
+Use Front's API to manage conversations, read/send messages, and collaborate with team comments.
 
 ## Setup
 
-Configure via [canifi-env](https://canifi.com/setup/scripts):
+Get your API token from Front → Settings → Developers → API Tokens.
+Store it in `~/.clawdbot/clawdbot.json`:
+```json
+{
+  "skills": {
+    "entries": {
+      "front": {
+        "apiKey": "YOUR_FRONT_API_TOKEN"
+      }
+    }
+  }
+}
+```
 
+Or set env: `FRONT_API_TOKEN=your_token`
+
+## Quick Reference
+
+### List Inboxes
 ```bash
-# First, ensure canifi-env is installed:
-# curl -sSL https://canifi.com/install.sh | bash
-
-canifi-env set FRONT_API_TOKEN "your_api_token"
+{baseDir}/scripts/front.sh inboxes
 ```
 
-## Privacy & Authentication
-
-**Your credentials, your choice.** Canifi LifeOS respects your privacy.
-
-### Option 1: Manual Browser Login (Recommended)
-If you prefer not to share credentials with Claude Code:
-1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode
-2. Login to the service manually in the Playwright-controlled Chrome window
-3. Claude will use your authenticated session without ever seeing your password
-
-### Option 2: Environment Variables
-If you're comfortable sharing credentials, you can store them locally:
+### List Conversations
 ```bash
-canifi-env set SERVICE_EMAIL "your-email"
-canifi-env set SERVICE_PASSWORD "your-password"
+{baseDir}/scripts/front.sh conversations [inbox_id]      # Active conversations (unassigned + assigned)
+{baseDir}/scripts/front.sh conversations --all           # Include archived
+{baseDir}/scripts/front.sh conversations --archived      # Archived only
+{baseDir}/scripts/front.sh conversations --unassigned    # Unassigned only
+{baseDir}/scripts/front.sh conversations --assigned      # Assigned only
+{baseDir}/scripts/front.sh conversations --limit 200     # Increase result limit (default: 100)
 ```
 
-**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.
-
-## Capabilities
-
-1. **Shared Inbox**: Manage shared email inboxes with team collaboration
-2. **Conversation Threading**: Thread conversations across email, SMS, and chat
-3. **Assignment & Tags**: Assign conversations and organize with tags
-4. **Templates & Snippets**: Use shared response templates
-5. **Rules & Automation**: Automate routing and responses with rules
-
-## Usage Examples
-
-### Get Conversations
-```
-User: "Show me my assigned Front conversations"
-Assistant: Returns conversations assigned to you
+### Get Conversation Details
+```bash
+{baseDir}/scripts/front.sh conversation <conversation_id>
 ```
 
-### Reply to Message
+### List Messages in Conversation
+```bash
+{baseDir}/scripts/front.sh messages <conversation_id>
 ```
-User: "Reply to the latest customer email in Front"
-Assistant: Sends reply in conversation thread
+
+### Search Conversations
+```bash
+{baseDir}/scripts/front.sh search "query text"
+{baseDir}/scripts/front.sh search "from:client@example.com"
+{baseDir}/scripts/front.sh search "tag:urgent"
+```
+
+### Read Comments (Team Notes)
+```bash
+{baseDir}/scripts/front.sh comments <conversation_id>
+```
+
+### Add Comment (Team Note)
+```bash
+{baseDir}/scripts/front.sh add-comment <conversation_id> "Your team note here"
+```
+
+### Reply to Conversation
+```bash
+{baseDir}/scripts/front.sh reply <conversation_id> "Your reply message"
+# With --draft flag to save as draft instead of sending:
+{baseDir}/scripts/front.sh reply <conversation_id> "Draft message" --draft
+```
+
+### List Teammates
+```bash
+{baseDir}/scripts/front.sh teammates
 ```
 
 ### Assign Conversation
-```
-User: "Assign the billing inquiry to Sarah"
-Assistant: Updates conversation assignee
-```
-
-### Add Tag
-```
-User: "Tag this conversation as 'VIP Customer'"
-Assistant: Adds tag to conversation
+```bash
+{baseDir}/scripts/front.sh assign <conversation_id> <teammate_id>
 ```
 
-## Authentication Flow
+### Tag Conversation
+```bash
+{baseDir}/scripts/front.sh tag <conversation_id> <tag_id>
+```
 
-1. Create API token in Front settings
-2. Use Bearer token authentication
-3. OAuth available for integrations
-4. Token provides account access
+### List Tags
+```bash
+{baseDir}/scripts/front.sh tags
+```
 
-## Error Handling
+### Get Contact Info
+```bash
+{baseDir}/scripts/front.sh contact <contact_id_or_handle>
+```
 
-| Error | Cause | Solution |
-|-------|-------|----------|
-| 401 Unauthorized | Invalid token | Verify API token |
-| 403 Forbidden | Insufficient permissions | Check token scope |
-| 404 Not Found | Conversation not found | Verify conversation ID |
-| 429 Rate Limited | Too many requests | Implement backoff |
+### List Drafts
+```bash
+{baseDir}/scripts/front.sh drafts [inbox_id]    # Search conversations for drafts
+```
+Note: Front API doesn't have a global drafts endpoint. This command checks active conversations for draft replies.
+
+## Common Workflows
+
+**Daily inbox review:**
+```bash
+# List unassigned open conversations
+{baseDir}/scripts/front.sh conversations --unassigned --status open
+```
+
+**Find customer conversations:**
+```bash
+{baseDir}/scripts/front.sh search "from:customer@company.com"
+```
+
+**Add team context:**
+```bash
+{baseDir}/scripts/front.sh add-comment cnv_abc123 "Customer is VIP - handle with care"
+```
 
 ## Notes
 
-- Team-focused inbox management
-- Multi-channel support (email, SMS, social)
-- Analytics and SLA tracking
-- Extensive integrations library
-- Custom rules for automation
-- API rate limit: 200 requests per minute
+- API base: Auto-detected (company-specific, e.g., `https://company.api.frontapp.com`)
+- Auth: Bearer token in header
+- Rate limit: 120 requests/minute
+- Conversation IDs start with `cnv_`
+- Inbox IDs start with `inb_`
+- Always confirm before sending replies
+
+## API Limitations
+
+- **No global search**: The `/conversations/search` endpoint may return 404 depending on API plan
+- **No global drafts**: Drafts are stored per-conversation, not globally accessible
+- **Conversations vs Inbox**: By default shows non-archived/non-deleted conversations (open, unassigned, assigned)

@@ -15,13 +15,13 @@ This skill provides three core capabilities through automated scripts:
 
 ```bash
 # Script 1: Security Scanner
-python scripts/security_scanner.py [options]
+python3 ~/.{TOOL}/skills/senior-secops/scripts/security_scanner.py [options]
 
 # Script 2: Vulnerability Assessor
-python scripts/vulnerability_assessor.py [options]
+python3 ~/.{TOOL}/skills/senior-secops/scripts/vulnerability_assessor.py [options]
 
 # Script 3: Compliance Checker
-python scripts/compliance_checker.py [options]
+python3 ~/.{TOOL}/skills/senior-secops/scripts/compliance_checker.py [options]
 ```
 
 ## Core Capabilities
@@ -31,16 +31,14 @@ python scripts/compliance_checker.py [options]
 Automated tool for security scanner tasks.
 
 **Features:**
-
 - Automated scaffolding
 - Best practices built-in
 - Configurable templates
 - Quality checks
 
 **Usage:**
-
 ```bash
-python scripts/security_scanner.py <project-path> [options]
+python3 ~/.{TOOL}/skills/senior-secops/scripts/security_scanner.py <project-path> [options]
 ```
 
 ### 2. Vulnerability Assessor
@@ -48,16 +46,14 @@ python scripts/security_scanner.py <project-path> [options]
 Comprehensive analysis and optimization tool.
 
 **Features:**
-
 - Deep analysis
 - Performance metrics
 - Recommendations
 - Automated fixes
 
 **Usage:**
-
 ```bash
-python scripts/vulnerability_assessor.py <target-path> [--verbose]
+python3 ~/.{TOOL}/skills/senior-secops/scripts/vulnerability_assessor.py <target-path> [--verbose]
 ```
 
 ### 3. Compliance Checker
@@ -65,16 +61,14 @@ python scripts/vulnerability_assessor.py <target-path> [--verbose]
 Advanced tooling for specialized tasks.
 
 **Features:**
-
 - Expert-level automation
 - Custom configurations
 - Integration ready
 - Production-grade output
 
 **Usage:**
-
 ```bash
-python scripts/compliance_checker.py [arguments] [options]
+python3 ~/.{TOOL}/skills/senior-secops/scripts/compliance_checker.py [arguments] [options]
 ```
 
 ## Reference Documentation
@@ -136,7 +130,7 @@ cp .env.example .env
 
 ```bash
 # Use the analyzer script
-python scripts/vulnerability_assessor.py .
+python3 ~/.{TOOL}/skills/senior-secops/scripts/vulnerability_assessor.py .
 
 # Review recommendations
 # Apply fixes
@@ -145,7 +139,6 @@ python scripts/vulnerability_assessor.py .
 ### 3. Implement Best Practices
 
 Follow the patterns and practices documented in:
-
 - `references/security_standards.md`
 - `references/vulnerability_management_guide.md`
 - `references/compliance_requirements.md`
@@ -153,28 +146,24 @@ Follow the patterns and practices documented in:
 ## Best Practices Summary
 
 ### Code Quality
-
 - Follow established patterns
 - Write comprehensive tests
 - Document decisions
 - Review regularly
 
 ### Performance
-
 - Measure before optimizing
 - Use appropriate caching
 - Optimize critical paths
 - Monitor in production
 
 ### Security
-
 - Validate all inputs
 - Use parameterized queries
 - Implement proper authentication
 - Keep dependencies updated
 
 ### Maintainability
-
 - Write clear code
 - Use consistent naming
 - Add helpful comments
@@ -190,8 +179,8 @@ npm run test
 npm run lint
 
 # Analysis
-python scripts/vulnerability_assessor.py .
-python scripts/compliance_checker.py --analyze
+python3 ~/.{TOOL}/skills/senior-secops/scripts/vulnerability_assessor.py .
+python3 ~/.{TOOL}/skills/senior-secops/scripts/compliance_checker.py --analyze
 
 # Deployment
 docker build -t app:latest .

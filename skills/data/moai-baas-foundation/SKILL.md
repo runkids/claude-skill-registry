@@ -1,34 +1,21 @@
 ---
-name: moai-baas-foundation
-version: 4.0.0
+name: "moai-baas-foundation"
+version: "4.0.0"
 created: 2025-10-22
-updated: '2025-11-18'
+updated: 2025-11-13
 status: stable
-description: Enterprise Backend-as-a-Service Foundation with AI-powered BaaS architecture
-  patterns, strategic provider selection, and intelligent multi-service orchestration
-  for scalable production applications
-keywords:
-- baas
-- backend-architecture
-- service-integration
-- provider-selection
-- enterprise-patterns
-- multi-cloud
-- context7-integration
-- ai-orchestration
-- production-deployment
-allowed-tools:
-- Read
-- Bash
-- WebSearch
-- WebFetch
-- mcp__context7__resolve-library-id
-- mcp__context7__get-library-docs
-stability: stable
+description: Enterprise Backend-as-a-Service Foundation with AI-powered BaaS architecture patterns, strategic provider selection, and intelligent multi-service orchestration for scalable production applications
+keywords: ['baas', 'backend-architecture', 'service-integration', 'provider-selection', 'enterprise-patterns', 'multi-cloud', 'context7-integration', 'ai-orchestration', 'production-deployment']
+allowed-tools: 
+  - Read
+  - Bash
+  - WebSearch
+  - WebFetch
+  - mcp__context7__resolve-library-id
+  - mcp__context7__get-library-docs
 ---
 
-
-# Enterprise BaaS Foundation Expert 
+# Enterprise BaaS Foundation Expert v4.0.0
 
 ## Skill Metadata
 
@@ -46,7 +33,7 @@ stability: stable
 
 Enterprise Backend-as-a-Service foundation expert with AI-powered BaaS architecture patterns, strategic provider selection intelligence, and intelligent multi-service orchestration for scalable production applications.
 
-**Revolutionary  capabilities**:
+**Revolutionary v4.0.0 capabilities**:
 - 🤖 **AI-Powered BaaS Architecture** using Context7 MCP for latest provider documentation
 - 📊 **Intelligent Provider Selection** with automated comparison and optimization analysis
 - 🚀 **Multi-Service Orchestration** with AI-driven integration strategy generation
@@ -360,7 +347,7 @@ START: Choose BaaS Providers
 
 ## Changelog
 
-- ** .0** (2025-11-13): Complete Enterprise   rewrite with 40% content reduction, 4-layer Progressive Disclosure structure, Context7 integration, November 2025 provider updates, and multi-service architecture patterns
+- **v4.0.0** (2025-11-13): Complete Enterprise v4.0 rewrite with 40% content reduction, 4-layer Progressive Disclosure structure, Context7 integration, November 2025 provider updates, and multi-service architecture patterns
 - **v2.0.0** (2025-11-11): Complete metadata structure, provider matrix, integration patterns
 - **v1.0.0** (2025-10-22): Initial BaaS foundation
 
@@ -384,4 +371,4 @@ START: Choose BaaS Providers
 
 ---
 
-**End of Enterprise BaaS Foundation Expert **
+**End of Enterprise BaaS Foundation Expert v4.0.0**

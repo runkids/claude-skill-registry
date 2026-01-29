@@ -1,246 +1,158 @@
 ---
-name: fundamentals-gate
-description: |
-  TRIGGERS: "code quality check", "is this clean enough?", "ready for review",
-  code quality verification, naming check, DRY check, structure review.
-  USE WHEN: Code is ready for review and needs quality verification.
-  PROVIDES: Naming convention check, function size review, DRY verification.
-  GATE TYPE: SUGGESTION - Offers improvements but doesn't block.
+name: fundamentals
+description: Core JavaScript fundamentals including variables, data types, operators, control flow, and basic syntax. Essential foundation for all JavaScript development.
+sasmp_version: "1.3.0"
+bonded_agent: 01-javascript-fundamentals
+bond_type: PRIMARY_BOND
+
+# Production-Grade Configuration
+skill_type: reference
+response_format: code_first
+max_tokens: 1500
+
+parameter_validation:
+  required: [topic]
+  optional: [depth, examples]
+
+retry_logic:
+  on_ambiguity: ask_clarification
+  fallback: provide_basics_first
+
+observability:
+  entry_log: "Fundamentals skill activated"
+  exit_log: "Fundamentals reference provided"
 ---
 
-# Gate 5: Fundamentals Review
+# JavaScript Fundamentals Skill
 
-> "Good code is not just code that works. It's code that others can work with."
+## Quick Reference Card
 
-## Purpose
-
-This gate checks general code quality against engineering standards. Issues are SUGGESTIONS, not blockers — they're polish, not problems.
-
-## Gate Status
-
-- **PASS** — Code quality is solid
-- **SUGGESTIONS** — Minor improvements recommended
-
----
-
-## Gate Questions
-
-### Question 1: Naming Clarity
-> "Would a new developer understand what `[variable/function]` does from its name alone?"
-
-**Looking for:**
-- Descriptive, intention-revealing names
-- No abbreviations or single letters
-- Boolean prefixes (is, has, can)
-- Function verbs (get, set, handle)
-
-### Question 2: Function Focus
-> "Can you describe what this function does in one sentence without using 'and'?"
-
-**Looking for:**
-- Single responsibility
-- Reasonable size (under 30 lines)
-- Clear input/output relationship
-- No hidden side effects
-
-### Question 3: Code Reuse
-> "I see this pattern in a few places. Is it intentional duplication or should it be extracted?"
-
-**Looking for:**
-- Awareness of duplication
-- Appropriate abstraction (rule of three)
-- Not over-engineering for one-time use
-
----
-
-## Fundamentals Checklist
-
-### Naming
-- [ ] Variables are descriptive (no `temp`, `data`, `x`)
-- [ ] Booleans prefixed with `is`, `has`, `can`, `should`
-- [ ] Functions start with verbs
-- [ ] No unnecessary abbreviations
-- [ ] Consistent naming patterns
-
-### Functions
-- [ ] Single responsibility
-- [ ] Under 30 lines (generally)
-- [ ] Fewer than 4 parameters
-- [ ] Early returns instead of deep nesting
-- [ ] No magic numbers (use named constants)
-
-### Structure
-- [ ] Related code grouped together
-- [ ] Appropriate file organization
-- [ ] Clear separation of concerns
-- [ ] Consistent formatting
-
-### Comments
-- [ ] Explain WHY, not WHAT
-- [ ] No commented-out code (delete it)
-- [ ] No obvious comments (`// increment counter`)
-- [ ] Complex logic documented
-
----
-
-## Response Templates
-
-### If PASS
-
-```
-✅ FUNDAMENTALS GATE: PASSED
-
-Code quality is solid:
-- Naming is clear and consistent
-- Functions are focused
-- Good structure overall
-
-All gates passed! Let's move to code review...
+### Variable Declaration
+```javascript
+const PI = 3.14159;     // Immutable binding (preferred)
+let count = 0;          // Reassignable
+var legacy = "avoid";   // Function-scoped (avoid)
 ```
 
-### If SUGGESTIONS
+### 8 Data Types
+| Type | Example | typeof |
+|------|---------|--------|
+| String | `"hello"` | `"string"` |
+| Number | `42`, `3.14`, `NaN` | `"number"` |
+| Boolean | `true`, `false` | `"boolean"` |
+| Null | `null` | `"object"` |
+| Undefined | `undefined` | `"undefined"` |
+| Symbol | `Symbol('id')` | `"symbol"` |
+| BigInt | `9007199254740991n` | `"bigint"` |
+| Object | `{}`, `[]`, `fn` | `"object"` |
 
-```
-💡 FUNDAMENTALS GATE: SUGGESTIONS
+### Operators Cheat Sheet
+```javascript
+// Arithmetic
++ - * / % **
 
-A few polish items for consideration:
+// Comparison (always use strict)
+=== !== > < >= <=
 
-**Suggestion 1: [Naming]**
-`const d = new Date()` → `const createdAt = new Date()`
-Why: Descriptive names help future readers
+// Logical
+&& || !
 
-**Suggestion 2: [Function size]**
-`processOrder()` is 80 lines. Consider splitting into:
-- `validateOrder()`
-- `calculateTotal()`
-- `saveOrder()`
+// Nullish
+?? ?.
 
-**Suggestion 3: [Magic number]**
-`if (status === 2)` → `if (status === STATUS.ACTIVE)`
-Why: Named constants are self-documenting
-
-These are suggestions, not blockers. The code works — this is about polish.
-Proceed to code review? Or address these first?
-```
-
----
-
-## Common Issues to Check
-
-### 1. Unclear Naming
-```
-❌ const d = new Date();
-   const temp = getUser();
-   const flag = true;
-
-✅ const createdAt = new Date();
-   const currentUser = getUser();
-   const isAuthenticated = true;
+// Assignment
+= += -= *= /= ??= ||= &&=
 ```
 
-### 2. Magic Numbers
-```
-❌ if (status === 2) { ... }
-   setTimeout(fn, 86400000);
+### Control Flow Patterns
+```javascript
+// Early return (preferred)
+function validate(input) {
+  if (!input) return { error: 'Required' };
+  if (input.length < 3) return { error: 'Too short' };
+  return { valid: true };
+}
 
-✅ const STATUS = { ACTIVE: 2, INACTIVE: 1 };
-   if (status === STATUS.ACTIVE) { ... }
-
-   const ONE_DAY_MS = 24 * 60 * 60 * 1000;
-   setTimeout(fn, ONE_DAY_MS);
-```
-
-### 3. Deep Nesting
-```
-❌ function check(user) {
-     if (user) {
-       if (user.active) {
-         if (user.role === 'admin') {
-           return true;
-         }
-       }
-     }
-     return false;
-   }
-
-✅ function check(user) {
-     if (!user) return false;
-     if (!user.active) return false;
-     if (user.role !== 'admin') return false;
-     return true;
-   }
+// Switch with exhaustive handling
+function getColor(status) {
+  switch (status) {
+    case 'success': return 'green';
+    case 'warning': return 'yellow';
+    case 'error': return 'red';
+    default: return 'gray';
+  }
+}
 ```
 
-### 4. God Functions
-```
-❌ function processOrder(order) {
-     // 100+ lines of validation, calculation, saving, emailing...
-   }
+### Type Coercion Rules
+```javascript
+// Explicit conversion (preferred)
+Number('42')     // 42
+String(42)       // "42"
+Boolean(1)       // true
 
-✅ function processOrder(order) {
-     validateOrder(order);
-     const total = calculateTotal(order);
-     await saveOrder(order, total);
-     await sendConfirmation(order);
-   }
+// Truthy values: non-zero numbers, non-empty strings, objects
+// Falsy values: 0, "", null, undefined, NaN, false
 ```
 
-### 5. Meaningless Comments
-```
-❌ // Increment counter
-   counter++;
+### Modern Operators
+```javascript
+// Nullish coalescing
+const name = input ?? 'Guest';     // Only null/undefined
 
-   // Get user
-   const user = getUser();
+// Optional chaining
+const city = user?.address?.city;  // Safe navigation
 
-✅ // Rate limit: max 100 requests per minute per user
-   if (requestCount >= 100) {
-     throw new RateLimitError();
-   }
+// Logical assignment
+config.debug ??= false;            // Assign if nullish
 ```
 
----
+## Troubleshooting
 
-## Socratic Fundamentals Questions
+### Common Issues
 
-Instead of pointing out fixes, ask:
+| Error | Cause | Fix |
+|-------|-------|-----|
+| `ReferenceError: x is not defined` | Variable not declared | Check spelling, scope |
+| `TypeError: Cannot read property` | Accessing null/undefined | Use optional chaining `?.` |
+| `NaN` result | Invalid number operation | Validate input types |
+| Unexpected `true`/`false` | Loose equality `==` | Use strict `===` |
 
-1. "What does `d` stand for? Would a new developer know?"
-2. "What does the number 2 mean in this context?"
-3. "Can you describe this function without saying 'and'?"
-4. "I see this pattern three times — is that intentional?"
-5. "Would you understand this comment in 6 months?"
+### Debug Checklist
+```javascript
+// 1. Check type
+console.log(typeof variable);
 
----
+// 2. Check value
+console.log(JSON.stringify(variable));
 
-## Standards Reference
+// 3. Check for null/undefined
+console.log(variable === null, variable === undefined);
 
-See detailed patterns in:
-- `/standards/global/naming-conventions.md`
-- `/standards/global/error-handling.md`
-- `/standards/frontend/component-architecture.md`
+// 4. Use debugger
+debugger;
+```
 
----
+## Production Patterns
 
-## Naming Quick Reference
+### Input Validation
+```javascript
+function processNumber(value) {
+  if (typeof value !== 'number' || Number.isNaN(value)) {
+    throw new TypeError('Expected a valid number');
+  }
+  return value * 2;
+}
+```
 
-| Type | Pattern | Example |
-|------|---------|---------|
-| Variable | camelCase, descriptive | `userEmail`, `isLoading` |
-| Boolean | is/has/can/should prefix | `isActive`, `hasPermission` |
-| Function | verb + noun | `getUser()`, `handleSubmit()` |
-| Constant | UPPER_SNAKE_CASE | `MAX_RETRIES`, `API_URL` |
-| Class | PascalCase | `UserService`, `ApiClient` |
+### Safe Property Access
+```javascript
+const city = user?.address?.city ?? 'Unknown';
+const callback = options.onComplete?.();
+```
 
----
+## Related
 
-## When to Skip Suggestions
-
-Not every suggestion needs addressing:
-
-- **Prototype code** — Polish can wait
-- **Time pressure** — Ship working code, polish later
-- **Minimal impact** — If it's just style preference
-- **Existing patterns** — Match codebase conventions even if imperfect
-
-Fundamentals are about growth, not perfection. Note suggestions for learning, but don't block shipping.
+- **Agent 01**: JavaScript Fundamentals (detailed learning)
+- **Skill: functions**: Function patterns
+- **Skill: data-structures**: Objects and arrays

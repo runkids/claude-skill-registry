@@ -1,83 +1,213 @@
 ---
 name: dependency-management
-description: |
-  Enforces fixed version dependency installation across all package managers. Ensures reproducible builds, supply chain security, and stability.
-  Use when: installing packages, updating dependencies, working with package.json/requirements.txt/go.mod/Cargo.toml/pom.xml/build.gradle/composer.json/Gemfile/.csproj, reviewing dependency configurations, configuring CI/CD pipelines
+description: >
+  Version catalog strategy, dependency management, BOMs, and version constraints
+  for Java/Gradle projects. Covers version centralization, never-downgrade policy,
+  bundle patterns, resolution strategies, and compatibility matrices.
+compatibility: Java projects using Gradle 8.x or 9.x with version catalogs
+metadata:
+  version: "1.0.0"
+  technology: java
+  category: build
+  tags:
+    - java
+    - gradle
+    - dependencies
+    - versions
+    - bom
 ---
 
 # Dependency Management
 
-## Basic Principles
+Standards for managing library versions, dependency constraints, and Bill of Materials (BOM) in Java/Gradle projects.
 
-### Always Use Exact Versions
+## When to use this skill
 
-- Use exact versions only: `package@1.2.3`
-- Forbid: `^1.2.3`, `~1.2.3`, `latest`, `*`, version ranges
-- Exception: Library peerDependencies only
+- Adding or updating dependencies
+- Managing library versions in version catalogs
+- Resolving dependency conflicts
+- Upgrading Spring Boot or other frameworks
+- Setting up BOM-based dependency management
+- Understanding version compatibility matrices
 
-### Lock Files Are Mandatory
+## Skill Contents
 
-- Always commit to version control
-- Forbid manual editing
-- CI/CD must use frozen/locked mode
+### Sections
 
-### Security Audit First
+- [When to use this skill](#when-to-use-this-skill) (L24-L32)
+- [Critical Policies](#critical-policies) (L58-L89)
+- [Version Catalog Structure](#version-catalog-structure) (L90-L121)
+- [Bundle Patterns](#bundle-patterns) (L122-L153)
+- [BOM Strategy](#bom-strategy) (L154-L185)
+- [References](#references) (L186-L196)
+- [Related Rules](#related-rules) (L197-L201)
+- [Related Skills](#related-skills) (L202-L209)
 
-- Check vulnerabilities before installation
-- Automate regular audits
+### Available Resources
 
-## Installation Commands
+**📚 references/** - Detailed documentation
+- [bom strategy](references/bom-strategy.md)
+- [bundle patterns](references/bundle-patterns.md)
+- [compatibility matrices](references/compatibility-matrices.md)
+- [resolution strategies](references/resolution-strategies.md)
+- [security updates](references/security-updates.md)
+- [version centralization](references/version-centralization.md)
 
-```bash
-# Node.js
-npm install --save-exact package@1.2.3
-pnpm add --save-exact package@1.2.3
-yarn add --exact package@1.2.3
+---
 
-# Python
-pip install package==1.2.3
-poetry add package@1.2.3
+## Critical Policies
 
-# Go
-go get package@v1.2.3
+### 1. Version Centralization (Mandatory)
 
-# Rust
-cargo add package@=1.2.3
+**All dependency versions MUST be centralized in `gradle/libs.versions.toml`.**
 
-# PHP
-composer require vendor/package:1.2.3
+```groovy
+// ❌ NEVER: Hardcode versions in build.gradle
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web:3.5.9"
+}
 
-# Ruby (Gemfile)
-gem 'package', '1.2.3'
-
-# Java/Kotlin
-implementation("group:artifact:1.2.3")  # Gradle
-<version>1.2.3</version>                # Maven
-
-# .NET
-dotnet add package PackageName --version 1.2.3
+// ✅ ALWAYS: Use version catalog
+dependencies {
+    implementation libs.spring.boot.starter.web
+}
 ```
 
-## CI/CD Commands
+See [references/version-centralization.md](references/version-centralization.md) for anti-patterns and approved locations.
 
-```bash
-npm ci                          # npm
-pnpm install --frozen-lockfile  # pnpm
-yarn install --frozen-lockfile  # yarn
-poetry install --no-update      # poetry
-go mod verify                   # go
-cargo build --locked            # rust
-composer install --no-update    # php
-bundle install --frozen         # ruby
-dotnet restore --locked-mode    # .NET
+### 2. Never Downgrade Pre-existing Versions
+
+**Never replace a library version with an older version that pre-existed in the repository.**
+
+| Allowed | Not Allowed |
+|---------|-------------|
+| Upgrade a library | Downgrade a pre-existing version |
+| Adjust a version YOUR PR introduced | Pin BOM-managed dependency lower |
+| Add warning comment | Remove security patches |
+
+See [references/version-centralization.md](references/version-centralization.md) for the full policy.
+
+## Version Catalog Structure
+
+The version catalog (`gradle/libs.versions.toml`) is the single source of truth:
+
+```toml
+[versions]
+spring-boot = "3.5.9"
+grpc = "1.78.0"
+spock = "2.4-groovy-4.0"
+junit-jupiter = "5.14.2"
+
+[libraries]
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
+spring-boot-bom = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
+
+[bundles]
+testing-spock = ["spock-core", "spock-spring"]
+spring-boot-service = ["spring-boot-starter-web", "spring-boot-starter-actuator"]
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 ```
 
-## Common Mistakes
+### Key Principles
 
-| ❌ Wrong                 | ✅ Correct                     |
-| ------------------------ | ------------------------------ |
-| `npm install` (CI)       | `npm ci`                       |
-| `package@latest`         | `package@1.2.3`                |
-| `package@^1.2.3`         | `package@1.2.3`                |
-| Lock file in .gitignore  | Commit lock file               |
-| Manual lock file editing | Regenerate via package manager |
+| Principle | Description |
+|-----------|-------------|
+| **Single Source** | All versions in one file |
+| **BOMs First** | Use BOMs for transitive management |
+| **Type-Safe** | Gradle generates type-safe accessors |
+| **Semantic Groups** | Organize by framework/purpose |
+
+## Bundle Patterns
+
+Bundles group related dependencies for cleaner build files:
+
+```groovy
+// ❌ Verbose: Multiple declarations
+dependencies {
+    testImplementation libs.spock.core
+    testImplementation libs.spock.spring
+    testImplementation libs.testcontainers.spock
+    testImplementation libs.testcontainers.postgresql
+}
+
+// ✅ Clean: Use bundles
+dependencies {
+    testImplementation libs.bundles.testing.spock
+    testImplementation libs.bundles.testing.integration
+}
+```
+
+### Common Bundles
+
+| Bundle | Contents | Use Case |
+|--------|----------|----------|
+| `testing-spock` | spock-core, spock-spring | Most test suites |
+| `testing-integration` | testcontainers-spock, postgres | Integration tests |
+| `spring-boot-service` | web, actuator | Web services |
+| `grpc-core` | netty-shaded, protobuf, stub | gRPC services |
+| `codegen` | lombok, mapstruct | Code generation |
+
+See [references/bundle-patterns.md](references/bundle-patterns.md) for all bundles and usage.
+
+## BOM Strategy
+
+BOMs manage transitive dependency versions automatically:
+
+```groovy
+// In root build.gradle
+dependencyManagement {
+    imports {
+        mavenBom(libs.spring.boot.bom)
+        mavenBom(libs.grpc.bom)
+    }
+}
+```
+
+### Benefits
+
+- **Automatic resolution**: BOM handles all transitives
+- **No conflicts**: Related libraries stay compatible
+- **Easy updates**: Update BOM version once
+
+### Platform vs Enforce
+
+```groovy
+// ✅ RECOMMENDED: Use platform() - allows version overrides if needed
+implementation platform(libs.spring.boot.bom)
+
+// ⚠️ AVOID: enforcedPlatform() - strictly forces versions
+implementation enforcedPlatform(libs.spring.boot.bom)
+```
+
+See [references/bom-strategy.md](references/bom-strategy.md) for complete patterns.
+
+## References
+
+| Reference | Description |
+|-----------|-------------|
+| [version-centralization.md](references/version-centralization.md) | Core principles, anti-patterns, policies |
+| [bundle-patterns.md](references/bundle-patterns.md) | All bundle definitions and usage |
+| [bom-strategy.md](references/bom-strategy.md) | Bill of Materials setup |
+| [compatibility-matrices.md](references/compatibility-matrices.md) | Java/Spring/testing version tables |
+| [resolution-strategies.md](references/resolution-strategies.md) | Conflict resolution, substitutions |
+| [security-updates.md](references/security-updates.md) | CVE fixes, forced versions |
+
+## Related Rules
+
+- `.cursor/rules/java-versions-and-dependencies.mdc` - Original comprehensive rule
+- `.cursor/rules/java-gradle-best-practices.mdc` - Gradle configuration patterns
+
+## Related Skills
+
+| Skill | Purpose |
+|-------|---------|
+| [gradle-standards](../gradle-standards/SKILL.md) | Gradle build configuration |
+| [dependabot-security](../dependabot-security/SKILL.md) | Vulnerability management |
+| [gradle-9](../gradle-9/SKILL.md) | Gradle 9 migration |
+| [java-25](../java-25/SKILL.md) | Java 25 compatibility |
+<!-- AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY -->
+<!-- Source: bitsoex/ai-code-instructions → java/skills/dependency-management/SKILL.md -->
+<!-- To modify, edit the source file and run the distribution workflow -->
+

@@ -1,7 +1,7 @@
 {
   "name": "gh",
-  "repo": "dagster-io/erk",
-  "path": ".claude/skills/gh/SKILL.md",
-  "source": "github.com/dagster-io/erk",
-  "downloaded_at": "2026-01-28T02:59:13.748204Z"
+  "repo": "plurigrid/asi",
+  "path": "skills/gh/SKILL.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-29T04:19:12.991716Z"
 }

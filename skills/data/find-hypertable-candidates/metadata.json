@@ -1,7 +1,7 @@
 {
   "name": "find-hypertable-candidates",
-  "repo": "vasic-digital/SuperAgent",
+  "repo": "HelixDevelopment/HelixAgent",
   "path": "skills/postgres-mcp/find-hypertable-candidates/SKILL.md",
-  "source": "github.com/vasic-digital/SuperAgent",
-  "downloaded_at": "2026-01-28T02:58:25.445627Z"
+  "source": "github.com/HelixDevelopment/HelixAgent",
+  "downloaded_at": "2026-01-29T04:14:09.354280Z"
 }

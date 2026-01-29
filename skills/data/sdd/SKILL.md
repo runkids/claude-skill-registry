@@ -1,527 +1,658 @@
 ---
-name: sdd (Spec Driven Development)
-description: This skill outlines how to follow the spec driven development workflow. The workflow is non-negotiable and must be followed for sdd or Spec Driven Development. Use this for writing, refining and reviewing specs, specifications, designs, tasks, test and implementations.
-version: 0.1.13
+name: sdd
+description: This skill should be used when users want guidance on Spec-Driven Development methodology using GitHub's Spec-Kit. Guide users through executable specification workflows for both new projects (greenfield) and existing codebases (brownfield). After any SDD command generates artifacts, automatically provide structured 10-point summaries with feature status tracking, enabling natural language feature management and keeping users engaged throughout the process.
+version: 2.1.0
+triggers:
+  - spec-driven development
+  - spec kit
+  - speckit
+  - sdd
+  - specify cli
+  - specification driven
+  - github spec-kit
+  - /speckit
+  - constitution
+  - specify init
+  - executable specifications
+  - intent-driven development
+  - brownfield
+  - existing codebase
+  - legacy code
+  - legacy system
+  - add features to existing
+  - modernize
+  - modernization
+  - existing project
+  - reverse engineer
+  - codebase analysis
+  - iterative enhancement
+  - feature status
+  - track features
+  - add feature
+  - move feature
+  - reorder features
+  - feature progress
+  - feature dependencies
+author: Based on GitHub Spec-Kit by Den Delimarsky and John Lam
+license: MIT
+tags:
+  - development-methodology
+  - ai-native-development
+  - spec-driven
+  - github
+  - project-management
+  - workflow
+  - requirements
+  - planning
 ---
 
-# Spec Driven Development (SDD)
+# Spec-Driven Development (SDD) Skill
 
-## Practical Guidelines
+Guide users through GitHub's Spec-Kit for Spec-Driven Development - a methodology that flips traditional software development by making specifications executable and directly generating working implementations.
 
-### Project Structure and Paths
+## Core Philosophy
 
-All SDD artifacts live in the `.sdd/` folder at the repository root. Use these exact paths:
+Spec-Driven Development emphasizes:
+- **Intent-driven development**: Define the "what" before the "how"
+- **Rich specification creation**: Use guardrails and organizational principles
+- **Multi-step refinement**: Not one-shot code generation
+- **AI-native**: Heavy reliance on advanced AI capabilities
 
-| Variable | Path |
-|----------|------|
-| `SDD_FOLDER` | `.sdd/` |
-| `SDD_INDEX` | `.sdd/index.md` |
-| `SDD_PROJECT_FOLDER` | `.sdd/[FEATURE]/` |
-| `SDD_SPECIFICATION_DOCUMENT` | `.sdd/[FEATURE]/specification.md` |
-| `SDD_DESIGN_DOCUMENT` | `.sdd/[FEATURE]/design.md` |
-| `SDD_PROJECT_GUIDELINES` | `.sdd/project-guidelines.md` |
+Remember: This is **AI-native development**. Specifications aren't just documentation - they're executable artifacts that directly drive implementation. The AI agent uses them to generate working code that matches the intent defined in the specs.
 
-Where `[FEATURE]` is the kebab-case name of the feature (e.g., `user-authentication`, `shopping-cart`).
+## Quick Decision Tree
 
-### Templates
+### Is this a new project (greenfield)?
+→ **See [Greenfield Workflow](references/greenfield.md)** for the complete 6-step process
 
-- `SDD_TEMPLATE_INDEX` located in `templates/index.template.md` used for feature index
-- `SDD_TEMPLATE_SPECIFICATION` located in `templates/specification.template.md` used for initial requirements gathering
-- `SDD_TEMPLATE_DESIGN` located in `templates/design.template.md` used for design documents
-- `SDD_TEMPLATE_PROJECT_GUIDELINES` located in `templates/project-guidelines.template.md` used for project-specific conventions
+### Is this an existing codebase (brownfield)?
+→ **See [Brownfield Workflow](references/brownfield.md)** for reverse-engineering and integration guidance
 
-### Project Guidelines
+### Need installation help?
+→ **See [Installation Guide](references/sdd_install.md)** for setup and troubleshooting
 
-The `SDD_PROJECT_GUIDELINES` file (`.sdd/project-guidelines.md`) contains project-specific conventions that agents MUST follow in all phases. This file can:
+## Installation Quick Start
 
-1. **Reference existing documentation** - List paths to docs, READMEs, or other files containing conventions
-2. **Define inline guidelines** - Specify conventions directly in the file
-
-You MUST read this file during exploration and apply these conventions to architectural decisions.
-
-### Domain Skills
-
-After exploring the codebase and understanding the task, identify which domain skills apply:
-
-- **distributed-systems**: Multiple services, network coordination, eventual consistency
-- **low-level-systems**: Memory management, performance-critical, OS interfaces
-- **security**: Auth, untrusted input, sensitive data, compliance
-- **infrastructure**: Cloud resources, IaC, networking, disaster recovery
-- **devops-sre**: CI/CD, deployment, observability, SLOs
-- **data-engineering**: Pipelines, ETL, schema evolution, data quality
-- **api-design**: Public/internal APIs, versioning, contracts
-
-Load relevant skills and apply their mindset and practices throughout specification, design, and review phases.
-
-### Traceability
-
-**Implementation code** references requirements using `[feature-name:FR-XXX]`:
-```python
-# Implements [user-authentication:FR-003]
-def hash_password(password: str) -> str:
+**Recommended (Persistent):**
+```bash
+uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
 ```
 
-**Test code** references test scenarios using `[feature-name:TS-XX]`:
-```python
-def test_valid_credentials_return_session():
-    """Verifies [user-authentication:AuthService/TS-01]"""
+**One-time Usage:**
+```bash
+uvx --from git+https://github.com/github/spec-kit.git specify init <PROJECT_NAME>
 ```
 
-**IMPORTANT:** TS-XX references go in test code only, never in implementation code. Implementation code uses FR-XXX only.
-
-## Processes
-
-You **MUST** explore the code base using tools like Read, Glob etc before doing **ANY** of the below.
-You **MUST** understand project guidelines starting with the file [SDD_PROJECT_GUIDELINES]
-
-### Creating
-
-Do this when a user asks to create a specification or design
-
-You MUST create the required document in the relevant feature specific folder in the `.sdd/` folder at the root of the project
-
-**Maintain the index:**
-1. If `.sdd/index.md` doesn't exist, create it from `templates/index.template.md`
-2. Add a row for the new feature (newest entries at top, ordered by date)
-3. Update the status as the feature progresses through Draft → Approved → Implemented
-
-**Examples**
-
-**If** the user asks to create a **specification** for user authentication **then** copy `templates/specification.template.md` to `.sdd/user-authentication/specification.md` if it doesn't already exist.
-
-**If** the user asks to create a **design** for user authentication **then** copy `templates/design.template.md` to `.sdd/user-authentication/design.md` if it doesn't already exist.
-
-### Specifying
-
-Your **GOAL** is to complete all parts of the specification template for the feature.
-
-**Scope:** A single specification should represent approximately 1 day of implementation work. If the feature is larger, break it into multiple specifications. During the discovery interview, sense check the scope and suggest splitting if necessary.
-
-**CRITICAL: Template structure is sacred.**
-- Do NOT add sections that aren't in the template
-- Do NOT remove sections from the template
-- Do NOT rename sections
-- If a section doesn't apply, write "N/A" or "None" with brief justification
-- Follow the template structure EXACTLY as defined in [SDD_TEMPLATE_SPECIFICATION]
-
-#### Process
-
-**Phase 1: Discovery Interview**
-
-Interview the user about their idea or brief. Keep asking questions until you can unambiguously fill out every section of the template. Don't ask about template sections directly - ask about their problem, users, and goals.
-
-- What problem are they solving? Why does it matter?
-- Who experiences this problem? How do they cope today?
-- What does success look like? How will they know it's working?
-- What are the boundaries? What's explicitly not included?
-- What could go wrong? What are the edge cases?
-
-**Probe vague answers relentlessly** - Don't accept "fast", "secure", or "user-friendly" without measurable criteria. Keep questioning until requirements are specific and testable.
-
-**NFRs are optional** - Only include non-functional requirements when there are genuine, measurable quality constraints (e.g., specific latency targets, compliance requirements). Most features don't need them.
-
-**Phase 2: Write the Specification**
-
-Once you have enough information to fill out every section unambiguously, write the complete specification in one pass. Do not ask further questions during this phase.
-
-You **MUST** complete [SDD_SPECIFICATION_DOCUMENT] **FULLY** for the feature
-
-### Designing
-
-Your **GOAL** is to complete all parts of the design template for the feature.
-
-**Purpose:** The design document is a complete handover document. Anyone on the team should be able to pick it up and carry out the implementation without needing to ask clarifying questions.
-
-**Level of detail:** Include enough detail to enable handover to another team member, but not so much that you replicate the implementation in the document. Describe *what* and *why*, not *how* at the code level.
-
-**CRITICAL: Template structure is sacred.**
-- Do NOT add sections that aren't in the template
-- Do NOT remove sections from the template
-- Do NOT rename sections
-- If a section doesn't apply, write "N/A" or "None" with brief justification
-- Follow the template structure EXACTLY as defined in [SDD_TEMPLATE_DESIGN]
-
-#### Process
-
-**Phase 1: Research**
-
-Read and understand before designing:
-- Read the specification thoroughly
-- **Extract and list ALL functional and non-functional requirements by ID** - create a working checklist
-- Explore the existing codebase for patterns, conventions, and integration points
-- Read project guidelines if they exist
-
-**Phase 2: Design**
-
-Once you understand the requirements and codebase:
-
-1. **Requirements Enumeration Checkpoint** (MANDATORY before writing components)
-   - Create a checklist of every FR and NFR from the specification
-   - For each requirement, identify which component(s) will address it
-   - If a requirement cannot be mapped to a component, you must either:
-     a. Add a new component to address it
-     b. Document it in Feasibility Review with justification why it cannot be addressed
-   - **Do NOT proceed until every requirement has a component assignment**
-
-2. **Write the design document**
-   - Work through components systematically
-   - As you define each component, verify its Requirements References are complete
-   - Cross-check against your requirements checklist as you go
-   - Do NOT proceed to Task Breakdown until all requirements are mapped to components
-
-3. **Verify requirements coverage BEFORE finalizing**
-   - Cross-check every requirement from the specification has task coverage
-   - If any requirement is missing task coverage, add tasks to cover it
-   - **A design with unmapped requirements is incomplete and must not be submitted**
-
-You **MUST** identify components required to implement the feature in the specification
-
-#### Component Identification
-
-For each component, document:
-- **Modified**: Current behavior, what changes, dependencies, test scenarios (Given/When/Then)
-- **Added**: Single responsibility, consumers, location, requirements satisfied, test scenarios (Given/When/Then)
-- **Used**: Existing components required as-is for implementation (document what it provides and why it's needed)
-
-Keep components focused (single responsibility, minimal coupling, explicit dependencies). Define public interfaces and error handling. Avoid over-engineering for future needs.
-
-#### API Design (When Needed)
-
-**Design documents describe contracts, not code.**
-API designs should:
-- Describe operations conceptually (what they do, inputs, outputs, errors)
-- Define data shapes and validation rules in prose or simple schemas
-- Specify error conditions and expected behaviors
-- Document constraints and invariants
-- Show Interfaces
-
-API designs should NOT include:
-- Code of function implementations
-- Language-specific syntax (unless illustrating a non-functional requirement)
-- Internal implementation logic
-
-**Exception:** Include code samples ONLY when they illustrate specific non-functional requirements:
-- Serialization formats (JSON structure, protocol buffers)
-- Concurrency patterns (mutex usage, async boundaries)
-- Performance-critical algorithms (when the algorithm IS the requirement)
-- Protocol specifics (wire format, handshake sequences)
-
-**Example - GOOD (conceptual):**
-> The `addToCart` operation accepts a product identifier and quantity. It validates the product exists and quantity is positive. On success, returns the updated cart. On failure, returns an error indicating whether the product was not found or quantity was invalid.
-
-**Example - BAD (implementation leakage):**
-```python
-def add_to_cart(product_id: str, quantity: int) -> Cart:
-    product = self.product_repo.get(product_id)
-    if not product:
-        raise ProductNotFoundError(product_id)
-    ...
+**Verify:**
+```bash
+specify check
 ```
 
-#### Test Scenarios
+For detailed installation options, troubleshooting, and environment variables, see [Installation Guide](references/sdd_install.md).
 
-**Tests verify acceptance criteria from requirements.**
+## Supported AI Agents
 
-Each test must trace to an acceptance criterion defined in a requirement (FR-XXX). No acceptance criterion = no test.
+Works with:
+- ✅ Claude Code
+- ✅ GitHub Copilot
+- ✅ Gemini CLI
+- ✅ Cursor
+- ✅ Qwen Code
+- ✅ opencode
+- ✅ Windsurf
+- ✅ Kilo Code
+- ✅ Auggie CLI
+- ✅ CodeBuddy CLI
+- ✅ Roo Code
+- ✅ Codex CLI
+- ✅ Amp
+- ⚠️ Amazon Q Developer CLI (doesn't support custom arguments for slash commands)
 
-**Scenario format:** Given/When/Then
-- **Given**: Initial state
-- **When**: Action performed
-- **Then**: Expected outcome (the acceptance criterion)
+## Artifact Summarization and Feedback Loop
 
+**CRITICAL WORKFLOW**: After any SDD command generates or modifies artifacts, automatically follow this feedback loop to keep the user engaged:
 
-#### Instrumentation (optional)
+### After Each Command Completes
 
-Only needed if NFRs require observability. Skip for typical features.
+1. **Detect Artifact Changes**
+   - Identify which artifacts were created or modified:
+     - `constitution.md` (project principles)
+     - `spec.md` (requirements specification)
+     - `plan.md` (technical implementation plan)
+     - `tasks.md` (actionable task breakdown)
+     - Analysis reports from brownfield workflows
 
-#### Task Breakdown
+2. **Read and Summarize**
+   - Read the relevant artifact(s)
+   - Extract key information:
+     - **For constitution.md**: Core principles, coding standards, constraints
+     - **For spec.md**: Main requirements, user stories, success criteria
+     - **For plan.md**: Tech stack choices, architecture decisions, milestones
+     - **For tasks.md**: Number of tasks, major task categories, dependencies
+     - **For analysis reports**: Current patterns, tech debt, integration points
 
-- Group into logical phases ordered by dependencies
-- Each task must have clear completion criteria
-- Each task must specify which requirements it fulfills using `[feature:REQ-ID]` format
-- Each task must reference which test scenarios (TS-IDs, ITS-IDs, E2E-IDs) it implements
-- Testing happens WITH implementation, not after
-- Every requirement must map to tasks (and vice versa)
+3. **Present Structured Summary** (Use 10-Point Template Below)
+   - Show what was generated and why
+   - Highlight the most important decisions with rationale
+   - Include quality indicators and watch-outs
+   - Keep summary focused and actionable
+   - Use clear headings for each section
 
-#### Write the design
+4. **Include Feature Status** (Hybrid Approach)
+   - Brief status line in every summary
+   - Detailed status on demand with `/speckit.status`
+   - See "Feature Status Tracking" section below
 
-**Fill the design template**
-- You will be given the path to the new design file
-- Reference the **sdd** skill for the standard design template structure [SDD_TEMPLATE_DESIGN]
-- Follow the template structure exactly
-- Ensure every section is complete and detailed
-- Link requirements to components to tasks for full traceability
-- Always save the document once you've finished designing. **Never** skip this step
+5. **Offer Feedback Options**
+   - **Option A**: "Looks good, proceed to next step"
+   - **Option B**: "I'd like to modify [specific section]"
+   - **Option C**: "Regenerate with these changes: [user input]"
+   - **Option D**: "Explain why [specific decision] was made"
 
-**Ensure requirement coverage**
-- Every functional requirement must map to one or more components
-- Every requirement must map to one or more tasks
-- Verify complete coverage by cross-checking against specification
-- No requirement should be left unaddressed in the design
-- If a requirement cannot be addressed, document it in Feasibility Review
+### 10-Point Summary Template
 
-#### Design Quality Standards
+Use this structured format after ANY SDD command completes:
 
-A complete design document must have:
-- ✅ **Link to specification** via the Linked Specification field
-- ✅ **Architecture overview** explaining current context and proposed changes
-- ✅ **All requirements traced** to components via Requirements References
-- ✅ **All components defined** with clear descriptions and locations
-- ✅ **Component test scenarios** using Given/When/Then format with unique IDs (ComponentName/TS-XX)
-- ✅ **Integration test scenarios** covering multi-component interactions (ITS-XX)
-- ✅ **E2E test scenarios** covering complete user workflows (E2E-XX)
-- ✅ **Risks identified** with mitigation strategies
-- ✅ **Tasks organized** into logical phases with dependencies
-- ✅ **Tasks reference test scenarios** they implement (TS-IDs, ITS-IDs, E2E-IDs)
-- ✅ **No TBDs or ambiguities** in the final design
-- ✅ **Instrumentation defined** if NFRs require observability
-- ✅ **Standard structure** following [SDD_TEMPLATE_DESIGN] exactly
-- ✅ **Project guidelines compliance** if SDD_PROJECT_GUIDELINES exists
-
-### Refining
-
-When asked to refine a specification or design:
-1. Read existing documents and linked specification thoroughly
-2. Identify gaps, inconsistencies, or new requirements
-3. Explore codebase for changed context or new patterns
-4. Ask stakeholder about changed priorities or constraints
-5. Update documents while maintaining template structure
-6. Verify all requirements still map to components and tasks
-
-### Implementing
-
-**CRITICAL:** You must read the design document, specification, and project guidelines before starting any implementation.
-
-#### Before Writing Any Code
-
-Read the design, specification, existing code, and documentation thoroughly. If anything is unclear or ambiguous, ask before guessing.
-
-#### When implementing a feature:
-
-1. **Read and understand the design**
-   - Read the design document and linked specification
-   - Understand all tasks and which phase you are implementing
-   - Identify prerequisites or dependencies
-
-2. **Read project guidelines**
-   - Check for `.sdd/project-guidelines.md` (SDD_PROJECT_GUIDELINES)
-   - Read all referenced documentation files
-   - Note error handling, logging, naming, and testing conventions
-   - **CRITICAL** These conventions MUST inform your implementation decisions
-
-3. **Set up the feature branch**
-   - Create a feature branch for the current phase
-   - Use a descriptive branch name (e.g., `feature/auth-phase-1`)
-
-4. **Implement task by task**
-   - Work through tasks in order as specified in the design
-   - For each task:
-     a. Write tests first (TDD when appropriate)
-     b. Implement the code to pass tests
-     c. Run linters and formatters
-     d. Run the full test suite
-     e. Commit the completed task with a clear message
-     f. Update the task status in the design document
-   - Do NOT skip ahead or batch multiple tasks into one commit
-
-5. **Validate continuously** - Build, lint, and test after each task. Fix issues immediately.
-
-6. **Track progress** - Mark tasks complete in design document. Document deviations and issues.
-
-7. **Complete the phase** - All tasks done, tests passing, code linted. Wait for merge before next phase.
-
-#### Dead Code
-
-- Any dead code introduced in intermediate phases **MUST** be tracked in the design document with a `DC-XX` identifier
-- Dead code **MUST** include a comment referencing its identifier (e.g., `// DC-01`)
-- All dead code **MUST** be used by the end of the final phase
-
-#### Stubs
-
-- Any stub implementations **MUST** be tracked in the design document with a `ST-XX` identifier
-- Stubs **MUST** include a comment referencing their identifier (e.g., `// ST-01`)
-- All stubs **MUST** be implemented or removed by the end of the final phase
-
-### Reviewing
-
-The user can ask to review a specification, design or implementation. Follow the process below and produce a report for the user at the end.
-
-**CRITICAL**: You MUST use the Task tool to create a subagent for the review.
-
-#### Common Review Steps
-
-1. Read specification, design, and project guidelines (if exists)
-2. Load relevant domain skills based on the feature (e.g., security, api-design, distributed-systems) and apply their review criteria
-3. Verify requirements traceability and coverage
-4. Check for edge cases and architectural fit
-5. Validate against project conventions (error handling, logging, naming, testing)
-
-#### Specification Review
-
-**Focus areas:**
-- Verify achievability and dependencies
-- Ensure requirements are testable and measurable (not implementation details)
-- Check for conflicts with existing functionality
-- Validate scope is appropriate for single iteration
-
-**Abstraction level check:**
-
-GOOD (stays at specification level):
-- "Users must be able to search products by name"
-- "Search results must return within 500ms for 95th percentile"
-
-BAD (contains implementation details):
-- "Use Elasticsearch for product search"
-- "Create a ProductSearchService class"
-
-**Red flags:**
-- Implementation details masquerading as requirements
-- Vague/untestable requirements
-- Unrealistic performance expectations
-- Dependencies on unavailable services
-- Requirements that assume non-existent functionality
-
-#### Design Review
-
-**Focus areas:**
-- No implementation leakage (describe contracts conceptually, not code)
-- Tests included WITH tasks, not deferred to later phases
-- Architectural decisions fit existing codebase patterns
-- Project guidelines compliance (if SDD_PROJECT_GUIDELINES exists)
-- Instrumentation section present if NFRs require observability
-
-**Requirements validation (perform during review):**
-- Every requirement from the specification maps to at least one task
-- Every task references the requirements it fulfills
-- No orphan requirements (defined but never addressed)
-
-**Test scenario validation (perform during review):**
-- Every test scenario maps to at least one task
-- Each task has a "Test Scenarios:" field referencing specific scenario IDs (TS-XX, ITS-XX, E2E-XX)
-- No separate "add tests" tasks or testing phases
-- No orphan scenarios (defined but never assigned to tasks)
-
-**Example of GOOD task structure:**
 ```
-**Task 1: Implement CartService.addItem()**
-- Status: Backlog
-- Requirements: [shopping-cart:FR-001], [shopping-cart:FR-002]
-- Test Scenarios: [shopping-cart:CartService/TS-01], [shopping-cart:ITS-01]
-- Details:
-  fn addItem(productId: string, quantity: int) -> Cart
-    throws: ProductNotFound, InvalidQuantity
+## ✅ [Command Name] Completed - Here's What Just Happened
+
+### 🎯 Key Decisions Made (Top 3)
+1. [Decision] - **Rationale:** [Why this was chosen]
+2. [Decision] - **Rationale:** [Why this was chosen]
+3. [Decision] - **Rationale:** [Why this was chosen]
+
+### 📋 What Was Generated
+- [Artifact 1]: [Brief description of content]
+- [Artifact 2]: [Brief description of content]
+
+### 🔍 Important Items to Review (Top 3)
+1. [Critical item to check and why it matters]
+2. [Important detail to verify and potential impact]
+3. [Edge case to consider and how it affects the design]
+
+### ⚠️ Watch Out For (Top 2)
+- [Potential issue or gotcha] - **How to avoid:** [Guidance]
+- [Common mistake] - **How to avoid:** [Guidance]
+
+### 🔄 What This Enables Next (2 Options)
+- **Option 1:** [Next step] - Best if: [Condition]
+- **Option 2:** [Alternative step] - Best if: [Condition]
+
+📊 **Feature Status:** [Current Feature Name] ([Stage]) → Next: [Next Feature]
+   Progress: [●●●○○] [X]% | Completed: [N] of [Total] features | Dependencies: [Status]
+
+**Your options:** [A] Proceed [B] Modify [C] Explain more [D] Show full status
 ```
 
-**Example of BAD task structure:**
+### Example: Enhanced Summarization After \`/speckit.specify\`
+
+\`\`\`
+## ✅ Specify Completed - Here's What Just Happened
+
+### 🎯 Key Decisions Made
+1. **Authentication: JWT tokens** - Rationale: Stateless architecture, horizontally scalable, industry standard
+2. **Password requirements: 12+ characters with complexity** - Rationale: Balances security (NIST guidelines) with usability
+3. **Session timeout: 24 hours** - Rationale: Standard for web apps, balances security vs user convenience
+
+### 📋 What Was Generated
+- \`.speckit/features/user-auth/specify.md\`: Complete requirements with 5 user stories, 8 success criteria, 3 edge cases
+
+### 🔍 Important Items to Review
+1. **Password reset flow** - Verify email requirements match your infrastructure (SMTP server, templates)
+2. **Multi-factor authentication** - Currently marked as "future enhancement"; may need to be in MVP
+3. **Rate limiting** - Set at 5 login attempts per 15 min; consider if this fits your security policy
+
+### ⚠️ Watch Out For
+- **Email service dependency not specified** - How to avoid: Add email service to plan.md dependencies
+- **GDPR compliance for user data** - How to avoid: Review data retention and user deletion requirements
+
+### 🔄 What This Enables Next
+- **Option 1:** Run \`/speckit.plan\` to design technical implementation - Best if: Requirements look good
+- **Option 2:** Modify specify.md - Best if: You need to adjust requirements or add features
+
+📊 **Feature Status:** user-authentication (Specified) → Next: profile-management
+   Progress: [●●○○○] 40% | Completed: 1 of 5 features | Dependencies: database-setup ✅
+
+**Your options:** [A] Proceed to planning [B] Modify requirements [C] Explain JWT choice [D] Show full status
+\`\`\`
+
+### When to Skip Summarization
+
+Only skip the summarization step when:
+- User explicitly requests "skip summaries" or "run all steps automatically"
+- Re-running a command without artifact changes
+- Command fails or produces errors (troubleshoot instead)
+
+### Benefits of This Workflow
+
+- **Eliminates "black box" feeling**: Clear explanations of what was generated and why
+- **Enables early feedback**: Catch misunderstandings before implementation
+- **Maintains agility**: Quick review with structured format, not lengthy approval processes
+- **Builds trust**: User sees the AI's reasoning and decisions with rationale
+- **Provides context**: Feature status keeps users oriented in the overall project
+
+## Feature Status Tracking
+
+### Hybrid Approach
+
+After every SDD command, include a **brief feature status line** in the summary. Provide **detailed status on demand** with `/speckit.status`.
+
+### Brief Status Line Format
+
+Include this at the end of every summary:
+
 ```
-Phase 1: Implement CartService
-Phase 2: Add unit tests for CartService  ← VIOLATION
-```
-
-**Red flags:**
-- Requirements not traced to components/tasks
-- Code samples in API design sections
-- Separate "add tests" phases
-- TBDs or ambiguities
-- Architectural decisions conflicting with existing patterns
-- Missing risk assessment
-- Test scenarios missing Given/When/Then structure
-
-#### Implementation Review
-
-**Diff analysis:**
-- Run `git diff main...HEAD` to understand scope
-- Verify all design tasks are represented
-- Check for changes that don't correspond to any task
-
-**Design validation:**
-- Verify implementation matches design tasks
-- Check that APIs and interfaces match design contracts
-- Flag any undocumented deviations
-- If design was altered, verify workarounds are documented
-
-**Test verification (read the actual test code):**
-- For each test scenario defined in the design, find and read its implementation
-- Verify the test actually exercises the acceptance criterion (not just asserting trivial values)
-- Check that tests would actually fail if the requirement was not implemented
-- Do NOT rely on trace markers alone - read the test implementation
-- Every test scenario from the design must have a corresponding test in the code
-- Verify TS-XX scenario markers are on test code only, not implementation code
-
-**Check for stubs:**
-- Search for: `skip`, `todo`, `pending`, `@pytest.mark.skip`, `pass` in test functions, placeholder assertions
-- **Intermediate phases**: Stubs acceptable only if tracked in design document
-- **Final phase**: No stubs allowed
-
-**Check for dead code:**
-- Unused imports, variables, or functions
-- Commented-out code
-- **Intermediate phases**: Dead code acceptable only if tracked in design document
-- **Final phase**: No dead code allowed
-
-**Quality gates:**
-- Run all tests
-- Run linters and formatters
-- Build/compile the project
-
-**Red flags:**
-- Test scenarios from design missing in code
-- Tests that wouldn't fail if the requirement was removed
-- Implementation doesn't match design
-- Undocumented deviations from design
-- Untracked stubs or dead code (in final phase)
-- Security vulnerabilities
-
-#### Quality Standards (All Reviews)
-
-A thorough review must verify:
-- ✅ Every test scenario from the design is implemented (verified by reading the test code)
-- ✅ Tests actually exercise acceptance criteria (would fail if requirement not implemented)
-- ✅ No TBDs or ambiguities
-- ✅ Project guidelines followed
-- ✅ Risks identified with mitigations
-- ✅ All stubs and dead code tracked (intermediate) or resolved (final)
-
-#### Review Severity Levels
-
-All review findings MUST be categorized by severity. Reports must list findings grouped by severity, with P0 issues first.
-
-**P0 - Blocking (must fix before approval):**
-- Test scenario from design not implemented
-- Test that doesn't actually verify its acceptance criterion (trivial or fake)
-- Failing tests
-- Security vulnerabilities
-- Requirements not covered by implementation
-
-**P1 - High (should fix before approval):**
-- Missing traceability markers (FR-XXX in code, TS-XX in tests)
-- TS-XX markers on implementation code (they belong on tests only)
-- Undocumented deviations from design
-- Untracked stubs or dead code in final phase
-
-**P2 - Medium (fix recommended):**
-- Minor architectural inconsistencies
-- Missing risk mitigations
-
-**P3 - Low (nice to have):**
-- Style inconsistencies not caught by linter
-- Documentation improvements
-- Minor naming convention deviations
-
-**Report format:**
-Reviews MUST present findings in severity order:
-```
-## P0 - Blocking
-- [Finding description and location]
-
-## P1 - High
-- [Finding description and location]
-
-## P2 - Medium
-- [Finding description and location]
-
-## P3 - Low
-- [Finding description and location]
+📊 **Feature Status:** [Current Feature Name] ([Stage]) → Next: [Next Feature Name]
+   Progress: [●●●○○] [X]% | Completed: [N] of [Total] features | Dependencies: [Dep] ✅/⏸️
 ```
 
-A review with any P0 findings MUST recommend rejection until resolved.
+**Stage values:**
+- `Specifying` (20% complete)
+- `Planning` (40% complete)
+- `Tasking` (60% complete)
+- `In Progress` (80% complete)
+- `Complete` (100% complete)
+
+**Progress indicator:**
+- Use filled circles (●) for completed stages
+- Use empty circles (○) for pending stages
+- Calculate percentage based on stage
+
+### Detailed Status Dashboard
+
+When user requests full status (option D) or runs `/speckit.status`, show:
+
+```
+📊 Project Feature Status Dashboard
+
+🎯 CURRENT FEATURE
+├─ [feature-name] ([Stage] - [X]% complete)
+│  ├─ ✅ Requirements specified
+│  ├─ 🔄 Implementation plan in progress
+│  ├─ ⏸️  Tasks not started
+│  └─ ⏸️  Implementation not started
+│  Blockers: [None | Description]
+│  Dependencies: [feature-name] ✅
+
+✅ COMPLETED FEATURES ([N])
+├─ [feature-1] (100% complete)
+└─ [feature-2] (100% complete)
+
+📋 UPCOMING FEATURES ([N])
+├─ [feature-3] (depends on: [current-feature])
+└─ [feature-4] (depends on: [feature-3])
+
+⚠️  BLOCKED FEATURES ([N])
+[List any features that are blocked with reasons]
+```
+
+### Natural Language Feature Management
+
+Claude should automatically detect and handle natural language feature management requests:
+
+**User says:** "Move feature XYZ before ABC"
+**Claude does:**
+1. Reads current feature list from `.speckit/features/`
+2. Shows current order with numbers
+3. Proposes new order
+4. Asks for confirmation
+5. Updates feature priority/order in constitution or plan
+6. Shows updated status dashboard
+
+**User says:** "Add a new feature for email notifications"
+**Claude does:**
+1. Detects new feature request
+2. Asks clarifying questions (priority, dependencies, description)
+3. Generates feature spec outline
+4. Inserts into feature list at appropriate position
+5. Shows updated status dashboard
+
+**User says:** "Let's do profile-management first"
+**Claude does:**
+1. Identifies current feature order
+2. Proposes moving profile-management to top priority
+3. Adjusts dependencies if needed
+4. Updates artifacts
+5. Shows updated status
+
+**Detection patterns:**
+- "Move [feature] before/after [other]" → Reorder
+- "Add [feature]" → New feature
+- "Let's do [feature] first" → Move to top priority
+- "Skip [feature] for now" → Mark as deferred
+- "We finished [feature]" → Update status to complete
+- "What features depend on [feature]?" → Show dependency tree
+- "Show feature status" → Display full dashboard
+
+### Quick Feature Operations
+
+Guide users through these operations when requested:
+
+**Add Feature:**
+```
+User: "Add a feature for admin dashboard"
+Claude:
+1. What's the priority? (High/Medium/Low)
+2. What features does this depend on? (user-auth, profile-management, etc.)
+3. Brief description?
+[Creates outline, shows updated status]
+```
+
+**Reorder Features:**
+```
+User: "Reorder features"
+Claude:
+Current order:
+1. user-authentication
+2. profile-management
+3. admin-dashboard
+4. email-notifications
+5. reporting
+
+How would you like to reorder? (provide new numbers or describe changes)
+[Updates order, shows new status]
+```
+
+**Remove Feature:**
+```
+User: "Remove the reporting feature"
+Claude:
+⚠️  Warning: This will remove 'reporting' feature.
+Dependencies affected: None
+Are you sure? (yes/no)
+[If yes: removes, updates status]
+```
+
+### Progress Calculation
+
+Automatically calculate progress based on SDD workflow completion:
+
+| Stage | Progress | Indicators |
+|-------|----------|------------|
+| **Specified** | 20% | `specify.md` exists |
+| **Planned** | 40% | `plan.md` exists |
+| **Tasked** | 60% | `tasks.md` exists |
+| **In Progress** | 80% | Implementation started (code files modified) |
+| **Complete** | 100% | Implementation complete, tests pass |
+
+### Dependency Tracking
+
+Track and visualize dependencies:
+
+**Show dependencies:**
+```
+user-authentication
+├─ Depends on: database-setup ✅
+└─ Blocks: profile-management ⏸️, admin-dashboard ⏸️
+```
+
+**Check if ready:**
+```
+📊 Can we start profile-management?
+   Checking dependencies...
+   ✅ user-authentication (complete)
+   ✅ database-setup (complete)
+
+   All dependencies satisfied! Ready to proceed.
+```
+
+**Detect circular dependencies:**
+```
+⚠️  Warning: Circular dependency detected
+   feature-A depends on feature-B
+   feature-B depends on feature-C
+   feature-C depends on feature-A
+
+   Please resolve this before proceeding.
+```
+
+### Integration with Workflows
+
+**For Greenfield Projects:**
+- After `/speckit.specify`, ask if there are multiple features
+- If yes, list them and track progress through each
+- Show status after each command
+
+**For Brownfield Projects:**
+- After `/speckit.reverse-engineer`, create feature list from discovered functionality
+- Track new features separately from existing documented features
+- Show integration impact on status
+
+For complete feature management guidance, see [Feature Management Guide](references/feature_management.md).
+
+## How to Use This Skill
+
+### When User Asks About SDD
+
+1. Explain core philosophy: Executable specifications, intent-driven, AI-native
+2. Verify prerequisites: \`uv\`, Python 3.11+, Git, AI agent
+3. Determine project type: New (greenfield) vs existing (brownfield)
+4. Guide to appropriate workflow:
+   - Greenfield → [Greenfield Workflow](references/greenfield.md)
+   - Brownfield → [Brownfield Workflow](references/brownfield.md)
+
+### When User Wants to Start a New Project
+
+1. Guide installation → [Installation Guide](references/sdd_install.md)
+2. Initialize project:
+   \`\`\`bash
+   specify init my-project --ai claude
+   \`\`\`
+3. Follow greenfield workflow → [Greenfield Workflow](references/greenfield.md)
+4. **After each step**: Summarize artifacts and get user feedback
+
+### When User Has an Existing Codebase
+
+1. Check for \`.speckit/\` directory
+2. **If missing** → Guide through [Brownfield Workflow](references/brownfield.md):
+   - Analyze existing code
+   - Generate constitution from existing patterns
+   - Choose artifact generation strategy
+   - Add new features with SDD
+3. **If present** → Determine next step based on current progress
+4. **After each step**: Summarize artifacts and get user feedback
+
+### When User Wants to Add a Feature
+
+**To greenfield project:**
+1. Navigate to [Greenfield Workflow](references/greenfield.md)
+2. Follow steps 3-6 (specify → plan → tasks → implement)
+3. Summarize each artifact before proceeding
+
+**To brownfield/existing project:**
+1. Navigate to [Brownfield Workflow](references/brownfield.md)
+2. Follow steps 6-7 (specify → integration planning → tasks → implement)
+3. Summarize each artifact before proceeding
+
+### When User Encounters Issues
+
+1. **Installation issues** → [Installation Guide](references/sdd_install.md) troubleshooting section
+2. **Workflow issues** → Check appropriate workflow guide:
+   - [Greenfield troubleshooting](references/greenfield.md)
+   - [Brownfield troubleshooting](references/brownfield.md)
+3. **Feature detection** → Set \`SPECIFY_FEATURE\` environment variable (see [Installation Guide](references/sdd_install.md))
+
+## Workflow Overview
+
+### Greenfield (New Projects)
+
+\`\`\`
+specify init → /speckit.constitution → [SUMMARIZE] →
+/speckit.specify → [SUMMARIZE] → /speckit.plan → [SUMMARIZE] →
+/speckit.tasks → [SUMMARIZE] → /speckit.implement
+\`\`\`
+
+**Full details:** [Greenfield Workflow](references/greenfield.md)
+
+### Brownfield (Existing Projects)
+
+\`\`\`
+specify init --here → /speckit.brownfield → [SUMMARIZE] →
+/speckit.analyze-codebase → [SUMMARIZE] →
+/speckit.reverse-engineer → [SUMMARIZE] → /speckit.specify → [SUMMARIZE] →
+/speckit.integration-plan → [SUMMARIZE] → /speckit.tasks → [SUMMARIZE] →
+/speckit.implement
+\`\`\`
+
+**Full details:** [Brownfield Workflow](references/brownfield.md)
+
+## Development Phases Supported
+
+### 0-to-1 Development ("Greenfield")
+Start with high-level requirements, generate specifications from scratch, plan implementation steps, build production-ready applications.
+
+**→ [Greenfield Workflow](references/greenfield.md)**
+
+### Iterative Enhancement ("Brownfield")
+Add features iteratively to existing codebases, modernize legacy systems, adapt processes for evolving requirements, reverse-engineer existing code into SDD format.
+
+**→ [Brownfield Workflow](references/brownfield.md)**
+
+### Creative Exploration
+Explore diverse solutions in parallel, support multiple technology stacks & architectures, experiment with UX patterns.
+
+**→ [Greenfield Workflow](references/greenfield.md) - Multi-Stack Exploration section**
+
+## Key Commands Reference
+
+### Installation & Setup
+\`\`\`bash
+specify init <project>              # New project
+specify init --here --force         # Existing project
+specify check                       # Verify installation
+\`\`\`
+
+### Greenfield Workflow
+\`\`\`
+/speckit.constitution               # Project principles → SUMMARIZE
+/speckit.specify                    # Define requirements → SUMMARIZE
+/speckit.plan                       # Technical planning → SUMMARIZE
+/speckit.tasks                      # Break down tasks → SUMMARIZE
+/speckit.implement                  # Execute
+\`\`\`
+
+### Brownfield Workflow
+\`\`\`
+/speckit.brownfield                 # Analyze existing code → SUMMARIZE
+/speckit.analyze-codebase          # Deep analysis & constitution → SUMMARIZE
+/speckit.reverse-engineer          # Document existing features → SUMMARIZE
+/speckit.integration-plan          # Plan new feature integration → SUMMARIZE
+\`\`\`
+
+### Optional Enhancement Commands
+\`\`\`
+/speckit.clarify                   # Clarify ambiguous requirements
+/speckit.analyze                   # Cross-artifact consistency check
+/speckit.checklist                 # Generate quality checklists
+\`\`\`
+
+## Analysis Scripts
+
+The SDD skill includes analysis scripts for deep quality validation and progress tracking:
+
+### \`scripts/phase_summary.sh\`
+Generates a comprehensive progress report across all phases in a tasks.md file:
+- Shows completion percentage for each phase
+- Lists pending tasks per phase
+- Highlights simplified/modified tasks
+- Provides overall progress statistics
+- Supports any SDD feature's tasks.md file
+
+**Usage:**
+\`\`\`bash
+~/.claude/skills/sdd/scripts/phase_summary.sh specs/003-keyboard-shortcuts/tasks.md
+\`\`\`
+
+**Output:** Markdown-formatted phase-by-phase progress report with:
+- Phase-by-phase completion percentages
+- Pending task lists (up to 5 per phase)
+- Simplified task warnings
+- Overall feature progress summary
+
+**When to Use:**
+- Check progress on any SDD feature
+- Get quick overview of what's complete vs pending
+- Identify phases that need attention
+- Generate status reports for stakeholders
+
+### \`scripts/analyze-requirements.py\`
+Analyzes requirement coverage across spec.md and tasks.md:
+- Maps functional requirements (FR-001, FR-002, etc.) to implementation tasks
+- Identifies uncovered requirements (gaps in task coverage)
+- Flags vague requirements lacking measurable criteria
+- Calculates coverage percentage
+
+**Usage:**
+\`\`\`bash
+python3 ~/.claude/skills/sdd/scripts/analyze-requirements.py
+\`\`\`
+
+**Output:** JSON with coverage metrics, uncovered requirements, vague requirements
+
+### \`scripts/analyze-success-criteria.py\`
+Analyzes success criteria verification coverage:
+- Maps success criteria (SC-001, SC-002, etc.) to verification tasks
+- Validates measurability of each criterion
+- Identifies criteria without verification tasks
+- Groups by metric type (performance, accessibility, usability)
+
+**Usage:**
+\`\`\`bash
+python3 ~/.claude/skills/sdd/scripts/analyze-success-criteria.py
+\`\`\`
+
+**Output:** JSON with coverage summary, verification task mapping
+
+### \`scripts/analyze-edge-cases.py\`
+Analyzes edge case coverage across specifications:
+- Maps edge cases to explicit task coverage
+- Identifies implicitly covered cases (handled by general logic)
+- Flags uncovered edge cases requiring attention
+- Categorizes coverage type (EXPLICIT, IMPLICIT, UNCOVERED)
+
+**Usage:**
+\`\`\`bash
+python3 ~/.claude/skills/sdd/scripts/analyze-edge-cases.py
+\`\`\`
+
+**Output:** JSON with coverage breakdown, uncovered edge case details
+
+**When to Use:**
+These scripts are automatically invoked during \`/speckit.analyze\` to provide deep consistency validation. They help identify:
+- Requirements without task coverage
+- Success criteria without verification
+- Edge cases that need test coverage
+- Ambiguous requirements needing clarification
+
+### Validation Commands (Brownfield)
+\`\`\`
+/speckit.validate-reverse-engineering  # Verify spec accuracy
+/speckit.coverage-check                # Check documentation coverage
+/speckit.validate-constitution         # Verify constitution consistency
+/speckit.trace [feature]               # Map specs to code
+\`\`\`
+
+## Detailed Documentation
+
+- **[Installation Guide](references/sdd_install.md)**: Installation methods, troubleshooting, environment variables
+- **[Greenfield Workflow](references/greenfield.md)**: Complete 6-step workflow for new projects
+- **[Brownfield Workflow](references/brownfield.md)**: Complete 7-step workflow for existing codebases
+
+## Integration with Other Skills
+
+This skill works well with:
+- **project-memory**: Document SDD decisions and patterns
+- **design-doc-mermaid**: Visualize architecture from plan.md
+- **github-workflows**: Automate SDD artifact validation
+- **code-quality-reviewer**: Review generated implementation
+
+## Resources
+
+- GitHub Spec-Kit Repository: https://github.com/github/spec-kit
+- Issues/Support: https://github.com/github/spec-kit/issues
+- License: MIT
+
+## Maintainers
+
+- Den Delimarsky (@localden)
+- John Lam (@jflam)

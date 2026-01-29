@@ -1,12 +1,7 @@
 {
   "name": "home-assistant",
-  "description": "This skill should be used when helping with Home Assistant setup, including creating automations, modifying dashboards, checking entity states, debugging automations, and managing the smart home confi",
-  "repo": "cullenmcdermott/nix-config",
-  "category": "development",
-  "tags": [
-    "home",
-    "assistant"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "sammcj/agentic-coding",
+  "path": "Claude/skills_disabled/home-assistant/SKILL.md",
+  "source": "github.com/sammcj/agentic-coding",
+  "downloaded_at": "2026-01-29T04:01:37.864972Z"
 }

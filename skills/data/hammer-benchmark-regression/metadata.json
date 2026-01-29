@@ -1,9 +1,7 @@
 {
   "name": "hammer-benchmark-regression",
-  "description": "Runs performance benchmarks for SDL3 HammerEngine and detects regressions by comparing metrics against baseline. Use when testing performance-sensitive changes to AI, collision, pathfinding, particle ",
   "repo": "Ronin15/SDL3_HammerEngine_Template",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/Ronin15/SDL3_HammerEngine_Template"
+  "path": ".claude/skills/hammer-benchmark-regression/SKILL.md",
+  "source": "github.com/Ronin15/SDL3_HammerEngine_Template",
+  "downloaded_at": "2026-01-29T02:15:11.955049Z"
 }

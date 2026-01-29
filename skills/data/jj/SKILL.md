@@ -1,114 +1,170 @@
 ---
 name: jj
-description: Jujutsu (jj) skill for the ikigai project
+description: Reference guide for jj (Jujutsu) version control operations
 ---
 
-# Jujutsu (jj)
+# jj Reference Guide
 
-## Description
-Standard jj operations for day-to-day development work.
+Reference for common jj operations, conventions, and patterns used in this codebase.
 
-## CRITICAL: Commits Are Permanent
+## Commit Description Format
 
-**When user says "commit": IMMEDIATELY use `jj commit -m "msg"`**
+All commit descriptions MUST be a single line following this format:
 
-- Committed changes are **permanent** and stored forever in operation log
-- Uncommitted changes **can be lost** during rebases/restores
-- Every commit is **recoverable** via `jj op restore`
-
-Run `make check` periodically to catch issues early.
-
-## Configuration
-
-- **Remote**: origin (github.com:mgreenly/ikigai.git)
-- **Primary branch**: main (bookmark)
-
-## Commit Policy
-
-**Always use selective commits.** Specify exactly which paths to include:
-
-```bash
-jj commit path/to/file1 path/to/dir -m "msg"
+```
+<project-prefix>: <short description>
 ```
 
-Only commit all files (`jj commit -m "msg"` without paths) when the user explicitly says "commit all" or "commit everything".
+**IMPORTANT**: Always use a one-line commit message. Never use multi-line descriptions or bullet points.
 
-**Never use `jj restore` to "clean up" files you didn't change.** This destroys other agents' work. If uncommitted changes outside your scope block you, stop and ask.
+**Project prefix** is the descriptive folder path identifying the subsystem (e.g., `src/auth`, `lib/utils`, `services/api`).
 
-NOT `jj describe` (only updates description without creating commit).
+**Description** starts with a lowercase verb: add, update, fix, refactor, remove, etc.
 
-## Prohibited Operations
+### Examples
 
-This skill does NOT permit:
-- Modifying the `main` bookmark locally
-- Merging into main locally
-- Force pushing to main
-- Restoring/reverting files you didn't change (destroys other agents' work)
+```
+src/auth: add JWT token refresh logic
+lib/utils: fix date parsing for ISO formats
+services/api: add rate limiting middleware
+db/migrations: add users table
+docs: update installation instructions
+tests/integration: add checkout flow tests
+```
 
-**Merges to main only happen via GitHub PRs.** All work is done on feature bookmarks, pushed to origin, and merged through pull requests on GitHub. Never merge locally.
+## Analyzing Changes
 
-## Permitted Operations
+### Overview Commands
 
-- Commit to feature/fix bookmarks
-- Push feature/fix bookmarks to remote
-- Create new bookmarks
-- Create and push tags
-- Fetch from remote
-- Rebase commits
-- Create new commits on any mutable revision
+```bash
+# Files changed with change type (modified/added/deleted)
+jj diff --summary
+jj show <rev> --summary
 
-## Squashing (Permission Required)
+# Lines changed per file histogram
+jj diff --stat
+jj diff -r <rev> --stat
 
-**NEVER squash without explicit user permission.** Only when user says "squash" or "squash commits".
+# Full diff
+jj diff
+jj diff -r <rev>
+```
 
-**Squashing workflow:**
-1. `jj edit <revision>` - Move to commit to squash
-2. `jj squash -m "message"` - Squash into parent (MUST use `-m` flag in CLI)
-3. Repeat for additional commits
+### Size-Based Approach
 
-**Flag limitations:**
-- ✗ `jj squash -r <rev> --into <dest>` - INVALID (flags cannot combine)
-- ✓ `jj edit <rev>` then `jj squash -m "msg"` - VALID
+- **Small changes** (≤5 files, ≤200 lines): read the diff directly
+- **Large changes** (>5 files or >200 lines): use `/jj-context` to get a structured summary
 
-**Recovery:** `jj op log` then `jj op restore <id>` (all operations are logged)
+## Common Operations
 
-## Common Flags
+### Creating a Commit (`jj commit`)
 
-| Flag | Why Use It |
-|------|------------|
-| `-m "message"` | Provide commit/squash message inline (required in non-interactive environments) |
-| `-r <revision>` | Specify which revision to operate on (alternative to `jj edit` first) |
-| `--into <dest>` | Squash into specific destination (cannot combine with `-r`) |
-| `--no-graph` | Show log output without tree visualization (cleaner for parsing) |
-| `--stat` | Show file change statistics in diff (lines added/removed per file) |
-| `--bookmark <name>` | Push specific bookmark to remote |
-| `-d <dest>` | Set destination for rebase operation |
+Creates a new commit from working copy changes:
 
-## Common Commands
+```bash
+jj commit -m "<project-prefix>: <description>"
+```
 
-| Task | Command |
-|------|---------|
-| Check status | `jj status` |
-| View changes | `jj diff` |
-| View log | `jj log` |
-| **Commit specific files** | **`jj commit <paths> -m "msg"`** |
-| Commit all files | `jj commit -m "msg"` |
-| Squash into parent | `jj squash -m "msg"` |
-| Edit a commit | `jj edit <revision>` |
-| Create bookmark | `jj bookmark create <name>` |
-| Update bookmark to @ | `jj bookmark set <name>` |
-| Push bookmark | `jj git push --bookmark <name>` |
-| Fetch from remote | `jj git fetch` |
-| Restore working copy | `jj restore` |
-| Create commit on revision | `jj new <revision>` |
-| Rebase | `jj rebase -d <destination>` |
-| Create tag | `jj tag set <name> -r <revision>` |
-| Push tag | `git push origin <tag>` |
-| List tags | `jj tag list` |
+After committing, `@` becomes an empty working copy on top of the new commit.
 
-## Key Concepts
+### Describing a Commit (`jj describe`)
 
-- **Working copy** (`@`): Always a commit being edited (no staging area)
-- **Bookmarks**: Equivalent to git branches (named pointers to commits)
-- **Immutability**: `◆` = permanent, `○` = mutable, `@` = mutable (lost if not committed)
-- **Update bookmark**: Find recent bookmark in ancestry, use `jj bookmark set <name>`
+Sets or updates the description of an existing commit:
+
+```bash
+# Describe parent commit (most common)
+jj describe @- -m "<project-prefix>: <description>"
+
+# Describe any commit
+jj describe <rev> -m "<description>"
+```
+
+### Creating a Bookmark (`jj bookmark`)
+
+Bookmarks use `john/<descriptive-name>` format with kebab-case:
+
+```bash
+# On parent commit (if @ is empty)
+jj bookmark create john/<name> -r @-
+
+# On current commit
+jj bookmark create john/<name>
+
+# List bookmarks
+jj bookmark list
+```
+
+**Naming**: Use 2-4 word kebab-case names describing the work:
+- `john/s3-inventory-download`
+- `john/fix-auth-refresh`
+- `john/refactor-poller-config`
+
+### Splitting a Commit (`jj split`)
+
+Splits a commit into multiple commits by file:
+
+```bash
+# Split specific files into a new commit
+jj split -r <rev> -m "<description>" path/to/file1 path/to/file2
+
+# Last group: just describe the remainder
+jj describe -r @- -m "<description>"
+```
+
+**Note**: After each split, the revision ID changes. Use `@-` to refer to the result.
+
+**Grouping suggestions**:
+- Core feature + its tests together
+- Configuration/infrastructure separate
+- Database migrations separate
+- Refactoring/cleanup separate
+
+### Squashing Changes (`jj squash`)
+
+Moves changes from working copy into ancestor commits.
+
+Without options, squashes all changes from `@` into its parent (`@-`):
+```bash
+jj squash  # @ → @-
+```
+
+With `--into` (or `-t`), squash into a specific commit:
+```bash
+jj squash --into <change-id> path/to/file.py  # specific files
+jj squash --into <change-id> "src/**/*.py"    # glob pattern
+jj squash --into @--                           # grandparent
+```
+
+**For sub-file chunks** (specific hunks, not whole files):
+
+1. Save original @ change ID: `jj log -r @ --no-graph -T 'change_id'`
+2. Create intermediate: `jj new --insert-before @`
+3. Write only the hunks for target commit
+4. Squash: `jj squash --into <target-change-id>`
+5. Return to rebased @: `jj edit <rebased-@-change-id>`
+6. Remove duplicated hunks
+7. Restore working copy: `jj new`
+
+**Always use change IDs** (e.g., `ksrmwuon`) not commit IDs - they're stable across rewrites.
+
+## Revision Syntax
+
+| Syntax | Meaning |
+|--------|---------|
+| `@` | Current working copy commit |
+| `x-` | Parent(s) of x (e.g., `@-` = parent of working copy) |
+| `x+` | Children of x |
+| `@--` | Grandparent (`@-` then `-` again) |
+| `trunk()` | Main branch (main/master) |
+| `::x` | All ancestors of x, including x |
+| `x::` | All descendants of x, including x |
+| `x..y` | Ancestors of y that are NOT ancestors of x |
+| `x::y` | Descendants of x that are also ancestors of y |
+| `<change-id>` | Specific commit by change ID (e.g., `ksrmwuon`) |
+
+## Working Copy Behavior
+
+- In jj, `@` (working copy) is often an empty commit on top of your actual work
+- Check `jj log` for "(empty)" to know if @ has changes
+- `jj commit` creates commit and leaves @ empty
+- `jj describe` modifies existing commit, doesn't change @

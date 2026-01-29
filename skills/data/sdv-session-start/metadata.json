@@ -1,13 +1,7 @@
 {
   "name": "sdv-session-start",
-  "description": "ALWAYS invoke this skill FIRST at session start, after context reset/compaction, or when user mentions \"reset\", \"new session\", \"where were we\", \"what was I working on\". Do NOT skip this for specific t",
   "repo": "liminalwarmth/StardewOutfitManager",
-  "category": "productivity",
-  "tags": [
-    "sdv",
-    "session",
-    "start"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/sdv-session-start/SKILL.md",
+  "source": "github.com/liminalwarmth/StardewOutfitManager",
+  "downloaded_at": "2026-01-29T04:24:38.449171Z"
 }

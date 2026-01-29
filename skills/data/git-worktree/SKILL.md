@@ -1,549 +1,159 @@
+# git-worktree - Git Worktree 操作
+
+複数ブランチを同時に作業するための Git worktree 管理。
+
 ---
-name: git-worktree
-description: Manage git worktrees for parallel feature development
-disable-model-invocation: true
+
+## 概要
+
+Git worktree を使うと、1つのリポジトリから複数の作業ディレクトリを作成できる。
+
+**メリット**:
+- ブランチ切り替えなしで複数機能を並行開発
+- PRレビュー中に別作業が可能
+- 本番ホットフィックスと開発を同時進行
+
 ---
 
-# Git Worktree Management
+## 基本コマンド
 
-I'll help you manage git worktrees for parallel development workflows.
-
-Arguments: `$ARGUMENTS` - action (add/list/remove) and worktree name
-
-## Worktree Philosophy
-
-Based on **obra/superpowers** parallel development patterns:
-- Work on multiple features simultaneously
-- Keep main worktree clean
-- Isolate experimental branches
-- Quick context switching
-- No stashing required
-
-**Token Optimization:**
-- Simple git commands (200 tokens)
-- Minimal file reading (300 tokens)
-- Expected: 1,500-2,500 tokens
-
-## Pre-Flight Checks
-
-Before managing worktrees, I'll verify:
-- Git repository exists and is valid
-- No uncommitted changes in current worktree
-- Sufficient disk space available
-- Target branch exists (for checkout)
-
-<think>
-Worktree Strategy:
-- What's the purpose of this worktree?
-- Should it be a new or existing branch?
-- Where should it be located?
-- How to handle cleanup?
-</think>
-
-First, let me check your current worktree setup:
+### Worktree 作成
 
 ```bash
-#!/bin/bash
-# Check current worktree configuration
+# 新規ブランチで作成
+git worktree add ../project-feature-x feature-x
 
-set -e
+# 既存ブランチで作成
+git worktree add ../project-hotfix hotfix/urgent-fix
 
-echo "=== Git Worktree Status ==="
-echo ""
-
-# 1. Verify git repository
-if ! git rev-parse --git-dir > /dev/null 2>&1; then
-    echo "Error: Not a git repository"
-    exit 1
-fi
-
-# 2. Show main repository location
-echo "Main Repository:"
-git rev-parse --git-dir
-echo ""
-
-# 3. List existing worktrees
-echo "Existing Worktrees:"
-if git worktree list > /dev/null 2>&1; then
-    git worktree list
-else
-    echo "  None (git worktree not supported)"
-    exit 1
-fi
-echo ""
-
-# 4. Show current worktree
-echo "Current Worktree:"
-current_worktree=$(git rev-parse --show-toplevel)
-current_branch=$(git branch --show-current)
-echo "  Location: $current_worktree"
-echo "  Branch: $current_branch"
-echo ""
-
-# 5. Check for uncommitted changes
-echo "Status:"
-if git diff --quiet && git diff --cached --quiet; then
-    echo "  ✓ No uncommitted changes"
-else
-    echo "  ⚠ Uncommitted changes present"
-    git status --short
-fi
-echo ""
+# リモートブランチをチェックアウト
+git worktree add ../project-review origin/feature-y
 ```
 
-## Action: Add Worktree
-
-Create a new worktree for parallel development:
+### Worktree 一覧
 
 ```bash
-#!/bin/bash
-# Add new git worktree
-
-add_worktree() {
-    local worktree_name="$1"
-    local branch_name="$2"
-    local base_branch="${3:-main}"
-
-    echo "=== Add Git Worktree ==="
-    echo ""
-
-    # Validate inputs
-    if [ -z "$worktree_name" ]; then
-        echo "Error: Worktree name required"
-        echo ""
-        echo "Usage:"
-        echo "  /git-worktree add feature-auth"
-        echo "  /git-worktree add bugfix-login existing-branch"
-        exit 1
-    fi
-
-    # Default branch name to worktree name
-    branch_name="${branch_name:-$worktree_name}"
-
-    # 1. Check if worktree already exists
-    if git worktree list | grep -q "$worktree_name"; then
-        echo "Error: Worktree '$worktree_name' already exists"
-        echo ""
-        echo "Existing worktrees:"
-        git worktree list
-        exit 1
-    fi
-
-    # 2. Determine worktree location
-    repo_root=$(git rev-parse --show-toplevel)
-    worktree_path="$repo_root/../$worktree_name"
-
-    echo "Configuration:"
-    echo "  Worktree: $worktree_name"
-    echo "  Branch: $branch_name"
-    echo "  Location: $worktree_path"
-    echo ""
-
-    # 3. Check if branch exists
-    if git rev-parse --verify "$branch_name" > /dev/null 2>&1; then
-        echo "Branch exists: $branch_name"
-        echo "Creating worktree from existing branch..."
-        git worktree add "$worktree_path" "$branch_name"
-    else
-        echo "Creating new branch: $branch_name"
-        echo "Base: $base_branch"
-        git worktree add -b "$branch_name" "$worktree_path" "$base_branch"
-    fi
-
-    echo ""
-    echo "✓ Worktree created successfully"
-    echo ""
-    echo "Switch to worktree:"
-    echo "  cd $worktree_path"
-    echo ""
-    echo "Or open in new terminal/editor"
-}
-
-# Parse arguments
-action="${ARGUMENTS%% *}"
-params="${ARGUMENTS#* }"
-
-if [ "$action" = "add" ]; then
-    add_worktree $params
-fi
+git worktree list
 ```
 
-## Action: List Worktrees
+出力例:
+```
+/path/to/project          abc1234 [main]
+/path/to/project-feature  def5678 [feature-x]
+/path/to/project-hotfix   ghi9012 [hotfix/urgent-fix]
+```
 
-Show all worktrees with detailed information:
+### Worktree 削除
 
 ```bash
-#!/bin/bash
-# List all git worktrees
+# 作業ディレクトリを削除
+rm -rf ../project-feature-x
 
-list_worktrees() {
-    echo "=== Git Worktrees ==="
-    echo ""
-
-    # 1. Get worktree list
-    if ! git worktree list > /dev/null 2>&1; then
-        echo "No worktrees found"
-        return 0
-    fi
-
-    # 2. Show detailed information
-    git worktree list | while read -r path commit branch; do
-        echo "Worktree: $(basename "$path")"
-        echo "  Path: $path"
-        echo "  Branch: $branch"
-        echo "  Commit: ${commit:0:8}"
-
-        # Check for uncommitted changes
-        if [ -d "$path" ]; then
-            cd "$path" || continue
-            if ! git diff --quiet || ! git diff --cached --quiet; then
-                echo "  Status: ⚠ Uncommitted changes"
-            else
-                echo "  Status: ✓ Clean"
-            fi
-            cd - > /dev/null || true
-        fi
-
-        echo ""
-    done
-
-    # 3. Show prunable worktrees
-    echo "Prunable Worktrees:"
-    if git worktree prune --dry-run 2>&1 | grep -q "Removing"; then
-        git worktree prune --dry-run
-    else
-        echo "  None"
-    fi
-    echo ""
-}
-
-if [ "$action" = "list" ] || [ -z "$action" ]; then
-    list_worktrees
-fi
+# Git から登録解除
+git worktree prune
 ```
 
-## Action: Remove Worktree
+または一括:
+```bash
+git worktree remove ../project-feature-x
+```
 
-Safely remove a worktree:
+---
+
+## ワークフロー例
+
+### 1. 機能開発中にホットフィックス
 
 ```bash
-#!/bin/bash
-# Remove git worktree
+# 現在: feature-x ブランチで開発中
+# 緊急: 本番バグ発生
 
-remove_worktree() {
-    local worktree_name="$1"
+# ホットフィックス用 worktree 作成
+git worktree add ../project-hotfix -b hotfix/login-fix main
 
-    echo "=== Remove Git Worktree ==="
-    echo ""
+# ホットフィックス作業
+cd ../project-hotfix
+# ... 修正 ...
+git commit -m "fix: resolve login issue"
+git push origin hotfix/login-fix
 
-    if [ -z "$worktree_name" ]; then
-        echo "Error: Worktree name required"
-        echo ""
-        echo "Usage:"
-        echo "  /git-worktree remove feature-auth"
-        exit 1
-    fi
-
-    # 1. Find worktree path
-    worktree_path=$(git worktree list | grep "$worktree_name" | awk '{print $1}')
-
-    if [ -z "$worktree_path" ]; then
-        echo "Error: Worktree '$worktree_name' not found"
-        echo ""
-        echo "Available worktrees:"
-        git worktree list
-        exit 1
-    fi
-
-    echo "Worktree: $worktree_name"
-    echo "Path: $worktree_path"
-    echo ""
-
-    # 2. Check for uncommitted changes
-    if [ -d "$worktree_path" ]; then
-        cd "$worktree_path" || exit 1
-
-        if ! git diff --quiet || ! git diff --cached --quiet; then
-            echo "⚠ Warning: Uncommitted changes detected"
-            git status --short
-            echo ""
-            echo "Options:"
-            echo "  1. Commit changes first"
-            echo "  2. Force remove (changes will be lost)"
-            echo ""
-            read -p "Force remove? [y/N]: " confirm
-            if [ "$confirm" != "y" ]; then
-                echo "Remove cancelled"
-                exit 0
-            fi
-        fi
-
-        cd - > /dev/null || true
-    fi
-
-    # 3. Get branch name for optional deletion
-    branch_name=$(git worktree list | grep "$worktree_name" | awk '{print $3}' | sed 's/\[//' | sed 's/\]//')
-
-    # 4. Remove worktree
-    echo "Removing worktree..."
-    git worktree remove "$worktree_path" --force
-
-    echo "✓ Worktree removed"
-    echo ""
-
-    # 5. Ask about branch deletion
-    if [ -n "$branch_name" ] && git rev-parse --verify "$branch_name" > /dev/null 2>&1; then
-        echo "Branch still exists: $branch_name"
-        echo ""
-        read -p "Delete branch too? [y/N]: " delete_branch
-        if [ "$delete_branch" = "y" ]; then
-            git branch -D "$branch_name"
-            echo "✓ Branch deleted"
-        else
-            echo "Branch kept for future use"
-        fi
-    fi
-}
-
-if [ "$action" = "remove" ] || [ "$action" = "rm" ]; then
-    remove_worktree $params
-fi
+# 元の作業に戻る
+cd ../project
+# feature-x の作業を継続
 ```
 
-## Action: Prune Worktrees
-
-Clean up removed worktrees:
+### 2. PRレビュー
 
 ```bash
-#!/bin/bash
-# Prune deleted worktrees
+# レビュー対象のブランチを worktree で開く
+git fetch origin
+git worktree add ../project-review origin/feature-y
 
-prune_worktrees() {
-    echo "=== Prune Git Worktrees ==="
-    echo ""
+# レビュー
+cd ../project-review
+npm install
+npm run dev
 
-    # 1. Check for prunable worktrees
-    echo "Checking for orphaned worktrees..."
-    if git worktree prune --dry-run 2>&1 | grep -q "Removing"; then
-        echo ""
-        git worktree prune --dry-run
-        echo ""
-
-        read -p "Prune these worktrees? [y/N]: " confirm
-        if [ "$confirm" = "y" ]; then
-            git worktree prune
-            echo "✓ Worktrees pruned"
-        else
-            echo "Prune cancelled"
-        fi
-    else
-        echo "  No orphaned worktrees found"
-    fi
-    echo ""
-}
-
-if [ "$action" = "prune" ]; then
-    prune_worktrees
-fi
+# レビュー完了後
+cd ../project
+git worktree remove ../project-review
 ```
 
-## Action: Switch Worktree
+---
 
-Quick switch between worktrees:
+## ベストプラクティス
+
+### ディレクトリ命名
+
+```
+project/              # メイン (main)
+project-feature-x/    # 機能開発
+project-hotfix/       # ホットフィックス
+project-review/       # PRレビュー
+```
+
+### 定期クリーンアップ
 
 ```bash
-#!/bin/bash
-# Switch to worktree (helper)
+# 不要な worktree を確認
+git worktree list
 
-switch_worktree() {
-    local worktree_name="$1"
+# マージ済みブランチの worktree を削除
+git worktree remove ../project-merged-feature
 
-    echo "=== Switch Worktree ==="
-    echo ""
-
-    if [ -z "$worktree_name" ]; then
-        echo "Available worktrees:"
-        git worktree list
-        exit 0
-    fi
-
-    # Find worktree path
-    worktree_path=$(git worktree list | grep "$worktree_name" | awk '{print $1}')
-
-    if [ -z "$worktree_path" ]; then
-        echo "Error: Worktree '$worktree_name' not found"
-        exit 1
-    fi
-
-    echo "Switching to: $worktree_name"
-    echo "Path: $worktree_path"
-    echo ""
-    echo "Run this command to switch:"
-    echo "  cd $worktree_path"
-}
-
-if [ "$action" = "switch" ]; then
-    switch_worktree $params
-fi
+# 孤立した worktree を整理
+git worktree prune
 ```
 
-## Common Workflows
+### 注意点
 
-**Parallel Feature Development:**
-```bash
-# Main worktree: working on feature A
-/git-worktree add feature-b
-# Opens new worktree for feature B
+1. **同じブランチを複数 worktree で開けない**
+2. **node_modules は各 worktree で別途インストール必要**
+3. **.env ファイルもコピーが必要**
 
-# Work on both simultaneously
-cd ../feature-b
-# Make changes to feature B
+---
 
-# Return to main worktree
-cd ../main-repo
-# Continue feature A
-```
+## トラブルシューティング
 
-**Bug Fix While Developing:**
-```bash
-# Currently working on feature
-/git-worktree add hotfix-critical main
-# Creates worktree from main branch
-
-cd ../hotfix-critical
-# Fix bug, test, commit
-
-# Create PR, merge
-# Return to feature work
-cd ../main-repo
-
-# Clean up
-/git-worktree remove hotfix-critical
-```
-
-**Code Review in Separate Worktree:**
-```bash
-# Review PR without disrupting current work
-/git-worktree add review-pr-123 pr-branch
-
-cd ../review-pr-123
-# Review, test, comment
-
-# Clean up after review
-cd ../main-repo
-/git-worktree remove review-pr-123
-```
-
-## Safety Features
-
-**Before Removing Worktree:**
-- Check for uncommitted changes
-- Warn if changes would be lost
-- Require confirmation for force remove
-- Option to delete or keep branch
-
-**Before Adding Worktree:**
-- Verify branch exists or create new
-- Check disk space (optional)
-- Prevent duplicate worktree names
-- Use consistent naming
-
-## Integration with /branch-finish
-
-When completing work in a worktree:
+### "already checked out" エラー
 
 ```bash
-# 1. Finish work in worktree
-cd ../feature-x
-/branch-finish
-
-# 2. Return to main and clean up
-cd ../main-repo
-/git-worktree remove feature-x
+# 別の worktree で使用中のブランチ
+git worktree list  # どこで使われているか確認
 ```
 
-## Directory Structure
+### 孤立した worktree
 
-**Recommended Structure:**
-```
-project/
-├── main-repo/           # Main worktree
-│   └── .git/
-├── feature-auth/        # Feature worktree
-├── feature-payments/    # Another feature
-└── bugfix-login/        # Bugfix worktree
-```
-
-**Alternative (subdirectory):**
-```
-project/
-├── main/               # Main worktree
-│   └── .git/
-└── worktrees/          # All additional worktrees
-    ├── feature-auth/
-    ├── feature-payments/
-    └── bugfix-login/
-```
-
-## Worktree Best Practices
-
-**When to Use Worktrees:**
-- ✅ Working on multiple features simultaneously
-- ✅ Quick hotfixes without stashing
-- ✅ Code reviews without branch switching
-- ✅ Testing different approaches in parallel
-- ✅ Maintaining multiple versions
-
-**When NOT to Use Worktrees:**
-- ❌ Simple branch switching (use `git checkout`)
-- ❌ Temporary experiments (use stash)
-- ❌ Single-feature development
-- ❌ Limited disk space
-
-## Cleanup Strategy
-
-**Regular Cleanup:**
 ```bash
-# Weekly: prune deleted worktrees
-/git-worktree prune
-
-# Monthly: review all worktrees
-/git-worktree list
-
-# Remove completed worktrees
-/git-worktree remove <name>
+# ディレクトリを手動削除した場合
+git worktree prune
 ```
 
-## Error Handling
+### ブランチ削除時
 
-If worktree operations fail:
-- I'll explain the error clearly
-- Show current worktree state
-- Provide recovery options
-- Ensure no partial operations
-
-**Common Errors:**
-- **Branch locked**: Another worktree using branch
-- **Path exists**: Directory conflict
-- **Uncommitted changes**: Require commit or force
-- **Not a repository**: Must be in git repo
-
-## What I'll Actually Do
-
-1. **List Worktrees** - Show all worktrees with status
-2. **Add Worktree** - Create new worktree with branch
-3. **Remove Worktree** - Safely delete worktree
-4. **Prune** - Clean up orphaned worktrees
-5. **Status Check** - Show uncommitted changes
-6. **Switch Helper** - Generate cd commands
-
-**Important:** I will NEVER:
-- Remove worktrees without checking for uncommitted work
-- Create duplicate worktrees
-- Leave orphaned worktrees
-- Modify git config
-- Add AI attribution
-
-Worktree management will be safe, clean, and efficient for parallel development.
-
-**Credits:** Worktree workflow based on [obra/superpowers](https://github.com/obra/superpowers) parallel development patterns and git worktree best practices.
+```bash
+# worktree で使用中のブランチは削除できない
+# 先に worktree を削除する
+git worktree remove ../project-feature
+git branch -d feature
+```

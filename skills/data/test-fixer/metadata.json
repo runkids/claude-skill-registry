@@ -1,12 +1,7 @@
 {
   "name": "test-fixer",
-  "description": "Fix failing tests based on failure reports, verify fixes, and iterate until all tests pass. This skill should be used after test-executor generates failure reports, providing systematic debugging and ",
-  "repo": "LaizyIO/WorkflowSkills",
-  "category": "development",
-  "tags": [
-    "test",
-    "fixer"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "cristian-robert/autonomous-automation-tester",
+  "path": ".claude/skills/test-fixer/SKILL.md",
+  "source": "github.com/cristian-robert/autonomous-automation-tester",
+  "downloaded_at": "2026-01-29T01:49:02.222669Z"
 }

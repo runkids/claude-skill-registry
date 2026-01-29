@@ -1,7 +1,7 @@
 {
   "name": "bitwarden",
-  "repo": "moltbot/moltbot",
-  "path": "skills/bitwarden/SKILL.md",
-  "source": "github.com/moltbot/moltbot",
-  "downloaded_at": "2026-01-28T04:17:12.108487Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/bitwarden/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-29T04:03:54.099277Z"
 }

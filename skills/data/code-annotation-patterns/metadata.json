@@ -1,9 +1,7 @@
 {
   "name": "code-annotation-patterns",
-  "description": "Use when annotating code with structured metadata, tags, and markers for AI-assisted development workflows. Covers annotation formats, semantic tags, and integration with development tools.",
   "repo": "TheBushidoCollective/han",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-notetaker/skills/code-annotation-patterns/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-29T04:12:57.156283Z"
 }

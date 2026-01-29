@@ -1,9 +1,7 @@
 {
   "name": "mise-expert",
-  "description": "Mise development environment manager (asdf + direnv + make replacement). Capabilities: tool version management (node, python, go, ruby, rust), environment variables, task runners, project-local config",
-  "repo": "samhvw8/dotfiles",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/samhvw8/dotfiles"
+  "repo": "brixtonpham/claude-config",
+  "path": "skills/mise-expert/SKILL.md",
+  "source": "github.com/brixtonpham/claude-config",
+  "downloaded_at": "2026-01-29T04:18:22.609033Z"
 }

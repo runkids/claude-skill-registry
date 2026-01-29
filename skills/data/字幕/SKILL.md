@@ -1,44 +1,58 @@
 ---
 name: videocut:字幕
-description: 字幕生成与烧录。转录→词典纠错→审核→烧录。触发词：加字幕、生成字幕、字幕
+description: 字幕生成与烧录。火山引擎转录→词典纠错→审核→烧录。触发词：加字幕、生成字幕、字幕
 ---
+
+<!--
+input: 视频文件
+output: 带字幕视频
+pos: 后置 skill，剪辑完成后调用
+
+架构守护者：一旦我被修改，请同步更新：
+1. ../README.md 的 Skill 清单
+2. /CLAUDE.md 路由表
+-->
 
 # 字幕
 
-> 转录 → 纠错 → 审核 → 匹配 → 烧录
+> 转录 → 纠错 → 审核 → 烧录
 
 ## 流程
 
 ```
-1. 转录视频（Whisper）
+1. 提取音频 + 上传
     ↓
-2. 词典纠错 + 分句
+2. 火山引擎转录（字级别时间戳）
     ↓
-3. 输出字幕稿（纯文本，一句一行）
+3. 词典纠错 + 分句（≤15字/行）
+    ↓
+4. 输出字幕稿（纯文本，一句一行）
     ↓
 【用户审核修改】
     ↓
-4. 用户给回修改后的文本
+5. 用户给回修改后的文本
     ↓
-5. 我匹配时间戳 → 生成 SRT
+6. 匹配时间戳 → 生成 SRT
     ↓
-6. 烧录字幕（FFmpeg）
+7. 烧录字幕（FFmpeg）
 ```
 
 ## 转录
 
-使用 OpenAI Whisper 模型进行语音转文字：
+使用火山引擎语音识别，输出字级别时间戳。
 
 ```bash
-whisper video.mp4 --model medium --language zh --output_format json
+# 1. 提取音频
+ffmpeg -i "file:video.mp4" -vn -acodec libmp3lame -y audio.mp3
+
+# 2. 上传到 uguu.se
+curl -s -F "files[]=@audio.mp3" https://uguu.se/upload
+
+# 3. 火山引擎转录
+./scripts/volcengine_transcribe.sh "https://h.uguu.se/xxx.mp3"
 ```
 
-| 模型 | 用途 |
-|------|------|
-| `medium` | 默认，平衡速度与准确率 |
-| `large-v3` | 高精度，较慢 |
-
-输出 JSON 包含逐词时间戳，用于后续 SRT 生成。
+输出 `volcengine_result.json`，包含字级别时间戳。
 
 ---
 
@@ -50,6 +64,7 @@ whisper video.mp4 --model medium --language zh --output_format json
 | ≤15字/行 | 超过15字必须拆分（4:3竖屏） |
 | 句尾无标点 | `你好` 不是 `你好。` |
 | 句中保留标点 | `先点这里，再点那里` |
+| NO.1 写法 | `number one` → `NO.1` |
 
 ---
 
@@ -61,9 +76,10 @@ whisper video.mp4 --model medium --language zh --output_format json
 skills
 Claude
 iPhone
+NO.1
 ```
 
-我自动识别变体：`claude` → `Claude`
+自动识别变体：`claude` → `Claude`
 
 ---
 
@@ -84,27 +100,59 @@ iPhone
 
 ---
 
+## 时间戳匹配
+
+将用户修改后的字幕稿与火山引擎的字级别时间戳对齐：
+
+1. 读取 `subtitles_words.json` 的逐字时间戳
+2. 字幕稿每行与转录文本做匹配
+3. 根据匹配位置提取 start/end 时间
+4. 生成 SRT 格式
+
+---
+
+## 烧录字幕
+
+```bash
+ffmpeg -i "file:video.mp4" \
+  -vf "subtitles='video.srt':force_style='FontSize=18,FontName=PingFang SC,PrimaryColour=&H00ffff,OutlineColour=&H000000,Outline=2,Alignment=2,MarginV=30'" \
+  -c:a copy \
+  -y "file:video-字幕.mp4"
+```
+
+| 参数 | 说明 |
+|------|------|
+| FontSize=18 | 字号（可调到24/32） |
+| FontName=PingFang SC | 苹方字体 |
+| PrimaryColour=&H00ffff | 黄色文字（BGR格式） |
+| OutlineColour=&H000000 | 黑色描边 |
+| Outline=2 | 描边粗细 |
+| Alignment=2 | 底部居中 |
+| MarginV=30 | 底部边距 |
+
+**注意**：文件名含冒号需加 `file:` 前缀。
+
+---
+
 ## 样式
 
-默认：24号白字、黑色描边、底部居中
+默认：**18号黄字、黑色描边、底部居中**
 
-**可选样式：**
-| 样式 | 说明 |
-|------|------|
-| 默认 | 白字黑边 |
-| 黄字 | 黄字黑边（醒目） |
+| 样式 | PrimaryColour | 说明 |
+|------|---------------|------|
+| 黄字（默认） | &H00ffff | 醒目，推荐 |
+| 白字 | &Hffffff | 传统样式 |
 
 用户可说：
-- "字大一点" → 32号
-- "放顶部" → 顶部居中
-- "黄色字幕" → 黄字黑边
+- "字大一点" → FontSize=24
+- "白色字幕" → PrimaryColour=&Hffffff
 
 ---
 
 ## 输出
 
 ```
-01-xxx_字幕稿.txt   # 纯文本，用户编辑
-01-xxx.srt          # 字幕文件
-01-xxx-字幕.mp4     # 带字幕视频
+video_字幕稿.txt   # 纯文本，用户编辑
+video.srt          # 字幕文件
+video-字幕.mp4     # 带字幕视频
 ```

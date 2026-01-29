@@ -3,7 +3,7 @@ name: requete-cph-licenciement-faute-grave-selim-brihi
 description: Rédaction de requêtes devant le Conseil de prud'hommes pour contester un licenciement pour faute grave. Utiliser ce skill quand l'utilisateur demande de rédiger une requête CPH, contester un licenciement pour faute grave, préparer une saisine du CPH pour un litige lié à un licenciement, ou créer un document de contestation de licenciement en droit du travail français.
 metadata:
   author: Sélim Brihi
-  license: Apache 2.0
+  license: AGPL-3.0
 ---
 
 # Requête CPH - Contestation Licenciement pour Faute Grave

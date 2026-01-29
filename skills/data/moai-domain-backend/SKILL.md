@@ -1,141 +1,290 @@
 ---
-name: "moai-domain-backend"
-description: "Backend development specialist covering API design, database integration, microservices architecture, and modern backend patterns"
-version: 1.0.0
-category: "domain"
-modularized: false
-user-invocable: false
-tags: ['backend', 'api', 'database', 'microservices', 'architecture']
-updated: 2026-01-11
+name: moai-domain-backend
+description: Provides backend architecture and scaling guidance; use when the project targets server-side APIs or infrastructure design decisions.
 allowed-tools:
   - Read
-  - Write
-  - Edit
   - Bash
-  - Grep
-  - Glob
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
-status: "active"
-author: "MoAI-ADK Team"
 ---
 
-# Backend Development Specialist
+# Backend Expert
 
-## Quick Reference
+## Skill Metadata
+| Field | Value |
+| ----- | ----- |
+| Version | 2.0.0 |
+| Created | 2025-10-22 |
+| Updated | 2025-10-22 |
+| Allowed tools | Read (read_file), Bash (terminal) |
+| Auto-load | On demand for backend architecture requests |
+| Trigger cues | Service layering, API orchestration, caching, background job design, cloud-native patterns, Kubernetes, Istio, observability, microservices, serverless, event-driven architecture. |
+| Tier | 4 |
 
-Backend Development Mastery - Comprehensive backend development patterns covering API design, database integration, microservices, and modern architecture patterns.
+## What it does
 
-Core Capabilities:
+Provides expertise in backend server architecture, RESTful API design, caching strategies, database optimization, cloud-native patterns, observability, and horizontal/vertical scalability patterns with modern tooling (Kubernetes, Istio, OpenTelemetry, Prometheus).
 
-- API Design: REST, GraphQL, gRPC with OpenAPI 3.1
-- Database Integration: PostgreSQL, MongoDB, Redis, caching strategies
-- Microservices: Service mesh, distributed patterns, event-driven architecture
-- Security: Authentication, authorization, OWASP compliance
-- Performance: Caching, optimization, monitoring, scaling
+## When to use
 
-When to Use:
+- Engages when backend or service-architecture questions come up.
+- "Backend architecture", "API design", "Caching strategy", "Scalability", "Kubernetes", "Observability"
+- Automatically invoked when working with backend projects
+- Backend SPEC implementation (`/alfred:2-run`)
+- Cloud-native architecture planning
+- Microservices design and orchestration
 
-- Backend API development and architecture
-- Database design and optimization
-- Microservices implementation
-- Performance optimization and scaling
-- Security integration for backend systems
+## How it works
 
----
+### Server Architecture Patterns
 
-## Implementation Guide
+**Layered Architecture**:
+- **Controller → Service → Repository** pattern
+- Clear separation of concerns
+- Testable business logic
+- Database abstraction layer
 
-### API Design Patterns
+**Microservices**:
+- **Service decomposition**: Domain-driven design boundaries
+- **Container orchestration**: Kubernetes 1.31.x
+- **Service mesh**: Istio 1.21.x for traffic management, security, observability
+- **Inter-service communication**: REST, gRPC, message queues
+- **API Gateway**: Kong, Ambassador, Traefik
+- **Service discovery**: Kubernetes DNS, Consul
 
-RESTful API Architecture:
+**Monoliths**:
+- When appropriate (small team, low complexity, rapid prototyping)
+- Modular monolith patterns
+- Clear internal boundaries for future extraction
 
-Create a FastAPI application with authentication and response models. Define a Pydantic UserResponse model with id, email, and name fields. Implement list_users and create_user endpoints with HTTPBearer security dependency. The list endpoint returns a list of UserResponse objects, while the create endpoint accepts a UserCreate model and returns a single UserResponse.
+**Serverless**:
+- **AWS Lambda**: Event-driven functions
+- **Google Cloud Functions**: HTTP and event triggers
+- **Azure Functions**: Durable Functions for workflows
+- Cold start mitigation strategies
+- Stateless design principles
 
-GraphQL Implementation:
+**Event-Driven Architecture**:
+- **CQRS**: Command Query Responsibility Segregation
+- **Event Sourcing**: Immutable event logs
+- **Apache Kafka 3.7.x**: Distributed streaming platform
+- **RabbitMQ 3.13.x**: Message broker
+- **Event versioning**: Schema evolution strategies
 
-Use Strawberry to define GraphQL types. Create a User type with id, email, and name fields. Define a Query type with a users resolver that returns a list of User objects asynchronously. Generate the schema by passing the Query type to strawberry.Schema.
+### API Design
 
-### Database Integration Patterns
+**RESTful APIs**:
+- **Resource-based**: Nouns over verbs
+- **HTTP methods**: GET, POST, PUT, PATCH, DELETE
+- **Stateless**: No server-side session
+- **HATEOAS**: Hypermedia as the Engine of Application State
+- **Pagination**: Cursor-based or offset-based
+- **Filtering**: Query parameters for resource selection
 
-PostgreSQL with SQLAlchemy:
+**GraphQL**:
+- **Schema-first**: Type definitions drive development
+- **Resolver patterns**: Efficient data fetching
+- **DataLoader**: Batching and caching
+- **Subscriptions**: Real-time updates via WebSockets
 
-Define SQLAlchemy models using declarative_base. Create a User model with id as primary key, email as unique string, and name as string column. Configure the engine with connection pooling parameters including pool_size of 20, max_overflow of 30, and pool_pre_ping enabled for connection health checks.
+**gRPC**:
+- **Protocol Buffers**: Strongly-typed contracts
+- **HTTP/2**: Multiplexing, server push
+- **Streaming**: Unary, server-streaming, client-streaming, bidirectional
 
-MongoDB with Motor:
+**WebSockets**:
+- **Bidirectional communication**: Real-time updates
+- **Connection management**: Heartbeats, reconnection
+- **Authentication**: Token-based or session-based
 
-Create a UserService class that initializes with an AsyncIOMotorClient. Set up the database and users collection in the constructor. Create indexes for email (unique) and created_at fields. Implement create_user method that inserts a document and returns the inserted_id as string.
+### Security (OWASP API Security Top 10 2023)
 
-### Microservices Architecture
-
-Service Discovery with Consul:
-
-Create a ServiceRegistry class that connects to Consul. Implement register_service method that registers a service with name, id, port, and health check endpoint. Implement discover_service method that queries healthy services and returns list of address:port strings.
-
-Event-Driven Architecture:
-
-Create an EventBus class using aio_pika for AMQP messaging. Implement connect method to establish connection and channel. Implement publish_event method that serializes event type and data as JSON and publishes to the default exchange with routing_key matching the event type.
-
----
-
-## Advanced Patterns
+- **API1:2023 Broken Object Level Authorization**: Verify user permissions
+- **API2:2023 Broken Authentication**: Strong auth mechanisms
+- **API3:2023 Broken Object Property Level Authorization**: Filter sensitive fields
+- **API4:2023 Unrestricted Resource Consumption**: Rate limiting, pagination
+- **API5:2023 Broken Function Level Authorization**: Role-based access control
+- **API6:2023 Unrestricted Access to Sensitive Business Flows**: Anti-automation
+- **API7:2023 Server Side Request Forgery**: Validate URLs, whitelist
+- **API8:2023 Security Misconfiguration**: Secure defaults, hardening
+- **API9:2023 Improper Inventory Management**: API versioning, documentation
+- **API10:2023 Unsafe Consumption of APIs**: Validate external API responses
 
 ### Caching Strategies
 
-Redis Integration:
+**Redis 7.2.x**:
+- **In-memory data store**: Key-value, hashes, lists, sets
+- **Pub/Sub**: Real-time messaging
+- **Lua scripting**: Atomic operations
+- **Redis Cluster**: Horizontal scaling
+- **Persistence**: RDB snapshots, AOF logs
 
-Create a CacheManager class with Redis connection. Implement a cache_result decorator that accepts ttl parameter. The decorator generates cache keys from function name and arguments, checks Redis for cached results, executes the function on cache miss, and stores results with expiration. Use json.loads and json.dumps for serialization.
+**Memcached 1.6.x**:
+- **Distributed caching**: Simple key-value store
+- **LRU eviction**: Automatic memory management
+- **Multi-threaded**: High concurrency
 
-### Security Implementation
+**Cache Patterns**:
+- **Cache-aside**: Application manages cache
+- **Write-through**: Write to cache and database
+- **Write-behind**: Asynchronous database writes
+- **Refresh-ahead**: Proactive cache warming
 
-JWT Authentication:
+**CDN Caching**:
+- **CloudFlare**, **CloudFront**, **Fastly**
+- **Edge caching**: Geographically distributed
+- **Cache invalidation**: Purge, TTL
 
-Create a SecurityManager class with CryptContext for bcrypt password hashing. Implement hash_password and verify_password methods using the context. Implement create_access_token that encodes a JWT with expiration time using HS256 algorithm. Default expiration is 15 minutes if not specified.
+### Database Optimization
 
-### Performance Optimization
+**PostgreSQL 16.x**:
+- **EXPLAIN ANALYZE**: Query plan analysis
+- **Connection pooling**: PgBouncer, pgpool-II
+- **Read replicas**: Streaming replication
+- **Partitioning**: Table partitioning for large datasets
+- **JSONB indexing**: GIN, GiST indexes
 
-Database Connection Pooling:
+**MongoDB 8.0.x**:
+- **Aggregation pipeline**: Complex queries
+- **Sharding**: Horizontal scaling
+- **Read concern/Write concern**: Consistency tuning
+- **Change streams**: Real-time data feeds
 
-Create an optimized SQLAlchemy engine with QueuePool, pool_size 20, max_overflow 30, pool_pre_ping enabled, and pool_recycle of 3600 seconds. Add event listeners for before_cursor_execute and after_cursor_execute to track query timing. Log warnings for queries exceeding 100ms threshold.
+**Cassandra 4.1.x**:
+- **Wide-column store**: Time-series data
+- **Tunable consistency**: CAP theorem trade-offs
+- **Data modeling**: Partition keys, clustering columns
 
----
+**Redis 7.2.x** (as database):
+- **RediSearch**: Full-text search
+- **RedisJSON**: Native JSON support
+- **RedisTimeSeries**: Time-series data
 
-## Works Well With
+### Cloud-Native Patterns
 
-- moai-domain-frontend - Full-stack development integration
-- moai-domain-database - Advanced database patterns
-- moai-foundation-core - MCP server development patterns for backend services
-- moai-quality-security - Security validation and compliance
-- moai-foundation-core - Core architectural principles
+**Kubernetes 1.31.x**:
+- **Deployments**: Rolling updates, rollbacks
+- **StatefulSets**: Persistent storage for databases
+- **Services**: ClusterIP, NodePort, LoadBalancer
+- **Ingress**: HTTP/HTTPS routing
+- **ConfigMaps/Secrets**: Configuration management
+- **Horizontal Pod Autoscaler**: CPU/memory-based scaling
+- **Vertical Pod Autoscaler**: Resource request optimization
 
----
+**Istio 1.21.x Service Mesh**:
+- **Traffic management**: Canary deployments, A/B testing
+- **Security**: mTLS, authorization policies
+- **Observability**: Distributed tracing, metrics
+- **Resilience**: Circuit breaking, retries, timeouts
 
-## Technology Stack
+**Docker 27.0+**:
+- **Multi-stage builds**: Smaller images
+- **BuildKit**: Efficient caching
+- **Docker Compose**: Local development
+- **Image scanning**: Vulnerability detection
 
-Primary Technologies:
+### Observability Stack (2025-10-22)
 
-- Languages: Python 3.13+, Node.js 20+, Go 1.23
-- Frameworks: FastAPI, Django, Express.js, Gin
-- Databases: PostgreSQL 16+, MongoDB 7+, Redis 7+
-- Message Queues: RabbitMQ, Apache Kafka, Redis Pub/Sub
-- Containerization: Docker, Kubernetes
-- Monitoring: Prometheus, Grafana, OpenTelemetry
+**OpenTelemetry 1.24.0**:
+- **Unified telemetry**: Traces, metrics, logs
+- **Language SDKs**: Auto-instrumentation
+- **Collector**: Vendor-agnostic pipeline
+- **Context propagation**: Distributed tracing
 
-Integration Patterns:
+**Prometheus 2.48.x**:
+- **Metrics collection**: Pull-based
+- **PromQL**: Query language
+- **Alertmanager**: Alert routing
+- **Service discovery**: Kubernetes integration
 
-- RESTful APIs with OpenAPI 3.1
-- GraphQL with Apollo Federation
-- gRPC for high-performance services
-- Event-driven architecture with CQRS
-- API Gateway patterns
-- Circuit breakers and resilience patterns
+**Jaeger 1.51.x**:
+- **Distributed tracing**: Request flow visualization
+- **Span analysis**: Latency breakdown
+- **Service dependency graph**: Architecture mapping
 
----
+**ELK Stack**:
+- **Elasticsearch 8.x**: Log search and analytics
+- **Logstash 8.x**: Log aggregation and transformation
+- **Kibana 8.x**: Visualization and dashboards
+- **Filebeat 8.x**: Log shipping
 
-## Resources
+**Grafana 10.x**:
+- **Unified dashboards**: Metrics, logs, traces
+- **Data source plugins**: Prometheus, Loki, Tempo
+- **Alerting**: Multi-channel notifications
 
-For working code examples, see [examples.md](examples.md).
+### Scalability Patterns
 
-Status: Production Ready
-Last Updated: 2026-01-11
-Maintained by: MoAI-ADK Backend Team
+**Horizontal Scaling**:
+- **Load balancers**: NGINX, HAProxy, AWS ALB
+- **Stateless services**: No local state
+- **Session management**: Redis, database
+
+**Vertical Scaling**:
+- **Resource limits**: CPU, memory allocation
+- **Database connection pooling**: Reduce overhead
+
+**Async Processing**:
+- **Apache Kafka 3.7.x**: Event streaming
+- **RabbitMQ 3.13.x**: Task queues
+- **Celery**: Python task queue
+- **Bull/BullMQ**: Node.js job queues
+
+**Rate Limiting**:
+- **Token bucket**: Fixed rate with burst
+- **Sliding window**: Time-based limits
+- **Distributed rate limiting**: Redis-based
+
+## Examples
+
+See `examples.md` for production-ready patterns:
+- Microservices with Kubernetes 1.31 + Istio 1.21
+- Event-driven with Kafka 3.7
+- Serverless with AWS Lambda
+- Observability with OpenTelemetry 1.24 + Prometheus 2.48
+
+## Inputs
+- Domain-specific design documents and user requirements.
+- Project technology stack and operational constraints.
+- Performance, scalability, and availability requirements.
+
+## Outputs
+- Domain-specific architecture or implementation guidelines.
+- Recommended list of associated sub-agents/skills.
+- Tool version recommendations and deployment strategies.
+
+## Failure Modes
+- When the domain document does not exist or is ambiguous.
+- When the project strategy is unconfirmed and cannot be specified.
+- When performance/scalability requirements are not quantified.
+
+## Dependencies
+- `.moai/project/` document and latest technical briefing are required.
+- `reference.md` for architecture decision matrices.
+- `examples.md` for production patterns.
+
+## References
+- AWS. "AWS Well-Architected Framework." https://docs.aws.amazon.com/wellarchitected/latest/framework/ (accessed 2025-10-22).
+- Heroku. "The Twelve-Factor App." https://12factor.net/ (accessed 2025-10-22).
+- OWASP. "API Security Top 10 2023." https://owasp.org/API-Security/editions/2023/en/0x11-t10/ (accessed 2025-10-22).
+- Kubernetes. "Kubernetes Documentation." https://kubernetes.io/docs/ (accessed 2025-10-22).
+- OpenTelemetry. "OpenTelemetry Documentation." https://opentelemetry.io/docs/ (accessed 2025-10-22).
+- Istio. "Istio Documentation." https://istio.io/latest/docs/ (accessed 2025-10-22).
+
+## Changelog
+- 2025-10-22: v2.0.0 - Added cloud-native patterns (Kubernetes 1.31, Istio 1.21), observability stack (OpenTelemetry 1.24, Prometheus 2.48, Jaeger 1.51), OWASP API Security Top 10 2023, latest database versions (PostgreSQL 16, MongoDB 8, Redis 7.2, Cassandra 4.1).
+- 2025-03-29: v1.0.0 - Codified input/output and failure responses for domain skills.
+
+## Works well with
+
+- moai-alfred-trust-validation (backend testing)
+- moai-domain-web-api (API design)
+- moai-domain-database (database optimization)
+- moai-domain-devops (CI/CD, infrastructure)
+- moai-domain-security (OWASP, SAST)
+
+## Best Practices
+- Record supporting documentation (version/link) for each domain decision.
+- Review performance, security, and operational requirements simultaneously at an early stage.
+- Use observability stack from day one (OpenTelemetry + Prometheus + Jaeger).
+- Apply OWASP API Security Top 10 2023 guidelines.
+- Choose architecture patterns based on team size, complexity, and operational maturity.
+- Test scalability patterns with realistic load (k6, Gatling).

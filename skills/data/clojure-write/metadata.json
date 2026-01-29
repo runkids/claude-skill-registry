@@ -1,7 +1,7 @@
 {
   "name": "clojure-write",
-  "repo": "Kidoz-SDK/metabase",
-  "path": ".claude/skills/clojure-write/SKILL.md",
-  "source": "github.com/Kidoz-SDK/metabase",
-  "downloaded_at": "2026-01-28T02:52:57.433704Z"
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_all/clojure-write/SKILL.md",
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-01-29T04:28:47.095115Z"
 }

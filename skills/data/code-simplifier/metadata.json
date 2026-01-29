@@ -1,7 +1,7 @@
 {
   "name": "code-simplifier",
-  "repo": "cityfish91159/maihouses",
-  "path": ".claude/skills/code-simplifier/SKILL.md",
-  "source": "github.com/cityfish91159/maihouses",
-  "downloaded_at": "2026-01-28T04:43:48.965938Z"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/code-simplifier/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-29T04:30:52.017306Z"
 }

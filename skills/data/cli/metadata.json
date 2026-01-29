@@ -1,7 +1,7 @@
 {
   "name": "cli",
-  "repo": "zzstoatzz/plyr-python-client",
-  "path": "packages/plyrfm-mcp/skills/cli/SKILL.md",
-  "source": "github.com/zzstoatzz/plyr-python-client",
-  "downloaded_at": "2026-01-28T03:51:10.754874Z"
+  "repo": "posit-dev/skills",
+  "path": "r-lib/cli/SKILL.md",
+  "source": "github.com/posit-dev/skills",
+  "downloaded_at": "2026-01-29T01:07:05.363340Z"
 }

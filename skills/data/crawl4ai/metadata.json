@@ -1,11 +1,7 @@
 {
   "name": "crawl4ai",
-  "description": "\"Web crawling and content extraction to clean markdown files. Use this skill when the user wants to: (1) Crawl a website or webpage, (2) Extract and clean content from URLs, (3) Create markdown docume",
-  "repo": "t0bybr/claude",
-  "category": "documents",
-  "tags": [
-    "crawl4ai"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "CavellTopDev/pitchey-app",
+  "path": "crawl4ai/SKILL.md",
+  "source": "github.com/CavellTopDev/pitchey-app",
+  "downloaded_at": "2026-01-29T03:02:34.661012Z"
 }

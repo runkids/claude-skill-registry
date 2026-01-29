@@ -1,9 +1,7 @@
 {
   "name": "mcp-server-generator",
-  "description": "Generate complete, production-ready MCP (Model Context Protocol) servers with automatic setup, configuration, and Claude Code integration",
-  "repo": "deve1993/Quickfy-website",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Krosebrook/source-of-truth-monorepo",
+  "path": ".claude-custom/skills/mcp-server-generator/SKILL.md",
+  "source": "github.com/Krosebrook/source-of-truth-monorepo",
+  "downloaded_at": "2026-01-29T01:24:53.410069Z"
 }

@@ -19,7 +19,7 @@ to perform in different economic conditions:
 - Cash/Treasuries (25%): Tight Money/Recession
 
 This workflow:
-1. Collects portfolio data via Claude Chrome extension (Robinhood) or manual CSV/PDF upload
+1. Collects portfolio data via `bin/robinhood positions --save` CLI
 2. Analyzes current allocation against 25/25/25/25 targets
 3. Tracks satellite stock picks (optional 10-20% of stock allocation)
 4. Evaluates margin usage efficiency vs fees paid
@@ -32,7 +32,7 @@ All recommendations require manual review and execution.
 
 ## Available Steps
 
-1. **collect_portfolio_data** - Gather current portfolio positions, values, and prices from Robinhood
+1. **collect_portfolio_data** - Gather current portfolio positions, values, and prices from Robinhood using bin/robinhood CLI
 2. **analyze_allocation** - Calculate current allocation percentages, identify drift from targets, analyze margin efficiency (requires: collect_portfolio_data)
 3. **generate_recommendations** - Create specific rebalancing recommendations based on drift analysis (requires: analyze_allocation)
 4. **generate_report** - Compile comprehensive human-readable daily report with all analysis and recommendations (requires: collect_portfolio_data, analyze_allocation, generate_recommendations)

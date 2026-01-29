@@ -1,7 +1,7 @@
 {
   "name": "audit-context-building",
-  "repo": "pathvanasoftware/IOSStorageCleaner",
-  "path": ".claude/skills/trailofbits-audit-context-building/skills/audit-context-building/SKILL.md",
-  "source": "github.com/pathvanasoftware/IOSStorageCleaner",
-  "downloaded_at": "2026-01-28T03:44:45.599987Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/audit-context-building/skills/audit-context-building/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-01-29T03:53:03.073659Z"
 }

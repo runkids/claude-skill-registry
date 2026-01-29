@@ -1,6 +1,6 @@
 ---
 name: vloj
-description: LibreOJ题目抓取与解题工作流。用户输入形如loj1/loj001或https://loj.ac/p/1 等题号或URL时触发；创建以题号命名的空文件夹，使用Chrome DevTools MCP读取题面并保存为md文件，最后用C++、C、Python、Java生成解答文件。
+description: LibreOJ题目抓取与解题工作流。用户输入形如loj1/loj001或https://loj.ac/p/1 等题号或URL时触发；创建以题号命名的空文件夹，使用Chrome DevTools MCP读取题面并保存为md文件，最后用C++、C、Python、Java、Kotlin生成解答文件。
 ---
 
 # vloj
@@ -9,7 +9,7 @@ description: LibreOJ题目抓取与解题工作流。用户输入形如loj1/loj0
 
 - 解析题号，创建以题号命名的空文件夹。
 - 访问对应题目页面，抓取题面并写入Markdown。
-- 编写C++、C、Python、Java解答文件。
+- 编写C++、C、Python、Java、Kotlin解答文件。
 
 ## 触发与解析
 
@@ -58,7 +58,12 @@ description: LibreOJ题目抓取与解题工作流。用户输入形如loj1/loj0
    - 使用 Java 8 标准，类名为 `Main`，包含 `main()` 方法。
    - 依据题意实现可通过的解法，并在顶部用简短注释说明思路与复杂度。
 
+8. **编写Kotlin解答**
+   - 在题号文件夹中创建 `solution.kt`。
+   - 使用 Kotlin 1.8 标准。
+   - 依据题意实现可通过的解法，并在顶部用简短注释说明思路与复杂度。
+
 ## 输出约束
 
-- 仅创建 `problem.md`、`solution.c`、`solution.cpp`、`solution.py` 与 `solution.java`，不生成额外文件。
+- 仅创建 `problem.md`、`solution.c`、`solution.cpp`、`solution.py`、`solution.java` 与 `solution.kt`，不生成额外文件。
 - 保持文件夹为空创建流程的前置步骤，先建目录再抓取题面。

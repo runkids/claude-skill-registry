@@ -1,7 +1,7 @@
 {
   "name": "process-builder",
-  "repo": "NeverSight/skills.sh_feed",
-  "path": "data/skills-md/a5c-ai/babysitter/process-builder/SKILL.md",
-  "source": "github.com/NeverSight/skills.sh_feed",
-  "downloaded_at": "2026-01-28T02:26:14.212820Z"
+  "repo": "a5c-ai/babysitter",
+  "path": ".claude/skills/process-builder/SKILL.md",
+  "source": "github.com/a5c-ai/babysitter",
+  "downloaded_at": "2026-01-29T04:47:42.489211Z"
 }

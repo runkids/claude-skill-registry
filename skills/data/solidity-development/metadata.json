@@ -1,9 +1,7 @@
 {
   "name": "solidity-development",
-  "description": "Master Solidity smart contract development with patterns, testing, and best practices",
-  "repo": "pluginagentmarketplace/custom-plugin-blockchain",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "hiromaily/go-crypto-wallet",
+  "path": ".claude/skills/solidity-development/SKILL.md",
+  "source": "github.com/hiromaily/go-crypto-wallet",
+  "downloaded_at": "2026-01-29T01:06:12.710832Z"
 }

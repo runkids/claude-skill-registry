@@ -1,7 +1,7 @@
 {
   "name": "database-optimizer",
-  "repo": "rmyndharis/antigravity-skills",
-  "path": "skills/database-optimizer/SKILL.md",
-  "source": "github.com/rmyndharis/antigravity-skills",
-  "downloaded_at": "2026-01-28T03:27:01.987320Z"
+  "repo": "anton-abyzov/specweave",
+  "path": "plugins/specweave-backend/skills/database-optimizer/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-29T03:07:12.893020Z"
 }

@@ -1,128 +1,115 @@
 ---
-name: react
-description: |
-  Manages React hooks, components, state management, and interactive features.
-  Use when: Building client components, handling forms, managing UI state, creating interactive elements
-allowed-tools: Read, Edit, Write, Glob, Grep, Bash, mcp__context7__resolve-library-id, mcp__context7__query-docs
+description: React frontend development patterns for [PROJECT_NAME]
+globs:
+  - "src/**/*.tsx"
+  - "src/**/*.jsx"
+  - "src/components/**/*"
+  - "src/hooks/**/*"
+alwaysApply: false
 ---
 
-# React Skill
+# React Frontend Skill
 
-This codebase uses React 19 with Next.js 15 App Router. All interactive pages use the `'use client'` directive. State is managed locally with `useState` - no global state library. Forms submit to API routes via fetch.
+> Project: [PROJECT_NAME]
+> Framework: React [VERSION]
+> Generated: [DATE]
 
-## Quick Start
+## Quick Reference
 
-### Client Component Pattern
+### Components
+- **Functional Components**: Always use functional components with hooks
+- **Props**: Use TypeScript interfaces, destructure in parameters
+- **Children**: Use `PropsWithChildren` or explicit `children` prop
 
-```tsx
-'use client'
+### State Management
+- **Local State**: useState, useReducer
+- **Context**: For shared state without prop drilling
+- **Server State**: TanStack Query (React Query)
+- **Global State**: Zustand, Jotai, or Redux Toolkit
 
-import { useState, useEffect } from 'react'
-import Navigation from '@/app/components/Navigation'
-import Footer from '@/app/components/Footer'
+### Hooks
+- **useState**: Simple state
+- **useEffect**: Side effects (cleanup!)
+- **useMemo/useCallback**: Performance optimization (don't overuse)
+- **Custom Hooks**: Extract reusable logic
 
-export default function PageName() {
-  const [mounted, setMounted] = useState(false)
-  
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+### Patterns
+- **Container/Presenter**: Separate logic from UI
+- **Compound Components**: Flexible component APIs
+- **Render Props**: Share code between components
+- **HOCs**: Cross-cutting concerns (less common now)
 
-  if (!mounted) return null
+## Available Modules
 
-  return (
-    <div className="min-h-screen bg-black text-white">
-      <Navigation />
-      {/* Page content */}
-      <Footer />
-    </div>
-  )
-}
+| Module | File | Use When |
+|--------|------|----------|
+| Component Patterns | components.md | Creating/modifying components |
+| State Management | state-management.md | Adding state, context, stores |
+| API Integration | api-integration.md | Data fetching, mutations |
+| Forms & Validation | forms-validation.md | Forms with React Hook Form |
+| Dos and Don'ts | dos-and-donts.md | Project-specific learnings |
+
+## Project Context
+
+### Tech Stack
+<!-- Extracted from agent-os/product/tech-stack.md -->
+- **Framework:** React [REACT_VERSION]
+- **State Management:** [STATE_MANAGEMENT_LIBRARY]
+- **UI Library:** [UI_LIBRARY]
+- **Testing:** [TESTING_FRAMEWORK]
+- **Build Tool:** [BUILD_TOOL]
+
+### Architecture Patterns
+<!-- Extracted from agent-os/product/architecture-decision.md -->
+[ARCHITECTURE_PATTERNS]
+
+### Project Structure
+<!-- Extracted from agent-os/product/architecture-structure.md -->
+```
+[PROJECT_STRUCTURE]
 ```
 
-### Form State Pattern
+---
 
-```tsx
-const [formData, setFormData] = useState({
-  firstName: '',
-  lastName: '',
-  email: ''
-})
+## Design System
+<!-- Extracted from agent-os/product/design-system.md -->
 
-const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  setFormData(prev => ({
-    ...prev,
-    [e.target.name]: e.target.value
-  }))
-}
-```
+### Colors
+[DESIGN_COLORS]
 
-## Key Concepts
+### Typography
+[DESIGN_TYPOGRAPHY]
 
-| Concept | Usage | Example |
-|---------|-------|---------|
-| Client directive | All interactive pages | `'use client'` at top |
-| Mounted check | Prevent hydration errors | `if (!mounted) return null` |
-| Object state | Group related form fields | `useState({ field1: '', field2: '' })` |
-| Functional updates | Immutable state changes | `setState(prev => ({ ...prev, key: val }))` |
-| Array toggle | Multi-select accordion | `prev.includes(i) ? prev.filter(...) : [...prev, i]` |
+### Spacing
+[DESIGN_SPACING]
 
-## Common Patterns
+### Components
+[DESIGN_COMPONENTS]
 
-### Accordion Toggle
+**Reference:** `agent-os/product/design-system.md`
 
-```tsx
-const [expandedItems, setExpandedItems] = useState<number[]>([])
+---
 
-const toggleItem = (index: number) => {
-  setExpandedItems(prev => 
-    prev.includes(index) 
-      ? prev.filter(i => i !== index)
-      : [...prev, index]
-  )
-}
-```
+## UX Patterns
+<!-- Extracted from agent-os/product/ux-patterns.md -->
 
-### Tab Selection
+### Navigation
+[UX_NAVIGATION]
 
-```tsx
-const [activeTab, setActiveTab] = useState('overview')
+### User Flows
+[UX_USER_FLOWS]
 
-<button onClick={() => setActiveTab('overview')} 
-  className={activeTab === 'overview' ? 'bg-purple-600' : 'bg-gray-800'}>
-  Overview
-</button>
+### Feedback States
+[UX_FEEDBACK_STATES]
 
-{activeTab === 'overview' && <OverviewContent />}
-```
+### Accessibility
+[UX_ACCESSIBILITY]
 
-## See Also
+**Reference:** `agent-os/product/ux-patterns.md`
 
-- [hooks](references/hooks.md)
-- [components](references/components.md)
-- [data-fetching](references/data-fetching.md)
-- [state](references/state.md)
-- [forms](references/forms.md)
-- [performance](references/performance.md)
+---
 
-## Related Skills
+## Self-Learning
 
-- See the **nextjs** skill for App Router patterns and API routes
-- See the **typescript** skill for type annotations and interfaces
-- See the **tailwind** skill for styling conventions
-
-## Documentation Resources
-
-> Fetch latest React documentation with Context7.
-
-**How to use Context7:**
-1. Use `mcp__context7__resolve-library-id` to search for "react"
-2. Prefer website documentation (IDs starting with `/websites/`) over source code
-3. Query with `mcp__context7__query-docs` using the resolved library ID
-
-**Library ID:** `/websites/react_dev` (High reputation, 2238 snippets, score 89.9)
-
-**Recommended Queries:**
-- "React hooks useState useEffect useCallback useMemo"
-- "React event handling onChange onSubmit"
-- "React conditional rendering patterns"
+Wenn du während der Implementierung etwas lernst:
+→ Füge es zu `dos-and-donts.md` in diesem Ordner hinzu.

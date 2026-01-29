@@ -1,9 +1,7 @@
 {
   "name": "iecsat-storage",
-  "description": "IECsat Storage Skill",
   "repo": "plurigrid/asi",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/plurigrid/asi"
+  "path": "skills/iecsat-storage/SKILL.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-29T04:19:14.802256Z"
 }

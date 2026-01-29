@@ -7,53 +7,35 @@ description: Write unit and integration tests for Angular v21+ applications usin
 
 Test Angular v21+ applications with Vitest (recommended) or Jasmine, focusing on signal-based components and modern patterns.
 
-## Vitest Setup (Angular v21+)
+## Vitest Setup (Angular v20+)
 
-Angular v21+ has experimental support for Vitest. It's faster and provides a better developer experience.
+Angular v20+ has native Vitest support through the `@angular/build` package.
 
 ### Installation
 
 ```bash
-ng add @analogjs/vitest-angular
-```
-
-Or manually:
-
-```bash
-npm install -D vitest @analogjs/vitest-angular jsdom
+npm install -D vitest jsdom
 ```
 
 ### Configuration
 
-```typescript
-// vite.config.ts
-import { defineConfig } from 'vite';
-import angular from '@analogjs/vite-plugin-angular';
-
-export default defineConfig({
-  plugins: [angular()],
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['src/test-setup.ts'],
-    include: ['src/**/*.spec.ts'],
-  },
-});
-```
-
-```typescript
-// src/test-setup.ts
-import '@analogjs/vitest-angular/setup-zone';
-import { getTestBed } from '@angular/core/testing';
-import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting,
-} from '@angular/platform-browser-dynamic/testing';
-
-getTestBed().initTestEnvironment(
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting()
-);
+```json
+// angular.json - update test architect
+{
+  "projects": {
+    "your-app": {
+      "architect": {
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "buildTarget": "your-app:build"
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
 ```json
@@ -71,16 +53,13 @@ getTestBed().initTestEnvironment(
 
 ```bash
 # Run tests
-npx vitest
+ng test
 
 # Watch mode
-npx vitest --watch
+ng test --watch
 
 # Coverage
-npx vitest --coverage
-
-# UI mode
-npx vitest --ui
+ng test --code-coverage
 ```
 
 ### Vitest Test Example
@@ -654,7 +633,7 @@ describe('UserComponent', () => {
 | Mocking | `vi.fn()`, `vi.mock()` | `jasmine.createSpy()` |
 | Assertions | `expect()` (Chai-style) | `expect()` (Jasmine) |
 | UI | Built-in UI mode | Karma browser |
-| Config | `vite.config.ts` | `karma.conf.js` |
+| Config | `angular.json` | `karma.conf.js` |
 
 ### Migration from Jasmine to Vitest
 

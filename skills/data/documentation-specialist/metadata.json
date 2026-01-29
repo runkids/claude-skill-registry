@@ -1,7 +1,7 @@
 {
   "name": "documentation-specialist",
-  "repo": "Prorise-cool/prorise-claude-skills",
-  "path": ".claude/skills/documentation-specialist/SKILL.md",
-  "source": "github.com/Prorise-cool/prorise-claude-skills",
-  "downloaded_at": "2026-01-28T03:47:36.528917Z"
+  "repo": "SpillwaveSolutions/code_agent_context_hooks",
+  "path": ".opencode/skill/documentation-specialist/SKILL.md",
+  "source": "github.com/SpillwaveSolutions/code_agent_context_hooks",
+  "downloaded_at": "2026-01-29T04:19:28.125453Z"
 }

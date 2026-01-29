@@ -1,11 +1,7 @@
 {
   "name": "ic-test",
-  "description": "Test IC10 code for correctness and logic bugs. Use when user wants to verify IC10 code works through test cases or simulation analysis.",
   "repo": "smileynet/stationeers-companion",
-  "category": "development",
-  "tags": [
-    "test"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/ic-test/SKILL.md",
+  "source": "github.com/smileynet/stationeers-companion",
+  "downloaded_at": "2026-01-29T04:47:37.707268Z"
 }

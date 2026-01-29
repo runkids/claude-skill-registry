@@ -1,7 +1,7 @@
 {
   "name": "moai-alfred-issue-labels",
-  "repo": "kivo360/quickhooks",
-  "path": ".claude/skills/moai-alfred-issue-labels/SKILL.md",
-  "source": "github.com/kivo360/quickhooks",
-  "downloaded_at": "2026-01-28T02:08:48.529295Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-alfred-issue-labels/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-29T04:39:13.697265Z"
 }

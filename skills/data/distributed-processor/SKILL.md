@@ -1,6 +1,6 @@
 ---
 name: distributed-processor
-description: "Coordinate distributed processing. Use when: You need parallel execution, forked skills, or isolated work units. Not for: Sequential tasks or single-threaded workflows."
+description: "Coordinate distributed processing with parallel execution, forked skills, and isolated work units. Use when you need distributed processing or isolated work units. Not for sequential tasks or single-threaded workflows."
 context: fork
 ---
 
@@ -11,6 +11,7 @@ Coordinate distributed data processing using TaskList with forked skills.
 ## Processing Architecture
 
 **Three-component system:**
+
 - **Coordinator** uses TaskList to track all processing tasks
 - **Region processors** are forked skills with complete isolation
 - **Results flow back** to coordinator for aggregation
@@ -67,3 +68,38 @@ Total: [combined statistics]
 - Results aggregation after completion
 
 **Binary check:** "Proper distributed processing?" → Both criteria must pass.
+
+---
+
+<critical_constraint>
+MANDATORY: Wait for all processors to complete before aggregation
+MANDATORY: Use TaskList to track all distributed tasks
+MANDATORY: Ensure forked skills have complete isolation
+No exceptions. Parallel execution requires proper coordination.
+</critical_constraint>
+
+---
+
+## Genetic Code
+
+This component carries essential Seed System principles for context: fork isolation:
+
+<critical_constraint>
+MANDATORY: All components MUST be self-contained (zero .claude/rules dependency)
+MANDATORY: Achieve 80-95% autonomy (0-5 AskUserQuestion rounds per session)
+MANDATORY: Description MUST use What-When-Not format in third person
+MANDATORY: No component references another component by name in description
+MANDATORY: Progressive disclosure - references/ for detailed content
+MANDATORY: Use XML for control (mission_control, critical_constraint), Markdown for data
+No exceptions. Portability invariant must be maintained.
+</critical_constraint>
+
+**Delta Standard**: Good Component = Expert Knowledge − What Claude Already Knows
+
+**Recognition Questions**:
+
+- "Would Claude know this without being told?" → Delete (zero delta)
+- "Can this work standalone?" → Fix if no (non-self-sufficient)
+- "Did I read the actual file, or just see it in grep?" → Verify before claiming
+
+---

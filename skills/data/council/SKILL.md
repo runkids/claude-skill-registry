@@ -1,27 +1,94 @@
 ---
 name: council
-description: Get a help or a second opinion from other agents. Bundle a prompt and a curated file set, then ask other LLMs for advice (debug, refactor, design, ...).
+description: Gather design feedback from AI consultants (Gemini and Codex). Use for architecture decisions, design review, or when you want multiple expert perspectives on SENTINEL development. (project)
+allowed-tools: Bash, Read, Glob, Grep
+user-invocable: true
+proactive: true
 ---
 
-# Council
+<!-- PROACTIVE USE: Invoke /council without being asked when:
+  - Facing architectural decisions with multiple valid approaches
+  - Uncertain about implementation strategy
+  - Making changes that affect multiple subsystems
+  - Design tradeoffs need external perspective
+-->
 
-Use this skill when you want a fast second brain pass from other agents or LLMs on a problem you are facing.
+# The Council
 
-## Workflow
+Invoke external AI consultants for design feedback on SENTINEL.
 
-1. Pick the relevant files and build a concise and clear prompt describing the problem
-2. Run `ask-council "PROMPT"` to dispatch the same prompt to multiple agents
-3. Wait for the responses to come back and review them
+## Consultants
+
+| Model | Strength | Best For |
+|-------|----------|----------|
+| **Gemini** | Big-picture thinking, design patterns | Architecture, conceptual clarity |
+| **Codex** | Technical depth, implementation focus | Code quality, practical constraints |
+
+## How to Run
+
+When the user invokes `/council`, gather context and consult both AIs:
+
+### Step 1: Prepare Context
+
+Read the project brief and any relevant files the user mentions:
+```
+C:\dev\SENTINEL\SENTINEL_PROJECT_BRIEF.md
+```
+
+### Step 2: Consult Gemini
+
+Run non-interactively with the user's question + context:
+```bash
+gemini "You are reviewing SENTINEL, a tactical TTRPG with an AI Game Master.
+
+<context>
+[Insert project brief or relevant code]
+</context>
+
+<question>
+[User's design question]
+</question>
+
+Provide focused feedback on design patterns, architecture, or the specific question asked. Be concise."
+```
+
+### Step 3: Consult Codex
+
+Run non-interactively:
+```bash
+codex exec "You are reviewing SENTINEL, a tactical TTRPG with an AI Game Master.
+
+<context>
+[Insert project brief or relevant code]
+</context>
+
+<question>
+[User's design question]
+</question>
+
+Provide focused feedback on implementation, code quality, or the specific question asked. Be concise."
+```
+
+### Step 4: Synthesize
+
+Present both perspectives, noting:
+- Where they agree (strong signal)
+- Where they differ (worth investigating)
+- Actionable recommendations
+
+## Example Usage
+
+User: `/council` Should we use SQLite instead of JSON for campaign persistence?
+
+Then:
+1. Read `SENTINEL_PROJECT_BRIEF.md` and `src/state/schema.py`
+2. Ask Gemini about data model evolution and query patterns
+3. Ask Codex about migration complexity and performance
+4. Synthesize into recommendation
 
 ## Tips
 
-- Share file paths relative to the project root for best results
-- If you need diffs reviewed, paste the diff into the prompt
-- Make the prompt completely standalone: include error text, constraints, and the desired output format (plan vs patch vs pros or cons)
-- Council can be slow while it reasons. Allow it several minutes to process
-
-## Example
-
-```
-ask-council "Review src/foo/bar.js. Find 3 risks and 2 improvements. Return bullets only."
-```
+- Keep prompts focused on one question at a time
+- Include relevant code snippets, not entire files
+- The consultants don't have project context — you must provide it
+- Use when genuinely uncertain, not for validation

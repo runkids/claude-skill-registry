@@ -1,7 +1,7 @@
 {
   "name": "analyze",
-  "repo": "rjmurillo/ai-agents",
-  "path": ".claude/skills/analyze/SKILL.md",
-  "source": "github.com/rjmurillo/ai-agents",
-  "downloaded_at": "2026-01-28T03:53:58.884481Z"
+  "repo": "bntvllnt/agent-skills",
+  "path": "analyze/SKILL.md",
+  "source": "github.com/bntvllnt/agent-skills",
+  "downloaded_at": "2026-01-29T04:33:02.416886Z"
 }

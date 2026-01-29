@@ -1,7 +1,7 @@
 {
   "name": "testing-expert",
-  "repo": "ryu-qqq/AuthHub",
-  "path": ".claude/skills/testing-expert/SKILL.md",
-  "source": "github.com/ryu-qqq/AuthHub",
-  "downloaded_at": "2026-01-28T03:20:20.376846Z"
+  "repo": "personamanagmentlayer/pcl",
+  "path": "stdlib/tools/testing-expert/SKILL.md",
+  "source": "github.com/personamanagmentlayer/pcl",
+  "downloaded_at": "2026-01-29T02:06:51.079783Z"
 }

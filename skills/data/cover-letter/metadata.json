@@ -1,9 +1,7 @@
 {
   "name": "cover-letter",
-  "description": "Create tailored cover letters that complement your resume. Use after generating a resume with /resume-builder. Requires the generated resume to ensure consistency in achievements and messaging.",
-  "repo": "ewurch/bragger",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "shindo107/job-coach-and-scout",
+  "path": ".claude/skills/cover-letter/SKILL.md",
+  "source": "github.com/shindo107/job-coach-and-scout",
+  "downloaded_at": "2026-01-29T01:44:48.440566Z"
 }

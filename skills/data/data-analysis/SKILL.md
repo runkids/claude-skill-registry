@@ -1,114 +1,66 @@
 ---
 name: data-analysis
-description: Data processing, analysis, and visualization with Python/JavaScript. Use for data exploration, pandas operations, chart generation, and insights extraction.
+description: AI-powered data analysis for Empathy Ledger - themes, quotes, story suggestions, transcript analysis.
 ---
 
-# 📊 Data Analysis Skill
+# Data Analysis
 
-## Python Data Processing
+Patterns for AI-powered analysis: themes, quotes, summaries, and story suggestions.
 
-### Pandas Basics
-```python
-import pandas as pd
-import numpy as np
+## When to Use
+- Adding quotes to story cards
+- Implementing story suggestions/related content
+- Building theme-based filtering or search
+- Creating analytics dashboards
+- Integrating AI analysis results
 
-# Read data
-df = pd.read_csv('data.csv')
-df = pd.read_json('data.json')
-df = pd.read_excel('data.xlsx')
+## Quick Reference
 
-# Basic exploration
-df.head()        # First 5 rows
-df.info()        # Column types
-df.describe()    # Statistics
-df.shape         # (rows, cols)
+### Analysis Pipeline
+```
+Transcript → AI Analysis → themes[], key_quotes[], ai_summary
+Story → Connections → Related Stories, Suggested Content
 ```
 
-### Data Cleaning
-```python
-# Handle missing values
-df.dropna()                    # Drop rows with NaN
-df.fillna(0)                   # Fill NaN with value
-df['col'].fillna(df['col'].mean())  # Fill with mean
+### Key Tables
+| Table | Analysis Fields |
+|-------|-----------------|
+| `transcripts` | `themes`, `key_quotes`, `ai_summary`, `ai_processing_status` |
+| `stories` | `themes`, `cultural_tags`, `featured_quote` |
+| `storytellers` | `expertise_themes`, `connection_strength` |
 
-# Remove duplicates
-df.drop_duplicates()
+### Theme Categories
+- **cultural**: identity, heritage, tradition, language, ceremony
+- **family**: kinship, elders, children, ancestors, community
+- **land**: country, connection, seasons, wildlife, sacred-sites
+- **resilience**: survival, adaptation, strength, healing, hope
+- **knowledge**: wisdom, teaching, learning, stories, dreams
 
-# Type conversion
-df['date'] = pd.to_datetime(df['date'])
-df['price'] = df['price'].astype(float)
+### Common Queries
+```sql
+-- Stories with matching theme
+SELECT * FROM stories WHERE themes && ARRAY['identity', 'heritage'];
+
+-- Theme frequency
+SELECT unnest(themes) as theme, count(*) FROM stories GROUP BY theme ORDER BY count DESC;
 ```
 
-### Aggregations
-```python
-# Group by
-df.groupby('category')['sales'].sum()
-df.groupby(['year', 'month']).agg({
-    'sales': 'sum',
-    'quantity': 'mean',
-    'price': ['min', 'max']
-})
+### API Endpoints
+| Endpoint | Purpose |
+|----------|---------|
+| `POST /api/transcripts/{id}/analyze` | Trigger AI analysis |
+| `GET /api/stories/{id}/suggestions` | Get related stories |
+| `GET /api/themes` | List themes with counts |
 
-# Pivot tables
-pd.pivot_table(df, values='sales', index='category', columns='year')
-```
+## Reference Files
+| Topic | File |
+|-------|------|
+| Code patterns | `refs/analysis-patterns.md` |
+| SQL queries | `refs/supabase-queries.md` |
+| Theme hierarchy | `refs/theme-taxonomy.md` |
+| Sync status | `refs/sync-status.md` |
 
----
-
-## Visualization
-
-### Matplotlib/Seaborn
-```python
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# Basic line chart
-plt.figure(figsize=(10, 6))
-plt.plot(df['date'], df['sales'])
-plt.title('Sales Over Time')
-plt.xlabel('Date')
-plt.ylabel('Sales')
-plt.savefig('chart.png')
-
-# Seaborn heatmap
-sns.heatmap(df.corr(), annot=True, cmap='coolwarm')
-```
-
-### Chart.js (JavaScript)
-```javascript
-new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ['Jan', 'Feb', 'Mar'],
-    datasets: [{
-      label: 'Sales',
-      data: [12, 19, 3],
-      backgroundColor: 'rgba(99, 102, 241, 0.5)'
-    }]
-  }
-});
-```
-
----
-
-## Common Analysis Patterns
-
-| Task | Code |
-|------|------|
-| Top N items | `df.nlargest(10, 'sales')` |
-| Date filtering | `df[df['date'] >= '2024-01-01']` |
-| Rolling average | `df['sales'].rolling(7).mean()` |
-| Year-over-year | `df.groupby(df['date'].dt.year)` |
-| Percentiles | `df['sales'].quantile([0.25, 0.5, 0.75])` |
-
----
-
-## Analysis Checklist
-
-- [ ] Load and inspect data
-- [ ] Handle missing values
-- [ ] Clean and transform
-- [ ] Exploratory analysis
-- [ ] Create visualizations
-- [ ] Extract insights
-- [ ] Document findings
+## Related Skills
+- `database-navigator` - Database exploration
+- `supabase-connection` - Database clients
+- `design-component` - UI patterns for analysis display

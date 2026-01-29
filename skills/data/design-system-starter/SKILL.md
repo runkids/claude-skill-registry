@@ -1,31 +1,62 @@
 ---
 name: design-system-starter
-description: Use this skill when creating or evolving design systems for applications. Provides design token structures, component architecture patterns, documentation templates, and accessibility guidelines. Ensures consistent, scalable, and accessible UI design across products.
-version: 1.0.0
-author: AI Agent Hub
-tags: [design-system, ui, components, design-tokens, accessibility, frontend]
+description: Create and evolve design systems with design tokens, component architecture, accessibility guidelines, and documentation templates. Ensures consistent, scalable, and accessible UI across products.
+license: MIT
+metadata:
+  version: 1.0.0
+  tags: [design-system, ui, components, design-tokens, accessibility, frontend]
 ---
 
 # Design System Starter
 
-## Overview
+Build robust, scalable design systems that ensure visual consistency and exceptional user experiences.
 
-This skill provides comprehensive guidance for building robust, scalable design systems that ensure visual consistency, improve development velocity, and create exceptional user experiences. Whether starting from scratch or evolving an existing system, this framework helps teams design with intention and scale.
+---
 
-**When to use this skill:**
-- Creating a new design system from scratch
-- Evolving or refactoring existing design systems
-- Establishing design token standards
-- Defining component architecture
-- Creating design documentation
-- Ensuring accessibility compliance (WCAG 2.1)
-- Implementing theming and dark mode
+## Quick Start
 
-**Bundled Resources:**
+Just describe what you need:
+
+```
+Create a design system for my React app with dark mode support
+```
+
+That's it. The skill provides tokens, components, and accessibility guidelines.
+
+---
+
+## Triggers
+
+| Trigger | Example |
+|---------|---------|
+| Create design system | "Create a design system for my app" |
+| Design tokens | "Set up design tokens for colors and spacing" |
+| Component architecture | "Design component structure using atomic design" |
+| Accessibility | "Ensure WCAG 2.1 compliance for my components" |
+| Dark mode | "Implement theming with dark mode support" |
+
+---
+
+## Quick Reference
+
+| Task | Output |
+|------|--------|
+| Design tokens | Color, typography, spacing, shadows JSON |
+| Component structure | Atomic design hierarchy (atoms, molecules, organisms) |
+| Theming | CSS variables or ThemeProvider setup |
+| Accessibility | WCAG 2.1 AA compliant patterns |
+| Documentation | Component docs with props, examples, a11y notes |
+
+---
+
+## Bundled Resources
+
 - `references/component-examples.md` - Complete component implementations
 - `templates/design-tokens-template.json` - W3C design token format
 - `templates/component-template.tsx` - React component template
 - `checklists/design-system-checklist.md` - Design system audit checklist
+
+---
 
 ## Design System Philosophy
 
@@ -553,25 +584,6 @@ See `templates/component-template.tsx` for the standard component structure.
 
 ---
 
-## Integration with Agents
-
-### Rapid UI Designer
-- Uses design tokens to create consistent interfaces
-- References component library for quick prototyping
-- Applies accessibility guidelines automatically
-
-### Frontend UI Developer
-- Implements components following design system patterns
-- Ensures consistency with existing design language
-- Validates color contrast and accessibility
-
-### Code Quality Reviewer
-- Checks components adhere to design system standards
-- Validates proper use of design tokens
-- Ensures accessibility requirements met
-
----
-
 ## Quick Start Checklist
 
 When creating a new design system:
@@ -589,9 +601,3 @@ When creating a new design system:
 - [ ] Create usage examples for each component
 - [ ] Establish versioning and release strategy
 - [ ] Create migration guides for adopting teams
-
----
-
-**Skill Version**: 1.0.0
-**Last Updated**: 2025-10-31
-**Maintained by**: AI Agent Hub Team

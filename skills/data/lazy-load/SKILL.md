@@ -25,8 +25,8 @@ I'll implement lazy loading patterns for images, components, and routes to impro
 - ✅ Early exit when no lazy loading opportunities found - saves 90%
 - ✅ Progressive implementation (quick wins → advanced patterns)
 - ✅ Default to git diff scope (changed files only)
-- **Expected tokens:** 800-2,500 (vs. 2,000-3,500 unoptimized) - **50-60% reduction**
-- **Optimization status:** ✅ Optimized (Phase 2 Batch 3A, 2026-01-26)
+- **Expected tokens:** 1,500-2,500 (vs. 3,000-5,000 unoptimized) - **50-60% reduction**
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 3A, 2026-01-27)
 
 **Caching Behavior:**
 - Cache location: `.claude/cache/lazy-loading/`
@@ -1346,41 +1346,44 @@ This skill is based on:
 
 ## Token Budget & Optimization Details
 
-**Before Optimization:** 2,000-3,500 tokens
-**After Optimization:** 800-2,500 tokens
+**Before Optimization:** 3,000-5,000 tokens
+**After Optimization:** 1,500-2,500 tokens
 **Savings:** 50-60% reduction
 
 ### Token Breakdown by Phase
 
-**Phase 1: Framework Detection & Analysis** (~200-400 tokens)
-- ✅ Framework detection via package.json grep (50 tokens)
-- ✅ Cached framework config (20 tokens on cache hit vs 300 tokens on miss)
+**Phase 1: Framework Detection & Analysis** (~300-600 tokens)
+- ✅ Framework detection via package.json grep (100 tokens)
+- ✅ Cached framework config (50 tokens on cache hit vs 400 tokens on miss)
 - ✅ Grep-based lazy loading inventory:
-  - Count existing lazy images (50 tokens)
-  - Count existing lazy components (50 tokens)
+  - Count existing lazy images (100 tokens)
+  - Count existing lazy components (100 tokens)
+  - Find total images and components (200 tokens)
   - No file reads, pure grep operations
-- ✅ Early exit if everything already lazy (saves 95%, ~50 tokens vs 2,000)
+- ✅ Early exit if everything already lazy (saves 90%, ~200 tokens vs 3,000)
 
-**Phase 2: Image Lazy Loading** (~200-800 tokens)
-- ✅ Focus flag `--images`: Only implement image lazy loading (200 tokens vs 2,500 full)
-- ✅ Template-based examples with heredocs (200 tokens per pattern)
+**Phase 2: Image Lazy Loading** (~400-1,000 tokens)
+- ✅ Focus flag `--images`: Only implement image lazy loading (400 tokens vs 3,000 full)
+- ✅ Template-based examples with heredocs (300-400 tokens per pattern)
 - ✅ Progressive disclosure:
-  - Quick wins (native lazy attribute): 200 tokens
-  - Advanced (Intersection Observer): 400 tokens
-  - Framework-specific: 600 tokens
-  - All patterns: 800 tokens
+  - Quick wins (native lazy attribute): 400 tokens
+  - Advanced (Intersection Observer): 600 tokens
+  - Framework-specific: 800 tokens
+  - All patterns: 1,000 tokens
 
-**Phase 3: Component Lazy Loading** (~200-700 tokens)
-- ✅ Focus flag `--components`: Only component patterns (300 tokens vs 2,500 full)
-- ✅ Focus flag `--routes`: Only route splitting (200 tokens vs 2,500 full)
-- ✅ Template-based implementations per framework
+**Phase 3: Component Lazy Loading** (~400-900 tokens)
+- ✅ Focus flag `--components`: Only component patterns (500 tokens vs 3,000 full)
+- ✅ Focus flag `--routes`: Only route splitting (400 tokens vs 3,000 full)
+- ✅ Template-based implementations per framework (300-400 tokens each)
 - ✅ No dynamic code generation, pure templates
+- ✅ Framework-specific examples only (not all frameworks)
 
-**Phase 4: Impact Analysis & Guide** (~200-600 tokens)
-- ✅ Template-based implementation guide (300 tokens)
+**Phase 4: Impact Analysis & Guide** (~400-800 tokens)
+- ✅ Template-based implementation guide (500 tokens)
 - ✅ Progressive recommendations (show only applicable patterns)
 - ✅ Framework-specific examples only (vs all frameworks)
 - ✅ Cached opportunity analysis (80% savings on subsequent runs)
+- ✅ Performance impact estimations based on bundle size analysis
 
 ### Optimization Patterns Applied
 
@@ -1398,7 +1401,7 @@ EXISTING_LAZY_COMPONENTS=$(grep -r "React.lazy\|lazy(\|defineAsyncComponent\|loa
     --exclude-dir=node_modules \
     . 2>/dev/null | wc -l)
 
-# Saves 90% vs reading files (50 tokens vs 800+ tokens)
+# Saves 85% vs reading files (100 tokens vs 800+ tokens)
 ```
 
 **2. Framework Detection Caching (95% savings on subsequent runs)**
@@ -1416,7 +1419,7 @@ if [ -f "$CACHE_FILE" ]; then
         EXISTING_LAZY_IMAGES=$(jq -r '.lazy_images' "$CACHE_FILE")
         EXISTING_LAZY_COMPONENTS=$(jq -r '.lazy_components' "$CACHE_FILE")
         # Skip detection, use cached values
-        # Saves 300 tokens vs re-detecting
+        # Saves 400 tokens vs re-detecting
     fi
 fi
 
@@ -1438,14 +1441,14 @@ TOTAL_IMAGES=$(find . -name "*.jsx" -o -name "*.tsx" -o -name "*.html" -o -name 
 
 if [ "$EXISTING_LAZY_IMAGES" -ge "$TOTAL_IMAGES" ] && [ "$TOTAL_IMAGES" -gt 0 ]; then
     echo "✓ All images already lazy-loaded"
-    exit 0  # Early exit, saves ~2,000 tokens
+    exit 0  # Early exit, saves ~3,000 tokens (90% savings)
 fi
 
 # Similar check for components
 if [ "$EXISTING_LAZY_COMPONENTS" -gt 10 ]; then
     echo "✓ Lazy loading already widely implemented"
     echo "  Use focus flags for specific optimizations: --images, --components, --routes"
-    exit 0  # Early exit when well-optimized
+    exit 0  # Early exit when well-optimized, saves ~2,500 tokens
 fi
 ```
 
@@ -1457,24 +1460,24 @@ FOCUS_AREA="${1:-all}"  # all, images, components, routes
 case "$FOCUS_AREA" in
     --images)
         # Only generate image lazy loading patterns
-        # Saves 80% (200 tokens vs 2,500)
+        # Saves 75-80% (400-600 tokens vs 3,000)
         generate_image_lazy_loading
         exit 0
         ;;
     --components)
         # Only generate component lazy loading patterns
-        # Saves 80% (300 tokens vs 2,500)
+        # Saves 75-80% (500-700 tokens vs 3,000)
         generate_component_lazy_loading
         exit 0
         ;;
     --routes)
         # Only generate route-based code splitting
-        # Saves 90% (200 tokens vs 2,500)
+        # Saves 80-85% (400-500 tokens vs 3,000)
         generate_route_splitting
         exit 0
         ;;
     all)
-        # Full implementation
+        # Full implementation (2,500 tokens)
         ;;
 esac
 ```
@@ -1487,7 +1490,7 @@ IMPLEMENTATION_LEVEL="${2:-quick}"  # quick, intermediate, advanced, all
 case "$IMPLEMENTATION_LEVEL" in
     quick)
         # Native lazy attribute only
-        # 200 tokens vs 2,500 for all patterns
+        # 400 tokens vs 3,000 for all patterns (87% savings)
         cat > "$IMPLEMENTATIONS/image-lazy-quick.jsx" << 'EOF'
 // Quick Win: Native Lazy Loading
 <img src="image.jpg" alt="Description" loading="lazy" />
@@ -1495,15 +1498,15 @@ EOF
         ;;
     intermediate)
         # Add Intersection Observer
-        # 600 tokens vs 2,500
+        # 800-1,000 tokens vs 3,000 (67% savings)
         ;;
     advanced)
         # Framework-specific optimizations
-        # 1,200 tokens vs 2,500
+        # 1,500-1,800 tokens vs 3,000 (40% savings)
         ;;
     all)
         # All patterns and examples
-        # 2,500 tokens (comprehensive)
+        # 2,500-3,000 tokens (comprehensive)
         ;;
 esac
 ```
@@ -1518,7 +1521,7 @@ if [ -z "$TARGET_FILES" ]; then
     if [ -z "$TARGET_FILES" ]; then
         echo "✓ No image/component files changed"
         echo "  Use 'all' argument for comprehensive analysis"
-        exit 0  # Early exit, saves 80% tokens
+        exit 0  # Early exit, saves 80% tokens (500 vs 3,000)
     fi
 
     echo "Analyzing changed files only (use 'all' for full analysis)"
@@ -1530,24 +1533,24 @@ fi
 # Generate examples for detected framework ONLY (vs all frameworks)
 case "$FRAMEWORK" in
     react)
-        # Only React examples (400 tokens)
+        # Only React examples (600-800 tokens)
         generate_react_lazy_loading
         ;;
     vue)
-        # Only Vue examples (400 tokens)
+        # Only Vue examples (600-800 tokens)
         generate_vue_lazy_loading
         ;;
     nextjs)
-        # Only Next.js examples (300 tokens)
+        # Only Next.js examples (500-700 tokens)
         generate_nextjs_lazy_loading
         ;;
     *)
-        # Vanilla JS examples (500 tokens)
+        # Vanilla JS examples (600-800 tokens)
         generate_vanilla_lazy_loading
         ;;
 esac
 
-# Saves 50% vs generating all framework examples (2,000 tokens)
+# Saves 50-60% vs generating all framework examples (3,000+ tokens)
 ```
 
 ### Usage Examples
@@ -1558,36 +1561,36 @@ esac
 # Tokens: ~2,500 (comprehensive implementation)
 ```
 
-**Targeted Implementation (80% savings):**
+**Targeted Implementation (75-85% savings):**
 ```bash
-/lazy-load --images              # Only image lazy loading (200 tokens)
-/lazy-load --components          # Only component patterns (300 tokens)
-/lazy-load --routes              # Only route splitting (200 tokens)
+/lazy-load --images              # Only image lazy loading (400-600 tokens)
+/lazy-load --components          # Only component patterns (500-700 tokens)
+/lazy-load --routes              # Only route splitting (400-500 tokens)
 ```
 
-**Quick Wins Only (90% savings):**
+**Quick Wins Only (85% savings):**
 ```bash
-/lazy-load --images quick        # Native lazy attribute only (200 tokens vs 2,500)
+/lazy-load --images quick        # Native lazy attribute only (400 tokens vs 3,000)
 # Output: Simple <img loading="lazy"> examples
 ```
 
 **Changed Files Only (80% savings):**
 ```bash
 /lazy-load                       # Auto-detects changed files via git diff
-# Tokens: ~500-800 (vs 2,500 for full codebase)
+# Tokens: ~600-1,000 (vs 3,000 for full codebase)
 ```
 
-**Cached Execution (95% savings):**
+**Cached Execution (85% savings):**
 ```bash
 /lazy-load                       # Subsequent runs use cached framework detection
-# First run: ~2,000 tokens
-# Cached run: ~500 tokens (95% savings)
+# First run: ~2,500 tokens
+# Cached run: ~400-600 tokens (85% savings)
 ```
 
 **Specific Component:**
 ```bash
 /lazy-load Dashboard             # Target specific component
-# Tokens: ~400 (focused implementation)
+# Tokens: ~600-800 (focused implementation)
 ```
 
 ### Optimization Status
@@ -1602,6 +1605,6 @@ esac
 - ✅ **Git diff scope**: Default to changed files
 - ✅ **Framework-specific**: Only generate relevant examples
 
-**Overall:** 50-60% token reduction (2,000-3,500 → 800-2,500 tokens)
+**Overall:** 50-60% token reduction (3,000-5,000 → 1,500-2,500 tokens)
 
 This ensures effective lazy loading implementation across all major frameworks with measurable performance improvements and proper UX considerations.

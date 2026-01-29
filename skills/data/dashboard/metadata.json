@@ -1,7 +1,7 @@
 {
   "name": "dashboard",
-  "repo": "nguyendinhquocx/code-ai",
-  "path": "skills/_main/skills/dashboard/SKILL.md",
-  "source": "github.com/nguyendinhquocx/code-ai",
-  "downloaded_at": "2026-01-28T03:16:14.854632Z"
+  "repo": "dengineproblem/agents-monorepo",
+  "path": ".claude/skills/dashboard/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-29T03:30:50.416163Z"
 }

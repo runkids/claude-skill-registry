@@ -101,3 +101,13 @@ PR bodies should generally follow this structure; omit sections that are N/A or 
 - Risks
   - PRs that touch intricate logic must include an assessment of regression risk
   - Explain regression risk in terms of severity and affected product areas
+
+## Upkeep
+
+Once the code is pushed to the remote (even if not yet a Pull Request), do your best to commit
+and push all changes before responding to ensure its visible to the user. Commits on the working branch
+are for yourself to understand the change, they do not have to follow repository conventions as the
+PR body and title become the commit subject and body respectively.
+
+Whenever generating a compaction summary, include whether or not a Pull Request was opened
+and the general state of the remote (e.g. CI checks, known reviews, divergence).

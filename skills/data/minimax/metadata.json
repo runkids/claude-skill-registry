@@ -1,13 +1,7 @@
 {
   "name": "minimax",
-  "description": "MiniMax API via curl. Use this skill for Chinese LLM chat, text-to-speech, and AI video generation.",
-  "repo": "vm0-ai/vm0-skills",
-  "category": "data",
-  "tags": [
-    "minimax"
-  ],
-  "stars": 8,
-  "dir_name": "minimax",
-  "github_path": "minimax",
-  "github_branch": "main"
+  "repo": "alfredolopez80/multi-agent-ralph-loop",
+  "path": ".claude/skills/minimax/SKILL.md",
+  "source": "github.com/alfredolopez80/multi-agent-ralph-loop",
+  "downloaded_at": "2026-01-29T04:40:06.349564Z"
 }

@@ -1,9 +1,14 @@
 ---
 name: analysis-diagnose
-description: "Perform systematic root cause investigation. Use when: You encounter bugs, test failures, or unexpected behavior. Not for: Trivial/obvious fixes, creative experimentation, or learning new systems."
+description: "Perform systematic root cause investigation. Use when you encounter bugs, test failures, or unexpected behavior. Not for trivial or obvious fixes, creative experimentation, or learning new systems."
 ---
 
 # Systematic Analysis & Diagnosis
+
+<mission_control>
+<objective>Perform systematic root cause investigation with evidence gathering before any fixes</objective>
+<success_criteria>Root cause identified with documented evidence, minimal fix applied and verified</success_criteria>
+</mission_control>
 
 ## Overview
 
@@ -12,6 +17,55 @@ Systematic root cause investigation framework for debugging bugs, test failures,
 **Core principle:** NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
 
 **The Iron Law:** Root Cause → Pattern Analysis → Hypothesis → Implementation (never skip phases)
+
+<interaction_schema>
+symptom → evidence → hypothesis → test → implementation → verify
+</interaction_schema>
+
+## Investigation Format
+
+<investigation_format>
+<investigation>
+<symptom>
+<description>[What is the observable problem?]</description>
+<error_messages>[Complete error text, stack traces]</error_messages>
+<reproduction_steps>[Exact steps to reproduce]</reproduction_steps>
+<frequency>[Always/Sometimes/Once]</frequency>
+</symptom>
+
+<evidence>
+<logs>[Relevant log output]</logs>
+<recent_changes>[Git diff, recent commits, config changes]</recent_changes>
+<environment_data>[OS, versions, dependencies]</environment_data>
+<diagnostic_output>[Output from diagnostic commands]</diagnostic_output>
+</evidence>
+
+<hypothesis>
+<root_cause>[What is the likely root cause?]</root_cause>
+<reasoning>[Why does this cause the symptom?]</reasoning>
+<confidence>[High/Medium/Low - based on evidence]</confidence>
+</hypothesis>
+
+<test>
+<minimal_reproduction>[Smallest test to confirm hypothesis]</minimal_reproduction>
+<expected_result>[What should happen if hypothesis is correct]</expected_result>
+<actual_result>[What actually happened]</actual_result>
+<conclusion>[Confirmed/Rejected - hypothesis status]</conclusion>
+</test>
+</investigation>
+</investigation_format>
+
+---
+
+## The Iron Law
+
+<absolute_constraint>
+**NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST**
+
+If you haven't completed Phase 1, you CANNOT propose fixes.
+
+This is not a suggestion. This is a law of debugging.
+</absolute_constraint>
 
 ## When to Use
 
@@ -82,6 +136,39 @@ diagnostic_check() {
 - Systemic patterns vs isolated bugs
 - Integration points as failure sources
 - State management issues
+
+**4. 5 Whys Technique**
+
+For complex problems, use iterative "why" questioning to drill down:
+
+```
+**Problem**: [Observable symptom]
+
+**Why 1**: [First-level cause]
+→ Because [explanation]
+
+**Why 2**: [Second-level cause]
+→ Because [explanation]
+
+**Why 3**: [Third-level cause]
+→ Because [explanation]
+
+**Why 4**: [Fourth-level cause]
+→ Because [explanation]
+
+**Why 5**: [Root cause]
+→ Because [explanation]
+
+**Root Cause**: [The fundamental issue]
+**Action**: [What to fix to prevent recurrence]
+```
+
+**Guidelines**:
+
+- Be specific - each answer should be factual and verifiable
+- Avoid blame - focus on systems and processes
+- Check logic - ensure each answer explains the previous level
+- Stop at root cause - when you reach something actionable
 
 #### Evidence Documentation
 
@@ -391,8 +478,72 @@ STOP and return to Phase 1.
 
 ## References
 
-For extended debugging patterns, see:
-- `../systematic-debugging/` - Original framework
-- `../verification-before-completion/` - Fix validation protocols
-- `../meta-critic/` - Quality validation
+For related diagnostic capabilities:
+- **Use the skill `quality-standards`** - Unified quality validation and three-way audit
+
+---
+
+## Genetic Code
+
+This component carries essential Seed System principles for context: fork isolation:
+
+<critical_constraint>
+MANDATORY: All components MUST be self-contained (zero .claude/rules dependency)
+MANDATORY: Achieve 80-95% autonomy (0-5 AskUserQuestion rounds per session)
+MANDATORY: Description MUST use What-When-Not format in third person
+MANDATORY: No component references another component by name in description
+MANDATORY: Progressive disclosure - references/ for detailed content
+MANDATORY: Use XML for control (mission_control, critical_constraint), Markdown for data
+No exceptions. Portability invariant must be maintained.
+</critical_constraint>
+
+**Delta Standard**: Good Component = Expert Knowledge − What Claude Already Knows
+
+**Recognition Questions**:
+- "Would Claude know this without being told?" → Delete (zero delta)
+- "Can this work standalone?" → Fix if no (non-self-sufficient)
+- "Did I read the actual file, or just see it in grep?" → Verify before claiming
+
+---
+
+## Absolute Constraints (Non-Negotiable)
+
+<critical_constraint>
+**THE IRON LAW: NO FIXES WITHOUT ROOT CAUSE INVESTIGATION**
+
+- Complete Phase 1 (Root Cause Investigation) BEFORE proposing ANY fix
+- Document symptoms, evidence, hypothesis BEFORE implementing
+- Test hypothesis with minimal reproduction BEFORE full fix
+- NEVER skip to Phase 4 without completing Phases 1-3
+
+**MANDATORY: Use `<investigation>` format**
+
+- Symptom: What is the observable problem?
+- Evidence: Error messages, logs, recent changes, environment
+- Hypothesis: What is the likely root cause and why?
+- Test: Minimal reproduction to confirm hypothesis
+
+**MANDATORY: One hypothesis at a time**
+
+- Form single hypothesis based on evidence
+- Test with minimal reproduction
+- Confirm or reject before next hypothesis
+- NEVER try multiple fixes simultaneously
+
+**MANDATORY: Verification before claiming completion**
+
+- Test confirms fix resolves issue
+- No regressions introduced
+- Edge cases considered
+- Root cause documented
+
+**MANDATORY: Question architecture after 3+ failed hypotheses**
+
+- If 3+ hypotheses fail: STOP fixing
+- Question the pattern/architecture
+- Discuss with human partner
+- Wrong pattern cannot be fixed by more patches
+
+**No exceptions. Symptom patches are failure. Evidence-based investigation is mandatory.**
+</critical_constraint>
 ```

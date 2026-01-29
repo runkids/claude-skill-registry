@@ -1,9 +1,7 @@
 {
   "name": "storyboard-manager",
-  "description": "Assist writers with story planning, character development, plot structuring, chapter writing, timeline tracking, and consistency checking. Use this skill when working with creative writing projects or",
-  "repo": "agent-trust-protocol/atp-core",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "nguyendinhquocx/code-ai",
+  "path": "skills/storyboard-manager/SKILL.md",
+  "source": "github.com/nguyendinhquocx/code-ai",
+  "downloaded_at": "2026-01-29T01:03:59.940064Z"
 }

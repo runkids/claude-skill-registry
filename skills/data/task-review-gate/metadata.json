@@ -1,7 +1,7 @@
 {
   "name": "task-review-gate",
-  "repo": "turbobeest/squawk",
-  "path": ".claude/skills/task-review-gate/SKILL.md",
-  "source": "github.com/turbobeest/squawk",
-  "downloaded_at": "2026-01-28T01:52:12.686942Z"
+  "repo": "turbobeest/cursor-dev-system",
+  "path": "skills/task-review-gate/SKILL.md",
+  "source": "github.com/turbobeest/cursor-dev-system",
+  "downloaded_at": "2026-01-29T04:39:08.289459Z"
 }

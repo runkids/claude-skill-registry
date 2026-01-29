@@ -1,7 +1,7 @@
 {
   "name": "lint",
-  "repo": "shiiman/claude-code-plugins",
-  "path": "plugins/shiiman-go/skills/lint/SKILL.md",
-  "source": "github.com/shiiman/claude-code-plugins",
-  "downloaded_at": "2026-01-28T01:59:43.780791Z"
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_all/lint/SKILL.md",
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-01-29T04:28:41.833065Z"
 }

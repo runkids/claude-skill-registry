@@ -1,7 +1,7 @@
 {
   "name": "stripe-integration",
-  "repo": "dadbodgeoff/drift",
-  "path": "skills/stripe-integration/SKILL.md",
-  "source": "github.com/dadbodgeoff/drift",
-  "downloaded_at": "2026-01-28T04:30:49.218326Z"
+  "repo": "as4584/antigravity-skills",
+  "path": "agents-wshobson/plugins/payment-processing/skills/stripe-integration/SKILL.md",
+  "source": "github.com/as4584/antigravity-skills",
+  "downloaded_at": "2026-01-29T04:29:47.238264Z"
 }

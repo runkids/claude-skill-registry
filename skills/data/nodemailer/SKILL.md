@@ -1,323 +1,91 @@
 ---
 name: nodemailer
-description: Sends emails from Node.js applications using SMTP or other transports with Nodemailer. Use when implementing email functionality with full control over transport configuration.
+description: 从Node.js应用发送邮件。最流行的邮件发送模块，支持SMTP、OAuth2、附件和HTML模板。
+metadata:
+  short-description: Node.js邮件发送
+source:
+  repository: https://github.com/nodemailer/nodemailer
+  license: MIT
+  stars: 17k+
 ---
 
-# Nodemailer
+# Nodemailer Tool
 
-Node.js email sending library. Works with SMTP, Amazon SES, and other transports. Zero dependencies, full Unicode support.
+## Description
+Send emails from Node.js with SMTP, OAuth2, attachments, and HTML templates.
 
-## Quick Start
+## Source
+- Repository: [nodemailer/nodemailer](https://github.com/nodemailer/nodemailer)
+- License: MIT
+
+## Installation
 
 ```bash
 npm install nodemailer
 ```
 
-### Basic SMTP Setup
+## Usage Examples
 
-```javascript
+### Basic Email
+
+```typescript
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.example.com',
-  port: 587,
-  secure: false,  // true for 465, false for 587
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
-
-// Send email
-await transporter.sendMail({
-  from: '"My App" <noreply@example.com>',
-  to: 'user@example.com',
-  subject: 'Hello',
-  text: 'Plain text content',
-  html: '<b>HTML content</b>',
-});
-```
-
-## Transport Configuration
-
-### Gmail
-
-```javascript
-// Use App Password (not regular password)
-// Enable 2FA, then generate App Password in Google Account settings
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'your-email@gmail.com',
-    pass: 'your-app-password',  // 16-character app password
-  },
-});
-```
-
-### Gmail with OAuth2
-
-```javascript
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    type: 'OAuth2',
-    user: 'your-email@gmail.com',
-    clientId: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
-  },
-});
-```
-
-### Outlook/Office365
-
-```javascript
-const transporter = nodemailer.createTransport({
-  host: 'smtp.office365.com',
+  host: 'smtp.gmail.com',
   port: 587,
   secure: false,
   auth: {
-    user: 'your-email@outlook.com',
-    pass: 'your-password',
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
-```
 
-### Amazon SES
-
-```javascript
-import { SES } from '@aws-sdk/client-ses';
-
-const transporter = nodemailer.createTransport({
-  SES: {
-    ses: new SES({
-      region: 'us-east-1',
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      },
-    }),
-    aws: { SendRawEmailCommand },
-  },
-});
-```
-
-### Resend SMTP
-
-```javascript
-const transporter = nodemailer.createTransport({
-  host: 'smtp.resend.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: 'resend',
-    pass: process.env.RESEND_API_KEY,
-  },
-});
-```
-
-### SendGrid SMTP
-
-```javascript
-const transporter = nodemailer.createTransport({
-  host: 'smtp.sendgrid.net',
-  port: 587,
-  secure: false,
-  auth: {
-    user: 'apikey',
-    pass: process.env.SENDGRID_API_KEY,
-  },
-});
-```
-
-## Message Options
-
-```javascript
-const message = {
-  // Sender
-  from: '"Sender Name" <sender@example.com>',
-
-  // Recipients
-  to: 'recipient@example.com',
-  // Or multiple
-  to: 'one@example.com, two@example.com',
-  // Or with names
-  to: '"User One" <one@example.com>, "User Two" <two@example.com>',
-
-  // CC and BCC
-  cc: 'cc@example.com',
-  bcc: 'bcc@example.com',
-
-  // Reply-to
-  replyTo: 'reply@example.com',
-
-  // Subject
-  subject: 'Hello World',
-
-  // Content
-  text: 'Plain text body',
-  html: '<h1>HTML body</h1>',
-
-  // Priority
-  priority: 'high',  // 'high', 'normal', 'low'
-
-  // Custom headers
-  headers: {
-    'X-Custom-Header': 'value',
-  },
-
-  // Message-ID
-  messageId: '<unique-id@example.com>',
-
-  // References (for threading)
-  references: '<previous-message-id@example.com>',
-  inReplyTo: '<previous-message-id@example.com>',
-};
-
-await transporter.sendMail(message);
-```
-
-## Attachments
-
-```javascript
-const message = {
-  from: 'sender@example.com',
-  to: 'recipient@example.com',
-  subject: 'With attachments',
-  text: 'See attachments',
-  attachments: [
-    // From file
-    {
-      filename: 'document.pdf',
-      path: './files/document.pdf',
-    },
-    // From buffer
-    {
-      filename: 'data.json',
-      content: Buffer.from(JSON.stringify({ hello: 'world' })),
-    },
-    // From string
-    {
-      filename: 'text.txt',
-      content: 'Hello World',
-    },
-    // From URL
-    {
-      filename: 'image.png',
-      path: 'https://example.com/image.png',
-    },
-    // Embedded image (for HTML)
-    {
-      filename: 'logo.png',
-      path: './logo.png',
-      cid: 'logo@myapp',  // Reference in HTML as <img src="cid:logo@myapp">
-    },
-  ],
-};
-
-await transporter.sendMail(message);
-```
-
-### Embedded Images
-
-```javascript
-const message = {
-  from: 'sender@example.com',
-  to: 'recipient@example.com',
-  subject: 'With embedded image',
-  html: `
-    <h1>Hello</h1>
-    <img src="cid:logo@myapp" alt="Logo" />
-  `,
-  attachments: [
-    {
-      filename: 'logo.png',
-      path: './logo.png',
-      cid: 'logo@myapp',
-    },
-  ],
-};
-```
-
-## Verify Connection
-
-Test configuration before sending.
-
-```javascript
-try {
-  await transporter.verify();
-  console.log('SMTP connection successful');
-} catch (error) {
-  console.error('SMTP connection failed:', error);
-}
-```
-
-## Error Handling
-
-```javascript
-try {
-  const info = await transporter.sendMail(message);
+async function sendEmail() {
+  const info = await transporter.sendMail({
+    from: '"My App" <noreply@myapp.com>',
+    to: 'user@example.com',
+    subject: 'Welcome to My App',
+    text: 'Hello, welcome to our platform!',
+    html: '<h1>Hello</h1><p>Welcome to our platform!</p>',
+  });
+  
   console.log('Message sent:', info.messageId);
-} catch (error) {
-  if (error.responseCode === 550) {
-    console.error('Recipient rejected');
-  } else if (error.code === 'ECONNECTION') {
-    console.error('Connection failed');
-  } else if (error.code === 'EAUTH') {
-    console.error('Authentication failed');
-  } else {
-    console.error('Error:', error.message);
-  }
 }
 ```
 
-## Pooled Connections
+### HTML Email with Template
 
-For high-volume sending, reuse connections.
-
-```javascript
-const transporter = nodemailer.createTransport({
-  pool: true,
-  host: 'smtp.example.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-  maxConnections: 5,
-  maxMessages: 100,
-});
-
-// Close pool when done
-transporter.close();
-```
-
-## With React Email
-
-```javascript
-import nodemailer from 'nodemailer';
-import { render } from '@react-email/components';
-import WelcomeEmail from './emails/welcome';
-
-const transporter = nodemailer.createTransport({
-  host: 'smtp.example.com',
-  port: 587,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
-
-async function sendWelcomeEmail(user) {
-  const html = await render(WelcomeEmail({
-    name: user.name,
-    actionUrl: 'https://myapp.com/start',
-  }));
-
+```typescript
+async function sendWelcomeEmail(user: { name: string; email: string }) {
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <style>
+          .container { max-width: 600px; margin: 0 auto; font-family: Arial; }
+          .header { background: #4F46E5; color: white; padding: 20px; }
+          .content { padding: 20px; }
+          .button { background: #4F46E5; color: white; padding: 12px 24px; 
+                    text-decoration: none; border-radius: 4px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Welcome, ${user.name}!</h1>
+          </div>
+          <div class="content">
+            <p>Thank you for joining our platform.</p>
+            <a href="https://myapp.com/dashboard" class="button">Get Started</a>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+  
   await transporter.sendMail({
-    from: '"MyApp" <hello@myapp.com>',
+    from: '"My App" <noreply@myapp.com>',
     to: user.email,
     subject: `Welcome, ${user.name}!`,
     html,
@@ -325,112 +93,80 @@ async function sendWelcomeEmail(user) {
 }
 ```
 
-## Next.js API Route
+### Email with Attachments
 
 ```typescript
-// app/api/contact/route.ts
-import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+async function sendEmailWithAttachment() {
+  await transporter.sendMail({
+    from: '"Reports" <reports@myapp.com>',
+    to: 'manager@company.com',
+    subject: 'Monthly Report',
+    text: 'Please find the monthly report attached.',
+    attachments: [
+      {
+        filename: 'report.pdf',
+        path: './reports/monthly-report.pdf',
+      },
+      {
+        filename: 'data.xlsx',
+        content: Buffer.from('...'), // Buffer content
+      },
+      {
+        filename: 'logo.png',
+        path: './assets/logo.png',
+        cid: 'logo@myapp', // For embedding in HTML
+      },
+    ],
+    html: '<img src="cid:logo@myapp" /><p>See attached report.</p>',
+  });
+}
+```
 
+### OAuth2 Authentication (Gmail)
+
+```typescript
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: parseInt(process.env.SMTP_PORT || '587'),
-  secure: false,
+  service: 'gmail',
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
+    type: 'OAuth2',
+    user: process.env.GMAIL_USER,
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
   },
 });
+```
 
-export async function POST(request: Request) {
-  const { name, email, message } = await request.json();
+### Email Queue with Rate Limiting
 
-  try {
-    await transporter.sendMail({
-      from: process.env.SMTP_FROM,
-      to: process.env.CONTACT_EMAIL,
-      replyTo: email,
-      subject: `Contact form: ${name}`,
-      text: `From: ${name} <${email}>\n\n${message}`,
-      html: `
-        <p><strong>From:</strong> ${name} &lt;${email}&gt;</p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
-      `,
-    });
-
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Email error:', error);
-    return NextResponse.json(
-      { error: 'Failed to send email' },
-      { status: 500 }
-    );
+```typescript
+class EmailQueue {
+  private queue: Array<() => Promise<void>> = [];
+  private processing = false;
+  
+  async add(emailFn: () => Promise<void>) {
+    this.queue.push(emailFn);
+    this.process();
+  }
+  
+  private async process() {
+    if (this.processing) return;
+    this.processing = true;
+    
+    while (this.queue.length > 0) {
+      const emailFn = this.queue.shift()!;
+      await emailFn();
+      await new Promise(r => setTimeout(r, 1000)); // Rate limit
+    }
+    
+    this.processing = false;
   }
 }
 ```
 
-## Testing with Ethereal
+## Tags
+`email`, `smtp`, `notification`, `communication`, `automation`
 
-Free fake SMTP for testing - no emails actually sent.
-
-```javascript
-// Create test account
-const testAccount = await nodemailer.createTestAccount();
-
-const transporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
-  port: 587,
-  secure: false,
-  auth: {
-    user: testAccount.user,
-    pass: testAccount.pass,
-  },
-});
-
-const info = await transporter.sendMail({
-  from: 'test@example.com',
-  to: 'recipient@example.com',
-  subject: 'Test',
-  text: 'Test email',
-});
-
-// Preview URL
-console.log('Preview:', nodemailer.getTestMessageUrl(info));
-```
-
-## Environment Variables
-
-```bash
-# SMTP Configuration
-SMTP_HOST=smtp.example.com
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=your-username
-SMTP_PASS=your-password
-SMTP_FROM="My App" <noreply@example.com>
-
-# Or for Gmail
-GMAIL_USER=your-email@gmail.com
-GMAIL_APP_PASSWORD=your-app-password
-```
-
-## Common Transports
-
-| Provider | Host | Port | Secure |
-|----------|------|------|--------|
-| Gmail | smtp.gmail.com | 465 | true |
-| Outlook | smtp.office365.com | 587 | false |
-| Yahoo | smtp.mail.yahoo.com | 465 | true |
-| SendGrid | smtp.sendgrid.net | 587 | false |
-| Mailgun | smtp.mailgun.org | 587 | false |
-| Amazon SES | email-smtp.{region}.amazonaws.com | 465 | true |
-
-## Best Practices
-
-1. **Use environment variables** - Never hardcode credentials
-2. **Verify connection** - Test before sending in production
-3. **Use pooling** - For high-volume sending
-4. **Handle errors** - Implement proper error handling
-5. **Use OAuth2** - More secure than passwords for Gmail
-6. **Test with Ethereal** - Free testing without sending real emails
-7. **Set proper From** - Use verified sender addresses
+## Compatibility
+- Codex: ✅
+- Claude Code: ✅

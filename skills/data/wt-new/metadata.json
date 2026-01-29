@@ -1,11 +1,7 @@
 {
   "name": "wt-new",
-  "description": "Create a new git worktree and branch for feature development. Use when starting a new feature or story that needs isolated development. Creates worktree in tree/ directory with proper branch setup.",
   "repo": "michael-menard/monorepo",
-  "category": "development",
-  "tags": [
-    "new"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/wt-new/SKILL.md",
+  "source": "github.com/michael-menard/monorepo",
+  "downloaded_at": "2026-01-29T01:36:42.619954Z"
 }

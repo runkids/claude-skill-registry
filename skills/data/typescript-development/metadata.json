@@ -1,9 +1,7 @@
 {
   "name": "typescript-development",
-  "description": "Helps build and extend TypeScript Express APIs using Clean Architecture, inversify dependency injection, Prisma ORM, and Railway deployment patterns established in the upkeep-io project.",
-  "repo": "daveharmswebdev/upkeep-io",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "hiromaily/go-crypto-wallet",
+  "path": ".claude/skills/typescript-development/SKILL.md",
+  "source": "github.com/hiromaily/go-crypto-wallet",
+  "downloaded_at": "2026-01-29T01:06:12.926534Z"
 }

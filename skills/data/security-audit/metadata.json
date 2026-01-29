@@ -1,7 +1,7 @@
 {
   "name": "security-audit",
-  "repo": "sgcarstrends/sgcarstrends",
-  "path": ".claude/skills/security-audit/SKILL.md",
-  "source": "github.com/sgcarstrends/sgcarstrends",
-  "downloaded_at": "2026-01-28T04:21:35.376424Z"
+  "repo": "eleva-labs/agentic-coding-templates",
+  "path": ".claude/skills/devops/security-audit/SKILL.md",
+  "source": "github.com/eleva-labs/agentic-coding-templates",
+  "downloaded_at": "2026-01-29T04:27:31.273643Z"
 }

@@ -1,23 +1,23 @@
 ---
 name: Frontend Accessibility
-description: Ensure UI components are accessible to all users including those using assistive technologies through semantic HTML, keyboard navigation, ARIA attributes, color contrast, and screen reader compatibility. Use this skill when building UI components, forms, interactive elements, modals, or any frontend code in React, Vue, or plain HTML that needs WCAG compliance. Applies when adding navigation elements, buttons, inputs, focus management, alternative text, or testing with screen readers to ensure inclusive user experiences.
+description: Build accessible user interfaces with semantic HTML, keyboard navigation, ARIA attributes, and screen reader support. Use this skill when creating or modifying UI components, form elements, interactive widgets, or page layouts. When working on files like *.tsx, *.jsx, *.vue, *.svelte, or HTML templates. When adding alt text to images, labels to form inputs, implementing keyboard navigation, managing focus states, ensuring proper color contrast, using semantic HTML elements (nav, main, button), or adding ARIA attributes for complex components.
 ---
 
-# Frontend Accessibility
+## When to use this skill:
 
-## When to use this skill
-
-- When creating UI components in files like `components/`, `Button.tsx`, `Form.jsx`, or any React/Vue/Angular component
-- When building forms with input fields, labels, error messages, and validation feedback
-- When implementing keyboard navigation for interactive elements (tabs, modals, dropdowns, menus)
-- When adding semantic HTML elements like `<nav>`, `<main>`, `<button>`, `<header>`, `<footer>`, `<article>`
-- When ensuring proper color contrast ratios (4.5:1 minimum) and not relying solely on color to convey information
-- When adding alternative text for images using `alt` attributes or ARIA labels for icon buttons
-- When implementing focus indicators and managing focus for modals, dialogs, or single-page app navigation
-- When using ARIA attributes (`role`, `aria-label`, `aria-describedby`, `aria-live`) for complex components
-- When creating proper heading hierarchies (h1-h6) that screen readers can navigate through
-- When testing components with screen readers (NVDA, JAWS, VoiceOver) to verify accessibility
-- When building custom interactive widgets that need ARIA roles and keyboard event handlers
+- When creating new UI components or interactive elements
+- When modifying existing frontend components
+- When working on files like *.tsx, *.jsx, *.vue, *.svelte, or HTML templates
+- When adding images that need alternative text
+- When creating form inputs that need labels
+- When implementing keyboard navigation for interactive elements
+- When adding or styling focus indicators
+- When checking or setting color contrast ratios
+- When choosing between semantic HTML elements (nav, main, article, button)
+- When adding ARIA attributes (aria-label, aria-describedby, role)
+- When managing focus in modals, dialogs, or single-page applications
+- When structuring heading levels (h1-h6) for document outline
+- When testing with screen readers or accessibility tools
 
 # Frontend Accessibility
 

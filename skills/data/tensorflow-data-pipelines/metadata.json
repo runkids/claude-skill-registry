@@ -1,9 +1,7 @@
 {
   "name": "tensorflow-data-pipelines",
-  "description": "Create efficient data pipelines with tf.data",
   "repo": "TheBushidoCollective/han",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-tensorflow/skills/tensorflow-data-pipelines/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-29T04:12:57.284808Z"
 }

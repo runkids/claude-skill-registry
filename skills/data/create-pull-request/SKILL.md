@@ -1,97 +1,178 @@
 ---
 name: create-pull-request
-description: Create pull requests following project conventions. Use when: (1) creating a PR with gh pr create, (2) writing commit messages, (3) need branch naming guidance. Covers branch naming patterns, PR title/body format, and pre-commit checks.
+description: Create GitHub pull requests with proper issue linking, comprehensive descriptions, and quality metrics for WescoBar project
 ---
 
-# PR Creation Quick Reference
+# Create Pull Request
 
-## Branch Naming
+## Purpose
 
-| Type | Pattern | Example |
-|------|---------|---------|
-| Feature | `feature/{description}` | `feature/impl-admin-example-api` |
-| Bugfix | `fix/{description}` | `fix/example-creation-error` |
-| Chore | `chore/{description}` | `chore/update-dependencies` |
+Create well-structured pull requests with proper GitHub issue linking, comprehensive descriptions, quality metrics, and adherence to WescoBar project standards.
 
-## PR Title
+## When to Use
 
-Use English. Be concise and descriptive.
+- After completing feature implementation and all quality gates pass
+- During Conductor workflow Phase 4 (PR Creation)
+- When ready to submit code for review
+- After all tests pass and audit score ≥ 8.0
 
-```
-Implement AdminService.GetExample
-Add validation for Example create API
-Fix null pointer in tenant lookup
-```
+## Critical Requirements
 
-## PR Body Template
+### ✅ MUST Do Before PR Creation
 
-```markdown
-## Proposed Changes
+1. **All tests passing** - No failing tests allowed
+2. **Audit score ≥ 8.0** - Quality threshold met
+3. **Build successful** - Production build completes
+4. **Commits pushed** - All commits on remote branch
+5. **Branch up-to-date** - Synced with base branch (development)
 
-- Brief description of what was changed
+### ❌ NEVER Do
 
-## Implementation
+- Create PR with failing tests
+- Skip quality gates
+- Use incorrect issue linking format
+- Create PR before all validation passes
 
-{Verification details - curl commands, CLI output, or file changes}
-```
+## Instructions
 
-## Implementation Section Examples
+### Step 1: Gather PR Metadata
 
-### API Endpoint
+Collect required information:
+- **Issue number**: From branch name or conductor context
+- **Issue title**: From GitHub issue
+- **Files changed**: Count from git diff
+- **Test coverage**: From test results
+- **Audit score**: From audit agent
+- **Implementation summary**: Key changes made
 
-```markdown
-## Implementation
+### Step 2: Draft PR Body
 
-### POST /admin/v1/tenants/{tenant_id}/examples
-
-curl -X POST "http://localhost:8080/admin/v1/tenants/xxx/examples" \
-    -H "Authorization: Bearer {token}" \
-    -H "Content-Type: application/json" \
-    -d '{"name": "Test", "description": "Test desc"}'
-
-Response:
-{"example": {"id": "xxx", "name": "Test", "created_at": "2025-01-01T00:00:00Z"}}
-```
-
-### Non-API Changes
+Use this template:
 
 ```markdown
-## Implementation
+## Summary
+[Brief description of what was implemented]
 
-- Updated `internal/domain/model/example.go` with new validation
-- Added unit tests in `example_test.go`
-- Regenerated mocks with `make generate.mock`
+## Changes
+- [Key change 1]
+- [Key change 2]
+- [Key change 3]
+
+## Architecture Review
+- VSA compliance: ✅
+- SOLID principles: ✅
+- Layer boundaries: ✅
+
+## Test Coverage
+- Unit tests: [COVERAGE]%
+- Integration tests: ✅ Passing
+- UI tests: ✅ Passing
+- E2E tests: ✅ Passing [if applicable]
+
+## Quality Metrics
+- Audit score: [SCORE]/10
+- Build: ✅ Passing
+- Lint: ✅ Clean
+- TypeScript: ✅ No errors
+
+## Files Changed
+- Modified: [COUNT] files
+- Created: [COUNT] files
+- Deleted: [COUNT] files
+
+## Issue Reference
+Fixes #[ISSUE_NUMBER]
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 
-## Pre-PR Checklist
+### Step 3: Validate Issue Linking Format
+
+**CRITICAL**: Issue linking MUST use exact format `Fixes #123`
+
+✅ **CORRECT:**
+- `Fixes #123`
+- `Closes #456`
+- `Resolves #789`
+
+❌ **WRONG (GitHub won't auto-close):**
+- `Fixes: #123` (colon breaks it)
+- `**Fixes:** #123` (markdown breaks it)
+- `Fix #123` (singular doesn't work)
+- `fixes #123` (lowercase doesn't work in PR body)
+
+### Step 4: Create PR with gh CLI
 
 ```bash
-make lint.go     # Must pass
-make test        # Must pass
+# Create PR with proper base and head branches
+gh pr create \
+  --title "feat: [FEATURE_TITLE]" \
+  --body "[PR_BODY_FROM_STEP_2]" \
+  --base development \
+  --head [BRANCH_NAME]
 ```
 
-If applicable:
-- `make migrate.up` - after DB changes
-- `make generate.buf` - after proto changes
-- `make generate.mock` - after repository interface changes
+### Step 5: Verify PR Creation
 
-## Create PR Command
+After creation:
+1. ✅ PR URL returned
+2. ✅ PR number assigned
+3. ✅ Issue linked (check on GitHub)
+4. ✅ All checks queued/running
 
+## PR Title Convention
+
+Follow conventional commits:
+
+```
+feat: Add user dark mode toggle
+fix: Resolve character portrait caching issue
+refactor: Simplify WorldContext state management
+test: Add integration tests for Gemini API
+docs: Update README with new API patterns
+```
+
+## Common Issues
+
+### Issue: PR creation fails with "No commits between base and head"
+**Solution**: Ensure commits are pushed to remote branch:
 ```bash
-gh pr create --title "Implement feature" --body "$(cat <<'EOF'
-## Proposed Changes
-
-- Implemented new feature
-
-## Implementation
-
-{Details}
-EOF
-)"
+git push -u origin [BRANCH_NAME]
 ```
 
-## Important Notes
+### Issue: Issue doesn't auto-link
+**Solution**: Check issue linking format - must be `Fixes #123` (exact format)
 
-- Do NOT add AI attribution (no "Generated with Claude Code" or "Co-Authored-By: Claude")
-- Keep commit messages and PR descriptions clean
-- Run `self-review` skill before creating PR to catch issues early
+### Issue: PR checks don't start
+**Solution**: Verify GitHub Actions are enabled for repository
+
+## Integration with Conductor Workflow
+
+The Conductor agent uses this skill in Phase 4:
+
+```markdown
+**Phase 4, Step 3**: Create Pull Request
+
+Using the `create-pull-request` skill:
+- Gather all metrics from previous phases
+- Draft comprehensive PR body
+- Validate issue linking format
+- Create PR with gh CLI
+- Verify creation successful
+```
+
+## Related Skills
+
+- `commit-changes` - Single atomic commit before PR
+- `link-github-issue` - Validate issue linking format
+- `monitor-ci-checks` - Monitor PR checks after creation
+
+## Additional Resources
+
+See `REFERENCE.md` in this skill directory for:
+- Complete PR template examples
+- Issue linking format reference
+- GitHub CLI documentation
+- Troubleshooting guide

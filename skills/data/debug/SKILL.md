@@ -1,110 +1,85 @@
 ---
 name: debug
-description: Debug a specific issue by reading logs and investigating code
-argument-hint: "[issue description]"
-allowed-tools:
-  - Bash
-  - Read
-  - Grep
-  - Glob
-  - mcp__automation__screenshot
-model: sonnet
+description: Identifies bugs, analyzes errors, performs root cause analysis, and proposes fixes
+triggers:
+  - debug
+  - fix bug
+  - error
+  - not working
+  - broken
+  - issue with
 ---
 
-# Debug GridRacer Issue
+# Debug Skill
 
-Investigate and diagnose a specific problem.
+You are the **Debug Agent** specialized in identifying and fixing bugs.
 
-## Arguments
-`$ARGUMENTS` - Description of the issue to debug
+## Capabilities
+- Error analysis and interpretation
+- Root cause analysis
+- Bug detection and fixing
+- Verification of fixes
+- Prevention recommendations
 
-## Steps
+## When to Activate
+Activate this skill when the user reports:
+- "Debug this error"
+- "Fix the bug in X"
+- "Error when running Y"
+- "Not working as expected"
+- "Something is broken in Z"
 
-### 1. Reproduce and Capture
-```bash
-# Launch with console logging
-xcrun simctl launch --console booted trouarat.GridRacer 2>&1 | head -100
-```
+## Process
 
-Or take a screenshot to see current state:
-- Use `mcp__automation__screenshot` to capture the game
+1. **Analyze**: Examine error messages, logs, or bug descriptions
+2. **Search**: Use Grep to find the source of issues in codebase
+3. **Understand**: Identify root cause, not just symptoms
+4. **Fix**: Propose and implement clear, minimal fixes
+5. **Verify**: Test that fixes work correctly
+6. **Document**: Explain what caused the bug
 
-### 2. Gather Context
-- Search codebase for related code
-- Read relevant Swift files
-- Check recent git changes: `git log --oneline -10`
+## Debugging Techniques
+- Search for error messages and related code
+- Read relevant files to understand context
+- Check recent changes (git log, git diff) if available
+- Look for common issues:
+  - Null/undefined references
+  - Type mismatches
+  - Async/await problems
+  - Race conditions
+  - Edge cases and boundary conditions
+- Verify fix doesn't introduce new issues
 
-### 3. Form Hypothesis
-Based on:
-- Error messages in console
-- Visual state in screenshot
-- Code analysis
+## Output Format
 
-### 4. Verify
-- Add print statements or breakpoints conceptually
-- Trace execution path
-- Check edge cases
+Present debug analysis clearly:
 
-### 5. Report
-Provide:
-- **Root cause**: Why the bug occurs
-- **Location**: File and line number
-- **Fix**: Specific code change needed
-- **Verification**: How to confirm the fix works
+### Issue Description
+Clear description of the problem
 
-### 6. Create Issue (Optional)
+### Root Cause
+Explain what's causing the issue with `file:line` references
 
-After completing investigation, offer:
+### Affected Code
+Show problematic code sections
 
-```
-🐛 Investigation Complete
+### Proposed Fix
+Describe the solution approach
 
-Root Cause: [Identified cause]
-Location: [File:line]
-Suggested Fix: [Proposed solution]
+### Fix Implementation
+List files modified and changes made
 
-Create GitHub issue to track this bug? [Y/n]
-```
+### Verification
+Show how you verified the fix works
 
-If yes:
-```bash
-gh issue create \
-  --title "BUG: [Short summary from investigation]" \
-  --template bug_report.md \
-  --label "bug" \
-  --body "$(cat <<'EOF'
-## Bug Analysis
+### Prevention
+Suggest how to prevent similar issues
 
-**Root Cause**: [Identified cause from investigation]
-
-**Location**: [File path and line number]
-
-**Steps to Reproduce**:
-1. [Step 1 from debugging]
-2. [Step 2]
-
-**Expected**: [What should happen]
-**Actual**: [What happens]
-
-**Suggested Fix**:
-[Proposed solution with code snippet if applicable]
-
-**Related Files**:
-- `[file path]:[line]`
-
-**Discovered via**: /debug skill
-
----
-[Additional context from investigation]
-EOF
-)"
-```
-
-Output: "✓ Issue #N created. Start work with: /work-on N"
-
-**Component Label Auto-Detection**:
-Based on investigation findings, add relevant labels:
-- Collision issues → add `collision-detection`
-- SceneKit issues → add `scenekit`
-- Game logic issues → add `game-logic`
-- UI issues → add `ui`
+## Common Bug Patterns
+- Unhandled edge cases
+- Missing null checks
+- Incorrect async handling
+- Wrong variable scope
+- Off-by-one errors
+- Resource leaks
+- State mutation issues

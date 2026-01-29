@@ -1,7 +1,7 @@
 {
   "name": "release",
-  "repo": "Automattic/wordpress-activitypub",
+  "repo": "dropseed/plain",
   "path": ".claude/skills/release/SKILL.md",
-  "source": "github.com/Automattic/wordpress-activitypub",
-  "downloaded_at": "2026-01-28T04:34:57.897353Z"
+  "source": "github.com/dropseed/plain",
+  "downloaded_at": "2026-01-29T04:23:35.633279Z"
 }

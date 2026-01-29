@@ -1,199 +1,223 @@
 ---
-name: Building Blocks
-description: Guide for creating new AEM Edge Delivery blocks or modifying existing blocks. Use this skill whenever you are creating a new block from scratch or making significant changes to existing blocks that involve JavaScript decoration, CSS styling, or content model changes.
+name: git-analysis
+description: Analyze git repository changes, branch differences, and commit history. Use when analyzing branches, comparing changes, examining commit history, or preparing for PR/commit operations.
 ---
 
-# Building Blocks
+# Git Analysis
 
-This skill guides you through creating new AEM Edge Delivery blocks or modifying existing ones, following Content Driven Development (CDD) principles. Blocks are the reusable building blocks of AEM sites - each transforms authored content into rich, interactive experiences through JavaScript decoration and CSS styling. This skill covers the complete development process: understanding content models, implementing decoration logic, applying styles, and maintaining code quality standards.
+This Skill provides comprehensive git repository analysis capabilities for understanding branch changes, commit history, and code differences.
 
-## Related Skills
+## Capabilities
 
-- **content-driven-development**: MUST be invoked before using this skill to ensure content and content models are ready
-- **block-collection-and-party**: Use to find similar blocks for patterns
-- **testing-blocks**: Automatically invoked after implementation for comprehensive testing
+- Analyze branch differences and merge bases
+- Extract structured commit history
+- Identify changed files and their statistics
+- Determine default branches and remote configuration
+- Support PR creation, code review, and commit operations
 
-## When to Use This Skill
+## When to Use
 
-This skill should ONLY be invoked from the **content-driven-development** skill during Phase 2 (Implementation).
+Use this Skill when you need to:
+- Analyze what changed in a branch
+- Prepare information for PR creation
+- Review commit history
+- Compare branches
+- Understand code changes for commits or reviews
 
-If you are not already following the CDD process:
-- **STOP** - Do not proceed with this skill
-- **Invoke the content-driven-development skill first**
-- The CDD skill will ensure test content and content models are ready before implementation
+## Core Analysis Steps
 
-This skill handles:
-- Creating new block files and structure
-- Implementing JavaScript decoration
-- Adding CSS styling
-- Code quality and testing
+### 1. Identify Default Branch
 
-## Prerequisites
+Get the repository's default branch (usually `main` or `master`):
 
-**REQUIRED before using this skill:**
-- ✅ Test content must exist (in CMS or local drafts)
-- ✅ Content model must be defined
-- ✅ Test content URL must be available
+```bash
+git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
+```
 
-**Information needed:**
-1. **Block name**: What should the block be called?
-2. **Content model**: The defined structure authors will use
-3. **Test content URL**: Path to test content for development
+This identifies the base branch for comparison.
 
-## Process Overview
+### 2. Find Merge Base
 
-1. Verify Prerequisites (CDD completed)
-2. Find Similar Blocks (for patterns and reuse)
-3. Create or Modify Block Structure (files and directories)
-4. Implement JavaScript Decoration (DOM transformation)
-5. Add CSS Styling (scoped, responsive styles)
-6. Test the Implementation (local testing, linting)
-7. Document Block (developer and author-facing docs)
+Determine where the current branch diverged from the default branch:
 
-## Detailed Process
+```bash
+# Get merge base
+git merge-base origin/<default-branch> HEAD
+```
 
-### 1. Verify Prerequisites
+The merge base is the commit where the branch diverged, not the current state of the base branch.
 
-**Before proceeding, confirm with the user:**
+### 3. Analyze Changes
 
-"Do you have:
-- ✅ Test content created (URL or path)?
-- ✅ Content model defined?
+Get comprehensive change information:
 
-If not, we need to use the content-driven-development skill first."
+```bash
+# List commits from merge base
+git log --oneline <merge-base>..HEAD
 
-If prerequisites are not met, STOP and invoke the **content-driven-development** skill.
+# Get detailed commit information
+git log --format="%H|%s|%an|%ae|%ad" --date=iso <merge-base>..HEAD
 
-If prerequisites are met, get the test content URL from the user and proceed to step 2.
+# Get file statistics
+git diff --stat <merge-base>..HEAD
 
-### 2. Find Similar Blocks
+# Get full diff
+git diff <merge-base>..HEAD
+```
 
-**For new blocks or major modifications:**
+### 4. Check Current State
 
-1. Search the codebase for similar blocks that might provide useful patterns or code we can re-use
-2. Use the **block-collection-and-party** skill to find relevant reference blocks
+Understand unstaged and staged changes:
 
-Review the implementation patterns in similar blocks to inform your approach.
+```bash
+# Check untracked files
+git status
 
-**For minor modifications to existing blocks:** Skip to step 3.
+# Check staged changes
+git diff --cached
 
-### 3. Create or Modify Block Structure
+# Check unstaged changes
+git diff
+```
 
-**For new blocks:**
+## Helper Scripts
 
-1. Create directory: `blocks/{block-name}/`
-2. Create files: `{block-name}.js` and `{block-name}.css`
-3. Use the boilerplate structure (or reference templates in `resources/` if helpful):
-   - JS file exports a default `decorate(block)` function (can be async if needed)
-   - CSS file targets the `.{block-name}` class
+This Skill includes helper scripts for common operations:
 
-**For existing blocks:**
+### get_branch_diff.sh
 
-1. Locate the existing block directory in `blocks/{block-name}/`
-2. Review the current implementation before making changes
-3. Understand the existing decoration logic and styles
+Extracts branch differences including:
+- Default branch name
+- Merge base commit
+- Commit list with statistics
+- Changed files summary
 
-### 4. Implement JavaScript Decoration
+Usage:
+```bash
+bash scripts/get_branch_diff.sh
+```
 
-Follow patterns and conventions in `resources/js-guidelines.md`:
+Output format:
+```
+DEFAULT_BRANCH: main
+MERGE_BASE: abc123def456
+COMMITS: 5
+CHANGED_FILES: 12
+```
 
-- Use DOM APIs to transform the initial block HTML structure
-- Keep decoration logic focused and single-purpose
-- Handle variants appropriately (check block.classList for variant classes)
-- Follow established patterns from similar blocks
+### get_commit_history.sh
 
-**Read `resources/js-guidelines.md` for detailed examples, code standards, and best practices.**
+Extracts detailed commit history in structured format:
 
-### 5. Add CSS Styling
+Usage:
+```bash
+bash scripts/get_commit_history.sh <merge-base>
+```
 
-Follow patterns and conventions in `resources/css-guidelines.md`:
+Output format (one commit per line):
+```
+hash|subject|author_name|author_email|date
+```
 
-- All CSS selectors must be scoped to the block (start with `.{block-name}`)
-- Use BEM-like naming within the block scope
-- Leverage CSS custom properties for theming
-- Write mobile-first responsive styles
-- Keep specificity low
-- Follow established patterns from similar blocks
+## Best Practices
 
-**Read `resources/css-guidelines.md` for detailed examples, code standards, and best practices.**
+1. **Always use merge-base**: Compare from merge base, not from current base branch state
+2. **Run commands in parallel**: When gathering multiple pieces of information, run independent git commands in parallel
+3. **Structure the output**: Parse git output into structured data for easier consumption
+4. **Handle errors gracefully**: Check if commands succeed before proceeding
 
-### 6. Test the Implementation
+## Common Patterns
 
-**After implementation is complete, invoke the testing-blocks skill:**
+### Pattern 1: Full Branch Analysis
 
-The testing-blocks skill will guide you through:
-- Writing unit tests for any logic-heavy utilities
-- Browser testing to validate block behavior
-- Taking screenshots for validation and PR documentation
-- Running linting and fixing issues
-- Verifying GitHub checks pass
+```bash
+# Get all information in parallel
+git status &
+git diff --cached &
+git diff &
+DEFAULT_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+MERGE_BASE=$(git merge-base origin/$DEFAULT_BRANCH HEAD)
+git log --oneline $MERGE_BASE..HEAD
+git diff --stat $MERGE_BASE..HEAD
+wait
+```
 
-Provide the testing-blocks skill with:
-- Block name being tested
-- Test content URL (from CDD process)
-- Any variants that need testing
+### Pattern 2: Commit History Extraction
 
-Return to this skill after testing is complete to proceed to step 7.
+```bash
+# Get structured commit data
+MERGE_BASE=$(git merge-base origin/$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@') HEAD)
+git log --format="%H|%s|%an|%ae|%ad" --date=iso $MERGE_BASE..HEAD
+```
 
-### 7. Document Block
+### Pattern 3: Change Summary
 
-Blocks require two types of documentation:
+```bash
+# Get high-level change summary
+MERGE_BASE=$(git merge-base origin/$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@') HEAD)
+echo "Commits: $(git log --oneline $MERGE_BASE..HEAD | wc -l)"
+echo "Files changed: $(git diff --stat $MERGE_BASE..HEAD | tail -1)"
+```
 
-#### Developer Documentation
+## Integration with Other Skills
 
-- Most blocks are simple and self-contained and only need code comments for documentation
-- If a block is especially complex (has many variants, or especially complex code) consider adding a brief README.md in the block folder
-- Keep any README documentation very brief so it can be consumed at a glance
+This Skill works well with:
+- `github-pr-best-practices`: Use git analysis results to generate PR content
+- Commit message generation: Analyze changes to create meaningful commit messages
+- Code review: Understand what changed for review purposes
 
-#### Author-Facing Documentation
+## Error Handling
 
-Author-facing documentation helps content authors understand how to use the block in the CMS. This documentation typically exists as draft/library content in the CMS itself, not in the codebase.
+Handle common git errors:
 
-**When author documentation is needed:**
+```bash
+# Check if in git repository
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    echo "Error: Not in a git repository"
+    exit 1
+fi
 
-Almost all blocks should have author-facing documentation. The only exceptions are:
-- Deprecated blocks that should no longer be used but can't be removed yet
-- Special-purpose blocks used very infrequently on a need-to-know basis
-- Auto-blocked blocks that shouldn't be used directly by authors
+# Check if remote exists
+if ! git ls-remote origin > /dev/null 2>&1; then
+    echo "Error: Remote 'origin' not found"
+    exit 1
+fi
 
-**Maintaining author documentation:**
+# Check if branch has commits
+if [ -z "$(git log --oneline $MERGE_BASE..HEAD)" ]; then
+    echo "Warning: No commits found in branch"
+fi
+```
 
-Author documentation must be kept in sync with the block implementation:
-- Update when variants are added, removed, or modified
-- Update when the content structure changes
-- Update when block behavior or functionality changes
+## Output Format Recommendations
 
-**Where author documentation lives:**
+When presenting git analysis results:
 
-Different projects use different approaches for author documentation:
+1. **Summary first**: Start with high-level statistics
+2. **Structured data**: Use consistent formatting for easy parsing
+3. **Contextual information**: Include branch names and dates
+4. **Actionable insights**: Highlight what's important for the task
 
-1. **Sidekick Library** (Google Drive/SharePoint authoring):
-   - Uses https://github.com/adobe/franklin-sidekick-library
-   - Check for `/tools/sidekick/library.html` in the codebase
-   - If present, guide user to add/update block documentation in the library
+Example output structure:
+```
+Branch Analysis Summary
+-----------------------
+Base branch: main
+Current branch: feature/new-feature
+Diverged at: abc123d (2025-01-15)
 
-2. **Document Authoring (DA) Library**:
-   - Uses https://docs.da.live/administrators/guides/setup-library
-   - Different implementation than Sidekick Library
-   - If in use, guide user to update block documentation in DA library
+Changes:
+- 5 commits
+- 12 files changed
+- 234 insertions, 89 deletions
 
-3. **Universal Editor (UE) projects**:
-   - Often skip dedicated author documentation libraries
-   - May use inline help or other mechanisms
+Recent commits:
+1. feat(api): add new endpoint (2025-01-16)
+2. test(api): add endpoint tests (2025-01-16)
+3. docs(api): update API documentation (2025-01-17)
+...
+```
 
-4. **Simple documentation pages**:
-   - Some projects maintain documentation under `/drafts` or `/docs`
-   - Pages contain authoring guides and block examples
+## Related Git Commands Reference
 
-**What to include in author documentation:**
-
-The specific content of author documentation varies by project. As an agent:
-1. Identify that author documentation needs to be created or updated
-2. Determine which documentation approach the project uses (check for `/tools/sidekick/library.html` as a signal)
-3. Guide the user on what aspects of the block should be documented based on the changes made
-4. Provide specific guidance based on the project's documentation approach
-
-## Reference Materials
-
-- `resources/js-guidelines.md`
-- `resources/css-guidelines.md`
+See [REFERENCE.md](REFERENCE.md) for detailed git command documentation and advanced usage patterns.

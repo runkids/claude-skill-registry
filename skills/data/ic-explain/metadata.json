@@ -1,11 +1,7 @@
 {
   "name": "ic-explain",
-  "description": "Explain IC10 code behavior in plain English. Use when user pastes IC10 code and asks what it does, how it works, or wants to understand existing Stationeers scripts.",
   "repo": "smileynet/stationeers-companion",
-  "category": "development",
-  "tags": [
-    "explain"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/ic-explain/SKILL.md",
+  "source": "github.com/smileynet/stationeers-companion",
+  "downloaded_at": "2026-01-29T04:47:37.391552Z"
 }

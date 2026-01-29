@@ -1,7 +1,7 @@
 {
   "name": "moai-alfred-spec-authoring",
-  "repo": "kivo360/quickhooks",
-  "path": ".claude/skills/moai-alfred-spec-authoring/SKILL.md",
-  "source": "github.com/kivo360/quickhooks",
-  "downloaded_at": "2026-01-28T02:08:50.413135Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-alfred-spec-authoring/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-29T04:39:15.749218Z"
 }

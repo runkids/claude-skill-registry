@@ -1,152 +1,262 @@
 ---
 name: electron
-description: Provides comprehensive guidance for Electron framework including main process, renderer process, IPC communication, window management, and desktop app development. Use when the user asks about Electron, needs to create desktop applications, implement Electron features, or build cross-platform desktop apps.
-license: Complete terms in LICENSE.txt
+description: >
+  Implement Electron desktop app patterns for PhotoVault bulk uploader.
+  Use when working with main/renderer process communication, chunked uploads,
+  preload scripts, protocol handlers, or auto-updater. Includes security
+  patterns and memory management for large file uploads.
 ---
 
-## When to use this skill
+# ⚠️ MANDATORY WORKFLOW - DO NOT SKIP
 
-Use this skill whenever the user wants to:
-- Build cross-platform desktop applications with Electron
-- Understand Electron architecture (main process, renderer process, preload)
-- Implement IPC (Inter-Process Communication) between processes
-- Create and manage BrowserWindow instances
-- Implement menus, tray icons, and native features
-- Package and distribute Electron applications
-- Use Electron Forge for project scaffolding and building
-- Debug and test Electron applications
-- Implement security best practices
-- Use Electron APIs (app, BrowserWindow, ipcMain, ipcRenderer, etc.)
+**When this skill activates, you MUST follow the expert workflow before writing any code:**
 
-## How to use this skill
+1. **Spawn Domain Expert** using the Task tool with this prompt:
+   ```
+   Read the expert prompt at: C:\Users\natha\Stone-Fence-Brain\VENTURES\PhotoVault\claude\experts\electron-expert.md
 
-This skill is organized to match the Electron official documentation structure (https://www.electronjs.org/zh/docs/latest/, https://www.electronjs.org/zh/docs/latest/api/app). When working with Electron:
+   Then research the codebase and write an implementation plan to: docs/claude/plans/electron-[task-name]-plan.md
 
-1. **Identify the topic** from the user's request:
-   - Getting started/快速开始 → `examples/getting-started/installation.md` or `examples/getting-started/quick-start.md`
-   - Main process/主进程 → `examples/processes/main-process.md`
-   - Renderer process/渲染进程 → `examples/processes/renderer-process.md`
-   - IPC communication/IPC 通信 → `examples/processes/ipc-communication.md`
-   - BrowserWindow/窗口 → `examples/api/browser-window.md`
-   - Menu/菜单 → `examples/api/menu.md`
-   - Packaging/打包 → `examples/advanced/packaging.md`
-   - Security/安全 → `examples/advanced/security.md`
+   Task: [describe the user's request]
+   ```
 
-2. **Load the appropriate example file** from the `examples/` directory:
+2. **Spawn QA Critic** after expert returns, using Task tool:
+   ```
+   Read the QA critic prompt at: C:\Users\natha\Stone-Fence-Brain\VENTURES\PhotoVault\claude\experts\qa-critic-expert.md
 
-   **Getting Started (快速开始) - `examples/getting-started/`**:
-   - `examples/getting-started/installation.md` - Installing Electron and basic setup
-   - `examples/getting-started/quick-start.md` - Quick start tutorial
+   Review the plan at: docs/claude/plans/electron-[task-name]-plan.md
+   Write critique to: docs/claude/plans/electron-[task-name]-critique.md
+   ```
 
-   **Processes (进程) - `examples/processes/`**:
-   - `examples/processes/main-process.md` - Main process concepts and usage
-   - `examples/processes/renderer-process.md` - Renderer process concepts
-   - `examples/processes/preload-scripts.md` - Preload scripts usage
-   - `examples/processes/ipc-communication.md` - IPC communication patterns
+3. **Present BOTH plan and critique to user** - wait for approval before implementing
 
-   **API Examples (API 示例) - `examples/api/`**:
-   - `examples/api/browser-window.md` - BrowserWindow usage
-   - `examples/api/menu.md` - Menu and context menu
-   - `examples/api/tray.md` - System tray
-   - `examples/api/dialog.md` - File dialogs
-   - `examples/api/ipc-main.md` - ipcMain usage
-   - `examples/api/ipc-renderer.md` - ipcRenderer usage
+**DO NOT read files and start coding. DO NOT rationalize that "this is simple." Follow the workflow.**
 
-   **Advanced (高级) - `examples/advanced/`**:
-   - `examples/advanced/packaging.md` - Application packaging
-   - `examples/advanced/security.md` - Security best practices
-   - `examples/advanced/auto-updater.md` - Auto updater
-   - `examples/advanced/native-modules.md` - Native modules
+---
 
-   **Tools (工具) - `examples/tools/`**:
-   - `examples/tools/electron-forge.md` - Electron Forge usage
-   - `examples/tools/electron-fiddle.md` - Electron Fiddle usage
+# Electron Desktop App Integration
 
-3. **Follow the specific instructions** in that example file for syntax, structure, and best practices
+## Core Principles
 
-   **Important Notes**:
-   - All examples follow Electron latest API
-   - Examples use both CommonJS (require) and ES modules (import)
-   - Each example file includes key concepts, code examples, and key points
-   - Always check the example file for best practices and common patterns
-   - Electron supports Windows, macOS, and Linux
+### Main Process vs Renderer Process
 
-4. **Reference API documentation** in the `api/` directory when needed:
-   - `api/app.md` - app module API
-   - `api/browser-window.md` - BrowserWindow API
-   - `api/ipc-main.md` - ipcMain API
-   - `api/ipc-renderer.md` - ipcRenderer API
-   - `api/menu.md` - Menu API
-   - `api/tray.md` - Tray API
+The main process runs Node.js. The renderer process runs web content. Never give the renderer direct Node access.
 
-5. **Use templates** from the `templates/` directory:
-   - `templates/main-process.md` - Main process template
-   - `templates/preload-script.md` - Preload script template
-   - `templates/renderer-process.md` - Renderer process template
-   - `templates/package-json.md` - package.json template
+```typescript
+// main.ts - Main process
+ipcMain.handle('read-file', async (_, path) => {
+  return fs.readFile(path)
+})
 
+// preload.ts - Bridge
+contextBridge.exposeInMainWorld('api', {
+  readFile: (path) => ipcRenderer.invoke('read-file', path)
+})
 
-### Doc mapping (one-to-one with official documentation)
+// renderer.js - Web content
+const content = await window.api.readFile('/path/to/file')
+```
 
-- `examples/` → https://www.electronjs.org/zh/docs/latest/
-- `api/` → https://www.electronjs.org/zh/docs/latest/api/app
+### Never Enable Node Integration
 
-## Examples and Templates
+It's a massive security hole. Use contextBridge instead.
 
-This skill includes detailed examples organized to match the official documentation structure. All examples are in the `examples/` directory (see mapping above).
+```typescript
+// ✅ CORRECT
+new BrowserWindow({
+  webPreferences: {
+    nodeIntegration: false,
+    contextIsolation: true,
+    preload: path.join(__dirname, 'preload.js'),
+  },
+})
+```
 
-**To use examples:**
-- Identify the topic from the user's request
-- Load the appropriate example file from the mapping above
-- Follow the instructions, syntax, and best practices in that file
-- Adapt the code examples to your specific use case
+### Stream Large Files
 
-**To use templates:**
-- Reference templates in `templates/` directory for common scaffolding
-- Adapt templates to your specific needs and coding style
+Never load entire files into memory. Stream them chunk by chunk.
 
-## API Reference
+```typescript
+// ❌ BAD: 4GB file = 4GB RAM usage
+const buffer = await fs.readFile(largePath)
 
-Detailed API documentation is available in the `api/` directory, organized to match the official Electron API documentation structure:
+// ✅ GOOD: Stream in chunks
+const stream = fs.createReadStream(largePath, { highWaterMark: 6 * 1024 * 1024 })
+for await (const chunk of stream) {
+  await uploadChunk(chunk)
+}
+```
 
-### Core APIs (`api/`)
-- `api/app.md` - app module API
-- `api/browser-window.md` - BrowserWindow API
-- `api/ipc-main.md` - ipcMain API
-- `api/ipc-renderer.md` - ipcRenderer API
-- `api/menu.md` - Menu API
-- `api/tray.md` - Tray API
-- `api/dialog.md` - Dialog API
+## Anti-Patterns
 
-**To use API reference:**
-1. Identify the API you need help with
-2. Load the corresponding API file from the `api/` directory
-3. Find the API signature, parameters, return type, and examples
-4. Reference the linked example files for detailed usage patterns
-5. All API files include links to relevant example files in the `examples/` directory
+**Enabling nodeIntegration**
+```typescript
+// WRONG: Any website loaded can access filesystem
+new BrowserWindow({
+  webPreferences: {
+    nodeIntegration: true,  // NEVER DO THIS
+  },
+})
+```
 
-## Best Practices
+**Exposing sensitive functions to renderer**
+```typescript
+// WRONG: Renderer can delete anything
+contextBridge.exposeInMainWorld('api', {
+  deleteFile: (path) => fs.unlink(path),
+})
 
-1. **Security**: Never enable nodeIntegration in renderer process, use preload scripts
-2. **Process separation**: Keep main and renderer processes separate
-3. **IPC communication**: Use IPC for safe communication between processes
-4. **Resource management**: Properly clean up resources (windows, listeners)
-5. **Error handling**: Implement proper error handling and crash reporting
-6. **Performance**: Optimize for performance, use webContents for debugging
-7. **Packaging**: Use Electron Forge or electron-builder for packaging
-8. **Auto updates**: Implement auto-updater for production apps
-9. **Native modules**: Handle native module compatibility
-10. **Cross-platform**: Test on all target platforms
+// RIGHT: Validate and restrict
+contextBridge.exposeInMainWorld('api', {
+  deleteUploadedFile: (fileId) => {
+    const safePath = validateAndResolvePath(fileId)
+    return fs.unlink(safePath)
+  },
+})
+```
 
-## Resources
+**Sending large data through IPC**
+```typescript
+// WRONG: IPC has limits, blocks main process
+mainWindow.webContents.send('file-data', fileBuffer)  // 500MB buffer!
 
-- **Official Website**: https://www.electronjs.org/zh/
-- **Documentation**: https://www.electronjs.org/zh/docs/latest/
-- **API Reference**: https://www.electronjs.org/zh/docs/latest/api/app
-- **Electron Forge**: https://www.electronforge.io
-- **Electron Fiddle**: https://www.electronjs.org/zh/fiddle
-- **GitHub Repository**: https://github.com/electron/electron
+// RIGHT: Send reference, stream separately
+mainWindow.webContents.send('file-ready', { path: largeFile, size })
+```
 
-## Keywords
+**Not cleaning up resources**
+```typescript
+// WRONG: File handles leak
+const stream = fs.createReadStream(path)
+stream.pipe(uploadStream)
 
-Electron, desktop app, main process, renderer process, preload, IPC, BrowserWindow, Menu, Tray, Dialog, packaging, electron-builder, electron-forge, electron-fiddle, cross-platform, 桌面应用, 主进程, 渲染进程, IPC 通信, 窗口, 菜单, 托盘, 打包
+// RIGHT: Proper cleanup
+const stream = fs.createReadStream(path)
+try {
+  await pipeline(stream, uploadStream)
+} finally {
+  stream.destroy()
+}
+```
+
+## Preload Script (Secure Bridge)
+
+```typescript
+// src/preload.ts
+import { contextBridge, ipcRenderer } from 'electron'
+
+contextBridge.exposeInMainWorld('photovault', {
+  selectFiles: () => ipcRenderer.invoke('select-files'),
+  selectFolder: () => ipcRenderer.invoke('select-folder'),
+  startUpload: (galleryId: string, files: string[]) =>
+    ipcRenderer.invoke('start-upload', galleryId, files),
+  cancelUpload: () => ipcRenderer.invoke('cancel-upload'),
+  authenticate: () => ipcRenderer.invoke('authenticate'),
+  getAuthState: () => ipcRenderer.invoke('get-auth-state'),
+  logout: () => ipcRenderer.invoke('logout'),
+
+  onUploadProgress: (callback: (progress: UploadProgress) => void) => {
+    const listener = (_: any, progress: UploadProgress) => callback(progress)
+    ipcRenderer.on('upload-progress', listener)
+    return () => ipcRenderer.removeListener('upload-progress', listener)
+  },
+})
+```
+
+## Chunked Upload Manager
+
+```typescript
+// src/upload-manager.ts
+import { createReadStream, statSync } from 'fs'
+import { EventEmitter } from 'events'
+
+const CHUNK_SIZE = 6 * 1024 * 1024  // 6MB chunks
+const MAX_RETRIES = 3
+
+export class UploadManager extends EventEmitter {
+  private cancelled = false
+
+  async uploadFile(filePath: string, galleryId: string, hubUrl: string, token: string) {
+    const stats = statSync(filePath)
+    const totalChunks = Math.ceil(stats.size / CHUNK_SIZE)
+
+    const stream = createReadStream(filePath, { highWaterMark: CHUNK_SIZE })
+
+    let chunkIndex = 0
+    for await (const chunk of stream) {
+      if (this.cancelled) {
+        stream.destroy()
+        throw new Error('Upload cancelled')
+      }
+
+      await this.uploadChunkWithRetry(chunk, chunkIndex, totalChunks, galleryId, hubUrl, token)
+      chunkIndex++
+
+      this.emit('progress', {
+        file: filePath,
+        progress: Math.round((chunkIndex / totalChunks) * 100),
+      })
+    }
+  }
+
+  cancel() { this.cancelled = true }
+}
+```
+
+## Protocol Handler for Deep Links
+
+```typescript
+// In main.ts
+function handleDeepLink(url: URL) {
+  // photovault://auth?token=X&userId=Y
+  if (url.pathname === '//auth' || url.pathname === '/auth') {
+    const token = url.searchParams.get('token')
+    const userId = url.searchParams.get('userId')
+
+    if (token && userId) {
+      authState = { token, userId, authenticated: true }
+      mainWindow?.webContents.send('auth-complete', authState)
+      mainWindow?.show()
+    }
+  }
+}
+
+// Register protocol
+app.setAsDefaultProtocolClient('photovault')
+```
+
+## PhotoVault Desktop Context
+
+### Hub API Endpoints
+
+| Endpoint | Purpose |
+|----------|---------|
+| `/api/v1/upload/prepare` | Create gallery, get upload path |
+| `/api/v1/upload/chunk` | Upload individual chunk |
+| `/api/v1/upload/process-chunked` | Trigger processing after upload |
+| `/auth/desktop-callback` | OAuth callback |
+
+### Auth Flow
+
+1. User clicks "Login" in desktop app
+2. App opens browser to `{hubUrl}/auth/desktop-callback?desktop=true`
+3. User authenticates in browser
+4. Hub redirects to `photovault://auth?token=X&userId=Y`
+5. Protocol handler captures, stores auth, notifies renderer
+
+### Build Commands
+
+```bash
+npm run dev      # Development
+npm run build    # Build for current platform
+npm run build:all  # Build for all platforms
+```
+
+## Debugging Checklist
+
+1. Is nodeIntegration disabled?
+2. Is contextIsolation enabled?
+3. Are large files being streamed, not loaded into memory?
+4. Are IPC messages small (references, not data)?
+5. Is cleanup happening in finally blocks?
+6. Is the protocol handler registered?

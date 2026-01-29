@@ -1,185 +1,49 @@
 ---
 name: ai-sdk
-description: Comprehensive guide to AI SDK v6 for agent development, tool definitions, multi-step agentic workflows, and result extraction patterns
+description: 回答 AI SDK 相关问题并协助构建 AI 功能。适用于：(1) 询问 generateText、streamText、ToolLoopAgent、tools 等 API；(2) 构建 AI 智能体、聊天机器人或文本生成；(3) 关于 AI 提供方（OpenAI、Anthropic 等）、流式、tool calling、结构化输出的问题。
 ---
 
-# Vercel AI SDK v6 Patterns
+## AI SDK 文档
 
-## Zod 4.x
+需要最新信息时：
 
-This repo uses **Zod 4.x** (4.3.5+) directly:
+### 若使用 ai@6.0.34 及以上
 
-```typescript
-// ✅ Standard Zod 4 import
-import { z } from 'zod'
-```
+在 `node_modules/ai/` 中搜索打包文档与源码：
 
-Zod 4's optimized types work well with AI SDK v6's recursive generics.
+1. **文档**：`grep "你的查询" node_modules/ai/docs/`
+2. **源码**：`grep "你的查询" node_modules/ai/src/`
 
----
+查找具体文件：
 
-Comprehensive guide for Vercel AI SDK v6 (6.0+) patterns used in agent-first applications. Contains rules for provider setup, tool definitions, multi-step workflows, and result extraction.
+- `glob "node_modules/ai/docs/**/*.mdx"` 文档
+- `glob "node_modules/ai/src/**/*.ts"` 源码
 
-## When to Apply
+提供方包（`@ai-sdk/openai`、`@ai-sdk/anthropic` 等）在各自 `node_modules/@ai-sdk/.../docs/` 下也有文档。
 
-Reference these guidelines when:
-- Setting up AI model providers
-- Defining agent tools with tool()
-- Implementing multi-step agentic workflows
-- Extracting results from generateText/streamText
-- Migrating from AI SDK v5 to v6
+**不确定时，升级到最新版 AI SDK。**
 
-## Rule Categories by Priority
+### 否则
 
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 1 | Provider Setup | CRITICAL | `provider-` |
-| 2 | Text Generation | HIGH | `generate-` |
-| 3 | Tool Definitions | HIGH | `tool-` |
-| 4 | Multi-Step Agents | HIGH | `agent-` |
-| 5 | Result Extraction | MEDIUM | `result-` |
-| 6 | Message Types | MEDIUM | `message-` |
-| 7 | Error Handling | MEDIUM | `error-` |
+1. 搜索文档：`https://ai-sdk.dev/api/search-docs?q=你的查询`
+2. 返回结果包含以 `.md` 结尾的链接
+3. 直接请求这些 `.md` URL 获取纯文本内容（如 `https://ai-sdk.dev/docs/agents/building-agents.md`）
 
-## Quick Reference
+用以上方式获取当前 API、示例与用法。
 
-### Critical v6 Breaking Changes
+常见错误与排查见 [Common Errors Reference](references/common-errors.md)。  
+Vercel AI Gateway 用法见 [AI Gateway Reference](references/ai-gateway.md)。
 
-```typescript
-// ❌ v5 patterns that FAIL in v6:
-import { type CoreMessage } from 'ai'     // → ModelMessage
-parameters: z.object({...})               // → inputSchema
-maxSteps: 5                               // → stopWhen: stepCountIs(5)
-call.args                                 // → call.input
-call.toolResult                           // → step.toolResults[].output
-```
+## 提供方相关信息（ai@6.0.34+）
 
-### 1. Provider Setup (CRITICAL)
+关于具体提供方（OpenAI、Anthropic、Google 等）时，搜索对应包：
 
-- `provider-gateway` - Use AI Gateway model strings (recommended)
+1. **提供方文档**：`grep "你的查询" node_modules/@ai-sdk/.../docs/`
+2. **提供方源码**：`grep "你的查询" node_modules/@ai-sdk/.../src/`
 
-```typescript
-import { generateText } from 'ai'
+查找提供方文件：
 
-const result = await generateText({
-  model: 'anthropic/claude-opus-4-5',  // AI Gateway string
-  prompt: 'Hello',
-})
-```
+- `glob "node_modules/@ai-sdk/.../docs/**/*.mdx"` 文档
+- `glob "node_modules/@ai-sdk/.../src/**/*.ts"` 源码
 
-**No provider wrapper is required** when using AI Gateway model strings.
-
-### 2. Text Generation (HIGH)
-
-- `generate-basic` - Core generateText pattern
-
-### 3. Tool Definitions (HIGH)
-
-- `tool-input-schema` - v6 uses inputSchema not parameters
-- `tool-definition` - Complete tool() pattern
-
-```typescript
-import { tool } from 'ai'
-import { z } from 'zod'
-
-const myTool = tool({
-  description: 'What this does',
-  inputSchema: z.object({  // ✅ inputSchema not parameters
-    param: z.string().describe('Description'),
-  }),
-  execute: async ({ param }) => {
-    return { result: 'done' }
-  },
-})
-```
-
-### 4. Multi-Step Agents (HIGH)
-
-- `agent-stop-when` - v6 uses stopWhen not maxSteps
-- `agent-multi-step` - Complete agent pattern
-
-```typescript
-import { generateText, stepCountIs } from 'ai'
-
-const result = await generateText({
-  model: 'anthropic/claude-opus-4-5',
-  messages,
-  tools: agentTools,
-  stopWhen: stepCountIs(5),  // ✅ not maxSteps: 5
-})
-```
-
-### 5. Result Extraction (MEDIUM)
-
-- `result-tool-access` - Access tool calls and results correctly
-
-```typescript
-// ✅ Correct v6 pattern
-const toolCalls = result.steps.flatMap((step) => {
-  const resultsMap = new Map(
-    (step.toolResults || []).map((r) => [r.toolCallId, r.output])
-  )
-  return (step.toolCalls || []).map((tc) => ({
-    name: tc.toolName,
-    args: tc.input,  // ✅ input not args
-    result: resultsMap.get(tc.toolCallId),  // ✅ from toolResults
-  }))
-})
-```
-
-### 6. Message Types (MEDIUM)
-
-- `message-model-message` - Use ModelMessage type
-
-```typescript
-import { type ModelMessage } from 'ai'  // ✅ not CoreMessage
-
-const messages: ModelMessage[] = [
-  { role: 'user', content: 'Hello' },
-]
-```
-
-## How to Use
-
-Read individual rule files for detailed explanations and code examples:
-
-```
-rules/provider-gateway.md
-rules/tool-input-schema.md
-rules/agent-stop-when.md
-rules/result-tool-access.md
-rules/_sections.md
-```
-
-Each rule file contains:
-- Brief explanation of why it matters
-- Incorrect code example with explanation
-- Correct code example with explanation
-- Reference links
-
-## Key Imports
-
-```typescript
-import {
-  generateText,
-  generateObject,
-  streamText,
-  streamObject,
-  tool,
-  stepCountIs,
-  hasToolCall,
-  type ModelMessage,
-} from 'ai'
-import { z } from 'zod'  // Zod 4.x
-```
-
-## Model Strings (AI Gateway)
-
-```
-anthropic/claude-opus-4-5
-anthropic/claude-sonnet-4
-openai/gpt-4o
-google/gemini-2.0-flash
-```
-
-Auth: Set `AI_GATEWAY_API_KEY` environment variable.
+`providerOptions` 等提供方专属配置尤其需查阅各自包文档，各提供方选项不同。

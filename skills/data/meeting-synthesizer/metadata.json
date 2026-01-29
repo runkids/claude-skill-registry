@@ -1,7 +1,7 @@
 {
   "name": "meeting-synthesizer",
-  "repo": "rysweet/AzureHayMaker",
+  "repo": "rysweet/azlin",
   "path": ".claude/skills/meeting-synthesizer/SKILL.md",
-  "source": "github.com/rysweet/AzureHayMaker",
-  "downloaded_at": "2026-01-28T04:30:01.098696Z"
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-29T04:30:07.121024Z"
 }

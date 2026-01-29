@@ -1,108 +1,205 @@
 ---
 name: task-breakdown
-description: 专业的任务拆解器，将复杂需求拆分成"独立可运行与可演示"的最小闭环任务卡。严格按照纵向切片、单一数据变化、单一入口原则，确保每张任务卡都能在单回合实现并验证。当用户说"帮我拆解一下任务"、"用任务拆解器分析"、"按规范拆分"或需要将一个大的开发需求拆分成可执行的小任务时使用。输出格式严格按照[src/renderer/TODO.md]标准存储。
+description: Use when converting architecture plans into implementation phases. Creates independent, bite-sized phase files that can be executed separately.
 ---
 
-# 任务拆解器
+# Task Breakdown Skill
 
-## 核心规范
+## Overview
 
-### 【切法（硬约束）】
-- **纵向切片**：每张卡必须打通 DB→API→UI 的单一路径
-- **单一数据变化**：每张卡仅包含 创建 / 更新 / 删除 三选一
-- **单一入口**：每张卡只提供一个可演示入口（按钮 / 表单 / 命令）
+Transform architecture plans into **independent implementation phases**. Each phase is a separate file that can be executed without waiting for other phases.
 
-### 【颗粒度（硬约束）】
-- **单回合可实现**：一次"生成→本地验证→小修再试"能跑通
-- **上限控制**：≤1 路由 / ≤1 页面 / ≤1 领域模型
-- **外部依赖处理**：用"假实现/固定响应"先跑通闭环
-- **范围控制**：冻结公共接口签名，仅改动本卡所需最小范围
+**Core principle:** Independent phases first, dependent phases last.
 
-### 【DoD（完成定义）】
-1. ✅ 页面可开；有可点击入口，并有成功/失败反馈
-2. ✅ 数据可写入并可查询到（结果可见）
-3. ✅ 日志可定位（请求/错误日志含路由与追踪线索/ID）
-4. ✅ 可写 3 条测试（成功写入 / 校验失败 / 读取列表），预期可通过
-5. ✅ README 可写一键命令（启动/迁移/测试）与顺序说明
+## When to Use
 
-### 【表达规则】
-- 只写可执行指令：对象 / 动作 / 参数 / 路径 / 命令
-- 禁止形容词空话
+- After architecture plan is approved
+- Converting design to executable phases
+- Planning incremental implementation
+- Enabling parallel work streams
 
-### 【黑名单（禁止出现）】
-- "优化 / 完善 / 健壮性 / 体验更好 / 通用化 / 抽象封装 / 重构以提升质量 / 提升性能"
-- 任何无法以页面/脚本/测试**直接验证**的模糊表述
-
-## 拆解流程
-
-### Step 1: 需求分析
-1. 理解整体需求目标和业务价值
-2. 识别涉及的数据模型和核心业务对象
-3. 确定技术栈和架构约束
-
-### Step 2: 纵向切片识别
-1. 按业务功能垂直切片，每张卡独立完成 DB→API→UI
-2. 识别创建(Create) / 更新(Update) / 删除(Delete) 操作
-3. 避免查询(Read)作为独立卡片，查询应嵌入其他操作
-
-### Step 3: 颗粒度控制
-1. 检查每张卡是否满足 ≤1 路由 / ≤1 页面 / ≤1 模型
-2. 如超出限制，继续切分直至满足
-3. 识别外部依赖，设计假实现方案
-
-### Step 4: 验证设计
-1. 自检清单逐卡检查
-2. 确保 30-60 秒内可完成演示录屏
-3. 确认 DoD 六项全部可落地
-
-## 输出格式
+## Phase-Based Output Structure
 
 ```
-[任务卡]
-标题: <动词> <对象> <路径>
-切片: DB(<表/字段/迁移>) / API(<METHOD> <ROUTE> 校验:… 仅一种数据变化) / UI(/page 路径与 1 个操作入口)
-验证点: <CLI/页面/SQL/脚本；用户如何一步步验证；可直接抄运行>
-DoD: <逐条说明本卡如何满足"DoD"六项>
-约束: <冻结签名/最小改动/外部依赖的假实现方案等>
-演示点: <30–60 秒录屏要点：从操作到看到结果>
+plans/sessions/{session}/plans/
+├── implementation.md              # Master index (lightweight)
+├── phases/
+│   ├── phase-01-foundation.md     # Independent - implement first
+│   ├── phase-02-core-models.md    # Independent - implement first
+│   ├── phase-03-api-routes.md     # Independent - implement first
+│   ├── phase-04-ui-components.md  # Depends on models
+│   └── phase-05-integration.md    # Depends on all above
 ```
 
-## 使用示例
+## The Iron Law: Independence Ordering
 
-### 用户输入
-"帮我做一个用户管理系统，包含注册、登录、个人信息管理功能"
-
-### 拆解输出
 ```
-[任务卡]
-标题: 创建用户注册 /api/v1/users/register
-切片: DB(users表: id,username,email,password_hash,created_at) / API(POST /api/v1/users/register 校验:username≥3字符,email格式,password≥8字符) / UI(/register 页面:注册表单)
-验证点: 1) 打开 /register 填写表单提交 2) 查看数据库users表新记录 3) 测试重复用户名被拒绝
-DoD: ✅ 页面可访问并有表单 ✅ 提交后数据写入users表 ✅ 请求日志含追踪ID ✅ 可测试成功注册/重复用户/字段校验 ✅ README含启动和测试命令
-约束: 密码明文存储(后续加密),邮箱验证延后,无外部依赖
-演示点: 30秒录屏：打开注册页→填写信息→提交→查数据库确认记录
-
-[任务卡]
-标题: 创建用户登录 /api/v1/users/login
-切片: DB(users表: username,password_hash) / API(POST /api/v1/users/login 校验:username存在,password匹配) / UI(/login 页面:登录表单)
-验证点: 1) 已注册用户登录成功 2) 错误密码登录失败 3) 不存在的用户登录失败
-DoD: ✅ 登录页面可访问 ✅ 成功登录返回token ✅ 错误有明确反馈 ✅ 可测试成功/失败场景 ✅ README含测试命令
-约束: 使用假token(后续JWT),无session管理,密码校验延后
-演示点: 30秒录屏：打开登录页→输入正确信息→登录成功→查看响应
+INDEPENDENT PHASES → TOP (implement first)
+DEPENDENT PHASES → BOTTOM (implement last)
 ```
 
-## 协作规范
+**Why?** Independent phases can be:
+- Implemented in parallel by multiple agents
+- Verified without waiting for other phases
+- Rolled back without breaking other phases
 
-1. **输出任务卡后停止**，等待人工确认
-2. **未确认不得进入实现**
-3. **若被判颗粒度或切法不合格**，必须自动重切并重输
-4. **直到全部任务卡满足"切法/颗粒度/DoD"**
+## Quick Reference: Phase Types
 
-## 自检清单（逐卡必检）
+| Type | Description | Position |
+|------|-------------|----------|
+| **Foundation** | Config, utils, types | Top (first) |
+| **Core** | Models, services | Top |
+| **Feature** | Specific functionality | Middle |
+| **Integration** | Connecting components | Bottom |
+| **Polish** | Tests, docs, cleanup | Bottom (last) |
 
-- [ ] 是否 DB→API→UI 贯通？是否仅 1 个入口、1 种数据变化？
-- [ ] 是否 ≤1 路由 / ≤1 页面 / ≤1 模型？若否，是否已经继续切小？
-- [ ] 是否能在 30–60 秒内录屏完成演示？
-- [ ] DoD 六项是否都能在本卡落地（并能写进 README/测试）？
-- [ ] 是否先打通闭环，把校验/边界/样式放到后续卡？
-- [ ] 是否完全没有黑名单词？
+## Implementation.md Format
+
+The master file is **lightweight** - just an index:
+
+```markdown
+# Implementation Plan: [Feature]
+
+**Session:** {session-id}
+**Status:** Proposed | In Progress | Completed
+
+## Phase Summary
+
+| Phase | Name | Status | Dependencies |
+|-------|------|--------|--------------|
+| 1 | Foundation | Pending | None |
+| 2 | Core Models | Pending | None |
+| 3 | API Routes | Pending | None |
+| 4 | UI Components | Pending | Phase 2 |
+| 5 | Integration | Pending | Phase 1-4 |
+
+## Execution Order
+
+**Can implement in parallel:**
+- Phase 1, 2, 3 (no dependencies)
+
+**Must wait:**
+- Phase 4 → after Phase 2
+- Phase 5 → after all phases
+
+## Phase Files
+
+- [Phase 1: Foundation](phases/phase-01-foundation.md)
+- [Phase 2: Core Models](phases/phase-02-core-models.md)
+- [Phase 3: API Routes](phases/phase-03-api-routes.md)
+- [Phase 4: UI Components](phases/phase-04-ui-components.md)
+- [Phase 5: Integration](phases/phase-05-integration.md)
+```
+
+## Individual Phase File Format
+
+Each phase file is **self-contained**:
+
+```markdown
+# Phase [N]: [Phase Name]
+
+**Dependencies:** None | Phase [X], [Y]
+**Can Start:** Immediately | After Phase [X]
+**Estimated Tasks:** [N]
+
+## Objective
+
+[One sentence: what this phase accomplishes independently]
+
+## Entry Criteria
+
+- [ ] [What must be true before starting]
+
+## Tasks
+
+### Task [N.1]: [Task Name]
+**Size:** XS | S | M | L
+**File:** `path/to/file.ts`
+
+[Task details using task-template.md format]
+
+---
+
+### Task [N.2]: [Task Name]
+...
+
+## Exit Criteria
+
+- [ ] All tasks complete
+- [ ] Verification passes
+- [ ] No impact on other phases
+
+## Verification
+
+```bash
+# Phase-specific verification
+[commands]
+```
+```
+
+## Dependency Sorting Algorithm
+
+**Step 1:** List all components from architecture
+**Step 2:** For each component, identify what it imports/uses
+**Step 3:** Score by dependency count:
+- 0 dependencies = Phase 1 (top)
+- 1-2 dependencies = Phase 2-3 (middle)
+- 3+ dependencies = Last phases (bottom)
+
+**Step 4:** Within same dependency count, order by:
+1. Config/Types first (foundational)
+2. Services/Models second
+3. Controllers/UI third
+4. Integration/E2E last
+
+## Task Criteria (Unchanged)
+
+Tasks within phases must be:
+
+| Criterion | Description |
+|-----------|-------------|
+| **Single-concern** | One logical change |
+| **Verifiable** | Clear success criteria |
+| **Bounded** | Defined start/end |
+| **Sized** | XS, S, M, L (no XL) |
+
+**Rule:** XL tasks must be split further.
+
+## File Operations
+
+| Action | Format |
+|--------|--------|
+| CREATE | `path/to/new/file` + pattern to follow |
+| MODIFY | `path/to/file` + line range + before/after |
+| DELETE | `path/to/file` + reason + dependency check |
+| MOVE | `from` → `to` + import updates |
+
+## Verification Per Task
+
+| Type | Command | Use Case |
+|------|---------|----------|
+| Type Check | `npm run typecheck` | TypeScript |
+| Lint | `npm run lint` | Style |
+| Unit Test | `npm test -- [pattern]` | Logic |
+| Build | `npm run build` | Compilation |
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| One massive implementation.md | Split into phase files |
+| Dependent phases at top | Reorder: independent first |
+| Phase depends on multiple others | Move to bottom |
+| XL tasks | Break into S/M tasks |
+| Vague verification | Specific commands |
+
+## Output Checklist
+
+Before presenting plan:
+- [ ] Implementation.md is index-only (< 50 lines)
+- [ ] Each phase has separate file
+- [ ] Independent phases listed first
+- [ ] Dependent phases at bottom
+- [ ] Each phase is self-contained
+- [ ] Tasks are appropriately sized
+- [ ] Verification commands provided

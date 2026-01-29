@@ -1,7 +1,7 @@
 {
   "name": "analyze-ci",
-  "repo": "mlflow/mlflow",
+  "repo": "mlflow/dev",
   "path": ".claude/skills/analyze-ci/SKILL.md",
-  "source": "github.com/mlflow/mlflow",
-  "downloaded_at": "2026-01-28T03:54:49.002770Z"
+  "source": "github.com/mlflow/dev",
+  "downloaded_at": "2026-01-29T03:01:51.699078Z"
 }

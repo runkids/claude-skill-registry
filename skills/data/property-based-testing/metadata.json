@@ -1,7 +1,7 @@
 {
   "name": "property-based-testing",
-  "repo": "pathvanasoftware/IOSStorageCleaner",
-  "path": ".claude/skills/trailofbits-property-based-testing/skills/property-based-testing/SKILL.md",
-  "source": "github.com/pathvanasoftware/IOSStorageCleaner",
-  "downloaded_at": "2026-01-28T03:44:42.396909Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/property-based-testing/skills/property-based-testing/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-01-29T03:53:04.891625Z"
 }

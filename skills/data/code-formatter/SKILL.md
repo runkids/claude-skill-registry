@@ -1,45 +1,56 @@
 ---
 name: code-formatter
-description: 格式化源代码文件，支持Python、JavaScript、JSON等语言，使用行业标准格式化工具。
-metadata:
-  short-description: 格式化源代码
-source:
-  repository: https://github.com/psf/black
-  license: MIT
+description: |
+  Execute automatically formats and validates code files using Prettier and other formatting tools.
+  Use when users mention "format my code", "fix formatting", "apply code style",
+  "check formatting", "make code consistent", or "clean up code formatting".
+  Handles JavaScript, TypeScript, JSON, CSS, Markdown, and many other file types. Trigger with relevant phrases based on skill purpose.
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash(cmd:*)
+version: 1.0.0
+author: Jeremy Longshore <jeremy@intentsolutions.io>
+license: MIT
 ---
 
-# Code Formatter Tool
+# Code Formatter
 
-## Description
-Format source code files using industry-standard formatters like Black for Python, with support for multiple languages.
+## Overview
 
-## Trigger
-- `/format` command
-- User needs to format code
-- User wants consistent code style
+This skill provides automated assistance for the described functionality.
 
-## Usage
+## Prerequisites
 
-```bash
-# Format Python file
-python scripts/code_formatter.py file.py
+- Node.js and npm/npx installed
+- Prettier available globally or locally
+- Write permissions for target files
+- Supported file types in the project
 
-# Format with specific line length
-python scripts/code_formatter.py file.py --line-length 100
+## Instructions
 
-# Format JSON
-python scripts/code_formatter.py config.json
+1. Analyze current formatting (`prettier --check`) and identify files to update.
+2. Configure formatting rules (`.prettierrc`, `.editorconfig`) for the project.
+3. Apply formatting (`prettier --write`) to the target files/directories.
+4. Add ignore patterns (`.prettierignore`) for generated/vendor outputs.
+5. Optionally enforce formatting via git hooks (husky/lint-staged).
 
-# Check without modifying
-python scripts/code_formatter.py file.py --check
 
-# Format directory
-python scripts/code_formatter.py ./src/ --recursive
-```
+See `{baseDir}/references/implementation.md` for detailed implementation guide.
 
-## Tags
-`format`, `code`, `python`, `black`, `style`
+## Output
 
-## Compatibility
-- Codex: ✅
-- Claude Code: ✅
+
+
+## Error Handling
+
+See `{baseDir}/references/errors.md` for comprehensive error handling.
+
+## Examples
+
+See `{baseDir}/references/examples.md` for detailed examples.
+
+## Resources
+
+- name: Check formatting
+- name: Enforce formatting
+- **ESLint** - Linting and code quality
+- **Stylelint** - CSS/SCSS linting
+- **Markdownlint** - Markdown style checking

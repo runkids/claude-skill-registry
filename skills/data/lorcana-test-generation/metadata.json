@@ -1,9 +1,7 @@
 {
   "name": "lorcana-test-generation",
-  "description": "Generate basic happy-path tests for Lorcana card abilities. Tests verify ability behavior only - NO property validation tests. Use when implementing or updating card tests. Effects are tested separate",
   "repo": "TheCardGoat/tcg-engines",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/lorcana-test-generation/SKILL.md",
+  "source": "github.com/TheCardGoat/tcg-engines",
+  "downloaded_at": "2026-01-29T02:03:54.208755Z"
 }

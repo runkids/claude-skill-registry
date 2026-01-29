@@ -1,9 +1,7 @@
 {
   "name": "llm-icon-finder",
-  "description": "Finding and accessing AI/LLM model brand icons from lobe-icons library. Use when users need icon URLs, want to download brand logos for AI models/providers/applications (Claude, GPT, Gemini, etc.), or",
   "repo": "nguyendinhquocx/code-ai",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/nguyendinhquocx/code-ai"
+  "path": "skills/llm-icon-finder/SKILL.md",
+  "source": "github.com/nguyendinhquocx/code-ai",
+  "downloaded_at": "2026-01-29T01:03:59.520059Z"
 }

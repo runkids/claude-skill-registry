@@ -1,7 +1,7 @@
 {
   "name": "vscode-ext-commands",
-  "repo": "github/awesome-copilot",
-  "path": "skills/vscode-ext-commands/SKILL.md",
-  "source": "github.com/github/awesome-copilot",
-  "downloaded_at": "2026-01-28T03:03:34.161586Z"
+  "repo": "HelixDevelopment/HelixAgent",
+  "path": "skills/github-copilot/vscode-ext-commands/SKILL.md",
+  "source": "github.com/HelixDevelopment/HelixAgent",
+  "downloaded_at": "2026-01-29T04:14:08.710220Z"
 }

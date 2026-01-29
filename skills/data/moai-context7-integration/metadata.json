@@ -1,7 +1,7 @@
 {
   "name": "moai-context7-integration",
-  "repo": "jg-chalk-io/Nora-LiveKit",
-  "path": ".claude/skills/moai-context7-integration/SKILL.md",
-  "source": "github.com/jg-chalk-io/Nora-LiveKit",
-  "downloaded_at": "2026-01-28T03:15:41.664206Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-context7-integration/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-29T04:39:15.126112Z"
 }

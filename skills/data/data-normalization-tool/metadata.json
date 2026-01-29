@@ -1,7 +1,7 @@
 {
   "name": "data-normalization-tool",
-  "repo": "byteworthy/Upstream",
-  "path": ".agents/skills/data-normalization-tool/SKILL.md",
-  "source": "github.com/byteworthy/Upstream",
-  "downloaded_at": "2026-01-28T02:38:48.867475Z"
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "path": "skills/07-ml-training/data-normalization-tool/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-29T01:03:50.621616Z"
 }

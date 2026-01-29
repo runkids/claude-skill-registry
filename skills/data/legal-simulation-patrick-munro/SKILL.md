@@ -3,7 +3,7 @@ name: legal-simulation-patrick-munro
 description: "Framework for demonstrating AI capabilities in legal contexts. Provides detailed personas across tenant law, business contracts, startup disputes, employment claims, and consumer protection with progressive complexity scenarios. Use when: (1) Demonstrating AI-powered legal triage or intake systems, (2) Showcasing responsible AI-assisted client interactions, (3) Training staff on appropriate AI use in legal contexts, (4) Creating realistic scenarios for legal tech presentations, (5) Developing educational materials about AI in legal services, or (6) Testing AI-powered legal information systems in controlled environments."
 metadata:
   author: Patrick Munro
-  license: Apache 2.0
+  license: AGPL-3.0
 ---
 
 # Legal Persona Simulator

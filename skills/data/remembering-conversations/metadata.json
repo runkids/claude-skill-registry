@@ -1,9 +1,7 @@
 {
   "name": "remembering-conversations",
-  "description": "Search previous Claude Code conversations for facts, patterns, decisions, and context using semantic or text search",
-  "repo": "obra/superpowers-skills",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "local"
+  "repo": "Krosebrook/source-of-truth-monorepo",
+  "path": "plugins/installed/episodic-memory/skills/remembering-conversations/SKILL.md",
+  "source": "github.com/Krosebrook/source-of-truth-monorepo",
+  "downloaded_at": "2026-01-29T01:24:47.313501Z"
 }

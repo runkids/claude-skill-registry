@@ -1,9 +1,7 @@
 {
   "name": "bun-react-ssr",
-  "description": "Use when building server-rendered React with Bun, including streaming SSR, hydration, renderToString, or custom SSR without a framework.",
   "repo": "secondsky/claude-skills",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/bun/skills/bun-react-ssr/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-29T03:11:03.826153Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "moai-alfred-workflow",
-  "repo": "kivo360/quickhooks",
-  "path": ".claude/skills/moai-alfred-workflow/SKILL.md",
-  "source": "github.com/kivo360/quickhooks",
-  "downloaded_at": "2026-01-28T02:08:43.241429Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-alfred-workflow/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-29T04:39:15.416944Z"
 }

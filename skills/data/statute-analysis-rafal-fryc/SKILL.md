@@ -3,7 +3,7 @@ name: statute-analysis-rafal-fryc
 description: Guide for reading, interpreting, and applying statutes, regulations, and rules in legal and compliance contexts. Use when the user asks about (1) how to read and interpret statutes, regulations, or rules, (2) statutory interpretation methods and canons of construction, (3) understanding legislative intent, (4) applying statutes to specific legal situations, (5) extracting requirements from legal text, (6) distinguishing between different types of legal requirements, or (7) cross-jurisdictional compliance analysis.
 metadata:
   author: Rafał Stanisław Fryc
-  license: Apache 2.0
+  license: AGPL-3.0
 ---
 
 # Statutory Interpretation Guide

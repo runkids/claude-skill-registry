@@ -1,9 +1,7 @@
 {
   "name": "github-issue-creation",
-  "description": "Create well-structured GitHub issues using the gh CLI tool. Use when the user wants to create a GitHub issue, track features, bugs, refactoring tasks, or technical debt for the go-crypto-wallet reposi",
   "repo": "hiromaily/go-crypto-wallet",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/github-issue-creation/SKILL.md",
+  "source": "github.com/hiromaily/go-crypto-wallet",
+  "downloaded_at": "2026-01-29T01:06:12.784493Z"
 }

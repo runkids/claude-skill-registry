@@ -1,113 +1,80 @@
 ---
 name: commit
-description: Stage changes and create git commits with conventional commit messages. Use when asked to "commit", "stage and commit", "save changes", or after completing implementation tasks. Alias for /git/cm.
-allowed-tools: Bash, Read, Glob, Grep
+description: "Create conventional commits. Use when: committing staged changes. Triggers on: '/commit', 'conventional commit'."
+allowed-tools: Bash
+disable-model-invocation: true
+argument-hint: <type>[scope]: <description> [optional body] [optional footer]
 ---
 
-# Git Commit Skill
+# Create a Conventional Commit
 
-Stage changes and create well-structured git commits following Conventional Commits format.
+I'll help you create a commit following the Conventional Commits 1.0.0 specification.
 
-## Workflow
+## Checking current changes
 
-### Step 1: Analyze Changes
+!`git status --short`
+!`git diff --cached --stat`
 
-```bash
-# Check current status (never use -uall flag)
-git status
+## Analyzing changes
 
-# See staged changes
-git diff --cached
-
-# See unstaged changes
-git diff
-
-# Check recent commit style
-git log --oneline -5
-```
-
-### Step 2: Stage Changes
-
-```bash
-# Stage all changes
-git add .
-
-# Or stage specific files
-git add <file-path>
-```
-
-### Step 3: Generate Commit Message
-
-Analyze staged changes and generate message following **Conventional Commits**:
+Based on the changes, I'll create a commit message following this structure:
 
 ```
-<type>(<scope>): <subject>
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
 ```
 
-#### Type Detection
+### Conventional Commit Types
 
-| Change Pattern | Type |
-|----------------|------|
-| New file/feature | `feat` |
-| Bug fix, error handling | `fix` |
-| Code restructure | `refactor` |
-| Documentation only | `docs` |
-| Tests only | `test` |
-| Dependencies, config | `chore` |
-| Performance improvement | `perf` |
-| Formatting only | `style` |
+- **feat**: A new feature (correlates with MINOR in SemVer)
+- **fix**: A bug fix (correlates with PATCH in SemVer)
+- **docs**: Documentation only changes
+- **style**: Changes that don't affect code meaning (white-space, formatting, etc)
+- **refactor**: Code change that neither fixes a bug nor adds a feature
+- **perf**: Code change that improves performance
+- **test**: Adding or correcting tests
+- **build**: Changes to build system or dependencies
+- **ci**: Changes to CI configuration files and scripts
+- **chore**: Other changes that don't modify src or test files
+- **revert**: Reverts a previous commit
 
-#### Scope Rules
+### Breaking Changes
 
-Extract from file paths:
-- `src/auth/` → `auth`
-- `.claude/skills/` → `claude-skills`
-- `libs/platform-core/` → `platform-core`
-- Multiple unrelated areas → omit scope
+- Add ! after type/scope for breaking changes (e.g., feat!: or feat(api)!:)
+- OR include BREAKING CHANGE: in the footer
 
-#### Subject Rules
+## Creating the commit
 
-- Imperative mood ("add" not "added")
-- Lowercase start
-- No period at end
-- Max 50 characters
+**IMPORTANT**: This command will NEVER execute `git add`. It only creates commits from already staged changes.
 
-### Step 4: Commit
+Based on the staged changes and any specific requirements in "$ARGUMENTS", I'll:
 
-Use HEREDOC for proper formatting:
+1. Determine the appropriate commit type
+2. Identify if a scope is needed
+3. Write a clear, concise description
+4. Add body details if the changes are complex
+5. Include any necessary footers (BREAKING CHANGE, Refs, etc.)
 
+Then execute the commit with:
 ```bash
 git commit -m "$(cat <<'EOF'
-type(scope): subject
-
-Generated with [Claude Code](https://claude.com/claude-code)
+[generated commit message here]
 EOF
 )"
 ```
 
-### Step 5: Verify
+**Important**: The commit message will be clean and professional, containing:
 
-```bash
-git status
-git log -1
-```
+- The conventional commit format (type, scope, description)
+- Optional body and footer as needed
 
-## Examples
+The commit will follow all Conventional Commits 1.0.0 rules:
 
-```
-feat(employee): add department filter to list
-fix(validation): handle empty date range
-refactor(auth): extract token validation to service
-chore(deps): update Angular to v19
-chore(claude-skills): add commit skill
-docs(readme): update installation instructions
-```
-
-## Critical Rules
-
-- **DO NOT push** to remote unless explicitly requested
-- **Review staged changes** before committing
-- **Never commit** secrets, credentials, or .env files
-- **Never use** `git commit --amend` unless explicitly requested AND the commit was created in this session AND not yet pushed
-- **Never skip** hooks with `--no-verify` unless explicitly requested
-- Include attribution footer: `Generated with [Claude Code](https://claude.com/claude-code)`
+- Type prefix is required
+- Description immediately follows colon and space
+- Body (if included) starts one blank line after description
+- Footer (if included) starts one blank line after body
+- Breaking changes are clearly indicated

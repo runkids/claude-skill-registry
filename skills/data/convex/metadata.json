@@ -1,7 +1,7 @@
 {
   "name": "convex",
-  "repo": "blocknavi/convex-batch-processor",
-  "path": ".claude/skills/convex/SKILL.md",
-  "source": "github.com/blocknavi/convex-batch-processor",
-  "downloaded_at": "2026-01-28T02:46:50.394486Z"
+  "repo": "bntvllnt/agent-skills",
+  "path": "convex/SKILL.md",
+  "source": "github.com/bntvllnt/agent-skills",
+  "downloaded_at": "2026-01-29T04:33:02.634486Z"
 }

@@ -1,122 +1,100 @@
 ---
 name: agent-development
-description: "Create autonomous agents. Use when: You need an isolated subprocess with its own context and philosophy for distributed execution. Not for: Simple logic reuse (use skill-development) or human-orchestrated workflows (use command-development)."
+description: Use when the user wants to design Codex agent equivalents (specialized workers/profiles/prompt files), define triggering conditions, or build reusable agent prompts and validation tools.
 ---
 
-# Agent Development
+# Agent Development (Codex)
 
-Agents are specialized autonomous subprocesses that execute tasks independently with isolated context. Unlike skills (which are invoked within the same conversation), agents run in separate processes with their own conversation context.
+## Overview
 
-**Core principle**: Agents must be autonomous, isolated, and carry their own philosophy for self-guided execution.
+Codex CLI does not auto-discover "agent" files the way Claude plugins do. To recreate agent behavior in Codex, combine:
 
+- Prompt files that define the agent's role and workflow.
+- Codex config profiles to set model/sandbox/approval defaults.
+- Skills that describe when to use the agent and how to launch it.
+- Worker processes (`codex-subagent`, `codex exec`, or `worker-dispatch`) for isolated execution.
+
+This skill standardizes an **agent card** format (YAML frontmatter + prompt body) and shows how to run it with Codex.
+
+## Agent Card Format (Codex Convention)
+
+Store agent prompts in `agents/<agent-name>.md`. Frontmatter is metadata for humans and validators; Codex does not read it automatically.
+
+Required fields:
+- `name` (kebab-case identifier)
+- `description` (when to use this agent)
+
+Recommended fields:
+- `profile` (Codex config profile name)
+- `model` (override model)
+- `sandbox_mode` and `approval_policy` (safety defaults)
+- `tools` (advisory list of tools; use sandbox/approval to enforce)
+
+Example:
+
+```markdown
+---
+name: pr-reviewer
+description: Use this agent when the user asks for a code review or to audit a pull request.
+profile: review-worker
+model: gpt-5.2-codex
+sandbox_mode: workspace-write
+approval_policy: on-request
+tools: ["Read", "Grep", "Bash"]
 ---
 
-## What Agents Are
-
-Agents provide:
-
-- **Autonomous execution**: Run independently without supervision
-- **Isolated context**: Separate conversation and memory
-- **Distributed processing**: Parallel task execution
-- **Specialized capabilities**: Domain-specific functionality
-- **Bundled philosophy**: Self-contained behavioral guidance
-
-### Agent vs Skill vs Command
-
-- **Agents**: Autonomous subprocesses (isolated execution)
-- **Skills**: Contextual capabilities (in-conversation use)
-- **Commands**: Human-invoked orchestrators (explicit triggers)
-
----
-
-## Core Structure
-
-### Frontmatter
-
-```yaml
----
-name: agent-name
-description: Autonomous agent for specific task domain
-mode: default
-team_name: team-context
----
+You are a senior PR reviewer...
 ```
 
-### Agent Body
+## Running an Agent
 
-- **Autonomous capability**: What the agent does independently
-- **Isolation requirements**: What context it needs
-- **Trigger conditions**: When to spawn this agent
-- **Communication patterns**: How it reports progress
-- **Philosophy bundle**: Behavioral guidance for isolation
+Preferred (subagent runner):
 
-### Critical Fields
+```bash
+codex-subagent pr-reviewer <<'EOF'
+[Provide task context and scope here.]
+EOF
+```
 
-**mode**: Execution mode
+Fallback (manual `codex exec`):
 
-- `default`: Standard autonomous execution
-- `plan`: Requires plan approval before execution
-- `delegate`: Accepts delegated tasks
-- `bypassPermissions`: Skips permission checks (dangerous)
+```bash
+awk 'BEGIN{c=0} /^---$/{c++; next} c>=2 {print}' agents/pr-reviewer.md | codex exec -p review-worker -
+```
 
-**team_name**: Context identifier for multi-agent coordination
+## Profiles as Agent Defaults
 
----
+Define per-agent profiles in `~/.codex/config.toml`:
 
-## Best Practices
+```toml
+[profiles.review-worker]
+model = "gpt-5.2-codex"
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
+```
 
-### Autonomy
+Profiles capture the model and safety settings that Claude agents used to embed in frontmatter.
 
-- Self-contained decision making
-- No dependency on caller for implementation details
-- Autonomous error handling and recovery
-- Independent progress reporting
+## Triggering (Codex Equivalent)
 
-### Isolation
+To make agent usage automatic, create a **skill** describing the trigger and invocation. The skill body should instruct how to run the agent card or spawn a worker.
 
-- Bundle all necessary context (no external references)
-- Include philosophy for self-guidance
-- Provide success criteria for validation
-- Ensure portable operation
+Example trigger entry:
 
-### Spawning Decisions
+```yaml
+description: Use when the user asks for a PR review or code audit; run the pr-reviewer agent card.
+```
 
-**Use agents when:**
+See `references/triggering-examples.md`.
 
-- Task requires isolation (untrusted code, parallel execution)
-- Long-running operations (>30 minutes)
-- Independent subprocess needed
-- Context fork required for safety
+## Validation
 
-**Use skills when:**
+Use `scripts/validate-agent.sh` to validate agent cards for required fields and prompt length.
 
-- Same-conversation execution is sufficient
-- Quick task (<5 minutes)
-- No isolation needed
-- Context sharing is beneficial
+## References
 
-### Quality
-
-- Imperative form for instructions
-- Clear autonomous capabilities
-- Progressive disclosure (core → details)
-- Self-validation mechanisms
-
-### Agent Communication
-
-- Report progress to parent context
-- Provide completion status
-- Share errors and blockers
-- Enable parent oversight
-
----
-
-## Navigation
-
-| If you need...       | Reference                                    |
-| -------------------- | -------------------------------------------- |
-| System prompt design | `references/system-prompt-design.md`         |
-| Triggering examples  | `references/triggering-examples.md`          |
-| Agent orchestration  | `references/agent-orchestration.md`          |
-| Iterative retrieval  | `references/iterative-retrieval.md`          |
-| Creation workflow    | `references/agent-creation-system-prompt.md` |
+- `references/system-prompt-design.md` for prompt structure
+- `references/triggering-examples.md` for trigger phrasing
+- `references/agent-creation-system-prompt.md` for AI-assisted agent card generation
+- `examples/agent-creation-prompt.md` for a complete prompt template
+- `examples/complete-agent-examples.md` for full agent card examples

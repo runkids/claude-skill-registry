@@ -1,7 +1,7 @@
 {
   "name": "steering",
-  "repo": "ref-docs/sdd-stl",
-  "path": "src/templates/agents/claude-code/skills/steering/SKILL.md",
-  "source": "github.com/ref-docs/sdd-stl",
-  "downloaded_at": "2026-01-28T03:33:31.069892Z"
+  "repo": "nahisaho/CodeGraphMCPServer",
+  "path": ".claude/skills/steering/SKILL.md",
+  "source": "github.com/nahisaho/CodeGraphMCPServer",
+  "downloaded_at": "2026-01-29T04:20:14.856053Z"
 }

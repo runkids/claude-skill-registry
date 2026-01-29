@@ -1,75 +1,83 @@
 ---
 name: disaster-recovery-planner
-category: devops-infra
-description: Plan backups, failover, and RTO/RPO targets.
+description: Design disaster recovery strategies including backup, failover, RTO/RPO planning, and multi-region deployment for business continuity.
+allowed-tools: [Read, Write, Edit, Bash, Grep, Glob]
 ---
 
 # Disaster Recovery Planner
 
-## Purpose
-- Plan backups, failover, and RTO/RPO targets.
+Design comprehensive disaster recovery strategies for business continuity.
 
-## Preconditions
-- Access to system context (repos, infra, environments)
-- Confirmed requirements and constraints
-- Required approvals for security, compliance, or governance
+## RTO/RPO Targets
 
-## Inputs
-- Problem statement and scope
-- Current architecture or system constraints
-- Non-functional requirements (performance, security, compliance)
-- Target stack and environment
+| Tier | RTO | RPO | Cost | Use Case |
+|------|-----|-----|------|----------|
+| Critical | < 1 hour | < 5 min | High | Payment, Auth |
+| Important | < 4 hours | < 1 hour | Medium | Orders, Inventory |
+| Standard | < 24 hours | < 24 hours | Low | Reports, Analytics |
 
-## Outputs
-- Design or implementation plan
-- Required artifacts (diagrams, configs, specs, checklists)
-- Validation steps and acceptance criteria
+## Multi-Region Failover
 
-## Detailed Step-by-Step Procedures
-1. Clarify scope, constraints, and success metrics.
-2. Review current system state, dependencies, and integration points.
-3. Select patterns, tools, and architecture options that match constraints.
-4. Produce primary artifacts (docs/specs/configs/code stubs).
-5. Validate against requirements and known risks.
-6. Provide rollout and rollback guidance.
+```yaml
+# AWS Route53 Health Checks and Failover
+Resources:
+  PrimaryHealthCheck:
+    Type: AWS::Route53::HealthCheck
+    Properties:
+      HealthCheckConfig:
+        Type: HTTPS
+        ResourcePath: /health
+        FullyQualifiedDomainName: api-us-east-1.example.com
+        Port: 443
+        RequestInterval: 30
+        FailureThreshold: 3
 
-## Decision Trees and Conditional Logic
-- If compliance or regulatory scope applies -> add required controls and audit steps.
-- If latency budget is strict -> choose low-latency storage and caching.
-- Else -> prefer cost-optimized storage and tiering.
-- If data consistency is critical -> prefer transactional boundaries and strong consistency.
-- Else -> evaluate eventual consistency or async processing.
+  DNSFailover:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: Z123456
+      Name: api.example.com
+      Type: A
+      SetIdentifier: Primary
+      Failover: PRIMARY
+      AliasTarget:
+        HostedZoneId: Z123456
+        DNSName: api-us-east-1.example.com
+      HealthCheckId: !Ref PrimaryHealthCheck
+```
 
-## Error Handling and Edge Cases
-- Partial failures across dependencies -> isolate blast radius and retry with backoff.
-- Data corruption or loss risk -> enable backups and verify restore path.
-- Limited access to systems -> document gaps and request access early.
-- Legacy dependencies with limited change tolerance -> use adapters and phased rollout.
+## Database Backup Strategy
 
-## Tool Requirements and Dependencies
-- CLI and SDK tooling for the target stack
-- Credentials or access tokens for required environments
-- Diagramming or spec tooling when producing docs
+```bash
+# Automated backup script
+#!/bin/bash
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+DB_NAME="production_db"
+S3_BUCKET="s3://backups-${DB_NAME}"
+RETENTION_DAYS=30
 
-## Stack Profiles
-- Use Profile A, B, or C from `skills/STACK_PROFILES.md`.
-- Note selected profile in outputs for traceability.
+# Full backup daily
+pg_dump -Fc $DB_NAME | \
+  aws s3 cp - "${S3_BUCKET}/full/${TIMESTAMP}.dump"
 
-## Validation
-- Requirements coverage check
-- Security and compliance review
-- Performance and reliability review
-- Peer or stakeholder sign-off
+# Point-in-time recovery (WAL archiving)
+aws s3 sync /var/lib/postgresql/wal_archive \
+  "${S3_BUCKET}/wal/" --delete
 
-## Rollback Procedures
-- Revert config or deployment to last known good state.
-- Roll back database migrations if applicable.
-- Verify service health, data integrity, and error rates after rollback.
+# Cleanup old backups
+aws s3 ls "${S3_BUCKET}/full/" | \
+  while read -r line; do
+    createDate=$(echo $line | awk '{print $1" "$2}')
+    if [[ $(date -d "$createDate" +%s) -lt $(date -d "-${RETENTION_DAYS} days" +%s) ]]; then
+      fileName=$(echo $line | awk '{print $4}')
+      aws s3 rm "${S3_BUCKET}/full/${fileName}"
+    fi
+  done
+```
 
-## Success Metrics
-- Measurable outcomes (latency, error rate, uptime, cost)
-- Acceptance thresholds defined with stakeholders
-
-## Example Workflows and Use Cases
-- Minimal: apply the skill to a small service or single module.
-- Production: apply the skill to a multi-service or multi-tenant system.
+## Best Practices
+- ✅ Test DR procedures quarterly
+- ✅ Automate backup verification
+- ✅ Document runbooks thoroughly
+- ✅ Multi-region for critical systems
+- ✅ Monitor backup success/failure

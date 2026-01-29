@@ -1,531 +1,349 @@
 ---
-name: changelog
-description: Generate and maintain CHANGELOG.md using semantic-release and conventional commits. Use when preparing releases, documenting changes, or reviewing version history.
-allowed-tools: Read, Edit, Write, Bash, Grep
+skill_id: cfn-changelog-management
+name: CFN Changelog Management
+version: 1.0.0
+category: documentation
+tags: [changelog, versioning, release-notes, sparse-logging]
+dependencies: []
 ---
 
-# Changelog Management Skill
+# CFN Changelog Management Skill
 
-This skill helps you generate and maintain changelogs using semantic-release and conventional commits.
+## Purpose
+Systematically track implementation changes with sparse, structured entries appended to project changelog. Enables quick visibility into what changed, when, and why without verbose commit-style messages.
 
-## When to Use This Skill
+## Problem Solved
+Traditional changelogs require manual curation and often become stale or inconsistent. Agents completing features, fixing bugs, or making architectural changes need a lightweight way to document impact without context-switching to git commits or detailed documentation.
 
-- Generating changelogs for releases
-- Documenting version changes
-- Reviewing release history
-- Preparing release notes
-- Understanding what changed between versions
-- Communicating changes to users
+## When to Use
 
-## Changelog Overview
+### ✅ REQUIRED Usage Scenarios
+- **After feature implementation** - Agent completes feature work
+- **After bug fix** - Agent resolves issue with code changes
+- **After breaking change** - API/interface modifications that affect consumers
+- **After dependency update** - Major version bumps or security patches
+- **After architectural change** - Coordination pattern modifications, skill refactors
 
-The project uses **semantic-release** to automatically generate changelogs based on conventional commits:
-- **Automatic Generation**: Changelog generated from git commits
-- **Version Bumping**: Automatic versioning based on commit types
-- **Release Notes**: GitHub releases with changelog
-- **Breaking Changes**: Highlighted prominently
-- **Categorized Changes**: Features, fixes, chores grouped
+### ⚠️ OPTIONAL Usage Scenarios
+- **After performance optimization** - Measurable improvements (>10% speedup)
+- **After security enhancement** - Hardening, vulnerability fixes
+- **Internal refactoring** - Code cleanup without behavioral changes (use judgment)
 
-## Changelog Format
+### ❌ DO NOT USE For
+- **Routine maintenance** - Formatting, linting, comment updates
+- **Work-in-progress** - Incomplete features or experimental changes
+- **Test-only changes** - Adding tests without production code changes
+- **Documentation-only updates** - README edits, comment clarifications
 
-### Keep a Changelog Format
+## Interface
 
-The project follows [Keep a Changelog](https://keepachangelog.com/) format:
+### Primary Script: `add-changelog-entry.sh`
 
-```markdown
-# Changelog
+**Required Parameters:**
+- `--type`: Entry type (feature|bugfix|breaking|dependency|architecture|performance|security)
+- `--summary`: One-line description (10-100 chars)
+- `--impact`: What changed and why it matters
 
-All notable changes to this project will be documented in this file.
+**Optional Parameters:**
+- `--version`: Target version (default: auto-increment patch)
+- `--issue`: Related issue/bug number (e.g., "BUG-123", "#456")
+- `--files`: Key files affected (comma-separated, max 5)
+- `--migration`: Migration notes for breaking changes
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [Unreleased]
-
-### Added
-- New feature description
-
-### Changed
-- Change description
-
-### Deprecated
-- Deprecated feature notice
-
-### Removed
-- Removed feature notice
-
-### Fixed
-- Bug fix description
-
-### Security
-- Security fix description
-
-## [1.2.0] - 2024-01-15
-
-### Added
-- Add blog post generation with Gemini AI
-- Add social media integration (Discord, LinkedIn, Telegram, Twitter)
-
-### Changed
-- Update Next.js to v16
-- Migrate to Cache Components mode
-
-### Fixed
-- Fix database connection timeout issue
-- Fix chart rendering on mobile devices
-
-## [1.1.0] - 2024-01-01
-
-### Added
-- Add COE bidding results endpoint
-- Add interactive charts with Recharts
-
-### Fixed
-- Fix pagination in car makes endpoint
-
-## [1.0.0] - 2023-12-15
-
-### Added
-- Initial release
-- Car registration data API
-- Next.js web application
-- PostgreSQL database with Drizzle ORM
-- Redis caching
-- SST v3 infrastructure
-
-[Unreleased]: https://github.com/username/repo/compare/v1.2.0...HEAD
-[1.2.0]: https://github.com/username/repo/compare/v1.1.0...v1.2.0
-[1.1.0]: https://github.com/username/repo/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/username/repo/releases/tag/v1.0.0
-```
-
-## Semantic Release Configuration
-
-### .releaserc.json
-
-```json
-{
-  "branches": ["main"],
-  "plugins": [
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
-    "@semantic-release/changelog",
-    "@semantic-release/npm",
-    "@semantic-release/github",
-    "@semantic-release/git"
-  ],
-  "preset": "conventionalcommits",
-  "releaseRules": [
-    { "type": "feat", "release": "minor" },
-    { "type": "fix", "release": "patch" },
-    { "type": "perf", "release": "patch" },
-    { "type": "revert", "release": "patch" },
-    { "type": "docs", "release": false },
-    { "type": "style", "release": false },
-    { "type": "chore", "release": false },
-    { "type": "refactor", "release": false },
-    { "type": "test", "release": false" },
-    { "type": "build", "release": false },
-    { "type": "ci", "release": false }
-  ],
-  "parserOpts": {
-    "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"]
-  }
-}
-```
-
-## Automated Changelog Generation
-
-### GitHub Actions
-
-```yaml
-# .github/workflows/release.yml
-name: Release
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-
-      - run: pnpm install
-
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
-```
-
-## Manual Changelog Updates
-
-### Adding Unreleased Changes
-
+**Usage:**
 ```bash
-# Edit CHANGELOG.md
-vim CHANGELOG.md
+./.claude/skills/cfn-changelog-management/add-changelog-entry.sh \
+  --type "feature" \
+  --summary "Add backlog management skill for deferred work tracking" \
+  --impact "Agents can now systematically capture deferred items with structured metadata instead of losing context in chat history" \
+  --files ".claude/skills/cfn-backlog-management/SKILL.md,readme/BACKLOG.md"
+```
 
-# Add changes under [Unreleased] section
+### Output Location
+All entries appended to: `readme/CHANGELOG.md`
+
+## Changelog File Structure
+
+```markdown
+# Claude Flow Novice Changelog
+
 ## [Unreleased]
 
-### Added
-- Add new feature X
+### Features
+- Add backlog management skill (2025-10-31)
+  - Impact: Systematic deferred work tracking with priority/tag organization
+  - Files: `.claude/skills/cfn-backlog-management/`
 
-### Fixed
-- Fix bug Y
-```
+### Bug Fixes
 
-### Creating a New Release Entry
+### Breaking Changes
 
-```markdown
-## [1.3.0] - 2024-02-01
+### Dependencies
 
-### Added
-- Add user authentication
-- Add admin panel
+### Architecture
 
-### Changed
-- Upgrade Next.js to v16.1.0
-- Update database schema
-
-### Fixed
-- Fix memory leak in cache
-- Fix broken links in documentation
+### Performance
 
 ### Security
-- Update vulnerable dependencies
+
+---
+
+## [2.11.0] - 2025-10-31
+
+### Features
+- Backlog management skill implementation
+  - Impact: Centralized tracking of deferred work items
+  - Files: `.claude/skills/cfn-backlog-management/add-backlog-item.sh`
+
+...
 ```
 
-## Commit Types and Changelog Sections
+## Entry Types
 
-| Commit Type | Changelog Section | Version Bump |
-|-------------|------------------|--------------|
-| `feat:` | Added | Minor (0.x.0) |
-| `fix:` | Fixed | Patch (0.0.x) |
-| `perf:` | Performance | Patch |
-| `refactor:` | Changed | None |
-| `docs:` | Documentation | None |
-| `style:` | Changed | None |
-| `test:` | None | None |
-| `chore:` | None | None |
-| `build:` | None | None |
-| `ci:` | None | None |
-| `revert:` | Fixed | Patch |
-| `BREAKING CHANGE` | Breaking Changes | Major (x.0.0) |
-
-## Example Changelog Entries
-
-### Feature Addition
-
-```markdown
-## [1.2.0] - 2024-01-15
-
-### Added
-- **Blog Generation**: Automatically generate blog posts from car registration data using Google Gemini AI
-  - Configurable prompts for different content styles
-  - Automatic SEO optimization
-  - Support for custom topics
-- **Social Media Integration**: Post updates to Discord, LinkedIn, Telegram, and Twitter
-  - Automated posting when new data is available
-  - Customizable message templates
-  - Rate limiting support
+### Feature
+New functionality, skills, commands, or capabilities.
+```bash
+--type "feature"
+--summary "Implement Redis pub/sub coordination for zero-token waiting"
+--impact "Agents block on BLPOP instead of polling, eliminating API calls during wait cycles"
 ```
 
 ### Bug Fix
-
-```markdown
-### Fixed
-- **Database**: Fix connection timeout issue when processing large datasets
-  - Increased connection pool size
-  - Added connection retry logic
-  - Improved error handling
-- **Charts**: Fix chart rendering on mobile devices
-  - Updated responsive breakpoints
-  - Fixed touch event handling
-  - Improved performance on low-end devices
+Defect resolution, error handling improvements.
+```bash
+--type "bugfix"
+--summary "Fix race condition in Loop 3 confidence collection"
+--impact "Orchestrator now uses synchronous temp file capture instead of polling Redis keys"
+--issue "BUG-10"
 ```
 
 ### Breaking Change
+Incompatible changes requiring user/agent migration.
+```bash
+--type "breaking"
+--summary "Rename skill cfn-redis-coordination → cfn-swarm-coordination"
+--impact "All agent spawn commands must update skill references"
+--migration "Run: sed -i 's/cfn-redis-coordination/cfn-swarm-coordination/g' .claude/agents/**/*.md"
+```
 
+### Dependency
+Package updates, version bumps, security patches.
+```bash
+--type "dependency"
+--summary "Upgrade redis 5.0.0 → 5.8.3"
+--impact "Fixes CVE-2024-1234, adds BLPOP timeout parameter support"
+```
+
+### Architecture
+Coordination pattern changes, skill refactors, system design updates.
+```bash
+--type "architecture"
+--summary "Extract output processing into dedicated skill"
+--impact "95% code reuse between Loop 3 and Loop 2 consensus collection"
+--files ".claude/skills/cfn-agent-output-processing/SKILL.md"
+```
+
+### Performance
+Optimizations with measurable impact.
+```bash
+--type "performance"
+--summary "Parallel agent spawning with background processes"
+--impact "3x speedup for 3-agent coordination (sequential: 15s → parallel: 5s max latency)"
+```
+
+### Security
+Hardening, vulnerability fixes, audit improvements.
+```bash
+--type "security"
+--summary "Add pre-edit backup hook for safe file revert"
+--impact "Prevents git conflicts in parallel sessions, 24h backup retention"
+```
+
+## Validation Rules
+
+1. **Type validation**: Must be one of 7 defined types
+2. **Summary length**: 10-100 characters (enforces brevity)
+3. **Impact required**: Cannot be empty (enforces "why it matters")
+4. **File limit**: Max 5 files (prevents noise)
+5. **Version format**: Semantic versioning (X.Y.Z)
+
+## Sparse Language Guidelines
+
+### ✅ Good Examples
+```
+Summary: "Add Redis coordination skill"
+Impact: "Zero-token agent waiting via BLPOP"
+
+Summary: "Fix confidence parsing edge case"
+Impact: "Handles percentage format (85%) in addition to decimal (0.85)"
+
+Summary: "Upgrade better-sqlite3 to v12.4.1"
+Impact: "Node 22 compatibility, fixes installation errors on WSL2"
+```
+
+### ❌ Bad Examples (Too Verbose)
+```
+Summary: "We have implemented a comprehensive Redis-based coordination system..."
+Impact: "This change allows agents to coordinate more efficiently by using a blocking..."
+
+Summary: "Fixed a bug"
+Impact: "There was an issue that has been resolved"
+```
+
+### Sparse Pattern Rules
+- **Active voice**: "Add feature" not "Feature added"
+- **No articles**: "Fix bug" not "Fix the bug"
+- **No fluff**: "Enables X" not "This change enables X"
+- **Measurable impact**: Include numbers when relevant (3x speedup, 95% reduction)
+
+## Integration Examples
+
+### Loop 3 Agent (After Feature Implementation)
+```bash
+# Agent completes feature work
+Edit: file_path="src/new-feature.ts" ...
+
+# Document change
+./.claude/skills/cfn-changelog-management/add-changelog-entry.sh \
+  --type "feature" \
+  --summary "JWT authentication middleware" \
+  --impact "Stateless auth reduces session storage by 80%" \
+  --files "src/middleware/auth.ts,src/types/jwt.ts"
+```
+
+### Loop 2 Validator (After Identifying Bug Fix)
+```bash
+# Validator reviews fix
+./.claude/skills/cfn-changelog-management/add-changelog-entry.sh \
+  --type "bugfix" \
+  --summary "Prevent null pointer in Redis connection retry" \
+  --impact "Eliminates crashes during Redis unavailability" \
+  --issue "BUG-42" \
+  --files "src/redis/client.ts"
+```
+
+### Product Owner (After Architectural Decision)
+```bash
+# Product Owner approves design change
+./.claude/skills/cfn-changelog-management/add-changelog-entry.sh \
+  --type "architecture" \
+  --summary "Split orchestrator into modular helper scripts" \
+  --impact "78% code reduction, improved testability" \
+  --files ".claude/skills/cfn-loop-orchestration/helpers/"
+```
+
+## Versioning Strategy
+
+### Auto-Increment (Default)
+Script reads current version from `package.json`, increments patch:
+- Current: `2.11.0` → Entry added to: `[Unreleased]`
+- On release: Move `[Unreleased]` → `[2.11.1] - YYYY-MM-DD`
+
+### Manual Version (Override)
+```bash
+--version "3.0.0"  # Specify major/minor bump explicitly
+```
+
+### Release Workflow
+1. Agents add entries to `[Unreleased]` section
+2. On release trigger (manual or automated):
+   - Rename `[Unreleased]` → `[X.Y.Z] - DATE`
+   - Create new empty `[Unreleased]` section
+   - Update `package.json` version
+
+## Query Interface
+
+**Filter by type:**
+```bash
+sed -n '/### Features/,/### Bug Fixes/p' readme/CHANGELOG.md
+```
+
+**Recent entries (last 10):**
+```bash
+grep -A 2 "^- " readme/CHANGELOG.md | head -30
+```
+
+**Search by keyword:**
+```bash
+grep -i "redis" readme/CHANGELOG.md
+```
+
+**Entries for specific version:**
+```bash
+sed -n '/## \[2.11.0\]/,/## \[2.10.0\]/p' readme/CHANGELOG.md
+```
+
+## Best Practices
+
+1. **Immediate logging**: Add entry immediately after completing work, not batched
+2. **User perspective**: Describe impact from user/agent consumer viewpoint
+3. **File references**: Include key files for context (not exhaustive list)
+4. **Link issues**: Reference bug numbers or GitHub issues when applicable
+5. **Migration notes**: Always include for breaking changes
+
+## Anti-Patterns
+
+❌ **Verbose commit messages**: "This commit implements a new feature that..."
+❌ **Generic summaries**: "Fixed bugs", "Updated code", "Improvements"
+❌ **Missing impact**: "Added function X" (Why does it matter?)
+❌ **Duplicate entries**: Check existing changelog before adding
+❌ **Version conflicts**: Don't manually edit version, use --version flag
+
+## Example Entry Lifecycle
+
+**Step 1: Agent completes feature**
+```bash
+add-changelog-entry.sh \
+  --type "feature" \
+  --summary "Multi-pattern confidence parsing" \
+  --impact "100% extraction success, supports explicit/percentage/qualitative formats"
+```
+
+**Result in CHANGELOG.md:**
 ```markdown
-## [2.0.0] - 2024-03-01
+## [Unreleased]
 
-### BREAKING CHANGES
-
-- **API**: Changed authentication method from API keys to JWT tokens
-  - Migration guide: https://docs.sgcarstrends.com/migration/v2
-  - API keys deprecated and will be removed in v2.1.0
-  - Update clients to use new authentication flow
-
-- **Database**: Renamed `cars` table to `vehicle_registrations`
-  - Run migration: `pnpm db:migrate`
-  - Update queries to use new table name
-  - Backward compatibility maintained until v2.1.0
-
-### Added
-- New authentication system with JWT tokens
-- Support for refresh tokens
+### Features
+- Multi-pattern confidence parsing (2025-10-31)
+  - Impact: 100% extraction success, supports explicit/percentage/qualitative formats
+  - Files: `.claude/skills/cfn-agent-output-processing/parse-confidence.sh`
 ```
 
-## Changelog Best Practices
+**Step 2: Release triggered**
+```bash
+# Manual or automated
+npm version minor  # 2.11.0 → 2.12.0
+```
 
-### 1. Clear Descriptions
-
+**Result:**
 ```markdown
-# ❌ Vague
-### Added
-- Added stuff
-- Fixed things
+## [2.12.0] - 2025-11-01
 
-# ✅ Clear
-### Added
-- Add blog post generation with Gemini AI
-- Add rate limiting to API endpoints (100 req/min per IP)
+### Features
+- Multi-pattern confidence parsing (2025-10-31)
+  - Impact: 100% extraction success, supports explicit/percentage/qualitative formats
+  - Files: `.claude/skills/cfn-agent-output-processing/parse-confidence.sh`
 
-### Fixed
-- Fix database connection timeout during large data imports
-- Fix chart rendering issue on iOS Safari
+---
+
+## [Unreleased]
+
+### Features
+
+### Bug Fixes
+...
 ```
 
-### 2. Group Related Changes
+## Success Metrics
 
-```markdown
-# ❌ Ungrouped
-### Added
-- Add feature A
-- Fix bug X
-- Add feature B
-- Fix bug Y
-
-# ✅ Grouped
-### Added
-- Add feature A with support for X
-- Add feature B with support for Y
-
-### Fixed
-- Fix bug X that affected feature A
-- Fix bug Y that affected feature B
-```
-
-### 3. Include Context
-
-```markdown
-# ❌ No context
-### Fixed
-- Fix bug
-
-# ✅ With context
-### Fixed
-- Fix database connection timeout when processing > 10,000 records
-  - Issue affected nightly data import job
-  - Now uses connection pooling and batch processing
-  - Performance improved by 50%
-```
-
-### 4. Link to Issues/PRs
-
-```markdown
-### Added
-- Add user authentication ([#123](https://github.com/username/repo/pull/123))
-- Add admin panel ([#124](https://github.com/username/repo/pull/124))
-
-### Fixed
-- Fix memory leak ([#125](https://github.com/username/repo/issues/125))
-```
-
-## Viewing Changelog
-
-### GitHub Releases
-
-1. Navigate to repository
-2. Click "Releases" tab
-3. View auto-generated release notes
-
-### Local Viewing
-
-```bash
-# View CHANGELOG.md
-cat CHANGELOG.md
-
-# View specific version
-grep -A 20 "## \[1.2.0\]" CHANGELOG.md
-
-# View unreleased changes
-grep -A 50 "## \[Unreleased\]" CHANGELOG.md
-```
-
-## Generating Changelog Manually
-
-### Using semantic-release
-
-```bash
-# Dry run (preview without releasing)
-npx semantic-release --dry-run
-
-# Generate changelog
-npx semantic-release
-```
-
-### Using git-changelog
-
-```bash
-# Install git-changelog
-npm install -g generate-changelog
-
-# Generate changelog
-changelog
-
-# Generate for specific version
-changelog -p 1.2.0
-
-# Generate from git history
-git log --oneline --decorate
-```
-
-## Changelog Validation
-
-### Check Format
-
-```bash
-# Install markdownlint
-pnpm add -D markdownlint-cli
-
-# Lint CHANGELOG.md
-pnpm markdownlint CHANGELOG.md
-
-# Fix formatting issues
-pnpm markdownlint --fix CHANGELOG.md
-```
-
-### Check Links
-
-```bash
-# Check for broken links in changelog
-grep -o 'http[s]*://[^)]*' CHANGELOG.md | xargs -I {} curl -s -o /dev/null -w "%{http_code} {}\n" {}
-```
-
-## Migration Guide Template
-
-When creating breaking changes, include a migration guide:
-
-```markdown
-## [2.0.0] - 2024-03-01
-
-### BREAKING CHANGES
-
-#### Authentication Method Changed
-
-**What changed:**
-- API authentication now uses JWT tokens instead of API keys
-
-**Migration steps:**
-
-1. **Update client code** to use new authentication:
-   ```javascript
-   // Before
-   headers: { 'X-API-Key': 'your-key' }
-
-   // After
-   headers: { 'Authorization': 'Bearer your-jwt-token' }
-   \```
-
-2. **Obtain JWT token** from new `/auth/login` endpoint:
-   ```bash
-   curl -X POST https://api.sgcarstrends.com/auth/login \
-     -H 'Content-Type: application/json' \
-     -d '{"username":"user","password":"pass"}'
-   \```
-
-3. **Update environment variables**:
-   ```bash
-   # Remove
-   API_KEY=your-old-key
-
-   # Add
-   JWT_SECRET=your-jwt-secret
-   \```
-
-**Timeline:**
-- API keys supported until: **April 1, 2024**
-- Must migrate by: **March 31, 2024**
-
-**Support:**
-- Questions: [GitHub Discussions](https://github.com/username/repo/discussions)
-- Issues: [GitHub Issues](https://github.com/username/repo/issues)
-```
-
-## Troubleshooting
-
-### Semantic Release Not Generating Changelog
-
-```bash
-# Issue: No changelog generated
-# Possible causes:
-# 1. No conventional commits since last release
-# 2. Wrong branch
-# 3. Missing GITHUB_TOKEN
-
-# Check commits
-git log --oneline
-
-# Check branch
-git branch
-
-# Verify GITHUB_TOKEN
-echo $GITHUB_TOKEN
-```
-
-### Duplicate Entries
-
-```bash
-# Issue: Duplicate changelog entries
-# Solution: Clean up CHANGELOG.md manually
-
-# Remove duplicates
-vim CHANGELOG.md
-
-# Commit fix
-git add CHANGELOG.md
-git commit -m "docs: remove duplicate changelog entries"
-```
+- **Entry quality**: ≥90% of entries include measurable impact
+- **Sparse language**: Average summary length ≤60 characters
+- **Timeliness**: ≥80% of entries added within same sprint as implementation
+- **Coverage**: 100% of features/breaking changes documented
+- **Queryability**: Users can find relevant changes in <30 seconds
 
 ## References
 
-- Keep a Changelog: https://keepachangelog.com
-- Semantic Versioning: https://semver.org
-- Semantic Release: https://semantic-release.gitbook.io
-- Conventional Commits: https://www.conventionalcommits.org
-- Related files:
-  - `CHANGELOG.md` - Project changelog
-  - `.releaserc.json` - Semantic release config
-  - Root CLAUDE.md - Release process
-
-## Best Practices Summary
-
-1. **Automatic Generation**: Use semantic-release for automated changelog
-2. **Clear Descriptions**: Write clear, descriptive changelog entries
-3. **Group Changes**: Group related changes together
-4. **Breaking Changes**: Highlight breaking changes prominently
-5. **Migration Guides**: Include migration steps for breaking changes
-6. **Link References**: Link to issues and pull requests
-7. **Regular Updates**: Keep changelog updated with each release
-8. **User-Focused**: Write for end users, not developers
+- **Sparse Language**: readme/CLAUDE.md - Documentation Guidelines
+- **Backlog Management**: `.claude/skills/cfn-backlog-management/SKILL.md`
+- **Versioning**: `package.json` - Single source of truth

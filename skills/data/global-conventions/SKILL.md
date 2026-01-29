@@ -1,7 +1,22 @@
 ---
 name: Global Conventions
-description: Your approach to handling global conventions. Use this skill when working on files where global conventions comes into play.
+description: Follow project-wide development conventions for file structure, documentation, version control, environment configuration, and code review processes. Use this skill when organizing project files and directories. When working with Git commits, branches, or pull requests. When managing environment variables or configuration files. When updating README or documentation files. When working with dependencies or package management. When considering feature flags or changelog entries.
 ---
+
+## When to use this skill:
+
+- When organizing or restructuring project files and directories
+- When creating new files and deciding where they should go
+- When writing Git commit messages
+- When creating or naming Git branches
+- When preparing pull/merge requests with descriptions
+- When working with environment variables or .env files
+- When managing project dependencies in package files
+- When updating README or documentation files
+- When setting up or reviewing code review processes
+- When considering using feature flags for incomplete features
+- When updating changelog or release notes
+- When ensuring secrets and API keys are not committed
 
 # Global Conventions
 

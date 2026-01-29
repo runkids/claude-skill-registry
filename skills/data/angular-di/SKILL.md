@@ -208,7 +208,7 @@ export class ApiService {
   deps: [HttpClient, APP_CONFIG],
 }
 
-// Async factory (not recommended - use APP_INITIALIZER)
+// Async factory (not recommended - use provideAppInitializer)
 {
   provide: CONFIG,
   useFactory: () => fetch('/config.json').then(r => r.json()),
@@ -311,26 +311,20 @@ export const appConfig: ApplicationConfig = {
 };
 ```
 
-## APP_INITIALIZER
+## App Initializers
 
-Run async code before app starts:
+Run async code before app starts using `provideAppInitializer`:
 
 ```typescript
-import { APP_INITIALIZER } from '@angular/core';
-
-function initializeApp(configService: ConfigService): () => Promise<void> {
-  return () => configService.loadConfig();
-}
+import { provideAppInitializer, inject } from '@angular/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     ConfigService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeApp,
-      deps: [ConfigService],
-      multi: true,
-    },
+    provideAppInitializer(() => {
+      const configService = inject(ConfigService);
+      return configService.loadConfig();
+    }),
   ],
 };
 ```
@@ -339,18 +333,14 @@ export const appConfig: ApplicationConfig = {
 
 ```typescript
 providers: [
-  {
-    provide: APP_INITIALIZER,
-    useFactory: (config: ConfigService) => () => config.load(),
-    deps: [ConfigService],
-    multi: true,
-  },
-  {
-    provide: APP_INITIALIZER,
-    useFactory: (auth: AuthService) => () => auth.checkSession(),
-    deps: [AuthService],
-    multi: true,
-  },
+  provideAppInitializer(() => {
+    const config = inject(ConfigService);
+    return config.load();
+  }),
+  provideAppInitializer(() => {
+    const auth = inject(AuthService);
+    return auth.checkSession();
+  }),
 ]
 ```
 

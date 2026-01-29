@@ -1,7 +1,7 @@
 {
   "name": "condition-based-waiting",
-  "repo": "ljchg12-hue/dotfiles",
-  "path": "skills/superpowers/skills/condition-based-waiting/SKILL.md",
-  "source": "github.com/ljchg12-hue/dotfiles",
-  "downloaded_at": "2026-01-28T04:40:26.092486Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": ".claude/skills/superpowers/condition-based-waiting/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-29T04:39:17.702494Z"
 }

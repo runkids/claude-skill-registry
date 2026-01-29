@@ -1,22 +1,16 @@
----
-title: ScimUserRoutingSkill
----
+# OptionalEscoOccupationSkill
 
-:::error
-**The Ruby SDK is deprecated as of 9/16/2020**
-
-The Genesys Cloud Ruby SDK (v96.0.0) will be frozen at its current version level. Any new enhancements to our API or bug fixes will not be backported. If you do need to take advantage of new features or bug fixes outside the Genesys Cloud Ruby SDK, you will need to use the Genesys Cloud REST endpoints directly. More information can be found in the [Official Announcement](https://developer.mypurecloud.com/forum/t/announcement-genesys-cloud-ruby-sdk-end-of-life/8850).
-:::
-
-
-## PureCloud::ScimUserRoutingSkill
 
 ## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**concept_type** | **str** | This field shows the concept type according with the ESCO classification. | [optional] 
+**preferred_label** | **str** | This field shows the skill preferred label according with the ESCO classification. | [optional] 
+**alt_labels** | **str** | This field shows the skill alternative labels according with the ESCO classification. | [optional] 
+**description** | **str** | This field shows the skill description according with the ESCO classification. | [optional] 
+**isco_group** | **str** | This field shows the ISCO group according with the ESCO classification. | [optional] 
+**code** | **str** | This field shows the ESCO occupation code according with the ESCO classification. | [optional] 
 
-|Name | Type | Description | Notes|
-|------------ | ------------- | ------------- | -------------|
-| **name** | **String** | The case-sensitive name of a routing skill configured in Genesys Cloud. | |
-| **proficiency** | **Float** | A rating from 0.0 to 5.0 that indicates how adept an agent is at a particular skill. When \&quot;Best available skills\&quot; is enabled for a queue in Genesys Cloud, ACD interactions in that queue are routed to agents with higher proficiency ratings. | [optional] |
-{: class="table table-striped"}
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
