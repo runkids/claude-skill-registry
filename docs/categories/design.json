@@ -1,8 +1,8 @@
 {
   "category": "design",
   "code": "des",
-  "count": 5661,
-  "updated_at": "2026-01-28T04:48:17.251052Z",
+  "count": 5620,
+  "updated_at": "2026-01-29T04:50:38.565564Z",
   "skills": [
     {
       "name": "add-uint-support",
@@ -321,20 +321,6 @@
       ],
       "stars": 2424,
       "install": "siriwatknp/mui-treasury/.claude/skills/writing-registry-meta",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "jujutsu",
-      "description": "Guide to Jujutsu (jj) version control system. Use when working with commits, branches, version control, rebasing, or when the user mentions jj, git, or version control operations.",
-      "repo": "cryfs/cryfs",
-      "path": "data/jujutsu",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "jujutsu"
-      ],
-      "stars": 2188,
-      "install": "cryfs/cryfs/data/jujutsu",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -6044,22 +6030,6 @@
       "name": "brave-search-api",
       "description": "This skill enables web searching using Brave Search API directly via curl. Use when searching for current information, news, articles, or web content. MCP server not required - calls API directly.",
       "repo": "s-hiraoku/vscode-sidebar-terminal",
-      "path": "data/brave-search-api",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "brave",
-        "search",
-        "api"
-      ],
-      "stars": 6,
-      "install": "s-hiraoku/vscode-sidebar-terminal/data/brave-search-api",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "brave-search-api",
-      "description": "This skill enables web searching using Brave Search API directly via curl. Use when searching for current information, news, articles, or web content. MCP server not required - calls API directly.",
-      "repo": "s-hiraoku/vscode-sidebar-terminal",
       "path": ".claude/skills/brave-search-api",
       "branch": "main",
       "category": "design",
@@ -6144,22 +6114,6 @@
       ],
       "stars": 6,
       "install": "azalio/map-framework/.claude/skills/map-cli-reference",
-      "source": "local"
-    },
-    {
-      "name": "mcp-brave-search",
-      "description": "This skill provides guidance for using Brave Search MCP to search the web. Use when searching for current information, news, articles, local businesses, or any web content. Supports both general web s",
-      "repo": "s-hiraoku/vscode-sidebar-terminal",
-      "path": "data/mcp-brave-search",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "mcp",
-        "brave",
-        "search"
-      ],
-      "stars": 6,
-      "install": "s-hiraoku/vscode-sidebar-terminal/data/mcp-brave-search",
       "source": "local"
     },
     {
@@ -7496,22 +7450,6 @@
       ],
       "stars": 4,
       "install": "adeonir/golden-anniversary/.claude/skills/design-conventions",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "design-doc-mermaid",
-      "description": "Create Mermaid diagrams for any purpose - activity diagrams, deployment diagrams, architecture diagrams, or complete design documents. This skill uses a hierarchical structure with specialized guides",
-      "repo": "SpillwaveSolutions/design-doc-mermaid",
-      "path": "data/design-doc-mermaid",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "design",
-        "doc",
-        "mermaid"
-      ],
-      "stars": 4,
-      "install": "SpillwaveSolutions/design-doc-mermaid/data/design-doc-mermaid",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -10632,21 +10570,6 @@
       "name": "sdv-ui-layout",
       "description": "This skill should be used when the user asks to \"create a menu layout\", \"fix UI spacing\", \"adjust positioning\", \"design a menu\", or discusses UI alignment, element placement, or visual layout. Also us",
       "repo": "liminalwarmth/StardewOutfitManager",
-      "path": "data/sdv-ui-layout",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "sdv",
-        "layout"
-      ],
-      "stars": 2,
-      "install": "liminalwarmth/StardewOutfitManager/data/sdv-ui-layout",
-      "source": "local"
-    },
-    {
-      "name": "sdv-ui-layout",
-      "description": "This skill should be used when the user asks to \"create a menu layout\", \"fix UI spacing\", \"adjust positioning\", \"design a menu\", or discusses UI alignment, element placement, or visual layout. Also us",
-      "repo": "liminalwarmth/StardewOutfitManager",
       "path": ".claude/skills/sdv-ui-layout",
       "branch": "main",
       "category": "design",
@@ -10701,21 +10624,6 @@
       ],
       "stars": 2,
       "install": "Bbeierle12/Skill-MCP-Claude/skills/shader-router",
-      "source": "local"
-    },
-    {
-      "name": "specflux-api",
-      "description": "SpecFlux REST API for creating and managing projects, PRDs, epics, tasks, and acceptance criteria. Use when running /prd, /epic, /task, or /implement commands to create or update entities in SpecFlux",
-      "repo": "cliangdev/specflux",
-      "path": "data/specflux-api",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "specflux",
-        "api"
-      ],
-      "stars": 2,
-      "install": "cliangdev/specflux/data/specflux-api",
       "source": "local"
     },
     {
@@ -12938,21 +12846,6 @@
       "source": "local"
     },
     {
-      "name": "generate-variant",
-      "description": "Generate job-targeted CV variants with built-in quality gates. Queries knowledge base, customizes content, runs eval/redteam pipeline.",
-      "repo": "fotescodev/portfolio",
-      "path": "data/generate-variant",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "generate",
-        "variant"
-      ],
-      "stars": 1,
-      "install": "fotescodev/portfolio/data/generate-variant",
-      "source": "local"
-    },
-    {
       "name": "go-interface",
       "description": "Go interface design standards. Use when writing, generating, or reviewing Go interfaces, repository patterns, or service abstractions.",
       "repo": "canopy-network/launchpad",
@@ -14214,21 +14107,6 @@
       "name": "sprint-sync",
       "description": "Multi-perspective project onboarding and sprint briefing. Simulates a cross-functional leadership team (PM, Designer, Architect, Engineer) ramping up on project status. Updates the Current Status sect",
       "repo": "fotescodev/portfolio",
-      "path": "data/sprint-sync",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "sprint",
-        "sync"
-      ],
-      "stars": 1,
-      "install": "fotescodev/portfolio/data/sprint-sync",
-      "source": "local"
-    },
-    {
-      "name": "sprint-sync",
-      "description": "Multi-perspective project onboarding and sprint briefing. Simulates a cross-functional leadership team (PM, Designer, Architect, Engineer) ramping up on project status. Updates the Current Status sect",
-      "repo": "fotescodev/portfolio",
       "path": ".claude/skills/sprint-sync",
       "branch": "main",
       "category": "design",
@@ -14462,21 +14340,6 @@
       ],
       "stars": 1,
       "install": "NickCrew/claude-ctx-plugin/claude_ctx_py/assets/skills/threat-modeling-techniques",
-      "source": "local"
-    },
-    {
-      "name": "ticket-create",
-      "description": "Interactive Atomic Ticket design and creation tool following Single Responsibility Principle. Use when: (1) Creating new tickets for development tasks, (2) Breaking down complex requirements into atom",
-      "repo": "tarrragon/claude",
-      "path": "data/ticket-create",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "ticket",
-        "create"
-      ],
-      "stars": 1,
-      "install": "tarrragon/claude/data/ticket-create",
       "source": "local"
     },
     {
@@ -18916,22 +18779,6 @@
       "name": "api-contract-sync",
       "description": "Use this skill when backend API contracts change and frontend types need synchronization. Triggers on: Pydantic model changes, REST endpoint updates, WebSocket message formats, or GraphQL schema modif",
       "repo": "djimontyp/task-tracker",
-      "path": "data/api-contract-sync",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "api",
-        "contract",
-        "sync"
-      ],
-      "stars": 0,
-      "install": "djimontyp/task-tracker/data/api-contract-sync",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "api-contract-sync",
-      "description": "Use this skill when backend API contracts change and frontend types need synchronization. Triggers on: Pydantic model changes, REST endpoint updates, WebSocket message formats, or GraphQL schema modif",
-      "repo": "djimontyp/task-tracker",
       "path": ".claude/api-contract-sync",
       "branch": "main",
       "category": "design",
@@ -19458,18 +19305,6 @@
       "stars": 0,
       "install": "PierreZ/claude-personal-skills/skills/application-metrics",
       "source": "GitHub Search API"
-    },
-    {
-      "name": "apply-mantel-styles",
-      "description": "Provides guidelines for applying Mantel's brand styles to diagrams and frontend components. Use when asked to create visuals that need to align with Mantel's branding.",
-      "repo": "sammcj/agentic-coding",
-      "path": "data/apply-mantel-styles",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "sammcj/agentic-coding/data/apply-mantel-styles",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "apply-mantel-styles",
@@ -20787,18 +20622,6 @@
       "name": "authoring-stitch-prompts",
       "description": "Converts natural-language descriptions or UI spec files into optimized Google Stitch prompts. Use when creating, refining, or validating design directives for Google Stitch. The Skill follows Stitch b",
       "repo": "joaquimscosta/arkhe-claude-plugins",
-      "path": "data/authoring-stitch-prompts",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "joaquimscosta/arkhe-claude-plugins/data/authoring-stitch-prompts",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "authoring-stitch-prompts",
-      "description": "Converts natural-language descriptions or UI spec files into optimized Google Stitch prompts. Use when creating, refining, or validating design directives for Google Stitch. The Skill follows Stitch b",
-      "repo": "joaquimscosta/arkhe-claude-plugins",
       "path": "plugins/google-stitch/skills/authoring-stitch-prompts",
       "branch": "main",
       "category": "design",
@@ -20990,18 +20813,6 @@
       ],
       "stars": 0,
       "install": "ntaksh42/agents/.claude/skills/azure-release-pipeline",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "ba",
-      "description": "Business analysis methodologies, requirements engineering, RACI matrices, user stories for Pulse Radar.",
-      "repo": "djimontyp/task-tracker",
-      "path": "data/ba",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "djimontyp/task-tracker/data/ba",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -22451,18 +22262,6 @@
       "name": "breakpoints",
       "description": "Generates responsive breakpoint tokens for media queries and container queries. Use when setting up responsive design, mobile-first layouts, or viewport-based styling. Outputs CSS, Tailwind, or JSON.",
       "repo": "dylantarre/design-system-skills",
-      "path": "data/breakpoints",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "dylantarre/design-system-skills/data/breakpoints",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "breakpoints",
-      "description": "Generates responsive breakpoint tokens for media queries and container queries. Use when setting up responsive design, mobile-first layouts, or viewport-based styling. Outputs CSS, Tailwind, or JSON.",
-      "repo": "dylantarre/design-system-skills",
       "path": "skills/tokens/breakpoints",
       "branch": "main",
       "category": "design",
@@ -22757,18 +22556,6 @@
       "tags": [],
       "stars": 0,
       "install": "zacharyr0th/next-starter/.claude/skills/bun/bun-quickstart",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "bun-react-ssr",
-      "description": "Use when building server-rendered React with Bun, including streaming SSR, hydration, renderToString, or custom SSR without a framework.",
-      "repo": "secondsky/claude-skills",
-      "path": "data/bun-react-ssr",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "secondsky/claude-skills/data/bun-react-ssr",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -24910,21 +24697,6 @@
       "name": "component-generator",
       "description": "Generate production-ready SolidJS components with Kobalte accessibility primitives, CVA variants, and Storybook stories. Use when creating UI components for the frontend application.",
       "repo": "Hortashaorg/skills",
-      "path": "data/component-generator",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "component",
-        "generator"
-      ],
-      "stars": 0,
-      "install": "Hortashaorg/skills/data/component-generator",
-      "source": "local"
-    },
-    {
-      "name": "component-generator",
-      "description": "Generate production-ready SolidJS components with Kobalte accessibility primitives, CVA variants, and Storybook stories. Use when creating UI components for the frontend application.",
-      "repo": "Hortashaorg/skills",
       "path": ".claude/skills/component-generator",
       "branch": "main",
       "category": "design",
@@ -25323,21 +25095,6 @@
       ],
       "stars": 0,
       "install": "igorrazvodovsky/pattern-playground/.claude/skills/concept-critic",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "concept-design",
-      "description": "ゲームのコンセプトデザインを言語化するためのスキル。漠然としたアイデアを設計可能な形に変換する。使用タイミング：(1)「ゲームのコンセプトを考えたい」(2)「新しいゲームを作りたい」(3)「アイデアを整理したい」と言われた時。判断・行動・体験を中心に据えた設計言語を生成する。",
-      "repo": "yaguma/atelier",
-      "path": "data/concept-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "concept",
-        "design"
-      ],
-      "stars": 0,
-      "install": "yaguma/atelier/data/concept-design",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -29333,18 +29090,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "design-component",
-      "description": "Design Component skill for Empathy Ledger. Use for storyteller cards, story cards, profile displays, and any UI component requiring cultural sensitivity. Provides data mapping, AI enrichment patterns,",
-      "repo": "Acurioustractor/empathy-ledger-v2",
-      "path": "data/design-component",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "Acurioustractor/empathy-ledger-v2/data/design-component",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "design-concepts",
       "description": "Creates conceptual designs that illustrate design strategy and approach. Leverages research insights and design briefs to develop UI concepts, mood boards, and interactive prototypes. Translates strat",
       "repo": "mevans2120/design-suite-claude-skills",
@@ -29592,18 +29337,6 @@
       "tags": [],
       "stars": 0,
       "install": "vanman2024/ai-dev-marketplace/plugins/nextjs-frontend/skills/design-inspiration",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "design-intent-specialist",
-      "description": "Creates accurate frontend implementations from visual references while maintaining design consistency. Use when user provides Figma URLs, screenshots, design images, or requests UI implementation from",
-      "repo": "joaquimscosta/arkhe-claude-plugins",
-      "path": "data/design-intent-specialist",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "joaquimscosta/arkhe-claude-plugins/data/design-intent-specialist",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -33706,18 +33439,6 @@
       "name": "extracting-stitch-mockups",
       "description": "Extracts generated mockup images from Google Stitch project pages. Use when user provides a Stitch project URL (stitch.withgoogle.com/projects/...), mentions extracting/downloading Stitch mockups, sav",
       "repo": "joaquimscosta/arkhe-claude-plugins",
-      "path": "data/extracting-stitch-mockups",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "joaquimscosta/arkhe-claude-plugins/data/extracting-stitch-mockups",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "extracting-stitch-mockups",
-      "description": "Extracts generated mockup images from Google Stitch project pages. Use when user provides a Stitch project URL (stitch.withgoogle.com/projects/...), mentions extracting/downloading Stitch mockups, sav",
-      "repo": "joaquimscosta/arkhe-claude-plugins",
       "path": "plugins/google-stitch/skills/extracting-stitch-mockups",
       "branch": "main",
       "category": "design",
@@ -37699,21 +37420,6 @@
       "name": "game-requirements",
       "description": "ゲームの要件定義書を作成するためのスキル。漠然としたゲームアイデアを設計可能な形に変換する。使用タイミング：(1)「ゲームを作りたい」「新しいゲームを企画したい」と言われた時、(2)「ゲームのアイデアを整理したい」「要件をまとめたい」と言われた時、(3)「プレイサイクルを考えたい」「ゲームの仕様を決めたい」と言われた時。出力形式はMarkdownファイル。ジャンル別テンプレート（デッキ構築、ローグ",
       "repo": "yaguma/atelier",
-      "path": "data/game-requirements",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "game",
-        "requirements"
-      ],
-      "stars": 0,
-      "install": "yaguma/atelier/data/game-requirements",
-      "source": "local"
-    },
-    {
-      "name": "game-requirements",
-      "description": "ゲームの要件定義書を作成するためのスキル。漠然としたゲームアイデアを設計可能な形に変換する。使用タイミング：(1)「ゲームを作りたい」「新しいゲームを企画したい」と言われた時、(2)「ゲームのアイデアを整理したい」「要件をまとめたい」と言われた時、(3)「プレイサイクルを考えたい」「ゲームの仕様を決めたい」と言われた時。出力形式はMarkdownファイル。ジャンル別テンプレート（デッキ構築、ローグ",
-      "repo": "yaguma/atelier",
       "path": ".claude/skills/game-requirements",
       "branch": "main",
       "category": "design",
@@ -40110,18 +39816,6 @@
       "name": "hugo-tov-ux",
       "description": "UX/UI specialist auditing Hugo layouts, components, navigation, and interactions against the Tone & Voice Guide. Ensures designs embody intimacy, consent-forward principles, mystery, sensuality, and i",
       "repo": "RogueRope/docs",
-      "path": "data/hugo-tov-ux",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "RogueRope/docs/data/hugo-tov-ux",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "hugo-tov-ux",
-      "description": "UX/UI specialist auditing Hugo layouts, components, navigation, and interactions against the Tone & Voice Guide. Ensures designs embody intimacy, consent-forward principles, mystery, sensuality, and i",
-      "repo": "RogueRope/docs",
       "path": ".claude/skills/hugo-tov-ux",
       "branch": "main",
       "category": "design",
@@ -40454,18 +40148,6 @@
       "tags": [],
       "stars": 0,
       "install": "mhdhazmi/GNNPowerSystem/design/ieee-pes-paper-reviewer",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "image-illustrator",
-      "description": "Professional illustrator with expert knowledge of the image generation script, image conversion tools, and layout design. Use when creating visual assets, generating images with specific styles, conve",
-      "repo": "RogueRope/docs",
-      "path": "data/image-illustrator",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "RogueRope/docs/data/image-illustrator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -41092,18 +40774,6 @@
       "name": "ink-layout-styling",
       "description": "Use when creating terminal layouts with Ink using Flexbox-based positioning and styling for CLI applications.",
       "repo": "TheBushidoCollective/han",
-      "path": "data/ink-layout-styling",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/ink-layout-styling",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ink-layout-styling",
-      "description": "Use when creating terminal layouts with Ink using Flexbox-based positioning and styling for CLI applications.",
-      "repo": "TheBushidoCollective/han",
       "path": "jutsu/jutsu-ink/skills/ink-layout-styling",
       "branch": "main",
       "category": "design",
@@ -41169,18 +40839,6 @@
       "stars": 0,
       "install": "jgtolentino/opex/.claude/skills/insightpulse-superset-embedded-analytics",
       "source": "local"
-    },
-    {
-      "name": "inspira-ui",
-      "description": "120+ Vue/Nuxt animated components with TailwindCSS v4, motion-v, GSAP, Three.js. Use for hero sections, 3D effects, interactive backgrounds, or encountering setup, CSS variables, motion-v integration",
-      "repo": "secondsky/claude-skills",
-      "path": "data/inspira-ui",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "secondsky/claude-skills/data/inspira-ui",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "inspira-ui",
@@ -42125,18 +41783,6 @@
       "tags": [],
       "stars": 0,
       "install": "openshift-hyperfleet/hyperfleet-claude-plugins/hyperfleet-jira/skills/jira-ticket-creator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "job-description-analysis",
-      "description": "Analyze job postings for requirements, culture, and values - outputs structured analysis matching lexicon categories for comparison and gap analysis",
-      "repo": "AJBcoding/claude-skill-eval",
-      "path": "data/job-description-analysis",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "AJBcoding/claude-skill-eval/data/job-description-analysis",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -44311,22 +43957,6 @@
       ],
       "stars": 0,
       "install": "pauljbernard/content/.archive/old-content-directory-2025-11-06/content/.claude/skills/learning-xr-design",
-      "source": "local"
-    },
-    {
-      "name": "led-mapping-guide",
-      "description": "Visual guide for APC Mini MK2 LED and button mapping. Use when user needs to know \"which button\", \"pad location\", \"LED position\", \"coordinate to note\", \"note to coordinate\", or wants to understand the",
-      "repo": "naporin0624/claude-plugin-apc-mini",
-      "path": "data/led-mapping-guide",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "led",
-        "mapping",
-        "guide"
-      ],
-      "stars": 0,
-      "install": "naporin0624/claude-plugin-apc-mini/data/led-mapping-guide",
       "source": "local"
     },
     {
@@ -50180,36 +49810,12 @@
       "name": "nuxt-core",
       "description": "Nuxt 4 core framework fundamentals: project setup, configuration, routing,SEO, error handling, and directory structure.Use when: creating new Nuxt 4 projects, configuring nuxt.config.ts,setting up rou",
       "repo": "secondsky/claude-skills",
-      "path": "data/nuxt-core",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "secondsky/claude-skills/data/nuxt-core",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "nuxt-core",
-      "description": "Nuxt 4 core framework fundamentals: project setup, configuration, routing,SEO, error handling, and directory structure.Use when: creating new Nuxt 4 projects, configuring nuxt.config.ts,setting up rou",
-      "repo": "secondsky/claude-skills",
       "path": "plugins/nuxt-v4/skills/nuxt-core",
       "branch": "main",
       "category": "design",
       "tags": [],
       "stars": 0,
       "install": "secondsky/claude-skills/plugins/nuxt-v4/skills/nuxt-core",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "nuxt-data",
-      "description": "Nuxt 4 data management: composables, data fetching with useFetch/useAsyncData,and state management with useState and Pinia.Use when: creating custom composables, fetching data with useFetch or useAsyn",
-      "repo": "secondsky/claude-skills",
-      "path": "data/nuxt-data",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "secondsky/claude-skills/data/nuxt-data",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -52443,18 +52049,6 @@
       "name": "perplexity-researcher-reasoning-pro",
       "description": "Highest level of research and reasoning capabilities for complex decision-making with significant consequences, strategic planning, technical architecture decisions, multi-stakeholder problems, or hig",
       "repo": "d-o-hub/rust-self-learning-memory",
-      "path": "data/perplexity-researcher-reasoning-pro",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "d-o-hub/rust-self-learning-memory/data/perplexity-researcher-reasoning-pro",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "perplexity-researcher-reasoning-pro",
-      "description": "Highest level of research and reasoning capabilities for complex decision-making with significant consequences, strategic planning, technical architecture decisions, multi-stakeholder problems, or hig",
-      "repo": "d-o-hub/rust-self-learning-memory",
       "path": ".opencode/skill/perplexity-researcher-reasoning-pro",
       "branch": "main",
       "category": "design",
@@ -54373,18 +53967,6 @@
       "tags": [],
       "stars": 0,
       "install": "ShunsukeHayashi/miyabi-mcp-bundle/.claude/skills/process-management",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "product-design",
-      "description": "Automates design review, token extraction, component mapping, and implementation planning. Reduces design handoff from 6-10 hours to 5 minutes via direct Figma MCP integration. Auto-invoke when user m",
-      "repo": "alekspetrov/navigator",
-      "path": "data/product-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "alekspetrov/navigator/data/product-design",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -56743,18 +56325,6 @@
       "name": "react-hook-creator",
       "description": "React Hook Creator - Auto-activating skill for Frontend Development.Triggers on: react hook creator, react hook creatorPart of the Frontend Development skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/react-hook-creator",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/react-hook-creator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "react-hook-creator",
-      "description": "React Hook Creator - Auto-activating skill for Frontend Development.Triggers on: react hook creator, react hook creatorPart of the Frontend Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "planned-skills/generated/05-frontend-dev/react-hook-creator",
       "branch": "main",
       "category": "design",
@@ -58722,22 +58292,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "review-draft-story",
-      "description": "Comprehensive draft story review with parallel specialist sub-agents. Spawns PM, UX, and SM agents to review stories from product, design, and implementation readiness perspectives before development",
-      "repo": "michael-menard/monorepo",
-      "path": "data/review-draft-story",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "review",
-        "draft",
-        "story"
-      ],
-      "stars": 0,
-      "install": "michael-menard/monorepo/data/review-draft-story",
-      "source": "local"
-    },
-    {
       "name": "review-guidelines",
       "description": "コードレビューの基準とチェックリスト",
       "repo": "kami8ma8810/cat-home",
@@ -59949,18 +59503,6 @@
       "name": "screen-generator",
       "description": "Generates new React Native screens following Ishkul patterns. Creates screen component with proper hooks ordering, state management, loading/error/success states, navigation setup, and matching test f",
       "repo": "mesbahtanvir/ishkul",
-      "path": "data/screen-generator",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "mesbahtanvir/ishkul/data/screen-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "screen-generator",
-      "description": "Generates new React Native screens following Ishkul patterns. Creates screen component with proper hooks ordering, state management, loading/error/success states, navigation setup, and matching test f",
-      "repo": "mesbahtanvir/ishkul",
       "path": ".claude/skills/screen-generator",
       "branch": "main",
       "category": "design",
@@ -61112,18 +60654,6 @@
       "tags": [],
       "stars": 0,
       "install": "AgentiveCity/SkillFactory/.claude/skills/shadcn-vite-integration",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "shadcn-vue",
-      "description": "shadcn-vue for Vue/Nuxt with Reka UI components and Tailwind. Use for accessible UI, Auto Form, data tables, charts, or encountering component imports, dark mode, Reka UI errors.",
-      "repo": "secondsky/claude-skills",
-      "path": "data/shadcn-vue",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "secondsky/claude-skills/data/shadcn-vue",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -62951,18 +62481,6 @@
       "name": "spring-boot-web-api",
       "description": "Spring Boot 4 REST API implementation patterns. Use when creating REST controllers, request validation, exception handlers with ProblemDetail (RFC 9457), API versioning, content negotiation, or WebFlu",
       "repo": "joaquimscosta/arkhe-claude-plugins",
-      "path": "data/spring-boot-web-api",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "joaquimscosta/arkhe-claude-plugins/data/spring-boot-web-api",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "spring-boot-web-api",
-      "description": "Spring Boot 4 REST API implementation patterns. Use when creating REST controllers, request validation, exception handlers with ProblemDetail (RFC 9457), API versioning, content negotiation, or WebFlu",
-      "repo": "joaquimscosta/arkhe-claude-plugins",
       "path": "plugins/spring-boot/skills/spring-boot-web-api",
       "branch": "main",
       "category": "design",
@@ -64297,18 +63815,6 @@
       "name": "survey-design",
       "description": "Use to craft rigorous survey instruments with sampling, question logic, and QA standards.",
       "repo": "gtmagents/gtm-agents",
-      "path": "data/survey-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "gtmagents/gtm-agents/data/survey-design",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "survey-design",
-      "description": "Use to craft rigorous survey instruments with sampling, question logic, and QA standards.",
-      "repo": "gtmagents/gtm-agents",
       "path": "plugins/customer-feedback-orchestration/skills/survey-design",
       "branch": "main",
       "category": "design",
@@ -65543,18 +65049,6 @@
       "stars": 0,
       "install": "ehtbanton/ClaudeSkillsRepo/tailwind-config-generator",
       "source": "local"
-    },
-    {
-      "name": "tailwind-configuration",
-      "description": "Use when setting up or customizing Tailwind CSS configuration, theme customization, plugins, and build setup. Covers tailwind.config.js setup and content paths.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/tailwind-configuration",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/tailwind-configuration",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "tailwind-configuration",
@@ -67442,18 +66936,6 @@
       "name": "tov-editor",
       "description": "Brand voice editor trained on the Tone & Writing Style Guide. Reviews copy for alignment with intimate, bold, consent-forward, sex-positive tone. Audits microcopy, red flags, lexicon, rhythm, consent",
       "repo": "RogueRope/docs",
-      "path": "data/tov-editor",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "RogueRope/docs/data/tov-editor",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "tov-editor",
-      "description": "Brand voice editor trained on the Tone & Writing Style Guide. Reviews copy for alignment with intimate, bold, consent-forward, sex-positive tone. Audits microcopy, red flags, lexicon, rhythm, consent",
-      "repo": "RogueRope/docs",
       "path": ".claude/skills/tov-editor",
       "branch": "main",
       "category": "design",
@@ -69230,18 +68712,6 @@
       "tags": [],
       "stars": 0,
       "install": "sandraschi/advanced-memory-mcp/design/uiux-design-consultant",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "uiux-ops",
-      "description": "UI/UX 設計・改善を進めるための運用手順とチェックリストをまとめたスキル。",
-      "repo": "A-Genno/Polaris",
-      "path": "data/uiux-ops",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "A-Genno/Polaris/data/uiux-ops",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -74074,20 +73544,6 @@
       ],
       "stars": 0,
       "install": "WRLDInc/wrld-design-skill/.claude/skills/wrld-design",
-      "source": "local"
-    },
-    {
-      "name": "wt-list",
-      "description": "List all active git worktrees with their status. Use when checking what worktrees exist, their branches, and which has uncommitted changes. Quick overview command.",
-      "repo": "michael-menard/monorepo",
-      "path": "data/wt-list",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "list"
-      ],
-      "stars": 0,
-      "install": "michael-menard/monorepo/data/wt-list",
       "source": "local"
     },
     {

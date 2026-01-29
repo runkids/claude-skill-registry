@@ -1,8 +1,8 @@
 {
   "category": "documents",
   "code": "doc",
-  "count": 2779,
-  "updated_at": "2026-01-28T04:48:17.586289Z",
+  "count": 2753,
+  "updated_at": "2026-01-29T04:50:38.900811Z",
   "skills": [
     {
       "name": "docs-review",
@@ -737,21 +737,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "document-converter",
-      "description": "Convert between Markdown, DOCX, and PDF formats bidirectionally. Handles text extraction from PDF/DOCX, markdown to document conversion. Use when converting document formats or extracting structured c",
-      "repo": "benbrastmckie/.config",
-      "path": "data/document-converter",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "document",
-        "converter"
-      ],
-      "stars": 426,
-      "install": "benbrastmckie/.config/data/document-converter",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "incoherence",
       "description": "Detect and resolve incoherence in documentation, code, specs vs implementation. Includes reconciliation phase for applying user-provided resolutions.",
       "repo": "solatis/claude-config",
@@ -897,21 +882,6 @@
       ],
       "stars": 304,
       "install": "jimmc414/Kosmos/.claude/skills/kosmos-xray",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "kosmos-xray",
-      "description": "Context-efficient codebase exploration using AST analysis. Use when exploring Kosmos architecture, understanding code structure, or preparing documentation for AI programmers. Triggers: xray, map stru",
-      "repo": "jimmc414/Kosmos",
-      "path": "data/kosmos-xray",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "kosmos",
-        "xray"
-      ],
-      "stars": 304,
-      "install": "jimmc414/Kosmos/data/kosmos-xray",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -1141,21 +1111,6 @@
       ],
       "stars": 110,
       "install": "daymade/claude-code-skills/markdown-tools",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "markdown-tools",
-      "description": "Converts documents to markdown (PDFs, Word docs, PowerPoint, Confluence exports) with Windows/WSL path handling. Activates when converting .doc/.docx/PDF/PPTX files to markdown, processing Confluence",
-      "repo": "daymade/claude-code-skills",
-      "path": "data/markdown-tools",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "markdown",
-        "tools"
-      ],
-      "stars": 110,
-      "install": "daymade/claude-code-skills/data/markdown-tools",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -2062,23 +2017,6 @@
       ],
       "stars": 47,
       "install": "obra/superpowers-developing-for-claude-code/skills/working-with-claude-code",
-      "source": "local"
-    },
-    {
-      "name": "working-with-claude-code",
-      "description": "Use when working with Claude Code CLI, plugins, hooks, MCP servers, skills, configuration, or any Claude Code feature - provides comprehensive official documentation for all aspects of Claude Code",
-      "repo": "obra/superpowers-developing-for-claude-code",
-      "path": "data/working-with-claude-code",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "working",
-        "with",
-        "claude",
-        "code"
-      ],
-      "stars": 47,
-      "install": "obra/superpowers-developing-for-claude-code/data/working-with-claude-code",
       "source": "local"
     },
     {
@@ -4600,21 +4538,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "deepwiki-api",
-      "description": "This skill enables GitHub repository documentation exploration using DeepWiki API directly via curl. Use when researching repository structure, understanding library APIs, or asking questions about op",
-      "repo": "s-hiraoku/vscode-sidebar-terminal",
-      "path": "data/deepwiki-api",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "deepwiki",
-        "api"
-      ],
-      "stars": 6,
-      "install": "s-hiraoku/vscode-sidebar-terminal/data/deepwiki-api",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "design-by-contract",
       "description": "Automated contract verification, detection, and remediation across multiple languages using formal preconditions, postconditions, and invariants. This skill provides both reference documentation AND e",
       "repo": "OutlineDriven/odin-claude-plugin",
@@ -4656,21 +4579,6 @@
       ],
       "stars": 6,
       "install": "s-hiraoku/vscode-sidebar-terminal/.claude/skills/mcp-deepwiki",
-      "source": "local"
-    },
-    {
-      "name": "mcp-deepwiki",
-      "description": "This skill provides guidance for using DeepWiki MCP to explore GitHub repository documentation. Use when researching repository structure, understanding library APIs, asking questions about open-sourc",
-      "repo": "s-hiraoku/vscode-sidebar-terminal",
-      "path": "data/mcp-deepwiki",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "mcp",
-        "deepwiki"
-      ],
-      "stars": 6,
-      "install": "s-hiraoku/vscode-sidebar-terminal/data/mcp-deepwiki",
       "source": "local"
     },
     {
@@ -5307,20 +5215,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "docling",
-      "description": "Docling document parser for PDF, DOCX, PPTX, HTML, images, and 15+ formats. Use when parsing documents, extracting text, converting to Markdown/HTML/JSON, chunking for RAG pipelines, or batch processi",
-      "repo": "existential-birds/beagle",
-      "path": "data/docling",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "docling"
-      ],
-      "stars": 4,
-      "install": "existential-birds/beagle/data/docling",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "documentation-production",
       "description": "Use when generating, updating, or organizing documentation (component/API docs, project indexes, diagrams, tutorials, learning paths) - provides structured workflows and references for docs generation",
       "repo": "NickCrew/claude-cortex",
@@ -5471,22 +5365,6 @@
       "source": "local"
     },
     {
-      "name": "hammer-benchmark-report",
-      "description": "Generates professional performance analysis reports from SDL3 HammerEngine benchmark results including statistical analysis, comparison tables, visualizations, and recommendations. Use when preparing",
-      "repo": "Ronin15/SDL3_HammerEngine_Template",
-      "path": "data/hammer-benchmark-report",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "hammer",
-        "benchmark",
-        "report"
-      ],
-      "stars": 4,
-      "install": "Ronin15/SDL3_HammerEngine_Template/data/hammer-benchmark-report",
-      "source": "local"
-    },
-    {
       "name": "hammer-changelog-generator",
       "description": "Generates comprehensive, professionally-formatted changelogs for SDL3 HammerEngine from git history. Analyzes code changes, runs tests, includes architect review, and produces detailed documentation f",
       "repo": "Ronin15/SDL3_HammerEngine_Template",
@@ -5500,22 +5378,6 @@
       ],
       "stars": 4,
       "install": "Ronin15/SDL3_HammerEngine_Template/.claude/skills/hammer-changelog-generator",
-      "source": "local"
-    },
-    {
-      "name": "hammer-changelog-generator",
-      "description": "Generates comprehensive, professionally-formatted changelogs for SDL3 HammerEngine from git history. Analyzes code changes, runs tests, includes architect review, and produces detailed documentation f",
-      "repo": "Ronin15/SDL3_HammerEngine_Template",
-      "path": "data/hammer-changelog-generator",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "hammer",
-        "changelog",
-        "generator"
-      ],
-      "stars": 4,
-      "install": "Ronin15/SDL3_HammerEngine_Template/data/hammer-changelog-generator",
       "source": "local"
     },
     {
@@ -7003,22 +6865,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "editing-hugo-documentation",
-      "description": "Senior editorial review for Hugo documentation sites. Performs comprehensive content audits including structure analysis, quality checks, consistency validation, information architecture review, front",
-      "repo": "RogueRope/docs",
-      "path": "data/editing-hugo-documentation",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "editing",
-        "hugo",
-        "documentation"
-      ],
-      "stars": 2,
-      "install": "RogueRope/docs/data/editing-hugo-documentation",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "feature-docs",
       "description": "Use when the user asks to generate comprehensive feature documentation with verified test cases, create feature README with code evidence, or document a complete feature with test verification. Trigge",
       "repo": "duc01226/EasyPlatform",
@@ -7978,21 +7824,6 @@
       ],
       "stars": 1,
       "install": "AbdulSamad94/Hackhaton-SpecsKitPlus/.claude/skills/chapter-analyzer",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "chapter-analyzer",
-      "description": "Validates and analyzes Docusaurus MDX chapters for structure, pedagogical quality, and component usage.",
-      "repo": "AbdulSamad94/Hackhaton-SpecsKitPlus",
-      "path": "data/chapter-analyzer",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "chapter",
-        "analyzer"
-      ],
-      "stars": 1,
-      "install": "AbdulSamad94/Hackhaton-SpecsKitPlus/data/chapter-analyzer",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -8986,22 +8817,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "first-time-user",
-      "description": "Simulate a first-time user experience by following only the documentation. Generates UX audit reports with friction points and recommendations. Use to test documentation quality and create improvement",
-      "repo": "fotescodev/portfolio",
-      "path": "data/first-time-user",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "first",
-        "time",
-        "user"
-      ],
-      "stars": 1,
-      "install": "fotescodev/portfolio/data/first-time-user",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "first-time-user-dashboard",
       "description": "Simulate a first-time CV Dashboard user experience. Tests if documentation enables new users to generate and access the password-protected variant dashboard. Generates UX audit reports.",
       "repo": "fotescodev/portfolio",
@@ -9016,23 +8831,6 @@
       ],
       "stars": 1,
       "install": "fotescodev/portfolio/.claude/skills/first-time-user-dashboard",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "first-time-user-dashboard",
-      "description": "Simulate a first-time CV Dashboard user experience. Tests if documentation enables new users to generate and access the password-protected variant dashboard. Generates UX audit reports.",
-      "repo": "fotescodev/portfolio",
-      "path": "data/first-time-user-dashboard",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "first",
-        "time",
-        "user",
-        "dashboard"
-      ],
-      "stars": 1,
-      "install": "fotescodev/portfolio/data/first-time-user-dashboard",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -9051,24 +8849,6 @@
       ],
       "stars": 1,
       "install": "fotescodev/portfolio/.claude/skills/first-time-user-ucv-cli",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "first-time-user-ucv-cli",
-      "description": "Simulate a first-time UCV-CLI user experience. Tests if documentation enables new users to use the interactive variant management dashboard. Generates UX audit reports with friction points.",
-      "repo": "fotescodev/portfolio",
-      "path": "data/first-time-user-ucv-cli",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "first",
-        "time",
-        "user",
-        "ucv",
-        "cli"
-      ],
-      "stars": 1,
-      "install": "fotescodev/portfolio/data/first-time-user-ucv-cli",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -9116,21 +8896,6 @@
       ],
       "stars": 1,
       "install": "fotescodev/portfolio/.claude/skills/generate-resume",
-      "source": "local"
-    },
-    {
-      "name": "generate-resume",
-      "description": "Generate a print-optimized, ATS-friendly single-page resume PDF from portfolio content. Use when user wants to create or regenerate their resume. (project)",
-      "repo": "fotescodev/portfolio",
-      "path": "data/generate-resume",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "generate",
-        "resume"
-      ],
-      "stars": 1,
-      "install": "fotescodev/portfolio/data/generate-resume",
       "source": "local"
     },
     {
@@ -9871,21 +9636,6 @@
       "source": "local"
     },
     {
-      "name": "project-planner",
-      "description": "Transforms project ideas into structured documentation (overview + specifications). Use when starting new projects or when brief needs project-level planning with vision, features, and technical requi",
-      "repo": "MacroMan5/claude-code-workflow-plugins",
-      "path": "data/project-planner",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "project",
-        "planner"
-      ],
-      "stars": 1,
-      "install": "MacroMan5/claude-code-workflow-plugins/data/project-planner",
-      "source": "local"
-    },
-    {
       "name": "project-structure",
       "description": "Generate comprehensive project structure documentation with intelligent tree representation, meaningful comments, and utility dependency analysis. Use when user asks to document project structure or c",
       "repo": "jobergner/backent-cli",
@@ -10478,21 +10228,6 @@
       "source": "local"
     },
     {
-      "name": "whole-analyzer",
-      "description": "Pre-editing analysis for Whole documentation. Use when: (1) Starting new editing session,(2) Checking for duplicates across domains, (3) Analyzing section completeness,(4) Validating structure before",
-      "repo": "Goobee811/Whole",
-      "path": "data/whole-analyzer",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "whole",
-        "analyzer"
-      ],
-      "stars": 1,
-      "install": "Goobee811/Whole/data/whole-analyzer",
-      "source": "local"
-    },
-    {
       "name": "whole-editor",
       "description": "Specialized editor for Whole knowledge architecture - Vietnamese-English bilingual documentation.Use when: (1) Editing content in Whole docs, (2) Expanding domain/function concepts,(3) Adding new conc",
       "repo": "Goobee811/Whole",
@@ -10508,21 +10243,6 @@
       "source": "local"
     },
     {
-      "name": "whole-editor",
-      "description": "Specialized editor for Whole knowledge architecture - Vietnamese-English bilingual documentation.Use when: (1) Editing content in Whole docs, (2) Expanding domain/function concepts,(3) Adding new conc",
-      "repo": "Goobee811/Whole",
-      "path": "data/whole-editor",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "whole",
-        "editor"
-      ],
-      "stars": 1,
-      "install": "Goobee811/Whole/data/whole-editor",
-      "source": "local"
-    },
-    {
       "name": "whole-reviewer",
       "description": "Post-editing validation for Whole documentation. Use when: (1) After completing edits,(2) Before marking task complete, (3) Validating cross-reference updates,(4) Verifying bilingual consistency, (5)",
       "repo": "Goobee811/Whole",
@@ -10535,21 +10255,6 @@
       ],
       "stars": 1,
       "install": "Goobee811/Whole/.claude/skills/whole-reviewer",
-      "source": "local"
-    },
-    {
-      "name": "whole-reviewer",
-      "description": "Post-editing validation for Whole documentation. Use when: (1) After completing edits,(2) Before marking task complete, (3) Validating cross-reference updates,(4) Verifying bilingual consistency, (5)",
-      "repo": "Goobee811/Whole",
-      "path": "data/whole-reviewer",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "whole",
-        "reviewer"
-      ],
-      "stars": 1,
-      "install": "Goobee811/Whole/data/whole-reviewer",
       "source": "local"
     },
     {
@@ -11549,18 +11254,6 @@
       "tags": [],
       "stars": 0,
       "install": "niracler/skill/src/anki-card-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "anki-card-generator",
-      "description": "生成高质量 Anki 闪卡，遵循原子化原则和认知科学最佳实践。输出 simple-anki-sync 兼容的 markdown 表格。当用户说「生成 Anki 卡片」「做卡片」「帮我记忆」「做闪卡」「学习卡片」「背诵卡」「记忆这个」时触发。",
-      "repo": "niracler/skill",
-      "path": "data/anki-card-generator",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "niracler/skill/data/anki-card-generator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -15278,20 +14971,6 @@
       ],
       "stars": 0,
       "install": "t0bybr/claude/skills/crawl4ai",
-      "source": "local"
-    },
-    {
-      "name": "crawl4ai",
-      "description": "\"Web crawling and content extraction to clean markdown files. Use this skill when the user wants to: (1) Crawl a website or webpage, (2) Extract and clean content from URLs, (3) Create markdown docume",
-      "repo": "t0bybr/claude",
-      "path": "data/crawl4ai",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "crawl4ai"
-      ],
-      "stars": 0,
-      "install": "t0bybr/claude/data/crawl4ai",
       "source": "local"
     },
     {
@@ -19784,18 +19463,6 @@
       "tags": [],
       "stars": 0,
       "install": "sammcj/agentic-coding/Claude/skills/extract-wisdom",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "extract-wisdom",
-      "description": "Extract wisdom, insights, and actionable takeaways from text sources. Use when asked to analyse, summarise, or extract key learnings from blog posts, articles, markdown files, or other text content.",
-      "repo": "sammcj/agentic-coding",
-      "path": "data/extract-wisdom",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "sammcj/agentic-coding/data/extract-wisdom",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -28197,18 +27864,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "pdf-parser",
-      "description": "Pdf Parser - Auto-activating skill for Business Automation.Triggers on: pdf parser, pdf parserPart of the Business Automation skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/pdf-parser",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/pdf-parser",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "pdf-processing-skill",
       "description": "提取PDF文件中的文本，并按标题/段落结构化输出。适用于文档总结、数据提取等场景。",
       "repo": "ZBCccc/claude-skills",
@@ -29323,18 +28978,6 @@
       "tags": [],
       "stars": 0,
       "install": "joneqian/claude-skills-suite/output/process-faq",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "process-faq",
-      "description": "Process and transform FAQ documents (xlsx, word, pdf, txt) into RAG-optimized format. Use when working with FAQ files, knowledge base documents, or when the user needs to analyze and restructure FAQ c",
-      "repo": "joneqian/claude-skills-suite",
-      "path": "data/process-faq",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "joneqian/claude-skills-suite/data/process-faq",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -30483,21 +30126,6 @@
       ],
       "stars": 0,
       "install": "Yona544/AIskils/generated-skills/repo-changelog",
-      "source": "local"
-    },
-    {
-      "name": "repo-changelog",
-      "description": "Generates end-user friendly release notes and changelogs by analyzing git diffs, consolidating changes, and formatting for Slack and documentation",
-      "repo": "Yona544/AIskils",
-      "path": "data/repo-changelog",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "repo",
-        "changelog"
-      ],
-      "stars": 0,
-      "install": "Yona544/AIskils/data/repo-changelog",
       "source": "local"
     },
     {
@@ -34559,18 +34187,6 @@
       "tags": [],
       "stars": 0,
       "install": "zopu/dotfiles/claude/.claude/skills/today",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "today",
-      "description": "Get today's date for web searches and date-sensitive tasks. Auto-invoke before any WebSearch that includes a year (e.g., \"React 2024\", \"Python 2025\"), when searching for current documentation, latest",
-      "repo": "zopu/dotfiles",
-      "path": "data/today",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "zopu/dotfiles/data/today",
       "source": "SkillsMP + GitHub Raw"
     },
     {

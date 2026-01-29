@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-28T04:48:17.001351Z",
+  "updated_at": "2026-01-29T04:50:38.277770Z",
   "categories": [
     {
       "name": ".template",
@@ -89,7 +89,7 @@
     {
       "name": "data",
       "code": "dat",
-      "count": 20897
+      "count": 22292
     },
     {
       "name": "data-access",
@@ -99,7 +99,7 @@
     {
       "name": "design",
       "code": "des",
-      "count": 5661
+      "count": 5620
     },
     {
       "name": "design-principles",
@@ -109,7 +109,7 @@
     {
       "name": "development",
       "code": "dev",
-      "count": 18613
+      "count": 18468
     },
     {
       "name": "development-code",
@@ -124,7 +124,7 @@
     {
       "name": "devops",
       "code": "ops",
-      "count": 3228
+      "count": 3204
     },
     {
       "name": "docs",
@@ -139,7 +139,7 @@
     {
       "name": "documents",
       "code": "doc",
-      "count": 2779
+      "count": 2753
     },
     {
       "name": "domains",
@@ -204,7 +204,7 @@
     {
       "name": "marketing",
       "code": "mkt",
-      "count": 463
+      "count": 460
     },
     {
       "name": "meta",
@@ -219,7 +219,7 @@
     {
       "name": "other",
       "code": "oth",
-      "count": 19614
+      "count": 19265
     },
     {
       "name": "performance",
@@ -239,12 +239,12 @@
     {
       "name": "product",
       "code": "prd",
-      "count": 1081
+      "count": 1079
     },
     {
       "name": "productivity",
       "code": "pro",
-      "count": 1558
+      "count": 1548
     },
     {
       "name": "programming-languages",
@@ -269,7 +269,7 @@
     {
       "name": "security",
       "code": "sec",
-      "count": 777
+      "count": 775
     },
     {
       "name": "security-compliance",
@@ -324,7 +324,7 @@
     {
       "name": "testing",
       "code": "tst",
-      "count": 4080
+      "count": 4060
     },
     {
       "name": "testing-methodologies",
@@ -354,7 +354,7 @@
     {
       "name": "workflow",
       "code": "oth",
-      "count": 4
+      "count": 3
     },
     {
       "name": "writing",
