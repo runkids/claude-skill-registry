@@ -1,0 +1,19 @@
+{
+  "category": "signal-state-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.029679Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Preact Signals for reactive state management, signal vs computed signal usage, batch updates for performance, action creator patterns, signal integration with React components, state management by dom",
+      "repo": "DW225/ree-board",
+      "path": "signal-state-management",
+      "branch": "main",
+      "category": "signal-state-management",
+      "tags": [],
+      "stars": 0,
+      "install": "DW225/ree-board",
+      "source": "github.com/DW225/ree-board"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "gram",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.271225Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Instagram CLI for viewing feeds, posts, profiles, and engagement via cookies.",
+      "repo": "moltbot/skills",
+      "path": "gram",
+      "branch": "main",
+      "category": "gram",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

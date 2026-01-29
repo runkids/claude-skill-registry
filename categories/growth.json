@@ -1,0 +1,19 @@
+{
+  "category": "growth",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.935505Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Growth engine for ID8Labs. Systematic experimentation and optimization to scale products through data-driven decisions, retention focus, and sustainable acquisition channels.",
+      "repo": "eddiebe147/claude-settings",
+      "path": "growth",
+      "branch": "main",
+      "category": "growth",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

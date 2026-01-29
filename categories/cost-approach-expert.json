@@ -1,0 +1,19 @@
+{
+  "category": "cost-approach-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.428111Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cost approach valuation for specialized infrastructure (transmission towers, telecom sites, substations) using replacement cost new less depreciation (physical, functional, external). Use for speciali",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": "cost-approach-expert",
+      "branch": "main",
+      "category": "cost-approach-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "reggiechan74/vp-real-estate",
+      "source": "github.com/reggiechan74/vp-real-estate"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "trello",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.336408Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage Trello boards, lists, and cards via the Trello REST API.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "trello",
+      "branch": "main",
+      "category": "trello",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

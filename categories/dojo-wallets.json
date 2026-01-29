@@ -1,0 +1,19 @@
+{
+  "category": "dojo-wallets",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.326932Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when managing wallets and accounts in dojo.js games.\nTriggers: burner wallet, useBurner, create wallet, connect wallet, BurnerProvider,\naccount management, predeployed, session wallet",
+      "repo": "dojoengine/dojo.js",
+      "path": "dojo-wallets",
+      "branch": "main",
+      "category": "dojo-wallets",
+      "tags": [],
+      "stars": 0,
+      "install": "dojoengine/dojo.js",
+      "source": "github.com/dojoengine/dojo.js"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "python-pro",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.320529Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master Python 3.12+ with modern features, async programming, performance optimization, and production-ready practices. Expert in the latest Python ecosystem including uv, ruff, pydantic, and FastAPI. ",
+      "repo": "rmyndharis/antigravity-skills",
+      "path": "python-pro",
+      "branch": "main",
+      "category": "python-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "rmyndharis/antigravity-skills",
+      "source": "github.com/rmyndharis/antigravity-skills"
+    }
+  ]
+}

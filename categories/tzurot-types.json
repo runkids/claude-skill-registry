@@ -1,0 +1,19 @@
+{
+  "category": "tzurot-types",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.583860Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating types, constants, Zod schemas, or working with data validation. Covers common-types package organization, runtime validation, and type guards across microservices.",
+      "repo": "lbds137/tzurot",
+      "path": "tzurot-types",
+      "branch": "main",
+      "category": "tzurot-types",
+      "tags": [],
+      "stars": 0,
+      "install": "lbds137/tzurot",
+      "source": "github.com/lbds137/tzurot"
+    }
+  ]
+}

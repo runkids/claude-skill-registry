@@ -1,0 +1,19 @@
+{
+  "category": "selenium-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.852224Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Browser automation with Selenium WebDriver for Python. (project)",
+      "repo": "paunchygent/skriptoteket",
+      "path": "selenium-testing",
+      "branch": "main",
+      "category": "selenium-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "paunchygent/skriptoteket",
+      "source": "github.com/paunchygent/skriptoteket"
+    }
+  ]
+}

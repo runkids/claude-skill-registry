@@ -1,0 +1,19 @@
+{
+  "category": "frontend-angular-api-service",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.094513Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating API services for backend communication with proper patterns for caching, error handling, and type safety.",
+      "repo": "duc01226/EasyPlatform",
+      "path": "frontend-angular-api-service",
+      "branch": "main",
+      "category": "frontend-angular-api-service",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

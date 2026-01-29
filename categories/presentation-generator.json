@@ -1,0 +1,19 @@
+{
+  "category": "presentation-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.653504Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Google Slides presentation creation for PM deliverables. Use when creating presentations from PRDs, pitching ideas, stakeholder updates, or product roadmaps. Triggers on \"presentation\", \"slides\", \"pit",
+      "repo": "foolpoet44/ai-pm-agent",
+      "path": "presentation-generator",
+      "branch": "main",
+      "category": "presentation-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "foolpoet44/ai-pm-agent",
+      "source": "github.com/foolpoet44/ai-pm-agent"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "zod-form-validation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.636693Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Zod schema validation and React Hook Form integration for TypeScript frontends. This skill should be used when creating forms, defining API schemas, validating form data, implementing type-safe valida",
+      "repo": "kettleofketchup/DraftForge",
+      "path": "zod-form-validation",
+      "branch": "main",
+      "category": "zod-form-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "kettleofketchup/DraftForge",
+      "source": "github.com/kettleofketchup/DraftForge"
+    }
+  ]
+}

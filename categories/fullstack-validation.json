@@ -1,0 +1,19 @@
+{
+  "category": "fullstack-validation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.156714Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive validation methodology for multi-component applications including backend, frontend, database, and infrastructure",
+      "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+      "path": "fullstack-validation",
+      "branch": "main",
+      "category": "fullstack-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+      "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude"
+    }
+  ]
+}

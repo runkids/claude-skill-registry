@@ -1,0 +1,19 @@
+{
+  "category": "text-optimize",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.990541Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to optimize, polish, or improve text content. It provides text optimization capabilities including polishing, humanization (removing AI tone), content expa",
+      "repo": "sunqb/ccsdk",
+      "path": "text-optimize",
+      "branch": "main",
+      "category": "text-optimize",
+      "tags": [],
+      "stars": 0,
+      "install": "sunqb/ccsdk",
+      "source": "github.com/sunqb/ccsdk"
+    }
+  ]
+}

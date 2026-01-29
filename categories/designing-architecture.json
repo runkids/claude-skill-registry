@@ -1,0 +1,19 @@
+{
+  "category": "designing-architecture",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.662913Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guides software architecture decisions, design patterns, and system design principles. Use when designing systems, choosing patterns, or making architectural decisions.",
+      "repo": "CloudAI-X/opencode-workflow",
+      "path": "designing-architecture",
+      "branch": "main",
+      "category": "designing-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "CloudAI-X/opencode-workflow",
+      "source": "github.com/CloudAI-X/opencode-workflow"
+    }
+  ]
+}

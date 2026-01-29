@@ -1,0 +1,19 @@
+{
+  "category": "uk-legal-counsel",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.583321Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Alex (Legis-AI) - Senior UK Legal Counsel with 20+ years experience in English & Welsh Law. Use for legal advice, contract drafting, compliance checks, GDPR, employment law, property disputes, or risk",
+      "repo": "olehsvyrydov/selfemploy-uk",
+      "path": "uk-legal-counsel",
+      "branch": "main",
+      "category": "uk-legal-counsel",
+      "tags": [],
+      "stars": 0,
+      "install": "olehsvyrydov/selfemploy-uk",
+      "source": "github.com/olehsvyrydov/selfemploy-uk"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "start-hotfix",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.611442Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Start new hotfix branch",
+      "repo": "FradSer/dotclaude",
+      "path": "start-hotfix",
+      "branch": "main",
+      "category": "start-hotfix",
+      "tags": [],
+      "stars": 0,
+      "install": "FradSer/dotclaude",
+      "source": "github.com/FradSer/dotclaude"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "pm-organization-scale-adaptive",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.453649Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Adjust planning depth and agent behavior based on PRD complexity level",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "pm-organization-scale-adaptive",
+      "branch": "main",
+      "category": "pm-organization-scale-adaptive",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

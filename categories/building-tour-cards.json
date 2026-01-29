@@ -1,0 +1,19 @@
+{
+  "category": "building-tour-cards",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.330547Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guidelines for the Tour Card UI, the primary item in the tour grid. Use when building the tour browsing interface.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "building-tour-cards",
+      "branch": "main",
+      "category": "building-tour-cards",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "p10-context-windowing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.987250Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply P10 Context Windowing to define explicit boundaries in time, space, and scope for analysis or action.",
+      "repo": "hummbl-dev/hummbl-agent",
+      "path": "p10-context-windowing",
+      "branch": "main",
+      "category": "p10-context-windowing",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/hummbl-agent",
+      "source": "github.com/hummbl-dev/hummbl-agent"
+    }
+  ]
+}

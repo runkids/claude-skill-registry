@@ -1,0 +1,19 @@
+{
+  "category": "managing-dns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.403555Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage DNS records, TTL strategies, and DNS-as-code automation for infrastructure. Use when configuring domain resolution, automating DNS from Kubernetes with external-dns, setting up DNS-based load b",
+      "repo": "ancoleman/ai-design-components",
+      "path": "managing-dns",
+      "branch": "main",
+      "category": "managing-dns",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

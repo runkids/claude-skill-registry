@@ -1,0 +1,19 @@
+{
+  "category": "the-tester",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.635024Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Runs tests, analyzes failures, and fixes test issues to ensure code quality.",
+      "repo": "dupipcom/morpheus",
+      "path": "the-tester",
+      "branch": "main",
+      "category": "the-tester",
+      "tags": [],
+      "stars": 0,
+      "install": "dupipcom/morpheus",
+      "source": "github.com/dupipcom/morpheus"
+    }
+  ]
+}

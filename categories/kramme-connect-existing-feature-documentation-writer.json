@@ -1,0 +1,19 @@
+{
+  "category": "kramme-connect-existing-feature-documentation-writer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.583878Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill when you are creating documentation for an existing Connect feature or updating existing docs",
+      "repo": "Abildtoft/kramme-cc-workflow",
+      "path": "kramme:connect-existing-feature-documentation-writer",
+      "branch": "main",
+      "category": "kramme:connect-existing-feature-documentation-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "Abildtoft/kramme-cc-workflow",
+      "source": "github.com/Abildtoft/kramme-cc-workflow"
+    }
+  ]
+}

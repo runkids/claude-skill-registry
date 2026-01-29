@@ -1,0 +1,19 @@
+{
+  "category": "color-converter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.184951Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "在HEX、RGB、HSL、HSV和CMYK格式之间转换颜色，支持调色板生成。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "color-converter",
+      "branch": "main",
+      "category": "color-converter",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

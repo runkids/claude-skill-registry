@@ -1,0 +1,19 @@
+{
+  "category": "denylist-stuck-messages",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.284946Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add message IDs to the relayer denylist. Use after investigating stuck messages with /investigate-stuck-messages, or when you have specific message IDs to denylist.",
+      "repo": "hyperlane-xyz/hyperlane-monorepo",
+      "path": "denylist-stuck-messages",
+      "branch": "main",
+      "category": "denylist-stuck-messages",
+      "tags": [],
+      "stars": 0,
+      "install": "hyperlane-xyz/hyperlane-monorepo",
+      "source": "github.com/hyperlane-xyz/hyperlane-monorepo"
+    }
+  ]
+}

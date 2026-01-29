@@ -1,0 +1,19 @@
+{
+  "category": "sybil",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.904280Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use Sybil for testing code examples in documentation and docstrings. Covers pytest integration, parsers, skip directives, and namespace management.",
+      "repo": "anam-org/metaxy",
+      "path": "sybil",
+      "branch": "main",
+      "category": "sybil",
+      "tags": [],
+      "stars": 0,
+      "install": "anam-org/metaxy",
+      "source": "github.com/anam-org/metaxy"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "grafana-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.115227Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Grafana dashboards, visualization, data sources, alerting, and production operations",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "grafana-expert",
+      "branch": "main",
+      "category": "grafana-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

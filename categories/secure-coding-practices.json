@@ -1,0 +1,19 @@
+{
+  "category": "secure-coding-practices",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.464223Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Secure coding practices and defensive programming patterns for building security-first applications. Use when implementing authentication, handling user input, managing sensitive data, or conducting s",
+      "repo": "NickCrew/claude-cortex",
+      "path": "secure-coding-practices",
+      "branch": "main",
+      "category": "secure-coding-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

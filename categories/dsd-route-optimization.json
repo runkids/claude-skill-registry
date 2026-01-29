@@ -1,0 +1,19 @@
+{
+  "category": "dsd-route-optimization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.004373Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize Direct Store Delivery (DSD) routes, plan delivery schedules for retail stores, or improve route efficiency for CPG distribution. Also use when the user mentions \"DSD ro",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "dsd-route-optimization",
+      "branch": "main",
+      "category": "dsd-route-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

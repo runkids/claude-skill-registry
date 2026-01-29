@@ -1,0 +1,19 @@
+{
+  "category": "ralph-run",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.655330Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run RALPH autonomous development loop with multi-agent pipeline",
+      "repo": "doravidan/supreme-ralph",
+      "path": "ralph-run",
+      "branch": "main",
+      "category": "ralph-run",
+      "tags": [],
+      "stars": 0,
+      "install": "doravidan/supreme-ralph",
+      "source": "github.com/doravidan/supreme-ralph"
+    }
+  ]
+}

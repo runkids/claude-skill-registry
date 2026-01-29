@@ -1,0 +1,19 @@
+{
+  "category": "agentuity-cli-cloud-deployment-remove",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.843263Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Remove a specific deployment. Requires authentication. Use for Agentuity cloud platform operations",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-cloud-deployment-remove",
+      "branch": "main",
+      "category": "agentuity-cli-cloud-deployment-remove",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

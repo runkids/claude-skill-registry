@@ -1,0 +1,19 @@
+{
+  "category": "signal-intel",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.052289Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when consolidating intent, product usage, and third-party signals to prioritize ABM actions.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "signal-intel",
+      "branch": "main",
+      "category": "signal-intel",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

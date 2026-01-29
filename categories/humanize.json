@@ -1,0 +1,19 @@
+{
+  "category": "humanize",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.446436Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Remove signs of AI-generated writing from text (formerly human-writing). Use when editing or reviewing\ntext to make it sound more natural and human-written. Based on Wikipedia's\ncomprehensive \"Signs o",
+      "repo": "pproenca/dot-skills",
+      "path": "humanize",
+      "branch": "main",
+      "category": "humanize",
+      "tags": [],
+      "stars": 0,
+      "install": "pproenca/dot-skills",
+      "source": "github.com/pproenca/dot-skills"
+    }
+  ]
+}

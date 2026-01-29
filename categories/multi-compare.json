@@ -1,0 +1,19 @@
+{
+  "category": "multi-compare",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.530198Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run this command with user's arguments:",
+      "repo": "faisalanjum/EventTrader",
+      "path": "multi-compare",
+      "branch": "main",
+      "category": "multi-compare",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

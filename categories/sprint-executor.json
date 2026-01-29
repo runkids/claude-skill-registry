@@ -1,0 +1,19 @@
+{
+  "category": "sprint-executor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.153378Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute approved sprint plans with test-driven development, continuous linting, progress tracking, and pause points. Use when user says \"execute sprint\", \"start sprint\", or wants to implement an appro",
+      "repo": "sunholo-data/ailang",
+      "path": "sprint-executor",
+      "branch": "main",
+      "category": "sprint-executor",
+      "tags": [],
+      "stars": 0,
+      "install": "sunholo-data/ailang",
+      "source": "github.com/sunholo-data/ailang"
+    }
+  ]
+}

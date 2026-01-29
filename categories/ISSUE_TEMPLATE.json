@@ -1,0 +1,19 @@
+{
+  "category": "ISSUE_TEMPLATE",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.013540Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Skill Name:",
+      "repo": "karanb192/awesome-claude-skills",
+      "path": "ISSUE_TEMPLATE",
+      "branch": "main",
+      "category": "ISSUE_TEMPLATE",
+      "tags": [],
+      "stars": 0,
+      "install": "karanb192/awesome-claude-skills",
+      "source": "github.com/karanb192/awesome-claude-skills"
+    }
+  ]
+}

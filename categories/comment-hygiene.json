@@ -1,0 +1,19 @@
+{
+  "category": "comment-hygiene",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.387699Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when the user asks how to write code comments, where to place them, or wants to review, reduce, rewrite, or relocate existing code comments.",
+      "repo": "iplaylf2/coding-profile",
+      "path": "comment-hygiene",
+      "branch": "main",
+      "category": "comment-hygiene",
+      "tags": [],
+      "stars": 0,
+      "install": "iplaylf2/coding-profile",
+      "source": "github.com/iplaylf2/coding-profile"
+    }
+  ]
+}

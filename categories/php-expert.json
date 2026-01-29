@@ -1,0 +1,19 @@
+{
+  "category": "php-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.603084Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level PHP development with PHP 8+, Laravel, Composer, and modern best practices",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "php-expert",
+      "branch": "main",
+      "category": "php-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

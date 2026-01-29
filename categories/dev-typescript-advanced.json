@@ -1,0 +1,19 @@
+{
+  "category": "dev-typescript-advanced",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.336453Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced TypeScript patterns - generics, utility types, React patterns. Use for complex type scenarios.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-typescript-advanced",
+      "branch": "main",
+      "category": "dev-typescript-advanced",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

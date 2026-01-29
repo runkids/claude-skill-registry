@@ -33,7 +33,7 @@ jobs:
             --json sources/discovered.json
 
       - name: Build Registry
-        run: python scripts/build_registry.py
+        run: python scripts/rebuild_registry.py
 
       - name: Commit and Push
         run: |

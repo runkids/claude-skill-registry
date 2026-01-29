@@ -1,0 +1,19 @@
+{
+  "category": "dendrite-reforging-protocol",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.005754Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reforge neural dendrite patterns after catastrophic failure.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "dendrite-reforging-protocol",
+      "branch": "main",
+      "category": "dendrite-reforging-protocol",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

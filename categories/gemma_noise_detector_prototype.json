@@ -1,0 +1,19 @@
+{
+  "category": "gemma_noise_detector_prototype",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.091799Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Gemma Noise Detector (Prototype)",
+      "repo": "Foundup/Foundups-Agent",
+      "path": "gemma_noise_detector_prototype",
+      "branch": "main",
+      "category": "gemma_noise_detector_prototype",
+      "tags": [],
+      "stars": 0,
+      "install": "Foundup/Foundups-Agent",
+      "source": "github.com/Foundup/Foundups-Agent"
+    }
+  ]
+}

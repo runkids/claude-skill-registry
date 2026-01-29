@@ -1,0 +1,19 @@
+{
+  "category": "moai-baas-auth0-ext",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.560451Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Auth0 Identity Platform with AI-powered authentication architecture, Context7 integration, and intelligent identity orchestration for scalable enterprise SSO and compliance",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-baas-auth0-ext",
+      "branch": "main",
+      "category": "moai-baas-auth0-ext",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

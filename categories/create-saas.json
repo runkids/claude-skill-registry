@@ -1,0 +1,19 @@
+{
+  "category": "create-saas",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.315855Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete SaaS ideation to implementation workflow - from idea discovery to task breakdown",
+      "repo": "cedricfressin/claude-config",
+      "path": "create-saas",
+      "branch": "main",
+      "category": "create-saas",
+      "tags": [],
+      "stars": 0,
+      "install": "cedricfressin/claude-config",
+      "source": "github.com/cedricfressin/claude-config"
+    }
+  ]
+}

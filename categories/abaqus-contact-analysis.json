@@ -1,0 +1,19 @@
+{
+  "category": "abaqus-contact-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.683360Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze multi-body contact. Use when user mentions parts touching, friction between surfaces, bolt-plate contact, press fit, or assembly with contact.",
+      "repo": "JaimeCernuda/abaqus-scripting",
+      "path": "abaqus-contact-analysis",
+      "branch": "main",
+      "category": "abaqus-contact-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "JaimeCernuda/abaqus-scripting",
+      "source": "github.com/JaimeCernuda/abaqus-scripting"
+    }
+  ]
+}

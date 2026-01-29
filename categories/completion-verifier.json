@@ -1,0 +1,19 @@
+{
+  "category": "completion-verifier",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.872140Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Verifies implementation completion by running acceptance tests and triggers retry loop on failure.",
+      "repo": "munlucky/claude-settings",
+      "path": "completion-verifier",
+      "branch": "main",
+      "category": "completion-verifier",
+      "tags": [],
+      "stars": 0,
+      "install": "munlucky/claude-settings",
+      "source": "github.com/munlucky/claude-settings"
+    }
+  ]
+}

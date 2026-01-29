@@ -1,0 +1,19 @@
+{
+  "category": "implement-sonnet",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.298294Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement code using sonnet model with full main context access",
+      "repo": "cskwork/llm-review",
+      "path": "implement-sonnet",
+      "branch": "main",
+      "category": "implement-sonnet",
+      "tags": [],
+      "stars": 0,
+      "install": "cskwork/llm-review",
+      "source": "github.com/cskwork/llm-review"
+    }
+  ]
+}

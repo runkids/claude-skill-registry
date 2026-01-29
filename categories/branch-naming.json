@@ -1,0 +1,19 @@
+{
+  "category": "branch-naming",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.327028Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Defines branch naming conventions for issue work. Use when creating branches for issues, understanding work status from branches, or linking commits to issues.",
+      "repo": "forrestthewoods/anubis",
+      "path": "branch-naming",
+      "branch": "main",
+      "category": "branch-naming",
+      "tags": [],
+      "stars": 0,
+      "install": "forrestthewoods/anubis",
+      "source": "github.com/forrestthewoods/anubis"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "git-pr",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.316326Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create pull requests following project conventions. Use when creating feature PRs, bug fix PRs, hotfix PRs, or release PRs. Invoked by: \"create PR\", \"pull request\", \"open PR\", \"submit PR\".",
+      "repo": "eleva-labs/agentic-coding-templates",
+      "path": "git-pr",
+      "branch": "main",
+      "category": "git-pr",
+      "tags": [],
+      "stars": 0,
+      "install": "eleva-labs/agentic-coding-templates",
+      "source": "github.com/eleva-labs/agentic-coding-templates"
+    }
+  ]
+}

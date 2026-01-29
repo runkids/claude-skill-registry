@@ -1,0 +1,19 @@
+{
+  "category": "generate-tests",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.917003Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate comprehensive tests for code. Use when adding test coverage, implementing TDD, or ensuring code reliability.",
+      "repo": "zbruhnke/claude-code-starter",
+      "path": "generate-tests",
+      "branch": "main",
+      "category": "generate-tests",
+      "tags": [],
+      "stars": 0,
+      "install": "zbruhnke/claude-code-starter",
+      "source": "github.com/zbruhnke/claude-code-starter"
+    }
+  ]
+}

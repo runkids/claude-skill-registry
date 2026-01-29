@@ -1,0 +1,19 @@
+{
+  "category": "dex",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.703221Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Task tracking for async/multi-step work. Use dex to create, track, and complete tasks that span multiple sessions or require coordination (e.g., coding agent dispatches, PR reviews, background jobs). ",
+      "repo": "moltbot/skills",
+      "path": "dex",
+      "branch": "main",
+      "category": "dex",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

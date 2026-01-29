@@ -1,0 +1,19 @@
+{
+  "category": "monorepo-and-tooling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.298753Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "monorepo-and-tooling",
+      "branch": "main",
+      "category": "monorepo-and-tooling",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

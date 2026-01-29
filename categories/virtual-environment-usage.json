@@ -1,0 +1,19 @@
+{
+  "category": "virtual-environment-usage",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.063380Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "virtual-environment-usage",
+      "branch": "main",
+      "category": "virtual-environment-usage",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

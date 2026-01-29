@@ -1,0 +1,19 @@
+{
+  "category": "paddle",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.727434Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Integrates billing and subscriptions with Paddle merchant of record platform. Use when selling SaaS subscriptions with checkout overlays, pricing pages, and subscription management.",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "paddle",
+      "branch": "main",
+      "category": "paddle",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

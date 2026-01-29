@@ -1,0 +1,19 @@
+{
+  "category": "generate-component-story",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.329802Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create story examples for components. Use when writing stories, creating examples, or demonstrating component usage.",
+      "repo": "longbridge/gpui-component",
+      "path": "generate-component-story",
+      "branch": "main",
+      "category": "generate-component-story",
+      "tags": [],
+      "stars": 0,
+      "install": "longbridge/gpui-component",
+      "source": "github.com/longbridge/gpui-component"
+    }
+  ]
+}

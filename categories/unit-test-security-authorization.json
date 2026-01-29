@@ -1,0 +1,19 @@
+{
+  "category": "unit-test-security-authorization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.335396Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unit tests for Spring Security with @PreAuthorize, @Secured, @RolesAllowed. Test role-based access control and authorization policies. Use when validating security configurations and access control lo",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "unit-test-security-authorization",
+      "branch": "main",
+      "category": "unit-test-security-authorization",
+      "tags": [],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    }
+  ]
+}

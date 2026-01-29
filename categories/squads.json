@@ -1,0 +1,19 @@
+{
+  "category": "squads",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.342767Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete guide for Squads Protocol - Solana's leading smart account and multisig infrastructure. Covers Squads V4 Multisig for team treasury management, Smart Account Program for account abstraction a",
+      "repo": "sendaifun/skills",
+      "path": "squads",
+      "branch": "main",
+      "category": "squads",
+      "tags": [],
+      "stars": 0,
+      "install": "sendaifun/skills",
+      "source": "github.com/sendaifun/skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "creating-zed-extensions",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.853968Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating Zed extensions with custom slash commands, language support, themes, or MCP servers - provides Rust/WASM extension structure, slash command API (run_slash_command, SlashCommandOutput",
+      "repo": "pr-pm/prpm",
+      "path": "creating-zed-extensions",
+      "branch": "main",
+      "category": "creating-zed-extensions",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

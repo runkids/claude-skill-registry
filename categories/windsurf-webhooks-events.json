@@ -1,0 +1,19 @@
+{
+  "category": "windsurf-webhooks-events",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.890053Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement Windsurf webhook signature validation and event handling.\nUse when setting up webhook endpoints, implementing signature verification,\nor handling Windsurf event notifications securely.\nTrigg",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "windsurf-webhooks-events",
+      "branch": "main",
+      "category": "windsurf-webhooks-events",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

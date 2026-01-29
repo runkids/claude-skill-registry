@@ -1,0 +1,19 @@
+{
+  "category": "test-restricted-tools",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.660130Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test if allowed-tools actually restricts available tools",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-restricted-tools",
+      "branch": "main",
+      "category": "test-restricted-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

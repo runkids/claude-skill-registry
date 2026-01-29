@@ -1,0 +1,19 @@
+{
+  "category": "profile-blocking",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.238057Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Find blocking calls in reactive WebFlux code that can cause performance issues and thread starvation",
+      "repo": "pwittchen/varun.surf",
+      "path": "profile-blocking",
+      "branch": "main",
+      "category": "profile-blocking",
+      "tags": [],
+      "stars": 0,
+      "install": "pwittchen/varun.surf",
+      "source": "github.com/pwittchen/varun.surf"
+    }
+  ]
+}

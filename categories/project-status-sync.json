@@ -1,0 +1,19 @@
+{
+  "category": "project-status-sync",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.006780Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to keep GitHub Project fields synchronized with actual work state - updates status, verification, criteria counts, and other project-specific fields",
+      "repo": "troykelly/claude-skills",
+      "path": "project-status-sync",
+      "branch": "main",
+      "category": "project-status-sync",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

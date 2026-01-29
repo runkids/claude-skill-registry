@@ -1,0 +1,19 @@
+{
+  "category": "↩️ dev-undo-redo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.961852Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "FIX conflicting undo/redo implementations with VueUse + Pinia and DESIGN robust patterns for complex applications. Use for both stabilizing existing systems and implementing advanced undo/redo archite",
+      "repo": "endlessblink/flow-state",
+      "path": "↩️ dev-undo-redo",
+      "branch": "main",
+      "category": "↩️ dev-undo-redo",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

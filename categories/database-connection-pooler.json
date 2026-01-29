@@ -1,0 +1,19 @@
+{
+  "category": "database-connection-pooler",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.802846Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill optimizes database connection pooling for enhanced performance and resource management. It is activated when the user requests assistance with connection pooling, database performance tunin",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "database-connection-pooler",
+      "branch": "main",
+      "category": "database-connection-pooler",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

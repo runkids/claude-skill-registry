@@ -1,0 +1,19 @@
+{
+  "category": "review-renovate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.024313Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /review-renovate slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "review-renovate",
+      "branch": "main",
+      "category": "review-renovate",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

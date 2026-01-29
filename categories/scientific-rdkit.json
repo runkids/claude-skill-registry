@@ -1,0 +1,19 @@
+{
+  "category": "scientific-rdkit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.430858Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cheminformatics toolkit for fine-grained molecular control. SMILES/SDF parsing, descriptors (MW, LogP, TPSA), fingerprints, substructure search, 2D/3D generation, similarity, reactions. For standard w",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-rdkit",
+      "branch": "main",
+      "category": "scientific-rdkit",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

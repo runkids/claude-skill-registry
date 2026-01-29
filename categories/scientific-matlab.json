@@ -1,0 +1,19 @@
+{
+  "category": "scientific-matlab",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.026478Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MATLAB and GNU Octave numerical computing for matrix operations, data analysis, visualization, and scientific computing. Use when writing MATLAB/Octave scripts for linear algebra, signal processing, i",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-matlab",
+      "branch": "main",
+      "category": "scientific-matlab",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

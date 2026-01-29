@@ -1,0 +1,19 @@
+{
+  "category": "debugging-wizard",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.960423Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when investigating errors, analyzing stack traces, or finding root causes of unexpected behavior. Invoke for error investigation, troubleshooting, log analysis, root cause analysis.",
+      "repo": "Jeffallan/claude-skills",
+      "path": "debugging-wizard",
+      "branch": "main",
+      "category": "debugging-wizard",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "state-machine-driven-ui",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.941402Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Model complex UI flows using finite state machines to ensure deterministic behavior.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "state-machine-driven-ui",
+      "branch": "main",
+      "category": "state-machine-driven-ui",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

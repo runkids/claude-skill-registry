@@ -1,0 +1,19 @@
+{
+  "category": "get-y2b-clips",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.275012Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract the most meaningful, engaging clips from YouTube videos. Use when user provides a YouTube URL and wants to find highlights, best moments, controversial takes, or valuable segments. Supports sp",
+      "repo": "DidierRLopes/get-y2b-clips",
+      "path": "get-y2b-clips",
+      "branch": "main",
+      "category": "get-y2b-clips",
+      "tags": [],
+      "stars": 0,
+      "install": "DidierRLopes/get-y2b-clips",
+      "source": "github.com/DidierRLopes/get-y2b-clips"
+    }
+  ]
+}

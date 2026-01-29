@@ -1,0 +1,19 @@
+{
+  "category": "intent-sink",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.909407Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Intent Sink Skill",
+      "repo": "plurigrid/asi",
+      "path": "intent-sink",
+      "branch": "main",
+      "category": "intent-sink",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

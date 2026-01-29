@@ -1,0 +1,19 @@
+{
+  "category": "inclusive-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.012049Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diseño que considera la diversidad humana desde el inicio. Use cuando diseñe para equipos diversos, mercados globales, o cuando quiera maximizar alcance.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "inclusive-design",
+      "branch": "main",
+      "category": "inclusive-design",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

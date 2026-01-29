@@ -1,0 +1,19 @@
+{
+  "category": "context-optimizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.865050Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically optimizes context window usage when filling up (>70%). Uses hierarchical summarization, selective file loading, and intelligent compaction to maintain conversation quality while reducing",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "context-optimizer",
+      "branch": "main",
+      "category": "context-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

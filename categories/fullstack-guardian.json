@@ -1,0 +1,19 @@
+{
+  "category": "fullstack-guardian",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.939118Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementing features across frontend and backend, building APIs with UI, or creating end-to-end data flows. Invoke for feature implementation, API development, UI building, cross-stack work.",
+      "repo": "Jeffallan/claude-skills",
+      "path": "fullstack-guardian",
+      "branch": "main",
+      "category": "fullstack-guardian",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

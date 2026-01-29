@@ -1,0 +1,19 @@
+{
+  "category": "code-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.639196Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides thorough code review with actionable feedback",
+      "repo": "fwdslsh/crosstrain",
+      "path": "code-review",
+      "branch": "main",
+      "category": "code-review",
+      "tags": [],
+      "stars": 0,
+      "install": "fwdslsh/crosstrain",
+      "source": "github.com/fwdslsh/crosstrain"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "auto-orchestrator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.121662Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically activates when detecting complex, multi-task requests that would benefit from parallel execution. Activates when user mentions \"build [system]\", \"implement [feature] with multiple compon",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "auto-orchestrator",
+      "branch": "main",
+      "category": "auto-orchestrator",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

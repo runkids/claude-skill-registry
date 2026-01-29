@@ -1,0 +1,19 @@
+{
+  "category": "create-unit-test",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.354063Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and run unit tests following the project's architecture and guidelines (Robolectric, naming, location).",
+      "repo": "AnySoftKeyboard/janus",
+      "path": "create-unit-test",
+      "branch": "main",
+      "category": "create-unit-test",
+      "tags": [],
+      "stars": 0,
+      "install": "AnySoftKeyboard/janus",
+      "source": "github.com/AnySoftKeyboard/janus"
+    }
+  ]
+}

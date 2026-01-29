@@ -1,0 +1,19 @@
+{
+  "category": "milestone",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.797090Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze and summarize GitHub milestone status for this repository.",
+      "repo": "zeroae/zae-limiter",
+      "path": "milestone",
+      "branch": "main",
+      "category": "milestone",
+      "tags": [],
+      "stars": 0,
+      "install": "zeroae/zae-limiter",
+      "source": "github.com/zeroae/zae-limiter"
+    }
+  ]
+}

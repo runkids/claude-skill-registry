@@ -1,0 +1,19 @@
+{
+  "category": "abaqus-material",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.929052Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define material properties for FEA models. Use when user mentions steel, aluminum, Young's modulus, elastic, plastic, density, or asks about material properties.",
+      "repo": "JaimeCernuda/abaqus-scripting",
+      "path": "abaqus-material",
+      "branch": "main",
+      "category": "abaqus-material",
+      "tags": [],
+      "stars": 0,
+      "install": "JaimeCernuda/abaqus-scripting",
+      "source": "github.com/JaimeCernuda/abaqus-scripting"
+    }
+  ]
+}

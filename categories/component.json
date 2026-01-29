@@ -1,0 +1,19 @@
+{
+  "category": "component",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.126661Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Base skill for working with electronic components in this library. Use when adding new component types, manufacturer handlers, or working with MPN (Manufacturer Part Number) operations, BOM entries, o",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "component",
+      "branch": "main",
+      "category": "component",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

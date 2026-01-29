@@ -1,0 +1,19 @@
+{
+  "category": "capacitated-vrp",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.121627Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to solve the Capacitated Vehicle Routing Problem (CVRP), optimize routes with vehicle capacity limits, or handle weight/volume constraints. Also use when the user mentions \"CVRP,\" ",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "capacitated-vrp",
+      "branch": "main",
+      "category": "capacitated-vrp",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

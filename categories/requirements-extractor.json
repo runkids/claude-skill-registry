@@ -1,0 +1,19 @@
+{
+  "category": "requirements-extractor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.050933Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-activates when analyzing GitHub issues to extract functional requirements, non-functional requirements, acceptance criteria, and user stories.",
+      "repo": "matteocervelli/llms",
+      "path": "requirements-extractor",
+      "branch": "main",
+      "category": "requirements-extractor",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

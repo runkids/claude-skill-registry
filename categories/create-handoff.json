@@ -1,0 +1,19 @@
+{
+  "category": "create-handoff",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.986273Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create unified artifact document for checkpoint, handoff, or finalize",
+      "repo": "carmandale/agent-config",
+      "path": "create-handoff",
+      "branch": "main",
+      "category": "create-handoff",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

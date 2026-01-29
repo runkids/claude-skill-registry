@@ -1,0 +1,19 @@
+{
+  "category": "ha-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.292184Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Develop custom Home Assistant integrations, config flows, entities, and platforms. Use when working with manifest.json, custom components, config_flow.py, entity base classes, or device registry. Acti",
+      "repo": "nodnarbnitram/claude-code-extensions",
+      "path": "ha-integration",
+      "branch": "main",
+      "category": "ha-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "nodnarbnitram/claude-code-extensions",
+      "source": "github.com/nodnarbnitram/claude-code-extensions"
+    }
+  ]
+}

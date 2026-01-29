@@ -1,0 +1,19 @@
+{
+  "category": "synthesis-engine",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.712892Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cross-domain integration using diffusion dynamics. Operationalizes intellectual chaos methodology - deliberately combining diverse materials to surface unexpected patterns. Use when given multiple doc",
+      "repo": "agentgptsmith/MonadFramework",
+      "path": "synthesis-engine",
+      "branch": "main",
+      "category": "synthesis-engine",
+      "tags": [],
+      "stars": 0,
+      "install": "agentgptsmith/MonadFramework",
+      "source": "github.com/agentgptsmith/MonadFramework"
+    }
+  ]
+}

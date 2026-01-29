@@ -1,0 +1,19 @@
+{
+  "category": "hive",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.880650Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Orchestrate a multi-step workflow as coordinated sub-tasks; use when a task is large and benefits from structured coordination.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "hive",
+      "branch": "main",
+      "category": "hive",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

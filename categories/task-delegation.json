@@ -1,0 +1,19 @@
+{
+  "category": "task-delegation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.653440Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cost-effective task delegation strategy using Haiku model for straightforward work. Use when planning how to approach simple, pattern-following tasks to minimize costs.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "task-delegation",
+      "branch": "main",
+      "category": "task-delegation",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "security-flutter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.992263Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Flutter Security. Use when reviewing security, implementing auth, or hardening code.",
+      "repo": "TheBeardedBearSAS/claude-craft",
+      "path": "security-flutter",
+      "branch": "main",
+      "category": "security-flutter",
+      "tags": [],
+      "stars": 0,
+      "install": "TheBeardedBearSAS/claude-craft",
+      "source": "github.com/TheBeardedBearSAS/claude-craft"
+    }
+  ]
+}

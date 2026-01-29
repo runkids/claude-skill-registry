@@ -1,0 +1,19 @@
+{
+  "category": "knowledge-base-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.044431Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create wiki structure and tagging.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "knowledge-base-builder",
+      "branch": "main",
+      "category": "knowledge-base-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

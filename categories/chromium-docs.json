@@ -1,0 +1,19 @@
+{
+  "category": "chromium-docs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.434306Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Search and reference official Chromium documentation including design docs, APIs, and development guides",
+      "repo": "chromium/chromium",
+      "path": "chromium-docs",
+      "branch": "main",
+      "category": "chromium-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "chromium/chromium",
+      "source": "github.com/chromium/chromium"
+    }
+  ]
+}

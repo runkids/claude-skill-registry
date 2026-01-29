@@ -1,0 +1,19 @@
+{
+  "category": "graphql-resolver-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.206061Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Graphql Resolver Creator - Auto-activating skill for Backend Development.\nTriggers on: graphql resolver creator, graphql resolver creator\nPart of the Backend Development skill category.\n",
+      "repo": "byteworthy/Upstream",
+      "path": "graphql-resolver-creator",
+      "branch": "main",
+      "category": "graphql-resolver-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

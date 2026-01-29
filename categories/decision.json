@@ -1,0 +1,19 @@
+{
+  "category": "decision",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.068136Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Strategic decision-making for CFN Loop progression with robust parsing. Use when evaluating validator consensus and determining PROCEED/ITERATE/ABORT outcomes.",
+      "repo": "masharratt/claude-flow-novice",
+      "path": "decision",
+      "branch": "main",
+      "category": "decision",
+      "tags": [],
+      "stars": 0,
+      "install": "masharratt/claude-flow-novice",
+      "source": "github.com/masharratt/claude-flow-novice"
+    }
+  ]
+}

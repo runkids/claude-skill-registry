@@ -1,0 +1,19 @@
+{
+  "category": "init-config",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.396589Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate $HOME/.claude/CLAUDE.md with AI-driven environment detection and advanced configuration options",
+      "repo": "FradSer/dotclaude",
+      "path": "init-config",
+      "branch": "main",
+      "category": "init-config",
+      "tags": [],
+      "stars": 0,
+      "install": "FradSer/dotclaude",
+      "source": "github.com/FradSer/dotclaude"
+    }
+  ]
+}

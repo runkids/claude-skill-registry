@@ -1,0 +1,19 @@
+{
+  "category": "ffmpeg-webassembly-workers",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.292806Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MANDATORY: Always Use Backslashes on Windows for File Paths",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "ffmpeg-webassembly-workers",
+      "branch": "main",
+      "category": "ffmpeg-webassembly-workers",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

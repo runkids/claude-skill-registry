@@ -1,0 +1,19 @@
+{
+  "category": "composable-step-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.876651Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design Plan/Build/Review/Fix workflow steps for ADWs. Use when creating composable workflow primitives, defining step contracts, or implementing step isolation patterns.",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "composable-step-design",
+      "branch": "main",
+      "category": "composable-step-design",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

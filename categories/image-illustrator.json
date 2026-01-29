@@ -1,0 +1,19 @@
+{
+  "category": "image-illustrator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.951461Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Professional illustrator with expert knowledge of the image generation script, image conversion tools, and layout design. Use when creating visual assets, generating images with specific styles, conve",
+      "repo": "RogueRope/docs",
+      "path": "image-illustrator",
+      "branch": "main",
+      "category": "image-illustrator",
+      "tags": [],
+      "stars": 0,
+      "install": "RogueRope/docs",
+      "source": "github.com/RogueRope/docs"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "magento-environment-engineer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.963013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manages Magento 2 environments including development, staging, and production. Use when setting up environments, configuring servers, managing environments, or troubleshooting environment issues. Mast",
+      "repo": "maxnorm/magento2-agent-skills",
+      "path": "magento-environment-engineer",
+      "branch": "main",
+      "category": "magento-environment-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "maxnorm/magento2-agent-skills",
+      "source": "github.com/maxnorm/magento2-agent-skills"
+    }
+  ]
+}

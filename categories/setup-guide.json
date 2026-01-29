@@ -1,0 +1,19 @@
+{
+  "category": "setup-guide",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.978185Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete setup and installation guide for the ClickUp Framework CLI with troubleshooting",
+      "repo": "SOELexicon/clickup_framework",
+      "path": "setup-guide",
+      "branch": "main",
+      "category": "setup-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "SOELexicon/clickup_framework",
+      "source": "github.com/SOELexicon/clickup_framework"
+    }
+  ]
+}

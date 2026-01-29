@@ -1,0 +1,19 @@
+{
+  "category": "kubernetes-troubleshooting",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.719348Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Kubernetes and OpenShift cluster health analysis and troubleshooting. Use this skill when:\n(1) Proactive cluster health assessment and security analysis\n(2) Analyzing pod/container logs ",
+      "repo": "kcns008/cluster-skills",
+      "path": "kubernetes-troubleshooting",
+      "branch": "main",
+      "category": "kubernetes-troubleshooting",
+      "tags": [],
+      "stars": 0,
+      "install": "kcns008/cluster-skills",
+      "source": "github.com/kcns008/cluster-skills"
+    }
+  ]
+}

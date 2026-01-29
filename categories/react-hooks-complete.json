@@ -1,0 +1,19 @@
+{
+  "category": "react-hooks-complete",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.555659Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "| Hook | Purpose | Example |",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "react-hooks-complete",
+      "branch": "main",
+      "category": "react-hooks-complete",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "torex",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.363090Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Torex Semiconductor MPN encoding patterns, suffix decoding, and handler guidance. Use when working with Torex power management ICs.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "torex",
+      "branch": "main",
+      "category": "torex",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

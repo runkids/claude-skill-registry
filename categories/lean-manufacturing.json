@@ -1,0 +1,19 @@
+{
+  "category": "lean-manufacturing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.929946Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to implement lean principles, eliminate waste, improve flow, or adopt continuous improvement. Also use when the user mentions \"waste elimination,\" \"value stream mapping,\" \"5S,\" \"ka",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "lean-manufacturing",
+      "branch": "main",
+      "category": "lean-manufacturing",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "meta-pattern-recognition",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.342903Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Spot patterns appearing in 3+ domains to find universal principles",
+      "repo": "brixtonpham/claude-config",
+      "path": "meta-pattern-recognition",
+      "branch": "main",
+      "category": "meta-pattern-recognition",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

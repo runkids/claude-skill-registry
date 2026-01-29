@@ -1,0 +1,19 @@
+{
+  "category": "contour-integrals",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.093575Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Problem-solving strategies for contour integrals in complex analysis",
+      "repo": "namesreallyblank/Clorch",
+      "path": "contour-integrals",
+      "branch": "main",
+      "category": "contour-integrals",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

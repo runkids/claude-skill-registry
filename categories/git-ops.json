@@ -1,0 +1,19 @@
+{
+  "category": "git-ops",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.830641Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Safe git operations including commits, branches, merges, worktrees, and conflict resolution. Use when user wants to commit and push changes, manage branches, resolve conflicts, or create isolated work",
+      "repo": "TheSethRose/Copilot-Skills",
+      "path": "git-ops",
+      "branch": "main",
+      "category": "git-ops",
+      "tags": [],
+      "stars": 0,
+      "install": "TheSethRose/Copilot-Skills",
+      "source": "github.com/TheSethRose/Copilot-Skills"
+    }
+  ]
+}

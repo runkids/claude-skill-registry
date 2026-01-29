@@ -1,0 +1,19 @@
+{
+  "category": "tailwindcss",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.758088Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for implementing Tailwind CSS - a utility-first CSS framework for rapid UI development. Use when styling applications with responsive design, dark mode, custom themes, or building design systems",
+      "repo": "alex-tgk/saasquatch",
+      "path": "tailwindcss",
+      "branch": "main",
+      "category": "tailwindcss",
+      "tags": [],
+      "stars": 0,
+      "install": "alex-tgk/saasquatch",
+      "source": "github.com/alex-tgk/saasquatch"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "production-incident-responder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.319734Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Crisis response skill for production system failures. Integrates with MCP resilience tools to detect, diagnose, and respond to critical system failures. Use when production system shows signs of failu",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "production-incident-responder",
+      "branch": "main",
+      "category": "production-incident-responder",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

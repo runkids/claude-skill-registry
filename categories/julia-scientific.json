@@ -1,0 +1,19 @@
+{
+  "category": "julia-scientific",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.605043Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Julia package equivalents for 137 K-Dense-AI scientific skills. Maps Python bioinformatics, chemistry, ML, quantum, and data science packages to native Julia ecosystem.",
+      "repo": "plurigrid/asi",
+      "path": "julia-scientific",
+      "branch": "main",
+      "category": "julia-scientific",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "resource-curator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.548980Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Find, evaluate, and maintain high-quality external resources for JavaScript concept documentation, including auditing for broken and outdated links",
+      "repo": "leonardomso/33-js-concepts",
+      "path": "resource-curator",
+      "branch": "main",
+      "category": "resource-curator",
+      "tags": [],
+      "stars": 0,
+      "install": "leonardomso/33-js-concepts",
+      "source": "github.com/leonardomso/33-js-concepts"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "ffmpeg-streaming",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.777458Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MANDATORY: Always Use Backslashes on Windows for File Paths",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "ffmpeg-streaming",
+      "branch": "main",
+      "category": "ffmpeg-streaming",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

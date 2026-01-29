@@ -1,0 +1,19 @@
+{
+  "category": "capacitor-accessibility",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.947264Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Accessibility guide for Capacitor apps covering screen readers, semantic HTML, focus management, and WCAG compliance. Use this skill when users need to make their app accessible.",
+      "repo": "Cap-go/capacitor-skills",
+      "path": "capacitor-accessibility",
+      "branch": "main",
+      "category": "capacitor-accessibility",
+      "tags": [],
+      "stars": 0,
+      "install": "Cap-go/capacitor-skills",
+      "source": "github.com/Cap-go/capacitor-skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "composio-image-enhancer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.177925Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Improves the quality of images, especially screenshots, by enhancing resolution, sharpness, and clarity. Perfect for preparing images for presentations, documentation, or social media posts.",
+      "repo": "boisenoise/skills-collections",
+      "path": "composio-image-enhancer",
+      "branch": "main",
+      "category": "composio-image-enhancer",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

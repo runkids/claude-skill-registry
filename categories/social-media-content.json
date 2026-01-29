@@ -1,0 +1,19 @@
+{
+  "category": "social-media-content",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.322692Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Erstellt plattformoptimierte Social Media Inhalte für LinkedIn, X/Twitter, Discord, Reddit. B2B/MES-Industrie fokussiert.",
+      "repo": "freitasp1/claude-code-skills",
+      "path": "social-media-content",
+      "branch": "main",
+      "category": "social-media-content",
+      "tags": [],
+      "stars": 0,
+      "install": "freitasp1/claude-code-skills",
+      "source": "github.com/freitasp1/claude-code-skills"
+    }
+  ]
+}

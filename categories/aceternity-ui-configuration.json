@@ -1,0 +1,19 @@
+{
+  "category": "aceternity-ui-configuration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.280441Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "aceternity-ui-configuration",
+      "branch": "main",
+      "category": "aceternity-ui-configuration",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

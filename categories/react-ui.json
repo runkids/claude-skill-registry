@@ -1,0 +1,19 @@
+{
+  "category": "react-ui",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.161298Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply React patterns and conventions when working on UI components. Use when editing files in src/ui/, creating React components, or discussing state management. Auto-apply for JSX files.",
+      "repo": "joshribakoff/surfsim",
+      "path": "react-ui",
+      "branch": "main",
+      "category": "react-ui",
+      "tags": [],
+      "stars": 0,
+      "install": "joshribakoff/surfsim",
+      "source": "github.com/joshribakoff/surfsim"
+    }
+  ]
+}

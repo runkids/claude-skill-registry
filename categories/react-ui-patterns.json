@@ -1,0 +1,19 @@
+{
+  "category": "react-ui-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.682130Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Modern React UI patterns for loading states, error handling, and data fetching. Use when building UI components, handling async data, or managing UI states.",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "react-ui-patterns",
+      "branch": "main",
+      "category": "react-ui-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

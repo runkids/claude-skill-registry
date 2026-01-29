@@ -1,0 +1,19 @@
+{
+  "category": "google-drive",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.501065Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Search and read Google Drive files including Docs, Sheets, and other documents.",
+      "repo": "tbroadley/dotfiles",
+      "path": "google-drive",
+      "branch": "main",
+      "category": "google-drive",
+      "tags": [],
+      "stars": 0,
+      "install": "tbroadley/dotfiles",
+      "source": "github.com/tbroadley/dotfiles"
+    }
+  ]
+}

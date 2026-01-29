@@ -1,0 +1,19 @@
+{
+  "category": "image-optimization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.044145Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize images for web to reduce file size without sacrificing quality. Use compression, modern formats, and responsive techniques for faster loading.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "image-optimization",
+      "branch": "main",
+      "category": "image-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

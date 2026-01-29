@@ -1,0 +1,19 @@
+{
+  "category": "docs-discovery",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.023853Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Technical documentation discovery via context7 and web search. Capabilities: library/framework docs lookup, topic-specific search. Keywords: llms.txt, context7, documentation, library docs, API docs. ",
+      "repo": "brixtonpham/claude-config",
+      "path": "docs-discovery",
+      "branch": "main",
+      "category": "docs-discovery",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

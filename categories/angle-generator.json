@@ -1,0 +1,19 @@
+{
+  "category": "angle-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.912730Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate 10-20 ad angles for an offer using direct response principles and cross-industry ideation. Use when you need fresh angle ideas, want to explore new messaging approaches, or are starting creat",
+      "repo": "WalkerHi11/mediabuy-plugins",
+      "path": "angle-generator",
+      "branch": "main",
+      "category": "angle-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "WalkerHi11/mediabuy-plugins",
+      "source": "github.com/WalkerHi11/mediabuy-plugins"
+    }
+  ]
+}

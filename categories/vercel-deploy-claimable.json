@@ -1,0 +1,19 @@
+{
+  "category": "vercel-deploy-claimable",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.819377Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploy applications and websites to Vercel. Use this skill when the user requests deployment actions such as \"Deploy my app\", \"Deploy this to production\", \"Create a preview deployment\", \"Deploy and gi",
+      "repo": "dandedotdev/dotfiles",
+      "path": "vercel-deploy-claimable",
+      "branch": "main",
+      "category": "vercel-deploy-claimable",
+      "tags": [],
+      "stars": 0,
+      "install": "dandedotdev/dotfiles",
+      "source": "github.com/dandedotdev/dotfiles"
+    }
+  ]
+}

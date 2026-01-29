@@ -1,0 +1,19 @@
+{
+  "category": "pet",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.354809Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Simple command-line snippet manager. Use it to save and reuse complex commands.",
+      "repo": "moltbot/skills",
+      "path": "pet",
+      "branch": "main",
+      "category": "pet",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "kleppmann",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.955405Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design distributed systems in the style of Martin Kleppmann, author of \"Designing Data-Intensive Applications\". Emphasizes understanding data systems deeply, making informed trade-offs, and building r",
+      "repo": "copyleftdev/blsmesh",
+      "path": "kleppmann",
+      "branch": "main",
+      "category": "kleppmann",
+      "tags": [],
+      "stars": 0,
+      "install": "copyleftdev/blsmesh",
+      "source": "github.com/copyleftdev/blsmesh"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "pallet-loading",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.428327Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize pallet loading, arrange boxes on pallets, or maximize pallet utilization. Also use when the user mentions \"pallet optimization,\" \"pallet packing,\" \"pallet configuration",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "pallet-loading",
+      "branch": "main",
+      "category": "pallet-loading",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

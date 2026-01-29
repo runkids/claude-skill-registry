@@ -1,0 +1,19 @@
+{
+  "category": "update-plan-from-subissues",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.154329Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /update-plan-from-subissues slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "update-plan-from-subissues",
+      "branch": "main",
+      "category": "update-plan-from-subissues",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

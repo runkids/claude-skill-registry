@@ -1,0 +1,19 @@
+{
+  "category": "jira-mapper",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.629662Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in mapping SpecWeave increments to JIRA structure (Increment → Epic + Stories + Subtasks) with bidirectional sync. Use when exporting increments to JIRA, importing JIRA epics as increments, or ",
+      "repo": "anton-abyzov/specweave",
+      "path": "jira-mapper",
+      "branch": "main",
+      "category": "jira-mapper",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

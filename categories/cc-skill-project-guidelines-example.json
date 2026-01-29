@@ -1,0 +1,19 @@
+{
+  "category": "cc-skill-project-guidelines-example",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.856688Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Project Guidelines Skill (Example)",
+      "repo": "chrissargent48/weekly_report",
+      "path": "cc-skill-project-guidelines-example",
+      "branch": "main",
+      "category": "cc-skill-project-guidelines-example",
+      "tags": [],
+      "stars": 0,
+      "install": "chrissargent48/weekly_report",
+      "source": "github.com/chrissargent48/weekly_report"
+    }
+  ]
+}

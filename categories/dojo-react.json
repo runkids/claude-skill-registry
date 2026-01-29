@@ -1,0 +1,19 @@
+{
+  "category": "dojo-react",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.658723Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use for React integration patterns and best practices in dojo.js.\nTriggers: dojo react, react hooks, effect atoms, Result.match, infinite scroll dojo,\nDojoSdkProvider, useDojoSDK, react patterns",
+      "repo": "dojoengine/dojo.js",
+      "path": "dojo-react",
+      "branch": "main",
+      "category": "dojo-react",
+      "tags": [],
+      "stars": 0,
+      "install": "dojoengine/dojo.js",
+      "source": "github.com/dojoengine/dojo.js"
+    }
+  ]
+}

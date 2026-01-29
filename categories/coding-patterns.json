@@ -1,0 +1,19 @@
+{
+  "category": "coding-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.047876Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coding conventions and patterns for the mymind codebase. Use this skill when writing or modifying any code in this project to ensure consistency with established patterns.",
+      "repo": "vojtaholik/mymind",
+      "path": "coding-patterns",
+      "branch": "main",
+      "category": "coding-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "vojtaholik/mymind",
+      "source": "github.com/vojtaholik/mymind"
+    }
+  ]
+}

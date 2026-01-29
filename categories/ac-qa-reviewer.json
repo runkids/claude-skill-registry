@@ -1,0 +1,19 @@
+{
+  "category": "ac-qa-reviewer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.683965Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quality assurance review for implementations. Use when reviewing code quality, checking implementation standards, performing QA cycles, or validating feature quality.",
+      "repo": "adaptationio/Skrillz",
+      "path": "ac-qa-reviewer",
+      "branch": "main",
+      "category": "ac-qa-reviewer",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

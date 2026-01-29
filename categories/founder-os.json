@@ -1,0 +1,19 @@
+{
+  "category": "founder-os",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.812706Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manages founder business portfolio, signals, vault, and snapshots. Tracks business health, stores credentials securely, and generates AI-powered business analytics and recommendations.",
+      "repo": "CleanExpo/Unite-Hub",
+      "path": "founder-os",
+      "branch": "main",
+      "category": "founder-os",
+      "tags": [],
+      "stars": 0,
+      "install": "CleanExpo/Unite-Hub",
+      "source": "github.com/CleanExpo/Unite-Hub"
+    }
+  ]
+}

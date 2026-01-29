@@ -1,0 +1,19 @@
+{
+  "category": "scientific-lamindb",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.968604Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when working with LaminDB, an open-source data framework for biology that makes data queryable, traceable, reproducible, and FAIR. Use when managing biological datasets (scRN",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-lamindb",
+      "branch": "main",
+      "category": "scientific-lamindb",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

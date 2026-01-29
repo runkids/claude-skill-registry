@@ -1,0 +1,19 @@
+{
+  "category": "component-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.714340Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cross-component consistency analysis for the 12 component groups (Brand, Typography, Button, Form, Selector, Table, Chart, Display, Overlay, Navigation, Feedback, Fallback). Evaluates uniformity and i",
+      "repo": "Higashi-Kota/react-tailwindcss-sandbox",
+      "path": "component-analysis",
+      "branch": "main",
+      "category": "component-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "Higashi-Kota/react-tailwindcss-sandbox",
+      "source": "github.com/Higashi-Kota/react-tailwindcss-sandbox"
+    }
+  ]
+}

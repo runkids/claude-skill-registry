@@ -1,0 +1,19 @@
+{
+  "category": "qase-client",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.568757Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Qase.io test management integration for creating suites, test cases, and reporting results. Use when syncing test cases to Qase, creating test suites, reporting automation results, or managing test do",
+      "repo": "cristian-robert/autonomous-automation-tester",
+      "path": "qase-client",
+      "branch": "main",
+      "category": "qase-client",
+      "tags": [],
+      "stars": 0,
+      "install": "cristian-robert/autonomous-automation-tester",
+      "source": "github.com/cristian-robert/autonomous-automation-tester"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "cloudflare-kv",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.256668Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Store key-value data globally with Cloudflare KV's edge network. Use when: caching API responses, storing configuration, managing user preferences, handling TTL expiration, or troubleshooting KV_ERROR",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "cloudflare-kv",
+      "branch": "main",
+      "category": "cloudflare-kv",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

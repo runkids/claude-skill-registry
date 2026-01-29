@@ -1,0 +1,19 @@
+{
+  "category": "middleware-validator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.766400Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically validate DAPR HTTP middleware configuration files. Checks for correct middleware types, proper secret references, pipeline ordering, and security best practices. Use when configuring OAu",
+      "repo": "Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
+      "path": "middleware-validator",
+      "branch": "main",
+      "category": "middleware-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
+      "source": "github.com/Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace"
+    }
+  ]
+}

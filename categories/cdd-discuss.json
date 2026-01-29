@@ -1,0 +1,19 @@
+{
+  "category": "cdd-discuss",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.479258Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "決断の議論・作成（タスク開始時、または継続議論）",
+      "repo": "yutaro0915/cdd-workflow",
+      "path": "cdd-discuss",
+      "branch": "main",
+      "category": "cdd-discuss",
+      "tags": [],
+      "stars": 0,
+      "install": "yutaro0915/cdd-workflow",
+      "source": "github.com/yutaro0915/cdd-workflow"
+    }
+  ]
+}

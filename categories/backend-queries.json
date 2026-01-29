@@ -1,0 +1,19 @@
+{
+  "category": "backend-queries",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.069939Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write secure, optimized database queries using parameterized statements, eager loading, and proper indexing to prevent SQL injection and N+1 query problems. Use this skill when writing database querie",
+      "repo": "dpietersz/pietersz.me",
+      "path": "backend-queries",
+      "branch": "main",
+      "category": "backend-queries",
+      "tags": [],
+      "stars": 0,
+      "install": "dpietersz/pietersz.me",
+      "source": "github.com/dpietersz/pietersz.me"
+    }
+  ]
+}

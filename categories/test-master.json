@@ -1,0 +1,19 @@
+{
+  "category": "test-master",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.083853Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when writing tests, creating test strategies, or building automation frameworks. Invoke for unit tests, integration tests, E2E, coverage analysis, performance testing, security testing.",
+      "repo": "Jeffallan/claude-skills",
+      "path": "test-master",
+      "branch": "main",
+      "category": "test-master",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

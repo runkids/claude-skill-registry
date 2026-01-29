@@ -1,0 +1,19 @@
+{
+  "category": "code-duplication-remover",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.966264Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect clones and extract abstractions.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "code-duplication-remover",
+      "branch": "main",
+      "category": "code-duplication-remover",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

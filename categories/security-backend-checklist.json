@@ -1,0 +1,19 @@
+{
+  "category": "security-backend-checklist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.387544Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When implementing backend APIs, database queries, authentication, or handling user input.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "security-backend-checklist",
+      "branch": "main",
+      "category": "security-backend-checklist",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

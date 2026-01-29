@@ -1,0 +1,19 @@
+{
+  "category": "test-mockdb-repository",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.128597Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write tests for MockDB (in-memory) repository implementations. Use when testing MockDB repositories, in-memory data access, or mock repository behavior. Triggers on \"test mockdb\", \"mockdb tests\", \"tes",
+      "repo": "madooei/backend-template",
+      "path": "test-mockdb-repository",
+      "branch": "main",
+      "category": "test-mockdb-repository",
+      "tags": [],
+      "stars": 0,
+      "install": "madooei/backend-template",
+      "source": "github.com/madooei/backend-template"
+    }
+  ]
+}

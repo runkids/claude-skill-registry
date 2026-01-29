@@ -1,0 +1,19 @@
+{
+  "category": "api-client-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.641939Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creating API clients with OpenAPI specs, authentication, and OAuth scopes for SCAPI and similar APIs",
+      "repo": "SalesforceCommerceCloud/b2c-developer-tooling",
+      "path": "api-client-development",
+      "branch": "main",
+      "category": "api-client-development",
+      "tags": [],
+      "stars": 0,
+      "install": "SalesforceCommerceCloud/b2c-developer-tooling",
+      "source": "github.com/SalesforceCommerceCloud/b2c-developer-tooling"
+    }
+  ]
+}

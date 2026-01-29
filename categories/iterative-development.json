@@ -1,0 +1,19 @@
+{
+  "category": "iterative-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.181693Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement sub-tasks iteratively with user approval between each one. Use when working through a task list with user collaboration.",
+      "repo": "aspiers/ai-config",
+      "path": "iterative-development",
+      "branch": "main",
+      "category": "iterative-development",
+      "tags": [],
+      "stars": 0,
+      "install": "aspiers/ai-config",
+      "source": "github.com/aspiers/ai-config"
+    }
+  ]
+}

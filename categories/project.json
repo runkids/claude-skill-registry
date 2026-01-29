@@ -1,7 +1,7 @@
 {
   "category": "project",
-  "count": 1,
-  "updated_at": "2026-01-29T04:49:19.502317Z",
+  "count": 2,
+  "updated_at": "2026-01-29T16:04:49.666166Z",
   "skills": [
     {
       "name": "resume",
@@ -14,6 +14,18 @@
       "stars": 4,
       "install": "cbillowes/curious-programmer-tungsten",
       "source": "github.com/cbillowes/curious-programmer-tungsten"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Clone and track external repos. Use when user shares GitHub URL to study or develop, or says \"search repos\", \"find repo\", \"where is [project]\". Actions - learn (clone for study), incubate (clone for d",
+      "repo": "laris-co/nat-agents-core",
+      "path": "project",
+      "branch": "main",
+      "category": "project",
+      "tags": [],
+      "stars": 0,
+      "install": "laris-co/nat-agents-core",
+      "source": "github.com/laris-co/nat-agents-core"
     }
   ]
 }

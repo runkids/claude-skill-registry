@@ -1,0 +1,19 @@
+{
+  "category": "d-archive",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.286341Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Archive completed debug work to ./.gtd/archive/",
+      "repo": "Hoang604/get-thing-done",
+      "path": "d-archive",
+      "branch": "main",
+      "category": "d-archive",
+      "tags": [],
+      "stars": 0,
+      "install": "Hoang604/get-thing-done",
+      "source": "github.com/Hoang604/get-thing-done"
+    }
+  ]
+}

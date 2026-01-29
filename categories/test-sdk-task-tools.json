@@ -1,0 +1,19 @@
+{
+  "category": "test-sdk-task-tools",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.032418Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test if forked skill called from SDK has TaskCreate/List/Get/Update tools",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-sdk-task-tools",
+      "branch": "main",
+      "category": "test-sdk-task-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

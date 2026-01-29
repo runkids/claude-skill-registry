@@ -1,0 +1,19 @@
+{
+  "category": "trpc-router-creating",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.368579Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "BoxLogのtRPC v11ルーターを作成。サービス層分離、Zodバリデーション、エラーハンドリングを適用。",
+      "repo": "Dayopt/app",
+      "path": "trpc-router-creating",
+      "branch": "main",
+      "category": "trpc-router-creating",
+      "tags": [],
+      "stars": 0,
+      "install": "Dayopt/app",
+      "source": "github.com/Dayopt/app"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "backend-migrations",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.800791Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and manage database migrations with reversible changes, zero-downtime deployments, and proper version control. Use this skill when creating database migration files, modifying database schemas,",
+      "repo": "dpietersz/pietersz.me",
+      "path": "backend-migrations",
+      "branch": "main",
+      "category": "backend-migrations",
+      "tags": [],
+      "stars": 0,
+      "install": "dpietersz/pietersz.me",
+      "source": "github.com/dpietersz/pietersz.me"
+    }
+  ]
+}

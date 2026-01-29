@@ -1,0 +1,19 @@
+{
+  "category": "ralph-tui",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.608402Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run ralph-tui task loops for automated PRD execution. Covers headless mode, PRD preparation, agent selection (opencode/claude), session management, and troubleshooting. Use when asked to \"run ralph-tu",
+      "repo": "carmandale/agent-config",
+      "path": "ralph-tui",
+      "branch": "main",
+      "category": "ralph-tui",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

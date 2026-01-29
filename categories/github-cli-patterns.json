@@ -1,0 +1,19 @@
+{
+  "category": "github-cli-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.995623Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with gh CLI. Provides patterns for PRs, issues, reviews, and repository operations.",
+      "repo": "JacobPEvans/ai-assistant-instructions",
+      "path": "github-cli-patterns",
+      "branch": "main",
+      "category": "github-cli-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "JacobPEvans/ai-assistant-instructions",
+      "source": "github.com/JacobPEvans/ai-assistant-instructions"
+    }
+  ]
+}

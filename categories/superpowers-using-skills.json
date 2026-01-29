@@ -1,0 +1,19 @@
+{
+  "category": "superpowers-using-skills",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.054424Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Skills wiki intro - mandatory workflows, search tool, brainstorming triggers",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "superpowers-using-skills",
+      "branch": "main",
+      "category": "superpowers-using-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "test-parallel-b",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.470407Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Child B for parallel test",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-parallel-b",
+      "branch": "main",
+      "category": "test-parallel-b",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

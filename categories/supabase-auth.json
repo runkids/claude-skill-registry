@@ -1,0 +1,19 @@
+{
+  "category": "supabase-auth",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.729129Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement Supabase authentication with SSR support. Email/password auth with automatic session management via cookies. Includes login, signup, email confirmation, and user profiles.",
+      "repo": "dadbodgeoff/drift",
+      "path": "supabase-auth",
+      "branch": "main",
+      "category": "supabase-auth",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

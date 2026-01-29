@@ -1,0 +1,19 @@
+{
+  "category": "market-data",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.786883Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Market data retrieval with OpenAlgo - real-time quotes, historical OHLCV, market depth, option chains, WebSocket streaming, and symbol search",
+      "repo": "marketcalls/openalgo-claude-plugin",
+      "path": "market-data",
+      "branch": "main",
+      "category": "market-data",
+      "tags": [],
+      "stars": 0,
+      "install": "marketcalls/openalgo-claude-plugin",
+      "source": "github.com/marketcalls/openalgo-claude-plugin"
+    }
+  ]
+}

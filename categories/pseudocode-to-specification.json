@@ -1,0 +1,19 @@
+{
+  "category": "pseudocode-to-specification",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.467355Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes pseudocode, algorithms, or code snippets to extract and document functional requirements and business specifications. Produces functional specifications, business logic documentation, data re",
+      "repo": "DauQuangThanh/hanoi-rainbow",
+      "path": "pseudocode-to-specification",
+      "branch": "main",
+      "category": "pseudocode-to-specification",
+      "tags": [],
+      "stars": 0,
+      "install": "DauQuangThanh/hanoi-rainbow",
+      "source": "github.com/DauQuangThanh/hanoi-rainbow"
+    }
+  ]
+}

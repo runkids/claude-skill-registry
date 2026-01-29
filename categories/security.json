@@ -1,7 +1,7 @@
 {
   "category": "security",
-  "count": 775,
-  "updated_at": "2026-01-29T04:49:19.214065Z",
+  "count": 777,
+  "updated_at": "2026-01-29T16:04:49.309673Z",
   "skills": [
     {
       "name": "git-workflow",
@@ -2325,16 +2325,30 @@
       "source": "local"
     },
     {
+      "name": "Authentication",
+      "description": "Authentication and authorization including JWT, OAuth2, sessions, and RBAC. Activate for login, auth flows, security, access control, and identity management.",
+      "repo": "markus41/lobbi-design-system",
+      "path": "data/Authentication",
+      "branch": "main",
+      "category": "security",
+      "tags": [
+        "authentication"
+      ],
+      "stars": 0,
+      "install": "markus41/lobbi-design-system",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "SKILL.md",
-      "description": "JavaScript security best practices and vulnerability prevention.",
-      "repo": "pluginagentmarketplace/custom-plugin-javascript",
-      "path": "skills/security",
+      "description": "Auto-activates when user mentions security, vulnerabilities, OWASP, or secure coding. Expert in web security including OWASP Top 10, authentication, authorization, and secure coding practices.",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "security",
       "branch": "main",
       "category": "security",
       "tags": [],
       "stars": 0,
-      "install": "pluginagentmarketplace/custom-plugin-javascript/skills/security",
-      "source": "github.com/pluginagentmarketplace/custom-plugin-javascript"
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
     },
     {
       "name": "access-management",
@@ -3221,20 +3235,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "authentication",
-      "description": "Authentication and authorization including JWT, OAuth2, sessions, and RBAC. Activate for login, auth flows, security, access control, and identity management.",
-      "repo": "markus41/lobbi-design-system",
-      "path": "data/authentication",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "authentication"
-      ],
-      "stars": 0,
-      "install": "markus41/lobbi-design-system",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "authentication-authorization",
       "description": "ログイン、セッション、JWT、OAuth、アクセス制御を実装する際に使用。",
       "repo": "TakumiOkayasu/dotfile-work",
@@ -3556,6 +3556,18 @@
       "tags": [],
       "stars": 0,
       "install": "ckorhonen/claude-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "break-filter-js-from-html",
+      "description": "Guidance for bypassing HTML/JavaScript sanitization filters in security testing contexts. This skill should be used when tasked with finding XSS filter bypasses, testing HTML sanitizers, or exploiting",
+      "repo": "letta-ai/skills",
+      "path": "letta/benchmarks/trajectory-only/break-filter-js-from-html",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "letta-ai/skills/letta/benchmarks/trajectory-only/break-filter-js-from-html",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4538,6 +4550,21 @@
       "stars": 0,
       "install": "kprsnt2/MyLocalCLI/src/skills/builtin/django",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "django-reviewer",
+      "description": "WHEN: Django project review, ORM queries, views/templates, admin customizationWHAT: ORM optimization + View patterns + Template security + Admin config + Migration safetyWHEN NOT: FastAPI → fastapi-re",
+      "repo": "physics91/claude-vibe",
+      "path": "skills/django-reviewer",
+      "branch": "main",
+      "category": "security",
+      "tags": [
+        "django",
+        "reviewer"
+      ],
+      "stars": 0,
+      "install": "physics91/claude-vibe/skills/django-reviewer",
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "django-reviewer",
@@ -6513,24 +6540,24 @@
       "name": "openwebf-security",
       "description": "DEPRECATED umbrella Skill (backward compatibility). Use only for cross-cutting security reviews spanning remote content + XSS/sanitization + store compliance. Prefer focused openwebf-security-* Skills",
       "repo": "archview-ai/webf-plugin",
-      "path": "webf-plugin/skills/openwebf-security-remote-content",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "archview-ai/webf-plugin/webf-plugin/skills/openwebf-security-remote-content",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "openwebf-security",
-      "description": "DEPRECATED umbrella Skill (backward compatibility). Use only for cross-cutting security reviews spanning remote content + XSS/sanitization + store compliance. Prefer focused openwebf-security-* Skills",
-      "repo": "archview-ai/webf-plugin",
       "path": "data/openwebf-security",
       "branch": "main",
       "category": "security",
       "tags": [],
       "stars": 0,
       "install": "archview-ai/webf-plugin",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "openwebf-security-remote-content",
+      "description": "Review security risks and mitigations for remote WebF content (untrusted bundles, URL allowlists, HTTPS, trust boundaries, clickjacking). Use when the user mentions untrusted remote bundles, bundle UR",
+      "repo": "archview-ai/webf-plugin",
+      "path": "webf-plugin/skills/openwebf-security-remote-content",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "archview-ai/webf-plugin/webf-plugin/skills/openwebf-security-remote-content",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -7464,18 +7491,6 @@
       "stars": 0,
       "install": "vanyastaff/paramdef",
       "source": "local"
-    },
-    {
-      "name": "sandbox-configuration",
-      "description": "Central authority for Claude Code sandboxing and isolation. Covers sandboxed bash tool, /sandbox command, filesystem isolation (blocked access, custom paths), network isolation (domain restrictions, p",
-      "repo": "melodic-software/claude-code-plugins",
-      "path": "plugins/claude-ecosystem/skills/sandbox-configuration",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "melodic-software/claude-code-plugins/plugins/claude-ecosystem/skills/sandbox-configuration",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "sandbox-configuration",
@@ -9457,6 +9472,18 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/saas-packs/vercel-pack/skills/vercel-security-basics",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "violetconnect-bigcommerce",
+      "description": "BigCommerce OAuth, embedded app JWT validation, and pre-registration patterns for VioletConnect",
+      "repo": "violetio/violet-ai-plugins",
+      "path": "archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-bigcommerce",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "violetio/violet-ai-plugins/archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-bigcommerce",
       "source": "SkillsMP + GitHub Raw"
     },
     {

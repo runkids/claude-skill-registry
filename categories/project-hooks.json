@@ -1,0 +1,19 @@
+{
+  "category": "project-hooks",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.642506Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and manage project-specific Claude Code hooks",
+      "repo": "namesreallyblank/Clorch",
+      "path": "project-hooks",
+      "branch": "main",
+      "category": "project-hooks",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

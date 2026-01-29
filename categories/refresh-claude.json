@@ -1,0 +1,19 @@
+{
+  "category": "refresh-claude",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.064446Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review recent changes and update CLAUDE.md to keep it relevant for future sessions. Use after significant changes or periodically to maintain context.",
+      "repo": "zbruhnke/claude-code-starter",
+      "path": "refresh-claude",
+      "branch": "main",
+      "category": "refresh-claude",
+      "tags": [],
+      "stars": 0,
+      "install": "zbruhnke/claude-code-starter",
+      "source": "github.com/zbruhnke/claude-code-starter"
+    }
+  ]
+}

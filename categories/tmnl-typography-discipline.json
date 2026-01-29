@@ -1,0 +1,19 @@
+{
+  "category": "tmnl-typography-discipline",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.178258Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Typography rules and the 12px floor. Invoke when setting font sizes, creating text components, or debugging unreadable text. Enforces minimum readable sizes and proper token usage.",
+      "repo": "creatifcoding/gbg",
+      "path": "tmnl-typography-discipline",
+      "branch": "main",
+      "category": "tmnl-typography-discipline",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

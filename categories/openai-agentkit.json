@@ -1,0 +1,19 @@
+{
+  "category": "openai-agentkit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.817270Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build production-ready multi-agent systems using OpenAI AgentKit and Agents SDK with best practices for agent orchestration, handoffs, and routines",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "openai-agentkit",
+      "branch": "main",
+      "category": "openai-agentkit",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

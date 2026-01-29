@@ -1,0 +1,19 @@
+{
+  "category": "project-overview",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.070475Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Get overview of the Babylon.js first-person game project structure, statistics, and health metrics. Use when the user asks about project structure, codebase stats, file counts, or wants a project summ",
+      "repo": "gigi-f/babylon_fp",
+      "path": "project-overview",
+      "branch": "main",
+      "category": "project-overview",
+      "tags": [],
+      "stars": 0,
+      "install": "gigi-f/babylon_fp",
+      "source": "github.com/gigi-f/babylon_fp"
+    }
+  ]
+}

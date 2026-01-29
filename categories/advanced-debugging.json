@@ -1,0 +1,19 @@
+{
+  "category": "advanced-debugging",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.207392Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced debugging skill for MyJKKN project. Specialized workflows for debugging Next.js 15, Supabase, React Query, TypeScript, and service layer issues. Includes automated analysis tools, common erro",
+      "repo": "JKKN-Institutions/Kenavo",
+      "path": "advanced-debugging",
+      "branch": "main",
+      "category": "advanced-debugging",
+      "tags": [],
+      "stars": 0,
+      "install": "JKKN-Institutions/Kenavo",
+      "source": "github.com/JKKN-Institutions/Kenavo"
+    }
+  ]
+}

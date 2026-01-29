@@ -1,0 +1,19 @@
+{
+  "category": "the-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.321754Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ensures the application builds successfully and fixes any build errors.",
+      "repo": "dupipcom/morpheus",
+      "path": "the-builder",
+      "branch": "main",
+      "category": "the-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "dupipcom/morpheus",
+      "source": "github.com/dupipcom/morpheus"
+    }
+  ]
+}

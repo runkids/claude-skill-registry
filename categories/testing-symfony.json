@@ -1,0 +1,19 @@
+{
+  "category": "testing-symfony",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.682625Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Testing TDD & BDD - Atoll Tourisme. Use when writing tests, reviewing test coverage, or setting up testing.",
+      "repo": "TheBeardedBearSAS/claude-craft",
+      "path": "testing-symfony",
+      "branch": "main",
+      "category": "testing-symfony",
+      "tags": [],
+      "stars": 0,
+      "install": "TheBeardedBearSAS/claude-craft",
+      "source": "github.com/TheBeardedBearSAS/claude-craft"
+    }
+  ]
+}

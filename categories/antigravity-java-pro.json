@@ -1,0 +1,19 @@
+{
+  "category": "antigravity-java-pro",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.332115Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master Java 21+ with modern features like virtual threads, pattern matching, and Spring Boot 3.x. Expert in the latest Java ecosystem including GraalVM, Project Loom, and cloud-native patterns. Use PR",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-java-pro",
+      "branch": "main",
+      "category": "antigravity-java-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

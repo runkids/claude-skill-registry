@@ -1,0 +1,19 @@
+{
+  "category": "better-auth-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.274079Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert Better Auth skill with production best practices, session management, security hardening, and deployment optimization. Use with Better Auth MCP server.",
+      "repo": "Aqsagull99/hackathon-2-todo-app",
+      "path": "better-auth-skill",
+      "branch": "main",
+      "category": "better-auth-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "Aqsagull99/hackathon-2-todo-app",
+      "source": "github.com/Aqsagull99/hackathon-2-todo-app"
+    }
+  ]
+}

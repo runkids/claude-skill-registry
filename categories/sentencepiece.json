@@ -1,0 +1,19 @@
+{
+  "category": "sentencepiece",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.111196Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Language-independent tokenizer treating text as raw Unicode. Supports BPE and Unigram algorithms. Fast (50k sentences/sec), lightweight (6MB memory), deterministic vocabulary. Used by T5, ALBERT, XLNe",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "sentencepiece",
+      "branch": "main",
+      "category": "sentencepiece",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

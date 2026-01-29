@@ -1,0 +1,19 @@
+{
+  "category": "web-performance-optimization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.425277Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize website and web application performance including loading speed, Core Web Vitals, bundle size, caching strategies, and runtime performance",
+      "repo": "JohnMarkCapones/Aralify",
+      "path": "web-performance-optimization",
+      "branch": "main",
+      "category": "web-performance-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "JohnMarkCapones/Aralify",
+      "source": "github.com/JohnMarkCapones/Aralify"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "specialized-actions",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.736640Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Explains specialized Synapse action classes for specific workflows. Use when the user mentions \"BaseTrainAction\", \"BaseExportAction\", \"BaseUploadAction\", \"BaseInferenceAction\", \"BaseDeploymentAction\",",
+      "repo": "datamaker-kr/synapse-claude-marketplace",
+      "path": "specialized-actions",
+      "branch": "main",
+      "category": "specialized-actions",
+      "tags": [],
+      "stars": 0,
+      "install": "datamaker-kr/synapse-claude-marketplace",
+      "source": "github.com/datamaker-kr/synapse-claude-marketplace"
+    }
+  ]
+}

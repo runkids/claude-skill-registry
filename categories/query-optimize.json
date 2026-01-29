@@ -1,0 +1,19 @@
+{
+  "category": "query-optimize",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.287612Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SQL/NoSQL query optimization with N+1 detection and index recommendations",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "query-optimize",
+      "branch": "main",
+      "category": "query-optimize",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

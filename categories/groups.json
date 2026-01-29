@@ -1,0 +1,19 @@
+{
+  "category": "groups",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.553128Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Problem-solving strategies for groups in abstract algebra",
+      "repo": "namesreallyblank/Clorch",
+      "path": "groups",
+      "branch": "main",
+      "category": "groups",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

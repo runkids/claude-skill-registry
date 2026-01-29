@@ -1,0 +1,19 @@
+{
+  "category": "page-cro",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.246886Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize, improve, or increase conversions on any marketing page — including homepage, landing pages, pricing pages, feature pages, or blog posts. Also use when the user says \"C",
+      "repo": "LeonMelamud/inspector-agents",
+      "path": "page-cro",
+      "branch": "main",
+      "category": "page-cro",
+      "tags": [],
+      "stars": 0,
+      "install": "LeonMelamud/inspector-agents",
+      "source": "github.com/LeonMelamud/inspector-agents"
+    }
+  ]
+}

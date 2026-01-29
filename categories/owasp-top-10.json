@@ -1,0 +1,19 @@
+{
+  "category": "owasp-top-10",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.039216Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Understanding and mitigating the top 10 most critical security risks to web applications as defined by OWASP, including broken access control, cryptographic failures, injection, and insecure design.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "owasp-top-10",
+      "branch": "main",
+      "category": "owasp-top-10",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

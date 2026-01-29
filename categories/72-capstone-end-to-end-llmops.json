@@ -1,0 +1,19 @@
+{
+  "category": "72-capstone-end-to-end-llmops",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.126730Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Consolidate all Part 8 skills into a production-ready llmops-fine-tuner skill",
+      "repo": "panaversity/agentfactory",
+      "path": "72-capstone-end-to-end-llmops",
+      "branch": "main",
+      "category": "72-capstone-end-to-end-llmops",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

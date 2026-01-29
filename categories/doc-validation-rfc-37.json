@@ -1,0 +1,19 @@
+{
+  "category": "doc-validation-rfc-37",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.797242Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate documentation structure, freshness, and RFC-37 compliance using bitso-documentation-linter. Ensures docs/ folder structure (api, decisions, concepts, how-tos, runbooks) and Confluence mirrori",
+      "repo": "bitsoex/bitso-java",
+      "path": "doc-validation-rfc-37",
+      "branch": "main",
+      "category": "doc-validation-rfc-37",
+      "tags": [],
+      "stars": 0,
+      "install": "bitsoex/bitso-java",
+      "source": "github.com/bitsoex/bitso-java"
+    }
+  ]
+}

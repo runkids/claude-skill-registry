@@ -1,0 +1,19 @@
+{
+  "category": "debug-root-cause",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.817164Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Root cause analysis with dependency tracing and call stack analysis",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "debug-root-cause",
+      "branch": "main",
+      "category": "debug-root-cause",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

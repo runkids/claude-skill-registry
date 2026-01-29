@@ -1,0 +1,19 @@
+{
+  "category": "discover-history",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.805821Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Search archived tickets by keywords to find related historical context.",
+      "repo": "qmu/workaholic",
+      "path": "discover-history",
+      "branch": "main",
+      "category": "discover-history",
+      "tags": [],
+      "stars": 0,
+      "install": "qmu/workaholic",
+      "source": "github.com/qmu/workaholic"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "rust-effect-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.368088Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Translating Effect-TS patterns to Rust idioms. Result/Option handling, error propagation, service architecture, and effectful computation patterns. Use when implementing functional error handling, bui",
+      "repo": "creatifcoding/gbg",
+      "path": "rust-effect-patterns",
+      "branch": "main",
+      "category": "rust-effect-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

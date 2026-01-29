@@ -1,0 +1,19 @@
+{
+  "category": "airoha",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.979319Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Airoha Technology (MediaTek subsidiary) MPN encoding patterns, suffix decoding, and handler guidance. Use when working with Airoha Bluetooth audio SoCs or AirohaHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "airoha",
+      "branch": "main",
+      "category": "airoha",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "security-audit-checklist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.758051Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-activates when user mentions security audit, security review, vulnerabilities, or OWASP. Comprehensive security checklist based on OWASP Top 10.",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "security-audit-checklist",
+      "branch": "main",
+      "category": "security-audit-checklist",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

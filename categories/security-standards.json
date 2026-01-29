@@ -1,0 +1,19 @@
+{
+  "category": "security-standards",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.841798Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Security standards for credential handling and authentication",
+      "repo": "zerobias-org/module",
+      "path": "security-standards",
+      "branch": "main",
+      "category": "security-standards",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

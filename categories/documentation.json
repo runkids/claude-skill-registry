@@ -1,0 +1,19 @@
+{
+  "category": "documentation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.283379Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate and maintain comprehensive documentation. Use when writing README, API docs, code comments, or technical documentation.",
+      "repo": "gtakairo/dotfiles",
+      "path": "documentation",
+      "branch": "main",
+      "category": "documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "gtakairo/dotfiles",
+      "source": "github.com/gtakairo/dotfiles"
+    }
+  ]
+}

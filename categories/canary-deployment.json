@@ -1,0 +1,19 @@
+{
+  "category": "canary-deployment",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.174404Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Gradually rolling out new versions to a subset of users, monitoring for issues, and expanding the rollout if everything looks healthy to minimize risk and enable fast rollback.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "canary-deployment",
+      "branch": "main",
+      "category": "canary-deployment",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

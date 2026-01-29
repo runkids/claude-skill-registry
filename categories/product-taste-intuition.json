@@ -1,0 +1,19 @@
+{
+  "category": "product-taste-intuition",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.241050Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build stronger product taste + intuition as a PM by running a Taste Calibration Sprint (benchmark set, product critique notes, intuition→hypothesis log, validation plan, practice loop). Use for “produ",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "product-taste-intuition",
+      "branch": "main",
+      "category": "product-taste-intuition",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

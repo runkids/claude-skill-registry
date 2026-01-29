@@ -1,0 +1,19 @@
+{
+  "category": "rust-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.999301Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write and run Rust tests using cargo test with unit tests, integration tests, doc tests, and property-based testing. Use when writing Rust tests or setting up test infrastructure.",
+      "repo": "AutumnsGrove/GroveScout",
+      "path": "rust-testing",
+      "branch": "main",
+      "category": "rust-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "AutumnsGrove/GroveScout",
+      "source": "github.com/AutumnsGrove/GroveScout"
+    }
+  ]
+}

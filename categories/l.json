@@ -1,0 +1,19 @@
+{
+  "category": "l",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.233399Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "World L Skill",
+      "repo": "plurigrid/asi",
+      "path": "l",
+      "branch": "main",
+      "category": "l",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

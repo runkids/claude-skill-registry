@@ -1,0 +1,19 @@
+{
+  "category": "init-project",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.829373Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Initialize projects with agentic coding structure. Use when setting up a new project, adding AI agent support to existing project, or when user says \"init\", \"initialize\", \"setup project\", or \"scaffold",
+      "repo": "product-on-purpose/pm-skills",
+      "path": "init-project",
+      "branch": "main",
+      "category": "init-project",
+      "tags": [],
+      "stars": 0,
+      "install": "product-on-purpose/pm-skills",
+      "source": "github.com/product-on-purpose/pm-skills"
+    }
+  ]
+}

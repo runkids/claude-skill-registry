@@ -1,0 +1,19 @@
+{
+  "category": "cdk-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.285210Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS CDKスタックのコードレビューとベストプラクティスを確認するためのスキルです。",
+      "repo": "LlechiKaito/taiho-app",
+      "path": "cdk-review",
+      "branch": "main",
+      "category": "cdk-review",
+      "tags": [],
+      "stars": 0,
+      "install": "LlechiKaito/taiho-app",
+      "source": "github.com/LlechiKaito/taiho-app"
+    }
+  ]
+}

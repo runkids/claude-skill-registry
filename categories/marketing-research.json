@@ -1,0 +1,19 @@
+{
+  "category": "marketing-research",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.098451Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Research market trends, competitors, audience insights, and marketing best practices. Use before marketing-planning for data-driven strategy.",
+      "repo": "NammDev/Goads-Krea",
+      "path": "marketing-research",
+      "branch": "main",
+      "category": "marketing-research",
+      "tags": [],
+      "stars": 0,
+      "install": "NammDev/Goads-Krea",
+      "source": "github.com/NammDev/Goads-Krea"
+    }
+  ]
+}

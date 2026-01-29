@@ -1,0 +1,19 @@
+{
+  "category": "serena-semantic-code",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.636021Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"find a symbol\", \"locate code\", \"refactor\", \"rename across codebase\", or performs ANY coding task with Serena toolbox. Use Language Server Protocol (LSP",
+      "repo": "helmecke/dotfiles",
+      "path": "serena-semantic-code",
+      "branch": "main",
+      "category": "serena-semantic-code",
+      "tags": [],
+      "stars": 0,
+      "install": "helmecke/dotfiles",
+      "source": "github.com/helmecke/dotfiles"
+    }
+  ]
+}

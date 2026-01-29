@@ -1,0 +1,19 @@
+{
+  "category": "deploy-aws-ecs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.012337Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploy containerized applications to AWS ECS/Fargate. Use when deploying containers to AWS, managing ECS services, or setting up Fargate tasks. Covers task definitions and ECR.",
+      "repo": "dralgorhythm/claude-agentic-framework",
+      "path": "deploy-aws-ecs",
+      "branch": "main",
+      "category": "deploy-aws-ecs",
+      "tags": [],
+      "stars": 0,
+      "install": "dralgorhythm/claude-agentic-framework",
+      "source": "github.com/dralgorhythm/claude-agentic-framework"
+    }
+  ]
+}

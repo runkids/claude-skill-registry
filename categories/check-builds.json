@@ -1,0 +1,19 @@
+{
+  "category": "check-builds",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.729943Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check CI build status, PR checks, and pull request build results",
+      "repo": "sensei-hacker/inav-claude",
+      "path": "check-builds",
+      "branch": "main",
+      "category": "check-builds",
+      "tags": [],
+      "stars": 0,
+      "install": "sensei-hacker/inav-claude",
+      "source": "github.com/sensei-hacker/inav-claude"
+    }
+  ]
+}

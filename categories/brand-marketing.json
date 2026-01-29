@@ -1,0 +1,19 @@
+{
+  "category": "brand-marketing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.811060Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по бренд-маркетингу. Используй для позиционирования, brand identity, tone of voice и brand strategy.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "brand-marketing",
+      "branch": "main",
+      "category": "brand-marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

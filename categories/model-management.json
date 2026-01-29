@@ -1,0 +1,19 @@
+{
+  "category": "model-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.216788Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CLI commands to add, update, list, and deprecate AI models in the database. Triggers on \"add model\", \"new model\", \"update model\", \"deprecate model\", \"model pricing\", \"model cli\".",
+      "repo": "planetaryescape/blah.chat",
+      "path": "model-management",
+      "branch": "main",
+      "category": "model-management",
+      "tags": [],
+      "stars": 0,
+      "install": "planetaryescape/blah.chat",
+      "source": "github.com/planetaryescape/blah.chat"
+    }
+  ]
+}

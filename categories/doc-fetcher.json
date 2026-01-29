@@ -1,0 +1,19 @@
+{
+  "category": "doc-fetcher",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.693863Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fetch library and framework documentation via context7-mcp and fetch-mcp for comprehensive documentation research with version-specific content.",
+      "repo": "matteocervelli/llms",
+      "path": "doc-fetcher",
+      "branch": "main",
+      "category": "doc-fetcher",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

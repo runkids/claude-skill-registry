@@ -1,0 +1,19 @@
+{
+  "category": "agent-assistant",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.971117Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Agent assistance skill that provides stuck detection, memory management, and session learning capabilities for AI agents\n\nTrigger terms: agent stuck, loop detected, session memory, agent learning, con",
+      "repo": "nahisaho/MUSUBI",
+      "path": "agent-assistant",
+      "branch": "main",
+      "category": "agent-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/MUSUBI",
+      "source": "github.com/nahisaho/MUSUBI"
+    }
+  ]
+}

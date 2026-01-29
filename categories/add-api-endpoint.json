@@ -1,0 +1,19 @@
+{
+  "category": "add-api-endpoint",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.652313Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create API layer components for a new entity. Includes usecase interactors (internal/usecase/), proto definitions (schema/proto/), gRPC handlers (internal/infrastructure/grpc/), and DI registration. U",
+      "repo": "abyssparanoia/rapid-go",
+      "path": "add-api-endpoint",
+      "branch": "main",
+      "category": "add-api-endpoint",
+      "tags": [],
+      "stars": 0,
+      "install": "abyssparanoia/rapid-go",
+      "source": "github.com/abyssparanoia/rapid-go"
+    }
+  ]
+}

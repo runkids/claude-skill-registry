@@ -1,0 +1,19 @@
+{
+  "category": "clavix-plan",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.718637Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform PRD documents into actionable task breakdowns with dependencies. Use after creating a PRD to generate implementation tasks.",
+      "repo": "alysonhower/dupcheck",
+      "path": "clavix-plan",
+      "branch": "main",
+      "category": "clavix-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "alysonhower/dupcheck",
+      "source": "github.com/alysonhower/dupcheck"
+    }
+  ]
+}

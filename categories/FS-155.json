@@ -1,0 +1,19 @@
+{
+  "category": "FS-155",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.787553Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Feature: FS-155",
+      "repo": "anton-abyzov/specweave",
+      "path": "FS-155",
+      "branch": "main",
+      "category": "FS-155",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

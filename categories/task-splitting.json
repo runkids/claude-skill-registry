@@ -1,0 +1,19 @@
+{
+  "category": "task-splitting",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.996470Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Split large tasks into smaller subtasks. Use when a task spans many modules or requires phased implementation.",
+      "repo": "doraemonkeys/sloc-guard",
+      "path": "task-splitting",
+      "branch": "main",
+      "category": "task-splitting",
+      "tags": [],
+      "stars": 0,
+      "install": "doraemonkeys/sloc-guard",
+      "source": "github.com/doraemonkeys/sloc-guard"
+    }
+  ]
+}

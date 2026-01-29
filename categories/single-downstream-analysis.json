@@ -1,0 +1,19 @@
+{
+  "category": "single-downstream-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.345161Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Checklist-style reference for OmicVerse downstream tutorials covering AUCell scoring, metacell DEG, and related exports.",
+      "repo": "Starlitnightly/omicverse",
+      "path": "single-downstream-analysis",
+      "branch": "main",
+      "category": "single-downstream-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "Starlitnightly/omicverse",
+      "source": "github.com/Starlitnightly/omicverse"
+    }
+  ]
+}

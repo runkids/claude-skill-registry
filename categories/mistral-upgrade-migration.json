@@ -1,0 +1,19 @@
+{
+  "category": "mistral-upgrade-migration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.874717Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze, plan, and execute Mistral AI SDK upgrades with breaking change detection.\nUse when upgrading Mistral SDK versions, detecting deprecations,\nor migrating to new API versions.\nTrigger with phras",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "mistral-upgrade-migration",
+      "branch": "main",
+      "category": "mistral-upgrade-migration",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

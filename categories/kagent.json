@@ -1,0 +1,19 @@
+{
+  "category": "kagent",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.384041Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Kubernetes-native AI agent framework for building, deploying, and managing AI agents on Kubernetes. This skill should be used when deploying AI agents as Kubernetes resources, analyzing cluster health",
+      "repo": "mjunaidca/mjs-agent-skills",
+      "path": "kagent",
+      "branch": "main",
+      "category": "kagent",
+      "tags": [],
+      "stars": 0,
+      "install": "mjunaidca/mjs-agent-skills",
+      "source": "github.com/mjunaidca/mjs-agent-skills"
+    }
+  ]
+}

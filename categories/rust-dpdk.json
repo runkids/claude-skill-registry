@@ -1,0 +1,19 @@
+{
+  "category": "rust-dpdk",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.232886Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "用户态网络专家。处理 DPDK, 用户态驱动, 高性能网络, packet processing, 零拷贝, RSS 负载均衡",
+      "repo": "huiali/rust-skills",
+      "path": "rust-dpdk",
+      "branch": "main",
+      "category": "rust-dpdk",
+      "tags": [],
+      "stars": 0,
+      "install": "huiali/rust-skills",
+      "source": "github.com/huiali/rust-skills"
+    }
+  ]
+}

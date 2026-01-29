@@ -1,0 +1,19 @@
+{
+  "category": "axios",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.931270Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Promise-based HTTP client for making requests from browser and Node.js",
+      "repo": "SlanyCukr/riot-api-project",
+      "path": "axios",
+      "branch": "main",
+      "category": "axios",
+      "tags": [],
+      "stars": 0,
+      "install": "SlanyCukr/riot-api-project",
+      "source": "github.com/SlanyCukr/riot-api-project"
+    }
+  ]
+}

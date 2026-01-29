@@ -1,0 +1,19 @@
+{
+  "category": "production-readiness",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.569835Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive pre-deployment validation ensuring code is production-ready. Runs complete audit pipeline, performance benchmarks, security scan, documentation check, and generates deployment checklist.",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "production-readiness",
+      "branch": "main",
+      "category": "production-readiness",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

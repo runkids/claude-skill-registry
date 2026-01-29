@@ -1,0 +1,19 @@
+{
+  "category": "clinical-reports",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.983106Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write comprehensive clinical reports including case reports (CARE guidelines), diagnostic reports (radiology/pathology/lab), clinical trial reports (ICH-E3, SAE, CSR), and patient documentation (SOAP,",
+      "repo": "K-Dense-AI/claude-scientific-skills",
+      "path": "clinical-reports",
+      "branch": "main",
+      "category": "clinical-reports",
+      "tags": [],
+      "stars": 0,
+      "install": "K-Dense-AI/claude-scientific-skills",
+      "source": "github.com/K-Dense-AI/claude-scientific-skills"
+    }
+  ]
+}

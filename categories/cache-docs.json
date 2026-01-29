@@ -1,0 +1,19 @@
+{
+  "category": "cache-docs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.149971Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When fetching library documentation, API references, or technical docs for project dependencies via WebFetch, automatically save a copy to the docs/ folder. Also triggers when user pastes documentatio",
+      "repo": "MQFacultyOfArts/PromptGrimoireTool",
+      "path": "cache-docs",
+      "branch": "main",
+      "category": "cache-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "MQFacultyOfArts/PromptGrimoireTool",
+      "source": "github.com/MQFacultyOfArts/PromptGrimoireTool"
+    }
+  ]
+}

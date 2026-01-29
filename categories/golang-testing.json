@@ -1,0 +1,19 @@
+{
+  "category": "golang-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.326860Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Go testing patterns including table-driven tests, subtests, benchmarks, fuzzing, and test coverage. Follows TDD methodology with idiomatic Go practices.",
+      "repo": "affaan-m/everything-claude-code",
+      "path": "golang-testing",
+      "branch": "main",
+      "category": "golang-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "affaan-m/everything-claude-code",
+      "source": "github.com/affaan-m/everything-claude-code"
+    }
+  ]
+}

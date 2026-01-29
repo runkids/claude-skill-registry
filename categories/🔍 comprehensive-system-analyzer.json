@@ -1,0 +1,19 @@
+{
+  "category": "🔍 comprehensive-system-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.954406Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deep comprehensive system status analyzer that provides honest truth reporting about entire Pomo-Flow application health, performance, and integrity",
+      "repo": "endlessblink/flow-state",
+      "path": "🔍 comprehensive-system-analyzer",
+      "branch": "main",
+      "category": "🔍 comprehensive-system-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

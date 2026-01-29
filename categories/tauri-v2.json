@@ -1,0 +1,19 @@
+{
+  "category": "tauri-v2",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.333023Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tauri v2 cross-platform app development with Rust backend. Use when configuring tauri.conf.json, implementing Rust commands (#[tauri::command]), setting up IPC patterns (invoke, emit, channels), confi",
+      "repo": "nodnarbnitram/claude-code-extensions",
+      "path": "tauri-v2",
+      "branch": "main",
+      "category": "tauri-v2",
+      "tags": [],
+      "stars": 0,
+      "install": "nodnarbnitram/claude-code-extensions",
+      "source": "github.com/nodnarbnitram/claude-code-extensions"
+    }
+  ]
+}

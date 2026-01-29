@@ -1,0 +1,19 @@
+{
+  "category": "milestone-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.815192Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use for time-based grouping of issues into delivery phases. Creates, updates, and tracks milestones, associates issues and epics, monitors progress toward milestone completion.",
+      "repo": "troykelly/claude-skills",
+      "path": "milestone-management",
+      "branch": "main",
+      "category": "milestone-management",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

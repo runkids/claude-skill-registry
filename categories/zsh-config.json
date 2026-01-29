@@ -1,0 +1,19 @@
+{
+  "category": "zsh-config",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.795624Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "zsh設定管理。関数・config・aliasの追加・編集・確認。トリガー: zsh, shell, alias, function, config, zshrc",
+      "repo": "snkrheadz/laptop",
+      "path": "zsh-config",
+      "branch": "main",
+      "category": "zsh-config",
+      "tags": [],
+      "stars": 0,
+      "install": "snkrheadz/laptop",
+      "source": "github.com/snkrheadz/laptop"
+    }
+  ]
+}

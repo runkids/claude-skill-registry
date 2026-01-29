@@ -1,0 +1,19 @@
+{
+  "category": "scientific-db-cosmic-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.492753Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access COSMIC cancer mutation database. Query somatic mutations, Cancer Gene Census, mutational signatures, gene fusions, for cancer research and precision oncology. Requires authentication.",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-db-cosmic-database",
+      "branch": "main",
+      "category": "scientific-db-cosmic-database",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "csv-parser",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.976804Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Parse and analyze CSV files with data validation",
+      "repo": "maxvaega/skillkit",
+      "path": "csv-parser",
+      "branch": "main",
+      "category": "csv-parser",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

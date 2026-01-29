@@ -1,0 +1,19 @@
+{
+  "category": "saas-metrics-tracker",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.221692Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Track and analyze key SaaS metrics including MRR, churn, NRR, and ARR",
+      "repo": "eddiebe147/claude-settings",
+      "path": "saas-metrics-tracker",
+      "branch": "main",
+      "category": "saas-metrics-tracker",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

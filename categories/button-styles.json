@@ -1,0 +1,19 @@
+{
+  "category": "button-styles",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.359740Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Sistema de estilos de botones consistentes para iqEngi (Cards, CTAs, Formularios)",
+      "repo": "phoenixdhr/iqEngi-front",
+      "path": "button-styles",
+      "branch": "main",
+      "category": "button-styles",
+      "tags": [],
+      "stars": 0,
+      "install": "phoenixdhr/iqEngi-front",
+      "source": "github.com/phoenixdhr/iqEngi-front"
+    }
+  ]
+}

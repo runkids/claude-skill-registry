@@ -1,0 +1,19 @@
+{
+  "category": "policyengine-testing-patterns-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.245117Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PolicyEngine testing patterns - YAML test structure, naming conventions, period handling, and quality standards",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-testing-patterns-skill",
+      "branch": "main",
+      "category": "policyengine-testing-patterns-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

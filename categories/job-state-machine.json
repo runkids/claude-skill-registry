@@ -1,0 +1,19 @@
+{
+  "category": "job-state-machine",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.893541Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Async job processing with validated state transitions, progress tracking, and asset linking. Ensure jobs always reach terminal states with proper error handling.",
+      "repo": "dadbodgeoff/drift",
+      "path": "job-state-machine",
+      "branch": "main",
+      "category": "job-state-machine",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

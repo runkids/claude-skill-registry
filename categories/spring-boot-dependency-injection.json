@@ -1,0 +1,19 @@
+{
+  "category": "spring-boot-dependency-injection",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.644916Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Dependency injection workflow for Spring Boot projects covering constructor-first patterns, optional collaborator handling, bean selection, and validation practices.",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "spring-boot-dependency-injection",
+      "branch": "main",
+      "category": "spring-boot-dependency-injection",
+      "tags": [],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    }
+  ]
+}

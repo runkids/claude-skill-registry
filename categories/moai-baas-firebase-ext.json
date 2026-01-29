@@ -1,0 +1,19 @@
+{
+  "category": "moai-baas-firebase-ext",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.101449Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Firebase Platform with AI-powered Google Cloud integration, Context7 integration, and intelligent Firebase orchestration for scalable mobile and web applications",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-baas-firebase-ext",
+      "branch": "main",
+      "category": "moai-baas-firebase-ext",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

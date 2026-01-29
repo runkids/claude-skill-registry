@@ -1,0 +1,19 @@
+{
+  "category": "molfeat",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.536994Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Molecular featurization for ML (100+ featurizers). ECFP, MACCS, descriptors, pretrained models (ChemBERTa), convert SMILES to features, for QSAR and molecular ML.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "molfeat",
+      "branch": "main",
+      "category": "molfeat",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

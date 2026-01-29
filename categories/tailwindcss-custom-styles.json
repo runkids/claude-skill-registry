@@ -1,0 +1,19 @@
+{
+  "category": "tailwindcss-custom-styles",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.483281Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "@utility glass-effect {",
+      "repo": "fusengine/agents",
+      "path": "tailwindcss-custom-styles",
+      "branch": "main",
+      "category": "tailwindcss-custom-styles",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

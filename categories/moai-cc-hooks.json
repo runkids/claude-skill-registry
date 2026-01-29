@@ -1,0 +1,19 @@
+{
+  "category": "moai-cc-hooks",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.542641Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI-powered enterprise Claude Code hooks orchestrator with intelligent automation, predictive maintenance, ML-based optimization, and Context7-enhanced workflow patterns. Use when designing smart hook ",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-cc-hooks",
+      "branch": "main",
+      "category": "moai-cc-hooks",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

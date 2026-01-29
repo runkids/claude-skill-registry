@@ -1,0 +1,19 @@
+{
+  "category": "csv-to-json",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.009405Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Converts CSV files to JSON format.",
+      "repo": "marcelocmenezes/antigravity-agentkit",
+      "path": "csv-to-json",
+      "branch": "main",
+      "category": "csv-to-json",
+      "tags": [],
+      "stars": 0,
+      "install": "marcelocmenezes/antigravity-agentkit",
+      "source": "github.com/marcelocmenezes/antigravity-agentkit"
+    }
+  ]
+}

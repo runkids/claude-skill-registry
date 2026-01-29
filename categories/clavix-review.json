@@ -1,0 +1,19 @@
+{
+  "category": "clavix-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.470996Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review code changes with criteria-driven analysis (Security, Architecture, Standards, Performance). Use when reviewing PRs or code changes.",
+      "repo": "alysonhower/dupcheck",
+      "path": "clavix-review",
+      "branch": "main",
+      "category": "clavix-review",
+      "tags": [],
+      "stars": 0,
+      "install": "alysonhower/dupcheck",
+      "source": "github.com/alysonhower/dupcheck"
+    }
+  ]
+}

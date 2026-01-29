@@ -1,0 +1,19 @@
+{
+  "category": "flutter-ui-ux",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.017436Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Flutter UI/UX development skill for creating beautiful, responsive, and animated mobile applications. Use when user asks to:\n(1) Build Flutter UI components or screens\n(2) Implement anim",
+      "repo": "ajianaz/skills-collection",
+      "path": "flutter-ui-ux",
+      "branch": "main",
+      "category": "flutter-ui-ux",
+      "tags": [],
+      "stars": 0,
+      "install": "ajianaz/skills-collection",
+      "source": "github.com/ajianaz/skills-collection"
+    }
+  ]
+}

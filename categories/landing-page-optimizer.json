@@ -1,0 +1,19 @@
+{
+  "category": "landing-page-optimizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.271932Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize landing pages for maximum conversion through copy, design, and UX improvements",
+      "repo": "eddiebe147/claude-settings",
+      "path": "landing-page-optimizer",
+      "branch": "main",
+      "category": "landing-page-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

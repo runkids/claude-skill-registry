@@ -1,0 +1,19 @@
+{
+  "category": "full-stack-optimizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.754295Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-agent orchestration for comprehensive frontend + backend improvements. Use when user requests \"improve the app\", \"optimize functionality\", \"make it perfect\", or \"enhance the system\". Deploys spe",
+      "repo": "HR-AR/Project-Conductor",
+      "path": "full-stack-optimizer",
+      "branch": "main",
+      "category": "full-stack-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "HR-AR/Project-Conductor",
+      "source": "github.com/HR-AR/Project-Conductor"
+    }
+  ]
+}

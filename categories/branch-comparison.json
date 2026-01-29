@@ -1,0 +1,19 @@
+{
+  "category": "branch-comparison",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.317310Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when the user asks to compare branches, analyze git diffs, review changes, update specifications based on code changes, or sync specs with implementation. Triggers on keywords like \"compare branch",
+      "repo": "duc01226/EasyPlatform",
+      "path": "branch-comparison",
+      "branch": "main",
+      "category": "branch-comparison",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

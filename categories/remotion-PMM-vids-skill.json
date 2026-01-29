@@ -1,0 +1,19 @@
+{
+  "category": "remotion-PMM-vids-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.740256Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Best practices for Remotion - Video creation in React",
+      "repo": "jas0nnguyen/PM-Copilot-General",
+      "path": "remotion-PMM-vids-skill",
+      "branch": "main",
+      "category": "remotion-PMM-vids-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "jas0nnguyen/PM-Copilot-General",
+      "source": "github.com/jas0nnguyen/PM-Copilot-General"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "cloud-tencent-cvm",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.729590Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Tencent Cloud CVM including instance creation, configuration, security groups, and CVM management. Use when the user asks about Tencent Cloud CVM, needs to create C",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "cloud-tencent-cvm",
+      "branch": "main",
+      "category": "cloud-tencent-cvm",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

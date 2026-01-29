@@ -1,0 +1,19 @@
+{
+  "category": "webgl-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.252234Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guide for WebGL API development including 3D graphics, shaders (GLSL), rendering pipeline, textures, buffers, performance optimization, and canvas rendering. Use when working with WebGL, 3D gra",
+      "repo": "ronnycoding/.claude",
+      "path": "webgl-expert",
+      "branch": "main",
+      "category": "webgl-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "ronnycoding/.claude",
+      "source": "github.com/ronnycoding/.claude"
+    }
+  ]
+}

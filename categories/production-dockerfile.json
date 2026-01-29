@@ -1,0 +1,19 @@
+{
+  "category": "production-dockerfile",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.706379Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate production-ready Dockerfiles with multi-stage builds, security best practices, and optimization. Use when containerizing Python applications for production deployment.",
+      "repo": "panaversity/agentfactory",
+      "path": "production-dockerfile",
+      "branch": "main",
+      "category": "production-dockerfile",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

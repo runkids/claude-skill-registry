@@ -1,0 +1,19 @@
+{
+  "category": "git-bisect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.633355Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated git bisect for bug hunting with test script execution",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "git-bisect",
+      "branch": "main",
+      "category": "git-bisect",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

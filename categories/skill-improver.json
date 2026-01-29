@@ -1,0 +1,19 @@
+{
+  "category": "skill-improver",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.275294Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Research and improve Claude skills with current best practices. Triggers on requests to improve skills, update skills, research best practices for skills, enhance skill quality, or modernize existing ",
+      "repo": "shakefu/contextium",
+      "path": "skill-improver",
+      "branch": "main",
+      "category": "skill-improver",
+      "tags": [],
+      "stars": 0,
+      "install": "shakefu/contextium",
+      "source": "github.com/shakefu/contextium"
+    }
+  ]
+}

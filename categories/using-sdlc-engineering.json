@@ -1,0 +1,19 @@
+{
+  "category": "using-sdlc-engineering",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.636672Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when users request SDLC guidance, CMMI processes, requirements management, design documentation, quality assurance, governance, metrics, or adopting processes on existing projects",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-sdlc-engineering",
+      "branch": "main",
+      "category": "using-sdlc-engineering",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

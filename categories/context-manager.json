@@ -1,0 +1,19 @@
+{
+  "category": "context-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.788056Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Elite AI context engineering specialist mastering dynamic context management, vector databases, knowledge graphs, and intelligent memory systems. Orchestrates context across multi-agent workflows, ent",
+      "repo": "rmyndharis/antigravity-skills",
+      "path": "context-manager",
+      "branch": "main",
+      "category": "context-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "rmyndharis/antigravity-skills",
+      "source": "github.com/rmyndharis/antigravity-skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "sop-code-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.819424Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive code review workflow coordinating quality, security, performance, and documentation reviewers. 4-hour timeline for thorough multi-agent review.",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "sop-code-review",
+      "branch": "main",
+      "category": "sop-code-review",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "swiftui-navigation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.079082Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement SwiftUI navigation with NavigationStack, NavigationSplitView, deep linking, and programmatic routing. Use when building navigation flows, handling deep links, implementing tab bars, or creat",
+      "repo": "fusengine/agents",
+      "path": "swiftui-navigation",
+      "branch": "main",
+      "category": "swiftui-navigation",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

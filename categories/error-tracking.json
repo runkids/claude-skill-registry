@@ -1,0 +1,19 @@
+{
+  "category": "error-tracking",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.128267Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement error tracking with Sentry for automatic exception monitoring, release tracking, and performance issues. Use when setting up error monitoring, tracking bugs in production, or analyzing appli",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "error-tracking",
+      "branch": "main",
+      "category": "error-tracking",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

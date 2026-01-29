@@ -1,0 +1,19 @@
+{
+  "category": "generate-qa-test-cases",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.587764Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate QA test cases in Traditional Chinese from project code analysis.",
+      "repo": "Michael0520/milo-claudekit",
+      "path": "generate-qa-test-cases",
+      "branch": "main",
+      "category": "generate-qa-test-cases",
+      "tags": [],
+      "stars": 0,
+      "install": "Michael0520/milo-claudekit",
+      "source": "github.com/Michael0520/milo-claudekit"
+    }
+  ]
+}

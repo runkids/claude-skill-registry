@@ -1,0 +1,19 @@
+{
+  "category": "global-atomic-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.707691Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Your approach to handling global atomic design. Use this skill when working on files where global atomic design comes into play.",
+      "repo": "jaypaulb/CanvusAPI-LLMDemo",
+      "path": "global-atomic-design",
+      "branch": "main",
+      "category": "global-atomic-design",
+      "tags": [],
+      "stars": 0,
+      "install": "jaypaulb/CanvusAPI-LLMDemo",
+      "source": "github.com/jaypaulb/CanvusAPI-LLMDemo"
+    }
+  ]
+}

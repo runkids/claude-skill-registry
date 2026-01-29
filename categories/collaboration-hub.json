@@ -1,0 +1,19 @@
+{
+  "category": "collaboration-hub",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.994939Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Develop and modify the AILANG Collaboration Hub UI. Use when user asks to add features to the monitoring dashboard, modify the approval queue, update the message center, or make changes to the React f",
+      "repo": "sunholo-data/ailang",
+      "path": "collaboration-hub",
+      "branch": "main",
+      "category": "collaboration-hub",
+      "tags": [],
+      "stars": 0,
+      "install": "sunholo-data/ailang",
+      "source": "github.com/sunholo-data/ailang"
+    }
+  ]
+}

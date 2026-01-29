@@ -1,0 +1,19 @@
+{
+  "category": "code-template-engine",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.718839Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build template substitution and conditional logic.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "code-template-engine",
+      "branch": "main",
+      "category": "code-template-engine",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

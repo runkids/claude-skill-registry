@@ -1,0 +1,19 @@
+{
+  "category": "mcp-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.995259Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Developing and testing MCP tools for Brief",
+      "repo": "brief-hq/brief-wiggum",
+      "path": "mcp-development",
+      "branch": "main",
+      "category": "mcp-development",
+      "tags": [],
+      "stars": 0,
+      "install": "brief-hq/brief-wiggum",
+      "source": "github.com/brief-hq/brief-wiggum"
+    }
+  ]
+}

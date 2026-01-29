@@ -1,0 +1,19 @@
+{
+  "category": "docker-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.645502Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up a Docker container for running Nextflow training examples. Handles basic setup, Docker-outside-of-Docker (DooD) for containerized processes, ARM Mac platform emulation, and troubleshooting. Use",
+      "repo": "nextflow-io/training",
+      "path": "docker-setup",
+      "branch": "main",
+      "category": "docker-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "nextflow-io/training",
+      "source": "github.com/nextflow-io/training"
+    }
+  ]
+}

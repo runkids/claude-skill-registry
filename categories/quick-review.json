@@ -1,0 +1,19 @@
+{
+  "category": "quick-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.330674Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Performs a fast, focused code review checking for common issues, security vulnerabilities, and best practices without over-engineering. Optimized for cost-efficiency by targeting specific concerns rat",
+      "repo": "ioku24/autorankr",
+      "path": "quick-review",
+      "branch": "main",
+      "category": "quick-review",
+      "tags": [],
+      "stars": 0,
+      "install": "ioku24/autorankr",
+      "source": "github.com/ioku24/autorankr"
+    }
+  ]
+}

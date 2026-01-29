@@ -1,0 +1,19 @@
+{
+  "category": "cfn-expert-update",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.298143Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Update CFN system expert agent with relevant git commits and project changes",
+      "repo": "masharratt/claude-flow-novice",
+      "path": "cfn-expert-update",
+      "branch": "main",
+      "category": "cfn-expert-update",
+      "tags": [],
+      "stars": 0,
+      "install": "masharratt/claude-flow-novice",
+      "source": "github.com/masharratt/claude-flow-novice"
+    }
+  ]
+}

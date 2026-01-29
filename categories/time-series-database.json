@@ -1,0 +1,19 @@
+{
+  "category": "time-series-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.319038Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure retention and downsampling.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "time-series-database",
+      "branch": "main",
+      "category": "time-series-database",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "jwt-decoder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.488516Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "解码、验证和生成JWT令牌，支持多种算法。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "jwt-decoder",
+      "branch": "main",
+      "category": "jwt-decoder",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

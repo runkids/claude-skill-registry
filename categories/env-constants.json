@@ -1,0 +1,19 @@
+{
+  "category": "env-constants",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.067985Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates src/shared/EnvConsts.ts for type-safe environment variable access. Provides TypeScript interface and exports for accessing Vite environment variables throughout the application.",
+      "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+      "path": "env-constants",
+      "branch": "main",
+      "category": "env-constants",
+      "tags": [],
+      "stars": 0,
+      "install": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+      "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template"
+    }
+  ]
+}

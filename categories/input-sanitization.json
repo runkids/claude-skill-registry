@@ -1,0 +1,19 @@
+{
+  "category": "input-sanitization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.178367Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по санитизации ввода. Используй для XSS prevention, encoding, validation и security headers.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "input-sanitization",
+      "branch": "main",
+      "category": "input-sanitization",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

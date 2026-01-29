@@ -1,0 +1,19 @@
+{
+  "category": "presidio-pii-specialist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.652607Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Microsoft Presidio PII detection API for Vigil Guard v2.0.0. Use for dual-language PII (Polish + English), spaCy models, entity deduplication, custom recognizers (PESEL, NIP, REGON), integration with ",
+      "repo": "tbartel74/Vigil-Code",
+      "path": "presidio-pii-specialist",
+      "branch": "main",
+      "category": "presidio-pii-specialist",
+      "tags": [],
+      "stars": 0,
+      "install": "tbartel74/Vigil-Code",
+      "source": "github.com/tbartel74/Vigil-Code"
+    }
+  ]
+}

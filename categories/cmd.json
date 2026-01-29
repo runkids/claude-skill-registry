@@ -1,0 +1,19 @@
+{
+  "category": "cmd",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.966767Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cheat sheet for Windows Command Prompt commands.",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "cmd",
+      "branch": "main",
+      "category": "cmd",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

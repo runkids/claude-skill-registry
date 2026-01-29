@@ -1,0 +1,19 @@
+{
+  "category": "popup-cro",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.443204Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to create or optimize popups, modals, overlays, slide-ins, or banners for conversion purposes. Also use when the user mentions \"exit intent,\" \"popup conversions,\" \"modal optimizati",
+      "repo": "LeonMelamud/inspector-agents",
+      "path": "popup-cro",
+      "branch": "main",
+      "category": "popup-cro",
+      "tags": [],
+      "stars": 0,
+      "install": "LeonMelamud/inspector-agents",
+      "source": "github.com/LeonMelamud/inspector-agents"
+    }
+  ]
+}

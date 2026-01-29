@@ -1,0 +1,19 @@
+{
+  "category": "internationalization-i18n",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.523402Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements multi-language support using i18next, gettext, or Intl API with translation workflows and RTL support. Use when building multilingual applications, handling date/currency formatting, or sup",
+      "repo": "secondsky/claude-skills",
+      "path": "internationalization-i18n",
+      "branch": "main",
+      "category": "internationalization-i18n",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

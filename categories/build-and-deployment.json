@@ -1,0 +1,19 @@
+{
+  "category": "build-and-deployment",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.357459Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build commands, build order, TypeScript configuration, and CDK deployment. Use when building packages, troubleshooting build issues, or deploying stacks.",
+      "repo": "crmagz/cdk-constructs-library",
+      "path": "build-and-deployment",
+      "branch": "main",
+      "category": "build-and-deployment",
+      "tags": [],
+      "stars": 0,
+      "install": "crmagz/cdk-constructs-library",
+      "source": "github.com/crmagz/cdk-constructs-library"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "job-scout",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.487982Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Load Scout, the market intelligence analyst for job market research, company evaluation, and opportunity discovery. Use when researching industries, companies, or job postings.",
+      "repo": "shindo107/job-coach-and-scout",
+      "path": "job-scout",
+      "branch": "main",
+      "category": "job-scout",
+      "tags": [],
+      "stars": 0,
+      "install": "shindo107/job-coach-and-scout",
+      "source": "github.com/shindo107/job-coach-and-scout"
+    }
+  ]
+}

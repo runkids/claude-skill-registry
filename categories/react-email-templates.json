@@ -1,0 +1,19 @@
+{
+  "category": "react-email-templates",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.005687Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "React Email transactional templates for this project. Node runtime, inline styles, shared components, Resend integration. Triggers on \"email\", \"react-email\", \"@react-email/components\", \"transactional\"",
+      "repo": "planetaryescape/blah.chat",
+      "path": "react-email-templates",
+      "branch": "main",
+      "category": "react-email-templates",
+      "tags": [],
+      "stars": 0,
+      "install": "planetaryescape/blah.chat",
+      "source": "github.com/planetaryescape/blah.chat"
+    }
+  ]
+}

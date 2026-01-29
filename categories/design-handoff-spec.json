@@ -1,0 +1,19 @@
+{
+  "category": "design-handoff-spec",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.077219Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по design handoff. Используй для спецификаций дизайна, Figma annotations и developer handoff.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "design-handoff-spec",
+      "branch": "main",
+      "category": "design-handoff-spec",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

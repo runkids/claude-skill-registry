@@ -1,0 +1,19 @@
+{
+  "category": "tmnl-debug-instrumentation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.534310Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DebugScope patterns, DebugScopeProvider, useDebugScope. Console logging via Effect.Console. Conditional debug activation.",
+      "repo": "creatifcoding/gbg",
+      "path": "tmnl-debug-instrumentation",
+      "branch": "main",
+      "category": "tmnl-debug-instrumentation",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

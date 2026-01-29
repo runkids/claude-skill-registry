@@ -1,0 +1,19 @@
+{
+  "category": "id8labs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.222338Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete idea-to-exit pipeline for solo builders with 8 interconnected agents managing the entire product lifecycle",
+      "repo": "eddiebe147/claude-settings",
+      "path": "id8labs",
+      "branch": "main",
+      "category": "id8labs",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

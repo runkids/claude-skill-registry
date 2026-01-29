@@ -1,0 +1,19 @@
+{
+  "category": "pm-retrospective-facilitation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.606110Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Facilitate file-based retrospective after task completion with worker agents (Developer, Tech Artist, QA). Playtest session is now a separate phase.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "pm-retrospective-facilitation",
+      "branch": "main",
+      "category": "pm-retrospective-facilitation",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

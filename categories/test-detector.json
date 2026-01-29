@@ -1,0 +1,19 @@
+{
+  "category": "test-detector",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.122481Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically detect test frameworks (Jest, pytest, RSpec, xUnit) in projects by analyzing configuration files and dependencies",
+      "repo": "FortiumPartners/ensemble",
+      "path": "test-detector",
+      "branch": "main",
+      "category": "test-detector",
+      "tags": [],
+      "stars": 0,
+      "install": "FortiumPartners/ensemble",
+      "source": "github.com/FortiumPartners/ensemble"
+    }
+  ]
+}

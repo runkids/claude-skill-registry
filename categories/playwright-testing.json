@@ -1,0 +1,19 @@
+{
+  "category": "playwright-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.064927Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when writing, debugging, or reviewing Playwright tests for web apps; before writing test code; when tests are flaky, slow, or brittle; when seeing timeout errors, element not found, or race condit",
+      "repo": "mhagrelius/dotfiles",
+      "path": "playwright-testing",
+      "branch": "main",
+      "category": "playwright-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "mhagrelius/dotfiles",
+      "source": "github.com/mhagrelius/dotfiles"
+    }
+  ]
+}

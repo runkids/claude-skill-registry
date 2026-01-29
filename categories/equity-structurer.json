@@ -1,0 +1,19 @@
+{
+  "category": "equity-structurer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.059936Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Structure founder equity, vesting schedules, and employee option plans",
+      "repo": "eddiebe147/claude-settings",
+      "path": "equity-structurer",
+      "branch": "main",
+      "category": "equity-structurer",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "framer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.871961Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and publish websites with Framer - create interactive sites, manage projects, and publish directly",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "framer",
+      "branch": "main",
+      "category": "framer",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

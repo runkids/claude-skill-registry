@@ -1,0 +1,19 @@
+{
+  "category": "checkpoint-resume",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.601906Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Exactly-once processing semantics with distributed coordination for file-based data pipelines. Atomic file claiming, status tracking, and automatic retry with in-memory fallback.",
+      "repo": "dadbodgeoff/drift",
+      "path": "checkpoint-resume",
+      "branch": "main",
+      "category": "checkpoint-resume",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

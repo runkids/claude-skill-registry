@@ -1,0 +1,19 @@
+{
+  "category": "veo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.720734Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate video using Google Veo (Veo 3.1 / Veo 3.0).",
+      "repo": "moltbot/skills",
+      "path": "veo",
+      "branch": "main",
+      "category": "veo",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

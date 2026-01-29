@@ -1,0 +1,19 @@
+{
+  "category": "anchoring-effect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.867907Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "La primera información recibida influye en juicios posteriores. Use cuando diseñe pricing, comparaciones, o cualquier contexto donde el orden de información importa.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "anchoring-effect",
+      "branch": "main",
+      "category": "anchoring-effect",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

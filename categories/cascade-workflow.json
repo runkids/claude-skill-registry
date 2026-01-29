@@ -1,0 +1,19 @@
+{
+  "category": "cascade-workflow",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.566135Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Graceful degradation through cascading fallback strategies - ensures system always completes while maintaining acceptable functionality",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "cascade-workflow",
+      "branch": "main",
+      "category": "cascade-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

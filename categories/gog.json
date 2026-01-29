@@ -1,0 +1,19 @@
+{
+  "category": "gog",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.918620Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "gog",
+      "branch": "main",
+      "category": "gog",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

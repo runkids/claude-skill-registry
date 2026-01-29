@@ -1,0 +1,19 @@
+{
+  "category": "deal-desk",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.120383Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to manage pricing, packaging, and approval workflows for renewal negotiations.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "deal-desk",
+      "branch": "main",
+      "category": "deal-desk",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

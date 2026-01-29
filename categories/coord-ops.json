@@ -1,0 +1,19 @@
+{
+  "category": "coord-ops",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.065886Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Invoke COORD_OPS for releases, documentation, and CI/CD operations",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "coord-ops",
+      "branch": "main",
+      "category": "coord-ops",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "ec2-sync",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.554119Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "JRA-VANデータ同期・EC2操作簡素化（複雑なSSMコマンドをシンプルなインターフェースでラップ）",
+      "repo": "foie0222/baken-kaigi",
+      "path": "ec2-sync",
+      "branch": "main",
+      "category": "ec2-sync",
+      "tags": [],
+      "stars": 0,
+      "install": "foie0222/baken-kaigi",
+      "source": "github.com/foie0222/baken-kaigi"
+    }
+  ]
+}

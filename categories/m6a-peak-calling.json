@@ -1,0 +1,19 @@
+{
+  "category": "m6a-peak-calling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.690857Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Call m6A peaks from MeRIP-seq IP vs input comparisons. Use when identifying m6A modification sites from methylated RNA immunoprecipitation data.",
+      "repo": "GPTomics/bioSkills",
+      "path": "m6a-peak-calling",
+      "branch": "main",
+      "category": "m6a-peak-calling",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

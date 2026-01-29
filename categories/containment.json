@@ -1,0 +1,19 @@
+{
+  "category": "containment",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.777698Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Security incident containment playbooks for isolating threats across network,\nendpoint, identity, cloud, and application layers. Use for active incident\nresponse to limit threat spread and impact.\n",
+      "repo": "SherifEldeeb/agentskills",
+      "path": "containment",
+      "branch": "main",
+      "category": "containment",
+      "tags": [],
+      "stars": 0,
+      "install": "SherifEldeeb/agentskills",
+      "source": "github.com/SherifEldeeb/agentskills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "fix-bad-practices",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.997115Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fix bad coding practices identified by audit, following fail-fast principles",
+      "repo": "benzwick/SlicerMouseMaster",
+      "path": "fix-bad-practices",
+      "branch": "main",
+      "category": "fix-bad-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "benzwick/SlicerMouseMaster",
+      "source": "github.com/benzwick/SlicerMouseMaster"
+    }
+  ]
+}

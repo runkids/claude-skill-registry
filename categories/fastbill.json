@@ -1,0 +1,19 @@
+{
+  "category": "fastbill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.275231Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fastbill Buchhaltung & Rechnungen - Kunden verwalten, Rechnungen erstellen/versenden, Produkte/Artikel pflegen, Einnahmen erfassen. Nutze für \"Rechnung erstellen\", \"Kunden anlegen\", \"Rechnung versende",
+      "repo": "rdsthomas/mission-control",
+      "path": "fastbill",
+      "branch": "main",
+      "category": "fastbill",
+      "tags": [],
+      "stars": 0,
+      "install": "rdsthomas/mission-control",
+      "source": "github.com/rdsthomas/mission-control"
+    }
+  ]
+}

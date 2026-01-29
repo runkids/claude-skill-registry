@@ -1,0 +1,19 @@
+{
+  "category": "when-setting-network-security-use-network-security-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.063086Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "metadata:",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "when-setting-network-security-use-network-security-setup",
+      "branch": "main",
+      "category": "when-setting-network-security-use-network-security-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

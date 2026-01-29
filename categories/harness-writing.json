@@ -1,0 +1,19 @@
+{
+  "category": "harness-writing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.122500Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Techniques for writing effective fuzzing harnesses across languages. Use when creating new fuzz targets or improving existing harness code.",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "harness-writing",
+      "branch": "main",
+      "category": "harness-writing",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "4pl-director",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.327703Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "World-class",
+      "repo": "DonNigami/eddication.io",
+      "path": "4pl-director",
+      "branch": "main",
+      "category": "4pl-director",
+      "tags": [],
+      "stars": 0,
+      "install": "DonNigami/eddication.io",
+      "source": "github.com/DonNigami/eddication.io"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "error-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.344920Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when analyzing errors, stack traces, and logs to identify root causes and implement fixes.",
+      "repo": "jayteealao/Aperture",
+      "path": "error-analysis",
+      "branch": "main",
+      "category": "error-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

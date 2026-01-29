@@ -1,0 +1,19 @@
+{
+  "category": "planar-isotopy-screen",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.633756Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Planar Isotopy Screen Mapping",
+      "repo": "plurigrid/asi",
+      "path": "planar-isotopy-screen",
+      "branch": "main",
+      "category": "planar-isotopy-screen",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

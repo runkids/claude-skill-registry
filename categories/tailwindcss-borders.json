@@ -1,0 +1,19 @@
+{
+  "category": "tailwindcss-borders",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.139643Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Border utilities Tailwind CSS v4.1. Border (border-width, border-color, border-style, border-radius, rounded-*), Outline (outline-*, outline-offset), Ring (ring-*, ring-offset), Divide (divide-*).",
+      "repo": "fusengine/agents",
+      "path": "tailwindcss-borders",
+      "branch": "main",
+      "category": "tailwindcss-borders",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

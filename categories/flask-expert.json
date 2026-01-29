@@ -1,0 +1,19 @@
+{
+  "category": "flask-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.608547Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Flask web development, REST APIs, extensions, and production deployment",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "flask-expert",
+      "branch": "main",
+      "category": "flask-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

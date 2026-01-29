@@ -1,0 +1,19 @@
+{
+  "category": "statsmodels",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.698930Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Statistical modeling toolkit. OLS, GLM, logistic, ARIMA, time series, hypothesis tests, diagnostics, AIC/BIC, for rigorous statistical inference and econometric analysis.",
+      "repo": "robinbarvaag/poynt",
+      "path": "statsmodels",
+      "branch": "main",
+      "category": "statsmodels",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

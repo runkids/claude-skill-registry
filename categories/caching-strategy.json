@@ -1,0 +1,19 @@
+{
+  "category": "caching-strategy",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.401200Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement efficient caching strategies using Redis, Memcached, CDN, and cache invalidation patterns. Use when optimizing application performance, reducing database load, or improving response times.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "caching-strategy",
+      "branch": "main",
+      "category": "caching-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

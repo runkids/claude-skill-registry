@@ -1,0 +1,19 @@
+{
+  "category": "taskstoissues",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.544808Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert user stories to GitHub issues. Use when ready to create issues. Triggers on: create github issues, export to github, generate issues.",
+      "repo": "ArvorCo/Relentless",
+      "path": "taskstoissues",
+      "branch": "main",
+      "category": "taskstoissues",
+      "tags": [],
+      "stars": 0,
+      "install": "ArvorCo/Relentless",
+      "source": "github.com/ArvorCo/Relentless"
+    }
+  ]
+}

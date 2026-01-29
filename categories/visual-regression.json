@@ -1,0 +1,19 @@
+{
+  "category": "visual-regression",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.477879Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Screenshot-based regression testing with Playwright. Compares rendered pixels against baseline PNGs. Use when working with stories, *.visual.spec.ts files, or baseline screenshots. Auto-apply when edi",
+      "repo": "joshribakoff/surfsim",
+      "path": "visual-regression",
+      "branch": "main",
+      "category": "visual-regression",
+      "tags": [],
+      "stars": 0,
+      "install": "joshribakoff/surfsim",
+      "source": "github.com/joshribakoff/surfsim"
+    }
+  ]
+}

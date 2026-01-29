@@ -1,0 +1,19 @@
+{
+  "category": "upgrade-spring-boot-3-5",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.119322Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Upgrade Java services to Spring Boot 3.5.x with all required dependency updates. Use when projects need to upgrade from older Spring Boot versions to 3.5.9+.\n",
+      "repo": "bitsoex/bitso-java",
+      "path": "upgrade-spring-boot-3-5",
+      "branch": "main",
+      "category": "upgrade-spring-boot-3-5",
+      "tags": [],
+      "stars": 0,
+      "install": "bitsoex/bitso-java",
+      "source": "github.com/bitsoex/bitso-java"
+    }
+  ]
+}

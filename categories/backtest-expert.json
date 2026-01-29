@@ -1,0 +1,19 @@
+{
+  "category": "backtest-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.947256Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guidance for systematic backtesting of trading strategies. Use when developing, testing, stress-testing, or validating quantitative trading strategies. Covers \"beating ideas to death\" methodolo",
+      "repo": "nicepkg/ai-workflow",
+      "path": "backtest-expert",
+      "branch": "main",
+      "category": "backtest-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

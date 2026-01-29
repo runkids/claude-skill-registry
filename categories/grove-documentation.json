@@ -1,0 +1,19 @@
+{
+  "category": "grove-documentation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.521838Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write documentation, help articles, specs, and user-facing text in the authentic Grove voice. Use when writing any text that users will read, updating help center content, or drafting specs. Ensures w",
+      "repo": "AutumnsGrove/GroveScout",
+      "path": "grove-documentation",
+      "branch": "main",
+      "category": "grove-documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "AutumnsGrove/GroveScout",
+      "source": "github.com/AutumnsGrove/GroveScout"
+    }
+  ]
+}

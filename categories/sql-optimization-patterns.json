@@ -1,0 +1,19 @@
+{
+  "category": "sql-optimization-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.315317Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master SQL query optimization, indexing strategies, and EXPLAIN analysis to dramatically improve database performance and eliminate slow queries. Use when debugging slow queries, designing database sc",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "sql-optimization-patterns",
+      "branch": "main",
+      "category": "sql-optimization-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "react-native-storage-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.255043Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Handles MMKV storage operations and data persistence patterns with encryption. Use when implementing data persistence, caching, or user preferences in Fitness Tracker App.",
+      "repo": "PlaneInABottle/fitnessMobileApp",
+      "path": "react-native-storage-manager",
+      "branch": "main",
+      "category": "react-native-storage-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "PlaneInABottle/fitnessMobileApp",
+      "source": "github.com/PlaneInABottle/fitnessMobileApp"
+    }
+  ]
+}

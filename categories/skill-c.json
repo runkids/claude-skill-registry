@@ -1,0 +1,19 @@
+{
+  "category": "skill-c",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.259441Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A fake skill for testing",
+      "repo": "viteinfinite/sync-skills",
+      "path": "skill-c",
+      "branch": "main",
+      "category": "skill-c",
+      "tags": [],
+      "stars": 0,
+      "install": "viteinfinite/sync-skills",
+      "source": "github.com/viteinfinite/sync-skills"
+    }
+  ]
+}

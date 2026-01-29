@@ -1,0 +1,19 @@
+{
+  "category": "client-side-cache-normalization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.545575Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement a normalized entity cache to maintain data consistency across a React app.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "client-side-cache-normalization",
+      "branch": "main",
+      "category": "client-side-cache-normalization",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

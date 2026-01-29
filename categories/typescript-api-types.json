@@ -1,0 +1,19 @@
+{
+  "category": "typescript-api-types",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.427933Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when defining API request/response types, DTOs, and shared types between frontend and backend.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "typescript-api-types",
+      "branch": "main",
+      "category": "typescript-api-types",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

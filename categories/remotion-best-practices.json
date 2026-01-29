@@ -1,0 +1,19 @@
+{
+  "category": "remotion-best-practices",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.521135Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Best practices for Remotion - Video creation in React",
+      "repo": "random-procrastinator/remotion",
+      "path": "remotion-best-practices",
+      "branch": "main",
+      "category": "remotion-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "random-procrastinator/remotion",
+      "source": "github.com/random-procrastinator/remotion"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "fuzzing-obstacles",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.603218Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Techniques for patching code to overcome fuzzing obstacles. Use when checksums, global state, or other barriers block fuzzer progress.",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "fuzzing-obstacles",
+      "branch": "main",
+      "category": "fuzzing-obstacles",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

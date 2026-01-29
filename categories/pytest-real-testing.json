@@ -1,0 +1,19 @@
+{
+  "category": "pytest-real-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.613239Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write pytests that test real public interfaces with actual components, no mocking, and precise assertions. MIRA-specific patterns. Use when creating or reviewing tests.",
+      "repo": "taylorsatula/mira-OSS",
+      "path": "pytest-real-testing",
+      "branch": "main",
+      "category": "pytest-real-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "taylorsatula/mira-OSS",
+      "source": "github.com/taylorsatula/mira-OSS"
+    }
+  ]
+}

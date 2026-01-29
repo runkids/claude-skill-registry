@@ -1,0 +1,19 @@
+{
+  "category": "data-lineage",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.061250Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Mapping the flow of data from source to destination for transparency, impact analysis, and troubleshooting.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "data-lineage",
+      "branch": "main",
+      "category": "data-lineage",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

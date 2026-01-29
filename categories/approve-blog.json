@@ -1,0 +1,19 @@
+{
+  "category": "approve-blog",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.459223Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Approves a blog post draft for publishing by removing the draft flag. Use when the user says \"approve\", \"publish\", or \"I'm done editing\" a blog post.",
+      "repo": "pwarnock/pwarnock.github.io",
+      "path": "approve-blog",
+      "branch": "main",
+      "category": "approve-blog",
+      "tags": [],
+      "stars": 0,
+      "install": "pwarnock/pwarnock.github.io",
+      "source": "github.com/pwarnock/pwarnock.github.io"
+    }
+  ]
+}

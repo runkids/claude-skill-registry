@@ -1,0 +1,19 @@
+{
+  "category": "0-research",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.002850Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Technical research methodology with YAGNI/KISS/DRY principles. Phases: scope definition, information gathering, analysis, synthesis, recommendation. Capabilities: technology evaluation, architecture a",
+      "repo": "brixtonpham/claude-config",
+      "path": "0-research",
+      "branch": "main",
+      "category": "0-research",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "types-generate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.162766Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate TypeScript types from schemas/APIs",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "types-generate",
+      "branch": "main",
+      "category": "types-generate",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "skill-adapter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.938581Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute analyzes existing plugins to extract their capabilities, then adapts and applies those skills to the current task. Acts as a universal skill chameleon that learns from other plugins. Activates",
+      "repo": "byteworthy/Upstream",
+      "path": "skill-adapter",
+      "branch": "main",
+      "category": "skill-adapter",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

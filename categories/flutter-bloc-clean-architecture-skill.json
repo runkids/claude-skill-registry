@@ -1,0 +1,19 @@
+{
+  "category": "flutter-bloc-clean-architecture-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.250553Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build Flutter features using BLoC state management, clean architecture layers, and the project's design system. Apply when creating screens, widgets, or data integrations.",
+      "repo": "AbdelhakRazi/flutter-bloc-clean-architecture-skill",
+      "path": "flutter-bloc-clean-architecture-skill",
+      "branch": "main",
+      "category": "flutter-bloc-clean-architecture-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "AbdelhakRazi/flutter-bloc-clean-architecture-skill",
+      "source": "github.com/AbdelhakRazi/flutter-bloc-clean-architecture-skill"
+    }
+  ]
+}

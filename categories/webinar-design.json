@@ -1,0 +1,19 @@
+{
+  "category": "webinar-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.041153Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when crafting compelling webinar narratives, engagement tactics, and attendee experiences.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "webinar-design",
+      "branch": "main",
+      "category": "webinar-design",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

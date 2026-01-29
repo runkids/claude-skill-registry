@@ -1,0 +1,19 @@
+{
+  "category": "production-scale-launcher",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.671450Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "﻿---",
+      "repo": "monicajeon28/GMcruise",
+      "path": "production-scale-launcher",
+      "branch": "main",
+      "category": "production-scale-launcher",
+      "tags": [],
+      "stars": 0,
+      "install": "monicajeon28/GMcruise",
+      "source": "github.com/monicajeon28/GMcruise"
+    }
+  ]
+}

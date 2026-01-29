@@ -1,0 +1,19 @@
+{
+  "category": "preview-import",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.882056Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Preview and verify imported content in local AEM Edge Delivery Services dev server. Validates rendering, compares with original page, and troubleshoots common issues.",
+      "repo": "adobe/helix-website",
+      "path": "preview-import",
+      "branch": "main",
+      "category": "preview-import",
+      "tags": [],
+      "stars": 0,
+      "install": "adobe/helix-website",
+      "source": "github.com/adobe/helix-website"
+    }
+  ]
+}

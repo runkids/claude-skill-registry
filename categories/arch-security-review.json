@@ -1,0 +1,19 @@
+{
+  "category": "arch-security-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.317800Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when reviewing code for security vulnerabilities, implementing authorization, or ensuring data protection.",
+      "repo": "duc01226/EasyPlatform",
+      "path": "arch-security-review",
+      "branch": "main",
+      "category": "arch-security-review",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

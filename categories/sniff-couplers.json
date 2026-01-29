@@ -1,0 +1,19 @@
+{
+  "category": "sniff-couplers",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.344845Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect couplers smells (Message Chains, Feature Envy) using deterministic heuristics and append findings to `.sniff/findings.jsonl`.\n",
+      "repo": "JordanGunn/nunchuck",
+      "path": "sniff-couplers",
+      "branch": "main",
+      "category": "sniff-couplers",
+      "tags": [],
+      "stars": 0,
+      "install": "JordanGunn/nunchuck",
+      "source": "github.com/JordanGunn/nunchuck"
+    }
+  ]
+}

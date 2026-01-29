@@ -1,0 +1,19 @@
+{
+  "category": "severity-levels",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.231733Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide to incident severity classification and response requirements",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "severity-levels",
+      "branch": "main",
+      "category": "severity-levels",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

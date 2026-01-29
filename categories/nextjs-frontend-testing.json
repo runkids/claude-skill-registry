@@ -1,0 +1,19 @@
+{
+  "category": "nextjs-frontend-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.938310Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill whenever the user wants to set up, improve, or run frontend tests (unit, component, and E2E) for a Next.js (App Router) + TypeScript + Tailwind + shadcn/ui project using Vitest/Jest, Re",
+      "repo": "AgentiveCity/SkillFactory",
+      "path": "nextjs-frontend-testing",
+      "branch": "main",
+      "category": "nextjs-frontend-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentiveCity/SkillFactory",
+      "source": "github.com/AgentiveCity/SkillFactory"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "career-strategy",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.324211Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Internal vs external career growth paths, goal setting, career maintenance, and long-term planning for software engineers. Use when deciding between internal promotion vs external job search, setting ",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "career-strategy",
+      "branch": "main",
+      "category": "career-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

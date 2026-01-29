@@ -1,0 +1,19 @@
+{
+  "category": "research-council",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.884890Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Lightweight parallel research orchestration without full council debate.\nSpawns oracle agents with different queries, collects findings, synthesizes report.\n",
+      "repo": "creatifcoding/gbg",
+      "path": "research-council",
+      "branch": "main",
+      "category": "research-council",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

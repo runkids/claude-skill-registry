@@ -1,0 +1,19 @@
+{
+  "category": "latex-manual",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.721315Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive LaTeX reference with commands, templates, and troubleshooting for document typesetting",
+      "repo": "enuno/claude-command-and-control",
+      "path": "latex-manual",
+      "branch": "main",
+      "category": "latex-manual",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

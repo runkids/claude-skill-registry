@@ -1,0 +1,19 @@
+{
+  "category": "audit-performance",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.633563Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run a single-session performance audit on the codebase",
+      "repo": "jasonmichaelbell78-creator/sonash-v0",
+      "path": "audit-performance",
+      "branch": "main",
+      "category": "audit-performance",
+      "tags": [],
+      "stars": 0,
+      "install": "jasonmichaelbell78-creator/sonash-v0",
+      "source": "github.com/jasonmichaelbell78-creator/sonash-v0"
+    }
+  ]
+}

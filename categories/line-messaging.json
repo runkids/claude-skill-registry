@@ -1,0 +1,19 @@
+{
+  "category": "line-messaging",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.842925Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "World-class expert LINE Messaging API and LINE Official Account specialist. Use when building LINE bots, integrating LINE Login, implementing webhook handling, creating rich menus, or working with LIN",
+      "repo": "DonNigami/eddication.io",
+      "path": "line-messaging",
+      "branch": "main",
+      "category": "line-messaging",
+      "tags": [],
+      "stars": 0,
+      "install": "DonNigami/eddication.io",
+      "source": "github.com/DonNigami/eddication.io"
+    }
+  ]
+}

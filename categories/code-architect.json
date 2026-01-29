@@ -1,0 +1,19 @@
+{
+  "category": "code-architect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.067333Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when asked for an architecture blueprint or explicitly asked to run the code-architect subagent.",
+      "repo": "troykelly/codex-skills",
+      "path": "code-architect",
+      "branch": "main",
+      "category": "code-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/codex-skills",
+      "source": "github.com/troykelly/codex-skills"
+    }
+  ]
+}

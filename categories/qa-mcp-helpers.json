@@ -1,0 +1,19 @@
+{
+  "category": "qa-mcp-helpers",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.572834Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Shared helper patterns for Playwright MCP validation agents. Reuses Page Object patterns from E2E tests.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "qa-mcp-helpers",
+      "branch": "main",
+      "category": "qa-mcp-helpers",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

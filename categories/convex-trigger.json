@@ -1,0 +1,19 @@
+{
+  "category": "convex-trigger",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.683304Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced trigger patterns - audit logging, authorization rules, component integration",
+      "repo": "udecode/better-convex",
+      "path": "convex-trigger",
+      "branch": "main",
+      "category": "convex-trigger",
+      "tags": [],
+      "stars": 0,
+      "install": "udecode/better-convex",
+      "source": "github.com/udecode/better-convex"
+    }
+  ]
+}

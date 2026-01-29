@@ -1,0 +1,19 @@
+{
+  "category": "voice-guidelines",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.737914Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when enforcing brand tone, style, and localization rules across copy.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "voice-guidelines",
+      "branch": "main",
+      "category": "voice-guidelines",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

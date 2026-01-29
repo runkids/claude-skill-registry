@@ -1,0 +1,19 @@
+{
+  "category": "pwa-feature-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.194205Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Version: 1.0.0",
+      "repo": "vitorsilva/saberloop",
+      "path": "pwa-feature-development",
+      "branch": "main",
+      "category": "pwa-feature-development",
+      "tags": [],
+      "stars": 0,
+      "install": "vitorsilva/saberloop",
+      "source": "github.com/vitorsilva/saberloop"
+    }
+  ]
+}

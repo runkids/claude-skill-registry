@@ -1,0 +1,19 @@
+{
+  "category": "using-web-backend",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.072206Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building web APIs, backend services, or encountering FastAPI/Django/Express/GraphQL questions, microservices architecture, authentication, or message queues - routes to 11 specialist skills r",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-web-backend",
+      "branch": "main",
+      "category": "using-web-backend",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "tracker-github",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.362830Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "GitHub Issues and Projects integration. Use for creating/updating issues, managing labels, adding to project boards, and tracking task status. Use when publishing artifacts, updating task status, or c",
+      "repo": "arttttt/CMIDCABot",
+      "path": "tracker-github",
+      "branch": "main",
+      "category": "tracker-github",
+      "tags": [],
+      "stars": 0,
+      "install": "arttttt/CMIDCABot",
+      "source": "github.com/arttttt/CMIDCABot"
+    }
+  ]
+}

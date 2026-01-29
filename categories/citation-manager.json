@@ -1,0 +1,19 @@
+{
+  "category": "citation-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.988473Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage bibliographies, citations, and academic references in multiple formats",
+      "repo": "eddiebe147/claude-settings",
+      "path": "citation-manager",
+      "branch": "main",
+      "category": "citation-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

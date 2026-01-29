@@ -1,0 +1,19 @@
+{
+  "category": "video-summarize",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.577407Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Summarize a single YouTube video and create a note. Use when user shares a video URL or asks to summarize a specific video. Triggers on \"summarize this video\", \"video summary\", YouTube URLs.",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "video-summarize",
+      "branch": "main",
+      "category": "video-summarize",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

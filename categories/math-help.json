@@ -1,0 +1,19 @@
+{
+  "category": "math-help",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.614145Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide to the math cognitive stack - what tools exist and when to use each",
+      "repo": "namesreallyblank/Clorch",
+      "path": "math-help",
+      "branch": "main",
+      "category": "math-help",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "network-engineer-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.691648Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when user needs network architecture design, security implementation, performance optimization, and troubleshooting for cloud and hybrid environments. Builds reliable, secure networks with zero-tr",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "network-engineer-skill",
+      "branch": "main",
+      "category": "network-engineer-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

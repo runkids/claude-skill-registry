@@ -1,0 +1,19 @@
+{
+  "category": "aws-cloudformation-ecs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.654506Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS CloudFormation patterns for ECS clusters, services, and task definitions. Use when creating ECS infrastructure with CloudFormation, configuring container definitions, scaling policies, service dis",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "aws-cloudformation-ecs",
+      "branch": "main",
+      "category": "aws-cloudformation-ecs",
+      "tags": [],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    }
+  ]
+}

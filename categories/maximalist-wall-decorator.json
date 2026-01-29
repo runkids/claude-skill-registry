@@ -1,0 +1,19 @@
+{
+  "category": "maximalist-wall-decorator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.767918Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in maximalist interior wall decoration including bold color choices, freehand paintings, statement wallpapers, eclectic lamp arrangements, gallery walls, and curated chaos. Embraces \"more is mo",
+      "repo": "erichowens/some_claude_skills",
+      "path": "maximalist-wall-decorator",
+      "branch": "main",
+      "category": "maximalist-wall-decorator",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

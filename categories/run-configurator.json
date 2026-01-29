@@ -1,0 +1,19 @@
+{
+  "category": "run-configurator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.812599Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Launch INAV Configurator in development mode for testing",
+      "repo": "sensei-hacker/inav-claude",
+      "path": "run-configurator",
+      "branch": "main",
+      "category": "run-configurator",
+      "tags": [],
+      "stars": 0,
+      "install": "sensei-hacker/inav-claude",
+      "source": "github.com/sensei-hacker/inav-claude"
+    }
+  ]
+}

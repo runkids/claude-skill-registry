@@ -1,0 +1,19 @@
+{
+  "category": "common-conventions",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.255826Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TMNL codebase conventions for file organization, barrel exports, naming patterns, comments, and module structure. The meta-skill for consistency.",
+      "repo": "creatifcoding/gbg",
+      "path": "common-conventions",
+      "branch": "main",
+      "category": "common-conventions",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

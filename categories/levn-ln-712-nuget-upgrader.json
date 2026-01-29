@@ -1,0 +1,19 @@
+{
+  "category": "levn-ln-712-nuget-upgrader",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.427116Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Upgrades .NET NuGet packages with breaking change handling",
+      "repo": "boisenoise/skills-collections",
+      "path": "levn-ln-712-nuget-upgrader",
+      "branch": "main",
+      "category": "levn-ln-712-nuget-upgrader",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

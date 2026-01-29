@@ -1,0 +1,19 @@
+{
+  "category": "debug-helper",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.816498Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic debugging strategies, troubleshooting methodologies, and problem-solving techniques for code and system issues. Use when the user encounters bugs, errors, or unexpected behavior and needs h",
+      "repo": "einverne/dotfiles",
+      "path": "debug-helper",
+      "branch": "main",
+      "category": "debug-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "einverne/dotfiles",
+      "source": "github.com/einverne/dotfiles"
+    }
+  ]
+}

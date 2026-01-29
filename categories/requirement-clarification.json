@@ -1,0 +1,19 @@
+{
+  "category": "requirement-clarification",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.687109Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate clarifying questions from research findings. MUST be used before planning phase. Validates requirements are complete and unambiguous before technical work begins.",
+      "repo": "vneseyoungster/ChocoVine",
+      "path": "requirement-clarification",
+      "branch": "main",
+      "category": "requirement-clarification",
+      "tags": [],
+      "stars": 0,
+      "install": "vneseyoungster/ChocoVine",
+      "source": "github.com/vneseyoungster/ChocoVine"
+    }
+  ]
+}

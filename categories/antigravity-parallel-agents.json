@@ -1,0 +1,19 @@
+{
+  "category": "antigravity-parallel-agents",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.691693Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-agent orchestration patterns. Use when multiple independent tasks can run with different domain expertise or when comprehensive analysis requires multiple perspectives.",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-parallel-agents",
+      "branch": "main",
+      "category": "antigravity-parallel-agents",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

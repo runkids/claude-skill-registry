@@ -1,0 +1,19 @@
+{
+  "category": "variant-normalization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.128761Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Normalize indel representation and split multiallelic variants using bcftools norm. Use when comparing variants from different callers or preparing VCF for downstream analysis.",
+      "repo": "GPTomics/bioSkills",
+      "path": "variant-normalization",
+      "branch": "main",
+      "category": "variant-normalization",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

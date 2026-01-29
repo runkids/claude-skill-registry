@@ -1,0 +1,19 @@
+{
+  "category": "SignIn-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.216505Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate a premium, black-background, pink glassmorphic sign-in experience for a todo app with a distinct page layout, strong hierarchy, and refined UX flow. Styling must exactly match the signup skil",
+      "repo": "Aqsagull99/hackathon-2-todo-app",
+      "path": "SignIn-skill",
+      "branch": "main",
+      "category": "SignIn-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "Aqsagull99/hackathon-2-todo-app",
+      "source": "github.com/Aqsagull99/hackathon-2-todo-app"
+    }
+  ]
+}

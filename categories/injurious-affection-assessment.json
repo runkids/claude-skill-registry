@@ -1,0 +1,19 @@
+{
+  "category": "injurious-affection-assessment",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.276515Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in quantifying damages from construction and proximity impacts including noise, dust, vibration, traffic disruption, visual impairment, and business losses. Use when assessing temporary constru",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": "injurious-affection-assessment",
+      "branch": "main",
+      "category": "injurious-affection-assessment",
+      "tags": [],
+      "stars": 0,
+      "install": "reggiechan74/vp-real-estate",
+      "source": "github.com/reggiechan74/vp-real-estate"
+    }
+  ]
+}

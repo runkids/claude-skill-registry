@@ -1,0 +1,19 @@
+{
+  "category": "clay-observability",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.405383Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up comprehensive observability for Clay integrations with metrics, traces, and alerts.\nUse when implementing monitoring for Clay operations, setting up dashboards,\nor configuring alerting for Clay",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "clay-observability",
+      "branch": "main",
+      "category": "clay-observability",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

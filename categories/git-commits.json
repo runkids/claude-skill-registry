@@ -1,0 +1,19 @@
+{
+  "category": "git-commits",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.351627Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Best practices for creating high-quality Git commits. Covers commit message conventions (Conventional Commits), atomic commits, staging strategies, and when to amend vs create new commits. Helps AI ag",
+      "repo": "DaleSeo/git-skills",
+      "path": "git-commits",
+      "branch": "main",
+      "category": "git-commits",
+      "tags": [],
+      "stars": 0,
+      "install": "DaleSeo/git-skills",
+      "source": "github.com/DaleSeo/git-skills"
+    }
+  ]
+}

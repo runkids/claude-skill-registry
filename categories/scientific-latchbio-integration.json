@@ -1,0 +1,19 @@
+{
+  "category": "scientific-latchbio-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.735261Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Latch platform for bioinformatics workflows. Build pipelines with Latch SDK, @workflow/@task decorators, deploy serverless workflows, LatchFile/LatchDir, Nextflow/Snakemake integration.",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-latchbio-integration",
+      "branch": "main",
+      "category": "scientific-latchbio-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "submission-handler",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.681289Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Handle Advent of Code answer submissions with intelligent retry logic. Submits answers via aoc-cli, parses responses, handles failures, analyzes edge cases when tests pass but submission fails, and ma",
+      "repo": "magnusrodseth/aoc-2025",
+      "path": "submission-handler",
+      "branch": "main",
+      "category": "submission-handler",
+      "tags": [],
+      "stars": 0,
+      "install": "magnusrodseth/aoc-2025",
+      "source": "github.com/magnusrodseth/aoc-2025"
+    }
+  ]
+}

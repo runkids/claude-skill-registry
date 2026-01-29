@@ -1,0 +1,19 @@
+{
+  "category": "context-finder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.065552Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-spawn context-finder agent for search tasks. Use when user says \"find\", \"search\", \"where is\", \"look for\", \"trace\", \"what file\", \"which commit\", \"grep\", \"locate\". Triggers search in git history, f",
+      "repo": "laris-co/nat-agents-core",
+      "path": "context-finder",
+      "branch": "main",
+      "category": "context-finder",
+      "tags": [],
+      "stars": 0,
+      "install": "laris-co/nat-agents-core",
+      "source": "github.com/laris-co/nat-agents-core"
+    }
+  ]
+}

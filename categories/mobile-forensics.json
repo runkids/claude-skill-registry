@@ -1,0 +1,19 @@
+{
+  "category": "mobile-forensics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.843558Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze mobile device data for forensic investigation. Use when investigating\nincidents involving iOS or Android devices, mobile malware, data theft, or\ncommunications analysis. Supports logical and f",
+      "repo": "SherifEldeeb/agentskills",
+      "path": "mobile-forensics",
+      "branch": "main",
+      "category": "mobile-forensics",
+      "tags": [],
+      "stars": 0,
+      "install": "SherifEldeeb/agentskills",
+      "source": "github.com/SherifEldeeb/agentskills"
+    }
+  ]
+}

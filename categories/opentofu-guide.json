@@ -1,0 +1,19 @@
+{
+  "category": "opentofu-guide",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.052866Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive OpenTofu expertise including migration from Terraform, state encryption, OpenTofu 1.10/1.11 features (OCI registry, native S3 locking, ephemeral resources, enabled meta-argument), and CI",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "opentofu-guide",
+      "branch": "main",
+      "category": "opentofu-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

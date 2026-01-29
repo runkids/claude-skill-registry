@@ -1,0 +1,19 @@
+{
+  "category": "qrcode-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.173012Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "从文本、URL或数据生成二维码，支持自定义颜色、Logo和多种输出格式。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "qrcode-generator",
+      "branch": "main",
+      "category": "qrcode-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

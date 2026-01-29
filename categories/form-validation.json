@@ -1,0 +1,19 @@
+{
+  "category": "form-validation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.320038Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement form validation using React Hook Form, Formik, Vee-Validate, and custom validators. Use when building robust form handling with real-time validation.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "form-validation",
+      "branch": "main",
+      "category": "form-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

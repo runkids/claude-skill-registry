@@ -1,0 +1,19 @@
+{
+  "category": "common-fate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.368815Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Elementos que se mueven juntos se perciben como grupo. Use cuando diseñe animaciones, transiciones, drag-and-drop, o elementos que reaccionan en conjunto.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "common-fate",
+      "branch": "main",
+      "category": "common-fate",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

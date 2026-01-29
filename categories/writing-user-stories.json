@@ -1,0 +1,19 @@
+{
+  "category": "writing-user-stories",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.088866Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when an agent needs to write user stories for a project",
+      "repo": "nicepkg/ai-workflow",
+      "path": "writing-user-stories",
+      "branch": "main",
+      "category": "writing-user-stories",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

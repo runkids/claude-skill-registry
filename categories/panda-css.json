@@ -1,0 +1,19 @@
+{
+  "category": "panda-css",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.185111Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements build-time CSS-in-JS with Panda CSS using type-safe tokens, recipes, and patterns. Use when wanting zero-runtime CSS-in-JS, design system tokens, or type-safe component variants.",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "panda-css",
+      "branch": "main",
+      "category": "panda-css",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

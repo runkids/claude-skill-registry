@@ -1,0 +1,19 @@
+{
+  "category": "spaced-repetition",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.736374Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This document describes the translation-based spaced repetition system, its data model, and study flow.",
+      "repo": "jchaselubitz/drill-app",
+      "path": "spaced-repetition",
+      "branch": "main",
+      "category": "spaced-repetition",
+      "tags": [],
+      "stars": 0,
+      "install": "jchaselubitz/drill-app",
+      "source": "github.com/jchaselubitz/drill-app"
+    }
+  ]
+}

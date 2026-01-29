@@ -1,0 +1,19 @@
+{
+  "category": "lazy-load",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.554052Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement lazy loading patterns for images, components, and routes",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "lazy-load",
+      "branch": "main",
+      "category": "lazy-load",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

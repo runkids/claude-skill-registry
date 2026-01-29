@@ -1,0 +1,19 @@
+{
+  "category": "spec-interviewer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.149260Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Realiza entrevistas profundas para extraer especificaciones completas de proyectos",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "spec-interviewer",
+      "branch": "main",
+      "category": "spec-interviewer",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

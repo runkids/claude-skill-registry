@@ -1,0 +1,19 @@
+{
+  "category": "moai-baas-cloudflare-ext",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.059056Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Cloudflare Edge Platform with AI-powered edge computing architecture, Context7 integration, and intelligent global orchestration for scalable modern applications",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-baas-cloudflare-ext",
+      "branch": "main",
+      "category": "moai-baas-cloudflare-ext",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

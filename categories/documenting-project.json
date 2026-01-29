@@ -1,0 +1,19 @@
+{
+  "category": "documenting-project",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.772874Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates comprehensive technical documentation including READMEs, setup guides, and API specs. Ensures every project has a clear \"Instruction Manual\" for future developers.",
+      "repo": "TheeCoderAhmed/Skills-Master",
+      "path": "documenting-project",
+      "branch": "main",
+      "category": "documenting-project",
+      "tags": [],
+      "stars": 0,
+      "install": "TheeCoderAhmed/Skills-Master",
+      "source": "github.com/TheeCoderAhmed/Skills-Master"
+    }
+  ]
+}

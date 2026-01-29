@@ -1,0 +1,19 @@
+{
+  "category": "renode-for-tmnl",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.682527Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Renode practices for TMNL with tmux, UART sockets, telemetry, and guardrails.",
+      "repo": "creatifcoding/gbg",
+      "path": "renode-for-tmnl",
+      "branch": "main",
+      "category": "renode-for-tmnl",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

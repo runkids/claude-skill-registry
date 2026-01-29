@@ -1,0 +1,19 @@
+{
+  "category": "meeting-insights-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.159509Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze meeting transcripts, recordings, and notes to extract action items, key decisions, topics, sentiment, and generate summaries using NLP and AI. Use when processing meeting transcripts, extracti",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "meeting-insights-analyzer",
+      "branch": "main",
+      "category": "meeting-insights-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

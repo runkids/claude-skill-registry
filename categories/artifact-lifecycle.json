@@ -1,0 +1,19 @@
+{
+  "category": "artifact-lifecycle",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.338681Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unified lifecycle management for all framework artifacts (skills, agents, hooks, workflows, templates, schemas)",
+      "repo": "oimiragieo/agent-studio",
+      "path": "artifact-lifecycle",
+      "branch": "main",
+      "category": "artifact-lifecycle",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

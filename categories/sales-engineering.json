@@ -1,0 +1,19 @@
+{
+  "category": "sales-engineering",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.301129Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Supporting sales with technical expertise, demos, and proof-of-concept implementations",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "sales-engineering",
+      "branch": "main",
+      "category": "sales-engineering",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

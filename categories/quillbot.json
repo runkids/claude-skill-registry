@@ -1,0 +1,19 @@
+{
+  "category": "quillbot",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.120558Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI paraphrasing and writing enhancement tool.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "quillbot",
+      "branch": "main",
+      "category": "quillbot",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

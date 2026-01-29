@@ -1,0 +1,19 @@
+{
+  "category": "pairwise-alignment",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.047275Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Perform pairwise sequence alignment using Biopython Bio.Align.PairwiseAligner. Use when comparing two sequences, finding optimal alignments, scoring similarity, and identifying local or global matches",
+      "repo": "GPTomics/bioSkills",
+      "path": "pairwise-alignment",
+      "branch": "main",
+      "category": "pairwise-alignment",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

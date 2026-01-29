@@ -1,0 +1,19 @@
+{
+  "category": "policyengine-data-testing-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.913117Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Testing patterns for PolicyEngine data generation pipelines (policyengine-us-data, policyengine-uk-data)",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-data-testing-skill",
+      "branch": "main",
+      "category": "policyengine-data-testing-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

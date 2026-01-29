@@ -1,0 +1,19 @@
+{
+  "category": "project-observability-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.261644Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze projects and recommend observability integration. Use when adding observability to projects Claude Code works on.",
+      "repo": "adaptationio/Skrillz",
+      "path": "project-observability-analyzer",
+      "branch": "main",
+      "category": "project-observability-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

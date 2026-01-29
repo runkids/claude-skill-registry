@@ -1,0 +1,19 @@
+{
+  "category": "audit-log-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.708802Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по аудит-логам. Используй для создания систем логирования, compliance требований, структуры логов и мониторинга.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "audit-log-generator",
+      "branch": "main",
+      "category": "audit-log-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

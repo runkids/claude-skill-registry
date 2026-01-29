@@ -1,0 +1,19 @@
+{
+  "category": "email-forensics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.004245Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze email messages and mailbox data for forensic investigation. Use when investigating\nphishing attacks, business email compromise, insider threats, or any scenario requiring\nemail evidence analys",
+      "repo": "SherifEldeeb/agentskills",
+      "path": "email-forensics",
+      "branch": "main",
+      "category": "email-forensics",
+      "tags": [],
+      "stars": 0,
+      "install": "SherifEldeeb/agentskills",
+      "source": "github.com/SherifEldeeb/agentskills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "xstate-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.041896Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "XState v5 state machine patterns for TMNL. Covers setup().createMachine(), typed context/events/actions/guards, invoke for async, and the novel stx hybrid pattern (XState + Legend-State + effect-atom)",
+      "repo": "creatifcoding/gbg",
+      "path": "xstate-integration",
+      "branch": "main",
+      "category": "xstate-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

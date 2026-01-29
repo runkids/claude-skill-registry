@@ -1,0 +1,19 @@
+{
+  "category": "startupO-lite",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.328274Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "RAG-first ORCHESTRATOR startup. Minimal context (~500 tokens), queries RAG on-demand. Token-efficient alternative to startupO.",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "startupO-lite",
+      "branch": "main",
+      "category": "startupO-lite",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

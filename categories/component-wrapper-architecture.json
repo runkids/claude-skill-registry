@@ -1,0 +1,19 @@
+{
+  "category": "component-wrapper-architecture",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.109166Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Best practices for wrapping shadcn/ui components. Apply when creating 8-bit styled variants of existing shadcn/ui components.",
+      "repo": "TheOrcDev/8bitcn-ui",
+      "path": "component-wrapper-architecture",
+      "branch": "main",
+      "category": "component-wrapper-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "TheOrcDev/8bitcn-ui",
+      "source": "github.com/TheOrcDev/8bitcn-ui"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "mission-pod",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.201365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute a single task with Pathfinder/Builder/Inspector crew. Self-fetches work from Beads.",
+      "repo": "thebrownproject/space-agents",
+      "path": "mission-pod",
+      "branch": "main",
+      "category": "mission-pod",
+      "tags": [],
+      "stars": 0,
+      "install": "thebrownproject/space-agents",
+      "source": "github.com/thebrownproject/space-agents"
+    }
+  ]
+}

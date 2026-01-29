@@ -1,0 +1,19 @@
+{
+  "category": "slash-command-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.657565Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating, improving, or troubleshooting Claude Code slash commands. Expert guidance on command structure, arguments, frontmatter, tool permissions, and best practices for building effective c",
+      "repo": "pr-pm/prpm",
+      "path": "slash-command-builder",
+      "branch": "main",
+      "category": "slash-command-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

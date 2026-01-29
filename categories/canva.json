@@ -1,0 +1,19 @@
+{
+  "category": "canva",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.614430Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and edit designs in Canva - manage graphics, presentations, social media posts, and marketing materials",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "canva",
+      "branch": "main",
+      "category": "canva",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "doc-writer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.686180Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates and improves documentation",
+      "repo": "fwdslsh/crosstrain",
+      "path": "doc-writer",
+      "branch": "main",
+      "category": "doc-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "fwdslsh/crosstrain",
+      "source": "github.com/fwdslsh/crosstrain"
+    }
+  ]
+}

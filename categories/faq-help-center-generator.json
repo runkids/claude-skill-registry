@@ -1,0 +1,19 @@
+{
+  "category": "faq-help-center-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.655011Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Builds comprehensive FAQs and help center articles from customer questions and product documentation. Use when the user asks about FAQ pages, help centers, knowledge bases, support documentation, or c",
+      "repo": "WesleySmits/agent-skills",
+      "path": "faq-help-center-generator",
+      "branch": "main",
+      "category": "faq-help-center-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

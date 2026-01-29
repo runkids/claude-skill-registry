@@ -1,0 +1,19 @@
+{
+  "category": "snapshot-aggregation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.681248Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Daily compression of time-series data with merge logic for multiple pipeline runs, structured aggregation for dashboards, and storage estimation for capacity planning.",
+      "repo": "dadbodgeoff/drift",
+      "path": "snapshot-aggregation",
+      "branch": "main",
+      "category": "snapshot-aggregation",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

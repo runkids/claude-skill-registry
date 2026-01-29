@@ -1,0 +1,19 @@
+{
+  "category": "validate-extension-submission",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.908506Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate that an extension meets all requirements for Extension Index submission",
+      "repo": "benzwick/SlicerMouseMaster",
+      "path": "validate-extension-submission",
+      "branch": "main",
+      "category": "validate-extension-submission",
+      "tags": [],
+      "stars": 0,
+      "install": "benzwick/SlicerMouseMaster",
+      "source": "github.com/benzwick/SlicerMouseMaster"
+    }
+  ]
+}

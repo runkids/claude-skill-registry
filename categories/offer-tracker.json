@@ -1,0 +1,19 @@
+{
+  "category": "offer-tracker",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.727208Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Track and compare affiliate offers including network, payout, caps, restrictions, performance history, and payout changes over time. Use for offer management, comparing opportunities, and maintaining ",
+      "repo": "WalkerHi11/mediabuy-plugins",
+      "path": "offer-tracker",
+      "branch": "main",
+      "category": "offer-tracker",
+      "tags": [],
+      "stars": 0,
+      "install": "WalkerHi11/mediabuy-plugins",
+      "source": "github.com/WalkerHi11/mediabuy-plugins"
+    }
+  ]
+}

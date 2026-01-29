@@ -1,0 +1,19 @@
+{
+  "category": "scientific-iso-13485-certification",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.100214Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive toolkit for preparing ISO 13485 certification documentation for medical device Quality Management Systems. Use when users need help with ISO 13485 QMS documentation, including (1) conduc",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-iso-13485-certification",
+      "branch": "main",
+      "category": "scientific-iso-13485-certification",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

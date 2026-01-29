@@ -1,0 +1,19 @@
+{
+  "category": "using-technical-writer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.815351Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Router for documentation tasks - routes to ADRs, APIs, runbooks, security docs, or governance docs",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-technical-writer",
+      "branch": "main",
+      "category": "using-technical-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "fix-imports",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.079679Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Repair broken imports automatically across the project",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "fix-imports",
+      "branch": "main",
+      "category": "fix-imports",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

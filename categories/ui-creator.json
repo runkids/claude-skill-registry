@@ -1,0 +1,19 @@
+{
+  "category": "ui-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.035303Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when users want to create new UIs, improve existing UIs, compare UI variations (A/B testing), or build component libraries. Combines visual design principles with code implem",
+      "repo": "vinceh/recipe",
+      "path": "ui-creator",
+      "branch": "main",
+      "category": "ui-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "vinceh/recipe",
+      "source": "github.com/vinceh/recipe"
+    }
+  ]
+}

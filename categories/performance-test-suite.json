@@ -1,0 +1,19 @@
+{
+  "category": "performance-test-suite",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.186606Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill enables Claude to design, execute, and analyze performance tests using the performance-test-suite plugin. It is activated when the user requests load testing, stress testing, spike testing,",
+      "repo": "apassuello/multimodal_insight_engine",
+      "path": "performance-test-suite",
+      "branch": "main",
+      "category": "performance-test-suite",
+      "tags": [],
+      "stars": 0,
+      "install": "apassuello/multimodal_insight_engine",
+      "source": "github.com/apassuello/multimodal_insight_engine"
+    }
+  ]
+}

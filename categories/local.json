@@ -1,0 +1,19 @@
+{
+  "category": "local",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.987449Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audit a skill against Anthropic skill-creator standards",
+      "repo": "dagster-io/erk",
+      "path": "local",
+      "branch": "main",
+      "category": "local",
+      "tags": [],
+      "stars": 0,
+      "install": "dagster-io/erk",
+      "source": "github.com/dagster-io/erk"
+    }
+  ]
+}

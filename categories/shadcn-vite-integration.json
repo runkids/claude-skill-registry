@@ -1,0 +1,19 @@
+{
+  "category": "shadcn-vite-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.865576Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill whenever the user wants to set up, configure, or refactor shadcn/ui in a Vite + React + TypeScript project (non-Next.js), including Tailwind, components.json, theming, and component str",
+      "repo": "AgentiveCity/SkillFactory",
+      "path": "shadcn-vite-integration",
+      "branch": "main",
+      "category": "shadcn-vite-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentiveCity/SkillFactory",
+      "source": "github.com/AgentiveCity/SkillFactory"
+    }
+  ]
+}

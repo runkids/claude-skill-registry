@@ -1,0 +1,19 @@
+{
+  "category": "medchem",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.317278Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Medicinal chemistry filters. Apply drug-likeness rules (Lipinski, Veber), PAINS filters, structural alerts, complexity metrics, for compound prioritization and library filtering.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "medchem",
+      "branch": "main",
+      "category": "medchem",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

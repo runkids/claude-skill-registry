@@ -1,0 +1,19 @@
+{
+  "category": "temporal-awareness",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.139743Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ensures temporal accuracy by using Unix date commands. Use this skill whenever Claude needs to know today's date, the current day of the week, what day a future/past date falls on, or perform any date",
+      "repo": "patrykgz/rust-devagent-loop-template",
+      "path": "temporal-awareness",
+      "branch": "main",
+      "category": "temporal-awareness",
+      "tags": [],
+      "stars": 0,
+      "install": "patrykgz/rust-devagent-loop-template",
+      "source": "github.com/patrykgz/rust-devagent-loop-template"
+    }
+  ]
+}

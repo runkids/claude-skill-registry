@@ -1,0 +1,19 @@
+{
+  "category": "general-research",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.711561Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conducts systematic internet research through strategic questioning and multi-source analysis. Gathers information from web sources (not codebase), cross-references claims across multiple sources, eva",
+      "repo": "Przemocny/generic-skills",
+      "path": "general-research",
+      "branch": "main",
+      "category": "general-research",
+      "tags": [],
+      "stars": 0,
+      "install": "Przemocny/generic-skills",
+      "source": "github.com/Przemocny/generic-skills"
+    }
+  ]
+}

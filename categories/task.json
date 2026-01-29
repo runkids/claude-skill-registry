@@ -1,0 +1,19 @@
+{
+  "category": "task",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.298122Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage tasks in .contextium/tasks.json.",
+      "repo": "shakefu/contextium",
+      "path": "task",
+      "branch": "main",
+      "category": "task",
+      "tags": [],
+      "stars": 0,
+      "install": "shakefu/contextium",
+      "source": "github.com/shakefu/contextium"
+    }
+  ]
+}

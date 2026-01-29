@@ -1,0 +1,19 @@
+{
+  "category": "decision-framework",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.465938Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Autonomous decision-making CLI for strategy development (project)",
+      "repo": "derekcrosslu/CLAUDE_CODE_EXPLORE",
+      "path": "decision-framework",
+      "branch": "main",
+      "category": "decision-framework",
+      "tags": [],
+      "stars": 0,
+      "install": "derekcrosslu/CLAUDE_CODE_EXPLORE",
+      "source": "github.com/derekcrosslu/CLAUDE_CODE_EXPLORE"
+    }
+  ]
+}

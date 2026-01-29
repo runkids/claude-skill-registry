@@ -1,0 +1,19 @@
+{
+  "category": "network-forensics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.207734Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze network traffic captures and artifacts for forensic investigation. Use when\ninvestigating data exfiltration, command and control communications, lateral movement,\nor network-based attacks. Sup",
+      "repo": "SherifEldeeb/agentskills",
+      "path": "network-forensics",
+      "branch": "main",
+      "category": "network-forensics",
+      "tags": [],
+      "stars": 0,
+      "install": "SherifEldeeb/agentskills",
+      "source": "github.com/SherifEldeeb/agentskills"
+    }
+  ]
+}

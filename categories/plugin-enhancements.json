@@ -1,0 +1,19 @@
+{
+  "category": "plugin-enhancements",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.556025Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive autonomous development skill for running 6-8 hour overnight coding sessions with enforced test-driven development through Git hooks.\nActivates when: setting up overnight development, con",
+      "repo": "BbgnsurfTech/claude-skills-collection",
+      "path": "plugin-enhancements",
+      "branch": "main",
+      "category": "plugin-enhancements",
+      "tags": [],
+      "stars": 0,
+      "install": "BbgnsurfTech/claude-skills-collection",
+      "source": "github.com/BbgnsurfTech/claude-skills-collection"
+    }
+  ]
+}

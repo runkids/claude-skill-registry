@@ -1,0 +1,19 @@
+{
+  "category": "building-project",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.619129Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Used to build a project",
+      "repo": "KonstantinKhan/etl-assistant",
+      "path": "building-project",
+      "branch": "main",
+      "category": "building-project",
+      "tags": [],
+      "stars": 0,
+      "install": "KonstantinKhan/etl-assistant",
+      "source": "github.com/KonstantinKhan/etl-assistant"
+    }
+  ]
+}

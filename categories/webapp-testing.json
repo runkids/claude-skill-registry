@@ -1,0 +1,19 @@
+{
+  "category": "webapp-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.010333Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser l",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "webapp-testing",
+      "branch": "main",
+      "category": "webapp-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

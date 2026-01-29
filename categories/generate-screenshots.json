@@ -1,0 +1,19 @@
+{
+  "category": "generate-screenshots",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.206367Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate screenshots for Extension Index submission and documentation",
+      "repo": "benzwick/SlicerMouseMaster",
+      "path": "generate-screenshots",
+      "branch": "main",
+      "category": "generate-screenshots",
+      "tags": [],
+      "stars": 0,
+      "install": "benzwick/SlicerMouseMaster",
+      "source": "github.com/benzwick/SlicerMouseMaster"
+    }
+  ]
+}

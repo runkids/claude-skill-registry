@@ -1,0 +1,19 @@
+{
+  "category": "column-generation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.992812Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to solve large-scale optimization problems using column generation, decomposition methods, or Dantzig-Wolfe decomposition. Also use when the user mentions \"column generation,\" \"mas",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "column-generation",
+      "branch": "main",
+      "category": "column-generation",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "assets-organizing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.869967Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Organize all outputs from slash commands and subagents in assets/ directory by topics, date format, and slugs.",
+      "repo": "NammDev/Goads-Krea",
+      "path": "assets-organizing",
+      "branch": "main",
+      "category": "assets-organizing",
+      "tags": [],
+      "stars": 0,
+      "install": "NammDev/Goads-Krea",
+      "source": "github.com/NammDev/Goads-Krea"
+    }
+  ]
+}

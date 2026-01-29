@@ -1,0 +1,19 @@
+{
+  "category": "constitution",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.005349Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create or update the project constitution - personalized governance and coding principles. Use when starting a project or updating project standards. Triggers on: create constitution, update principle",
+      "repo": "ArvorCo/Relentless",
+      "path": "constitution",
+      "branch": "main",
+      "category": "constitution",
+      "tags": [],
+      "stars": 0,
+      "install": "ArvorCo/Relentless",
+      "source": "github.com/ArvorCo/Relentless"
+    }
+  ]
+}

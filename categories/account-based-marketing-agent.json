@@ -1,0 +1,19 @@
+{
+  "category": "account-based-marketing-agent",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.904660Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI агент для ABM. Используй для автоматизации ABM кампаний и персонализации outreach.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "account-based-marketing-agent",
+      "branch": "main",
+      "category": "account-based-marketing-agent",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

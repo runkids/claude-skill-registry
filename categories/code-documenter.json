@@ -1,0 +1,19 @@
+{
+  "category": "code-documenter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.943162Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert documentation generator for coding projects. Analyzes codebases to create thorough, comprehensive documentation for developers and users. Supports incremental updates, multi-audience documentat",
+      "repo": "robertguss/claude-code-toolkit",
+      "path": "code-documenter",
+      "branch": "main",
+      "category": "code-documenter",
+      "tags": [],
+      "stars": 0,
+      "install": "robertguss/claude-code-toolkit",
+      "source": "github.com/robertguss/claude-code-toolkit"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "test-context-child",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.265904Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Child skill for context sharing test - reports what it can see",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-context-child",
+      "branch": "main",
+      "category": "test-context-child",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

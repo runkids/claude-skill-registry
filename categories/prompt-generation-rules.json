@@ -1,0 +1,19 @@
+{
+  "category": "prompt-generation-rules",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.795770Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "prompt-generation-rules",
+      "branch": "main",
+      "category": "prompt-generation-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "using-typescript-lsp",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.407113Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with TypeScript or JavaScript code and typescript-lsp plugin is enabled - for finding references, checking types, navigating definitions, or verifying type correctness",
+      "repo": "mhagrelius/dotfiles",
+      "path": "using-typescript-lsp",
+      "branch": "main",
+      "category": "using-typescript-lsp",
+      "tags": [],
+      "stars": 0,
+      "install": "mhagrelius/dotfiles",
+      "source": "github.com/mhagrelius/dotfiles"
+    }
+  ]
+}

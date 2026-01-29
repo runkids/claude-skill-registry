@@ -1,0 +1,19 @@
+{
+  "category": "home-assistant",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.639845Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when helping with Home Assistant setup, including creating automations, modifying dashboards, checking entity states, debugging automations, and managing the smart home confi",
+      "repo": "sammcj/agentic-coding",
+      "path": "home-assistant",
+      "branch": "main",
+      "category": "home-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "sammcj/agentic-coding",
+      "source": "github.com/sammcj/agentic-coding"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "competitor-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.726360Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze competitive landscape to identify strengths, weaknesses, opportunities, and threats. Inform product strategy and positioning based on market insights.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "competitor-analysis",
+      "branch": "main",
+      "category": "competitor-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

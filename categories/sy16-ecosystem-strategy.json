@@ -1,0 +1,19 @@
+{
+  "category": "sy16-ecosystem-strategy",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.211941Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply SY16 Ecosystem Strategy to position organization within network of partners, competitors, and stakeholders.",
+      "repo": "hummbl-dev/hummbl-agent",
+      "path": "sy16-ecosystem-strategy",
+      "branch": "main",
+      "category": "sy16-ecosystem-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/hummbl-agent",
+      "source": "github.com/hummbl-dev/hummbl-agent"
+    }
+  ]
+}

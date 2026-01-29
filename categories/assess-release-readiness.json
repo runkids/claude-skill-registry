@@ -1,0 +1,19 @@
+{
+  "category": "assess-release-readiness",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.002548Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze branch changes for release readiness, identifying concerns and special instructions.",
+      "repo": "qmu/workaholic",
+      "path": "assess-release-readiness",
+      "branch": "main",
+      "category": "assess-release-readiness",
+      "tags": [],
+      "stars": 0,
+      "install": "qmu/workaholic",
+      "source": "github.com/qmu/workaholic"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "cli-core",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.075815Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Core patterns for Effect CLI - Command.make, Args, Options, subcommands, and program structure. Foundation skill for TMNL CLI framework.",
+      "repo": "creatifcoding/gbg",
+      "path": "cli-core",
+      "branch": "main",
+      "category": "cli-core",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

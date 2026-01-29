@@ -1,0 +1,19 @@
+{
+  "category": "diagram-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.078060Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Decision guidance for selecting the right diagram type and tool. Provides patterns for common visualization scenarios, tool comparison, and best practices.",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "diagram-patterns",
+      "branch": "main",
+      "category": "diagram-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "branch-finish",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.311100Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete branch workflow with squash, rebase, and cleanup",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "branch-finish",
+      "branch": "main",
+      "category": "branch-finish",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "self-contained-python-script",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.185300Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write self-installing autocontained Python scripts using uv and PEP 723",
+      "repo": "davidgasquez/dotfiles",
+      "path": "self-contained-python-script",
+      "branch": "main",
+      "category": "self-contained-python-script",
+      "tags": [],
+      "stars": 0,
+      "install": "davidgasquez/dotfiles",
+      "source": "github.com/davidgasquez/dotfiles"
+    }
+  ]
+}

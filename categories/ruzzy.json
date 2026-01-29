@@ -1,0 +1,19 @@
+{
+  "category": "ruzzy",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.774908Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ruzzy is a coverage-guided Ruby fuzzer by Trail of Bits. Use for fuzzing pure Ruby code and Ruby C extensions.",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "ruzzy",
+      "branch": "main",
+      "category": "ruzzy",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

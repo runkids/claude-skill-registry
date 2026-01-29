@@ -1,0 +1,19 @@
+{
+  "category": "aurora-project-structure",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.039855Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides structured information about the Aurora/NestJS project folder hierarchy, explaining the purpose and responsibility of each directory and key files. Trigger: When user asks about project struc",
+      "repo": "avvale/aurora-back",
+      "path": "aurora-project-structure",
+      "branch": "main",
+      "category": "aurora-project-structure",
+      "tags": [],
+      "stars": 0,
+      "install": "avvale/aurora-back",
+      "source": "github.com/avvale/aurora-back"
+    }
+  ]
+}

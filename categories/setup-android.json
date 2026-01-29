@@ -1,0 +1,19 @@
+{
+  "category": "setup-android",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.922272Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up Android development environment for React Native/Expo. Use when configuring Android Studio, Gradle, emulators, or troubleshooting Android-specific build issues. Invoked by: \"android setup\", \"an",
+      "repo": "eleva-labs/agentic-coding-templates",
+      "path": "setup-android",
+      "branch": "main",
+      "category": "setup-android",
+      "tags": [],
+      "stars": 0,
+      "install": "eleva-labs/agentic-coding-templates",
+      "source": "github.com/eleva-labs/agentic-coding-templates"
+    }
+  ]
+}

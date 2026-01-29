@@ -1,0 +1,19 @@
+{
+  "category": "vigil-security-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.150877Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Security best practices and patterns for Vigil Guard v2.0.0 development. Use when implementing authentication, handling secrets, validating input, preventing injection attacks, managing CORS, ensuring",
+      "repo": "tbartel74/Vigil-Code",
+      "path": "vigil-security-patterns",
+      "branch": "main",
+      "category": "vigil-security-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "tbartel74/Vigil-Code",
+      "source": "github.com/tbartel74/Vigil-Code"
+    }
+  ]
+}

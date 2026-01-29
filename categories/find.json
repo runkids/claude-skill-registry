@@ -1,0 +1,19 @@
+{
+  "category": "find",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.343908Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "File search and manipulation utility for locating files by name, type, size, permissions, and time.",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "find",
+      "branch": "main",
+      "category": "find",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

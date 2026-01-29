@@ -1,0 +1,19 @@
+{
+  "category": "global-validation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.633905Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Your approach to handling global validation. Use this skill when working on files where global validation comes into play.",
+      "repo": "leaderiop/hex-di",
+      "path": "global-validation",
+      "branch": "main",
+      "category": "global-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "leaderiop/hex-di",
+      "source": "github.com/leaderiop/hex-di"
+    }
+  ]
+}

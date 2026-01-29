@@ -1,0 +1,19 @@
+{
+  "category": "pattern-synthesis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.976465Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract common patterns from multiple instance outputs, find what persists",
+      "repo": "agentgptsmith/MonadFramework",
+      "path": "pattern-synthesis",
+      "branch": "main",
+      "category": "pattern-synthesis",
+      "tags": [],
+      "stars": 0,
+      "install": "agentgptsmith/MonadFramework",
+      "source": "github.com/agentgptsmith/MonadFramework"
+    }
+  ]
+}

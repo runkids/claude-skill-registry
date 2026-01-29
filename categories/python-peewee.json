@@ -1,0 +1,19 @@
+{
+  "category": "python-peewee",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.441650Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Patterns for using Peewee ORM with DatabaseProxy and scoped connections/transactions. Use when setting up DatabaseProxy, managing connection_context/atomic blocks, or writing tests with SQLite.",
+      "repo": "narumiruna/agent-skills",
+      "path": "python-peewee",
+      "branch": "main",
+      "category": "python-peewee",
+      "tags": [],
+      "stars": 0,
+      "install": "narumiruna/agent-skills",
+      "source": "github.com/narumiruna/agent-skills"
+    }
+  ]
+}

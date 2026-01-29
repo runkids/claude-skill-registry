@@ -1,0 +1,19 @@
+{
+  "category": "duckdb",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.972430Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fast in-process analytical database for SQL queries on DataFrames, CSV, Parquet, JSON files, and more. Use when user wants to perform SQL analytics on data files or Python DataFrames (pandas, Polars),",
+      "repo": "silvainfm/paie_reflex",
+      "path": "duckdb",
+      "branch": "main",
+      "category": "duckdb",
+      "tags": [],
+      "stars": 0,
+      "install": "silvainfm/paie_reflex",
+      "source": "github.com/silvainfm/paie_reflex"
+    }
+  ]
+}

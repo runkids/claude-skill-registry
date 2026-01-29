@@ -1,0 +1,19 @@
+{
+  "category": "read-inspect-eval",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.936936Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Read and analyze Inspect AI evaluation log files using the Python API. Extract samples, messages, events, and metrics from .eval files.",
+      "repo": "tbroadley/dotfiles",
+      "path": "read-inspect-eval",
+      "branch": "main",
+      "category": "read-inspect-eval",
+      "tags": [],
+      "stars": 0,
+      "install": "tbroadley/dotfiles",
+      "source": "github.com/tbroadley/dotfiles"
+    }
+  ]
+}

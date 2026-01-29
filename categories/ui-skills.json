@@ -1,0 +1,19 @@
+{
+  "category": "ui-skills",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.344497Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Opinionated constraints for building better interfaces with agents.",
+      "repo": "ninehills/skills",
+      "path": "ui-skills",
+      "branch": "main",
+      "category": "ui-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "ninehills/skills",
+      "source": "github.com/ninehills/skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "writing-tests",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.625607Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write user-centric tests following Kent C. Dodds principles. Use when asked to write tests for components, hooks, or features. Generates tests that test behavior, use accessibility queries, and mock o",
+      "repo": "planetaryescape/blah.chat",
+      "path": "writing-tests",
+      "branch": "main",
+      "category": "writing-tests",
+      "tags": [],
+      "stars": 0,
+      "install": "planetaryescape/blah.chat",
+      "source": "github.com/planetaryescape/blah.chat"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "chatkit-actions",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.039594Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements interactive widget actions and bidirectional communication patterns for ChatKit. This skill should be used when building AI-driven interactive UIs with buttons, forms, entity tagging (@ment",
+      "repo": "mjunaidca/mjs-agent-skills",
+      "path": "chatkit-actions",
+      "branch": "main",
+      "category": "chatkit-actions",
+      "tags": [],
+      "stars": 0,
+      "install": "mjunaidca/mjs-agent-skills",
+      "source": "github.com/mjunaidca/mjs-agent-skills"
+    }
+  ]
+}

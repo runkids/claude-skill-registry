@@ -1,0 +1,19 @@
+{
+  "category": "antigravity-julia-pro",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.434606Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master Julia 1.10+ with modern features, performance optimization, multiple dispatch, and production-ready practices. Expert in the Julia ecosystem including package management, scientific computing, ",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-julia-pro",
+      "branch": "main",
+      "category": "antigravity-julia-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

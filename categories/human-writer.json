@@ -1,0 +1,19 @@
+{
+  "category": "human-writer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.359968Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform AI-sounding text into natural, human-like writing by applying proven linguistic patterns and stylistic techniques. Use when text needs to sound more conversational, authentic, and less robot",
+      "repo": "vassovass/scl-v3",
+      "path": "human-writer",
+      "branch": "main",
+      "category": "human-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "vassovass/scl-v3",
+      "source": "github.com/vassovass/scl-v3"
+    }
+  ]
+}

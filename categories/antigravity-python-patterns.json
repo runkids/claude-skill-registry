@@ -1,0 +1,19 @@
+{
+  "category": "antigravity-python-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.641431Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Python development principles and decision-making. Framework selection, async patterns, type hints, project structure. Teaches thinking, not copying.",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-python-patterns",
+      "branch": "main",
+      "category": "antigravity-python-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

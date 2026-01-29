@@ -1,0 +1,19 @@
+{
+  "category": "learning-development-plan",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.756444Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по планам развития. Используй для создания IDP, competency mapping, skill assessments и learning pathways.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "learning-development-plan",
+      "branch": "main",
+      "category": "learning-development-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

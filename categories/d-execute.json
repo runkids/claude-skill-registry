@@ -1,0 +1,19 @@
+{
+  "category": "d-execute",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.434043Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute bug fix plan. Creates ./.gtd/debug/current/FIX_SUMMARY.md",
+      "repo": "Hoang604/get-thing-done",
+      "path": "d-execute",
+      "branch": "main",
+      "category": "d-execute",
+      "tags": [],
+      "stars": 0,
+      "install": "Hoang604/get-thing-done",
+      "source": "github.com/Hoang604/get-thing-done"
+    }
+  ]
+}

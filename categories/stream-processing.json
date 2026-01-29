@@ -1,0 +1,19 @@
+{
+  "category": "stream-processing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.158772Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design real-time processing with windowing and watermarks.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "stream-processing",
+      "branch": "main",
+      "category": "stream-processing",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

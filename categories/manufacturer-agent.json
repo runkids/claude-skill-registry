@@ -1,0 +1,19 @@
+{
+  "category": "manufacturer-agent",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.460050Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Web-augmented agent for creating manufacturer skills and comprehensive tests. Use when adding or improving support for a manufacturer handler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "manufacturer-agent",
+      "branch": "main",
+      "category": "manufacturer-agent",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

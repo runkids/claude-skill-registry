@@ -1,0 +1,19 @@
+{
+  "category": "auto-animate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.021568Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Zero-config animations for React, Vue, Solid, Svelte, Preact with @formkit/auto-animate (3.28kb). Prevents 15 documented errors including React 19 StrictMode bugs, SSR imports, conditional parents, vi",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "auto-animate",
+      "branch": "main",
+      "category": "auto-animate",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

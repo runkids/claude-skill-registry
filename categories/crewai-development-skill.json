@@ -1,0 +1,19 @@
+{
+  "category": "crewai-development-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.483511Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "NOTE: This is a FUTURE skill. CrewAI workflows will follow the same pattern as LangGraph when implemented.",
+      "repo": "GolferGeek/orchestrator-ai",
+      "path": "crewai-development-skill",
+      "branch": "main",
+      "category": "crewai-development-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "GolferGeek/orchestrator-ai",
+      "source": "github.com/GolferGeek/orchestrator-ai"
+    }
+  ]
+}

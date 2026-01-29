@@ -1,0 +1,19 @@
+{
+  "category": "rebase",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.828881Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /rebase or /rebase <branch> slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "rebase",
+      "branch": "main",
+      "category": "rebase",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "changelog-writer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.656721Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Maintain CHANGELOG.md with properly categorized entries. Use after implementing features, fixing bugs, or making any notable changes. Follows Keep a Changelog format.",
+      "repo": "zbruhnke/claude-code-starter",
+      "path": "changelog-writer",
+      "branch": "main",
+      "category": "changelog-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "zbruhnke/claude-code-starter",
+      "source": "github.com/zbruhnke/claude-code-starter"
+    }
+  ]
+}

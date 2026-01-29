@@ -1,0 +1,19 @@
+{
+  "category": "tailwind-capacitor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.103204Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide to using Tailwind CSS in Capacitor mobile apps. Covers mobile-first design, touch targets, safe areas, dark mode, and performance optimization. Use this skill when users want to style Capacitor ",
+      "repo": "Cap-go/capacitor-skills",
+      "path": "tailwind-capacitor",
+      "branch": "main",
+      "category": "tailwind-capacitor",
+      "tags": [],
+      "stars": 0,
+      "install": "Cap-go/capacitor-skills",
+      "source": "github.com/Cap-go/capacitor-skills"
+    }
+  ]
+}

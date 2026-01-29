@@ -1,0 +1,19 @@
+{
+  "category": "finish-hotfix",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.247257Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete and merge hotfix branch",
+      "repo": "FradSer/dotclaude",
+      "path": "finish-hotfix",
+      "branch": "main",
+      "category": "finish-hotfix",
+      "tags": [],
+      "stars": 0,
+      "install": "FradSer/dotclaude",
+      "source": "github.com/FradSer/dotclaude"
+    }
+  ]
+}

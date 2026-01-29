@@ -1,0 +1,19 @@
+{
+  "category": "managing-railway",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.862175Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Railway platform CLI for service deployment, infrastructure management, and debugging. Use for creating services, managing deployments, configuring networking, and reviewing logs.",
+      "repo": "FortiumPartners/ensemble",
+      "path": "managing-railway",
+      "branch": "main",
+      "category": "managing-railway",
+      "tags": [],
+      "stars": 0,
+      "install": "FortiumPartners/ensemble",
+      "source": "github.com/FortiumPartners/ensemble"
+    }
+  ]
+}

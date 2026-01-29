@@ -1,0 +1,19 @@
+{
+  "category": "research-agent",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.466323Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Research agent for external documentation, best practices, and library APIs via MCP tools",
+      "repo": "tfunk1030/vibe",
+      "path": "research-agent",
+      "branch": "main",
+      "category": "research-agent",
+      "tags": [],
+      "stars": 0,
+      "install": "tfunk1030/vibe",
+      "source": "github.com/tfunk1030/vibe"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "test_skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.511631Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Local skill in working directory",
+      "repo": "emliunix/home.conf",
+      "path": "test_skill",
+      "branch": "main",
+      "category": "test_skill",
+      "tags": [],
+      "stars": 0,
+      "install": "emliunix/home.conf",
+      "source": "github.com/emliunix/home.conf"
+    }
+  ]
+}

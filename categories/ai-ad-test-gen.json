@@ -1,0 +1,19 @@
+{
+  "category": "ai-ad-test-gen",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.305174Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "测试用例生成 Skill，负责根据 SoT 文档和业务代码生成 pytest 测试用例。",
+      "repo": "wade56754/AI_ad_spend02",
+      "path": "ai-ad-test-gen",
+      "branch": "main",
+      "category": "ai-ad-test-gen",
+      "tags": [],
+      "stars": 0,
+      "install": "wade56754/AI_ad_spend02",
+      "source": "github.com/wade56754/AI_ad_spend02"
+    }
+  ]
+}

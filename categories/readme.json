@@ -1,0 +1,19 @@
+{
+  "category": "readme",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.891365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guidelines for writing and editing Plain package READMEs. Use this when creating or updating README files.",
+      "repo": "dropseed/plain",
+      "path": "readme",
+      "branch": "main",
+      "category": "readme",
+      "tags": [],
+      "stars": 0,
+      "install": "dropseed/plain",
+      "source": "github.com/dropseed/plain"
+    }
+  ]
+}

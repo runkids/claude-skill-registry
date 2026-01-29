@@ -1,0 +1,19 @@
+{
+  "category": "bellog-theme",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.620577Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides theme integration guidelines and CSS variable usage patterns for the Bellog blog. Triggers when creating styled components or working with colors.",
+      "repo": "whddltjdwhd/bellog",
+      "path": "bellog-theme",
+      "branch": "main",
+      "category": "bellog-theme",
+      "tags": [],
+      "stars": 0,
+      "install": "whddltjdwhd/bellog",
+      "source": "github.com/whddltjdwhd/bellog"
+    }
+  ]
+}

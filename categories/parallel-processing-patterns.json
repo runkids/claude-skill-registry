@@ -1,0 +1,19 @@
+{
+  "category": "parallel-processing-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.066853Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Parallel and concurrent processing patterns in bash including GNU Parallel, xargs, job pools, and async patterns (2025)",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "parallel-processing-patterns",
+      "branch": "main",
+      "category": "parallel-processing-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

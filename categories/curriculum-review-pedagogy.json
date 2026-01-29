@@ -1,0 +1,19 @@
+{
+  "category": "curriculum-review-pedagogy",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.367675Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Verify constructive alignment between objectives, activities, and assessments; validate instructional design quality and learning science principles. Use when reviewing curriculum quality, checking al",
+      "repo": "pauljbernard/content",
+      "path": "curriculum-review-pedagogy",
+      "branch": "main",
+      "category": "curriculum-review-pedagogy",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "claude-md-architect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.459973Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CLAUDE.md file generation and optimization for Claude Code projects. Capabilities: initialize project instructions, analyze codebase context, optimize existing CLAUDE.md, apply Anthropic best practice",
+      "repo": "brixtonpham/claude-config",
+      "path": "claude-md-architect",
+      "branch": "main",
+      "category": "claude-md-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

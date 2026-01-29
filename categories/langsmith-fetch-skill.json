@@ -1,0 +1,19 @@
+{
+  "category": "langsmith-fetch-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.119736Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Debug LangChain and LangGraph agents by fetching execution traces from LangSmith Studio. Use when debugging agent behavior, investigating errors, analyzing tool calls, checking memory operations, or e",
+      "repo": "OthmanAdi/langsmith-fetch-skill",
+      "path": "langsmith-fetch-skill",
+      "branch": "main",
+      "category": "langsmith-fetch-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "OthmanAdi/langsmith-fetch-skill",
+      "source": "github.com/OthmanAdi/langsmith-fetch-skill"
+    }
+  ]
+}

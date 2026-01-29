@@ -1,0 +1,19 @@
+{
+  "category": "api-design-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.574186Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level API design principles, REST, GraphQL, versioning, and API best practices",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "api-design-expert",
+      "branch": "main",
+      "category": "api-design-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

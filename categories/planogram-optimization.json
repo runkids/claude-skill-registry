@@ -1,0 +1,19 @@
+{
+  "category": "planogram-optimization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.236235Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize store planograms, shelf space allocation, or visual merchandising layout. Also use when the user mentions \"planogram,\" \"shelf space optimization,\" \"space productivity,\"",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "planogram-optimization",
+      "branch": "main",
+      "category": "planogram-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "basecalling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.298702Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert raw electrical signal from Nanopore sequencing into nucleotide sequences.",
+      "repo": "GPTomics/bioSkills",
+      "path": "basecalling",
+      "branch": "main",
+      "category": "basecalling",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

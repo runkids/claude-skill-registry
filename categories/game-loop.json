@@ -1,0 +1,19 @@
+{
+  "category": "game-loop",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.656741Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fixed timestep game loop with interpolation for frame-rate independent physics. Separates physics updates from rendering, prevents spiral of death, and supports hitstop/slow-mo effects.",
+      "repo": "dadbodgeoff/drift",
+      "path": "game-loop",
+      "branch": "main",
+      "category": "game-loop",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

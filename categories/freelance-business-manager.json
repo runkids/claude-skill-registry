@@ -1,0 +1,19 @@
+{
+  "category": "freelance-business-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.662155Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage freelance business operations including clients, projects, and finances",
+      "repo": "eddiebe147/claude-settings",
+      "path": "freelance-business-manager",
+      "branch": "main",
+      "category": "freelance-business-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

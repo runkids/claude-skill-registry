@@ -1,0 +1,19 @@
+{
+  "category": "kafka-cli-tools",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.545933Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Kafka CLI tools expert for kcat, kafkactl, and native Kafka commands. Use when producing/consuming messages from command line, listing topics, or troubleshooting Kafka with CLI tools.",
+      "repo": "anton-abyzov/specweave",
+      "path": "kafka-cli-tools",
+      "branch": "main",
+      "category": "kafka-cli-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

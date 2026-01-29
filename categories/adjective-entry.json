@@ -1,0 +1,19 @@
+{
+  "category": "adjective-entry",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.275691Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Requirements for creating or revising adjective entries in je-dict-1. Covers forms, conjugations, predicate vs modifier usage, and similar word distinctions.",
+      "repo": "tkgally/je-dict-1",
+      "path": "adjective-entry",
+      "branch": "main",
+      "category": "adjective-entry",
+      "tags": [],
+      "stars": 0,
+      "install": "tkgally/je-dict-1",
+      "source": "github.com/tkgally/je-dict-1"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "swarm",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.119829Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "N coordinated agents on shared task list with SQLite-based atomic claiming",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "swarm",
+      "branch": "main",
+      "category": "swarm",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "curl",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.113215Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "HTTP client examples including download, POST, auth, JSON, headers, proxy, and FTP operations.",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "curl",
+      "branch": "main",
+      "category": "curl",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

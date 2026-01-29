@@ -1,0 +1,19 @@
+{
+  "category": "setup-dev",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.384516Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Frontend development environment setup. TODO: Implement for frontend. Invoked by: \"setup\", \"dev setup\", \"environment setup\", \"install dependencies\".",
+      "repo": "eleva-labs/agentic-coding-templates",
+      "path": "setup-dev",
+      "branch": "main",
+      "category": "setup-dev",
+      "tags": [],
+      "stars": 0,
+      "install": "eleva-labs/agentic-coding-templates",
+      "source": "github.com/eleva-labs/agentic-coding-templates"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "issue-resolver",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.923269Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "GitHub Issue resolver skill that analyzes, triages, and proposes solutions for issues with full SDD integration\n\nTrigger terms: resolve issue, fix issue, github issue, issue triage, issue analysis, is",
+      "repo": "nahisaho/MUSUBI",
+      "path": "issue-resolver",
+      "branch": "main",
+      "category": "issue-resolver",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/MUSUBI",
+      "source": "github.com/nahisaho/MUSUBI"
+    }
+  ]
+}

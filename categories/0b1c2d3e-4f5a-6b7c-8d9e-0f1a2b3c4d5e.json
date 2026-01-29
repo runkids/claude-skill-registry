@@ -1,0 +1,19 @@
+{
+  "category": "0b1c2d3e-4f5a-6b7c-8d9e-0f1a2b3c4d5e",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.413904Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate externa",
+      "repo": "onurkanbakirci/awesome-skills",
+      "path": "0b1c2d3e-4f5a-6b7c-8d9e-0f1a2b3c4d5e",
+      "branch": "main",
+      "category": "0b1c2d3e-4f5a-6b7c-8d9e-0f1a2b3c4d5e",
+      "tags": [],
+      "stars": 0,
+      "install": "onurkanbakirci/awesome-skills",
+      "source": "github.com/onurkanbakirci/awesome-skills"
+    }
+  ]
+}

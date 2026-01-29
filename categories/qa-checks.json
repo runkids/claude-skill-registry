@@ -1,0 +1,19 @@
+{
+  "category": "qa-checks",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.038689Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run comprehensive quality verification including build, types, lint, tests, and security scans.",
+      "repo": "BenjaminRose805/react-basecamp",
+      "path": "qa-checks",
+      "branch": "main",
+      "category": "qa-checks",
+      "tags": [],
+      "stars": 0,
+      "install": "BenjaminRose805/react-basecamp",
+      "source": "github.com/BenjaminRose805/react-basecamp"
+    }
+  ]
+}

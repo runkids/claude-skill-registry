@@ -1,0 +1,19 @@
+{
+  "category": "pyhealth",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.278249Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive healthcare AI toolkit for developing, testing, and deploying machine learning models with clinical data. This skill should be used when working with electronic health records (EHR), clin",
+      "repo": "robinbarvaag/poynt",
+      "path": "pyhealth",
+      "branch": "main",
+      "category": "pyhealth",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

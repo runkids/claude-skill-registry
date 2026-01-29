@@ -1,0 +1,19 @@
+{
+  "category": "component-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.630599Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guidelines for organizing React components in Shadow Master. Use when creating new components, deciding between single-file vs subfolder structure, or adding character creation cards.",
+      "repo": "Jasrags/ShadowMaster",
+      "path": "component-patterns",
+      "branch": "main",
+      "category": "component-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "Jasrags/ShadowMaster",
+      "source": "github.com/Jasrags/ShadowMaster"
+    }
+  ]
+}

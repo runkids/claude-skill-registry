@@ -1,0 +1,19 @@
+{
+  "category": "test-model-field",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.101623Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Goal: Verify that model: haiku in frontmatter actually uses haiku model.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-model-field",
+      "branch": "main",
+      "category": "test-model-field",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

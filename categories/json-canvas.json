@@ -1,0 +1,19 @@
+{
+  "category": "json-canvas",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.171860Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and edit JSON Canvas files (.canvas) with nodes, edges, groups, and connections. Use when working with .canvas files, creating visual canvases, mind maps, flowcharts, or when the user mentions ",
+      "repo": "stericishere/Obsidian-notes",
+      "path": "json-canvas",
+      "branch": "main",
+      "category": "json-canvas",
+      "tags": [],
+      "stars": 0,
+      "install": "stericishere/Obsidian-notes",
+      "source": "github.com/stericishere/Obsidian-notes"
+    }
+  ]
+}

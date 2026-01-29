@@ -1,0 +1,19 @@
+{
+  "category": "skill-maker",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.975039Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Meta-skill that generates domain-specific AI skills from tool documentation",
+      "repo": "plurigrid/asi",
+      "path": "skill-maker",
+      "branch": "main",
+      "category": "skill-maker",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

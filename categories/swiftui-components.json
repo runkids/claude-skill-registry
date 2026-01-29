@@ -1,0 +1,19 @@
+{
+  "category": "swiftui-components",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.018915Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build production SwiftUI views, custom components, layouts, and view modifiers. Use when creating iOS/macOS UI components, implementing responsive layouts, building custom modifiers, or designing reus",
+      "repo": "fusengine/agents",
+      "path": "swiftui-components",
+      "branch": "main",
+      "category": "swiftui-components",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

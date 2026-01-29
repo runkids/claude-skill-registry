@@ -1,0 +1,19 @@
+{
+  "category": "spotify",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.469245Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Control Spotify playback on macOS. Play/pause, skip tracks, control volume, play artists/albums/playlists. Use when a user asks to play music, control Spotify, change songs, or adjust Spotify volume.",
+      "repo": "moltbot/skills",
+      "path": "spotify",
+      "branch": "main",
+      "category": "spotify",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

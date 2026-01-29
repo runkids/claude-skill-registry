@@ -1,0 +1,19 @@
+{
+  "category": "billing-automation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.281484Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build automated billing systems for recurring payments, invoicing, subscription lifecycle, and dunning management. Use when implementing subscription billing, automating invoicing, or managing recurri",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "billing-automation",
+      "branch": "main",
+      "category": "billing-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

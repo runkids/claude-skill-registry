@@ -1,0 +1,19 @@
+{
+  "category": "quality-gates-parallel",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.017193Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Launch 4 quality subagents in parallel using Claude Code 2.1+ native Task tool. Reads results post-analysis for orchestrator decision-making.",
+      "repo": "alfredolopez80/multi-agent-ralph-loop",
+      "path": "quality-gates-parallel",
+      "branch": "main",
+      "category": "quality-gates-parallel",
+      "tags": [],
+      "stars": 0,
+      "install": "alfredolopez80/multi-agent-ralph-loop",
+      "source": "github.com/alfredolopez80/multi-agent-ralph-loop"
+    }
+  ]
+}

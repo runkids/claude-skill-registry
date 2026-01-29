@@ -1,0 +1,19 @@
+{
+  "category": "ui-tap",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.553253Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Trigger UI elements programmatically via HTTP automation. Use when you need to press buttons, interact with UI, or verify UI changes. Invoke with \"tap the X button\", \"press X\", \"trigger X\", or \"click ",
+      "repo": "asnar00/miso",
+      "path": "ui-tap",
+      "branch": "main",
+      "category": "ui-tap",
+      "tags": [],
+      "stars": 0,
+      "install": "asnar00/miso",
+      "source": "github.com/asnar00/miso"
+    }
+  ]
+}

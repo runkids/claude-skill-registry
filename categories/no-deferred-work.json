@@ -1,0 +1,19 @@
+{
+  "category": "no-deferred-work",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.081447Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use during all development - no TODOs, no FIXMEs, no \"we'll add this later\"; do it now or get explicit deferral permission",
+      "repo": "troykelly/claude-skills",
+      "path": "no-deferred-work",
+      "branch": "main",
+      "category": "no-deferred-work",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

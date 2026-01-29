@@ -1,0 +1,19 @@
+{
+  "category": "production-checklist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.097641Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Production readiness checklist before module release",
+      "repo": "zerobias-org/module",
+      "path": "production-checklist",
+      "branch": "main",
+      "category": "production-checklist",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

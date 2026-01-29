@@ -1,0 +1,19 @@
+{
+  "category": "coord-intel",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.993583Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Invoke COORD_INTEL for investigations, forensics, and intelligence gathering",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "coord-intel",
+      "branch": "main",
+      "category": "coord-intel",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

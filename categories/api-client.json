@@ -1,0 +1,19 @@
+{
+  "category": "api-client",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.205731Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Centralized TypeScript API client with typed namespaces, automatic token refresh with request deduplication, TanStack Query integration, and consistent error handling.",
+      "repo": "dadbodgeoff/drift",
+      "path": "api-client",
+      "branch": "main",
+      "category": "api-client",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

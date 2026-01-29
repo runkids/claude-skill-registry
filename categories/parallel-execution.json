@@ -1,0 +1,19 @@
+{
+  "category": "parallel-execution",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.832666Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CRITICAL skill for executing multiple Task tool calls in a SINGLE message for true parallelism. Essential for efficient multi-task workflows, subagent coordination, and maximizing throughput.",
+      "repo": "CloudAI-X/opencode-workflow",
+      "path": "parallel-execution",
+      "branch": "main",
+      "category": "parallel-execution",
+      "tags": [],
+      "stars": 0,
+      "install": "CloudAI-X/opencode-workflow",
+      "source": "github.com/CloudAI-X/opencode-workflow"
+    }
+  ]
+}

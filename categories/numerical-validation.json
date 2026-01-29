@@ -1,0 +1,19 @@
+{
+  "category": "numerical-validation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.052641Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Verify mathematical correctness and numerical accuracy after code changes",
+      "repo": "LorenFrankLab/non_local_detector",
+      "path": "numerical-validation",
+      "branch": "main",
+      "category": "numerical-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "LorenFrankLab/non_local_detector",
+      "source": "github.com/LorenFrankLab/non_local_detector"
+    }
+  ]
+}

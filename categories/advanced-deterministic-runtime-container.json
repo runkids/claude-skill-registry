@@ -1,0 +1,19 @@
+{
+  "category": "advanced-deterministic-runtime-container",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.107150Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build deterministic IoC containers with proper lifecycle management, scoping, and disposal patterns. Use when implementing DI containers, managing service lifetimes, or designing runtime systems.",
+      "repo": "leaderiop/hex-di",
+      "path": "advanced-deterministic-runtime-container",
+      "branch": "main",
+      "category": "advanced-deterministic-runtime-container",
+      "tags": [],
+      "stars": 0,
+      "install": "leaderiop/hex-di",
+      "source": "github.com/leaderiop/hex-di"
+    }
+  ]
+}

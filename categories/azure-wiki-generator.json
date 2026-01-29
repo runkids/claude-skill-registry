@@ -1,0 +1,19 @@
+{
+  "category": "azure-wiki-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.573446Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate and manage Azure DevOps Wiki pages with markdown content. Use when creating project documentation or wiki pages.",
+      "repo": "ntaksh42/agents",
+      "path": "azure-wiki-generator",
+      "branch": "main",
+      "category": "azure-wiki-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

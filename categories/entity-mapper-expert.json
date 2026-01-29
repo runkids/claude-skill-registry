@@ -1,0 +1,19 @@
+{
+  "category": "entity-mapper-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.867375Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "JPA Entity Long FK 전략, BaseAuditEntity/SoftDeletableEntity 상속, EntityMapper Domain⇄Entity 변환.\nJPA 관계 어노테이션(@ManyToOne, @OneToMany) 금지. Lombok 금지, Setter 금지.\nEntity는 of() static factory method만 public,",
+      "repo": "ryu-qqq/AuthHub",
+      "path": "entity-mapper-expert",
+      "branch": "main",
+      "category": "entity-mapper-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "ryu-qqq/AuthHub",
+      "source": "github.com/ryu-qqq/AuthHub"
+    }
+  ]
+}

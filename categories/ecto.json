@@ -1,0 +1,19 @@
+{
+  "category": "ecto",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.939657Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ghost.io Admin API CLI for managing blog posts, pages, tags, and content.",
+      "repo": "moltbot/skills",
+      "path": "ecto",
+      "branch": "main",
+      "category": "ecto",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

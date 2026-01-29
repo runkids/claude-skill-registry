@@ -1,0 +1,19 @@
+{
+  "category": "allow-agent-commands",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.654226Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add or change allowed commands in AI agent permission configs (OpenCode, Claude Code)",
+      "repo": "aspiers/ai-config",
+      "path": "allow-agent-commands",
+      "branch": "main",
+      "category": "allow-agent-commands",
+      "tags": [],
+      "stars": 0,
+      "install": "aspiers/ai-config",
+      "source": "github.com/aspiers/ai-config"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "phase0-discovery",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.280566Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- skillname: phase2-discovery",
+      "repo": "turbobeest/squawk",
+      "path": "phase0-discovery",
+      "branch": "main",
+      "category": "phase0-discovery",
+      "tags": [],
+      "stars": 0,
+      "install": "turbobeest/squawk",
+      "source": "github.com/turbobeest/squawk"
+    }
+  ]
+}

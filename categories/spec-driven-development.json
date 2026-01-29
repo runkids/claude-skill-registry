@@ -1,0 +1,19 @@
+{
+  "category": "spec-driven-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.120220Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforces strict Spec-Driven Development. Prevents direct coding and ensures spec → generate → review loops.",
+      "repo": "hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus",
+      "path": "spec-driven-development",
+      "branch": "main",
+      "category": "spec-driven-development",
+      "tags": [],
+      "stars": 0,
+      "install": "hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus",
+      "source": "github.com/hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus"
+    }
+  ]
+}

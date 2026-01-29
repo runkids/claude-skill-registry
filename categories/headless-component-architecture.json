@@ -1,0 +1,19 @@
+{
+  "category": "headless-component-architecture",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.527295Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design components that provide logic and accessibility without prescribing UI styling.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "headless-component-architecture",
+      "branch": "main",
+      "category": "headless-component-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

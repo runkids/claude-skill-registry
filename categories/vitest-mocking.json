@@ -1,0 +1,19 @@
+{
+  "category": "vitest-mocking",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.212227Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Vitest mocking patterns and test double strategies. Use when writing tests that need mocks, spies, stubs, or fakes. Triggers include: mocking modules, stubbing globals (fetch, Date, timers), testing c",
+      "repo": "alexanderop/workoutTracker",
+      "path": "vitest-mocking",
+      "branch": "main",
+      "category": "vitest-mocking",
+      "tags": [],
+      "stars": 0,
+      "install": "alexanderop/workoutTracker",
+      "source": "github.com/alexanderop/workoutTracker"
+    }
+  ]
+}

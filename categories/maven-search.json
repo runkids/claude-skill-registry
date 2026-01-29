@@ -1,0 +1,19 @@
+{
+  "category": "maven-search",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.012018Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for searching and retrieving Maven components from Maven Central Repository (https://repo1.maven.org/maven2/). This skill enables searching by groupId, artifactId, vers",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "maven-search",
+      "branch": "main",
+      "category": "maven-search",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

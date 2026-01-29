@@ -1,0 +1,19 @@
+{
+  "category": "ta-assets-workflow-vite-6",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.020590Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Vite 6 asset handling and optimization workflow for Tech Artists. Use when creating and optimizing assets for Vite 6 builds.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "ta-assets-workflow-vite-6",
+      "branch": "main",
+      "category": "ta-assets-workflow-vite-6",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "microservices-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.073166Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level microservices architecture, patterns, service mesh, and distributed systems",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "microservices-expert",
+      "branch": "main",
+      "category": "microservices-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

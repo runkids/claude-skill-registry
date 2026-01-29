@@ -1,0 +1,19 @@
+{
+  "category": "md_files",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.179215Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "name: echo",
+      "repo": "fetchai/agents-aea",
+      "path": "md_files",
+      "branch": "main",
+      "category": "md_files",
+      "tags": [],
+      "stars": 0,
+      "install": "fetchai/agents-aea",
+      "source": "github.com/fetchai/agents-aea"
+    }
+  ]
+}

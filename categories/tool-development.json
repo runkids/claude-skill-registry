@@ -1,0 +1,19 @@
+{
+  "category": "tool-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.999176Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guidelines for creating and modifying tools in the NimbusImage application including template structure, interface elements, and implementation patterns.",
+      "repo": "arjunrajlaboratory/NimbusImage",
+      "path": "tool-development",
+      "branch": "main",
+      "category": "tool-development",
+      "tags": [],
+      "stars": 0,
+      "install": "arjunrajlaboratory/NimbusImage",
+      "source": "github.com/arjunrajlaboratory/NimbusImage"
+    }
+  ]
+}

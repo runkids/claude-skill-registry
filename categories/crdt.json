@@ -1,0 +1,19 @@
+{
+  "category": "crdt",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.279994Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Status: ✅ Production Ready",
+      "repo": "plurigrid/asi",
+      "path": "crdt",
+      "branch": "main",
+      "category": "crdt",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "version-control-rule",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.271619Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Applies to git related files, specifies to always use git for version control.",
+      "repo": "oimiragieo/agent-studio",
+      "path": "version-control-rule",
+      "branch": "main",
+      "category": "version-control-rule",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

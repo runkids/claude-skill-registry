@@ -1,0 +1,19 @@
+{
+  "category": "env-configuration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.829832Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when managing application configuration: environment variables, secrets management, and config validation.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "env-configuration",
+      "branch": "main",
+      "category": "env-configuration",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

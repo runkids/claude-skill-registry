@@ -1,0 +1,19 @@
+{
+  "category": "advanced-memoization-strategies",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.038603Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply principled memoization techniques to reduce re-rendering without introducing correctness bugs.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "advanced-memoization-strategies",
+      "branch": "main",
+      "category": "advanced-memoization-strategies",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

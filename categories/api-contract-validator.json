@@ -1,0 +1,19 @@
+{
+  "category": "api-contract-validator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.763482Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validates API contracts for correctness, compatibility, and compliance. Tests REST APIs against\nOpenAPI/Swagger specifications. Detects breaking changes between versions, validates runtime\nresponses a",
+      "repo": "chaserbreitenbach/claude-skills-and-agents",
+      "path": "api-contract-validator",
+      "branch": "main",
+      "category": "api-contract-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "chaserbreitenbach/claude-skills-and-agents",
+      "source": "github.com/chaserbreitenbach/claude-skills-and-agents"
+    }
+  ]
+}

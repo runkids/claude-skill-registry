@@ -1,0 +1,19 @@
+{
+  "category": "supabase-rls",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.407835Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when implementing multi-tenant data isolation, user-specific data access, or any scenario requiring row-level authorization in Supabase.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "supabase-rls",
+      "branch": "main",
+      "category": "supabase-rls",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

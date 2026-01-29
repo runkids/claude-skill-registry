@@ -1,0 +1,19 @@
+{
+  "category": "youtube-videos",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.900311Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transcribe and analyze YouTube videos",
+      "repo": "davidgasquez/dotfiles",
+      "path": "youtube-videos",
+      "branch": "main",
+      "category": "youtube-videos",
+      "tags": [],
+      "stars": 0,
+      "install": "davidgasquez/dotfiles",
+      "source": "github.com/davidgasquez/dotfiles"
+    }
+  ]
+}

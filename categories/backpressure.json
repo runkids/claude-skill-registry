@@ -1,0 +1,19 @@
+{
+  "category": "backpressure",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.953403Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage data flow when producers outpace consumers. Bounded buffers, adaptive flushing, and graceful degradation prevent OOM crashes and data loss.",
+      "repo": "dadbodgeoff/drift",
+      "path": "backpressure",
+      "branch": "main",
+      "category": "backpressure",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

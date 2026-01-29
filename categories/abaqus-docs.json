@@ -1,0 +1,19 @@
+{
+  "category": "abaqus-docs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.317462Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Download and manage abqpy API documentation. Use when user asks about API documentation, API reference, or downloading Abaqus docs.",
+      "repo": "JaimeCernuda/abaqus-scripting",
+      "path": "abaqus-docs",
+      "branch": "main",
+      "category": "abaqus-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "JaimeCernuda/abaqus-scripting",
+      "source": "github.com/JaimeCernuda/abaqus-scripting"
+    }
+  ]
+}

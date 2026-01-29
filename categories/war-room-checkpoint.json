@@ -1,0 +1,19 @@
+{
+  "category": "war-room-checkpoint",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.675265Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Inline reversibility assessment for embedded War Room escalation from other commands",
+      "repo": "athola/claude-night-market",
+      "path": "war-room-checkpoint",
+      "branch": "main",
+      "category": "war-room-checkpoint",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

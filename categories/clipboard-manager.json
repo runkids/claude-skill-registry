@@ -1,0 +1,19 @@
+{
+  "category": "clipboard-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.711339Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "复制和粘贴文本/文件到剪贴板，支持历史记录和格式转换。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "clipboard-manager",
+      "branch": "main",
+      "category": "clipboard-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

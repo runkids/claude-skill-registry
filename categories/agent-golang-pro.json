@@ -1,0 +1,19 @@
+{
+  "category": "agent-golang-pro",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.832784Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert Go developer specializing in high-performance systems, concurrent programming, and cloud-native microservices. Masters idiomatic Go patterns with emphasis on simplicity, efficiency, and reliabi",
+      "repo": "Tony363/SuperClaude",
+      "path": "agent-golang-pro",
+      "branch": "main",
+      "category": "agent-golang-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "Tony363/SuperClaude",
+      "source": "github.com/Tony363/SuperClaude"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "dignified-code-simplifier",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.262545Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Simplifies and refines Python code for clarity, consistency, and maintainability while preserving all functionality. Applies dignified-python standards. Focuses on recently modified code unless instru",
+      "repo": "dagster-io/erk",
+      "path": "dignified-code-simplifier",
+      "branch": "main",
+      "category": "dignified-code-simplifier",
+      "tags": [],
+      "stars": 0,
+      "install": "dagster-io/erk",
+      "source": "github.com/dagster-io/erk"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "performance-profiling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.066362Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Performance profiling principles. Measurement, analysis, and optimization techniques.",
+      "repo": "AxelMrak/ai",
+      "path": "performance-profiling",
+      "branch": "main",
+      "category": "performance-profiling",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

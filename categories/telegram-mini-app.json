@@ -1,0 +1,19 @@
+{
+  "category": "telegram-mini-app",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.684760Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in building Telegram Mini Apps (TWA) - web apps that run inside Telegram with native-like experience. Covers the TON ecosystem, Telegram Web App API, payments, user authentication, and building",
+      "repo": "AxelMrak/ai",
+      "path": "telegram-mini-app",
+      "branch": "main",
+      "category": "telegram-mini-app",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

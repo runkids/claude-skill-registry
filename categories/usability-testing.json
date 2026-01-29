@@ -1,0 +1,19 @@
+{
+  "category": "usability-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.088997Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and plan usability tests - task creation, think-aloud protocols, moderator scripts, metrics definition, and analysis frameworks.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "usability-testing",
+      "branch": "main",
+      "category": "usability-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

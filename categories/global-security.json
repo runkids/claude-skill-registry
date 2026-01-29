@@ -1,0 +1,19 @@
+{
+  "category": "global-security",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.536689Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Your approach to handling global security. Use this skill when working on files where global security comes into play.",
+      "repo": "jaypaulb/CanvusAPI-LLMDemo",
+      "path": "global-security",
+      "branch": "main",
+      "category": "global-security",
+      "tags": [],
+      "stars": 0,
+      "install": "jaypaulb/CanvusAPI-LLMDemo",
+      "source": "github.com/jaypaulb/CanvusAPI-LLMDemo"
+    }
+  ]
+}

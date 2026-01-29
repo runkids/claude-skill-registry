@@ -1,0 +1,19 @@
+{
+  "category": "aws-cloudformation-s3",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.643875Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS CloudFormation patterns for Amazon S3. Use when creating S3 buckets, policies, versioning, lifecycle rules, and implementing template structure with Parameters, Outputs, Mappings, Conditions, and ",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "aws-cloudformation-s3",
+      "branch": "main",
+      "category": "aws-cloudformation-s3",
+      "tags": [],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    }
+  ]
+}

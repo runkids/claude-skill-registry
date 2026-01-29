@@ -1,0 +1,19 @@
+{
+  "category": "playwright-frontend-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.630042Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when testing frontend applications. AI-assisted browser testing with Playwright MCP. Fast, deterministic, no vision models needed.",
+      "repo": "liauw-media/household-expense-tracker",
+      "path": "playwright-frontend-testing",
+      "branch": "main",
+      "category": "playwright-frontend-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "liauw-media/household-expense-tracker",
+      "source": "github.com/liauw-media/household-expense-tracker"
+    }
+  ]
+}

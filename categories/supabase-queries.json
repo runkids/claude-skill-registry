@@ -1,0 +1,19 @@
+{
+  "category": "supabase-queries",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.112852Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when writing Supabase client queries for CRUD operations, filtering, joins, and real-time subscriptions.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "supabase-queries",
+      "branch": "main",
+      "category": "supabase-queries",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

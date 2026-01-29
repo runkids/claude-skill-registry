@@ -1,0 +1,19 @@
+{
+  "category": "micro-saas-launcher",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.940024Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in launching small, focused SaaS products fast - the indie hacker approach to building profitable software. Covers idea validation, MVP development, pricing, launch strategies, and growing to s",
+      "repo": "Nguyenthang2292/Sovereign-IQ",
+      "path": "micro-saas-launcher",
+      "branch": "main",
+      "category": "micro-saas-launcher",
+      "tags": [],
+      "stars": 0,
+      "install": "Nguyenthang2292/Sovereign-IQ",
+      "source": "github.com/Nguyenthang2292/Sovereign-IQ"
+    }
+  ]
+}

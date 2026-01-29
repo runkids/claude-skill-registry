@@ -1,0 +1,19 @@
+{
+  "category": "time-blocker",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.079534Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Block time for focused work using calendar-based time management strategies",
+      "repo": "eddiebe147/claude-settings",
+      "path": "time-blocker",
+      "branch": "main",
+      "category": "time-blocker",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

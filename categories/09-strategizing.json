@@ -1,0 +1,19 @@
+{
+  "category": "09-strategizing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.516353Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "На втором этапе необходимо уделить внимание проработке принципов и работ",
+      "repo": "aisystant/Self-development",
+      "path": "09-strategizing",
+      "branch": "main",
+      "category": "09-strategizing",
+      "tags": [],
+      "stars": 0,
+      "install": "aisystant/Self-development",
+      "source": "github.com/aisystant/Self-development"
+    }
+  ]
+}

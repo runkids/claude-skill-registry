@@ -1,0 +1,19 @@
+{
+  "category": "scientific-pkg-pufferlib",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.250365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when working with reinforcement learning tasks including high-performance RL training, custom environment development, vectorized parallel simulation, multi-agent systems, or",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-pkg-pufferlib",
+      "branch": "main",
+      "category": "scientific-pkg-pufferlib",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

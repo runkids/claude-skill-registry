@@ -1,0 +1,19 @@
+{
+  "category": "visual-modes",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.662280Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when activating visual showcase modes (supersaiyan, kamehameha, over9000) for UI or interaction design - provides mode-specific enhancement checklists.",
+      "repo": "NickCrew/claude-cortex",
+      "path": "visual-modes",
+      "branch": "main",
+      "category": "visual-modes",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "growth-analytics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.607152Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Growth Analyst Agent. 성장 지표 분석, 코호트 분석, 퍼널 분석을 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "growth-analytics",
+      "branch": "main",
+      "category": "growth-analytics",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

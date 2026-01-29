@@ -1,0 +1,19 @@
+{
+  "category": "replenishment-strategy",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.895190Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to design or optimize replenishment strategies, determine replenishment policies, or improve inventory flow between locations. Also use when the user mentions \"inventory replenishm",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "replenishment-strategy",
+      "branch": "main",
+      "category": "replenishment-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

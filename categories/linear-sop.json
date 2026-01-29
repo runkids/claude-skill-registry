@@ -1,0 +1,19 @@
+{
+  "category": "linear-sop",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.827616Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Linear ticket management best practices. Use when creating issues, updating status, or attaching evidence. Provides evidence templates for dev/staging/done phases.",
+      "repo": "bybren-llc/safe-agentic-workflow",
+      "path": "linear-sop",
+      "branch": "main",
+      "category": "linear-sop",
+      "tags": [],
+      "stars": 0,
+      "install": "bybren-llc/safe-agentic-workflow",
+      "source": "github.com/bybren-llc/safe-agentic-workflow"
+    }
+  ]
+}

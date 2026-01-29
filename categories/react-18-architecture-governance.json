@@ -1,0 +1,19 @@
+{
+  "category": "react-18-architecture-governance",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.802233Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Establish governance models for large React 18 codebases to preserve architectural integrity.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "react-18-architecture-governance",
+      "branch": "main",
+      "category": "react-18-architecture-governance",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

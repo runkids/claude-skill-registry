@@ -1,0 +1,19 @@
+{
+  "category": "checkout",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.853446Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Checkout flow with cart, shipping, Stripe/PayPal payments, and order completion. Use when modifying checkout, debugging payment issues, or implementing checkout features.",
+      "repo": "Mavrick91/tanstack-start-app",
+      "path": "checkout",
+      "branch": "main",
+      "category": "checkout",
+      "tags": [],
+      "stars": 0,
+      "install": "Mavrick91/tanstack-start-app",
+      "source": "github.com/Mavrick91/tanstack-start-app"
+    }
+  ]
+}

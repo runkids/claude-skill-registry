@@ -1,0 +1,19 @@
+{
+  "category": "himalaya",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.700217Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CLI to manage emails via IMAP/SMTP. Use `himalaya` to list, read, write, reply, forward, search, and organize emails from the terminal. Supports multiple accounts and message composition with MML (MIM",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "himalaya",
+      "branch": "main",
+      "category": "himalaya",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

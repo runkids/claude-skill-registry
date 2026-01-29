@@ -1,0 +1,19 @@
+{
+  "category": "postgres-drizzle",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.788377Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PostgreSQL and Drizzle ORM best practices. Triggers on: PostgreSQL, Postgres, Drizzle, database,\nschema, tables, columns, indexes, queries, migrations, ORM, relations, joins, transactions, SQL,\ndrizzl",
+      "repo": "ccheney/robust-skills",
+      "path": "postgres-drizzle",
+      "branch": "main",
+      "category": "postgres-drizzle",
+      "tags": [],
+      "stars": 0,
+      "install": "ccheney/robust-skills",
+      "source": "github.com/ccheney/robust-skills"
+    }
+  ]
+}

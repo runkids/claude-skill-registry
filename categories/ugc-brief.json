@@ -1,0 +1,19 @@
+{
+  "category": "ugc-brief",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.896224Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create briefs for UGC creators including product info, hook requirements, talking points, and authenticity guidelines. Use when working with UGC creators, preparing creator packages, or scaling conten",
+      "repo": "WalkerHi11/mediabuy-plugins",
+      "path": "ugc-brief",
+      "branch": "main",
+      "category": "ugc-brief",
+      "tags": [],
+      "stars": 0,
+      "install": "WalkerHi11/mediabuy-plugins",
+      "source": "github.com/WalkerHi11/mediabuy-plugins"
+    }
+  ]
+}

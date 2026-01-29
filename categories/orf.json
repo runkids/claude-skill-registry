@@ -1,0 +1,19 @@
+{
+  "category": "orf",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.441738Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "On-demand ORF news digest in German. Use when the user says 'orf', 'pull orf', or 'orf 10'. Focus on Austrian politics (Inland) and international politics (Ausland) + major headlines; exclude sports. ",
+      "repo": "moltbot/skills",
+      "path": "orf",
+      "branch": "main",
+      "category": "orf",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

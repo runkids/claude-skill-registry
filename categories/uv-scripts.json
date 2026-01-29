@@ -1,0 +1,19 @@
+{
+  "category": "uv-scripts",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.056272Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when running or authoring standalone Python scripts with uv, especially when choosing Python versions, adding one-off dependencies, using no-project mode, or embedding inline script metadata.",
+      "repo": "narumiruna/agent-skills",
+      "path": "uv-scripts",
+      "branch": "main",
+      "category": "uv-scripts",
+      "tags": [],
+      "stars": 0,
+      "install": "narumiruna/agent-skills",
+      "source": "github.com/narumiruna/agent-skills"
+    }
+  ]
+}

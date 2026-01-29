@@ -1,0 +1,19 @@
+{
+  "category": "security-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.914133Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test for security vulnerabilities using OWASP principles. Use when conducting security audits, testing auth, or implementing security practices.",
+      "repo": "proffesor-for-testing/sentinel-api-testing",
+      "path": "security-testing",
+      "branch": "main",
+      "category": "security-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/sentinel-api-testing",
+      "source": "github.com/proffesor-for-testing/sentinel-api-testing"
+    }
+  ]
+}

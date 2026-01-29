@@ -1,0 +1,19 @@
+{
+  "category": "code-execution",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.120777Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute Python code locally with marketplace API access for 90%+ token savings on bulk operations. Activates when user requests bulk operations (10+ files), complex multi-step workflows, iterative pro",
+      "repo": "mhattingpete/claude-skills-marketplace",
+      "path": "code-execution",
+      "branch": "main",
+      "category": "code-execution",
+      "tags": [],
+      "stars": 0,
+      "install": "mhattingpete/claude-skills-marketplace",
+      "source": "github.com/mhattingpete/claude-skills-marketplace"
+    }
+  ]
+}

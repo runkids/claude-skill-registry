@@ -1,0 +1,19 @@
+{
+  "category": "process-optimizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.922421Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize skill development processes through bottleneck identification, efficiency analysis, automation discovery, and workflow improvement. Task-based operations for process analysis, bottleneck elim",
+      "repo": "adaptationio/Skrillz",
+      "path": "process-optimizer",
+      "branch": "main",
+      "category": "process-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

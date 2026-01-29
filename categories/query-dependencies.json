@@ -1,0 +1,19 @@
+{
+  "category": "query-dependencies",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.861027Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Shows what blocks an issue and what it blocks.",
+      "repo": "joeczar/code-graph-mcp",
+      "path": "query-dependencies",
+      "branch": "main",
+      "category": "query-dependencies",
+      "tags": [],
+      "stars": 0,
+      "install": "joeczar/code-graph-mcp",
+      "source": "github.com/joeczar/code-graph-mcp"
+    }
+  ]
+}

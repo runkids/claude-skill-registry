@@ -1,0 +1,19 @@
+{
+  "category": "web-interface",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.773496Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build and deploy a Next.js web interface for the Voice Assistant with real-time voice/chat capabilities.\nUse this skill when: (1) Creating a web-based voice assistant UI, (2) Setting up FastAPI WebSoc",
+      "repo": "AbdullahMalik17/Voice-Assistant17",
+      "path": "web-interface",
+      "branch": "main",
+      "category": "web-interface",
+      "tags": [],
+      "stars": 0,
+      "install": "AbdullahMalik17/Voice-Assistant17",
+      "source": "github.com/AbdullahMalik17/Voice-Assistant17"
+    }
+  ]
+}

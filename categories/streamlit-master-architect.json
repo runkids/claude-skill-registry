@@ -1,0 +1,19 @@
+{
+  "category": "streamlit-master-architect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.628944Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Architect-level Streamlit development for building, refactoring, debugging, testing, and deploying Streamlit apps (single-page or multipage) with correct rerun/state/caching/fragments, AppTest-based t",
+      "repo": "BjornMelin/dev-skills",
+      "path": "streamlit-master-architect",
+      "branch": "main",
+      "category": "streamlit-master-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "BjornMelin/dev-skills",
+      "source": "github.com/BjornMelin/dev-skills"
+    }
+  ]
+}

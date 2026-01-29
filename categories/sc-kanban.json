@@ -1,0 +1,19 @@
+{
+  "category": "sc-kanban",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.430878Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Kanban state machine orchestration with provider abstraction",
+      "repo": "randlee/synaptic-canvas",
+      "path": "sc-kanban",
+      "branch": "main",
+      "category": "sc-kanban",
+      "tags": [],
+      "stars": 0,
+      "install": "randlee/synaptic-canvas",
+      "source": "github.com/randlee/synaptic-canvas"
+    }
+  ]
+}

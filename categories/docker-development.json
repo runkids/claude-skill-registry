@@ -1,0 +1,19 @@
+{
+  "category": "docker-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.282964Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Local Docker development workflow for the Orient. Use when asked to build Docker images, run containers locally, debug container issues, optimize builds, use docker-compose, or troubleshoot containeri",
+      "repo": "orient-bot/orient",
+      "path": "docker-development",
+      "branch": "main",
+      "category": "docker-development",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

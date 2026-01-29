@@ -1,0 +1,19 @@
+{
+  "category": "cloud-aws-rds",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.140703Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for AWS RDS including database creation, configuration, backups, and RDS management. Use when the user asks about AWS RDS, needs to create RDS databases, configure RDS,",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "cloud-aws-rds",
+      "branch": "main",
+      "category": "cloud-aws-rds",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

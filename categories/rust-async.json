@@ -1,0 +1,19 @@
+{
+  "category": "rust-async",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.346064Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "高级异步模式专家。处理 Stream, backpressure, select, join, cancellation, Future trait 等问题。触发词：async, Stream, backpressure, select, Future, tokio, async-std, 异步, 流, 取消",
+      "repo": "huiali/rust-skills",
+      "path": "rust-async",
+      "branch": "main",
+      "category": "rust-async",
+      "tags": [],
+      "stars": 0,
+      "install": "huiali/rust-skills",
+      "source": "github.com/huiali/rust-skills"
+    }
+  ]
+}

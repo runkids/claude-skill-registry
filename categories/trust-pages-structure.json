@@ -1,0 +1,19 @@
+{
+  "category": "trust-pages-structure",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.017560Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide to structuring trust-building pages including About, Privacy, Terms, Security, and FAQ pages that build credibility",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "trust-pages-structure",
+      "branch": "main",
+      "category": "trust-pages-structure",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

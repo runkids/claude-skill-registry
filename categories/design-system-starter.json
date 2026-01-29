@@ -1,0 +1,19 @@
+{
+  "category": "design-system-starter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.285904Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and evolve design systems with design tokens, component architecture, accessibility guidelines, and documentation templates. Ensures consistent, scalable, and accessible UI across products.",
+      "repo": "softaworks/agent-toolkit",
+      "path": "design-system-starter",
+      "branch": "main",
+      "category": "design-system-starter",
+      "tags": [],
+      "stars": 0,
+      "install": "softaworks/agent-toolkit",
+      "source": "github.com/softaworks/agent-toolkit"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "technical-accuracy-and-usability-rules",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.007526Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "technical-accuracy-and-usability-rules",
+      "branch": "main",
+      "category": "technical-accuracy-and-usability-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

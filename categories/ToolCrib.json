@@ -1,0 +1,19 @@
+{
+  "category": "ToolCrib",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.283410Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tool inventory management for MNMUK machine shop. Tracks tooling, inserts, consumables with reorder points and usage. USE WHEN user asks 'tool inventory', 'what inserts', 'reorder', 'tool crib', 'do w",
+      "repo": "robdtaylor/personal-ai-infrastructure",
+      "path": "ToolCrib",
+      "branch": "main",
+      "category": "ToolCrib",
+      "tags": [],
+      "stars": 0,
+      "install": "robdtaylor/personal-ai-infrastructure",
+      "source": "github.com/robdtaylor/personal-ai-infrastructure"
+    }
+  ]
+}

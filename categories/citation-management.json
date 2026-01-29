@@ -1,0 +1,19 @@
+{
+  "category": "citation-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.598730Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive citation management for academic research. Search Google Scholar and PubMed for papers, extract accurate metadata, validate citations, and generate properly formatted BibTeX entries. Thi",
+      "repo": "danieldekay/copilot-config-promptops",
+      "path": "citation-management",
+      "branch": "main",
+      "category": "citation-management",
+      "tags": [],
+      "stars": 0,
+      "install": "danieldekay/copilot-config-promptops",
+      "source": "github.com/danieldekay/copilot-config-promptops"
+    }
+  ]
+}

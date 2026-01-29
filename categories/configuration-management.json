@@ -1,0 +1,19 @@
+{
+  "category": "configuration-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.845323Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automate infra with Ansible/Chef/Puppet.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "configuration-management",
+      "branch": "main",
+      "category": "configuration-management",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "postels-law",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.064184Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Sé conservador en lo que envías, liberal en lo que aceptas. Use cuando diseñe validaciones de formularios, APIs, o maneje inputs de usuario.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "postels-law",
+      "branch": "main",
+      "category": "postels-law",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

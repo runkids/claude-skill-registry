@@ -1,0 +1,19 @@
+{
+  "category": "firestore-index-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.651967Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Firestore Index Creator - Auto-activating skill for GCP Skills.\nTriggers on: firestore index creator, firestore index creator\nPart of the GCP Skills skill category.\n",
+      "repo": "byteworthy/Upstream",
+      "path": "firestore-index-creator",
+      "branch": "main",
+      "category": "firestore-index-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

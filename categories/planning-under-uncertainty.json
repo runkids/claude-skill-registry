@@ -1,0 +1,19 @@
+{
+  "category": "planning-under-uncertainty",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.586467Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan and lead execution when outcomes are uncertain and requirements are ambiguous. Produces an Uncertainty Planning Pack (uncertainty map, hypotheses + experiments, buffers + triggers, cadence + comm",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "planning-under-uncertainty",
+      "branch": "main",
+      "category": "planning-under-uncertainty",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

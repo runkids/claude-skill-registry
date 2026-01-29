@@ -1,0 +1,19 @@
+{
+  "category": "workflow-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.524687Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure GitHub Actions workflows for CI/CD (test, lint, typecheck, publish)",
+      "repo": "athola/claude-night-market",
+      "path": "workflow-setup",
+      "branch": "main",
+      "category": "workflow-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

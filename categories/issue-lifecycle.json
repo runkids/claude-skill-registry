@@ -1,0 +1,19 @@
+{
+  "category": "issue-lifecycle",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.062627Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use throughout all work - ensures GitHub issues are updated continuously as work happens, not batched at the end",
+      "repo": "troykelly/claude-skills",
+      "path": "issue-lifecycle",
+      "branch": "main",
+      "category": "issue-lifecycle",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

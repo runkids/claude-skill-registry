@@ -1,0 +1,19 @@
+{
+  "category": "security-assessor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.424755Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-activates during requirements analysis to assess security risks using OWASP Top 10 framework, identify security requirements, and recommend mitigation strategies.",
+      "repo": "matteocervelli/llms",
+      "path": "security-assessor",
+      "branch": "main",
+      "category": "security-assessor",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "platform-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.008881Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementing CMMI processes in GitHub or Azure DevOps, migrating between platforms, or establishing traceability/compliance on GitHub/Azure - platform-specific process guidance",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "platform-integration",
+      "branch": "main",
+      "category": "platform-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

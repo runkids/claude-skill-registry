@@ -1,0 +1,19 @@
+{
+  "category": "scientific-debugging",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.122641Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "科学调试专家 - 观察(Observe) -> 假设(Hypothesize) -> 实验(Experiment) -> 修复(Fix)",
+      "repo": "VidyFoo/antigravity-skill-engine",
+      "path": "scientific-debugging",
+      "branch": "main",
+      "category": "scientific-debugging",
+      "tags": [],
+      "stars": 0,
+      "install": "VidyFoo/antigravity-skill-engine",
+      "source": "github.com/VidyFoo/antigravity-skill-engine"
+    }
+  ]
+}

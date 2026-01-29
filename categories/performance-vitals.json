@@ -1,0 +1,19 @@
+{
+  "category": "performance-vitals",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.107205Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforce Core Web Vitals optimization. Use when building user-facing features, reviewing performance, or when Lighthouse scores drop. Covers LCP, FID/INP, CLS, and optimization techniques.",
+      "repo": "Doyajin174/myskills",
+      "path": "performance-vitals",
+      "branch": "main",
+      "category": "performance-vitals",
+      "tags": [],
+      "stars": 0,
+      "install": "Doyajin174/myskills",
+      "source": "github.com/Doyajin174/myskills"
+    }
+  ]
+}

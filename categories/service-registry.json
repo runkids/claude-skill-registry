@@ -1,0 +1,19 @@
+{
+  "category": "service-registry",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.683106Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Overview",
+      "repo": "athola/claude-night-market",
+      "path": "service-registry",
+      "branch": "main",
+      "category": "service-registry",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

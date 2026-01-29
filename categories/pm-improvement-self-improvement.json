@@ -1,0 +1,19 @@
+{
+  "category": "pm-improvement-self-improvement",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.149006Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic improvement of PM agent's own coordination skills during retrospectives",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "pm-improvement-self-improvement",
+      "branch": "main",
+      "category": "pm-improvement-self-improvement",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

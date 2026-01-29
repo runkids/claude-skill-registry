@@ -1,0 +1,19 @@
+{
+  "category": "vrp-time-windows",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.353462Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to solve VRP with time windows (VRPTW), optimize routes with delivery time constraints, or handle appointment scheduling. Also use when the user mentions \"VRPTW,\" \"time window rout",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "vrp-time-windows",
+      "branch": "main",
+      "category": "vrp-time-windows",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

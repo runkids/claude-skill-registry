@@ -1,0 +1,19 @@
+{
+  "category": "agentica-sdk",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.023769Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build Python agents with Agentica SDK - @agentic decorator, spawn(), persistence, MCP integration",
+      "repo": "namesreallyblank/Clorch",
+      "path": "agentica-sdk",
+      "branch": "main",
+      "category": "agentica-sdk",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

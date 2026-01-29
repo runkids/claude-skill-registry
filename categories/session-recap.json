@@ -1,0 +1,19 @@
+{
+  "category": "session-recap",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.682125Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Document Claude Code sessions by extracting knowledge into cross-referenced documentation. Triggers on \"recap the session\", \"summarize the work\", or after significant code changes.",
+      "repo": "sxhmilyoyo/sundayhao-plugins",
+      "path": "session-recap",
+      "branch": "main",
+      "category": "session-recap",
+      "tags": [],
+      "stars": 0,
+      "install": "sxhmilyoyo/sundayhao-plugins",
+      "source": "github.com/sxhmilyoyo/sundayhao-plugins"
+    }
+  ]
+}

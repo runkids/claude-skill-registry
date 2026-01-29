@@ -1,0 +1,19 @@
+{
+  "category": "trace",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.800645Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Root cause analysis for complex bugs. Use when initial fix fails or incident is severe. Traces Effect → Cause → Root with confidence levels and prevention hierarchy.",
+      "repo": "saadshahd/moo.md",
+      "path": "trace",
+      "branch": "main",
+      "category": "trace",
+      "tags": [],
+      "stars": 0,
+      "install": "saadshahd/moo.md",
+      "source": "github.com/saadshahd/moo.md"
+    }
+  ]
+}

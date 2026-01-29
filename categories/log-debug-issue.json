@@ -1,0 +1,19 @@
+{
+  "category": "log-debug-issue",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.025784Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Log problems, bugs, and debugging processes with solutions. Use when encountering issues during development, debugging problems, or documenting solutions for future reference. Maintains DEBUG_LOG.md w",
+      "repo": "dudusoar/VRP-Toolkit",
+      "path": "log-debug-issue",
+      "branch": "main",
+      "category": "log-debug-issue",
+      "tags": [],
+      "stars": 0,
+      "install": "dudusoar/VRP-Toolkit",
+      "source": "github.com/dudusoar/VRP-Toolkit"
+    }
+  ]
+}

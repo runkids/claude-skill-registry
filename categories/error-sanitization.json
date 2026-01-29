@@ -1,0 +1,19 @@
+{
+  "category": "error-sanitization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.283060Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Production-safe error handling that logs full details server-side while exposing only generic, safe messages to users. Prevents information leakage of database strings, file paths, stack traces, and A",
+      "repo": "dadbodgeoff/drift",
+      "path": "error-sanitization",
+      "branch": "main",
+      "category": "error-sanitization",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "test-workflow-child",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.700731Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Simple child skill for workflow continuation test - writes file and returns",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-workflow-child",
+      "branch": "main",
+      "category": "test-workflow-child",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

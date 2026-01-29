@@ -1,0 +1,19 @@
+{
+  "category": "react-component-create",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.255186Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create new React components following project patterns and best practices. Includes proper typing, testing, and documentation.",
+      "repo": "cpa03/blueprintify",
+      "path": "react-component-create",
+      "branch": "main",
+      "category": "react-component-create",
+      "tags": [],
+      "stars": 0,
+      "install": "cpa03/blueprintify",
+      "source": "github.com/cpa03/blueprintify"
+    }
+  ]
+}

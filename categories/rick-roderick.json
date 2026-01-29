@@ -1,0 +1,19 @@
+{
+  "category": "rick-roderick",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.928207Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Rick Roderick: Philosophy Under Siege",
+      "repo": "plurigrid/asi",
+      "path": "rick-roderick",
+      "branch": "main",
+      "category": "rick-roderick",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

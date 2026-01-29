@@ -1,0 +1,19 @@
+{
+  "category": "on-page",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.657215Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when crafting or refreshing pages to align copy, UX, and conversion goals with target keywords.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "on-page",
+      "branch": "main",
+      "category": "on-page",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

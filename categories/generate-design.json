@@ -1,0 +1,19 @@
+{
+  "category": "generate-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.787677Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "開発作業の設計書（design.md）を生成します。このスキルは単独で使用することも、generate-working-docsから呼び出されることもあります。",
+      "repo": "sakamotchi/sql-query-build",
+      "path": "generate-design",
+      "branch": "main",
+      "category": "generate-design",
+      "tags": [],
+      "stars": 0,
+      "install": "sakamotchi/sql-query-build",
+      "source": "github.com/sakamotchi/sql-query-build"
+    }
+  ]
+}

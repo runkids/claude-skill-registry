@@ -1,0 +1,19 @@
+{
+  "category": "api-spec",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.409686Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "RESTful APIの仕様書をOpenAPI形式で作成します。",
+      "repo": "infinith4/dev-flutter-realestate",
+      "path": "api-spec",
+      "branch": "main",
+      "category": "api-spec",
+      "tags": [],
+      "stars": 0,
+      "install": "infinith4/dev-flutter-realestate",
+      "source": "github.com/infinith4/dev-flutter-realestate"
+    }
+  ]
+}

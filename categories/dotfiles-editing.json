@@ -1,0 +1,19 @@
+{
+  "category": "dotfiles-editing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.557859Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Help editing vim/tmux/zsh configurations. Use when user mentions \"edit vim config\", \"modify tmux\", \"change zsh\", \"add plugin\", \"customize neovim\", \"update alias\", \"init.lua\", \"vimrc\", \"tmux.conf\", \"zs",
+      "repo": "sgotand/.dotfiles",
+      "path": "dotfiles-editing",
+      "branch": "main",
+      "category": "dotfiles-editing",
+      "tags": [],
+      "stars": 0,
+      "install": "sgotand/.dotfiles",
+      "source": "github.com/sgotand/.dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "groq-cost-tuning",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.640343Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize Groq costs through tier selection, sampling, and usage monitoring.\nUse when analyzing Groq billing, reducing API costs,\nor implementing usage monitoring and budget alerts.\nTrigger with phrase",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "groq-cost-tuning",
+      "branch": "main",
+      "category": "groq-cost-tuning",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

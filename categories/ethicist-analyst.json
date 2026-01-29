@@ -1,0 +1,19 @@
+{
+  "category": "ethicist-analyst",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.270913Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes moral dimensions and value conflicts through ethical frameworks using deontology, consequentialism,\nvirtue ethics, and applied ethics methodologies.\nProvides insights on moral obligations, ri",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "ethicist-analyst",
+      "branch": "main",
+      "category": "ethicist-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

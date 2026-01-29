@@ -1,0 +1,19 @@
+{
+  "category": "scientific-pdb-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.202178Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access RCSB PDB for 3D protein/nucleic acid structures. Search by text/sequence/structure, download coordinates (PDB/mmCIF), retrieve metadata, for structural biology and drug discovery.",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-pdb-database",
+      "branch": "main",
+      "category": "scientific-pdb-database",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

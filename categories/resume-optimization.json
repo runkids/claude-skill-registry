@@ -1,0 +1,19 @@
+{
+  "category": "resume-optimization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.921094Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Resume structure, achievement bullet formulas, ATS optimization, and job-targeted tailoring for software engineers. Use when reviewing resumes, crafting achievement bullets, extracting keywords from j",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "resume-optimization",
+      "branch": "main",
+      "category": "resume-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

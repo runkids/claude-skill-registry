@@ -1,0 +1,19 @@
+{
+  "category": "verify-spec",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.380945Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Verify that \"Must Have\" requirements from SPEC.md are implemented in the codebase.",
+      "repo": "Hoang604/get-thing-done",
+      "path": "verify-spec",
+      "branch": "main",
+      "category": "verify-spec",
+      "tags": [],
+      "stars": 0,
+      "install": "Hoang604/get-thing-done",
+      "source": "github.com/Hoang604/get-thing-done"
+    }
+  ]
+}

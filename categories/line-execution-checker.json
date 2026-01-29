@@ -1,0 +1,19 @@
+{
+  "category": "line-execution-checker",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.766366Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check if specific lines were executed using gcov data",
+      "repo": "gadievron/raptor",
+      "path": "line-execution-checker",
+      "branch": "main",
+      "category": "line-execution-checker",
+      "tags": [],
+      "stars": 0,
+      "install": "gadievron/raptor",
+      "source": "github.com/gadievron/raptor"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "template-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.525715Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Replace with description of the skill and when Claude should use it.",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "template-skill",
+      "branch": "main",
+      "category": "template-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

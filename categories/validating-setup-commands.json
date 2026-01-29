@@ -1,0 +1,19 @@
+{
+  "category": "validating-setup-commands",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.652933Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use before creating worktrees or executing tasks - validates that CLAUDE.md defines required setup commands (install, optional postinstall) and provides clear error messages with examples if missing",
+      "repo": "arittr/spectacular",
+      "path": "validating-setup-commands",
+      "branch": "main",
+      "category": "validating-setup-commands",
+      "tags": [],
+      "stars": 0,
+      "install": "arittr/spectacular",
+      "source": "github.com/arittr/spectacular"
+    }
+  ]
+}

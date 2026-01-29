@@ -1,0 +1,19 @@
+{
+  "category": "r2-glacier-migration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.115560Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Monitor and manage R2 to AWS Glacier Deep Archive migration. Use when checking transfer status, resuming transfers, or managing the archive migration.",
+      "repo": "pollinations/pollinations",
+      "path": "r2-glacier-migration",
+      "branch": "main",
+      "category": "r2-glacier-migration",
+      "tags": [],
+      "stars": 0,
+      "install": "pollinations/pollinations",
+      "source": "github.com/pollinations/pollinations"
+    }
+  ]
+}

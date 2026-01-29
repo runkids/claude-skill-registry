@@ -1,0 +1,19 @@
+{
+  "category": "qa-audit-ui-ux",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.346102Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "COMPREHENSIVE UI/UX audit combining code analysis AND visual screenshot analysis. Detects design system violations, visual inconsistencies across views, button/card/modal style variants, color palette",
+      "repo": "endlessblink/flow-state",
+      "path": "qa-audit-ui-ux",
+      "branch": "main",
+      "category": "qa-audit-ui-ux",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

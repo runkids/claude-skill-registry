@@ -1,0 +1,19 @@
+{
+  "category": "agent-evals",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.730698Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and implement evaluation frameworks for AI agents. Use when testing agent reasoning quality, building graders, doing error analysis, or establishing regression protection. Framework-agnostic co",
+      "repo": "panaversity/agentfactory",
+      "path": "agent-evals",
+      "branch": "main",
+      "category": "agent-evals",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

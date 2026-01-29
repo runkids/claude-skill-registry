@@ -1,0 +1,19 @@
+{
+  "category": "managing-context-window",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.042157Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Helps manage context window efficiently by summarizing, focusing, and pruning context to stay within token limits.",
+      "repo": "deancochran/gradientpeak",
+      "path": "managing-context-window",
+      "branch": "main",
+      "category": "managing-context-window",
+      "tags": [],
+      "stars": 0,
+      "install": "deancochran/gradientpeak",
+      "source": "github.com/deancochran/gradientpeak"
+    }
+  ]
+}

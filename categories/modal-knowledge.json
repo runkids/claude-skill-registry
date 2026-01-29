@@ -1,0 +1,19 @@
+{
+  "category": "modal-knowledge",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.670256Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Modal.com platform knowledge covering all features, pricing, and best practices",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "modal-knowledge",
+      "branch": "main",
+      "category": "modal-knowledge",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

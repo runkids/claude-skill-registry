@@ -1,0 +1,19 @@
+{
+  "category": "root-cause-tracing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.642816Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Trace bugs backward through call stacks and execution flows to identify the original source of errors, invalid data, or incorrect behavior. Use when debugging complex issues, tracing error origins, in",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "root-cause-tracing",
+      "branch": "main",
+      "category": "root-cause-tracing",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "stakeholder-docs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.266297Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Executive documentation from technical living docs - business summaries, progress dashboards, feature status reports. Use for stakeholder communication.",
+      "repo": "anton-abyzov/specweave",
+      "path": "stakeholder-docs",
+      "branch": "main",
+      "category": "stakeholder-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

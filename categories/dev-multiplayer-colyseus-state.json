@@ -1,0 +1,19 @@
+{
+  "category": "dev-multiplayer-colyseus-state",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.929584Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Colyseus state schema definition, types, decorators, and serialization patterns. Use when defining room state.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-multiplayer-colyseus-state",
+      "branch": "main",
+      "category": "dev-multiplayer-colyseus-state",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

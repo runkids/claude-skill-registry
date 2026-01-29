@@ -1,0 +1,19 @@
+{
+  "category": "developing-with-laravel",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.458090Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Laravel framework patterns for PHP applications including Eloquent ORM, migrations, routing, queues, and Blade templates. Use when building Laravel applications or working with Laravel projects.",
+      "repo": "FortiumPartners/ensemble",
+      "path": "developing-with-laravel",
+      "branch": "main",
+      "category": "developing-with-laravel",
+      "tags": [],
+      "stars": 0,
+      "install": "FortiumPartners/ensemble",
+      "source": "github.com/FortiumPartners/ensemble"
+    }
+  ]
+}

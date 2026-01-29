@@ -1,0 +1,19 @@
+{
+  "category": "kaizen",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.678342Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for continuous improvement, error proofing, and standardization. Use this skill when the user wants to improve code quality, refactor, or discuss process improvements.",
+      "repo": "AxelMrak/ai",
+      "path": "kaizen",
+      "branch": "main",
+      "category": "kaizen",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

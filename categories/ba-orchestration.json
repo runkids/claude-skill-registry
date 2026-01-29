@@ -1,0 +1,19 @@
+{
+  "category": "ba-orchestration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.564451Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-technique business analysis orchestration using BABOK. Coordinates 14 techniques across strategic analysis, problem solving, planning, and design into comprehensive analysis packages.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "ba-orchestration",
+      "branch": "main",
+      "category": "ba-orchestration",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

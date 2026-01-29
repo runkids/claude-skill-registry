@@ -1,7 +1,7 @@
 {
   "category": "agent-coordination",
-  "count": 1,
-  "updated_at": "2026-01-29T04:49:19.501338Z",
+  "count": 2,
+  "updated_at": "2026-01-29T16:04:49.663492Z",
   "skills": [
     {
       "name": "wolf-scripts-agents-majiayu000-claude-skill-regist",
@@ -14,6 +14,18 @@
       "stars": 48,
       "install": "majiayu000/claude-skill-registry",
       "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Coordinate multiple specialized Skills and Task Agents through parallel, sequential, swarm, hybrid, or iterative execution strategies. CRITICAL - Skills use Skill tool (rust-code-quality, architecture",
+      "repo": "d-o-hub/rust-self-learning-memory",
+      "path": "agent-coordination",
+      "branch": "main",
+      "category": "agent-coordination",
+      "tags": [],
+      "stars": 0,
+      "install": "d-o-hub/rust-self-learning-memory",
+      "source": "github.com/d-o-hub/rust-self-learning-memory"
     }
   ]
 }

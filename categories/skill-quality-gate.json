@@ -1,0 +1,19 @@
+{
+  "category": "skill-quality-gate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.327122Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforce minimum quality bar and validate skill outputs.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "skill-quality-gate",
+      "branch": "main",
+      "category": "skill-quality-gate",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

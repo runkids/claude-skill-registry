@@ -1,7 +1,7 @@
 {
   "category": "devops",
-  "count": 3204,
-  "updated_at": "2026-01-29T04:49:18.743063Z",
+  "count": 3203,
+  "updated_at": "2026-01-29T16:04:48.582039Z",
   "skills": [
     {
       "name": "create-pr-n8n-io-n8n",
@@ -10103,15 +10103,15 @@
     },
     {
       "name": "SKILL.md",
-      "description": "DevOps standards, CI/CD pipelines, and containerization practices. Use this when users need guidance on setting up GitHub Actions workflows, Docker containerization, monitoring with Prometheus and Gra",
-      "repo": "leovido/leo-skills",
-      "path": "skills/devops",
+      "description": "Deploy to Cloudflare (Workers, R2, D1), Docker, GCP (Cloud Run, GKE), Kubernetes (kubectl, Helm). Use for serverless, containers, CI/CD, GitOps, security audit.",
+      "repo": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
+      "path": "devops",
       "branch": "main",
       "category": "devops",
       "tags": [],
       "stars": 0,
-      "install": "leovido/leo-skills/skills/devops",
-      "source": "github.com/leovido/leo-skills"
+      "install": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
+      "source": "github.com/hoanghd218/landing-page-ai-kientruc-a-Ninh"
     },
     {
       "name": "abp-infrastructure-patterns",
@@ -10407,18 +10407,6 @@
       "tags": [],
       "stars": 0,
       "install": "microbus-io/fabric",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "adf-master",
-      "description": "Comprehensive Azure Data Factory knowledge base with official documentation sources, CI/CD methods, deployment patterns, and troubleshooting resources",
-      "repo": "JosiahSiegel/claude-plugin-marketplace",
-      "path": "plugins/adf-master/skills/adf-validation-rules",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "JosiahSiegel/claude-plugin-marketplace/plugins/adf-master/skills/adf-validation-rules",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -11143,18 +11131,6 @@
       "tags": [],
       "stars": 0,
       "install": "agentuity/examples/training-v1/concierge-ts-v1/.agents/skills/agentuity-cli-cloud-deployment-logs",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "agentuity-cli-cloud-deployment-remove",
-      "description": "Remove a specific deployment. Requires authentication. Use for Agentuity cloud platform operations",
-      "repo": "agentuity/examples",
-      "path": "training-v1/concierge-ts-v1/.agents/skills/agentuity-cli-cloud-deployment-remove",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "agentuity/examples/training-v1/concierge-ts-v1/.agents/skills/agentuity-cli-cloud-deployment-remove",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -17669,18 +17645,6 @@
       "name": "creating-kubernetes-deployments",
       "description": "Use when generating Kubernetes deployment manifests and services. Trigger with phrases like \"create kubernetes deployment\", \"generate k8s manifest\", \"deploy app to kubernetes\", or \"create service and ",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "plugins/devops/kubernetes-deployment-creator/skills/creating-kubernetes-deployments",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/devops/kubernetes-deployment-creator/skills/creating-kubernetes-deployments",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "creating-kubernetes-deployments",
-      "description": "Use when generating Kubernetes deployment manifests and services. Trigger with phrases like \"create kubernetes deployment\", \"generate k8s manifest\", \"deploy app to kubernetes\", or \"create service and ",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "data/creating-kubernetes-deployments",
       "branch": "main",
       "category": "devops",
@@ -19445,6 +19409,18 @@
       "stars": 0,
       "install": "ShunsukeHayashi/omakase-ai",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "deployment-configs",
+      "description": "Production deployment configurations for Celery workers and beat schedulers across Docker, Kubernetes, and systemd environments. Use when deploying Celery to production, containerizing workers, orches",
+      "repo": "vanman2024/ai-dev-marketplace",
+      "path": "plugins/redis/skills/deployment-configs",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "vanman2024/ai-dev-marketplace/plugins/redis/skills/deployment-configs",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "deployment-configs",
@@ -27737,6 +27713,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "kubernetes-deployment-creator",
+      "description": "Kubernetes Deployment Creator - Auto-activating skill for DevOps Advanced.Triggers on: kubernetes deployment creator, kubernetes deployment creatorPart of the DevOps Advanced skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "plugins/devops/kubernetes-deployment-creator/skills/creating-kubernetes-deployments",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/devops/kubernetes-deployment-creator/skills/creating-kubernetes-deployments",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "kubernetes-essentials",
       "description": "Quick reference for Kubernetes core concepts and kubectl commands. This skill should be used as a refresher for basic K8s operations including pods, deployments, services, configmaps, secrets, and nam",
       "repo": "mjunaidca/mjs-agent-skills",
@@ -31524,6 +31512,18 @@
       "name": "openwebf-release",
       "description": "DEPRECATED umbrella Skill (backward compatibility). Use only when release work spans deployment + cache headers + versioning + rollback. Prefer focused `openwebf-release-cdn-deploy` and `openwebf-rele",
       "repo": "archview-ai/webf-plugin",
+      "path": "webf-plugin/skills/openwebf-release-versioning-rollback",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "archview-ai/webf-plugin/webf-plugin/skills/openwebf-release-versioning-rollback",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "openwebf-release",
+      "description": "DEPRECATED umbrella Skill (backward compatibility). Use only when release work spans deployment + cache headers + versioning + rollback. Prefer focused `openwebf-release-cdn-deploy` and `openwebf-rele",
+      "repo": "archview-ai/webf-plugin",
       "path": "data/openwebf-release",
       "branch": "main",
       "category": "devops",
@@ -32192,18 +32192,6 @@
       "tags": [],
       "stars": 0,
       "install": "melodic-software/claude-code-plugins",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "pci-dss-validator",
-      "description": "Pci Dss Validator - Auto-activating skill for Security Advanced.Triggers on: pci dss validator, pci dss validatorPart of the Security Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "plugins/security/pci-dss-validator/skills/validating-pci-dss-compliance",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/security/pci-dss-validator/skills/validating-pci-dss-compliance",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -37646,6 +37634,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "startupO-lite",
+      "description": "RAG-first ORCHESTRATOR startup. Minimal context (~500 tokens), queries RAG on-demand. Token-efficient alternative to startupO.",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "data/startupO-lite",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "startupo-lite",
       "description": "RAG-first ORCHESTRATOR startup. Minimal context (~500 tokens), queries RAG on-demand. Token-efficient alternative to startupO.",
       "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
@@ -37655,18 +37655,6 @@
       "tags": [],
       "stars": 0,
       "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/.claude/skills/startupO-lite",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "startupo-lite",
-      "description": "RAG-first ORCHESTRATOR startup. Minimal context (~500 tokens), queries RAG on-demand. Token-efficient alternative to startupO.",
-      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-      "path": "data/startupo-lite",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -39329,18 +39317,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "trace",
-      "description": "Root cause analysis for complex bugs. Use when initial fix fails or incident is severe. Traces Effect → Cause → Root with confidence levels and prevention hierarchy.",
-      "repo": "saadshahd/moo.md",
-      "path": "hope/skills/trace",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "saadshahd/moo.md/hope/skills/trace",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "tracing-knowledge-lineages",
       "description": "Understand how ideas evolved over time to find old solutions for new problems and avoid repeating past failures",
       "repo": "lifangda/claude-plugins",
@@ -40383,6 +40359,18 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/security/cors-policy-validator/skills/validating-cors-policies",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "validating-pci-dss-compliance",
+      "description": "Validate PCI-DSS compliance for payment card data security. Use when auditing payment systems. Trigger with 'validate PCI-DSS', 'check payment security', or 'audit card data'.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "plugins/security/pci-dss-validator/skills/validating-pci-dss-compliance",
+      "branch": "main",
+      "category": "devops",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/security/pci-dss-validator/skills/validating-pci-dss-compliance",
       "source": "SkillsMP + GitHub Raw"
     },
     {

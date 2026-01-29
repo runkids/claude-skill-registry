@@ -1,0 +1,19 @@
+{
+  "category": "hardening-interviewer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.163007Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Realiza entrevistas de feedback post-MVP para identificar bugs, mejoras UX, problemas de performance, seguridad y features faltantes",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "hardening-interviewer",
+      "branch": "main",
+      "category": "hardening-interviewer",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

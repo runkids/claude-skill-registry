@@ -1,0 +1,19 @@
+{
+  "category": "moai-security-threat",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.458334Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Skill for advanced development",
+      "repo": "dolsoon/my-awesome-project",
+      "path": "moai-security-threat",
+      "branch": "main",
+      "category": "moai-security-threat",
+      "tags": [],
+      "stars": 0,
+      "install": "dolsoon/my-awesome-project",
+      "source": "github.com/dolsoon/my-awesome-project"
+    }
+  ]
+}

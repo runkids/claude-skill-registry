@@ -1,0 +1,19 @@
+{
+  "category": "gamma-upgrade-migration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.049985Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Upgrade Gamma SDK versions and migrate between API versions.\nUse when upgrading SDK packages, handling deprecations,\nor migrating to new API versions.\nTrigger with phrases like \"gamma upgrade\", \"gamma",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "gamma-upgrade-migration",
+      "branch": "main",
+      "category": "gamma-upgrade-migration",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

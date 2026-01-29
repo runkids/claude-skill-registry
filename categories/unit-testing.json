@@ -1,0 +1,19 @@
+{
+  "category": "unit-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.275014Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforces project unit testing conventions for pure functions, validation schemas, and utility modules using Vitest with proper isolation and mocking.",
+      "repo": "JasonPaff/head-shakers",
+      "path": "unit-testing",
+      "branch": "main",
+      "category": "unit-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "JasonPaff/head-shakers",
+      "source": "github.com/JasonPaff/head-shakers"
+    }
+  ]
+}

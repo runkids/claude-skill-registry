@@ -1,0 +1,19 @@
+{
+  "category": "text-analyst",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.879536Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Computational text analysis for sociology research using R or Python. Guides you through topic models, sentiment analysis, classification, and embeddings with systematic validation. Supports both trad",
+      "repo": "nealcaren/social-data-analysis",
+      "path": "text-analyst",
+      "branch": "main",
+      "category": "text-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "nealcaren/social-data-analysis",
+      "source": "github.com/nealcaren/social-data-analysis"
+    }
+  ]
+}

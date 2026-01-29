@@ -1,0 +1,19 @@
+{
+  "category": "math-unified",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.248901Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unified math capabilities - computation, solving, and explanation. I route to the right tool.",
+      "repo": "namesreallyblank/Clorch",
+      "path": "math-unified",
+      "branch": "main",
+      "category": "math-unified",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

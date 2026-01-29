@@ -1,0 +1,19 @@
+{
+  "category": "angular-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.420225Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Angular framework expert including components, services, RxJS, templates, and testing",
+      "repo": "oimiragieo/agent-studio",
+      "path": "angular-expert",
+      "branch": "main",
+      "category": "angular-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

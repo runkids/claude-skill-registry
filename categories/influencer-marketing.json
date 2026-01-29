@@ -1,0 +1,19 @@
+{
+  "category": "influencer-marketing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.112893Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по influencer-маркетингу. Используй для работы с инфлюенсерами, UGC и creator partnerships.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "influencer-marketing",
+      "branch": "main",
+      "category": "influencer-marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

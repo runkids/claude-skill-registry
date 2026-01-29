@@ -1,0 +1,19 @@
+{
+  "category": "agent-canvas-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.028932Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Dependency checker and installer for agent-canvas, agent-eyes, and canvas-edit skills. Use BEFORE running any canvas skill for the first time, or when canvas skills fail with import/browser errors. Tr",
+      "repo": "edrouhardmicrosoft/agent-canvas-skills",
+      "path": "agent-canvas-setup",
+      "branch": "main",
+      "category": "agent-canvas-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "edrouhardmicrosoft/agent-canvas-skills",
+      "source": "github.com/edrouhardmicrosoft/agent-canvas-skills"
+    }
+  ]
+}

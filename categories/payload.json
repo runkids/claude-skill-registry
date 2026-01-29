@@ -1,0 +1,19 @@
+{
+  "category": "payload",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.882970Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with Payload CMS projects (payload.config.ts, collections, fields, hooks, access control, Payload API). Use when debugging validation errors, security issues, relationship queries, tr",
+      "repo": "noklip-io/agent-skills",
+      "path": "payload",
+      "branch": "main",
+      "category": "payload",
+      "tags": [],
+      "stars": 0,
+      "install": "noklip-io/agent-skills",
+      "source": "github.com/noklip-io/agent-skills"
+    }
+  ]
+}

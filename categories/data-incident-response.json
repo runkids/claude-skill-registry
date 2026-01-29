@@ -1,0 +1,19 @@
+{
+  "category": "data-incident-response",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.153013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Procedures and playbooks for responding to data quality incidents, data loss, corruption, and pipeline failures.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "data-incident-response",
+      "branch": "main",
+      "category": "data-incident-response",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

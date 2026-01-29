@@ -1,0 +1,19 @@
+{
+  "category": "kubernetes-specialist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.276359Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when deploying or managing Kubernetes workloads requiring cluster configuration, security hardening, or troubleshooting. Invoke for Helm charts, RBAC policies, NetworkPolicies, storage configurati",
+      "repo": "Jeffallan/claude-skills",
+      "path": "kubernetes-specialist",
+      "branch": "main",
+      "category": "kubernetes-specialist",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

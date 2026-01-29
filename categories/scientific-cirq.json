@@ -1,0 +1,19 @@
+{
+  "category": "scientific-cirq",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.756733Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Google quantum computing framework. Use when targeting Google Quantum AI hardware, designing noise-aware circuits, or running quantum characterization experiments. Best for Google hardware, noise mode",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-cirq",
+      "branch": "main",
+      "category": "scientific-cirq",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

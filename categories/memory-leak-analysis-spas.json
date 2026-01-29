@@ -1,0 +1,19 @@
+{
+  "category": "memory-leak-analysis-spas",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.980393Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect, isolate, and fix memory leaks in long-running React Single Page Applications.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "memory-leak-analysis-spas",
+      "branch": "main",
+      "category": "memory-leak-analysis-spas",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

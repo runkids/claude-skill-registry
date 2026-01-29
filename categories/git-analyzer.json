@@ -1,0 +1,19 @@
+{
+  "category": "git-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.022591Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes git repositories to provide insights about code changes, commit patterns, and repository status.",
+      "repo": "jk278/veld",
+      "path": "git-analyzer",
+      "branch": "main",
+      "category": "git-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "jk278/veld",
+      "source": "github.com/jk278/veld"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "audit-agent",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.223347Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive security and code quality audit. Use for thorough security, vulnerability, and code quality analysis. Related: project-health-checker for quick diagnostic checks.",
+      "repo": "okgoogle13/careercopilot",
+      "path": "audit-agent",
+      "branch": "main",
+      "category": "audit-agent",
+      "tags": [],
+      "stars": 0,
+      "install": "okgoogle13/careercopilot",
+      "source": "github.com/okgoogle13/careercopilot"
+    }
+  ]
+}

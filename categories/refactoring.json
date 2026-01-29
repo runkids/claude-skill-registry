@@ -1,0 +1,19 @@
+{
+  "category": "refactoring",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.406776Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply refactoring patterns when consolidating code, extracting functions, or discussing DRY principles. Use when identifying duplicate code, planning consolidation, or discussing code organization. Au",
+      "repo": "joshribakoff/surfsim",
+      "path": "refactoring",
+      "branch": "main",
+      "category": "refactoring",
+      "tags": [],
+      "stars": 0,
+      "install": "joshribakoff/surfsim",
+      "source": "github.com/joshribakoff/surfsim"
+    }
+  ]
+}

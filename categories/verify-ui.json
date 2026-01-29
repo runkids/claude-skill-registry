@@ -1,0 +1,19 @@
+{
+  "category": "verify-ui",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.220769Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build assets, run server, and get visual approval before committing observable changes.",
+      "repo": "brian-abo/tfo-webapp",
+      "path": "verify-ui",
+      "branch": "main",
+      "category": "verify-ui",
+      "tags": [],
+      "stars": 0,
+      "install": "brian-abo/tfo-webapp",
+      "source": "github.com/brian-abo/tfo-webapp"
+    }
+  ]
+}

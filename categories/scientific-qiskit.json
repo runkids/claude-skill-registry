@@ -1,0 +1,19 @@
+{
+  "category": "scientific-qiskit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.609533Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "IBM quantum computing framework. Use when targeting IBM Quantum hardware, working with Qiskit Runtime for production workloads, or needing IBM optimization tools. Best for IBM hardware execution, quan",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-qiskit",
+      "branch": "main",
+      "category": "scientific-qiskit",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

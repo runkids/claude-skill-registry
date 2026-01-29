@@ -1,0 +1,19 @@
+{
+  "category": "antigravity-writing-skills",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.296393Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-writing-skills",
+      "branch": "main",
+      "category": "antigravity-writing-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

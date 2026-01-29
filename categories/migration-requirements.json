@@ -1,0 +1,19 @@
+{
+  "category": "migration-requirements",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.241927Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "データマイグレーション計画を策定し、安全な移行手順を提示",
+      "repo": "Hopin-inc/civicship-api",
+      "path": "migration-requirements",
+      "branch": "main",
+      "category": "migration-requirements",
+      "tags": [],
+      "stars": 0,
+      "install": "Hopin-inc/civicship-api",
+      "source": "github.com/Hopin-inc/civicship-api"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "nielsen-user-control",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.804039Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Proporciona a usuarios control total sobre sus acciones con opciones de deshacer y salir. Use cuando diseñe flujos de navegación, acciones destructivas, o cualquier operación que el usuario pueda quer",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "nielsen-user-control",
+      "branch": "main",
+      "category": "nielsen-user-control",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

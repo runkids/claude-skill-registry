@@ -1,0 +1,19 @@
+{
+  "category": "abaqus-dynamic-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.573029Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete workflow for dynamic analysis. Use when user mentions impact, crash, drop test, transient, or time-varying response. Handles explicit and implicit dynamics.",
+      "repo": "JaimeCernuda/abaqus-scripting",
+      "path": "abaqus-dynamic-analysis",
+      "branch": "main",
+      "category": "abaqus-dynamic-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "JaimeCernuda/abaqus-scripting",
+      "source": "github.com/JaimeCernuda/abaqus-scripting"
+    }
+  ]
+}

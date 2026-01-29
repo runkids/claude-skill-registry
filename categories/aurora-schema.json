@@ -1,0 +1,19 @@
+{
+  "category": "aurora-schema",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.002424Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Aurora YAML schema analysis and editing. Validates field names, descriptions, types, and module semantics following DDD best practices. Trigger: When analyzing or editing *.aurora.yaml files, improvin",
+      "repo": "avvale/aurora-back",
+      "path": "aurora-schema",
+      "branch": "main",
+      "category": "aurora-schema",
+      "tags": [],
+      "stars": 0,
+      "install": "avvale/aurora-back",
+      "source": "github.com/avvale/aurora-back"
+    }
+  ]
+}

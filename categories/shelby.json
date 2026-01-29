@@ -1,0 +1,19 @@
+{
+  "category": "shelby",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.662757Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert on Shelby Protocol decentralized blob storage on Aptos blockchain. Coordinates 7 specialized sub-skills covering protocol architecture, SDK usage, smart contracts, CLI tools, RPC infrastructure",
+      "repo": "raintree-technology/claude-starter",
+      "path": "shelby",
+      "branch": "main",
+      "category": "shelby",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

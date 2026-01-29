@@ -1,0 +1,19 @@
+{
+  "category": "kamino",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.238024Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete guide for Kamino Finance - Solana's leading DeFi protocol for lending, borrowing, liquidity management, and leverage trading. Covers klend-sdk (lending), kliquidity-sdk (automated liquidity s",
+      "repo": "sendaifun/skills",
+      "path": "kamino",
+      "branch": "main",
+      "category": "kamino",
+      "tags": [],
+      "stars": 0,
+      "install": "sendaifun/skills",
+      "source": "github.com/sendaifun/skills"
+    }
+  ]
+}

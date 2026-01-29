@@ -1,0 +1,19 @@
+{
+  "category": "session-logger",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.780265Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Logs development sessions in real-time to track decisions and issues.",
+      "repo": "munlucky/claude-settings",
+      "path": "session-logger",
+      "branch": "main",
+      "category": "session-logger",
+      "tags": [],
+      "stars": 0,
+      "install": "munlucky/claude-settings",
+      "source": "github.com/munlucky/claude-settings"
+    }
+  ]
+}

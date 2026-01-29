@@ -1,0 +1,19 @@
+{
+  "category": "respectfully",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.847388Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Wraps any prompt with a reminder to respect CLAUDE.md files",
+      "repo": "dailydotdev/daily-api",
+      "path": "respectfully",
+      "branch": "main",
+      "category": "respectfully",
+      "tags": [],
+      "stars": 0,
+      "install": "dailydotdev/daily-api",
+      "source": "github.com/dailydotdev/daily-api"
+    }
+  ]
+}

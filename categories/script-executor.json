@@ -1,0 +1,19 @@
+{
+  "category": "script-executor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.333303Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Executes shell scripts in a safe environment.",
+      "repo": "marcelocmenezes/antigravity-agentkit",
+      "path": "script-executor",
+      "branch": "main",
+      "category": "script-executor",
+      "tags": [],
+      "stars": 0,
+      "install": "marcelocmenezes/antigravity-agentkit",
+      "source": "github.com/marcelocmenezes/antigravity-agentkit"
+    }
+  ]
+}

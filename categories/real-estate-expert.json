@@ -1,0 +1,19 @@
+{
+  "category": "real-estate-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.413474Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level real estate systems, property management, MLS integration, CRM, virtual tours, and market analysis",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "real-estate-expert",
+      "branch": "main",
+      "category": "real-estate-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

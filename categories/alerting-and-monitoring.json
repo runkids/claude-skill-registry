@@ -1,0 +1,19 @@
+{
+  "category": "alerting-and-monitoring",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.048348Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define alerts, escalation, and incident response.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "alerting-and-monitoring",
+      "branch": "main",
+      "category": "alerting-and-monitoring",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

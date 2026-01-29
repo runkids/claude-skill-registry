@@ -1,0 +1,19 @@
+{
+  "category": "pytorch-onnx",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.004540Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Exporting PyTorch models to ONNX format for cross-platform deployment. Includes handling dynamic axes, graph optimization in ONNX Runtime, and INT8 model quantization. (onnx, onnxruntime, torch.onnx.e",
+      "repo": "cuba6112/skillfactory",
+      "path": "pytorch-onnx",
+      "branch": "main",
+      "category": "pytorch-onnx",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

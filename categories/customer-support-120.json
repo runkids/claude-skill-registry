@@ -1,0 +1,19 @@
+{
+  "category": "customer-support-120",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.700035Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "顧客期待を120%超える神対応カスタマーサポート。6つの教育要素+太陽スタイル統合で2000文字以上の心を動かす返信を作成。",
+      "repo": "taiyousan15/taisun_agent",
+      "path": "customer-support-120",
+      "branch": "main",
+      "category": "customer-support-120",
+      "tags": [],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent",
+      "source": "github.com/taiyousan15/taisun_agent"
+    }
+  ]
+}

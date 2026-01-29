@@ -1,0 +1,19 @@
+{
+  "category": "web-cli-teleport",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.769888Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide users on when to use Claude Code Web vs CLI and seamlessly teleport sessions between environments",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "web-cli-teleport",
+      "branch": "main",
+      "category": "web-cli-teleport",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

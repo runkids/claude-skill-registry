@@ -1,0 +1,19 @@
+{
+  "category": "43-vector-databases-rag-langchain",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.828375Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create your RAG skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "43-vector-databases-rag-langchain",
+      "branch": "main",
+      "category": "43-vector-databases-rag-langchain",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

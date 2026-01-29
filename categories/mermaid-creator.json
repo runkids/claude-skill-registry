@@ -1,0 +1,19 @@
+{
+  "category": "mermaid-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.886149Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create Mermaid diagrams for technical documentation, system design, and data modeling. Use when creating flowcharts, sequence diagrams, class diagrams, state diagrams, ER diagrams, Gantt charts, git g",
+      "repo": "narumiruna/agent-skills",
+      "path": "mermaid-creator",
+      "branch": "main",
+      "category": "mermaid-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "narumiruna/agent-skills",
+      "source": "github.com/narumiruna/agent-skills"
+    }
+  ]
+}

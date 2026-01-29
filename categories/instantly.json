@@ -1,0 +1,19 @@
+{
+  "category": "instantly",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.451914Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Instantly.ai cold email outreach API - manage campaigns, leads, accounts, and analytics. Use for cold email automation, lead management, campaign creation/monitoring, and email account warmup.",
+      "repo": "rdsthomas/mission-control",
+      "path": "instantly",
+      "branch": "main",
+      "category": "instantly",
+      "tags": [],
+      "stars": 0,
+      "install": "rdsthomas/mission-control",
+      "source": "github.com/rdsthomas/mission-control"
+    }
+  ]
+}

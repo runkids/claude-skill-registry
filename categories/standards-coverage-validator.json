@@ -1,0 +1,19 @@
+{
+  "category": "standards-coverage-validator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.904769Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate that curriculum fully covers required standards, check depth and rigor of coverage, verify assessment alignment, and generate coverage reports for administrators. Use for comprehensive valida",
+      "repo": "pauljbernard/content",
+      "path": "standards-coverage-validator",
+      "branch": "main",
+      "category": "standards-coverage-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "idea-capturer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.105521Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Capture, organize, and develop ideas using structured thinking frameworks",
+      "repo": "eddiebe147/claude-settings",
+      "path": "idea-capturer",
+      "branch": "main",
+      "category": "idea-capturer",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

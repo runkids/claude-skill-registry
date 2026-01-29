@@ -1,0 +1,19 @@
+{
+  "category": "braiins-pool",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.345549Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Braiins Pool skill - oldest Bitcoin mining pool with FPPS rewards, Lightning payouts, and Stratum V2 support",
+      "repo": "enuno/claude-command-and-control",
+      "path": "braiins-pool",
+      "branch": "main",
+      "category": "braiins-pool",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

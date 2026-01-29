@@ -1,0 +1,19 @@
+{
+  "category": "packmind-create-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.396835Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends CoPilot's capabilities with specialized knowledge, workf",
+      "repo": "PackmindHub/packmind",
+      "path": "packmind-create-skill",
+      "branch": "main",
+      "category": "packmind-create-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PackmindHub/packmind",
+      "source": "github.com/PackmindHub/packmind"
+    }
+  ]
+}

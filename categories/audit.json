@@ -1,0 +1,19 @@
+{
+  "category": "audit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.332701Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate usage report for MiniMax and token optimization Use when: (1) /audit is invoked, (2) task relates to audit functionality.",
+      "repo": "alfredolopez80/multi-agent-ralph-loop",
+      "path": "audit",
+      "branch": "main",
+      "category": "audit",
+      "tags": [],
+      "stars": 0,
+      "install": "alfredolopez80/multi-agent-ralph-loop",
+      "source": "github.com/alfredolopez80/multi-agent-ralph-loop"
+    }
+  ]
+}

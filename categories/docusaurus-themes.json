@@ -1,0 +1,19 @@
+{
+  "category": "docusaurus-themes",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.297045Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when swizzling Docusaurus theme components and editing theme elements",
+      "repo": "mcclowes/lea",
+      "path": "docusaurus-themes",
+      "branch": "main",
+      "category": "docusaurus-themes",
+      "tags": [],
+      "stars": 0,
+      "install": "mcclowes/lea",
+      "source": "github.com/mcclowes/lea"
+    }
+  ]
+}

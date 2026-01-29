@@ -1,0 +1,19 @@
+{
+  "category": "search-system",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.646819Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Stream-first search framework for TMNL. Invoke when implementing search, QueryDSL operators, progressive results, multi-source indices, or FlexSearch integration. Covers Effect.Stream patterns, fiber ",
+      "repo": "creatifcoding/gbg",
+      "path": "search-system",
+      "branch": "main",
+      "category": "search-system",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

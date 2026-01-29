@@ -1,0 +1,19 @@
+{
+  "category": "job-coach",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.760613Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Load Max, the veteran recruiter persona for resume advice, interview prep, and adversarial feedback. Use when discussing resumes, career positioning, or job search strategy.",
+      "repo": "shindo107/job-coach-and-scout",
+      "path": "job-coach",
+      "branch": "main",
+      "category": "job-coach",
+      "tags": [],
+      "stars": 0,
+      "install": "shindo107/job-coach-and-scout",
+      "source": "github.com/shindo107/job-coach-and-scout"
+    }
+  ]
+}

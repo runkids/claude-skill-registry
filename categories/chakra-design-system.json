@@ -1,0 +1,19 @@
+{
+  "category": "chakra-design-system",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.639427Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build and refactor UI in this repo using Chakra UI v2 + Emotion and the repo theme (`app/theme.ts`). Use for Chakra component usage, responsive layout, a11y, theme tokens/semanticTokens, component var",
+      "repo": "Stacked-Labs/poker-game",
+      "path": "chakra-design-system",
+      "branch": "main",
+      "category": "chakra-design-system",
+      "tags": [],
+      "stars": 0,
+      "install": "Stacked-Labs/poker-game",
+      "source": "github.com/Stacked-Labs/poker-game"
+    }
+  ]
+}

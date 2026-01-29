@@ -1,0 +1,19 @@
+{
+  "category": "front-webhook",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.240129Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Handle Front webhook events for the support platform. Use when implementing conversation ingestion, message handlers, Front API integrations, or webhook signature verification.",
+      "repo": "skillrecordings/support",
+      "path": "front-webhook",
+      "branch": "main",
+      "category": "front-webhook",
+      "tags": [],
+      "stars": 0,
+      "install": "skillrecordings/support",
+      "source": "github.com/skillrecordings/support"
+    }
+  ]
+}

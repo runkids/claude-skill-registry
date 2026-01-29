@@ -1,0 +1,19 @@
+{
+  "category": "elicit-requirements",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.327044Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "要件定義を支援",
+      "repo": "Hopin-inc/civicship-api",
+      "path": "elicit-requirements",
+      "branch": "main",
+      "category": "elicit-requirements",
+      "tags": [],
+      "stars": 0,
+      "install": "Hopin-inc/civicship-api",
+      "source": "github.com/Hopin-inc/civicship-api"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "ac-parallel-coordinator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.291343Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coordinate parallel autonomous operations. Use when running parallel features, managing concurrent work, coordinating multiple agents, or optimizing throughput.",
+      "repo": "adaptationio/Skrillz",
+      "path": "ac-parallel-coordinator",
+      "branch": "main",
+      "category": "ac-parallel-coordinator",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "learning-literature-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.636809Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "literature-review for evidence-based learning research and evaluation.",
+      "repo": "pauljbernard/content",
+      "path": "learning-literature-review",
+      "branch": "main",
+      "category": "learning-literature-review",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

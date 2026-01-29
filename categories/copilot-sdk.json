@@ -1,0 +1,19 @@
+{
+  "category": "copilot-sdk",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.634225Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build agentic applications with GitHub Copilot SDK. Use when embedding AI agents in apps, creating custom tools, implementing streaming responses, managing sessions, connecting to MCP servers, or crea",
+      "repo": "github/awesome-copilot",
+      "path": "copilot-sdk",
+      "branch": "main",
+      "category": "copilot-sdk",
+      "tags": [],
+      "stars": 0,
+      "install": "github/awesome-copilot",
+      "source": "github.com/github/awesome-copilot"
+    }
+  ]
+}

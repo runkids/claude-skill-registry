@@ -1,0 +1,19 @@
+{
+  "category": "scoring-engine",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.627068Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Statistical scoring with z-scores, percentiles, freshness decay, and cross-category normalization. Rank and compare items with confidence scoring.",
+      "repo": "dadbodgeoff/drift",
+      "path": "scoring-engine",
+      "branch": "main",
+      "category": "scoring-engine",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

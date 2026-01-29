@@ -1,0 +1,19 @@
+{
+  "category": "logging-observability",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.928059Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Structured JSON logging with correlation IDs, request context propagation across async boundaries, performance timing decorators, and worker metrics collection.",
+      "repo": "dadbodgeoff/drift",
+      "path": "logging-observability",
+      "branch": "main",
+      "category": "logging-observability",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

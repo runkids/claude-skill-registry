@@ -1,0 +1,19 @@
+{
+  "category": "testing-conventions",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.035504Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complements the vue-integration-testing skill with project-specific conventions.",
+      "repo": "alexanderop/workoutTracker",
+      "path": "testing-conventions",
+      "branch": "main",
+      "category": "testing-conventions",
+      "tags": [],
+      "stars": 0,
+      "install": "alexanderop/workoutTracker",
+      "source": "github.com/alexanderop/workoutTracker"
+    }
+  ]
+}

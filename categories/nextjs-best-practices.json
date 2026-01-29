@@ -1,0 +1,19 @@
+{
+  "category": "nextjs-best-practices",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.047131Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Next.js App Router principles. Server Components, data fetching, routing patterns.",
+      "repo": "LeonMelamud/inspector-agents",
+      "path": "nextjs-best-practices",
+      "branch": "main",
+      "category": "nextjs-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "LeonMelamud/inspector-agents",
+      "source": "github.com/LeonMelamud/inspector-agents"
+    }
+  ]
+}

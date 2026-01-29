@@ -1,0 +1,19 @@
+{
+  "category": "agent-tool",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.378862Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define tools for the support agent. Use when adding new capabilities like refund processing, license transfer, knowledge lookup, or any agent action.",
+      "repo": "skillrecordings/support",
+      "path": "agent-tool",
+      "branch": "main",
+      "category": "agent-tool",
+      "tags": [],
+      "stars": 0,
+      "install": "skillrecordings/support",
+      "source": "github.com/skillrecordings/support"
+    }
+  ]
+}

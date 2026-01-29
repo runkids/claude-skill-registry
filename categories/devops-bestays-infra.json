@@ -1,0 +1,19 @@
+{
+  "category": "devops-bestays-infra",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.332270Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manages Bestays infrastructure including Docker Compose, Dockerfile creation, Makefile workflows, service orchestration, production migrations, and backups. Use when managing containers, adding servic",
+      "repo": "shredbx/demo-3d-model",
+      "path": "devops-bestays-infra",
+      "branch": "main",
+      "category": "devops-bestays-infra",
+      "tags": [],
+      "stars": 0,
+      "install": "shredbx/demo-3d-model",
+      "source": "github.com/shredbx/demo-3d-model"
+    }
+  ]
+}

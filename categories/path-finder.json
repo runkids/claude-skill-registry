@@ -1,0 +1,19 @@
+{
+  "category": "path-finder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.714039Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides correct file paths, import locations, and navigation guidance for brizy-go-services monorepo following Clean Architecture conventions and Go workspace structure. Helps locate entity files, na",
+      "repo": "alecszaharia/brizy-microservices-go",
+      "path": "path-finder",
+      "branch": "main",
+      "category": "path-finder",
+      "tags": [],
+      "stars": 0,
+      "install": "alecszaharia/brizy-microservices-go",
+      "source": "github.com/alecszaharia/brizy-microservices-go"
+    }
+  ]
+}

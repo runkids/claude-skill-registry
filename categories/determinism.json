@@ -1,0 +1,19 @@
+{
+  "category": "determinism",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.702200Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when verifying outcomes with code instead of LLM judgment, versioning prompts with hashes, or ensuring reproducible agent behavior. Load for any critical verification. Scripts return boolean exit ",
+      "repo": "ingpoc/SKILLS",
+      "path": "determinism",
+      "branch": "main",
+      "category": "determinism",
+      "tags": [],
+      "stars": 0,
+      "install": "ingpoc/SKILLS",
+      "source": "github.com/ingpoc/SKILLS"
+    }
+  ]
+}

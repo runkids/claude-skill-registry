@@ -1,0 +1,19 @@
+{
+  "category": "fork-test",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.836021Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Minimal skill for testing context fork behavior. Do not use in production.",
+      "repo": "Geeksfino/openskills",
+      "path": "fork-test",
+      "branch": "main",
+      "category": "fork-test",
+      "tags": [],
+      "stars": 0,
+      "install": "Geeksfino/openskills",
+      "source": "github.com/Geeksfino/openskills"
+    }
+  ]
+}

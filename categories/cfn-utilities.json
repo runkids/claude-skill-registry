@@ -1,0 +1,19 @@
+{
+  "category": "cfn-utilities",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.682388Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reusable bash utility functions for CFN Loop - logging, error handling, retry, file operations. Use when you need structured logging, atomic file operations, retry logic with exponential backoff, or s",
+      "repo": "masharratt/claude-flow-novice",
+      "path": "cfn-utilities",
+      "branch": "main",
+      "category": "cfn-utilities",
+      "tags": [],
+      "stars": 0,
+      "install": "masharratt/claude-flow-novice",
+      "source": "github.com/masharratt/claude-flow-novice"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "ba",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.929080Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Business analysis methodologies, requirements engineering, RACI matrices, user stories for Pulse Radar.",
+      "repo": "djimontyp/task-tracker",
+      "path": "ba",
+      "branch": "main",
+      "category": "ba",
+      "tags": [],
+      "stars": 0,
+      "install": "djimontyp/task-tracker",
+      "source": "github.com/djimontyp/task-tracker"
+    }
+  ]
+}

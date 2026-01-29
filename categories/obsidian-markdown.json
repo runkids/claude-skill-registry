@@ -1,0 +1,19 @@
+{
+  "category": "obsidian-markdown",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.294219Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and edit Obsidian Flavored Markdown with wikilinks, embeds, callouts, properties, and other Obsidian-specific syntax. Use when working with .md files in Obsidian, or when the user mentions wiki",
+      "repo": "stericishere/Obsidian-notes",
+      "path": "obsidian-markdown",
+      "branch": "main",
+      "category": "obsidian-markdown",
+      "tags": [],
+      "stars": 0,
+      "install": "stericishere/Obsidian-notes",
+      "source": "github.com/stericishere/Obsidian-notes"
+    }
+  ]
+}

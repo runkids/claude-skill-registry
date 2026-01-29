@@ -1,0 +1,19 @@
+{
+  "category": "kanban-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.242075Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manages the Anubis Issue Tracker GitHub project board. Use when you need to organize issues by difficulty/status, move issues through workflow stages, or generate board status reports.",
+      "repo": "forrestthewoods/anubis",
+      "path": "kanban-management",
+      "branch": "main",
+      "category": "kanban-management",
+      "tags": [],
+      "stars": 0,
+      "install": "forrestthewoods/anubis",
+      "source": "github.com/forrestthewoods/anubis"
+    }
+  ]
+}

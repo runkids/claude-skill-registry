@@ -1,0 +1,19 @@
+{
+  "category": "media-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.313409Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when researching, segmenting, and maintaining journalist/analyst contact lists.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "media-database",
+      "branch": "main",
+      "category": "media-database",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

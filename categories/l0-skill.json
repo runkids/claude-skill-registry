@@ -1,0 +1,19 @@
+{
+  "category": "l0-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.829561Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "L0 regularization for neural network sparsification and intelligent sampling - used in survey calibration",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "l0-skill",
+      "branch": "main",
+      "category": "l0-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "issue-splitter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.266770Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Split complex issues into smaller, implementable sub-issues. Called automatically when ComplexityGate determines an issue needs splitting.\n",
+      "repo": "pcortes/swarm-attack",
+      "path": "issue-splitter",
+      "branch": "main",
+      "category": "issue-splitter",
+      "tags": [],
+      "stars": 0,
+      "install": "pcortes/swarm-attack",
+      "source": "github.com/pcortes/swarm-attack"
+    }
+  ]
+}

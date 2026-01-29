@@ -1,0 +1,19 @@
+{
+  "category": "video-to-content",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.014189Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert video transcripts, podcasts, and SRT files into blog posts, social clips, and other content formats. Use for repurposing video content.",
+      "repo": "mattppal/prompts",
+      "path": "video-to-content",
+      "branch": "main",
+      "category": "video-to-content",
+      "tags": [],
+      "stars": 0,
+      "install": "mattppal/prompts",
+      "source": "github.com/mattppal/prompts"
+    }
+  ]
+}

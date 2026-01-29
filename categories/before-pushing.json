@@ -1,0 +1,19 @@
+{
+  "category": "before-pushing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.640563Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when about to push commits to remote repository",
+      "repo": "viteinfinite/sync-skills",
+      "path": "before-pushing",
+      "branch": "main",
+      "category": "before-pushing",
+      "tags": [],
+      "stars": 0,
+      "install": "viteinfinite/sync-skills",
+      "source": "github.com/viteinfinite/sync-skills"
+    }
+  ]
+}

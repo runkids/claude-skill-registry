@@ -1,0 +1,19 @@
+{
+  "category": "nimbus-backend",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.263077Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guidelines for backend development in the NimbusImage Girder plugin including API patterns, access control, database queries, testing, and Docker development.",
+      "repo": "arjunrajlaboratory/NimbusImage",
+      "path": "nimbus-backend",
+      "branch": "main",
+      "category": "nimbus-backend",
+      "tags": [],
+      "stars": 0,
+      "install": "arjunrajlaboratory/NimbusImage",
+      "source": "github.com/arjunrajlaboratory/NimbusImage"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "confluence-page-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.258334Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate confluence page generator operations. Auto-activating skill for Enterprise Workflows.\nTriggers on: confluence page generator, confluence page generator\nPart of the Enterprise Workflows skill ",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "confluence-page-generator",
+      "branch": "main",
+      "category": "confluence-page-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

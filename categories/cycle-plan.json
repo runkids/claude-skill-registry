@@ -1,0 +1,19 @@
+{
+  "category": "cycle-plan",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.695789Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan Linear cycles using velocity analytics. Suggests scope based on historical capacity, identifies dependency risks, balances workload.",
+      "repo": "joa23/linear-cli",
+      "path": "cycle-plan",
+      "branch": "main",
+      "category": "cycle-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "joa23/linear-cli",
+      "source": "github.com/joa23/linear-cli"
+    }
+  ]
+}

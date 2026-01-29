@@ -1,0 +1,19 @@
+{
+  "category": "scalable-routing-and-code-splitting",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.737672Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design routing and code-splitting strategies that scale to large applications with minimal load-time overhead.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "scalable-routing-and-code-splitting",
+      "branch": "main",
+      "category": "scalable-routing-and-code-splitting",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "batch-processing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.082794Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Collect-then-batch pattern for database operations achieving 30-40% throughput improvement. Includes graceful fallback to sequential processing when batch operations fail.",
+      "repo": "dadbodgeoff/drift",
+      "path": "batch-processing",
+      "branch": "main",
+      "category": "batch-processing",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

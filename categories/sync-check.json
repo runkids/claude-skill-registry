@@ -1,0 +1,19 @@
+{
+  "category": "sync-check",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.776045Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "원본과 생성 파일의 동기화 검증이 필요할 때",
+      "repo": "younwony/younwony.github.io",
+      "path": "sync-check",
+      "branch": "main",
+      "category": "sync-check",
+      "tags": [],
+      "stars": 0,
+      "install": "younwony/younwony.github.io",
+      "source": "github.com/younwony/younwony.github.io"
+    }
+  ]
+}

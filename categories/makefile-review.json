@@ -1,0 +1,19 @@
+{
+  "category": "makefile-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.512158Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Quick Start",
+      "repo": "athola/claude-night-market",
+      "path": "makefile-review",
+      "branch": "main",
+      "category": "makefile-review",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

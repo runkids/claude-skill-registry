@@ -1,0 +1,19 @@
+{
+  "category": "temporal",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.863204Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Temporal.io workflow orchestration for SignalRoom. Use when designing workflows, debugging activities, managing schedules, or troubleshooting stuck workflows.",
+      "repo": "mmbianco78/signalroom",
+      "path": "temporal",
+      "branch": "main",
+      "category": "temporal",
+      "tags": [],
+      "stars": 0,
+      "install": "mmbianco78/signalroom",
+      "source": "github.com/mmbianco78/signalroom"
+    }
+  ]
+}

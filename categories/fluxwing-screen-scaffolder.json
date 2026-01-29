@@ -1,0 +1,19 @@
+{
+  "category": "fluxwing-screen-scaffolder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.859884Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build complete UI screens by composing multiple uxscii components. Use when working with .uxm files, when user wants to create, scaffold, or build .uxm screens like login, dashboard, profile, settings",
+      "repo": "trabian/fluxwing-skills",
+      "path": "fluxwing-screen-scaffolder",
+      "branch": "main",
+      "category": "fluxwing-screen-scaffolder",
+      "tags": [],
+      "stars": 0,
+      "install": "trabian/fluxwing-skills",
+      "source": "github.com/trabian/fluxwing-skills"
+    }
+  ]
+}

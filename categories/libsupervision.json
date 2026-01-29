@@ -1,0 +1,19 @@
+{
+  "category": "libsupervision",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.538915Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "libsupervision - Process supervision system. Supervisor manages process tree inspired by s6-svscan. LongRunner handles persistent processes with restart. OneShot handles single-execution tasks. Proces",
+      "repo": "copilot-ld/copilot-ld",
+      "path": "libsupervision",
+      "branch": "main",
+      "category": "libsupervision",
+      "tags": [],
+      "stars": 0,
+      "install": "copilot-ld/copilot-ld",
+      "source": "github.com/copilot-ld/copilot-ld"
+    }
+  ]
+}

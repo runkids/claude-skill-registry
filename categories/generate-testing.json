@@ -1,0 +1,19 @@
+{
+  "category": "generate-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.015793Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "開発作業のテスト手順書（testing.md）を生成します。このスキルは単独で使用することも、generate-working-docsから呼び出されることもあります。",
+      "repo": "sakamotchi/sql-query-build",
+      "path": "generate-testing",
+      "branch": "main",
+      "category": "generate-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "sakamotchi/sql-query-build",
+      "source": "github.com/sakamotchi/sql-query-build"
+    }
+  ]
+}

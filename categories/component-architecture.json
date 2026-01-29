@@ -1,0 +1,19 @@
+{
+  "category": "component-architecture",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.851997Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "> Template for project-specific component patterns skill",
+      "repo": "michsindlinger/agent-os-extended",
+      "path": "component-architecture",
+      "branch": "main",
+      "category": "component-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "michsindlinger/agent-os-extended",
+      "source": "github.com/michsindlinger/agent-os-extended"
+    }
+  ]
+}

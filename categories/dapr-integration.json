@@ -1,0 +1,19 @@
+{
+  "category": "dapr-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.360671Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Integrate Dapr for pub/sub messaging and scheduled jobs. Use this skill when implementing event-driven architectures with Dapr, handling CloudEvent message formats, setting up pub/sub subscriptions, o",
+      "repo": "mjunaidca/mjs-agent-skills",
+      "path": "dapr-integration",
+      "branch": "main",
+      "category": "dapr-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "mjunaidca/mjs-agent-skills",
+      "source": "github.com/mjunaidca/mjs-agent-skills"
+    }
+  ]
+}

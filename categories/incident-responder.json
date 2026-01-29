@@ -1,0 +1,19 @@
+{
+  "category": "incident-responder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.674256Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert SRE incident responder specializing in rapid problem resolution, modern observability, and comprehensive incident management. Masters incident command, blameless post-mortems, error budget mana",
+      "repo": "rmyndharis/antigravity-skills",
+      "path": "incident-responder",
+      "branch": "main",
+      "category": "incident-responder",
+      "tags": [],
+      "stars": 0,
+      "install": "rmyndharis/antigravity-skills",
+      "source": "github.com/rmyndharis/antigravity-skills"
+    }
+  ]
+}

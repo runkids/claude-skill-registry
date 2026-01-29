@@ -1,0 +1,19 @@
+{
+  "category": "sanity",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.033053Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manages structured content with Sanity headless CMS using GROQ queries and real-time collaboration. Use when building content-driven sites with customizable schemas, live previews, and flexible data m",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "sanity",
+      "branch": "main",
+      "category": "sanity",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

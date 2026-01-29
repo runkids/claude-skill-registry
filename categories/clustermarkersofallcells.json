@@ -1,0 +1,19 @@
+{
+  "category": "clustermarkersofallcells",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.218692Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Finds marker genes for clusters of ALL cells before T/B cell selection. This process identifies differentially expressed genes across unsupervised clusters to help identify broad cell types (T cells, ",
+      "repo": "pwwang/immunopipe",
+      "path": "clustermarkersofallcells",
+      "branch": "main",
+      "category": "clustermarkersofallcells",
+      "tags": [],
+      "stars": 0,
+      "install": "pwwang/immunopipe",
+      "source": "github.com/pwwang/immunopipe"
+    }
+  ]
+}

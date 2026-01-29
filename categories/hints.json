@@ -1,0 +1,19 @@
+{
+  "category": "hints",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.124650Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ALWAYS apply these hints automatically in your responses. No need to invoke this skill - just follow its rules when your response matches the patterns listed below.",
+      "repo": "hgeldenhuys/claude-code-sdk",
+      "path": "hints",
+      "branch": "main",
+      "category": "hints",
+      "tags": [],
+      "stars": 0,
+      "install": "hgeldenhuys/claude-code-sdk",
+      "source": "github.com/hgeldenhuys/claude-code-sdk"
+    }
+  ]
+}

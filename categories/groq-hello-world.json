@@ -1,0 +1,19 @@
+{
+  "category": "groq-hello-world",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.534572Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a minimal working Groq example.\nUse when starting a new Groq integration, testing your setup,\nor learning basic Groq API patterns.\nTrigger with phrases like \"groq hello world\", \"groq example\",\n",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "groq-hello-world",
+      "branch": "main",
+      "category": "groq-hello-world",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

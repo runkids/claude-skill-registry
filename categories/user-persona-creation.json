@@ -1,0 +1,19 @@
+{
+  "category": "user-persona-creation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.868143Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create detailed user personas based on research and data. Develop realistic representations of target users to guide product decisions and ensure user-centered design.",
+      "repo": "nicepkg/ai-workflow",
+      "path": "user-persona-creation",
+      "branch": "main",
+      "category": "user-persona-creation",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

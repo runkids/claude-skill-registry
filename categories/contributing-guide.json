@@ -1,0 +1,19 @@
+{
+  "category": "contributing-guide",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.977134Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт CONTRIBUTING.md. Используй для open source guidelines, PR процессов и contributor onboarding.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "contributing-guide",
+      "branch": "main",
+      "category": "contributing-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

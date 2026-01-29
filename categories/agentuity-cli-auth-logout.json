@@ -1,0 +1,19 @@
+{
+  "category": "agentuity-cli-auth-logout",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.584245Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Logout of the Agentuity Cloud Platform. Use for managing authentication credentials",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-auth-logout",
+      "branch": "main",
+      "category": "agentuity-cli-auth-logout",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

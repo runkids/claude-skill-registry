@@ -1,0 +1,19 @@
+{
+  "category": "feature-spec-orchestrator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.960986Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create feature spec files from project docs, commit and push to main, and create matching feature branches from main.",
+      "repo": "mattg101/SolidLink",
+      "path": "feature-spec-orchestrator",
+      "branch": "main",
+      "category": "feature-spec-orchestrator",
+      "tags": [],
+      "stars": 0,
+      "install": "mattg101/SolidLink",
+      "source": "github.com/mattg101/SolidLink"
+    }
+  ]
+}

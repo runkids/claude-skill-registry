@@ -1,0 +1,19 @@
+{
+  "category": "excalidraw-architect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.521530Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create diagrams, flowcharts, and architecture visualizations using Excalidraw. Use when user requests \"create diagram\", \"draw flowchart\", \"architecture diagram\", or mentions Excalidraw, visualization,",
+      "repo": "brixtonpham/claude-config",
+      "path": "excalidraw-architect",
+      "branch": "main",
+      "category": "excalidraw-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

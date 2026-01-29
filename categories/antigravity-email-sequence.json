@@ -1,0 +1,19 @@
+{
+  "category": "antigravity-email-sequence",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.331366Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to create or optimize an email sequence, drip campaign, automated email flow, or lifecycle email program. Also use when the user mentions \"email sequence,\" \"drip campaign,\" \"nurtur",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-email-sequence",
+      "branch": "main",
+      "category": "antigravity-email-sequence",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

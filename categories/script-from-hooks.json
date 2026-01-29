@@ -1,0 +1,19 @@
+{
+  "category": "script-from-hooks",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.632263Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expand winning hooks into full ad scripts with modular components (hook + body + CTA). Use when you have hooks that tested well and need to build complete video ad scripts with B-roll suggestions and ",
+      "repo": "WalkerHi11/mediabuy-plugins",
+      "path": "script-from-hooks",
+      "branch": "main",
+      "category": "script-from-hooks",
+      "tags": [],
+      "stars": 0,
+      "install": "WalkerHi11/mediabuy-plugins",
+      "source": "github.com/WalkerHi11/mediabuy-plugins"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "webhook-sender-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.829042Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Webhook Sender Creator - Auto-activating skill for API Integration.\nTriggers on: webhook sender creator, webhook sender creator\nPart of the API Integration skill category.\n",
+      "repo": "byteworthy/Upstream",
+      "path": "webhook-sender-creator",
+      "branch": "main",
+      "category": "webhook-sender-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

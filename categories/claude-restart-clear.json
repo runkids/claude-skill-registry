@@ -1,0 +1,19 @@
+{
+  "category": "claude-restart-clear",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.169822Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Start fresh with cleared history after task completion. Use PROACTIVELY when user says \"done\"/\"finished\", all tasks complete, or starting new unrelated work. Clears all history.",
+      "repo": "ManuelKugelmann/BitBot",
+      "path": "claude-restart-clear",
+      "branch": "main",
+      "category": "claude-restart-clear",
+      "tags": [],
+      "stars": 0,
+      "install": "ManuelKugelmann/BitBot",
+      "source": "github.com/ManuelKugelmann/BitBot"
+    }
+  ]
+}

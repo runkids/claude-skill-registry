@@ -1,0 +1,19 @@
+{
+  "category": "profile-fc",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.346706Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Profile INAV firmware performance by measuring CPU usage at specific code points",
+      "repo": "sensei-hacker/inav-claude",
+      "path": "profile-fc",
+      "branch": "main",
+      "category": "profile-fc",
+      "tags": [],
+      "stars": 0,
+      "install": "sensei-hacker/inav-claude",
+      "source": "github.com/sensei-hacker/inav-claude"
+    }
+  ]
+}

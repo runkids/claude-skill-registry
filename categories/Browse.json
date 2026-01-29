@@ -1,0 +1,19 @@
+{
+  "category": "Browse",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.314914Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete guide for creating and deploying browser automation functions using the stagehand CLI",
+      "repo": "moltbot/skills",
+      "path": "Browse",
+      "branch": "main",
+      "category": "Browse",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

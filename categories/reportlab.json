@@ -1,0 +1,19 @@
+{
+  "category": "reportlab",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.735119Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Python library for programmatic PDF generation and creation. Use when user wants to generate PDFs from scratch, create invoices, reports, certificates, labels, or custom documents with precise control",
+      "repo": "silvainfm/paie_reflex",
+      "path": "reportlab",
+      "branch": "main",
+      "category": "reportlab",
+      "tags": [],
+      "stars": 0,
+      "install": "silvainfm/paie_reflex",
+      "source": "github.com/silvainfm/paie_reflex"
+    }
+  ]
+}

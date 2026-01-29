@@ -1,0 +1,19 @@
+{
+  "category": "markersfinder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.100522Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Flexible marker finding process that wraps Seurat's FindMarkers function for custom group comparisons beyond simple cluster-vs-all analysis. Unlike ClusterMarkers (all-vs-all cluster comparisons), Mar",
+      "repo": "pwwang/immunopipe",
+      "path": "markersfinder",
+      "branch": "main",
+      "category": "markersfinder",
+      "tags": [],
+      "stars": 0,
+      "install": "pwwang/immunopipe",
+      "source": "github.com/pwwang/immunopipe"
+    }
+  ]
+}

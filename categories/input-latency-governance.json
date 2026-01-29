@@ -1,0 +1,19 @@
+{
+  "category": "input-latency-governance",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.022653Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Achieve and maintain low input latency by engineering event-to-render pipelines.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "input-latency-governance",
+      "branch": "main",
+      "category": "input-latency-governance",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "sarif-parsing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.924064Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Parse, analyze, and process SARIF (Static Analysis Results Interchange Format) files. Use when reading security scan results, aggregating findings from multiple tools, deduplicating alerts, extracting",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "sarif-parsing",
+      "branch": "main",
+      "category": "sarif-parsing",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "architecture-doc-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.561901Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Architecture Doc Creator - Auto-activating skill for Technical Documentation.\nTriggers on: architecture doc creator, architecture doc creator\nPart of the Technical Documentation skill category.\n",
+      "repo": "byteworthy/Upstream",
+      "path": "architecture-doc-creator",
+      "branch": "main",
+      "category": "architecture-doc-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "dependency-updater",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.721885Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Smart dependency management for any language. Auto-detects project type, applies safe updates automatically, prompts for major versions, diagnoses and fixes dependency issues.",
+      "repo": "softaworks/agent-toolkit",
+      "path": "dependency-updater",
+      "branch": "main",
+      "category": "dependency-updater",
+      "tags": [],
+      "stars": 0,
+      "install": "softaworks/agent-toolkit",
+      "source": "github.com/softaworks/agent-toolkit"
+    }
+  ]
+}

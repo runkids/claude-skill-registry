@@ -1,0 +1,19 @@
+{
+  "category": "study-notes",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.985569Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create comprehensive study notes on: $1",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "study-notes",
+      "branch": "main",
+      "category": "study-notes",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

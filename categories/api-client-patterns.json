@@ -1,0 +1,19 @@
+{
+  "category": "api-client-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.823482Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "HTTP client patterns, API integration, request/response handling, error handling, retry logic, axios usage. Use when building API clients, integrating external services, handling API errors, or making",
+      "repo": "BPMSTC/websiteagent",
+      "path": "api-client-patterns",
+      "branch": "main",
+      "category": "api-client-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "BPMSTC/websiteagent",
+      "source": "github.com/BPMSTC/websiteagent"
+    }
+  ]
+}

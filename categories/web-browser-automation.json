@@ -1,0 +1,19 @@
+{
+  "category": "web-browser-automation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.234412Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive macOS browser automation using PyXA, Playwright, Selenium, and Puppeteer for desktop web testing, scraping, and workflow automation. Use when asked to \"automate web browsers\", \"Selenium ",
+      "repo": "SpillwaveSolutions/automating-mac-apps-plugin",
+      "path": "web-browser-automation",
+      "branch": "main",
+      "category": "web-browser-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "SpillwaveSolutions/automating-mac-apps-plugin",
+      "source": "github.com/SpillwaveSolutions/automating-mac-apps-plugin"
+    }
+  ]
+}

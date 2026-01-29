@@ -1,0 +1,19 @@
+{
+  "category": "fm-residency-scheduling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.308768Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Family Medicine Residency Excel-based scheduling. Use when working with academic year block schedule spreadsheets to assign faculty half-days (C, GME, DFM) and resident half-days, validate constraints",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "fm-residency-scheduling",
+      "branch": "main",
+      "category": "fm-residency-scheduling",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

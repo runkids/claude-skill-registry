@@ -1,0 +1,19 @@
+{
+  "category": "resolve-issues",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.123008Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Resolve GitHub issues using isolated worktrees and TDD",
+      "repo": "FradSer/dotclaude",
+      "path": "resolve-issues",
+      "branch": "main",
+      "category": "resolve-issues",
+      "tags": [],
+      "stars": 0,
+      "install": "FradSer/dotclaude",
+      "source": "github.com/FradSer/dotclaude"
+    }
+  ]
+}

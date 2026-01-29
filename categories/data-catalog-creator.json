@@ -1,0 +1,19 @@
+{
+  "category": "data-catalog-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.708348Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage metadata, lineage, and discovery.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "data-catalog-creator",
+      "branch": "main",
+      "category": "data-catalog-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "deploying-app",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.294272Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prepares applications for production by generating Dockerfiles, CI/CD pipelines, and platform configurations. Supports Docker, Vercel, Netlify, and GitHub Actions.",
+      "repo": "TheeCoderAhmed/Skills-Master",
+      "path": "deploying-app",
+      "branch": "main",
+      "category": "deploying-app",
+      "tags": [],
+      "stars": 0,
+      "install": "TheeCoderAhmed/Skills-Master",
+      "source": "github.com/TheeCoderAhmed/Skills-Master"
+    }
+  ]
+}

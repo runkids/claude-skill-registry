@@ -1,0 +1,19 @@
+{
+  "category": "test-mcp-in-fork",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.038412Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test if MCP tools can be accessed from forked skill context",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-mcp-in-fork",
+      "branch": "main",
+      "category": "test-mcp-in-fork",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

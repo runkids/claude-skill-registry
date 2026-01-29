@@ -1,0 +1,19 @@
+{
+  "category": "tidar-thread-probe",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.663153Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TIDAR Thread Probe Skill",
+      "repo": "plurigrid/asi",
+      "path": "tidar-thread-probe",
+      "branch": "main",
+      "category": "tidar-thread-probe",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

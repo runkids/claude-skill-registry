@@ -1,0 +1,19 @@
+{
+  "category": "frontend-storyboard-artist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.912318Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build stunning component libraries with Storybook mastery. Expert in component documentation, visual testing, and design systems. Activate for UI libraries, component development, or design system cre",
+      "repo": "shredbx/demo-3d-model",
+      "path": "frontend-storyboard-artist",
+      "branch": "main",
+      "category": "frontend-storyboard-artist",
+      "tags": [],
+      "stars": 0,
+      "install": "shredbx/demo-3d-model",
+      "source": "github.com/shredbx/demo-3d-model"
+    }
+  ]
+}

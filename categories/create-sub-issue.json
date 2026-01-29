@@ -1,0 +1,19 @@
+{
+  "category": "create-sub-issue",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.106376Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /create-sub-issue <parent-issue> slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "create-sub-issue",
+      "branch": "main",
+      "category": "create-sub-issue",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

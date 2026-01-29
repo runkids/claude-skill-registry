@@ -1,0 +1,19 @@
+{
+  "category": "superpowers-writing-skills",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.248372Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+      "repo": "boisenoise/skills-collections",
+      "path": "superpowers-writing-skills",
+      "branch": "main",
+      "category": "superpowers-writing-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

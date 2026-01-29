@@ -1,0 +1,19 @@
+{
+  "category": "react-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.796282Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Modern React patterns and principles. Hooks, composition, performance, TypeScript best practices.",
+      "repo": "AxelMrak/ai",
+      "path": "react-patterns",
+      "branch": "main",
+      "category": "react-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

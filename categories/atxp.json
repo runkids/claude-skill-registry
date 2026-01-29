@@ -1,0 +1,19 @@
+{
+  "category": "atxp",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.412455Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access ATXP paid API tools for web search, AI image generation, music creation, video generation, and X/Twitter search. Use when users need real-time web search, AI-generated media (images, music, vid",
+      "repo": "moltbot/skills",
+      "path": "atxp",
+      "branch": "main",
+      "category": "atxp",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

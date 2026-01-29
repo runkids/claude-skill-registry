@@ -1,0 +1,19 @@
+{
+  "category": "rust-architect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.899154Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when designing or architecting Rust applications, creating comprehensive project documentation, planning async/await patterns, defining domain models with ownership strategies, structuring multi-c",
+      "repo": "nanlong/rust-architect",
+      "path": "rust-architect",
+      "branch": "main",
+      "category": "rust-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "nanlong/rust-architect",
+      "source": "github.com/nanlong/rust-architect"
+    }
+  ]
+}

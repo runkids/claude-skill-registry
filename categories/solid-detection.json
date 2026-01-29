@@ -1,0 +1,19 @@
+{
+  "category": "solid-detection",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.642314Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-language SOLID detection rules. Project type detection, interface locations, file size limits per language.",
+      "repo": "fusengine/agents",
+      "path": "solid-detection",
+      "branch": "main",
+      "category": "solid-detection",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

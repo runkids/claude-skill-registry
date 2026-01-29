@@ -1,0 +1,19 @@
+{
+  "category": "logic-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.906025Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pure logic and math testing with Vitest. Use for single-point assertions on functions, state transitions, and physics calculations. Auto-apply when editing *.test.ts files (except *Progressions.test.t",
+      "repo": "joshribakoff/surfsim",
+      "path": "logic-testing",
+      "branch": "main",
+      "category": "logic-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "joshribakoff/surfsim",
+      "source": "github.com/joshribakoff/surfsim"
+    }
+  ]
+}

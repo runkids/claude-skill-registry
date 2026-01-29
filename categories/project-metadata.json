@@ -1,0 +1,19 @@
+{
+  "category": "project-metadata",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.869669Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for updating app name, bundle identifier, and company metadata across all platforms (project)",
+      "repo": "gsmlg-app/flutter-app-template",
+      "path": "project-metadata",
+      "branch": "main",
+      "category": "project-metadata",
+      "tags": [],
+      "stars": 0,
+      "install": "gsmlg-app/flutter-app-template",
+      "source": "github.com/gsmlg-app/flutter-app-template"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "extracting-hecras-results",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.848248Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract HEC-RAS hydraulic results from HDF files including water surface elevations (WSE),\ndepths, velocities, and flows for both steady and unsteady simulations. Handles cross section\ntime series, 2D",
+      "repo": "gpt-cmdr/ras-commander",
+      "path": "extracting-hecras-results",
+      "branch": "main",
+      "category": "extracting-hecras-results",
+      "tags": [],
+      "stars": 0,
+      "install": "gpt-cmdr/ras-commander",
+      "source": "github.com/gpt-cmdr/ras-commander"
+    }
+  ]
+}

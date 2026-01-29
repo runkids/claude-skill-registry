@@ -1,0 +1,19 @@
+{
+  "category": "post-deploy",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.955663Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Infrastructure post-deployment validation and monitoring. TODO: Implement for devops. Invoked by: \"/post-deploy\", \"verify deployment\", \"infra check\", \"validate infrastructure\".",
+      "repo": "eleva-labs/agentic-coding-templates",
+      "path": "post-deploy",
+      "branch": "main",
+      "category": "post-deploy",
+      "tags": [],
+      "stars": 0,
+      "install": "eleva-labs/agentic-coding-templates",
+      "source": "github.com/eleva-labs/agentic-coding-templates"
+    }
+  ]
+}

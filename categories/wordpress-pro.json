@@ -1,0 +1,19 @@
+{
+  "category": "wordpress-pro",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.814974Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when developing WordPress themes, plugins, customizing Gutenberg blocks, implementing WooCommerce features, or optimizing WordPress performance and security.",
+      "repo": "Jeffallan/claude-skills",
+      "path": "wordpress-pro",
+      "branch": "main",
+      "category": "wordpress-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

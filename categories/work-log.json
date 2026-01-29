@@ -1,0 +1,19 @@
+{
+  "category": "work-log",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.995552Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "작업 기록 및 이력서 반영 판단이 필요할 때",
+      "repo": "younwony/younwony.github.io",
+      "path": "work-log",
+      "branch": "main",
+      "category": "work-log",
+      "tags": [],
+      "stars": 0,
+      "install": "younwony/younwony.github.io",
+      "source": "github.com/younwony/younwony.github.io"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "llc-ops",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.925842Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert LLC operations management for ID8Labs LLC (Florida single-member LLC). 9 specialized agents providing PhD-level expertise in compliance, tax strategy, asset protection, and business operations.",
+      "repo": "eddiebe147/claude-settings",
+      "path": "llc-ops",
+      "branch": "main",
+      "category": "llc-ops",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

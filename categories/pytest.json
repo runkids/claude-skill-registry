@@ -1,0 +1,19 @@
+{
+  "category": "pytest",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.650963Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pytest testing patterns for Python. Trigger: When writing or refactoring pytest tests (fixtures, mocking, parametrize, markers). For Prowler-specific API/SDK testing conventions, also use prowler-test",
+      "repo": "prowler-cloud/prowler",
+      "path": "pytest",
+      "branch": "main",
+      "category": "pytest",
+      "tags": [],
+      "stars": 0,
+      "install": "prowler-cloud/prowler",
+      "source": "github.com/prowler-cloud/prowler"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "options-trading",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.599364Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Options trading with OpenAlgo - single leg orders, multi-leg strategies (Iron Condor, Straddle, Strangle, Spreads), options chain analysis, and Greeks calculation",
+      "repo": "marketcalls/openalgo-claude-plugin",
+      "path": "options-trading",
+      "branch": "main",
+      "category": "options-trading",
+      "tags": [],
+      "stars": 0,
+      "install": "marketcalls/openalgo-claude-plugin",
+      "source": "github.com/marketcalls/openalgo-claude-plugin"
+    }
+  ]
+}

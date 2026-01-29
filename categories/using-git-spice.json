@@ -1,0 +1,19 @@
+{
+  "category": "using-git-spice",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.061182Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with stacked branches, managing dependent PRs/CRs, or uncertain about git-spice commands (stack vs upstack vs downstack) - provides command reference, workflow patterns, and common pi",
+      "repo": "arittr/spectacular",
+      "path": "using-git-spice",
+      "branch": "main",
+      "category": "using-git-spice",
+      "tags": [],
+      "stars": 0,
+      "install": "arittr/spectacular",
+      "source": "github.com/arittr/spectacular"
+    }
+  ]
+}

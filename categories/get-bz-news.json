@@ -1,0 +1,19 @@
+{
+  "category": "get-bz-news",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.739939Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fetch Benzinga news with significant daily returns from Neo4j",
+      "repo": "faisalanjum/EventTrader",
+      "path": "get-bz-news",
+      "branch": "main",
+      "category": "get-bz-news",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

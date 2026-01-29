@@ -1,0 +1,19 @@
+{
+  "category": "stripe-migration-pattern",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.121487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Resumable zero-downtime migrations for Convex schema changes. 6-phase pattern with checkpoint tracking, cursor-based backfill, dual-write transitions. Triggers on \"migration\", \"backfill\", \"resumable\",",
+      "repo": "planetaryescape/blah.chat",
+      "path": "stripe-migration-pattern",
+      "branch": "main",
+      "category": "stripe-migration-pattern",
+      "tags": [],
+      "stars": 0,
+      "install": "planetaryescape/blah.chat",
+      "source": "github.com/planetaryescape/blah.chat"
+    }
+  ]
+}

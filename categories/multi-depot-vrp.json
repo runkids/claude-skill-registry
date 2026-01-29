@@ -1,0 +1,19 @@
+{
+  "category": "multi-depot-vrp",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.055029Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to solve Multi-Depot VRP (MDVRP), optimize routes from multiple warehouses/depots, or handle multi-facility distribution. Also use when the user mentions \"MDVRP,\" \"multiple depots,",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "multi-depot-vrp",
+      "branch": "main",
+      "category": "multi-depot-vrp",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

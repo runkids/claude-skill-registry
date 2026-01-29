@@ -1,0 +1,19 @@
+{
+  "category": "video-production",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.126482Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Activate for video marketing strategy, script writing, video specifications for YouTube/TikTok/Instagram Reels/LinkedIn, production workflows, video optimization, thumbnail creation, and video repurpo",
+      "repo": "NammDev/Goads-Krea",
+      "path": "video-production",
+      "branch": "main",
+      "category": "video-production",
+      "tags": [],
+      "stars": 0,
+      "install": "NammDev/Goads-Krea",
+      "source": "github.com/NammDev/Goads-Krea"
+    }
+  ]
+}

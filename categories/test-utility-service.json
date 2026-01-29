@@ -1,0 +1,19 @@
+{
+  "category": "test-utility-service",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.784882Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test utility services that handle external APIs or authorization logic. Use when testing services like AuthenticationService or AuthorizationService. Triggers on \"test auth service\", \"test utility ser",
+      "repo": "madooei/backend-template",
+      "path": "test-utility-service",
+      "branch": "main",
+      "category": "test-utility-service",
+      "tags": [],
+      "stars": 0,
+      "install": "madooei/backend-template",
+      "source": "github.com/madooei/backend-template"
+    }
+  ]
+}

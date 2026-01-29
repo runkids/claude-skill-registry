@@ -1,0 +1,19 @@
+{
+  "category": "documentation-generation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.004882Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create comprehensive technical documentation including API docs, component libraries, README files, architecture diagrams, and developer guides using tools like JSDoc, Storybook, or Docusaurus. Use wh",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "documentation-generation",
+      "branch": "main",
+      "category": "documentation-generation",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

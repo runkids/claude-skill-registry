@@ -1,0 +1,19 @@
+{
+  "category": "decomp",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.406446Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Match decompiled C code to original PowerPC assembly for Super Smash Bros Melee. Use this skill when asked to match, decompile, or fix a function to achieve 100% match against target assembly. Invoked",
+      "repo": "itsgrimetime/melee-decomp",
+      "path": "decomp",
+      "branch": "main",
+      "category": "decomp",
+      "tags": [],
+      "stars": 0,
+      "install": "itsgrimetime/melee-decomp",
+      "source": "github.com/itsgrimetime/melee-decomp"
+    }
+  ]
+}

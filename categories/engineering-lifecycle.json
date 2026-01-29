@@ -1,0 +1,19 @@
+{
+  "category": "engineering-lifecycle",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.704997Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan, implement, and verify software with TDD discipline and intelligent execution routing. Not for ad-hoc execution without a plan.",
+      "repo": "Git-Fg/meta-plugin-manager",
+      "path": "engineering-lifecycle",
+      "branch": "main",
+      "category": "engineering-lifecycle",
+      "tags": [],
+      "stars": 0,
+      "install": "Git-Fg/meta-plugin-manager",
+      "source": "github.com/Git-Fg/meta-plugin-manager"
+    }
+  ]
+}

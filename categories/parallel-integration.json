@@ -1,0 +1,19 @@
+{
+  "category": "parallel-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.767721Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "name: parallel-integration",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "parallel-integration",
+      "branch": "main",
+      "category": "parallel-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

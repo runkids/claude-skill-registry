@@ -1,0 +1,19 @@
+{
+  "category": "api-typescript-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.068258Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates TypeScript interfaces from API responses or OpenAPI schemas. Use when the user asks about typing API responses, creating interfaces from JSON, parsing Swagger/OpenAPI, or keeping types in sy",
+      "repo": "WesleySmits/agent-skills",
+      "path": "api-typescript-generator",
+      "branch": "main",
+      "category": "api-typescript-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "browser-history",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.081684Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Search local browser history. Use when user asks about visited pages, forgotten URLs, or time spent on sites.",
+      "repo": "brixtonpham/claude-config",
+      "path": "browser-history",
+      "branch": "main",
+      "category": "browser-history",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

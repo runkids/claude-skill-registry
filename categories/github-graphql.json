@@ -1,0 +1,19 @@
+{
+  "category": "github-graphql",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.998463Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when querying GitHub via GraphQL. Provides patterns for PR threads, comments, and mutations.",
+      "repo": "JacobPEvans/ai-assistant-instructions",
+      "path": "github-graphql",
+      "branch": "main",
+      "category": "github-graphql",
+      "tags": [],
+      "stars": 0,
+      "install": "JacobPEvans/ai-assistant-instructions",
+      "source": "github.com/JacobPEvans/ai-assistant-instructions"
+    }
+  ]
+}

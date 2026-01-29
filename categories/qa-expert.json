@@ -1,0 +1,19 @@
+{
+  "category": "qa-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.841738Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level quality assurance, testing strategies, automation, and QA processes",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "qa-expert",
+      "branch": "main",
+      "category": "qa-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

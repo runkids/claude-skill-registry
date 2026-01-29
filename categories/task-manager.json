@@ -1,0 +1,19 @@
+{
+  "category": "task-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.907684Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "统一任务管理技能，使用 GitHub Issues 管理所有 Agent 任务，支持任务创建、更新、追踪和完成",
+      "repo": "lotosbin/claude-skills",
+      "path": "task-manager",
+      "branch": "main",
+      "category": "task-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "lotosbin/claude-skills",
+      "source": "github.com/lotosbin/claude-skills"
+    }
+  ]
+}

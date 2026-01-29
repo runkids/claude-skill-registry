@@ -1,0 +1,19 @@
+{
+  "category": "file-validator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.153698Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate file formats and content safely",
+      "repo": "cisco-ai-defense/skill-scanner",
+      "path": "file-validator",
+      "branch": "main",
+      "category": "file-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "cisco-ai-defense/skill-scanner",
+      "source": "github.com/cisco-ai-defense/skill-scanner"
+    }
+  ]
+}

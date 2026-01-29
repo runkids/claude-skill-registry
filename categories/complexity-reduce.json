@@ -1,0 +1,19 @@
+{
+  "category": "complexity-reduce",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.997055Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reduce cyclomatic complexity with targeted refactoring strategies",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "complexity-reduce",
+      "branch": "main",
+      "category": "complexity-reduce",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

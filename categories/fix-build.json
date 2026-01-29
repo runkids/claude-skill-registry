@@ -1,0 +1,19 @@
+{
+  "category": "fix-build",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.131935Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diagnose and fix build or type errors",
+      "repo": "WhatIfWeDigDeeper/application-tracker",
+      "path": "fix-build",
+      "branch": "main",
+      "category": "fix-build",
+      "tags": [],
+      "stars": 0,
+      "install": "WhatIfWeDigDeeper/application-tracker",
+      "source": "github.com/WhatIfWeDigDeeper/application-tracker"
+    }
+  ]
+}

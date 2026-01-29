@@ -1,0 +1,19 @@
+{
+  "category": "massive-report-writing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.671157Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Context-efficient report synthesis for large research corpora using evidence ledgering and harness-based iteration.\n\n**USE WHEN:**\n- Corpus has ≥8 files OR ≥100K characters\n- `finalize_research` retur",
+      "repo": "Kjdragan/universal_agent",
+      "path": "massive-report-writing",
+      "branch": "main",
+      "category": "massive-report-writing",
+      "tags": [],
+      "stars": 0,
+      "install": "Kjdragan/universal_agent",
+      "source": "github.com/Kjdragan/universal_agent"
+    }
+  ]
+}

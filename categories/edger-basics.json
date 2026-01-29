@@ -1,0 +1,19 @@
+{
+  "category": "edger-basics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.538634Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Perform differential expression analysis using edgeR in R/Bioconductor. Use for analyzing RNA-seq count data with the quasi-likelihood F-test framework, creating DGEList objects, normalization, disper",
+      "repo": "GPTomics/bioSkills",
+      "path": "edger-basics",
+      "branch": "main",
+      "category": "edger-basics",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "skill-orchestrator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.083630Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coordinates execution of multiple specialized skills in complex workflows, managing dependencies, parallel execution, and result synthesis.",
+      "repo": "enuno/claude-command-and-control",
+      "path": "skill-orchestrator",
+      "branch": "main",
+      "category": "skill-orchestrator",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

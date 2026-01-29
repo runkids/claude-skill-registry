@@ -1,0 +1,19 @@
+{
+  "category": "ml-supply-chain",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.262676Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to apply machine learning to supply chain problems, build ML models, or use AI for predictions. Also use when the user mentions \"machine learning,\" \"deep learning,\" \"neural network",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "ml-supply-chain",
+      "branch": "main",
+      "category": "ml-supply-chain",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "responsive-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.848855Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement mobile-first responsive design with Tailwind CSS breakpoints for mobile, tablet, and desktop. Use when building responsive layouts or fixing layout issues.",
+      "repo": "PrasadTelasula/EvokeQOne",
+      "path": "responsive-design",
+      "branch": "main",
+      "category": "responsive-design",
+      "tags": [],
+      "stars": 0,
+      "install": "PrasadTelasula/EvokeQOne",
+      "source": "github.com/PrasadTelasula/EvokeQOne"
+    }
+  ]
+}

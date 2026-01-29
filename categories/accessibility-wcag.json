@@ -1,0 +1,19 @@
+{
+  "category": "accessibility-wcag",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.015326Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build accessible web applications following WCAG 2.1/2.2 guidelines with proper semantic HTML, ARIA attributes, keyboard navigation, screen reader support, and inclusive design. Use when implementing ",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "accessibility-wcag",
+      "branch": "main",
+      "category": "accessibility-wcag",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

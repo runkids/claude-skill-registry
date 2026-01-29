@@ -1,0 +1,19 @@
+{
+  "category": "browser-forensics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.654115Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze web browser artifacts for forensic investigation. Use when investigating\nuser browsing activity, downloaded files, cached content, or web-based attacks.\nSupports Chrome, Firefox, Edge, Safari,",
+      "repo": "SherifEldeeb/agentskills",
+      "path": "browser-forensics",
+      "branch": "main",
+      "category": "browser-forensics",
+      "tags": [],
+      "stars": 0,
+      "install": "SherifEldeeb/agentskills",
+      "source": "github.com/SherifEldeeb/agentskills"
+    }
+  ]
+}

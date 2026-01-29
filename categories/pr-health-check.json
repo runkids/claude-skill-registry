@@ -1,0 +1,19 @@
+{
+  "category": "pr-health-check",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.250202Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when checking if PR is ready to merge. Validates merge-readiness and PR status patterns.",
+      "repo": "JacobPEvans/ai-assistant-instructions",
+      "path": "pr-health-check",
+      "branch": "main",
+      "category": "pr-health-check",
+      "tags": [],
+      "stars": 0,
+      "install": "JacobPEvans/ai-assistant-instructions",
+      "source": "github.com/JacobPEvans/ai-assistant-instructions"
+    }
+  ]
+}

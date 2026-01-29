@@ -1,0 +1,19 @@
+{
+  "category": "decision-moment",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.066205Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Map and optimize decision moments across Awareness, Consideration, Conversion, and Retention, then attach specific assets, visuals, and automations to each stage. Use when designing funnels, campaigns",
+      "repo": "CleanExpo/Unite-Hub",
+      "path": "decision-moment",
+      "branch": "main",
+      "category": "decision-moment",
+      "tags": [],
+      "stars": 0,
+      "install": "CleanExpo/Unite-Hub",
+      "source": "github.com/CleanExpo/Unite-Hub"
+    }
+  ]
+}

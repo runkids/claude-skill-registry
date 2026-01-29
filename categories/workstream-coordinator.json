@@ -1,0 +1,19 @@
+{
+  "category": "workstream-coordinator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.590715Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert workstream coordinator managing multiple concurrent tasks, tracking progress, detecting conflicts and stalls, analyzing dependencies, and ensuring smooth parallel execution. Activates when coor",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "workstream-coordinator",
+      "branch": "main",
+      "category": "workstream-coordinator",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

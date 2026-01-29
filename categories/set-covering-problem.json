@@ -1,0 +1,19 @@
+{
+  "category": "set-covering-problem",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.140823Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to solve set covering problems, determine minimum coverage sets, or optimize facility coverage. Also use when the user mentions \"set cover,\" \"minimum set cover,\" \"coverage optimiza",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "set-covering-problem",
+      "branch": "main",
+      "category": "set-covering-problem",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

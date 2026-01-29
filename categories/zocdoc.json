@@ -1,0 +1,19 @@
+{
+  "category": "zocdoc",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.821842Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Find and book doctors with Zocdoc - search providers, view availability, and manage appointments",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "zocdoc",
+      "branch": "main",
+      "category": "zocdoc",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

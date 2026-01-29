@@ -1,0 +1,19 @@
+{
+  "category": "redteam-plugin-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.317482Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standards for creating redteam plugins and graders. Use when creating new plugins, writing graders, or modifying attack templates.",
+      "repo": "promptfoo/promptfoo",
+      "path": "redteam-plugin-development",
+      "branch": "main",
+      "category": "redteam-plugin-development",
+      "tags": [],
+      "stars": 0,
+      "install": "promptfoo/promptfoo",
+      "source": "github.com/promptfoo/promptfoo"
+    }
+  ]
+}

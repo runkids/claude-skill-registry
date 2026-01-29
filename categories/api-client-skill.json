@@ -1,0 +1,19 @@
+{
+  "category": "api-client-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.401874Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "REST API client builder with authentication, error handling, retry logic, and request management. Supports OAuth, JWT, API keys. Use when building API integrations, creating API clients, or working wi",
+      "repo": "adaptationio/Skrillz",
+      "path": "api-client-skill",
+      "branch": "main",
+      "category": "api-client-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

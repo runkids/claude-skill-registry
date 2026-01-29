@@ -1,0 +1,19 @@
+{
+  "category": "output-formatter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.746191Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Format AI outputs for different contexts and audiences",
+      "repo": "eddiebe147/claude-settings",
+      "path": "output-formatter",
+      "branch": "main",
+      "category": "output-formatter",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

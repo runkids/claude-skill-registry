@@ -1,0 +1,19 @@
+{
+  "category": "wp-performance-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.104935Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "WordPress performance code review and optimization analysis. Use when reviewing WordPress PHP code for performance issues, auditing themes/plugins for scalability, optimizing WP_Query, analyzing cachi",
+      "repo": "elvismdev/claude-wordpress-skills",
+      "path": "wp-performance-review",
+      "branch": "main",
+      "category": "wp-performance-review",
+      "tags": [],
+      "stars": 0,
+      "install": "elvismdev/claude-wordpress-skills",
+      "source": "github.com/elvismdev/claude-wordpress-skills"
+    }
+  ]
+}

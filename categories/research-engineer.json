@@ -1,0 +1,19 @@
+{
+  "category": "research-engineer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.825816Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "An uncompromising Academic Research Engineer. Operates with absolute scientific rigor, objective criticism, and zero flair. Focuses on theoretical correctness, formal verification, and optimal impleme",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "research-engineer",
+      "branch": "main",
+      "category": "research-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

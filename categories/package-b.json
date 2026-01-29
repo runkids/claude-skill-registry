@@ -1,0 +1,19 @@
+{
+  "category": "package-b",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.577392Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Second version of duplicate skill from package B (should win)",
+      "repo": "netresearch/composer-agent-skill-plugin",
+      "path": "package-b",
+      "branch": "main",
+      "category": "package-b",
+      "tags": [],
+      "stars": 0,
+      "install": "netresearch/composer-agent-skill-plugin",
+      "source": "github.com/netresearch/composer-agent-skill-plugin"
+    }
+  ]
+}

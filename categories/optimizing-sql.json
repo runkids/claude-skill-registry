@@ -1,0 +1,19 @@
+{
+  "category": "optimizing-sql",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.840440Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize SQL query performance through EXPLAIN analysis, indexing strategies, and query rewriting for PostgreSQL, MySQL, and SQL Server. Use when debugging slow queries, analyzing execution plans, or ",
+      "repo": "ancoleman/ai-design-components",
+      "path": "optimizing-sql",
+      "branch": "main",
+      "category": "optimizing-sql",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

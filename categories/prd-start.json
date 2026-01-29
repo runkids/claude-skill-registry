@@ -1,0 +1,19 @@
+{
+  "category": "prd-start",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.912035Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Start working on a PRD implementation",
+      "repo": "wiggitywhitney/cluster-whisperer",
+      "path": "prd-start",
+      "branch": "main",
+      "category": "prd-start",
+      "tags": [],
+      "stars": 0,
+      "install": "wiggitywhitney/cluster-whisperer",
+      "source": "github.com/wiggitywhitney/cluster-whisperer"
+    }
+  ]
+}

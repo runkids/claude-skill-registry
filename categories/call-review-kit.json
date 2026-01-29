@@ -1,0 +1,19 @@
+{
+  "category": "call-review-kit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.102188Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to facilitate structured call review sessions with agendas, scorecards, and follow-ups.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "call-review-kit",
+      "branch": "main",
+      "category": "call-review-kit",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

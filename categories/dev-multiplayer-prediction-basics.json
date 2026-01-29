@@ -1,0 +1,19 @@
+{
+  "category": "dev-multiplayer-prediction-basics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.337732Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Client-side prediction and server reconciliation core concepts. Use when implementing responsive multiplayer controls.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-multiplayer-prediction-basics",
+      "branch": "main",
+      "category": "dev-multiplayer-prediction-basics",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

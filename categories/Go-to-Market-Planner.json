@@ -1,0 +1,19 @@
+{
+  "category": "Go-to-Market-Planner",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.706554Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive 90-day GTM strategy builder. Designs customer acquisition channels, budget allocation, growth targets, and tactical execution roadmap. Produces detailed launch plan with weekly milestone",
+      "repo": "maigentic/stratarts",
+      "path": "Go-to-Market-Planner",
+      "branch": "main",
+      "category": "Go-to-Market-Planner",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts",
+      "source": "github.com/maigentic/stratarts"
+    }
+  ]
+}

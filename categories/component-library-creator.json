@@ -1,0 +1,19 @@
+{
+  "category": "component-library-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.570239Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create design system with Storybook and theming.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "component-library-creator",
+      "branch": "main",
+      "category": "component-library-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

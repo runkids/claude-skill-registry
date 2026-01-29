@@ -1,0 +1,19 @@
+{
+  "category": "typescript-generics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.664683Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when writing reusable functions, components, or utilities that work with multiple types while maintaining type safety.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "typescript-generics",
+      "branch": "main",
+      "category": "typescript-generics",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

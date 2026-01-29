@@ -1,0 +1,19 @@
+{
+  "category": "agent-sre-engineer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.880879Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert Site Reliability Engineer balancing feature velocity with system stability through SLOs, automation, and operational excellence. Masters reliability engineering, chaos testing, and toil reducti",
+      "repo": "Tony363/SuperClaude",
+      "path": "agent-sre-engineer",
+      "branch": "main",
+      "category": "agent-sre-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "Tony363/SuperClaude",
+      "source": "github.com/Tony363/SuperClaude"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "openapi-schemas",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.809657Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "OpenAPI schema rules 14-24 for response models, nullable handling, and data modeling",
+      "repo": "zerobias-org/module",
+      "path": "openapi-schemas",
+      "branch": "main",
+      "category": "openapi-schemas",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

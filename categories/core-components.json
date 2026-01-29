@@ -1,0 +1,19 @@
+{
+  "category": "core-components",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.245363Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Core component library and design system patterns. Use when building UI, using design tokens, or working with the component library.",
+      "repo": "AxelMrak/ai",
+      "path": "core-components",
+      "branch": "main",
+      "category": "core-components",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

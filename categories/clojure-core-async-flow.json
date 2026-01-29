@@ -1,0 +1,19 @@
+{
+  "category": "clojure-core-async-flow",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.006188Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "core.async.flow provides a declarative framework for building process flows with strict separation of application logic from topology, execution, and lifecycle management. Use when building multi-proc",
+      "repo": "Ramblurr/nix-devenv",
+      "path": "clojure-core-async-flow",
+      "branch": "main",
+      "category": "clojure-core-async-flow",
+      "tags": [],
+      "stars": 0,
+      "install": "Ramblurr/nix-devenv",
+      "source": "github.com/Ramblurr/nix-devenv"
+    }
+  ]
+}

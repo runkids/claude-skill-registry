@@ -1,0 +1,19 @@
+{
+  "category": "tooluniverse",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.757692Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill when working with scientific research tools and workflows across bioinformatics, cheminformatics, genomics, structural biology, proteomics, and drug discovery. This skill provides acces",
+      "repo": "robinbarvaag/poynt",
+      "path": "tooluniverse",
+      "branch": "main",
+      "category": "tooluniverse",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

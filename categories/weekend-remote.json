@@ -1,0 +1,19 @@
+{
+  "category": "weekend-remote",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.597903Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "スマホレビュー向き作業の洗い出しとIssue作成。土日リモート対応用のタスクストックを作成。",
+      "repo": "Dayopt/app",
+      "path": "weekend-remote",
+      "branch": "main",
+      "category": "weekend-remote",
+      "tags": [],
+      "stars": 0,
+      "install": "Dayopt/app",
+      "source": "github.com/Dayopt/app"
+    }
+  ]
+}

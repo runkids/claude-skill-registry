@@ -1,0 +1,19 @@
+{
+  "category": "requesting-code-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.154522Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Dispatch code-reviewer subagent to review implementation against plan or requirements before proceeding",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "requesting-code-review",
+      "branch": "main",
+      "category": "requesting-code-review",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

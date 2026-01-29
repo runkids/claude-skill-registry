@@ -1,0 +1,19 @@
+{
+  "category": "s",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.698854Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Dynamically discover all available skills and subagent types.",
+      "repo": "shakefu/contextium",
+      "path": "s",
+      "branch": "main",
+      "category": "s",
+      "tags": [],
+      "stars": 0,
+      "install": "shakefu/contextium",
+      "source": "github.com/shakefu/contextium"
+    }
+  ]
+}

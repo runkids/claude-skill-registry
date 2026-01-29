@@ -1,0 +1,19 @@
+{
+  "category": "conflict-resolve",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.387365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guided conflict resolution with semantic analysis and validation",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "conflict-resolve",
+      "branch": "main",
+      "category": "conflict-resolve",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "critical-app-brief",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.212093Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create critical MVP application briefs through ruthless scope-cutting dialogue. Use when user wants to turn business ideas and processes into applications. Ruthlessly cuts scope, challenges overengine",
+      "repo": "Przemocny/critical-briefs",
+      "path": "critical-app-brief",
+      "branch": "main",
+      "category": "critical-app-brief",
+      "tags": [],
+      "stars": 0,
+      "install": "Przemocny/critical-briefs",
+      "source": "github.com/Przemocny/critical-briefs"
+    }
+  ]
+}

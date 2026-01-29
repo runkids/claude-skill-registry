@@ -1,0 +1,19 @@
+{
+  "category": "constraint-preflight",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.006193Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pre-flight verification for scheduling constraint development. Use when adding, modifying, or testing constraints to ensure they are properly implemented, exported, registered, and tested before commi",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "constraint-preflight",
+      "branch": "main",
+      "category": "constraint-preflight",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

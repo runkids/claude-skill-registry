@@ -1,0 +1,19 @@
+{
+  "category": "websocket-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.839621Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Production-grade WebSocket connection management with connection limits, user-to-connection mapping, ping/pong health verification, and automatic stale connection cleanup.",
+      "repo": "dadbodgeoff/drift",
+      "path": "websocket-management",
+      "branch": "main",
+      "category": "websocket-management",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

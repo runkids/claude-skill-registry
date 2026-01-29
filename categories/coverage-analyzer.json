@@ -1,0 +1,19 @@
+{
+  "category": "coverage-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.009803Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced coverage analysis with actionable insights. Use to identify coverage gaps, suggest specific tests, track coverage trends, and highlight critical uncovered code. Essential for reaching 80%+ co",
+      "repo": "Atyantik/python-modern-template",
+      "path": "coverage-analyzer",
+      "branch": "main",
+      "category": "coverage-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "Atyantik/python-modern-template",
+      "source": "github.com/Atyantik/python-modern-template"
+    }
+  ]
+}

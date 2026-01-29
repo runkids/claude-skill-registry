@@ -1,0 +1,19 @@
+{
+  "category": "Roo-VMS",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.503194Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Alpine and Debian QEMU VMs for protocol testing, fuzzing, and network experiments",
+      "repo": "lawless-m/Earwig",
+      "path": "Roo-VMS",
+      "branch": "main",
+      "category": "Roo-VMS",
+      "tags": [],
+      "stars": 0,
+      "install": "lawless-m/Earwig",
+      "source": "github.com/lawless-m/Earwig"
+    }
+  ]
+}

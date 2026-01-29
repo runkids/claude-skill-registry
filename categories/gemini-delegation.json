@@ -1,0 +1,19 @@
+{
+  "category": "gemini-delegation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.448203Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Gemini CLI delegation workflow implementing delegation-core for Google's Gemini models.",
+      "repo": "athola/claude-night-market",
+      "path": "gemini-delegation",
+      "branch": "main",
+      "category": "gemini-delegation",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "terra-data",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.565357Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Terra API health data retrieval and management. Use when fetching activity, sleep, body, daily, nutrition, menstruation, or athlete data from wearables.",
+      "repo": "adaptationio/Skrillz",
+      "path": "terra-data",
+      "branch": "main",
+      "category": "terra-data",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "react-state",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.053929Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "State management with Zustand, Jotai, Context API. Use when implementing global state, stores, or state management patterns in React.",
+      "repo": "fusengine/agents",
+      "path": "react-state",
+      "branch": "main",
+      "category": "react-state",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

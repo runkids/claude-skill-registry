@@ -1,0 +1,19 @@
+{
+  "category": "visual-assets",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.032575Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and manage visual assets. Use when creating graphics, icons, or images. Covers asset formats and optimization.",
+      "repo": "dralgorhythm/claude-agentic-framework",
+      "path": "visual-assets",
+      "branch": "main",
+      "category": "visual-assets",
+      "tags": [],
+      "stars": 0,
+      "install": "dralgorhythm/claude-agentic-framework",
+      "source": "github.com/dralgorhythm/claude-agentic-framework"
+    }
+  ]
+}

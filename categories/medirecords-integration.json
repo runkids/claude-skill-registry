@@ -1,0 +1,19 @@
+{
+  "category": "medirecords-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.699556Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete MediRecords FHIR/REST API integration guide for Dr. Sophia AI consultations. Covers two-phase workflow (FHIR Encounter creation + REST notes append), patient search, SOAP note formatting, and",
+      "repo": "adaptationio/Skrillz",
+      "path": "medirecords-integration",
+      "branch": "main",
+      "category": "medirecords-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

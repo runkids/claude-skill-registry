@@ -1,0 +1,19 @@
+{
+  "category": "benchmark-advisor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.134482Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Suggests which benchmarks to run based on code changes",
+      "repo": "wildcard/caro",
+      "path": "benchmark-advisor",
+      "branch": "main",
+      "category": "benchmark-advisor",
+      "tags": [],
+      "stars": 0,
+      "install": "wildcard/caro",
+      "source": "github.com/wildcard/caro"
+    }
+  ]
+}

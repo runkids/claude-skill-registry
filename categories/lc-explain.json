@@ -1,0 +1,19 @@
+{
+  "category": "lc-explain",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.613460Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate markdown explanation for a LeetCode solution (project)",
+      "repo": "iQeda/MyRust-NeetCode",
+      "path": "lc-explain",
+      "branch": "main",
+      "category": "lc-explain",
+      "tags": [],
+      "stars": 0,
+      "install": "iQeda/MyRust-NeetCode",
+      "source": "github.com/iQeda/MyRust-NeetCode"
+    }
+  ]
+}

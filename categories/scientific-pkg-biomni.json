@@ -1,0 +1,19 @@
+{
+  "category": "scientific-pkg-biomni",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.037782Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Autonomous biomedical AI agent framework for executing complex research tasks across genomics, drug discovery, molecular biology, and clinical analysis. Use this skill when conducting multi-step biome",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-pkg-biomni",
+      "branch": "main",
+      "category": "scientific-pkg-biomni",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

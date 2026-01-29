@@ -1,0 +1,19 @@
+{
+  "category": "literature-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.225328Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be used when conducting systematic literature",
+      "repo": "danieldekay/copilot-config-promptops",
+      "path": "literature-review",
+      "branch": "main",
+      "category": "literature-review",
+      "tags": [],
+      "stars": 0,
+      "install": "danieldekay/copilot-config-promptops",
+      "source": "github.com/danieldekay/copilot-config-promptops"
+    }
+  ]
+}

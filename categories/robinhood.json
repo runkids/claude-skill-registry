@@ -1,0 +1,19 @@
+{
+  "category": "robinhood",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.653260Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "View portfolio, check stock prices, research investments, and monitor positions on Robinhood",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "robinhood",
+      "branch": "main",
+      "category": "robinhood",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

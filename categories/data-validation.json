@@ -1,0 +1,19 @@
+{
+  "category": "data-validation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.673337Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive data validation framework for testing schema compliance, data quality, and\nreferential integrity. Validates databases, APIs, data pipelines, and file formats. Generates\ndata quality scor",
+      "repo": "chaserbreitenbach/claude-skills-and-agents",
+      "path": "data-validation",
+      "branch": "main",
+      "category": "data-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "chaserbreitenbach/claude-skills-and-agents",
+      "source": "github.com/chaserbreitenbach/claude-skills-and-agents"
+    }
+  ]
+}

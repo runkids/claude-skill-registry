@@ -1,0 +1,19 @@
+{
+  "category": "discovering-requirements",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.030730Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<objective>",
+      "repo": "0xHoneyJar/rm-lurker",
+      "path": "discovering-requirements",
+      "branch": "main",
+      "category": "discovering-requirements",
+      "tags": [],
+      "stars": 0,
+      "install": "0xHoneyJar/rm-lurker",
+      "source": "github.com/0xHoneyJar/rm-lurker"
+    }
+  ]
+}

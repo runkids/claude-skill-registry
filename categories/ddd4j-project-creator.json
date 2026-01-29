@@ -1,0 +1,19 @@
+{
+  "category": "ddd4j-project-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.022913Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A comprehensive skill for creating new ddd4j (Domain-Driven Design for Java) projects based on ddd4j-boot framework. \nUse ONLY when the user explicitly mentions creating a ddd4j project, initializing ",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "ddd4j-project-creator",
+      "branch": "main",
+      "category": "ddd4j-project-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "shadcn-vue",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.783381Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Production-tested: Vue/Nuxt applications with accessible, customizable components",
+      "repo": "secondsky/claude-skills",
+      "path": "shadcn-vue",
+      "branch": "main",
+      "category": "shadcn-vue",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

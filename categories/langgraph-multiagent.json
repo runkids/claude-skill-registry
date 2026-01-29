@@ -1,0 +1,19 @@
+{
+  "category": "langgraph-multiagent",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.121511Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Architect-level development, audit, and migration of multi-agent systems using LangGraph (v1+) and LangChain (v1+). Use when building or refactoring supervisor/subagent architectures, orchestrator-wor",
+      "repo": "BjornMelin/dev-skills",
+      "path": "langgraph-multiagent",
+      "branch": "main",
+      "category": "langgraph-multiagent",
+      "tags": [],
+      "stars": 0,
+      "install": "BjornMelin/dev-skills",
+      "source": "github.com/BjornMelin/dev-skills"
+    }
+  ]
+}

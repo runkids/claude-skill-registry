@@ -1,0 +1,19 @@
+{
+  "category": "ask-multi",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.176080Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Present a multi-select question allowing multiple choices",
+      "repo": "Tony363/SuperClaude",
+      "path": "ask-multi",
+      "branch": "main",
+      "category": "ask-multi",
+      "tags": [],
+      "stars": 0,
+      "install": "Tony363/SuperClaude",
+      "source": "github.com/Tony363/SuperClaude"
+    }
+  ]
+}

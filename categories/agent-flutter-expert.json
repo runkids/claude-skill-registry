@@ -1,0 +1,19 @@
+{
+  "category": "agent-flutter-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.274853Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert Flutter specialist mastering Flutter 3+ with modern architecture patterns. Specializes in cross-platform development, custom animations, native integrations, and performance optimization with f",
+      "repo": "Tony363/SuperClaude",
+      "path": "agent-flutter-expert",
+      "branch": "main",
+      "category": "agent-flutter-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "Tony363/SuperClaude",
+      "source": "github.com/Tony363/SuperClaude"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "scientific-statsmodels",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.307860Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Statistical models library for Python. Use when you need specific model classes (OLS, GLM, mixed models, ARIMA) with detailed diagnostics, residuals, and inference. Best for econometrics, time series,",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-statsmodels",
+      "branch": "main",
+      "category": "scientific-statsmodels",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

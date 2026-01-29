@@ -1,0 +1,19 @@
+{
+  "category": "controlling-spotify",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.086337Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Control Spotify playback and manage playlists via MCP server. Use when user requests playing music, controlling Spotify, creating playlists, searching songs, or managing their Spotify library.",
+      "repo": "oaustegard/claude-skills",
+      "path": "controlling-spotify",
+      "branch": "main",
+      "category": "controlling-spotify",
+      "tags": [],
+      "stars": 0,
+      "install": "oaustegard/claude-skills",
+      "source": "github.com/oaustegard/claude-skills"
+    }
+  ]
+}

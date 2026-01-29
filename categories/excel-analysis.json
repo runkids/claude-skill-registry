@@ -1,0 +1,19 @@
+{
+  "category": "excel-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.861487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze Excel spreadsheets, create pivot tables, generate charts, and perform data analysis. Use when analyzing Excel files, spreadsheets, tabular data, or .xlsx files.",
+      "repo": "jasonmichaelbell78-creator/sonash-v0",
+      "path": "excel-analysis",
+      "branch": "main",
+      "category": "excel-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "jasonmichaelbell78-creator/sonash-v0",
+      "source": "github.com/jasonmichaelbell78-creator/sonash-v0"
+    }
+  ]
+}

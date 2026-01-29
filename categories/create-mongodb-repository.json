@@ -1,0 +1,19 @@
+{
+  "category": "create-mongodb-repository",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.647677Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create MongoDB repository implementation for production database. Use when implementing repository interface with MongoDB, setting up document mapping, creating indexes, or connecting to real database",
+      "repo": "madooei/backend-template",
+      "path": "create-mongodb-repository",
+      "branch": "main",
+      "category": "create-mongodb-repository",
+      "tags": [],
+      "stars": 0,
+      "install": "madooei/backend-template",
+      "source": "github.com/madooei/backend-template"
+    }
+  ]
+}

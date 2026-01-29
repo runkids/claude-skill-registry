@@ -1,0 +1,19 @@
+{
+  "category": "audit-prep-assistant",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.142648Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prepare your codebase for security review using Trail of Bits' checklist. Helps set review goals, runs static analysis tools, increases test coverage, removes dead code, ensures accessibility, and gen",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "audit-prep-assistant",
+      "branch": "main",
+      "category": "audit-prep-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

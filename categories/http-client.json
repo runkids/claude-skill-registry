@@ -1,0 +1,19 @@
+{
+  "category": "http-client",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.118130Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "发送HTTP请求，支持所有方法、请求头、认证和响应处理。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "http-client",
+      "branch": "main",
+      "category": "http-client",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

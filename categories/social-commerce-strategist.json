@@ -1,0 +1,19 @@
+{
+  "category": "social-commerce-strategist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.315396Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create strategies for shoppable posts and social commerce conversion optimization",
+      "repo": "eddiebe147/claude-settings",
+      "path": "social-commerce-strategist",
+      "branch": "main",
+      "category": "social-commerce-strategist",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

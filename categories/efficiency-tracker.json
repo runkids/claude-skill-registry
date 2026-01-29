@@ -1,0 +1,19 @@
+{
+  "category": "efficiency-tracker",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.279801Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tracks workflow status and generates a flow report.",
+      "repo": "munlucky/claude-settings",
+      "path": "efficiency-tracker",
+      "branch": "main",
+      "category": "efficiency-tracker",
+      "tags": [],
+      "stars": 0,
+      "install": "munlucky/claude-settings",
+      "source": "github.com/munlucky/claude-settings"
+    }
+  ]
+}

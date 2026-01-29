@@ -1,0 +1,19 @@
+{
+  "category": "brand-governance",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.257907Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to manage brand guidelines, approvals, and ongoing refresh cadence.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "brand-governance",
+      "branch": "main",
+      "category": "brand-governance",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "cognitive-twin",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.980275Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Continuous business health monitoring across 13 business domains. Scores domain health, generates periodic digests, detects anomalies, simulates decisions, and provides early warning signals for probl",
+      "repo": "CleanExpo/Unite-Hub",
+      "path": "cognitive-twin",
+      "branch": "main",
+      "category": "cognitive-twin",
+      "tags": [],
+      "stars": 0,
+      "install": "CleanExpo/Unite-Hub",
+      "source": "github.com/CleanExpo/Unite-Hub"
+    }
+  ]
+}

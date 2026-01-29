@@ -1,0 +1,19 @@
+{
+  "category": "kiro-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.888088Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interactive feature development workflow from idea to implementation. Creates requirements (EARS format), design documents, and implementation task lists. Use when creating feature specs, requirements",
+      "repo": "feiskyer/codex-settings",
+      "path": "kiro-skill",
+      "branch": "main",
+      "category": "kiro-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "feiskyer/codex-settings",
+      "source": "github.com/feiskyer/codex-settings"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "task-close",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.299217Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Close a task by setting state to closed, recording close_reason and closed_at. Recomputes intent hash and clears `.tasks/.active` if it pointed to this task.\n",
+      "repo": "JordanGunn/nunchuck",
+      "path": "task-close",
+      "branch": "main",
+      "category": "task-close",
+      "tags": [],
+      "stars": 0,
+      "install": "JordanGunn/nunchuck",
+      "source": "github.com/JordanGunn/nunchuck"
+    }
+  ]
+}

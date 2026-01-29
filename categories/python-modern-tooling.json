@@ -1,0 +1,19 @@
+{
+  "category": "python-modern-tooling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.024481Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when choosing the right modern Python tooling workflow for a project or script (uv setup, quality tools, CLI, logging, packaging) or when unsure which Python tooling skill applies.",
+      "repo": "narumiruna/agent-skills",
+      "path": "python-modern-tooling",
+      "branch": "main",
+      "category": "python-modern-tooling",
+      "tags": [],
+      "stars": 0,
+      "install": "narumiruna/agent-skills",
+      "source": "github.com/narumiruna/agent-skills"
+    }
+  ]
+}

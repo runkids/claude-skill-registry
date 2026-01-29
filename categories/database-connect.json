@@ -1,0 +1,19 @@
+{
+  "category": "database-connect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.921363Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Database MCP server integration for PostgreSQL, MySQL, MongoDB",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "database-connect",
+      "branch": "main",
+      "category": "database-connect",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

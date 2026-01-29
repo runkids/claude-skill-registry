@@ -1,0 +1,19 @@
+{
+  "category": "brand-voice-glossary",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.649981Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tone, diction, and phrasebook system for consistent writing + localization.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "brand-voice-glossary",
+      "branch": "main",
+      "category": "brand-voice-glossary",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

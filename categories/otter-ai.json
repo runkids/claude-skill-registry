@@ -1,0 +1,19 @@
+{
+  "category": "otter-ai",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.788580Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI meeting transcription and note-taking assistant.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "otter-ai",
+      "branch": "main",
+      "category": "otter-ai",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

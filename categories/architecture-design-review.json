@@ -1,0 +1,19 @@
+{
+  "category": "architecture-design-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.732880Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conducts comprehensive architecture design reviews including system design validation, architecture pattern assessment, quality attributes evaluation, technology stack review, and scalability analysis",
+      "repo": "DauQuangThanh/hanoi-rainbow",
+      "path": "architecture-design-review",
+      "branch": "main",
+      "category": "architecture-design-review",
+      "tags": [],
+      "stars": 0,
+      "install": "DauQuangThanh/hanoi-rainbow",
+      "source": "github.com/DauQuangThanh/hanoi-rainbow"
+    }
+  ]
+}

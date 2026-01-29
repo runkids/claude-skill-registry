@@ -1,0 +1,19 @@
+{
+  "category": "style-guide-adherence",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.067880Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when writing code - follow Google style guides where available, otherwise follow established best practices for the language",
+      "repo": "troykelly/claude-skills",
+      "path": "style-guide-adherence",
+      "branch": "main",
+      "category": "style-guide-adherence",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

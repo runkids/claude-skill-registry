@@ -1,0 +1,19 @@
+{
+  "category": "markdown-to-pdf",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.260415Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert markdown files to PDF with custom styling. Use when generating PDF documents from markdown, creating printable documentation, or exporting reports.",
+      "repo": "duc01226/EasyPlatform",
+      "path": "markdown-to-pdf",
+      "branch": "main",
+      "category": "markdown-to-pdf",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

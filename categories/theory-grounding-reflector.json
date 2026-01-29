@@ -1,0 +1,19 @@
+{
+  "category": "theory-grounding-reflector",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.104470Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract lessons from task failures using Reflector agent, merge insights via Curator pattern, achieving 10% accuracy improvement without context collapse. Use for post-failure analysis, lesson extract",
+      "repo": "dredd-us/seashells",
+      "path": "theory-grounding-reflector",
+      "branch": "main",
+      "category": "theory-grounding-reflector",
+      "tags": [],
+      "stars": 0,
+      "install": "dredd-us/seashells",
+      "source": "github.com/dredd-us/seashells"
+    }
+  ]
+}

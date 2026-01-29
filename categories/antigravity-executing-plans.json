@@ -1,0 +1,19 @@
+{
+  "category": "antigravity-executing-plans",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.997156Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-executing-plans",
+      "branch": "main",
+      "category": "antigravity-executing-plans",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

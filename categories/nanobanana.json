@@ -1,0 +1,19 @@
+{
+  "category": "nanobanana",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.684195Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate and edit images using Google Gemini 3 Pro Image (Nano Banana Pro). Supports text-to-image, image editing, various aspect ratios, and high-resolution output (2K/4K).",
+      "repo": "ReScienceLab/opc-skills",
+      "path": "nanobanana",
+      "branch": "main",
+      "category": "nanobanana",
+      "tags": [],
+      "stars": 0,
+      "install": "ReScienceLab/opc-skills",
+      "source": "github.com/ReScienceLab/opc-skills"
+    }
+  ]
+}

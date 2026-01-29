@@ -1,0 +1,19 @@
+{
+  "category": "completion",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.976186Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "구현 완료 선언 전 검증하는 통합 프로세스.",
+      "repo": "1ambda/dataops-platform",
+      "path": "completion",
+      "branch": "main",
+      "category": "completion",
+      "tags": [],
+      "stars": 0,
+      "install": "1ambda/dataops-platform",
+      "source": "github.com/1ambda/dataops-platform"
+    }
+  ]
+}

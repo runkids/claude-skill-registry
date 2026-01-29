@@ -1,0 +1,19 @@
+{
+  "category": "add-api-route",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.844911Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create Next.js API route with validation and error handling",
+      "repo": "WhatIfWeDigDeeper/application-tracker",
+      "path": "add-api-route",
+      "branch": "main",
+      "category": "add-api-route",
+      "tags": [],
+      "stars": 0,
+      "install": "WhatIfWeDigDeeper/application-tracker",
+      "source": "github.com/WhatIfWeDigDeeper/application-tracker"
+    }
+  ]
+}

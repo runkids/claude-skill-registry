@@ -1,0 +1,19 @@
+{
+  "category": "video-content-strategy",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.176331Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate viral video content ideas tailored for brands based on social media trends.\nMANDATORY TRIGGERS: video content, video ideas, viral content, TikTok, Instagram Reels, YouTube Shorts, social medi",
+      "repo": "kreas/ship-it",
+      "path": "video-content-strategy",
+      "branch": "main",
+      "category": "video-content-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "kreas/ship-it",
+      "source": "github.com/kreas/ship-it"
+    }
+  ]
+}

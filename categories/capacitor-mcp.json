@@ -1,0 +1,19 @@
+{
+  "category": "capacitor-mcp",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.121158Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Model Context Protocol (MCP) tools for Capacitor mobile development. Covers device management, app deployment, log streaming, and automated testing via MCP. Use this skill when users want to automate ",
+      "repo": "Cap-go/capacitor-skills",
+      "path": "capacitor-mcp",
+      "branch": "main",
+      "category": "capacitor-mcp",
+      "tags": [],
+      "stars": 0,
+      "install": "Cap-go/capacitor-skills",
+      "source": "github.com/Cap-go/capacitor-skills"
+    }
+  ]
+}

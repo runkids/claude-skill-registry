@@ -1,0 +1,19 @@
+{
+  "category": "general",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.024599Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "General development guidelines prioritizing readability over performance, with rules for meaningful comments. Use when writing any code in this project.",
+      "repo": "kevincrabbe/wrapkit",
+      "path": "general",
+      "branch": "main",
+      "category": "general",
+      "tags": [],
+      "stars": 0,
+      "install": "kevincrabbe/wrapkit",
+      "source": "github.com/kevincrabbe/wrapkit"
+    }
+  ]
+}

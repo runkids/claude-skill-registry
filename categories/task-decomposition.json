@@ -1,0 +1,19 @@
+{
+  "category": "task-decomposition",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.868844Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Break down complex tasks into small, manageable, atomic units",
+      "repo": "rohitg00/skillkit",
+      "path": "task-decomposition",
+      "branch": "main",
+      "category": "task-decomposition",
+      "tags": [],
+      "stars": 0,
+      "install": "rohitg00/skillkit",
+      "source": "github.com/rohitg00/skillkit"
+    }
+  ]
+}

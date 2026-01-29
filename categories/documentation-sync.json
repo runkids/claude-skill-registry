@@ -1,0 +1,19 @@
+{
+  "category": "documentation-sync",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.642381Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Synchronize version numbers across any project type using version file adapters",
+      "repo": "jayteealao/Aperture",
+      "path": "documentation-sync",
+      "branch": "main",
+      "category": "documentation-sync",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

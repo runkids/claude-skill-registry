@@ -1,0 +1,19 @@
+{
+  "category": "writing-plans",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.963144Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "writing-plans",
+      "branch": "main",
+      "category": "writing-plans",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

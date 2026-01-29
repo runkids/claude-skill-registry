@@ -1,0 +1,19 @@
+{
+  "category": "content-driven-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.705534Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply a Content Driven Development process to AEM Edge Delivery Services development. Use for all development tasks, including building new blocks, modifying existing blocks, making changes to core de",
+      "repo": "adobe/helix-website",
+      "path": "content-driven-development",
+      "branch": "main",
+      "category": "content-driven-development",
+      "tags": [],
+      "stars": 0,
+      "install": "adobe/helix-website",
+      "source": "github.com/adobe/helix-website"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "autumn-add-payments",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.010264Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Skill for adding Stripe checkout and payment flows using Autumn.",
+      "repo": "usenotra/notra",
+      "path": "autumn-add-payments",
+      "branch": "main",
+      "category": "autumn-add-payments",
+      "tags": [],
+      "stars": 0,
+      "install": "usenotra/notra",
+      "source": "github.com/usenotra/notra"
+    }
+  ]
+}

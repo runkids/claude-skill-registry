@@ -1,0 +1,19 @@
+{
+  "category": "mongodb-usage",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.073554Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when user asks to \"query MongoDB\", \"show database collections\", \"get collection schema\", \"list MongoDB databases\", \"search records in MongoDB\", or \"check database indexes\".",
+      "repo": "fcakyon/claude-codex-settings",
+      "path": "mongodb-usage",
+      "branch": "main",
+      "category": "mongodb-usage",
+      "tags": [],
+      "stars": 0,
+      "install": "fcakyon/claude-codex-settings",
+      "source": "github.com/fcakyon/claude-codex-settings"
+    }
+  ]
+}

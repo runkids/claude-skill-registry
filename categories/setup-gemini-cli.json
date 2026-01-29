@@ -1,0 +1,19 @@
+{
+  "category": "setup-gemini-cli",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.870094Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Helps the user configure the Google SecOps Remote MCP Server for Gemini CLI. Use this when the user asks to \"set up\" or \"configure\" the security tools for Gemini CLI.",
+      "repo": "google/mcp-security",
+      "path": "setup-gemini-cli",
+      "branch": "main",
+      "category": "setup-gemini-cli",
+      "tags": [],
+      "stars": 0,
+      "install": "google/mcp-security",
+      "source": "github.com/google/mcp-security"
+    }
+  ]
+}

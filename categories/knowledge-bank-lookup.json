@@ -1,0 +1,19 @@
+{
+  "category": "knowledge-bank-lookup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.367969Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Delegates knowledge bank lookups to Explore subagents with reflections-first strategy that learns from past mistakes. Checks /reflections/ directory before documentation to extract documented failures",
+      "repo": "sxhmilyoyo/sundayhao-plugins",
+      "path": "knowledge-bank-lookup",
+      "branch": "main",
+      "category": "knowledge-bank-lookup",
+      "tags": [],
+      "stars": 0,
+      "install": "sxhmilyoyo/sundayhao-plugins",
+      "source": "github.com/sxhmilyoyo/sundayhao-plugins"
+    }
+  ]
+}

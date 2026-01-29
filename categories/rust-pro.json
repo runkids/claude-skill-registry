@@ -1,0 +1,19 @@
+{
+  "category": "rust-pro",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.995738Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master Rust 1.75+ with modern async patterns, advanced type system features, and production-ready systems programming. Expert in the latest Rust ecosystem including Tokio, axum, and cutting-edge crate",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "rust-pro",
+      "branch": "main",
+      "category": "rust-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

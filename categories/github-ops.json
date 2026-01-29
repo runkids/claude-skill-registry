@@ -1,0 +1,19 @@
+{
+  "category": "github-ops",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.705290Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "GitHub operations wrapper. Helps manage PRs, Issues, and Reviews efficiently via CLI.",
+      "repo": "oimiragieo/agent-studio",
+      "path": "github-ops",
+      "branch": "main",
+      "category": "github-ops",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

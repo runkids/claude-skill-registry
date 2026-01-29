@@ -1,0 +1,19 @@
+{
+  "category": "analyze-test-results",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.122510Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze test failures and CI artifacts to identify and fix bugs",
+      "repo": "benzwick/SlicerMouseMaster",
+      "path": "analyze-test-results",
+      "branch": "main",
+      "category": "analyze-test-results",
+      "tags": [],
+      "stars": 0,
+      "install": "benzwick/SlicerMouseMaster",
+      "source": "github.com/benzwick/SlicerMouseMaster"
+    }
+  ]
+}

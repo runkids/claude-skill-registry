@@ -1,0 +1,19 @@
+{
+  "category": "structured-outputs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.559693Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Structured Outputs ensure that an LLM's response always conforms to a predefined JSON schema. This moves beyond simple prompt engineering to guaranteed syntactic and structural correctness, essential ",
+      "repo": "cuba6112/skillfactory",
+      "path": "structured-outputs",
+      "branch": "main",
+      "category": "structured-outputs",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

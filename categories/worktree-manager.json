@@ -1,0 +1,19 @@
+{
+  "category": "worktree-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.189040Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Managing git worktrees for parallel development with Claude Code agents. Use when creating worktrees, spinning up parallel branches, checking worktree status, or cleaning up merged branches.",
+      "repo": "Michael0520/milo-claudekit",
+      "path": "worktree-manager",
+      "branch": "main",
+      "category": "worktree-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "Michael0520/milo-claudekit",
+      "source": "github.com/Michael0520/milo-claudekit"
+    }
+  ]
+}

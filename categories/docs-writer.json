@@ -1,0 +1,19 @@
+{
+  "category": "docs-writer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.465343Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Technical documentation writer for clear, comprehensive docs with incremental generation to prevent crashes. Use when creating API documentation, README files, user guides, or developer onboarding doc",
+      "repo": "anton-abyzov/specweave",
+      "path": "docs-writer",
+      "branch": "main",
+      "category": "docs-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

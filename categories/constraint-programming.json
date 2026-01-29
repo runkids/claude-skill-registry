@@ -1,0 +1,19 @@
+{
+  "category": "constraint-programming",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.406744Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to solve complex scheduling, allocation, or combinatorial problems using constraint programming (CP). Also use when the user mentions \"constraint programming,\" \"CP-SAT,\" \"constrain",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "constraint-programming",
+      "branch": "main",
+      "category": "constraint-programming",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

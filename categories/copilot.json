@@ -1,0 +1,19 @@
+{
+  "category": "copilot",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.766764Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Hand off a task to GitHub Copilot.",
+      "repo": "mlflow/mlflow",
+      "path": "copilot",
+      "branch": "main",
+      "category": "copilot",
+      "tags": [],
+      "stars": 0,
+      "install": "mlflow/mlflow",
+      "source": "github.com/mlflow/mlflow"
+    }
+  ]
+}

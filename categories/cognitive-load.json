@@ -1,0 +1,19 @@
+{
+  "category": "cognitive-load",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.088361Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "La cantidad de esfuerzo mental requerido para procesar información. Use cuando diseñe interfaces complejas, flujos de onboarding, o sistemas de información.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "cognitive-load",
+      "branch": "main",
+      "category": "cognitive-load",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "cloudflare-d1",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.821531Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build with D1 serverless SQLite database on Cloudflare's edge. Use when: creating databases, writing SQL migrations, querying D1 from Workers, handling relational data, or troubleshooting D1_ERROR, st",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "cloudflare-d1",
+      "branch": "main",
+      "category": "cloudflare-d1",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

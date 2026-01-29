@@ -1,0 +1,19 @@
+{
+  "category": "refacter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.271749Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Refacter code using complexity analysis and hotspot detection. Use when asked to refactor code, improve code quality, reduce complexity, or identify high-risk areas that need attention.",
+      "repo": "Awannaphasch2016/agent-kernel-mcp",
+      "path": "refacter",
+      "branch": "main",
+      "category": "refacter",
+      "tags": [],
+      "stars": 0,
+      "install": "Awannaphasch2016/agent-kernel-mcp",
+      "source": "github.com/Awannaphasch2016/agent-kernel-mcp"
+    }
+  ]
+}

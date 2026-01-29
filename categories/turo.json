@@ -1,0 +1,19 @@
+{
+  "category": "turo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.191238Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Rent unique cars from local hosts or share your own vehicle.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "turo",
+      "branch": "main",
+      "category": "turo",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

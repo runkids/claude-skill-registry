@@ -1,0 +1,19 @@
+{
+  "category": "growth-hacker",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.234157Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and execute growth experiments using lean, data-driven tactics",
+      "repo": "eddiebe147/claude-settings",
+      "path": "growth-hacker",
+      "branch": "main",
+      "category": "growth-hacker",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

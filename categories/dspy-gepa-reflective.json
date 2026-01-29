@@ -1,0 +1,19 @@
+{
+  "category": "dspy-gepa-reflective",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.046610Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"optimize an agent with GEPA\", \"use reflective optimization\", \"optimize ReAct agents\", \"provide feedback metrics\", mentions \"GEPA optimizer\", \"LLM refle",
+      "repo": "OmidZamani/dspy-skills",
+      "path": "dspy-gepa-reflective",
+      "branch": "main",
+      "category": "dspy-gepa-reflective",
+      "tags": [],
+      "stars": 0,
+      "install": "OmidZamani/dspy-skills",
+      "source": "github.com/OmidZamani/dspy-skills"
+    }
+  ]
+}

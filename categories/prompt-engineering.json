@@ -1,0 +1,19 @@
+{
+  "category": "prompt-engineering",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.271901Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guide on prompt engineering patterns, best practices, and optimization techniques. Use when user wants to improve prompts, learn prompting strategies, or debug agent behavior.",
+      "repo": "AxelMrak/ai",
+      "path": "prompt-engineering",
+      "branch": "main",
+      "category": "prompt-engineering",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

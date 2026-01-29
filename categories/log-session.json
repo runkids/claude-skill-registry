@@ -1,0 +1,19 @@
+{
+  "category": "log-session",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.249922Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Log entries to the current learning session. Use mid-session to save progress, capture concepts learned, or record corrections. Triggers on \"log this\", \"save progress\", \"record what we learned\".",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "log-session",
+      "branch": "main",
+      "category": "log-session",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

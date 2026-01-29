@@ -1,0 +1,19 @@
+{
+  "category": "azure-usage",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.362081Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when user asks to \"query Azure resources\", \"list storage accounts\", \"manage Key Vault secrets\", \"work with Cosmos DB\", \"check AKS clusters\", \"use Azure MCP\", or interact with",
+      "repo": "fcakyon/claude-codex-settings",
+      "path": "azure-usage",
+      "branch": "main",
+      "category": "azure-usage",
+      "tags": [],
+      "stars": 0,
+      "install": "fcakyon/claude-codex-settings",
+      "source": "github.com/fcakyon/claude-codex-settings"
+    }
+  ]
+}

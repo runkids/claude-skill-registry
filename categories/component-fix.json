@@ -1,0 +1,19 @@
+{
+  "category": "component-fix",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.824244Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic component implementation fixes. Uses Serena MCP symbolic tools for efficient code modification. Handles token usage updates, pattern standardization, accessibility fixes, and Props API alig",
+      "repo": "Higashi-Kota/react-tailwindcss-sandbox",
+      "path": "component-fix",
+      "branch": "main",
+      "category": "component-fix",
+      "tags": [],
+      "stars": 0,
+      "install": "Higashi-Kota/react-tailwindcss-sandbox",
+      "source": "github.com/Higashi-Kota/react-tailwindcss-sandbox"
+    }
+  ]
+}

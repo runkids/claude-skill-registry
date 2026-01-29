@@ -1,0 +1,19 @@
+{
+  "category": "moai-workflow-jit-docs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.335479Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enhanced Just-In-Time document loading system that intelligently discovers, loads, and caches relevant documentation based on user intent and project context. Use when users need specific documentatio",
+      "repo": "modu-ai/moai-adk",
+      "path": "moai-workflow-jit-docs",
+      "branch": "main",
+      "category": "moai-workflow-jit-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "modu-ai/moai-adk",
+      "source": "github.com/modu-ai/moai-adk"
+    }
+  ]
+}

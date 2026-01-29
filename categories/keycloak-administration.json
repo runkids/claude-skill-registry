@@ -1,0 +1,19 @@
+{
+  "category": "keycloak-administration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.622077Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive KeyCloak administration guidance including realm management, user/group administration, client configuration, authentication flows, identity brokering, authorization policies, s",
+      "repo": "DauQuangThanh/hanoi-rainbow",
+      "path": "keycloak-administration",
+      "branch": "main",
+      "category": "keycloak-administration",
+      "tags": [],
+      "stars": 0,
+      "install": "DauQuangThanh/hanoi-rainbow",
+      "source": "github.com/DauQuangThanh/hanoi-rainbow"
+    }
+  ]
+}

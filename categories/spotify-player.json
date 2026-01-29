@@ -1,0 +1,19 @@
+{
+  "category": "spotify-player",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.400901Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Terminal Spotify playback/search via spogo (preferred) or spotify_player.",
+      "repo": "Youjjwal/clawdbot",
+      "path": "spotify-player",
+      "branch": "main",
+      "category": "spotify-player",
+      "tags": [],
+      "stars": 0,
+      "install": "Youjjwal/clawdbot",
+      "source": "github.com/Youjjwal/clawdbot"
+    }
+  ]
+}

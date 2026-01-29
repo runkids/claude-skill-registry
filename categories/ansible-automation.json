@@ -1,0 +1,19 @@
+{
+  "category": "ansible-automation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.972902Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Infrastructure automation and configuration management using Ansible playbooks, roles, and inventory. Use for deploying applications, patching, and managing servers.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "ansible-automation",
+      "branch": "main",
+      "category": "ansible-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

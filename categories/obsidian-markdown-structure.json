@@ -1,0 +1,19 @@
+{
+  "category": "obsidian-markdown-structure",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.664698Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate and enforce markdown document structure including frontmatter positioning, heading hierarchy, and content organization. Use when creating or validating markdown files.",
+      "repo": "jykim/ai4pkm-vault",
+      "path": "obsidian-markdown-structure",
+      "branch": "main",
+      "category": "obsidian-markdown-structure",
+      "tags": [],
+      "stars": 0,
+      "install": "jykim/ai4pkm-vault",
+      "source": "github.com/jykim/ai4pkm-vault"
+    }
+  ]
+}

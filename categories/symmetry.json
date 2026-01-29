@@ -1,0 +1,19 @@
+{
+  "category": "symmetry",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.841221Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Elementos simétricos se perciben como relacionados y estables. Use cuando diseñe layouts balanceados, iconos, o composiciones que transmitan equilibrio.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "symmetry",
+      "branch": "main",
+      "category": "symmetry",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

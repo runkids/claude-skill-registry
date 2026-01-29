@@ -1,0 +1,19 @@
+{
+  "category": "aesthetic-usability-effect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.898302Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Los diseños atractivos se perciben como más usables. Use cuando justifique inversión en diseño visual, diseñe primeras impresiones, o maneje errores.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "aesthetic-usability-effect",
+      "branch": "main",
+      "category": "aesthetic-usability-effect",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

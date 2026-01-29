@@ -1,0 +1,19 @@
+{
+  "category": "research-lookup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.686417Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Look up current research information using Perplexity's Sonar Pro Search or Sonar Reasoning Pro models through OpenRouter. Automatically selects the best model based on query complexity. Search academ",
+      "repo": "danieldekay/copilot-config-promptops",
+      "path": "research-lookup",
+      "branch": "main",
+      "category": "research-lookup",
+      "tags": [],
+      "stars": 0,
+      "install": "danieldekay/copilot-config-promptops",
+      "source": "github.com/danieldekay/copilot-config-promptops"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "firecrawl-sdk-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.875916Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply production-ready FireCrawl SDK patterns for TypeScript and Python.\nUse when implementing FireCrawl integrations, refactoring SDK usage,\nor establishing team coding standards for FireCrawl.\nTrigg",
+      "repo": "byteworthy/Upstream",
+      "path": "firecrawl-sdk-patterns",
+      "branch": "main",
+      "category": "firecrawl-sdk-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

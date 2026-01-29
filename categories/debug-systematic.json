@@ -1,0 +1,19 @@
+{
+  "category": "debug-systematic",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.839720Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic debugging workflow with hypothesis testing",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "debug-systematic",
+      "branch": "main",
+      "category": "debug-systematic",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

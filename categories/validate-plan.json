@@ -1,0 +1,19 @@
+{
+  "category": "validate-plan",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.340373Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- After a plan has been created",
+      "repo": "EtroxTaran/conductor",
+      "path": "validate-plan",
+      "branch": "main",
+      "category": "validate-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

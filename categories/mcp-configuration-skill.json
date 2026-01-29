@@ -1,0 +1,19 @@
+{
+  "category": "mcp-configuration-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.325801Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DEPRECATED - This skill references MCP servers that no longer exist in the codebase. The ConfigurationRegistry server was archived during MCP cleanup. Use native file system tools and flash-sidekick f",
+      "repo": "okgoogle13/careercopilot",
+      "path": "mcp-configuration-skill",
+      "branch": "main",
+      "category": "mcp-configuration-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "okgoogle13/careercopilot",
+      "source": "github.com/okgoogle13/careercopilot"
+    }
+  ]
+}

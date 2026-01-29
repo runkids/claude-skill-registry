@@ -1,0 +1,19 @@
+{
+  "category": "implementing-tasks",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.713396Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<objective>",
+      "repo": "0xHoneyJar/rm-lurker",
+      "path": "implementing-tasks",
+      "branch": "main",
+      "category": "implementing-tasks",
+      "tags": [],
+      "stars": 0,
+      "install": "0xHoneyJar/rm-lurker",
+      "source": "github.com/0xHoneyJar/rm-lurker"
+    }
+  ]
+}

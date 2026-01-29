@@ -1,0 +1,19 @@
+{
+  "category": "review-resource",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.610433Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review and validate a resource implementation follows all patterns. Use after creating a resource or when refactoring existing code. Triggers on \"review resource\", \"validate resource\", \"check implemen",
+      "repo": "madooei/backend-template",
+      "path": "review-resource",
+      "branch": "main",
+      "category": "review-resource",
+      "tags": [],
+      "stars": 0,
+      "install": "madooei/backend-template",
+      "source": "github.com/madooei/backend-template"
+    }
+  ]
+}

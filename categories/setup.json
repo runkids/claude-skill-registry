@@ -1,0 +1,19 @@
+{
+  "category": "setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.761465Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when user encounters \"paper-search MCP error\", \"Docker not found\", \"Docker not running\", \"paper search not working\", or needs help configuring paper search integration.",
+      "repo": "fcakyon/claude-codex-settings",
+      "path": "setup",
+      "branch": "main",
+      "category": "setup",
+      "tags": [],
+      "stars": 0,
+      "install": "fcakyon/claude-codex-settings",
+      "source": "github.com/fcakyon/claude-codex-settings"
+    }
+  ]
+}

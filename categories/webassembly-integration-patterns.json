@@ -1,0 +1,19 @@
+{
+  "category": "webassembly-integration-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.392601Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Integrate high-performance Wasm modules into the React render cycle without blocking the main thread.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "webassembly-integration-patterns",
+      "branch": "main",
+      "category": "webassembly-integration-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

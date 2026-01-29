@@ -1,0 +1,19 @@
+{
+  "category": "newsletter-coach",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.436645Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Writing coach that extracts educational content from your daily experiences and turns it into publish-ready newsletter drafts. Use when brainstorming newsletter ideas, writing content for The Little B",
+      "repo": "nicepkg/ai-workflow",
+      "path": "newsletter-coach",
+      "branch": "main",
+      "category": "newsletter-coach",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

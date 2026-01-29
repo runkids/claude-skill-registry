@@ -1,0 +1,19 @@
+{
+  "category": "iso27001-controls",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.309710Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт ISO 27001. Используй для ISMS, security controls и compliance implementation.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "iso27001-controls",
+      "branch": "main",
+      "category": "iso27001-controls",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

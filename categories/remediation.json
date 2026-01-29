@@ -1,0 +1,19 @@
+{
+  "category": "remediation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.317558Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Security incident remediation playbooks for removing threats, restoring systems,\nand recovering from incidents. Use for post-containment cleanup, system recovery,\nand returning to normal operations.\n",
+      "repo": "SherifEldeeb/agentskills",
+      "path": "remediation",
+      "branch": "main",
+      "category": "remediation",
+      "tags": [],
+      "stars": 0,
+      "install": "SherifEldeeb/agentskills",
+      "source": "github.com/SherifEldeeb/agentskills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "sgmicro",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.122103Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SG Micro Corp MPN encoding patterns, suffix decoding, and handler guidance. Use when working with SG Micro analog ICs.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "sgmicro",
+      "branch": "main",
+      "category": "sgmicro",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

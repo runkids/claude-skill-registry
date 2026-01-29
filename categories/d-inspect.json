@@ -1,0 +1,19 @@
+{
+  "category": "d-inspect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.860765Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Inspect code and propose root cause hypotheses. Creates ./.gtd/debug/current/HYPOTHESES.md",
+      "repo": "Hoang604/get-thing-done",
+      "path": "d-inspect",
+      "branch": "main",
+      "category": "d-inspect",
+      "tags": [],
+      "stars": 0,
+      "install": "Hoang604/get-thing-done",
+      "source": "github.com/Hoang604/get-thing-done"
+    }
+  ]
+}

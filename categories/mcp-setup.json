@@ -1,0 +1,19 @@
+{
+  "category": "mcp-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.191496Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill handles Model Context Protocol (MCP) server configuration, troubleshooting, and integration for StepCountLeague v3. Use this when:",
+      "repo": "vassovass/scl-v3",
+      "path": "mcp-setup",
+      "branch": "main",
+      "category": "mcp-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "vassovass/scl-v3",
+      "source": "github.com/vassovass/scl-v3"
+    }
+  ]
+}

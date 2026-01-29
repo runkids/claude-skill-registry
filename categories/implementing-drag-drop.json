@@ -1,0 +1,19 @@
+{
+  "category": "implementing-drag-drop",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.725519Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements drag-and-drop and sortable interfaces with React/TypeScript including kanban boards, sortable lists, file uploads, and reorderable grids. Use when building interactive UIs requiring direct ",
+      "repo": "ancoleman/ai-design-components",
+      "path": "implementing-drag-drop",
+      "branch": "main",
+      "category": "implementing-drag-drop",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

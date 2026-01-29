@@ -1,0 +1,19 @@
+{
+  "category": "omni-vu",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.079176Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Screen capture, AI vision analysis, and GUI automation for macOS. Use when you need to see what's on screen, analyze UI state, detect changes, or automate mouse/keyboard actions.",
+      "repo": "eddiebe147/claude-settings",
+      "path": "omni-vu",
+      "branch": "main",
+      "category": "omni-vu",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

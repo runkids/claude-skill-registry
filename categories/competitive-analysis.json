@@ -1,0 +1,19 @@
+{
+  "category": "competitive-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.106873Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Produce a Competitive Analysis Pack (competitive alternatives map, competitor landscape, differentiation & positioning hypotheses, battlecards, monitoring plan). Use for competitor research, competiti",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "competitive-analysis",
+      "branch": "main",
+      "category": "competitive-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

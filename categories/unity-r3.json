@@ -1,0 +1,19 @@
+{
+  "category": "unity-r3",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.528671Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "R3 (Reactive Extensions) library expert specializing in modern reactive programming patterns, event-driven architectures, and Observable streams. Masters R3-specific features, async enumerable integra",
+      "repo": "creator-hian/claude-code-plugins",
+      "path": "unity-r3",
+      "branch": "main",
+      "category": "unity-r3",
+      "tags": [],
+      "stars": 0,
+      "install": "creator-hian/claude-code-plugins",
+      "source": "github.com/creator-hian/claude-code-plugins"
+    }
+  ]
+}

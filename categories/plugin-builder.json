@@ -1,0 +1,19 @@
+{
+  "category": "plugin-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.654066Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffold complete elizaOS plugins with actions, providers, evaluators, and services. Triggers when user asks to \"create plugin\", \"build elizaOS extension\", or \"scaffold plugin structure\"",
+      "repo": "Dexploarer/hyper-forge",
+      "path": "plugin-builder",
+      "branch": "main",
+      "category": "plugin-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "Dexploarer/hyper-forge",
+      "source": "github.com/Dexploarer/hyper-forge"
+    }
+  ]
+}

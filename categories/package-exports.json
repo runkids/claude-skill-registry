@@ -1,0 +1,19 @@
+{
+  "category": "package-exports",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.080603Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure package.json exports and understand import resolution in the Orient monorepo. Use when confused about dist vs source imports, configuring package exports, fixing module resolution errors, or",
+      "repo": "orient-bot/orient",
+      "path": "package-exports",
+      "branch": "main",
+      "category": "package-exports",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

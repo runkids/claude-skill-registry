@@ -1,7 +1,7 @@
 {
   "category": "core",
-  "count": 3,
-  "updated_at": "2026-01-29T04:49:19.498654Z",
+  "count": 4,
+  "updated_at": "2026-01-29T16:04:49.656166Z",
   "skills": [
     {
       "name": "agent-ops-spec",
@@ -38,6 +38,18 @@
       "stars": 48,
       "install": "majiayu000/claude-skill-registry",
       "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "IIoT database seeding CLI built with @gbg/ctl",
+      "repo": "creatifcoding/gbg",
+      "path": "core",
+      "branch": "main",
+      "category": "core",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
     }
   ]
 }

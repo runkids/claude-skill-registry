@@ -1,0 +1,19 @@
+{
+  "category": "infrastructure-as-code-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.046557Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create Terraform/Pulumi/CloudFormation for multi-cloud.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "infrastructure-as-code-generator",
+      "branch": "main",
+      "category": "infrastructure-as-code-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

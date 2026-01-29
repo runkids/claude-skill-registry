@@ -1,0 +1,19 @@
+{
+  "category": "kubernetes-cluster-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.260374Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage manifests, Helm charts, autoscaling, and disruption budgets.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "kubernetes-cluster-manager",
+      "branch": "main",
+      "category": "kubernetes-cluster-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

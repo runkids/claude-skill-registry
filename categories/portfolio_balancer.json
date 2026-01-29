@@ -1,0 +1,19 @@
+{
+  "category": "portfolio_balancer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.304112Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Daily Permanent Portfolio analysis with allocation drift and rebalancing recommendations",
+      "repo": "ncrmro/deepwork-permanent-portfolio",
+      "path": "portfolio_balancer",
+      "branch": "main",
+      "category": "portfolio_balancer",
+      "tags": [],
+      "stars": 0,
+      "install": "ncrmro/deepwork-permanent-portfolio",
+      "source": "github.com/ncrmro/deepwork-permanent-portfolio"
+    }
+  ]
+}

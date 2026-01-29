@@ -1,0 +1,19 @@
+{
+  "category": "development-estimation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.847598Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when estimating time, effort, or complexity for features or projects - provides structured estimation workflows with breakdowns, risks, and confidence intervals.",
+      "repo": "NickCrew/claude-cortex",
+      "path": "development-estimation",
+      "branch": "main",
+      "category": "development-estimation",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

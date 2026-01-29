@@ -1,0 +1,19 @@
+{
+  "category": "new-machine-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.656925Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "新マシンセットアップガイド。macOS初期設定からdotfiles適用までの手順案内。トリガー: 新マシン, setup, 移行, 新しいMac, セットアップ",
+      "repo": "snkrheadz/laptop",
+      "path": "new-machine-setup",
+      "branch": "main",
+      "category": "new-machine-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "snkrheadz/laptop",
+      "source": "github.com/snkrheadz/laptop"
+    }
+  ]
+}

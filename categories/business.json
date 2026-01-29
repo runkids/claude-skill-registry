@@ -1,0 +1,19 @@
+{
+  "category": "business",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.731922Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Business strategy expert - defines users, value propositions, use cases, and business requirements. Connects technical development with market realities and ROI. Includes LATAM market (Chile) speciali",
+      "repo": "Brownbull/khujta_ai_business",
+      "path": "business",
+      "branch": "main",
+      "category": "business",
+      "tags": [],
+      "stars": 0,
+      "install": "Brownbull/khujta_ai_business",
+      "source": "github.com/Brownbull/khujta_ai_business"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "Writing Hookify Rules",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.433286Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"create a hookify rule\", \"write a hook rule\", \"configure hookify\", \"add a hookify rule\", or needs guidance on hookify rule syntax and patterns.",
+      "repo": "haxllo/repolens",
+      "path": "Writing Hookify Rules",
+      "branch": "main",
+      "category": "Writing Hookify Rules",
+      "tags": [],
+      "stars": 0,
+      "install": "haxllo/repolens",
+      "source": "github.com/haxllo/repolens"
+    }
+  ]
+}

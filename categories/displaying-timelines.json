@@ -1,0 +1,19 @@
+{
+  "category": "displaying-timelines",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.472752Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Displays chronological events and activity through timelines, activity feeds, Gantt charts, and calendar interfaces. Use when showing historical events, project schedules, social feeds, notifications,",
+      "repo": "ancoleman/ai-design-components",
+      "path": "displaying-timelines",
+      "branch": "main",
+      "category": "displaying-timelines",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

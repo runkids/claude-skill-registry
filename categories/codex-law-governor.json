@@ -1,0 +1,19 @@
+{
+  "category": "codex-law-governor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.286848Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Govern agent behavior through enforcement of the Codex Laws framework.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "codex-law-governor",
+      "branch": "main",
+      "category": "codex-law-governor",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "modular-design-rule",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.720099Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "modular-design-rule",
+      "branch": "main",
+      "category": "modular-design-rule",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

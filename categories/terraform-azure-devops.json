@@ -1,0 +1,19 @@
+{
+  "category": "terraform-azure-devops",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.632025Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate Terraform configurations for Azure DevOps resources. Use when managing Azure DevOps infrastructure as code.",
+      "repo": "ntaksh42/agents",
+      "path": "terraform-azure-devops",
+      "branch": "main",
+      "category": "terraform-azure-devops",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

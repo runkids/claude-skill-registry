@@ -1,0 +1,19 @@
+{
+  "category": "episode-start",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.388972Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Start a new learning episode in the self-learning memory system with proper context. Use this skill when beginning a new task that should be tracked for learning from execution patterns.",
+      "repo": "d-o-hub/rust-self-learning-memory",
+      "path": "episode-start",
+      "branch": "main",
+      "category": "episode-start",
+      "tags": [],
+      "stars": 0,
+      "install": "d-o-hub/rust-self-learning-memory",
+      "source": "github.com/d-o-hub/rust-self-learning-memory"
+    }
+  ]
+}

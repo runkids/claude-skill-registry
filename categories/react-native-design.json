@@ -1,0 +1,19 @@
+{
+  "category": "react-native-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.706717Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master React Native styling, navigation, and Reanimated animations for cross-platform mobile development. Use when building React Native apps, implementing navigation patterns, or creating performant ",
+      "repo": "haxllo/repolens",
+      "path": "react-native-design",
+      "branch": "main",
+      "category": "react-native-design",
+      "tags": [],
+      "stars": 0,
+      "install": "haxllo/repolens",
+      "source": "github.com/haxllo/repolens"
+    }
+  ]
+}

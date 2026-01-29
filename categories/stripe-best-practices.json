@@ -1,0 +1,19 @@
+{
+  "category": "stripe-best-practices",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.082398Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Best practices for building a Stripe integrations",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "stripe-best-practices",
+      "branch": "main",
+      "category": "stripe-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

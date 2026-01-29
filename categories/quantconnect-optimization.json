@@ -1,0 +1,19 @@
+{
+  "category": "quantconnect-optimization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.837921Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "QuantConnect optimization API and Phase 4 parameter tuning (project)",
+      "repo": "derekcrosslu/CLAUDE_CODE_EXPLORE",
+      "path": "quantconnect-optimization",
+      "branch": "main",
+      "category": "quantconnect-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "derekcrosslu/CLAUDE_CODE_EXPLORE",
+      "source": "github.com/derekcrosslu/CLAUDE_CODE_EXPLORE"
+    }
+  ]
+}

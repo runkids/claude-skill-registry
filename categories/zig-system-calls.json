@@ -1,0 +1,19 @@
+{
+  "category": "zig-system-calls",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.141402Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guides using bun.sys for system calls and file I/O in Zig. Use when implementing file operations instead of std.fs or std.posix.",
+      "repo": "oven-sh/bun",
+      "path": "zig-system-calls",
+      "branch": "main",
+      "category": "zig-system-calls",
+      "tags": [],
+      "stars": 0,
+      "install": "oven-sh/bun",
+      "source": "github.com/oven-sh/bun"
+    }
+  ]
+}

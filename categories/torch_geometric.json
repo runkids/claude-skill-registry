@@ -1,0 +1,19 @@
+{
+  "category": "torch_geometric",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.649988Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Graph Neural Networks (PyG). Node/graph classification, link prediction, GCN, GAT, GraphSAGE, heterogeneous graphs, molecular property prediction, for geometric deep learning.",
+      "repo": "ovachiever/droid-tings",
+      "path": "torch_geometric",
+      "branch": "main",
+      "category": "torch_geometric",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

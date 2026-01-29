@@ -1,0 +1,19 @@
+{
+  "category": "startup-metrics-framework",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.995302Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks about \"key startup metrics\", \"SaaS metrics\", \"CAC and LTV\", \"unit economics\", \"burn multiple\", \"rule of 40\", \"marketplace metrics\", or requests guidance on",
+      "repo": "haxllo/repolens",
+      "path": "startup-metrics-framework",
+      "branch": "main",
+      "category": "startup-metrics-framework",
+      "tags": [],
+      "stars": 0,
+      "install": "haxllo/repolens",
+      "source": "github.com/haxllo/repolens"
+    }
+  ]
+}

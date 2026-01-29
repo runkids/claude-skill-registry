@@ -1,0 +1,19 @@
+{
+  "category": "frequency-lookup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.687723Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Look up frequency allocations, band plans, and known stations for radio services (marine, aviation, amateur, broadcast, NOAA weather). Use when finding frequencies to monitor, verifying band allocatio",
+      "repo": "TobiasWooldridge/WaveCap-SDR",
+      "path": "frequency-lookup",
+      "branch": "main",
+      "category": "frequency-lookup",
+      "tags": [],
+      "stars": 0,
+      "install": "TobiasWooldridge/WaveCap-SDR",
+      "source": "github.com/TobiasWooldridge/WaveCap-SDR"
+    }
+  ]
+}

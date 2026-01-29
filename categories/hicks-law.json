@@ -1,0 +1,19 @@
+{
+  "category": "hicks-law",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.825675Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Predice el tiempo de decisión basado en número de opciones. Use cuando diseñe menús, navegación, formularios con múltiples opciones, o simplifique interfaces.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "hicks-law",
+      "branch": "main",
+      "category": "hicks-law",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

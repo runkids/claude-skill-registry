@@ -1,0 +1,19 @@
+{
+  "category": "thoughtful-and-accurate-responses",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.113433Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "thoughtful-and-accurate-responses",
+      "branch": "main",
+      "category": "thoughtful-and-accurate-responses",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

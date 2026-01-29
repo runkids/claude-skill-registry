@@ -1,0 +1,19 @@
+{
+  "category": "observability-railway-deploy",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.736270Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploy LGTM observability stack to Railway cloud. Use when deploying cloud-hosted observability with team access.",
+      "repo": "adaptationio/Skrillz",
+      "path": "observability-railway-deploy",
+      "branch": "main",
+      "category": "observability-railway-deploy",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

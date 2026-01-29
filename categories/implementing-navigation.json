@@ -1,0 +1,19 @@
+{
+  "category": "implementing-navigation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.700391Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements navigation patterns and routing for both frontend (React/TS) and backend (Python) including menus, tabs, breadcrumbs, client-side routing, and server-side route configuration. Use when buil",
+      "repo": "ancoleman/ai-design-components",
+      "path": "implementing-navigation",
+      "branch": "main",
+      "category": "implementing-navigation",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

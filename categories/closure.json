@@ -1,0 +1,19 @@
+{
+  "category": "closure",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.852370Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "El cerebro completa formas incompletas. Use cuando diseñe iconos minimalistas, logos, o interfaces que sugieren más de lo que muestran explícitamente.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "closure",
+      "branch": "main",
+      "category": "closure",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

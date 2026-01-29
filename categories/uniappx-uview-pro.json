@@ -1,0 +1,19 @@
+{
+  "category": "uniappx-uview-pro",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.030669Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A comprehensive skill for integrating and using uView Pro with UniAppX projects. This skill focuses on UniAppX-specific integration, configuration, and platform-specific considerations when using uVie",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "uniappx-uview-pro",
+      "branch": "main",
+      "category": "uniappx-uview-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "requirements-analyst",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.269549Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Copilot agent that assists with requirements analysis, user story creation, specification definition, and acceptance criteria definition\n\nTrigger terms: requirements, EARS format, user stories, functi",
+      "repo": "nahisaho/CodeGraphMCPServer",
+      "path": "requirements-analyst",
+      "branch": "main",
+      "category": "requirements-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/CodeGraphMCPServer",
+      "source": "github.com/nahisaho/CodeGraphMCPServer"
+    }
+  ]
+}

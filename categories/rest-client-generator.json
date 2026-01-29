@@ -1,0 +1,19 @@
+{
+  "category": "rest-client-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.109052Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate REST API client code in multiple languages with error handling. Use when creating API client libraries or SDK code.",
+      "repo": "ntaksh42/agents",
+      "path": "rest-client-generator",
+      "branch": "main",
+      "category": "rest-client-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

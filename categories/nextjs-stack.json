@@ -1,0 +1,19 @@
+{
+  "category": "nextjs-stack",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.116079Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Next.js 16+ avec App Router, Prisma 7, Better Auth. Documentation locale complète.",
+      "repo": "fusengine/agents",
+      "path": "nextjs-stack",
+      "branch": "main",
+      "category": "nextjs-stack",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

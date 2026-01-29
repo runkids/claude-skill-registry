@@ -1,0 +1,19 @@
+{
+  "category": "commit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.809792Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create git commits with user approval and no Claude attribution",
+      "repo": "tfunk1030/vibe",
+      "path": "commit",
+      "branch": "main",
+      "category": "commit",
+      "tags": [],
+      "stars": 0,
+      "install": "tfunk1030/vibe",
+      "source": "github.com/tfunk1030/vibe"
+    }
+  ]
+}

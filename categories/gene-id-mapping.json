@@ -1,0 +1,19 @@
+{
+  "category": "gene-id-mapping",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.180292Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert between gene identifier systems including Ensembl, Entrez, HGNC symbols, and UniProt. Use when mapping IDs for pathway analysis or matching different data sources.",
+      "repo": "GPTomics/bioSkills",
+      "path": "gene-id-mapping",
+      "branch": "main",
+      "category": "gene-id-mapping",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

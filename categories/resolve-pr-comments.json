@@ -1,0 +1,19 @@
+{
+  "category": "resolve-pr-comments",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.773900Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Address PR review comments by locating code, applying fixes, and summarizing responses; use when asked to resolve PR feedback.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "resolve-pr-comments",
+      "branch": "main",
+      "category": "resolve-pr-comments",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

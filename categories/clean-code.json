@@ -1,0 +1,19 @@
+{
+  "category": "clean-code",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.103244Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pragmatic coding standards - concise, direct, no over-engineering, no unnecessary comments",
+      "repo": "AxelMrak/ai",
+      "path": "clean-code",
+      "branch": "main",
+      "category": "clean-code",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

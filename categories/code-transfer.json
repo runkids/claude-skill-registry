@@ -1,0 +1,19 @@
+{
+  "category": "code-transfer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.348285Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transfer code between files with line-based precision. Use when users request copying code from one location to another, moving functions or classes between files, extracting code blocks, or inserting",
+      "repo": "mhattingpete/claude-skills-marketplace",
+      "path": "code-transfer",
+      "branch": "main",
+      "category": "code-transfer",
+      "tags": [],
+      "stars": 0,
+      "install": "mhattingpete/claude-skills-marketplace",
+      "source": "github.com/mhattingpete/claude-skills-marketplace"
+    }
+  ]
+}

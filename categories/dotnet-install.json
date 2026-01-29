@@ -1,0 +1,19 @@
+{
+  "category": "dotnet-install",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.279705Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": ".NET SDK and runtime installation across Windows, macOS, and Linux. Handles version detection, platform-specific installers (WinGet, Homebrew, apt, dnf), SDK vs runtime selection, offline installation",
+      "repo": "rysweet/amplihack",
+      "path": "dotnet-install",
+      "branch": "main",
+      "category": "dotnet-install",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/amplihack",
+      "source": "github.com/rysweet/amplihack"
+    }
+  ]
+}

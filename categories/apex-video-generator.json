@@ -1,0 +1,19 @@
+{
+  "category": "apex-video-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.001665Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate real estate marketing videos from property data. Use when creating property showcases, social media content, market reports, or neighborhood tours. Integrates Firecrawl scraped data with Remo",
+      "repo": "Bobby44-max/boston-luxury-re-producer",
+      "path": "apex-video-generator",
+      "branch": "main",
+      "category": "apex-video-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "Bobby44-max/boston-luxury-re-producer",
+      "source": "github.com/Bobby44-max/boston-luxury-re-producer"
+    }
+  ]
+}

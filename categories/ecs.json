@@ -1,0 +1,19 @@
+{
+  "category": "ecs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.556553Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS ECS container orchestration for running Docker containers. Use when deploying containerized applications, configuring task definitions, setting up services, managing clusters, or troubleshooting c",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "ecs",
+      "branch": "main",
+      "category": "ecs",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

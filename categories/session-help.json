@@ -1,0 +1,19 @@
+{
+  "category": "session-help",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.610835Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Show help for the session management system and available commands",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "session-help",
+      "branch": "main",
+      "category": "session-help",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

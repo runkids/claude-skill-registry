@@ -1,0 +1,19 @@
+{
+  "category": "ai-ad-code-adapter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.571224Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<skill>",
+      "repo": "wade56754/AI_ad_spend02",
+      "path": "ai-ad-code-adapter",
+      "branch": "main",
+      "category": "ai-ad-code-adapter",
+      "tags": [],
+      "stars": 0,
+      "install": "wade56754/AI_ad_spend02",
+      "source": "github.com/wade56754/AI_ad_spend02"
+    }
+  ]
+}

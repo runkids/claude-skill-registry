@@ -1,0 +1,19 @@
+{
+  "category": "release-planning",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.263144Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan, coordinate, and execute software releases across environments. Manage versioning, rollout strategies, rollback procedures, and stakeholder communication for smooth deployments.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "release-planning",
+      "branch": "main",
+      "category": "release-planning",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

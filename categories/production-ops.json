@@ -1,0 +1,19 @@
+{
+  "category": "production-ops",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.084261Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when coordinating shoots, vendors, budgets, and compliance for video projects.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "production-ops",
+      "branch": "main",
+      "category": "production-ops",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

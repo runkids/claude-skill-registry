@@ -1,0 +1,19 @@
+{
+  "category": "memory-checkpoint",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.797031Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "在對話被 Summarize 壓縮前，主動將詳細記憶外部化到 Memory Bank，避免重要上下文遺失。",
+      "repo": "u9401066/rootcause-mcp",
+      "path": "memory-checkpoint",
+      "branch": "main",
+      "category": "memory-checkpoint",
+      "tags": [],
+      "stars": 0,
+      "install": "u9401066/rootcause-mcp",
+      "source": "github.com/u9401066/rootcause-mcp"
+    }
+  ]
+}

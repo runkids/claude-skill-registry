@@ -1,0 +1,19 @@
+{
+  "category": "intent",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.299729Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Turn rough ideas into iron-clad work orders through 6-step clarification protocol before building. Use when request is vague like \"add a button\", \"make it better\", \"fix the thing\". Produces spec score",
+      "repo": "saadshahd/moo.md",
+      "path": "intent",
+      "branch": "main",
+      "category": "intent",
+      "tags": [],
+      "stars": 0,
+      "install": "saadshahd/moo.md",
+      "source": "github.com/saadshahd/moo.md"
+    }
+  ]
+}

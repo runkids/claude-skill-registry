@@ -1,0 +1,19 @@
+{
+  "category": "bash-tools",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.347548Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Proper usage of Bash and file operation tools. Use this skill when executing shell commands, writing files, or when tempted to use echo/cat/heredoc to pipe content to files. Prevents permission circum",
+      "repo": "kettleofketchup/DraftForge",
+      "path": "bash-tools",
+      "branch": "main",
+      "category": "bash-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "kettleofketchup/DraftForge",
+      "source": "github.com/kettleofketchup/DraftForge"
+    }
+  ]
+}

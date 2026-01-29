@@ -1,0 +1,19 @@
+{
+  "category": "email-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.851881Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement email functionality using FastAPI-Mail for password reset, notifications, and transactional emails. Use when setting up email services or notification systems.",
+      "repo": "PrasadTelasula/EvokeQOne",
+      "path": "email-integration",
+      "branch": "main",
+      "category": "email-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "PrasadTelasula/EvokeQOne",
+      "source": "github.com/PrasadTelasula/EvokeQOne"
+    }
+  ]
+}

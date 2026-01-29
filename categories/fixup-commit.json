@@ -1,0 +1,19 @@
+{
+  "category": "fixup-commit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.523018Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /fixup-commit <commit-hash> slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "fixup-commit",
+      "branch": "main",
+      "category": "fixup-commit",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

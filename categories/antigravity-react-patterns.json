@@ -1,0 +1,19 @@
+{
+  "category": "antigravity-react-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.766512Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Modern React patterns and principles. Hooks, composition, performance, TypeScript best practices.",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-react-patterns",
+      "branch": "main",
+      "category": "antigravity-react-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

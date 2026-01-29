@@ -1,0 +1,19 @@
+{
+  "category": "customer-journey-mapper",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.308813Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Map customer journeys to optimize touchpoints and experiences",
+      "repo": "eddiebe147/claude-settings",
+      "path": "customer-journey-mapper",
+      "branch": "main",
+      "category": "customer-journey-mapper",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

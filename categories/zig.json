@@ -1,0 +1,19 @@
+{
+  "category": "zig",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.502824Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "zig skill",
+      "repo": "plurigrid/asi",
+      "path": "zig",
+      "branch": "main",
+      "category": "zig",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

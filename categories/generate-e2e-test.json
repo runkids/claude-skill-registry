@@ -1,0 +1,19 @@
+{
+  "category": "generate-e2e-test",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.915386Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate an end-to-end test for a given feature or user story. Use when the user asks to create E2E tests, automate workflows, test user flows, or convert manual workflows into Playwright tests. Lever",
+      "repo": "colinmollenhour/dotfiles",
+      "path": "generate-e2e-test",
+      "branch": "main",
+      "category": "generate-e2e-test",
+      "tags": [],
+      "stars": 0,
+      "install": "colinmollenhour/dotfiles",
+      "source": "github.com/colinmollenhour/dotfiles"
+    }
+  ]
+}

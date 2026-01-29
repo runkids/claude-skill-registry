@@ -1,0 +1,19 @@
+{
+  "category": "v3-mcp-optimization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.809510Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MCP server optimization and transport layer enhancement for claude-flow v3. Implements connection pooling, load balancing, tool registry optimization, and performance monitoring for sub-100ms response",
+      "repo": "EarthmanWeb/claude-flow-plugin",
+      "path": "v3-mcp-optimization",
+      "branch": "main",
+      "category": "v3-mcp-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "EarthmanWeb/claude-flow-plugin",
+      "source": "github.com/EarthmanWeb/claude-flow-plugin"
+    }
+  ]
+}

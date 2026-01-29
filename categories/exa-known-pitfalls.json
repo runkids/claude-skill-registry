@@ -1,0 +1,19 @@
+{
+  "category": "exa-known-pitfalls",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.152894Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Identify and avoid Exa anti-patterns and common integration mistakes.\nUse when reviewing Exa code for issues, onboarding new developers,\nor auditing existing Exa integrations for best practices violat",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "exa-known-pitfalls",
+      "branch": "main",
+      "category": "exa-known-pitfalls",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

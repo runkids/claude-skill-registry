@@ -1,0 +1,19 @@
+{
+  "category": "pei-docker-usage",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.778788Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Helper for PeiDocker (`pei-docker-cli`). Trigger ONLY when the user explicitly requests PeiDocker usage OR when working within a PeiDocker-generated project (indicated by `user_config.yml`).",
+      "repo": "igamenovoer/magic-context",
+      "path": "pei-docker-usage",
+      "branch": "main",
+      "category": "pei-docker-usage",
+      "tags": [],
+      "stars": 0,
+      "install": "igamenovoer/magic-context",
+      "source": "github.com/igamenovoer/magic-context"
+    }
+  ]
+}

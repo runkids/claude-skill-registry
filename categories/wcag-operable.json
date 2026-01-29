@@ -1,0 +1,19 @@
+{
+  "category": "wcag-operable",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.467149Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Principio 2 de WCAG - interfaces operables por todos. Use cuando diseñe navegación, interacciones, o cualquier componente que requiera input del usuario.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "wcag-operable",
+      "branch": "main",
+      "category": "wcag-operable",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

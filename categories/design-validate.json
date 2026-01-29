@@ -1,0 +1,19 @@
+{
+  "category": "design-validate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.632961Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate design doc structure and frontmatter. Use when checking design docs for compliance, ensuring proper formatting, or verifying metadata before commits.",
+      "repo": "spencerbeggs/claude-design-coordinator",
+      "path": "design-validate",
+      "branch": "main",
+      "category": "design-validate",
+      "tags": [],
+      "stars": 0,
+      "install": "spencerbeggs/claude-design-coordinator",
+      "source": "github.com/spencerbeggs/claude-design-coordinator"
+    }
+  ]
+}

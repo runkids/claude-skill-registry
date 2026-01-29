@@ -1,0 +1,19 @@
+{
+  "category": "create-schema",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.288975Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create Zod schemas for new entities/resources in the backend. Use when adding a new resource, creating data models, defining DTOs (CreateType, UpdateType), or setting up validation schemas. Triggers o",
+      "repo": "madooei/backend-template",
+      "path": "create-schema",
+      "branch": "main",
+      "category": "create-schema",
+      "tags": [],
+      "stars": 0,
+      "install": "madooei/backend-template",
+      "source": "github.com/madooei/backend-template"
+    }
+  ]
+}

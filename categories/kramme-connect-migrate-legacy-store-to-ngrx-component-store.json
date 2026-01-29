@@ -1,0 +1,19 @@
+{
+  "category": "kramme-connect-migrate-legacy-store-to-ngrx-component-store",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.687987Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this Skill when working in the Connect monorepo and needing to migrate legacy CustomStore or FeatureStore implementations to NgRx ComponentStore.",
+      "repo": "Abildtoft/kramme-cc-workflow",
+      "path": "kramme:connect-migrate-legacy-store-to-ngrx-component-store",
+      "branch": "main",
+      "category": "kramme:connect-migrate-legacy-store-to-ngrx-component-store",
+      "tags": [],
+      "stars": 0,
+      "install": "Abildtoft/kramme-cc-workflow",
+      "source": "github.com/Abildtoft/kramme-cc-workflow"
+    }
+  ]
+}

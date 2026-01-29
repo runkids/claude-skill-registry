@@ -1,0 +1,19 @@
+{
+  "category": "explain-like-senior",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.041597Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Senior-level code explanations with deep technical insights and context",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "explain-like-senior",
+      "branch": "main",
+      "category": "explain-like-senior",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

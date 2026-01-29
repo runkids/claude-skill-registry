@@ -1,0 +1,19 @@
+{
+  "category": "template-new-claude-code-plugin",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.694733Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract data from files related to SANS courses.",
+      "repo": "aRustyDev/dotfiles",
+      "path": "template-new-claude-code-plugin",
+      "branch": "main",
+      "category": "template-new-claude-code-plugin",
+      "tags": [],
+      "stars": 0,
+      "install": "aRustyDev/dotfiles",
+      "source": "github.com/aRustyDev/dotfiles"
+    }
+  ]
+}

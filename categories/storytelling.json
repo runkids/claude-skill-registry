@@ -1,0 +1,19 @@
+{
+  "category": "storytelling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.034586Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when crafting narratives that connect product value to customer pain through clear setup-conflict-resolution arcs.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "storytelling",
+      "branch": "main",
+      "category": "storytelling",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

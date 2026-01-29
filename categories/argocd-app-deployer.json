@@ -1,0 +1,19 @@
+{
+  "category": "argocd-app-deployer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.849540Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Argocd App Deployer - Auto-activating skill for DevOps Advanced.\nTriggers on: argocd app deployer, argocd app deployer\nPart of the DevOps Advanced skill category.\n",
+      "repo": "byteworthy/Upstream",
+      "path": "argocd-app-deployer",
+      "branch": "main",
+      "category": "argocd-app-deployer",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "sandboxing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.642665Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide to sandboxing AI agents including code execution isolation, resource limits, security boundaries, and safe tool execution",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "sandboxing",
+      "branch": "main",
+      "category": "sandboxing",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

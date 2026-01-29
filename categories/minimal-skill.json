@@ -1,0 +1,19 @@
+{
+  "category": "minimal-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.927769Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A minimal skill with no resources",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "minimal-skill",
+      "branch": "main",
+      "category": "minimal-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

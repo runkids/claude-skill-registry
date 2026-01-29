@@ -1,0 +1,19 @@
+{
+  "category": "tiptap-vue3",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.414594Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when implementing, debugging, or fixing Tiptap WYSIWYG editors in Vue 3 applications. Triggers on Tiptap setup, WYSIWYG editors, rich text editors, task list creation, markdo",
+      "repo": "endlessblink/flow-state",
+      "path": "tiptap-vue3",
+      "branch": "main",
+      "category": "tiptap-vue3",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

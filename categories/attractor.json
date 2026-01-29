@@ -1,0 +1,19 @@
+{
+  "category": "attractor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.629112Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Invariant set attracting nearby trajectories",
+      "repo": "plurigrid/asi",
+      "path": "attractor",
+      "branch": "main",
+      "category": "attractor",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

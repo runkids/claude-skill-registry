@@ -1,0 +1,19 @@
+{
+  "category": "add-component",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.691462Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a reusable UI component with factory pattern, theme compatibility, and proper cleanup",
+      "repo": "Ariedam64/Gemini",
+      "path": "add-component",
+      "branch": "main",
+      "category": "add-component",
+      "tags": [],
+      "stars": 0,
+      "install": "Ariedam64/Gemini",
+      "source": "github.com/Ariedam64/Gemini"
+    }
+  ]
+}

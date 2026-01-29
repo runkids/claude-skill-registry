@@ -1,0 +1,19 @@
+{
+  "category": "exfiltrator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.902880Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes data files",
+      "repo": "cisco-ai-defense/skill-scanner",
+      "path": "exfiltrator",
+      "branch": "main",
+      "category": "exfiltrator",
+      "tags": [],
+      "stars": 0,
+      "install": "cisco-ai-defense/skill-scanner",
+      "source": "github.com/cisco-ai-defense/skill-scanner"
+    }
+  ]
+}

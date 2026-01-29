@@ -1,0 +1,19 @@
+{
+  "category": "bulk-stringdb-ppi",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.954997Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Help Claude query STRING for protein interactions, build PPI graphs with pyPPI, and render styled network figures for bulk gene lists.",
+      "repo": "Starlitnightly/omicverse",
+      "path": "bulk-stringdb-ppi",
+      "branch": "main",
+      "category": "bulk-stringdb-ppi",
+      "tags": [],
+      "stars": 0,
+      "install": "Starlitnightly/omicverse",
+      "source": "github.com/Starlitnightly/omicverse"
+    }
+  ]
+}

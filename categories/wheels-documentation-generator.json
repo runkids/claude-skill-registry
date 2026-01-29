@@ -1,0 +1,19 @@
+{
+  "category": "wheels-documentation-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.789192Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate documentation comments, README files, and API documentation for Wheels applications. Use when documenting code, creating project READMEs, or generating API docs.",
+      "repo": "wheels-dev/wheels",
+      "path": "wheels-documentation-generator",
+      "branch": "main",
+      "category": "wheels-documentation-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "wheels-dev/wheels",
+      "source": "github.com/wheels-dev/wheels"
+    }
+  ]
+}

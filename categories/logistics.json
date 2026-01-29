@@ -1,0 +1,19 @@
+{
+  "category": "logistics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.932128Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level supply chain management, logistics optimization, warehouse systems, and fleet management",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "logistics",
+      "branch": "main",
+      "category": "logistics",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

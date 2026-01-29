@@ -1,0 +1,19 @@
+{
+  "category": "channel-capacity",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.587254Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Problem-solving strategies for channel capacity in information theory",
+      "repo": "namesreallyblank/Clorch",
+      "path": "channel-capacity",
+      "branch": "main",
+      "category": "channel-capacity",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

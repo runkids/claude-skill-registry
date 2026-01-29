@@ -1,0 +1,19 @@
+{
+  "category": "gamma-install-auth",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.825741Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Install and configure Gamma API authentication.\nUse when setting up a new Gamma integration, configuring API keys,\nor initializing Gamma in your project.\nTrigger with phrases like \"install gamma\", \"se",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "gamma-install-auth",
+      "branch": "main",
+      "category": "gamma-install-auth",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "marp-authoring",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.081817Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when you need Marp/Marpit Markdown authoring rules, directives, layouts, or theme guidance and want the minimal reading path for slide writing.",
+      "repo": "narumiruna/agent-skills",
+      "path": "marp-authoring",
+      "branch": "main",
+      "category": "marp-authoring",
+      "tags": [],
+      "stars": 0,
+      "install": "narumiruna/agent-skills",
+      "source": "github.com/narumiruna/agent-skills"
+    }
+  ]
+}

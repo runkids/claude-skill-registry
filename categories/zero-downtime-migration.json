@@ -1,0 +1,19 @@
+{
+  "category": "zero-downtime-migration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.000237Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan a zero-downtime migration for data or infrastructure. Use when a senior developer needs a safe migration strategy.",
+      "repo": "proflead/codex-skills-library",
+      "path": "zero-downtime-migration",
+      "branch": "main",
+      "category": "zero-downtime-migration",
+      "tags": [],
+      "stars": 0,
+      "install": "proflead/codex-skills-library",
+      "source": "github.com/proflead/codex-skills-library"
+    }
+  ]
+}

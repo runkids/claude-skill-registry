@@ -1,0 +1,19 @@
+{
+  "category": "agentuity-cli-profile-create",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.911534Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a new configuration profile",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-profile-create",
+      "branch": "main",
+      "category": "agentuity-cli-profile-create",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

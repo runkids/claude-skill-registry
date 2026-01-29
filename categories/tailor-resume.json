@@ -1,0 +1,19 @@
+{
+  "category": "tailor-resume",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.298315Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Load and execute: workflows/tailor-resume/workflow.md",
+      "repo": "shindo107/job-coach-and-scout",
+      "path": "tailor-resume",
+      "branch": "main",
+      "category": "tailor-resume",
+      "tags": [],
+      "stars": 0,
+      "install": "shindo107/job-coach-and-scout",
+      "source": "github.com/shindo107/job-coach-and-scout"
+    }
+  ]
+}

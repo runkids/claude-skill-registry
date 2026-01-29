@@ -1,0 +1,19 @@
+{
+  "category": "using-system-architect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.817297Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when you have architecture documentation from system-archaeologist and need critical assessment, refactoring recommendations, or improvement prioritization - routes to appropriate architect specia",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-system-architect",
+      "branch": "main",
+      "category": "using-system-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

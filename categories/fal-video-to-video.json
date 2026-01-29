@@ -1,0 +1,19 @@
+{
+  "category": "fal-video-to-video",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.359672Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "| Task | Endpoint | Key Parameter |",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "fal-video-to-video",
+      "branch": "main",
+      "category": "fal-video-to-video",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

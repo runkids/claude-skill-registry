@@ -1,0 +1,19 @@
+{
+  "category": "mcp",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.395944Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Model Context Protocol (MCP) server development and tool management. Languages: Python, TypeScript. Capabilities: build MCP servers, integrate external APIs, discover/execute MCP tools, manage multi-s",
+      "repo": "brixtonpham/claude-config",
+      "path": "mcp",
+      "branch": "main",
+      "category": "mcp",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

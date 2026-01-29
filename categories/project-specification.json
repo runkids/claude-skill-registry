@@ -1,0 +1,19 @@
+{
+  "category": "project-specification",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.238800Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform project brief into detailed, testable specifications using spec-driven development methodology",
+      "repo": "athola/claude-night-market",
+      "path": "project-specification",
+      "branch": "main",
+      "category": "project-specification",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

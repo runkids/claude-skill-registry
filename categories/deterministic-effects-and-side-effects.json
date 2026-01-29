@@ -1,0 +1,19 @@
+{
+  "category": "deterministic-effects-and-side-effects",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.935913Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master side-effect design under StrictMode and concurrent rendering, ensuring deterministic behavior.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "deterministic-effects-and-side-effects",
+      "branch": "main",
+      "category": "deterministic-effects-and-side-effects",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

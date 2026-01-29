@@ -1,0 +1,19 @@
+{
+  "category": "review-docs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.799980Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review and clean technical documentation (Markdown/README/runbooks/ADRs). Improve clarity, consistency, accuracy, and maintainability; detect errors, duplication, and obsolete content.",
+      "repo": "freepik-company/knowledge-agent",
+      "path": "review-docs",
+      "branch": "main",
+      "category": "review-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "freepik-company/knowledge-agent",
+      "source": "github.com/freepik-company/knowledge-agent"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "vue-composable-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.426516Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test Vue 3 composables with Vitest following best practices. Use when writing tests for composables, creating test helpers for Vue reactivity, or when asked to \"test a composable\", \"write tests for us",
+      "repo": "alexanderop/workoutTracker",
+      "path": "vue-composable-testing",
+      "branch": "main",
+      "category": "vue-composable-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "alexanderop/workoutTracker",
+      "source": "github.com/alexanderop/workoutTracker"
+    }
+  ]
+}

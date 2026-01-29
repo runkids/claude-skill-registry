@@ -1,0 +1,19 @@
+{
+  "category": "composer-dependency-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.545578Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "composer-dependency-management",
+      "branch": "main",
+      "category": "composer-dependency-management",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

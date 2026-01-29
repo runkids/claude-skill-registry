@@ -1,0 +1,19 @@
+{
+  "category": "kubernetes-essentials",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.371686Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quick reference for Kubernetes core concepts and kubectl commands. This skill should be used as a refresher for basic K8s operations including pods, deployments, services, configmaps, secrets, and nam",
+      "repo": "mjunaidca/mjs-agent-skills",
+      "path": "kubernetes-essentials",
+      "branch": "main",
+      "category": "kubernetes-essentials",
+      "tags": [],
+      "stars": 0,
+      "install": "mjunaidca/mjs-agent-skills",
+      "source": "github.com/mjunaidca/mjs-agent-skills"
+    }
+  ]
+}

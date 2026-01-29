@@ -1,0 +1,19 @@
+{
+  "category": "javascript",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.432258Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "30 pragmatic rules for production JavaScript covering async operations, V8 optimization, memory management, testing, error handling, and performance. Use when writing JavaScript, optimizing performanc",
+      "repo": "matthewharwood/fantasy-phonics",
+      "path": "javascript",
+      "branch": "main",
+      "category": "javascript",
+      "tags": [],
+      "stars": 0,
+      "install": "matthewharwood/fantasy-phonics",
+      "source": "github.com/matthewharwood/fantasy-phonics"
+    }
+  ]
+}

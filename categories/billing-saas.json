@@ -1,0 +1,19 @@
+{
+  "category": "billing-saas",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.600590Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "name: billing-saas",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "billing-saas",
+      "branch": "main",
+      "category": "billing-saas",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

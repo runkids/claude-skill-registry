@@ -1,0 +1,19 @@
+{
+  "category": "copilot-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.375978Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "GitHub Copilot PRレビュー対応ワークフロー（コメント取得→修正→返信→解決）",
+      "repo": "foie0222/baken-kaigi",
+      "path": "copilot-review",
+      "branch": "main",
+      "category": "copilot-review",
+      "tags": [],
+      "stars": 0,
+      "install": "foie0222/baken-kaigi",
+      "source": "github.com/foie0222/baken-kaigi"
+    }
+  ]
+}

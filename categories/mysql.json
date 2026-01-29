@@ -1,0 +1,19 @@
+{
+  "category": "mysql",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.997986Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for MySQL database including SQL syntax, data types, indexes, transactions, stored procedures, and optimization. Use when the user asks about MySQL, needs to write SQL ",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "mysql",
+      "branch": "main",
+      "category": "mysql",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

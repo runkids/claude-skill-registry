@@ -1,0 +1,19 @@
+{
+  "category": "catskill-writer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.372907Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write Catskill Crew newsletter content in Michael's voice. Use when writing HAPPENINGS, REPORT, BULLETIN sections or assembling a complete newsletter edition.",
+      "repo": "aniketpanjwani/automated_catskill_crew",
+      "path": "catskill-writer",
+      "branch": "main",
+      "category": "catskill-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "aniketpanjwani/automated_catskill_crew",
+      "source": "github.com/aniketpanjwani/automated_catskill_crew"
+    }
+  ]
+}

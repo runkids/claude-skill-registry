@@ -1,0 +1,19 @@
+{
+  "category": "tracing-knowledge-lineages",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.762134Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Understand how ideas evolved over time to find old solutions for new problems and avoid repeating past failures",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "tracing-knowledge-lineages",
+      "branch": "main",
+      "category": "tracing-knowledge-lineages",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

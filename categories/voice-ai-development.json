@@ -1,0 +1,19 @@
+{
+  "category": "voice-ai-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.918941Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in building voice AI applications - from real-time voice agents to voice-enabled apps. Covers OpenAI Realtime API, Vapi for voice agents, Deepgram for transcription, ElevenLabs for synthesis, L",
+      "repo": "cgyudistira/code-agents",
+      "path": "voice-ai-development",
+      "branch": "main",
+      "category": "voice-ai-development",
+      "tags": [],
+      "stars": 0,
+      "install": "cgyudistira/code-agents",
+      "source": "github.com/cgyudistira/code-agents"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "constraints-principle",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.224347Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Limita acciones posibles para prevenir errores. Use cuando diseñe formularios, flujos críticos, o sistemas donde los errores son costosos.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "constraints-principle",
+      "branch": "main",
+      "category": "constraints-principle",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

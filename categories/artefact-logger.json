@@ -1,0 +1,19 @@
+{
+  "category": "artefact-logger",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.223972Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Log access to Claude configuration artefacts (CLAUDE.md, rules, skills, commands, agents). This skill should be invoked automatically after reading configuration files to track usage.",
+      "repo": "PackmindHub/packmind",
+      "path": "artefact-logger",
+      "branch": "main",
+      "category": "artefact-logger",
+      "tags": [],
+      "stars": 0,
+      "install": "PackmindHub/packmind",
+      "source": "github.com/PackmindHub/packmind"
+    }
+  ]
+}

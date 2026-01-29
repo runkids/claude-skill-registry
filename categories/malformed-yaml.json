@@ -1,0 +1,19 @@
+{
+  "category": "malformed-yaml",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.750367Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill has malformed YAML in the frontmatter.",
+      "repo": "netresearch/composer-agent-skill-plugin",
+      "path": "malformed-yaml",
+      "branch": "main",
+      "category": "malformed-yaml",
+      "tags": [],
+      "stars": 0,
+      "install": "netresearch/composer-agent-skill-plugin",
+      "source": "github.com/netresearch/composer-agent-skill-plugin"
+    }
+  ]
+}

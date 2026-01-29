@@ -1,0 +1,19 @@
+{
+  "category": "spring-boot-deployment",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.458407Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for deploying Spring Boot applications including Docker, health checks, and production configurations. Use this when preparing applications for deployment or setting up CI/CD.",
+      "repo": "ductringuyen0186/salon-hub-api",
+      "path": "spring-boot-deployment",
+      "branch": "main",
+      "category": "spring-boot-deployment",
+      "tags": [],
+      "stars": 0,
+      "install": "ductringuyen0186/salon-hub-api",
+      "source": "github.com/ductringuyen0186/salon-hub-api"
+    }
+  ]
+}

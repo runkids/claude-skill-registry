@@ -1,0 +1,19 @@
+{
+  "category": "search-router",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.974386Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Choose the right search tool for each query type",
+      "repo": "namesreallyblank/Clorch",
+      "path": "search-router",
+      "branch": "main",
+      "category": "search-router",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

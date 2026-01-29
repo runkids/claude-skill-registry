@@ -1,0 +1,19 @@
+{
+  "category": "email-agent",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.031457Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Processes incoming emails for Unite-Hub. Extracts sender data, identifies communication intents, links to CRM contacts, analyzes sentiment, and updates contact records with AI insights.",
+      "repo": "CleanExpo/Unite-Hub",
+      "path": "email-agent",
+      "branch": "main",
+      "category": "email-agent",
+      "tags": [],
+      "stars": 0,
+      "install": "CleanExpo/Unite-Hub",
+      "source": "github.com/CleanExpo/Unite-Hub"
+    }
+  ]
+}

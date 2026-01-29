@@ -1,0 +1,19 @@
+{
+  "category": "pulling-updates-from-skills-repository",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.219982Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Sync local skills repository with upstream changes from obra/superpowers-skills",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "pulling-updates-from-skills-repository",
+      "branch": "main",
+      "category": "pulling-updates-from-skills-repository",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

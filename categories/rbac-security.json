@@ -1,0 +1,19 @@
+{
+  "category": "rbac-security",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.896821Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Role-based access control (RBAC) patterns, authentication wrappers, authorization checks, input validation with Zod schemas, security boundaries, server action security, real-time message validation, ",
+      "repo": "DW225/ree-board",
+      "path": "rbac-security",
+      "branch": "main",
+      "category": "rbac-security",
+      "tags": [],
+      "stars": 0,
+      "install": "DW225/ree-board",
+      "source": "github.com/DW225/ree-board"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "figma-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.294328Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract design assets and metadata from Figma using the Figma REST API. Supports exporting frames/components as images, extracting node metadata, design tokens, and file structure. Use with ai-multimo",
+      "repo": "vneseyoungster/ChocoVine",
+      "path": "figma-analyzer",
+      "branch": "main",
+      "category": "figma-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "vneseyoungster/ChocoVine",
+      "source": "github.com/vneseyoungster/ChocoVine"
+    }
+  ]
+}

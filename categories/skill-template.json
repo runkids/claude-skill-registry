@@ -1,0 +1,19 @@
+{
+  "category": "skill-template",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.078435Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<one-line description of what the skill does and when to use it>",
+      "repo": "mattg101/SolidLink",
+      "path": "skill-template",
+      "branch": "main",
+      "category": "skill-template",
+      "tags": [],
+      "stars": 0,
+      "install": "mattg101/SolidLink",
+      "source": "github.com/mattg101/SolidLink"
+    }
+  ]
+}

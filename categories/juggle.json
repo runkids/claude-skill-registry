@@ -1,0 +1,19 @@
+{
+  "category": "juggle",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.865893Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Task management via CLI for agent loops. Balls are tasks with acceptance criteria; sessions group related balls. Use when working on a project with a .juggle/ directory, when user mentions juggle/ball",
+      "repo": "ohare93/juggle",
+      "path": "juggle",
+      "branch": "main",
+      "category": "juggle",
+      "tags": [],
+      "stars": 0,
+      "install": "ohare93/juggle",
+      "source": "github.com/ohare93/juggle"
+    }
+  ]
+}

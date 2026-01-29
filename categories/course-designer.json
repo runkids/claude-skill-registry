@@ -1,0 +1,19 @@
+{
+  "category": "course-designer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.199021Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "帮助设计和规划课程内容，包括课程大纲、学习目标、教学计划和评估方案。适用于教育工作者、培训师或需要创建结构化学习内容的场景。",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "course-designer",
+      "branch": "main",
+      "category": "course-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

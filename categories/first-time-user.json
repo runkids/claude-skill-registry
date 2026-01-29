@@ -1,0 +1,19 @@
+{
+  "category": "first-time-user",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.544604Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Simulate a first-time user experience by following only the documentation. Generates UX audit reports with friction points and recommendations. Use to test documentation quality and create improvement",
+      "repo": "fotescodev/portfolio",
+      "path": "first-time-user",
+      "branch": "main",
+      "category": "first-time-user",
+      "tags": [],
+      "stars": 0,
+      "install": "fotescodev/portfolio",
+      "source": "github.com/fotescodev/portfolio"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "1d-cutting-stock",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.270620Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to cut 1D materials optimally, minimize waste in linear cutting, or solve one-dimensional cutting stock problems. Also use when the user mentions \"1D cutting,\" \"linear cutting opti",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "1d-cutting-stock",
+      "branch": "main",
+      "category": "1d-cutting-stock",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

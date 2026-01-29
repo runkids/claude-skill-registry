@@ -1,0 +1,19 @@
+{
+  "category": "exa-multi-env-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.361459Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure Exa across development, staging, and production environments.\nUse when setting up multi-environment deployments, configuring per-environment secrets,\nor implementing environment-specific Exa",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "exa-multi-env-setup",
+      "branch": "main",
+      "category": "exa-multi-env-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

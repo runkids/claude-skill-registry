@@ -1,0 +1,19 @@
+{
+  "category": "creating-financial-models",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.332993Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill provides an advanced financial modeling suite with DCF analysis, sensitivity testing, Monte Carlo simulations, and scenario planning for investment decisions",
+      "repo": "anthropics/claude-cookbooks",
+      "path": "creating-financial-models",
+      "branch": "main",
+      "category": "creating-financial-models",
+      "tags": [],
+      "stars": 0,
+      "install": "anthropics/claude-cookbooks",
+      "source": "github.com/anthropics/claude-cookbooks"
+    }
+  ]
+}

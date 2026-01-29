@@ -1,0 +1,19 @@
+{
+  "category": "pytest-test-scaffolder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.498797Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffolds pytest unit tests for Python backend functions and classes. Use when creating tests for FastAPI endpoints, services, and utilities.",
+      "repo": "okgoogle13/careercopilot",
+      "path": "pytest-test-scaffolder",
+      "branch": "main",
+      "category": "pytest-test-scaffolder",
+      "tags": [],
+      "stars": 0,
+      "install": "okgoogle13/careercopilot",
+      "source": "github.com/okgoogle13/careercopilot"
+    }
+  ]
+}

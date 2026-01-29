@@ -1,0 +1,19 @@
+{
+  "category": "st",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.957382Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "STMicroelectronics MPN encoding patterns, suffix decoding, and handler guidance. Use when working with STM32, STM8, ST MOSFETs, or L78/L79 regulators.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "st",
+      "branch": "main",
+      "category": "st",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

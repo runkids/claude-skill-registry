@@ -1,0 +1,19 @@
+{
+  "category": "swift-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.310764Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guidance on Swift Testing best practices, patterns, and implementation. Use when developers mention: (1) Swift Testing, @Test, #expect, #require, or @Suite, (2) \"use Swift Testing\" or \"modern t",
+      "repo": "bocato/swift-testing-agent-skill",
+      "path": "swift-testing",
+      "branch": "main",
+      "category": "swift-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "bocato/swift-testing-agent-skill",
+      "source": "github.com/bocato/swift-testing-agent-skill"
+    }
+  ]
+}

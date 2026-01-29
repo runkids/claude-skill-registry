@@ -1,0 +1,19 @@
+{
+  "category": "react-compiler-optimization-profiles",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.272051Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deep dive into the React Compiler (formerly React Forget) to tune automatic memoization and optimization profiles.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "react-compiler-optimization-profiles",
+      "branch": "main",
+      "category": "react-compiler-optimization-profiles",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

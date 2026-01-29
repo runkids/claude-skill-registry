@@ -1,0 +1,19 @@
+{
+  "category": "react-tanstack-router",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.951042Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TanStack Router - 100% type-safe routing, file-based routes, loaders, search params. Use when implementing routing in React apps (NOT Next.js).",
+      "repo": "fusengine/agents",
+      "path": "react-tanstack-router",
+      "branch": "main",
+      "category": "react-tanstack-router",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

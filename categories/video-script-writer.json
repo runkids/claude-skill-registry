@@ -1,0 +1,19 @@
+{
+  "category": "video-script-writer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.366138Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write engaging video scripts for YouTube, TikTok, and other platforms. Creates complete scripts with hooks, main content, and CTAs. Supports various formats including tutorials, vlogs, reviews, explai",
+      "repo": "nicepkg/ai-workflow",
+      "path": "video-script-writer",
+      "branch": "main",
+      "category": "video-script-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

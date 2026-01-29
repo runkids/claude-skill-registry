@@ -1,0 +1,19 @@
+{
+  "category": "plex",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.714485Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Control Plex Media Server - browse libraries, search, play media, manage playback.",
+      "repo": "moltbot/skills",
+      "path": "plex",
+      "branch": "main",
+      "category": "plex",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "cli-services",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.910884Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Effect.Service patterns for CLI infrastructure. Covers service definition, Layer composition, and dependency injection for CLI applications.",
+      "repo": "creatifcoding/gbg",
+      "path": "cli-services",
+      "branch": "main",
+      "category": "cli-services",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

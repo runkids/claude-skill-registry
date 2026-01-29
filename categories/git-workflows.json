@@ -1,0 +1,19 @@
+{
+  "category": "git-workflows",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.864836Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute git operations using Conventional Commits format with proper branching strategies and safe workflows. Use when making commits, managing branches, or performing git operations.",
+      "repo": "AutumnsGrove/GroveScout",
+      "path": "git-workflows",
+      "branch": "main",
+      "category": "git-workflows",
+      "tags": [],
+      "stars": 0,
+      "install": "AutumnsGrove/GroveScout",
+      "source": "github.com/AutumnsGrove/GroveScout"
+    }
+  ]
+}

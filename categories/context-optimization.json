@@ -1,0 +1,19 @@
+{
+  "category": "context-optimization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.486525Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply optimization techniques to extend effective context capacity. Use when context limits constrain agent performance, when optimizing for cost or latency, or when implementing long-running agent sy",
+      "repo": "AbdullahMalik17/Hacathan-2-",
+      "path": "context-optimization",
+      "branch": "main",
+      "category": "context-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "AbdullahMalik17/Hacathan-2-",
+      "source": "github.com/AbdullahMalik17/Hacathan-2-"
+    }
+  ]
+}

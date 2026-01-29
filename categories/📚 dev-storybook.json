@@ -1,0 +1,19 @@
+{
+  "category": "📚 dev-storybook",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.797421Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Storybook skill for Vue 3 - story creation, auditing, component discovery, visual testing, and CI integration. Merged from dev-storybook, storybook-audit, and storybook-master.",
+      "repo": "endlessblink/flow-state",
+      "path": "📚 dev-storybook",
+      "branch": "main",
+      "category": "📚 dev-storybook",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

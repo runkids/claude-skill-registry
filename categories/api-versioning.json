@@ -1,0 +1,19 @@
+{
+  "category": "api-versioning",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.584487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement API versioning strategies for backward compatibility. Covers URL versioning, header versioning, and deprecation workflows.",
+      "repo": "dadbodgeoff/drift",
+      "path": "api-versioning",
+      "branch": "main",
+      "category": "api-versioning",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

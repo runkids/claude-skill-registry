@@ -1,0 +1,19 @@
+{
+  "category": "llm-token-optimization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.554820Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "See the main LLM Cost Optimization skill for comprehensive coverage of token economics and optimization strategies.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "llm-token-optimization",
+      "branch": "main",
+      "category": "llm-token-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

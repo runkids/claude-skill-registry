@@ -1,0 +1,19 @@
+{
+  "category": "shared-retrospective",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.293545Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Task memory management and retrospective contributions for Ralph agents",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "shared-retrospective",
+      "branch": "main",
+      "category": "shared-retrospective",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

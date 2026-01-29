@@ -1,0 +1,19 @@
+{
+  "category": "templates",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.978365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this template for cross-cutting techniques that apply to multiple tools (harness writing, coverage analysis, sanitizers, dictionaries, etc.).",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "templates",
+      "branch": "main",
+      "category": "templates",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

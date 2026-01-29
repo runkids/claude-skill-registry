@@ -1,0 +1,19 @@
+{
+  "category": "docker-containerization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.156975Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-activates when user mentions Docker, containerize, Dockerfile, docker-compose, or container setup. Creates optimized Docker configurations for applications.",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "docker-containerization",
+      "branch": "main",
+      "category": "docker-containerization",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

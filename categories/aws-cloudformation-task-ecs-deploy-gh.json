@@ -1,0 +1,19 @@
+{
+  "category": "aws-cloudformation-task-ecs-deploy-gh",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.046995Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploy ECS tasks and services with GitHub Actions CI/CD. Use for building Docker images, pushing to ECR, updating ECS task definitions, deploying ECS services, integrating with CloudFormation stacks, ",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "aws-cloudformation-task-ecs-deploy-gh",
+      "branch": "main",
+      "category": "aws-cloudformation-task-ecs-deploy-gh",
+      "tags": [],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    }
+  ]
+}

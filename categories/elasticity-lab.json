@@ -1,0 +1,19 @@
+{
+  "category": "elasticity-lab",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.469935Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to run pricing elasticity experiments with consistent assumptions and guardrails.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "elasticity-lab",
+      "branch": "main",
+      "category": "elasticity-lab",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

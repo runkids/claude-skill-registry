@@ -1,0 +1,19 @@
+{
+  "category": "api-implementation-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.759760Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "> Template for project-specific API implementation skill",
+      "repo": "michsindlinger/agent-os-extended",
+      "path": "api-implementation-patterns",
+      "branch": "main",
+      "category": "api-implementation-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "michsindlinger/agent-os-extended",
+      "source": "github.com/michsindlinger/agent-os-extended"
+    }
+  ]
+}

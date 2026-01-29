@@ -1,0 +1,19 @@
+{
+  "category": "ts-strict-guardian",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.183421Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforce strict TypeScript guidelines and safety",
+      "repo": "EtroxTaran/conductor",
+      "path": "ts-strict-guardian",
+      "branch": "main",
+      "category": "ts-strict-guardian",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

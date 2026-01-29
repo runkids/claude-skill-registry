@@ -1,0 +1,19 @@
+{
+  "category": "pattern-discovery-capture",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.395052Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically capture recurring patterns discovered in the codebase during exploration. This skill logs implicit conventions, architectural patterns, and coding practices that are followed consistentl",
+      "repo": "PackmindHub/packmind",
+      "path": "pattern-discovery-capture",
+      "branch": "main",
+      "category": "pattern-discovery-capture",
+      "tags": [],
+      "stars": 0,
+      "install": "PackmindHub/packmind",
+      "source": "github.com/PackmindHub/packmind"
+    }
+  ]
+}

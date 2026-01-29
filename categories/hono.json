@@ -1,0 +1,19 @@
+{
+  "category": "hono",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.247820Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Builds APIs with Hono including routing, middleware, validation, and edge deployment. Use when creating fast APIs, building edge functions, or developing serverless applications.",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "hono",
+      "branch": "main",
+      "category": "hono",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

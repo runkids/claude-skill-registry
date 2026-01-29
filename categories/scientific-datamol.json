@@ -1,0 +1,19 @@
+{
+  "category": "scientific-datamol",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.790926Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pythonic wrapper around RDKit with simplified interface and sensible defaults. Preferred for standard drug discovery including SMILES parsing, standardization, descriptors, fingerprints, clustering, 3",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-datamol",
+      "branch": "main",
+      "category": "scientific-datamol",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

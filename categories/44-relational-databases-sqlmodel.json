@@ -1,0 +1,19 @@
+{
+  "category": "44-relational-databases-sqlmodel",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.312046Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a relational-db-agent skill that knows SQLModel async patterns",
+      "repo": "panaversity/agentfactory",
+      "path": "44-relational-databases-sqlmodel",
+      "branch": "main",
+      "category": "44-relational-databases-sqlmodel",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

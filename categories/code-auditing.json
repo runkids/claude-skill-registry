@@ -1,0 +1,19 @@
+{
+  "category": "code-auditing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.851475Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "系统化审计与代码优化 - Code Review / Simplifier / Council / Performance。",
+      "repo": "VidyFoo/antigravity-skill-engine",
+      "path": "code-auditing",
+      "branch": "main",
+      "category": "code-auditing",
+      "tags": [],
+      "stars": 0,
+      "install": "VidyFoo/antigravity-skill-engine",
+      "source": "github.com/VidyFoo/antigravity-skill-engine"
+    }
+  ]
+}

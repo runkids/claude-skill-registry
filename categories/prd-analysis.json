@@ -1,0 +1,19 @@
+{
+  "category": "prd-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.191084Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PRD analysis knowledge including depth-aware criteria, finding categories, severity guidelines, and common issue patterns",
+      "repo": "sequenzia/claude-alchemy",
+      "path": "prd-analysis",
+      "branch": "main",
+      "category": "prd-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "sequenzia/claude-alchemy",
+      "source": "github.com/sequenzia/claude-alchemy"
+    }
+  ]
+}

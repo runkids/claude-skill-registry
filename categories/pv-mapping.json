@@ -1,0 +1,19 @@
+{
+  "category": "pv-mapping",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.772766Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Map permissible values in LinkML enums to ontology terms. Use this skill when: (1) Adding or updating ontology mappings (meaning: field) for enum permissible values, (2) Fixing validation errors from ",
+      "repo": "linkml/valuesets",
+      "path": "pv-mapping",
+      "branch": "main",
+      "category": "pv-mapping",
+      "tags": [],
+      "stars": 0,
+      "install": "linkml/valuesets",
+      "source": "github.com/linkml/valuesets"
+    }
+  ]
+}

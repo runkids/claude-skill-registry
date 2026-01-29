@@ -1,0 +1,19 @@
+{
+  "category": "architecture-clean-ddd",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.807924Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Clean Architecture + DDD + Hexagonal - Atoll Tourisme. Use when designing architecture or reviewing code structure.",
+      "repo": "TheBeardedBearSAS/claude-craft",
+      "path": "architecture-clean-ddd",
+      "branch": "main",
+      "category": "architecture-clean-ddd",
+      "tags": [],
+      "stars": 0,
+      "install": "TheBeardedBearSAS/claude-craft",
+      "source": "github.com/TheBeardedBearSAS/claude-craft"
+    }
+  ]
+}

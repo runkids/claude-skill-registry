@@ -1,0 +1,19 @@
+{
+  "category": "create-component",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.050761Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add a new component to the design system",
+      "repo": "eqtylab/equality",
+      "path": "create-component",
+      "branch": "main",
+      "category": "create-component",
+      "tags": [],
+      "stars": 0,
+      "install": "eqtylab/equality",
+      "source": "github.com/eqtylab/equality"
+    }
+  ]
+}

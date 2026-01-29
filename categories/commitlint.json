@@ -1,0 +1,19 @@
+{
+  "category": "commitlint",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.680480Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When setting up commit message validation for a project. When project has commitlint.config.js or .commitlintrc files. When configuring CI/CD to enforce commit format. When extracting commit rules for",
+      "repo": "BbgnsurfTech/claude-skills-collection",
+      "path": "commitlint",
+      "branch": "main",
+      "category": "commitlint",
+      "tags": [],
+      "stars": 0,
+      "install": "BbgnsurfTech/claude-skills-collection",
+      "source": "github.com/BbgnsurfTech/claude-skills-collection"
+    }
+  ]
+}

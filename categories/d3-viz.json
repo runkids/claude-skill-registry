@@ -1,0 +1,19 @@
+{
+  "category": "d3-viz",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.704867Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create interactive data visualizations using D3.js. Use this when creating charts, graphs, network diagrams, geographic visualizations, or custom SVG-based data visualization.",
+      "repo": "Doyajin174/myskills",
+      "path": "d3-viz",
+      "branch": "main",
+      "category": "d3-viz",
+      "tags": [],
+      "stars": 0,
+      "install": "Doyajin174/myskills",
+      "source": "github.com/Doyajin174/myskills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "design-export",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.714787Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Export to PDF/HTML/markdown. Use when distributing documentation, creating presentations, or archiving design docs.",
+      "repo": "spencerbeggs/claude-design-coordinator",
+      "path": "design-export",
+      "branch": "main",
+      "category": "design-export",
+      "tags": [],
+      "stars": 0,
+      "install": "spencerbeggs/claude-design-coordinator",
+      "source": "github.com/spencerbeggs/claude-design-coordinator"
+    }
+  ]
+}

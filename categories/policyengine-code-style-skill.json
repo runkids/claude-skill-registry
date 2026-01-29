@@ -1,0 +1,19 @@
+{
+  "category": "policyengine-code-style-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.308717Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PolicyEngine code writing style guide - formula optimization, direct returns, eliminating unnecessary variables",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-code-style-skill",
+      "branch": "main",
+      "category": "policyengine-code-style-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

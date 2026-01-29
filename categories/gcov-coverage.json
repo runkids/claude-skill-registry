@@ -1,0 +1,19 @@
+{
+  "category": "gcov-coverage",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.002553Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add gcov code coverage instrumentation to C/C++ projects",
+      "repo": "gadievron/raptor",
+      "path": "gcov-coverage",
+      "branch": "main",
+      "category": "gcov-coverage",
+      "tags": [],
+      "stars": 0,
+      "install": "gadievron/raptor",
+      "source": "github.com/gadievron/raptor"
+    }
+  ]
+}

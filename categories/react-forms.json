@@ -1,0 +1,19 @@
+{
+  "category": "react-forms",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.586089Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when building forms with validation, handling form state, or integrating with validation libraries like Zod.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "react-forms",
+      "branch": "main",
+      "category": "react-forms",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

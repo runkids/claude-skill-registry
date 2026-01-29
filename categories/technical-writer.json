@@ -1,0 +1,19 @@
+{
+  "category": "technical-writer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.455927Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "technical-writer skill\n\nTrigger terms: documentation, technical writing, API documentation, README, user guide, developer guide, tutorial, runbook, technical docs\n\nUse when: User requests involve tech",
+      "repo": "nahisaho/CodeGraphMCPServer",
+      "path": "technical-writer",
+      "branch": "main",
+      "category": "technical-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/CodeGraphMCPServer",
+      "source": "github.com/nahisaho/CodeGraphMCPServer"
+    }
+  ]
+}

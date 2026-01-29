@@ -1,0 +1,19 @@
+{
+  "category": "minimax",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.363487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Custom skill for minimax",
+      "repo": "alfredolopez80/multi-agent-ralph-loop",
+      "path": "minimax",
+      "branch": "main",
+      "category": "minimax",
+      "tags": [],
+      "stars": 0,
+      "install": "alfredolopez80/multi-agent-ralph-loop",
+      "source": "github.com/alfredolopez80/multi-agent-ralph-loop"
+    }
+  ]
+}

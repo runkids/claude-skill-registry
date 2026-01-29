@@ -1,0 +1,19 @@
+{
+  "category": "transactions",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.185578Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert on Plaid Transactions product for retrieving banking transactions. Covers transaction sync, categorization, webhooks, recurring transactions, and historical data retrieval. Invoke when user men",
+      "repo": "raintree-technology/claude-starter",
+      "path": "transactions",
+      "branch": "main",
+      "category": "transactions",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "init-local-tooling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.732265Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Initialize and configure local development tooling for TypeScript, Rust, and Python projects including monorepos. Use when setting up linting (ESLint, Biome, clippy, ruff), formatting (Prettier, rustf",
+      "repo": "aaronbassett/claude-bell",
+      "path": "init-local-tooling",
+      "branch": "main",
+      "category": "init-local-tooling",
+      "tags": [],
+      "stars": 0,
+      "install": "aaronbassett/claude-bell",
+      "source": "github.com/aaronbassett/claude-bell"
+    }
+  ]
+}

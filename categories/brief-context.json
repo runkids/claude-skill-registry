@@ -1,0 +1,19 @@
+{
+  "category": "brief-context",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.106782Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Load Brief business context into agent sessions",
+      "repo": "brief-hq/brief-wiggum",
+      "path": "brief-context",
+      "branch": "main",
+      "category": "brief-context",
+      "tags": [],
+      "stars": 0,
+      "install": "brief-hq/brief-wiggum",
+      "source": "github.com/brief-hq/brief-wiggum"
+    }
+  ]
+}

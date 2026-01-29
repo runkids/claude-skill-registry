@@ -1,0 +1,19 @@
+{
+  "category": "wrangler-workflows",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.824759Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user mentions \"wrangler\", \"wrangler.toml\", \"wrangler.jsonc\", \"wrangler commands\", \"local development\", \"wrangler dev\", \"wrangler deploy\", \"wrangler publish\", \"secret",
+      "repo": "SteveLeve/claude-marketplace",
+      "path": "wrangler-workflows",
+      "branch": "main",
+      "category": "wrangler-workflows",
+      "tags": [],
+      "stars": 0,
+      "install": "SteveLeve/claude-marketplace",
+      "source": "github.com/SteveLeve/claude-marketplace"
+    }
+  ]
+}

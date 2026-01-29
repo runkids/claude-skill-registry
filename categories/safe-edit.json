@@ -1,0 +1,19 @@
+{
+  "category": "safe-edit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.768204Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically backs up files, saves diffs, uses agents/skills, and ensures modular code (<200 lines) before any implementation. Use this skill for ALL code changes to ensure safe, reversible, and clea",
+      "repo": "Doyajin174/myskills",
+      "path": "safe-edit",
+      "branch": "main",
+      "category": "safe-edit",
+      "tags": [],
+      "stars": 0,
+      "install": "Doyajin174/myskills",
+      "source": "github.com/Doyajin174/myskills"
+    }
+  ]
+}

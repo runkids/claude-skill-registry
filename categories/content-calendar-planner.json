@@ -1,0 +1,19 @@
+{
+  "category": "content-calendar-planner",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.685226Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates strategic content schedules with themes, dates, and publishing cadence. Use when the user asks about content calendars, publishing schedules, content planning, editorial calendars, or content ",
+      "repo": "WesleySmits/agent-skills",
+      "path": "content-calendar-planner",
+      "branch": "main",
+      "category": "content-calendar-planner",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

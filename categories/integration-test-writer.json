@@ -1,0 +1,19 @@
+{
+  "category": "integration-test-writer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.445203Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate comprehensive integration tests for component interactions, workflows, and system boundaries. Use for testing API endpoints, database operations, and multi-component flows.",
+      "repo": "matteocervelli/llms",
+      "path": "integration-test-writer",
+      "branch": "main",
+      "category": "integration-test-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

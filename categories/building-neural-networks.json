@@ -1,0 +1,19 @@
+{
+  "category": "building-neural-networks",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.712761Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute this skill allows AI assistant to construct and configure neural network architectures using the neural-network-builder plugin. it should be used when the user requests the creation of a new n",
+      "repo": "byteworthy/Upstream",
+      "path": "building-neural-networks",
+      "branch": "main",
+      "category": "building-neural-networks",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

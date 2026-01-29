@@ -1,0 +1,19 @@
+{
+  "category": "browserslistrc",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.800871Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Defines target browser versions for CSS autoprefixing and JavaScript transpilation. Generates .browserslistrc configuration file.",
+      "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+      "path": "browserslistrc",
+      "branch": "main",
+      "category": "browserslistrc",
+      "tags": [],
+      "stars": 0,
+      "install": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+      "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template"
+    }
+  ]
+}

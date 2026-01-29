@@ -1,0 +1,19 @@
+{
+  "category": "ta-networking-visual-feedback",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.332657Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Visual feedback patterns for server-authoritative multiplayer with client-side prediction. Use when implementing multiplayer visual feedback.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "ta-networking-visual-feedback",
+      "branch": "main",
+      "category": "ta-networking-visual-feedback",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

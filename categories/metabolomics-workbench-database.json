@@ -1,0 +1,19 @@
+{
+  "category": "metabolomics-workbench-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.801074Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access NIH Metabolomics Workbench via REST API (4,200+ studies). Query metabolites, RefMet nomenclature, MS/NMR data, m/z searches, study metadata, for metabolomics and biomarker discovery.",
+      "repo": "ovachiever/droid-tings",
+      "path": "metabolomics-workbench-database",
+      "branch": "main",
+      "category": "metabolomics-workbench-database",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

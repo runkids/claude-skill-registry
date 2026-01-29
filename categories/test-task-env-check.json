@@ -1,0 +1,19 @@
+{
+  "category": "test-task-env-check",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.631266Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check CLAUDE_CODE_TASK_LIST_ID environment variable in forked skill",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-task-env-check",
+      "branch": "main",
+      "category": "test-task-env-check",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

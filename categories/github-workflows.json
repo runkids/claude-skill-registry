@@ -1,0 +1,19 @@
+{
+  "category": "github-workflows",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.319913Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diagnose, fix, and optimize GitHub Actions workflows for Rust projects. Use when setting up CI/CD, troubleshooting workflow failures, optimizing build times with caching, or ensuring best practices fo",
+      "repo": "d-o-hub/rust-self-learning-memory",
+      "path": "github-workflows",
+      "branch": "main",
+      "category": "github-workflows",
+      "tags": [],
+      "stars": 0,
+      "install": "d-o-hub/rust-self-learning-memory",
+      "source": "github.com/d-o-hub/rust-self-learning-memory"
+    }
+  ]
+}

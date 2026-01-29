@@ -1,0 +1,19 @@
+{
+  "category": "codebase-overview",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.083472Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze codebase architecture. Creates ./.gtd/CODEBASE.md",
+      "repo": "Hoang604/get-thing-done",
+      "path": "codebase-overview",
+      "branch": "main",
+      "category": "codebase-overview",
+      "tags": [],
+      "stars": 0,
+      "install": "Hoang604/get-thing-done",
+      "source": "github.com/Hoang604/get-thing-done"
+    }
+  ]
+}

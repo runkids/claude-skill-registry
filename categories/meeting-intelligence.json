@@ -1,0 +1,19 @@
+{
+  "category": "meeting-intelligence",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.786755Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prepare for meetings by gathering context and creating comprehensive agendas",
+      "repo": "tommy-ca/notion-skills",
+      "path": "meeting-intelligence",
+      "branch": "main",
+      "category": "meeting-intelligence",
+      "tags": [],
+      "stars": 0,
+      "install": "tommy-ca/notion-skills",
+      "source": "github.com/tommy-ca/notion-skills"
+    }
+  ]
+}

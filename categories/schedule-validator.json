@@ -1,0 +1,19 @@
+{
+  "category": "schedule-validator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.478159Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate generated schedules for ACGME compliance, coverage gaps, and operational viability. Use when verifying schedule integrity before deployment or investigating schedule issues.",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "schedule-validator",
+      "branch": "main",
+      "category": "schedule-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

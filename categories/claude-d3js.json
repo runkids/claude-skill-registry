@@ -1,0 +1,19 @@
+{
+  "category": "claude-d3js",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.243211Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creating interactive data visualisations using d3.js. This skill should be used when creating custom charts, graphs, network diagrams, geographic visualisations, or any complex SVG-based data visualis",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "claude-d3js",
+      "branch": "main",
+      "category": "claude-d3js",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

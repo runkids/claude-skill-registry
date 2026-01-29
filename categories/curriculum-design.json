@@ -1,0 +1,19 @@
+{
+  "category": "curriculum-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.682228Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write measurable learning objectives using Bloom's Taxonomy and design curriculum architecture with scope, sequence, and assessment blueprints. Use when creating learning objectives, designing unit st",
+      "repo": "pauljbernard/content",
+      "path": "curriculum-design",
+      "branch": "main",
+      "category": "curriculum-design",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

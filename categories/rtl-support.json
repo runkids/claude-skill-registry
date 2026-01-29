@@ -1,0 +1,19 @@
+{
+  "category": "rtl-support",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.674604Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Supporting right-to-left writing and layout direction for languages like Arabic, Hebrew, Persian, and Urdu using CSS direction, logical properties, and RTL-aware components.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "rtl-support",
+      "branch": "main",
+      "category": "rtl-support",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

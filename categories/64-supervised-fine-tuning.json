@@ -1,0 +1,19 @@
+{
+  "category": "64-supervised-fine-tuning",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.940272Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create your llmops-fine-tuner skill from Unsloth documentation before learning fine-tuning theory",
+      "repo": "panaversity/agentfactory",
+      "path": "64-supervised-fine-tuning",
+      "branch": "main",
+      "category": "64-supervised-fine-tuning",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

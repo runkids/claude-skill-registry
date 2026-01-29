@@ -1,0 +1,19 @@
+{
+  "category": "resistance",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.122271Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TRIGGERS: \"just write the code\", \"do it for me\", \"write it for me\", \"I don't have time\",\n\"skip this\", \"just fix it\", \"can you just\", \"hurry up\", \"too slow\", \"I already know this\",\n\"this is taking too ",
+      "repo": "DanielPodolsky/ownyourcode",
+      "path": "resistance",
+      "branch": "main",
+      "category": "resistance",
+      "tags": [],
+      "stars": 0,
+      "install": "DanielPodolsky/ownyourcode",
+      "source": "github.com/DanielPodolsky/ownyourcode"
+    }
+  ]
+}

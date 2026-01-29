@@ -1,0 +1,19 @@
+{
+  "category": "kakao-rooms-next",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.650367Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "카카오톡 다음 채팅방 목록. \"카톡 다음 방\", \"더 보기\", \"kakao rooms next\", \"KakaoTalk more rooms\" 시 사용.",
+      "repo": "stpcoder/kakao-terminal",
+      "path": "kakao-rooms-next",
+      "branch": "main",
+      "category": "kakao-rooms-next",
+      "tags": [],
+      "stars": 0,
+      "install": "stpcoder/kakao-terminal",
+      "source": "github.com/stpcoder/kakao-terminal"
+    }
+  ]
+}

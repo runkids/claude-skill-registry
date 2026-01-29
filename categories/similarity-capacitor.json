@@ -1,0 +1,19 @@
+{
+  "category": "similarity-capacitor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.685252Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with capacitor similarity calculations - comparing ceramic/electrolytic/film capacitor MPNs, understanding value/voltage/dielectric matching, or capacitor-specific similarity logic.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "similarity-capacitor",
+      "branch": "main",
+      "category": "similarity-capacitor",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

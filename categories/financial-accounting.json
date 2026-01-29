@@ -1,0 +1,19 @@
+{
+  "category": "financial-accounting",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.125048Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "World-class SaaS financial expert specializing in subscription accounting, revenue recognition (ASC 606), MRR/ARR tracking, cash flow management, unit economics, and financial planning for indie found",
+      "repo": "DonNigami/eddication.io",
+      "path": "financial-accounting",
+      "branch": "main",
+      "category": "financial-accounting",
+      "tags": [],
+      "stars": 0,
+      "install": "DonNigami/eddication.io",
+      "source": "github.com/DonNigami/eddication.io"
+    }
+  ]
+}

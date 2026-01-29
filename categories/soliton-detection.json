@@ -1,0 +1,19 @@
+{
+  "category": "soliton-detection",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.584805Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Topological soliton detection and agency bridge with anyonic fusion algebra for concept composition",
+      "repo": "plurigrid/asi",
+      "path": "soliton-detection",
+      "branch": "main",
+      "category": "soliton-detection",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

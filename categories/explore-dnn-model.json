@@ -1,0 +1,19 @@
+{
+  "category": "explore-dnn-model",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.019975Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manual invocation only; use only when the user explicitly requests `explore-dnn-model` by name. Explore how to run a given DNN model checkpoint in the current Python environment by locating weights + ",
+      "repo": "igamenovoer/magic-context",
+      "path": "explore-dnn-model",
+      "branch": "main",
+      "category": "explore-dnn-model",
+      "tags": [],
+      "stars": 0,
+      "install": "igamenovoer/magic-context",
+      "source": "github.com/igamenovoer/magic-context"
+    }
+  ]
+}

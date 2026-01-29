@@ -1,0 +1,19 @@
+{
+  "category": "ralph-pause",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.259778Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pause RALPH execution after current subtask",
+      "repo": "doravidan/supreme-ralph",
+      "path": "ralph-pause",
+      "branch": "main",
+      "category": "ralph-pause",
+      "tags": [],
+      "stars": 0,
+      "install": "doravidan/supreme-ralph",
+      "source": "github.com/doravidan/supreme-ralph"
+    }
+  ]
+}

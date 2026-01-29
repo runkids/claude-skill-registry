@@ -1,0 +1,19 @@
+{
+  "category": "python-skills",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.873128Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Shared Python best practices for LlamaFarm. Covers patterns, async, typing, testing, error handling, and security.",
+      "repo": "llama-farm/llamafarm",
+      "path": "python-skills",
+      "branch": "main",
+      "category": "python-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "llama-farm/llamafarm",
+      "source": "github.com/llama-farm/llamafarm"
+    }
+  ]
+}

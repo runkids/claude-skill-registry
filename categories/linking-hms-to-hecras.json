@@ -1,0 +1,19 @@
+{
+  "category": "linking-hms-to-hecras",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.264596Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Links HEC-HMS watershed models to HEC-RAS river models by extracting HMS DSS results\nand preparing them for RAS boundary condition import. Handles flow hydrograph export,\nspatial referencing (HMS outl",
+      "repo": "gpt-cmdr/hms-commander",
+      "path": "linking-hms-to-hecras",
+      "branch": "main",
+      "category": "linking-hms-to-hecras",
+      "tags": [],
+      "stars": 0,
+      "install": "gpt-cmdr/hms-commander",
+      "source": "github.com/gpt-cmdr/hms-commander"
+    }
+  ]
+}

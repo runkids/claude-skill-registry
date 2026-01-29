@@ -1,0 +1,19 @@
+{
+  "category": "icon-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.360150Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Select semantically appropriate icons for websites using Lucide, Heroicons, or Phosphor. Covers concept-to-icon mapping, React/HTML templates, and tree-shaking patterns.\n\nUse when: building feature se",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "icon-design",
+      "branch": "main",
+      "category": "icon-design",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

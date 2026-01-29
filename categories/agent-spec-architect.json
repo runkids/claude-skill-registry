@@ -1,0 +1,19 @@
+{
+  "category": "agent-spec-architect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.393457Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Designs the cognitive blueprint of an agent before code generation.",
+      "repo": "marcelocmenezes/antigravity-agentkit",
+      "path": "agent-spec-architect",
+      "branch": "main",
+      "category": "agent-spec-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "marcelocmenezes/antigravity-agentkit",
+      "source": "github.com/marcelocmenezes/antigravity-agentkit"
+    }
+  ]
+}

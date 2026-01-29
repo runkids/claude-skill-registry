@@ -1,0 +1,19 @@
+{
+  "category": "spec-interview",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.151872Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conducts structured requirements interviews for spec documents. Use when gathering requirements, writing specs, planning features, creating PRDs, or when user mentions \"interview\", \"requirements\", \"sp",
+      "repo": "SmartOzzehir/smart-plugins",
+      "path": "spec-interview",
+      "branch": "main",
+      "category": "spec-interview",
+      "tags": [],
+      "stars": 0,
+      "install": "SmartOzzehir/smart-plugins",
+      "source": "github.com/SmartOzzehir/smart-plugins"
+    }
+  ]
+}

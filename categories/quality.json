@@ -1,7 +1,7 @@
 {
   "category": "quality",
-  "count": 4,
-  "updated_at": "2026-01-29T04:49:19.500500Z",
+  "count": 5,
+  "updated_at": "2026-01-29T16:04:49.660803Z",
   "skills": [
     {
       "name": "quality-gate",
@@ -38,6 +38,18 @@
       "stars": 20,
       "install": "mattnigh/skills_collection",
       "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive code quality assessment in spaces/[project]/. Use before commits, merges, or releases to ensure consistent quality.",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "quality",
+      "branch": "main",
+      "category": "quality",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager",
+      "source": "github.com/TaylorHuston/local-life-manager"
     },
     {
       "name": "code-reviewer",

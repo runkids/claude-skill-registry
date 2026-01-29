@@ -1,0 +1,19 @@
+{
+  "category": "prd-compliance-validator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.997682Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- skillname: prd-compliance-validator",
+      "repo": "turbobeest/cursor-dev-system",
+      "path": "prd-compliance-validator",
+      "branch": "main",
+      "category": "prd-compliance-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "turbobeest/cursor-dev-system",
+      "source": "github.com/turbobeest/cursor-dev-system"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "arboreto",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.046676Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Infer gene regulatory networks (GRNs) from gene expression data using scalable algorithms (GRNBoost2, GENIE3). Use when analyzing transcriptomics data (bulk RNA-seq, single-cell RNA-seq) to identify t",
+      "repo": "robinbarvaag/poynt",
+      "path": "arboreto",
+      "branch": "main",
+      "category": "arboreto",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

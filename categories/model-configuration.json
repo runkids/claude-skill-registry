@@ -1,0 +1,19 @@
+{
+  "category": "model-configuration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.207695Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI model configuration patterns for this project. Single source of truth for model definitions. Triggers on \"MODEL_CONFIG\", \"model\", \"pricing\", \"capabilities\", \"auto router\", \"gateway\".",
+      "repo": "planetaryescape/blah.chat",
+      "path": "model-configuration",
+      "branch": "main",
+      "category": "model-configuration",
+      "tags": [],
+      "stars": 0,
+      "install": "planetaryescape/blah.chat",
+      "source": "github.com/planetaryescape/blah.chat"
+    }
+  ]
+}

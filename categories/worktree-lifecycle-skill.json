@@ -1,0 +1,19 @@
+{
+  "category": "worktree-lifecycle-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.997663Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CRITICAL: Use /createworktree command for worktree management. Never use manual git worktree commands. Ports are auto-calculated.",
+      "repo": "GolferGeek/orchestrator-ai",
+      "path": "worktree-lifecycle-skill",
+      "branch": "main",
+      "category": "worktree-lifecycle-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "GolferGeek/orchestrator-ai",
+      "source": "github.com/GolferGeek/orchestrator-ai"
+    }
+  ]
+}

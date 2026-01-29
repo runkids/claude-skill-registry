@@ -1,0 +1,19 @@
+{
+  "category": "vrp-backhauls",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.257993Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to solve VRP with Backhauls (VRPB), optimize routes with both deliveries and pickups, or handle reverse logistics. Also use when the user mentions \"VRPB,\" \"backhaul optimization,\" ",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "vrp-backhauls",
+      "branch": "main",
+      "category": "vrp-backhauls",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

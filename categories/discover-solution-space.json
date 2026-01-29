@@ -1,0 +1,19 @@
+{
+  "category": "discover-solution-space",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.232387Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deeply explore the solution space to find the optimal approach before committing to a plan.",
+      "repo": "kasperjunge/agent-resources",
+      "path": "discover-solution-space",
+      "branch": "main",
+      "category": "discover-solution-space",
+      "tags": [],
+      "stars": 0,
+      "install": "kasperjunge/agent-resources",
+      "source": "github.com/kasperjunge/agent-resources"
+    }
+  ]
+}

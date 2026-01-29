@@ -1,0 +1,19 @@
+{
+  "category": "frontend-angular-store",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.518220Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementing state management with PlatformVmStore for complex components requiring reactive state, effects, and selectors.",
+      "repo": "duc01226/EasyPlatform",
+      "path": "frontend-angular-store",
+      "branch": "main",
+      "category": "frontend-angular-store",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

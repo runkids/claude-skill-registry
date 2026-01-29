@@ -1,0 +1,19 @@
+{
+  "category": "olivenet-brand",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.074634Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Olivenet marka sesi ve icerik stratejisi. Use when creating content, captions, hooks, or understanding brand voice.",
+      "repo": "olivenet-iot/olivenet-social-bot",
+      "path": "olivenet-brand",
+      "branch": "main",
+      "category": "olivenet-brand",
+      "tags": [],
+      "stars": 0,
+      "install": "olivenet-iot/olivenet-social-bot",
+      "source": "github.com/olivenet-iot/olivenet-social-bot"
+    }
+  ]
+}

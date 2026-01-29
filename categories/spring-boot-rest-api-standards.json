@@ -1,0 +1,19 @@
+{
+  "category": "spring-boot-rest-api-standards",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.469034Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement REST API design standards and best practices for Spring Boot projects. Use when creating or reviewing REST endpoints, DTOs, error handling, pagination, security headers, HATEOAS and architec",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "spring-boot-rest-api-standards",
+      "branch": "main",
+      "category": "spring-boot-rest-api-standards",
+      "tags": [],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    }
+  ]
+}

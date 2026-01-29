@@ -1,0 +1,19 @@
+{
+  "category": "entry-point-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.079900Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes smart contract codebases to identify state-changing entry points for security auditing. Detects externally callable functions that modify state, categorizes them by access level (public, admi",
+      "repo": "trailofbits/skills",
+      "path": "entry-point-analyzer",
+      "branch": "main",
+      "category": "entry-point-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "trailofbits/skills",
+      "source": "github.com/trailofbits/skills"
+    }
+  ]
+}

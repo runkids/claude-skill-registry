@@ -1,0 +1,19 @@
+{
+  "category": "access-control-matrix",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.267670Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design RBAC/ABAC policies and permission boundaries.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "access-control-matrix",
+      "branch": "main",
+      "category": "access-control-matrix",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "kramme-recreate-commits",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.826601Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when asked to recreate commits with narrative-quality history on the current branch.",
+      "repo": "Abildtoft/kramme-cc-workflow",
+      "path": "kramme:recreate-commits",
+      "branch": "main",
+      "category": "kramme:recreate-commits",
+      "tags": [],
+      "stars": 0,
+      "install": "Abildtoft/kramme-cc-workflow",
+      "source": "github.com/Abildtoft/kramme-cc-workflow"
+    }
+  ]
+}

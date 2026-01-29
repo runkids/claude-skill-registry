@@ -1,0 +1,19 @@
+{
+  "category": "alignfirst",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.677590Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Choose the appropriate protocol based on the task:",
+      "repo": "paleo/alignfirst",
+      "path": "alignfirst",
+      "branch": "main",
+      "category": "alignfirst",
+      "tags": [],
+      "stars": 0,
+      "install": "paleo/alignfirst",
+      "source": "github.com/paleo/alignfirst"
+    }
+  ]
+}

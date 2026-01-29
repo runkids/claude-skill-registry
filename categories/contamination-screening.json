@@ -1,0 +1,19 @@
+{
+  "category": "contamination-screening",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.352025Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect sample contamination and cross-species reads using FastQ Screen. Screen reads against multiple reference genomes to identify bacterial, viral, adapter, or sample swap contamination. Use when su",
+      "repo": "GPTomics/bioSkills",
+      "path": "contamination-screening",
+      "branch": "main",
+      "category": "contamination-screening",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "core-package",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.364867Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pure function patterns, Zod schemas, database independence, calculation functions for @repo/core",
+      "repo": "deancochran/gradientpeak",
+      "path": "core-package",
+      "branch": "main",
+      "category": "core-package",
+      "tags": [],
+      "stars": 0,
+      "install": "deancochran/gradientpeak",
+      "source": "github.com/deancochran/gradientpeak"
+    }
+  ]
+}

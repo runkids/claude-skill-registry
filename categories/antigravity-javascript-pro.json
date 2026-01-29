@@ -1,0 +1,19 @@
+{
+  "category": "antigravity-javascript-pro",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.659134Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master modern JavaScript with ES6+, async patterns, and Node.js APIs. Handles promises, event loops, and browser/Node compatibility. Use PROACTIVELY for JavaScript optimization, async debugging, or co",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-javascript-pro",
+      "branch": "main",
+      "category": "antigravity-javascript-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

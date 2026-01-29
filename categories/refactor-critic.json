@@ -1,0 +1,19 @@
+{
+  "category": "refactor-critic",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.807452Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reviews code quality analyst findings. Validates issues are real, severity is appropriate, and suggested refactorings are practical.\n",
+      "repo": "pcortes/swarm-attack",
+      "path": "refactor-critic",
+      "branch": "main",
+      "category": "refactor-critic",
+      "tags": [],
+      "stars": 0,
+      "install": "pcortes/swarm-attack",
+      "source": "github.com/pcortes/swarm-attack"
+    }
+  ]
+}

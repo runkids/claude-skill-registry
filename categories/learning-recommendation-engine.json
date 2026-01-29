@@ -1,0 +1,19 @@
+{
+  "category": "learning-recommendation-engine",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.660980Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate personalized content recommendations based on learner profiles, performance, preferences, and learning analytics. Use for adaptive learning systems, content discovery, and personalized guidan",
+      "repo": "pauljbernard/content",
+      "path": "learning-recommendation-engine",
+      "branch": "main",
+      "category": "learning-recommendation-engine",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "mcp-deepwiki",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.768970Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill provides guidance for using DeepWiki MCP to explore GitHub repository documentation. Use when researching repository structure, understanding library APIs, asking questions about open-sourc",
+      "repo": "s-hiraoku/vscode-sidebar-terminal",
+      "path": "mcp-deepwiki",
+      "branch": "main",
+      "category": "mcp-deepwiki",
+      "tags": [],
+      "stars": 0,
+      "install": "s-hiraoku/vscode-sidebar-terminal",
+      "source": "github.com/s-hiraoku/vscode-sidebar-terminal"
+    }
+  ]
+}

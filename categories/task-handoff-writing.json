@@ -1,0 +1,19 @@
+{
+  "category": "task-handoff-writing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.675483Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write high-signal handoffs (`HANDOFF.md` or `docs/handoffs/<slug>.md`) with concrete validation evidence and actionable next steps.",
+      "repo": "Anveio/conveaux",
+      "path": "task-handoff-writing",
+      "branch": "main",
+      "category": "task-handoff-writing",
+      "tags": [],
+      "stars": 0,
+      "install": "Anveio/conveaux",
+      "source": "github.com/Anveio/conveaux"
+    }
+  ]
+}

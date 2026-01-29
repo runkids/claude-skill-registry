@@ -1,0 +1,19 @@
+{
+  "category": "fetch-context",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.492146Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Load minimal relevant context for the current task",
+      "repo": "shakefu/contextium",
+      "path": "fetch-context",
+      "branch": "main",
+      "category": "fetch-context",
+      "tags": [],
+      "stars": 0,
+      "install": "shakefu/contextium",
+      "source": "github.com/shakefu/contextium"
+    }
+  ]
+}

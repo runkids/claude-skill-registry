@@ -1,0 +1,19 @@
+{
+  "category": "graphql-best-practices",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.013455Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Best practices for using GraphQL and Apollo Client in the project to avoid common errors.",
+      "repo": "phoenixdhr/iqEngi-front",
+      "path": "graphql-best-practices",
+      "branch": "main",
+      "category": "graphql-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "phoenixdhr/iqEngi-front",
+      "source": "github.com/phoenixdhr/iqEngi-front"
+    }
+  ]
+}

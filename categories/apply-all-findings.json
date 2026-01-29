@@ -1,0 +1,19 @@
+{
+  "category": "apply-all-findings",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.626164Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use after code review - implement ALL findings; any finding not fixed MUST have tracking issue created; no finding disappears without trace",
+      "repo": "troykelly/claude-skills",
+      "path": "apply-all-findings",
+      "branch": "main",
+      "category": "apply-all-findings",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "consent-to-assignment-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.007868Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in consent to assignment agreements where a tenant transfers their entire lease to a new party (assignee). Use when tenant is selling their business and assigning the lease, landlord is reviewi",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": "consent-to-assignment-expert",
+      "branch": "main",
+      "category": "consent-to-assignment-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "reggiechan74/vp-real-estate",
+      "source": "github.com/reggiechan74/vp-real-estate"
+    }
+  ]
+}

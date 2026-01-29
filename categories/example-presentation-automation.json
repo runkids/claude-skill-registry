@@ -1,0 +1,19 @@
+{
+  "category": "example-presentation-automation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.128454Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Update the weekly rolling presentation with JIRA progress data. Use this skill when asked to \"update the presentation\", \"add weekly slides\", \"create presentation slides\", or prepare slides for team me",
+      "repo": "orient-bot/orient",
+      "path": "example-presentation-automation",
+      "branch": "main",
+      "category": "example-presentation-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

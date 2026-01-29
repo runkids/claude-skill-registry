@@ -1,0 +1,19 @@
+{
+  "category": "cognitive-variability",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.027600Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide conversations through dynamic shifts between zoom levels (scale) and connecting/exploring (intent) to unlock creative breakthroughs and prevent rigid thinking. Use when the user is stuck or need",
+      "repo": "agentgptsmith/MonadFramework",
+      "path": "cognitive-variability",
+      "branch": "main",
+      "category": "cognitive-variability",
+      "tags": [],
+      "stars": 0,
+      "install": "agentgptsmith/MonadFramework",
+      "source": "github.com/agentgptsmith/MonadFramework"
+    }
+  ]
+}

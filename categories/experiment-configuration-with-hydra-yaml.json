@@ -1,0 +1,19 @@
+{
+  "category": "experiment-configuration-with-hydra-yaml",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.138576Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "experiment-configuration-with-hydra-yaml",
+      "branch": "main",
+      "category": "experiment-configuration-with-hydra-yaml",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

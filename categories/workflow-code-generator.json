@@ -1,0 +1,19 @@
+{
+  "category": "workflow-code-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.457742Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates or Refactors workflow files (.agent/workflows/*.md) based on a Blueprint or Audit Report.",
+      "repo": "marcelocmenezes/antigravity-agentkit",
+      "path": "workflow-code-generator",
+      "branch": "main",
+      "category": "workflow-code-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "marcelocmenezes/antigravity-agentkit",
+      "source": "github.com/marcelocmenezes/antigravity-agentkit"
+    }
+  ]
+}

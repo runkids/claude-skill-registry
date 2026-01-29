@@ -1,0 +1,19 @@
+{
+  "category": "scientific-pkg-pyopenms",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.807551Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Python interface to OpenMS for mass spectrometry data analysis. Use for LC-MS/MS proteomics and metabolomics workflows including file handling (mzML, mzXML, mzTab, FASTA, pepXML, protXML, mzIdentML), ",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-pkg-pyopenms",
+      "branch": "main",
+      "category": "scientific-pkg-pyopenms",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "rspack",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.922598Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Rspack bundler including configuration, plugins, loaders, optimization, and Webpack compatibility. Use when the user asks about Rspack, needs to configure Rspack, o",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "rspack",
+      "branch": "main",
+      "category": "rspack",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

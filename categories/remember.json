@@ -1,0 +1,19 @@
+{
+  "category": "remember",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.675658Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Store learnings in memory system for future sessions",
+      "repo": "carmandale/agent-config",
+      "path": "remember",
+      "branch": "main",
+      "category": "remember",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

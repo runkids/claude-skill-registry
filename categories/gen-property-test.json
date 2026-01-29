@@ -1,0 +1,19 @@
+{
+  "category": "gen-property-test",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.500310Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate fast-check property tests following project conventions",
+      "repo": "c4736/centimal",
+      "path": "gen-property-test",
+      "branch": "main",
+      "category": "gen-property-test",
+      "tags": [],
+      "stars": 0,
+      "install": "c4736/centimal",
+      "source": "github.com/c4736/centimal"
+    }
+  ]
+}

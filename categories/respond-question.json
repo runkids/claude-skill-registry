@@ -1,0 +1,19 @@
+{
+  "category": "respond-question",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.764452Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ウミガメのスープにおいて出題後にユーザーから来た質問に答える。",
+      "repo": "Tetsu-is/claude-turtle-soup-skills",
+      "path": "respond-question",
+      "branch": "main",
+      "category": "respond-question",
+      "tags": [],
+      "stars": 0,
+      "install": "Tetsu-is/claude-turtle-soup-skills",
+      "source": "github.com/Tetsu-is/claude-turtle-soup-skills"
+    }
+  ]
+}

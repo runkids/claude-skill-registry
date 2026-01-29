@@ -1,0 +1,19 @@
+{
+  "category": "ralph-wiggum-v2",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.069554Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Autonomous TDD development loop with parallel agent swarm, category evolution, and convergence detection. Use when running autonomous game development, quality improvement loops, or comprehensive code",
+      "repo": "adaptationio/Skrillz",
+      "path": "ralph-wiggum-v2",
+      "branch": "main",
+      "category": "ralph-wiggum-v2",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

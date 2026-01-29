@@ -1,0 +1,19 @@
+{
+  "category": "azure-artifacts-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.792491Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage Azure Artifacts including package feeds, versions, and dependencies. Use when publishing or managing artifact packages.",
+      "repo": "ntaksh42/agents",
+      "path": "azure-artifacts-manager",
+      "branch": "main",
+      "category": "azure-artifacts-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

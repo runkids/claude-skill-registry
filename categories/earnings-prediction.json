@@ -1,0 +1,19 @@
+{
+  "category": "earnings-prediction",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.842767Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Predicts stock direction/magnitude at T=0 (report release). Uses PIT data only. Run before earnings-attribution.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "earnings-prediction",
+      "branch": "main",
+      "category": "earnings-prediction",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

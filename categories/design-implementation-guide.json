@@ -1,0 +1,19 @@
+{
+  "category": "design-implementation-guide",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.312086Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "アクセシビリティ（WCAG/ARIA/コントラスト比）やデザイントークンを実装する際に使用。フォーム・エラー表示・キーボード操作の実装時に参照。",
+      "repo": "ludiscan/ludiscan-webapp",
+      "path": "design-implementation-guide",
+      "branch": "main",
+      "category": "design-implementation-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "ludiscan/ludiscan-webapp",
+      "source": "github.com/ludiscan/ludiscan-webapp"
+    }
+  ]
+}

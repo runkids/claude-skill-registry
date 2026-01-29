@@ -1,0 +1,19 @@
+{
+  "category": "service-mesh-configurator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.232269Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure Istio/Linkerd traffic and security policies.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "service-mesh-configurator",
+      "branch": "main",
+      "category": "service-mesh-configurator",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "test-infrastructure",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.813151Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforces project test infrastructure conventions for factories, MSW handlers, mock data, Page Objects, and shared test utilities.",
+      "repo": "JasonPaff/head-shakers",
+      "path": "test-infrastructure",
+      "branch": "main",
+      "category": "test-infrastructure",
+      "tags": [],
+      "stars": 0,
+      "install": "JasonPaff/head-shakers",
+      "source": "github.com/JasonPaff/head-shakers"
+    }
+  ]
+}

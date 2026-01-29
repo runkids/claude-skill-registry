@@ -1,0 +1,19 @@
+{
+  "category": "daily-reporter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.257526Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate comprehensive daily status reports after solving AoC puzzles. Documents success/failure, challenges faced, retry attempts, execution time, and insights for workflow tuning. Use after completi",
+      "repo": "magnusrodseth/aoc-2025",
+      "path": "daily-reporter",
+      "branch": "main",
+      "category": "daily-reporter",
+      "tags": [],
+      "stars": 0,
+      "install": "magnusrodseth/aoc-2025",
+      "source": "github.com/magnusrodseth/aoc-2025"
+    }
+  ]
+}

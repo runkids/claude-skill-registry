@@ -1,0 +1,19 @@
+{
+  "category": "react-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.727571Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "| Tool | Purpose | Install |",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "react-testing",
+      "branch": "main",
+      "category": "react-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "issue-manage",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.654327Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interactive issue management with menu-driven CRUD operations. Use when managing issues, viewing issue status, editing issue fields, performing bulk operations, or viewing issue history. Triggers on \"",
+      "repo": "Prorise-cool/prorise-claude-skills",
+      "path": "issue-manage",
+      "branch": "main",
+      "category": "issue-manage",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/prorise-claude-skills",
+      "source": "github.com/Prorise-cool/prorise-claude-skills"
+    }
+  ]
+}

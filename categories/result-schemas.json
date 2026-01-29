@@ -1,0 +1,19 @@
+{
+  "category": "result-schemas",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.176081Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Explains result schema classes for Synapse plugin actions. Use when the user mentions \"TrainResult\", \"InferenceResult\", \"ExportResult\", \"UploadResult\", \"WeightsResult\", \"MetricsResult\", \"result_model\"",
+      "repo": "datamaker-kr/synapse-claude-marketplace",
+      "path": "result-schemas",
+      "branch": "main",
+      "category": "result-schemas",
+      "tags": [],
+      "stars": 0,
+      "install": "datamaker-kr/synapse-claude-marketplace",
+      "source": "github.com/datamaker-kr/synapse-claude-marketplace"
+    }
+  ]
+}

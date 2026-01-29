@@ -1,0 +1,19 @@
+{
+  "category": "pdd",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.256131Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This sop guides you through the process of transforming a rough idea into a detailed design document with an implementation plan and todo list. It follows the Prompt-Driven Development methodology to ",
+      "repo": "carmandale/agent-config",
+      "path": "pdd",
+      "branch": "main",
+      "category": "pdd",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

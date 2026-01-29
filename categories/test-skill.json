@@ -1,0 +1,19 @@
+{
+  "category": "test-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.128688Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A test skill for validating the packager",
+      "repo": "galligan/skills-packager",
+      "path": "test-skill",
+      "branch": "main",
+      "category": "test-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "galligan/skills-packager",
+      "source": "github.com/galligan/skills-packager"
+    }
+  ]
+}

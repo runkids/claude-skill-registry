@@ -1,0 +1,19 @@
+{
+  "category": "pubmed-fulltext-access",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.652840Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "透過 Europe PMC、CORE 等開放取用來源取得論文全文，包含 PDF 連結和全文內容。",
+      "repo": "u9401066/pubmed-search-mcp",
+      "path": "pubmed-fulltext-access",
+      "branch": "main",
+      "category": "pubmed-fulltext-access",
+      "tags": [],
+      "stars": 0,
+      "install": "u9401066/pubmed-search-mcp",
+      "source": "github.com/u9401066/pubmed-search-mcp"
+    }
+  ]
+}

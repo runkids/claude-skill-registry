@@ -1,0 +1,19 @@
+{
+  "category": "reference-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.022463Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates exhaustive technical references and API documentation. Generates comprehensive parameter listings, configuration guides, and searchable reference materials. Use PROACTIVELY for API docs, confi",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "reference-builder",
+      "branch": "main",
+      "category": "reference-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

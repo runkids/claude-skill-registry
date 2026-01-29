@@ -1,0 +1,19 @@
+{
+  "category": "manim",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.395809Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide for Manim Community - Python framework for creating mathematical animations and educational videos with programmatic control",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "manim",
+      "branch": "main",
+      "category": "manim",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

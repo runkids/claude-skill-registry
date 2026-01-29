@@ -1,0 +1,19 @@
+{
+  "category": "investigate-dependencies",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.080746Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conduct thorough dependency audits to identify redundant code, unused features, and improper usage patterns. Examines each import to ensure we're leveraging existing capabilities rather than reinventi",
+      "repo": "taylorsatula/mira-OSS",
+      "path": "investigate-dependencies",
+      "branch": "main",
+      "category": "investigate-dependencies",
+      "tags": [],
+      "stars": 0,
+      "install": "taylorsatula/mira-OSS",
+      "source": "github.com/taylorsatula/mira-OSS"
+    }
+  ]
+}

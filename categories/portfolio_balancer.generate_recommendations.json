@@ -1,0 +1,19 @@
+{
+  "category": "portfolio_balancer.generate_recommendations",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.359401Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create specific rebalancing recommendations based on drift analysis",
+      "repo": "ncrmro/deepwork-permanent-portfolio",
+      "path": "portfolio_balancer.generate_recommendations",
+      "branch": "main",
+      "category": "portfolio_balancer.generate_recommendations",
+      "tags": [],
+      "stars": 0,
+      "install": "ncrmro/deepwork-permanent-portfolio",
+      "source": "github.com/ncrmro/deepwork-permanent-portfolio"
+    }
+  ]
+}

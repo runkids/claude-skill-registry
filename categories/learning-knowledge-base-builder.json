@@ -1,0 +1,19 @@
+{
+  "category": "learning-knowledge-base-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.342442Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "knowledge-base-builder for learning content management and knowledge systems.",
+      "repo": "pauljbernard/content",
+      "path": "learning-knowledge-base-builder",
+      "branch": "main",
+      "category": "learning-knowledge-base-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "ddd-check",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.825829Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DDD設計原則チェッカー（AIDLC ドキュメントと実装コードの一貫性を検証）",
+      "repo": "foie0222/baken-kaigi",
+      "path": "ddd-check",
+      "branch": "main",
+      "category": "ddd-check",
+      "tags": [],
+      "stars": 0,
+      "install": "foie0222/baken-kaigi",
+      "source": "github.com/foie0222/baken-kaigi"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "dotfiles-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.914939Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive knowledge of dotfiles management, configuration file organization, symlink strategies, and cross-platform environment setup. Use when the user needs to organize, sync, or deploy dotfiles",
+      "repo": "einverne/dotfiles",
+      "path": "dotfiles-manager",
+      "branch": "main",
+      "category": "dotfiles-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "einverne/dotfiles",
+      "source": "github.com/einverne/dotfiles"
+    }
+  ]
+}

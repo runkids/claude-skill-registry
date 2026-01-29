@@ -1,0 +1,19 @@
+{
+  "category": "banking-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.070120Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level banking systems, core banking, regulations, and banking technology",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "banking-expert",
+      "branch": "main",
+      "category": "banking-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

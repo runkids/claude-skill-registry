@@ -1,0 +1,19 @@
+{
+  "category": "aws-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.890842Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level AWS cloud architecture, services, security, cost optimization, and best practices",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "aws-expert",
+      "branch": "main",
+      "category": "aws-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

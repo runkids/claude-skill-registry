@@ -1,0 +1,19 @@
+{
+  "category": "libraries-dependencies-mastery",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.088697Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete mastery of essential modern web development libraries and dependencies. Cover Next.js, React, TypeScript, Tailwind CSS, Firebase, Zustand, redux-toolkit, react-hook-form, Zod, shadcn/ui, luci",
+      "repo": "SHAJAR5110/Hackathon-II-phase2",
+      "path": "libraries-dependencies-mastery",
+      "branch": "main",
+      "category": "libraries-dependencies-mastery",
+      "tags": [],
+      "stars": 0,
+      "install": "SHAJAR5110/Hackathon-II-phase2",
+      "source": "github.com/SHAJAR5110/Hackathon-II-phase2"
+    }
+  ]
+}

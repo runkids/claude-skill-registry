@@ -1,0 +1,19 @@
+{
+  "category": "jaeger-tracing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.205700Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Jaeger/OpenTelemetry patterns plus Skriptoteket tracing conventions (async context propagation, correlation, debugging).",
+      "repo": "paunchygent/skriptoteket",
+      "path": "jaeger-tracing",
+      "branch": "main",
+      "category": "jaeger-tracing",
+      "tags": [],
+      "stars": 0,
+      "install": "paunchygent/skriptoteket",
+      "source": "github.com/paunchygent/skriptoteket"
+    }
+  ]
+}

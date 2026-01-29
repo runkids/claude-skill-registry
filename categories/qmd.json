@@ -1,0 +1,19 @@
+{
+  "category": "qmd",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.719437Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Local search/indexing CLI (BM25 + vectors + rerank) with MCP mode.",
+      "repo": "moltbot/skills",
+      "path": "qmd",
+      "branch": "main",
+      "category": "qmd",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

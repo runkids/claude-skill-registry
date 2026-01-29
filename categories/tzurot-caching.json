@@ -1,0 +1,19 @@
+{
+  "category": "tzurot-caching",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.623530Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Caching patterns for Tzurot v3. Use when implementing cache layers, TTL strategies, or debugging cache issues. Covers Redis patterns, cache-aside, and invalidation.",
+      "repo": "lbds137/tzurot",
+      "path": "tzurot-caching",
+      "branch": "main",
+      "category": "tzurot-caching",
+      "tags": [],
+      "stars": 0,
+      "install": "lbds137/tzurot",
+      "source": "github.com/lbds137/tzurot"
+    }
+  ]
+}

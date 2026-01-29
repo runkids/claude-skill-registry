@@ -1,0 +1,19 @@
+{
+  "category": "speckit-implement",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.404225Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute the implementation plan by processing and executing all tasks defined in tasks.md",
+      "repo": "dceoy/speckit-agent-skills",
+      "path": "speckit-implement",
+      "branch": "main",
+      "category": "speckit-implement",
+      "tags": [],
+      "stars": 0,
+      "install": "dceoy/speckit-agent-skills",
+      "source": "github.com/dceoy/speckit-agent-skills"
+    }
+  ]
+}

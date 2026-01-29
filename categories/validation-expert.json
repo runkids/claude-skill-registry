@@ -1,0 +1,19 @@
+{
+  "category": "validation-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.997905Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive validation for Project Conductor using deep research for best practices. Use when user mentions \"validate\", \"check quality\", \"review code\", \"test coverage\", or before deployment.",
+      "repo": "HR-AR/Project-Conductor",
+      "path": "validation-expert",
+      "branch": "main",
+      "category": "validation-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "HR-AR/Project-Conductor",
+      "source": "github.com/HR-AR/Project-Conductor"
+    }
+  ]
+}

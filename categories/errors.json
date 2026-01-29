@@ -1,0 +1,19 @@
+{
+  "category": "errors",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.443846Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Error handling and recovery for iiot-seed CLI",
+      "repo": "creatifcoding/gbg",
+      "path": "errors",
+      "branch": "main",
+      "category": "errors",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

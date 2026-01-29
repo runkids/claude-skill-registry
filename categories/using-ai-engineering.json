@@ -1,0 +1,19 @@
+{
+  "category": "using-ai-engineering",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.058594Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Route AI/ML tasks to correct Yzmir pack - frameworks, training, RL, LLMs, architectures, production",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-ai-engineering",
+      "branch": "main",
+      "category": "using-ai-engineering",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

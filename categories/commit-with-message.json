@@ -1,0 +1,19 @@
+{
+  "category": "commit-with-message",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.592776Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "커밋 메시지 작성 가이드 (한글/영어). 커밋 생성 시 자동으로 활성화되어 규칙을 준수하도록 안내합니다.",
+      "repo": "datamaker-kr/synapse-claude-marketplace",
+      "path": "commit-with-message",
+      "branch": "main",
+      "category": "commit-with-message",
+      "tags": [],
+      "stars": 0,
+      "install": "datamaker-kr/synapse-claude-marketplace",
+      "source": "github.com/datamaker-kr/synapse-claude-marketplace"
+    }
+  ]
+}

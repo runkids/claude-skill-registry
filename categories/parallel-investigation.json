@@ -1,0 +1,19 @@
+{
+  "category": "parallel-investigation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.844350Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coordinate multiple investigation threads for complex problems",
+      "repo": "rohitg00/skillkit",
+      "path": "parallel-investigation",
+      "branch": "main",
+      "category": "parallel-investigation",
+      "tags": [],
+      "stars": 0,
+      "install": "rohitg00/skillkit",
+      "source": "github.com/rohitg00/skillkit"
+    }
+  ]
+}

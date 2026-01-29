@@ -1,0 +1,19 @@
+{
+  "category": "categorical-encoder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.889336Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт categorical encoding. Используй для ML feature engineering, one-hot, target encoding и embeddings.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "categorical-encoder",
+      "branch": "main",
+      "category": "categorical-encoder",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

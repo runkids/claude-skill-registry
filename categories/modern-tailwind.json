@@ -1,0 +1,19 @@
+{
+  "category": "modern-tailwind",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.880521Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build clean, scalable UIs with Tailwind CSS using modern utilities and variants",
+      "repo": "academind/claude-code-course",
+      "path": "modern-tailwind",
+      "branch": "main",
+      "category": "modern-tailwind",
+      "tags": [],
+      "stars": 0,
+      "install": "academind/claude-code-course",
+      "source": "github.com/academind/claude-code-course"
+    }
+  ]
+}

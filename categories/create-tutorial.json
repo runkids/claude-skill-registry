@@ -1,0 +1,19 @@
+{
+  "category": "create-tutorial",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.994009Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create high-quality, progressive learning tutorials for VRP Toolkit. Use when the user requests creating tutorials, educational content, or learning materials for any VRP toolkit feature (problem crea",
+      "repo": "dudusoar/VRP-Toolkit",
+      "path": "create-tutorial",
+      "branch": "main",
+      "category": "create-tutorial",
+      "tags": [],
+      "stars": 0,
+      "install": "dudusoar/VRP-Toolkit",
+      "source": "github.com/dudusoar/VRP-Toolkit"
+    }
+  ]
+}

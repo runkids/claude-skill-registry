@@ -1,0 +1,19 @@
+{
+  "category": "weekly-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.051020Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Weekly review and planning session. Use at end of week or weekend to review progress, plan next week, and set priorities. Triggers on \"weekly review\", \"plan my week\", \"what did I do this week\", \"Sunda",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "weekly-review",
+      "branch": "main",
+      "category": "weekly-review",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

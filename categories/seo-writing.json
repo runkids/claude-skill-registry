@@ -1,0 +1,19 @@
+{
+  "category": "seo-writing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.556818Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when planning or drafting search-optimized content that balances keyword intent with GTM messaging.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "seo-writing",
+      "branch": "main",
+      "category": "seo-writing",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

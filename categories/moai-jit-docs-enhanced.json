@@ -1,0 +1,19 @@
+{
+  "category": "moai-jit-docs-enhanced",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.715051Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enhanced Just-In-Time document loading system that intelligently discovers, loads, and caches relevant documentation based on user intent and project context. Use when users need specific documentatio",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-jit-docs-enhanced",
+      "branch": "main",
+      "category": "moai-jit-docs-enhanced",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

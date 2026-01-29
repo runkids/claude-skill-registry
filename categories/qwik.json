@@ -1,0 +1,19 @@
+{
+  "category": "qwik",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.363937Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Builds instant-loading web applications with Qwik's resumable architecture and fine-grained lazy loading. Use when creating highly performant sites, when user mentions Qwik, resumability, zero hydrati",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "qwik",
+      "branch": "main",
+      "category": "qwik",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

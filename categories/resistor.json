@@ -1,0 +1,19 @@
+{
+  "category": "resistor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.288336Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with resistor components - adding resistor patterns, parsing resistor MPNs, extracting resistance values, tolerance, or package codes from resistor part numbers.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "resistor",
+      "branch": "main",
+      "category": "resistor",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

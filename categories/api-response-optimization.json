@@ -1,0 +1,19 @@
+{
+  "category": "api-response-optimization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.222478Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimizes API performance through payload reduction, caching strategies, and compression techniques. Use when improving API response times, reducing bandwidth usage, or implementing efficient caching.",
+      "repo": "secondsky/claude-skills",
+      "path": "api-response-optimization",
+      "branch": "main",
+      "category": "api-response-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

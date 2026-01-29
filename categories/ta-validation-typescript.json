@@ -1,0 +1,19 @@
+{
+  "category": "ta-validation-typescript",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.164580Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TypeScript best practices for game development. Use when writing TypeScript for game code, defining types, avoiding anti-patterns.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "ta-validation-typescript",
+      "branch": "main",
+      "category": "ta-validation-typescript",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

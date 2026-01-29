@@ -1,0 +1,19 @@
+{
+  "category": "dart-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.007293Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Dart, Flutter, mobile development, and cross-platform apps",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "dart-expert",
+      "branch": "main",
+      "category": "dart-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

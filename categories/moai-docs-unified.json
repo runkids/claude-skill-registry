@@ -1,0 +1,19 @@
+{
+  "category": "moai-docs-unified",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.908298Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enhanced docs unified with AI-powered features. Enhanced with Context7 MCP for up-to-date documentation.",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-docs-unified",
+      "branch": "main",
+      "category": "moai-docs-unified",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

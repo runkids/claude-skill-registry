@@ -1,0 +1,19 @@
+{
+  "category": "executive-ceo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.720977Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Executive CEO Agent. 비전/전략 수립, 경영 의사결정, 조직 리더십을 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "executive-ceo",
+      "branch": "main",
+      "category": "executive-ceo",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

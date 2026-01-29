@@ -1,0 +1,19 @@
+{
+  "category": "self-audit-against-protocol",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.983284Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audit own behavior against protocol specifications.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "self-audit-against-protocol",
+      "branch": "main",
+      "category": "self-audit-against-protocol",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

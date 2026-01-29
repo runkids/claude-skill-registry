@@ -1,7 +1,7 @@
 {
   "category": "context-management",
-  "count": 1,
-  "updated_at": "2026-01-29T04:49:19.502913Z",
+  "count": 2,
+  "updated_at": "2026-01-29T16:04:49.668511Z",
   "skills": [
     {
       "name": "claude-code-tips",
@@ -14,6 +14,18 @@
       "stars": 1,
       "install": "januff/claude-code-tips",
       "source": "github.com/januff/claude-code-tips"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Proactive context window management via token monitoring, intelligent extraction, and selective rehydration.\nFeatures predictive budget monitoring, context health indicators, and priority-based retent",
+      "repo": "rysweet/amplihack",
+      "path": "context-management",
+      "branch": "main",
+      "category": "context-management",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/amplihack",
+      "source": "github.com/rysweet/amplihack"
     }
   ]
 }

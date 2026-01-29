@@ -1,0 +1,19 @@
+{
+  "category": "blast-searches",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.605883Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run remote BLAST searches against NCBI databases using Biopython Bio.Blast. Use when identifying unknown sequences, finding homologs, or searching for sequence similarity against NCBI's nr/nt database",
+      "repo": "GPTomics/bioSkills",
+      "path": "blast-searches",
+      "branch": "main",
+      "category": "blast-searches",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

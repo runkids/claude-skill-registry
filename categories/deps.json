@@ -1,0 +1,19 @@
+{
+  "category": "deps",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.917350Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Visualize and analyze issue dependencies in Linear. Finds blocking chains, circular dependencies, and critical path items.",
+      "repo": "joa23/linear-cli",
+      "path": "deps",
+      "branch": "main",
+      "category": "deps",
+      "tags": [],
+      "stars": 0,
+      "install": "joa23/linear-cli",
+      "source": "github.com/joa23/linear-cli"
+    }
+  ]
+}

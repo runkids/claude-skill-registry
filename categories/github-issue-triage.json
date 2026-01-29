@@ -1,0 +1,19 @@
+{
+  "category": "github-issue-triage",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.777343Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Monitor and triage GitHub issues against design docs and implementation status. Use when user asks to \"check issues\", \"triage issues\", \"sync issues\", \"what issues are open\", or wants to ensure issues ",
+      "repo": "sunholo-data/ailang",
+      "path": "github-issue-triage",
+      "branch": "main",
+      "category": "github-issue-triage",
+      "tags": [],
+      "stars": 0,
+      "install": "sunholo-data/ailang",
+      "source": "github.com/sunholo-data/ailang"
+    }
+  ]
+}

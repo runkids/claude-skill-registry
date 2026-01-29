@@ -1,0 +1,19 @@
+{
+  "category": "scientific-scvi-tools",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.451625Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deep generative models for single-cell omics. Use when you need probabilistic batch correction (scVI), transfer learning, differential expression with uncertainty, or multi-modal integration (TOTALVI,",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-scvi-tools",
+      "branch": "main",
+      "category": "scientific-scvi-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

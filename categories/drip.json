@@ -1,0 +1,19 @@
+{
+  "category": "drip",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.830503Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage e-commerce email marketing with Drip's revenue-focused automation platform.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "drip",
+      "branch": "main",
+      "category": "drip",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "pr-review-assistant",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.150286Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Philosophy-aware PR reviews checking alignment with amplihack principles.\nUse when reviewing PRs to ensure ruthless simplicity, modular design, and zero-BS implementation.\nSuggests simplifications, id",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "pr-review-assistant",
+      "branch": "main",
+      "category": "pr-review-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

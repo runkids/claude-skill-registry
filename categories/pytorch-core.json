@@ -1,0 +1,19 @@
+{
+  "category": "pytorch-core",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.450691Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Core PyTorch fundamentals including tensor operations, autograd, nn.Module architecture, and training loop orchestration. Covers optimizations like pin_memory and lazy module initialization. (pytorch,",
+      "repo": "cuba6112/skillfactory",
+      "path": "pytorch-core",
+      "branch": "main",
+      "category": "pytorch-core",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

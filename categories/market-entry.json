@@ -1,0 +1,19 @@
+{
+  "category": "market-entry",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.038466Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan entry into a new vertical or offer type by researching market size, identifying top performers, mapping creative requirements, and estimating testing budget. Use when exploring new verticals, eva",
+      "repo": "WalkerHi11/mediabuy-plugins",
+      "path": "market-entry",
+      "branch": "main",
+      "category": "market-entry",
+      "tags": [],
+      "stars": 0,
+      "install": "WalkerHi11/mediabuy-plugins",
+      "source": "github.com/WalkerHi11/mediabuy-plugins"
+    }
+  ]
+}

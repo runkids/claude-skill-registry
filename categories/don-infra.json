@@ -1,0 +1,19 @@
+{
+  "category": "don-infra",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.334858Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Infrastructure and deployment standards for Dutch government systems. Use when deploying to Haven (government Kubernetes), setting up FSC (Federated Service Connectivity), or checking infrastructure c",
+      "repo": "dstotijn/developer-overheid-nl-agent-skills",
+      "path": "don-infra",
+      "branch": "main",
+      "category": "don-infra",
+      "tags": [],
+      "stars": 0,
+      "install": "dstotijn/developer-overheid-nl-agent-skills",
+      "source": "github.com/dstotijn/developer-overheid-nl-agent-skills"
+    }
+  ]
+}

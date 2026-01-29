@@ -1,0 +1,19 @@
+{
+  "category": "adding-a-new-app-route",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.101102Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fully wires up a new route with required boilerplate, following this repo's conventions for subapps. Use when user wants to add a new route or app or subapp or page or screen.",
+      "repo": "artsy/force",
+      "path": "adding-a-new-app-route",
+      "branch": "main",
+      "category": "adding-a-new-app-route",
+      "tags": [],
+      "stars": 0,
+      "install": "artsy/force",
+      "source": "github.com/artsy/force"
+    }
+  ]
+}

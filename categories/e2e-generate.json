@@ -1,0 +1,19 @@
+{
+  "category": "e2e-generate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.025203Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate end-to-end tests with Playwright browser automation",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "e2e-generate",
+      "branch": "main",
+      "category": "e2e-generate",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

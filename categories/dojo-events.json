@@ -1,0 +1,19 @@
+{
+  "category": "dojo-events",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.247080Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when subscribing to game events and tracking tokens in dojo.js.\nTriggers: subscribe events, game events, token balance, event query, achievements,\nevent subscription, onTokenBalanceUpdated, activi",
+      "repo": "dojoengine/dojo.js",
+      "path": "dojo-events",
+      "branch": "main",
+      "category": "dojo-events",
+      "tags": [],
+      "stars": 0,
+      "install": "dojoengine/dojo.js",
+      "source": "github.com/dojoengine/dojo.js"
+    }
+  ]
+}

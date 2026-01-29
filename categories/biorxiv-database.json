@@ -1,0 +1,19 @@
+{
+  "category": "biorxiv-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.839810Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Efficient database search tool for bioRxiv preprint server. Use this skill when searching for life sciences preprints by keywords, authors, date ranges, or categories, retrieving paper metadata, downl",
+      "repo": "ovachiever/droid-tings",
+      "path": "biorxiv-database",
+      "branch": "main",
+      "category": "biorxiv-database",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "personal-message-scheduling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.974898Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create, manage, and execute scheduled WhatsApp and Slack messages. Use this skill when asked to \"schedule a message\", \"create a reminder\", \"set up recurring notifications\", \"schedule standup reminders",
+      "repo": "orient-bot/orient",
+      "path": "personal-message-scheduling",
+      "branch": "main",
+      "category": "personal-message-scheduling",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

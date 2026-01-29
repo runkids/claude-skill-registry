@@ -1,0 +1,19 @@
+{
+  "category": "session-current",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.681959Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "View active session status with progress and context information",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "session-current",
+      "branch": "main",
+      "category": "session-current",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "ai-annotation-workflow",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.284761Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по data annotation. Используй для ML labeling, annotation workflows и quality control.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "ai-annotation-workflow",
+      "branch": "main",
+      "category": "ai-annotation-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

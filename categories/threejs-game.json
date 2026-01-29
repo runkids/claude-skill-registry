@@ -1,0 +1,19 @@
+{
+  "category": "threejs-game",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.829966Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Three.js game development. Use for 3D web games, WebGL rendering, game mechanics, physics integration, character controllers, camera systems, lighting, animations, and interactive 3D experiences in th",
+      "repo": "natea/fitfinder",
+      "path": "threejs-game",
+      "branch": "main",
+      "category": "threejs-game",
+      "tags": [],
+      "stars": 0,
+      "install": "natea/fitfinder",
+      "source": "github.com/natea/fitfinder"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "test-task-in-fork",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.602299Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test if Task tool works in forked skill context",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-task-in-fork",
+      "branch": "main",
+      "category": "test-task-in-fork",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "test-workflow-multi",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.297993Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tests workflow continuation with MULTIPLE sequential child skill calls",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-workflow-multi",
+      "branch": "main",
+      "category": "test-workflow-multi",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

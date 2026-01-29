@@ -1,0 +1,19 @@
+{
+  "category": "endowment-effect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.429734Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Las personas valoran más lo que poseen. Use cuando diseñe trials, personalizaciones, colecciones, o cualquier sistema donde usuarios \"posean\" algo digital.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "endowment-effect",
+      "branch": "main",
+      "category": "endowment-effect",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

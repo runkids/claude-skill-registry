@@ -1,0 +1,19 @@
+{
+  "category": "gong",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.844429Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Gong API for searching calls, transcripts, and conversation intelligence. Use when working with Gong call recordings, sales conversations, transcripts, meeting data, or conversation analytics. Support",
+      "repo": "moltbot/skills",
+      "path": "gong",
+      "branch": "main",
+      "category": "gong",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

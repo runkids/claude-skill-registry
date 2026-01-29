@@ -1,0 +1,19 @@
+{
+  "category": "yt",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.116874Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pobiera transkrypcję z YouTube i umożliwia analizę/pytania o film.",
+      "repo": "kmylpenter/KFG-CCv2-Installer-Stable",
+      "path": "yt",
+      "branch": "main",
+      "category": "yt",
+      "tags": [],
+      "stars": 0,
+      "install": "kmylpenter/KFG-CCv2-Installer-Stable",
+      "source": "github.com/kmylpenter/KFG-CCv2-Installer-Stable"
+    }
+  ]
+}

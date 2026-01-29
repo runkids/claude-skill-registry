@@ -1,0 +1,19 @@
+{
+  "category": "gemini",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.033421Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when the user asks to run Gemini CLI for code review, plan review, or big context (>200k) processing. Ideal for comprehensive analysis requiring large context windows. Uses Gemini 3 Pro by default",
+      "repo": "softaworks/agent-toolkit",
+      "path": "gemini",
+      "branch": "main",
+      "category": "gemini",
+      "tags": [],
+      "stars": 0,
+      "install": "softaworks/agent-toolkit",
+      "source": "github.com/softaworks/agent-toolkit"
+    }
+  ]
+}

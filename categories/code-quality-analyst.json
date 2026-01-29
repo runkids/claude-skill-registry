@@ -1,0 +1,19 @@
+{
+  "category": "code-quality-analyst",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.457693Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes code changes for quality issues, code smells, SOLID violations, LLM-generated code problems, and refactoring opportunities. Reports findings with severity, evidence, and suggested fixes.\n",
+      "repo": "pcortes/swarm-attack",
+      "path": "code-quality-analyst",
+      "branch": "main",
+      "category": "code-quality-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "pcortes/swarm-attack",
+      "source": "github.com/pcortes/swarm-attack"
+    }
+  ]
+}

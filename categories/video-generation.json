@@ -1,0 +1,19 @@
+{
+  "category": "video-generation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.372927Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI video generation with Sora, Veo, and Kling. Use when creating Reels, video prompts, or handling video generation workflows.",
+      "repo": "olivenet-iot/olivenet-social-bot",
+      "path": "video-generation",
+      "branch": "main",
+      "category": "video-generation",
+      "tags": [],
+      "stars": 0,
+      "install": "olivenet-iot/olivenet-social-bot",
+      "source": "github.com/olivenet-iot/olivenet-social-bot"
+    }
+  ]
+}

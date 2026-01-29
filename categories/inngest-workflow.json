@@ -1,0 +1,19 @@
+{
+  "category": "inngest-workflow",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.122557Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create Inngest workflows for durable execution. Use when building agent workflows, approval flows, scheduled tasks, or any multi-step async process.",
+      "repo": "skillrecordings/support",
+      "path": "inngest-workflow",
+      "branch": "main",
+      "category": "inngest-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "skillrecordings/support",
+      "source": "github.com/skillrecordings/support"
+    }
+  ]
+}

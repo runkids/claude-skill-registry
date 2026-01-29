@@ -1,0 +1,19 @@
+{
+  "category": "gpui-event",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.664171Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Event handling and subscriptions in GPUI. Use when implementing events, observers, or event-driven patterns. Supports custom events, entity observations, and event subscriptions for coordinating betwe",
+      "repo": "longbridge/gpui-component",
+      "path": "gpui-event",
+      "branch": "main",
+      "category": "gpui-event",
+      "tags": [],
+      "stars": 0,
+      "install": "longbridge/gpui-component",
+      "source": "github.com/longbridge/gpui-component"
+    }
+  ]
+}

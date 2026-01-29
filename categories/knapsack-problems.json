@@ -1,0 +1,19 @@
+{
+  "category": "knapsack-problems",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.051568Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to solve knapsack optimization problems, select items with constraints, or maximize value with limited capacity. Also use when the user mentions \"0/1 knapsack,\" \"bounded knapsack,\"",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "knapsack-problems",
+      "branch": "main",
+      "category": "knapsack-problems",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

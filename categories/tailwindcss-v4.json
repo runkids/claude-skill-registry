@@ -1,0 +1,19 @@
+{
+  "category": "tailwindcss-v4",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.536798Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tailwind CSS v4.1 core features, @theme, directives, migration guide",
+      "repo": "fusengine/agents",
+      "path": "tailwindcss-v4",
+      "branch": "main",
+      "category": "tailwindcss-v4",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "dspy-advanced-module-composition",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.401086Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"compose DSPy modules\", \"use Ensemble optimizer\", \"combine multiple programs\", \"use dspy.MultiChainComparison\", mentions \"ensemble voting\", \"module comp",
+      "repo": "OmidZamani/dspy-skills",
+      "path": "dspy-advanced-module-composition",
+      "branch": "main",
+      "category": "dspy-advanced-module-composition",
+      "tags": [],
+      "stars": 0,
+      "install": "OmidZamani/dspy-skills",
+      "source": "github.com/OmidZamani/dspy-skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "switchboard",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.082741Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete Switchboard Oracle Protocol SDK for Solana - the permissionless oracle solution for price feeds, on-demand data, VRF randomness, and real-time streaming via Surge. Covers TypeScript SDK, Rust",
+      "repo": "sendaifun/skills",
+      "path": "switchboard",
+      "branch": "main",
+      "category": "switchboard",
+      "tags": [],
+      "stars": 0,
+      "install": "sendaifun/skills",
+      "source": "github.com/sendaifun/skills"
+    }
+  ]
+}

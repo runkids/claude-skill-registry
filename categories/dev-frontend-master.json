@@ -1,0 +1,19 @@
+{
+  "category": "dev-frontend-master",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.033225Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master skill for all Frontend Vue 3 development. Covers Components, Pinia, VueUse, Reactivity, CSS, and UI/UX.",
+      "repo": "endlessblink/flow-state",
+      "path": "dev-frontend-master",
+      "branch": "main",
+      "category": "dev-frontend-master",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

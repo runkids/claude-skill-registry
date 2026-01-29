@@ -1,0 +1,19 @@
+{
+  "category": "langchain-prod-checklist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.238295Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute LangChain production deployment checklist.\nUse when preparing for production launch, validating deployment readiness,\nor auditing existing production LangChain applications.\nTrigger with phras",
+      "repo": "byteworthy/Upstream",
+      "path": "langchain-prod-checklist",
+      "branch": "main",
+      "category": "langchain-prod-checklist",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

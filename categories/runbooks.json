@@ -1,0 +1,19 @@
+{
+  "category": "runbooks",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.924204Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Step-by-step procedures for operating and troubleshooting systems, including incident response, maintenance tasks, and operational workflows.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "runbooks",
+      "branch": "main",
+      "category": "runbooks",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

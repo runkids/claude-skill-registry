@@ -1,0 +1,19 @@
+{
+  "category": "error-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.029152Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks about \"Effect errors\", \"typed errors\", \"error handling\", \"Effect.catchAll\", \"Effect.catchTag\", \"Effect.mapError\", \"Effect.orElse\", \"error accumulation\", \"d",
+      "repo": "andrueandersoncs/claude-skill-effect-ts",
+      "path": "error-management",
+      "branch": "main",
+      "category": "error-management",
+      "tags": [],
+      "stars": 0,
+      "install": "andrueandersoncs/claude-skill-effect-ts",
+      "source": "github.com/andrueandersoncs/claude-skill-effect-ts"
+    }
+  ]
+}

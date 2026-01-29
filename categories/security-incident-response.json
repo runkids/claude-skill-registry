@@ -1,0 +1,19 @@
+{
+  "category": "security-incident-response",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.993184Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define detection, containment, eradication, and recovery playbooks.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "security-incident-response",
+      "branch": "main",
+      "category": "security-incident-response",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

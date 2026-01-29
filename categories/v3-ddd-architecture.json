@@ -1,0 +1,19 @@
+{
+  "category": "v3-ddd-architecture",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.243337Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Domain-Driven Design architecture for claude-flow v3. Implements modular, bounded context architecture with clean separation of concerns and microkernel pattern.",
+      "repo": "EarthmanWeb/claude-flow-plugin",
+      "path": "v3-ddd-architecture",
+      "branch": "main",
+      "category": "v3-ddd-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "EarthmanWeb/claude-flow-plugin",
+      "source": "github.com/EarthmanWeb/claude-flow-plugin"
+    }
+  ]
+}

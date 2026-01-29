@@ -1,0 +1,19 @@
+{
+  "category": "dry-run",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.995540Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Preview command effects without making changes. Simulates file writes, git operations, agent spawns, and state changes. All reads execute normally for accurate preview. Use --dry-run flag on any comma",
+      "repo": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "path": "dry-run",
+      "branch": "main",
+      "category": "dry-run",
+      "tags": [],
+      "stars": 0,
+      "install": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "source": "github.com/Sjdjdiejdrirhdkjej/Claude-code-conductor"
+    }
+  ]
+}

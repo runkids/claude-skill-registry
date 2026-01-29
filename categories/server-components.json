@@ -1,0 +1,19 @@
+{
+  "category": "server-components",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.455969Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pattern Server-First avec Next.js 16 pour data fetching optimal. MANDATORY pour toutes les pages et widgets. À utiliser lors de la création de composants, pages, ou quand l'utilisateur mentionne \"fetc",
+      "repo": "RomualdP/hoki",
+      "path": "server-components",
+      "branch": "main",
+      "category": "server-components",
+      "tags": [],
+      "stars": 0,
+      "install": "RomualdP/hoki",
+      "source": "github.com/RomualdP/hoki"
+    }
+  ]
+}

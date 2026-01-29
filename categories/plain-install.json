@@ -1,0 +1,19 @@
+{
+  "category": "plain-install",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.294069Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Installs Plain packages and guides through setup steps. Use when adding new packages to a project.",
+      "repo": "dropseed/plain",
+      "path": "plain-install",
+      "branch": "main",
+      "category": "plain-install",
+      "tags": [],
+      "stars": 0,
+      "install": "dropseed/plain",
+      "source": "github.com/dropseed/plain"
+    }
+  ]
+}

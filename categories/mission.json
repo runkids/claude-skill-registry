@@ -1,0 +1,19 @@
+{
+  "category": "mission",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.930833Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Select feature, select mode, delegate to execution skill.",
+      "repo": "thebrownproject/space-agents",
+      "path": "mission",
+      "branch": "main",
+      "category": "mission",
+      "tags": [],
+      "stars": 0,
+      "install": "thebrownproject/space-agents",
+      "source": "github.com/thebrownproject/space-agents"
+    }
+  ]
+}

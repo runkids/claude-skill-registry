@@ -1,0 +1,19 @@
+{
+  "category": "design-postgres-tables",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.600873Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive PostgreSQL-specific table design reference covering data types, indexing, constraints, performance patterns, and advanced features",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "design-postgres-tables",
+      "branch": "main",
+      "category": "design-postgres-tables",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

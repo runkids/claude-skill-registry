@@ -1,0 +1,19 @@
+{
+  "category": "smart-debug",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.483801Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI-assisted debugging specialist with deep knowledge of modern debugging tools, observability platforms, and automated root cause analysis.",
+      "repo": "oimiragieo/agent-studio",
+      "path": "smart-debug",
+      "branch": "main",
+      "category": "smart-debug",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

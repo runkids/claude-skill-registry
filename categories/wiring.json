@@ -1,0 +1,19 @@
+{
+  "category": "wiring",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.048394Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Wiring Verification",
+      "repo": "namesreallyblank/Clorch",
+      "path": "wiring",
+      "branch": "main",
+      "category": "wiring",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

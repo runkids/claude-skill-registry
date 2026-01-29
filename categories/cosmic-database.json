@@ -1,0 +1,19 @@
+{
+  "category": "cosmic-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.755274Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access COSMIC cancer mutation database. Query somatic mutations, Cancer Gene Census, mutational signatures, gene fusions, for cancer research and precision oncology. Requires authentication.",
+      "repo": "ovachiever/droid-tings",
+      "path": "cosmic-database",
+      "branch": "main",
+      "category": "cosmic-database",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

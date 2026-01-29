@@ -1,0 +1,19 @@
+{
+  "category": "adk-engineer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.811874Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute software engineer specializing in creating production-ready ADK agents with best practices, code structure, testing, and deployment automation. Use when asked to \"build ADK agent\", \"create age",
+      "repo": "byteworthy/Upstream",
+      "path": "adk-engineer",
+      "branch": "main",
+      "category": "adk-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

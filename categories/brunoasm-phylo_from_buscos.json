@@ -1,0 +1,19 @@
+{
+  "category": "brunoasm-phylo_from_buscos",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.406590Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate phylogenies from genome assemblies using BUSCO/compleasm-based single-copy orthologs with scheduler-aware workflow generation",
+      "repo": "boisenoise/skills-collections",
+      "path": "brunoasm-phylo_from_buscos",
+      "branch": "main",
+      "category": "brunoasm-phylo_from_buscos",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

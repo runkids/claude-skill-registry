@@ -1,0 +1,19 @@
+{
+  "category": "code-linting",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.196232Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run linters according to repository guidelines. Use immediately after creating or modifying code, or before committing changes.",
+      "repo": "aspiers/ai-config",
+      "path": "code-linting",
+      "branch": "main",
+      "category": "code-linting",
+      "tags": [],
+      "stars": 0,
+      "install": "aspiers/ai-config",
+      "source": "github.com/aspiers/ai-config"
+    }
+  ]
+}

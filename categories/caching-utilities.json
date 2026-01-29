@@ -1,0 +1,19 @@
+{
+  "category": "caching-utilities",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.709876Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for using caching utilities in speedy_utils, including memory, disk, and hybrid caching strategies for sync and async functions.",
+      "repo": "anhvth/speedy_utils",
+      "path": "caching-utilities",
+      "branch": "main",
+      "category": "caching-utilities",
+      "tags": [],
+      "stars": 0,
+      "install": "anhvth/speedy_utils",
+      "source": "github.com/anhvth/speedy_utils"
+    }
+  ]
+}

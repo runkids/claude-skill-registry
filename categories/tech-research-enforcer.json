@@ -1,0 +1,19 @@
+{
+  "category": "tech-research-enforcer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.475735Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforces iterative web research for coding and DevOps questions to prevent assumptions about libraries, frameworks, APIs, versions, and configurations. Use this skill when the user asks about programm",
+      "repo": "jayteealao/Aperture",
+      "path": "tech-research-enforcer",
+      "branch": "main",
+      "category": "tech-research-enforcer",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

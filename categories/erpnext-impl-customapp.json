@@ -1,0 +1,19 @@
+{
+  "category": "erpnext-impl-customapp",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.098789Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implementation workflows for building Frappe/ERPNext custom apps. Covers app structure, module creation, doctype design, fixtures, patches, and deployment. V14/V15/V16 compatible. Triggers: create cus",
+      "repo": "OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package",
+      "path": "erpnext-impl-customapp",
+      "branch": "main",
+      "category": "erpnext-impl-customapp",
+      "tags": [],
+      "stars": 0,
+      "install": "OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package",
+      "source": "github.com/OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package"
+    }
+  ]
+}

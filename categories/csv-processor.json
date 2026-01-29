@@ -1,0 +1,19 @@
+{
+  "category": "csv-processor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.450249Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "读取、写入、转换和分析CSV文件，支持过滤、排序、聚合和格式转换。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "csv-processor",
+      "branch": "main",
+      "category": "csv-processor",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

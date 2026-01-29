@@ -1,0 +1,19 @@
+{
+  "category": "remove-comments",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.021115Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Clean obvious and redundant comments from code",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "remove-comments",
+      "branch": "main",
+      "category": "remove-comments",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

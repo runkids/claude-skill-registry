@@ -1,0 +1,19 @@
+{
+  "category": "code-visualizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.259292Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-generates code flow diagrams from Python module analysis.\nDetects when architecture diagrams become stale (code changed, diagram didn't).\nUse when: creating new modules, reviewing PRs for archite",
+      "repo": "rysweet/azlin",
+      "path": "code-visualizer",
+      "branch": "main",
+      "category": "code-visualizer",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/azlin",
+      "source": "github.com/rysweet/azlin"
+    }
+  ]
+}

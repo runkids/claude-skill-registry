@@ -1,0 +1,19 @@
+{
+  "category": "project-timeline",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.366237Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic checklist execution (CLI-based) (project)",
+      "repo": "derekcrosslu/CLAUDE_CODE_EXPLORE",
+      "path": "project-timeline",
+      "branch": "main",
+      "category": "project-timeline",
+      "tags": [],
+      "stars": 0,
+      "install": "derekcrosslu/CLAUDE_CODE_EXPLORE",
+      "source": "github.com/derekcrosslu/CLAUDE_CODE_EXPLORE"
+    }
+  ]
+}

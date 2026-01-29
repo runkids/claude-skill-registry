@@ -1,0 +1,19 @@
+{
+  "category": "performance-profile",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.077658Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Performance profiling and bottleneck detection for Node.js, Python, and browser apps",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "performance-profile",
+      "branch": "main",
+      "category": "performance-profile",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

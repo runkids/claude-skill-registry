@@ -1,0 +1,19 @@
+{
+  "category": "panjit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.769183Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Panjit International MPN encoding patterns, suffix decoding, and handler guidance. Use when working with Panjit diodes, transistors, MOSFETs, or PanjitHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "panjit",
+      "branch": "main",
+      "category": "panjit",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

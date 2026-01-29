@@ -1,0 +1,19 @@
+{
+  "category": "dotnet-api",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.937236Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Patterns and best practices for building .NET Web APIs with ASP.NET Core",
+      "repo": "medride/claude-code-research",
+      "path": "dotnet-api",
+      "branch": "main",
+      "category": "dotnet-api",
+      "tags": [],
+      "stars": 0,
+      "install": "medride/claude-code-research",
+      "source": "github.com/medride/claude-code-research"
+    }
+  ]
+}

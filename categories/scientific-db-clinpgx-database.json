@@ -1,0 +1,19 @@
+{
+  "category": "scientific-db-clinpgx-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.007973Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access ClinPGx pharmacogenomics data (successor to PharmGKB). Query gene-drug interactions, CPIC guidelines, allele functions, for precision medicine and genotype-guided dosing decisions.",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-db-clinpgx-database",
+      "branch": "main",
+      "category": "scientific-db-clinpgx-database",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

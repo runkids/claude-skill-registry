@@ -1,0 +1,19 @@
+{
+  "category": "mui",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.951352Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Material-UI v7 component library patterns including sx prop styling, theme integration, responsive design, and MUI-specific hooks. Use when working with MUI components, styling with sx prop, theme cus",
+      "repo": "softaworks/agent-toolkit",
+      "path": "mui",
+      "branch": "main",
+      "category": "mui",
+      "tags": [],
+      "stars": 0,
+      "install": "softaworks/agent-toolkit",
+      "source": "github.com/softaworks/agent-toolkit"
+    }
+  ]
+}

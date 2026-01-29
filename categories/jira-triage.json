@@ -1,0 +1,19 @@
+{
+  "category": "jira-triage",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.904313Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Triage and analyze Jira issues. Use when the user wants to \"triage issues\", \"analyze backlog\", \"assess tickets\", or \"jira triage\".",
+      "repo": "Lobbi-Docs/claude",
+      "path": "jira-triage",
+      "branch": "main",
+      "category": "jira-triage",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

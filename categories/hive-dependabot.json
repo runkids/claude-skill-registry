@@ -1,0 +1,19 @@
+{
+  "category": "hive-dependabot",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.347026Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Triage and resolve multiple Dependabot updates in batch; use when there are many dependency PRs.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "hive-dependabot",
+      "branch": "main",
+      "category": "hive-dependabot",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

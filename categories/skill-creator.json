@@ -1,0 +1,19 @@
+{
+  "category": "skill-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.249146Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workfl",
+      "repo": "aws-samples/sample-strands-agents-agentskills",
+      "path": "skill-creator",
+      "branch": "main",
+      "category": "skill-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "aws-samples/sample-strands-agents-agentskills",
+      "source": "github.com/aws-samples/sample-strands-agents-agentskills"
+    }
+  ]
+}

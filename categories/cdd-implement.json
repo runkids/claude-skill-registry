@@ -1,0 +1,19 @@
+{
+  "category": "cdd-implement",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.296151Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DECIDED決断を実装（Selection確定が前提）",
+      "repo": "yutaro0915/cdd-workflow",
+      "path": "cdd-implement",
+      "branch": "main",
+      "category": "cdd-implement",
+      "tags": [],
+      "stars": 0,
+      "install": "yutaro0915/cdd-workflow",
+      "source": "github.com/yutaro0915/cdd-workflow"
+    }
+  ]
+}

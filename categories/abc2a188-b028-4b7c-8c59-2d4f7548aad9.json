@@ -1,0 +1,19 @@
+{
+  "category": "abc2a188-b028-4b7c-8c59-2d4f7548aad9",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.097396Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Presentation creation, editing, and analysis. When Claude needs to work with presentations (.pptx files) for: (1) Creating new presentations, (2) Modifying or editing content, (3) Working with layouts",
+      "repo": "onurkanbakirci/awesome-skills",
+      "path": "abc2a188-b028-4b7c-8c59-2d4f7548aad9",
+      "branch": "main",
+      "category": "abc2a188-b028-4b7c-8c59-2d4f7548aad9",
+      "tags": [],
+      "stars": 0,
+      "install": "onurkanbakirci/awesome-skills",
+      "source": "github.com/onurkanbakirci/awesome-skills"
+    }
+  ]
+}

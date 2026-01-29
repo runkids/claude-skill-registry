@@ -1,0 +1,19 @@
+{
+  "category": "docker",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.638842Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for using Docker - a containerization platform for building, running, and deploying applications in isolated containers. Use when containerizing applications, creating Dockerfiles, working with ",
+      "repo": "brixtonpham/claude-config",
+      "path": "docker",
+      "branch": "main",
+      "category": "docker",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

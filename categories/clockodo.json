@@ -1,0 +1,19 @@
+{
+  "category": "clockodo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.773975Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Clockodo Zeiterfassung - Stoppuhr steuern, Zeiteinträge verwalten, Kunden/Projekte/Leistungen abrufen. Nutze für \"starte Timer\", \"stoppe Zeit\", \"was läuft gerade\", \"Zeiteinträge heute\", \"buche Zeit au",
+      "repo": "rdsthomas/mission-control",
+      "path": "clockodo",
+      "branch": "main",
+      "category": "clockodo",
+      "tags": [],
+      "stars": 0,
+      "install": "rdsthomas/mission-control",
+      "source": "github.com/rdsthomas/mission-control"
+    }
+  ]
+}

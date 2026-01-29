@@ -1,0 +1,19 @@
+{
+  "category": "planning-quality-gates",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.829572Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Mandatory quality gates and checklists for planning phase - ensures comprehensive planning",
+      "repo": "shredbx/demo-3d-model",
+      "path": "planning-quality-gates",
+      "branch": "main",
+      "category": "planning-quality-gates",
+      "tags": [],
+      "stars": 0,
+      "install": "shredbx/demo-3d-model",
+      "source": "github.com/shredbx/demo-3d-model"
+    }
+  ]
+}

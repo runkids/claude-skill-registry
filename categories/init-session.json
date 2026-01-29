@@ -1,0 +1,19 @@
+{
+  "category": "init-session",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.373567Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Initialize Contextium session state and verify environment",
+      "repo": "shakefu/contextium",
+      "path": "init-session",
+      "branch": "main",
+      "category": "init-session",
+      "tags": [],
+      "stars": 0,
+      "install": "shakefu/contextium",
+      "source": "github.com/shakefu/contextium"
+    }
+  ]
+}

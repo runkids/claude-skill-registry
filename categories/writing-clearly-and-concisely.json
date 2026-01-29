@@ -1,0 +1,19 @@
+{
+  "category": "writing-clearly-and-concisely",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.992816Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply Strunk's timeless writing rules to ANY prose humans will read—documentation, commit messages, error messages, explanations, reports, or UI text. Makes your writing clearer, stronger, and more pr",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "writing-clearly-and-concisely",
+      "branch": "main",
+      "category": "writing-clearly-and-concisely",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

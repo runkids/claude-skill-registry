@@ -1,0 +1,19 @@
+{
+  "category": "eicar-test",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.781306Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test skill containing EICAR test file for malware detection",
+      "repo": "cisco-ai-defense/skill-scanner",
+      "path": "eicar-test",
+      "branch": "main",
+      "category": "eicar-test",
+      "tags": [],
+      "stars": 0,
+      "install": "cisco-ai-defense/skill-scanner",
+      "source": "github.com/cisco-ai-defense/skill-scanner"
+    }
+  ]
+}

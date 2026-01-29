@@ -1,0 +1,19 @@
+{
+  "category": "rama-gay-clojure",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.682810Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Red Planet Labs Rama with Gay.jl deterministic coloring for 100x backend",
+      "repo": "plurigrid/asi",
+      "path": "rama-gay-clojure",
+      "branch": "main",
+      "category": "rama-gay-clojure",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

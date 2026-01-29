@@ -1,0 +1,19 @@
+{
+  "category": "doc-coauthoring",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.918344Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This wor",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "doc-coauthoring",
+      "branch": "main",
+      "category": "doc-coauthoring",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

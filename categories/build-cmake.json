@@ -1,0 +1,19 @@
+{
+  "category": "build-cmake",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.629644Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build an iPlug2 plugin project using CMake with Ninja, Xcode, or Visual Studio generators",
+      "repo": "iPlug2/iPlug2",
+      "path": "build-cmake",
+      "branch": "main",
+      "category": "build-cmake",
+      "tags": [],
+      "stars": 0,
+      "install": "iPlug2/iPlug2",
+      "source": "github.com/iPlug2/iPlug2"
+    }
+  ]
+}

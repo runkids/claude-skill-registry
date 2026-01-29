@@ -1,0 +1,19 @@
+{
+  "category": "video",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.289664Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates product demo videos, architecture explanations, and release note videos. Use when user mentions video generation, product demos, or visual documentation. Requires Remotion setup.",
+      "repo": "Chachamaru127/claude-code-harness",
+      "path": "video",
+      "branch": "main",
+      "category": "video",
+      "tags": [],
+      "stars": 0,
+      "install": "Chachamaru127/claude-code-harness",
+      "source": "github.com/Chachamaru127/claude-code-harness"
+    }
+  ]
+}

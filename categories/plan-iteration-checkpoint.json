@@ -1,0 +1,19 @@
+{
+  "category": "plan-iteration-checkpoint",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.411466Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Iteration checkpoint protocol for multi-phase plan execution.\nAssess progress, determine next steps, document current intention.\n",
+      "repo": "creatifcoding/gbg",
+      "path": "plan-iteration-checkpoint",
+      "branch": "main",
+      "category": "plan-iteration-checkpoint",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

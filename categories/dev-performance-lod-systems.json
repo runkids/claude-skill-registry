@@ -1,0 +1,19 @@
+{
+  "category": "dev-performance-lod-systems",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.984378Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Level of Detail (LOD) techniques for R3F. Use when complex models cause FPS drops.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-performance-lod-systems",
+      "branch": "main",
+      "category": "dev-performance-lod-systems",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

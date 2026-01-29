@@ -1,0 +1,19 @@
+{
+  "category": "quality-tools",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.605761Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ferramentas de Qualidade de Codigo. Use when setting up quality tools or CI.",
+      "repo": "TheBeardedBearSAS/claude-craft",
+      "path": "quality-tools",
+      "branch": "main",
+      "category": "quality-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "TheBeardedBearSAS/claude-craft",
+      "source": "github.com/TheBeardedBearSAS/claude-craft"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "moai-lang-html-css",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.563331Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Skill for advanced development",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-lang-html-css",
+      "branch": "main",
+      "category": "moai-lang-html-css",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

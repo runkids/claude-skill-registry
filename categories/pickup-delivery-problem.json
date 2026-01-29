@@ -1,0 +1,19 @@
+{
+  "category": "pickup-delivery-problem",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.791793Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to solve Pickup and Delivery Problems (PDP), Vehicle Routing with Pickup and Delivery (VRPPD), or handle paired pickup-delivery requests. Also use when the user mentions \"PDP,\" \"VR",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "pickup-delivery-problem",
+      "branch": "main",
+      "category": "pickup-delivery-problem",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

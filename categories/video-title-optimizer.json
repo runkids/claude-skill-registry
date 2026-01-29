@@ -1,0 +1,19 @@
+{
+  "category": "video-title-optimizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.112928Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize video titles for maximum click-through rate (CTR) and YouTube/TikTok SEO. Generates multiple title variations balancing curiosity, keywords, and platform best practices. Use when naming video",
+      "repo": "nicepkg/ai-workflow",
+      "path": "video-title-optimizer",
+      "branch": "main",
+      "category": "video-title-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

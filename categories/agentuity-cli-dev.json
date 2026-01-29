@@ -1,0 +1,19 @@
+{
+  "category": "agentuity-cli-dev",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.320198Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build and run the development server",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-dev",
+      "branch": "main",
+      "category": "agentuity-cli-dev",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

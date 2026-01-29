@@ -1,0 +1,19 @@
+{
+  "category": "acli",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.607399Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Atlassian CLI tool installation and authentication.",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "acli",
+      "branch": "main",
+      "category": "acli",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

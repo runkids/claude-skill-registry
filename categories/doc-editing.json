@@ -1,0 +1,19 @@
+{
+  "category": "doc-editing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.095297Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when the user asks to edit, polish, or rewrite documentation or long-form prose to improve clarity and structural quality, aiming for publishable text without tone drift or unnecessary structural ",
+      "repo": "iplaylf2/coding-profile",
+      "path": "doc-editing",
+      "branch": "main",
+      "category": "doc-editing",
+      "tags": [],
+      "stars": 0,
+      "install": "iplaylf2/coding-profile",
+      "source": "github.com/iplaylf2/coding-profile"
+    }
+  ]
+}

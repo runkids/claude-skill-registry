@@ -1,0 +1,19 @@
+{
+  "category": "rust-type-driven",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.982722Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "类型驱动设计专家。处理 newtype, type state, PhantomData, marker trait, builder pattern, 类型状态, 新类型模式, 编译时验证, sealed trait, ZST",
+      "repo": "huiali/rust-skills",
+      "path": "rust-type-driven",
+      "branch": "main",
+      "category": "rust-type-driven",
+      "tags": [],
+      "stars": 0,
+      "install": "huiali/rust-skills",
+      "source": "github.com/huiali/rust-skills"
+    }
+  ]
+}

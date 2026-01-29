@@ -1,0 +1,19 @@
+{
+  "category": "behavioral-modes",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.086502Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI operasyonel modları (beyin fırtınası, uygulama, hata ayıklama, inceleme, öğretme, dağıtım, orkestrasyon). Görev türüne göre davranışı uyarlamak için kullanın.",
+      "repo": "BerkantYilmaz0/MegaStore",
+      "path": "behavioral-modes",
+      "branch": "main",
+      "category": "behavioral-modes",
+      "tags": [],
+      "stars": 0,
+      "install": "BerkantYilmaz0/MegaStore",
+      "source": "github.com/BerkantYilmaz0/MegaStore"
+    }
+  ]
+}

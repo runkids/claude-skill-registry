@@ -1,0 +1,19 @@
+{
+  "category": "quality-manager-qmr",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.338220Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Senior Quality Manager Responsible Person (QMR) for HealthTech and MedTech companies. Provides overall quality system responsibility, regulatory compliance oversight, management accountability, and st",
+      "repo": "nimeshgurung/artifact-hub-collections",
+      "path": "quality-manager-qmr",
+      "branch": "main",
+      "category": "quality-manager-qmr",
+      "tags": [],
+      "stars": 0,
+      "install": "nimeshgurung/artifact-hub-collections",
+      "source": "github.com/nimeshgurung/artifact-hub-collections"
+    }
+  ]
+}

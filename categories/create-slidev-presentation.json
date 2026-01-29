@@ -1,0 +1,19 @@
+{
+  "category": "create-slidev-presentation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.994614Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when asked to create or edit Slidev (sli.dev) presentation slide decks.",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "create-slidev-presentation",
+      "branch": "main",
+      "category": "create-slidev-presentation",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

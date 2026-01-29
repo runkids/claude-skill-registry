@@ -1,0 +1,19 @@
+{
+  "category": "minimax-mcp-usage",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.166719Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimal patterns for MiniMax MCP tools (web_search + understand_image)",
+      "repo": "alfredolopez80/multi-agent-ralph-loop",
+      "path": "minimax-mcp-usage",
+      "branch": "main",
+      "category": "minimax-mcp-usage",
+      "tags": [],
+      "stars": 0,
+      "install": "alfredolopez80/multi-agent-ralph-loop",
+      "source": "github.com/alfredolopez80/multi-agent-ralph-loop"
+    }
+  ]
+}

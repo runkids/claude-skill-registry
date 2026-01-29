@@ -1,0 +1,19 @@
+{
+  "category": "nanopore-methylation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.436181Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Calls DNA methylation from Oxford Nanopore sequencing data using signal-level analysis. Use when detecting 5mC or 6mA modifications directly from nanopore reads without bisulfite conversion.",
+      "repo": "GPTomics/bioSkills",
+      "path": "nanopore-methylation",
+      "branch": "main",
+      "category": "nanopore-methylation",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

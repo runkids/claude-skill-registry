@@ -1,0 +1,19 @@
+{
+  "category": "accounts-reconciler",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.109084Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automate account reconciliation by matching transactions, identifying discrepancies, and generating variance reports",
+      "repo": "eddiebe147/claude-settings",
+      "path": "accounts-reconciler",
+      "branch": "main",
+      "category": "accounts-reconciler",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

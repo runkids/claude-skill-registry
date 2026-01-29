@@ -1,0 +1,19 @@
+{
+  "category": "dashboard-feature-implementation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.154953Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for implementing dashboard features in the Orient monorepo. Use when adding new tabs, views, pages, or components to the dashboard. Covers backend services, API routes, frontend components, navi",
+      "repo": "orient-bot/orient",
+      "path": "dashboard-feature-implementation",
+      "branch": "main",
+      "category": "dashboard-feature-implementation",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

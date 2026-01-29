@@ -1,0 +1,19 @@
+{
+  "category": "kakao-read",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.684354Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "카카오톡 메시지 읽기. \"카톡 메시지 보여줘\", \"채팅 내용\", \"kakao read\", \"KakaoTalk messages\" 시 사용.",
+      "repo": "stpcoder/kakao-terminal",
+      "path": "kakao-read",
+      "branch": "main",
+      "category": "kakao-read",
+      "tags": [],
+      "stars": 0,
+      "install": "stpcoder/kakao-terminal",
+      "source": "github.com/stpcoder/kakao-terminal"
+    }
+  ]
+}

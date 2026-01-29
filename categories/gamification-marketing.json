@@ -1,0 +1,19 @@
+{
+  "category": "gamification-marketing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.773398Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design gamified marketing campaigns using points, badges, leaderboards, streaks, challenges. Use for loyalty programs, referral campaigns, onboarding flows, engagement boosts, email gamification. Prov",
+      "repo": "NammDev/Goads-Krea",
+      "path": "gamification-marketing",
+      "branch": "main",
+      "category": "gamification-marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "NammDev/Goads-Krea",
+      "source": "github.com/NammDev/Goads-Krea"
+    }
+  ]
+}

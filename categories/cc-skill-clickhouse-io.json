@@ -1,0 +1,19 @@
+{
+  "category": "cc-skill-clickhouse-io",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.671273Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.",
+      "repo": "AxelMrak/ai",
+      "path": "cc-skill-clickhouse-io",
+      "branch": "main",
+      "category": "cc-skill-clickhouse-io",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

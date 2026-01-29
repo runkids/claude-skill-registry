@@ -1,0 +1,19 @@
+{
+  "category": "chaos-engineering-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.086587Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement chaos engineering practices and tools for resilience testing",
+      "repo": "Dexploarer/hyper-forge",
+      "path": "chaos-engineering-setup",
+      "branch": "main",
+      "category": "chaos-engineering-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "Dexploarer/hyper-forge",
+      "source": "github.com/Dexploarer/hyper-forge"
+    }
+  ]
+}

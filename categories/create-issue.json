@@ -1,0 +1,19 @@
+{
+  "category": "create-issue",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.859258Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /create-issue <description> slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "create-issue",
+      "branch": "main",
+      "category": "create-issue",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "ralph-qa",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.269692Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manual QA validation trigger for RALPH implementations",
+      "repo": "doravidan/supreme-ralph",
+      "path": "ralph-qa",
+      "branch": "main",
+      "category": "ralph-qa",
+      "tags": [],
+      "stars": 0,
+      "install": "doravidan/supreme-ralph",
+      "source": "github.com/doravidan/supreme-ralph"
+    }
+  ]
+}

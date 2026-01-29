@@ -1,0 +1,19 @@
+{
+  "category": "azure-cloud",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.738696Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive Microsoft Azure guidance including Azure Virtual Machines, Azure Storage (Blob, Files, Disks), Azure SQL Database, Azure App Service, Azure Functions, AKS (Azure Kubernetes Serv",
+      "repo": "DauQuangThanh/hanoi-rainbow",
+      "path": "azure-cloud",
+      "branch": "main",
+      "category": "azure-cloud",
+      "tags": [],
+      "stars": 0,
+      "install": "DauQuangThanh/hanoi-rainbow",
+      "source": "github.com/DauQuangThanh/hanoi-rainbow"
+    }
+  ]
+}

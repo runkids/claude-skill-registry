@@ -1,0 +1,19 @@
+{
+  "category": "energy-logistics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.502335Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize energy supply chains, coordinate oil and gas logistics, or manage energy infrastructure. Also use when the user mentions \"energy transportation,\" \"pipeline management,\"",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "energy-logistics",
+      "branch": "main",
+      "category": "energy-logistics",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

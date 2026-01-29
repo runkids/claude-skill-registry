@@ -1,0 +1,19 @@
+{
+  "category": "executive-ciso",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.410907Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Executive CISO Agent. 보안 정책, 리스크 관리, 컴플라이언스를 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "executive-ciso",
+      "branch": "main",
+      "category": "executive-ciso",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

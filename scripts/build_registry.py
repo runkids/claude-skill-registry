@@ -90,19 +90,27 @@ def build_registry(sources):
     }
 
 
+def sanitize_category(category: str) -> str:
+    """Sanitize category name for use as filename."""
+    # Replace / and other problematic characters with -
+    return category.replace("/", "-").replace("\\", "-").replace(":", "-")
+
+
 def build_category_indexes(registry):
     """Build category-based indexes."""
     categories = {}
 
     for skill in registry["skills"]:
         category = skill["category"]
-        if category not in categories:
-            categories[category] = {
-                "category": category,
+        # Sanitize category for grouping
+        safe_category = sanitize_category(category)
+        if safe_category not in categories:
+            categories[safe_category] = {
+                "category": safe_category,
                 "updated_at": registry["updated_at"],
                 "skills": [],
             }
-        categories[category]["skills"].append(skill)
+        categories[safe_category]["skills"].append(skill)
 
     # Ensure categories directory exists
     CATEGORIES_DIR.mkdir(exist_ok=True)

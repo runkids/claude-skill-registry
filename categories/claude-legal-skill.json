@@ -1,0 +1,19 @@
+{
+  "category": "claude-legal-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.636208Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review legal contracts, NDAs, employment agreements, SaaS terms, and M&A documents. Identifies unfavorable terms, suggests redlines, and compares to market standards. Use for contract analysis, due di",
+      "repo": "evolsb/claude-legal-skill",
+      "path": "claude-legal-skill",
+      "branch": "main",
+      "category": "claude-legal-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "evolsb/claude-legal-skill",
+      "source": "github.com/evolsb/claude-legal-skill"
+    }
+  ]
+}

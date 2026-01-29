@@ -1,0 +1,19 @@
+{
+  "category": "implementer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.935778Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write production-quality code following project patterns. Use when implementing features, fixing bugs, or creating new files. Includes Context7 library documentation lookup.",
+      "repo": "wtthornton/HomeIQ",
+      "path": "implementer",
+      "branch": "main",
+      "category": "implementer",
+      "tags": [],
+      "stars": 0,
+      "install": "wtthornton/HomeIQ",
+      "source": "github.com/wtthornton/HomeIQ"
+    }
+  ]
+}

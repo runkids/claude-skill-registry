@@ -1,0 +1,19 @@
+{
+  "category": "task-lint-fixer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.965594Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fix lint errors and update typescript-coding skill with lessons learned. Use when fixing Biome lint errors, resolving linting issues, or when lint check fails. Automatically extracts patterns from fix",
+      "repo": "Anveio/conveaux",
+      "path": "task-lint-fixer",
+      "branch": "main",
+      "category": "task-lint-fixer",
+      "tags": [],
+      "stars": 0,
+      "install": "Anveio/conveaux",
+      "source": "github.com/Anveio/conveaux"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "yoneda-directed",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.332879Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Directed Yoneda lemma as directed path induction. Riehl-Shulman's key",
+      "repo": "plurigrid/asi",
+      "path": "yoneda-directed",
+      "branch": "main",
+      "category": "yoneda-directed",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

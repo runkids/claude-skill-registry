@@ -1,0 +1,19 @@
+{
+  "category": "ml-engineer-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.128445Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in building scalable ML systems, from data pipelines and model training to production deployment and monitoring.",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "ml-engineer-skill",
+      "branch": "main",
+      "category": "ml-engineer-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

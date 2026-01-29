@@ -1,0 +1,19 @@
+{
+  "category": "environment-bootstrap",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.039717Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use for development environment setup - create and maintain init scripts, run smoke tests, ensure consistent environment across sessions",
+      "repo": "troykelly/claude-skills",
+      "path": "environment-bootstrap",
+      "branch": "main",
+      "category": "environment-bootstrap",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

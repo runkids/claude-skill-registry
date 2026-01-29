@@ -1,0 +1,19 @@
+{
+  "category": "rust-best-practices",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.800414Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for writing idiomatic Rust code based on Apollo GraphQL's best practices handbook. Use this skill when: (1) writing new Rust code or functions, (2) reviewing or refactoring existing Rust code, (",
+      "repo": "apollographql/skills",
+      "path": "rust-best-practices",
+      "branch": "main",
+      "category": "rust-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "apollographql/skills",
+      "source": "github.com/apollographql/skills"
+    }
+  ]
+}

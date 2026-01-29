@@ -1,0 +1,19 @@
+{
+  "category": "sc-document",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.007936Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate focused documentation for components, functions, APIs, and features. Use when creating inline docs, API references, user guides, or technical documentation.",
+      "repo": "Tony363/SuperClaude",
+      "path": "sc-document",
+      "branch": "main",
+      "category": "sc-document",
+      "tags": [],
+      "stars": 0,
+      "install": "Tony363/SuperClaude",
+      "source": "github.com/Tony363/SuperClaude"
+    }
+  ]
+}

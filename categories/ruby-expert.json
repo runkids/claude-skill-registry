@@ -1,0 +1,19 @@
+{
+  "category": "ruby-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.684144Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Ruby development with Rails, modern features, testing, and best practices",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "ruby-expert",
+      "branch": "main",
+      "category": "ruby-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

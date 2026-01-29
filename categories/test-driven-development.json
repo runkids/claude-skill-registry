@@ -1,0 +1,19 @@
+{
+  "category": "test-driven-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.627758Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementing any feature or bugfix, before writing implementation code",
+      "repo": "brmatola/gremlins",
+      "path": "test-driven-development",
+      "branch": "main",
+      "category": "test-driven-development",
+      "tags": [],
+      "stars": 0,
+      "install": "brmatola/gremlins",
+      "source": "github.com/brmatola/gremlins"
+    }
+  ]
+}

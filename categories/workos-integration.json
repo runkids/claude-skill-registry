@@ -1,0 +1,19 @@
+{
+  "category": "workos-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.750167Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Patterns for WorkOS SSO integration in Battery. Use this skill when implementing authentication, organization management, directory sync, or session handling.",
+      "repo": "ADLenehan/battery",
+      "path": "workos-integration",
+      "branch": "main",
+      "category": "workos-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "ADLenehan/battery",
+      "source": "github.com/ADLenehan/battery"
+    }
+  ]
+}

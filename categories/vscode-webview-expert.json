@@ -1,0 +1,19 @@
+{
+  "category": "vscode-webview-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.397394Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill provides expert-level guidance for implementing VS Code WebView features. Use when creating WebView panels, implementing secure CSP policies, handling Extension-WebView communication, manag",
+      "repo": "s-hiraoku/vscode-sidebar-terminal",
+      "path": "vscode-webview-expert",
+      "branch": "main",
+      "category": "vscode-webview-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "s-hiraoku/vscode-sidebar-terminal",
+      "source": "github.com/s-hiraoku/vscode-sidebar-terminal"
+    }
+  ]
+}

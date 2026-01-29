@@ -1,0 +1,19 @@
+{
+  "category": "git-diff-feature-branch",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.026964Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when asked to show fetch the context of the current branch",
+      "repo": "LandonSchropp/agent-toolkit",
+      "path": "git-diff-feature-branch",
+      "branch": "main",
+      "category": "git-diff-feature-branch",
+      "tags": [],
+      "stars": 0,
+      "install": "LandonSchropp/agent-toolkit",
+      "source": "github.com/LandonSchropp/agent-toolkit"
+    }
+  ]
+}

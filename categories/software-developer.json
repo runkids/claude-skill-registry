@@ -1,0 +1,19 @@
+{
+  "category": "software-developer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.105971Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "software-developer skill\n\nTrigger terms: implement, code, development, programming, coding, build feature, create function, write code, SOLID principles, clean code, refactor\n\nUse when: User requests ",
+      "repo": "nahisaho/CodeGraphMCPServer",
+      "path": "software-developer",
+      "branch": "main",
+      "category": "software-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/CodeGraphMCPServer",
+      "source": "github.com/nahisaho/CodeGraphMCPServer"
+    }
+  ]
+}

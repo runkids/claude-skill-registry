@@ -1,0 +1,19 @@
+{
+  "category": "agentic-jumpstart-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.998836Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Testing guidelines for Jarvy CLI - unit testing patterns, integration tests with assert_cmd, test environment variables, platform-specific testing, and CI coverage strategies.",
+      "repo": "bearbinary/Jarvy",
+      "path": "agentic-jumpstart-testing",
+      "branch": "main",
+      "category": "agentic-jumpstart-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "bearbinary/Jarvy",
+      "source": "github.com/bearbinary/Jarvy"
+    }
+  ]
+}

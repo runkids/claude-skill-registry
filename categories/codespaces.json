@@ -1,0 +1,19 @@
+{
+  "category": "codespaces",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.092145Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create, manage, and optimize GitHub Codespaces cloud development environments. Configure devcontainers, manage resources, and streamline cloud-based development. Triggers on codespace, devcontainer, c",
+      "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "path": "codespaces",
+      "branch": "main",
+      "category": "codespaces",
+      "tags": [],
+      "stars": 0,
+      "install": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric"
+    }
+  ]
+}

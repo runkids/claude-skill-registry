@@ -1,0 +1,19 @@
+{
+  "category": "html",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.284195Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "30 pragmatic rules for production HTML covering semantic markup, accessibility (WCAG 2.1 AA), performance optimization, forms, and security. Use when writing HTML, building page structures, creating f",
+      "repo": "matthewharwood/fantasy-phonics",
+      "path": "html",
+      "branch": "main",
+      "category": "html",
+      "tags": [],
+      "stars": 0,
+      "install": "matthewharwood/fantasy-phonics",
+      "source": "github.com/matthewharwood/fantasy-phonics"
+    }
+  ]
+}

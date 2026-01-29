@@ -1,0 +1,19 @@
+{
+  "category": "feature-implement",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.826282Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic approach to implementing new features in Rust memory systems",
+      "repo": "d-o-hub/rust-self-learning-memory",
+      "path": "feature-implement",
+      "branch": "main",
+      "category": "feature-implement",
+      "tags": [],
+      "stars": 0,
+      "install": "d-o-hub/rust-self-learning-memory",
+      "source": "github.com/d-o-hub/rust-self-learning-memory"
+    }
+  ]
+}

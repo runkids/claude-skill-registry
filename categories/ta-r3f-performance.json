@@ -1,0 +1,19 @@
+{
+  "category": "ta-r3f-performance",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.546738Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Performance optimization techniques for R3F and Three.js. Use when optimizing frame rate, reducing draw calls, mobile performance.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "ta-r3f-performance",
+      "branch": "main",
+      "category": "ta-r3f-performance",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

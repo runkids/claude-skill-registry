@@ -1,0 +1,19 @@
+{
+  "category": "first-time-user-dashboard",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.034163Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Simulate a first-time CV Dashboard user experience. Tests if documentation enables new users to generate and access the password-protected variant dashboard. Generates UX audit reports.",
+      "repo": "fotescodev/portfolio",
+      "path": "first-time-user-dashboard",
+      "branch": "main",
+      "category": "first-time-user-dashboard",
+      "tags": [],
+      "stars": 0,
+      "install": "fotescodev/portfolio",
+      "source": "github.com/fotescodev/portfolio"
+    }
+  ]
+}

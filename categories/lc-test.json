@@ -1,0 +1,19 @@
+{
+  "category": "lc-test",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.791140Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test a Rust solution file against LeetCode's test cases (project)",
+      "repo": "iQeda/MyRust-NeetCode",
+      "path": "lc-test",
+      "branch": "main",
+      "category": "lc-test",
+      "tags": [],
+      "stars": 0,
+      "install": "iQeda/MyRust-NeetCode",
+      "source": "github.com/iQeda/MyRust-NeetCode"
+    }
+  ]
+}

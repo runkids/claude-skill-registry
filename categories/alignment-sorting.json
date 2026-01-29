@@ -1,0 +1,19 @@
+{
+  "category": "alignment-sorting",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.458557Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Sort alignment files by coordinate or read name using samtools and pysam. Use when preparing BAM files for indexing, variant calling, or paired-end analysis.",
+      "repo": "GPTomics/bioSkills",
+      "path": "alignment-sorting",
+      "branch": "main",
+      "category": "alignment-sorting",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

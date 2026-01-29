@@ -1,0 +1,19 @@
+{
+  "category": "agent-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.741133Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Used to create a new agent. Used when a user wants to create a new agent",
+      "repo": "seanchiuai/path-finder",
+      "path": "agent-builder",
+      "branch": "main",
+      "category": "agent-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "seanchiuai/path-finder",
+      "source": "github.com/seanchiuai/path-finder"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "otterstack-usage",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.754796Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete guide for using OtterStack - a Git-driven Docker Compose deployment tool with zero-downtime deployments. Use when deploying Docker Compose apps, managing projects, configuring environment var",
+      "repo": "jayteealao/Aperture",
+      "path": "otterstack-usage",
+      "branch": "main",
+      "category": "otterstack-usage",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

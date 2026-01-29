@@ -1,0 +1,19 @@
+{
+  "category": "filesystem",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.395526Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "File system operations guidance - read, write, search, and manage files using Claude Code's built-in tools.",
+      "repo": "oimiragieo/agent-studio",
+      "path": "filesystem",
+      "branch": "main",
+      "category": "filesystem",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

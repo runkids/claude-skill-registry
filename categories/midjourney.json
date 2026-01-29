@@ -1,0 +1,19 @@
+{
+  "category": "midjourney",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.893863Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate AI art with Midjourney - create images from prompts, manage generations, and iterate on creative concepts",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "midjourney",
+      "branch": "main",
+      "category": "midjourney",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

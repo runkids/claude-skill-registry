@@ -1,0 +1,19 @@
+{
+  "category": "research-nextjs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.250587Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Research Next.js 15 patterns, examples, and documentation using Exa code search and Ref documentation",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "research-nextjs",
+      "branch": "main",
+      "category": "research-nextjs",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

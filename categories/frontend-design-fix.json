@@ -1,0 +1,19 @@
+{
+  "category": "frontend-design-fix",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.651422Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fix generic frontend designs by applying aesthetic upgrades across the 5 design dimensions",
+      "repo": "matteocervelli/llms",
+      "path": "frontend-design-fix",
+      "branch": "main",
+      "category": "frontend-design-fix",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

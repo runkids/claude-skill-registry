@@ -1,0 +1,19 @@
+{
+  "category": "team-sync",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.679493Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate meeting agendas and facilitate team coordination. Use when preparing standups, sprint reviews, or team meetings. Triggers on keywords like \"standup\", \"team sync\", \"meeting agenda\", \"daily\", \"",
+      "repo": "duc01226/EasyPlatform",
+      "path": "team-sync",
+      "branch": "main",
+      "category": "team-sync",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

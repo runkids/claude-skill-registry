@@ -1,0 +1,19 @@
+{
+  "category": "generate-story-bank",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.327026Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate interview-ready stories using HPARL format (Hook, Principles, Action, Results, Learnings). Transforms achievements into compelling narratives for behavioral interviews.",
+      "repo": "fotescodev/portfolio",
+      "path": "generate-story-bank",
+      "branch": "main",
+      "category": "generate-story-bank",
+      "tags": [],
+      "stars": 0,
+      "install": "fotescodev/portfolio",
+      "source": "github.com/fotescodev/portfolio"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "Browser",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.127975Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Web browser automation with AI-optimized snapshots for claude-flow agents",
+      "repo": "EarthmanWeb/claude-flow-plugin",
+      "path": "Browser",
+      "branch": "main",
+      "category": "Browser",
+      "tags": [],
+      "stars": 0,
+      "install": "EarthmanWeb/claude-flow-plugin",
+      "source": "github.com/EarthmanWeb/claude-flow-plugin"
+    }
+  ]
+}

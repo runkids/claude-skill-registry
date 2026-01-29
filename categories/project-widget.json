@@ -1,0 +1,19 @@
+{
+  "category": "project-widget",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.373299Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating reusable widgets in app_widget packages with platform adaptive support (project)",
+      "repo": "gsmlg-app/flutter-app-template",
+      "path": "project-widget",
+      "branch": "main",
+      "category": "project-widget",
+      "tags": [],
+      "stars": 0,
+      "install": "gsmlg-app/flutter-app-template",
+      "source": "github.com/gsmlg-app/flutter-app-template"
+    }
+  ]
+}

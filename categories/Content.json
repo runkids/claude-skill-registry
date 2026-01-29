@@ -1,0 +1,19 @@
+{
+  "category": "Content",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.135317Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Skill: content",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "Content",
+      "branch": "main",
+      "category": "Content",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

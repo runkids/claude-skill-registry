@@ -1,0 +1,19 @@
+{
+  "category": "notification-dispatcher",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.803434Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Notification Dispatcher - Auto-activating skill for Business Automation.\nTriggers on: notification dispatcher, notification dispatcher\nPart of the Business Automation skill category.\n",
+      "repo": "byteworthy/Upstream",
+      "path": "notification-dispatcher",
+      "branch": "main",
+      "category": "notification-dispatcher",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

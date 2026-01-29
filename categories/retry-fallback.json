@@ -1,0 +1,19 @@
+{
+  "category": "retry-fallback",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.086726Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Handle transient failures with exponential backoff and graceful fallbacks. Retry on network blips, fall back to cached data when services fail.",
+      "repo": "dadbodgeoff/drift",
+      "path": "retry-fallback",
+      "branch": "main",
+      "category": "retry-fallback",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

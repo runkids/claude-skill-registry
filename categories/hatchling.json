@@ -1,0 +1,19 @@
+{
+  "category": "hatchling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.379545Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill provides comprehensive documentation for Hatchling, the modern Python build backend that implements PEP 517/518/621/660 standards. Use this skill when working with Hatchling configuration, ",
+      "repo": "BbgnsurfTech/claude-skills-collection",
+      "path": "hatchling",
+      "branch": "main",
+      "category": "hatchling",
+      "tags": [],
+      "stars": 0,
+      "install": "BbgnsurfTech/claude-skills-collection",
+      "source": "github.com/BbgnsurfTech/claude-skills-collection"
+    }
+  ]
+}

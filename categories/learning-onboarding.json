@@ -1,0 +1,19 @@
+{
+  "category": "learning-onboarding",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.062963Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "onboarding for corporate and professional learning contexts.",
+      "repo": "pauljbernard/content",
+      "path": "learning-onboarding",
+      "branch": "main",
+      "category": "learning-onboarding",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

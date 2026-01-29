@@ -1,0 +1,19 @@
+{
+  "category": "konsta-ui",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.373840Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide to using Konsta UI for pixel-perfect iOS and Material Design components in Capacitor apps. Works with React, Vue, and Svelte. Use this skill when users want native-looking UI without Ionic, or p",
+      "repo": "Cap-go/capacitor-skills",
+      "path": "konsta-ui",
+      "branch": "main",
+      "category": "konsta-ui",
+      "tags": [],
+      "stars": 0,
+      "install": "Cap-go/capacitor-skills",
+      "source": "github.com/Cap-go/capacitor-skills"
+    }
+  ]
+}

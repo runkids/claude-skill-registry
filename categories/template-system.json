@@ -1,0 +1,19 @@
+{
+  "category": "template-system",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.182786Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "HTML infographic templates. Use when creating carousel slides or infographics.",
+      "repo": "olivenet-iot/olivenet-social-bot",
+      "path": "template-system",
+      "branch": "main",
+      "category": "template-system",
+      "tags": [],
+      "stars": 0,
+      "install": "olivenet-iot/olivenet-social-bot",
+      "source": "github.com/olivenet-iot/olivenet-social-bot"
+    }
+  ]
+}

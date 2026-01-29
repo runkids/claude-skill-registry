@@ -1,0 +1,19 @@
+{
+  "category": "product-onboarding",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.917584Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add a new Skill Recordings product to the support platform. Use when user says \"add product\", \"new app\", \"onboard [product name]\", or similar.",
+      "repo": "skillrecordings/support",
+      "path": "product-onboarding",
+      "branch": "main",
+      "category": "product-onboarding",
+      "tags": [],
+      "stars": 0,
+      "install": "skillrecordings/support",
+      "source": "github.com/skillrecordings/support"
+    }
+  ]
+}

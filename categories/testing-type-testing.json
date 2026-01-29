@@ -1,0 +1,19 @@
+{
+  "category": "testing-type-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.644835Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Your approach to handling testing type testing. Use this skill when working on files where testing type testing comes into play.",
+      "repo": "leaderiop/hex-di",
+      "path": "testing-type-testing",
+      "branch": "main",
+      "category": "testing-type-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "leaderiop/hex-di",
+      "source": "github.com/leaderiop/hex-di"
+    }
+  ]
+}

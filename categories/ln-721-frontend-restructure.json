@@ -1,0 +1,19 @@
+{
+  "category": "ln-721-frontend-restructure",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.154523Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Restructures React frontend from monolith to component-based architecture",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "ln-721-frontend-restructure",
+      "branch": "main",
+      "category": "ln-721-frontend-restructure",
+      "tags": [],
+      "stars": 0,
+      "install": "levnikolaevich/claude-code-skills",
+      "source": "github.com/levnikolaevich/claude-code-skills"
+    }
+  ]
+}

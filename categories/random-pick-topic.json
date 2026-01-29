@@ -1,0 +1,19 @@
+{
+  "category": "random-pick-topic",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.543719Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "topics/ディレクトリに問題のtopicディレクトリがあります。",
+      "repo": "Tetsu-is/claude-turtle-soup-skills",
+      "path": "random-pick-topic",
+      "branch": "main",
+      "category": "random-pick-topic",
+      "tags": [],
+      "stars": 0,
+      "install": "Tetsu-is/claude-turtle-soup-skills",
+      "source": "github.com/Tetsu-is/claude-turtle-soup-skills"
+    }
+  ]
+}

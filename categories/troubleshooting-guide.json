@@ -1,0 +1,19 @@
+{
+  "category": "troubleshooting-guide",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.903153Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по troubleshooting гайдам. Используй для создания диагностических процедур, FAQ и решения проблем.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "troubleshooting-guide",
+      "branch": "main",
+      "category": "troubleshooting-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

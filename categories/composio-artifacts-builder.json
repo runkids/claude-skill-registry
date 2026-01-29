@@ -1,0 +1,19 @@
+{
+  "category": "composio-artifacts-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.631724Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state manag",
+      "repo": "boisenoise/skills-collections",
+      "path": "composio-artifacts-builder",
+      "branch": "main",
+      "category": "composio-artifacts-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "code-necromancer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.466666Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic framework for resurrecting and modernizing legacy codebases through archaeology, resurrection, and rejuvenation phases. Activate on \"legacy code\", \"inherited codebase\", \"no documentation\", ",
+      "repo": "erichowens/some_claude_skills",
+      "path": "code-necromancer",
+      "branch": "main",
+      "category": "code-necromancer",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "🔧 ts-foundation-restorer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.766580Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematically restore TypeScript foundation by fixing missing interface properties, recreating store methods, and resolving type definition issues",
+      "repo": "endlessblink/flow-state",
+      "path": "🔧 ts-foundation-restorer",
+      "branch": "main",
+      "category": "🔧 ts-foundation-restorer",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

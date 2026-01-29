@@ -1,0 +1,19 @@
+{
+  "category": "searxng",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.086351Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Privacy-respecting metasearch using your local SearXNG instance. Search the web, images, news, and more without external API dependencies.",
+      "repo": "moltbot/skills",
+      "path": "searxng",
+      "branch": "main",
+      "category": "searxng",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

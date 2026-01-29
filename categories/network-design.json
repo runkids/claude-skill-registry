@@ -1,0 +1,19 @@
+{
+  "category": "network-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.703335Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to design or optimize a supply chain network, determine facility locations, or configure distribution strategies. Also use when the user mentions \"network optimization,\" \"facility ",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "network-design",
+      "branch": "main",
+      "category": "network-design",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

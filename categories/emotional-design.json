@@ -1,0 +1,19 @@
+{
+  "category": "emotional-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.780423Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Los tres niveles de procesamiento emocional de Don Norman. Use cuando diseñe para engagement, satisfacción del usuario, o diferenciación de producto.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "emotional-design",
+      "branch": "main",
+      "category": "emotional-design",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

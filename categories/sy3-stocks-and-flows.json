@@ -1,0 +1,19 @@
+{
+  "category": "sy3-stocks-and-flows",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.949710Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply SY3 Stocks & Flows to distinguish accumulations from rates of change affecting them.",
+      "repo": "hummbl-dev/hummbl-agent",
+      "path": "sy3-stocks-and-flows",
+      "branch": "main",
+      "category": "sy3-stocks-and-flows",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/hummbl-agent",
+      "source": "github.com/hummbl-dev/hummbl-agent"
+    }
+  ]
+}

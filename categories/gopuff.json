@@ -1,0 +1,19 @@
+{
+  "category": "gopuff",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.565838Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enables Claude to browse Gopuff convenience items and track deliveries",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "gopuff",
+      "branch": "main",
+      "category": "gopuff",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

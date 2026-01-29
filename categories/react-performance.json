@@ -1,0 +1,19 @@
+{
+  "category": "react-performance",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.914649Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when diagnosing slow renders, optimizing list rendering, or preventing unnecessary re-renders in React applications.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "react-performance",
+      "branch": "main",
+      "category": "react-performance",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

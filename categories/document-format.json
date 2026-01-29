@@ -1,0 +1,19 @@
+{
+  "category": "document-format",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.783641Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create properly formatted documents for the knowledge base. Use when creating tasks, projects, bookmarks, companies, meetings, people, or research entries. Provides templates, frontmatter schemas, and",
+      "repo": "leovigna/jarvis-template",
+      "path": "document-format",
+      "branch": "main",
+      "category": "document-format",
+      "tags": [],
+      "stars": 0,
+      "install": "leovigna/jarvis-template",
+      "source": "github.com/leovigna/jarvis-template"
+    }
+  ]
+}

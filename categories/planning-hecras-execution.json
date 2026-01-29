@@ -1,0 +1,19 @@
+{
+  "category": "planning-hecras-execution",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.296113Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Decision support for HEC-RAS execution strategy. Analyzes project inspector output\nto recommend which plans to run, execution mode, and optimal parameters. Provides\nstructured execution plans with dep",
+      "repo": "gpt-cmdr/ras-commander",
+      "path": "planning-hecras-execution",
+      "branch": "main",
+      "category": "planning-hecras-execution",
+      "tags": [],
+      "stars": 0,
+      "install": "gpt-cmdr/ras-commander",
+      "source": "github.com/gpt-cmdr/ras-commander"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "fix-issue",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.823539Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /fix-issue <issue-number> slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "fix-issue",
+      "branch": "main",
+      "category": "fix-issue",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

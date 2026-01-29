@@ -1,0 +1,19 @@
+{
+  "category": "managing-server-actions",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.499758Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Defines the standard pattern for Next.js 15 Server Actions to handle mutations securely. Use for form submissions and data updates.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "managing-server-actions",
+      "branch": "main",
+      "category": "managing-server-actions",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

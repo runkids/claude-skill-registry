@@ -1,0 +1,19 @@
+{
+  "category": "infrastructure-verification",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.140749Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Verify AWS infrastructure configuration before deployment. Use when validating VPC endpoints, NAT Gateway capacity, security groups, or debugging network path issues that cause Lambda connection timeo",
+      "repo": "Awannaphasch2016/agent-kernel-mcp",
+      "path": "infrastructure-verification",
+      "branch": "main",
+      "category": "infrastructure-verification",
+      "tags": [],
+      "stars": 0,
+      "install": "Awannaphasch2016/agent-kernel-mcp",
+      "source": "github.com/Awannaphasch2016/agent-kernel-mcp"
+    }
+  ]
+}

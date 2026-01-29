@@ -1,0 +1,19 @@
+{
+  "category": "kubernetes-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.462904Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Kubernetes cluster management, deployment strategies, networking, and production operations",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "kubernetes-expert",
+      "branch": "main",
+      "category": "kubernetes-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

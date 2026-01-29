@@ -1,0 +1,19 @@
+{
+  "category": "usasoc",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.428103Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Activate USASOC for time-critical or mission-critical operations. User-invoked special operations deputy with wide lateral authority.",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "usasoc",
+      "branch": "main",
+      "category": "usasoc",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

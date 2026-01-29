@@ -1,0 +1,19 @@
+{
+  "category": "service-worker-caching-strategies",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.199871Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement robust offline caching and asset management for React apps via Service Workers.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "service-worker-caching-strategies",
+      "branch": "main",
+      "category": "service-worker-caching-strategies",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

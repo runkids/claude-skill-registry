@@ -1,0 +1,19 @@
+{
+  "category": "azure-admin",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.261017Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "name: azure-admin",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "azure-admin",
+      "branch": "main",
+      "category": "azure-admin",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

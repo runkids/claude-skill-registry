@@ -1,0 +1,19 @@
+{
+  "category": "explainer-video-scripter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.760761Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write scripts for educational and explainer videos that teach effectively",
+      "repo": "eddiebe147/claude-settings",
+      "path": "explainer-video-scripter",
+      "branch": "main",
+      "category": "explainer-video-scripter",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

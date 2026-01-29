@@ -1,0 +1,19 @@
+{
+  "category": "review-sonnet",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.493081Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fast code/plan review for quality, security, and tests. Use for quick reviews before deeper analysis.",
+      "repo": "cskwork/llm-review",
+      "path": "review-sonnet",
+      "branch": "main",
+      "category": "review-sonnet",
+      "tags": [],
+      "stars": 0,
+      "install": "cskwork/llm-review",
+      "source": "github.com/cskwork/llm-review"
+    }
+  ]
+}

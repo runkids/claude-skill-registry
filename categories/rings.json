@@ -1,0 +1,19 @@
+{
+  "category": "rings",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.152740Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Problem-solving strategies for rings in abstract algebra",
+      "repo": "namesreallyblank/Clorch",
+      "path": "rings",
+      "branch": "main",
+      "category": "rings",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

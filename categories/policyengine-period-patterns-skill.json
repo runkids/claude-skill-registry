@@ -1,0 +1,19 @@
+{
+  "category": "policyengine-period-patterns-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.846067Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PolicyEngine period handling - converting between YEAR, MONTH definition periods and testing patterns",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-period-patterns-skill",
+      "branch": "main",
+      "category": "policyengine-period-patterns-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

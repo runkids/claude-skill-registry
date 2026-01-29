@@ -1,0 +1,19 @@
+{
+  "category": "rerender-functional-setstate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.950926Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use functional setState updates to prevent stale closures and unnecessary callback recreations. Apply when updating state based on the current state value in React components.",
+      "repo": "TheOrcDev/8bitcn-ui",
+      "path": "rerender-functional-setstate",
+      "branch": "main",
+      "category": "rerender-functional-setstate",
+      "tags": [],
+      "stars": 0,
+      "install": "TheOrcDev/8bitcn-ui",
+      "source": "github.com/TheOrcDev/8bitcn-ui"
+    }
+  ]
+}

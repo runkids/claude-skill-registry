@@ -1,0 +1,19 @@
+{
+  "category": "real-time-features",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.337507Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guide for real-time features using Supabase Realtime, WebSockets, live updates, presence, and collaborative features. Use when building chat, live updates, or collaborative apps.",
+      "repo": "eddiebe147/claude-settings",
+      "path": "real-time-features",
+      "branch": "main",
+      "category": "real-time-features",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

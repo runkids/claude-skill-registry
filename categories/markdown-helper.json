@@ -1,0 +1,19 @@
+{
+  "category": "markdown-helper",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.013039Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Token-efficient markdown parsing, editing, and diagram generation using native CLI tools (Windows/Mac/Linux compatible)",
+      "repo": "Interstellar-code/claud-skills",
+      "path": "markdown-helper",
+      "branch": "main",
+      "category": "markdown-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "Interstellar-code/claud-skills",
+      "source": "github.com/Interstellar-code/claud-skills"
+    }
+  ]
+}

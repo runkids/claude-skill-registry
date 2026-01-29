@@ -1,0 +1,19 @@
+{
+  "category": "answer-collector",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.345888Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TODO: Brief description of what the Skill does and when to use it",
+      "repo": "matteocervelli/llms",
+      "path": "answer-collector",
+      "branch": "main",
+      "category": "answer-collector",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

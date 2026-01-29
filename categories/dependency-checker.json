@@ -1,0 +1,19 @@
+{
+  "category": "dependency-checker",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.270025Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill analyzes project dependencies for security vulnerabilities, outdated packages, and license compliance issues. It helps identify potential risks in your project's dependencies using the depe",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "dependency-checker",
+      "branch": "main",
+      "category": "dependency-checker",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

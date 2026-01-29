@@ -1,0 +1,19 @@
+{
+  "category": "frontend-design-svelte",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.544970Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create distinctive, production-grade Svelte/TypeScript frontends with exceptional design quality",
+      "repo": "matteocervelli/llms",
+      "path": "frontend-design-svelte",
+      "branch": "main",
+      "category": "frontend-design-svelte",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

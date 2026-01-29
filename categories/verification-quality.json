@@ -1,0 +1,19 @@
+{
+  "category": "verification-quality",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.203351Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive truth scoring, code quality verification, and automatic rollback system with 0.95 accuracy threshold for ensuring high-quality agent outputs and codebase reliability.",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "verification-quality",
+      "branch": "main",
+      "category": "verification-quality",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

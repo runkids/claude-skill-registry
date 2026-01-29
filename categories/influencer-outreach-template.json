@@ -1,0 +1,19 @@
+{
+  "category": "influencer-outreach-template",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.551398Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт influencer outreach. Используй для шаблонов писем, partnership proposals и collaboration briefs.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "influencer-outreach-template",
+      "branch": "main",
+      "category": "influencer-outreach-template",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

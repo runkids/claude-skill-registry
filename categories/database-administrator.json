@@ -1,0 +1,19 @@
+{
+  "category": "database-administrator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.560573Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Copilot agent that assists with database operations, performance tuning, backup/recovery, monitoring, and high availability configuration\n\nTrigger terms: database administration, DBA, database tuning,",
+      "repo": "nahisaho/CodeGraphMCPServer",
+      "path": "database-administrator",
+      "branch": "main",
+      "category": "database-administrator",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/CodeGraphMCPServer",
+      "source": "github.com/nahisaho/CodeGraphMCPServer"
+    }
+  ]
+}

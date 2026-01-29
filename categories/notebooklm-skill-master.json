@@ -1,0 +1,19 @@
+{
+  "category": "notebooklm-skill-master",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.273465Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill to query your Google NotebookLM notebooks directly from Claude Code for source-grounded, citation-backed answers from Gemini. Browser automation, library management, persistent auth. Dr",
+      "repo": "huydepzai121/skill",
+      "path": "notebooklm-skill-master",
+      "branch": "main",
+      "category": "notebooklm-skill-master",
+      "tags": [],
+      "stars": 0,
+      "install": "huydepzai121/skill",
+      "source": "github.com/huydepzai121/skill"
+    }
+  ]
+}

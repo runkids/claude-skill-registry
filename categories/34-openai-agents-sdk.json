@@ -1,0 +1,19 @@
+{
+  "category": "34-openai-agents-sdk",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.098821Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create your OpenAI Agents SDK skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "34-openai-agents-sdk",
+      "branch": "main",
+      "category": "34-openai-agents-sdk",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

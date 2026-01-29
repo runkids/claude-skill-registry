@@ -1,0 +1,19 @@
+{
+  "category": "ably-realtime",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.045836Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ably real-time messaging patterns, WebSocket channel management, message validation and processing, staleness filtering, error recovery strategies, collaborative editing with drag-and-drop, optimistic",
+      "repo": "DW225/ree-board",
+      "path": "ably-realtime",
+      "branch": "main",
+      "category": "ably-realtime",
+      "tags": [],
+      "stars": 0,
+      "install": "DW225/ree-board",
+      "source": "github.com/DW225/ree-board"
+    }
+  ]
+}

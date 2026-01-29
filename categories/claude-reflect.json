@@ -1,0 +1,19 @@
+{
+  "category": "claude-reflect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.381173Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute self-learning system that captures corrections during sessions and syncs them to CLAUDE.md.\nUse when discussing learnings, corrections, or when the user mentions remembering something.\nTrigger",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "claude-reflect",
+      "branch": "main",
+      "category": "claude-reflect",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

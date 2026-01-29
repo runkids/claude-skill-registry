@@ -1,0 +1,19 @@
+{
+  "category": "ci-cd-pipeline",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.301169Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up and maintain continuous integration and continuous deployment pipelines with GitHub Actions, GitLab CI, Jenkins, or similar tools to automate testing, building, and deployment. Use when configu",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "ci-cd-pipeline",
+      "branch": "main",
+      "category": "ci-cd-pipeline",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

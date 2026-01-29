@@ -1,0 +1,19 @@
+{
+  "category": "storybook-audit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.088599Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when auditing Storybook stories for display issues (cutoff modals, popups), store dependency errors (PouchDB/database conflicts), template validation problems, and rendering ",
+      "repo": "endlessblink/flow-state",
+      "path": "storybook-audit",
+      "branch": "main",
+      "category": "storybook-audit",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "levn-ln-310-story-validator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.892745Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used to validate and auto-fix Stories/Tasks against 2025 standards. Penalty Points system (goal = 0), delegates to ln-002 for documentation, Plan Mode support. Auto-discovers team",
+      "repo": "boisenoise/skills-collections",
+      "path": "levn-ln-310-story-validator",
+      "branch": "main",
+      "category": "levn-ln-310-story-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

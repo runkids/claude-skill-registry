@@ -1,0 +1,19 @@
+{
+  "category": "tech-debt",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.678752Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Technical debt management - scan codebase for bad smells and create tracking issues",
+      "repo": "vm0-ai/vm0",
+      "path": "tech-debt",
+      "branch": "main",
+      "category": "tech-debt",
+      "tags": [],
+      "stars": 0,
+      "install": "vm0-ai/vm0",
+      "source": "github.com/vm0-ai/vm0"
+    }
+  ]
+}

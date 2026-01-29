@@ -1,0 +1,19 @@
+{
+  "category": "prisma-guide",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.329210Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide to Prisma ORM including schema definition, migrations, queries, and best practices.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "prisma-guide",
+      "branch": "main",
+      "category": "prisma-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

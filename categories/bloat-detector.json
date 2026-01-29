@@ -1,0 +1,19 @@
+{
+  "category": "bloat-detector",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.306257Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect codebase bloat through progressive analysis: dead code, duplication, complexity, documentation bloat.\n\nTriggers: bloat detection, dead code, code cleanup, duplication, technical debt, unused co",
+      "repo": "athola/claude-night-market",
+      "path": "bloat-detector",
+      "branch": "main",
+      "category": "bloat-detector",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

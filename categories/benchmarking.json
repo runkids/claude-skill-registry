@@ -1,0 +1,19 @@
+{
+  "category": "benchmarking",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.532266Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Benchmarking and competitive analysis techniques. Compares performance, processes, and practices against industry standards, competitors, and best-in-class organizations.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "benchmarking",
+      "branch": "main",
+      "category": "benchmarking",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

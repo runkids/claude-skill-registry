@@ -1,0 +1,19 @@
+{
+  "category": "integrate-road-network",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.006567Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Integrate real-world street networks into VRP problems using OpenStreetMap data. Use when loading real map data, creating instances from actual locations, computing network-based distances, or buildin",
+      "repo": "dudusoar/VRP-Toolkit",
+      "path": "integrate-road-network",
+      "branch": "main",
+      "category": "integrate-road-network",
+      "tags": [],
+      "stars": 0,
+      "install": "dudusoar/VRP-Toolkit",
+      "source": "github.com/dudusoar/VRP-Toolkit"
+    }
+  ]
+}

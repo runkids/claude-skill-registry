@@ -1,0 +1,19 @@
+{
+  "category": "imsg",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.177083Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "iMessage/SMS CLI for listing chats, history, watch, and sending.",
+      "repo": "Youjjwal/clawdbot",
+      "path": "imsg",
+      "branch": "main",
+      "category": "imsg",
+      "tags": [],
+      "stars": 0,
+      "install": "Youjjwal/clawdbot",
+      "source": "github.com/Youjjwal/clawdbot"
+    }
+  ]
+}

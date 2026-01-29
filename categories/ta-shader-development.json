@@ -1,0 +1,19 @@
+{
+  "category": "ta-shader-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.545449Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "GLSL/TSL shader creation, compilation, and testing for R3F. Use when writing custom shaders, implementing visual effects, optimizing shader performance.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "ta-shader-development",
+      "branch": "main",
+      "category": "ta-shader-development",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

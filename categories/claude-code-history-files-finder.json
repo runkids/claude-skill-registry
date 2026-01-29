@@ -1,0 +1,19 @@
+{
+  "category": "claude-code-history-files-finder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.167347Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Finds and recovers content from Claude Code session history files. This skill should be used when searching for deleted files, tracking changes across sessions, analyzing conversation history, or reco",
+      "repo": "nguyendinhquocx/code-ai",
+      "path": "claude-code-history-files-finder",
+      "branch": "main",
+      "category": "claude-code-history-files-finder",
+      "tags": [],
+      "stars": 0,
+      "install": "nguyendinhquocx/code-ai",
+      "source": "github.com/nguyendinhquocx/code-ai"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "screenshot-use",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.676309Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use the screenshot workflow to pick, verify, replace, and verify CI.",
+      "repo": "doubleflannel/12-30-test-codex-ip",
+      "path": "screenshot-use",
+      "branch": "main",
+      "category": "screenshot-use",
+      "tags": [],
+      "stars": 0,
+      "install": "doubleflannel/12-30-test-codex-ip",
+      "source": "github.com/doubleflannel/12-30-test-codex-ip"
+    }
+  ]
+}

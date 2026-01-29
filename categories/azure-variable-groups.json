@@ -1,0 +1,19 @@
+{
+  "category": "azure-variable-groups",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.332476Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage Azure Pipeline variable groups and library secrets. Use when organizing pipeline variables or managing configuration.",
+      "repo": "ntaksh42/agents",
+      "path": "azure-variable-groups",
+      "branch": "main",
+      "category": "azure-variable-groups",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "continuity",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.878806Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "El ojo sigue líneas y curvas naturalmente. Use cuando diseñe flujos visuales, navegación, timelines, o guíe la atención del usuario.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "continuity",
+      "branch": "main",
+      "category": "continuity",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

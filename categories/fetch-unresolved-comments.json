@@ -1,0 +1,19 @@
+{
+  "category": "fetch-unresolved-comments",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.034471Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fetch unresolved PR review comments using GitHub GraphQL API, filtering out resolved and outdated feedback.",
+      "repo": "mlflow/mlflow",
+      "path": "fetch-unresolved-comments",
+      "branch": "main",
+      "category": "fetch-unresolved-comments",
+      "tags": [],
+      "stars": 0,
+      "install": "mlflow/mlflow",
+      "source": "github.com/mlflow/mlflow"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "n8n-ai-automation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.375842Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "World-class expert n8n workflow automation specialist with focus on AI integrations, webhooks, API connections, and building intelligent automation workflows at enterprise scale. Use when creating n8n",
+      "repo": "DonNigami/eddication.io",
+      "path": "n8n-ai-automation",
+      "branch": "main",
+      "category": "n8n-ai-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "DonNigami/eddication.io",
+      "source": "github.com/DonNigami/eddication.io"
+    }
+  ]
+}

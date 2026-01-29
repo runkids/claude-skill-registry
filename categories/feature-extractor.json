@@ -1,0 +1,19 @@
+{
+  "category": "feature-extractor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.124482Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "﻿---",
+      "repo": "Darkpunkki/v-forge",
+      "path": "feature-extractor",
+      "branch": "main",
+      "category": "feature-extractor",
+      "tags": [],
+      "stars": 0,
+      "install": "Darkpunkki/v-forge",
+      "source": "github.com/Darkpunkki/v-forge"
+    }
+  ]
+}

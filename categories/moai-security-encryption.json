@@ -1,0 +1,19 @@
+{
+  "category": "moai-security-encryption",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.882401Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Encryption patterns - AES-GCM, RSA, password hashing, envelope encryption",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-security-encryption",
+      "branch": "main",
+      "category": "moai-security-encryption",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

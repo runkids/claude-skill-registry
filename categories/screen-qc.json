@@ -1,0 +1,19 @@
+{
+  "category": "screen-qc",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.627951Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quality control for pooled CRISPR screens. Covers library representation, read distribution, replicate correlation, and essential gene recovery. Use when assessing screen quality before hit calling or",
+      "repo": "GPTomics/bioSkills",
+      "path": "screen-qc",
+      "branch": "main",
+      "category": "screen-qc",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

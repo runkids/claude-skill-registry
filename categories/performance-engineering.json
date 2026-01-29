@@ -1,0 +1,19 @@
+{
+  "category": "performance-engineering",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.655548Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When validating system performance under load, identifying bottlenecks through profiling, or optimizing application responsiveness. Covers load testing (k6, Locust), profiling (CPU, memory, I/O), and ",
+      "repo": "ancoleman/ai-design-components",
+      "path": "performance-engineering",
+      "branch": "main",
+      "category": "performance-engineering",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

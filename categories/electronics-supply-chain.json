@@ -1,0 +1,19 @@
+{
+  "category": "electronics-supply-chain",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.973053Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize electronics manufacturing supply chains, manage semiconductor sourcing, handle PCB assembly, or navigate component allocation. Also use when the user mentions \"electron",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "electronics-supply-chain",
+      "branch": "main",
+      "category": "electronics-supply-chain",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

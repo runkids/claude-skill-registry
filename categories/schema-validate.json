@@ -1,0 +1,19 @@
+{
+  "category": "schema-validate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.750083Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Database schema validation and drift detection across environments",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "schema-validate",
+      "branch": "main",
+      "category": "schema-validate",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

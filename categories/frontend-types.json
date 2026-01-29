@@ -1,0 +1,19 @@
+{
+  "category": "frontend-types",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.196150Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Purpose: Guidance for creating TypeScript type definitions following existing patterns from frontend/types/index.ts.",
+      "repo": "Asmayaseen/hackathon-2",
+      "path": "frontend-types",
+      "branch": "main",
+      "category": "frontend-types",
+      "tags": [],
+      "stars": 0,
+      "install": "Asmayaseen/hackathon-2",
+      "source": "github.com/Asmayaseen/hackathon-2"
+    }
+  ]
+}

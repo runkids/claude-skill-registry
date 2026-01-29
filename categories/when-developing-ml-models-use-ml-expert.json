@@ -1,0 +1,19 @@
+{
+  "category": "when-developing-ml-models-use-ml-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.092664Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Specialized ML model development, training, and deployment workflow",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "when-developing-ml-models-use-ml-expert",
+      "branch": "main",
+      "category": "when-developing-ml-models-use-ml-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

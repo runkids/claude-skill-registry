@@ -1,0 +1,19 @@
+{
+  "category": "community-marketing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.743736Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по community-маркетингу. Используй для построения сообществ, engagement стратегий, community-led growth и модерации.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "community-marketing",
+      "branch": "main",
+      "category": "community-marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

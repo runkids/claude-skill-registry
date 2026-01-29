@@ -1,0 +1,19 @@
+{
+  "category": "csv-data-summarizer-claude-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.101934Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes CSV files, generates summary stats, and plots quick visualizations using Python and pandas.",
+      "repo": "coffeefuelbump/csv-data-summarizer-claude-skill",
+      "path": "csv-data-summarizer-claude-skill",
+      "branch": "main",
+      "category": "csv-data-summarizer-claude-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "coffeefuelbump/csv-data-summarizer-claude-skill",
+      "source": "github.com/coffeefuelbump/csv-data-summarizer-claude-skill"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "csharp-pro",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.760901Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write modern C# code with advanced features like records, pattern matching, and async/await. Optimizes .NET applications, implements enterprise patterns, and ensures comprehensive testing. Use PROACTI",
+      "repo": "rmyndharis/antigravity-skills",
+      "path": "csharp-pro",
+      "branch": "main",
+      "category": "csharp-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "rmyndharis/antigravity-skills",
+      "source": "github.com/rmyndharis/antigravity-skills"
+    }
+  ]
+}

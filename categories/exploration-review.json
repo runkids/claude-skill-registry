@@ -1,0 +1,19 @@
+{
+  "category": "exploration-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.362970Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interactive code review through conversation. HOUSTON guides review, spawns specialized agents, and helps create Beads for issues found.",
+      "repo": "thebrownproject/space-agents",
+      "path": "exploration-review",
+      "branch": "main",
+      "category": "exploration-review",
+      "tags": [],
+      "stars": 0,
+      "install": "thebrownproject/space-agents",
+      "source": "github.com/thebrownproject/space-agents"
+    }
+  ]
+}

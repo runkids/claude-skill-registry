@@ -1,0 +1,19 @@
+{
+  "category": "bb80-deterministic-receipts",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.361591Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Replace human review with reproducible evidence. Always provide deterministic receipts, never narratives.",
+      "repo": "seanchatmangpt/ggen",
+      "path": "bb80-deterministic-receipts",
+      "branch": "main",
+      "category": "bb80-deterministic-receipts",
+      "tags": [],
+      "stars": 0,
+      "install": "seanchatmangpt/ggen",
+      "source": "github.com/seanchatmangpt/ggen"
+    }
+  ]
+}

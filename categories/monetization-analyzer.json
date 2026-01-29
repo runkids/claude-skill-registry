@@ -1,0 +1,19 @@
+{
+  "category": "monetization-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.554634Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze game concepts for monetization potential, willingness-to-pay, viral mechanics, and revenue generation. Ranks concepts by total monetization score and identifies top revenue opportunities.",
+      "repo": "natea/fitfinder",
+      "path": "monetization-analyzer",
+      "branch": "main",
+      "category": "monetization-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "natea/fitfinder",
+      "source": "github.com/natea/fitfinder"
+    }
+  ]
+}

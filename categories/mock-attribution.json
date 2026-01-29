@@ -1,0 +1,19 @@
+{
+  "category": "mock-attribution",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.093818Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Mock attribution skill for 4-layer thinking test. Calls Task subagent.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "mock-attribution",
+      "branch": "main",
+      "category": "mock-attribution",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

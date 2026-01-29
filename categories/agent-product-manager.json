@@ -1,0 +1,19 @@
+{
+  "category": "agent-product-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.743935Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert product manager specializing in product strategy, user-centric development, and business outcomes. Masters roadmap planning, feature prioritization, and cross-functional leadership with focus o",
+      "repo": "Tony363/SuperClaude",
+      "path": "agent-product-manager",
+      "branch": "main",
+      "category": "agent-product-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "Tony363/SuperClaude",
+      "source": "github.com/Tony363/SuperClaude"
+    }
+  ]
+}

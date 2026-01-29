@@ -1,0 +1,19 @@
+{
+  "category": "rfm-customer-segmentation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.631147Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Perform RFM (Recency, Frequency, Monetary) customer segmentation analysis on e-commerce data. Use when you need to analyze customer value, identify VIP customers, or create marketing segments. Automat",
+      "repo": "liangdabiao/claude-data-analysis-ultra-main",
+      "path": "rfm-customer-segmentation",
+      "branch": "main",
+      "category": "rfm-customer-segmentation",
+      "tags": [],
+      "stars": 0,
+      "install": "liangdabiao/claude-data-analysis-ultra-main",
+      "source": "github.com/liangdabiao/claude-data-analysis-ultra-main"
+    }
+  ]
+}

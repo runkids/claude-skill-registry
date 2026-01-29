@@ -1,0 +1,19 @@
+{
+  "category": "pdf-extractor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.443374Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract and convert PDF documents using Python scripts",
+      "repo": "maxvaega/skillkit",
+      "path": "pdf-extractor",
+      "branch": "main",
+      "category": "pdf-extractor",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

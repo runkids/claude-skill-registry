@@ -1,0 +1,19 @@
+{
+  "category": "verification-before-completion",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.820646Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run verification commands and confirm output before claiming success",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "verification-before-completion",
+      "branch": "main",
+      "category": "verification-before-completion",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

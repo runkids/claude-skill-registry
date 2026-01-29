@@ -1,0 +1,19 @@
+{
+  "category": "pymoo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.999859Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-objective optimization framework. NSGA-II, NSGA-III, MOEA/D, Pareto fronts, constraint handling, benchmarks (ZDT, DTLZ), for engineering design and optimization problems.",
+      "repo": "ovachiever/droid-tings",
+      "path": "pymoo",
+      "branch": "main",
+      "category": "pymoo",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

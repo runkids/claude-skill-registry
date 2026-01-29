@@ -1,0 +1,19 @@
+{
+  "category": "template-new-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.569638Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate a skeleton template for a new Claude Code Skill.",
+      "repo": "aRustyDev/dotfiles",
+      "path": "template-new-skill",
+      "branch": "main",
+      "category": "template-new-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "aRustyDev/dotfiles",
+      "source": "github.com/aRustyDev/dotfiles"
+    }
+  ]
+}

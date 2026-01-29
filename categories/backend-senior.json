@@ -1,0 +1,19 @@
+{
+  "category": "backend-senior",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.276044Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Senior Developer Agent. 기술 리더십, 아키텍처 의사결정, 코드 리뷰 리드, 멘토링을 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "backend-senior",
+      "branch": "main",
+      "category": "backend-senior",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

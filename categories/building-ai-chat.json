@@ -1,0 +1,19 @@
+{
+  "category": "building-ai-chat",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.665597Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Builds AI chat interfaces and conversational UI with streaming responses, context management, and multi-modal support. Use when creating ChatGPT-style interfaces, AI assistants, code copilots, or conv",
+      "repo": "ancoleman/ai-design-components",
+      "path": "building-ai-chat",
+      "branch": "main",
+      "category": "building-ai-chat",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

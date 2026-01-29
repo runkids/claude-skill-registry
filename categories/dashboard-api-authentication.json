@@ -1,0 +1,19 @@
+{
+  "category": "dashboard-api-authentication",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.835200Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Proper authentication patterns for dashboard frontend API calls. Use when adding new API endpoints, creating components that fetch data, or debugging 401 Unauthorized errors. Covers JWT token handling",
+      "repo": "orient-bot/orient",
+      "path": "dashboard-api-authentication",
+      "branch": "main",
+      "category": "dashboard-api-authentication",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "poet-analyst",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.801704Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes events through poetic lens using close reading, metaphor analysis, imagery, rhythm,\nform analysis, and attention to language's emotional and aesthetic dimensions.\nProvides insights on emotion",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "poet-analyst",
+      "branch": "main",
+      "category": "poet-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

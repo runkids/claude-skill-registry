@@ -1,0 +1,19 @@
+{
+  "category": "verify-after-pushing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.266667Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when after pushing commits to remote repository",
+      "repo": "viteinfinite/sync-skills",
+      "path": "verify-after-pushing",
+      "branch": "main",
+      "category": "verify-after-pushing",
+      "tags": [],
+      "stars": 0,
+      "install": "viteinfinite/sync-skills",
+      "source": "github.com/viteinfinite/sync-skills"
+    }
+  ]
+}

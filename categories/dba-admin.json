@@ -1,0 +1,19 @@
+{
+  "category": "dba-admin",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.374429Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DBA Admin Agent. 백업, 복구, 보안, 권한 관리를 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "dba-admin",
+      "branch": "main",
+      "category": "dba-admin",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

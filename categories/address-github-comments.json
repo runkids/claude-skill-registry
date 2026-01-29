@@ -1,0 +1,19 @@
+{
+  "category": "address-github-comments",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.679929Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when you need to address review or issue comments on an open GitHub Pull Request using the gh CLI.",
+      "repo": "byteworthy/Upstream",
+      "path": "address-github-comments",
+      "branch": "main",
+      "category": "address-github-comments",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

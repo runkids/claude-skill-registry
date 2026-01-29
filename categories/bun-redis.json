@@ -1,0 +1,19 @@
+{
+  "category": "bun-redis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.889506Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with Redis in Bun (ioredis, Upstash), caching, pub/sub, session storage, or key-value operations.",
+      "repo": "secondsky/claude-skills",
+      "path": "bun-redis",
+      "branch": "main",
+      "category": "bun-redis",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

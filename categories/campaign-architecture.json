@@ -1,0 +1,19 @@
+{
+  "category": "campaign-architecture",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.923738Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when structuring paid media campaigns/ad sets to balance testing, delivery, and optimization constraints.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "campaign-architecture",
+      "branch": "main",
+      "category": "campaign-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

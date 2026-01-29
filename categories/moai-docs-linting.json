@@ -1,0 +1,19 @@
+{
+  "category": "moai-docs-linting",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.627279Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enhanced docs linting with AI-powered features. Enhanced with Context7 MCP for up-to-date documentation.",
+      "repo": "dolsoon/my-awesome-project",
+      "path": "moai-docs-linting",
+      "branch": "main",
+      "category": "moai-docs-linting",
+      "tags": [],
+      "stars": 0,
+      "install": "dolsoon/my-awesome-project",
+      "source": "github.com/dolsoon/my-awesome-project"
+    }
+  ]
+}

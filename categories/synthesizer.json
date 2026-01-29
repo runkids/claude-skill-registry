@@ -1,0 +1,19 @@
+{
+  "category": "synthesizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.989450Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Invoke SYNTHESIZER Deputy for operations, execution, and cross-domain coordination.",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "synthesizer",
+      "branch": "main",
+      "category": "synthesizer",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

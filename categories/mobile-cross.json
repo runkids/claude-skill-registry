@@ -1,0 +1,19 @@
+{
+  "category": "mobile-cross",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.080639Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Mobile Cross-Platform Agent. React Native/Flutter를 사용한 크로스플랫폼 앱 개발을 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "mobile-cross",
+      "branch": "main",
+      "category": "mobile-cross",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "azure-release-pipeline",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.264662Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design Azure release pipelines with deployment strategies and rollback. Use when creating release automation or deployment strategies.",
+      "repo": "ntaksh42/agents",
+      "path": "azure-release-pipeline",
+      "branch": "main",
+      "category": "azure-release-pipeline",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

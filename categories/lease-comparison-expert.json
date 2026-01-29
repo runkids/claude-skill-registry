@@ -1,0 +1,19 @@
+{
+  "category": "lease-comparison-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.451628Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in lease-to-lease comparison and deviation analysis. Use when comparing lease amendments to originals, analyzing competing offers, benchmarking against precedents, or identifying deal term vari",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": "lease-comparison-expert",
+      "branch": "main",
+      "category": "lease-comparison-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "reggiechan74/vp-real-estate",
+      "source": "github.com/reggiechan74/vp-real-estate"
+    }
+  ]
+}

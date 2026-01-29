@@ -1,0 +1,19 @@
+{
+  "category": "safe-refactoring",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.189522Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Change code structure without changing behavior, with zero tolerance for behavioral changes",
+      "repo": "LorenFrankLab/non_local_detector",
+      "path": "safe-refactoring",
+      "branch": "main",
+      "category": "safe-refactoring",
+      "tags": [],
+      "stars": 0,
+      "install": "LorenFrankLab/non_local_detector",
+      "source": "github.com/LorenFrankLab/non_local_detector"
+    }
+  ]
+}

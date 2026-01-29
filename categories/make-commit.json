@@ -1,0 +1,19 @@
+{
+  "category": "make-commit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.651899Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when work is complete and ready to commit. Triggers after code review passes, when asked to \"commit\", \"save this\", or \"wrap up\". Runs quality checks, updates changelog, creates commit.",
+      "repo": "kasperjunge/agent-resources",
+      "path": "make-commit",
+      "branch": "main",
+      "category": "make-commit",
+      "tags": [],
+      "stars": 0,
+      "install": "kasperjunge/agent-resources",
+      "source": "github.com/kasperjunge/agent-resources"
+    }
+  ]
+}

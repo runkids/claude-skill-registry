@@ -1,0 +1,19 @@
+{
+  "category": "abaqus-fatigue-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.079502Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Workflow for fatigue and durability analysis - cycle counting, damage accumulation, and fatigue life prediction.",
+      "repo": "JaimeCernuda/abaqus-scripting",
+      "path": "abaqus-fatigue-analysis",
+      "branch": "main",
+      "category": "abaqus-fatigue-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "JaimeCernuda/abaqus-scripting",
+      "source": "github.com/JaimeCernuda/abaqus-scripting"
+    }
+  ]
+}

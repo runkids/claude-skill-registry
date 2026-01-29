@@ -1,0 +1,19 @@
+{
+  "category": "terminal-title",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.026245Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically updates terminal window title to reflect the current high-level task. Use at the start of every Claude Code session when the user provides their first prompt, and whenever the user switc",
+      "repo": "ccf/claude-code-ccf-marketplace",
+      "path": "terminal-title",
+      "branch": "main",
+      "category": "terminal-title",
+      "tags": [],
+      "stars": 0,
+      "install": "ccf/claude-code-ccf-marketplace",
+      "source": "github.com/ccf/claude-code-ccf-marketplace"
+    }
+  ]
+}

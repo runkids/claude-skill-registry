@@ -1,0 +1,19 @@
+{
+  "category": "xmc",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.171981Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "XMC (Wuhan Xinxin Semiconductor) MPN encoding patterns, suffix decoding, and handler guidance. Use when working with XMC SPI NOR Flash memory components or XMCHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "xmc",
+      "branch": "main",
+      "category": "xmc",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

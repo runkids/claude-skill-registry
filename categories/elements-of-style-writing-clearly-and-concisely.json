@@ -1,0 +1,19 @@
+{
+  "category": "elements-of-style-writing-clearly-and-concisely",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.101107Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply Strunk's timeless writing rules to ANY prose humans will read—documentation, commit messages, error messages, explanations, reports, or UI text. Makes your writing clearer, stronger, and more pr",
+      "repo": "viktorvan/dot-files",
+      "path": "elements-of-style-writing-clearly-and-concisely",
+      "branch": "main",
+      "category": "elements-of-style-writing-clearly-and-concisely",
+      "tags": [],
+      "stars": 0,
+      "install": "viktorvan/dot-files",
+      "source": "github.com/viktorvan/dot-files"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "in10-red-teaming",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.815800Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply IN10 Red Teaming to organize adversarial review to find vulnerabilities through simulated attack.",
+      "repo": "hummbl-dev/hummbl-agent",
+      "path": "in10-red-teaming",
+      "branch": "main",
+      "category": "in10-red-teaming",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/hummbl-agent",
+      "source": "github.com/hummbl-dev/hummbl-agent"
+    }
+  ]
+}

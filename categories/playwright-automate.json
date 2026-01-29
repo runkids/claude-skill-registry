@@ -1,0 +1,19 @@
+{
+  "category": "playwright-automate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.060258Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Browser automation workflows with Playwright MCP integration",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "playwright-automate",
+      "branch": "main",
+      "category": "playwright-automate",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

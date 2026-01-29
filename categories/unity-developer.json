@@ -1,0 +1,19 @@
+{
+  "category": "unity-developer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.398390Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build Unity games with optimized C# scripts, efficient rendering, and proper asset management. Masters Unity 6 LTS, URP/HDRP pipelines, and cross-platform deployment. Handles gameplay systems, UI impl",
+      "repo": "rmyndharis/antigravity-skills",
+      "path": "unity-developer",
+      "branch": "main",
+      "category": "unity-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "rmyndharis/antigravity-skills",
+      "source": "github.com/rmyndharis/antigravity-skills"
+    }
+  ]
+}

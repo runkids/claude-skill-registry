@@ -1,0 +1,19 @@
+{
+  "category": "pm-organization-task-selection",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.287360Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Priority algorithm for selecting next PRD task based on category, dependencies, and risk",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "pm-organization-task-selection",
+      "branch": "main",
+      "category": "pm-organization-task-selection",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "github-issue",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.066239Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "GitHub issue lifecycle management with worktree isolation",
+      "repo": "randlee/synaptic-canvas",
+      "path": "github-issue",
+      "branch": "main",
+      "category": "github-issue",
+      "tags": [],
+      "stars": 0,
+      "install": "randlee/synaptic-canvas",
+      "source": "github.com/randlee/synaptic-canvas"
+    }
+  ]
+}

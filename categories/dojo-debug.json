@@ -1,0 +1,19 @@
+{
+  "category": "dojo-debug",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.717625Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when debugging and troubleshooting dojo.js applications.\nTriggers: dojo error, torii connection, entity not found, type mismatch, debug dojo,\ntroubleshoot, subscription error, sync issues",
+      "repo": "dojoengine/dojo.js",
+      "path": "dojo-debug",
+      "branch": "main",
+      "category": "dojo-debug",
+      "tags": [],
+      "stars": 0,
+      "install": "dojoengine/dojo.js",
+      "source": "github.com/dojoengine/dojo.js"
+    }
+  ]
+}

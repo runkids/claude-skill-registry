@@ -1,0 +1,19 @@
+{
+  "category": "generate-translations",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.217813Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when new translation keys are added to packages to generate new translations strings",
+      "repo": "payloadcms/payload",
+      "path": "generate-translations",
+      "branch": "main",
+      "category": "generate-translations",
+      "tags": [],
+      "stars": 0,
+      "install": "payloadcms/payload",
+      "source": "github.com/payloadcms/payload"
+    }
+  ]
+}

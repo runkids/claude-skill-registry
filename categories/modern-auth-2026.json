@@ -1,0 +1,19 @@
+{
+  "category": "modern-auth-2026",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.545093Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Modern authentication implementation for 2026 - passkeys (WebAuthn), OAuth (Google, Apple), magic links, and cross-device sync. Use for passwordless-first authentication, social login setup, Supabase ",
+      "repo": "erichowens/some_claude_skills",
+      "path": "modern-auth-2026",
+      "branch": "main",
+      "category": "modern-auth-2026",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "symlink-manage",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.922997Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "シンボリックリンクの状態確認・再作成。リンク切れの検出と修復。トリガー: symlink, link, リンク切れ, リンク, シンボリック",
+      "repo": "snkrheadz/laptop",
+      "path": "symlink-manage",
+      "branch": "main",
+      "category": "symlink-manage",
+      "tags": [],
+      "stars": 0,
+      "install": "snkrheadz/laptop",
+      "source": "github.com/snkrheadz/laptop"
+    }
+  ]
+}

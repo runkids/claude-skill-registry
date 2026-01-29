@@ -1,0 +1,19 @@
+{
+  "category": "writing-bundler-tests",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.921254Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guides writing bundler tests using itBundled/expectBundled in test/bundler/. Use when creating or modifying bundler, transpiler, or code transformation tests.",
+      "repo": "oven-sh/bun",
+      "path": "writing-bundler-tests",
+      "branch": "main",
+      "category": "writing-bundler-tests",
+      "tags": [],
+      "stars": 0,
+      "install": "oven-sh/bun",
+      "source": "github.com/oven-sh/bun"
+    }
+  ]
+}

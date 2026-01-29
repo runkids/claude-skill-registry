@@ -1,0 +1,19 @@
+{
+  "category": "zenml-backport",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.089546Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Backport docs/examples changes to a pre-existing ZenML release. Use when changes merged to `develop` need to be reflected in a live release version. Triggers include \"backport\", \"cherry-pick to releas",
+      "repo": "zenml-io/zenml",
+      "path": "zenml-backport",
+      "branch": "main",
+      "category": "zenml-backport",
+      "tags": [],
+      "stars": 0,
+      "install": "zenml-io/zenml",
+      "source": "github.com/zenml-io/zenml"
+    }
+  ]
+}

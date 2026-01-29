@@ -1,0 +1,19 @@
+{
+  "category": "quality-checks",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.667847Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Orchestrate quality checks at lifecycle points (pre-edit, post-edit, on-stop). Coordinates test, doc, style, and security checks to ensure consistent code quality. Use when making significant code cha",
+      "repo": "bitsoex/bitso-java",
+      "path": "quality-checks",
+      "branch": "main",
+      "category": "quality-checks",
+      "tags": [],
+      "stars": 0,
+      "install": "bitsoex/bitso-java",
+      "source": "github.com/bitsoex/bitso-java"
+    }
+  ]
+}

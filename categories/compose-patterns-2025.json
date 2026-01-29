@@ -1,0 +1,19 @@
+{
+  "category": "compose-patterns-2025",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.215099Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Docker Compose production patterns 2025 including multi-environment strategies, health checks, and modern compose features",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "compose-patterns-2025",
+      "branch": "main",
+      "category": "compose-patterns-2025",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "policyengine-core-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.297671Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PolicyEngine Core simulation engine - the foundation powering all PolicyEngine calculations",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-core-skill",
+      "branch": "main",
+      "category": "policyengine-core-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

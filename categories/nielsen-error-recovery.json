@@ -1,0 +1,19 @@
+{
+  "category": "nielsen-error-recovery",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.896184Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diseña mensajes de error claros que ayuden a los usuarios a recuperarse. Use cuando implemente manejo de errores, validaciones, o estados de fallo en la interfaz.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "nielsen-error-recovery",
+      "branch": "main",
+      "category": "nielsen-error-recovery",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

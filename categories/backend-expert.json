@@ -1,0 +1,19 @@
+{
+  "category": "backend-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.099600Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ultimate 25+ years expert-level backend skill covering FastAPI, Express, Node.js, Next.js with TypeScript. Includes ALL databases (PostgreSQL, MongoDB, Redis, Elasticsearch), ALL features (REST, Graph",
+      "repo": "SHAJAR5110/Hackathon-II-phase2",
+      "path": "backend-expert",
+      "branch": "main",
+      "category": "backend-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "SHAJAR5110/Hackathon-II-phase2",
+      "source": "github.com/SHAJAR5110/Hackathon-II-phase2"
+    }
+  ]
+}

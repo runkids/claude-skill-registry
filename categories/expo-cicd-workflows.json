@@ -1,0 +1,19 @@
+{
+  "category": "expo-cicd-workflows",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.999720Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Helps understand and write EAS workflow YAML files for Expo projects. Use this skill when the user asks about CI/CD or workflows in an Expo or EAS context, mentions .eas/workflows/, or wants help with",
+      "repo": "luthebao/expo-template",
+      "path": "expo-cicd-workflows",
+      "branch": "main",
+      "category": "expo-cicd-workflows",
+      "tags": [],
+      "stars": 0,
+      "install": "luthebao/expo-template",
+      "source": "github.com/luthebao/expo-template"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "monorepo-turborepo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.740654Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage monorepos with Turborepo for workspace configuration, task caching, and CI optimization. Use when building multi-package projects, shared libraries, or optimizing large codebases.",
+      "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "path": "monorepo-turborepo",
+      "branch": "main",
+      "category": "monorepo-turborepo",
+      "tags": [],
+      "stars": 0,
+      "install": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric"
+    }
+  ]
+}

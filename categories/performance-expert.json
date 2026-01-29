@@ -1,0 +1,19 @@
+{
+  "category": "performance-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.705441Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level performance optimization, profiling, benchmarking, and tuning",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "performance-expert",
+      "branch": "main",
+      "category": "performance-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

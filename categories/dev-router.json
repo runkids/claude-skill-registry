@@ -1,0 +1,19 @@
+{
+  "category": "dev-router",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.376243Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Developer agent skill router - routes to 31 dev skills by category and signal keywords, manages 5 sub-agents.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-router",
+      "branch": "main",
+      "category": "dev-router",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "state-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.376116Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks about \"Effect Ref\", \"mutable state\", \"Ref.make\", \"Ref.get\", \"Ref.set\", \"Ref.update\", \"SubscriptionRef\", \"SynchronizedRef\", \"reactive state\", \"state updates",
+      "repo": "andrueandersoncs/claude-skill-effect-ts",
+      "path": "state-management",
+      "branch": "main",
+      "category": "state-management",
+      "tags": [],
+      "stars": 0,
+      "install": "andrueandersoncs/claude-skill-effect-ts",
+      "source": "github.com/andrueandersoncs/claude-skill-effect-ts"
+    }
+  ]
+}

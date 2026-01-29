@@ -1,0 +1,19 @@
+{
+  "category": "claude-memory",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.337560Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and optimize CLAUDE.md memory files or .claude/rules/ modular rules for Claude Code projects. Comprehensive guidance on file hierarchy, content structure, path-scoped rules, best practices, and",
+      "repo": "cedricfressin/claude-config",
+      "path": "claude-memory",
+      "branch": "main",
+      "category": "claude-memory",
+      "tags": [],
+      "stars": 0,
+      "install": "cedricfressin/claude-config",
+      "source": "github.com/cedricfressin/claude-config"
+    }
+  ]
+}

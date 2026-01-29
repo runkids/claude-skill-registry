@@ -1,0 +1,19 @@
+{
+  "category": "dnanexus-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.103860Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DNAnexus cloud genomics platform. Build apps/applets, manage data (upload/download), dxpy Python SDK, run workflows, FASTQ/BAM/VCF, for genomics pipeline development and execution.",
+      "repo": "ovachiever/droid-tings",
+      "path": "dnanexus-integration",
+      "branch": "main",
+      "category": "dnanexus-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "ci-monitor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.667521Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Monitor Nx Cloud CI pipeline and handle self-healing fixes automatically. Checks for Nx Cloud connection before starting.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "ci-monitor",
+      "branch": "main",
+      "category": "ci-monitor",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

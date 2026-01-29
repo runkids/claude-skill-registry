@@ -1,0 +1,19 @@
+{
+  "category": "problem-solving",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.393762Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic problem-solving techniques for stuck-ness. Techniques: simplification cascade (complexity spirals), collision-zone thinking (innovation blocks), meta-pattern recognition (recurring issues),",
+      "repo": "brixtonpham/claude-config",
+      "path": "problem-solving",
+      "branch": "main",
+      "category": "problem-solving",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

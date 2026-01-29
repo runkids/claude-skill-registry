@@ -1,0 +1,19 @@
+{
+  "category": "fieldy-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.291860Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze Field Labs coaching transcription data, calculate session metrics, and generate daily summaries. Use for processing Fieldy voice transcriptions and creating coaching reports.",
+      "repo": "dglowacki/mega-agent-v2",
+      "path": "fieldy-analysis",
+      "branch": "main",
+      "category": "fieldy-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "dglowacki/mega-agent-v2",
+      "source": "github.com/dglowacki/mega-agent-v2"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "image-metadata-tool",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.993171Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract EXIF metadata from images including GPS coordinates, camera settings, and timestamps. Map photo locations and strip metadata for privacy.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "image-metadata-tool",
+      "branch": "main",
+      "category": "image-metadata-tool",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

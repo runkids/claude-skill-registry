@@ -1,0 +1,19 @@
+{
+  "category": "steve-blank-adviser",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.740505Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides startup advice using Steve Blank's Customer Development methodology and Lean Startup principles. Use when advising on startups, customer discovery, business models, pivots, or when user asks ",
+      "repo": "rwHiveAqua/_idea_spinner",
+      "path": "steve-blank-adviser",
+      "branch": "main",
+      "category": "steve-blank-adviser",
+      "tags": [],
+      "stars": 0,
+      "install": "rwHiveAqua/_idea_spinner",
+      "source": "github.com/rwHiveAqua/_idea_spinner"
+    }
+  ]
+}

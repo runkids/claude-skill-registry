@@ -1,0 +1,19 @@
+{
+  "category": "graph-query",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.878451Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PROACTIVELY query the code graph database to understand relationships and impact of changes. Use this skill WHEN READING any file to understand context, when searching for files, when exploring the co",
+      "repo": "23blocks-OS/ai-maestro",
+      "path": "graph-query",
+      "branch": "main",
+      "category": "graph-query",
+      "tags": [],
+      "stars": 0,
+      "install": "23blocks-OS/ai-maestro",
+      "source": "github.com/23blocks-OS/ai-maestro"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "pivot-table-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.042967Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pivot Table Creator - Auto-activating skill for Data Analytics.\nTriggers on: pivot table creator, pivot table creator\nPart of the Data Analytics skill category.\n",
+      "repo": "byteworthy/Upstream",
+      "path": "pivot-table-creator",
+      "branch": "main",
+      "category": "pivot-table-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

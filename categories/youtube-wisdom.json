@@ -1,0 +1,19 @@
+{
+  "category": "youtube-wisdom",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.997150Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract wisdom, insights, and actionable takeaways from YouTube videos. Use when asked to analyse, summarise, or extract key learnings from YouTube content. Downloads video transcripts, performs analy",
+      "repo": "sammcj/agentic-coding",
+      "path": "youtube-wisdom",
+      "branch": "main",
+      "category": "youtube-wisdom",
+      "tags": [],
+      "stars": 0,
+      "install": "sammcj/agentic-coding",
+      "source": "github.com/sammcj/agentic-coding"
+    }
+  ]
+}

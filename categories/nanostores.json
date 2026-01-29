@@ -1,0 +1,19 @@
+{
+  "category": "nanostores",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.285322Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manages state with Nanostores using atoms, maps, computed stores, and framework integrations. Use when building framework-agnostic state, sharing state between islands/components, or needing tiny bund",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "nanostores",
+      "branch": "main",
+      "category": "nanostores",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

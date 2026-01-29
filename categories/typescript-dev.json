@@ -1,0 +1,19 @@
+{
+  "category": "typescript-dev",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.197242Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "World-class expert TypeScript developer specializing in type-safe code, modern TypeScript patterns, generics, utility types, and building scalable applications. Use when writing TypeScript code, desig",
+      "repo": "DonNigami/eddication.io",
+      "path": "typescript-dev",
+      "branch": "main",
+      "category": "typescript-dev",
+      "tags": [],
+      "stars": 0,
+      "install": "DonNigami/eddication.io",
+      "source": "github.com/DonNigami/eddication.io"
+    }
+  ]
+}

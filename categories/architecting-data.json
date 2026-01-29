@@ -1,0 +1,19 @@
+{
+  "category": "architecting-data",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.609903Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Strategic guidance for designing modern data platforms, covering storage paradigms (data lake, warehouse, lakehouse), modeling approaches (dimensional, normalized, data vault, wide tables), data mesh ",
+      "repo": "ancoleman/ai-design-components",
+      "path": "architecting-data",
+      "branch": "main",
+      "category": "architecting-data",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

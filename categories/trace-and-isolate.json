@@ -1,0 +1,19 @@
+{
+  "category": "trace-and-isolate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.967650Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Techniques for tracing code execution and isolating problematic components",
+      "repo": "rohitg00/skillkit",
+      "path": "trace-and-isolate",
+      "branch": "main",
+      "category": "trace-and-isolate",
+      "tags": [],
+      "stars": 0,
+      "install": "rohitg00/skillkit",
+      "source": "github.com/rohitg00/skillkit"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "drive-workflow",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.244973Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implementation workflow for processing tickets.",
+      "repo": "qmu/workaholic",
+      "path": "drive-workflow",
+      "branch": "main",
+      "category": "drive-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "qmu/workaholic",
+      "source": "github.com/qmu/workaholic"
+    }
+  ]
+}

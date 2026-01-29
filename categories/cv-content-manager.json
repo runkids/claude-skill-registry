@@ -1,0 +1,19 @@
+{
+  "category": "cv-content-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.913173Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create, edit, and sync CV content using the knowledge base as source of truth. Unified skill for case studies, blog posts, experience updates, and variant content. Replaces cv-content-generator and cv",
+      "repo": "fotescodev/portfolio",
+      "path": "cv-content-manager",
+      "branch": "main",
+      "category": "cv-content-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "fotescodev/portfolio",
+      "source": "github.com/fotescodev/portfolio"
+    }
+  ]
+}

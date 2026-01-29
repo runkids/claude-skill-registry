@@ -1,0 +1,19 @@
+{
+  "category": "cloudflare-ai-search",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.897742Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cloudflare AI Search for semantic search and vector embeddings in Workers",
+      "repo": "enuno/claude-command-and-control",
+      "path": "cloudflare-ai-search",
+      "branch": "main",
+      "category": "cloudflare-ai-search",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

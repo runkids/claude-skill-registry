@@ -1,0 +1,19 @@
+{
+  "category": "conductor-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.702771Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Initialize project with Conductor artifacts (product definition, tech stack, workflow, style guides)",
+      "repo": "rmyndharis/antigravity-skills",
+      "path": "conductor-setup",
+      "branch": "main",
+      "category": "conductor-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "rmyndharis/antigravity-skills",
+      "source": "github.com/rmyndharis/antigravity-skills"
+    }
+  ]
+}

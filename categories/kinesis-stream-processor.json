@@ -1,0 +1,19 @@
+{
+  "category": "kinesis-stream-processor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.991800Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт AWS Kinesis. Используй для stream processing, real-time data и Kinesis patterns.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "kinesis-stream-processor",
+      "branch": "main",
+      "category": "kinesis-stream-processor",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

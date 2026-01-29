@@ -1,0 +1,19 @@
+{
+  "category": "lyra",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.163046Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform vague inputs into precision-optimized AI prompts for Claude, ChatGPT, Gemini, or other LLMs. Use when user mentions \"optimize prompt\", \"improve prompt\", \"lyra\", \"prompt engineering\", or need",
+      "repo": "joaquimscosta/arkhe-claude-plugins",
+      "path": "lyra",
+      "branch": "main",
+      "category": "lyra",
+      "tags": [],
+      "stars": 0,
+      "install": "joaquimscosta/arkhe-claude-plugins",
+      "source": "github.com/joaquimscosta/arkhe-claude-plugins"
+    }
+  ]
+}

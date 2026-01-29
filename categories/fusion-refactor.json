@@ -1,0 +1,19 @@
+{
+  "category": "fusion-refactor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.479581Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Compare refactoring approaches and pick the safest path; use when multiple refactor strategies are possible.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "fusion-refactor",
+      "branch": "main",
+      "category": "fusion-refactor",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

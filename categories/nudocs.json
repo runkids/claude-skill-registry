@@ -1,0 +1,19 @@
+{
+  "category": "nudocs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.184117Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Upload, edit, and export documents via Nudocs.ai. Use when creating shareable document links for collaborative editing, uploading markdown/docs to Nudocs for rich editing, or pulling back edited conte",
+      "repo": "moltbot/skills",
+      "path": "nudocs",
+      "branch": "main",
+      "category": "nudocs",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

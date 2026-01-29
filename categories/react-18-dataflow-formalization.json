@@ -1,0 +1,19 @@
+{
+  "category": "react-18-dataflow-formalization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.364365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Formalize dataflow semantics in React 18 applications to ensure correctness across asynchronous boundaries.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "react-18-dataflow-formalization",
+      "branch": "main",
+      "category": "react-18-dataflow-formalization",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

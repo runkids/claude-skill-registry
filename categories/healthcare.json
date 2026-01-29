@@ -1,0 +1,19 @@
+{
+  "category": "healthcare",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.457520Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level healthcare systems, medical informatics, HIPAA compliance, and health data standards",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "healthcare",
+      "branch": "main",
+      "category": "healthcare",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

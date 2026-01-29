@@ -1,0 +1,19 @@
+{
+  "category": "expansion-plays",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.033509Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when planning adoption-to-expansion motions and cross-sell/upsell campaigns.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "expansion-plays",
+      "branch": "main",
+      "category": "expansion-plays",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

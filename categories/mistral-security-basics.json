@@ -1,0 +1,19 @@
+{
+  "category": "mistral-security-basics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.123430Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply Mistral AI security best practices for secrets and access control.\nUse when securing API keys, implementing least privilege access,\nor auditing Mistral AI security configuration.\nTrigger with ph",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "mistral-security-basics",
+      "branch": "main",
+      "category": "mistral-security-basics",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

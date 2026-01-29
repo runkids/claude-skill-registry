@@ -1,0 +1,19 @@
+{
+  "category": "scientific-seaborn",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.806806Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Statistical visualization with pandas integration. Use for quick exploration of distributions, relationships, and categorical comparisons with attractive defaults. Best for box plots, violin plots, pa",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-seaborn",
+      "branch": "main",
+      "category": "scientific-seaborn",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

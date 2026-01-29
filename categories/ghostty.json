@@ -1,0 +1,19 @@
+{
+  "category": "ghostty",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.299873Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Control Ghostty terminal emulator via CLI. Manage windows, tabs, splits, and configuration.",
+      "repo": "carmandale/agent-config",
+      "path": "ghostty",
+      "branch": "main",
+      "category": "ghostty",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

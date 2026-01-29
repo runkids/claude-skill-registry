@@ -1,0 +1,19 @@
+{
+  "category": "task-review-gate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.082610Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- skillname: task-review-gate",
+      "repo": "turbobeest/cursor-dev-system",
+      "path": "task-review-gate",
+      "branch": "main",
+      "category": "task-review-gate",
+      "tags": [],
+      "stars": 0,
+      "install": "turbobeest/cursor-dev-system",
+      "source": "github.com/turbobeest/cursor-dev-system"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "performance-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.936529Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze code performance, detect bottlenecks, suggest optimizations for algorithms, queries, and resource usage. Use when improving application performance or investigating slow code.",
+      "repo": "ntaksh42/agents",
+      "path": "performance-analyzer",
+      "branch": "main",
+      "category": "performance-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "abaqus-job",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.139947Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and manage Abaqus jobs. Use when user asks to run the analysis, submit the job, execute the model, or generate input file.",
+      "repo": "JaimeCernuda/abaqus-scripting",
+      "path": "abaqus-job",
+      "branch": "main",
+      "category": "abaqus-job",
+      "tags": [],
+      "stars": 0,
+      "install": "JaimeCernuda/abaqus-scripting",
+      "source": "github.com/JaimeCernuda/abaqus-scripting"
+    }
+  ]
+}

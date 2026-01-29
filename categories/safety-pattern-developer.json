@@ -1,0 +1,19 @@
+{
+  "category": "safety-pattern-developer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.664777Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide through TDD process for adding new safety patterns - from threat identification to commit",
+      "repo": "wildcard/caro",
+      "path": "safety-pattern-developer",
+      "branch": "main",
+      "category": "safety-pattern-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "wildcard/caro",
+      "source": "github.com/wildcard/caro"
+    }
+  ]
+}

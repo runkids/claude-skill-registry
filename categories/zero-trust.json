@@ -1,0 +1,19 @@
+{
+  "category": "zero-trust",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.901494Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Zero Trust architecture principles including ZTNA, micro-segmentation, identity-first security, continuous verification, and BeyondCorp patterns. Use when designing network security, implementing iden",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "zero-trust",
+      "branch": "main",
+      "category": "zero-trust",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

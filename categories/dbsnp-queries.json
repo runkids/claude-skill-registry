@@ -1,0 +1,19 @@
+{
+  "category": "dbsnp-queries",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.997404Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query dbSNP for rsID lookups, variant annotations, and cross-references to other databases. Use when mapping between rsIDs and genomic coordinates or retrieving basic variant information.",
+      "repo": "GPTomics/bioSkills",
+      "path": "dbsnp-queries",
+      "branch": "main",
+      "category": "dbsnp-queries",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

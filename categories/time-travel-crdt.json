@@ -1,0 +1,19 @@
+{
+  "category": "time-travel-crdt",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.424527Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Time Travel CRDT Skill",
+      "repo": "plurigrid/asi",
+      "path": "time-travel-crdt",
+      "branch": "main",
+      "category": "time-travel-crdt",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

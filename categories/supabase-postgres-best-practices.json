@@ -1,0 +1,19 @@
+{
+  "category": "supabase-postgres-best-practices",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.831779Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Postgres performance optimization and best practices from Supabase. Use this skill when writing, reviewing, or optimizing Postgres queries, schema designs, or database configurations.",
+      "repo": "JohnMarkCapones/Aralify",
+      "path": "supabase-postgres-best-practices",
+      "branch": "main",
+      "category": "supabase-postgres-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "JohnMarkCapones/Aralify",
+      "source": "github.com/JohnMarkCapones/Aralify"
+    }
+  ]
+}

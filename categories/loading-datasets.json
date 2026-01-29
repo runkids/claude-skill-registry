@@ -1,0 +1,19 @@
+{
+  "category": "loading-datasets",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.177574Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Loads internal CausalPy example datasets. Use when the user needs example data or asks about available demos.",
+      "repo": "pymc-labs/CausalPy",
+      "path": "loading-datasets",
+      "branch": "main",
+      "category": "loading-datasets",
+      "tags": [],
+      "stars": 0,
+      "install": "pymc-labs/CausalPy",
+      "source": "github.com/pymc-labs/CausalPy"
+    }
+  ]
+}

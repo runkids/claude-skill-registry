@@ -1,0 +1,19 @@
+{
+  "category": "easyplatform-backend",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.266502Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete Easy.Platform backend development for EasyPlatform. Covers CQRS commands/queries, entities, validation, migrations, background jobs, and message bus. Use for any .NET backend task in this mon",
+      "repo": "duc01226/EasyPlatform",
+      "path": "easyplatform-backend",
+      "branch": "main",
+      "category": "easyplatform-backend",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

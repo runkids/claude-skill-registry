@@ -1,0 +1,19 @@
+{
+  "category": "comment-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.774865Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when asked to review code comments for accuracy/quality or explicitly asked to run the comment-analyzer subagent.",
+      "repo": "troykelly/codex-skills",
+      "path": "comment-analyzer",
+      "branch": "main",
+      "category": "comment-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/codex-skills",
+      "source": "github.com/troykelly/codex-skills"
+    }
+  ]
+}

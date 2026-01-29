@@ -1,0 +1,19 @@
+{
+  "category": "failure-modes",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.365792Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide to identifying, analyzing, and documenting failure modes in distributed systems",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "failure-modes",
+      "branch": "main",
+      "category": "failure-modes",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

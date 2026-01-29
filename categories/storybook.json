@@ -1,0 +1,19 @@
+{
+  "category": "storybook",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.329334Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Storybook stories, CSF3 format, autodocs. Use for component documentation.",
+      "repo": "djimontyp/task-tracker",
+      "path": "storybook",
+      "branch": "main",
+      "category": "storybook",
+      "tags": [],
+      "stars": 0,
+      "install": "djimontyp/task-tracker",
+      "source": "github.com/djimontyp/task-tracker"
+    }
+  ]
+}

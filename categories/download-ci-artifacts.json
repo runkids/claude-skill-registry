@@ -1,0 +1,19 @@
+{
+  "category": "download-ci-artifacts",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.565578Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Download test results, screenshots, and logs from GitHub Actions",
+      "repo": "benzwick/SlicerMouseMaster",
+      "path": "download-ci-artifacts",
+      "branch": "main",
+      "category": "download-ci-artifacts",
+      "tags": [],
+      "stars": 0,
+      "install": "benzwick/SlicerMouseMaster",
+      "source": "github.com/benzwick/SlicerMouseMaster"
+    }
+  ]
+}

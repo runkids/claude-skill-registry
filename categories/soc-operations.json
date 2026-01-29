@@ -1,0 +1,19 @@
+{
+  "category": "soc-operations",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.391444Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Security Operations Center workflows, alert triage, shift handovers, and\noperational reporting. Automate SOC documentation and standardize processes.\nUse for SOC-related tasks, alert management, and o",
+      "repo": "SherifEldeeb/agentskills",
+      "path": "soc-operations",
+      "branch": "main",
+      "category": "soc-operations",
+      "tags": [],
+      "stars": 0,
+      "install": "SherifEldeeb/agentskills",
+      "source": "github.com/SherifEldeeb/agentskills"
+    }
+  ]
+}

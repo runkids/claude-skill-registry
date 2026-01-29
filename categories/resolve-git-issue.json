@@ -1,0 +1,19 @@
+{
+  "category": "resolve-git-issue",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.184264Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Resolve a GitHub issue by implementing a fix and tests; use when asked to fix an issue end-to-end.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "resolve-git-issue",
+      "branch": "main",
+      "category": "resolve-git-issue",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

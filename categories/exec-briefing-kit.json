@@ -1,0 +1,19 @@
+{
+  "category": "exec-briefing-kit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.459139Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Template for packaging revenue analytics into concise exec/board narratives.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "exec-briefing-kit",
+      "branch": "main",
+      "category": "exec-briefing-kit",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

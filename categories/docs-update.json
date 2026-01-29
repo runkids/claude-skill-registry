@@ -1,0 +1,19 @@
+{
+  "category": "docs-update",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.729634Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standard procedure for updating documentation",
+      "repo": "cpa03/blueprintify",
+      "path": "docs-update",
+      "branch": "main",
+      "category": "docs-update",
+      "tags": [],
+      "stars": 0,
+      "install": "cpa03/blueprintify",
+      "source": "github.com/cpa03/blueprintify"
+    }
+  ]
+}

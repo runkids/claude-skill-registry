@@ -1,0 +1,19 @@
+{
+  "category": "fake-driven-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.893652Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when writing tests, fixing bugs, adding features, or modifying the gateway layer. Use when you need guidance on testing architecture, working with fakes, implementing ABC gat",
+      "repo": "dagster-io/erk",
+      "path": "fake-driven-testing",
+      "branch": "main",
+      "category": "fake-driven-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "dagster-io/erk",
+      "source": "github.com/dagster-io/erk"
+    }
+  ]
+}

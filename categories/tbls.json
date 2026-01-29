@@ -1,0 +1,19 @@
+{
+  "category": "tbls",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.581029Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Database schema documentation tool for PostgreSQL and other databases.",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "tbls",
+      "branch": "main",
+      "category": "tbls",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

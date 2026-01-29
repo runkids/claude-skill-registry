@@ -1,0 +1,19 @@
+{
+  "category": "xlsx-processing-openai",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.070654Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Toolkit for comprehensive Spreadsheet reading, creation, editing, and analysis with visual quality control. Use to work with spreadsheets (.xlsx, .xlsm, .csv, .tsv) for: (1) Creating new spreadsheets ",
+      "repo": "lawvable/awesome-legal-skills",
+      "path": "xlsx-processing-openai",
+      "branch": "main",
+      "category": "xlsx-processing-openai",
+      "tags": [],
+      "stars": 0,
+      "install": "lawvable/awesome-legal-skills",
+      "source": "github.com/lawvable/awesome-legal-skills"
+    }
+  ]
+}

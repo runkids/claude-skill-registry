@@ -1,0 +1,19 @@
+{
+  "category": "agent-mail",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.002701Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MCP Agent Mail - mail-like coordination layer for coding agents with memorable identities, inbox/outbox, searchable threads, advisory file reservations, pre-commit guards, and human-auditable Git arti",
+      "repo": "carmandale/agent-config",
+      "path": "agent-mail",
+      "branch": "main",
+      "category": "agent-mail",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

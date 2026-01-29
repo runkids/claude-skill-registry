@@ -1,0 +1,19 @@
+{
+  "category": "model-debugging",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.847555Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Debug and diagnose model errors in Pollinations services. Analyze logs, find error patterns, identify affected users. For taking action on user tiers, see tier-management skill.",
+      "repo": "pollinations/pollinations",
+      "path": "model-debugging",
+      "branch": "main",
+      "category": "model-debugging",
+      "tags": [],
+      "stars": 0,
+      "install": "pollinations/pollinations",
+      "source": "github.com/pollinations/pollinations"
+    }
+  ]
+}

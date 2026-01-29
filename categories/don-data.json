@@ -1,0 +1,19 @@
+{
+  "category": "don-data",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.432967Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Data standards and practices for Dutch government applications. Use when working with government data formats, implementing data exchange standards, or ensuring data quality compliance.",
+      "repo": "dstotijn/developer-overheid-nl-agent-skills",
+      "path": "don-data",
+      "branch": "main",
+      "category": "don-data",
+      "tags": [],
+      "stars": 0,
+      "install": "dstotijn/developer-overheid-nl-agent-skills",
+      "source": "github.com/dstotijn/developer-overheid-nl-agent-skills"
+    }
+  ]
+}

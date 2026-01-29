@@ -1,0 +1,19 @@
+{
+  "category": "reading-list-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.335786Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Track books, articles, and reading progress with curation and note-taking",
+      "repo": "eddiebe147/claude-settings",
+      "path": "reading-list-manager",
+      "branch": "main",
+      "category": "reading-list-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

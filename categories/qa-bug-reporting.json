@@ -1,0 +1,19 @@
+{
+  "category": "qa-bug-reporting",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.621675Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When reporting bugs found during manual testing or QA validation.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "qa-bug-reporting",
+      "branch": "main",
+      "category": "qa-bug-reporting",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "kubernetes-gitops",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.870773Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "GitOps workflows and CI/CD pipeline integration for Kubernetes and OpenShift. Use this skill when:\n(1) Setting up ArgoCD or Flux for GitOps deployment\n(2) Creating CI/CD pipelines for K8s workloads (G",
+      "repo": "kcns008/cluster-skills",
+      "path": "kubernetes-gitops",
+      "branch": "main",
+      "category": "kubernetes-gitops",
+      "tags": [],
+      "stars": 0,
+      "install": "kcns008/cluster-skills",
+      "source": "github.com/kcns008/cluster-skills"
+    }
+  ]
+}

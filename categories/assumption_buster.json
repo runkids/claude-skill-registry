@@ -1,0 +1,19 @@
+{
+  "category": "assumption_buster",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.087813Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Flip, remove, or exaggerate assumptions to unlock new solution angles.",
+      "repo": "NickCrew/claude-cortex",
+      "path": "assumption_buster",
+      "branch": "main",
+      "category": "assumption_buster",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

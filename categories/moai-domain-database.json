@@ -1,0 +1,19 @@
+{
+  "category": "moai-domain-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.796096Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Database specialist covering PostgreSQL, MongoDB, Redis, Oracle, and advanced data patterns for modern applications.\n",
+      "repo": "modu-ai/moai-adk",
+      "path": "moai-domain-database",
+      "branch": "main",
+      "category": "moai-domain-database",
+      "tags": [],
+      "stars": 0,
+      "install": "modu-ai/moai-adk",
+      "source": "github.com/modu-ai/moai-adk"
+    }
+  ]
+}

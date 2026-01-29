@@ -1,0 +1,19 @@
+{
+  "category": "commit-message",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.944151Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate commit messages",
+      "repo": "viteinfinite/sync-skills",
+      "path": "commit-message",
+      "branch": "main",
+      "category": "commit-message",
+      "tags": [],
+      "stars": 0,
+      "install": "viteinfinite/sync-skills",
+      "source": "github.com/viteinfinite/sync-skills"
+    }
+  ]
+}

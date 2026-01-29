@@ -1,0 +1,19 @@
+{
+  "category": "task-delegator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.984796Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Delegate tasks to specialized agents and coordinate multi-agent workflows for parallel test generation",
+      "repo": "okgoogle13/careercopilot",
+      "path": "task-delegator",
+      "branch": "main",
+      "category": "task-delegator",
+      "tags": [],
+      "stars": 0,
+      "install": "okgoogle13/careercopilot",
+      "source": "github.com/okgoogle13/careercopilot"
+    }
+  ]
+}

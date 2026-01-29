@@ -1,0 +1,19 @@
+{
+  "category": "politique-confidentialite-malik-taiar",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.096757Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide pour la rédaction de politiques de confidentialité conformes au RGPD. Contient les recommandations CNIL 2020, un template de référence et les bonnes pratiques. À utiliser lors de la rédaction ou",
+      "repo": "lawvable/awesome-legal-skills",
+      "path": "politique-confidentialite-malik-taiar",
+      "branch": "main",
+      "category": "politique-confidentialite-malik-taiar",
+      "tags": [],
+      "stars": 0,
+      "install": "lawvable/awesome-legal-skills",
+      "source": "github.com/lawvable/awesome-legal-skills"
+    }
+  ]
+}

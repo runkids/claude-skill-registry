@@ -1,0 +1,19 @@
+{
+  "category": "service",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.525675Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage UnaMentis services via USM API (never via bash kill commands)",
+      "repo": "UnaMentis/unamentis",
+      "path": "service",
+      "branch": "main",
+      "category": "service",
+      "tags": [],
+      "stars": 0,
+      "install": "UnaMentis/unamentis",
+      "source": "github.com/UnaMentis/unamentis"
+    }
+  ]
+}

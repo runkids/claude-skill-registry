@@ -1,0 +1,19 @@
+{
+  "category": "plan-explore",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.739995Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Explore implementation plans, status, and relationships. Provides comprehensive plan ecosystem navigation with filtering, health analysis, and actionable recommendations.",
+      "repo": "spencerbeggs/claude-design-coordinator",
+      "path": "plan-explore",
+      "branch": "main",
+      "category": "plan-explore",
+      "tags": [],
+      "stars": 0,
+      "install": "spencerbeggs/claude-design-coordinator",
+      "source": "github.com/spencerbeggs/claude-design-coordinator"
+    }
+  ]
+}

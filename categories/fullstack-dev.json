@@ -1,0 +1,19 @@
+{
+  "category": "fullstack-dev",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.681072Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "World-class",
+      "repo": "DonNigami/eddication.io",
+      "path": "fullstack-dev",
+      "branch": "main",
+      "category": "fullstack-dev",
+      "tags": [],
+      "stars": 0,
+      "install": "DonNigami/eddication.io",
+      "source": "github.com/DonNigami/eddication.io"
+    }
+  ]
+}

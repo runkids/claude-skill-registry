@@ -1,0 +1,19 @@
+{
+  "category": "debugging-systematic",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.159874Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply systematic root cause analysis and debugging methodologies to diagnose and fix bugs, test failures, and unexpected behavior. Use when encountering production issues, investigating test failures,",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "debugging-systematic",
+      "branch": "main",
+      "category": "debugging-systematic",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

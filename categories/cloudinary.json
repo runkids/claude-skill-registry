@@ -1,0 +1,19 @@
+{
+  "category": "cloudinary",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.824975Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manages images and videos with Cloudinary including upload, transformation, and CDN delivery. Use when building media-rich applications requiring resize, crop, format conversion, and optimization.",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "cloudinary",
+      "branch": "main",
+      "category": "cloudinary",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

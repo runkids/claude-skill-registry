@@ -1,0 +1,19 @@
+{
+  "category": "video-frames",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.667490Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract frames or short clips from videos using ffmpeg.",
+      "repo": "Youjjwal/clawdbot",
+      "path": "video-frames",
+      "branch": "main",
+      "category": "video-frames",
+      "tags": [],
+      "stars": 0,
+      "install": "Youjjwal/clawdbot",
+      "source": "github.com/Youjjwal/clawdbot"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "pm-knowledge-base",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.030270Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Product Management frameworks, methodologies, and best practices library. Provides PM knowledge including prioritization (RICE, MoSCoW), goal setting (OKR, SMART), customer research (JTBD, Personas), ",
+      "repo": "foolpoet44/ai-pm-agent",
+      "path": "pm-knowledge-base",
+      "branch": "main",
+      "category": "pm-knowledge-base",
+      "tags": [],
+      "stars": 0,
+      "install": "foolpoet44/ai-pm-agent",
+      "source": "github.com/foolpoet44/ai-pm-agent"
+    }
+  ]
+}

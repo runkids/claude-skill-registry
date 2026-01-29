@@ -1,0 +1,19 @@
+{
+  "category": "agent-tool-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.371857Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tools are how AI agents interact with the world. A well-designed tool is the difference between an agent that works and one that hallucinates, fails silently, or costs 10x more tokens than necessary. ",
+      "repo": "cgyudistira/code-agents",
+      "path": "agent-tool-builder",
+      "branch": "main",
+      "category": "agent-tool-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "cgyudistira/code-agents",
+      "source": "github.com/cgyudistira/code-agents"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "operations-specialist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.457693Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "提供运营分析、财务跟踪、基础设施维护和客户支持能力。当需要处理运营任务、生成报告或维护系统时使用。",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "operations-specialist",
+      "branch": "main",
+      "category": "operations-specialist",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

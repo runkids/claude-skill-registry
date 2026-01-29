@@ -1,0 +1,19 @@
+{
+  "category": "task-assignment-problem",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.228138Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize task assignments, match workers to jobs, or solve assignment problems. Also use when the user mentions \"Hungarian algorithm,\" \"assignment optimization,\" \"worker-task as",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "task-assignment-problem",
+      "branch": "main",
+      "category": "task-assignment-problem",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

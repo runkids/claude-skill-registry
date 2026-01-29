@@ -1,0 +1,19 @@
+{
+  "category": "testing-jest",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.652502Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when writing unit tests with Jest: assertions, mocking, async tests, and test organization.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "testing-jest",
+      "branch": "main",
+      "category": "testing-jest",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

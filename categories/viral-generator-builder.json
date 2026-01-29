@@ -1,0 +1,19 @@
+{
+  "category": "viral-generator-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.633192Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in building shareable generator tools that go viral - name generators, quiz makers, avatar creators, personality tests, and calculator tools. Covers the psychology of sharing, viral mechanics, ",
+      "repo": "JohnMarkCapones/Aralify",
+      "path": "viral-generator-builder",
+      "branch": "main",
+      "category": "viral-generator-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "JohnMarkCapones/Aralify",
+      "source": "github.com/JohnMarkCapones/Aralify"
+    }
+  ]
+}

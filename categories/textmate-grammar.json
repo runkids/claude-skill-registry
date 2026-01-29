@@ -1,0 +1,19 @@
+{
+  "category": "textmate-grammar",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.291397Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when authoring TextMate grammars for syntax highlighting - covers scopes, patterns, and language injection",
+      "repo": "mcclowes/lea",
+      "path": "textmate-grammar",
+      "branch": "main",
+      "category": "textmate-grammar",
+      "tags": [],
+      "stars": 0,
+      "install": "mcclowes/lea",
+      "source": "github.com/mcclowes/lea"
+    }
+  ]
+}

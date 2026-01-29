@@ -1,0 +1,19 @@
+{
+  "category": "mockup-extraction",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.267577Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract reusable components from approved HTML mockups during implementation. Identifies patterns, maps CSS to Tailwind, and populates prototype-patterns.md for visual fidelity. Use at start of /imple",
+      "repo": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "path": "mockup-extraction",
+      "branch": "main",
+      "category": "mockup-extraction",
+      "tags": [],
+      "stars": 0,
+      "install": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "source": "github.com/Sjdjdiejdrirhdkjej/Claude-code-conductor"
+    }
+  ]
+}

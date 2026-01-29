@@ -1,0 +1,19 @@
+{
+  "category": "uizard",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.197825Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Uizard AI design tool including AI-powered design generation, wireframing, and design automation. Use when the user asks about Uizard, needs to generate designs wit",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "uizard",
+      "branch": "main",
+      "category": "uizard",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

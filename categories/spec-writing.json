@@ -1,0 +1,19 @@
+{
+  "category": "spec-writing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.791927Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute this skill should be used when the user asks about \"writing specs\", \"specs.md format\", \"how to write specifications\", \"sprint requirements\", \"testing configuration\", \"scope definition\", or nee",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "spec-writing",
+      "branch": "main",
+      "category": "spec-writing",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "bun-macros",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.857849Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Evaluate JavaScript at bundle time and inline results. Use when optimizing compile-time code generation, embedding files, inlining environment variables, or executing code during the bundling process.",
+      "repo": "secondsky/claude-skills",
+      "path": "bun-macros",
+      "branch": "main",
+      "category": "bun-macros",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

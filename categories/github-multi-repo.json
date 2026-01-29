@@ -1,0 +1,19 @@
+{
+  "category": "github-multi-repo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.268080Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-repository coordination, synchronization, and architecture management with AI swarm orchestration",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "github-multi-repo",
+      "branch": "main",
+      "category": "github-multi-repo",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

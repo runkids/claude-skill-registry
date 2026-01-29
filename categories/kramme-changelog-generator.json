@@ -1,0 +1,19 @@
+{
+  "category": "kramme-changelog-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.664680Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create engaging changelogs for recent merges to main branch. Triggers on requests for daily/weekly changelogs, release notes, or summarizing recent changes.",
+      "repo": "Abildtoft/kramme-cc-workflow",
+      "path": "kramme:changelog-generator",
+      "branch": "main",
+      "category": "kramme:changelog-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "Abildtoft/kramme-cc-workflow",
+      "source": "github.com/Abildtoft/kramme-cc-workflow"
+    }
+  ]
+}

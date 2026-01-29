@@ -1,0 +1,19 @@
+{
+  "category": "lsp-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.468118Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-discovers and configures Language Server Protocol (LSP) servers for your project's languages",
+      "repo": "rysweet/amplihack",
+      "path": "lsp-setup",
+      "branch": "main",
+      "category": "lsp-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/amplihack",
+      "source": "github.com/rysweet/amplihack"
+    }
+  ]
+}

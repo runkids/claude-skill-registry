@@ -1,0 +1,19 @@
+{
+  "category": "seoul-subway",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.219185Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Seoul Subway assistant for real-time arrivals, route planning, and service alerts (Korean/English)",
+      "repo": "dukbong/seoul-subway",
+      "path": "seoul-subway",
+      "branch": "main",
+      "category": "seoul-subway",
+      "tags": [],
+      "stars": 0,
+      "install": "dukbong/seoul-subway",
+      "source": "github.com/dukbong/seoul-subway"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "nielsen-minimalist-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.132195Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Elimina información irrelevante que compite por atención con lo esencial. Use cuando evalúe densidad de información, jerarquía visual, o simplifique interfaces sobrecargadas.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "nielsen-minimalist-design",
+      "branch": "main",
+      "category": "nielsen-minimalist-design",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

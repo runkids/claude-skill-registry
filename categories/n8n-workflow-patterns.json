@@ -1,0 +1,19 @@
+{
+  "category": "n8n-workflow-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.216353Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Proven workflow architectural patterns from real n8n workflows. Use when building new workflows, designing workflow structure, choosing workflow patterns, planning workflow architecture, or asking abo",
+      "repo": "Brmbobo/Lead-Gen",
+      "path": "n8n-workflow-patterns",
+      "branch": "main",
+      "category": "n8n-workflow-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "Brmbobo/Lead-Gen",
+      "source": "github.com/Brmbobo/Lead-Gen"
+    }
+  ]
+}

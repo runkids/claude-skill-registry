@@ -1,0 +1,19 @@
+{
+  "category": "client-responsibilities",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.201685Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Client class responsibilities - connection ONLY, no business operations",
+      "repo": "zerobias-org/module",
+      "path": "client-responsibilities",
+      "branch": "main",
+      "category": "client-responsibilities",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

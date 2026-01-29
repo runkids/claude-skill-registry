@@ -1,0 +1,19 @@
+{
+  "category": "lelon",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.378960Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Lelon Electronics MPN encoding patterns, suffix decoding, and handler guidance. Use when working with Lelon aluminum electrolytic capacitors.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "lelon",
+      "branch": "main",
+      "category": "lelon",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

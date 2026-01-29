@@ -1,7 +1,7 @@
 {
   "category": "integration",
-  "count": 2,
-  "updated_at": "2026-01-29T04:49:19.501106Z",
+  "count": 3,
+  "updated_at": "2026-01-29T16:04:49.661918Z",
   "skills": [
     {
       "name": "web3-manager",
@@ -14,6 +14,18 @@
       "stars": 48,
       "install": "majiayu000/claude-skill-registry",
       "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Integrates Clix Mobile SDK into iOS, Android, Flutter, and React Native projects. Provides step-by-step guidance for installation, initialization, and verification. Use when the user asks to install, ",
+      "repo": "clix-so/skills",
+      "path": "integration",
+      "branch": "main",
+      "category": "integration",
+      "tags": [],
+      "stars": 0,
+      "install": "clix-so/skills",
+      "source": "github.com/clix-so/skills"
     },
     {
       "name": "google-calendar-sync",

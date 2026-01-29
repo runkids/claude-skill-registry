@@ -1,0 +1,19 @@
+{
+  "category": "triage-ci-flake",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.925303Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when CI tests fail on main branch after PR merge, or when investigating flaky test failures in CI environments",
+      "repo": "payloadcms/payload",
+      "path": "triage-ci-flake",
+      "branch": "main",
+      "category": "triage-ci-flake",
+      "tags": [],
+      "stars": 0,
+      "install": "payloadcms/payload",
+      "source": "github.com/payloadcms/payload"
+    }
+  ]
+}

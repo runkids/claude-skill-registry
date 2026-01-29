@@ -1,0 +1,19 @@
+{
+  "category": "email-marketing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.226462Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Activate for email campaigns, newsletters, drip sequences, automation flows, and email copywriting. Use when creating email content, designing automation workflows, or optimizing email performance.",
+      "repo": "NammDev/Goads-Krea",
+      "path": "email-marketing",
+      "branch": "main",
+      "category": "email-marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "NammDev/Goads-Krea",
+      "source": "github.com/NammDev/Goads-Krea"
+    }
+  ]
+}

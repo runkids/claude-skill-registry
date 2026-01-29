@@ -1,0 +1,19 @@
+{
+  "category": "lark-agent",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.640475Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "version: 1.0.0",
+      "repo": "Interstellar-code/claud-skills",
+      "path": "lark-agent",
+      "branch": "main",
+      "category": "lark-agent",
+      "tags": [],
+      "stars": 0,
+      "install": "Interstellar-code/claud-skills",
+      "source": "github.com/Interstellar-code/claud-skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "x-report-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.419237Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "使用Playwright浏览器爬取X(Twitter)真实数据，分析统计信息，生成精美的HTML报告面板并导出为高清图片。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "x-report-generator",
+      "branch": "main",
+      "category": "x-report-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

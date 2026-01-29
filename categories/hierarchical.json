@@ -1,0 +1,19 @@
+{
+  "category": "hierarchical",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.984838Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive multi-stage code review using specialized subagents",
+      "repo": "FradSer/dotclaude",
+      "path": "hierarchical",
+      "branch": "main",
+      "category": "hierarchical",
+      "tags": [],
+      "stars": 0,
+      "install": "FradSer/dotclaude",
+      "source": "github.com/FradSer/dotclaude"
+    }
+  ]
+}

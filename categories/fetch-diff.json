@@ -1,0 +1,19 @@
+{
+  "category": "fetch-diff",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.363605Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fetch PR diff with filtering and line numbers for code review.",
+      "repo": "mlflow/mlflow",
+      "path": "fetch-diff",
+      "branch": "main",
+      "category": "fetch-diff",
+      "tags": [],
+      "stars": 0,
+      "install": "mlflow/mlflow",
+      "source": "github.com/mlflow/mlflow"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "determine-task",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.272602Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Determine current task from state files and git context",
+      "repo": "shakefu/contextium",
+      "path": "determine-task",
+      "branch": "main",
+      "category": "determine-task",
+      "tags": [],
+      "stars": 0,
+      "install": "shakefu/contextium",
+      "source": "github.com/shakefu/contextium"
+    }
+  ]
+}

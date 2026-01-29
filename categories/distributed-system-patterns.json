@@ -1,0 +1,19 @@
+{
+  "category": "distributed-system-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.949838Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement circuit breaker, retry, timeout, bulkhead, saga, outbox patterns.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "distributed-system-patterns",
+      "branch": "main",
+      "category": "distributed-system-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

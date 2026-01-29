@@ -1,0 +1,19 @@
+{
+  "category": "managing-seo-metadata",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.725101Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Strategies for dynamic SEO using Next.js Metadata API. Use to generate social share cards and search-engine-friendly titles for tours.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "managing-seo-metadata",
+      "branch": "main",
+      "category": "managing-seo-metadata",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "agent-tui",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.272203Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Drive terminal UI (TUI) applications programmatically for testing, automation, and inspection. Use when: automating CLI/TUI interactions, regression testing terminal apps, verifying interactive behavi",
+      "repo": "pproenca/agent-tui",
+      "path": "agent-tui",
+      "branch": "main",
+      "category": "agent-tui",
+      "tags": [],
+      "stars": 0,
+      "install": "pproenca/agent-tui",
+      "source": "github.com/pproenca/agent-tui"
+    }
+  ]
+}

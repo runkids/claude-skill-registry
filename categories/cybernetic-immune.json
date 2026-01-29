@@ -1,0 +1,19 @@
+{
+  "category": "cybernetic-immune",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.563004Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cybernetic immune system with Varela+Friston+Powers for Self/Non-Self discrimination via reafference, GF(3) trit encoding, and information geometry",
+      "repo": "plurigrid/asi",
+      "path": "cybernetic-immune",
+      "branch": "main",
+      "category": "cybernetic-immune",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

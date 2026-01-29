@@ -1,0 +1,19 @@
+{
+  "category": "lulo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.043101Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete guide for Lulo - Solana's premier lending aggregator. Covers API integration for deposits, withdrawals, balance queries, Protected/Boosted deposits, Custom deposits, and automated yield optim",
+      "repo": "sendaifun/skills",
+      "path": "lulo",
+      "branch": "main",
+      "category": "lulo",
+      "tags": [],
+      "stars": 0,
+      "install": "sendaifun/skills",
+      "source": "github.com/sendaifun/skills"
+    }
+  ]
+}

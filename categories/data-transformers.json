@@ -1,0 +1,19 @@
+{
+  "category": "data-transformers",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.388595Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Centralized transformation logic for consistent data shaping across API routes. Includes aggregators, rankers, trend calculators, and data sanitizers.",
+      "repo": "dadbodgeoff/drift",
+      "path": "data-transformers",
+      "branch": "main",
+      "category": "data-transformers",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

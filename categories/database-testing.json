@@ -1,0 +1,19 @@
+{
+  "category": "database-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.825506Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Database schema validation, data integrity testing, migration testing, transaction isolation, and query performance. Use when testing data persistence, ensuring referential integrity, or validating da",
+      "repo": "proffesor-for-testing/sentinel-api-testing",
+      "path": "database-testing",
+      "branch": "main",
+      "category": "database-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/sentinel-api-testing",
+      "source": "github.com/proffesor-for-testing/sentinel-api-testing"
+    }
+  ]
+}

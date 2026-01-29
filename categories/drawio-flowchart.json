@@ -1,0 +1,19 @@
+{
+  "category": "drawio-flowchart",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.331213Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for draw.io flowcharts including flowchart creation, shapes, connectors, and diagramming. Use when the user asks about draw.io flowcharts, needs to create flowcharts, d",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "drawio-flowchart",
+      "branch": "main",
+      "category": "drawio-flowchart",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

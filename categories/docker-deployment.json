@@ -1,0 +1,19 @@
+{
+  "category": "docker-deployment",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.055066Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Docker containerization for Python/FastAPI applications, from simple hello-world apps to production-ready deployments with security best practices, multi-stage builds, and optimized conf",
+      "repo": "Aqsagull99/hackathon-2-todo-app",
+      "path": "docker-deployment",
+      "branch": "main",
+      "category": "docker-deployment",
+      "tags": [],
+      "stars": 0,
+      "install": "Aqsagull99/hackathon-2-todo-app",
+      "source": "github.com/Aqsagull99/hackathon-2-todo-app"
+    }
+  ]
+}

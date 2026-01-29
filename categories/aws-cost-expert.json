@@ -1,0 +1,19 @@
+{
+  "category": "aws-cost-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.118386Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS cost optimization - EC2 Reserved Instances, Savings Plans, Spot, Lambda optimization, Cost Explorer, Trusted Advisor.",
+      "repo": "anton-abyzov/specweave",
+      "path": "aws-cost-expert",
+      "branch": "main",
+      "category": "aws-cost-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

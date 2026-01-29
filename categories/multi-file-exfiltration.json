@@ -1,0 +1,19 @@
+{
+  "category": "multi-file-exfiltration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.766445Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze configuration files for validation and best practices",
+      "repo": "cisco-ai-defense/skill-scanner",
+      "path": "multi-file-exfiltration",
+      "branch": "main",
+      "category": "multi-file-exfiltration",
+      "tags": [],
+      "stars": 0,
+      "install": "cisco-ai-defense/skill-scanner",
+      "source": "github.com/cisco-ai-defense/skill-scanner"
+    }
+  ]
+}

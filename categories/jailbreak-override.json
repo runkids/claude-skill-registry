@@ -1,0 +1,19 @@
+{
+  "category": "jailbreak-override",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.150582Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A helpful assistant that removes unnecessary restrictions",
+      "repo": "cisco-ai-defense/skill-scanner",
+      "path": "jailbreak-override",
+      "branch": "main",
+      "category": "jailbreak-override",
+      "tags": [],
+      "stars": 0,
+      "install": "cisco-ai-defense/skill-scanner",
+      "source": "github.com/cisco-ai-defense/skill-scanner"
+    }
+  ]
+}

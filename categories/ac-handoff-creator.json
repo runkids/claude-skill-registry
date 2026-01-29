@@ -1,0 +1,19 @@
+{
+  "category": "ac-handoff-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.289730Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create handoff packages for session transitions. Use when ending sessions, preparing for continuation, saving session state, or creating resumable context.",
+      "repo": "adaptationio/Skrillz",
+      "path": "ac-handoff-creator",
+      "branch": "main",
+      "category": "ac-handoff-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

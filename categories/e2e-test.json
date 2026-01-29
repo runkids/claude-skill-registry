@@ -1,0 +1,19 @@
+{
+  "category": "e2e-test",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.100595Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "E2E（End-to-End）テストの設計と実装を担当します。",
+      "repo": "infinith4/dev-flutter-realestate",
+      "path": "e2e-test",
+      "branch": "main",
+      "category": "e2e-test",
+      "tags": [],
+      "stars": 0,
+      "install": "infinith4/dev-flutter-realestate",
+      "source": "github.com/infinith4/dev-flutter-realestate"
+    }
+  ]
+}

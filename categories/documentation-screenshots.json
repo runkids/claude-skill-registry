@@ -1,0 +1,19 @@
+{
+  "category": "documentation-screenshots",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.039639Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Capture browser screenshots and add them to documentation. Use this skill when asked to \"add screenshots to docs\", \"capture screenshots for documentation\", \"take screenshots of the dashboard\", \"replac",
+      "repo": "orient-bot/orient",
+      "path": "documentation-screenshots",
+      "branch": "main",
+      "category": "documentation-screenshots",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

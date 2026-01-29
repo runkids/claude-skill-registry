@@ -1,0 +1,19 @@
+{
+  "category": "clay-debug-bundle",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.352416Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Collect Clay debug evidence for support tickets and troubleshooting.\nUse when encountering persistent issues, preparing support tickets,\nor collecting diagnostic information for Clay problems.\nTrigger",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "clay-debug-bundle",
+      "branch": "main",
+      "category": "clay-debug-bundle",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

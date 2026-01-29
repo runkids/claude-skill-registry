@@ -1,0 +1,19 @@
+{
+  "category": "dotnet-cli-essentials",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.408003Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Essential .NET CLI commands and patterns for .NET 10 projects with Directory.Build.props and .slnx solutions",
+      "repo": "NotMyself/claude-stack-dotnet",
+      "path": "dotnet-cli-essentials",
+      "branch": "main",
+      "category": "dotnet-cli-essentials",
+      "tags": [],
+      "stars": 0,
+      "install": "NotMyself/claude-stack-dotnet",
+      "source": "github.com/NotMyself/claude-stack-dotnet"
+    }
+  ]
+}

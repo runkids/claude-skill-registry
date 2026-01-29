@@ -1,0 +1,19 @@
+{
+  "category": "lint-typecheck",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.371133Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run ESLint and TypeScript type checking on the frontend codebase. Use when user mentions \"lint\", \"type check\", \"check code\", \"eslint\", \"tsc\", or before committing changes.",
+      "repo": "AppleLamps/web-term",
+      "path": "lint-typecheck",
+      "branch": "main",
+      "category": "lint-typecheck",
+      "tags": [],
+      "stars": 0,
+      "install": "AppleLamps/web-term",
+      "source": "github.com/AppleLamps/web-term"
+    }
+  ]
+}

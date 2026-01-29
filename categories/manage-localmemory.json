@@ -1,0 +1,19 @@
+{
+  "category": "manage-localmemory",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.763383Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Local memory storage patterns, file coordination, and cleanup",
+      "repo": "zerobias-org/module",
+      "path": "manage-localmemory",
+      "branch": "main",
+      "category": "manage-localmemory",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

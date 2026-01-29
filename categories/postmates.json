@@ -1,0 +1,19 @@
+{
+  "category": "postmates",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.542785Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enables Claude to browse merchants and track deliveries on Postmates (now part of Uber Eats)",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "postmates",
+      "branch": "main",
+      "category": "postmates",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

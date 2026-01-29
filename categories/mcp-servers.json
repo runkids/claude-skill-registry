@@ -1,0 +1,19 @@
+{
+  "category": "mcp-servers",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.572849Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Model Context Protocol integration for external tools (GitHub, filesystem, SPARQL).",
+      "repo": "seanchatmangpt/ggen",
+      "path": "mcp-servers",
+      "branch": "main",
+      "category": "mcp-servers",
+      "tags": [],
+      "stars": 0,
+      "install": "seanchatmangpt/ggen",
+      "source": "github.com/seanchatmangpt/ggen"
+    }
+  ]
+}

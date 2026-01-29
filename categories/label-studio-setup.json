@@ -1,0 +1,19 @@
+{
+  "category": "label-studio-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.145650Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide for Label Studio setup and usage on local server for data labeling and annotation.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "label-studio-setup",
+      "branch": "main",
+      "category": "label-studio-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

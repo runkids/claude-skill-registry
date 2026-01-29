@@ -1,0 +1,19 @@
+{
+  "category": "objective",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.207233Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when managing objectives - coherent goals that require 2+ plans/PRs to complete. Use when users want to create multi-plan tracking issues, log progress across related PRs, ca",
+      "repo": "dagster-io/erk",
+      "path": "objective",
+      "branch": "main",
+      "category": "objective",
+      "tags": [],
+      "stars": 0,
+      "install": "dagster-io/erk",
+      "source": "github.com/dagster-io/erk"
+    }
+  ]
+}

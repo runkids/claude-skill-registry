@@ -1,0 +1,19 @@
+{
+  "category": "knowledge-distillation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.945788Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Compress large language models using knowledge distillation from teacher to student models. Use when deploying smaller models with retained performance, transferring GPT-4 capabilities to open-source ",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "knowledge-distillation",
+      "branch": "main",
+      "category": "knowledge-distillation",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

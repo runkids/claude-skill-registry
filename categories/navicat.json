@@ -1,0 +1,19 @@
+{
+  "category": "navicat",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.331533Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Navicat database management tool including database connection, query execution, data management, and database administration. Use when the user asks about Navicat,",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "navicat",
+      "branch": "main",
+      "category": "navicat",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

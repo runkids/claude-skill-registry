@@ -1,0 +1,19 @@
+{
+  "category": "convex-schema-validator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.712376Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Defining and validating database schemas with proper typing, index configuration, optional fields, unions, and migration strategies for schema changes",
+      "repo": "blocknavi/convex-batch-processor",
+      "path": "convex-schema-validator",
+      "branch": "main",
+      "category": "convex-schema-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "blocknavi/convex-batch-processor",
+      "source": "github.com/blocknavi/convex-batch-processor"
+    }
+  ]
+}

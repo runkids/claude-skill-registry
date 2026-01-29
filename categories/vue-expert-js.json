@@ -1,0 +1,19 @@
+{
+  "category": "vue-expert-js",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.394580Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building Vue 3 applications with JavaScript only (no TypeScript). Invoke for JSDoc typing, vanilla JS composables, .mjs modules.",
+      "repo": "Jeffallan/claude-skills",
+      "path": "vue-expert-js",
+      "branch": "main",
+      "category": "vue-expert-js",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

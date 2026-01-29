@@ -1,0 +1,19 @@
+{
+  "category": "growth-experiment",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.455580Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Experimentation Agent. A/B 테스트 설계, 가설 검증, 통계 분석을 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "growth-experiment",
+      "branch": "main",
+      "category": "growth-experiment",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

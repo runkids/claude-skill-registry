@@ -1,0 +1,19 @@
+{
+  "category": "effect-testing-mocking",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.663079Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Testing patterns with layers, mocks, and deterministic time. Use when preparing testable services and small smoke tests.",
+      "repo": "mepuka/crate",
+      "path": "effect-testing-mocking",
+      "branch": "main",
+      "category": "effect-testing-mocking",
+      "tags": [],
+      "stars": 0,
+      "install": "mepuka/crate",
+      "source": "github.com/mepuka/crate"
+    }
+  ]
+}

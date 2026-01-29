@@ -1,0 +1,19 @@
+{
+  "category": "writing-dev-server-tests",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.253339Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guides writing HMR/Dev Server tests in test/bake/. Use when creating or modifying dev server, hot reloading, or bundling tests.",
+      "repo": "oven-sh/bun",
+      "path": "writing-dev-server-tests",
+      "branch": "main",
+      "category": "writing-dev-server-tests",
+      "tags": [],
+      "stars": 0,
+      "install": "oven-sh/bun",
+      "source": "github.com/oven-sh/bun"
+    }
+  ]
+}

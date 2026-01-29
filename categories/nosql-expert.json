@@ -1,0 +1,19 @@
+{
+  "category": "nosql-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.281947Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guidance for distributed NoSQL databases (Cassandra, DynamoDB). Focuses on mental models, query-first modeling, single-table design, and avoiding hot partitions in high-scale systems.",
+      "repo": "AxelMrak/ai",
+      "path": "nosql-expert",
+      "branch": "main",
+      "category": "nosql-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "neo4j-entity",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.775793Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query companies, sectors, industries, price series, dividends, and splits from Neo4j. Use when fetching entity data or market information.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "neo4j-entity",
+      "branch": "main",
+      "category": "neo4j-entity",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

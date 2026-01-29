@@ -1,0 +1,19 @@
+{
+  "category": "go-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.116379Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write and run Go tests using the built-in testing package with table-driven tests, subtests, and mocking via interfaces. Use when writing Go tests or setting up test infrastructure.",
+      "repo": "AutumnsGrove/GroveScout",
+      "path": "go-testing",
+      "branch": "main",
+      "category": "go-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "AutumnsGrove/GroveScout",
+      "source": "github.com/AutumnsGrove/GroveScout"
+    }
+  ]
+}

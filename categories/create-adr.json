@@ -1,0 +1,19 @@
+{
+  "category": "create-adr",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.215748Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates a NEW Architectural Decision Record (ADR) documenting a specific architectural decision. Use when the user requests \"Create ADR for [topic]\", \"Document decision about [topic]\", \"Write ADR for ",
+      "repo": "codenamev/ai-software-architect",
+      "path": "create-adr",
+      "branch": "main",
+      "category": "create-adr",
+      "tags": [],
+      "stars": 0,
+      "install": "codenamev/ai-software-architect",
+      "source": "github.com/codenamev/ai-software-architect"
+    }
+  ]
+}

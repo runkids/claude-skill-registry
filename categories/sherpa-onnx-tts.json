@@ -1,0 +1,19 @@
+{
+  "category": "sherpa-onnx-tts",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.621784Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Local text-to-speech via sherpa-onnx (offline, no cloud)",
+      "repo": "Youjjwal/clawdbot",
+      "path": "sherpa-onnx-tts",
+      "branch": "main",
+      "category": "sherpa-onnx-tts",
+      "tags": [],
+      "stars": 0,
+      "install": "Youjjwal/clawdbot",
+      "source": "github.com/Youjjwal/clawdbot"
+    }
+  ]
+}

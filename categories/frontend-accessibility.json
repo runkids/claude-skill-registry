@@ -1,0 +1,19 @@
+{
+  "category": "frontend-accessibility",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.074597Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build accessible user interfaces using semantic HTML, proper ARIA attributes, keyboard navigation, color contrast, and screen reader compatibility. Use this skill when creating or editing UI component",
+      "repo": "dpietersz/pietersz.me",
+      "path": "frontend-accessibility",
+      "branch": "main",
+      "category": "frontend-accessibility",
+      "tags": [],
+      "stars": 0,
+      "install": "dpietersz/pietersz.me",
+      "source": "github.com/dpietersz/pietersz.me"
+    }
+  ]
+}

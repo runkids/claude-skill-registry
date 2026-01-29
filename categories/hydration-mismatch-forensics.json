@@ -1,0 +1,19 @@
+{
+  "category": "hydration-mismatch-forensics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.701073Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Debug and resolve complex hydration mismatches that cause UI thrashing and content layout shifts.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "hydration-mismatch-forensics",
+      "branch": "main",
+      "category": "hydration-mismatch-forensics",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

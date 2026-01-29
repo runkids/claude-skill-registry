@@ -1,0 +1,19 @@
+{
+  "category": "install",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.699190Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to install Space-Agents in a project. Creates .space-agents/ directory and initializes Beads for issue tracking. Run once per project.",
+      "repo": "thebrownproject/space-agents",
+      "path": "install",
+      "branch": "main",
+      "category": "install",
+      "tags": [],
+      "stars": 0,
+      "install": "thebrownproject/space-agents",
+      "source": "github.com/thebrownproject/space-agents"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "release-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.497487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create new AILANG releases with version bumps, changelog updates, git tags, and CI/CD verification. Use when user says \"ready to release\", \"create release\", mentions version numbers, or wants to publi",
+      "repo": "sunholo-data/ailang",
+      "path": "release-manager",
+      "branch": "main",
+      "category": "release-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "sunholo-data/ailang",
+      "source": "github.com/sunholo-data/ailang"
+    }
+  ]
+}

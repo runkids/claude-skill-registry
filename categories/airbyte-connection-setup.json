@@ -1,0 +1,19 @@
+{
+  "category": "airbyte-connection-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.321763Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт Airbyte. Используй для настройки ETL/ELT пайплайнов, коннекторов, синхронизации данных и data pipelines.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "airbyte-connection-setup",
+      "branch": "main",
+      "category": "airbyte-connection-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

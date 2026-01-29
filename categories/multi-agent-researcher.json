@@ -1,0 +1,19 @@
+{
+  "category": "multi-agent-researcher",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.634090Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conduct comprehensive research on any topic by coordinating 2-4 specialized researcher agents in parallel, then synthesizing findings into a detailed report via mandatory report-writer agent delegatio",
+      "repo": "zubayer0077/Claude-Multi-Agent-Research-System-Skill",
+      "path": "multi-agent-researcher",
+      "branch": "main",
+      "category": "multi-agent-researcher",
+      "tags": [],
+      "stars": 0,
+      "install": "zubayer0077/Claude-Multi-Agent-Research-System-Skill",
+      "source": "github.com/zubayer0077/Claude-Multi-Agent-Research-System-Skill"
+    }
+  ]
+}

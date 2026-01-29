@@ -1,0 +1,19 @@
+{
+  "category": "scientific-ena-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.274502Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access European Nucleotide Archive via API/FTP. Retrieve DNA/RNA sequences, raw reads (FASTQ), genome assemblies by accession, for genomics and bioinformatics pipelines. Supports multiple formats.",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-ena-database",
+      "branch": "main",
+      "category": "scientific-ena-database",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

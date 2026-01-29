@@ -1,0 +1,19 @@
+{
+  "category": "anndata",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.281358Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when working with annotated data matrices in Python, particularly for single-cell genomics analysis, managing experimental measurements with metadata, or handling large-scale",
+      "repo": "robinbarvaag/poynt",
+      "path": "anndata",
+      "branch": "main",
+      "category": "anndata",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

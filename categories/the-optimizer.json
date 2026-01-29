@@ -1,0 +1,19 @@
+{
+  "category": "the-optimizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.831920Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Identifies and fixes performance bottlenecks in the application.",
+      "repo": "dupipcom/morpheus",
+      "path": "the-optimizer",
+      "branch": "main",
+      "category": "the-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "dupipcom/morpheus",
+      "source": "github.com/dupipcom/morpheus"
+    }
+  ]
+}

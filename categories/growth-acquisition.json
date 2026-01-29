@@ -1,0 +1,19 @@
+{
+  "category": "growth-acquisition",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.060939Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "User Acquisition Agent. 사용자 획득 전략, 채널 최적화, CAC 관리를 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "growth-acquisition",
+      "branch": "main",
+      "category": "growth-acquisition",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

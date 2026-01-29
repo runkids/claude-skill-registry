@@ -1,0 +1,19 @@
+{
+  "category": "cloudflare-r2-bucket-management-and-access",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.527036Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill to configure Cloudflare R2 buckets, access control, lifecycle policies, public/private assets, and integration with Hono Workers using read/write/delete/list operations and signed-acces",
+      "repo": "AgentiveCity/SkillFactory",
+      "path": "cloudflare-r2-bucket-management-and-access",
+      "branch": "main",
+      "category": "cloudflare-r2-bucket-management-and-access",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentiveCity/SkillFactory",
+      "source": "github.com/AgentiveCity/SkillFactory"
+    }
+  ]
+}

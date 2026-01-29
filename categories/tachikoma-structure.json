@@ -1,0 +1,19 @@
+{
+  "category": "tachikoma-structure",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.221204Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze Context Lake file organization and propose structural changes. Use when asked to run structure cleanup, find misplaced files, identify orphans, archive old content, or merge duplicates.",
+      "repo": "joshuacook/motoko",
+      "path": "tachikoma-structure",
+      "branch": "main",
+      "category": "tachikoma-structure",
+      "tags": [],
+      "stars": 0,
+      "install": "joshuacook/motoko",
+      "source": "github.com/joshuacook/motoko"
+    }
+  ]
+}

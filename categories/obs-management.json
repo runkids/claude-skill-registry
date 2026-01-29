@@ -1,0 +1,19 @@
+{
+  "category": "obs-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.682764Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage Open Build Service (OBS) projects. Use when working with OBS packages for home:aspiers.",
+      "repo": "aspiers/ai-config",
+      "path": "obs-management",
+      "branch": "main",
+      "category": "obs-management",
+      "tags": [],
+      "stars": 0,
+      "install": "aspiers/ai-config",
+      "source": "github.com/aspiers/ai-config"
+    }
+  ]
+}

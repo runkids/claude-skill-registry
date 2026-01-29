@@ -1,0 +1,19 @@
+{
+  "category": "moai-context7-lang-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.516235Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise-grade Context7 MCP integration patterns for language-specific documentation access with real-time library resolution and intelligent caching",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-context7-lang-integration",
+      "branch": "main",
+      "category": "moai-context7-lang-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

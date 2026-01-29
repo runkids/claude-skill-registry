@@ -1,0 +1,19 @@
+{
+  "category": "lc-submit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.131663Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Submit a Rust solution file to LeetCode (project)",
+      "repo": "iQeda/MyRust-NeetCode",
+      "path": "lc-submit",
+      "branch": "main",
+      "category": "lc-submit",
+      "tags": [],
+      "stars": 0,
+      "install": "iQeda/MyRust-NeetCode",
+      "source": "github.com/iQeda/MyRust-NeetCode"
+    }
+  ]
+}

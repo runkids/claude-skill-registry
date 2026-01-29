@@ -1,0 +1,19 @@
+{
+  "category": "error-recovery",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.727335Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when encountering failures - assess severity, preserve evidence, execute rollback decision tree, and verify post-recovery state",
+      "repo": "troykelly/claude-skills",
+      "path": "error-recovery",
+      "branch": "main",
+      "category": "error-recovery",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

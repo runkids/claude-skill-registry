@@ -1,0 +1,19 @@
+{
+  "category": "arch-cross-service-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.104039Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when designing or implementing cross-service communication, data synchronization, or service boundary patterns.",
+      "repo": "duc01226/EasyPlatform",
+      "path": "arch-cross-service-integration",
+      "branch": "main",
+      "category": "arch-cross-service-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "log-summarizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.781581Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Summarize noisy logs into likely causes and next steps. Use when a junior developer needs help interpreting logs.",
+      "repo": "proflead/codex-skills-library",
+      "path": "log-summarizer",
+      "branch": "main",
+      "category": "log-summarizer",
+      "tags": [],
+      "stars": 0,
+      "install": "proflead/codex-skills-library",
+      "source": "github.com/proflead/codex-skills-library"
+    }
+  ]
+}

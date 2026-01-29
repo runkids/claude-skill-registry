@@ -1,0 +1,19 @@
+{
+  "category": "expo-audio",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.281491Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for using expo-audio to implement audio playback and recording in React Native apps. Apply when working with audio features, sound playback, recording, or text-to-speech functionality.",
+      "repo": "jchaselubitz/drill-app",
+      "path": "expo-audio",
+      "branch": "main",
+      "category": "expo-audio",
+      "tags": [],
+      "stars": 0,
+      "install": "jchaselubitz/drill-app",
+      "source": "github.com/jchaselubitz/drill-app"
+    }
+  ]
+}

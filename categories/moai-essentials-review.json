@@ -1,0 +1,19 @@
+{
+  "category": "moai-essentials-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.093100Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise comprehensive code review automation with AI-powered quality analysis, TRUST 5 enforcement, multi-language support, Context7 integration, security scanning, performance analysis, test cover",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-essentials-review",
+      "branch": "main",
+      "category": "moai-essentials-review",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

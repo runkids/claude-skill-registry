@@ -1,0 +1,19 @@
+{
+  "category": "packaging-framework",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.264883Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to structure pricing/packaging proposals with clear fences and value pillars.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "packaging-framework",
+      "branch": "main",
+      "category": "packaging-framework",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

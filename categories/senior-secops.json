@@ -1,0 +1,19 @@
+{
+  "category": "senior-secops",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.305559Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive SecOps skill for application security, vulnerability management, compliance, and secure development practices. Includes security scanning, vulnerability assessment, compliance checking, ",
+      "repo": "nimeshgurung/artifact-hub-collections",
+      "path": "senior-secops",
+      "branch": "main",
+      "category": "senior-secops",
+      "tags": [],
+      "stars": 0,
+      "install": "nimeshgurung/artifact-hub-collections",
+      "source": "github.com/nimeshgurung/artifact-hub-collections"
+    }
+  ]
+}

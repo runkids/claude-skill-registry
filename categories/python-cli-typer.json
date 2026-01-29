@@ -1,0 +1,19 @@
+{
+  "category": "python-cli-typer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.016578Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building or structuring Python CLI commands with Typer, including commands, options, and multi-command apps.",
+      "repo": "narumiruna/agent-skills",
+      "path": "python-cli-typer",
+      "branch": "main",
+      "category": "python-cli-typer",
+      "tags": [],
+      "stars": 0,
+      "install": "narumiruna/agent-skills",
+      "source": "github.com/narumiruna/agent-skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "implement_plan",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.037517Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement technical plans from thoughts/shared/plans with verification",
+      "repo": "tfunk1030/vibe",
+      "path": "implement_plan",
+      "branch": "main",
+      "category": "implement_plan",
+      "tags": [],
+      "stars": 0,
+      "install": "tfunk1030/vibe",
+      "source": "github.com/tfunk1030/vibe"
+    }
+  ]
+}

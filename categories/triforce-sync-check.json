@@ -1,0 +1,19 @@
+{
+  "category": "triforce-sync-check",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.794232Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Verify 3-Mirror skill sync consistency across .public/skills, .codex/skills, and .claude/skills. Use after skill changes, before commits, or for CI validation.",
+      "repo": "Doyajin174/myskills",
+      "path": "triforce-sync-check",
+      "branch": "main",
+      "category": "triforce-sync-check",
+      "tags": [],
+      "stars": 0,
+      "install": "Doyajin174/myskills",
+      "source": "github.com/Doyajin174/myskills"
+    }
+  ]
+}

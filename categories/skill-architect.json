@@ -1,0 +1,19 @@
+{
+  "category": "skill-architect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.097568Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design subagents for new skills. Triggers on requests to architect skills, design agents for skills, plan skill agents, figure out what agents a skill needs, or optimize skill with agents.",
+      "repo": "shakefu/contextium",
+      "path": "skill-architect",
+      "branch": "main",
+      "category": "skill-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "shakefu/contextium",
+      "source": "github.com/shakefu/contextium"
+    }
+  ]
+}

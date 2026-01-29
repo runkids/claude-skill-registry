@@ -1,0 +1,19 @@
+{
+  "category": "agent-rails-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.235787Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert Rails specialist mastering Rails 7+ with modern conventions. Specializes in convention over configuration, Hotwire/Turbo, Action Cable, and rapid application development with focus on building ",
+      "repo": "Tony363/SuperClaude",
+      "path": "agent-rails-expert",
+      "branch": "main",
+      "category": "agent-rails-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "Tony363/SuperClaude",
+      "source": "github.com/Tony363/SuperClaude"
+    }
+  ]
+}

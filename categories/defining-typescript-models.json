@@ -1,0 +1,19 @@
+{
+  "category": "defining-typescript-models",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.878695Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Defines standard TypeScript interfaces for Appwrite Collections. Use when creating new models for Tours, Users, or Bookings to ensure full type safety.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "defining-typescript-models",
+      "branch": "main",
+      "category": "defining-typescript-models",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

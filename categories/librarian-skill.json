@@ -1,0 +1,19 @@
+{
+  "category": "librarian-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.727823Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Specialized agent for multi-repository analysis, searching remote codebases, retrieving official documentation, and finding implementation examples using GitHub CLI, Context7, and Web Search. Use proa",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "librarian-skill",
+      "branch": "main",
+      "category": "librarian-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

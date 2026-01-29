@@ -1,0 +1,19 @@
+{
+  "category": "scientific-db-opentargets-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.763073Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query Open Targets Platform for target-disease associations, drug target discovery, tractability/safety data, genetics/omics evidence, known drugs, for therapeutic target identification.",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-db-opentargets-database",
+      "branch": "main",
+      "category": "scientific-db-opentargets-database",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

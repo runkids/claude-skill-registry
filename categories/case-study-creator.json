@@ -1,0 +1,19 @@
+{
+  "category": "case-study-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.198325Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Writes compelling customer success stories with measurable results. Use when the user asks about case studies, success stories, customer stories, client wins, testimonials, or proof of results.",
+      "repo": "WesleySmits/agent-skills",
+      "path": "case-study-creator",
+      "branch": "main",
+      "category": "case-study-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "data-converter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.769061Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert data between formats (JSON, XML, CSV, YAML, TOML). Use when transforming data structures or migrating between data formats.",
+      "repo": "ntaksh42/agents",
+      "path": "data-converter",
+      "branch": "main",
+      "category": "data-converter",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "using-anthropic-platform",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.650610Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Claude SDK development with Messages API, Tool Use, Extended Thinking, streaming, and prompt caching",
+      "repo": "FortiumPartners/ensemble",
+      "path": "using-anthropic-platform",
+      "branch": "main",
+      "category": "using-anthropic-platform",
+      "tags": [],
+      "stars": 0,
+      "install": "FortiumPartners/ensemble",
+      "source": "github.com/FortiumPartners/ensemble"
+    }
+  ]
+}

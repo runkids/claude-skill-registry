@@ -1,0 +1,19 @@
+{
+  "category": "0100",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.969512Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "The skill is script-heavy and evolving fast. When Python dependencies are missing, agents currently discover failures late (mid-command) and then waste tokens installing packages ad-hoc. This also red",
+      "repo": "dorgonman/kano-agent-backlog-skill-demo",
+      "path": "0100",
+      "branch": "main",
+      "category": "0100",
+      "tags": [],
+      "stars": 0,
+      "install": "dorgonman/kano-agent-backlog-skill-demo",
+      "source": "github.com/dorgonman/kano-agent-backlog-skill-demo"
+    }
+  ]
+}

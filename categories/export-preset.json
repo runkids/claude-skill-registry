@@ -1,0 +1,19 @@
+{
+  "category": "export-preset",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.320983Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Help user export a preset configuration for sharing or backup",
+      "repo": "benzwick/SlicerMouseMaster",
+      "path": "export-preset",
+      "branch": "main",
+      "category": "export-preset",
+      "tags": [],
+      "stars": 0,
+      "install": "benzwick/SlicerMouseMaster",
+      "source": "github.com/benzwick/SlicerMouseMaster"
+    }
+  ]
+}

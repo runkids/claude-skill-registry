@@ -1,0 +1,19 @@
+{
+  "category": "policyengine-standards-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.105241Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PolicyEngine coding standards, formatters, CI requirements, and development best practices",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-standards-skill",
+      "branch": "main",
+      "category": "policyengine-standards-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

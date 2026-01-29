@@ -1,0 +1,19 @@
+{
+  "category": "ic-optimize",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.779470Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize IC10 code for efficiency and line count. Use when user wants to reduce line count, improve performance, or refactor existing Stationeers IC10 code.",
+      "repo": "smileynet/stationeers-companion",
+      "path": "ic-optimize",
+      "branch": "main",
+      "category": "ic-optimize",
+      "tags": [],
+      "stars": 0,
+      "install": "smileynet/stationeers-companion",
+      "source": "github.com/smileynet/stationeers-companion"
+    }
+  ]
+}

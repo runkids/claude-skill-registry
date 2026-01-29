@@ -1,0 +1,19 @@
+{
+  "category": "dev-research-gdd-reading",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.359364Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Read Game Design Document for design context",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-research-gdd-reading",
+      "branch": "main",
+      "category": "dev-research-gdd-reading",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

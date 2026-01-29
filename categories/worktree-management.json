@@ -1,0 +1,19 @@
+{
+  "category": "worktree-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.065131Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Git worktree management for parallel dotfiles development. Use when user mentions \"create worktree\", \"switch worktree\", \"delete worktree\", \"list worktrees\", \"feature branch\", \"parallel development\", o",
+      "repo": "sgotand/.dotfiles",
+      "path": "worktree-management",
+      "branch": "main",
+      "category": "worktree-management",
+      "tags": [],
+      "stars": 0,
+      "install": "sgotand/.dotfiles",
+      "source": "github.com/sgotand/.dotfiles"
+    }
+  ]
+}

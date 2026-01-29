@@ -1,0 +1,19 @@
+{
+  "category": "prd-update-decisions",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.009330Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Update PRD based on design decisions and strategic changes made during conversations",
+      "repo": "wiggitywhitney/cluster-whisperer",
+      "path": "prd-update-decisions",
+      "branch": "main",
+      "category": "prd-update-decisions",
+      "tags": [],
+      "stars": 0,
+      "install": "wiggitywhitney/cluster-whisperer",
+      "source": "github.com/wiggitywhitney/cluster-whisperer"
+    }
+  ]
+}

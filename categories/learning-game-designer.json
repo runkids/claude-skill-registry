@@ -1,0 +1,19 @@
+{
+  "category": "learning-game-designer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.219175Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "game-designer for engaging, immersive learning experiences.",
+      "repo": "pauljbernard/content",
+      "path": "learning-game-designer",
+      "branch": "main",
+      "category": "learning-game-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

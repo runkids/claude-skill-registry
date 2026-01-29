@@ -1,0 +1,19 @@
+{
+  "category": "pli-migration-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.021928Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes legacy PL/I (Programming Language One) programs to assist with migration to modern Java applications. Extracts business logic, data structures, procedure definitions, and file operations from",
+      "repo": "DauQuangThanh/hanoi-rainbow",
+      "path": "pli-migration-analyzer",
+      "branch": "main",
+      "category": "pli-migration-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "DauQuangThanh/hanoi-rainbow",
+      "source": "github.com/DauQuangThanh/hanoi-rainbow"
+    }
+  ]
+}

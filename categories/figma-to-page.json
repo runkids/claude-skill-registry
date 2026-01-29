@@ -1,0 +1,19 @@
+{
+  "category": "figma-to-page",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.100551Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates React code for a full page based on pasted Figma 'Inspect' details. Uses the page scaffolder.",
+      "repo": "okgoogle13/careercopilot",
+      "path": "figma-to-page",
+      "branch": "main",
+      "category": "figma-to-page",
+      "tags": [],
+      "stars": 0,
+      "install": "okgoogle13/careercopilot",
+      "source": "github.com/okgoogle13/careercopilot"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "tensorboard-visualizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.469485Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tensorboard Visualizer - Auto-activating skill for ML Training.\nTriggers on: tensorboard visualizer, tensorboard visualizer\nPart of the ML Training skill category.\n",
+      "repo": "byteworthy/Upstream",
+      "path": "tensorboard-visualizer",
+      "branch": "main",
+      "category": "tensorboard-visualizer",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

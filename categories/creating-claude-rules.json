@@ -1,0 +1,19 @@
+{
+  "category": "creating-claude-rules",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.041755Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating or fixing .claude/rules/ files - provides correct paths frontmatter (not globs), glob patterns, and avoids Cursor-specific fields like alwaysApply",
+      "repo": "pr-pm/prpm",
+      "path": "creating-claude-rules",
+      "branch": "main",
+      "category": "creating-claude-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

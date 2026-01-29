@@ -1,0 +1,19 @@
+{
+  "category": "clojure-donut-system",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.063415Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reference for donut.party/system - component lifecycle and dependency injection library for Clojure. Use when working with component definitions, system management, refs between components, or lifecyc",
+      "repo": "Ramblurr/nix-devenv",
+      "path": "clojure-donut-system",
+      "branch": "main",
+      "category": "clojure-donut-system",
+      "tags": [],
+      "stars": 0,
+      "install": "Ramblurr/nix-devenv",
+      "source": "github.com/Ramblurr/nix-devenv"
+    }
+  ]
+}

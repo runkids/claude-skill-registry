@@ -1,0 +1,19 @@
+{
+  "category": "1",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.619533Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Personal knowledge base powered by Ensue for capturing and retrieving understanding. Use when user wants to save knowledge, recall what they know, manage their toolbox, or build on past learnings. Tri",
+      "repo": "moltbot/skills",
+      "path": "1",
+      "branch": "main",
+      "category": "1",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

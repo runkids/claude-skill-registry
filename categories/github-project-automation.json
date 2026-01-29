@@ -1,0 +1,19 @@
+{
+  "category": "github-project-automation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.038722Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Status: Production Ready ✅",
+      "repo": "secondsky/claude-skills",
+      "path": "github-project-automation",
+      "branch": "main",
+      "category": "github-project-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

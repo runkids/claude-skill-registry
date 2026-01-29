@@ -1,0 +1,19 @@
+{
+  "category": "when-analyzing-performance-use-performance-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.069619Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive performance analysis, bottleneck detection, and optimization recommendations for Claude Flow swarms",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "when-analyzing-performance-use-performance-analysis",
+      "branch": "main",
+      "category": "when-analyzing-performance-use-performance-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

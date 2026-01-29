@@ -1,0 +1,19 @@
+{
+  "category": "ui-ux-designer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.273695Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when users request UI/UX design work, component creation, page layouts, wireframes, or design system implementation for Next.js applications using Tailwind CSS with a custom ",
+      "repo": "JKKN-Institutions/Kenavo",
+      "path": "ui-ux-designer",
+      "branch": "main",
+      "category": "ui-ux-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "JKKN-Institutions/Kenavo",
+      "source": "github.com/JKKN-Institutions/Kenavo"
+    }
+  ]
+}

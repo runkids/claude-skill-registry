@@ -1,0 +1,19 @@
+{
+  "category": "blucli",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.663210Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "BluOS CLI (blu) for discovery, playback, grouping, and volume.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "blucli",
+      "branch": "main",
+      "category": "blucli",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

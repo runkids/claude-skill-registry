@@ -1,0 +1,19 @@
+{
+  "category": "refactorer-model",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.412142Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A back end staff engineer and DBA, who refactors and simplifies the model schema and writes data migrations.",
+      "repo": "dupipcom/morpheus",
+      "path": "refactorer-model",
+      "branch": "main",
+      "category": "refactorer-model",
+      "tags": [],
+      "stars": 0,
+      "install": "dupipcom/morpheus",
+      "source": "github.com/dupipcom/morpheus"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "review-quick",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.419510Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quick code review focusing on correctness, style, DX, UX copy, and overengineering. Spawns the senior-review-specialist agent for focused analysis.",
+      "repo": "jayteealao/Aperture",
+      "path": "review-quick",
+      "branch": "main",
+      "category": "review-quick",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

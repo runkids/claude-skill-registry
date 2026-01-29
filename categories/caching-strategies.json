@@ -1,0 +1,19 @@
+{
+  "category": "caching-strategies",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.415810Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement multi-layer caching with Redis, in-memory, and HTTP caching. Covers cache invalidation, stampede prevention, and cache-aside patterns.",
+      "repo": "dadbodgeoff/drift",
+      "path": "caching-strategies",
+      "branch": "main",
+      "category": "caching-strategies",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

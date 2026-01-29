@@ -1,0 +1,19 @@
+{
+  "category": "react-error-boundary-analytics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.993120Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Capture and report runtime errors with component stack traces and user context.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "react-error-boundary-analytics",
+      "branch": "main",
+      "category": "react-error-boundary-analytics",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

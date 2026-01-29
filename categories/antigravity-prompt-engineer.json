@@ -1,0 +1,19 @@
+{
+  "category": "antigravity-prompt-engineer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.375716Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert prompt engineer specializing in advanced prompting techniques, LLM optimization, and AI system design. Masters chain-of-thought, constitutional AI, and production prompt strategies. Use when bu",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-prompt-engineer",
+      "branch": "main",
+      "category": "antigravity-prompt-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

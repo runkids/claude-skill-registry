@@ -1,0 +1,19 @@
+{
+  "category": "core-error-handling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.308350Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Core error types and HTTP status code mapping patterns",
+      "repo": "zerobias-org/module",
+      "path": "core-error-handling",
+      "branch": "main",
+      "category": "core-error-handling",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

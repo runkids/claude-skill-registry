@@ -1,0 +1,19 @@
+{
+  "category": "accessibility-object-model-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.468731Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Programmatic manipulation of the accessibility tree to support complex custom controls in React.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "accessibility-object-model-integration",
+      "branch": "main",
+      "category": "accessibility-object-model-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

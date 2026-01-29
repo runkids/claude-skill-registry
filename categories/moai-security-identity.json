@@ -1,0 +1,19 @@
+{
+  "category": "moai-security-identity",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.262399Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Skill for advanced development",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-security-identity",
+      "branch": "main",
+      "category": "moai-security-identity",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

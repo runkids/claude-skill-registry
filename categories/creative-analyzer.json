@@ -1,0 +1,19 @@
+{
+  "category": "creative-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.934209Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по анализу креативов Facebook Ads. Используй для оценки эффективности креативов, Risk Score, A/B тестирования и рекомендаций по улучшению.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "creative-analyzer",
+      "branch": "main",
+      "category": "creative-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

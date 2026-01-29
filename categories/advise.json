@@ -1,0 +1,19 @@
+{
+  "category": "advise",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.654904Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interactive conversational guidance - user implements with step-by-step advice. Use when you want hands-on implementation with expert guidance while maintaining control.",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "advise",
+      "branch": "main",
+      "category": "advise",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

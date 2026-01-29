@@ -1,0 +1,19 @@
+{
+  "category": "Summarize",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.856515Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Summarize URLs or files with the summarize CLI (web, PDFs, images, audio, YouTube).",
+      "repo": "rdsthomas/mission-control",
+      "path": "Summarize",
+      "branch": "main",
+      "category": "Summarize",
+      "tags": [],
+      "stars": 0,
+      "install": "rdsthomas/mission-control",
+      "source": "github.com/rdsthomas/mission-control"
+    }
+  ]
+}

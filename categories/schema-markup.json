@@ -1,0 +1,19 @@
+{
+  "category": "schema-markup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.317663Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to add, fix, or optimize schema markup and structured data on their site. Also use when the user mentions \"schema markup,\" \"structured data,\" \"JSON-LD,\" \"rich snippets,\" \"schema.or",
+      "repo": "LeonMelamud/inspector-agents",
+      "path": "schema-markup",
+      "branch": "main",
+      "category": "schema-markup",
+      "tags": [],
+      "stars": 0,
+      "install": "LeonMelamud/inspector-agents",
+      "source": "github.com/LeonMelamud/inspector-agents"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "post-writer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.499277Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when writing blog posts, P2 updates, internal communications, or any written content. Helps with personal blog posts, team updates, technical documentation, meeting summaries, or year-end reflecti",
+      "repo": "ebinnion/dotfiles",
+      "path": "post-writer",
+      "branch": "main",
+      "category": "post-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "ebinnion/dotfiles",
+      "source": "github.com/ebinnion/dotfiles"
+    }
+  ]
+}

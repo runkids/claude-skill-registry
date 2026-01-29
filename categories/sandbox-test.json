@@ -1,0 +1,19 @@
+{
+  "category": "sandbox-test",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.782757Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run an isolated Claude Code instance for testing. Use when you need a fresh environment without global CLAUDE.md or parent project settings. Trigger for: sandbox, isolated test, fresh instance, clean ",
+      "repo": "teren-papercutlabs/pcl-workshop-setup",
+      "path": "sandbox-test",
+      "branch": "main",
+      "category": "sandbox-test",
+      "tags": [],
+      "stars": 0,
+      "install": "teren-papercutlabs/pcl-workshop-setup",
+      "source": "github.com/teren-papercutlabs/pcl-workshop-setup"
+    }
+  ]
+}

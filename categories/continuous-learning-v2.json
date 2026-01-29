@@ -1,0 +1,19 @@
+{
+  "category": "continuous-learning-v2",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.460113Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Instinct-based learning system that observes sessions via hooks, creates atomic instincts with confidence scoring, and evolves them into skills/commands/agents.",
+      "repo": "affaan-m/everything-claude-code",
+      "path": "continuous-learning-v2",
+      "branch": "main",
+      "category": "continuous-learning-v2",
+      "tags": [],
+      "stars": 0,
+      "install": "affaan-m/everything-claude-code",
+      "source": "github.com/affaan-m/everything-claude-code"
+    }
+  ]
+}

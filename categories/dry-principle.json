@@ -1,0 +1,19 @@
+{
+  "category": "dry-principle",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.495271Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "dry-principle",
+      "branch": "main",
+      "category": "dry-principle",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

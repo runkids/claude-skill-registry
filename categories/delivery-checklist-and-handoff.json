@@ -1,0 +1,19 @@
+{
+  "category": "delivery-checklist-and-handoff",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.834888Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ensure artifacts, validation, and rollout readiness for handoff.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "delivery-checklist-and-handoff",
+      "branch": "main",
+      "category": "delivery-checklist-and-handoff",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

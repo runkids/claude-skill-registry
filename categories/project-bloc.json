@@ -1,0 +1,19 @@
+{
+  "category": "project-bloc",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.373392Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating BLoC patterns with events, states, and proper structure in app_bloc packages (project)",
+      "repo": "gsmlg-app/flutter-app-template",
+      "path": "project-bloc",
+      "branch": "main",
+      "category": "project-bloc",
+      "tags": [],
+      "stars": 0,
+      "install": "gsmlg-app/flutter-app-template",
+      "source": "github.com/gsmlg-app/flutter-app-template"
+    }
+  ]
+}

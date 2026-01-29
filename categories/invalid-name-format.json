@@ -1,0 +1,19 @@
+{
+  "category": "invalid-name-format",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.903963Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill has uppercase letters in its name, which is not allowed.",
+      "repo": "yurakawa/mskills",
+      "path": "invalid-name-format",
+      "branch": "main",
+      "category": "invalid-name-format",
+      "tags": [],
+      "stars": 0,
+      "install": "yurakawa/mskills",
+      "source": "github.com/yurakawa/mskills"
+    }
+  ]
+}

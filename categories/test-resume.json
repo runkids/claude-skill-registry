@@ -1,0 +1,19 @@
+{
+  "category": "test-resume",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.467533Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test subagent resumption - call agent twice, verify context preserved",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-resume",
+      "branch": "main",
+      "category": "test-resume",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

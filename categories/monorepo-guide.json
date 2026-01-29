@@ -1,0 +1,19 @@
+{
+  "category": "monorepo-guide",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.652055Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for working with the Raamattu Nyt monorepo structure. Use when creating new packages, adding apps, managing workspace dependencies, understanding import patterns, or troubleshooting monorepo iss",
+      "repo": "Spectaculous-Code/raamattu-nyt",
+      "path": "monorepo-guide",
+      "branch": "main",
+      "category": "monorepo-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "Spectaculous-Code/raamattu-nyt",
+      "source": "github.com/Spectaculous-Code/raamattu-nyt"
+    }
+  ]
+}

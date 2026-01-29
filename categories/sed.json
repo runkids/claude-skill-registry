@@ -1,0 +1,19 @@
+{
+  "category": "sed",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.010463Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Stream editor for text substitution, line operations, and file transformations.",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "sed",
+      "branch": "main",
+      "category": "sed",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

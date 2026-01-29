@@ -1,0 +1,19 @@
+{
+  "category": "database-admin",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.260746Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert database administrator specializing in modern cloud databases, automation, and reliability engineering. Masters AWS/Azure/GCP database services, Infrastructure as Code, high availability, disas",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "database-admin",
+      "branch": "main",
+      "category": "database-admin",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

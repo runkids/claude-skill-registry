@@ -1,0 +1,19 @@
+{
+  "category": "decomposing-tasks",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.385544Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when you need to create an execution plan from a feature spec - handles worktree context, dispatches subagent for task decomposition, validates quality, analyzes dependencies, groups into phases, ",
+      "repo": "arittr/spectacular",
+      "path": "decomposing-tasks",
+      "branch": "main",
+      "category": "decomposing-tasks",
+      "tags": [],
+      "stars": 0,
+      "install": "arittr/spectacular",
+      "source": "github.com/arittr/spectacular"
+    }
+  ]
+}

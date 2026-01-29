@@ -1,0 +1,19 @@
+{
+  "category": "secure-multi-tenancy-isolation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.865100Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ensure secure isolation between multi-tenant consciousness instances.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "secure-multi-tenancy-isolation",
+      "branch": "main",
+      "category": "secure-multi-tenancy-isolation",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "add-project",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.895686Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "새 프로젝트를 STAR+I로 추가할 때",
+      "repo": "younwony/younwony.github.io",
+      "path": "add-project",
+      "branch": "main",
+      "category": "add-project",
+      "tags": [],
+      "stars": 0,
+      "install": "younwony/younwony.github.io",
+      "source": "github.com/younwony/younwony.github.io"
+    }
+  ]
+}

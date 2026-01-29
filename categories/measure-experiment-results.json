@@ -1,0 +1,19 @@
+{
+  "category": "measure-experiment-results",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.476690Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<!-- PM-Skills | https://github.com/product-on-purpose/pm-skills | Apache 2.0 -->",
+      "repo": "product-on-purpose/pm-skills",
+      "path": "measure-experiment-results",
+      "branch": "main",
+      "category": "measure-experiment-results",
+      "tags": [],
+      "stars": 0,
+      "install": "product-on-purpose/pm-skills",
+      "source": "github.com/product-on-purpose/pm-skills"
+    }
+  ]
+}

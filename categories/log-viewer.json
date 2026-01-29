@@ -1,0 +1,19 @@
+{
+  "category": "log-viewer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.936836Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "View and analyze WaveCap-SDR server logs, debug output, and error messages. Use when troubleshooting server issues, debugging API errors, monitoring SDR device status, or investigating capture/channel",
+      "repo": "TobiasWooldridge/WaveCap-SDR",
+      "path": "log-viewer",
+      "branch": "main",
+      "category": "log-viewer",
+      "tags": [],
+      "stars": 0,
+      "install": "TobiasWooldridge/WaveCap-SDR",
+      "source": "github.com/TobiasWooldridge/WaveCap-SDR"
+    }
+  ]
+}

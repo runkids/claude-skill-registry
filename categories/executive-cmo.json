@@ -1,0 +1,19 @@
+{
+  "category": "executive-cmo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.364110Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Executive CMO Agent. 마케팅 전략, 브랜딩, GTM을 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "executive-cmo",
+      "branch": "main",
+      "category": "executive-cmo",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

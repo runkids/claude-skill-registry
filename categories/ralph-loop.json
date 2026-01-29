@@ -1,0 +1,19 @@
+{
+  "category": "ralph-loop",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.753634Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Activate autonomous Ralph Wiggum loop mode for iterative task completion. Use when you have a well-defined task with clear completion criteria that benefits from persistent, autonomous execution.",
+      "repo": "belumume/claude-skills",
+      "path": "ralph-loop",
+      "branch": "main",
+      "category": "ralph-loop",
+      "tags": [],
+      "stars": 0,
+      "install": "belumume/claude-skills",
+      "source": "github.com/belumume/claude-skills"
+    }
+  ]
+}

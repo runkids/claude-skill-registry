@@ -1,0 +1,19 @@
+{
+  "category": "architecture-paradigm-service-based",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.415980Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- When teams require a degree of deployment independence but are not yet prepared for the complexity of managing numerous microservices.",
+      "repo": "athola/claude-night-market",
+      "path": "architecture-paradigm-service-based",
+      "branch": "main",
+      "category": "architecture-paradigm-service-based",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "perplexity-ask",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.983631Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quick factual Q&A with citations. Use for simple lookups and single facts.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "perplexity-ask",
+      "branch": "main",
+      "category": "perplexity-ask",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

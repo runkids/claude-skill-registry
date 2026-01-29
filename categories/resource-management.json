@@ -1,0 +1,19 @@
+{
+  "category": "resource-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.873820Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks about \"Effect resources\", \"acquireRelease\", \"Scope\", \"finalizers\", \"resource cleanup\", \"Effect.addFinalizer\", \"Effect.ensuring\", \"scoped effects\", \"resourc",
+      "repo": "andrueandersoncs/claude-skill-effect-ts",
+      "path": "resource-management",
+      "branch": "main",
+      "category": "resource-management",
+      "tags": [],
+      "stars": 0,
+      "install": "andrueandersoncs/claude-skill-effect-ts",
+      "source": "github.com/andrueandersoncs/claude-skill-effect-ts"
+    }
+  ]
+}

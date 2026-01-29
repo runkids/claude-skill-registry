@@ -1,0 +1,19 @@
+{
+  "category": "nginx-configuration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.288544Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure Nginx web server for high-performance reverse proxy, load balancing, SSL/TLS, caching, and API gateway functionality.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "nginx-configuration",
+      "branch": "main",
+      "category": "nginx-configuration",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

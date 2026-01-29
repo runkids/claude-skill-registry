@@ -1,0 +1,19 @@
+{
+  "category": "documentation-updater",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.720636Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Update all project documentation including implementation docs, user guides, API docs, and architecture diagrams. Use when finalizing features to ensure comprehensive documentation.",
+      "repo": "matteocervelli/llms",
+      "path": "documentation-updater",
+      "branch": "main",
+      "category": "documentation-updater",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

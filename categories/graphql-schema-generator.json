@@ -1,0 +1,19 @@
+{
+  "category": "graphql-schema-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.144153Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate GraphQL schemas, resolvers, and type definitions. Use when designing GraphQL APIs or documenting GraphQL schemas.",
+      "repo": "ntaksh42/agents",
+      "path": "graphql-schema-generator",
+      "branch": "main",
+      "category": "graphql-schema-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

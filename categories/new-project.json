@@ -1,0 +1,19 @@
+{
+  "category": "new-project",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.059946Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffold a new Lean 4 project in the workspace. Use when creating a new project, library, or application.",
+      "repo": "nathanial/lean-workspace",
+      "path": "new-project",
+      "branch": "main",
+      "category": "new-project",
+      "tags": [],
+      "stars": 0,
+      "install": "nathanial/lean-workspace",
+      "source": "github.com/nathanial/lean-workspace"
+    }
+  ]
+}

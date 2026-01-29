@@ -1,0 +1,19 @@
+{
+  "category": "apscheduler",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.912181Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced Python Scheduler - Task scheduling and job queue system",
+      "repo": "SlanyCukr/riot-api-project",
+      "path": "apscheduler",
+      "branch": "main",
+      "category": "apscheduler",
+      "tags": [],
+      "stars": 0,
+      "install": "SlanyCukr/riot-api-project",
+      "source": "github.com/SlanyCukr/riot-api-project"
+    }
+  ]
+}

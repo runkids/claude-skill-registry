@@ -1,0 +1,19 @@
+{
+  "category": "workflow-compliance-auditor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.009112Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validates workflow files for logical integrity, termination guarantees, and skill existence.",
+      "repo": "marcelocmenezes/antigravity-agentkit",
+      "path": "workflow-compliance-auditor",
+      "branch": "main",
+      "category": "workflow-compliance-auditor",
+      "tags": [],
+      "stars": 0,
+      "install": "marcelocmenezes/antigravity-agentkit",
+      "source": "github.com/marcelocmenezes/antigravity-agentkit"
+    }
+  ]
+}

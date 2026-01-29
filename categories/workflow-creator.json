@@ -1,0 +1,19 @@
+{
+  "category": "workflow-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.102275Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates multi-agent orchestration workflows for complex tasks. Handles enterprise workflows, operational procedures, and custom orchestration patterns. Use when user needs to automate multi-phase proc",
+      "repo": "oimiragieo/agent-studio",
+      "path": "workflow-creator",
+      "branch": "main",
+      "category": "workflow-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

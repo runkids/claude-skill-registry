@@ -1,0 +1,19 @@
+{
+  "category": "json-yaml-converter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.463848Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "在JSON、YAML和TOML格式之间转换，验证和格式化配置文件。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "json-yaml-converter",
+      "branch": "main",
+      "category": "json-yaml-converter",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "pre-release-validation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.128196Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate release readiness for any project type with comprehensive checks",
+      "repo": "jayteealao/Aperture",
+      "path": "pre-release-validation",
+      "branch": "main",
+      "category": "pre-release-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "category": "security-compliance",
-  "count": 1,
-  "updated_at": "2026-01-29T04:49:19.499139Z",
+  "count": 2,
+  "updated_at": "2026-01-29T16:04:49.657224Z",
   "skills": [
     {
       "name": "container-security-scanner",
@@ -14,6 +14,18 @@
       "stars": 48,
       "install": "majiayu000/claude-skill-registry",
       "source": "github.com/majiayu000/claude-skill-registry"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Guides security professionals in implementing defense-in-depth security architectures, achieving compliance with industry frameworks (SOC2, ISO27001, GDPR, HIPAA), conducting threat modeling and risk ",
+      "repo": "JohnMarkCapones/Aralify",
+      "path": "security-compliance",
+      "branch": "main",
+      "category": "security-compliance",
+      "tags": [],
+      "stars": 0,
+      "install": "JohnMarkCapones/Aralify",
+      "source": "github.com/JohnMarkCapones/Aralify"
     }
   ]
 }

@@ -1,0 +1,19 @@
+{
+  "category": "authoring",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.300282Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guidance for Quarto document authoring and R Markdown migration. Use this skill when: (1) Writing new Quarto documents (.qmd) with best practices, (2) Converting R Markdown (.Rmd) docume",
+      "repo": "posit-dev/skills",
+      "path": "authoring",
+      "branch": "main",
+      "category": "authoring",
+      "tags": [],
+      "stars": 0,
+      "install": "posit-dev/skills",
+      "source": "github.com/posit-dev/skills"
+    }
+  ]
+}

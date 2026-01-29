@@ -1,0 +1,19 @@
+{
+  "category": "alfred-clipboard",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.076131Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access Alfred's clipboard history. Search recent copies, find text you copied earlier, and analyze clipboard patterns.",
+      "repo": "tbroadley/dotfiles",
+      "path": "alfred-clipboard",
+      "branch": "main",
+      "category": "alfred-clipboard",
+      "tags": [],
+      "stars": 0,
+      "install": "tbroadley/dotfiles",
+      "source": "github.com/tbroadley/dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "refactoring-suggester",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.817692Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Suggest refactoring opportunities to improve code structure and maintainability. Use when improving code design or reducing complexity.",
+      "repo": "ntaksh42/agents",
+      "path": "refactoring-suggester",
+      "branch": "main",
+      "category": "refactoring-suggester",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

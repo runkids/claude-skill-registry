@@ -1,0 +1,19 @@
+{
+  "category": "kpi-verification-pass-rate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.537737Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "KPI for measuring first-pass verification success. Tracks how often verification passes on the first attempt. Use to reduce wasted cycles from verification failures.",
+      "repo": "Anveio/conveaux",
+      "path": "kpi-verification-pass-rate",
+      "branch": "main",
+      "category": "kpi-verification-pass-rate",
+      "tags": [],
+      "stars": 0,
+      "install": "Anveio/conveaux",
+      "source": "github.com/Anveio/conveaux"
+    }
+  ]
+}

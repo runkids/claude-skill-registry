@@ -1,0 +1,19 @@
+{
+  "category": "tailwind-4",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.901776Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tailwind CSS 4 patterns and best practices. Trigger: When styling with Tailwind (className, variants, cn()), especially when dynamic styling or CSS variables are involved (no var() in className).\n",
+      "repo": "prowler-cloud/prowler",
+      "path": "tailwind-4",
+      "branch": "main",
+      "category": "tailwind-4",
+      "tags": [],
+      "stars": 0,
+      "install": "prowler-cloud/prowler",
+      "source": "github.com/prowler-cloud/prowler"
+    }
+  ]
+}

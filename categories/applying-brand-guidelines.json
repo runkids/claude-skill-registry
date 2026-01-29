@@ -1,0 +1,19 @@
+{
+  "category": "applying-brand-guidelines",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.683329Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill applies consistent corporate branding and styling to all generated documents including colors, fonts, layouts, and messaging",
+      "repo": "anthropics/claude-cookbooks",
+      "path": "applying-brand-guidelines",
+      "branch": "main",
+      "category": "applying-brand-guidelines",
+      "tags": [],
+      "stars": 0,
+      "install": "anthropics/claude-cookbooks",
+      "source": "github.com/anthropics/claude-cookbooks"
+    }
+  ]
+}

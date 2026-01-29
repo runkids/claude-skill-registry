@@ -1,0 +1,19 @@
+{
+  "category": "librpc",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.132912Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "librpc - gRPC framework for microservices. RpcServer and RpcClient provide base classes. loadProto loads protobuf definitions. createClientFactory builds typed service clients. hmacAuth provides authe",
+      "repo": "copilot-ld/copilot-ld",
+      "path": "librpc",
+      "branch": "main",
+      "category": "librpc",
+      "tags": [],
+      "stars": 0,
+      "install": "copilot-ld/copilot-ld",
+      "source": "github.com/copilot-ld/copilot-ld"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "task-status-sync",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.232377Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforce atomic task status updates through task-tracker commands only. Prevent manual edits to NOTES.md and tasks.md that break synchronization. Auto-trigger when detecting Edit/Write attempts to task",
+      "repo": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "path": "task-status-sync",
+      "branch": "main",
+      "category": "task-status-sync",
+      "tags": [],
+      "stars": 0,
+      "install": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "source": "github.com/Sjdjdiejdrirhdkjej/Claude-code-conductor"
+    }
+  ]
+}

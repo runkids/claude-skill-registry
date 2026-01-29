@@ -1,0 +1,19 @@
+{
+  "category": "gemini-flash",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.893648Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use Gemini Flash for quick tasks: reading PDFs, processing images, analyzing screenshots, summarizing documents. Fast, cheap, 1M+ token context.",
+      "repo": "metrovoc/cc-skill-opencode",
+      "path": "gemini-flash",
+      "branch": "main",
+      "category": "gemini-flash",
+      "tags": [],
+      "stars": 0,
+      "install": "metrovoc/cc-skill-opencode",
+      "source": "github.com/metrovoc/cc-skill-opencode"
+    }
+  ]
+}

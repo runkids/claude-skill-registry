@@ -1,0 +1,19 @@
+{
+  "category": "projection-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.288793Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build read models and projections from event streams. Use when implementing CQRS read sides, building materialized views, or optimizing query performance in event-sourced systems.",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "projection-patterns",
+      "branch": "main",
+      "category": "projection-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

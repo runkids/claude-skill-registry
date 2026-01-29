@@ -1,0 +1,19 @@
+{
+  "category": "startup-data-scientist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.956900Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Data scientist specializing in startup analytics, user behavior tracking, and metrics analysis for Lean Startup and Customer Development methodologies. Use when analyzing user data, setting up analyti",
+      "repo": "rwHiveAqua/advisor",
+      "path": "startup-data-scientist",
+      "branch": "main",
+      "category": "startup-data-scientist",
+      "tags": [],
+      "stars": 0,
+      "install": "rwHiveAqua/advisor",
+      "source": "github.com/rwHiveAqua/advisor"
+    }
+  ]
+}

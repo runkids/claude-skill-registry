@@ -1,0 +1,19 @@
+{
+  "category": "gamma-cost-tuning",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.094629Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize Gamma usage costs and manage API spending.\nUse when reducing API costs, implementing usage quotas,\nor planning for scale with budget constraints.\nTrigger with phrases like \"gamma cost\", \"gamm",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "gamma-cost-tuning",
+      "branch": "main",
+      "category": "gamma-cost-tuning",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

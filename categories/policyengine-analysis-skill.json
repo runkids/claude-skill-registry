@@ -1,0 +1,19 @@
+{
+  "category": "policyengine-analysis-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.648942Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Common analysis patterns for PolicyEngine research repositories (CRFB, newsletters, dashboards, impact studies)",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-analysis-skill",
+      "branch": "main",
+      "category": "policyengine-analysis-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

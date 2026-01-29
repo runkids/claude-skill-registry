@@ -1,0 +1,19 @@
+{
+  "category": "skill-creator-anthropic",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.608729Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating effective skills. Use when users want to create a new skill (or update an existing skill) that extends the model's capabilities with specialized knowledge, workflows, or tool integr",
+      "repo": "lawvable/awesome-legal-skills",
+      "path": "skill-creator-anthropic",
+      "branch": "main",
+      "category": "skill-creator-anthropic",
+      "tags": [],
+      "stars": 0,
+      "install": "lawvable/awesome-legal-skills",
+      "source": "github.com/lawvable/awesome-legal-skills"
+    }
+  ]
+}

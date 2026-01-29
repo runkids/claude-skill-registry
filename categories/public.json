@@ -1,0 +1,19 @@
+{
+  "category": "public",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.281021Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates public/ directory with static assets including favicons, app icons, and site.webmanifest for Progressive Web App (PWA) support.",
+      "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+      "path": "public",
+      "branch": "main",
+      "category": "public",
+      "tags": [],
+      "stars": 0,
+      "install": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+      "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template"
+    }
+  ]
+}

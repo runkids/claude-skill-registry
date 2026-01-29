@@ -1,0 +1,19 @@
+{
+  "category": "fal-audio",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.996399Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "| STT Model | Endpoint | Speed | Accuracy |",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "fal-audio",
+      "branch": "main",
+      "category": "fal-audio",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

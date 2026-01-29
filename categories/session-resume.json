@@ -1,0 +1,19 @@
+{
+  "category": "session-resume",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.555758Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Resume previous work from archived session with full context restoration",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "session-resume",
+      "branch": "main",
+      "category": "session-resume",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "prd-to-json",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.256481Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert a PRD markdown file to a structured JSON task file with progress tracking. Use when converting a PRD to JSON, creating trackable tasks from a PRD, or when asked to make a PRD actionable. Trigg",
+      "repo": "bearbinary/Jarvy",
+      "path": "prd-to-json",
+      "branch": "main",
+      "category": "prd-to-json",
+      "tags": [],
+      "stars": 0,
+      "install": "bearbinary/Jarvy",
+      "source": "github.com/bearbinary/Jarvy"
+    }
+  ]
+}

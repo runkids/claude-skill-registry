@@ -1,0 +1,19 @@
+{
+  "category": "nextjs-zustand",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.874356Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Zustand for Next.js App Router - Client Components only, hydration handling, persist middleware. Use when implementing global state in Next.js.",
+      "repo": "fusengine/agents",
+      "path": "nextjs-zustand",
+      "branch": "main",
+      "category": "nextjs-zustand",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

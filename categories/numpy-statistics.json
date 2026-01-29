@@ -1,0 +1,19 @@
+{
+  "category": "numpy-statistics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.310033Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "NumPy provides a suite of statistical functions for summarizing data. Key capabilities include calculating central tendencies, dispersion, and relationships between variables, with specific handling f",
+      "repo": "cuba6112/skillfactory",
+      "path": "numpy-statistics",
+      "branch": "main",
+      "category": "numpy-statistics",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "stakeholder-alignment",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.767477Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Align stakeholders and secure buy-in by producing a Stakeholder Alignment Pack (alignment brief, stakeholder map, exec decision principles, pre-brief plan, alignment meeting plan, decision summary + c",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "stakeholder-alignment",
+      "branch": "main",
+      "category": "stakeholder-alignment",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

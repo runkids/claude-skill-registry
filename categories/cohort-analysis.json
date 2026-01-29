@@ -1,0 +1,19 @@
+{
+  "category": "cohort-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.345998Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standard method for slicing bookings, pipeline, and retention cohorts for diagnostics.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "cohort-analysis",
+      "branch": "main",
+      "category": "cohort-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

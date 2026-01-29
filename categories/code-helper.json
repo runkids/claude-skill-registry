@@ -1,0 +1,19 @@
+{
+  "category": "code-helper",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.530469Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Helps with code analysis and refactoring tasks",
+      "repo": "fwdslsh/crosstrain",
+      "path": "code-helper",
+      "branch": "main",
+      "category": "code-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "fwdslsh/crosstrain",
+      "source": "github.com/fwdslsh/crosstrain"
+    }
+  ]
+}

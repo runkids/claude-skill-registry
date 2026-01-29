@@ -1,0 +1,19 @@
+{
+  "category": "Unifi",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.640388Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query and monitor UniFi network via local gateway API (Cloud Gateway Max / UniFi OS). Use when the user asks to \"check UniFi\", \"list UniFi devices\", \"show who's on the network\", \"UniFi clients\", \"UniF",
+      "repo": "moltbot/skills",
+      "path": "Unifi",
+      "branch": "main",
+      "category": "Unifi",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

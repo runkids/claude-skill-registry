@@ -1,0 +1,19 @@
+{
+  "category": "economist-analyst",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.676317Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes events through economic lens using supply/demand, incentive structures, market dynamics,\nand multiple schools of economic thought (Classical, Keynesian, Austrian, Behavioral).\nProvides insigh",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "economist-analyst",
+      "branch": "main",
+      "category": "economist-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

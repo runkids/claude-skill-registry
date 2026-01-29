@@ -1,0 +1,19 @@
+{
+  "category": "quality-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.636839Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to improve product quality, implement quality control systems, reduce defects, or analyze quality data. Also use when the user mentions \"SPC,\" \"statistical process control,\" \"Six S",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "quality-management",
+      "branch": "main",
+      "category": "quality-management",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

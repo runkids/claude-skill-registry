@@ -1,0 +1,19 @@
+{
+  "category": "microcalibrate-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.009484Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Survey weight calibration to match population targets - used in policyengine-us-data for enhanced microdata",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "microcalibrate-skill",
+      "branch": "main",
+      "category": "microcalibrate-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "policyengine-python-client-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.874870Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Using PolicyEngine programmatically via Python client or REST API",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-python-client-skill",
+      "branch": "main",
+      "category": "policyengine-python-client-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

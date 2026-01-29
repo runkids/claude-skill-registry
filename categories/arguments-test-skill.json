@@ -1,0 +1,19 @@
+{
+  "category": "arguments-test-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.363470Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test skill for argument substitution",
+      "repo": "maxvaega/skillkit",
+      "path": "arguments-test-skill",
+      "branch": "main",
+      "category": "arguments-test-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

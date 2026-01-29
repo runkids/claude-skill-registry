@@ -1,0 +1,19 @@
+{
+  "category": "researching-on-the-internet",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.035395Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when planning features and need current API docs, library patterns, or external knowledge - gathers well-sourced, current information from the internet to inform technical decisions",
+      "repo": "brmatola/gremlins",
+      "path": "researching-on-the-internet",
+      "branch": "main",
+      "category": "researching-on-the-internet",
+      "tags": [],
+      "stars": 0,
+      "install": "brmatola/gremlins",
+      "source": "github.com/brmatola/gremlins"
+    }
+  ]
+}

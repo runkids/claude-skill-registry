@@ -1,0 +1,19 @@
+{
+  "category": "cli-tool-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.011496Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffold command parsing, help, and completion.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "cli-tool-builder",
+      "branch": "main",
+      "category": "cli-tool-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

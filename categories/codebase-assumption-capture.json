@@ -1,0 +1,19 @@
+{
+  "category": "codebase-assumption-capture",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.386276Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Capture wrong assumptions you made about the codebase. TRIGGER when reality differs from expectation (e.g., \"assumed Jest but it's Vitest\", \"assumed AbstractUseCase exists but found AbstractMemberUseC",
+      "repo": "PackmindHub/packmind",
+      "path": "codebase-assumption-capture",
+      "branch": "main",
+      "category": "codebase-assumption-capture",
+      "tags": [],
+      "stars": 0,
+      "install": "PackmindHub/packmind",
+      "source": "github.com/PackmindHub/packmind"
+    }
+  ]
+}

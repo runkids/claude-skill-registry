@@ -1,0 +1,19 @@
+{
+  "category": "l-space",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.152293Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "L-Space Skill: The Library of All Libraries",
+      "repo": "plurigrid/asi",
+      "path": "l-space",
+      "branch": "main",
+      "category": "l-space",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

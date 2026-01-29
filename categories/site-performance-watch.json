@@ -1,0 +1,19 @@
+{
+  "category": "site-performance-watch",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.097447Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Monitoring and alerting framework for ecommerce site speed, errors, and uptime.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "site-performance-watch",
+      "branch": "main",
+      "category": "site-performance-watch",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "moai-lang-template",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.163268Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Modern {{LANGUAGENAME}} Development with 2025 Best Practices",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-lang-template",
+      "branch": "main",
+      "category": "moai-lang-template",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

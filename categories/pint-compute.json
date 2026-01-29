@@ -1,0 +1,19 @@
+{
+  "category": "pint-compute",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.954385Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unit-aware computation with Pint - convert units, dimensional analysis, unit arithmetic",
+      "repo": "namesreallyblank/Clorch",
+      "path": "pint-compute",
+      "branch": "main",
+      "category": "pint-compute",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

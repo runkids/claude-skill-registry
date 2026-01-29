@@ -1,0 +1,19 @@
+{
+  "category": "laravel-billing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.373071Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Integrate Stripe and Paddle payments with Laravel Cashier. Use when implementing subscriptions, invoices, payment methods, or billing portals.",
+      "repo": "fusengine/agents",
+      "path": "laravel-billing",
+      "branch": "main",
+      "category": "laravel-billing",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "dag-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.804018Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Develop causal diagrams (DAGs) from social-science research questions and literature, then render publication-ready figures using Mermaid, R, or Python.",
+      "repo": "nealcaren/social-data-analysis",
+      "path": "dag-development",
+      "branch": "main",
+      "category": "dag-development",
+      "tags": [],
+      "stars": 0,
+      "install": "nealcaren/social-data-analysis",
+      "source": "github.com/nealcaren/social-data-analysis"
+    }
+  ]
+}

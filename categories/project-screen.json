@@ -1,0 +1,19 @@
+{
+  "category": "project-screen",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.671196Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating screens with routing conventions (name/path constants) and adaptive scaffold (project)",
+      "repo": "gsmlg-app/flutter-app-template",
+      "path": "project-screen",
+      "branch": "main",
+      "category": "project-screen",
+      "tags": [],
+      "stars": 0,
+      "install": "gsmlg-app/flutter-app-template",
+      "source": "github.com/gsmlg-app/flutter-app-template"
+    }
+  ]
+}

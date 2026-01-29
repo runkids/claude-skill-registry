@@ -1,0 +1,19 @@
+{
+  "category": "prpm-json-best-practices-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.069842Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Best practices for structuring prpm.json package manifests with required fields, tags, organization, multi-package management, enhanced file format, eager/lazy activation, and conversion hints",
+      "repo": "AgentWorkforce/relay",
+      "path": "prpm-json-best-practices-skill",
+      "branch": "main",
+      "category": "prpm-json-best-practices-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentWorkforce/relay",
+      "source": "github.com/AgentWorkforce/relay"
+    }
+  ]
+}

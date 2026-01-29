@@ -1,0 +1,19 @@
+{
+  "category": "back-end-structure-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.279012Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CRITICAL: NestJS backend follows strict patterns: kebab-case file names, module/service/controller separation, A2A protocol compliance, transport types usage.",
+      "repo": "GolferGeek/orchestrator-ai",
+      "path": "back-end-structure-skill",
+      "branch": "main",
+      "category": "back-end-structure-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "GolferGeek/orchestrator-ai",
+      "source": "github.com/GolferGeek/orchestrator-ai"
+    }
+  ]
+}

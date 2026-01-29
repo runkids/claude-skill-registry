@@ -8,10 +8,14 @@ Scans all skills/*/SKILL.md files and rebuilds the registry index.
 import json
 import os
 import re
+import logging
 from datetime import datetime
 from pathlib import Path
 from collections import defaultdict
 import yaml
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 def extract_frontmatter(content: str) -> dict:
@@ -60,6 +64,44 @@ def extract_description(content: str) -> str:
     return ""
 
 
+def safe_load_metadata(metadata_path: Path) -> dict:
+    """Safely load metadata.json"""
+    if not metadata_path.exists():
+        return {}
+    try:
+        with open(metadata_path, encoding='utf-8') as f:
+            return json.load(f)
+    except json.JSONDecodeError as e:
+        logger.warning(f"JSON parse error in {metadata_path}: {e}")
+        return {}
+    except Exception as e:
+        logger.warning(f"Error reading {metadata_path}: {e}")
+        return {}
+
+
+def safe_write_registry(registry_path: Path, registry: dict) -> bool:
+    """Safely write registry.json with atomic operation"""
+    temp_path = registry_path.with_suffix('.json.tmp')
+    try:
+        with open(temp_path, "w", encoding="utf-8") as f:
+            json.dump(registry, f, indent=2, ensure_ascii=False)
+
+        # Backup original file
+        if registry_path.exists():
+            backup_path = registry_path.with_suffix('.json.bak')
+            if backup_path.exists():
+                backup_path.unlink()
+            registry_path.rename(backup_path)
+
+        temp_path.rename(registry_path)
+        return True
+    except Exception as e:
+        logger.error(f"Failed to write registry: {e}")
+        if temp_path.exists():
+            temp_path.unlink()
+        return False
+
+
 def scan_skills(skills_dir: Path) -> list:
     """Scan all skills and build index."""
     skills = []
@@ -81,19 +123,17 @@ def scan_skills(skills_dir: Path) -> list:
 
         # Read metadata.json if exists
         metadata_path = skill_md.parent / "metadata.json"
-        metadata = {}
-        if metadata_path.exists():
-            try:
-                with open(metadata_path) as f:
-                    metadata = json.load(f)
-            except Exception:
-                pass
+        metadata = safe_load_metadata(metadata_path)
 
         # Read SKILL.md for description
         try:
             content = skill_md.read_text(encoding="utf-8")
             description = metadata.get("description") or extract_description(content)
-        except Exception:
+        except UnicodeDecodeError as e:
+            logger.warning(f"Encoding error reading {skill_md}: {e}")
+            description = ""
+        except Exception as e:
+            logger.warning(f"Error reading {skill_md}: {e}")
             description = ""
 
         # Build install path
@@ -126,13 +166,21 @@ def scan_skills(skills_dir: Path) -> list:
     return skills
 
 
+def sanitize_category(category: str) -> str:
+    """Sanitize category name for use as filename."""
+    # Replace / and other problematic characters with -
+    return category.replace("/", "-").replace("\\", "-").replace(":", "-")
+
+
 def build_category_indexes(skills: list, output_dir: Path):
     """Build category-based indexes."""
     categories = defaultdict(list)
 
     for skill in skills:
         cat = skill.get("category", "other")
-        categories[cat].append(skill)
+        # Sanitize category for filename safety
+        safe_cat = sanitize_category(cat)
+        categories[safe_cat].append(skill)
 
     output_dir.mkdir(exist_ok=True)
 
@@ -218,10 +266,11 @@ def main():
     }
 
     registry_path = registry_dir / "registry.json"
-    with open(registry_path, "w", encoding="utf-8") as f:
-        json.dump(registry, f, indent=2, ensure_ascii=False)
-
-    print(f"Written registry.json with {len(unique_skills)} skills")
+    if safe_write_registry(registry_path, registry):
+        print(f"Written registry.json with {len(unique_skills)} skills")
+    else:
+        print(f"Failed to write registry.json!")
+        return
     print()
 
     # Build category indexes
@@ -238,7 +287,7 @@ def main():
         cat_counts[s.get("category", "other")] += 1
 
     for cat, count in sorted(cat_counts.items(), key=lambda x: -x[1]):
-        pct = count / len(unique_skills) * 100
+        pct = count / len(unique_skills) * 100 if unique_skills else 0
         bar = "█" * int(pct / 2)
         print(f"  {cat:15} {count:6} ({pct:5.1f}%) {bar}")
 

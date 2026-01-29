@@ -1,0 +1,19 @@
+{
+  "category": "stop-tts",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.621667Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Stop the TTS server",
+      "repo": "darthmolen/EnglishConnect",
+      "path": "stop-tts",
+      "branch": "main",
+      "category": "stop-tts",
+      "tags": [],
+      "stars": 0,
+      "install": "darthmolen/EnglishConnect",
+      "source": "github.com/darthmolen/EnglishConnect"
+    }
+  ]
+}

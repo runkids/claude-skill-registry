@@ -1,0 +1,19 @@
+{
+  "category": "abductive-analyst",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.257394Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Abductive analysis for qualitative interview data following Timmermans & Tavory. Guides you through theory-first analysis that recognizes anomalies and generates novel theoretical insights through sys",
+      "repo": "nealcaren/social-data-analysis",
+      "path": "abductive-analyst",
+      "branch": "main",
+      "category": "abductive-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "nealcaren/social-data-analysis",
+      "source": "github.com/nealcaren/social-data-analysis"
+    }
+  ]
+}

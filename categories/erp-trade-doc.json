@@ -1,0 +1,19 @@
+{
+  "category": "erp-trade-doc",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.351631Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "查詢 DataWin ERP 貿易模組文檔，用於程式開發參考。當用戶詢問貿易模組的功能、流程、操作步驟時使用。",
+      "repo": "jesseooxx/ERP-explore",
+      "path": "erp-trade-doc",
+      "branch": "main",
+      "category": "erp-trade-doc",
+      "tags": [],
+      "stars": 0,
+      "install": "jesseooxx/ERP-explore",
+      "source": "github.com/jesseooxx/ERP-explore"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "table",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.434330Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "|linkskillslot|spskillid|baseskillid|skillcategory|",
+      "repo": "Expugn/priconne-diff",
+      "path": "table",
+      "branch": "main",
+      "category": "table",
+      "tags": [],
+      "stars": 0,
+      "install": "Expugn/priconne-diff",
+      "source": "github.com/Expugn/priconne-diff"
+    }
+  ]
+}

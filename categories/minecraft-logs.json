@@ -1,0 +1,19 @@
+{
+  "category": "minecraft-logs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.312627Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Capture Minecraft Bedrock network packets using a proxy relay. Start packet capture, save raw binary dumps and processed JSON logs. Use when debugging Bedrock protocol, analyzing bot behavior, or reco",
+      "repo": "mc-zuri/mineflayer-bedrock",
+      "path": "minecraft-logs",
+      "branch": "main",
+      "category": "minecraft-logs",
+      "tags": [],
+      "stars": 0,
+      "install": "mc-zuri/mineflayer-bedrock",
+      "source": "github.com/mc-zuri/mineflayer-bedrock"
+    }
+  ]
+}

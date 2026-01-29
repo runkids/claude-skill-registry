@@ -1,0 +1,19 @@
+{
+  "category": "verification-gate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.123841Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforce mandatory pre-action verification checkpoints to prevent pattern-matching from overriding explicit reasoning. Use this skill when about to execute implementation actions (Bash, Write, Edit, Mu",
+      "repo": "BbgnsurfTech/claude-skills-collection",
+      "path": "verification-gate",
+      "branch": "main",
+      "category": "verification-gate",
+      "tags": [],
+      "stars": 0,
+      "install": "BbgnsurfTech/claude-skills-collection",
+      "source": "github.com/BbgnsurfTech/claude-skills-collection"
+    }
+  ]
+}

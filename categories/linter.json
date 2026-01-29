@@ -1,0 +1,19 @@
+{
+  "category": "linter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.007127Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforces validation pattern compliance across all agent profiles with automated detection and fixing",
+      "repo": "masharratt/claude-flow-novice",
+      "path": "linter",
+      "branch": "main",
+      "category": "linter",
+      "tags": [],
+      "stars": 0,
+      "install": "masharratt/claude-flow-novice",
+      "source": "github.com/masharratt/claude-flow-novice"
+    }
+  ]
+}

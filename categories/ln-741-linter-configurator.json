@@ -1,0 +1,19 @@
+{
+  "category": "ln-741-linter-configurator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.616587Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configures ESLint, Prettier, Ruff, and .NET analyzers",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "ln-741-linter-configurator",
+      "branch": "main",
+      "category": "ln-741-linter-configurator",
+      "tags": [],
+      "stars": 0,
+      "install": "levnikolaevich/claude-code-skills",
+      "source": "github.com/levnikolaevich/claude-code-skills"
+    }
+  ]
+}

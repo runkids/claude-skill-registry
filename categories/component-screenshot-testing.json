@@ -1,0 +1,19 @@
+{
+  "category": "component-screenshot-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.098140Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Screenshot testing for React components with Playwright. Captures component pixels and compares to baselines. Auto-apply when editing React component stories or *.visual.spec.ts files that test UI com",
+      "repo": "joshribakoff/surfsim",
+      "path": "component-screenshot-testing",
+      "branch": "main",
+      "category": "component-screenshot-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "joshribakoff/surfsim",
+      "source": "github.com/joshribakoff/surfsim"
+    }
+  ]
+}

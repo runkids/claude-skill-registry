@@ -1,0 +1,19 @@
+{
+  "category": "graphql-schema-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.267823Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design schemas, resolvers, and subscriptions.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "graphql-schema-builder",
+      "branch": "main",
+      "category": "graphql-schema-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

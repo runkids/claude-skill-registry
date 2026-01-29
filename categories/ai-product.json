@@ -1,0 +1,19 @@
+{
+  "category": "ai-product",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.956370Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Every product will be AI-powered. The question is whether you'll build it right or ship a demo that falls apart in production.  This skill covers LLM integration patterns, RAG architecture, prompt eng",
+      "repo": "LeonMelamud/inspector-agents",
+      "path": "ai-product",
+      "branch": "main",
+      "category": "ai-product",
+      "tags": [],
+      "stars": 0,
+      "install": "LeonMelamud/inspector-agents",
+      "source": "github.com/LeonMelamud/inspector-agents"
+    }
+  ]
+}

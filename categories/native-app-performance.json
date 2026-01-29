@@ -1,0 +1,19 @@
+{
+  "category": "native-app-performance",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.384420Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Native macOS/iOS app performance profiling via xctrace/Time Profiler and CLI-only analysis of Instruments traces. Use when asked to profile, attach, record, or analyze Instruments .trace files, find h",
+      "repo": "nickromney/n-dotfiles",
+      "path": "native-app-performance",
+      "branch": "main",
+      "category": "native-app-performance",
+      "tags": [],
+      "stars": 0,
+      "install": "nickromney/n-dotfiles",
+      "source": "github.com/nickromney/n-dotfiles"
+    }
+  ]
+}

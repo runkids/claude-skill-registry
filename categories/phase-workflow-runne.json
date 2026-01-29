@@ -1,0 +1,19 @@
+{
+  "category": "phase-workflow-runne",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.076839Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill executes a deterministic, repeatable phase workflow.",
+      "repo": "hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus",
+      "path": "phase-workflow-runne",
+      "branch": "main",
+      "category": "phase-workflow-runne",
+      "tags": [],
+      "stars": 0,
+      "install": "hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus",
+      "source": "github.com/hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus"
+    }
+  ]
+}

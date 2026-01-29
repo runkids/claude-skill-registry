@@ -1,0 +1,19 @@
+{
+  "category": "growth-conversion",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.943821Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CRO Specialist Agent. 전환율 최적화, A/B 테스트, 랜딩 최적화를 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "growth-conversion",
+      "branch": "main",
+      "category": "growth-conversion",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

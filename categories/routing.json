@@ -1,0 +1,19 @@
+{
+  "category": "routing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.353910Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze spec content and route /implement to appropriate agents.",
+      "repo": "BenjaminRose805/react-basecamp",
+      "path": "routing",
+      "branch": "main",
+      "category": "routing",
+      "tags": [],
+      "stars": 0,
+      "install": "BenjaminRose805/react-basecamp",
+      "source": "github.com/BenjaminRose805/react-basecamp"
+    }
+  ]
+}

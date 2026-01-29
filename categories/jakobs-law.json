@@ -1,0 +1,19 @@
+{
+  "category": "jakobs-law",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.244646Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Los usuarios esperan que tu sitio funcione como otros que conocen. Use cuando evalúe patrones de diseño, tome decisiones sobre convenciones, o considere innovaciones en UI.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "jakobs-law",
+      "branch": "main",
+      "category": "jakobs-law",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

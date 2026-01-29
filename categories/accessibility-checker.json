@@ -1,0 +1,19 @@
+{
+  "category": "accessibility-checker",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.165836Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Verify accessibility (WCAG 2.1 Level AA) of React components. Use when creating UI components, forms, or when the user requests accessibility verification.",
+      "repo": "xnopre/copro-tickets-tracker",
+      "path": "accessibility-checker",
+      "branch": "main",
+      "category": "accessibility-checker",
+      "tags": [],
+      "stars": 0,
+      "install": "xnopre/copro-tickets-tracker",
+      "source": "github.com/xnopre/copro-tickets-tracker"
+    }
+  ]
+}

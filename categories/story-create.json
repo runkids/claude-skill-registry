@@ -1,0 +1,19 @@
+{
+  "category": "story-create",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.883511Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create structured story files for planning user-facing features. Use when user asks to \"create a story\", \"add a story\", \"plan a story\", or needs to document user value. Creates numbered markdown files",
+      "repo": "otrebu/all-agents",
+      "path": "story-create",
+      "branch": "main",
+      "category": "story-create",
+      "tags": [],
+      "stars": 0,
+      "install": "otrebu/all-agents",
+      "source": "github.com/otrebu/all-agents"
+    }
+  ]
+}

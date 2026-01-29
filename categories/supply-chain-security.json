@@ -1,0 +1,19 @@
+{
+  "category": "supply-chain-security",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.969084Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate SBOM, verify dependencies, and sign artifacts.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "supply-chain-security",
+      "branch": "main",
+      "category": "supply-chain-security",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

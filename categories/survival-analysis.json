@@ -1,0 +1,19 @@
+{
+  "category": "survival-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.719894Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze time-to-event data, calculate survival probabilities, and compare groups using Kaplan-Meier and Cox proportional hazards models",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "survival-analysis",
+      "branch": "main",
+      "category": "survival-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

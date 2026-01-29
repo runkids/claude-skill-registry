@@ -1,0 +1,19 @@
+{
+  "category": "land-adopt-expand-blueprint",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.365197Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Template for orchestrating phased motions across strategic SaaS accounts.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "land-adopt-expand-blueprint",
+      "branch": "main",
+      "category": "land-adopt-expand-blueprint",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

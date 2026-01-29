@@ -1,0 +1,19 @@
+{
+  "category": "Health",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.455595Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Health, energy, supplements, and medication management. USE WHEN user mentions Vyvanse, energy, tired, sleep, supplements, health, focus, crash, or any health-related concern.",
+      "repo": "Geralt1983/Thanos",
+      "path": "Health",
+      "branch": "main",
+      "category": "Health",
+      "tags": [],
+      "stars": 0,
+      "install": "Geralt1983/Thanos",
+      "source": "github.com/Geralt1983/Thanos"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "implementation-approach",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.050305Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implementation strategy selection framework with meta-cognitive approach, verification levels, and integration point definitions. Use when planning implementation strategy, selecting development appro",
+      "repo": "shinpr/claude-code-workflows",
+      "path": "implementation-approach",
+      "branch": "main",
+      "category": "implementation-approach",
+      "tags": [],
+      "stars": 0,
+      "install": "shinpr/claude-code-workflows",
+      "source": "github.com/shinpr/claude-code-workflows"
+    }
+  ]
+}

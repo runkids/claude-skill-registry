@@ -1,0 +1,19 @@
+{
+  "category": "searches-iconify",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.868013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Searches Iconify API for icons by query. Use when users need to find, search, or discover icons from Iconify collections.",
+      "repo": "cbingb666/cc-pocket-marketplace",
+      "path": "searches-iconify",
+      "branch": "main",
+      "category": "searches-iconify",
+      "tags": [],
+      "stars": 0,
+      "install": "cbingb666/cc-pocket-marketplace",
+      "source": "github.com/cbingb666/cc-pocket-marketplace"
+    }
+  ]
+}

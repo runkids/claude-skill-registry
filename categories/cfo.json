@@ -1,0 +1,19 @@
+{
+  "category": "cfo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.282487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "财务总监专家，精通财务规划、预算管理、成本控制、投融资和税务筹划",
+      "repo": "lotosbin/claude-skills",
+      "path": "cfo",
+      "branch": "main",
+      "category": "cfo",
+      "tags": [],
+      "stars": 0,
+      "install": "lotosbin/claude-skills",
+      "source": "github.com/lotosbin/claude-skills"
+    }
+  ]
+}

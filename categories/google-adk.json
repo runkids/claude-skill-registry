@@ -1,0 +1,19 @@
+{
+  "category": "google-adk",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.266577Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for building AI agents with Google ADK (Agent Development Kit). Use when creating multi-agent pipelines, implementing conditional agent branching, designing agent tools with FunctionTool, or deb",
+      "repo": "cuba6112/skillfactory",
+      "path": "google-adk",
+      "branch": "main",
+      "category": "google-adk",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

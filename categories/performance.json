@@ -1,8 +1,20 @@
 {
   "category": "performance",
-  "count": 1,
-  "updated_at": "2026-01-29T04:49:19.503538Z",
+  "count": 2,
+  "updated_at": "2026-01-29T16:04:49.670678Z",
   "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply performance optimization patterns for game loop, rendering, and state updates. Use when discussing frame rate, optimization, profiling, or when editing core game loop code. Auto-apply when user ",
+      "repo": "joshribakoff/surfsim",
+      "path": "performance",
+      "branch": "main",
+      "category": "performance",
+      "tags": [],
+      "stars": 0,
+      "install": "joshribakoff/surfsim",
+      "source": "github.com/joshribakoff/surfsim"
+    },
     {
       "name": "database-optimizer",
       "description": "Analyze and improve database performance through safe, measurable query, index, and configuration optimizations.",

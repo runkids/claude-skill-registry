@@ -1,0 +1,19 @@
+{
+  "category": "kubernetes-manifests",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.882789Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create, validate, and manage Kubernetes and OpenShift YAML manifests. Use this skill when:\n(1) Creating any K8s/OCP resources: Deployments, StatefulSets, DaemonSets, Jobs, CronJobs\n(2) Creating networ",
+      "repo": "kcns008/cluster-skills",
+      "path": "kubernetes-manifests",
+      "branch": "main",
+      "category": "kubernetes-manifests",
+      "tags": [],
+      "stars": 0,
+      "install": "kcns008/cluster-skills",
+      "source": "github.com/kcns008/cluster-skills"
+    }
+  ]
+}

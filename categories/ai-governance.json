@@ -1,0 +1,19 @@
+{
+  "category": "ai-governance",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.640904Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI governance and compliance guidance covering EU AI Act risk classification, NIST AI RMF, responsible AI principles, AI ethics review, and regulatory compliance for AI systems.",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "ai-governance",
+      "branch": "main",
+      "category": "ai-governance",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

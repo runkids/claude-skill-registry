@@ -1,0 +1,19 @@
+{
+  "category": "executing-plan",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.168181Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to execute an implementation plan with automatic sequential/parallel orchestration - handles worktree verification, resume detection, phase dispatch, and quality verification",
+      "repo": "arittr/spectacular",
+      "path": "executing-plan",
+      "branch": "main",
+      "category": "executing-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "arittr/spectacular",
+      "source": "github.com/arittr/spectacular"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "simple-mode",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.882801Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Simple Mode - Natural language orchestrator for TappsCodingAgents. Coordinates multiple skills (@enhancer, @planner, @architect, @designer, @implementer, @reviewer, @tester, @debugger, @improver) base",
+      "repo": "wtthornton/HomeIQ",
+      "path": "simple-mode",
+      "branch": "main",
+      "category": "simple-mode",
+      "tags": [],
+      "stars": 0,
+      "install": "wtthornton/HomeIQ",
+      "source": "github.com/wtthornton/HomeIQ"
+    }
+  ]
+}

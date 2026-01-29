@@ -1,0 +1,19 @@
+{
+  "category": "tldr-router",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.270394Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Route to appropriate tldr analysis depth based on query",
+      "repo": "carmandale/agent-config",
+      "path": "tldr-router",
+      "branch": "main",
+      "category": "tldr-router",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

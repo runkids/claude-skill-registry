@@ -1,0 +1,19 @@
+{
+  "category": "effect-concurrency-fibers",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.258997Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Concurrency with Effect.all, forEach concurrency, Fiber lifecycle, race and timeouts. Use for parallelizing tasks safely.",
+      "repo": "mepuka/crate",
+      "path": "effect-concurrency-fibers",
+      "branch": "main",
+      "category": "effect-concurrency-fibers",
+      "tags": [],
+      "stars": 0,
+      "install": "mepuka/crate",
+      "source": "github.com/mepuka/crate"
+    }
+  ]
+}

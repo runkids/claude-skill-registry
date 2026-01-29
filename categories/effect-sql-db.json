@@ -1,0 +1,19 @@
+{
+  "category": "effect-sql-db",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.341290Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- You are integrating a SQL client (Drizzle, Kysely, Prisma, mysql2/pg) with Effect",
+      "repo": "mepuka/crate",
+      "path": "effect-sql-db",
+      "branch": "main",
+      "category": "effect-sql-db",
+      "tags": [],
+      "stars": 0,
+      "install": "mepuka/crate",
+      "source": "github.com/mepuka/crate"
+    }
+  ]
+}

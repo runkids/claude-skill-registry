@@ -1,0 +1,19 @@
+{
+  "category": "ast-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.184873Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deep Abstract Syntax Tree analysis for understanding code structure, dependencies, impact analysis, and pattern detection at the structural level across multiple programming languages",
+      "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+      "path": "ast-analyzer",
+      "branch": "main",
+      "category": "ast-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+      "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude"
+    }
+  ]
+}

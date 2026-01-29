@@ -1,0 +1,19 @@
+{
+  "category": "customer-training-curriculum",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.468784Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт customer training. Используй для onboarding программ, training materials и certification paths.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "customer-training-curriculum",
+      "branch": "main",
+      "category": "customer-training-curriculum",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

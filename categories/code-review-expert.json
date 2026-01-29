@@ -1,0 +1,19 @@
+{
+  "category": "code-review-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.063883Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level code review focusing on quality, security, performance, and maintainability. Use this skill for conducting thorough code reviews, identifying issues, and providing constructive feedback.",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "code-review-expert",
+      "branch": "main",
+      "category": "code-review-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

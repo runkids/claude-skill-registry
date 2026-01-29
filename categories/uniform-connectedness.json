@@ -1,0 +1,19 @@
+{
+  "category": "uniform-connectedness",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.443117Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Elementos conectados visualmente se perciben como relacionados. Use cuando diseñe diagramas, flujos, relaciones entre elementos, o conexiones visuales.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "uniform-connectedness",
+      "branch": "main",
+      "category": "uniform-connectedness",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

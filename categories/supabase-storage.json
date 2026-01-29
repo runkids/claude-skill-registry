@@ -1,0 +1,19 @@
+{
+  "category": "supabase-storage",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.643607Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Supabase Storage for file uploads, downloads, buckets, and signed URLs. Use when uploading files, managing storage buckets, generating signed URLs, or handling images.",
+      "repo": "adaptationio/Skrillz",
+      "path": "supabase-storage",
+      "branch": "main",
+      "category": "supabase-storage",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

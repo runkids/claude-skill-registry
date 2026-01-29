@@ -1,0 +1,19 @@
+{
+  "category": "wcag-robust",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.680751Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Principio 4 de WCAG - compatibilidad con tecnologías actuales y futuras. Use cuando implemente HTML, ARIA, o componentes custom para asegurar compatibilidad.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "wcag-robust",
+      "branch": "main",
+      "category": "wcag-robust",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

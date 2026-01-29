@@ -1,0 +1,19 @@
+{
+  "category": "ansible-role-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.995817Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ansible Role Creator - Auto-activating skill for DevOps Advanced.\nTriggers on: ansible role creator, ansible role creator\nPart of the DevOps Advanced skill category.\n",
+      "repo": "byteworthy/Upstream",
+      "path": "ansible-role-creator",
+      "branch": "main",
+      "category": "ansible-role-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "tour",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.679243Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Take an interactive tour of agentic-loop - the system for going from idea to shipped code with AI.",
+      "repo": "allierays/agentic-loop",
+      "path": "tour",
+      "branch": "main",
+      "category": "tour",
+      "tags": [],
+      "stars": 0,
+      "install": "allierays/agentic-loop",
+      "source": "github.com/allierays/agentic-loop"
+    }
+  ]
+}

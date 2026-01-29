@@ -1,0 +1,19 @@
+{
+  "category": "ci-cd-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.741612Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CI/CD integration - GitHub Actions, automation, pipeline integration",
+      "repo": "hgeldenhuys/claude-code-sdk",
+      "path": "ci-cd-integration",
+      "branch": "main",
+      "category": "ci-cd-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "hgeldenhuys/claude-code-sdk",
+      "source": "github.com/hgeldenhuys/claude-code-sdk"
+    }
+  ]
+}

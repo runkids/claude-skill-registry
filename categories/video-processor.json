@@ -1,0 +1,19 @@
+{
+  "category": "video-processor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.782924Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Process video files with audio extraction, format conversion (mp4, webm), and Whisper transcription. Use when user mentions video conversion, audio extraction, transcription, mp4, webm, ffmpeg, or whi",
+      "repo": "GolferGeek/orchestrator-ai",
+      "path": "video-processor",
+      "branch": "main",
+      "category": "video-processor",
+      "tags": [],
+      "stars": 0,
+      "install": "GolferGeek/orchestrator-ai",
+      "source": "github.com/GolferGeek/orchestrator-ai"
+    }
+  ]
+}

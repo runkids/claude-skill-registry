@@ -1,0 +1,19 @@
+{
+  "category": "packages-graph",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.220133Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Your approach to handling packages graph. Use this skill when working on files where packages graph comes into play.",
+      "repo": "leaderiop/hex-di",
+      "path": "packages-graph",
+      "branch": "main",
+      "category": "packages-graph",
+      "tags": [],
+      "stars": 0,
+      "install": "leaderiop/hex-di",
+      "source": "github.com/leaderiop/hex-di"
+    }
+  ]
+}

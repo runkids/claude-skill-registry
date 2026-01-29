@@ -1,0 +1,19 @@
+{
+  "category": "updatekfg",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.408641Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Skill do synchronizacji zmian KFG na wszystkie urządzenia.",
+      "repo": "kmylpenter/KFG-CCv2-Installer-Stable",
+      "path": "updatekfg",
+      "branch": "main",
+      "category": "updatekfg",
+      "tags": [],
+      "stars": 0,
+      "install": "kmylpenter/KFG-CCv2-Installer-Stable",
+      "source": "github.com/kmylpenter/KFG-CCv2-Installer-Stable"
+    }
+  ]
+}

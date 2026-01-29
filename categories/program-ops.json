@@ -1,0 +1,19 @@
+{
+  "category": "program-ops",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.913102Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when standardizing event workflows, tooling, and routing across portfolios.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "program-ops",
+      "branch": "main",
+      "category": "program-ops",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

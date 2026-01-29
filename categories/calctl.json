@@ -1,0 +1,19 @@
+{
+  "category": "calctl",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.155119Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage Apple Calendar events via icalBuddy + AppleScript CLI",
+      "repo": "moltbot/skills",
+      "path": "calctl",
+      "branch": "main",
+      "category": "calctl",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

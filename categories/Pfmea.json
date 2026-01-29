@@ -1,0 +1,19 @@
+{
+  "category": "Pfmea",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.401574Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate AIAG-VDA compliant Process FMEAs with proper Severity/Occurrence/Detection ratings, RPN calculations, and countermeasure recommendations. Covers MNMUK departments (Machine Shop, Damper, LVA, ",
+      "repo": "robdtaylor/personal-ai-infrastructure",
+      "path": "Pfmea",
+      "branch": "main",
+      "category": "Pfmea",
+      "tags": [],
+      "stars": 0,
+      "install": "robdtaylor/personal-ai-infrastructure",
+      "source": "github.com/robdtaylor/personal-ai-infrastructure"
+    }
+  ]
+}

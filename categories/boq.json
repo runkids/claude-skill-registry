@@ -1,0 +1,19 @@
+{
+  "category": "boq",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.720374Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive BOQ (Bill of Quantities) creation and management for construction projects. This skill should be used when Claude needs to: (1) Create new BOQ files with standard work categories, (2) Ad",
+      "repo": "POBIM/Claude-Skill-Teach",
+      "path": "boq",
+      "branch": "main",
+      "category": "boq",
+      "tags": [],
+      "stars": 0,
+      "install": "POBIM/Claude-Skill-Teach",
+      "source": "github.com/POBIM/Claude-Skill-Teach"
+    }
+  ]
+}

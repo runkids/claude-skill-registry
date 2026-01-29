@@ -1,0 +1,19 @@
+{
+  "category": "requirements-lifecycle",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.980948Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when defining requirements, tracking traceability, managing requirement changes, or establishing RTM - covers elicitation, analysis, specification across CMMI Levels 2-4",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "requirements-lifecycle",
+      "branch": "main",
+      "category": "requirements-lifecycle",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

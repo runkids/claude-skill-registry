@@ -1,0 +1,19 @@
+{
+  "category": "deployment-pipeline-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.249299Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design multi-stage CI/CD pipelines with approval gates, security checks, and deployment orchestration. Use when architecting deployment workflows, setting up continuous delivery, or implementing GitOp",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "deployment-pipeline-design",
+      "branch": "main",
+      "category": "deployment-pipeline-design",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

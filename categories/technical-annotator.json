@@ -1,0 +1,19 @@
+{
+  "category": "technical-annotator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.202182Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add technical context, implementation hints, and effort estimates to user stories",
+      "repo": "matteocervelli/llms",
+      "path": "technical-annotator",
+      "branch": "main",
+      "category": "technical-annotator",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

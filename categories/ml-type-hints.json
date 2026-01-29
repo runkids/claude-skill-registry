@@ -1,0 +1,19 @@
+{
+  "category": "ml-type-hints",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.881452Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply appropriate type hints for ML/PyTorch code. Use when adding type annotations to ML code or addressing mypy errors.",
+      "repo": "apassuello/multimodal_insight_engine",
+      "path": "ml-type-hints",
+      "branch": "main",
+      "category": "ml-type-hints",
+      "tags": [],
+      "stars": 0,
+      "install": "apassuello/multimodal_insight_engine",
+      "source": "github.com/apassuello/multimodal_insight_engine"
+    }
+  ]
+}

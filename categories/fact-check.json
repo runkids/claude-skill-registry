@@ -1,0 +1,19 @@
+{
+  "category": "fact-check",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.677993Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Verify technical accuracy of JavaScript concept pages by checking code examples, MDN/ECMAScript compliance, and external resources to prevent misinformation",
+      "repo": "leonardomso/33-js-concepts",
+      "path": "fact-check",
+      "branch": "main",
+      "category": "fact-check",
+      "tags": [],
+      "stars": 0,
+      "install": "leonardomso/33-js-concepts",
+      "source": "github.com/leonardomso/33-js-concepts"
+    }
+  ]
+}

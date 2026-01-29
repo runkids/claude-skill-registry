@@ -1,0 +1,19 @@
+{
+  "category": "critical-business-brief",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.095972Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create critical business briefs through challenging dialogue that validates ideas and stress-tests assumptions. Use when user presents business ideas, wants to explore concepts, mentions starting a bu",
+      "repo": "Przemocny/critical-briefs",
+      "path": "critical-business-brief",
+      "branch": "main",
+      "category": "critical-business-brief",
+      "tags": [],
+      "stars": 0,
+      "install": "Przemocny/critical-briefs",
+      "source": "github.com/Przemocny/critical-briefs"
+    }
+  ]
+}

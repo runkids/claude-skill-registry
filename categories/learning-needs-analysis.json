@@ -1,0 +1,19 @@
+{
+  "category": "learning-needs-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.167890Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conduct comprehensive learning needs analysis including stakeholder interviews, performance gap identification, job/task analysis, and competency mapping. Use when starting any learning project to ide",
+      "repo": "pauljbernard/content",
+      "path": "learning-needs-analysis",
+      "branch": "main",
+      "category": "learning-needs-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

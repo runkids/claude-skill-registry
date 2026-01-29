@@ -1,0 +1,19 @@
+{
+  "category": "code-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.414749Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Code implementation patterns and best practices learned from real mistakes. Covers file I/O safety (locking, atomic writes), data persistence, and validation. Use for file-based state, shared resource",
+      "repo": "duc01226/EasyPlatform",
+      "path": "code-patterns",
+      "branch": "main",
+      "category": "code-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

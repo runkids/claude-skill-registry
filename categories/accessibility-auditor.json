@@ -1,0 +1,19 @@
+{
+  "category": "accessibility-auditor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.918096Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Checks components and pages for WCAG 2.1 accessibility violations. Use when the user asks about a11y, WCAG compliance, screen readers, aria labels, keyboard navigation, or accessible patterns.",
+      "repo": "WesleySmits/agent-skills",
+      "path": "accessibility-auditor",
+      "branch": "main",
+      "category": "accessibility-auditor",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

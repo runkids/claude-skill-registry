@@ -1,0 +1,19 @@
+{
+  "category": "rp-cli",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.883259Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Repo Prompt CLI - proxy MCP client for AI agents to access Repo Prompt's context engineering tools via bash. Build prompts, search code, manage file selections, chat with AI, and export context withou",
+      "repo": "carmandale/agent-config",
+      "path": "rp-cli",
+      "branch": "main",
+      "category": "rp-cli",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

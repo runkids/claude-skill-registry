@@ -1,0 +1,19 @@
+{
+  "category": "refiner",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.812960Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quality assurance orchestrator that refines outputs from other skills using standards-based evaluation and iterative improvement.",
+      "repo": "Brownbull/khujta_ai_business",
+      "path": "refiner",
+      "branch": "main",
+      "category": "refiner",
+      "tags": [],
+      "stars": 0,
+      "install": "Brownbull/khujta_ai_business",
+      "source": "github.com/Brownbull/khujta_ai_business"
+    }
+  ]
+}

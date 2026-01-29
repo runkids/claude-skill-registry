@@ -1,0 +1,19 @@
+{
+  "category": "continuous-improvement",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.240705Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Capture learnings after tasks. Triggers on task completion, repeated mistakes, retrospective requests, or \"what did I learn\".",
+      "repo": "muyen/vibe-to-prod",
+      "path": "continuous-improvement",
+      "branch": "main",
+      "category": "continuous-improvement",
+      "tags": [],
+      "stars": 0,
+      "install": "muyen/vibe-to-prod",
+      "source": "github.com/muyen/vibe-to-prod"
+    }
+  ]
+}

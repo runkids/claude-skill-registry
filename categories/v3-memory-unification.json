@@ -1,0 +1,19 @@
+{
+  "category": "v3-memory-unification",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.952749Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unify 6+ memory systems into AgentDB with HNSW indexing for 150x-12,500x search improvements. Implements ADR-006 (Unified Memory Service) and ADR-009 (Hybrid Memory Backend).",
+      "repo": "EarthmanWeb/claude-flow-plugin",
+      "path": "v3-memory-unification",
+      "branch": "main",
+      "category": "v3-memory-unification",
+      "tags": [],
+      "stars": 0,
+      "install": "EarthmanWeb/claude-flow-plugin",
+      "source": "github.com/EarthmanWeb/claude-flow-plugin"
+    }
+  ]
+}

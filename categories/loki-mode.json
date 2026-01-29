@@ -1,0 +1,19 @@
+{
+  "category": "loki-mode",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.256962Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-agent autonomous startup system. Triggers on \"Loki Mode\". Takes PRD to deployed product with zero human intervention. Requires --dangerously-skip-permissions flag.",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "loki-mode",
+      "branch": "main",
+      "category": "loki-mode",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

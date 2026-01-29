@@ -1,0 +1,19 @@
+{
+  "category": "standards-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.168425Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create phase-appropriate standards files using latest documentation from context7 and web sources. Invoked by prepare-standards command to generate missing standards files based on task requirements.",
+      "repo": "Brownbull/taskflow",
+      "path": "standards-creator",
+      "branch": "main",
+      "category": "standards-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "Brownbull/taskflow",
+      "source": "github.com/Brownbull/taskflow"
+    }
+  ]
+}

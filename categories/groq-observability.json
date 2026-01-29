@@ -1,0 +1,19 @@
+{
+  "category": "groq-observability",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.468508Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up comprehensive observability for Groq integrations with metrics, traces, and alerts.\nUse when implementing monitoring for Groq operations, setting up dashboards,\nor configuring alerting for Groq",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "groq-observability",
+      "branch": "main",
+      "category": "groq-observability",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

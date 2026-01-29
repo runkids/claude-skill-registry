@@ -1,0 +1,19 @@
+{
+  "category": "rust-zero-cost",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.967231Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "零成本抽象与泛型专家。处理泛型, trait, monomorphization, static dispatch, dynamic dispatch, impl Trait, dyn Trait, 泛型, 特征, 单态化, 零成本抽象",
+      "repo": "huiali/rust-skills",
+      "path": "rust-zero-cost",
+      "branch": "main",
+      "category": "rust-zero-cost",
+      "tags": [],
+      "stars": 0,
+      "install": "huiali/rust-skills",
+      "source": "github.com/huiali/rust-skills"
+    }
+  ]
+}

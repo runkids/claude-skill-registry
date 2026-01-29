@@ -1,0 +1,19 @@
+{
+  "category": "pytest-config",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.660809Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Quick Start",
+      "repo": "athola/claude-night-market",
+      "path": "pytest-config",
+      "branch": "main",
+      "category": "pytest-config",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

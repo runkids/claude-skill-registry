@@ -1,0 +1,19 @@
+{
+  "category": "implementing-command-palettes",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.434473Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building Cmd+K command palettes in React - covers keyboard navigation with arrow keys, keeping selected items in view with scrollIntoView, filtering with shortcut matching, and preventing inf",
+      "repo": "AgentWorkforce/relay",
+      "path": "implementing-command-palettes",
+      "branch": "main",
+      "category": "implementing-command-palettes",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentWorkforce/relay",
+      "source": "github.com/AgentWorkforce/relay"
+    }
+  ]
+}

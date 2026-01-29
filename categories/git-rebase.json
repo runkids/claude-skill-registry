@@ -1,0 +1,19 @@
+{
+  "category": "git-rebase",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.049954Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Performs git rebases with intelligent conflict resolution through commit message analysis. This skill should be used when rebasing branches, updating feature branches with latest main/master, resolvin",
+      "repo": "StirlingMarketingGroup/marlin",
+      "path": "git-rebase",
+      "branch": "main",
+      "category": "git-rebase",
+      "tags": [],
+      "stars": 0,
+      "install": "StirlingMarketingGroup/marlin",
+      "source": "github.com/StirlingMarketingGroup/marlin"
+    }
+  ]
+}

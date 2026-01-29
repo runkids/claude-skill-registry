@@ -1,0 +1,19 @@
+{
+  "category": "metasploit-framework",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.735458Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"use Metasploit for penetration testing\", \"exploit vulnerabilities with msfconsole\", \"create payloads with msfvenom\", \"perform post-exploitation\", \"use ",
+      "repo": "cgyudistira/code-agents",
+      "path": "metasploit-framework",
+      "branch": "main",
+      "category": "metasploit-framework",
+      "tags": [],
+      "stars": 0,
+      "install": "cgyudistira/code-agents",
+      "source": "github.com/cgyudistira/code-agents"
+    }
+  ]
+}

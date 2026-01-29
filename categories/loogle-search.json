@@ -1,0 +1,19 @@
+{
+  "category": "loogle-search",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.762138Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Search Lean 4 mathlib using Loogle API",
+      "repo": "carmandale/agent-config",
+      "path": "loogle-search",
+      "branch": "main",
+      "category": "loogle-search",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

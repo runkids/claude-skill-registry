@@ -1,0 +1,19 @@
+{
+  "category": "name-mismatch",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.274127Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill has a name in the frontmatter that doesn't match the directory name.",
+      "repo": "yurakawa/mskills",
+      "path": "name-mismatch",
+      "branch": "main",
+      "category": "name-mismatch",
+      "tags": [],
+      "stars": 0,
+      "install": "yurakawa/mskills",
+      "source": "github.com/yurakawa/mskills"
+    }
+  ]
+}

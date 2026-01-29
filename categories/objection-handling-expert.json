@@ -1,0 +1,19 @@
+{
+  "category": "objection-handling-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.642443Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in analyzing and responding to tenant objections in commercial lease negotiations. Use when tenant objects to rent as above market, requests higher TI allowance, demands more free rent, pushes ",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": "objection-handling-expert",
+      "branch": "main",
+      "category": "objection-handling-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "reggiechan74/vp-real-estate",
+      "source": "github.com/reggiechan74/vp-real-estate"
+    }
+  ]
+}

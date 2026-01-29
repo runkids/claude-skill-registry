@@ -1,0 +1,19 @@
+{
+  "category": "devcontainer-sandboxing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.184001Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create or harden a devcontainer-based development sandbox so coding agents run inside an isolated container with least privilege and strong guardrails (no destructive host access, controlled network/s",
+      "repo": "Anveio/conveaux",
+      "path": "devcontainer-sandboxing",
+      "branch": "main",
+      "category": "devcontainer-sandboxing",
+      "tags": [],
+      "stars": 0,
+      "install": "Anveio/conveaux",
+      "source": "github.com/Anveio/conveaux"
+    }
+  ]
+}

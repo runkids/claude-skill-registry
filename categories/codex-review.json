@@ -1,0 +1,19 @@
+{
+  "category": "codex-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.251205Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Professional code review with auto CHANGELOG generation, integrated with Codex AI",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "codex-review",
+      "branch": "main",
+      "category": "codex-review",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

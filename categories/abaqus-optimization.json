@@ -1,0 +1,19 @@
+{
+  "category": "abaqus-optimization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.077031Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure Tosca optimization. Use when user mentions design response, objective function, optimization constraint, or SIMP penalty. Base module for topology/shape optimization.",
+      "repo": "JaimeCernuda/abaqus-scripting",
+      "path": "abaqus-optimization",
+      "branch": "main",
+      "category": "abaqus-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "JaimeCernuda/abaqus-scripting",
+      "source": "github.com/JaimeCernuda/abaqus-scripting"
+    }
+  ]
+}

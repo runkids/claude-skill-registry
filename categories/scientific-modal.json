@@ -1,0 +1,19 @@
+{
+  "category": "scientific-modal",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.663679Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run Python code in the cloud with serverless containers, GPUs, and autoscaling. Use when deploying ML models, running batch processing jobs, scheduling compute-intensive tasks, or serving APIs that re",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-modal",
+      "branch": "main",
+      "category": "scientific-modal",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

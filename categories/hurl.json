@@ -1,0 +1,19 @@
+{
+  "category": "hurl",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.289885Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run and test HTTP requests with Hurl. Use when working with HTTP APIs, testing web services, or creating HTTP-based test scenarios. Hurl allows you to define HTTP requests in plain text files and vali",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "hurl",
+      "branch": "main",
+      "category": "hurl",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

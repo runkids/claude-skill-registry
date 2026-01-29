@@ -1,0 +1,19 @@
+{
+  "category": "mutation-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.309521Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate test effectiveness with mutation testing using Stryker (TypeScript/JavaScript) and mutmut (Python). Find weak tests that pass despite code mutations. Use to improve test quality.",
+      "repo": "secondsky/claude-skills",
+      "path": "mutation-testing",
+      "branch": "main",
+      "category": "mutation-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

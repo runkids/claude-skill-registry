@@ -1,0 +1,19 @@
+{
+  "category": "scientific-gene-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.955064Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query NCBI Gene via E-utilities/Datasets API. Search by symbol/ID, retrieve gene info (RefSeqs, GO, locations, phenotypes), batch lookups, for gene annotation and functional analysis.",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-gene-database",
+      "branch": "main",
+      "category": "scientific-gene-database",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

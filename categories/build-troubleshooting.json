@@ -1,0 +1,19 @@
+{
+  "category": "build-troubleshooting",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.817601Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "FAQ for diagnosing and resolving build and test failures",
+      "repo": "ksoichiro/ChronoDawn",
+      "path": "build-troubleshooting",
+      "branch": "main",
+      "category": "build-troubleshooting",
+      "tags": [],
+      "stars": 0,
+      "install": "ksoichiro/ChronoDawn",
+      "source": "github.com/ksoichiro/ChronoDawn"
+    }
+  ]
+}

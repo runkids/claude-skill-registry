@@ -1,0 +1,19 @@
+{
+  "category": "alert-validator-checkpoints-inconsistent",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.873205Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Debug validator checkpoint inconsistencies where some validators are behind others. Use when alerts mention \"checkpoint inconsistency\", \"validators behind\", or \"inconsistent latest checkpoints\", or wh",
+      "repo": "hyperlane-xyz/hyperlane-monorepo",
+      "path": "alert-validator-checkpoints-inconsistent",
+      "branch": "main",
+      "category": "alert-validator-checkpoints-inconsistent",
+      "tags": [],
+      "stars": 0,
+      "install": "hyperlane-xyz/hyperlane-monorepo",
+      "source": "github.com/hyperlane-xyz/hyperlane-monorepo"
+    }
+  ]
+}

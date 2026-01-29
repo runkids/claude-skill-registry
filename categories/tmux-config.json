@@ -1,0 +1,19 @@
+{
+  "category": "tmux-config",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.182247Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "tmux設定管理。.tmux.confの確認・編集、キーバインド設定。トリガー: tmux, tmux.conf, ターミナル分割, セッション",
+      "repo": "snkrheadz/laptop",
+      "path": "tmux-config",
+      "branch": "main",
+      "category": "tmux-config",
+      "tags": [],
+      "stars": 0,
+      "install": "snkrheadz/laptop",
+      "source": "github.com/snkrheadz/laptop"
+    }
+  ]
+}

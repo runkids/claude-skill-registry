@@ -1,0 +1,19 @@
+{
+  "category": "force-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.775035Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Invoke FORCE_MANAGER for task force assembly and team composition decisions. Use when complex tasks require coordinated multi-agent teams with proper staffing and lifecycle management.",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "force-manager",
+      "branch": "main",
+      "category": "force-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "fireflies-prod-checklist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.308689Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute Fireflies.ai production deployment checklist and rollback procedures.\nUse when deploying Fireflies.ai integrations to production, preparing for launch,\nor implementing go-live procedures.\nTrig",
+      "repo": "byteworthy/Upstream",
+      "path": "fireflies-prod-checklist",
+      "branch": "main",
+      "category": "fireflies-prod-checklist",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

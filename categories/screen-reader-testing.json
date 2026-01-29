@@ -1,0 +1,19 @@
+{
+  "category": "screen-reader-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.413579Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test web applications with screen readers including VoiceOver, NVDA, and JAWS. Use when validating screen reader compatibility, debugging accessibility issues, or ensuring assistive technology support",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "screen-reader-testing",
+      "branch": "main",
+      "category": "screen-reader-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

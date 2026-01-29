@@ -1,0 +1,19 @@
+{
+  "category": "promotion",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.694951Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Skill Promotion Workflow - Atomic promotion from staging to production",
+      "repo": "masharratt/claude-flow-novice",
+      "path": "promotion",
+      "branch": "main",
+      "category": "promotion",
+      "tags": [],
+      "stars": 0,
+      "install": "masharratt/claude-flow-novice",
+      "source": "github.com/masharratt/claude-flow-novice"
+    }
+  ]
+}

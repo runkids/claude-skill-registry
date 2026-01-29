@@ -1,0 +1,19 @@
+{
+  "category": "react-performance-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.671590Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "React performance optimization patterns for TMNL. Covers useMemo, useCallback, React.memo, virtualization, and when optimization matters vs premature optimization. Use for performance-critical compone",
+      "repo": "creatifcoding/gbg",
+      "path": "react-performance-patterns",
+      "branch": "main",
+      "category": "react-performance-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

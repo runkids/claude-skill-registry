@@ -1,0 +1,19 @@
+{
+  "category": "test-bindings",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.555517Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interactively test mouse button bindings in Slicer",
+      "repo": "benzwick/SlicerMouseMaster",
+      "path": "test-bindings",
+      "branch": "main",
+      "category": "test-bindings",
+      "tags": [],
+      "stars": 0,
+      "install": "benzwick/SlicerMouseMaster",
+      "source": "github.com/benzwick/SlicerMouseMaster"
+    }
+  ]
+}

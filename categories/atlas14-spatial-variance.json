@@ -1,0 +1,19 @@
+{
+  "category": "atlas14-spatial-variance",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.176686Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze spatial variability of NOAA Atlas 14 precipitation frequency estimates\nwithin HEC-RAS model domains using intelligent extent-based downloading.\n\nHelps determine whether uniform rainfall assump",
+      "repo": "gpt-cmdr/ras-commander",
+      "path": "atlas14-spatial-variance",
+      "branch": "main",
+      "category": "atlas14-spatial-variance",
+      "tags": [],
+      "stars": 0,
+      "install": "gpt-cmdr/ras-commander",
+      "source": "github.com/gpt-cmdr/ras-commander"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "kafka-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.572656Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Apache Kafka, event streaming, Kafka Streams, and distributed messaging",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "kafka-expert",
+      "branch": "main",
+      "category": "kafka-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

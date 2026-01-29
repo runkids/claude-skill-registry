@@ -1,0 +1,19 @@
+{
+  "category": "blockchain-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.175692Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level blockchain, Web3, smart contracts, DeFi, and cryptocurrency development",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "blockchain-expert",
+      "branch": "main",
+      "category": "blockchain-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

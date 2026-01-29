@@ -1,0 +1,19 @@
+{
+  "category": "competitor-content-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.317334Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes competitor content strategy and identifies differentiation opportunities. Use when the user asks about competitor analysis, content gaps, competitive research, or finding unique angles.",
+      "repo": "WesleySmits/agent-skills",
+      "path": "competitor-content-analyzer",
+      "branch": "main",
+      "category": "competitor-content-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

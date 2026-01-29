@@ -1,0 +1,19 @@
+{
+  "category": "clip-aware-embeddings",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.425591Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Semantic image-text matching with CLIP and alternatives. Use for image search, zero-shot classification, similarity matching. NOT for counting objects, fine-grained classification (celebrities, car mo",
+      "repo": "erichowens/some_claude_skills",
+      "path": "clip-aware-embeddings",
+      "branch": "main",
+      "category": "clip-aware-embeddings",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

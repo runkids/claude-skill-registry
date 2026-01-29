@@ -1,0 +1,19 @@
+{
+  "category": "codebase-mapping",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.355913Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate structured codebase maps with dependency graphs, file relationships, and architectural patterns. Use when exploring unfamiliar codebases or documenting project structure.",
+      "repo": "vneseyoungster/ChocoVine",
+      "path": "codebase-mapping",
+      "branch": "main",
+      "category": "codebase-mapping",
+      "tags": [],
+      "stars": 0,
+      "install": "vneseyoungster/ChocoVine",
+      "source": "github.com/vneseyoungster/ChocoVine"
+    }
+  ]
+}

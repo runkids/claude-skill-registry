@@ -1,0 +1,19 @@
+{
+  "category": "avoid-feature-creep",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.051106Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prevent feature creep when building software, apps, and AI-powered products. Use this skill when planning features, reviewing scope, building MVPs, managing backlogs, or when a user says \"just one mor",
+      "repo": "blocknavi/convex-batch-processor",
+      "path": "avoid-feature-creep",
+      "branch": "main",
+      "category": "avoid-feature-creep",
+      "tags": [],
+      "stars": 0,
+      "install": "blocknavi/convex-batch-processor",
+      "source": "github.com/blocknavi/convex-batch-processor"
+    }
+  ]
+}

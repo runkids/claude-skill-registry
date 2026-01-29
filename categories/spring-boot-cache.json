@@ -1,0 +1,19 @@
+{
+  "category": "spring-boot-cache",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.722148Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Instruction set for enabling and operating the Spring Cache abstraction in Spring Boot when implementing application-level caching for performance-sensitive workloads.",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "spring-boot-cache",
+      "branch": "main",
+      "category": "spring-boot-cache",
+      "tags": [],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    }
+  ]
+}

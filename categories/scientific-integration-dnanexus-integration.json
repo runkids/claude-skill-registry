@@ -1,0 +1,19 @@
+{
+  "category": "scientific-integration-dnanexus-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.097446Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DNAnexus cloud genomics platform. Build apps/applets, manage data (upload/download), dxpy Python SDK, run workflows, FASTQ/BAM/VCF, for genomics pipeline development and execution.",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-integration-dnanexus-integration",
+      "branch": "main",
+      "category": "scientific-integration-dnanexus-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "rerender-lazy-state",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.738158Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use lazy state initialization with useState function form. Apply when computing expensive initial values like building search indexes, parsing JSON, or complex calculations.",
+      "repo": "TheOrcDev/8bitcn-ui",
+      "path": "rerender-lazy-state",
+      "branch": "main",
+      "category": "rerender-lazy-state",
+      "tags": [],
+      "stars": 0,
+      "install": "TheOrcDev/8bitcn-ui",
+      "source": "github.com/TheOrcDev/8bitcn-ui"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "taiyo-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.627271Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "太陽スタイル分析・スコアリングエンジン - 176パターンに基づくコンテンツ品質分析と改善提案",
+      "repo": "taiyousan15/taisun_agent",
+      "path": "taiyo-analyzer",
+      "branch": "main",
+      "category": "taiyo-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent",
+      "source": "github.com/taiyousan15/taisun_agent"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "styleguide",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.270903Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate a complete HTML/React styleguide page for your project based on your design preferences.",
+      "repo": "allierays/agentic-loop",
+      "path": "styleguide",
+      "branch": "main",
+      "category": "styleguide",
+      "tags": [],
+      "stars": 0,
+      "install": "allierays/agentic-loop",
+      "source": "github.com/allierays/agentic-loop"
+    }
+  ]
+}

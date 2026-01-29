@@ -1,0 +1,19 @@
+{
+  "category": "error-handling-standardizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.654213Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standardize error formats and retry strategy.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "error-handling-standardizer",
+      "branch": "main",
+      "category": "error-handling-standardizer",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

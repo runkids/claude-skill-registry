@@ -1,0 +1,19 @@
+{
+  "category": "marketing-psychology",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.827366Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to apply psychological principles, mental models, or behavioral science to marketing. Also use when the user mentions 'psychology,' 'mental models,' 'cognitive bias,' 'persuasion,'",
+      "repo": "LeonMelamud/inspector-agents",
+      "path": "marketing-psychology",
+      "branch": "main",
+      "category": "marketing-psychology",
+      "tags": [],
+      "stars": 0,
+      "install": "LeonMelamud/inspector-agents",
+      "source": "github.com/LeonMelamud/inspector-agents"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "skill-improvement-from-observability",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.206372Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete feedback loop from observability insights to skill updates. Use when analyzing enhanced telemetry patterns and automatically improving skills.",
+      "repo": "adaptationio/Skrillz",
+      "path": "skill-improvement-from-observability",
+      "branch": "main",
+      "category": "skill-improvement-from-observability",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

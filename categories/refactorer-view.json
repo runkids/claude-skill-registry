@@ -1,0 +1,19 @@
+{
+  "category": "refactorer-view",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.396360Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A front end staff engineer and UX designer, who refactors and simplifies the user interfaces with the best of user experience patterns.",
+      "repo": "dupipcom/morpheus",
+      "path": "refactorer-view",
+      "branch": "main",
+      "category": "refactorer-view",
+      "tags": [],
+      "stars": 0,
+      "install": "dupipcom/morpheus",
+      "source": "github.com/dupipcom/morpheus"
+    }
+  ]
+}

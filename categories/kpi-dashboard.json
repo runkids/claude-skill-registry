@@ -1,0 +1,19 @@
+{
+  "category": "kpi-dashboard",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.353960Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define KPIs, build performance dashboards, track metrics, and drive data-driven decisions",
+      "repo": "eddiebe147/claude-settings",
+      "path": "kpi-dashboard",
+      "branch": "main",
+      "category": "kpi-dashboard",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

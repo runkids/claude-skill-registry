@@ -1,0 +1,19 @@
+{
+  "category": "figma-mcp-layout",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.968766Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pull frames/components via Figma MCP, normalize messy or non-autolayout designs, and generate faithful HTML/CSS (or Shopify Liquid) layouts with inferred spacing and responsiveness.",
+      "repo": "nhantran889/theme-kit",
+      "path": "figma-mcp-layout",
+      "branch": "main",
+      "category": "figma-mcp-layout",
+      "tags": [],
+      "stars": 0,
+      "install": "nhantran889/theme-kit",
+      "source": "github.com/nhantran889/theme-kit"
+    }
+  ]
+}

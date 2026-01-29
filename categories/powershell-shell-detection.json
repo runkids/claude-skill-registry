@@ -1,0 +1,19 @@
+{
+  "category": "powershell-shell-detection",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.632193Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Shell detection and cross-shell compatibility guidance for PowerShell vs Git Bash/MSYS2 on Windows",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "powershell-shell-detection",
+      "branch": "main",
+      "category": "powershell-shell-detection",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

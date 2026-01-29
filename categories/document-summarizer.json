@@ -1,0 +1,19 @@
+{
+  "category": "document-summarizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.625407Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Summarize long documents with key points and abstracts. Use when creating executive summaries or condensing content.",
+      "repo": "ntaksh42/agents",
+      "path": "document-summarizer",
+      "branch": "main",
+      "category": "document-summarizer",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

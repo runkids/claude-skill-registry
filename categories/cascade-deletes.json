@@ -1,0 +1,19 @@
+{
+  "category": "cascade-deletes",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.266072Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Normalized schema cascade delete patterns. Handles junction tables, parent-child ordering, nullify vs delete strategies. Triggers on \"cascade\", \"delete\", \"cleanup\", \"junction\", \"related records\", \"del",
+      "repo": "planetaryescape/blah.chat",
+      "path": "cascade-deletes",
+      "branch": "main",
+      "category": "cascade-deletes",
+      "tags": [],
+      "stars": 0,
+      "install": "planetaryescape/blah.chat",
+      "source": "github.com/planetaryescape/blah.chat"
+    }
+  ]
+}

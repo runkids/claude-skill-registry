@@ -1,0 +1,19 @@
+{
+  "category": "zod",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.756912Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TypeScript-first schema validation and type inference. Use for validating API requests/responses, form data, env vars, configs, defining type-safe schemas with runtime validation, transforming data, g",
+      "repo": "secondsky/claude-skills",
+      "path": "zod",
+      "branch": "main",
+      "category": "zod",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

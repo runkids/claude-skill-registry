@@ -1,0 +1,19 @@
+{
+  "category": "strict-typescript-mode",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.306111Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforces TypeScript best practices when writing code. Automatically enables strict typing for TypeScript projects, prevents `any` usage, and recommends generic constraints. Activate on TS/TSX files, n",
+      "repo": "freitasp1/claude-code-skills",
+      "path": "strict-typescript-mode",
+      "branch": "main",
+      "category": "strict-typescript-mode",
+      "tags": [],
+      "stars": 0,
+      "install": "freitasp1/claude-code-skills",
+      "source": "github.com/freitasp1/claude-code-skills"
+    }
+  ]
+}

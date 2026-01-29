@@ -1,0 +1,19 @@
+{
+  "category": "offer-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.825594Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze an affiliate offer for viability including payout, flow, restrictions, market size, target avatar, and creative requirements. Use when evaluating whether to run a new offer, comparing offers, ",
+      "repo": "WalkerHi11/mediabuy-plugins",
+      "path": "offer-analysis",
+      "branch": "main",
+      "category": "offer-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "WalkerHi11/mediabuy-plugins",
+      "source": "github.com/WalkerHi11/mediabuy-plugins"
+    }
+  ]
+}

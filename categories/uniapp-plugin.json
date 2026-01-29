@@ -1,0 +1,19 @@
+{
+  "category": "uniapp-plugin",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.109234Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A comprehensive skill for the uni-app plugin market and automatic plugin installation. Use this skill to browse plugins, auto-install plugins, configure plugin settings, and integrate third-party plug",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "uniapp-plugin",
+      "branch": "main",
+      "category": "uniapp-plugin",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

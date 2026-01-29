@@ -1,0 +1,19 @@
+{
+  "category": "api-contract",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.185968Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure this skill should be used when the user asks about \"API contract\", \"api-contract.md\", \"shared interface\", \"TypeScript interfaces\", \"request response schemas\", \"endpoint design\", or needs gui",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "api-contract",
+      "branch": "main",
+      "category": "api-contract",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "exploration-debug",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.810865Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interactive debugging through conversation. HOUSTON guides through 4 phases, asks questions, and suggests agents for investigation.",
+      "repo": "thebrownproject/space-agents",
+      "path": "exploration-debug",
+      "branch": "main",
+      "category": "exploration-debug",
+      "tags": [],
+      "stars": 0,
+      "install": "thebrownproject/space-agents",
+      "source": "github.com/thebrownproject/space-agents"
+    }
+  ]
+}

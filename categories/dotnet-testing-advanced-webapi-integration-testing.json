@@ -1,0 +1,19 @@
+{
+  "category": "dotnet-testing-advanced-webapi-integration-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.186484Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ASP.NET Core WebApi 整合測試完整指南。\n涵蓋 WebApplicationFactory、IExceptionHandler、ProblemDetails 標準格式驗證。\n包含 Testcontainers 多容器編排、Flurl URL 建構、AwesomeAssertions HTTP 驗證。\n",
+      "repo": "kevintsengtw/dotnet-testing-agent-skills",
+      "path": "dotnet-testing-advanced-webapi-integration-testing",
+      "branch": "main",
+      "category": "dotnet-testing-advanced-webapi-integration-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "kevintsengtw/dotnet-testing-agent-skills",
+      "source": "github.com/kevintsengtw/dotnet-testing-agent-skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "workflow-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.186633Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coordinate the multi-agent workflow across planning, validation, implementation, and verification.",
+      "repo": "EtroxTaran/conductor",
+      "path": "workflow-manager",
+      "branch": "main",
+      "category": "workflow-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

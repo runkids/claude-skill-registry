@@ -1,0 +1,19 @@
+{
+  "category": "dependency-risk-audit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.112175Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audit dependencies for licensing, security, and maintenance risk. Use when a senior developer needs risk assessment.",
+      "repo": "proflead/codex-skills-library",
+      "path": "dependency-risk-audit",
+      "branch": "main",
+      "category": "dependency-risk-audit",
+      "tags": [],
+      "stars": 0,
+      "install": "proflead/codex-skills-library",
+      "source": "github.com/proflead/codex-skills-library"
+    }
+  ]
+}

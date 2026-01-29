@@ -1,0 +1,19 @@
+{
+  "category": "celltypeannotation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.885313Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Annotates cell clusters with biological cell type labels using multiple methods: direct assignment, ScType, scCATCH, hitype, or CellTypist. This process is essential for interpreting clustering result",
+      "repo": "pwwang/immunopipe",
+      "path": "celltypeannotation",
+      "branch": "main",
+      "category": "celltypeannotation",
+      "tags": [],
+      "stars": 0,
+      "install": "pwwang/immunopipe",
+      "source": "github.com/pwwang/immunopipe"
+    }
+  ]
+}

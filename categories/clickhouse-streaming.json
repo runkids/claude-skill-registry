@@ -1,0 +1,19 @@
+{
+  "category": "clickhouse-streaming",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.889560Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when ingesting continuous data streams from Kafka, RabbitMQ, or Kinesis into ClickHouse. Covers backpressure handling, exactly-once semantics, stream processing patterns, and performance optimizat",
+      "repo": "dandedotdev/dotfiles",
+      "path": "clickhouse-streaming",
+      "branch": "main",
+      "category": "clickhouse-streaming",
+      "tags": [],
+      "stars": 0,
+      "install": "dandedotdev/dotfiles",
+      "source": "github.com/dandedotdev/dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "e2e-webapp-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.116739Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create resilient E2E tests using Playwright/Cypress",
+      "repo": "EtroxTaran/conductor",
+      "path": "e2e-webapp-testing",
+      "branch": "main",
+      "category": "e2e-webapp-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

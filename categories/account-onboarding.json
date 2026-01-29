@@ -1,0 +1,19 @@
+{
+  "category": "account-onboarding",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.091671Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Онбординг нового рекламного аккаунта. Создаёт конфигурацию для оптимизации.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "account-onboarding",
+      "branch": "main",
+      "category": "account-onboarding",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

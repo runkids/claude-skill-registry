@@ -1,0 +1,19 @@
+{
+  "category": "helius",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.180451Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Helius Solana RPC and API expert. High-performance infrastructure for Solana including RPC nodes, DAS API for NFTs/tokens, LaserStream real-time streaming, webhooks, Priority Fee API, Enhanced Transac",
+      "repo": "raintree-technology/claude-starter",
+      "path": "helius",
+      "branch": "main",
+      "category": "helius",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

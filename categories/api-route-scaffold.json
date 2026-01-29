@@ -1,0 +1,19 @@
+{
+  "category": "api-route-scaffold",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.208113Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create new Next.js API routes following project patterns. Use when user mentions \"new endpoint\", \"add API\", \"create route\", or \"POST/GET handler\".",
+      "repo": "AppleLamps/xpic2",
+      "path": "api-route-scaffold",
+      "branch": "main",
+      "category": "api-route-scaffold",
+      "tags": [],
+      "stars": 0,
+      "install": "AppleLamps/xpic2",
+      "source": "github.com/AppleLamps/xpic2"
+    }
+  ]
+}

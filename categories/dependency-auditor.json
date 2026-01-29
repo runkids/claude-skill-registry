@@ -1,0 +1,19 @@
+{
+  "category": "dependency-auditor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.687402Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check dependencies for known vulnerabilities using npm audit, pip-audit, etc. Use when package.json or requirements.txt changes, or before deployments. Alerts on vulnerable dependencies. Triggers on d",
+      "repo": "ovachiever/droid-tings",
+      "path": "dependency-auditor",
+      "branch": "main",
+      "category": "dependency-auditor",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

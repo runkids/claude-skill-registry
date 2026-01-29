@@ -1,0 +1,19 @@
+{
+  "category": "neovim",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.663012Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Neovim text editor installation and LazyVim setup configuration.",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "neovim",
+      "branch": "main",
+      "category": "neovim",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

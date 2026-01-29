@@ -1,0 +1,19 @@
+{
+  "category": "engineering",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.957601Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TRIGGERS: \"review my code\", \"is this clean?\", \"code review\", \"refactor this\", \"code quality\",\n\"refactoring\", \"cleaning up\", \"organizing\", \"structuring code\", \"naming this\",\n\"splitting function\", \"extr",
+      "repo": "DanielPodolsky/ownyourcode",
+      "path": "engineering",
+      "branch": "main",
+      "category": "engineering",
+      "tags": [],
+      "stars": 0,
+      "install": "DanielPodolsky/ownyourcode",
+      "source": "github.com/DanielPodolsky/ownyourcode"
+    }
+  ]
+}

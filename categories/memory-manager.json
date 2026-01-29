@@ -1,0 +1,19 @@
+{
+  "category": "memory-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.137383Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically activates after significant decisions, pattern discoveries, or context that should persist across sessions. Saves decisions to org memory, patterns to pattern library, and context to use",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "memory-manager",
+      "branch": "main",
+      "category": "memory-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

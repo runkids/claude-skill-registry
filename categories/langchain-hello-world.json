@@ -1,0 +1,19 @@
+{
+  "category": "langchain-hello-world",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.039159Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a minimal working LangChain example.\nUse when starting a new LangChain integration, testing your setup,\nor learning basic LangChain patterns with chains and prompts.\nTrigger with phrases like \"",
+      "repo": "byteworthy/Upstream",
+      "path": "langchain-hello-world",
+      "branch": "main",
+      "category": "langchain-hello-world",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

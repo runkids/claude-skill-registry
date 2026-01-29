@@ -1,0 +1,19 @@
+{
+  "category": "ci-cd-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.749921Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "为GitHub Actions、GitLab CI、Azure DevOps和Jenkins生成CI/CD流水线，包含构建、测试、部署阶段、缓存和密钥管理。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "ci-cd-generator",
+      "branch": "main",
+      "category": "ci-cd-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

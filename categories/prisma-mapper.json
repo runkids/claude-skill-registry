@@ -1,0 +1,19 @@
+{
+  "category": "prisma-mapper",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.395481Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Génère des mappers bidirectionnels entre Domain Entities et Prisma Models pour l'isolation de la couche persistence. À utiliser lors de la création de mappers, repositories, ou quand l'utilisateur men",
+      "repo": "RomualdP/hoki",
+      "path": "prisma-mapper",
+      "branch": "main",
+      "category": "prisma-mapper",
+      "tags": [],
+      "stars": 0,
+      "install": "RomualdP/hoki",
+      "source": "github.com/RomualdP/hoki"
+    }
+  ]
+}

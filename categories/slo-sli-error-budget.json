@@ -1,0 +1,19 @@
+{
+  "category": "slo-sli-error-budget",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.968081Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when defining SLOs, selecting SLIs, or implementing error budget policies. Covers reliability targets, SLI selection, and error budget management.",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "slo-sli-error-budget",
+      "branch": "main",
+      "category": "slo-sli-error-budget",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

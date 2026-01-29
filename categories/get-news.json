@@ -1,0 +1,19 @@
+{
+  "category": "get-news",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.032512Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fetch news for a ticker up to a cutoff date, optionally for a specific month window",
+      "repo": "faisalanjum/EventTrader",
+      "path": "get-news",
+      "branch": "main",
+      "category": "get-news",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

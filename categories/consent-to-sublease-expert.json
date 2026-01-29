@@ -1,0 +1,19 @@
+{
+  "category": "consent-to-sublease-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.629849Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in consent to sublease agreements where a tenant (sublandlord) rents part or all of their space to a subtenant while remaining on the lease. Use when tenant wants to sublet excess space, landlo",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": "consent-to-sublease-expert",
+      "branch": "main",
+      "category": "consent-to-sublease-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "reggiechan74/vp-real-estate",
+      "source": "github.com/reggiechan74/vp-real-estate"
+    }
+  ]
+}

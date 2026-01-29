@@ -1,0 +1,19 @@
+{
+  "category": "03-investment-and-time-accounting",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.012686Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "На втором этапе необходимо добиться систематичности в",
+      "repo": "aisystant/Self-development",
+      "path": "03-investment-and-time-accounting",
+      "branch": "main",
+      "category": "03-investment-and-time-accounting",
+      "tags": [],
+      "stars": 0,
+      "install": "aisystant/Self-development",
+      "source": "github.com/aisystant/Self-development"
+    }
+  ]
+}

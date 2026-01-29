@@ -1,0 +1,19 @@
+{
+  "category": "gandalf-the-prompt",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.069292Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audits prompts and skills against Claude best practices. Finds clarity issues, structural problems, and enhancement opportunities. Provides fixes and grades.",
+      "repo": "fotescodev/portfolio",
+      "path": "gandalf-the-prompt",
+      "branch": "main",
+      "category": "gandalf-the-prompt",
+      "tags": [],
+      "stars": 0,
+      "install": "fotescodev/portfolio",
+      "source": "github.com/fotescodev/portfolio"
+    }
+  ]
+}

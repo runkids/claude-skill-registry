@@ -1,0 +1,19 @@
+{
+  "category": "styling-with-tailwind",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.735724Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides utility-first CSS styling patterns using Tailwind CSS 3.x. Use when styling components with utility classes, configuring tailwind.config.js, implementing responsive designs, or creating dark ",
+      "repo": "FortiumPartners/ensemble",
+      "path": "styling-with-tailwind",
+      "branch": "main",
+      "category": "styling-with-tailwind",
+      "tags": [],
+      "stars": 0,
+      "install": "FortiumPartners/ensemble",
+      "source": "github.com/FortiumPartners/ensemble"
+    }
+  ]
+}

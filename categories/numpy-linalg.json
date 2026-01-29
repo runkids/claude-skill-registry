@@ -1,0 +1,19 @@
+{
+  "category": "numpy-linalg",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.072956Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "NumPy's linalg module provides high-performance implementations for standard linear algebra routines. It leverages optimized backends (like BLAS/LAPACK) for operations such as Singular Value Decomposi",
+      "repo": "cuba6112/skillfactory",
+      "path": "numpy-linalg",
+      "branch": "main",
+      "category": "numpy-linalg",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

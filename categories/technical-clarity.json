@@ -1,0 +1,19 @@
+{
+  "category": "technical-clarity",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.546389Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review technical prose for accessibility, jargon density, and gatekeeping language. Ensures content passes the 'Grandma Test' and avoids 'obviously', 'simply' (Gatekeeping). Use this to refine technic",
+      "repo": "panaversity/agentfactory",
+      "path": "technical-clarity",
+      "branch": "main",
+      "category": "technical-clarity",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

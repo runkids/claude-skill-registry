@@ -1,0 +1,19 @@
+{
+  "category": "agent-communication-protocol",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.458952Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Open protocol for AI agent interoperability enabling standardized communication between agents, applications, and humans across different frameworks",
+      "repo": "enuno/claude-command-and-control",
+      "path": "agent-communication-protocol",
+      "branch": "main",
+      "category": "agent-communication-protocol",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

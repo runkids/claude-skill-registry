@@ -1,0 +1,19 @@
+{
+  "category": "ui-component",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.642571Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ReactコンポーネントとTailwind CSSスタイリングの実装パターン提供",
+      "repo": "foie0222/baken-kaigi",
+      "path": "ui-component",
+      "branch": "main",
+      "category": "ui-component",
+      "tags": [],
+      "stars": 0,
+      "install": "foie0222/baken-kaigi",
+      "source": "github.com/foie0222/baken-kaigi"
+    }
+  ]
+}

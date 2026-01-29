@@ -1,0 +1,19 @@
+{
+  "category": "coord-tooling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.701170Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Invoke COORD_TOOLING for tools and skills development",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "coord-tooling",
+      "branch": "main",
+      "category": "coord-tooling",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "data-things",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.997376Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Helps with data stuff",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "data-things",
+      "branch": "main",
+      "category": "data-things",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

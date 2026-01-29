@@ -1,0 +1,19 @@
+{
+  "category": "project-memory",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.405533Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Persist context across sessions using external memory files",
+      "repo": "medride/claude-code-research",
+      "path": "project-memory",
+      "branch": "main",
+      "category": "project-memory",
+      "tags": [],
+      "stars": 0,
+      "install": "medride/claude-code-research",
+      "source": "github.com/medride/claude-code-research"
+    }
+  ]
+}

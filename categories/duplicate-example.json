@@ -1,0 +1,19 @@
+{
+  "category": "duplicate-example",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.797762Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a new iPlug2 plugin project by duplicating an example template",
+      "repo": "iPlug2/iPlug2",
+      "path": "duplicate-example",
+      "branch": "main",
+      "category": "duplicate-example",
+      "tags": [],
+      "stars": 0,
+      "install": "iPlug2/iPlug2",
+      "source": "github.com/iPlug2/iPlug2"
+    }
+  ]
+}

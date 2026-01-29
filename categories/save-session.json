@@ -1,0 +1,19 @@
+{
+  "category": "save-session",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.284477Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Save session state to Pieces LTM. Use when context is running low, before /compact, when ending a session, or handing off to a fresh Claude instance.",
+      "repo": "almai/superpowers",
+      "path": "save-session",
+      "branch": "main",
+      "category": "save-session",
+      "tags": [],
+      "stars": 0,
+      "install": "almai/superpowers",
+      "source": "github.com/almai/superpowers"
+    }
+  ]
+}

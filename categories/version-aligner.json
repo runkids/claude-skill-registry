@@ -1,0 +1,19 @@
+{
+  "category": "version-aligner",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.312038Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-repo version alignment - lockstep/independent/umbrella strategies, semver constraints, version conflict detection.",
+      "repo": "anton-abyzov/specweave",
+      "path": "version-aligner",
+      "branch": "main",
+      "category": "version-aligner",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

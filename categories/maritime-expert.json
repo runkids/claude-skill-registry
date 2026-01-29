@@ -1,0 +1,19 @@
+{
+  "category": "maritime-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.323194Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level maritime systems, vessel tracking, port operations, cargo management, and maritime logistics",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "maritime-expert",
+      "branch": "main",
+      "category": "maritime-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

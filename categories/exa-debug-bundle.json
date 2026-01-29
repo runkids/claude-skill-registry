@@ -1,0 +1,19 @@
+{
+  "category": "exa-debug-bundle",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.073808Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Collect Exa debug evidence for support tickets and troubleshooting.\nUse when encountering persistent issues, preparing support tickets,\nor collecting diagnostic information for Exa problems.\nTrigger w",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "exa-debug-bundle",
+      "branch": "main",
+      "category": "exa-debug-bundle",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

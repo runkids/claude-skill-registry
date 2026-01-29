@@ -1,0 +1,19 @@
+{
+  "category": "intent-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.287174Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced intent interpretation system that analyzes user requests using cognitive science principles and extrapolates logical volition. Use when user requests are ambiguous, when deeper understanding ",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "intent-analyzer",
+      "branch": "main",
+      "category": "intent-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

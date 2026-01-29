@@ -1,0 +1,19 @@
+{
+  "category": "template-mason-brick",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.652397Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating, updating, or removing Mason bricks with corresponding tests and CI workflow (project)",
+      "repo": "gsmlg-app/flutter-app-template",
+      "path": "template-mason-brick",
+      "branch": "main",
+      "category": "template-mason-brick",
+      "tags": [],
+      "stars": 0,
+      "install": "gsmlg-app/flutter-app-template",
+      "source": "github.com/gsmlg-app/flutter-app-template"
+    }
+  ]
+}

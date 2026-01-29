@@ -1,0 +1,19 @@
+{
+  "category": "security-antipatterns-javascript",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.976472Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Code generation guard for Node.js/TypeScript/Next.js - prevents OWASP Top 10 vulnerabilities while writing code",
+      "repo": "subhashdasyam/security-antipatterns-javascript",
+      "path": "security-antipatterns-javascript",
+      "branch": "main",
+      "category": "security-antipatterns-javascript",
+      "tags": [],
+      "stars": 0,
+      "install": "subhashdasyam/security-antipatterns-javascript",
+      "source": "github.com/subhashdasyam/security-antipatterns-javascript"
+    }
+  ]
+}

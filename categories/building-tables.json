@@ -1,0 +1,19 @@
+{
+  "category": "building-tables",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.891893Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Builds tables and data grids for displaying tabular information, from simple HTML tables to complex enterprise data grids. Use when creating tables, implementing sorting/filtering/pagination, handling",
+      "repo": "ancoleman/ai-design-components",
+      "path": "building-tables",
+      "branch": "main",
+      "category": "building-tables",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

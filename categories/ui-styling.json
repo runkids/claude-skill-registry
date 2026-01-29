@@ -1,0 +1,19 @@
+{
+  "category": "ui-styling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.420792Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Style UIs with shadcn/ui components (Radix UI + Tailwind CSS). Use for accessible components, themes, dark mode, responsive layouts, design systems, color customization.",
+      "repo": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
+      "path": "ui-styling",
+      "branch": "main",
+      "category": "ui-styling",
+      "tags": [],
+      "stars": 0,
+      "install": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
+      "source": "github.com/hoanghd218/landing-page-ai-kientruc-a-Ninh"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "campaign-diagnosis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.296427Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diagnose underperforming campaigns by analyzing metrics against benchmarks, checking creative fatigue, evaluating audience saturation, and assessing offer/lander issues. Use when campaigns stop workin",
+      "repo": "WalkerHi11/mediabuy-plugins",
+      "path": "campaign-diagnosis",
+      "branch": "main",
+      "category": "campaign-diagnosis",
+      "tags": [],
+      "stars": 0,
+      "install": "WalkerHi11/mediabuy-plugins",
+      "source": "github.com/WalkerHi11/mediabuy-plugins"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "lifecycle-adoption",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.186326Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when starting new projects with CMMI, adding CMMI to active development, preparing for audits, migrating tools, or facing team resistance to process adoption",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "lifecycle-adoption",
+      "branch": "main",
+      "category": "lifecycle-adoption",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

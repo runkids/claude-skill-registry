@@ -1,0 +1,19 @@
+{
+  "category": "iterate-pr",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.249115Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Iterate on a PR until CI passes. Use when you need to fix CI failures, address review feedback, or continuously push fixes until all checks are green. Automates the feedback-fix-push-wait cycle.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "iterate-pr",
+      "branch": "main",
+      "category": "iterate-pr",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

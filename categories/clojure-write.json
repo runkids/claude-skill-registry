@@ -1,0 +1,19 @@
+{
+  "category": "clojure-write",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.832654Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide Clojure and ClojureScript development using REPL-driven workflow, coding conventions, and best practices. Use when writing, developing, or refactoring Clojure/ClojureScript code.",
+      "repo": "Kidoz-SDK/metabase",
+      "path": "clojure-write",
+      "branch": "main",
+      "category": "clojure-write",
+      "tags": [],
+      "stars": 0,
+      "install": "Kidoz-SDK/metabase",
+      "source": "github.com/Kidoz-SDK/metabase"
+    }
+  ]
+}

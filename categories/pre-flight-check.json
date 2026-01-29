@@ -1,0 +1,19 @@
+{
+  "category": "pre-flight-check",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.650995Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Checks essential information and project status before starting a task.",
+      "repo": "munlucky/claude-settings",
+      "path": "pre-flight-check",
+      "branch": "main",
+      "category": "pre-flight-check",
+      "tags": [],
+      "stars": 0,
+      "install": "munlucky/claude-settings",
+      "source": "github.com/munlucky/claude-settings"
+    }
+  ]
+}

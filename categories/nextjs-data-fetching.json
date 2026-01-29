@@ -1,0 +1,19 @@
+{
+  "category": "nextjs-data-fetching",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.800487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when fetching data in Next.js App Router: server components, caching strategies, revalidation, and streaming.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "nextjs-data-fetching",
+      "branch": "main",
+      "category": "nextjs-data-fetching",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

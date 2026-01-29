@@ -48,7 +48,7 @@ jobs:
           python scripts/download_sources.py
 
       - name: Build Registry
-        run: python scripts/build_registry.py
+        run: python scripts/rebuild_registry.py
 
       - name: Commit and Push
         run: |

@@ -1,0 +1,19 @@
+{
+  "category": "pytorch-cuda",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.190258Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure and verify CUDA 13 readiness (toolkit, driver, and PyTorch wheel support), then run PyTorch CUDA with reliable timing and memory practices.",
+      "repo": "cuba6112/skillfactory",
+      "path": "pytorch-cuda",
+      "branch": "main",
+      "category": "pytorch-cuda",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

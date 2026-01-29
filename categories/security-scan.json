@@ -1,0 +1,19 @@
+{
+  "category": "security-scan",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.273039Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Proactive security scanning. Triggers when modifying auth, API endpoints, user data, or sensitive operations.",
+      "repo": "muyen/vibe-to-prod",
+      "path": "security-scan",
+      "branch": "main",
+      "category": "security-scan",
+      "tags": [],
+      "stars": 0,
+      "install": "muyen/vibe-to-prod",
+      "source": "github.com/muyen/vibe-to-prod"
+    }
+  ]
+}

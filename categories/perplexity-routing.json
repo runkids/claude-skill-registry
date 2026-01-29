@@ -1,0 +1,19 @@
+{
+  "category": "perplexity-routing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.929787Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Routing guide for selecting the correct Perplexity tool. Reference before spawning any Perplexity agent.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "perplexity-routing",
+      "branch": "main",
+      "category": "perplexity-routing",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "wrap-session",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.159472Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "End-of-session documentation workflow that updates README, CHANGELOG, agent context files, and creates session logs. Use when wrapping up a working session, when asked to document session progress, wh",
+      "repo": "product-on-purpose/pm-skills",
+      "path": "wrap-session",
+      "branch": "main",
+      "category": "wrap-session",
+      "tags": [],
+      "stars": 0,
+      "install": "product-on-purpose/pm-skills",
+      "source": "github.com/product-on-purpose/pm-skills"
+    }
+  ]
+}

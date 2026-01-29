@@ -1,0 +1,19 @@
+{
+  "category": "tier-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.666249Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Evaluate and update Pollinations user tiers. Check balances, upgrade devs, batch process users. For finding users with errors, see model-debugging skill first.",
+      "repo": "pollinations/pollinations",
+      "path": "tier-management",
+      "branch": "main",
+      "category": "tier-management",
+      "tags": [],
+      "stars": 0,
+      "install": "pollinations/pollinations",
+      "source": "github.com/pollinations/pollinations"
+    }
+  ]
+}

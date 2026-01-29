@@ -1,0 +1,19 @@
+{
+  "category": "validate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.277676Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate iPlug2 plugin builds using format-specific validators (auval, pluginval, vstvalidator, clap-validator) (project)",
+      "repo": "iPlug2/iPlug2",
+      "path": "validate",
+      "branch": "main",
+      "category": "validate",
+      "tags": [],
+      "stars": 0,
+      "install": "iPlug2/iPlug2",
+      "source": "github.com/iPlug2/iPlug2"
+    }
+  ]
+}

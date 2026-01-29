@@ -1,0 +1,19 @@
+{
+  "category": "mcp-server-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.218008Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build Model Context Protocol (MCP) servers with best practices. Generate production-ready MCP servers in Python or TypeScript with tools, resources, and prompts.",
+      "repo": "ntaksh42/agents",
+      "path": "mcp-server-builder",
+      "branch": "main",
+      "category": "mcp-server-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

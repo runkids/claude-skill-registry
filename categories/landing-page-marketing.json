@@ -1,0 +1,19 @@
+{
+  "category": "landing-page-marketing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.395126Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automate landing page updates and marketing asset capture following established patterns",
+      "repo": "vitorsilva/saberloop",
+      "path": "landing-page-marketing",
+      "branch": "main",
+      "category": "landing-page-marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "vitorsilva/saberloop",
+      "source": "github.com/vitorsilva/saberloop"
+    }
+  ]
+}

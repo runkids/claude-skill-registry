@@ -1,0 +1,19 @@
+{
+  "category": "hulu",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.364027Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Stream Hulu content, manage watchlist, and access live TV features",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "hulu",
+      "branch": "main",
+      "category": "hulu",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

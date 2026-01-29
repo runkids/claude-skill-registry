@@ -1,0 +1,19 @@
+{
+  "category": "scout-plan-build",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.370936Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run scout, plan, then implement; use when you want an end-to-end discovery, plan, and build flow.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "scout-plan-build",
+      "branch": "main",
+      "category": "scout-plan-build",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

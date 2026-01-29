@@ -1,0 +1,19 @@
+{
+  "category": "cloud-huawei-rds",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.033885Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Huawei Cloud RDS including database creation, configuration, backups, and RDS management. Use when the user asks about Huawei Cloud RDS, needs to create RDS databas",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "cloud-huawei-rds",
+      "branch": "main",
+      "category": "cloud-huawei-rds",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

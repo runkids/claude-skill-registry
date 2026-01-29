@@ -1,0 +1,19 @@
+{
+  "category": "enterprise-sales",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.332974Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create an Enterprise Deal Execution Pack (buying committee map + champion enablement, “no decision” prevention plan + mutual action plan, procurement/security packet, and POC-as-business-case plan + R",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "enterprise-sales",
+      "branch": "main",
+      "category": "enterprise-sales",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

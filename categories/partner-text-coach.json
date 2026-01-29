@@ -1,0 +1,19 @@
+{
+  "category": "partner-text-coach",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.725397Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Real-time communication coach for navigating partner/relationship texts. Analyzes incoming messages for emotional subtext, suggests thoughtful responses, helps de-escalate conflict, and provides follo",
+      "repo": "erichowens/some_claude_skills",
+      "path": "partner-text-coach",
+      "branch": "main",
+      "category": "partner-text-coach",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

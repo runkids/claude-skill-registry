@@ -1,0 +1,19 @@
+{
+  "category": "computer-scientist-analyst",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.468825Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes events through computer science lens using computational complexity, algorithms, data structures,\nsystems architecture, information theory, and software engineering principles to evaluate fea",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "computer-scientist-analyst",
+      "branch": "main",
+      "category": "computer-scientist-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

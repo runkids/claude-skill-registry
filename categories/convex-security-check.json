@@ -1,0 +1,19 @@
+{
+  "category": "convex-security-check",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.161827Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quick security audit checklist covering authentication, function exposure, argument validation, row-level access control, and environment variable handling",
+      "repo": "blocknavi/convex-batch-processor",
+      "path": "convex-security-check",
+      "branch": "main",
+      "category": "convex-security-check",
+      "tags": [],
+      "stars": 0,
+      "install": "blocknavi/convex-batch-processor",
+      "source": "github.com/blocknavi/convex-batch-processor"
+    }
+  ]
+}

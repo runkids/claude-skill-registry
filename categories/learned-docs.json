@@ -1,0 +1,19 @@
+{
+  "category": "learned-docs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.665448Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when writing, modifying, or reorganizing documentation in docs/learned/. Use when creating new documents, updating frontmatter, choosing categories, creating index files, upd",
+      "repo": "dagster-io/erk",
+      "path": "learned-docs",
+      "branch": "main",
+      "category": "learned-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "dagster-io/erk",
+      "source": "github.com/dagster-io/erk"
+    }
+  ]
+}

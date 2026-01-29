@@ -1,0 +1,19 @@
+{
+  "category": "agentic-jumpstart-architecture",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.278942Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Architecture guidelines for Jarvy CLI - codebase structure, tool implementation patterns, registry system, platform-specific code organization, and module conventions.",
+      "repo": "bearbinary/Jarvy",
+      "path": "agentic-jumpstart-architecture",
+      "branch": "main",
+      "category": "agentic-jumpstart-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "bearbinary/Jarvy",
+      "source": "github.com/bearbinary/Jarvy"
+    }
+  ]
+}

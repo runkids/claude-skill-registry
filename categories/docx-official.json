@@ -1,0 +1,19 @@
+{
+  "category": "docx-official",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.816950Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (",
+      "repo": "cgyudistira/code-agents",
+      "path": "docx-official",
+      "branch": "main",
+      "category": "docx-official",
+      "tags": [],
+      "stars": 0,
+      "install": "cgyudistira/code-agents",
+      "source": "github.com/cgyudistira/code-agents"
+    }
+  ]
+}

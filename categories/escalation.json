@@ -1,0 +1,19 @@
+{
+  "category": "escalation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.104218Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to define incident tiers, response protocols, and stakeholder communications.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "escalation",
+      "branch": "main",
+      "category": "escalation",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

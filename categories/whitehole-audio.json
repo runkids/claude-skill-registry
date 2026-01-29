@@ -1,0 +1,19 @@
+{
+  "category": "whitehole-audio",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.730568Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Modern macOS + tripos audio loopback driver for inter-application audio",
+      "repo": "plurigrid/asi",
+      "path": "whitehole-audio",
+      "branch": "main",
+      "category": "whitehole-audio",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

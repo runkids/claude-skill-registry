@@ -1,0 +1,19 @@
+{
+  "category": "sociologist-analyst",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.087048Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes events through sociological lens using social structures, institutions, stratification, culture,\nnorms, collective behavior, and multiple theoretical perspectives (functionalist, conflict, sy",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "sociologist-analyst",
+      "branch": "main",
+      "category": "sociologist-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

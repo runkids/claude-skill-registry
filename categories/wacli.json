@@ -1,0 +1,19 @@
+{
+  "category": "wacli",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.448107Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Send WhatsApp messages to other people or search/sync WhatsApp history via the wacli CLI (not for normal user chats).",
+      "repo": "Youjjwal/clawdbot",
+      "path": "wacli",
+      "branch": "main",
+      "category": "wacli",
+      "tags": [],
+      "stars": 0,
+      "install": "Youjjwal/clawdbot",
+      "source": "github.com/Youjjwal/clawdbot"
+    }
+  ]
+}

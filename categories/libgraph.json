@@ -1,0 +1,19 @@
+{
+  "category": "libgraph",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.766244Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "libgraph - RDF graph index using N3 library. GraphIndex stores and queries linked data triples. PREFIXES provides standard namespaces (schema, rdf, rdfs, foaf). parseTripleQuery parses subject-predica",
+      "repo": "copilot-ld/copilot-ld",
+      "path": "libgraph",
+      "branch": "main",
+      "category": "libgraph",
+      "tags": [],
+      "stars": 0,
+      "install": "copilot-ld/copilot-ld",
+      "source": "github.com/copilot-ld/copilot-ld"
+    }
+  ]
+}

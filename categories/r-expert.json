@@ -1,0 +1,19 @@
+{
+  "category": "r-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.307032Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level R statistical computing, data analysis, and visualization",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "r-expert",
+      "branch": "main",
+      "category": "r-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

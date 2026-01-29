@@ -1,0 +1,19 @@
+{
+  "category": "slidev-presentations",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.318182Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate professional, browser-based presentations using Slidev - the presentation framework for developers.",
+      "repo": "nicepkg/ai-workflow",
+      "path": "slidev-presentations",
+      "branch": "main",
+      "category": "slidev-presentations",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

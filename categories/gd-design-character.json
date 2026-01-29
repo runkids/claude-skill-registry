@@ -1,0 +1,19 @@
+{
+  "category": "gd-design-character",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.302954Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Character and class design documentation. Use when designing character archetypes, creating class systems, defining abilities and skills, balancing character stats, or designing progression systems.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "gd-design-character",
+      "branch": "main",
+      "category": "gd-design-character",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

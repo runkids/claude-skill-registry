@@ -1,0 +1,19 @@
+{
+  "category": "ln-740-quality-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.112344Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coordinates linters, pre-commit hooks, and test infrastructure setup",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "ln-740-quality-setup",
+      "branch": "main",
+      "category": "ln-740-quality-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "levnikolaevich/claude-code-skills",
+      "source": "github.com/levnikolaevich/claude-code-skills"
+    }
+  ]
+}

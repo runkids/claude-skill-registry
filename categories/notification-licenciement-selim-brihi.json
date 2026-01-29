@@ -1,0 +1,19 @@
+{
+  "category": "notification-licenciement-selim-brihi",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.178270Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide pour la rédaction de notifications de licenciement conformes au droit du travail français. Utiliser ce skill quand l'utilisateur demande de rédiger, préparer, créer ou éditer une lettre de notif",
+      "repo": "lawvable/awesome-legal-skills",
+      "path": "notification-licenciement-selim-brihi",
+      "branch": "main",
+      "category": "notification-licenciement-selim-brihi",
+      "tags": [],
+      "stars": 0,
+      "install": "lawvable/awesome-legal-skills",
+      "source": "github.com/lawvable/awesome-legal-skills"
+    }
+  ]
+}

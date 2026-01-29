@@ -1,0 +1,19 @@
+{
+  "category": "scientific-adaptyv",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.168787Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cloud laboratory platform for automated protein testing and validation. Use when designing proteins and needing experimental validation including binding assays, expression testing, thermostability me",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-adaptyv",
+      "branch": "main",
+      "category": "scientific-adaptyv",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

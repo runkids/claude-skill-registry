@@ -1,0 +1,19 @@
+{
+  "category": "context-synthesis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.101711Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Token-efficient context gathering and synthesis from multiple sources (memory, docs, web). Orchestrates MCP tools to build comprehensive context before analysis or interviews. Use when starting discov",
+      "repo": "1ambda/dataops-platform",
+      "path": "context-synthesis",
+      "branch": "main",
+      "category": "context-synthesis",
+      "tags": [],
+      "stars": 0,
+      "install": "1ambda/dataops-platform",
+      "source": "github.com/1ambda/dataops-platform"
+    }
+  ]
+}

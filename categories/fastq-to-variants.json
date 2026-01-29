@@ -1,0 +1,19 @@
+{
+  "category": "fastq-to-variants",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.266915Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "End-to-end DNA sequencing workflow from FASTQ files to variant calls. Covers QC, alignment with BWA, BAM processing, and variant calling with bcftools or GATK HaplotypeCaller. Use when calling variant",
+      "repo": "GPTomics/bioSkills",
+      "path": "fastq-to-variants",
+      "branch": "main",
+      "category": "fastq-to-variants",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

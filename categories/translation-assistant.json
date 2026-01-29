@@ -1,0 +1,19 @@
+{
+  "category": "translation-assistant",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.682285Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Handle multilingual translation tasks with quality and cultural sensitivity",
+      "repo": "eddiebe147/claude-settings",
+      "path": "translation-assistant",
+      "branch": "main",
+      "category": "translation-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "openai-whisper",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.349061Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Local speech-to-text with the Whisper CLI (no API key).",
+      "repo": "Youjjwal/clawdbot",
+      "path": "openai-whisper",
+      "branch": "main",
+      "category": "openai-whisper",
+      "tags": [],
+      "stars": 0,
+      "install": "Youjjwal/clawdbot",
+      "source": "github.com/Youjjwal/clawdbot"
+    }
+  ]
+}

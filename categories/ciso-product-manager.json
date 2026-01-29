@@ -1,0 +1,19 @@
+{
+  "category": "ciso-product-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.200394Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CISO & Product Manager skill providing security-focused product vision, risk assessment, and strategic guidance for caro development",
+      "repo": "wildcard/caro",
+      "path": "ciso-product-manager",
+      "branch": "main",
+      "category": "ciso-product-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "wildcard/caro",
+      "source": "github.com/wildcard/caro"
+    }
+  ]
+}

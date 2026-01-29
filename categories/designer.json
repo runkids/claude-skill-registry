@@ -1,0 +1,19 @@
+{
+  "category": "designer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.695314Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design API contracts, data models, and UI/UX specifications. Use for API design, data modeling, UI wireframes, and design systems.",
+      "repo": "wtthornton/HomeIQ",
+      "path": "designer",
+      "branch": "main",
+      "category": "designer",
+      "tags": [],
+      "stars": 0,
+      "install": "wtthornton/HomeIQ",
+      "source": "github.com/wtthornton/HomeIQ"
+    }
+  ]
+}

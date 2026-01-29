@@ -1,0 +1,19 @@
+{
+  "category": "infinite-loop",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.722912Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze data efficiently",
+      "repo": "cisco-ai-defense/skill-scanner",
+      "path": "infinite-loop",
+      "branch": "main",
+      "category": "infinite-loop",
+      "tags": [],
+      "stars": 0,
+      "install": "cisco-ai-defense/skill-scanner",
+      "source": "github.com/cisco-ai-defense/skill-scanner"
+    }
+  ]
+}

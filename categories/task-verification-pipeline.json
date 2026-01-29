@@ -1,0 +1,19 @@
+{
+  "category": "task-verification-pipeline",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.862828Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run and debug a repo verification pipeline (`./verify.sh --ui=false` or equivalent), including stage selection and opt-in E2E tiers.",
+      "repo": "Anveio/conveaux",
+      "path": "task-verification-pipeline",
+      "branch": "main",
+      "category": "task-verification-pipeline",
+      "tags": [],
+      "stars": 0,
+      "install": "Anveio/conveaux",
+      "source": "github.com/Anveio/conveaux"
+    }
+  ]
+}

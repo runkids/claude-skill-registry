@@ -1,0 +1,19 @@
+{
+  "category": "data-structure-chooser",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.462880Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Recommend basic data structures for a task. Use when a junior developer needs help choosing lists, maps, or sets.",
+      "repo": "proflead/codex-skills-library",
+      "path": "data-structure-chooser",
+      "branch": "main",
+      "category": "data-structure-chooser",
+      "tags": [],
+      "stars": 0,
+      "install": "proflead/codex-skills-library",
+      "source": "github.com/proflead/codex-skills-library"
+    }
+  ]
+}

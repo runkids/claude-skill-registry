@@ -1,0 +1,19 @@
+{
+  "category": "add-exercises",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.857534Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add new exercises to the workout tracker database. Use when asked to add exercises, expand the exercise library, or check what exercises exist. Triggers include \"add exercise\", \"new exercise\", \"exerci",
+      "repo": "alexanderop/workoutTracker",
+      "path": "add-exercises",
+      "branch": "main",
+      "category": "add-exercises",
+      "tags": [],
+      "stars": 0,
+      "install": "alexanderop/workoutTracker",
+      "source": "github.com/alexanderop/workoutTracker"
+    }
+  ]
+}

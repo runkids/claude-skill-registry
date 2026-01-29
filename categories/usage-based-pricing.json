@@ -1,0 +1,19 @@
+{
+  "category": "usage-based-pricing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.801365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Dynamic pricing models that charge customers based on actual usage rather than fixed subscriptions",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "usage-based-pricing",
+      "branch": "main",
+      "category": "usage-based-pricing",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

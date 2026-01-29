@@ -1,0 +1,19 @@
+{
+  "category": "presentation-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.127997Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Structure compelling presentations with clear narratives and visual suggestions",
+      "repo": "nicepkg/ai-workflow",
+      "path": "presentation-builder",
+      "branch": "main",
+      "category": "presentation-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

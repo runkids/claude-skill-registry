@@ -1,0 +1,19 @@
+{
+  "category": "rule-catalog",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.153054Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Quick Install",
+      "repo": "athola/claude-night-market",
+      "path": "rule-catalog",
+      "branch": "main",
+      "category": "rule-catalog",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

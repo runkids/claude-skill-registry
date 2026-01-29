@@ -1,0 +1,19 @@
+{
+  "category": "agentuity-cli-cloud-sandbox-cp",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.590759Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Copy files or directories to or from a sandbox. Requires authentication. Use for Agentuity cloud platform operations",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-cloud-sandbox-cp",
+      "branch": "main",
+      "category": "agentuity-cli-cloud-sandbox-cp",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

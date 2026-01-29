@@ -1,0 +1,19 @@
+{
+  "category": "beepctl",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.708706Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when sending messages, searching chats, or managing conversations across messaging platforms (Telegram, WhatsApp, Slack, iMessage, etc.) via Beeper Desktop API.",
+      "repo": "moltbot/skills",
+      "path": "beepctl",
+      "branch": "main",
+      "category": "beepctl",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

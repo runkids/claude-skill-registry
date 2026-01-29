@@ -1,0 +1,19 @@
+{
+  "category": "quick-query",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.961319Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute simple network status queries that require 1-2 commands. Use when user asks to \"check device status\", \"show interface\", \"query routing table\", \"display BGP neighbors\", or needs simple read-onl",
+      "repo": "yhvh-chen/Olav",
+      "path": "quick-query",
+      "branch": "main",
+      "category": "quick-query",
+      "tags": [],
+      "stars": 0,
+      "install": "yhvh-chen/Olav",
+      "source": "github.com/yhvh-chen/Olav"
+    }
+  ]
+}

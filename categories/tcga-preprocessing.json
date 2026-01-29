@@ -1,0 +1,19 @@
+{
+  "category": "tcga-preprocessing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.204251Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide Claude through ingesting TCGA sample sheets, expression archives, and clinical carts into omicverse, initialising survival metadata, and exporting annotated AnnData files.",
+      "repo": "Starlitnightly/omicverse",
+      "path": "tcga-preprocessing",
+      "branch": "main",
+      "category": "tcga-preprocessing",
+      "tags": [],
+      "stars": 0,
+      "install": "Starlitnightly/omicverse",
+      "source": "github.com/Starlitnightly/omicverse"
+    }
+  ]
+}

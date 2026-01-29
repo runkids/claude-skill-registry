@@ -1,0 +1,19 @@
+{
+  "category": "developer-portal-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.143223Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create developer portals using Backstage or custom solutions",
+      "repo": "Dexploarer/hyper-forge",
+      "path": "developer-portal-generator",
+      "branch": "main",
+      "category": "developer-portal-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "Dexploarer/hyper-forge",
+      "source": "github.com/Dexploarer/hyper-forge"
+    }
+  ]
+}

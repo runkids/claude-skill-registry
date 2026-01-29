@@ -1,0 +1,19 @@
+{
+  "category": "cirq",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.462748Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quantum computing framework for building, simulating, optimizing, and executing quantum circuits. Use this skill when working with quantum algorithms, quantum circuit design, quantum simulation (noise",
+      "repo": "robinbarvaag/poynt",
+      "path": "cirq",
+      "branch": "main",
+      "category": "cirq",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

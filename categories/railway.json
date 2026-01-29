@@ -1,0 +1,19 @@
+{
+  "category": "railway",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.813735Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploys applications on Railway with zero-config detection, databases, and automatic CI/CD. Use when deploying Node.js apps, setting up databases, or needing simple PaaS deployment.",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "railway",
+      "branch": "main",
+      "category": "railway",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

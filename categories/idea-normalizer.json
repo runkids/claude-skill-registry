@@ -1,0 +1,19 @@
+{
+  "category": "idea-normalizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.445709Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "﻿---",
+      "repo": "Darkpunkki/v-forge",
+      "path": "idea-normalizer",
+      "branch": "main",
+      "category": "idea-normalizer",
+      "tags": [],
+      "stars": 0,
+      "install": "Darkpunkki/v-forge",
+      "source": "github.com/Darkpunkki/v-forge"
+    }
+  ]
+}

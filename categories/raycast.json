@@ -1,0 +1,19 @@
+{
+  "category": "raycast",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.951695Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Raycast extension development framework. Use for creating extensions, API integration, UI components, command development, TypeScript patterns, React integration, and extension publishing.",
+      "repo": "enuno/claude-command-and-control",
+      "path": "raycast",
+      "branch": "main",
+      "category": "raycast",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

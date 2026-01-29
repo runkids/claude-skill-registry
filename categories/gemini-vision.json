@@ -1,0 +1,19 @@
+{
+  "category": "gemini-vision",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.959013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for implementing Google Gemini API image understanding - analyze images with captioning, classification, visual QA, object detection, segmentation, and multi-image comparison. Use when analyzing",
+      "repo": "alex-tgk/saasquatch",
+      "path": "gemini-vision",
+      "branch": "main",
+      "category": "gemini-vision",
+      "tags": [],
+      "stars": 0,
+      "install": "alex-tgk/saasquatch",
+      "source": "github.com/alex-tgk/saasquatch"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "web-cloud-designer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.297839Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates realistic cloud effects for web using SVG filters (feTurbulence, feDisplacementMap), CSS animations, and layering techniques. Use for atmospheric backgrounds, weather effects, skyboxes, parall",
+      "repo": "erichowens/some_claude_skills",
+      "path": "web-cloud-designer",
+      "branch": "main",
+      "category": "web-cloud-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

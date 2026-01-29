@@ -1,0 +1,19 @@
+{
+  "category": "create_handoff",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.657359Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create handoff document for transferring work to another session",
+      "repo": "tfunk1030/vibe",
+      "path": "create_handoff",
+      "branch": "main",
+      "category": "create_handoff",
+      "tags": [],
+      "stars": 0,
+      "install": "tfunk1030/vibe",
+      "source": "github.com/tfunk1030/vibe"
+    }
+  ]
+}

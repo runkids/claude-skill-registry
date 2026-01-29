@@ -1,0 +1,19 @@
+{
+  "category": "effect-service-authoring",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.020764Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creating Effect.Service<>() classes, Context.Tag patterns, Layer composition. Decision trees for when to use which pattern. Covers service definition, dependency injection, and layer management.",
+      "repo": "creatifcoding/gbg",
+      "path": "effect-service-authoring",
+      "branch": "main",
+      "category": "effect-service-authoring",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

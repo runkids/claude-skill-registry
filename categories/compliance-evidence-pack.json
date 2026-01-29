@@ -1,0 +1,19 @@
+{
+  "category": "compliance-evidence-pack",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.015799Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Assemble compliance evidence, logs, and audit artifacts.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "compliance-evidence-pack",
+      "branch": "main",
+      "category": "compliance-evidence-pack",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

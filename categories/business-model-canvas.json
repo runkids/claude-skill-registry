@@ -1,0 +1,19 @@
+{
+  "category": "business-model-canvas",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.345594Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Business model design using Osterwalder's Business Model Canvas and Lean Canvas. Creates 9-block canvases with structured analysis for business model innovation and startup validation.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "business-model-canvas",
+      "branch": "main",
+      "category": "business-model-canvas",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

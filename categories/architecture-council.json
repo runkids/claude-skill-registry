@@ -1,0 +1,19 @@
+{
+  "category": "architecture-council",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.426282Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Orchestrates parallel specialized agents for major architectural decisions.\nSpawns perspective agents (Schema-Sage, Repo-Maven, Event-Oracle, etc.),\ncollects findings to shared journal, synthesizes vi",
+      "repo": "creatifcoding/gbg",
+      "path": "architecture-council",
+      "branch": "main",
+      "category": "architecture-council",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

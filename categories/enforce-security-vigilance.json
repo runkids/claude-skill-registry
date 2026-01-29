@@ -1,0 +1,19 @@
+{
+  "category": "enforce-security-vigilance",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.660128Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforce continuous security vigilance and threat monitoring.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "enforce-security-vigilance",
+      "branch": "main",
+      "category": "enforce-security-vigilance",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

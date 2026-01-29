@@ -1,0 +1,19 @@
+{
+  "category": "geo-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.538063Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access NCBI GEO for gene expression/genomics data. Search/download microarray and RNA-seq datasets (GSE, GSM, GPL), retrieve SOFT/Matrix files, for transcriptomics and expression analysis.",
+      "repo": "robinbarvaag/poynt",
+      "path": "geo-database",
+      "branch": "main",
+      "category": "geo-database",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

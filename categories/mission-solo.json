@@ -1,0 +1,19 @@
+{
+  "category": "mission-solo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.989444Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "HOUSTON executes feature tasks directly. No agents. Best for small features (1-3 tasks).",
+      "repo": "thebrownproject/space-agents",
+      "path": "mission-solo",
+      "branch": "main",
+      "category": "mission-solo",
+      "tags": [],
+      "stars": 0,
+      "install": "thebrownproject/space-agents",
+      "source": "github.com/thebrownproject/space-agents"
+    }
+  ]
+}

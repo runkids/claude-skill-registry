@@ -1,0 +1,19 @@
+{
+  "category": "rich-terminal-output",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.882078Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create beautiful terminal output with Rich library including tables, progress bars, panels, and syntax highlighting. Use when building CLI applications or enhancing terminal output in Python.",
+      "repo": "AutumnsGrove/GroveScout",
+      "path": "rich-terminal-output",
+      "branch": "main",
+      "category": "rich-terminal-output",
+      "tags": [],
+      "stars": 0,
+      "install": "AutumnsGrove/GroveScout",
+      "source": "github.com/AutumnsGrove/GroveScout"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "consultancy-practices",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.214497Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply effective software quality consultancy practices. Use when consulting, advising clients, or establishing consultancy workflows.",
+      "repo": "proffesor-for-testing/sentinel-api-testing",
+      "path": "consultancy-practices",
+      "branch": "main",
+      "category": "consultancy-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/sentinel-api-testing",
+      "source": "github.com/proffesor-for-testing/sentinel-api-testing"
+    }
+  ]
+}

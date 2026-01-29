@@ -1,0 +1,19 @@
+{
+  "category": "vueuse-library-rule",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.381504Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Encourages leveraging VueUse functions throughout the project to enhance reactivity and performance.",
+      "repo": "oimiragieo/agent-studio",
+      "path": "vueuse-library-rule",
+      "branch": "main",
+      "category": "vueuse-library-rule",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

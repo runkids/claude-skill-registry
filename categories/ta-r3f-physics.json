@@ -1,0 +1,19 @@
+{
+  "category": "ta-r3f-physics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.962176Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Physics integration with Rapier for R3F game development. Use when adding physics, colliders, rigid bodies.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "ta-r3f-physics",
+      "branch": "main",
+      "category": "ta-r3f-physics",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

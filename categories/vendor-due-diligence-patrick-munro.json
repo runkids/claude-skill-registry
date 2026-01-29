@@ -1,0 +1,19 @@
+{
+  "category": "vendor-due-diligence-patrick-munro",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.063887Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Framework for assessing IT service providers, technology vendors, and third-party partners. Creates structured risk assessments across financial, operational, compliance, security, and reputational di",
+      "repo": "lawvable/awesome-legal-skills",
+      "path": "vendor-due-diligence-patrick-munro",
+      "branch": "main",
+      "category": "vendor-due-diligence-patrick-munro",
+      "tags": [],
+      "stars": 0,
+      "install": "lawvable/awesome-legal-skills",
+      "source": "github.com/lawvable/awesome-legal-skills"
+    }
+  ]
+}

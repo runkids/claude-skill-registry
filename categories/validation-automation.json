@@ -1,0 +1,19 @@
+{
+  "category": "validation-automation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.725596Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated validation scripts for quality gates",
+      "repo": "zerobias-org/module",
+      "path": "validation-automation",
+      "branch": "main",
+      "category": "validation-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

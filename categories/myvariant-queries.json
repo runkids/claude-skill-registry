@@ -1,0 +1,19 @@
+{
+  "category": "myvariant-queries",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.993440Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query myvariant.info API for aggregated variant annotations from multiple databases (ClinVar, gnomAD, dbSNP, COSMIC, etc.) in a single request. Use when annotating variants with clinical and populatio",
+      "repo": "GPTomics/bioSkills",
+      "path": "myvariant-queries",
+      "branch": "main",
+      "category": "myvariant-queries",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

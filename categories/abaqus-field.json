@@ -1,0 +1,19 @@
+{
+  "category": "abaqus-field",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.963040Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define initial conditions and predefined fields. Use when user mentions initial temperature, pre-stress, residual stress, or import from previous analysis.",
+      "repo": "JaimeCernuda/abaqus-scripting",
+      "path": "abaqus-field",
+      "branch": "main",
+      "category": "abaqus-field",
+      "tags": [],
+      "stars": 0,
+      "install": "JaimeCernuda/abaqus-scripting",
+      "source": "github.com/JaimeCernuda/abaqus-scripting"
+    }
+  ]
+}

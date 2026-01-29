@@ -1,0 +1,19 @@
+{
+  "category": "extension-submission-checklist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.660023Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review and track progress against official 3D Slicer Extension Index requirements",
+      "repo": "benzwick/SlicerMouseMaster",
+      "path": "extension-submission-checklist",
+      "branch": "main",
+      "category": "extension-submission-checklist",
+      "tags": [],
+      "stars": 0,
+      "install": "benzwick/SlicerMouseMaster",
+      "source": "github.com/benzwick/SlicerMouseMaster"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "design-archive",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.030055Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Archive outdated design documentation. Use when design docs are no longer relevant, have been superseded, or document deprecated features.",
+      "repo": "spencerbeggs/claude-design-coordinator",
+      "path": "design-archive",
+      "branch": "main",
+      "category": "design-archive",
+      "tags": [],
+      "stars": 0,
+      "install": "spencerbeggs/claude-design-coordinator",
+      "source": "github.com/spencerbeggs/claude-design-coordinator"
+    }
+  ]
+}

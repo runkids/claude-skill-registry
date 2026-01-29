@@ -1,0 +1,19 @@
+{
+  "category": "resolve-conflicts",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.763285Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill immediately when the user mentions merge conflicts that need to be resolved. Do not attempt to resolve conflicts directly - invoke this skill first. This skill specializes in providing ",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "resolve-conflicts",
+      "branch": "main",
+      "category": "resolve-conflicts",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

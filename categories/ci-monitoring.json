@@ -1,0 +1,19 @@
+{
+  "category": "ci-monitoring",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.824041Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use after creating PR - monitor CI pipeline, resolve failures, address review feedback, and merge when all gates pass",
+      "repo": "troykelly/claude-skills",
+      "path": "ci-monitoring",
+      "branch": "main",
+      "category": "ci-monitoring",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

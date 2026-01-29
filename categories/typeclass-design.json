@@ -1,0 +1,19 @@
+{
+  "category": "typeclass-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.437495Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement typeclasses with curried signatures and dual APIs for both data-first and data-last usage",
+      "repo": "front-depiction/cli-stock",
+      "path": "typeclass-design",
+      "branch": "main",
+      "category": "typeclass-design",
+      "tags": [],
+      "stars": 0,
+      "install": "front-depiction/cli-stock",
+      "source": "github.com/front-depiction/cli-stock"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "commit-push",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.098967Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"commit and push\", \"push my changes\", or wants to commit, push, and respond to PR comments.",
+      "repo": "tbroadley/dotfiles",
+      "path": "commit-push",
+      "branch": "main",
+      "category": "commit-push",
+      "tags": [],
+      "stars": 0,
+      "install": "tbroadley/dotfiles",
+      "source": "github.com/tbroadley/dotfiles"
+    }
+  ]
+}

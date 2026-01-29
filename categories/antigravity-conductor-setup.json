@@ -1,0 +1,19 @@
+{
+  "category": "antigravity-conductor-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.155898Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Initialize project with Conductor artifacts (product definition, tech stack, workflow, style guides)",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-conductor-setup",
+      "branch": "main",
+      "category": "antigravity-conductor-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

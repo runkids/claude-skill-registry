@@ -1,0 +1,19 @@
+{
+  "category": "github-actions",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.527165Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating GitHub Actions workflows - covers CI/CD, matrix testing, and release automation",
+      "repo": "mcclowes/lea",
+      "path": "github-actions",
+      "branch": "main",
+      "category": "github-actions",
+      "tags": [],
+      "stars": 0,
+      "install": "mcclowes/lea",
+      "source": "github.com/mcclowes/lea"
+    }
+  ]
+}

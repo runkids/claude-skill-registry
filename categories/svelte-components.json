@@ -1,0 +1,19 @@
+{
+  "category": "svelte-components",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.329633Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Svelte component patterns. Use for web components, component libraries (Bits UI, Ark UI, Melt UI), form patterns, or third-party integration.",
+      "repo": "dandedotdev/dotfiles",
+      "path": "svelte-components",
+      "branch": "main",
+      "category": "svelte-components",
+      "tags": [],
+      "stars": 0,
+      "install": "dandedotdev/dotfiles",
+      "source": "github.com/dandedotdev/dotfiles"
+    }
+  ]
+}

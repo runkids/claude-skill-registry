@@ -1,0 +1,19 @@
+{
+  "category": "jravan-ec2",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.161465Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "JRA-VAN API（EC2）へのファイル送信とコード更新ガイド",
+      "repo": "foie0222/baken-kaigi",
+      "path": "jravan-ec2",
+      "branch": "main",
+      "category": "jravan-ec2",
+      "tags": [],
+      "stars": 0,
+      "install": "foie0222/baken-kaigi",
+      "source": "github.com/foie0222/baken-kaigi"
+    }
+  ]
+}

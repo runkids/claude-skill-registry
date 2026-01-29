@@ -1,0 +1,19 @@
+{
+  "category": "modular-monolith-designer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.939735Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define module boundaries, shared kernel, and anti-corruption layers.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "modular-monolith-designer",
+      "branch": "main",
+      "category": "modular-monolith-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

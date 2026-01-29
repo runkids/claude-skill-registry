@@ -1,0 +1,19 @@
+{
+  "category": "nextjs-ui-component-smith",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.114508Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill whenever the user wants to design, refactor, or extend reusable UI components in a Next.js (App Router) + TypeScript + Tailwind + shadcn/ui project, following a consistent design system",
+      "repo": "AgentiveCity/SkillFactory",
+      "path": "nextjs-ui-component-smith",
+      "branch": "main",
+      "category": "nextjs-ui-component-smith",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentiveCity/SkillFactory",
+      "source": "github.com/AgentiveCity/SkillFactory"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "spec-first",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.299392Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building anything non-trivial. Enforces a spec → plan → execute → verify loop that prevents \"looks right\" failures. Creates spec.md, todo.md, and decisions.md before writing code.",
+      "repo": "rohunvora/my-claude-skills",
+      "path": "spec-first",
+      "branch": "main",
+      "category": "spec-first",
+      "tags": [],
+      "stars": 0,
+      "install": "rohunvora/my-claude-skills",
+      "source": "github.com/rohunvora/my-claude-skills"
+    }
+  ]
+}

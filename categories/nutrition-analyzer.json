@@ -1,0 +1,19 @@
+{
+  "category": "nutrition-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.250075Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "分析营养数据、识别营养模式、评估营养状况，并提供个性化营养建议。支持与运动、睡眠、慢性病数据的关联分析。",
+      "repo": "huifer/WellAlly-health",
+      "path": "nutrition-analyzer",
+      "branch": "main",
+      "category": "nutrition-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "huifer/WellAlly-health",
+      "source": "github.com/huifer/WellAlly-health"
+    }
+  ]
+}

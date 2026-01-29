@@ -1,0 +1,19 @@
+{
+  "category": "create-database-migration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.244850Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a database migration to add a table, add columns to an existing table, add a setting, or otherwise change the schema of Ghost's MySQL database.",
+      "repo": "iBoostAI/Ghost",
+      "path": "create-database-migration",
+      "branch": "main",
+      "category": "create-database-migration",
+      "tags": [],
+      "stars": 0,
+      "install": "iBoostAI/Ghost",
+      "source": "github.com/iBoostAI/Ghost"
+    }
+  ]
+}

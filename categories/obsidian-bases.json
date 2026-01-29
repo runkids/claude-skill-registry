@@ -1,0 +1,19 @@
+{
+  "category": "obsidian-bases",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.451773Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries. Use when working with .base files, creating database-like views of notes, or when the user mentions Bases, ta",
+      "repo": "stericishere/Obsidian-notes",
+      "path": "obsidian-bases",
+      "branch": "main",
+      "category": "obsidian-bases",
+      "tags": [],
+      "stars": 0,
+      "install": "stericishere/Obsidian-notes",
+      "source": "github.com/stericishere/Obsidian-notes"
+    }
+  ]
+}

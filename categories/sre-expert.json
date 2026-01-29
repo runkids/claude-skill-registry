@@ -1,0 +1,19 @@
+{
+  "category": "sre-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.934365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level site reliability engineering, SLOs, incident management, and operational excellence",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "sre-expert",
+      "branch": "main",
+      "category": "sre-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

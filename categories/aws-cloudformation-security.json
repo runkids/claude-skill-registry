@@ -1,0 +1,19 @@
+{
+  "category": "aws-cloudformation-security",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.072745Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS CloudFormation patterns for infrastructure security, secrets management, encryption, and secure data handling. Use when creating secure CloudFormation templates with AWS Secrets Manager, KMS encry",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "aws-cloudformation-security",
+      "branch": "main",
+      "category": "aws-cloudformation-security",
+      "tags": [],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    }
+  ]
+}

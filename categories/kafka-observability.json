@@ -1,0 +1,19 @@
+{
+  "category": "kafka-observability",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.348021Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Kafka monitoring and observability expert for Prometheus, Grafana, and JMX metrics. Use when setting up Kafka monitoring, configuring alerting rules, or building performance dashboards.",
+      "repo": "anton-abyzov/specweave",
+      "path": "kafka-observability",
+      "branch": "main",
+      "category": "kafka-observability",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

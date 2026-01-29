@@ -1,0 +1,19 @@
+{
+  "category": "security-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.983253Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage security policies and access controls for Protect surveillance. Monitor access to recordings and system settings to ensure only authorized personnel have appropriate access.",
+      "repo": "DataKnifeAI/unifi-protect-mcp",
+      "path": "security-management",
+      "branch": "main",
+      "category": "security-management",
+      "tags": [],
+      "stars": 0,
+      "install": "DataKnifeAI/unifi-protect-mcp",
+      "source": "github.com/DataKnifeAI/unifi-protect-mcp"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "pagination-implementation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.005187Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pagination patterns for LIST operations including offset/limit and token-based",
+      "repo": "zerobias-org/module",
+      "path": "pagination-implementation",
+      "branch": "main",
+      "category": "pagination-implementation",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

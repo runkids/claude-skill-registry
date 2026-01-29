@@ -1,0 +1,19 @@
+{
+  "category": "data-quality-frameworks",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.666327Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement data quality validation with Great Expectations, dbt tests, and data contracts. Use when building data quality pipelines, implementing validation rules, or establishing data contracts.",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "data-quality-frameworks",
+      "branch": "main",
+      "category": "data-quality-frameworks",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

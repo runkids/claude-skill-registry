@@ -1,0 +1,19 @@
+{
+  "category": "skill-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.751768Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user wants to \"create a skill\", \"add a skill to plugin\", \"write a new skill\", \"improve skill description\", \"organize skill content\", or needs guidance on skill struc",
+      "repo": "troykelly/claude-skills",
+      "path": "skill-development",
+      "branch": "main",
+      "category": "skill-development",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

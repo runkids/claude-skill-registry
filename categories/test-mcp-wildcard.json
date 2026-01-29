@@ -1,0 +1,19 @@
+{
+  "category": "test-mcp-wildcard",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.254419Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test if MCP wildcards work in allowed-tools",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-mcp-wildcard",
+      "branch": "main",
+      "category": "test-mcp-wildcard",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

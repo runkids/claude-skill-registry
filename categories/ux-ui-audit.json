@@ -1,0 +1,19 @@
+{
+  "category": "ux-ui-audit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.996916Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "UX 감사 에이전트. 사용자 경험을 분석하고 개선점을 도출합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "ux-ui-audit",
+      "branch": "main",
+      "category": "ux-ui-audit",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

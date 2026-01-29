@@ -1,0 +1,19 @@
+{
+  "category": "template-skill-enhanced",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.000040Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Brief description of what this skill does (1-2 sentences). Use when [specific trigger condition]. Keep under 200 words total.",
+      "repo": "NickCrew/claude-cortex",
+      "path": "template-skill-enhanced",
+      "branch": "main",
+      "category": "template-skill-enhanced",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

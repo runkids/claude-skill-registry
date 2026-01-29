@@ -1,0 +1,19 @@
+{
+  "category": "verification-before-merge",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.083787Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use before merging PR - final gate ensuring all tests pass, review complete, CI green, and acceptance criteria verified",
+      "repo": "troykelly/claude-skills",
+      "path": "verification-before-merge",
+      "branch": "main",
+      "category": "verification-before-merge",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

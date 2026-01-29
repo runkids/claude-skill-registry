@@ -1,0 +1,19 @@
+{
+  "category": "frontend-aesthetics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.851073Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Distinctive frontend design principles for avoiding generic AI defaults, implementing thoughtful typography/color/animations, and creating polished user experiences based on Claude Code design researc",
+      "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+      "path": "frontend-aesthetics",
+      "branch": "main",
+      "category": "frontend-aesthetics",
+      "tags": [],
+      "stars": 0,
+      "install": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+      "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude"
+    }
+  ]
+}

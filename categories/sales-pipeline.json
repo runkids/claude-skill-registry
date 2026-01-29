@@ -1,0 +1,19 @@
+{
+  "category": "sales-pipeline",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.114828Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tracking deals through stages from initial contact to close, including pipeline design, deal progression, forecasting, probability calculation, and sales analytics.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "sales-pipeline",
+      "branch": "main",
+      "category": "sales-pipeline",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

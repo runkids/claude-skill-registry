@@ -1,0 +1,19 @@
+{
+  "category": "scientific-db-chembl-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.346804Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query ChEMBL's bioactive molecules and drug discovery data. Search compounds by structure/properties, retrieve bioactivity data (IC50, Ki), find inhibitors, perform SAR studies, for medicinal chemistr",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-db-chembl-database",
+      "branch": "main",
+      "category": "scientific-db-chembl-database",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

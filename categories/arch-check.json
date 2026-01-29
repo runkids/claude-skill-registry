@@ -1,0 +1,19 @@
+{
+  "category": "arch-check",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.344862Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Verify architecture health including layer violations, circular dependencies, package structure, and design pattern compliance",
+      "repo": "pwittchen/varun.surf",
+      "path": "arch-check",
+      "branch": "main",
+      "category": "arch-check",
+      "tags": [],
+      "stars": 0,
+      "install": "pwittchen/varun.surf",
+      "source": "github.com/pwittchen/varun.surf"
+    }
+  ]
+}

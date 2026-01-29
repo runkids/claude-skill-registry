@@ -1,0 +1,19 @@
+{
+  "category": "applying-responsive-standards",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.144271Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Rules for mobile-first responsive design using Tailwind CSS. Use on every UI component to ensure cross-device compatibility.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "applying-responsive-standards",
+      "branch": "main",
+      "category": "applying-responsive-standards",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

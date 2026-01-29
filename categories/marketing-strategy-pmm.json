@@ -1,0 +1,19 @@
+{
+  "category": "marketing-strategy-pmm",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.041808Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Product marketing, positioning, GTM strategy, and competitive intelligence. Includes ICP definition, April Dunford positioning methodology, launch playbooks, competitive battlecards, and international",
+      "repo": "nimeshgurung/artifact-hub-collections",
+      "path": "marketing-strategy-pmm",
+      "branch": "main",
+      "category": "marketing-strategy-pmm",
+      "tags": [],
+      "stars": 0,
+      "install": "nimeshgurung/artifact-hub-collections",
+      "source": "github.com/nimeshgurung/artifact-hub-collections"
+    }
+  ]
+}

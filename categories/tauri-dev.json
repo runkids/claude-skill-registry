@@ -1,0 +1,19 @@
+{
+  "category": "tauri-dev",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.931349Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tauri desktop application development patterns. Use when building the SpecFlux desktop app, implementing IPC communication between Rust and React, managing windows, or testing Tauri commands.",
+      "repo": "cliangdev/specflux",
+      "path": "tauri-dev",
+      "branch": "main",
+      "category": "tauri-dev",
+      "tags": [],
+      "stars": 0,
+      "install": "cliangdev/specflux",
+      "source": "github.com/cliangdev/specflux"
+    }
+  ]
+}

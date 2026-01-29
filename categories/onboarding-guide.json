@@ -1,0 +1,19 @@
+{
+  "category": "onboarding-guide",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.156963Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Orient onboarding guide with quickstart, setup, and navigation help.",
+      "repo": "orient-bot/orient",
+      "path": "onboarding-guide",
+      "branch": "main",
+      "category": "onboarding-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "lc-show",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.962438Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Show LeetCode problem details and generate Rust template (project)",
+      "repo": "iQeda/MyRust-NeetCode",
+      "path": "lc-show",
+      "branch": "main",
+      "category": "lc-show",
+      "tags": [],
+      "stars": 0,
+      "install": "iQeda/MyRust-NeetCode",
+      "source": "github.com/iQeda/MyRust-NeetCode"
+    }
+  ]
+}

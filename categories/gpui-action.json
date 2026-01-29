@@ -1,0 +1,19 @@
+{
+  "category": "gpui-action",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.928465Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Action definitions and keyboard shortcuts in GPUI. Use when implementing actions, keyboard shortcuts, or key bindings.",
+      "repo": "longbridge/gpui-component",
+      "path": "gpui-action",
+      "branch": "main",
+      "category": "gpui-action",
+      "tags": [],
+      "stars": 0,
+      "install": "longbridge/gpui-component",
+      "source": "github.com/longbridge/gpui-component"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "hilbert-spaces",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.912339Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Problem-solving strategies for hilbert spaces in functional analysis",
+      "repo": "namesreallyblank/Clorch",
+      "path": "hilbert-spaces",
+      "branch": "main",
+      "category": "hilbert-spaces",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "zero-bundle-size-rsc",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.077047Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Minimizing client bundles through aggressive use of Server Components and streaming protocols.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "zero-bundle-size-rsc",
+      "branch": "main",
+      "category": "zero-bundle-size-rsc",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

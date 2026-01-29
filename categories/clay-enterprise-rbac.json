@@ -1,0 +1,19 @@
+{
+  "category": "clay-enterprise-rbac",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.676704Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure Clay enterprise SSO, role-based access control, and organization management.\nUse when implementing SSO integration, configuring role-based permissions,\nor setting up organization-level contr",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "clay-enterprise-rbac",
+      "branch": "main",
+      "category": "clay-enterprise-rbac",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

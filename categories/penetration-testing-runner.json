@@ -1,0 +1,19 @@
+{
+  "category": "penetration-testing-runner",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.952842Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run automated SAST/DAST and vulnerability scans.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "penetration-testing-runner",
+      "branch": "main",
+      "category": "penetration-testing-runner",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

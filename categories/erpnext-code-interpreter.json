@@ -1,0 +1,19 @@
+{
+  "category": "erpnext-code-interpreter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.378829Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Intelligent agent for interpreting vague ERPNext development requests and producing concrete technical specifications. Use when receiving unclear requirements like 'make invoice auto-calculate', 'add ",
+      "repo": "OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package",
+      "path": "erpnext-code-interpreter",
+      "branch": "main",
+      "category": "erpnext-code-interpreter",
+      "tags": [],
+      "stars": 0,
+      "install": "OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package",
+      "source": "github.com/OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package"
+    }
+  ]
+}

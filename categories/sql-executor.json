@@ -1,0 +1,19 @@
+{
+  "category": "sql-executor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.680583Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "对SQLite、PostgreSQL、MySQL数据库执行SQL查询，支持结果格式化和导出。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "sql-executor",
+      "branch": "main",
+      "category": "sql-executor",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "extract",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.152614Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract decisions and learnings from Claude session transcripts. Triggers: \"extract learnings\", \"process pending\", SessionStart hook.",
+      "repo": "boshu2/agentops",
+      "path": "extract",
+      "branch": "main",
+      "category": "extract",
+      "tags": [],
+      "stars": 0,
+      "install": "boshu2/agentops",
+      "source": "github.com/boshu2/agentops"
+    }
+  ]
+}

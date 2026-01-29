@@ -1,0 +1,19 @@
+{
+  "category": "trpc",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.081400Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-activates when user mentions tRPC, type-safe APIs, procedures, or tRPC routers. Expert in tRPC including router setup, procedures, middleware, and React Query integration.",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "trpc",
+      "branch": "main",
+      "category": "trpc",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "avalonia-zafiro-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.053471Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Mandatory skills, conventions, and behavioral rules for Avalonia UI development using the Zafiro toolkit.",
+      "repo": "AxelMrak/ai",
+      "path": "avalonia-zafiro-development",
+      "branch": "main",
+      "category": "avalonia-zafiro-development",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

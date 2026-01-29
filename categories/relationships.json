@@ -1,0 +1,19 @@
+{
+  "category": "relationships",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.869325Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Entity navigation, batch loading, relationship best practices",
+      "repo": "sylin-org/koan-framework",
+      "path": "relationships",
+      "branch": "main",
+      "category": "relationships",
+      "tags": [],
+      "stars": 0,
+      "install": "sylin-org/koan-framework",
+      "source": "github.com/sylin-org/koan-framework"
+    }
+  ]
+}

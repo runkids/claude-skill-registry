@@ -1,0 +1,19 @@
+{
+  "category": "task-breakdown",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.021630Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "FIRST STEP - Assess task complexity (0-20 score) and output orchestration level (0-3). Use for ANY non-trivial task BEFORE execution. Scores across scope, time, agents, dependencies, documentation. Le",
+      "repo": "djimontyp/task-tracker",
+      "path": "task-breakdown",
+      "branch": "main",
+      "category": "task-breakdown",
+      "tags": [],
+      "stars": 0,
+      "install": "djimontyp/task-tracker",
+      "source": "github.com/djimontyp/task-tracker"
+    }
+  ]
+}

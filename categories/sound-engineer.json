@@ -1,0 +1,19 @@
+{
+  "category": "sound-engineer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.035990Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in spatial audio, procedural sound design, game audio middleware, and app UX sound design. Specializes in HRTF/Ambisonics, Wwise/FMOD integration, UI sound design, and adaptive music systems. A",
+      "repo": "erichowens/some_claude_skills",
+      "path": "sound-engineer",
+      "branch": "main",
+      "category": "sound-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

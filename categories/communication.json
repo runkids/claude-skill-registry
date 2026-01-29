@@ -1,0 +1,19 @@
+{
+  "category": "communication",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.381701Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "View cross-role communication guidelines and message templates",
+      "repo": "sensei-hacker/inav-claude",
+      "path": "communication",
+      "branch": "main",
+      "category": "communication",
+      "tags": [],
+      "stars": 0,
+      "install": "sensei-hacker/inav-claude",
+      "source": "github.com/sensei-hacker/inav-claude"
+    }
+  ]
+}

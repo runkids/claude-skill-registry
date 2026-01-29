@@ -1,0 +1,19 @@
+{
+  "category": "fastmcp-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.046388Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build Model Context Protocol (MCP) servers - comprehensive coverage of generic MCP protocol AND FastMCP framework specialization. Use when creating any MCP server (Python FastMCP preferred, TypeScript",
+      "repo": "BbgnsurfTech/claude-skills-collection",
+      "path": "fastmcp-creator",
+      "branch": "main",
+      "category": "fastmcp-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "BbgnsurfTech/claude-skills-collection",
+      "source": "github.com/BbgnsurfTech/claude-skills-collection"
+    }
+  ]
+}

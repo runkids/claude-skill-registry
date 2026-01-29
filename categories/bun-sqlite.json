@@ -1,0 +1,19 @@
+{
+  "category": "bun-sqlite",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.976241Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use for bun:sqlite, SQLite operations, prepared statements, transactions, and queries.",
+      "repo": "secondsky/claude-skills",
+      "path": "bun-sqlite",
+      "branch": "main",
+      "category": "bun-sqlite",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "mock-orchestrator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.028110Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Mock orchestrator for 4-layer thinking test. Calls prediction and attribution skills.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "mock-orchestrator",
+      "branch": "main",
+      "category": "mock-orchestrator",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

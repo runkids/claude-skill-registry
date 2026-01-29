@@ -1,0 +1,19 @@
+{
+  "category": "validate-test-cases",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.930641Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate and improve existing test cases using AI. Identifies duplicates, missing cases, inconsistencies, and provides quality improvement suggestions. Use when users want to review test case quality,",
+      "repo": "SungMinseok/QuickRail",
+      "path": "validate-test-cases",
+      "branch": "main",
+      "category": "validate-test-cases",
+      "tags": [],
+      "stars": 0,
+      "install": "SungMinseok/QuickRail",
+      "source": "github.com/SungMinseok/QuickRail"
+    }
+  ]
+}

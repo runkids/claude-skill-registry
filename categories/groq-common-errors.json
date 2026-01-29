@@ -1,0 +1,19 @@
+{
+  "category": "groq-common-errors",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.286553Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diagnose and fix Groq common errors and exceptions.\nUse when encountering Groq errors, debugging failed requests,\nor troubleshooting integration issues.\nTrigger with phrases like \"groq error\", \"fix gr",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "groq-common-errors",
+      "branch": "main",
+      "category": "groq-common-errors",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "charger",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.066815Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check EV charger availability (favorites, nearby search) via Google Places.",
+      "repo": "moltbot/skills",
+      "path": "charger",
+      "branch": "main",
+      "category": "charger",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

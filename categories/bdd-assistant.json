@@ -1,0 +1,19 @@
+{
+  "category": "bdd-assistant",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.644550Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide developers through Behavior-Driven Development workflow.\nUse when: writing BDD scenarios, using Gherkin syntax, Given-When-Then format, feature files, Three Amigos collaboration.\nKeywords: BDD, ",
+      "repo": "AsiaOstrich/universal-dev-standards",
+      "path": "bdd-assistant",
+      "branch": "main",
+      "category": "bdd-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "AsiaOstrich/universal-dev-standards",
+      "source": "github.com/AsiaOstrich/universal-dev-standards"
+    }
+  ]
+}

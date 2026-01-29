@@ -1,0 +1,19 @@
+{
+  "category": "medcom",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.702749Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Invoke MEDCOM for military medical advisory, ACGME interpretation, and domain expertise. Advisory-only agent that surfaces clinical information for physician decision-making. Never makes medical decis",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "medcom",
+      "branch": "main",
+      "category": "medcom",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

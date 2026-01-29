@@ -1,0 +1,19 @@
+{
+  "category": "terraform-module-writer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.806803Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по Terraform модулям. Используй для создания переиспользуемых модулей, variables, outputs и best practices.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "terraform-module-writer",
+      "branch": "main",
+      "category": "terraform-module-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

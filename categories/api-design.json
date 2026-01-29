@@ -1,0 +1,19 @@
+{
+  "category": "api-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.692971Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design clean, scalable, and maintainable REST and GraphQL APIs following industry best practices. Use when designing public or internal APIs, planning endpoint structures, defining request/response co",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "api-design",
+      "branch": "main",
+      "category": "api-design",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

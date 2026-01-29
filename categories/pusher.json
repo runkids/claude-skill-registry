@@ -1,0 +1,19 @@
+{
+  "category": "pusher",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.929008Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements real-time features with Pusher Channels for WebSocket-based pub/sub messaging. Use when adding live updates, notifications, chat, presence indicators, or collaborative features.",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "pusher",
+      "branch": "main",
+      "category": "pusher",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

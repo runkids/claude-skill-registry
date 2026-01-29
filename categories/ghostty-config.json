@@ -1,0 +1,19 @@
+{
+  "category": "ghostty-config",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.302547Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guidance for editing Ghostty terminal configuration files. You must use this skill when creating or modifying Ghostty config files.",
+      "repo": "sammcj/agentic-coding",
+      "path": "ghostty-config",
+      "branch": "main",
+      "category": "ghostty-config",
+      "tags": [],
+      "stars": 0,
+      "install": "sammcj/agentic-coding",
+      "source": "github.com/sammcj/agentic-coding"
+    }
+  ]
+}

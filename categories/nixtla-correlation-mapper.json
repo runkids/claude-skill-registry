@@ -1,0 +1,19 @@
+{
+  "category": "nixtla-correlation-mapper",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.885556Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze multi-contract correlations for forecast-based hedge recommendations. Use when managing correlated assets. Trigger with 'analyze correlations' or 'suggest hedge'.",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "nixtla-correlation-mapper",
+      "branch": "main",
+      "category": "nixtla-correlation-mapper",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

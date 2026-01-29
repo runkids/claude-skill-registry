@@ -1,0 +1,19 @@
+{
+  "category": "convex-polar",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.819036Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when integrating Polar payment system with Better Auth - provides checkout flows, subscription management, webhook handlers, and customer portal patterns",
+      "repo": "udecode/better-convex",
+      "path": "convex-polar",
+      "branch": "main",
+      "category": "convex-polar",
+      "tags": [],
+      "stars": 0,
+      "install": "udecode/better-convex",
+      "source": "github.com/udecode/better-convex"
+    }
+  ]
+}

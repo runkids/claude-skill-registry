@@ -1,0 +1,19 @@
+{
+  "category": "multi-tenancy-architect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.224162Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design tenant isolation, data partitioning, and SaaS patterns.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "multi-tenancy-architect",
+      "branch": "main",
+      "category": "multi-tenancy-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

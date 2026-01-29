@@ -1,0 +1,19 @@
+{
+  "category": "pattern-extraction",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.257780Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extracts reusable patterns from code changes",
+      "repo": "cpa03/blueprintify",
+      "path": "pattern-extraction",
+      "branch": "main",
+      "category": "pattern-extraction",
+      "tags": [],
+      "stars": 0,
+      "install": "cpa03/blueprintify",
+      "source": "github.com/cpa03/blueprintify"
+    }
+  ]
+}

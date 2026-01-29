@@ -1,0 +1,19 @@
+{
+  "category": "astro",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.448614Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Builds content-focused websites with Astro using islands architecture, content collections, and multi-framework support. Use when creating static sites, blogs, documentation, marketing pages, or conte",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "astro",
+      "branch": "main",
+      "category": "astro",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

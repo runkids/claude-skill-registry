@@ -1,0 +1,19 @@
+{
+  "category": "ssdt-cicd-best-practices-2025",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.882013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Modern CI/CD best practices for SQL Server database development with tSQLt, state-based deployment, and 2025 patterns",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "ssdt-cicd-best-practices-2025",
+      "branch": "main",
+      "category": "ssdt-cicd-best-practices-2025",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

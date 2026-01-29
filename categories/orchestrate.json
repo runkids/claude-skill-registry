@@ -1,0 +1,19 @@
+{
+  "category": "orchestrate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.702763Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run the full product→plan→validate→implement→verify workflow by delegating to subagents.",
+      "repo": "EtroxTaran/conductor",
+      "path": "orchestrate",
+      "branch": "main",
+      "category": "orchestrate",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

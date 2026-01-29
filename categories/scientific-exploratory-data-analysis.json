@@ -1,0 +1,19 @@
+{
+  "category": "scientific-exploratory-data-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.966557Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Perform comprehensive exploratory data analysis on scientific data files across 200+ file formats. This skill should be used when analyzing any scientific data file to understand its structure, conten",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-exploratory-data-analysis",
+      "branch": "main",
+      "category": "scientific-exploratory-data-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

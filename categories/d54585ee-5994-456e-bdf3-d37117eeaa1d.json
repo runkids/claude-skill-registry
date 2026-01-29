@@ -1,0 +1,19 @@
+{
+  "category": "d54585ee-5994-456e-bdf3-d37117eeaa1d",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.065567Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
+      "repo": "onurkanbakirci/awesome-skills",
+      "path": "d54585ee-5994-456e-bdf3-d37117eeaa1d",
+      "branch": "main",
+      "category": "d54585ee-5994-456e-bdf3-d37117eeaa1d",
+      "tags": [],
+      "stars": 0,
+      "install": "onurkanbakirci/awesome-skills",
+      "source": "github.com/onurkanbakirci/awesome-skills"
+    }
+  ]
+}

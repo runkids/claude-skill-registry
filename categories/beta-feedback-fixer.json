@@ -1,0 +1,19 @@
+{
+  "category": "beta-feedback-fixer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.273343Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when fixing issues identified in beta tester feedback. Guides systematic root cause analysis, worktree-based fixes, regression testing, and release preparation. Invoke with structured beta reports",
+      "repo": "wildcard/caro",
+      "path": "beta-feedback-fixer",
+      "branch": "main",
+      "category": "beta-feedback-fixer",
+      "tags": [],
+      "stars": 0,
+      "install": "wildcard/caro",
+      "source": "github.com/wildcard/caro"
+    }
+  ]
+}

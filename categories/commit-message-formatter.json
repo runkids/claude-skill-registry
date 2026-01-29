@@ -1,0 +1,19 @@
+{
+  "category": "commit-message-formatter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.437165Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Formats Git commit messages following Conventional Commits conventions. Use when the user asks to commit, write a commit message, format commits, or mentions conventional commits, staged changes, or r",
+      "repo": "WesleySmits/agent-skills",
+      "path": "commit-message-formatter",
+      "branch": "main",
+      "category": "commit-message-formatter",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

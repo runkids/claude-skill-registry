@@ -1,0 +1,19 @@
+{
+  "category": "backlog-curator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.624786Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert backlog manager that prioritizes work using multi-criteria scoring, analyzes dependencies, and recommends optimal next tasks. Activates when managing backlogs, prioritizing work, adding items, ",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "backlog-curator",
+      "branch": "main",
+      "category": "backlog-curator",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

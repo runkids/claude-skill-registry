@@ -1,0 +1,19 @@
+{
+  "category": "museum-documentation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.628311Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write elegant, narrative-driven documentation that treats codebases and systems as exhibits worth exploring. Use when creating documentation for Wanderers and visitors who want to understand how Grove",
+      "repo": "AutumnsGrove/GroveScout",
+      "path": "museum-documentation",
+      "branch": "main",
+      "category": "museum-documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "AutumnsGrove/GroveScout",
+      "source": "github.com/AutumnsGrove/GroveScout"
+    }
+  ]
+}

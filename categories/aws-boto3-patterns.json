@@ -1,0 +1,19 @@
+{
+  "category": "aws-boto3-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.794682Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS boto3 사용 패턴. Paginator, 세션 관리, CloudWatch 배치 메트릭 등.",
+      "repo": "expeor/aws-automation",
+      "path": "aws-boto3-patterns",
+      "branch": "main",
+      "category": "aws-boto3-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "expeor/aws-automation",
+      "source": "github.com/expeor/aws-automation"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "ai-tools",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.254268Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Google AI tools integration. Modules: Gemini API (multimodal: audio/image/video/PDF, 2M context), Gemini CLI (second opinions, Google Search, code review), NotebookLM (source-grounded Q&A). Capabiliti",
+      "repo": "brixtonpham/claude-config",
+      "path": "ai-tools",
+      "branch": "main",
+      "category": "ai-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

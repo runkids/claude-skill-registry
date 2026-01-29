@@ -1,0 +1,19 @@
+{
+  "category": "bootstrap",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.961365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-registration via KoanAutoRegistrar, minimal Program.cs, \"Reference = Intent\" pattern",
+      "repo": "sylin-org/koan-framework",
+      "path": "bootstrap",
+      "branch": "main",
+      "category": "bootstrap",
+      "tags": [],
+      "stars": 0,
+      "install": "sylin-org/koan-framework",
+      "source": "github.com/sylin-org/koan-framework"
+    }
+  ]
+}

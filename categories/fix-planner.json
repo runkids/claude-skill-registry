@@ -1,0 +1,19 @@
+{
+  "category": "fix-planner",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.852222Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design fix plans based on root cause analysis. Use after root cause is identified to plan specific code changes and test cases needed to fix the bug.\n",
+      "repo": "pcortes/swarm-attack",
+      "path": "fix-planner",
+      "branch": "main",
+      "category": "fix-planner",
+      "tags": [],
+      "stars": 0,
+      "install": "pcortes/swarm-attack",
+      "source": "github.com/pcortes/swarm-attack"
+    }
+  ]
+}

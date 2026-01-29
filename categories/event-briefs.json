@@ -1,0 +1,19 @@
+{
+  "category": "event-briefs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.646662Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when documenting event objectives, requirements, and alignment across stakeholders.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "event-briefs",
+      "branch": "main",
+      "category": "event-briefs",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

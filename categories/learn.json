@@ -1,0 +1,19 @@
+{
+  "category": "learn",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.576060Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"save learnings\", \"remember this for next time\", \"add this to CLAUDE.md\", \"update your instructions\", or wants to extract lessons from the current conve",
+      "repo": "tbroadley/dotfiles",
+      "path": "learn",
+      "branch": "main",
+      "category": "learn",
+      "tags": [],
+      "stars": 0,
+      "install": "tbroadley/dotfiles",
+      "source": "github.com/tbroadley/dotfiles"
+    }
+  ]
+}

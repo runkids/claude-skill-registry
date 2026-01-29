@@ -1,0 +1,19 @@
+{
+  "category": "bug-hunter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.699701Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Copilot agent that assists with bug investigation, root cause analysis, and fix generation for efficient debugging and issue resolution\n\nTrigger terms: bug fix, debug, troubleshoot, root cause analysi",
+      "repo": "nahisaho/CodeGraphMCPServer",
+      "path": "bug-hunter",
+      "branch": "main",
+      "category": "bug-hunter",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/CodeGraphMCPServer",
+      "source": "github.com/nahisaho/CodeGraphMCPServer"
+    }
+  ]
+}

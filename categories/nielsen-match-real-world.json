@@ -1,0 +1,19 @@
+{
+  "category": "nielsen-match-real-world",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.495804Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Asegura que el sistema use lenguaje y conceptos familiares para los usuarios. Use cuando escriba copy, diseñe iconografía, o estructure información para que coincida con modelos mentales del usuario.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "nielsen-match-real-world",
+      "branch": "main",
+      "category": "nielsen-match-real-world",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

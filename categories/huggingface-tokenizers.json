@@ -1,0 +1,19 @@
+{
+  "category": "huggingface-tokenizers",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.840396Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fast tokenizers optimized for research and production. Rust-based implementation tokenizes 1GB in <20 seconds. Supports BPE, WordPiece, and Unigram algorithms. Train custom vocabularies, track alignme",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "huggingface-tokenizers",
+      "branch": "main",
+      "category": "huggingface-tokenizers",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

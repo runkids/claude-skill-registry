@@ -1,0 +1,19 @@
+{
+  "category": "code-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.877527Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate and run unit and integration tests using pytest (Python) or Jest (JavaScript) with fixtures, mocks, and async support. Use for test-driven development, code review validation, coverage verifi",
+      "repo": "dredd-us/seashells",
+      "path": "code-testing",
+      "branch": "main",
+      "category": "code-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "dredd-us/seashells",
+      "source": "github.com/dredd-us/seashells"
+    }
+  ]
+}

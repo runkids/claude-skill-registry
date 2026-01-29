@@ -1,0 +1,19 @@
+{
+  "category": "tour-operations",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.931541Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize tour operations, manage tour packages, or coordinate travel itineraries. Also use when the user mentions \"tour planning,\" \"package tours,\" \"tour logistics,\" \"itinerary ",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "tour-operations",
+      "branch": "main",
+      "category": "tour-operations",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

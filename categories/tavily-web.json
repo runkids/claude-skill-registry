@@ -1,0 +1,19 @@
+{
+  "category": "tavily-web",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.041041Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Web search, content extraction, crawling, and research capabilities using Tavily API",
+      "repo": "Nguyenthang2292/Sovereign-IQ",
+      "path": "tavily-web",
+      "branch": "main",
+      "category": "tavily-web",
+      "tags": [],
+      "stars": 0,
+      "install": "Nguyenthang2292/Sovereign-IQ",
+      "source": "github.com/Nguyenthang2292/Sovereign-IQ"
+    }
+  ]
+}

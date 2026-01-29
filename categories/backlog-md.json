@@ -1,0 +1,19 @@
+{
+  "category": "backlog-md",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.341497Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guidance for Backlog.md CLI project management tool including task creation, editing, status management, acceptance criteria, search, and board visualization. Use this when managing project tas",
+      "repo": "msbaek/dotfiles",
+      "path": "backlog-md",
+      "branch": "main",
+      "category": "backlog-md",
+      "tags": [],
+      "stars": 0,
+      "install": "msbaek/dotfiles",
+      "source": "github.com/msbaek/dotfiles"
+    }
+  ]
+}

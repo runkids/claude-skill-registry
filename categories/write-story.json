@@ -1,0 +1,19 @@
+{
+  "category": "write-story",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.054692Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Story content structure, templates, and writing guidelines for branch narratives.",
+      "repo": "qmu/workaholic",
+      "path": "write-story",
+      "branch": "main",
+      "category": "write-story",
+      "tags": [],
+      "stars": 0,
+      "install": "qmu/workaholic",
+      "source": "github.com/qmu/workaholic"
+    }
+  ]
+}

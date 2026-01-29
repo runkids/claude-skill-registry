@@ -1,0 +1,19 @@
+{
+  "category": "scientific-db-alphafold-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.340018Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access AlphaFold's 200M+ AI-predicted protein structures. Retrieve structures by UniProt ID, download PDB/mmCIF files, analyze confidence metrics (pLDDT, PAE), for drug discovery and structural biolog",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-db-alphafold-database",
+      "branch": "main",
+      "category": "scientific-db-alphafold-database",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

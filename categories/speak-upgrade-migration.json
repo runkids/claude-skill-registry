@@ -1,0 +1,19 @@
+{
+  "category": "speak-upgrade-migration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.113920Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze, plan, and execute Speak SDK upgrades with breaking change detection.\nUse when upgrading Speak SDK versions, detecting deprecations,\nor migrating to new API versions for language learning feat",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "speak-upgrade-migration",
+      "branch": "main",
+      "category": "speak-upgrade-migration",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

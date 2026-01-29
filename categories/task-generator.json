@@ -1,0 +1,19 @@
+{
+  "category": "task-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.562863Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate structured task lists from specs or requirements. IMPORTANT: After completing ANY spec via ExitSpecMode, ALWAYS ask the user: \"Would you like me to generate a task list for this spec?\" Use wh",
+      "repo": "ssdeanx/AI-Skills",
+      "path": "task-generator",
+      "branch": "main",
+      "category": "task-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "ssdeanx/AI-Skills",
+      "source": "github.com/ssdeanx/AI-Skills"
+    }
+  ]
+}

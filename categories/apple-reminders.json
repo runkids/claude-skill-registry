@@ -1,0 +1,19 @@
+{
+  "category": "apple-reminders",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.999846Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage Apple Reminders via the `remindctl` CLI on macOS (list, add, edit, complete, delete). Supports lists, date filters, and JSON/plain output.",
+      "repo": "stericishere/Obsidian-notes",
+      "path": "apple-reminders",
+      "branch": "main",
+      "category": "apple-reminders",
+      "tags": [],
+      "stars": 0,
+      "install": "stericishere/Obsidian-notes",
+      "source": "github.com/stericishere/Obsidian-notes"
+    }
+  ]
+}

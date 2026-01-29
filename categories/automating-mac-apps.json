@@ -1,0 +1,19 @@
+{
+  "category": "automating-mac-apps",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.295383Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automates macOS apps via Apple Events using AppleScript (discovery), JXA (legacy), and PyXA (modern Python). Use when asked to \"automate Mac apps\", \"write AppleScript\", \"JXA scripting\", \"osascript aut",
+      "repo": "SpillwaveSolutions/automating-mac-apps-plugin",
+      "path": "automating-mac-apps",
+      "branch": "main",
+      "category": "automating-mac-apps",
+      "tags": [],
+      "stars": 0,
+      "install": "SpillwaveSolutions/automating-mac-apps-plugin",
+      "source": "github.com/SpillwaveSolutions/automating-mac-apps-plugin"
+    }
+  ]
+}

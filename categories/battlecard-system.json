@@ -1,0 +1,19 @@
+{
+  "category": "battlecard-system",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.857100Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to standardize competitive positioning, objection handling, and talk tracks across teams.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "battlecard-system",
+      "branch": "main",
+      "category": "battlecard-system",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

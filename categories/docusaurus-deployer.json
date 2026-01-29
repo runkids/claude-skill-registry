@@ -1,0 +1,19 @@
+{
+  "category": "docusaurus-deployer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.288043Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when deploying a Docusaurus site to GitHub Pages. It automates the configuration, building, and deployment process, handling GitHub Pages setup, environment configuration, an",
+      "repo": "92Bilal26/TaskPilotAI",
+      "path": "docusaurus-deployer",
+      "branch": "main",
+      "category": "docusaurus-deployer",
+      "tags": [],
+      "stars": 0,
+      "install": "92Bilal26/TaskPilotAI",
+      "source": "github.com/92Bilal26/TaskPilotAI"
+    }
+  ]
+}

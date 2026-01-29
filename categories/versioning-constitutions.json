@@ -1,0 +1,19 @@
+{
+  "category": "versioning-constitutions",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.471086Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when architectural patterns evolve, tech stack changes, or foundational rules need updates - creates new constitution version directory, migrates/organizes content into modular files, updates syml",
+      "repo": "arittr/spectacular",
+      "path": "versioning-constitutions",
+      "branch": "main",
+      "category": "versioning-constitutions",
+      "tags": [],
+      "stars": 0,
+      "install": "arittr/spectacular",
+      "source": "github.com/arittr/spectacular"
+    }
+  ]
+}

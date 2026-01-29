@@ -1,0 +1,19 @@
+{
+  "category": "terraform-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.053053Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Terraform infrastructure as code, modules, state management, and production best practices",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "terraform-expert",
+      "branch": "main",
+      "category": "terraform-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "novafon",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.920937Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "\\# Novafon API 📞",
+      "repo": "moltbot/skills",
+      "path": "novafon",
+      "branch": "main",
+      "category": "novafon",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

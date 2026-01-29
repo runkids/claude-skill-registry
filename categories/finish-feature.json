@@ -1,0 +1,19 @@
+{
+  "category": "finish-feature",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.681402Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete and merge feature branch",
+      "repo": "FradSer/dotclaude",
+      "path": "finish-feature",
+      "branch": "main",
+      "category": "finish-feature",
+      "tags": [],
+      "stars": 0,
+      "install": "FradSer/dotclaude",
+      "source": "github.com/FradSer/dotclaude"
+    }
+  ]
+}

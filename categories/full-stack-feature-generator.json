@@ -1,0 +1,19 @@
+{
+  "category": "full-stack-feature-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.685683Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffold frontend, backend, DB, tests, and docs.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "full-stack-feature-generator",
+      "branch": "main",
+      "category": "full-stack-feature-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

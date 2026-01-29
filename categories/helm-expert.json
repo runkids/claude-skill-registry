@@ -1,0 +1,19 @@
+{
+  "category": "helm-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.290776Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Helm 3 package management, chart development, templating, and production operations",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "helm-expert",
+      "branch": "main",
+      "category": "helm-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

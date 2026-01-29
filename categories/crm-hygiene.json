@@ -1,0 +1,19 @@
+{
+  "category": "crm-hygiene",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.412838Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to enforce stage definitions, next-step requirements, and data completeness across the pipeline.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "crm-hygiene",
+      "branch": "main",
+      "category": "crm-hygiene",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "chatkit-ui-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.833288Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Production-ready OpenAI ChatKit conversational UI skill for integrating AI chat interface into Todo app dashboard. Handles conversation state, message rendering, and backend communication.",
+      "repo": "Aqsagull99/hackathon-2-todo-app",
+      "path": "chatkit-ui-skill",
+      "branch": "main",
+      "category": "chatkit-ui-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "Aqsagull99/hackathon-2-todo-app",
+      "source": "github.com/Aqsagull99/hackathon-2-todo-app"
+    }
+  ]
+}

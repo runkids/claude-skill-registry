@@ -1,0 +1,19 @@
+{
+  "category": "review-all",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.977407Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive code review using all 30 review checklists. Spawns the senior-review-specialist agent for thorough file-by-file analysis.",
+      "repo": "jayteealao/Aperture",
+      "path": "review-all",
+      "branch": "main",
+      "category": "review-all",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

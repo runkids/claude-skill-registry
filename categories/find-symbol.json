@@ -1,0 +1,19 @@
+{
+  "category": "find-symbol",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.343572Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Find function, struct, or variable definitions using ctags indexes",
+      "repo": "sensei-hacker/inav-claude",
+      "path": "find-symbol",
+      "branch": "main",
+      "category": "find-symbol",
+      "tags": [],
+      "stars": 0,
+      "install": "sensei-hacker/inav-claude",
+      "source": "github.com/sensei-hacker/inav-claude"
+    }
+  ]
+}

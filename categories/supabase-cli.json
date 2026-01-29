@@ -1,0 +1,19 @@
+{
+  "category": "supabase-cli",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.359682Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Supabase CLI commands for local development, migrations, project management, and deployment. Use when working with Supabase CLI, starting local dev, managing migrations, or deploying changes.",
+      "repo": "adaptationio/Skrillz",
+      "path": "supabase-cli",
+      "branch": "main",
+      "category": "supabase-cli",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

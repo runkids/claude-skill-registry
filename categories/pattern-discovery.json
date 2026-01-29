@@ -1,0 +1,19 @@
+{
+  "category": "pattern-discovery",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.417885Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pattern library discovery for pattern-first development. Use BEFORE implementing any new feature, creating components, writing API routes, or adding database operations. Ensures existing patterns are ",
+      "repo": "bybren-llc/safe-agentic-workflow",
+      "path": "pattern-discovery",
+      "branch": "main",
+      "category": "pattern-discovery",
+      "tags": [],
+      "stars": 0,
+      "install": "bybren-llc/safe-agentic-workflow",
+      "source": "github.com/bybren-llc/safe-agentic-workflow"
+    }
+  ]
+}

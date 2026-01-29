@@ -1,0 +1,19 @@
+{
+  "category": "policyengine-vectorization-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.995384Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PolicyEngine vectorization patterns - NumPy operations, where/select usage, avoiding scalar logic with arrays",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-vectorization-skill",
+      "branch": "main",
+      "category": "policyengine-vectorization-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

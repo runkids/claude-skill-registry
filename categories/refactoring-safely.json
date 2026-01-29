@@ -1,0 +1,19 @@
+{
+  "category": "refactoring-safely",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.262080Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Safe refactoring strategies with Claude Code - large-scale changes, validation, rollback",
+      "repo": "hgeldenhuys/claude-code-sdk",
+      "path": "refactoring-safely",
+      "branch": "main",
+      "category": "refactoring-safely",
+      "tags": [],
+      "stars": 0,
+      "install": "hgeldenhuys/claude-code-sdk",
+      "source": "github.com/hgeldenhuys/claude-code-sdk"
+    }
+  ]
+}

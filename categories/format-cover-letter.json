@@ -1,0 +1,19 @@
+{
+  "category": "format-cover-letter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.617260Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Intelligent cover letter formatting with semantic understanding of structure and content (project, gitignored)",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "format-cover-letter",
+      "branch": "main",
+      "category": "format-cover-letter",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

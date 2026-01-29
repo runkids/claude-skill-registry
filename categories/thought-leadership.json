@@ -1,0 +1,19 @@
+{
+  "category": "thought-leadership",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.393786Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when crafting executive POVs, visionary articles, or keynote narratives that elevate brand authority.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "thought-leadership",
+      "branch": "main",
+      "category": "thought-leadership",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

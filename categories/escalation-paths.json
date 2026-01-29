@@ -1,0 +1,19 @@
+{
+  "category": "escalation-paths",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.135843Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Clear escalation procedures and paths for incident response",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "escalation-paths",
+      "branch": "main",
+      "category": "escalation-paths",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

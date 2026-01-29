@@ -1,0 +1,19 @@
+{
+  "category": "js-set-map-lookups",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.362439Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use Set and Map for O(1) membership lookups instead of array.includes(). Apply when checking membership repeatedly or performing frequent lookups against a collection.",
+      "repo": "TheOrcDev/8bitcn-ui",
+      "path": "js-set-map-lookups",
+      "branch": "main",
+      "category": "js-set-map-lookups",
+      "tags": [],
+      "stars": 0,
+      "install": "TheOrcDev/8bitcn-ui",
+      "source": "github.com/TheOrcDev/8bitcn-ui"
+    }
+  ]
+}

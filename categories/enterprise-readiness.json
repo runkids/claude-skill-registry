@@ -1,0 +1,19 @@
+{
+  "category": "enterprise-readiness",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.078530Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Assess and enhance software projects for enterprise-grade security, quality, and automation. This skill should be used when evaluating projects for production readiness, implementing supply chain secu",
+      "repo": "netresearch/enterprise-readiness-skill",
+      "path": "enterprise-readiness",
+      "branch": "main",
+      "category": "enterprise-readiness",
+      "tags": [],
+      "stars": 0,
+      "install": "netresearch/enterprise-readiness-skill",
+      "source": "github.com/netresearch/enterprise-readiness-skill"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "filtered-data",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.912947Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Passthrough filter agent. Calls data sub-agents, validates responses, returns only clean data.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "filtered-data",
+      "branch": "main",
+      "category": "filtered-data",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

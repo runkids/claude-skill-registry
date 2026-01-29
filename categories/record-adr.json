@@ -1,0 +1,19 @@
+{
+  "category": "record-adr",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.118176Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this to create or modify architecture decision records (ADRs)",
+      "repo": "wmeints/promptyard",
+      "path": "record-adr",
+      "branch": "main",
+      "category": "record-adr",
+      "tags": [],
+      "stars": 0,
+      "install": "wmeints/promptyard",
+      "source": "github.com/wmeints/promptyard"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "runbooks-ops",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.763436Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide to creating operational runbooks including incident response, deployment procedures, troubleshooting guides, and on-call playbooks",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "runbooks-ops",
+      "branch": "main",
+      "category": "runbooks-ops",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

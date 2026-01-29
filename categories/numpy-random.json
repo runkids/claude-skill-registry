@@ -1,0 +1,19 @@
+{
+  "category": "numpy-random",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.751072Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "NumPy's random module shifted from the legacy RandomState to the modern Generator API. This new approach provides better statistical properties, faster algorithms, and a robust system for parallel ran",
+      "repo": "cuba6112/skillfactory",
+      "path": "numpy-random",
+      "branch": "main",
+      "category": "numpy-random",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

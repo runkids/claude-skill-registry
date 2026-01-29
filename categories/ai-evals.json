@@ -1,0 +1,19 @@
+{
+  "category": "ai-evals",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.203486Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create an AI Evals Pack (eval PRD, test set, rubric, judge plan, results + iteration loop). Use for LLM evaluation, benchmarks, rubrics, error analysis/open coding, and ship/no-ship quality gates for ",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "ai-evals",
+      "branch": "main",
+      "category": "ai-evals",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

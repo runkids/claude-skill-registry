@@ -1,0 +1,19 @@
+{
+  "category": "build-error-resolver",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.594201Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Resolves build and compilation errors. Use when build fails or type errors occur.",
+      "repo": "munlucky/claude-settings",
+      "path": "build-error-resolver",
+      "branch": "main",
+      "category": "build-error-resolver",
+      "tags": [],
+      "stars": 0,
+      "install": "munlucky/claude-settings",
+      "source": "github.com/munlucky/claude-settings"
+    }
+  ]
+}

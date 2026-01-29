@@ -1,0 +1,19 @@
+{
+  "category": "typescript-zod",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.292509Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when validating external data (API inputs, form data, environment variables) with TypeScript type inference.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "typescript-zod",
+      "branch": "main",
+      "category": "typescript-zod",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

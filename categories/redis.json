@@ -1,0 +1,19 @@
+{
+  "category": "redis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.987861Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements Redis for session storage, caching, rate limiting, and Bull job queues.\nUse when: implementing caching layers, session management, background jobs, rate limiting, pub/sub messaging, or idem",
+      "repo": "kaxuna1/ecomsite",
+      "path": "redis",
+      "branch": "main",
+      "category": "redis",
+      "tags": [],
+      "stars": 0,
+      "install": "kaxuna1/ecomsite",
+      "source": "github.com/kaxuna1/ecomsite"
+    }
+  ]
+}

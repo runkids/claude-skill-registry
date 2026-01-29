@@ -1,0 +1,19 @@
+{
+  "category": "techartist-workflow",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.187090Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tech Artist orchestration - startup sequence, workflow execution, message handling, exit conditions. Use when starting Tech Artist tasks.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "techartist-workflow",
+      "branch": "main",
+      "category": "techartist-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "implement-task",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.720487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implementation agent that executes a single task and creates handoff on completion",
+      "repo": "carmandale/agent-config",
+      "path": "implement-task",
+      "branch": "main",
+      "category": "implement-task",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

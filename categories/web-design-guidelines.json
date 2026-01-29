@@ -1,0 +1,19 @@
+{
+  "category": "web-design-guidelines",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.254539Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\".",
+      "repo": "staticWagomU/dotfiles",
+      "path": "web-design-guidelines",
+      "branch": "main",
+      "category": "web-design-guidelines",
+      "tags": [],
+      "stars": 0,
+      "install": "staticWagomU/dotfiles",
+      "source": "github.com/staticWagomU/dotfiles"
+    }
+  ]
+}

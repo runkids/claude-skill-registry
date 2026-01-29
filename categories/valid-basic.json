@@ -1,0 +1,19 @@
+{
+  "category": "valid-basic",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.780056Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A minimal valid skill with all required fields",
+      "repo": "maxvaega/skillkit",
+      "path": "valid-basic",
+      "branch": "main",
+      "category": "valid-basic",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

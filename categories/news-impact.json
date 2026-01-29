@@ -1,0 +1,19 @@
+{
+  "category": "news-impact",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.958127Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Identify what drives stock price moves with drivers, confidence, and returns",
+      "repo": "faisalanjum/EventTrader",
+      "path": "news-impact",
+      "branch": "main",
+      "category": "news-impact",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

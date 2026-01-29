@@ -1,0 +1,19 @@
+{
+  "category": "magento-xml-specialist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.470082Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates XML configurations for Magento 2 including layout XML, dependency injection, system configuration, and module definition. Use when working with XML configuration files, layout XML, di.xml, or ",
+      "repo": "maxnorm/magento2-agent-skills",
+      "path": "magento-xml-specialist",
+      "branch": "main",
+      "category": "magento-xml-specialist",
+      "tags": [],
+      "stars": 0,
+      "install": "maxnorm/magento2-agent-skills",
+      "source": "github.com/maxnorm/magento2-agent-skills"
+    }
+  ]
+}

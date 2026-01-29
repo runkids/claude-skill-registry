@@ -1,0 +1,19 @@
+{
+  "category": "🎯 dev-implement-ui-ux",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.201684Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive UI/UX design and implementation skill covering visual design principles, color theory, typography, spacing systems, layout composition, accessibility (WCAG 2.2), animation, and systemati",
+      "repo": "endlessblink/flow-state",
+      "path": "🎯 dev-implement-ui-ux",
+      "branch": "main",
+      "category": "🎯 dev-implement-ui-ux",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

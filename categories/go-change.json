@@ -1,0 +1,19 @@
+{
+  "category": "go-change",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.444171Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement Go changes with strict plan → diff → verify discipline.",
+      "repo": "brian-abo/tfo-webapp",
+      "path": "go-change",
+      "branch": "main",
+      "category": "go-change",
+      "tags": [],
+      "stars": 0,
+      "install": "brian-abo/tfo-webapp",
+      "source": "github.com/brian-abo/tfo-webapp"
+    }
+  ]
+}

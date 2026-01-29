@@ -1,0 +1,19 @@
+{
+  "category": "data-type-converter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.455907Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert between data formats (JSON, CSV, XML, YAML, TOML). Handles nested structures, arrays, and preserves data types where possible.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "data-type-converter",
+      "branch": "main",
+      "category": "data-type-converter",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

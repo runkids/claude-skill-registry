@@ -1,0 +1,19 @@
+{
+  "category": "playtesting",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.710932Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "﻿---",
+      "repo": "OpenSourceSam/v2_heras_garden",
+      "path": "playtesting",
+      "branch": "main",
+      "category": "playtesting",
+      "tags": [],
+      "stars": 0,
+      "install": "OpenSourceSam/v2_heras_garden",
+      "source": "github.com/OpenSourceSam/v2_heras_garden"
+    }
+  ]
+}

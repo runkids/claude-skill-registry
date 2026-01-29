@@ -1,0 +1,19 @@
+{
+  "category": "context-witness",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.351014Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Decide between Context Tag witness and capability patterns for dependency injection, understanding coupling trade-offs",
+      "repo": "front-depiction/cli-stock",
+      "path": "context-witness",
+      "branch": "main",
+      "category": "context-witness",
+      "tags": [],
+      "stars": 0,
+      "install": "front-depiction/cli-stock",
+      "source": "github.com/front-depiction/cli-stock"
+    }
+  ]
+}

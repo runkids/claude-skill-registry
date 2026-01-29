@@ -1,0 +1,19 @@
+{
+  "category": "2000s-visualization-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.015425Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in 2000s-era music visualization (Milkdrop, AVS, Geiss) and modern WebGL implementations. Specializes in Butterchurn integration, Web Audio API AnalyserNode FFT data, GLSL shaders for audio-rea",
+      "repo": "erichowens/some_claude_skills",
+      "path": "2000s-visualization-expert",
+      "branch": "main",
+      "category": "2000s-visualization-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

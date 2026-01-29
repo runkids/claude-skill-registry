@@ -1,0 +1,19 @@
+{
+  "category": "investigating-a-codebase",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.933466Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when planning or designing features and need to understand current codebase state, find existing patterns, or verify assumptions about what exists - prevents hallucination by grounding plans in re",
+      "repo": "brmatola/gremlins",
+      "path": "investigating-a-codebase",
+      "branch": "main",
+      "category": "investigating-a-codebase",
+      "tags": [],
+      "stars": 0,
+      "install": "brmatola/gremlins",
+      "source": "github.com/brmatola/gremlins"
+    }
+  ]
+}

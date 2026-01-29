@@ -1,0 +1,19 @@
+{
+  "category": "notion",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.929895Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Notion API for creating and managing pages, databases, and blocks.",
+      "repo": "Kjdragan/universal_agent",
+      "path": "notion",
+      "branch": "main",
+      "category": "notion",
+      "tags": [],
+      "stars": 0,
+      "install": "Kjdragan/universal_agent",
+      "source": "github.com/Kjdragan/universal_agent"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "documentation-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.176493Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for building documentation including documentation generation, formatting, and documentation best practices. Use when the user asks about building documentation, needs ",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "documentation-builder",
+      "branch": "main",
+      "category": "documentation-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

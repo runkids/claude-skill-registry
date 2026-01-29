@@ -1,0 +1,19 @@
+{
+  "category": "ln-723-mockdata-migrator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.605486Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Migrates mock data from Drizzle ORM schemas to C# MockData classes",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "ln-723-mockdata-migrator",
+      "branch": "main",
+      "category": "ln-723-mockdata-migrator",
+      "tags": [],
+      "stars": 0,
+      "install": "levnikolaevich/claude-code-skills",
+      "source": "github.com/levnikolaevich/claude-code-skills"
+    }
+  ]
+}

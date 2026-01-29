@@ -1,0 +1,19 @@
+{
+  "category": "execute-tasks",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.351346Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when executing tasks from ai-state/active/tasks.yaml sequentially. It loads tasks, gathers context, implements features with phase-appropriate testing, updates task status in",
+      "repo": "Brownbull/taskflow",
+      "path": "execute-tasks",
+      "branch": "main",
+      "category": "execute-tasks",
+      "tags": [],
+      "stars": 0,
+      "install": "Brownbull/taskflow",
+      "source": "github.com/Brownbull/taskflow"
+    }
+  ]
+}

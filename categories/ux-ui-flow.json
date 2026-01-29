@@ -1,0 +1,19 @@
+{
+  "category": "ux-ui-flow",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.628749Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "사용자 플로우 분석 에이전트. 사용자 여정과 인터랙션 플로우를 설계합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "ux-ui-flow",
+      "branch": "main",
+      "category": "ux-ui-flow",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

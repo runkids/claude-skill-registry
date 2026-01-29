@@ -1,0 +1,19 @@
+{
+  "category": "kratos-repo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.808005Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements go-kratos data layer repositories following Clean Architecture patterns with GORM, transactions, pagination, and error handling. Use when adding new data access layers to kratos microservic",
+      "repo": "alecszaharia/brizy-microservices-go",
+      "path": "kratos-repo",
+      "branch": "main",
+      "category": "kratos-repo",
+      "tags": [],
+      "stars": 0,
+      "install": "alecszaharia/brizy-microservices-go",
+      "source": "github.com/alecszaharia/brizy-microservices-go"
+    }
+  ]
+}

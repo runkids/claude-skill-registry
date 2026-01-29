@@ -1,0 +1,19 @@
+{
+  "category": "error-recovery-and-resilience",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.557024Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Engineer resilient UI systems with layered error boundaries, retries, and fallback orchestration.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "error-recovery-and-resilience",
+      "branch": "main",
+      "category": "error-recovery-and-resilience",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

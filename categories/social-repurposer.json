@@ -1,0 +1,19 @@
+{
+  "category": "social-repurposer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.831516Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert content between platforms (blog to Twitter thread, article to LinkedIn post, etc.). Optimize for each platform's format, tone, and best practices. Use when user wants to adapt content for diff",
+      "repo": "nicepkg/ai-workflow",
+      "path": "social-repurposer",
+      "branch": "main",
+      "category": "social-repurposer",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

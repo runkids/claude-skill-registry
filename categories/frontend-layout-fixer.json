@@ -1,0 +1,19 @@
+{
+  "category": "frontend-layout-fixer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.751939Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when identifying and fixing frontend layout issues (clipping, spacing, overflow, RTL text problems) by analyzing DOM and CSS structure and proposing minimal, scoped CSS patch",
+      "repo": "endlessblink/flow-state",
+      "path": "frontend-layout-fixer",
+      "branch": "main",
+      "category": "frontend-layout-fixer",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

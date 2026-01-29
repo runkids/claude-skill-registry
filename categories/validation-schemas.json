@@ -1,0 +1,19 @@
+{
+  "category": "validation-schemas",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.268428Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforces project Zod validation schema conventions when creating or modifying validation schemas. This skill ensures consistent patterns for drizzle-zod integration, custom zod utilities, schema compo",
+      "repo": "JasonPaff/head-shakers",
+      "path": "validation-schemas",
+      "branch": "main",
+      "category": "validation-schemas",
+      "tags": [],
+      "stars": 0,
+      "install": "JasonPaff/head-shakers",
+      "source": "github.com/JasonPaff/head-shakers"
+    }
+  ]
+}

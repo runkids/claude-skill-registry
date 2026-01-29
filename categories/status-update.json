@@ -1,0 +1,19 @@
+{
+  "category": "status-update",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.757928Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user says \"@status update\" or \"status update\", execute this command.",
+      "repo": "kmylpenter/KFG-CCv2-Installer-Stable",
+      "path": "status-update",
+      "branch": "main",
+      "category": "status-update",
+      "tags": [],
+      "stars": 0,
+      "install": "kmylpenter/KFG-CCv2-Installer-Stable",
+      "source": "github.com/kmylpenter/KFG-CCv2-Installer-Stable"
+    }
+  ]
+}

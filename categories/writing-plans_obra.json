@@ -1,0 +1,19 @@
+{
+  "category": "writing-plans_obra",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.675293Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when design is complete and you need detailed implementation tasks for engineers with zero codebase context - creates comprehensive implementation plans with exact file paths, complete code exampl",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "writing-plans_obra",
+      "branch": "main",
+      "category": "writing-plans_obra",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

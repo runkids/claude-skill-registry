@@ -1,0 +1,19 @@
+{
+  "category": "clawdbot-update-plus",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.734296Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Full backup, update, and restore for Clawdbot - config, workspace, and skills with auto-rollback",
+      "repo": "rdsthomas/mission-control",
+      "path": "clawdbot-update-plus",
+      "branch": "main",
+      "category": "clawdbot-update-plus",
+      "tags": [],
+      "stars": 0,
+      "install": "rdsthomas/mission-control",
+      "source": "github.com/rdsthomas/mission-control"
+    }
+  ]
+}

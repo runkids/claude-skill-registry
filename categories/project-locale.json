@@ -1,0 +1,19 @@
+{
+  "category": "project-locale",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.893440Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for adding localized text using l10n in app_lib/locale package (project)",
+      "repo": "gsmlg-app/flutter-app-template",
+      "path": "project-locale",
+      "branch": "main",
+      "category": "project-locale",
+      "tags": [],
+      "stars": 0,
+      "install": "gsmlg-app/flutter-app-template",
+      "source": "github.com/gsmlg-app/flutter-app-template"
+    }
+  ]
+}

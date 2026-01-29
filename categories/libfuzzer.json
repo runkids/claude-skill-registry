@@ -1,0 +1,19 @@
+{
+  "category": "libfuzzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.805175Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coverage-guided fuzzer built into LLVM for C/C++ projects. Use for fuzzing C/C++ code that can be compiled with Clang.",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "libfuzzer",
+      "branch": "main",
+      "category": "libfuzzer",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

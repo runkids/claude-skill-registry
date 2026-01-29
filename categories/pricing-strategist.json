@@ -1,0 +1,19 @@
+{
+  "category": "pricing-strategist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.997471Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Develop pricing strategies, analyze pricing models, optimize revenue, and test pricing changes",
+      "repo": "eddiebe147/claude-settings",
+      "path": "pricing-strategist",
+      "branch": "main",
+      "category": "pricing-strategist",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

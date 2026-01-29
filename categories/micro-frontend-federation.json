@@ -1,0 +1,19 @@
+{
+  "category": "micro-frontend-federation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.459556Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Orchestrate distributed React applications using Module Federation and shared context bridges.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "micro-frontend-federation",
+      "branch": "main",
+      "category": "micro-frontend-federation",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

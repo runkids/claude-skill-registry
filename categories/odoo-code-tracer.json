@@ -1,0 +1,19 @@
+{
+  "category": "odoo-code-tracer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.711771Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Trace Odoo code execution flow from entry point to end. Use proactively when planning tasks, reviewing code, or understanding how features work end-to-end. Follows all function calls, method overrides",
+      "repo": "unclecatvn/agent-skills",
+      "path": "odoo-code-tracer",
+      "branch": "main",
+      "category": "odoo-code-tracer",
+      "tags": [],
+      "stars": 0,
+      "install": "unclecatvn/agent-skills",
+      "source": "github.com/unclecatvn/agent-skills"
+    }
+  ]
+}

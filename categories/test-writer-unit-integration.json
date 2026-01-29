@@ -1,0 +1,19 @@
+{
+  "category": "test-writer-unit-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.857062Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate standardized unit and integration tests",
+      "repo": "EtroxTaran/conductor",
+      "path": "test-writer-unit-integration",
+      "branch": "main",
+      "category": "test-writer-unit-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

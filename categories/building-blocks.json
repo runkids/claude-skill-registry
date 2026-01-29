@@ -1,0 +1,19 @@
+{
+  "category": "building-blocks",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.337123Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating new AEM Edge Delivery blocks or modifying existing blocks. Use this skill whenever you are creating a new block from scratch or making significant changes to existing blocks that in",
+      "repo": "adobe/helix-website",
+      "path": "building-blocks",
+      "branch": "main",
+      "category": "building-blocks",
+      "tags": [],
+      "stars": 0,
+      "install": "adobe/helix-website",
+      "source": "github.com/adobe/helix-website"
+    }
+  ]
+}

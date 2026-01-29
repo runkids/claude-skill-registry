@@ -1,0 +1,19 @@
+{
+  "category": "SCHEDULING",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.749769Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks about \"Effect Schedule\", \"retry schedules\", \"repetition\", \"Schedule.exponential\", \"Schedule.spaced\", \"Schedule.recurs\", \"cron scheduling\", \"backoff strateg",
+      "repo": "andrueandersoncs/claude-skill-effect-ts",
+      "path": "SCHEDULING",
+      "branch": "main",
+      "category": "SCHEDULING",
+      "tags": [],
+      "stars": 0,
+      "install": "andrueandersoncs/claude-skill-effect-ts",
+      "source": "github.com/andrueandersoncs/claude-skill-effect-ts"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "unit-test-utility-methods",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.855093Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unit tests for utility/helper classes and static methods. Test pure functions and helper logic. Use when validating utility code correctness.",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "unit-test-utility-methods",
+      "branch": "main",
+      "category": "unit-test-utility-methods",
+      "tags": [],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    }
+  ]
+}

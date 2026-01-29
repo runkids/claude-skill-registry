@@ -1,0 +1,19 @@
+{
+  "category": "data-privacy-guardian",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.034589Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect PII, mask data, and manage consent and encryption.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "data-privacy-guardian",
+      "branch": "main",
+      "category": "data-privacy-guardian",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

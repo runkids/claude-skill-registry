@@ -1,0 +1,19 @@
+{
+  "category": "grape",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.497153Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI-enabled, deterministic codebase search. Converts vague intent into explicit, auditable grep parameters and executes a stable surface scan over disk.\n",
+      "repo": "JordanGunn/nunchuck",
+      "path": "grape",
+      "branch": "main",
+      "category": "grape",
+      "tags": [],
+      "stars": 0,
+      "install": "JordanGunn/nunchuck",
+      "source": "github.com/JordanGunn/nunchuck"
+    }
+  ]
+}

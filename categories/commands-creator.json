@@ -1,0 +1,19 @@
+{
+  "category": "commands-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.101875Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating and managing slash commands in Claude Code. Use when (1) creating new slash commands, (2) learning command syntax and features, (3) deciding between commands vs skills, (4) implemen",
+      "repo": "Mineru98/skills-store",
+      "path": "commands-creator",
+      "branch": "main",
+      "category": "commands-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "Mineru98/skills-store",
+      "source": "github.com/Mineru98/skills-store"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "data-modeling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.858934Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Data modeling with Entity-Relationship Diagrams (ERDs), data dictionaries, and conceptual/logical/physical models. Documents data structures, relationships, and attributes.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "data-modeling",
+      "branch": "main",
+      "category": "data-modeling",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

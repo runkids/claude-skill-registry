@@ -1,0 +1,19 @@
+{
+  "category": "project-feedback",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.038776Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for showing user feedback using app_feedback package - toasts, snackbars, dialogs, bottom sheets (project)",
+      "repo": "gsmlg-app/flutter-app-template",
+      "path": "project-feedback",
+      "branch": "main",
+      "category": "project-feedback",
+      "tags": [],
+      "stars": 0,
+      "install": "gsmlg-app/flutter-app-template",
+      "source": "github.com/gsmlg-app/flutter-app-template"
+    }
+  ]
+}

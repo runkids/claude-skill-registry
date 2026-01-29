@@ -1,0 +1,19 @@
+{
+  "category": "holistic-linting",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.627472Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the model needs to ensure code quality through comprehensive linting and formatting. It provides automatic linting workflows for orchestrators (format → lint → resolve v",
+      "repo": "BbgnsurfTech/claude-skills-collection",
+      "path": "holistic-linting",
+      "branch": "main",
+      "category": "holistic-linting",
+      "tags": [],
+      "stars": 0,
+      "install": "BbgnsurfTech/claude-skills-collection",
+      "source": "github.com/BbgnsurfTech/claude-skills-collection"
+    }
+  ]
+}

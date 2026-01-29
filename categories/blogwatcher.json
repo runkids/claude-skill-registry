@@ -1,0 +1,19 @@
+{
+  "category": "blogwatcher",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.577182Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Monitor blogs and RSS/Atom feeds for updates using the blogwatcher CLI.",
+      "repo": "Youjjwal/clawdbot",
+      "path": "blogwatcher",
+      "branch": "main",
+      "category": "blogwatcher",
+      "tags": [],
+      "stars": 0,
+      "install": "Youjjwal/clawdbot",
+      "source": "github.com/Youjjwal/clawdbot"
+    }
+  ]
+}

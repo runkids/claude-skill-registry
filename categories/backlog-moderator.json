@@ -1,0 +1,19 @@
+{
+  "category": "backlog-moderator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.493826Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Business moderator for backlog prioritization debates. Synthesizes Champion and Critic views into final rankings. Optimizes for team productivity and sustainable velocity.\n",
+      "repo": "pcortes/swarm-attack",
+      "path": "backlog-moderator",
+      "branch": "main",
+      "category": "backlog-moderator",
+      "tags": [],
+      "stars": 0,
+      "install": "pcortes/swarm-attack",
+      "source": "github.com/pcortes/swarm-attack"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "changelog-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.076780Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Update project changelog with uncommitted changes, synchronize package versions, and create version releases with automatic commit, conditional git tags, GitHub Releases, and push",
+      "repo": "Interstellar-code/claud-skills",
+      "path": "changelog-manager",
+      "branch": "main",
+      "category": "changelog-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "Interstellar-code/claud-skills",
+      "source": "github.com/Interstellar-code/claud-skills"
+    }
+  ]
+}

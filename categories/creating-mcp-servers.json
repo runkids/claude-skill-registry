@@ -1,0 +1,19 @@
+{
+  "category": "creating-mcp-servers",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.700403Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates production-ready MCP servers using FastMCP v2. Use when building MCP servers, optimizing tool descriptions for context efficiency, implementing progressive disclosure for multiple capabilities",
+      "repo": "oaustegard/claude-skills",
+      "path": "creating-mcp-servers",
+      "branch": "main",
+      "category": "creating-mcp-servers",
+      "tags": [],
+      "stars": 0,
+      "install": "oaustegard/claude-skills",
+      "source": "github.com/oaustegard/claude-skills"
+    }
+  ]
+}

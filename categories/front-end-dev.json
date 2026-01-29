@@ -1,0 +1,19 @@
+{
+  "category": "front-end-dev",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.255975Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build distinctive, production-grade frontend interfaces with a strong aesthetic point of view and real working code.",
+      "repo": "mattg101/SolidLink",
+      "path": "front-end-dev",
+      "branch": "main",
+      "category": "front-end-dev",
+      "tags": [],
+      "stars": 0,
+      "install": "mattg101/SolidLink",
+      "source": "github.com/mattg101/SolidLink"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "invoice-organizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.755464Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Organize, categorize, track, and manage invoices systematically with automated extraction of invoice data, payment tracking, and financial organization. Use when processing invoice uploads, extracting",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "invoice-organizer",
+      "branch": "main",
+      "category": "invoice-organizer",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

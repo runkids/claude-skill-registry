@@ -1,0 +1,19 @@
+{
+  "category": "skill-crafting",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.220502Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create, fix, and validate skills for AI agents. Use when user says 'create a skill', 'write a skill', 'build a skill', 'fix my skill', 'skill not working', 'analyze my skill', 'run skill analysis', 'v",
+      "repo": "arvindand/agent-skills",
+      "path": "skill-crafting",
+      "branch": "main",
+      "category": "skill-crafting",
+      "tags": [],
+      "stars": 0,
+      "install": "arvindand/agent-skills",
+      "source": "github.com/arvindand/agent-skills"
+    }
+  ]
+}

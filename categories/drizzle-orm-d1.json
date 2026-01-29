@@ -1,0 +1,19 @@
+{
+  "category": "drizzle-orm-d1",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.763441Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build type-safe D1 databases with Drizzle ORM. Includes schema definition, migrations with Drizzle Kit, relations, and D1 batch API patterns. Prevents 18 errors including SQL BEGIN failures, cascade d",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "drizzle-orm-d1",
+      "branch": "main",
+      "category": "drizzle-orm-d1",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

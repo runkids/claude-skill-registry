@@ -1,0 +1,19 @@
+{
+  "category": "crisp",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.747576Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enables Claude to manage Crisp chat support conversations, helpdesk tickets, and customer communications",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "crisp",
+      "branch": "main",
+      "category": "crisp",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

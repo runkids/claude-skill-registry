@@ -1,0 +1,19 @@
+{
+  "category": "unsloth-qlora",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.134975Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unsloth-qlora enables the fine-tuning of large-scale models (up to 70B parameters) on consumer-grade hardware. It utilizes dynamic 4-bit quantization which selectively preserves critical weights to ma",
+      "repo": "cuba6112/skillfactory",
+      "path": "unsloth-qlora",
+      "branch": "main",
+      "category": "unsloth-qlora",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

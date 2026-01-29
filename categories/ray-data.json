@@ -1,0 +1,19 @@
+{
+  "category": "ray-data",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.409522Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Distributed data processing library for ML and AI workloads.",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "ray-data",
+      "branch": "main",
+      "category": "ray-data",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

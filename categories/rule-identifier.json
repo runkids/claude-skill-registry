@@ -1,0 +1,19 @@
+{
+  "category": "rule-identifier",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.346734Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"create a hookify rule\", \"write a hook rule\", \"configure hookify\", \"add a hookify rule\", or needs guidance on hookify rule syntax and patterns.",
+      "repo": "Takeaki0817/hibioru",
+      "path": "rule-identifier",
+      "branch": "main",
+      "category": "rule-identifier",
+      "tags": [],
+      "stars": 0,
+      "install": "Takeaki0817/hibioru",
+      "source": "github.com/Takeaki0817/hibioru"
+    }
+  ]
+}

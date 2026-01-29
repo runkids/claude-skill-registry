@@ -1,0 +1,19 @@
+{
+  "category": "database-migration-create",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.340908Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Safely creates database migrations",
+      "repo": "cpa03/blueprintify",
+      "path": "database-migration-create",
+      "branch": "main",
+      "category": "database-migration-create",
+      "tags": [],
+      "stars": 0,
+      "install": "cpa03/blueprintify",
+      "source": "github.com/cpa03/blueprintify"
+    }
+  ]
+}

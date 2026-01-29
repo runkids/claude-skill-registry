@@ -1,0 +1,19 @@
+{
+  "category": "brenda-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.435660Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access BRENDA enzyme database via SOAP API. Retrieve kinetic parameters (Km, kcat), reaction equations, organism data, and substrate-specific enzyme information for biochemical research and metabolic ",
+      "repo": "robinbarvaag/poynt",
+      "path": "brenda-database",
+      "branch": "main",
+      "category": "brenda-database",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

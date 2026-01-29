@@ -1,0 +1,19 @@
+{
+  "category": "gorgias",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.970932Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage e-commerce customer support with Gorgias's Shopify-focused help desk.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "gorgias",
+      "branch": "main",
+      "category": "gorgias",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

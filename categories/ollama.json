@@ -1,0 +1,19 @@
+{
+  "category": "ollama",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.602032Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run local LLMs with Ollama. Configure models, manage resources, and integrate with applications. Use for local AI, private LLM deployments, and offline inference.",
+      "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "path": "ollama",
+      "branch": "main",
+      "category": "ollama",
+      "tags": [],
+      "stars": 0,
+      "install": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric"
+    }
+  ]
+}

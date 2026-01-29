@@ -1,0 +1,19 @@
+{
+  "category": "nl-to-tools-mapper",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.991671Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when guiding the OpenAI agent to map natural language user input to appropriate MCP tools, handling phrases like \"Add task\" → add_task, \"List pending\" → list_tasks(status=\"pe",
+      "repo": "SyedaNabila559/phase2-3-todo-full-web-with-ai-chatbot",
+      "path": "nl-to-tools-mapper",
+      "branch": "main",
+      "category": "nl-to-tools-mapper",
+      "tags": [],
+      "stars": 0,
+      "install": "SyedaNabila559/phase2-3-todo-full-web-with-ai-chatbot",
+      "source": "github.com/SyedaNabila559/phase2-3-todo-full-web-with-ai-chatbot"
+    }
+  ]
+}

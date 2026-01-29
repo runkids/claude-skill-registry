@@ -1,0 +1,19 @@
+{
+  "category": "owasp-checker",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.650806Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Verify compliance with OWASP Top 10 2021 security standards. Use when performing OWASP compliance checks and security certification.",
+      "repo": "matteocervelli/llms",
+      "path": "owasp-checker",
+      "branch": "main",
+      "category": "owasp-checker",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

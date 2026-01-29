@@ -1,0 +1,19 @@
+{
+  "category": "minimax-mcp",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.177935Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MiniMax MCP server integration with token-efficient AI delegation. Use for web search, image analysis, MCP server integration in terminal/desktop Claude, and Claude-MiniMax collaboration patterns. Pro",
+      "repo": "OpenSourceSam/v2_heras_garden",
+      "path": "minimax-mcp",
+      "branch": "main",
+      "category": "minimax-mcp",
+      "tags": [],
+      "stars": 0,
+      "install": "OpenSourceSam/v2_heras_garden",
+      "source": "github.com/OpenSourceSam/v2_heras_garden"
+    }
+  ]
+}

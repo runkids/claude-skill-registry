@@ -1,0 +1,19 @@
+{
+  "category": "ai-prompt-engineer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.166911Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI engineering skill for prompt optimization, context inference, and intelligent command routing across different models and use cases",
+      "repo": "wildcard/caro",
+      "path": "ai-prompt-engineer",
+      "branch": "main",
+      "category": "ai-prompt-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "wildcard/caro",
+      "source": "github.com/wildcard/caro"
+    }
+  ]
+}

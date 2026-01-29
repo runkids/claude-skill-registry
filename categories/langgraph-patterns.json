@@ -1,0 +1,19 @@
+{
+  "category": "langgraph-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.937035Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build production-grade agentic workflows with LangGraph using graph-based orchestration, state machines, human-in-the-loop, and advanced control flow",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "langgraph-patterns",
+      "branch": "main",
+      "category": "langgraph-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

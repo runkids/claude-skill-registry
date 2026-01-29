@@ -1,0 +1,19 @@
+{
+  "category": "l-step-implementation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.121024Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Lステップ機能（シナリオ配信・セグメント・LINE連携）の段階的実装。/l-step phase1 〜 phase6 で各フェーズを実行。",
+      "repo": "shun-awiiin/awilin-mark",
+      "path": "l-step-implementation",
+      "branch": "main",
+      "category": "l-step-implementation",
+      "tags": [],
+      "stars": 0,
+      "install": "shun-awiiin/awilin-mark",
+      "source": "github.com/shun-awiiin/awilin-mark"
+    }
+  ]
+}

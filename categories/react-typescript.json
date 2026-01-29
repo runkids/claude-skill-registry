@@ -1,0 +1,19 @@
+{
+  "category": "react-typescript",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.583259Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build modern React applications with TypeScript. Covers React 18+ patterns, hooks, component architecture, state management (Zustand, Redux Toolkit), server components, and best practices. Use for Rea",
+      "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "path": "react-typescript",
+      "branch": "main",
+      "category": "react-typescript",
+      "tags": [],
+      "stars": 0,
+      "install": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric"
+    }
+  ]
+}

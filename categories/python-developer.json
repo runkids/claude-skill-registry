@@ -1,0 +1,19 @@
+{
+  "category": "python-developer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.581388Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт Python разработки. Используй для Python best practices, async, typing и ecosystem.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "python-developer",
+      "branch": "main",
+      "category": "python-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

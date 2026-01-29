@@ -1,0 +1,19 @@
+{
+  "category": "api-test-generate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.136849Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-generate comprehensive API tests for REST and GraphQL endpoints with request/response validation",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "api-test-generate",
+      "branch": "main",
+      "category": "api-test-generate",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

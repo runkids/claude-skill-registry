@@ -1,0 +1,19 @@
+{
+  "category": "interpreting-culture-index",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.155584Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when interpreting Culture Index surveys, CI profiles, behavioral assessments, or personality data. Supports individual interpretation, team composition (gas/brake/glue), burnout detection, profile",
+      "repo": "trailofbits/skills",
+      "path": "interpreting-culture-index",
+      "branch": "main",
+      "category": "interpreting-culture-index",
+      "tags": [],
+      "stars": 0,
+      "install": "trailofbits/skills",
+      "source": "github.com/trailofbits/skills"
+    }
+  ]
+}

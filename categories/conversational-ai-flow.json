@@ -1,0 +1,19 @@
+{
+  "category": "conversational-ai-flow",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.279952Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт conversational AI. Используй для chatbot flows, dialog design, NLU intents и conversational UX.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "conversational-ai-flow",
+      "branch": "main",
+      "category": "conversational-ai-flow",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

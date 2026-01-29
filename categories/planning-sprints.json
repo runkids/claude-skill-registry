@@ -1,0 +1,19 @@
+{
+  "category": "planning-sprints",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.076010Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<objective>",
+      "repo": "0xHoneyJar/rm-lurker",
+      "path": "planning-sprints",
+      "branch": "main",
+      "category": "planning-sprints",
+      "tags": [],
+      "stars": 0,
+      "install": "0xHoneyJar/rm-lurker",
+      "source": "github.com/0xHoneyJar/rm-lurker"
+    }
+  ]
+}

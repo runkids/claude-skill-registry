@@ -1,0 +1,19 @@
+{
+  "category": "video-remotion",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.685684Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive skill for programmatic video generation using the Remotion framework.\nEnables creating, scaffolding, and rendering React-based videos via Python orchestration.\nSupports both Local (CLI) ",
+      "repo": "Kjdragan/universal_agent",
+      "path": "video-remotion",
+      "branch": "main",
+      "category": "video-remotion",
+      "tags": [],
+      "stars": 0,
+      "install": "Kjdragan/universal_agent",
+      "source": "github.com/Kjdragan/universal_agent"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "assess-codebase",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.057487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Assess a codebase for patterns, anti-patterns, and quality opportunities; use when asked to generate coding rules, standards, or quality guidelines.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "assess-codebase",
+      "branch": "main",
+      "category": "assess-codebase",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "effect-lookup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.747471Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quick lookup for Effect TypeScript library APIs, patterns, and source code. Use when you need to find Effect functions, understand Effect patterns, or look up implementation details.",
+      "repo": "guillempuche/ai-standards",
+      "path": "effect-lookup",
+      "branch": "main",
+      "category": "effect-lookup",
+      "tags": [],
+      "stars": 0,
+      "install": "guillempuche/ai-standards",
+      "source": "github.com/guillempuche/ai-standards"
+    }
+  ]
+}

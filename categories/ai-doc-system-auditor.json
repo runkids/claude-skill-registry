@@ -1,0 +1,19 @@
+{
+  "category": "ai-doc-system-auditor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.083937Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<skill>",
+      "repo": "wade56754/AI_ad_spend02",
+      "path": "ai-doc-system-auditor",
+      "branch": "main",
+      "category": "ai-doc-system-auditor",
+      "tags": [],
+      "stars": 0,
+      "install": "wade56754/AI_ad_spend02",
+      "source": "github.com/wade56754/AI_ad_spend02"
+    }
+  ]
+}

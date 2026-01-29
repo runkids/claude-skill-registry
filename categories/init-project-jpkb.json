@@ -1,0 +1,19 @@
+{
+  "category": "init-project-jpkb",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.272869Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Initialize new JPKB projects with standardized documentation and folder structure. JPKB-specific version with category folders and fixed base path. Use when creating a new project in the jpkb reposito",
+      "repo": "product-on-purpose/pm-skills",
+      "path": "init-project-jpkb",
+      "branch": "main",
+      "category": "init-project-jpkb",
+      "tags": [],
+      "stars": 0,
+      "install": "product-on-purpose/pm-skills",
+      "source": "github.com/product-on-purpose/pm-skills"
+    }
+  ]
+}

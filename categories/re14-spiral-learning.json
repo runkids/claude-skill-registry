@@ -1,0 +1,19 @@
+{
+  "category": "re14-spiral-learning",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.747131Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply RE14 Spiral Learning to revisit concepts at increasing depth, building on previous understanding.",
+      "repo": "hummbl-dev/hummbl-agent",
+      "path": "re14-spiral-learning",
+      "branch": "main",
+      "category": "re14-spiral-learning",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/hummbl-agent",
+      "source": "github.com/hummbl-dev/hummbl-agent"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "react-email",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.060663Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating email templates with React - welcome emails, password resets, notifications, order confirmations, or transactional emails that need to render across email clients.",
+      "repo": "resend/react-email",
+      "path": "react-email",
+      "branch": "main",
+      "category": "react-email",
+      "tags": [],
+      "stars": 0,
+      "install": "resend/react-email",
+      "source": "github.com/resend/react-email"
+    }
+  ]
+}

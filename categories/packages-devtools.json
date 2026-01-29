@@ -1,0 +1,19 @@
+{
+  "category": "packages-devtools",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.357024Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Your approach to handling packages devtools. Use this skill when working on files where packages devtools comes into play.",
+      "repo": "leaderiop/hex-di",
+      "path": "packages-devtools",
+      "branch": "main",
+      "category": "packages-devtools",
+      "tags": [],
+      "stars": 0,
+      "install": "leaderiop/hex-di",
+      "source": "github.com/leaderiop/hex-di"
+    }
+  ]
+}

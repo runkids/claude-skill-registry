@@ -1,0 +1,19 @@
+{
+  "category": "skill-authoring",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.295714Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and development best practices for Claude Code skills, MCP tools, and AI agent capabilities. Use when creating skills, writing SKILL.md files, designing tool descriptions, or optimizing trigger",
+      "repo": "pproenca/dot-skills",
+      "path": "skill-authoring",
+      "branch": "main",
+      "category": "skill-authoring",
+      "tags": [],
+      "stars": 0,
+      "install": "pproenca/dot-skills",
+      "source": "github.com/pproenca/dot-skills"
+    }
+  ]
+}

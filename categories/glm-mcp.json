@@ -1,0 +1,19 @@
+{
+  "category": "glm-mcp",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.040262Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Custom skill for glm-mcp",
+      "repo": "alfredolopez80/multi-agent-ralph-loop",
+      "path": "glm-mcp",
+      "branch": "main",
+      "category": "glm-mcp",
+      "tags": [],
+      "stars": 0,
+      "install": "alfredolopez80/multi-agent-ralph-loop",
+      "source": "github.com/alfredolopez80/multi-agent-ralph-loop"
+    }
+  ]
+}

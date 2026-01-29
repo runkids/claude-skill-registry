@@ -1,0 +1,19 @@
+{
+  "category": "moai-alfred-language-detection",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.075967Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-detects project language and framework from package.json, pyproject.toml, Cargo.toml, go.mod, and other configuration files with comprehensive pattern matching based on 17,253+ production code ex",
+      "repo": "dolsoon/my-awesome-project",
+      "path": "moai-alfred-language-detection",
+      "branch": "main",
+      "category": "moai-alfred-language-detection",
+      "tags": [],
+      "stars": 0,
+      "install": "dolsoon/my-awesome-project",
+      "source": "github.com/dolsoon/my-awesome-project"
+    }
+  ]
+}

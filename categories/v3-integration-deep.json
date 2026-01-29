@@ -1,0 +1,19 @@
+{
+  "category": "v3-integration-deep",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.761477Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deep agentic-flow@alpha integration implementing ADR-001. Eliminates 10,000+ duplicate lines by building claude-flow as specialized extension rather than parallel implementation.",
+      "repo": "EarthmanWeb/claude-flow-plugin",
+      "path": "v3-integration-deep",
+      "branch": "main",
+      "category": "v3-integration-deep",
+      "tags": [],
+      "stars": 0,
+      "install": "EarthmanWeb/claude-flow-plugin",
+      "source": "github.com/EarthmanWeb/claude-flow-plugin"
+    }
+  ]
+}

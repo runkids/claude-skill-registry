@@ -1,0 +1,19 @@
+{
+  "category": "qutip",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.330761Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quantum mechanics simulations and analysis using QuTiP (Quantum Toolbox in Python). Use when working with quantum systems including: (1) quantum states (kets, bras, density matrices), (2) quantum oper",
+      "repo": "robinbarvaag/poynt",
+      "path": "qutip",
+      "branch": "main",
+      "category": "qutip",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

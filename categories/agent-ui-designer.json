@@ -1,0 +1,19 @@
+{
+  "category": "agent-ui-designer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.849070Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert visual designer specializing in creating intuitive, beautiful, and accessible user interfaces. Masters design systems, interaction patterns, and visual hierarchy to craft exceptional user exper",
+      "repo": "Tony363/SuperClaude",
+      "path": "agent-ui-designer",
+      "branch": "main",
+      "category": "agent-ui-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "Tony363/SuperClaude",
+      "source": "github.com/Tony363/SuperClaude"
+    }
+  ]
+}

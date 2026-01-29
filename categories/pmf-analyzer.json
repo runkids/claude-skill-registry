@@ -1,0 +1,19 @@
+{
+  "category": "pmf-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.086866Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Assess product-market fit using frameworks, metrics, and customer signals",
+      "repo": "eddiebe147/claude-settings",
+      "path": "pmf-analyzer",
+      "branch": "main",
+      "category": "pmf-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

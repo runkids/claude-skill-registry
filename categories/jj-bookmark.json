@@ -1,0 +1,19 @@
+{
+  "category": "jj-bookmark",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.775164Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a jj bookmark for the current commit with a descriptive name",
+      "repo": "jbott/nix-config",
+      "path": "jj:bookmark",
+      "branch": "main",
+      "category": "jj:bookmark",
+      "tags": [],
+      "stars": 0,
+      "install": "jbott/nix-config",
+      "source": "github.com/jbott/nix-config"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "scientific-hypogenic",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.068284Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated LLM-driven hypothesis generation and testing on tabular datasets. Use when you want to systematically explore hypotheses about patterns in empirical data (e.g., deception detection, content ",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-hypogenic",
+      "branch": "main",
+      "category": "scientific-hypogenic",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

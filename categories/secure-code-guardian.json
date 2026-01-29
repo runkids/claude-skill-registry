@@ -1,0 +1,19 @@
+{
+  "category": "secure-code-guardian",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.922939Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementing authentication/authorization, securing user input, or preventing OWASP Top 10 vulnerabilities. Invoke for authentication, authorization, input validation, encryption, OWASP Top 1",
+      "repo": "Jeffallan/claude-skills",
+      "path": "secure-code-guardian",
+      "branch": "main",
+      "category": "secure-code-guardian",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

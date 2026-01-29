@@ -1,0 +1,19 @@
+{
+  "category": "push",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.112505Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /push slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "push",
+      "branch": "main",
+      "category": "push",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

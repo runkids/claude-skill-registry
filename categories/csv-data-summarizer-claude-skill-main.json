@@ -1,0 +1,19 @@
+{
+  "category": "csv-data-summarizer-claude-skill-main",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.887744Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes CSV files, generates summary stats, and plots quick visualizations using Python and pandas.",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "csv-data-summarizer-claude-skill-main",
+      "branch": "main",
+      "category": "csv-data-summarizer-claude-skill-main",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

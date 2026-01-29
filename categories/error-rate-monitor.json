@@ -1,0 +1,19 @@
+{
+  "category": "error-rate-monitor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.580872Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill enables Claude to monitor and analyze application error rates to improve reliability. It is used when the user needs to track and understand errors occurring in their application, including",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "error-rate-monitor",
+      "branch": "main",
+      "category": "error-rate-monitor",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

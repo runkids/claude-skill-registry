@@ -1,0 +1,19 @@
+{
+  "category": "feature",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.209679Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Orchestrate feature development through 5 phases - discuss, BOM, architect, test plan, implement",
+      "repo": "call1800messiah/The-Eighth",
+      "path": "feature",
+      "branch": "main",
+      "category": "feature",
+      "tags": [],
+      "stars": 0,
+      "install": "call1800messiah/The-Eighth",
+      "source": "github.com/call1800messiah/The-Eighth"
+    }
+  ]
+}

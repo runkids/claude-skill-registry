@@ -1,0 +1,19 @@
+{
+  "category": "git-commit-smart",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.860392Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill generates conventional commit messages using AI analysis of staged Git changes. It automatically determines the commit type (feat, fix, docs, etc.), identifies breaking changes, and formats",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "git-commit-smart",
+      "branch": "main",
+      "category": "git-commit-smart",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

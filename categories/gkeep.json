@@ -1,0 +1,19 @@
+{
+  "category": "gkeep",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.458850Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Google Keep notes via gkeepapi. List, search, create, and manage notes.",
+      "repo": "moltbot/skills",
+      "path": "gkeep",
+      "branch": "main",
+      "category": "gkeep",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

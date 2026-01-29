@@ -1,0 +1,19 @@
+{
+  "category": "ai-dev-tools-sync",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.582426Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Synchronize and update Claude Code and GitHub Copilot development tool configurations to work similarly. Use when asked to update Claude Code setup, update Copilot setup, sync AI dev tools, add new sk",
+      "repo": "duc01226/EasyPlatform",
+      "path": "ai-dev-tools-sync",
+      "branch": "main",
+      "category": "ai-dev-tools-sync",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

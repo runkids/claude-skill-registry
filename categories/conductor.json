@@ -1,0 +1,19 @@
+{
+  "category": "conductor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.733786Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive assistance with conductor",
+      "repo": "enuno/claude-command-and-control",
+      "path": "conductor",
+      "branch": "main",
+      "category": "conductor",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

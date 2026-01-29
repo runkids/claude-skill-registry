@@ -1,0 +1,19 @@
+{
+  "category": "speckit-taskstoissues",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.123270Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert existing tasks into actionable, dependency-ordered GitHub issues for the feature based on available design artifacts.",
+      "repo": "dceoy/speckit-agent-skills",
+      "path": "speckit-taskstoissues",
+      "branch": "main",
+      "category": "speckit-taskstoissues",
+      "tags": [],
+      "stars": 0,
+      "install": "dceoy/speckit-agent-skills",
+      "source": "github.com/dceoy/speckit-agent-skills"
+    }
+  ]
+}

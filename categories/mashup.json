@@ -1,0 +1,19 @@
+{
+  "category": "mashup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.948328Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Force-fit patterns from other domains to spark novel concepts.",
+      "repo": "NickCrew/claude-cortex",
+      "path": "mashup",
+      "branch": "main",
+      "category": "mashup",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

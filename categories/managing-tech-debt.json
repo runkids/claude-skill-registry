@@ -1,0 +1,19 @@
+{
+  "category": "managing-tech-debt",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.579419Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage technical debt by producing a Tech Debt Management Pack (debt register, scoring/prioritization, refactor vs rewrite decision memo, incremental paydown plan, migration/rollback plan, metrics, an",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "managing-tech-debt",
+      "branch": "main",
+      "category": "managing-tech-debt",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

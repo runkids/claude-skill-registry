@@ -1,0 +1,19 @@
+{
+  "category": "retention-marketer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.116824Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Develop retention strategies to reduce churn and increase customer lifetime value",
+      "repo": "eddiebe147/claude-settings",
+      "path": "retention-marketer",
+      "branch": "main",
+      "category": "retention-marketer",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

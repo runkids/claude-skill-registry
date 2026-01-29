@@ -1,0 +1,19 @@
+{
+  "category": "codex-sdk",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.380593Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Architect-level guidance, workflows, and scripts for building agentic coding systems with OpenAI Codex. Use for Codex SDK (@openai/codex-sdk) threads + streaming JSONL events; Codex CLI automation (co",
+      "repo": "BjornMelin/dev-skills",
+      "path": "codex-sdk",
+      "branch": "main",
+      "category": "codex-sdk",
+      "tags": [],
+      "stars": 0,
+      "install": "BjornMelin/dev-skills",
+      "source": "github.com/BjornMelin/dev-skills"
+    }
+  ]
+}

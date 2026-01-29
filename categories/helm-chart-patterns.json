@@ -1,0 +1,19 @@
+{
+  "category": "helm-chart-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.768454Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Helm chart development patterns for packaging and deploying Kubernetes applications. Use when creating reusable Helm charts, managing multi-environment deployments, or building application catalogs fo",
+      "repo": "NickCrew/claude-cortex",
+      "path": "helm-chart-patterns",
+      "branch": "main",
+      "category": "helm-chart-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

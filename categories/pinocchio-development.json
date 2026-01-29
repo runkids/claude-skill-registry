@@ -1,0 +1,19 @@
+{
+  "category": "pinocchio-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.512505Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide for building high-performance Solana programs using Pinocchio - the zero-dependency, zero-copy framework. Covers account validation, CPI patterns, optimization techniques, and migr",
+      "repo": "sendaifun/skills",
+      "path": "pinocchio-development",
+      "branch": "main",
+      "category": "pinocchio-development",
+      "tags": [],
+      "stars": 0,
+      "install": "sendaifun/skills",
+      "source": "github.com/sendaifun/skills"
+    }
+  ]
+}

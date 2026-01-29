@@ -1,0 +1,19 @@
+{
+  "category": "social-playbook",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.747638Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and generate complete social media playbooks (scripts, visuals, captions, hooks, thumbnails, transitions) for Synthex clients across YouTube, TikTok, Instagram, Facebook, LinkedIn, and Shorts/R",
+      "repo": "CleanExpo/Unite-Hub",
+      "path": "social-playbook",
+      "branch": "main",
+      "category": "social-playbook",
+      "tags": [],
+      "stars": 0,
+      "install": "CleanExpo/Unite-Hub",
+      "source": "github.com/CleanExpo/Unite-Hub"
+    }
+  ]
+}

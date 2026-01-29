@@ -1,0 +1,19 @@
+{
+  "category": "compound",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.893193Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create or edit Claude Code skills with expert guidance on structure and best practices",
+      "repo": "carmandale/agent-config",
+      "path": "compound",
+      "branch": "main",
+      "category": "compound",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

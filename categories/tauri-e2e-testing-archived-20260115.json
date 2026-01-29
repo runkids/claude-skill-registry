@@ -1,0 +1,19 @@
+{
+  "category": "tauri-e2e-testing-archived-20260115",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.460551Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when setting up, writing, debugging, or maintaining end-to-end tests for Tauri v2 desktop applications. Triggers on: 'tauri test', 'e2e tauri', 'playwright tauri', 'test taur",
+      "repo": "endlessblink/flow-state",
+      "path": "tauri-e2e-testing-archived-20260115",
+      "branch": "main",
+      "category": "tauri-e2e-testing-archived-20260115",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

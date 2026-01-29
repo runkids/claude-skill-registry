@@ -1,0 +1,19 @@
+{
+  "category": "test-factory-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.021409Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill provides guidance for writing test factories in the Packmind codebase. It should be used when creating or updating factory functions in `**/test/*Factory.ts` files to ensure realistic test ",
+      "repo": "PackmindHub/packmind",
+      "path": "test-factory-patterns",
+      "branch": "main",
+      "category": "test-factory-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "PackmindHub/packmind",
+      "source": "github.com/PackmindHub/packmind"
+    }
+  ]
+}

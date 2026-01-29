@@ -1,0 +1,19 @@
+{
+  "category": "project-management-specialist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.930910Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "提供项目管理、任务跟踪、团队协调和项目交付能力。当需要管理项目、跟踪进度或协调团队时使用。",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "project-management-specialist",
+      "branch": "main",
+      "category": "project-management-specialist",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

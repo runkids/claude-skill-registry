@@ -1,0 +1,19 @@
+{
+  "category": "quackbot-duckoid",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.918163Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Mechanic wobbling duckoid robot that quacks and generates nonstandard musical scale compositions. Maximally cost-efficient design (~$68 BOM).",
+      "repo": "plurigrid/asi",
+      "path": "quackbot-duckoid",
+      "branch": "main",
+      "category": "quackbot-duckoid",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

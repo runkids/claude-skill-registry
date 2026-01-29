@@ -1,0 +1,19 @@
+{
+  "category": "p3-identity-stack",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.122883Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply P3 Identity Stack to recognize that individuals operate from multiple nested identities simultaneously.",
+      "repo": "hummbl-dev/hummbl-agent",
+      "path": "p3-identity-stack",
+      "branch": "main",
+      "category": "p3-identity-stack",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/hummbl-agent",
+      "source": "github.com/hummbl-dev/hummbl-agent"
+    }
+  ]
+}

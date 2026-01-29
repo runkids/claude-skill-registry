@@ -1,0 +1,19 @@
+{
+  "category": "grok-search",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.300359Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enhanced web search and real-time content retrieval via Grok API with forced tool routing. Use when: (1) Web search / information retrieval / fact-checking, (2) Webpage content extraction / URL parsin",
+      "repo": "Dianel555/DSkills",
+      "path": "grok-search",
+      "branch": "main",
+      "category": "grok-search",
+      "tags": [],
+      "stars": 0,
+      "install": "Dianel555/DSkills",
+      "source": "github.com/Dianel555/DSkills"
+    }
+  ]
+}

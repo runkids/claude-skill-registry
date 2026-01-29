@@ -1,0 +1,19 @@
+{
+  "category": "dev-r3f-r3f-fundamentals",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.075266Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "React Three Fiber core patterns for scene composition and game loop",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-r3f-r3f-fundamentals",
+      "branch": "main",
+      "category": "dev-r3f-r3f-fundamentals",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

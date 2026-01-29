@@ -1,0 +1,19 @@
+{
+  "category": "style-audit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.643106Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audits code against CI/CD style rules, quality guidelines, and best practices, then rewrites code to meet standards without breaking functionality. Use this skill after functionality validation to ens",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "style-audit",
+      "branch": "main",
+      "category": "style-audit",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

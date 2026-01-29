@@ -1,0 +1,19 @@
+{
+  "category": "drawer-floating-system",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.063024Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Drawer and floating panel system for TMNL. Invoke when implementing drawer stacks, floating panels, drag/resize behaviors, or parallax animations. Provides Rolodex stack, stx-powered state, and contai",
+      "repo": "creatifcoding/gbg",
+      "path": "drawer-floating-system",
+      "branch": "main",
+      "category": "drawer-floating-system",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

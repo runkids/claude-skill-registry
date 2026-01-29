@@ -1,0 +1,19 @@
+{
+  "category": "rlm",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.404672Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use RLM (Recursive Language Models) for verified code execution, calculations, data analysis, and task decomposition. Executes Python code iteratively until producing verified results - no LLM guessin",
+      "repo": "moltbot/skills",
+      "path": "rlm",
+      "branch": "main",
+      "category": "rlm",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

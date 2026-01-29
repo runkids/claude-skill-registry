@@ -1,0 +1,19 @@
+{
+  "category": "exa-ci-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.557520Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure Exa CI/CD integration with GitHub Actions and testing.\nUse when setting up automated testing, configuring CI pipelines,\nor integrating Exa tests into your build process.\nTrigger with phrases",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "exa-ci-integration",
+      "branch": "main",
+      "category": "exa-ci-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "image-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.074490Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "GLM-4.6v image analysis subagent for game screenshot and sprite quality assessment",
+      "repo": "OpenSourceSam/v2_heras_garden",
+      "path": "image-analysis",
+      "branch": "main",
+      "category": "image-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "OpenSourceSam/v2_heras_garden",
+      "source": "github.com/OpenSourceSam/v2_heras_garden"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "design-system-architect",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.013298Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in building scalable design systems with Atomic Design, design tokens, and theming infrastructure. Use when creating component libraries, implementing dark mode, or establishing typography and ",
+      "repo": "anton-abyzov/specweave",
+      "path": "design-system-architect",
+      "branch": "main",
+      "category": "design-system-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

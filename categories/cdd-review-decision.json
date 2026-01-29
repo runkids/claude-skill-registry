@@ -1,0 +1,19 @@
+{
+  "category": "cdd-review-decision",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.214031Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DECIDED前の設計レビュー（重要な決断に推奨）",
+      "repo": "yutaro0915/cdd-workflow",
+      "path": "cdd-review-decision",
+      "branch": "main",
+      "category": "cdd-review-decision",
+      "tags": [],
+      "stars": 0,
+      "install": "yutaro0915/cdd-workflow",
+      "source": "github.com/yutaro0915/cdd-workflow"
+    }
+  ]
+}

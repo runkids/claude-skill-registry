@@ -1,0 +1,19 @@
+{
+  "category": "skill-memory",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.076074Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use skill-memory to download, view and edit agent skills in memory. TRIGGER by 'skill', 'memory', 'learn'.",
+      "repo": "memodb-io/skill-memory",
+      "path": "skill-memory",
+      "branch": "main",
+      "category": "skill-memory",
+      "tags": [],
+      "stars": 0,
+      "install": "memodb-io/skill-memory",
+      "source": "github.com/memodb-io/skill-memory"
+    }
+  ]
+}

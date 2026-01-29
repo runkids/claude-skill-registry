@@ -1,0 +1,19 @@
+{
+  "category": "qa-regression-scanner",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.331032Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes code diffs to identify affected endpoints and prioritize regression testing. Focuses QA effort on changed areas.\n",
+      "repo": "pcortes/swarm-attack",
+      "path": "qa-regression-scanner",
+      "branch": "main",
+      "category": "qa-regression-scanner",
+      "tags": [],
+      "stars": 0,
+      "install": "pcortes/swarm-attack",
+      "source": "github.com/pcortes/swarm-attack"
+    }
+  ]
+}

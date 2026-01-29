@@ -1,0 +1,19 @@
+{
+  "category": "bedrock-agentcore",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.754823Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Amazon Bedrock AgentCore platform for building, deploying, and operating production AI agents. Covers Runtime, Gateway, Browser, Code Interpreter, and Identity services. Use when building Bedrock agen",
+      "repo": "adaptationio/Skrillz",
+      "path": "bedrock-agentcore",
+      "branch": "main",
+      "category": "bedrock-agentcore",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

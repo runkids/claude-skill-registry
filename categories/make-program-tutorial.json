@@ -1,0 +1,19 @@
+{
+  "category": "make-program-tutorial",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.774337Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manual invocation only; use only when the user explicitly requests `make-program-tutorial` by exact name, OR when the user asks to use a skill to create an SDK/API/library tutorial. Create a clear, re",
+      "repo": "igamenovoer/magic-context",
+      "path": "make-program-tutorial",
+      "branch": "main",
+      "category": "make-program-tutorial",
+      "tags": [],
+      "stars": 0,
+      "install": "igamenovoer/magic-context",
+      "source": "github.com/igamenovoer/magic-context"
+    }
+  ]
+}

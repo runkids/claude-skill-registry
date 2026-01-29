@@ -1,0 +1,19 @@
+{
+  "category": "moai-foundation-ears",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.693385Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise EARS (Evaluate, Analyze, Recommend, Synthesize) Framework with AI-powered requirements engineering, Context7 integration, and intelligent solution orchestration for systematic problem-solvi",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-foundation-ears",
+      "branch": "main",
+      "category": "moai-foundation-ears",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

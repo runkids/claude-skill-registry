@@ -1,0 +1,19 @@
+{
+  "category": "fermion-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.037634Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Schema-driven Atom.family patterns for TMNL. Covers Fermion builder API, registry patterns, algebra interpreters, and React integration. (project)",
+      "repo": "creatifcoding/gbg",
+      "path": "fermion-patterns",
+      "branch": "main",
+      "category": "fermion-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

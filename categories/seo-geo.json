@@ -1,0 +1,19 @@
+{
+  "category": "seo-geo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.111387Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SEO & GEO (Generative Engine Optimization) for websites.\nAnalyze keywords, generate schema markup, optimize for AI search engines\n(ChatGPT, Perplexity, Gemini, Copilot, Claude) and traditional search ",
+      "repo": "ReScienceLab/opc-skills",
+      "path": "seo-geo",
+      "branch": "main",
+      "category": "seo-geo",
+      "tags": [],
+      "stars": 0,
+      "install": "ReScienceLab/opc-skills",
+      "source": "github.com/ReScienceLab/opc-skills"
+    }
+  ]
+}

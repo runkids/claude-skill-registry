@@ -1,0 +1,19 @@
+{
+  "category": "event-sourcing-ui-state",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.434173Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use event sourcing to build auditable, replayable UI state systems compatible with concurrent rendering.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "event-sourcing-ui-state",
+      "branch": "main",
+      "category": "event-sourcing-ui-state",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

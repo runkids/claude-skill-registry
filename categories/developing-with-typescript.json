@@ -1,0 +1,19 @@
+{
+  "category": "developing-with-typescript",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.321027Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TypeScript 5.x development with type system, generics, utility types, and strict mode patterns. Use when writing TypeScript code or adding types to JavaScript projects.",
+      "repo": "FortiumPartners/ensemble",
+      "path": "developing-with-typescript",
+      "branch": "main",
+      "category": "developing-with-typescript",
+      "tags": [],
+      "stars": 0,
+      "install": "FortiumPartners/ensemble",
+      "source": "github.com/FortiumPartners/ensemble"
+    }
+  ]
+}

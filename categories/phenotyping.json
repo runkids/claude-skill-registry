@@ -1,0 +1,19 @@
+{
+  "category": "phenotyping",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.039347Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cell type assignment from marker expression in IMC data. Covers manual gating, clustering, and automated classification approaches. Use when assigning cell types to segmented IMC cells based on protei",
+      "repo": "GPTomics/bioSkills",
+      "path": "phenotyping",
+      "branch": "main",
+      "category": "phenotyping",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

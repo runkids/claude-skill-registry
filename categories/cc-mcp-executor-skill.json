@@ -1,0 +1,19 @@
+{
+  "category": "cc-mcp-executor-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.682624Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "GitHub repository skill for mcfearsome/cc-mcp-executor-skill",
+      "repo": "enuno/claude-command-and-control",
+      "path": "cc-mcp-executor-skill",
+      "branch": "main",
+      "category": "cc-mcp-executor-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

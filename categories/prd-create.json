@@ -1,0 +1,19 @@
+{
+  "category": "prd-create",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.391521Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create documentation-first PRDs that guide development through user-facing content",
+      "repo": "wiggitywhitney/cluster-whisperer",
+      "path": "prd-create",
+      "branch": "main",
+      "category": "prd-create",
+      "tags": [],
+      "stars": 0,
+      "install": "wiggitywhitney/cluster-whisperer",
+      "source": "github.com/wiggitywhitney/cluster-whisperer"
+    }
+  ]
+}

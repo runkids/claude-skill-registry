@@ -1,0 +1,19 @@
+{
+  "category": "hammer-quality-check",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.298717Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Runs comprehensive code quality checks for SDL3 HammerEngine including compilation warnings, static analysis (cppcheck, clang-tidy), coding standards validation, threading safety verification, and arc",
+      "repo": "Ronin15/SDL3_HammerEngine_Template",
+      "path": "hammer-quality-check",
+      "branch": "main",
+      "category": "hammer-quality-check",
+      "tags": [],
+      "stars": 0,
+      "install": "Ronin15/SDL3_HammerEngine_Template",
+      "source": "github.com/Ronin15/SDL3_HammerEngine_Template"
+    }
+  ]
+}

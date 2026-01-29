@@ -1,0 +1,19 @@
+{
+  "category": "plugin-forge",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.948294Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and manage Claude Code plugins with proper structure, manifests, and marketplace integration. Use when creating plugins for a marketplace, adding plugin components (commands, agents, hooks), bu",
+      "repo": "softaworks/agent-toolkit",
+      "path": "plugin-forge",
+      "branch": "main",
+      "category": "plugin-forge",
+      "tags": [],
+      "stars": 0,
+      "install": "softaworks/agent-toolkit",
+      "source": "github.com/softaworks/agent-toolkit"
+    }
+  ]
+}

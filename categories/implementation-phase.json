@@ -1,0 +1,19 @@
+{
+  "category": "implementation-phase",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.157858Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Executes implementation tasks using Test-Driven Development, prevents code duplication through anti-duplication checks, and maintains quality through continuous testing. Use when implementing features",
+      "repo": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "path": "implementation-phase",
+      "branch": "main",
+      "category": "implementation-phase",
+      "tags": [],
+      "stars": 0,
+      "install": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "source": "github.com/Sjdjdiejdrirhdkjej/Claude-code-conductor"
+    }
+  ]
+}

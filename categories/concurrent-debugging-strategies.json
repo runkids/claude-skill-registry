@@ -1,0 +1,19 @@
+{
+  "category": "concurrent-debugging-strategies",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.732661Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Develop advanced debugging workflows for concurrent rendering, including reproducibility under non-deterministic scheduling.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "concurrent-debugging-strategies",
+      "branch": "main",
+      "category": "concurrent-debugging-strategies",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "sqlmodel-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.726589Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and implement database schemas using SQLModel with sync and async patterns. Use this skill when creating database models, setting up Neon PostgreSQL connections, defining relationships (one-to-",
+      "repo": "mjunaidca/mjs-agent-skills",
+      "path": "sqlmodel-database",
+      "branch": "main",
+      "category": "sqlmodel-database",
+      "tags": [],
+      "stars": 0,
+      "install": "mjunaidca/mjs-agent-skills",
+      "source": "github.com/mjunaidca/mjs-agent-skills"
+    }
+  ]
+}

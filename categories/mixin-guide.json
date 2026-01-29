@@ -1,0 +1,19 @@
+{
+  "category": "mixin-guide",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.446092Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for configuring Mixins in Architectury multi-loader projects",
+      "repo": "ksoichiro/ChronoDawn",
+      "path": "mixin-guide",
+      "branch": "main",
+      "category": "mixin-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "ksoichiro/ChronoDawn",
+      "source": "github.com/ksoichiro/ChronoDawn"
+    }
+  ]
+}

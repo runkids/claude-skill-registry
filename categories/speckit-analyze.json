@@ -1,0 +1,19 @@
+{
+  "category": "speckit-analyze",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.040806Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Perform a non-destructive cross-artifact consistency and quality analysis across spec.md, plan.md, and tasks.md after task generation.",
+      "repo": "dceoy/speckit-agent-skills",
+      "path": "speckit-analyze",
+      "branch": "main",
+      "category": "speckit-analyze",
+      "tags": [],
+      "stars": 0,
+      "install": "dceoy/speckit-agent-skills",
+      "source": "github.com/dceoy/speckit-agent-skills"
+    }
+  ]
+}

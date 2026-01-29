@@ -1,0 +1,19 @@
+{
+  "category": "custom-agent-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.962544Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design custom agents from scratch using Claude Agent SDK patterns. Use when building domain-specific agents, designing agents with full SDK control, or creating specialized agents with custom tools an",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "custom-agent-design",
+      "branch": "main",
+      "category": "custom-agent-design",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

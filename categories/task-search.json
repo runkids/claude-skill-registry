@@ -1,0 +1,19 @@
+{
+  "category": "task-search",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.103685Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides fast, case-insensitive text search across task titles, descriptions, and tags with debounced input, relevance ranking, and highlighted matching text. Uses AND logic for multi-token queries an",
+      "repo": "Syedaashnaghazanfar/todo-app",
+      "path": "task-search",
+      "branch": "main",
+      "category": "task-search",
+      "tags": [],
+      "stars": 0,
+      "install": "Syedaashnaghazanfar/todo-app",
+      "source": "github.com/Syedaashnaghazanfar/todo-app"
+    }
+  ]
+}

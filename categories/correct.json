@@ -1,0 +1,19 @@
+{
+  "category": "correct",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.554194Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides the correct answer",
+      "repo": "gaearon/woodshed",
+      "path": "correct",
+      "branch": "main",
+      "category": "correct",
+      "tags": [],
+      "stars": 0,
+      "install": "gaearon/woodshed",
+      "source": "github.com/gaearon/woodshed"
+    }
+  ]
+}

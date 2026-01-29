@@ -1,0 +1,19 @@
+{
+  "category": "prp-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.744140Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-activates when generating Product Requirements Prompt (PRP) documents from synthesized design outputs, providing structured templates and comprehensive implementation guidance.",
+      "repo": "matteocervelli/llms",
+      "path": "prp-generator",
+      "branch": "main",
+      "category": "prp-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "creating-pr",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.317108Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates GitHub Pull Requests with existing PR detection, branch pushing, and intelligent title/body generation. Use when user requests to create pull request, open PR, update PR, push for review, read",
+      "repo": "joaquimscosta/arkhe-claude-plugins",
+      "path": "creating-pr",
+      "branch": "main",
+      "category": "creating-pr",
+      "tags": [],
+      "stars": 0,
+      "install": "joaquimscosta/arkhe-claude-plugins",
+      "source": "github.com/joaquimscosta/arkhe-claude-plugins"
+    }
+  ]
+}

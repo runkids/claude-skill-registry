@@ -1,0 +1,19 @@
+{
+  "category": "referral-program-building",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.037055Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build referral programs for SaaS/digital products. Covers reward structures (two-sided, tiered, multi-step), platform selection (Rewardful, ReferralCandy, Viral Loops, FirstPromoter), technical implem",
+      "repo": "NammDev/Goads-Krea",
+      "path": "referral-program-building",
+      "branch": "main",
+      "category": "referral-program-building",
+      "tags": [],
+      "stars": 0,
+      "install": "NammDev/Goads-Krea",
+      "source": "github.com/NammDev/Goads-Krea"
+    }
+  ]
+}

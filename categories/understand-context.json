@@ -1,0 +1,19 @@
+{
+  "category": "understand-context",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.563716Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /understand-context slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "understand-context",
+      "branch": "main",
+      "category": "understand-context",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "dev-assets-model-loading",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.841804Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "FBX model loading patterns with sequential loading for React Three Fiber. Use when loading multiple FBX character models, implementing sequential loading to prevent memory overload, or creating charac",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-assets-model-loading",
+      "branch": "main",
+      "category": "dev-assets-model-loading",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

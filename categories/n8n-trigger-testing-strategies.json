@@ -1,0 +1,19 @@
+{
+  "category": "n8n-trigger-testing-strategies",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.089364Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Webhook testing, schedule validation, event-driven triggers, and polling mechanism testing for n8n workflows. Use when testing how workflows are triggered.",
+      "repo": "proffesor-for-testing/agentic-qe",
+      "path": "n8n-trigger-testing-strategies",
+      "branch": "main",
+      "category": "n8n-trigger-testing-strategies",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/agentic-qe",
+      "source": "github.com/proffesor-for-testing/agentic-qe"
+    }
+  ]
+}

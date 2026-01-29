@@ -1,0 +1,19 @@
+{
+  "category": "start-dev",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.523808Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Start working on a task by updating its status to IN PROGRESS in MASTER_PLAN.md. Usage \"/start-dev TASK-123\" or \"/start-dev 123\". Updates all 3 locations in MASTER_PLAN.md. Triggers on \"/start-dev\", \"",
+      "repo": "endlessblink/flow-state",
+      "path": "start-dev",
+      "branch": "main",
+      "category": "start-dev",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "adaptive-bitrate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.341610Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically adjusting video quality based on network conditions using HLS, DASH protocols and player implementation for smooth playback and optimal user experience.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "adaptive-bitrate",
+      "branch": "main",
+      "category": "adaptive-bitrate",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "normalization-qc",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.831272Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quality control and normalization for metabolomics data. Covers QC-based correction, batch effect removal, and data transformation methods. Use when correcting technical variation in metabolomics data",
+      "repo": "GPTomics/bioSkills",
+      "path": "normalization-qc",
+      "branch": "main",
+      "category": "normalization-qc",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

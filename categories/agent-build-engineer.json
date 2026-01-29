@@ -1,0 +1,19 @@
+{
+  "category": "agent-build-engineer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.029630Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert build engineer specializing in build system optimization, compilation strategies, and developer productivity. Masters modern build tools, caching mechanisms, and creating fast, reliable build p",
+      "repo": "Tony363/SuperClaude",
+      "path": "agent-build-engineer",
+      "branch": "main",
+      "category": "agent-build-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "Tony363/SuperClaude",
+      "source": "github.com/Tony363/SuperClaude"
+    }
+  ]
+}

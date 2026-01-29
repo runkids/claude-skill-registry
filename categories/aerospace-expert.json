@@ -1,0 +1,19 @@
+{
+  "category": "aerospace-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.261942Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level aerospace systems, flight management, maintenance tracking, aviation safety, and aerospace software",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "aerospace-expert",
+      "branch": "main",
+      "category": "aerospace-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

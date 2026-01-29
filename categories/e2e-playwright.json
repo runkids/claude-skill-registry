@@ -1,0 +1,19 @@
+{
+  "category": "e2e-playwright",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.973967Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Playwright end-to-end testing expert. Use when writing E2E tests, browser automation, or debugging flaky tests.",
+      "repo": "anton-abyzov/specweave",
+      "path": "e2e-playwright",
+      "branch": "main",
+      "category": "e2e-playwright",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "collect-for-pr",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.137009Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Collect pending worktree commits into a PR for review. Use this skill when subdirectory worktrees have accumulated 4-7+ commits that should be batched together and submitted for review. Invoked with /",
+      "repo": "itsgrimetime/melee-decomp",
+      "path": "collect-for-pr",
+      "branch": "main",
+      "category": "collect-for-pr",
+      "tags": [],
+      "stars": 0,
+      "install": "itsgrimetime/melee-decomp",
+      "source": "github.com/itsgrimetime/melee-decomp"
+    }
+  ]
+}

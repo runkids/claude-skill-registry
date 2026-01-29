@@ -1,0 +1,19 @@
+{
+  "category": "moai-lang-rust",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.182068Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Rust with ownership model and safety guarantees: Rust 1.91.1, Tokio 1.48, async/await, macro system, error handling, memory safety patterns; activates for systems programming, performance-c",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-lang-rust",
+      "branch": "main",
+      "category": "moai-lang-rust",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

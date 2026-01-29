@@ -1,0 +1,19 @@
+{
+  "category": "close",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.818232Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Close task in tracker. Use when the user invokes /close or asks to close a tracker issue.",
+      "repo": "arttttt/CMIDCABot",
+      "path": "close",
+      "branch": "main",
+      "category": "close",
+      "tags": [],
+      "stars": 0,
+      "install": "arttttt/CMIDCABot",
+      "source": "github.com/arttttt/CMIDCABot"
+    }
+  ]
+}

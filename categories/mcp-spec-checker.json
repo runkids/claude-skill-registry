@@ -1,0 +1,19 @@
+{
+  "category": "mcp-spec-checker",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.616231Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Predicate-level semantic diff for MCP protocol specs. Compares 0618 vs 1125 specs via Narya types, GF(3) evaluators, and Unison-style effects. Use for protocol verification, spec migration, or detecti",
+      "repo": "plurigrid/asi",
+      "path": "mcp-spec-checker",
+      "branch": "main",
+      "category": "mcp-spec-checker",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

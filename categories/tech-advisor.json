@@ -1,0 +1,19 @@
+{
+  "category": "tech-advisor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.002989Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Recomienda stack tecnológico óptimo basado en requisitos del proyecto",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "tech-advisor",
+      "branch": "main",
+      "category": "tech-advisor",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "smrna-preprocessing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.131336Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Preprocess small RNA sequencing data with adapter trimming and size selection optimized for miRNA, piRNA, and other small RNAs. Use when preparing small RNA-seq reads for downstream quantification or ",
+      "repo": "GPTomics/bioSkills",
+      "path": "smrna-preprocessing",
+      "branch": "main",
+      "category": "smrna-preprocessing",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

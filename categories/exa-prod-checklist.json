@@ -1,0 +1,19 @@
+{
+  "category": "exa-prod-checklist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.628834Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute Exa production deployment checklist and rollback procedures.\nUse when deploying Exa integrations to production, preparing for launch,\nor implementing go-live procedures.\nTrigger with phrases l",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "exa-prod-checklist",
+      "branch": "main",
+      "category": "exa-prod-checklist",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

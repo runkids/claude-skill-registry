@@ -1,0 +1,19 @@
+{
+  "category": "api-handler",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.318021Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use withApiHandler for all API routes. It eliminates boilerplate and ensures consistent auth, validation, and error handling.",
+      "repo": "vassovass/scl-v3",
+      "path": "api-handler",
+      "branch": "main",
+      "category": "api-handler",
+      "tags": [],
+      "stars": 0,
+      "install": "vassovass/scl-v3",
+      "source": "github.com/vassovass/scl-v3"
+    }
+  ]
+}

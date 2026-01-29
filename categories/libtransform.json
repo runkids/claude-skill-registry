@@ -1,0 +1,19 @@
+{
+  "category": "libtransform",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.060692Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "libtransform - Resource transformation utilities. pdfToHtml converts PDF documents to HTML using LLM vision capabilities, splitting pages to images and processing with multimodal models. Use for docum",
+      "repo": "copilot-ld/copilot-ld",
+      "path": "libtransform",
+      "branch": "main",
+      "category": "libtransform",
+      "tags": [],
+      "stars": 0,
+      "install": "copilot-ld/copilot-ld",
+      "source": "github.com/copilot-ld/copilot-ld"
+    }
+  ]
+}

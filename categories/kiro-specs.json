@@ -1,0 +1,19 @@
+{
+  "category": "kiro-specs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.834999Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform ideas into comprehensive specifications, design documents, and actionable implementation plans.",
+      "repo": "PeterFile/my-common-skills",
+      "path": "kiro-specs",
+      "branch": "main",
+      "category": "kiro-specs",
+      "tags": [],
+      "stars": 0,
+      "install": "PeterFile/my-common-skills",
+      "source": "github.com/PeterFile/my-common-skills"
+    }
+  ]
+}

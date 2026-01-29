@@ -1,0 +1,19 @@
+{
+  "category": "designing-distributed-systems",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.040640Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When designing distributed systems for scalability, reliability, and consistency. Covers CAP/PACELC theorems, consistency models (strong, eventual, causal), replication patterns (leader-follower, mult",
+      "repo": "ancoleman/ai-design-components",
+      "path": "designing-distributed-systems",
+      "branch": "main",
+      "category": "designing-distributed-systems",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

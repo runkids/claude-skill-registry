@@ -1,0 +1,19 @@
+{
+  "category": "designing-layouts",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.081932Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Designs layout systems and responsive interfaces including grid systems, flexbox patterns, sidebar layouts, and responsive breakpoints. Use when structuring app layouts, building responsive designs, o",
+      "repo": "ancoleman/ai-design-components",
+      "path": "designing-layouts",
+      "branch": "main",
+      "category": "designing-layouts",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

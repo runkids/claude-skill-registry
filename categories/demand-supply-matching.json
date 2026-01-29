@@ -1,0 +1,19 @@
+{
+  "category": "demand-supply-matching",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.874079Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to balance demand and supply, resolve supply-demand mismatches, or optimize fulfillment allocation. Also use when the user mentions \"demand-supply balancing,\" \"ATP,\" \"available-to-",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "demand-supply-matching",
+      "branch": "main",
+      "category": "demand-supply-matching",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

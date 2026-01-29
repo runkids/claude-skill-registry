@@ -1,0 +1,19 @@
+{
+  "category": "personalization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.711125Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when crafting tiered ABM messaging, offers, and creative variants.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "personalization",
+      "branch": "main",
+      "category": "personalization",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

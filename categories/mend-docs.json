@@ -1,0 +1,19 @@
+{
+  "category": "mend-docs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.465007Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Maintain and synchronize documentation files with the actual codebase (agents and skills).",
+      "repo": "yu-iskw/meta-agent-skills",
+      "path": "mend-docs",
+      "branch": "main",
+      "category": "mend-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "yu-iskw/meta-agent-skills",
+      "source": "github.com/yu-iskw/meta-agent-skills"
+    }
+  ]
+}

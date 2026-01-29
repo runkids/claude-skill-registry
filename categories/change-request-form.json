@@ -1,0 +1,19 @@
+{
+  "category": "change-request-form",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.709315Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по заявкам на изменения. Используй для форм CR, impact analysis, approval workflows и change control.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "change-request-form",
+      "branch": "main",
+      "category": "change-request-form",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

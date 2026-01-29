@@ -1,0 +1,19 @@
+{
+  "category": "test-inherit-parent",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.294950Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Parent skill WITHOUT MCP tool - calls child that HAS MCP tool",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-inherit-parent",
+      "branch": "main",
+      "category": "test-inherit-parent",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "database-schema",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.630450Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforces project database schema conventions when creating or modifying Drizzle ORM table definitions, including constraints, indexes, relations, and column patterns. This skill should be used proacti",
+      "repo": "JasonPaff/head-shakers",
+      "path": "database-schema",
+      "branch": "main",
+      "category": "database-schema",
+      "tags": [],
+      "stars": 0,
+      "install": "JasonPaff/head-shakers",
+      "source": "github.com/JasonPaff/head-shakers"
+    }
+  ]
+}

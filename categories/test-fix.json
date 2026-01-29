@@ -1,0 +1,19 @@
+{
+  "category": "test-fix",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.913880Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic approach to diagnosing and fixing failing tests in Rust projects. Use when tests fail and you need to diagnose root causes, fix async/await issues, handle race conditions, or resolve databa",
+      "repo": "d-o-hub/rust-self-learning-memory",
+      "path": "test-fix",
+      "branch": "main",
+      "category": "test-fix",
+      "tags": [],
+      "stars": 0,
+      "install": "d-o-hub/rust-self-learning-memory",
+      "source": "github.com/d-o-hub/rust-self-learning-memory"
+    }
+  ]
+}

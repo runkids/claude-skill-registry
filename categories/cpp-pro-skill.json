@@ -1,0 +1,19 @@
+{
+  "category": "cpp-pro-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.415359Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "C++20 specialist with expertise in modern C++ features, performance optimization, and system programming",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "cpp-pro-skill",
+      "branch": "main",
+      "category": "cpp-pro-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

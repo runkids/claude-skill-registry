@@ -1,0 +1,19 @@
+{
+  "category": "lyrics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.776217Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate song lyrics with citations from pinned sources. Enforces rhyme scheme, meter, syllable counts, hook strategy, and profanity filter while retrieving from MCP sources with deterministic hash-ba",
+      "repo": "miethe/MeatyMusic",
+      "path": "lyrics",
+      "branch": "main",
+      "category": "lyrics",
+      "tags": [],
+      "stars": 0,
+      "install": "miethe/MeatyMusic",
+      "source": "github.com/miethe/MeatyMusic"
+    }
+  ]
+}

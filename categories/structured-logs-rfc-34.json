@@ -1,0 +1,19 @@
+{
+  "category": "structured-logs-rfc-34",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.190023Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "RFC-34 compliant structured logging standards for Java services. Covers JSON log format, structured arguments, required fields, and Logback configuration. Use when implementing or reviewing logging in",
+      "repo": "bitsoex/bitso-java",
+      "path": "structured-logs-rfc-34",
+      "branch": "main",
+      "category": "structured-logs-rfc-34",
+      "tags": [],
+      "stars": 0,
+      "install": "bitsoex/bitso-java",
+      "source": "github.com/bitsoex/bitso-java"
+    }
+  ]
+}

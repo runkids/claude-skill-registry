@@ -1,0 +1,19 @@
+{
+  "category": "prd-done",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.255577Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete PRD implementation workflow - create branch, push changes, create PR, merge, and close issue",
+      "repo": "wiggitywhitney/cluster-whisperer",
+      "path": "prd-done",
+      "branch": "main",
+      "category": "prd-done",
+      "tags": [],
+      "stars": 0,
+      "install": "wiggitywhitney/cluster-whisperer",
+      "source": "github.com/wiggitywhitney/cluster-whisperer"
+    }
+  ]
+}

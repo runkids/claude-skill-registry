@@ -1,0 +1,19 @@
+{
+  "category": "fancy-yard-landscaper",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.280279Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert landscape designer transforming yards through photo mapping, 3D visualization, seasonal planning, and deep plant knowledge. Specializes in fast-growing privacy screens (knows arborvitae pitfall",
+      "repo": "erichowens/some_claude_skills",
+      "path": "fancy-yard-landscaper",
+      "branch": "main",
+      "category": "fancy-yard-landscaper",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

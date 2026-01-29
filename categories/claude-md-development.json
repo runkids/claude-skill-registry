@@ -1,0 +1,19 @@
+{
+  "category": "claude-md-development",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.339800Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage CLAUDE.md documentation when updating the seed system documentation or project overview. Not for creating specific skills or commands.",
+      "repo": "Git-Fg/meta-plugin-manager",
+      "path": "claude-md-development",
+      "branch": "main",
+      "category": "claude-md-development",
+      "tags": [],
+      "stars": 0,
+      "install": "Git-Fg/meta-plugin-manager",
+      "source": "github.com/Git-Fg/meta-plugin-manager"
+    }
+  ]
+}

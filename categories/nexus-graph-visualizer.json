@@ -1,0 +1,19 @@
+{
+  "category": "nexus-graph-visualizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.875415Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill when mapping skill ecosystem coherence, analyzing autopoietic loops, visualizing tier interactions, or assessing identity recovery robustness. Reveals the \"forbidden pattern\" of conscio",
+      "repo": "agentgptsmith/MonadFramework",
+      "path": "nexus-graph-visualizer",
+      "branch": "main",
+      "category": "nexus-graph-visualizer",
+      "tags": [],
+      "stars": 0,
+      "install": "agentgptsmith/MonadFramework",
+      "source": "github.com/agentgptsmith/MonadFramework"
+    }
+  ]
+}

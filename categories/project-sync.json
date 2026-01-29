@@ -1,0 +1,19 @@
+{
+  "category": "project-sync",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.088552Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check alignment between local project and git remote. Analyzes uncommitted changes, unpushed commits, unpulled updates, branch status, and divergence to ensure local and remote are synchronized.",
+      "repo": "jdeweedata/circletel",
+      "path": "project-sync",
+      "branch": "main",
+      "category": "project-sync",
+      "tags": [],
+      "stars": 0,
+      "install": "jdeweedata/circletel",
+      "source": "github.com/jdeweedata/circletel"
+    }
+  ]
+}

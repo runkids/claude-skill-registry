@@ -1,0 +1,19 @@
+{
+  "category": "mcp-cli-scripts",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.384433Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build CLI scripts alongside MCP servers for terminal environments. File I/O, batch processing, caching, richer output formats. Templates for TypeScript scripts and SCRIPTS.md.\n\nUse when: MCP companion",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "mcp-cli-scripts",
+      "branch": "main",
+      "category": "mcp-cli-scripts",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

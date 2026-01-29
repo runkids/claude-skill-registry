@@ -1,0 +1,19 @@
+{
+  "category": "grant-writer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.887075Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Craft compelling grant proposals that secure funding for nonprofits and research",
+      "repo": "eddiebe147/claude-settings",
+      "path": "grant-writer",
+      "branch": "main",
+      "category": "grant-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

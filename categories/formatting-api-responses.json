@@ -1,0 +1,19 @@
+{
+  "category": "formatting-api-responses",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.545375Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standardizes the structure of internal function results. Use when writing Services or Server Actions.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "formatting-api-responses",
+      "branch": "main",
+      "category": "formatting-api-responses",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

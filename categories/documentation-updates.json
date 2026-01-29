@@ -1,0 +1,19 @@
+{
+  "category": "documentation-updates",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.840162Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Update documentation based on lessons learned. Use after completing work to capture learnings and prevent future issues.",
+      "repo": "aspiers/ai-config",
+      "path": "documentation-updates",
+      "branch": "main",
+      "category": "documentation-updates",
+      "tags": [],
+      "stars": 0,
+      "install": "aspiers/ai-config",
+      "source": "github.com/aspiers/ai-config"
+    }
+  ]
+}

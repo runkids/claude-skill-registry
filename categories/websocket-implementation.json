@@ -1,0 +1,19 @@
+{
+  "category": "websocket-implementation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.891622Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements real-time WebSocket communication with connection management, room-based messaging, and horizontal scaling. Use when building chat systems, live notifications, collaborative tools, or real-",
+      "repo": "secondsky/claude-skills",
+      "path": "websocket-implementation",
+      "branch": "main",
+      "category": "websocket-implementation",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

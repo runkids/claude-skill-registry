@@ -1,0 +1,19 @@
+{
+  "category": "Topic_Planning",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.162400Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "选题策划主入口 - 识别策划场景，引导用户进入对应的专项Skill流程",
+      "repo": "sunqb/ccsdk",
+      "path": "Topic_Planning",
+      "branch": "main",
+      "category": "Topic_Planning",
+      "tags": [],
+      "stars": 0,
+      "install": "sunqb/ccsdk",
+      "source": "github.com/sunqb/ccsdk"
+    }
+  ]
+}

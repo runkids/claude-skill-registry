@@ -1,0 +1,19 @@
+{
+  "category": "build-sitl",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.038944Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build INAV SITL (Software In The Loop) firmware for testing without hardware",
+      "repo": "sensei-hacker/inav-claude",
+      "path": "build-sitl",
+      "branch": "main",
+      "category": "build-sitl",
+      "tags": [],
+      "stars": 0,
+      "install": "sensei-hacker/inav-claude",
+      "source": "github.com/sensei-hacker/inav-claude"
+    }
+  ]
+}

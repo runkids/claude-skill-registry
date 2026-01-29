@@ -1,0 +1,19 @@
+{
+  "category": "kinetic-block",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.801971Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Kinetic Block Skill",
+      "repo": "plurigrid/asi",
+      "path": "kinetic-block",
+      "branch": "main",
+      "category": "kinetic-block",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

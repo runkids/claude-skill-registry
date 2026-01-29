@@ -1,7 +1,7 @@
 {
   "category": "bash",
-  "count": 1,
-  "updated_at": "2026-01-29T04:49:19.503120Z",
+  "count": 2,
+  "updated_at": "2026-01-29T16:04:49.669538Z",
   "skills": [
     {
       "name": "state-directory-manager",
@@ -14,6 +14,18 @@
       "stars": 1,
       "install": "vamseeachanta/workspace-hub",
       "source": "github.com/vamseeachanta/workspace-hub"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Master defensive Bash scripting for production automation, CI/CD pipelines, and system utilities. Expert in safe, portable, and testable shell scripts with POSIX compliance, modern Bash 5.x features, ",
+      "repo": "joaquimscosta/arkhe-claude-plugins",
+      "path": "bash",
+      "branch": "main",
+      "category": "bash",
+      "tags": [],
+      "stars": 0,
+      "install": "joaquimscosta/arkhe-claude-plugins",
+      "source": "github.com/joaquimscosta/arkhe-claude-plugins"
     }
   ]
 }

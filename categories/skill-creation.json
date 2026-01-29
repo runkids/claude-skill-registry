@@ -1,0 +1,19 @@
+{
+  "category": "skill-creation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.156110Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "> Meta-skill: This skill explains how to create other skills.",
+      "repo": "vassovass/scl-v3",
+      "path": "skill-creation",
+      "branch": "main",
+      "category": "skill-creation",
+      "tags": [],
+      "stars": 0,
+      "install": "vassovass/scl-v3",
+      "source": "github.com/vassovass/scl-v3"
+    }
+  ]
+}

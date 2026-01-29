@@ -1,0 +1,19 @@
+{
+  "category": "taxonomy-assignment",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.284571Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Taxonomic classification of ASVs using reference databases like SILVA, GTDB, or UNITE. Covers naive Bayes classifiers (DADA2, IDTAXA) and exact matching approaches. Use when assigning taxonomy to ASVs",
+      "repo": "GPTomics/bioSkills",
+      "path": "taxonomy-assignment",
+      "branch": "main",
+      "category": "taxonomy-assignment",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

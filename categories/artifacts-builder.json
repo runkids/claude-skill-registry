@@ -1,0 +1,19 @@
+{
+  "category": "artifacts-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.652791Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create interactive, self-contained artifacts like mini-apps, visualizations, calculators, and tools that can be embedded or used standalone. Use when building interactive calculators, creating data vi",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "artifacts-builder",
+      "branch": "main",
+      "category": "artifacts-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

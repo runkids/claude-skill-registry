@@ -1,0 +1,19 @@
+{
+  "category": "poka-yoke",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.874323Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diseño a prueba de errores que hace imposible el uso incorrecto. Use cuando diseñe flujos críticos, formularios, o sistemas donde los errores tienen consecuencias.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "poka-yoke",
+      "branch": "main",
+      "category": "poka-yoke",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

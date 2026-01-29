@@ -1,0 +1,19 @@
+{
+  "category": "slide-color-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.767082Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when you only need slide color systems, palette selection, or palette generation workflows and want direct pointers to the color design references.",
+      "repo": "narumiruna/agent-skills",
+      "path": "slide-color-design",
+      "branch": "main",
+      "category": "slide-color-design",
+      "tags": [],
+      "stars": 0,
+      "install": "narumiruna/agent-skills",
+      "source": "github.com/narumiruna/agent-skills"
+    }
+  ]
+}

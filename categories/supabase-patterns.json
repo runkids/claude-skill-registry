@@ -1,0 +1,19 @@
+{
+  "category": "supabase-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.682937Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Patterns for Supabase integration in Battery. Use this skill when working with database schemas, row-level security policies, edge functions, or Supabase client usage in Next.js.",
+      "repo": "ADLenehan/battery",
+      "path": "supabase-patterns",
+      "branch": "main",
+      "category": "supabase-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "ADLenehan/battery",
+      "source": "github.com/ADLenehan/battery"
+    }
+  ]
+}

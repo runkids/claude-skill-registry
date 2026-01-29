@@ -1,0 +1,19 @@
+{
+  "category": "lindy-ci-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.910608Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure Lindy AI CI/CD integration with GitHub Actions and testing.\nUse when setting up automated testing, configuring CI pipelines,\nor integrating Lindy tests into your build process.\nTrigger with ",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "lindy-ci-integration",
+      "branch": "main",
+      "category": "lindy-ci-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

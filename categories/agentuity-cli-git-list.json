@@ -1,0 +1,19 @@
+{
+  "category": "agentuity-cli-git-list",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.083716Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "List GitHub repositories accessible to your organization. Requires authentication",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-git-list",
+      "branch": "main",
+      "category": "agentuity-cli-git-list",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

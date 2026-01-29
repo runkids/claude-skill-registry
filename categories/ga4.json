@@ -1,0 +1,19 @@
+{
+  "category": "ga4",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.042180Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query Google Analytics 4 (GA4) data via the Analytics Data API. Use when you need to pull website analytics like top pages, traffic sources, user counts, sessions, conversions, or any GA4 metrics/dime",
+      "repo": "moltbot/skills",
+      "path": "ga4",
+      "branch": "main",
+      "category": "ga4",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

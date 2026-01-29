@@ -1,0 +1,19 @@
+{
+  "category": "pragmatic-writing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.015284Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when writing technical content in the style of Hunt/Thomas (The Pragmatic Programmer) and Joel Spolsky (Joel on Software). It applies when creating technical essays, document",
+      "repo": "robertguss/claude-code-toolkit",
+      "path": "pragmatic-writing",
+      "branch": "main",
+      "category": "pragmatic-writing",
+      "tags": [],
+      "stars": 0,
+      "install": "robertguss/claude-code-toolkit",
+      "source": "github.com/robertguss/claude-code-toolkit"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "language-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.027121Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides language-specific patterns for TypeScript, Python, and React including idioms, best practices, and common patterns",
+      "repo": "sequenzia/claude-alchemy",
+      "path": "language-patterns",
+      "branch": "main",
+      "category": "language-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "sequenzia/claude-alchemy",
+      "source": "github.com/sequenzia/claude-alchemy"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "ai-multimodal_mrgoonie",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.014404Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Process and generate multimedia content using Google Gemini API. Capabilities include analyze audio files (transcription with timestamps, summarization, speech understanding, music/sound analysis up t",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "ai-multimodal_mrgoonie",
+      "branch": "main",
+      "category": "ai-multimodal_mrgoonie",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

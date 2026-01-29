@@ -1,0 +1,19 @@
+{
+  "category": "exa-common-errors",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.461164Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diagnose and fix Exa common errors and exceptions.\nUse when encountering Exa errors, debugging failed requests,\nor troubleshooting integration issues.\nTrigger with phrases like \"exa error\", \"fix exa\",",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "exa-common-errors",
+      "branch": "main",
+      "category": "exa-common-errors",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

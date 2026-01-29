@@ -1,0 +1,19 @@
+{
+  "category": "aurora-sheets-sync",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.033269Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Bidirectional sync between Aurora YAML schemas and Google Sheets. Trigger: When syncing schemas to/from spreadsheets, push/pull commands, google sheets sync.\n",
+      "repo": "avvale/aurora-back",
+      "path": "aurora-sheets-sync",
+      "branch": "main",
+      "category": "aurora-sheets-sync",
+      "tags": [],
+      "stars": 0,
+      "install": "avvale/aurora-back",
+      "source": "github.com/avvale/aurora-back"
+    }
+  ]
+}

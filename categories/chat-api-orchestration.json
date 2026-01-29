@@ -1,0 +1,19 @@
+{
+  "category": "chat-api-orchestration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.331968Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement single-endpoint chat API with deterministic request orchestration.\nThis skill should be used when users need to create /api/{user_id}/chat endpoint,\nimplement request validation, resolve con",
+      "repo": "HasnainCodeHub/todo-evaluation",
+      "path": "chat-api-orchestration",
+      "branch": "main",
+      "category": "chat-api-orchestration",
+      "tags": [],
+      "stars": 0,
+      "install": "HasnainCodeHub/todo-evaluation",
+      "source": "github.com/HasnainCodeHub/todo-evaluation"
+    }
+  ]
+}

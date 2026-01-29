@@ -1,0 +1,19 @@
+{
+  "category": "create-worktree-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.636594Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when the user explicitly asks for a SKILL to create a worktree. If the user does not mention \"skill\" or explicitly request skill invocation, do NOT trigger this. Only use when user says things lik",
+      "repo": "GolferGeek/orchestrator-ai",
+      "path": "create-worktree-skill",
+      "branch": "main",
+      "category": "create-worktree-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "GolferGeek/orchestrator-ai",
+      "source": "github.com/GolferGeek/orchestrator-ai"
+    }
+  ]
+}

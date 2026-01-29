@@ -1,0 +1,19 @@
+{
+  "category": "wish",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.399680Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enables Claude to browse Wish products, manage wishlist, and track orders",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "wish",
+      "branch": "main",
+      "category": "wish",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

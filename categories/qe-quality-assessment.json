@@ -1,0 +1,19 @@
+{
+  "category": "qe-quality-assessment",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.080793Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive quality gates, metrics analysis, and deployment readiness assessment for continuous quality assurance.",
+      "repo": "proffesor-for-testing/agentic-qe",
+      "path": "qe-quality-assessment",
+      "branch": "main",
+      "category": "qe-quality-assessment",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/agentic-qe",
+      "source": "github.com/proffesor-for-testing/agentic-qe"
+    }
+  ]
+}

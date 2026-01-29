@@ -1,0 +1,19 @@
+{
+  "category": "feature-scaffolding",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.498195Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "BoxLogの新しいFeatureモジュールを作成。stores, hooks, components, types の統一構造を生成。",
+      "repo": "Dayopt/app",
+      "path": "feature-scaffolding",
+      "branch": "main",
+      "category": "feature-scaffolding",
+      "tags": [],
+      "stars": 0,
+      "install": "Dayopt/app",
+      "source": "github.com/Dayopt/app"
+    }
+  ]
+}

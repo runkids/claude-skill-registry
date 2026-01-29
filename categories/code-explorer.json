@@ -1,0 +1,19 @@
+{
+  "category": "code-explorer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.079374Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when asked to trace existing codepaths or explicitly asked to run the code-explorer subagent.",
+      "repo": "troykelly/codex-skills",
+      "path": "code-explorer",
+      "branch": "main",
+      "category": "code-explorer",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/codex-skills",
+      "source": "github.com/troykelly/codex-skills"
+    }
+  ]
+}

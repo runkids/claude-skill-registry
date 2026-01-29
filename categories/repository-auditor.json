@@ -1,0 +1,19 @@
+{
+  "category": "repository-auditor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.446427Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive codebase analysis system that evaluates security vulnerabilities,\ncode quality, architecture patterns, and operational readiness across any technology stack.\n",
+      "repo": "chaserbreitenbach/claude-skills-and-agents",
+      "path": "repository-auditor",
+      "branch": "main",
+      "category": "repository-auditor",
+      "tags": [],
+      "stars": 0,
+      "install": "chaserbreitenbach/claude-skills-and-agents",
+      "source": "github.com/chaserbreitenbach/claude-skills-and-agents"
+    }
+  ]
+}

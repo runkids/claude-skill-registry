@@ -1,0 +1,19 @@
+{
+  "category": "cdc-pipeline",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.225844Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement change data capture and event-driven sync.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "cdc-pipeline",
+      "branch": "main",
+      "category": "cdc-pipeline",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

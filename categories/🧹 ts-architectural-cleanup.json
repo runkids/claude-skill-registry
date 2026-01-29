@@ -1,0 +1,19 @@
+{
+  "category": "🧹 ts-architectural-cleanup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.791167Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "COMPREHENSIVE architectural cleanup using AST analysis to detect duplicates, consolidate code patterns, and implement systematic refactoring strategies. Utilizes advanced AST parsing to identify struc",
+      "repo": "endlessblink/flow-state",
+      "path": "🧹 ts-architectural-cleanup",
+      "branch": "main",
+      "category": "🧹 ts-architectural-cleanup",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

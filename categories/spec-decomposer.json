@@ -1,0 +1,19 @@
+{
+  "category": "spec-decomposer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.417815Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Decompose large unified specifications into agent skills with progressive disclosure. Use when converting documentation, frameworks, or knowledge bases exceeding 50KB into properly structured skills t",
+      "repo": "dimonier/skills",
+      "path": "spec-decomposer",
+      "branch": "main",
+      "category": "spec-decomposer",
+      "tags": [],
+      "stars": 0,
+      "install": "dimonier/skills",
+      "source": "github.com/dimonier/skills"
+    }
+  ]
+}

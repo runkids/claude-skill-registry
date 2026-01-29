@@ -1,0 +1,19 @@
+{
+  "category": "svelte-ui-integration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.106771Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement or extend user-facing workflows in SvelteKit applications with full-stack capabilities. Specialized in SvelteKit's load functions, form actions, and progressive enhancement. Use when the fea",
+      "repo": "ajianaz/skills-collection",
+      "path": "svelte-ui-integration",
+      "branch": "main",
+      "category": "svelte-ui-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "ajianaz/skills-collection",
+      "source": "github.com/ajianaz/skills-collection"
+    }
+  ]
+}

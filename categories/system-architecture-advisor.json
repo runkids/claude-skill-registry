@@ -1,0 +1,19 @@
+{
+  "category": "system-architecture-advisor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.023880Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Technical architect assistant that helps design robust, scalable, and maintainable backend/frontend architectures. Provides visual diagrams, pattern recommendations, API design guidance, and stack sel",
+      "repo": "sitechfromgeorgia/georgian-distribution-system",
+      "path": "system-architecture-advisor",
+      "branch": "main",
+      "category": "system-architecture-advisor",
+      "tags": [],
+      "stars": 0,
+      "install": "sitechfromgeorgia/georgian-distribution-system",
+      "source": "github.com/sitechfromgeorgia/georgian-distribution-system"
+    }
+  ]
+}

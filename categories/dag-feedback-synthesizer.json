@@ -1,0 +1,19 @@
+{
+  "category": "dag-feedback-synthesizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.244493Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Synthesizes actionable feedback from validation results, confidence scores, and iteration triggers. Creates structured improvement guidance for re-execution. Activate on 'synthesize feedback', 'improv",
+      "repo": "erichowens/some_claude_skills",
+      "path": "dag-feedback-synthesizer",
+      "branch": "main",
+      "category": "dag-feedback-synthesizer",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

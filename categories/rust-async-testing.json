@@ -1,0 +1,19 @@
+{
+  "category": "rust-async-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.005690Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive async/tokio testing patterns for episodic memory operations. Use when writing tests for async functions, time-based operations, concurrent tasks, or tokio runtime management.",
+      "repo": "d-o-hub/rust-self-learning-memory",
+      "path": "rust-async-testing",
+      "branch": "main",
+      "category": "rust-async-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "d-o-hub/rust-self-learning-memory",
+      "source": "github.com/d-o-hub/rust-self-learning-memory"
+    }
+  ]
+}

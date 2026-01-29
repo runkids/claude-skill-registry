@@ -1,0 +1,19 @@
+{
+  "category": "typescript-expert",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.441901Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TypeScript and JavaScript expert with deep knowledge of type-level programming, performance optimization, monorepo management, migration strategies, and modern tooling. Use PROACTIVELY for any TypeScr",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "typescript-expert",
+      "branch": "main",
+      "category": "typescript-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

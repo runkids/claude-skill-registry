@@ -1,0 +1,19 @@
+{
+  "category": "bulk-deseq2-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.671893Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Walk Claude through PyDESeq2-based differential expression, including ID mapping, DE testing, fold-change thresholding, and enrichment visualisation.",
+      "repo": "Starlitnightly/omicverse",
+      "path": "bulk-deseq2-analysis",
+      "branch": "main",
+      "category": "bulk-deseq2-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "Starlitnightly/omicverse",
+      "source": "github.com/Starlitnightly/omicverse"
+    }
+  ]
+}

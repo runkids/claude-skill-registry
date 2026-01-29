@@ -1,0 +1,19 @@
+{
+  "category": "moai-nextra-architecture",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.089141Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Skill for advanced development",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-nextra-architecture",
+      "branch": "main",
+      "category": "moai-nextra-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

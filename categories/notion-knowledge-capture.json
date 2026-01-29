@@ -1,0 +1,19 @@
+{
+  "category": "notion-knowledge-capture",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.365559Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Capture conversations and decisions into structured Notion pages; use when turning chats/notes into wiki entries, how-tos, decisions, or FAQs with proper linking.",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "notion-knowledge-capture",
+      "branch": "main",
+      "category": "notion-knowledge-capture",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

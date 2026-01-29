@@ -1,0 +1,19 @@
+{
+  "category": "test-task-create-from-fork",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.068224Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test if tasks created by forked skill are visible to main conversation",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-task-create-from-fork",
+      "branch": "main",
+      "category": "test-task-create-from-fork",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

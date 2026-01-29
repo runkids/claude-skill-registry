@@ -1,0 +1,19 @@
+{
+  "category": "convex-migration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.831123Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "guidance on how to properly do data migrations in Convex",
+      "repo": "ianwatts22/codex-config",
+      "path": "convex-migration",
+      "branch": "main",
+      "category": "convex-migration",
+      "tags": [],
+      "stars": 0,
+      "install": "ianwatts22/codex-config",
+      "source": "github.com/ianwatts22/codex-config"
+    }
+  ]
+}

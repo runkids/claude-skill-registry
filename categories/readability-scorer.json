@@ -1,0 +1,19 @@
+{
+  "category": "readability-scorer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.447273Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Calculate readability scores (Flesch-Kincaid, Gunning Fog, SMOG) and grade levels for text. Analyze writing complexity and get improvement suggestions.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "readability-scorer",
+      "branch": "main",
+      "category": "readability-scorer",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

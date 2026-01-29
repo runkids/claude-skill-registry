@@ -1,0 +1,19 @@
+{
+  "category": "ads-reporter",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.035144Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по отчетности Facebook Ads. Используй для формирования дневных/недельных отчетов, сравнения периодов и анализа трендов.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "ads-reporter",
+      "branch": "main",
+      "category": "ads-reporter",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

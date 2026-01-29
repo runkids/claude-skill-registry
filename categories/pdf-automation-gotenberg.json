@@ -1,0 +1,19 @@
+{
+  "category": "pdf-automation-gotenberg",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.974127Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "GotenbergでPDF変換・帳票出力を自動化する。バックオフィス/営業/CSの帳票フローで使う。",
+      "repo": "taiyousan15/taisun_agent",
+      "path": "pdf-automation-gotenberg",
+      "branch": "main",
+      "category": "pdf-automation-gotenberg",
+      "tags": [],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent",
+      "source": "github.com/taiyousan15/taisun_agent"
+    }
+  ]
+}

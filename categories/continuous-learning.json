@@ -1,0 +1,19 @@
+{
+  "category": "continuous-learning",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.458881Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.",
+      "repo": "affaan-m/everything-claude-code",
+      "path": "continuous-learning",
+      "branch": "main",
+      "category": "continuous-learning",
+      "tags": [],
+      "stars": 0,
+      "install": "affaan-m/everything-claude-code",
+      "source": "github.com/affaan-m/everything-claude-code"
+    }
+  ]
+}

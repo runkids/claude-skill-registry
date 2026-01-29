@@ -1,0 +1,19 @@
+{
+  "category": "add-review-comment",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.068318Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add a review comment to a GitHub pull request.",
+      "repo": "mlflow/mlflow",
+      "path": "add-review-comment",
+      "branch": "main",
+      "category": "add-review-comment",
+      "tags": [],
+      "stars": 0,
+      "install": "mlflow/mlflow",
+      "source": "github.com/mlflow/mlflow"
+    }
+  ]
+}

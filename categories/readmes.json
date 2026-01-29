@@ -1,0 +1,19 @@
+{
+  "category": "readmes",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.443820Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check all READMEs for accuracy and consistency across the meta-repo",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "readmes",
+      "branch": "main",
+      "category": "readmes",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

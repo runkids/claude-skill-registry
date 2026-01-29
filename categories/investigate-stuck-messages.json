@@ -1,0 +1,19 @@
+{
+  "category": "investigate-stuck-messages",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.701272Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Investigate stuck messages in relayer queue. Use when alerts mention \"queue length > 0\", to diagnose why messages are stuck, or to get message IDs for denylisting.",
+      "repo": "hyperlane-xyz/hyperlane-monorepo",
+      "path": "investigate-stuck-messages",
+      "branch": "main",
+      "category": "investigate-stuck-messages",
+      "tags": [],
+      "stars": 0,
+      "install": "hyperlane-xyz/hyperlane-monorepo",
+      "source": "github.com/hyperlane-xyz/hyperlane-monorepo"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "severance-damages-quantification",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.823883Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in calculating loss of value to remainder parcels from partial takings including access impairment, shape irregularity, utility loss, and farm operation disruption. Use when quantifying severan",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": "severance-damages-quantification",
+      "branch": "main",
+      "category": "severance-damages-quantification",
+      "tags": [],
+      "stars": 0,
+      "install": "reggiechan74/vp-real-estate",
+      "source": "github.com/reggiechan74/vp-real-estate"
+    }
+  ]
+}

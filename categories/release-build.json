@@ -1,0 +1,19 @@
+{
+  "category": "release-build",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.034055Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configures and builds YARS with optimizations for performance testing and benchmarking",
+      "repo": "kzahedi/YARS",
+      "path": "release-build",
+      "branch": "main",
+      "category": "release-build",
+      "tags": [],
+      "stars": 0,
+      "install": "kzahedi/YARS",
+      "source": "github.com/kzahedi/YARS"
+    }
+  ]
+}

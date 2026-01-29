@@ -1,0 +1,19 @@
+{
+  "category": "swift-build",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.908421Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SwiftプロジェクトのビルドとテストをXcodeコマンドラインで実行（iOS/macOS対応）。Use when: ビルド、テスト、xcodebuild、swift test を依頼された時。",
+      "repo": "miyakawa2449/KiroBookmark",
+      "path": "swift-build",
+      "branch": "main",
+      "category": "swift-build",
+      "tags": [],
+      "stars": 0,
+      "install": "miyakawa2449/KiroBookmark",
+      "source": "github.com/miyakawa2449/KiroBookmark"
+    }
+  ]
+}

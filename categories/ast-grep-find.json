@@ -1,0 +1,19 @@
+{
+  "category": "ast-grep-find",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.774889Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AST-based code search and refactoring via ast-grep MCP",
+      "repo": "tfunk1030/vibe",
+      "path": "ast-grep-find",
+      "branch": "main",
+      "category": "ast-grep-find",
+      "tags": [],
+      "stars": 0,
+      "install": "tfunk1030/vibe",
+      "source": "github.com/tfunk1030/vibe"
+    }
+  ]
+}

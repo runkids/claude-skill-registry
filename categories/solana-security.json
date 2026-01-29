@@ -1,0 +1,19 @@
+{
+  "category": "solana-security",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.247538Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audit Solana programs (Anchor or native Rust) for security vulnerabilities. Use when reviewing smart contract security, finding exploits, analyzing attack vectors, performing security assessments, or ",
+      "repo": "tenequm/claude-plugins",
+      "path": "solana-security",
+      "branch": "main",
+      "category": "solana-security",
+      "tags": [],
+      "stars": 0,
+      "install": "tenequm/claude-plugins",
+      "source": "github.com/tenequm/claude-plugins"
+    }
+  ]
+}

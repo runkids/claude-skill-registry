@@ -1,0 +1,19 @@
+{
+  "category": "ln-733-env-configurator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.850323Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configures environment variables and secrets protection",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "ln-733-env-configurator",
+      "branch": "main",
+      "category": "ln-733-env-configurator",
+      "tags": [],
+      "stars": 0,
+      "install": "levnikolaevich/claude-code-skills",
+      "source": "github.com/levnikolaevich/claude-code-skills"
+    }
+  ]
+}

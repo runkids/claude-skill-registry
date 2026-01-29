@@ -1,0 +1,19 @@
+{
+  "category": "architecture-documentation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.608073Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill when modifying or creating architecture documentation.",
+      "repo": "wmeints/promptyard",
+      "path": "architecture-documentation",
+      "branch": "main",
+      "category": "architecture-documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "wmeints/promptyard",
+      "source": "github.com/wmeints/promptyard"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "git-worktree-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.663893Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up Git worktrees for agent parallelization with isolated environments. Use when setting up parallel agent execution, creating isolated environments per agent, or enabling concurrent development wo",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "git-worktree-setup",
+      "branch": "main",
+      "category": "git-worktree-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "moai-alfred-clone-pattern",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.085231Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Master-Clone pattern implementation guide for complex multi-step tasks with full project context, autonomous delegation, parallel processing, and intelligent task distribution; activates fo",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-alfred-clone-pattern",
+      "branch": "main",
+      "category": "moai-alfred-clone-pattern",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

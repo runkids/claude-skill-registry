@@ -1,0 +1,19 @@
+{
+  "category": "tutorial-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.014127Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create step-by-step guides with snippets.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "tutorial-generator",
+      "branch": "main",
+      "category": "tutorial-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

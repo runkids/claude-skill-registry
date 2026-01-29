@@ -1,0 +1,19 @@
+{
+  "category": "providing-feedback",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.484193Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements feedback and notification systems including toasts, alerts, modals, progress indicators, and error states. Use when communicating system state, displaying messages, confirming actions, or s",
+      "repo": "ancoleman/ai-design-components",
+      "path": "providing-feedback",
+      "branch": "main",
+      "category": "providing-feedback",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

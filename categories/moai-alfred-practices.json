@@ -1,0 +1,19 @@
+{
+  "category": "moai-alfred-practices",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.152382Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise practical workflows, context engineering strategies, JIT (Just-In-Time) retrieval optimization, real-world execution examples, debugging patterns, and moai-adk workflow mastery; activates f",
+      "repo": "dolsoon/my-awesome-project",
+      "path": "moai-alfred-practices",
+      "branch": "main",
+      "category": "moai-alfred-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "dolsoon/my-awesome-project",
+      "source": "github.com/dolsoon/my-awesome-project"
+    }
+  ]
+}

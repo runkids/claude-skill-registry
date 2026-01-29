@@ -1,0 +1,19 @@
+{
+  "category": "python-opencv",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.023801Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "| Function | Purpose | Gotcha |",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "python-opencv",
+      "branch": "main",
+      "category": "python-opencv",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

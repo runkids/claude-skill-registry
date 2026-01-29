@@ -1,0 +1,19 @@
+{
+  "category": "designing-tests",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.908572Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guides test strategy, TDD/BDD approaches, test coverage planning, and testing best practices. Use when designing test suites, improving coverage, or choosing testing approaches.",
+      "repo": "CloudAI-X/opencode-workflow",
+      "path": "designing-tests",
+      "branch": "main",
+      "category": "designing-tests",
+      "tags": [],
+      "stars": 0,
+      "install": "CloudAI-X/opencode-workflow",
+      "source": "github.com/CloudAI-X/opencode-workflow"
+    }
+  ]
+}

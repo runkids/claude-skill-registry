@@ -1,0 +1,19 @@
+{
+  "category": "security-agent",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.039063Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill enables Claude to conduct a security-focused code review using the security-agent plugin. It analyzes code for potential vulnerabilities like SQL injection, XSS, authentication flaws, and i",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "security-agent",
+      "branch": "main",
+      "category": "security-agent",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

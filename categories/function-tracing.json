@@ -1,0 +1,19 @@
+{
+  "category": "function-tracing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.731338Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Instrument C/C++ with -finstrument-functions for execution tracing and Perfetto visualization",
+      "repo": "gadievron/raptor",
+      "path": "function-tracing",
+      "branch": "main",
+      "category": "function-tracing",
+      "tags": [],
+      "stars": 0,
+      "install": "gadievron/raptor",
+      "source": "github.com/gadievron/raptor"
+    }
+  ]
+}

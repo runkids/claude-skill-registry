@@ -1,0 +1,19 @@
+{
+  "category": "survey-creator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.052233Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Survey Creator - Auto-activating skill for Business Automation.\nTriggers on: survey creator, survey creator\nPart of the Business Automation skill category.\n",
+      "repo": "byteworthy/Upstream",
+      "path": "survey-creator",
+      "branch": "main",
+      "category": "survey-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

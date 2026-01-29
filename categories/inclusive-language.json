@@ -1,0 +1,19 @@
+{
+  "category": "inclusive-language",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.711172Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when writing code, documentation, or comments - always use accessible and respectful terminology",
+      "repo": "troykelly/claude-skills",
+      "path": "inclusive-language",
+      "branch": "main",
+      "category": "inclusive-language",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

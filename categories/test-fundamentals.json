@@ -1,0 +1,19 @@
+{
+  "category": "test-fundamentals",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.909646Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Core testing principles applying to all unit and integration tests",
+      "repo": "zerobias-org/module",
+      "path": "test-fundamentals",
+      "branch": "main",
+      "category": "test-fundamentals",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

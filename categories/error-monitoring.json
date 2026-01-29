@@ -1,0 +1,19 @@
+{
+  "category": "error-monitoring",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.490684Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guide for error handling, logging, monitoring, and debugging. Use when implementing error boundaries, logging systems, or integrating monitoring tools like Sentry.",
+      "repo": "eddiebe147/claude-settings",
+      "path": "error-monitoring",
+      "branch": "main",
+      "category": "error-monitoring",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

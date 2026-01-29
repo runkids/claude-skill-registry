@@ -1,0 +1,19 @@
+{
+  "category": "account-tiering",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.477685Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when defining ABM tiers, scoring logic, and coverage rules.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "account-tiering",
+      "branch": "main",
+      "category": "account-tiering",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

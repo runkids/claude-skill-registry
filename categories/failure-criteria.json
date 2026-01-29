@@ -1,0 +1,19 @@
+{
+  "category": "failure-criteria",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.034893Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Immediate failure conditions that stop work",
+      "repo": "zerobias-org/module",
+      "path": "failure-criteria",
+      "branch": "main",
+      "category": "failure-criteria",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

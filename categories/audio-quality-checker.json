@@ -1,0 +1,19 @@
+{
+  "category": "audio-quality-checker",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.285819Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze the WaveCap-SDR audio stream to assess tuning quality, detect silence, noise, proper audio, or distortion. Use when checking if SDR channels are properly configured or debugging audio issues.",
+      "repo": "TobiasWooldridge/WaveCap-SDR",
+      "path": "audio-quality-checker",
+      "branch": "main",
+      "category": "audio-quality-checker",
+      "tags": [],
+      "stars": 0,
+      "install": "TobiasWooldridge/WaveCap-SDR",
+      "source": "github.com/TobiasWooldridge/WaveCap-SDR"
+    }
+  ]
+}

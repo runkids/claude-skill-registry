@@ -1,0 +1,19 @@
+{
+  "category": "idempotency",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.192080Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement idempotent API operations to safely handle retries and prevent duplicate processing. Use when building payment APIs, order systems, or any operation that must not be executed twice.",
+      "repo": "dadbodgeoff/drift",
+      "path": "idempotency",
+      "branch": "main",
+      "category": "idempotency",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

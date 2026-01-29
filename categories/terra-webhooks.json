@@ -1,0 +1,19 @@
+{
+  "category": "terra-webhooks",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.727916Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Terra API webhook handling for real-time health data. Use when setting up webhook endpoints, verifying signatures, handling events, or debugging webhook issues.",
+      "repo": "adaptationio/Skrillz",
+      "path": "terra-webhooks",
+      "branch": "main",
+      "category": "terra-webhooks",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

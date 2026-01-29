@@ -1,0 +1,19 @@
+{
+  "category": "start-feature",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.781383Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Start new feature branch",
+      "repo": "FradSer/dotclaude",
+      "path": "start-feature",
+      "branch": "main",
+      "category": "start-feature",
+      "tags": [],
+      "stars": 0,
+      "install": "FradSer/dotclaude",
+      "source": "github.com/FradSer/dotclaude"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "shodan-reconnaissance",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.496665Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"search for exposed devices on the internet,\" \"perform Shodan reconnaissance,\" \"find vulnerable services using Shodan,\" \"scan IP ranges with Shodan,\" or",
+      "repo": "AxelMrak/ai",
+      "path": "shodan-reconnaissance",
+      "branch": "main",
+      "category": "shodan-reconnaissance",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

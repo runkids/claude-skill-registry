@@ -1,0 +1,19 @@
+{
+  "category": "nielsen-help-documentation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.028623Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Proporciona documentación accesible y orientada a tareas. Use cuando diseñe sistemas de ayuda, onboarding, tooltips, o documentación de usuario.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "nielsen-help-documentation",
+      "branch": "main",
+      "category": "nielsen-help-documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

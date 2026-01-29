@@ -1,0 +1,19 @@
+{
+  "category": "firecrawl-observability",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.989770Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up comprehensive observability for FireCrawl integrations with metrics, traces, and alerts.\nUse when implementing monitoring for FireCrawl operations, setting up dashboards,\nor configuring alertin",
+      "repo": "byteworthy/Upstream",
+      "path": "firecrawl-observability",
+      "branch": "main",
+      "category": "firecrawl-observability",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

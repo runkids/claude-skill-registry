@@ -1,0 +1,19 @@
+{
+  "category": "cascade-orchestrator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.033874Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates sophisticated workflow cascades coordinating multiple micro-skills with sequential pipelines, parallel execution, conditional branching, and Codex sandbox iteration. Enhanced with multi-model ",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "cascade-orchestrator",
+      "branch": "main",
+      "category": "cascade-orchestrator",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

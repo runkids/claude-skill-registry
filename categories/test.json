@@ -1,7 +1,7 @@
 {
   "category": "test",
-  "count": 1,
-  "updated_at": "2026-01-29T04:49:19.503220Z",
+  "count": 2,
+  "updated_at": "2026-01-29T16:04:49.670144Z",
   "skills": [
     {
       "name": "test-skill",
@@ -14,6 +14,18 @@
       "stars": 1,
       "install": "mickdarling/dollhouse-portfolio",
       "source": "github.com/mickdarling/dollhouse-portfolio"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Testing patterns for PHPUnit and Playwright E2E tests. Use when writing tests, debugging test failures, setting up test coverage, or implementing test patterns for ActivityPub features.",
+      "repo": "Automattic/wordpress-activitypub",
+      "path": "test",
+      "branch": "main",
+      "category": "test",
+      "tags": [],
+      "stars": 0,
+      "install": "Automattic/wordpress-activitypub",
+      "source": "github.com/Automattic/wordpress-activitypub"
     }
   ]
 }

@@ -1,0 +1,19 @@
+{
+  "category": "repertoire-visualization",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.498006Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create publication-quality visualizations of immune repertoire data including circos plots, clone tracking, diversity plots, and network graphs. Use when generating figures for repertoire comparisons,",
+      "repo": "GPTomics/bioSkills",
+      "path": "repertoire-visualization",
+      "branch": "main",
+      "category": "repertoire-visualization",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

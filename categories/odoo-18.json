@@ -1,0 +1,19 @@
+{
+  "category": "odoo-18",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.414539Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Skill: SKILL.md",
+      "repo": "unclecatvn/agent-skills",
+      "path": "odoo-18",
+      "branch": "main",
+      "category": "odoo-18",
+      "tags": [],
+      "stars": 0,
+      "install": "unclecatvn/agent-skills",
+      "source": "github.com/unclecatvn/agent-skills"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "test-task-dynamic-id",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.787513Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test if we can dynamically set CLAUDE_CODE_TASK_LIST_ID",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-task-dynamic-id",
+      "branch": "main",
+      "category": "test-task-dynamic-id",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

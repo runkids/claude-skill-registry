@@ -1,0 +1,19 @@
+{
+  "category": "ado-pipeline-best-practices",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.721583Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Azure DevOps pipeline best practices, patterns, and industry standards",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "ado-pipeline-best-practices",
+      "branch": "main",
+      "category": "ado-pipeline-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

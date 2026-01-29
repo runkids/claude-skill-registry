@@ -1,0 +1,19 @@
+{
+  "category": "cheapskate",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.287488Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cheapskate Skill",
+      "repo": "plurigrid/asi",
+      "path": "cheapskate",
+      "branch": "main",
+      "category": "cheapskate",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

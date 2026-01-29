@@ -1,0 +1,19 @@
+{
+  "category": "mcp-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.655596Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conversational interface for managing MCP (Model Context Protocol) server configurations in Claude Code",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "mcp-manager",
+      "branch": "main",
+      "category": "mcp-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

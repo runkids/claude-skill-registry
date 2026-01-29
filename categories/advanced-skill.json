@@ -1,0 +1,21 @@
+{
+  "category": "advanced-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.749262Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": [
+        "Brief description - this triggers auto-loading when relevant"
+      ],
+      "repo": "medride/claude-code-research",
+      "path": "advanced-skill",
+      "branch": "main",
+      "category": "advanced-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "medride/claude-code-research",
+      "source": "github.com/medride/claude-code-research"
+    }
+  ]
+}

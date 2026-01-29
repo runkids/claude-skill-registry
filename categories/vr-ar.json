@@ -1,0 +1,19 @@
+{
+  "category": "vr-ar",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.010112Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "VR/AR development principles. Comfort, interaction, performance requirements.",
+      "repo": "AxelMrak/ai",
+      "path": "vr-ar",
+      "branch": "main",
+      "category": "vr-ar",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

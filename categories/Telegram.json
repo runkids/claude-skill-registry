@@ -1,0 +1,19 @@
+{
+  "category": "Telegram",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.053436Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Process Telegram messages via GramJS MTProto client. Read messages, generate AI drafts, save drafts, and create intro groups. Use when handling Telegram conversations or facilitating introductions.",
+      "repo": "Gerstep/cybos",
+      "path": "Telegram",
+      "branch": "main",
+      "category": "Telegram",
+      "tags": [],
+      "stars": 0,
+      "install": "Gerstep/cybos",
+      "source": "github.com/Gerstep/cybos"
+    }
+  ]
+}

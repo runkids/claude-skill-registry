@@ -1,0 +1,19 @@
+{
+  "category": "overstock",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.202005Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enables Claude to browse Overstock products, manage lists, and track orders",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "overstock",
+      "branch": "main",
+      "category": "overstock",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

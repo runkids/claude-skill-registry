@@ -1,0 +1,19 @@
+{
+  "category": "libghostty-vt",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.498437Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "libghostty-vt",
+      "repo": "plurigrid/asi",
+      "path": "libghostty-vt",
+      "branch": "main",
+      "category": "libghostty-vt",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

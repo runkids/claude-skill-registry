@@ -1,0 +1,19 @@
+{
+  "category": "marketing-copy-editing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.132487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to edit, review, or improve existing marketing copy. Also use when the user mentions 'edit this copy,' 'review my copy,' 'copy feedback,' 'proofread,' 'polish this,' 'make this bet",
+      "repo": "boisenoise/skills-collections",
+      "path": "marketing-copy-editing",
+      "branch": "main",
+      "category": "marketing-copy-editing",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

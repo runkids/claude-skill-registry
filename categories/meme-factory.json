@@ -1,0 +1,19 @@
+{
+  "category": "meme-factory",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.809070Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate memes using the memegen.link API. Use when users request memes, want to add humor to content, or need visual aids for social media. Supports 100+ popular templates with custom text and stylin",
+      "repo": "softaworks/agent-toolkit",
+      "path": "meme-factory",
+      "branch": "main",
+      "category": "meme-factory",
+      "tags": [],
+      "stars": 0,
+      "install": "softaworks/agent-toolkit",
+      "source": "github.com/softaworks/agent-toolkit"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "api-integration-specialist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.757018Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in integrating third-party APIs with proper authentication, error handling, rate limiting, and retry logic. Use when integrating REST APIs, GraphQL endpoints, webhooks, or external services. Sp",
+      "repo": "Spectaculous-Code/raamattu-nyt",
+      "path": "api-integration-specialist",
+      "branch": "main",
+      "category": "api-integration-specialist",
+      "tags": [],
+      "stars": 0,
+      "install": "Spectaculous-Code/raamattu-nyt",
+      "source": "github.com/Spectaculous-Code/raamattu-nyt"
+    }
+  ]
+}

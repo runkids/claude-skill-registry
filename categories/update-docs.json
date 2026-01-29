@@ -1,0 +1,19 @@
+{
+  "category": "update-docs",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.040931Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check if code changes require documentation updates and update the /docs knowledge base accordingly.",
+      "repo": "kreas/ship-it",
+      "path": "update-docs",
+      "branch": "main",
+      "category": "update-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "kreas/ship-it",
+      "source": "github.com/kreas/ship-it"
+    }
+  ]
+}

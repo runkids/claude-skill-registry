@@ -1,0 +1,19 @@
+{
+  "category": "dynamic-schema-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.348651Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementing flexible content schemas using EF Core JSON columns, `OwnsOne().ToJson()` patterns, or designing dynamic field storage that avoids migrations. Covers JSON column configuration, L",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "dynamic-schema-design",
+      "branch": "main",
+      "category": "dynamic-schema-design",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

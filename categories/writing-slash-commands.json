@@ -1,0 +1,19 @@
+{
+  "category": "writing-slash-commands",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.775721Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating or editing slash commands - applies TDD to slash command documentation by testing with SlashCommand tool and subagents before deployment, preventing inverted logic and untested condi",
+      "repo": "WesleyMFrederick/cc-workflows",
+      "path": "writing-slash-commands",
+      "branch": "main",
+      "category": "writing-slash-commands",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleyMFrederick/cc-workflows",
+      "source": "github.com/WesleyMFrederick/cc-workflows"
+    }
+  ]
+}

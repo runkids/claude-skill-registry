@@ -1,0 +1,19 @@
+{
+  "category": "suspense-data-architectures",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.628349Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Engineer data-fetching architectures that fully leverage `Suspense`, streaming SSR, and granular cache invalidation.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "suspense-data-architectures",
+      "branch": "main",
+      "category": "suspense-data-architectures",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

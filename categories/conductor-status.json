@@ -1,0 +1,19 @@
+{
+  "category": "conductor-status",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.946258Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Display project status, active tracks, and next actions",
+      "repo": "rmyndharis/antigravity-skills",
+      "path": "conductor-status",
+      "branch": "main",
+      "category": "conductor-status",
+      "tags": [],
+      "stars": 0,
+      "install": "rmyndharis/antigravity-skills",
+      "source": "github.com/rmyndharis/antigravity-skills"
+    }
+  ]
+}

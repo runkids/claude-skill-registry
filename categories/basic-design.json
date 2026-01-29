@@ -1,0 +1,19 @@
+{
+  "category": "basic-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.208466Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "システム全体のアーキテクチャと基本設計を担当します。",
+      "repo": "infinith4/dev-flutter-realestate",
+      "path": "basic-design",
+      "branch": "main",
+      "category": "basic-design",
+      "tags": [],
+      "stars": 0,
+      "install": "infinith4/dev-flutter-realestate",
+      "source": "github.com/infinith4/dev-flutter-realestate"
+    }
+  ]
+}

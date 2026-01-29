@@ -1,0 +1,19 @@
+{
+  "category": "flywheel",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.644066Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Knowledge flywheel health monitoring. Checks velocity, pool depths, staleness. Triggers: \"flywheel status\", \"knowledge health\", \"is knowledge compounding\".",
+      "repo": "boshu2/agentops",
+      "path": "flywheel",
+      "branch": "main",
+      "category": "flywheel",
+      "tags": [],
+      "stars": 0,
+      "install": "boshu2/agentops",
+      "source": "github.com/boshu2/agentops"
+    }
+  ]
+}

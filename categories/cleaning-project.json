@@ -1,0 +1,19 @@
+{
+  "category": "cleaning-project",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.907780Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scans the codebase for unused files, dead code, and common junk patterns. Always performs a \"Dry Run\" first to list candidates for deletion and requires explicit user confirmation.",
+      "repo": "TheeCoderAhmed/Skills-Master",
+      "path": "cleaning-project",
+      "branch": "main",
+      "category": "cleaning-project",
+      "tags": [],
+      "stars": 0,
+      "install": "TheeCoderAhmed/Skills-Master",
+      "source": "github.com/TheeCoderAhmed/Skills-Master"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "read-issue",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.136900Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /read-issue <issue-number> slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "read-issue",
+      "branch": "main",
+      "category": "read-issue",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

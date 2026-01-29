@@ -1,0 +1,19 @@
+{
+  "category": "ci-fixer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.014940Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated CI/CD pipeline fixer - watches CI, fixes errors locally, commits, and loops until green. Use when CI is failing and you want to automatically fix and verify changes.",
+      "repo": "cedricfressin/claude-config",
+      "path": "ci-fixer",
+      "branch": "main",
+      "category": "ci-fixer",
+      "tags": [],
+      "stars": 0,
+      "install": "cedricfressin/claude-config",
+      "source": "github.com/cedricfressin/claude-config"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "levn-ln-760-security-setup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.656199Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coordinates security scanning (secrets + deps). Delegates to ln-761/ln-762. Generates SECURITY.md, pre-commit hooks, CI workflow.",
+      "repo": "boisenoise/skills-collections",
+      "path": "levn-ln-760-security-setup",
+      "branch": "main",
+      "category": "levn-ln-760-security-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

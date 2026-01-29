@@ -1,0 +1,19 @@
+{
+  "category": "sensor-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.372484Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Home Assistant sensor configuration and analytics patterns.",
+      "repo": "Lobbi-Docs/claude",
+      "path": "sensor-management",
+      "branch": "main",
+      "category": "sensor-management",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

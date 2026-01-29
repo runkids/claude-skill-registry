@@ -1,0 +1,19 @@
+{
+  "category": "scientific-pkg-rdkit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.006739Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cheminformatics toolkit for fine-grained molecular control. SMILES/SDF parsing, descriptors (MW, LogP, TPSA), fingerprints, substructure search, 2D/3D generation, similarity, reactions. For standard w",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-pkg-rdkit",
+      "branch": "main",
+      "category": "scientific-pkg-rdkit",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

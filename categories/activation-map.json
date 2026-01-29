@@ -1,0 +1,19 @@
+{
+  "category": "activation-map",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.122001Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to link segments and insights to GTM plays, owners, and measurement plans.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "activation-map",
+      "branch": "main",
+      "category": "activation-map",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

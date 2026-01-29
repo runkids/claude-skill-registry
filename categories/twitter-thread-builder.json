@@ -1,0 +1,19 @@
+{
+  "category": "twitter-thread-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.469192Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Craft engaging Twitter/X threads with strong hooks and optimal structure for engagement",
+      "repo": "eddiebe147/claude-settings",
+      "path": "twitter-thread-builder",
+      "branch": "main",
+      "category": "twitter-thread-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

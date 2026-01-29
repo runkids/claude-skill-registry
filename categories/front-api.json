@@ -1,0 +1,19 @@
+{
+  "category": "front-api",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.555859Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reference for Front REST API integration. Use when working with Front API schemas, nullable fields, webhooks, or debugging Front SDK issues.",
+      "repo": "skillrecordings/support",
+      "path": "front-api",
+      "branch": "main",
+      "category": "front-api",
+      "tags": [],
+      "stars": 0,
+      "install": "skillrecordings/support",
+      "source": "github.com/skillrecordings/support"
+    }
+  ]
+}

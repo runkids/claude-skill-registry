@@ -1,0 +1,19 @@
+{
+  "category": "skill-intake-and-triage",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.410240Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standardize requirement intake, scope definition, and skill selection.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "skill-intake-and-triage",
+      "branch": "main",
+      "category": "skill-intake-and-triage",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

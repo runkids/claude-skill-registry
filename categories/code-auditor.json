@@ -1,0 +1,19 @@
+{
+  "category": "code-auditor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.273528Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Performs comprehensive codebase analysis covering architecture, code quality, security, performance, testing, and maintainability. Use when user wants to audit code quality, identify technical debt, f",
+      "repo": "mhattingpete/claude-skills-marketplace",
+      "path": "code-auditor",
+      "branch": "main",
+      "category": "code-auditor",
+      "tags": [],
+      "stars": 0,
+      "install": "mhattingpete/claude-skills-marketplace",
+      "source": "github.com/mhattingpete/claude-skills-marketplace"
+    }
+  ]
+}

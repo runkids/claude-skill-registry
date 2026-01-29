@@ -1,0 +1,19 @@
+{
+  "category": "docker-hadolint",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.131531Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Docker & Hadolint - Atoll Tourisme. Use when working with Docker or containers.",
+      "repo": "TheBeardedBearSAS/claude-craft",
+      "path": "docker-hadolint",
+      "branch": "main",
+      "category": "docker-hadolint",
+      "tags": [],
+      "stars": 0,
+      "install": "TheBeardedBearSAS/claude-craft",
+      "source": "github.com/TheBeardedBearSAS/claude-craft"
+    }
+  ]
+}

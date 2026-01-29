@@ -1,0 +1,19 @@
+{
+  "category": "claude-md",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.882508Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create or update CLAUDE.md files following best practices for optimal AI agent onboarding",
+      "repo": "luongnv89/claude-howto",
+      "path": "claude-md",
+      "branch": "main",
+      "category": "claude-md",
+      "tags": [],
+      "stars": 0,
+      "install": "luongnv89/claude-howto",
+      "source": "github.com/luongnv89/claude-howto"
+    }
+  ]
+}

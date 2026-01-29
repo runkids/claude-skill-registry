@@ -1,0 +1,19 @@
+{
+  "category": "warp-fork",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.295136Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fork a warp route from the local HTTP registry for development and testing. Use when the goal is try to simulate transactions on a set of anvil forks.",
+      "repo": "hyperlane-xyz/hyperlane-monorepo",
+      "path": "warp-fork",
+      "branch": "main",
+      "category": "warp-fork",
+      "tags": [],
+      "stars": 0,
+      "install": "hyperlane-xyz/hyperlane-monorepo",
+      "source": "github.com/hyperlane-xyz/hyperlane-monorepo"
+    }
+  ]
+}

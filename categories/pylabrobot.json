@@ -1,0 +1,19 @@
+{
+  "category": "pylabrobot",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.549974Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Laboratory automation toolkit for controlling liquid handlers, plate readers, pumps, heater shakers, incubators, centrifuges, and analytical equipment. Use this skill when automating laboratory workfl",
+      "repo": "robinbarvaag/poynt",
+      "path": "pylabrobot",
+      "branch": "main",
+      "category": "pylabrobot",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

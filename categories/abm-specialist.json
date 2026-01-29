@@ -1,0 +1,19 @@
+{
+  "category": "abm-specialist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.918653Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт ABM. Используй для account-based marketing, target account selection и personalized campaigns.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "abm-specialist",
+      "branch": "main",
+      "category": "abm-specialist",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

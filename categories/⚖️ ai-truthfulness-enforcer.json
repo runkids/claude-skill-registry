@@ -1,0 +1,19 @@
+{
+  "category": "⚖️ ai-truthfulness-enforcer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.219828Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MANDATORY verification system that prevents Claude Code instances from making false claims or fabricating evidence. Enforces cryptographic verification, real testing evidence, and automatic claim vali",
+      "repo": "endlessblink/flow-state",
+      "path": "⚖️ ai-truthfulness-enforcer",
+      "branch": "main",
+      "category": "⚖️ ai-truthfulness-enforcer",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

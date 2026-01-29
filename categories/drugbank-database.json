@@ -1,0 +1,19 @@
+{
+  "category": "drugbank-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.120185Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access and analyze comprehensive drug information from the DrugBank database including drug properties, interactions, targets, pathways, chemical structures, and pharmacology data. This skill should b",
+      "repo": "K-Dense-AI/claude-scientific-skills",
+      "path": "drugbank-database",
+      "branch": "main",
+      "category": "drugbank-database",
+      "tags": [],
+      "stars": 0,
+      "install": "K-Dense-AI/claude-scientific-skills",
+      "source": "github.com/K-Dense-AI/claude-scientific-skills"
+    }
+  ]
+}

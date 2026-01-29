@@ -1,0 +1,19 @@
+{
+  "category": "visual-regression-snapshot-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.051124Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automate visual validation of component states to catch styling regressions.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "visual-regression-snapshot-testing",
+      "branch": "main",
+      "category": "visual-regression-snapshot-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

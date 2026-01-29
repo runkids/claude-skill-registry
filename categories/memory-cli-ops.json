@@ -1,0 +1,19 @@
+{
+  "category": "memory-cli-ops",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.287395Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute and troubleshoot memory-cli commands for episode management, pattern analysis, and storage operations. Use this skill when running CLI commands, debugging CLI issues, explaining command usage,",
+      "repo": "d-o-hub/rust-self-learning-memory",
+      "path": "memory-cli-ops",
+      "branch": "main",
+      "category": "memory-cli-ops",
+      "tags": [],
+      "stars": 0,
+      "install": "d-o-hub/rust-self-learning-memory",
+      "source": "github.com/d-o-hub/rust-self-learning-memory"
+    }
+  ]
+}

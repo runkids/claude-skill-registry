@@ -1,0 +1,19 @@
+{
+  "category": "critical-code-reviewer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.068111Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conduct rigorous, adversarial code reviews with zero tolerance for mediocrity. Use when users ask to \"critically review\" my code or a PR, \"critique my code\", \"find issues in my code\", or \"what's wrong",
+      "repo": "posit-dev/skills",
+      "path": "critical-code-reviewer",
+      "branch": "main",
+      "category": "critical-code-reviewer",
+      "tags": [],
+      "stars": 0,
+      "install": "posit-dev/skills",
+      "source": "github.com/posit-dev/skills"
+    }
+  ]
+}

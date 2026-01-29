@@ -1,0 +1,19 @@
+{
+  "category": "when-configuring-sandbox-security-use-sandbox-configurator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.097703Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "metadata:",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "when-configuring-sandbox-security-use-sandbox-configurator",
+      "branch": "main",
+      "category": "when-configuring-sandbox-security-use-sandbox-configurator",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

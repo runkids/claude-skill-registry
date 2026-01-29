@@ -1,0 +1,19 @@
+{
+  "category": "scientific-qutip",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.297192Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quantum physics simulation library for open quantum systems. Use when studying master equations, Lindblad dynamics, decoherence, quantum optics, or cavity QED. Best for physics research, open system d",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-qutip",
+      "branch": "main",
+      "category": "scientific-qutip",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

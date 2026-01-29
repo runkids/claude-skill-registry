@@ -1,0 +1,19 @@
+{
+  "category": "antigravity-upstash-qstash",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.607402Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Upstash QStash expert for serverless message queues, scheduled jobs, and reliable HTTP-based task delivery without managing infrastructure. Use when: qstash, upstash queue, serverless cron, scheduled ",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-upstash-qstash",
+      "branch": "main",
+      "category": "antigravity-upstash-qstash",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

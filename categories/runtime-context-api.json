@@ -1,0 +1,19 @@
+{
+  "category": "runtime-context-api",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.232705Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Explains how to use Synapse RuntimeContext API. Use when the user asks about \"RuntimeContext\", \"ctx.\", \"logging\", \"progress tracking\", \"set_progress\", \"set_metrics\", \"log_message\", \"BaseStepContext\", ",
+      "repo": "datamaker-kr/synapse-claude-marketplace",
+      "path": "runtime-context-api",
+      "branch": "main",
+      "category": "runtime-context-api",
+      "tags": [],
+      "stars": 0,
+      "install": "datamaker-kr/synapse-claude-marketplace",
+      "source": "github.com/datamaker-kr/synapse-claude-marketplace"
+    }
+  ]
+}

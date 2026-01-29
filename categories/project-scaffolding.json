@@ -1,0 +1,19 @@
+{
+  "category": "project-scaffolding",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.384886Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Initialize new projects with proper structure, configuration, and setup from BaseProject template. Use when creating new projects, setting up directory structures, or initializing repositories.",
+      "repo": "AutumnsGrove/GroveScout",
+      "path": "project-scaffolding",
+      "branch": "main",
+      "category": "project-scaffolding",
+      "tags": [],
+      "stars": 0,
+      "install": "AutumnsGrove/GroveScout",
+      "source": "github.com/AutumnsGrove/GroveScout"
+    }
+  ]
+}

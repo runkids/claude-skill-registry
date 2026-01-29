@@ -1,0 +1,19 @@
+{
+  "category": "fusion-bugfix",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.823346Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Propose multiple bug-fix strategies and pick the safest; use when a bug has more than one viable fix.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "fusion-bugfix",
+      "branch": "main",
+      "category": "fusion-bugfix",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

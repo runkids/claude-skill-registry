@@ -1,0 +1,19 @@
+{
+  "category": "troubleshooting-execute",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.608559Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when execute command encounters errors - diagnostic guide for phase failures, parallel agent failures, merge conflicts, worktree issues, and recovery strategies",
+      "repo": "arittr/spectacular",
+      "path": "troubleshooting-execute",
+      "branch": "main",
+      "category": "troubleshooting-execute",
+      "tags": [],
+      "stars": 0,
+      "install": "arittr/spectacular",
+      "source": "github.com/arittr/spectacular"
+    }
+  ]
+}

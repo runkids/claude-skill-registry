@@ -1,0 +1,19 @@
+{
+  "category": "cook",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.427261Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ALWAYS activate this skill before implementing EVERY feature, plan, or fix.",
+      "repo": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
+      "path": "cook",
+      "branch": "main",
+      "category": "cook",
+      "tags": [],
+      "stars": 0,
+      "install": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
+      "source": "github.com/hoanghd218/landing-page-ai-kientruc-a-Ninh"
+    }
+  ]
+}

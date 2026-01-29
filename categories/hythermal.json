@@ -1,0 +1,19 @@
+{
+  "category": "hythermal",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.521410Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "HyThermal Skill",
+      "repo": "plurigrid/asi",
+      "path": "hythermal",
+      "branch": "main",
+      "category": "hythermal",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

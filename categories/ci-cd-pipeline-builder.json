@@ -1,0 +1,19 @@
+{
+  "category": "ci-cd-pipeline-builder",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.097526Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill enables Claude to generate CI/CD pipeline configurations for various platforms, including GitHub Actions, GitLab CI, and Jenkins. It is used when a user requests the creation of a CI/CD pip",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "ci-cd-pipeline-builder",
+      "branch": "main",
+      "category": "ci-cd-pipeline-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

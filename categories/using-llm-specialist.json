@@ -1,0 +1,19 @@
+{
+  "category": "using-llm-specialist",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.217603Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "LLM specialist router to prompt engineering, fine-tuning, RAG, evaluation, and safety skills.",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-llm-specialist",
+      "branch": "main",
+      "category": "using-llm-specialist",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "rabbitmq",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.285935Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "RabbitMQ message broker operations including export/import and message publishing.",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "rabbitmq",
+      "branch": "main",
+      "category": "rabbitmq",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

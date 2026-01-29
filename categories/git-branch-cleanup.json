@@ -1,0 +1,19 @@
+{
+  "category": "git-branch-cleanup",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.160411Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes and safely cleans up local Git branches. Categorizes branches by merge status,\nstaleness, and remote tracking. Provides interactive selection with safety guards.\nUse when the user wants to cl",
+      "repo": "gotalab/skillport",
+      "path": "git-branch-cleanup",
+      "branch": "main",
+      "category": "git-branch-cleanup",
+      "tags": [],
+      "stars": 0,
+      "install": "gotalab/skillport",
+      "source": "github.com/gotalab/skillport"
+    }
+  ]
+}

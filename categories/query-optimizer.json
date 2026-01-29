@@ -1,0 +1,19 @@
+{
+  "category": "query-optimizer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.289181Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Static analysis of D1 queries to prevent the",
+      "repo": "littlebearapps/cloudflare-engineer",
+      "path": "query-optimizer",
+      "branch": "main",
+      "category": "query-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "littlebearapps/cloudflare-engineer",
+      "source": "github.com/littlebearapps/cloudflare-engineer"
+    }
+  ]
+}

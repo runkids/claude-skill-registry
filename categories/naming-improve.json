@@ -1,0 +1,19 @@
+{
+  "category": "naming-improve",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.024335Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Improve variable and function naming with semantic analysis",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "naming-improve",
+      "branch": "main",
+      "category": "naming-improve",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

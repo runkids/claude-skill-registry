@@ -1,0 +1,19 @@
+{
+  "category": "agent-memory-mcp",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.692169Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A hybrid memory system that provides persistent, searchable knowledge management for AI agents (Architecture, Patterns, Decisions).",
+      "repo": "AxelMrak/ai",
+      "path": "agent-memory-mcp",
+      "branch": "main",
+      "category": "agent-memory-mcp",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

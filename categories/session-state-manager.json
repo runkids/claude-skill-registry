@@ -1,0 +1,19 @@
+{
+  "category": "session-state-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.950663Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Persistently stores conversation state, decisions, and progress to allow seamless resume across sessions.",
+      "repo": "hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus",
+      "path": "session-state-manager",
+      "branch": "main",
+      "category": "session-state-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus",
+      "source": "github.com/hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus"
+    }
+  ]
+}

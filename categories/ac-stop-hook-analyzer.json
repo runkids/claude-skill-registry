@@ -1,0 +1,19 @@
+{
+  "category": "ac-stop-hook-analyzer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.613906Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze context and decide on continuation via Stop hook. Use when determining if work should continue, analyzing completion status, making continuation decisions, or implementing the Two-Claude patte",
+      "repo": "adaptationio/Skrillz",
+      "path": "ac-stop-hook-analyzer",
+      "branch": "main",
+      "category": "ac-stop-hook-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

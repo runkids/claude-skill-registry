@@ -1,0 +1,19 @@
+{
+  "category": "ralph-memory",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.644759Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query and manage RALPH's persistent memory layer",
+      "repo": "doravidan/supreme-ralph",
+      "path": "ralph-memory",
+      "branch": "main",
+      "category": "ralph-memory",
+      "tags": [],
+      "stars": 0,
+      "install": "doravidan/supreme-ralph",
+      "source": "github.com/doravidan/supreme-ralph"
+    }
+  ]
+}

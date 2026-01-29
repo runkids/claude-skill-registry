@@ -1,0 +1,19 @@
+{
+  "category": "social-caption-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.791525Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates platform-specific captions for social media posts. Use when the user asks about Instagram captions, LinkedIn posts, Twitter/X threads, TikTok descriptions, hashtags, or social media copy.",
+      "repo": "WesleySmits/agent-skills",
+      "path": "social-caption-generator",
+      "branch": "main",
+      "category": "social-caption-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

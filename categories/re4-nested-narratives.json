@@ -1,0 +1,19 @@
+{
+  "category": "re4-nested-narratives",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.447251Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply RE4 Nested Narratives to structure information as stories within stories for depth and memorability.",
+      "repo": "hummbl-dev/hummbl-agent",
+      "path": "re4-nested-narratives",
+      "branch": "main",
+      "category": "re4-nested-narratives",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/hummbl-agent",
+      "source": "github.com/hummbl-dev/hummbl-agent"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "setup-project",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.428640Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Initialize any project with Claude Code best practices and RALPH autonomous development",
+      "repo": "doravidan/supreme-ralph",
+      "path": "setup-project",
+      "branch": "main",
+      "category": "setup-project",
+      "tags": [],
+      "stars": 0,
+      "install": "doravidan/supreme-ralph",
+      "source": "github.com/doravidan/supreme-ralph"
+    }
+  ]
+}

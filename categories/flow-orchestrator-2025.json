@@ -1,0 +1,19 @@
+{
+  "category": "flow-orchestrator-2025",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.472971Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Salesforce Flow Orchestrator multi-user automation best practices (2025)",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "flow-orchestrator-2025",
+      "branch": "main",
+      "category": "flow-orchestrator-2025",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

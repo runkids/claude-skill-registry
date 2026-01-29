@@ -1,0 +1,19 @@
+{
+  "category": "swarm-orchestration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.389811Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Orchestrate multi-agent swarms with agentic-flow for parallel task execution, dynamic topology, and intelligent coordination. Use when scaling beyond single agents, implementing complex workflows, or ",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "swarm-orchestration",
+      "branch": "main",
+      "category": "swarm-orchestration",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

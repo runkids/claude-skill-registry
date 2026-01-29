@@ -1,0 +1,19 @@
+{
+  "category": "pareto-principle",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.712124Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "El 80% de resultados viene del 20% de causas. Use cuando priorice features, diseñe interfaces, o decida dónde invertir esfuerzo de diseño.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "pareto-principle",
+      "branch": "main",
+      "category": "pareto-principle",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

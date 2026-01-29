@@ -1,0 +1,19 @@
+{
+  "category": "antigravity-frontend-design",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.342607Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create distinctive, production-grade frontend interfaces with intentional aesthetics, high craft, and non-generic visual identity. Use when building or styling web UIs, components, pages, dashboards, ",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-frontend-design",
+      "branch": "main",
+      "category": "antigravity-frontend-design",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

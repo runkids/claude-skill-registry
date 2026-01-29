@@ -1,0 +1,19 @@
+{
+  "category": "react-hoc-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.760566Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Higher-Order Component patterns for TMNL. Covers cross-cutting concerns, behavior injection, and composition. Use for patterns like withSliderDebug, withDraggable, withLayering.",
+      "repo": "creatifcoding/gbg",
+      "path": "react-hoc-patterns",
+      "branch": "main",
+      "category": "react-hoc-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

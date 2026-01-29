@@ -1,0 +1,19 @@
+{
+  "category": "react-fundamentals-19",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.630072Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "| Feature | Pattern | Example |",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "react-fundamentals-19",
+      "branch": "main",
+      "category": "react-fundamentals-19",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

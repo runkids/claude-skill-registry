@@ -1,0 +1,19 @@
+{
+  "category": "svg-illustration",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.115638Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when you need SVG diagram rules, layout patterns, or embedding guidance for slide decks and want the minimal SVG-focused reading path.",
+      "repo": "narumiruna/agent-skills",
+      "path": "svg-illustration",
+      "branch": "main",
+      "category": "svg-illustration",
+      "tags": [],
+      "stars": 0,
+      "install": "narumiruna/agent-skills",
+      "source": "github.com/narumiruna/agent-skills"
+    }
+  ]
+}

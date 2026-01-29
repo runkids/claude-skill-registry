@@ -1,0 +1,19 @@
+{
+  "category": "x-announcement",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.118604Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Post release announcements to X (Twitter) with automated GitHub link reply. Auto-trigger after /release command completion or manual invocation. Generates engaging posts from CHANGELOG, posts via API,",
+      "repo": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "path": "x-announcement",
+      "branch": "main",
+      "category": "x-announcement",
+      "tags": [],
+      "stars": 0,
+      "install": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "source": "github.com/Sjdjdiejdrirhdkjej/Claude-code-conductor"
+    }
+  ]
+}

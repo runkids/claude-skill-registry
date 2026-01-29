@@ -1,0 +1,19 @@
+{
+  "category": "avue-form",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.095362Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Avue Form component including form configuration, validation, and dynamic forms. Use when the user asks about Avue Form, needs to create dynamic forms, implement fo",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "avue-form",
+      "branch": "main",
+      "category": "avue-form",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

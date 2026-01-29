@@ -1,0 +1,19 @@
+{
+  "category": "mission-orchestrated",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.738775Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "HOUSTON spawns Task agents: Worker, Inspector, Analyst per task. Best for medium features (4-10 tasks).",
+      "repo": "thebrownproject/space-agents",
+      "path": "mission-orchestrated",
+      "branch": "main",
+      "category": "mission-orchestrated",
+      "tags": [],
+      "stars": 0,
+      "install": "thebrownproject/space-agents",
+      "source": "github.com/thebrownproject/space-agents"
+    }
+  ]
+}

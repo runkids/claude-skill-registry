@@ -1,0 +1,19 @@
+{
+  "category": "token-budget-advisor",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.973512Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Proactive token budget assessment and task chunking strategy. Use this skill when queries involve multiple large file uploads, requests for comprehensive multi-document analysis, complex multi-step wo",
+      "repo": "freitasp1/claude-code-skills",
+      "path": "token-budget-advisor",
+      "branch": "main",
+      "category": "token-budget-advisor",
+      "tags": [],
+      "stars": 0,
+      "install": "freitasp1/claude-code-skills",
+      "source": "github.com/freitasp1/claude-code-skills"
+    }
+  ]
+}

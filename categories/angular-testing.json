@@ -1,0 +1,19 @@
+{
+  "category": "angular-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.686943Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write unit and integration tests for Angular v21+ applications using Vitest or Jasmine with TestBed, component harnesses, and modern testing patterns. Use for testing components with signals, OnPush c",
+      "repo": "analogjs/angular-skills",
+      "path": "angular-testing",
+      "branch": "main",
+      "category": "angular-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "analogjs/angular-skills",
+      "source": "github.com/analogjs/angular-skills"
+    }
+  ]
+}

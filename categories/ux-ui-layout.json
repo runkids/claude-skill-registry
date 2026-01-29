@@ -1,0 +1,19 @@
+{
+  "category": "ux-ui-layout",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.105505Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "레이아웃 시스템 에이전트. 페이지 레이아웃과 그리드 시스템을 설계합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "ux-ui-layout",
+      "branch": "main",
+      "category": "ux-ui-layout",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

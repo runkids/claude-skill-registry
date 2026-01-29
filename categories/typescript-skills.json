@@ -1,0 +1,19 @@
+{
+  "category": "typescript-skills",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.035230Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Shared TypeScript best practices for Designer and Electron subsystems.",
+      "repo": "llama-farm/llamafarm",
+      "path": "typescript-skills",
+      "branch": "main",
+      "category": "typescript-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "llama-farm/llamafarm",
+      "source": "github.com/llama-farm/llamafarm"
+    }
+  ]
+}

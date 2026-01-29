@@ -1,0 +1,19 @@
+{
+  "category": "creating-pull-requests",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.188013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating a pull request or preparing changes for review. Ensures PR titles and descriptions accurately reflect ALL changes in the branch AND link to related GitHub issues. Prevents accidental",
+      "repo": "StirlingMarketingGroup/marlin",
+      "path": "creating-pull-requests",
+      "branch": "main",
+      "category": "creating-pull-requests",
+      "tags": [],
+      "stars": 0,
+      "install": "StirlingMarketingGroup/marlin",
+      "source": "github.com/StirlingMarketingGroup/marlin"
+    }
+  ]
+}

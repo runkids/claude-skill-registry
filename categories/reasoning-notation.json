@@ -1,0 +1,19 @@
+{
+  "category": "reasoning-notation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.834719Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Meta-skill that wraps reasoning skills to capture notes in real-time, protecting against context compression. Creates checkpoint files during reasoning sessions.",
+      "repo": "agentgptsmith/MonadFramework",
+      "path": "reasoning-notation",
+      "branch": "main",
+      "category": "reasoning-notation",
+      "tags": [],
+      "stars": 0,
+      "install": "agentgptsmith/MonadFramework",
+      "source": "github.com/agentgptsmith/MonadFramework"
+    }
+  ]
+}

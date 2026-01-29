@@ -1,0 +1,19 @@
+{
+  "category": "developer",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.139614Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MUST BE USED for code implementation. Use PROACTIVELY when /implement or /fix commands are invoked, or when coding tasks need execution.",
+      "repo": "arttttt/CMIDCABot",
+      "path": "developer",
+      "branch": "main",
+      "category": "developer",
+      "tags": [],
+      "stars": 0,
+      "install": "arttttt/CMIDCABot",
+      "source": "github.com/arttttt/CMIDCABot"
+    }
+  ]
+}

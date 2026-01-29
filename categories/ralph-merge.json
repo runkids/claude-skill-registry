@@ -1,0 +1,19 @@
+{
+  "category": "ralph-merge",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.555236Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Merge completed RALPH worktree changes to main branch",
+      "repo": "doravidan/supreme-ralph",
+      "path": "ralph-merge",
+      "branch": "main",
+      "category": "ralph-merge",
+      "tags": [],
+      "stars": 0,
+      "install": "doravidan/supreme-ralph",
+      "source": "github.com/doravidan/supreme-ralph"
+    }
+  ]
+}

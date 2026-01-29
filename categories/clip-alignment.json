@@ -1,0 +1,19 @@
+{
+  "category": "clip-alignment",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.654082Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Align CLIP-seq reads to the genome with crosslink site awareness. Use when mapping preprocessed CLIP reads for peak calling.",
+      "repo": "GPTomics/bioSkills",
+      "path": "clip-alignment",
+      "branch": "main",
+      "category": "clip-alignment",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

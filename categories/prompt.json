@@ -1,0 +1,19 @@
+{
+  "category": "prompt",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.392355Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Capture each prompt into Graphiti memory (episodes) for this repo/user.",
+      "repo": "TonyCasey/lisa",
+      "path": "prompt",
+      "branch": "main",
+      "category": "prompt",
+      "tags": [],
+      "stars": 0,
+      "install": "TonyCasey/lisa",
+      "source": "github.com/TonyCasey/lisa"
+    }
+  ]
+}

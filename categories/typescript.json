@@ -1,0 +1,19 @@
+{
+  "category": "typescript",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.471140Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-activates when user mentions TypeScript, types, interfaces, generics, or type safety. Expert in TypeScript best practices including advanced types, utility types, and strict mode configuration.",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "typescript",
+      "branch": "main",
+      "category": "typescript",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "ag-grid-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.328046Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AG-Grid v34 integration patterns for TMNL. Invoke when implementing data grids, custom cell renderers, themes, or grid-based UI. Provides canonical file locations and pattern precedents.",
+      "repo": "creatifcoding/gbg",
+      "path": "ag-grid-patterns",
+      "branch": "main",
+      "category": "ag-grid-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "performance-budgeting",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.425749Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define performance budgets and guardrails. Use when a senior developer needs performance targets and enforcement.",
+      "repo": "proflead/codex-skills-library",
+      "path": "performance-budgeting",
+      "branch": "main",
+      "category": "performance-budgeting",
+      "tags": [],
+      "stars": 0,
+      "install": "proflead/codex-skills-library",
+      "source": "github.com/proflead/codex-skills-library"
+    }
+  ]
+}

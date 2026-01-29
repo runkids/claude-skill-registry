@@ -1,0 +1,19 @@
+{
+  "category": "chatkit-streaming",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.555330Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements real-time streaming UI patterns for ChatKit applications. This skill should be used when adding response lifecycle management, progress indicators, client effects, and thread state synchron",
+      "repo": "mjunaidca/mjs-agent-skills",
+      "path": "chatkit-streaming",
+      "branch": "main",
+      "category": "chatkit-streaming",
+      "tags": [],
+      "stars": 0,
+      "install": "mjunaidca/mjs-agent-skills",
+      "source": "github.com/mjunaidca/mjs-agent-skills"
+    }
+  ]
+}

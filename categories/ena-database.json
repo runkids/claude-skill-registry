@@ -1,0 +1,19 @@
+{
+  "category": "ena-database",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.807695Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access European Nucleotide Archive via API/FTP. Retrieve DNA/RNA sequences, raw reads (FASTQ), genome assemblies by accession, for genomics and bioinformatics pipelines. Supports multiple formats.",
+      "repo": "robinbarvaag/poynt",
+      "path": "ena-database",
+      "branch": "main",
+      "category": "ena-database",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

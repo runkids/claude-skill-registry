@@ -1,0 +1,19 @@
+{
+  "category": "seo-review",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.338953Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Perform a focused SEO audit on JavaScript concept pages to maximize search visibility, featured snippet optimization, and ranking potential",
+      "repo": "leonardomso/33-js-concepts",
+      "path": "seo-review",
+      "branch": "main",
+      "category": "seo-review",
+      "tags": [],
+      "stars": 0,
+      "install": "leonardomso/33-js-concepts",
+      "source": "github.com/leonardomso/33-js-concepts"
+    }
+  ]
+}

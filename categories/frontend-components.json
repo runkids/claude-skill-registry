@@ -1,0 +1,19 @@
+{
+  "category": "frontend-components",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.075677Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and build reusable, composable UI components with single responsibility, clear interfaces, and proper encapsulation. Use this skill when creating or editing React components, Vue components, Sv",
+      "repo": "dpietersz/pietersz.me",
+      "path": "frontend-components",
+      "branch": "main",
+      "category": "frontend-components",
+      "tags": [],
+      "stars": 0,
+      "install": "dpietersz/pietersz.me",
+      "source": "github.com/dpietersz/pietersz.me"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "store-creating",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.986763Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "BoxLogのZustand storeを作成。devtools, persist, 型安全なパターンを適用。",
+      "repo": "Dayopt/app",
+      "path": "store-creating",
+      "branch": "main",
+      "category": "store-creating",
+      "tags": [],
+      "stars": 0,
+      "install": "Dayopt/app",
+      "source": "github.com/Dayopt/app"
+    }
+  ]
+}

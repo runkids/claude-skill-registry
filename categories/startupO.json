@@ -1,0 +1,19 @@
+{
+  "category": "startupO",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.800442Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Initialize session as ORCHESTRATOR agent with multi-agent coordination capability. Use for complex tasks requiring parallel agent spawning and result synthesis.",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "startupO",
+      "branch": "main",
+      "category": "startupO",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

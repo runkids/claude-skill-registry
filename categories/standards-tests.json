@@ -1,0 +1,19 @@
+{
+  "category": "standards-tests",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.866828Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write focused tests for core user flows and critical paths with clear test names, behavior-focused assertions, mocked external dependencies, and fast execution, deferring edge case testing until expli",
+      "repo": "maxritter/claude-codepro",
+      "path": "standards-tests",
+      "branch": "main",
+      "category": "standards-tests",
+      "tags": [],
+      "stars": 0,
+      "install": "maxritter/claude-codepro",
+      "source": "github.com/maxritter/claude-codepro"
+    }
+  ]
+}

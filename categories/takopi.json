@@ -1,0 +1,19 @@
+{
+  "category": "takopi",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.946396Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working through Takopi (Telegram bridge) to route Codex tasks by project, branch worktree, or topic; covers directives like /project, @branch, engine prefixes, ctx footer behavior, and /new r",
+      "repo": "mattg101/SolidLink",
+      "path": "takopi",
+      "branch": "main",
+      "category": "takopi",
+      "tags": [],
+      "stars": 0,
+      "install": "mattg101/SolidLink",
+      "source": "github.com/mattg101/SolidLink"
+    }
+  ]
+}

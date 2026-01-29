@@ -1,0 +1,19 @@
+{
+  "category": "wikipathways",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.832182Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "WikiPathways enrichment using clusterProfiler and rWikiPathways. Use when analyzing gene lists against community-curated open-source pathways. Performs over-representation analysis and GSEA for 30+ sp",
+      "repo": "GPTomics/bioSkills",
+      "path": "wikipathways",
+      "branch": "main",
+      "category": "wikipathways",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

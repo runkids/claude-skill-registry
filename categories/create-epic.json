@@ -1,0 +1,19 @@
+{
+  "category": "create-epic",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.004858Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates Epics following the T-Minus-15 process template. Epics are large bodies of work containing multiple Features. Includes comprehensive metadata for background, objectives, hypothesis, analysis, ",
+      "repo": "BenGWeeks/.claude",
+      "path": "create-epic",
+      "branch": "main",
+      "category": "create-epic",
+      "tags": [],
+      "stars": 0,
+      "install": "BenGWeeks/.claude",
+      "source": "github.com/BenGWeeks/.claude"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "scaffolding-openai-agents",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.345703Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Builds AI agents using OpenAI Agents SDK with async/await patterns and multi-agent orchestration.\nUse when creating tutoring agents, building agent handoffs, implementing tool-calling agents, or orche",
+      "repo": "AbdullahMalik17/Hacathan-2-",
+      "path": "scaffolding-openai-agents",
+      "branch": "main",
+      "category": "scaffolding-openai-agents",
+      "tags": [],
+      "stars": 0,
+      "install": "AbdullahMalik17/Hacathan-2-",
+      "source": "github.com/AbdullahMalik17/Hacathan-2-"
+    }
+  ]
+}

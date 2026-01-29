@@ -1,0 +1,19 @@
+{
+  "category": "neondb-serverless",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.358255Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use Neon serverless Postgres with branching, connection pooling, and instant scalability for modern applications with Prisma or Drizzle ORM integration. Use when setting up serverless Postgres databas",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "neondb-serverless",
+      "branch": "main",
+      "category": "neondb-serverless",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

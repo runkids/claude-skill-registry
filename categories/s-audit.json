@@ -1,0 +1,19 @@
+{
+  "category": "s-audit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.074109Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive quality analysis for WoW addons. Combines security, complexity, deprecation, and dead code analysis into a single audit workflow. Triggers: audit, quality, analysis, review, check, scan.",
+      "repo": "Falkicon/Mechanic",
+      "path": "s-audit",
+      "branch": "main",
+      "category": "s-audit",
+      "tags": [],
+      "stars": 0,
+      "install": "Falkicon/Mechanic",
+      "source": "github.com/Falkicon/Mechanic"
+    }
+  ]
+}

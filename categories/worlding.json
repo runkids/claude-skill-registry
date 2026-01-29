@@ -1,0 +1,19 @@
+{
+  "category": "worlding",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.082247Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Gay.jl world_ pattern: persistent composable state builders with GF(3) conservation, Möbius invertibility, and Narya verification",
+      "repo": "plurigrid/asi",
+      "path": "worlding",
+      "branch": "main",
+      "category": "worlding",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

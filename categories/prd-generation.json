@@ -1,0 +1,19 @@
+{
+  "category": "prd-generation",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.033273Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PRD generation knowledge, templates, and compilation guidance for creating AI-optimized Product Requirements Documents",
+      "repo": "sequenzia/claude-alchemy",
+      "path": "prd-generation",
+      "branch": "main",
+      "category": "prd-generation",
+      "tags": [],
+      "stars": 0,
+      "install": "sequenzia/claude-alchemy",
+      "source": "github.com/sequenzia/claude-alchemy"
+    }
+  ]
+}

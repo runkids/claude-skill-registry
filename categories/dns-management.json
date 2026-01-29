@@ -1,0 +1,19 @@
+{
+  "category": "dns-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.332509Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage DNS records, routing policies, and failover configurations for high availability and disaster recovery.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "dns-management",
+      "branch": "main",
+      "category": "dns-management",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

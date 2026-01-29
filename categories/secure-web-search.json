@@ -1,0 +1,19 @@
+{
+  "category": "secure-web-search",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.720646Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for performing secure web searches with privacy protection, source verification, and information validation. Use when the user wants to search the web securely, verify sources, fact-check inform",
+      "repo": "ronnycoding/.claude",
+      "path": "secure-web-search",
+      "branch": "main",
+      "category": "secure-web-search",
+      "tags": [],
+      "stars": 0,
+      "install": "ronnycoding/.claude",
+      "source": "github.com/ronnycoding/.claude"
+    }
+  ]
+}

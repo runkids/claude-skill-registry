@@ -1,0 +1,19 @@
+{
+  "category": "similarity-memory",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.041433Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with memory IC similarity calculations - comparing EEPROM/Flash MPNs, understanding I2C/SPI interface matching, equivalent groups across manufacturers, or memory-specific similarity l",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "similarity-memory",
+      "branch": "main",
+      "category": "similarity-memory",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

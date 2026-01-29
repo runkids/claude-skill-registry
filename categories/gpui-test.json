@@ -1,0 +1,19 @@
+{
+  "category": "gpui-test",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.223461Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Writing tests for GPUI applications. Use when testing components, async operations, or UI behavior.",
+      "repo": "longbridge/gpui-component",
+      "path": "gpui-test",
+      "branch": "main",
+      "category": "gpui-test",
+      "tags": [],
+      "stars": 0,
+      "install": "longbridge/gpui-component",
+      "source": "github.com/longbridge/gpui-component"
+    }
+  ]
+}

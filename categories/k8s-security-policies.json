@@ -1,0 +1,19 @@
+{
+  "category": "k8s-security-policies",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.305933Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement Kubernetes security policies including NetworkPolicy, PodSecurityPolicy, and RBAC for production-grade security. Use when securing Kubernetes clusters, implementing network isolation, or enf",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "k8s-security-policies",
+      "branch": "main",
+      "category": "k8s-security-policies",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "📚 smart-doc-manager",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.379327Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Universal documentation consolidation skill that verifies system reality before making ANY organizational decisions. Analyzes codebase, detects redundancies, and safely consolidates documentation with",
+      "repo": "endlessblink/flow-state",
+      "path": "📚 smart-doc-manager",
+      "branch": "main",
+      "category": "📚 smart-doc-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

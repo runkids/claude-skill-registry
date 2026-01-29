@@ -1,0 +1,19 @@
+{
+  "category": "oneauth-oauth2",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.080069Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Integrate client applications with OneAuth for OAuth2/OIDC authentication. Use when implementing user login/logout, token management, or identity integration via OneAuth (based on Ory Kratos + Ory Hyd",
+      "repo": "H2OSLabs/SynnovatorZero",
+      "path": "oneauth-oauth2",
+      "branch": "main",
+      "category": "oneauth-oauth2",
+      "tags": [],
+      "stars": 0,
+      "install": "H2OSLabs/SynnovatorZero",
+      "source": "github.com/H2OSLabs/SynnovatorZero"
+    }
+  ]
+}

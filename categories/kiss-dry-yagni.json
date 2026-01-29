@@ -1,0 +1,19 @@
+{
+  "category": "kiss-dry-yagni",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.910192Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Principes KISS, DRY, YAGNI. Use when reviewing code quality or refactoring.",
+      "repo": "TheBeardedBearSAS/claude-craft",
+      "path": "kiss-dry-yagni",
+      "branch": "main",
+      "category": "kiss-dry-yagni",
+      "tags": [],
+      "stars": 0,
+      "install": "TheBeardedBearSAS/claude-craft",
+      "source": "github.com/TheBeardedBearSAS/claude-craft"
+    }
+  ]
+}

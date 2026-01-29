@@ -1,0 +1,19 @@
+{
+  "category": "threat-intelligence",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.299986Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cyber Threat Intelligence gathering, IOC extraction, threat analysis, and\nintelligence reporting. Process threat data and produce actionable intelligence.\nUse for CTI work, threat research, and intell",
+      "repo": "SherifEldeeb/agentskills",
+      "path": "threat-intelligence",
+      "branch": "main",
+      "category": "threat-intelligence",
+      "tags": [],
+      "stars": 0,
+      "install": "SherifEldeeb/agentskills",
+      "source": "github.com/SherifEldeeb/agentskills"
+    }
+  ]
+}

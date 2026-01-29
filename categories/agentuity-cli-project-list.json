@@ -1,0 +1,19 @@
+{
+  "category": "agentuity-cli-project-list",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.752665Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "List all projects. Requires authentication. Use for project management operations",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-project-list",
+      "branch": "main",
+      "category": "agentuity-cli-project-list",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "job-shop-scheduling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.988753Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to solve Job Shop Scheduling Problems (JSP), optimize production sequencing on multiple machines, or minimize makespan with precedence constraints. Also use when the user mentions ",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "job-shop-scheduling",
+      "branch": "main",
+      "category": "job-shop-scheduling",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

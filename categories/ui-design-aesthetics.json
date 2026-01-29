@@ -1,0 +1,19 @@
+{
+  "category": "ui-design-aesthetics",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.949424Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates high-quality, non-generic UI designs with a focus on performance, progressive disclosure, and distinctive aesthetics.",
+      "repo": "NickCrew/claude-cortex",
+      "path": "ui-design-aesthetics",
+      "branch": "main",
+      "category": "ui-design-aesthetics",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

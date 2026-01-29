@@ -1,0 +1,19 @@
+{
+  "category": "screenshot-capture",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.003280Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "捕获屏幕、窗口或区域的截图，支持标注。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "screenshot-capture",
+      "branch": "main",
+      "category": "screenshot-capture",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

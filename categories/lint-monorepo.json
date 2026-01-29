@@ -1,0 +1,19 @@
+{
+  "category": "lint-monorepo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.007516Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unified linting and auto-fix for Python (Ruff) and TypeScript (ESLint) in monorepo. Use when fixing lint errors, running pre-commit checks, or diagnosing persistent code quality issues. Orchestrates a",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "lint-monorepo",
+      "branch": "main",
+      "category": "lint-monorepo",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

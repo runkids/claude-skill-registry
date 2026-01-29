@@ -1,0 +1,19 @@
+{
+  "category": "code-explan-skill",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.709454Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "明示的に呼び出されたときのみ使用します。自律的にエージェントが使用する必要はありません。",
+      "repo": "rimanem18/hoxt-backlog",
+      "path": "code-explan-skill",
+      "branch": "main",
+      "category": "code-explan-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "rimanem18/hoxt-backlog",
+      "source": "github.com/rimanem18/hoxt-backlog"
+    }
+  ]
+}

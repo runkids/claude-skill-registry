@@ -1,0 +1,19 @@
+{
+  "category": "ynab",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.322670Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage YNAB budgets, accounts, categories, and transactions via CLI.",
+      "repo": "moltbot/skills",
+      "path": "ynab",
+      "branch": "main",
+      "category": "ynab",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

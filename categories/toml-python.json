@@ -1,0 +1,19 @@
+{
+  "category": "toml-python",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.644410Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When reading or writing pyproject.toml or .toml config files in Python. When editing TOML while preserving comments and formatting. When designing configuration file format for a Python tool. When cod",
+      "repo": "BbgnsurfTech/claude-skills-collection",
+      "path": "toml-python",
+      "branch": "main",
+      "category": "toml-python",
+      "tags": [],
+      "stars": 0,
+      "install": "BbgnsurfTech/claude-skills-collection",
+      "source": "github.com/BbgnsurfTech/claude-skills-collection"
+    }
+  ]
+}

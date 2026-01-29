@@ -1,0 +1,19 @@
+{
+  "category": "project-plugin",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.048561Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating native plugins in app_plugin with platform-specific implementations (project)",
+      "repo": "gsmlg-app/flutter-app-template",
+      "path": "project-plugin",
+      "branch": "main",
+      "category": "project-plugin",
+      "tags": [],
+      "stars": 0,
+      "install": "gsmlg-app/flutter-app-template",
+      "source": "github.com/gsmlg-app/flutter-app-template"
+    }
+  ]
+}

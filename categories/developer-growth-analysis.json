@@ -1,0 +1,19 @@
+{
+  "category": "developer-growth-analysis",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.220341Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes your recent Claude Code chat history to identify coding patterns, development gaps, and areas for improvement, curates relevant learning resources from HackerNews, and automatically sends a p",
+      "repo": "ComposioHQ/awesome-claude-skills",
+      "path": "developer-growth-analysis",
+      "branch": "main",
+      "category": "developer-growth-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "ComposioHQ/awesome-claude-skills",
+      "source": "github.com/ComposioHQ/awesome-claude-skills"
+    }
+  ]
+}

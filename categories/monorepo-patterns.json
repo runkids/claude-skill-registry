@@ -1,0 +1,19 @@
+{
+  "category": "monorepo-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:49.804703Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Monorepo workflows - navigation, cross-package changes, tooling",
+      "repo": "hgeldenhuys/claude-code-sdk",
+      "path": "monorepo-patterns",
+      "branch": "main",
+      "category": "monorepo-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "hgeldenhuys/claude-code-sdk",
+      "source": "github.com/hgeldenhuys/claude-code-sdk"
+    }
+  ]
+}

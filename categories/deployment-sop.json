@@ -1,0 +1,19 @@
+{
+  "category": "deployment-sop",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.773304Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deployment workflows, pre-deploy validation, and smoke testing patterns. Use when deploying to staging or production, running smoke tests, or validating deployments.",
+      "repo": "bybren-llc/safe-agentic-workflow",
+      "path": "deployment-sop",
+      "branch": "main",
+      "category": "deployment-sop",
+      "tags": [],
+      "stars": 0,
+      "install": "bybren-llc/safe-agentic-workflow",
+      "source": "github.com/bybren-llc/safe-agentic-workflow"
+    }
+  ]
+}

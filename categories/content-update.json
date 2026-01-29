@@ -1,0 +1,19 @@
+{
+  "category": "content-update",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.236650Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Streamlined bilingual content updates for young-personal-site.\nAuto-activates on content modification keywords with dual-language consistency checks.\n",
+      "repo": "Youngger9765/young-personal-site",
+      "path": "content-update",
+      "branch": "main",
+      "category": "content-update",
+      "tags": [],
+      "stars": 0,
+      "install": "Youngger9765/young-personal-site",
+      "source": "github.com/Youngger9765/young-personal-site"
+    }
+  ]
+}

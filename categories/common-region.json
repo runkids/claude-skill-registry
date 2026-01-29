@@ -1,0 +1,19 @@
+{
+  "category": "common-region",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.500626Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Elementos dentro de un área delimitada se perciben como grupo. Use cuando diseñe cards, secciones, formularios agrupados, o contenedores visuales.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "common-region",
+      "branch": "main",
+      "category": "common-region",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

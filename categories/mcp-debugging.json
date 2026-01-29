@@ -1,0 +1,19 @@
+{
+  "category": "mcp-debugging",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.253644Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Debug MCP server issues and analyze logs for the Orient. Use this skill when investigating tool failures, API errors, slow operations, or troubleshooting MCP tool behavior. Covers log file locations, ",
+      "repo": "orient-bot/orient",
+      "path": "mcp-debugging",
+      "branch": "main",
+      "category": "mcp-debugging",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

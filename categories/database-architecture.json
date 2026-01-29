@@ -1,0 +1,19 @@
+{
+  "category": "database-architecture",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.167965Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MANDATORY when designing schemas, writing migrations, creating indexes, or making architectural database decisions - enforces PostgreSQL 18 best practices including AIO, UUIDv7, temporal constraints, ",
+      "repo": "troykelly/claude-skills",
+      "path": "database-architecture",
+      "branch": "main",
+      "category": "database-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

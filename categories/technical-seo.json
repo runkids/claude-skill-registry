@@ -1,0 +1,19 @@
+{
+  "category": "technical-seo",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.273695Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when diagnosing crawl/index issues, performance regressions, or structured data gaps.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "technical-seo",
+      "branch": "main",
+      "category": "technical-seo",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

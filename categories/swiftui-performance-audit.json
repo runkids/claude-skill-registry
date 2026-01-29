@@ -1,0 +1,19 @@
+{
+  "category": "swiftui-performance-audit",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.118938Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audit and improve SwiftUI runtime performance from code review and architecture. Use for requests to diagnose slow rendering, janky scrolling, high CPU/memory usage, excessive view updates, or layout ",
+      "repo": "dandedotdev/dotfiles",
+      "path": "swiftui-performance-audit",
+      "branch": "main",
+      "category": "swiftui-performance-audit",
+      "tags": [],
+      "stars": 0,
+      "install": "dandedotdev/dotfiles",
+      "source": "github.com/dandedotdev/dotfiles"
+    }
+  ]
+}

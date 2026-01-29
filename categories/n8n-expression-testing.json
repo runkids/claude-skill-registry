@@ -1,0 +1,19 @@
+{
+  "category": "n8n-expression-testing",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.583417Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "n8n expression syntax validation, context-aware testing, common pitfalls detection, and performance optimization. Use when validating n8n expressions and data transformations.",
+      "repo": "proffesor-for-testing/agentic-qe",
+      "path": "n8n-expression-testing",
+      "branch": "main",
+      "category": "n8n-expression-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/agentic-qe",
+      "source": "github.com/proffesor-for-testing/agentic-qe"
+    }
+  ]
+}

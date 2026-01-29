@@ -1,0 +1,19 @@
+{
+  "category": "godot-gdscript-patterns",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.139056Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master Godot 4 GDScript patterns including signals, scenes, state machines, and optimization. Use when building Godot games, implementing game systems, or learning GDScript best practices.",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "godot-gdscript-patterns",
+      "branch": "main",
+      "category": "godot-gdscript-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "typescript-advanced-types",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.688155Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master TypeScript's advanced type system including generics, conditional types, mapped types, template literals, and utility types for building type-safe applications. Use when implementing complex ty",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "typescript-advanced-types",
+      "branch": "main",
+      "category": "typescript-advanced-types",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

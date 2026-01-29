@@ -1,0 +1,19 @@
+{
+  "category": "tailwindcss-utility-classes",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.360513Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete Tailwind CSS utility classes reference - Layout, spacing, typography, colors, borders, effects",
+      "repo": "fusengine/agents",
+      "path": "tailwindcss-utility-classes",
+      "branch": "main",
+      "category": "tailwindcss-utility-classes",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

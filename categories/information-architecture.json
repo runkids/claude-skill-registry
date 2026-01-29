@@ -1,0 +1,19 @@
+{
+  "category": "information-architecture",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:56.902345Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design information architecture - site structure, navigation, card sorting, tree testing, taxonomy, labeling systems, and findability.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "information-architecture",
+      "branch": "main",
+      "category": "information-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

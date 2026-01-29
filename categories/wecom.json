@@ -1,0 +1,19 @@
+{
+  "category": "wecom",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.651105Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Send messages to WeCom (企业微信) via webhooks using MCP protocol. Works with Claude Code, Claude Desktop, and other MCP clients.",
+      "repo": "moltbot/skills",
+      "path": "wecom",
+      "branch": "main",
+      "category": "wecom",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

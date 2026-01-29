@@ -1,0 +1,19 @@
+{
+  "category": "todo-management",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.002111Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic progress tracking for skill development. Manages task states (pending/in_progress/completed), updates in real-time, reports progress, identifies blockers, and maintains momentum. Use when t",
+      "repo": "adaptationio/Skrillz",
+      "path": "todo-management",
+      "branch": "main",
+      "category": "todo-management",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "style-transform",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.395370Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to rewrite content, transform style, check style consistency, or imitate writing style. It provides multi-channel content rewriting, style consistency chec",
+      "repo": "sunqb/ccsdk",
+      "path": "style-transform",
+      "branch": "main",
+      "category": "style-transform",
+      "tags": [],
+      "stars": 0,
+      "install": "sunqb/ccsdk",
+      "source": "github.com/sunqb/ccsdk"
+    }
+  ]
+}

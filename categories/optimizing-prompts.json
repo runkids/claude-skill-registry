@@ -1,0 +1,19 @@
+{
+  "category": "optimizing-prompts",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:50.554606Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute this skill optimizes prompts for large language models (llms) to reduce token usage, lower costs, and improve performance. it analyzes the prompt, identifies areas for simplification and redun",
+      "repo": "pianzhu/my-claude-skills",
+      "path": "optimizing-prompts",
+      "branch": "main",
+      "category": "optimizing-prompts",
+      "tags": [],
+      "stars": 0,
+      "install": "pianzhu/my-claude-skills",
+      "source": "github.com/pianzhu/my-claude-skills"
+    }
+  ]
+}

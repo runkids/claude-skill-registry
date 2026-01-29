@@ -1,0 +1,19 @@
+{
+  "category": "validate-git-hygiene",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.685094Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate git commit messages, branch naming conventions, and check for sensitive files. Returns structured output with commit format validation, branch name compliance, and sensitive file detection (.",
+      "repo": "BerryKuipers/claude-code-toolkit",
+      "path": "validate-git-hygiene",
+      "branch": "main",
+      "category": "validate-git-hygiene",
+      "tags": [],
+      "stars": 0,
+      "install": "BerryKuipers/claude-code-toolkit",
+      "source": "github.com/BerryKuipers/claude-code-toolkit"
+    }
+  ]
+}

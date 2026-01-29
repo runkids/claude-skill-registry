@@ -1,0 +1,19 @@
+{
+  "category": "scoping-cutting",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:55.999010Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Right-size scope to ship within a fixed timebox (appetite). Produces a Scoping & Cutting Pack: appetite, minimum lovable slice, cut list, validation plan, and a scope-creep guardrail plan. Use for MVP",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "scoping-cutting",
+      "branch": "main",
+      "category": "scoping-cutting",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "shared-context",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.286770Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Context window auto-reset procedures for Ralph agents. Use when context fills up during long tasks.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "shared-context",
+      "branch": "main",
+      "category": "shared-context",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

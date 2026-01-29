@@ -1,0 +1,19 @@
+{
+  "category": "payload-plugin-release",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:57.290047Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automates the release workflow for the Payload Newsletter Plugin. Use when releasing a new version, bumping the version, or publishing to npm.",
+      "repo": "aniketpanjwani/payload-plugin-email-newsletter",
+      "path": "payload-plugin-release",
+      "branch": "main",
+      "category": "payload-plugin-release",
+      "tags": [],
+      "stars": 0,
+      "install": "aniketpanjwani/payload-plugin-email-newsletter",
+      "source": "github.com/aniketpanjwani/payload-plugin-email-newsletter"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "build-and-deploy",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.361199Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build and deploy this Next.js LangChain retrieval agent application with Supabase vector store. Use when building, deploying, setting up vector store, or preparing the project for production.",
+      "repo": "rebyteai-template/langchain-retrieval-agent",
+      "path": "build-and-deploy",
+      "branch": "main",
+      "category": "build-and-deploy",
+      "tags": [],
+      "stars": 0,
+      "install": "rebyteai-template/langchain-retrieval-agent",
+      "source": "github.com/rebyteai-template/langchain-retrieval-agent"
+    }
+  ]
+}

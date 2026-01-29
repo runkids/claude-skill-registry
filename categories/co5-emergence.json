@@ -1,0 +1,19 @@
+{
+  "category": "co5-emergence",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.918974Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply CO5 Emergence to recognize higher-order behavior arising from component interactions.",
+      "repo": "hummbl-dev/hummbl-agent",
+      "path": "co5-emergence",
+      "branch": "main",
+      "category": "co5-emergence",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/hummbl-agent",
+      "source": "github.com/hummbl-dev/hummbl-agent"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "reverse-derivative-generator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.258349Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Triadic skill (generation)",
+      "repo": "plurigrid/asi",
+      "path": "reverse-derivative-generator",
+      "branch": "main",
+      "category": "reverse-derivative-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

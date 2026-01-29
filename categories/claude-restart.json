@@ -1,0 +1,19 @@
+{
+  "category": "claude-restart",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.264661Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Restart Claude Code session to reload new skills, manage context, or start fresh. Use this skill when skills have been added/modified, when needing to compact/clear context, or to reload configuration",
+      "repo": "ManuelKugelmann/BitBot",
+      "path": "claude-restart",
+      "branch": "main",
+      "category": "claude-restart",
+      "tags": [],
+      "stars": 0,
+      "install": "ManuelKugelmann/BitBot",
+      "source": "github.com/ManuelKugelmann/BitBot"
+    }
+  ]
+}

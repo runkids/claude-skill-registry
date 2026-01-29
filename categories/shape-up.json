@@ -1,0 +1,19 @@
+{
+  "category": "shape-up",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:53.694793Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "name: shape-up",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "shape-up",
+      "branch": "main",
+      "category": "shape-up",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

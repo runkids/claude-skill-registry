@@ -1,0 +1,19 @@
+{
+  "category": "grafana-dashboards",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:52.658599Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and manage production Grafana dashboards for real-time visualization of system and application metrics. Use when building monitoring dashboards, visualizing metrics, or creating operational obs",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "grafana-dashboards",
+      "branch": "main",
+      "category": "grafana-dashboards",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

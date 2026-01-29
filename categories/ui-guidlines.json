@@ -1,0 +1,19 @@
+{
+  "category": "ui-guidlines",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:54.198534Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "UIコンポーネントを新規作成・編集する際に使用。Emotion styled/テーマトークン/Atomic Designのルールを確認。",
+      "repo": "ludiscan/ludiscan-webapp",
+      "path": "ui-guidlines",
+      "branch": "main",
+      "category": "ui-guidlines",
+      "tags": [],
+      "stars": 0,
+      "install": "ludiscan/ludiscan-webapp",
+      "source": "github.com/ludiscan/ludiscan-webapp"
+    }
+  ]
+}

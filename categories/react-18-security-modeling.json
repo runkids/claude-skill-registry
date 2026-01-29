@@ -1,0 +1,19 @@
+{
+  "category": "react-18-security-modeling",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.755537Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Model and mitigate security risks that arise from advanced rendering and hydration flows.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "react-18-security-modeling",
+      "branch": "main",
+      "category": "react-18-security-modeling",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "shared-coordinator",
+  "count": 1,
+  "updated_at": "2026-01-29T16:04:51.916230Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PM coordinator for both event-driven and single-agent orchestration modes",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "shared-coordinator",
+      "branch": "main",
+      "category": "shared-coordinator",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}
