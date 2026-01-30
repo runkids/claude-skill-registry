@@ -1,0 +1,20 @@
+{
+  "category": "excalidraw-diagrams",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.610076Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate architecture diagrams as .excalidraw files from codebase analysis. Use when the user asks to create architecture diagrams, system diagrams, visualize codebase structure, or generate excalidra",
+      "repo": "ebinnion/dotfiles",
+      "path": "excalidraw-diagrams",
+      "branch": "main",
+      "category": "excalidraw-diagrams",
+      "tags": [],
+      "stars": 0,
+      "install": "ebinnion/dotfiles/excalidraw-diagrams",
+      "source": "github.com/ebinnion/dotfiles"
+    }
+  ]
+}

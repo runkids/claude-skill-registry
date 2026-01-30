@@ -1,0 +1,20 @@
+{
+  "category": "search-router",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.931061Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Choose the right search tool for each query type",
+      "repo": "namesreallyblank/Clorch",
+      "path": "search-router",
+      "branch": "main",
+      "category": "search-router",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/search-router",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

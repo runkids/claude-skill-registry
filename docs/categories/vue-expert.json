@@ -1,0 +1,20 @@
+{
+  "category": "vue-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.434723Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building Vue 3 applications with Composition API, Nuxt 3, or Quasar. Invoke for Pinia, TypeScript, PWA, Capacitor mobile apps, Vite configuration.",
+      "repo": "Jeffallan/claude-skills",
+      "path": "vue-expert",
+      "branch": "main",
+      "category": "vue-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills/vue-expert",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

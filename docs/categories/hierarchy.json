@@ -1,0 +1,20 @@
+{
+  "category": "hierarchy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.831802Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Display PAI agent hierarchy and command structure",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "hierarchy",
+      "branch": "main",
+      "category": "hierarchy",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/hierarchy",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

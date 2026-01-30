@@ -1,0 +1,20 @@
+{
+  "category": "skill-creator-openai",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.012886Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating effective skills. Use when users want to create a new skill (or update an existing skill) that extends the model's capabilities with specialized knowledge, workflows, or tool integr",
+      "repo": "lawvable/awesome-legal-skills",
+      "path": "skill-creator-openai",
+      "branch": "main",
+      "category": "skill-creator-openai",
+      "tags": [],
+      "stars": 0,
+      "install": "lawvable/awesome-legal-skills/skill-creator-openai",
+      "source": "github.com/lawvable/awesome-legal-skills"
+    }
+  ]
+}

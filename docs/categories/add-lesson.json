@@ -1,0 +1,20 @@
+{
+  "category": "add-lesson",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.205918Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add a new lesson learned to shared rules and sync to context files.",
+      "repo": "EtroxTaran/conductor",
+      "path": "add-lesson",
+      "branch": "main",
+      "category": "add-lesson",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor/add-lesson",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

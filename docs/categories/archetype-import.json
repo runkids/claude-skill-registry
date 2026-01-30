@@ -1,0 +1,20 @@
+{
+  "category": "archetype-import",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.342053Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Imports Shadowrun 5e character archetypes from sourcebook stat blocks into hierarchical markdown and PDF documents with priority inference and data validation. Use when converting official SR5 archety",
+      "repo": "Jasrags/ShadowMaster",
+      "path": "archetype-import",
+      "branch": "main",
+      "category": "archetype-import",
+      "tags": [],
+      "stars": 0,
+      "install": "Jasrags/ShadowMaster/archetype-import",
+      "source": "github.com/Jasrags/ShadowMaster"
+    }
+  ]
+}

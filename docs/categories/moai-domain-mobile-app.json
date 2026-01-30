@@ -1,0 +1,20 @@
+{
+  "category": "moai-domain-mobile-app",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.160481Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise mobile development with React Native 0.76+, Flutter 3.24+, Capacitor 6.x, cross-platform patterns, testing, CI/CD",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-domain-mobile-app",
+      "branch": "main",
+      "category": "moai-domain-mobile-app",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit/moai-domain-mobile-app",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

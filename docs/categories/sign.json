@@ -1,0 +1,20 @@
+{
+  "category": "sign",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.997633Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add a learned pattern (sign) that Ralph will remember for future stories.",
+      "repo": "allierays/agentic-loop",
+      "path": "sign",
+      "branch": "main",
+      "category": "sign",
+      "tags": [],
+      "stars": 0,
+      "install": "allierays/agentic-loop/sign",
+      "source": "github.com/allierays/agentic-loop"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "qa-party",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.741695Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Parallel validation deployment. Spawn 8+ QA agents to run tests, builds, lints, and health checks simultaneously. Zero marginal wall-clock cost.",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "qa-party",
+      "branch": "main",
+      "category": "qa-party",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/qa-party",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

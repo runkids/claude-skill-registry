@@ -1,0 +1,20 @@
+{
+  "category": "ai-collaboration-standards",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.274696Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prevent AI hallucination and ensure evidence-based responses when analyzing code or making suggestions. Use when: analyzing code, making recommendations, providing options, or when user asks about con",
+      "repo": "AsiaOstrich/universal-dev-standards",
+      "path": "ai-collaboration-standards",
+      "branch": "main",
+      "category": "ai-collaboration-standards",
+      "tags": [],
+      "stars": 0,
+      "install": "AsiaOstrich/universal-dev-standards/ai-collaboration-standards",
+      "source": "github.com/AsiaOstrich/universal-dev-standards"
+    }
+  ]
+}

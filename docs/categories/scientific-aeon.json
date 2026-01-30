@@ -1,0 +1,20 @@
+{
+  "category": "scientific-aeon",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.895031Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used for time series machine learning tasks including classification, regression, clustering, forecasting, anomaly detection, segmentation, and similarity search. Use when working",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-aeon",
+      "branch": "main",
+      "category": "scientific-aeon",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/scientific-aeon",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

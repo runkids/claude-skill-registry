@@ -1,0 +1,20 @@
+{
+  "category": "adr-templates",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.214699Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Documenting significant architectural decisions with context, consequences, and rationale for future reference.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "adr-templates",
+      "branch": "main",
+      "category": "adr-templates",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/adr-templates",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

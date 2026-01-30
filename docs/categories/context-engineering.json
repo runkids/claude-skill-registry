@@ -1,0 +1,20 @@
+{
+  "category": "context-engineering",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.665722Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check context usage limits, monitor time remaining, optimize token consumption, debug context failures. Use when asking about context percentage, rate limits, usage warnings, context optimization, age",
+      "repo": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
+      "path": "context-engineering",
+      "branch": "main",
+      "category": "context-engineering",
+      "tags": [],
+      "stars": 0,
+      "install": "hoanghd218/landing-page-ai-kientruc-a-Ninh/context-engineering",
+      "source": "github.com/hoanghd218/landing-page-ai-kientruc-a-Ninh"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "rn-button-component",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.849797Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ensures buttons use the unified Button component with proper state management, icon support, and glass effect integration. Apply when creating or modifying buttons in the app.",
+      "repo": "jchaselubitz/drill-app",
+      "path": "rn-button-component",
+      "branch": "main",
+      "category": "rn-button-component",
+      "tags": [],
+      "stars": 0,
+      "install": "jchaselubitz/drill-app/rn-button-component",
+      "source": "github.com/jchaselubitz/drill-app"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "golden-paths",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.787849Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when designing standardized development workflows, paved roads, or opinionated defaults. Covers golden path patterns, template design, developer workflow optimization, and guardrails.",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "golden-paths",
+      "branch": "main",
+      "category": "golden-paths",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/golden-paths",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

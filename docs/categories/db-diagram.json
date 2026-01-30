@@ -1,0 +1,20 @@
+{
+  "category": "db-diagram",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.046000Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate database ER diagrams from schema for documentation",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "db-diagram",
+      "branch": "main",
+      "category": "db-diagram",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/db-diagram",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

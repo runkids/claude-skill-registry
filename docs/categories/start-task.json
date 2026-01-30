@@ -1,0 +1,20 @@
+{
+  "category": "start-task",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.085348Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Start task or begin project with lock acquisition and branch setup",
+      "repo": "sensei-hacker/inav-claude",
+      "path": "start-task",
+      "branch": "main",
+      "category": "start-task",
+      "tags": [],
+      "stars": 0,
+      "install": "sensei-hacker/inav-claude/start-task",
+      "source": "github.com/sensei-hacker/inav-claude"
+    }
+  ]
+}

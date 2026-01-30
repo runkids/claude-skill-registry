@@ -1,0 +1,20 @@
+{
+  "category": "project-database",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.690880Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for using app_database package with Drift for user settings, app config, and persistent data (project)",
+      "repo": "gsmlg-app/flutter-app-template",
+      "path": "project-database",
+      "branch": "main",
+      "category": "project-database",
+      "tags": [],
+      "stars": 0,
+      "install": "gsmlg-app/flutter-app-template/project-database",
+      "source": "github.com/gsmlg-app/flutter-app-template"
+    }
+  ]
+}

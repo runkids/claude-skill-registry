@@ -1,0 +1,20 @@
+{
+  "category": "relationships",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.805589Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Entity navigation, batch loading, relationship best practices",
+      "repo": "sylin-org/koan-framework",
+      "path": "relationships",
+      "branch": "main",
+      "category": "relationships",
+      "tags": [],
+      "stars": 0,
+      "install": "sylin-org/koan-framework/relationships",
+      "source": "github.com/sylin-org/koan-framework"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "plan-iteration-checkpoint",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.581184Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Iteration checkpoint protocol for multi-phase plan execution. Assess progress, determine next steps, document current intention.",
+      "repo": "creatifcoding/gbg",
+      "path": "plan-iteration-checkpoint",
+      "branch": "main",
+      "category": "plan-iteration-checkpoint",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/plan-iteration-checkpoint",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

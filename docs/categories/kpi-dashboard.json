@@ -1,0 +1,20 @@
+{
+  "category": "kpi-dashboard",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.954835Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define KPIs, build performance dashboards, track metrics, and drive data-driven decisions",
+      "repo": "eddiebe147/claude-settings",
+      "path": "kpi-dashboard",
+      "branch": "main",
+      "category": "kpi-dashboard",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/kpi-dashboard",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "inattentional-blindness",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.872432Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "No percibimos lo que no esperamos ver. Use cuando diseñe elementos críticos que deben ser notados, o cuando coloque información fuera del flujo principal.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "inattentional-blindness",
+      "branch": "main",
+      "category": "inattentional-blindness",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/inattentional-blindness",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

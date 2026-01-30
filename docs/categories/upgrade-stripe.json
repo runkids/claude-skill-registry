@@ -1,0 +1,20 @@
+{
+  "category": "upgrade-stripe",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.359958Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for upgrading Stripe API versions and SDKs",
+      "repo": "NeverSight/skills.sh_feed",
+      "path": "upgrade-stripe",
+      "branch": "main",
+      "category": "upgrade-stripe",
+      "tags": [],
+      "stars": 0,
+      "install": "NeverSight/skills.sh_feed/upgrade-stripe",
+      "source": "github.com/NeverSight/skills.sh_feed"
+    }
+  ]
+}

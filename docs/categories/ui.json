@@ -1,0 +1,20 @@
+{
+  "category": "ui",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.333913Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates UI components and feedback forms. Use when user mentions components, UI, hero sections, forms, feedback, or contact requests. Do NOT load for: authentication features, backend implementation",
+      "repo": "Chachamaru127/claude-code-harness",
+      "path": "ui",
+      "branch": "main",
+      "category": "ui",
+      "tags": [],
+      "stars": 0,
+      "install": "Chachamaru127/claude-code-harness/ui",
+      "source": "github.com/Chachamaru127/claude-code-harness"
+    }
+  ]
+}

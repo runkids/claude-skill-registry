@@ -1,0 +1,20 @@
+{
+  "category": "data-engineer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.027598Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build scalable data pipelines, modern data warehouses, and real-time streaming architectures. Implements Apache Spark, dbt, Airflow, and cloud-native data platforms. Use PROACTIVELY for data pipeline",
+      "repo": "rmyndharis/antigravity-skills",
+      "path": "data-engineer",
+      "branch": "main",
+      "category": "data-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "rmyndharis/antigravity-skills/data-engineer",
+      "source": "github.com/rmyndharis/antigravity-skills"
+    }
+  ]
+}

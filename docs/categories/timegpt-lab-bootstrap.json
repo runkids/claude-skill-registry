@@ -1,0 +1,20 @@
+{
+  "category": "timegpt-lab-bootstrap",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.288854Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guides TimeGPT lab environment setup including Python dependencies, API key configuration, smoke testing, experiment workflows, and optional CI/CD integration. Inspects environment docs and scripts to",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "timegpt-lab-bootstrap",
+      "branch": "main",
+      "category": "timegpt-lab-bootstrap",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla/timegpt-lab-bootstrap",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

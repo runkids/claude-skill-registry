@@ -1,0 +1,20 @@
+{
+  "category": "branch",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.440963Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates git branches with proper naming. Use when creating branches, starting new work, or switching to feature branches.",
+      "repo": "deanmoses/tacocat-gallery-hosting-aws",
+      "path": "branch",
+      "branch": "main",
+      "category": "branch",
+      "tags": [],
+      "stars": 0,
+      "install": "deanmoses/tacocat-gallery-hosting-aws/branch",
+      "source": "github.com/deanmoses/tacocat-gallery-hosting-aws"
+    }
+  ]
+}

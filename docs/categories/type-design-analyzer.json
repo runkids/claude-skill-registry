@@ -1,0 +1,20 @@
+{
+  "category": "type-design-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.322694Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when asked to evaluate type design/invariants or explicitly asked to run the type-design-analyzer subagent.",
+      "repo": "troykelly/codex-skills",
+      "path": "type-design-analyzer",
+      "branch": "main",
+      "category": "type-design-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/codex-skills/type-design-analyzer",
+      "source": "github.com/troykelly/codex-skills"
+    }
+  ]
+}

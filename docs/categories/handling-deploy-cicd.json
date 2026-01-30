@@ -1,0 +1,20 @@
+{
+  "category": "handling-deploy-cicd",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.819764Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deployment protocols for Vercel/Appwrite. Use for managing production builds and environment variables.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "handling-deploy-cicd",
+      "branch": "main",
+      "category": "handling-deploy-cicd",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2/handling-deploy-cicd",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "github-issues",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.771466Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query and search GitHub issues using gh CLI with web fallback. Supports filtering by labels, state, assignees, and full-text search. Use when troubleshooting errors, checking if an issue is already re",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "github-issues",
+      "branch": "main",
+      "category": "github-issues",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent/github-issues",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

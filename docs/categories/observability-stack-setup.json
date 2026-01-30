@@ -1,0 +1,20 @@
+{
+  "category": "observability-stack-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.274175Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated LGTM + Alloy observability stack deployment using Docker Compose. Use when setting up Claude Code observability infrastructure locally.",
+      "repo": "adaptationio/Skrillz",
+      "path": "observability-stack-setup",
+      "branch": "main",
+      "category": "observability-stack-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/observability-stack-setup",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

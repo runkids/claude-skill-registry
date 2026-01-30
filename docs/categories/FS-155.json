@@ -1,0 +1,20 @@
+{
+  "category": "FS-155",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.168925Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Feature: FS-155",
+      "repo": "anton-abyzov/specweave",
+      "path": "FS-155",
+      "branch": "main",
+      "category": "FS-155",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/FS-155",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

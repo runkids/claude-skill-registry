@@ -1,0 +1,20 @@
+{
+  "category": "high-performance-data-visualization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.832139Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Render large datasets (charts, graphs) using Canvas/SVG/WebGL within React.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "high-performance-data-visualization",
+      "branch": "main",
+      "category": "high-performance-data-visualization",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/high-performance-data-visualization",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

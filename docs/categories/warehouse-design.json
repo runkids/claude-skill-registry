@@ -1,0 +1,20 @@
+{
+  "category": "warehouse-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.439605Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to design a warehouse, optimize warehouse layout, determine facility size, or configure storage systems. Also use when the user mentions \"warehouse layout,\" \"facility design,\" \"war",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "warehouse-design",
+      "branch": "main",
+      "category": "warehouse-design",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/warehouse-design",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "investigate",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.898154Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guidance for deep security investigations. Use this when the user asks to \"investigate\" a case, entity, or incident.",
+      "repo": "google/mcp-security",
+      "path": "investigate",
+      "branch": "main",
+      "category": "investigate",
+      "tags": [],
+      "stars": 0,
+      "install": "google/mcp-security/investigate",
+      "source": "github.com/google/mcp-security"
+    }
+  ]
+}

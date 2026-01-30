@@ -1,0 +1,20 @@
+{
+  "category": "hello-world",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.828026Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A simple introductory skill that demonstrates basic OpenCode skill functionality and provides a starting template",
+      "repo": "ssdeanx/AI-Skills",
+      "path": "hello-world",
+      "branch": "main",
+      "category": "hello-world",
+      "tags": [],
+      "stars": 0,
+      "install": "ssdeanx/AI-Skills/hello-world",
+      "source": "github.com/ssdeanx/AI-Skills"
+    }
+  ]
+}

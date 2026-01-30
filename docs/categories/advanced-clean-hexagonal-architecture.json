@@ -1,0 +1,20 @@
+{
+  "category": "advanced-clean-hexagonal-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.215600Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply Clean Architecture and Hexagonal (Ports & Adapters) patterns for domain isolation and testability. Use when designing system boundaries, creating ports/adapters, or structuring domain-driven app",
+      "repo": "leaderiop/hex-di",
+      "path": "advanced-clean-hexagonal-architecture",
+      "branch": "main",
+      "category": "advanced-clean-hexagonal-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "leaderiop/hex-di/advanced-clean-hexagonal-architecture",
+      "source": "github.com/leaderiop/hex-di"
+    }
+  ]
+}

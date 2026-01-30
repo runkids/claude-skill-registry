@@ -1,0 +1,20 @@
+{
+  "category": "cross-docking",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.722999Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to implement cross-docking operations, optimize transshipment, or reduce warehouse storage. Also use when the user mentions \"crossdock,\" \"transshipment,\" \"flow-through distribution",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "cross-docking",
+      "branch": "main",
+      "category": "cross-docking",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/cross-docking",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

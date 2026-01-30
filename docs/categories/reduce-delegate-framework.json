@@ -1,0 +1,20 @@
+{
+  "category": "reduce-delegate-framework",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.794050Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply R&D framework to optimize prompts and context. Use when optimizing context window usage, reducing prompt size, delegating to specialized agents, or applying systematic context management.",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "reduce-delegate-framework",
+      "branch": "main",
+      "category": "reduce-delegate-framework",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/reduce-delegate-framework",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "dojo-transactions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.520130Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when executing game actions and sending transactions in dojo.js. Triggers: send transaction, execute action, dojo action, contract call, DojoProvider, execute, sendMessage, batch transaction, invo",
+      "repo": "dojoengine/dojo.js",
+      "path": "dojo-transactions",
+      "branch": "main",
+      "category": "dojo-transactions",
+      "tags": [],
+      "stars": 0,
+      "install": "dojoengine/dojo.js/dojo-transactions",
+      "source": "github.com/dojoengine/dojo.js"
+    }
+  ]
+}

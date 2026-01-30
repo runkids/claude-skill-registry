@@ -1,0 +1,20 @@
+{
+  "category": "falcon-deep-research",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.634408Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute deep research protocols using the Falcon specialized research framework.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "falcon-deep-research",
+      "branch": "main",
+      "category": "falcon-deep-research",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/falcon-deep-research",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

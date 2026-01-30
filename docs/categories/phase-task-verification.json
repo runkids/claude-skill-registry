@@ -1,0 +1,20 @@
+{
+  "category": "phase-task-verification",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.570388Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Shared branch creation and verification logic for sequential and parallel task execution - handles git operations, HEAD verification, and MODE-specific behavior",
+      "repo": "arittr/spectacular",
+      "path": "phase-task-verification",
+      "branch": "main",
+      "category": "phase-task-verification",
+      "tags": [],
+      "stars": 0,
+      "install": "arittr/spectacular/phase-task-verification",
+      "source": "github.com/arittr/spectacular"
+    }
+  ]
+}

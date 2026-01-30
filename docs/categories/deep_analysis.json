@@ -1,0 +1,20 @@
+{
+  "category": "deep_analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.061955Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced problem-solving skill using sequential thinking. Use for complex architectural decisions, debugging hard problems, or planning.",
+      "repo": "Verridian-ai/life-os-Pulse-banner-generator",
+      "path": "deep_analysis",
+      "branch": "main",
+      "category": "deep_analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "Verridian-ai/life-os-Pulse-banner-generator/deep_analysis",
+      "source": "github.com/Verridian-ai/life-os-Pulse-banner-generator"
+    }
+  ]
+}

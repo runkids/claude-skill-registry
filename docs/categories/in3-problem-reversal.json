@@ -1,0 +1,20 @@
+{
+  "category": "in3-problem-reversal",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.871967Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply IN3 Problem Reversal to solve the inverse of the stated problem to reveal insights.",
+      "repo": "hummbl-dev/hummbl-agent",
+      "path": "in3-problem-reversal",
+      "branch": "main",
+      "category": "in3-problem-reversal",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/hummbl-agent/in3-problem-reversal",
+      "source": "github.com/hummbl-dev/hummbl-agent"
+    }
+  ]
+}

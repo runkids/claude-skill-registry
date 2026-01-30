@@ -1,0 +1,20 @@
+{
+  "category": "scientific-torchdrug",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.917729Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PyTorch-native graph neural networks for molecules and proteins. Use when building custom GNN architectures for drug discovery, protein modeling, or knowledge graph reasoning. Best for custom model de",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-torchdrug",
+      "branch": "main",
+      "category": "scientific-torchdrug",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/scientific-torchdrug",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "scriptwriting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.925064Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when crafting scripts, storyboards, and messaging for video content.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "scriptwriting",
+      "branch": "main",
+      "category": "scriptwriting",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/scriptwriting",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

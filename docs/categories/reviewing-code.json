@@ -1,0 +1,20 @@
+{
+  "category": "reviewing-code",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.844820Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<objective>",
+      "repo": "0xHoneyJar/rm-lurker",
+      "path": "reviewing-code",
+      "branch": "main",
+      "category": "reviewing-code",
+      "tags": [],
+      "stars": 0,
+      "install": "0xHoneyJar/rm-lurker/reviewing-code",
+      "source": "github.com/0xHoneyJar/rm-lurker"
+    }
+  ]
+}

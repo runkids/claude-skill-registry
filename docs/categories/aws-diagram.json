@@ -1,0 +1,20 @@
+{
+  "category": "aws-diagram",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.388638Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate AWS architecture diagrams from infrastructure JSON. Use when user asks to \"generate diagram\", \"create AWS diagram\", \"visualize infrastructure\", or \"draw architecture\".",
+      "repo": "mpuig/claude-cloud-diagrams",
+      "path": "aws-diagram",
+      "branch": "main",
+      "category": "aws-diagram",
+      "tags": [],
+      "stars": 0,
+      "install": "mpuig/claude-cloud-diagrams/aws-diagram",
+      "source": "github.com/mpuig/claude-cloud-diagrams"
+    }
+  ]
+}

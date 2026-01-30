@@ -1,0 +1,20 @@
+{
+  "category": "cheapskate",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.515282Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cheapskate Skill",
+      "repo": "plurigrid/asi",
+      "path": "cheapskate",
+      "branch": "main",
+      "category": "cheapskate",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/cheapskate",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

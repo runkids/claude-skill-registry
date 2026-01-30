@@ -1,0 +1,20 @@
+{
+  "category": "csv-data-summarizer-claude-skill-main",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.728308Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes CSV files, generates summary stats, and plots quick visualizations using Python and pandas.",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "csv-data-summarizer-claude-skill-main",
+      "branch": "main",
+      "category": "csv-data-summarizer-claude-skill-main",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/csv-data-summarizer-claude-skill-main",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

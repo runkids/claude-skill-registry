@@ -1,0 +1,20 @@
+{
+  "category": "skills-eval",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.023920Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Evaluate and improve Claude skill quality through auditing. Triggers: quality-assurance, skills, optimization, tool-use, performance-metrics, skill audit, quality review, compliance check, improvement",
+      "repo": "athola/claude-night-market",
+      "path": "skills-eval",
+      "branch": "main",
+      "category": "skills-eval",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/skills-eval",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

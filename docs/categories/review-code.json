@@ -1,0 +1,20 @@
+{
+  "category": "review-code",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.839865Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Backend code review following best practices. TODO: Implement for backend. Invoked by: \"code review\", \"review PR\", \"review changes\", \"audit code\".",
+      "repo": "eleva-labs/agentic-coding-templates",
+      "path": "review-code",
+      "branch": "main",
+      "category": "review-code",
+      "tags": [],
+      "stars": 0,
+      "install": "eleva-labs/agentic-coding-templates/review-code",
+      "source": "github.com/eleva-labs/agentic-coding-templates"
+    }
+  ]
+}

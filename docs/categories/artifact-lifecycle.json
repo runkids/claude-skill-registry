@@ -1,0 +1,20 @@
+{
+  "category": "artifact-lifecycle",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.355241Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unified lifecycle management for all framework artifacts (skills, agents, hooks, workflows, templates, schemas)",
+      "repo": "oimiragieo/agent-studio",
+      "path": "artifact-lifecycle",
+      "branch": "main",
+      "category": "artifact-lifecycle",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/artifact-lifecycle",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

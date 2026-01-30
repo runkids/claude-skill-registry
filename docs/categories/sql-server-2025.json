@@ -1,0 +1,20 @@
+{
+  "category": "sql-server-2025",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.070866Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SQL Server 2025 and SqlPackage 170.2.70 (October 2025) - Vector databases, AI integration, and latest features",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "sql-server-2025",
+      "branch": "main",
+      "category": "sql-server-2025",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace/sql-server-2025",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

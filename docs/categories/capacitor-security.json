@@ -1,0 +1,20 @@
+{
+  "category": "capacitor-security",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.487769Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive security guide for Capacitor apps using Capsec scanner. Covers 63+ security rules across secrets, storage, network, authentication, cryptography, and platform-specific vulnerabilities. U",
+      "repo": "Cap-go/capacitor-skills",
+      "path": "capacitor-security",
+      "branch": "main",
+      "category": "capacitor-security",
+      "tags": [],
+      "stars": 0,
+      "install": "Cap-go/capacitor-skills/capacitor-security",
+      "source": "github.com/Cap-go/capacitor-skills"
+    }
+  ]
+}

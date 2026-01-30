@@ -1,0 +1,20 @@
+{
+  "category": "parties",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.545015Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reference for parallel agent deployment protocols (search-party, qa-party, plan-party)",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "parties",
+      "branch": "main",
+      "category": "parties",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/parties",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

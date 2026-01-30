@@ -1,0 +1,20 @@
+{
+  "category": "data-lake-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.029463Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Organize object storage with lifecycle policies.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "data-lake-architecture",
+      "branch": "main",
+      "category": "data-lake-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/data-lake-architecture",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

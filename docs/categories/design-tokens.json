@@ -1,0 +1,20 @@
+{
+  "category": "design-tokens",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.161077Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pulse Radar design system - semantic colors, spacing grid, component patterns.",
+      "repo": "djimontyp/task-tracker",
+      "path": "design-tokens",
+      "branch": "main",
+      "category": "design-tokens",
+      "tags": [],
+      "stars": 0,
+      "install": "djimontyp/task-tracker/design-tokens",
+      "source": "github.com/djimontyp/task-tracker"
+    }
+  ]
+}

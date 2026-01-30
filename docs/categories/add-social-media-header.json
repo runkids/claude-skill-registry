@@ -1,0 +1,20 @@
+{
+  "category": "add-social-media-header",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.208120Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add professional social media headers to README files and documentation to enhance engagement and visibility across LinkedIn, YouTube, GitHub, and X (Twitter). Use when you need to add or update socia",
+      "repo": "0GiS0/ghcp-agent-skills",
+      "path": "add-social-media-header",
+      "branch": "main",
+      "category": "add-social-media-header",
+      "tags": [],
+      "stars": 0,
+      "install": "0GiS0/ghcp-agent-skills/add-social-media-header",
+      "source": "github.com/0GiS0/ghcp-agent-skills"
+    }
+  ]
+}

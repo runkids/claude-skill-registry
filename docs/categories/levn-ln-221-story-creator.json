@@ -1,0 +1,20 @@
+{
+  "category": "levn-ln-221-story-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.003743Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates Stories from IDEAL plan (CREATE) or appends user-requested Stories (ADD). Generates 8-section documents, validates INVEST, creates in Linear. Invoked by ln-220.",
+      "repo": "boisenoise/skills-collections",
+      "path": "levn-ln-221-story-creator",
+      "branch": "main",
+      "category": "levn-ln-221-story-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/levn-ln-221-story-creator",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

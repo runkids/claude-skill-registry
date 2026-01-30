@@ -1,0 +1,20 @@
+{
+  "category": "setup-guide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.984329Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete setup and installation guide for the ClickUp Framework CLI with troubleshooting",
+      "repo": "SOELexicon/clickup_framework",
+      "path": "setup-guide",
+      "branch": "main",
+      "category": "setup-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "SOELexicon/clickup_framework/setup-guide",
+      "source": "github.com/SOELexicon/clickup_framework"
+    }
+  ]
+}

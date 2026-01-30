@@ -1,0 +1,20 @@
+{
+  "category": "webgpu-canvas",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.451782Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "WebGPU fundamentals for high-performance canvas rendering. Covers device initialization, buffer management, WGSL shaders, render pipelines, compute shaders, and web component integration. Use when bui",
+      "repo": "matthewharwood/fantasy-phonics",
+      "path": "webgpu-canvas",
+      "branch": "main",
+      "category": "webgpu-canvas",
+      "tags": [],
+      "stars": 0,
+      "install": "matthewharwood/fantasy-phonics/webgpu-canvas",
+      "source": "github.com/matthewharwood/fantasy-phonics"
+    }
+  ]
+}

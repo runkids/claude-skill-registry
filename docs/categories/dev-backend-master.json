@@ -1,0 +1,20 @@
+{
+  "category": "dev-backend-master",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.167639Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master skill for Backend Integration (Supabase) and API handling. Covers database schema, authentication, and SQL.",
+      "repo": "endlessblink/flow-state",
+      "path": "dev-backend-master",
+      "branch": "main",
+      "category": "dev-backend-master",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/dev-backend-master",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

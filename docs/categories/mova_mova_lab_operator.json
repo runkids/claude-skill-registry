@@ -1,0 +1,20 @@
+{
+  "category": "mova_mova_lab_operator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.202716Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Helps IDE agents navigate and operate the MOVA Skills Lab: read the registry, plan skill runs and manage episodes.",
+      "repo": "Leryk1981/mova_wf_cycle",
+      "path": "mova_mova_lab_operator",
+      "branch": "main",
+      "category": "mova_mova_lab_operator",
+      "tags": [],
+      "stars": 0,
+      "install": "Leryk1981/mova_wf_cycle/mova_mova_lab_operator",
+      "source": "github.com/Leryk1981/mova_wf_cycle"
+    }
+  ]
+}

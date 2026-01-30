@@ -1,0 +1,20 @@
+{
+  "category": "cursor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.734690Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Control Cursor AI code editor via CLI. Open files, folders, diffs, and manage extensions.",
+      "repo": "carmandale/agent-config",
+      "path": "cursor",
+      "branch": "main",
+      "category": "cursor",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config/cursor",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

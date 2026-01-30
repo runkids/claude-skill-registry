@@ -1,0 +1,20 @@
+{
+  "category": "board-readiness-kit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.435496Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Narrative and artifact system for preparing SaaS board/investor updates.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "board-readiness-kit",
+      "branch": "main",
+      "category": "board-readiness-kit",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/board-readiness-kit",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

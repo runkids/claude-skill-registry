@@ -1,0 +1,20 @@
+{
+  "category": "concise-planning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.641120Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when a user asks for a plan for a coding task, to generate a clear, actionable, and atomic checklist.",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "concise-planning",
+      "branch": "main",
+      "category": "concise-planning",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/concise-planning",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

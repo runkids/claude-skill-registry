@@ -1,0 +1,20 @@
+{
+  "category": "search-system",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.931423Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Stream-first search framework for TMNL. Invoke when implementing search, QueryDSL operators, progressive results, multi-source indices, or FlexSearch integration. Covers Effect.Stream patterns, fiber",
+      "repo": "creatifcoding/gbg",
+      "path": "search-system",
+      "branch": "main",
+      "category": "search-system",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/search-system",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

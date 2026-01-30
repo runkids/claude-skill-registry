@@ -1,0 +1,20 @@
+{
+  "category": "jira-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.923664Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review code changes for Jira issue. Use when the user wants to \"review code\", \"code review\", \"jira review\", or \"check implementation\".",
+      "repo": "Lobbi-Docs/claude",
+      "path": "jira-review",
+      "branch": "main",
+      "category": "jira-review",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/jira-review",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "governance",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.793843Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to enforce approvals, compliance, and auditability for personalization programs.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "governance",
+      "branch": "main",
+      "category": "governance",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/governance",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

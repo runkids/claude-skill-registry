@@ -1,0 +1,20 @@
+{
+  "category": "graph-based-ui-decomposition",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.801000Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply graph theory to decompose large UIs into optimal rendering subgraphs.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "graph-based-ui-decomposition",
+      "branch": "main",
+      "category": "graph-based-ui-decomposition",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/graph-based-ui-decomposition",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

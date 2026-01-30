@@ -1,0 +1,20 @@
+{
+  "category": "analyze-test-results",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.294972Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze test failures and CI artifacts to identify and fix bugs",
+      "repo": "benzwick/SlicerMouseMaster",
+      "path": "analyze-test-results",
+      "branch": "main",
+      "category": "analyze-test-results",
+      "tags": [],
+      "stars": 0,
+      "install": "benzwick/SlicerMouseMaster/analyze-test-results",
+      "source": "github.com/benzwick/SlicerMouseMaster"
+    }
+  ]
+}

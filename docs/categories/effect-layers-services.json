@@ -1,0 +1,20 @@
+{
+  "category": "effect-layers-services",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.557340Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define services, provide layers, compose dependencies, and switch live/test. Use for DI boundaries and app composition.",
+      "repo": "mepuka/crate",
+      "path": "effect-layers-services",
+      "branch": "main",
+      "category": "effect-layers-services",
+      "tags": [],
+      "stars": 0,
+      "install": "mepuka/crate/effect-layers-services",
+      "source": "github.com/mepuka/crate"
+    }
+  ]
+}

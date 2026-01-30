@@ -1,0 +1,20 @@
+{
+  "category": "risk-assessment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.847433Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Identify, analyze, and prioritize project risks using qualitative and quantitative methods. Develop mitigation strategies to minimize impact and maximize project success probability.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "risk-assessment",
+      "branch": "main",
+      "category": "risk-assessment",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/risk-assessment",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

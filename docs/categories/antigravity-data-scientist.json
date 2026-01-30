@@ -1,0 +1,20 @@
+{
+  "category": "antigravity-data-scientist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.307849Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert data scientist for advanced analytics, machine learning, and statistical modeling. Handles complex data analysis, predictive modeling, and business intelligence. Use PROACTIVELY for data analys",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-data-scientist",
+      "branch": "main",
+      "category": "antigravity-data-scientist",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/antigravity-data-scientist",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

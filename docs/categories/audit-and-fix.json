@@ -1,0 +1,20 @@
+{
+  "category": "audit-and-fix",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.367768Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Security audit with automatic fixes for vulnerabilities",
+      "repo": "WhatIfWeDigDeeper/application-tracker",
+      "path": "audit-and-fix",
+      "branch": "main",
+      "category": "audit-and-fix",
+      "tags": [],
+      "stars": 0,
+      "install": "WhatIfWeDigDeeper/application-tracker/audit-and-fix",
+      "source": "github.com/WhatIfWeDigDeeper/application-tracker"
+    }
+  ]
+}

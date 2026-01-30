@@ -1,0 +1,20 @@
+{
+  "category": "code-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.587944Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply Google Style documentation standards to Python, Go, and Terraform code. Use when writing or reviewing code that needs docstrings/comments, when asked to \"document this code\", \"add docstrings\", \"",
+      "repo": "jjmartres/opencode",
+      "path": "code-docs",
+      "branch": "main",
+      "category": "code-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "jjmartres/opencode/code-docs",
+      "source": "github.com/jjmartres/opencode"
+    }
+  ]
+}

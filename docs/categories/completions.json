@@ -1,0 +1,20 @@
+{
+  "category": "completions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.630379Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ZSH completion system patterns and conventions. Use when implementing custom completion handling, writing completion files, or working with zsh autocomplete. Do not use when installing packages from h",
+      "repo": "bendrucker/dotfiles",
+      "path": "completions",
+      "branch": "main",
+      "category": "completions",
+      "tags": [],
+      "stars": 0,
+      "install": "bendrucker/dotfiles/completions",
+      "source": "github.com/bendrucker/dotfiles"
+    }
+  ]
+}

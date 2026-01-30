@@ -1,0 +1,20 @@
+{
+  "category": "azure-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.396340Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Microsoft Azure cloud platform, services, and architecture",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "azure-expert",
+      "branch": "main",
+      "category": "azure-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/azure-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

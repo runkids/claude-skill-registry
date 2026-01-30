@@ -1,0 +1,20 @@
+{
+  "category": "implementing-tls",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.869993Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure TLS certificates and encryption for secure communications. Use when setting up HTTPS, securing service-to-service connections, implementing mutual TLS (mTLS), or debugging certificate issues",
+      "repo": "ancoleman/ai-design-components",
+      "path": "implementing-tls",
+      "branch": "main",
+      "category": "implementing-tls",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/implementing-tls",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

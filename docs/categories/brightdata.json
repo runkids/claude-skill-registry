@@ -1,0 +1,20 @@
+{
+  "category": "brightdata",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.446905Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Progressive four-tier URL content scraping with automatic fallback strategy.  USE WHEN user says \"scrape this URL\", \"fetch this page\", \"get content from\", \"can't access this site\", \"use Bright Data\",",
+      "repo": "Microck/ordinary-claude-skills",
+      "path": "brightdata",
+      "branch": "main",
+      "category": "brightdata",
+      "tags": [],
+      "stars": 0,
+      "install": "Microck/ordinary-claude-skills/brightdata",
+      "source": "github.com/Microck/ordinary-claude-skills"
+    }
+  ]
+}

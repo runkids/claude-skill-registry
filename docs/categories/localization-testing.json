@@ -1,0 +1,20 @@
+{
+  "category": "localization-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.049316Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Internationalization (i18n) and localization (l10n) testing for global products including translations, locale formats, RTL languages, and cultural appropriateness. Use when launching in new markets o",
+      "repo": "proffesor-for-testing/sentinel-api-testing",
+      "path": "localization-testing",
+      "branch": "main",
+      "category": "localization-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/sentinel-api-testing/localization-testing",
+      "source": "github.com/proffesor-for-testing/sentinel-api-testing"
+    }
+  ]
+}

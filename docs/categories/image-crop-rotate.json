@@ -1,0 +1,20 @@
+{
+  "category": "image-crop-rotate",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.860305Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Image processing skill for cropping images to 50% from center and rotating them 90 degrees clockwise. This skill should be used when users request image cropping to center, image rotation, or both ope",
+      "repo": "instavm/coderunner",
+      "path": "image-crop-rotate",
+      "branch": "main",
+      "category": "image-crop-rotate",
+      "tags": [],
+      "stars": 0,
+      "install": "instavm/coderunner/image-crop-rotate",
+      "source": "github.com/instavm/coderunner"
+    }
+  ]
+}

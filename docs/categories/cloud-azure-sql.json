@@ -1,0 +1,20 @@
+{
+  "category": "cloud-azure-sql",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.570216Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Azure SQL Database including database creation, configuration, security, and Azure SQL management. Use when the user asks about Azure SQL, needs to create Azure SQL",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "cloud-azure-sql",
+      "branch": "main",
+      "category": "cloud-azure-sql",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/cloud-azure-sql",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

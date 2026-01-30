@@ -1,0 +1,20 @@
+{
+  "category": "react-native-app",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.775519Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build cross-platform mobile apps with React Native. Covers navigation with React Navigation, state management with Redux/Context API, API integration, and platform-specific features.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "react-native-app",
+      "branch": "main",
+      "category": "react-native-app",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/react-native-app",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "_old-earnings-orchestrator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.183356Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master orchestrator for batch earnings analysis. Processes all 8-Ks for a company chronologically, running prediction→attribution loop with accuracy tracking.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "_old-earnings-orchestrator",
+      "branch": "main",
+      "category": "_old-earnings-orchestrator",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/_old-earnings-orchestrator",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

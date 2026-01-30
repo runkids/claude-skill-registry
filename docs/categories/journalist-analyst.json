@@ -1,0 +1,20 @@
+{
+  "category": "journalist-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.929504Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes events through journalistic lens using 5 Ws and H, investigative methods, source evaluation, fact-checking, newsworthiness criteria, and ethical journalism principles. Provides insights on st",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "journalist-analyst",
+      "branch": "main",
+      "category": "journalist-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/journalist-analyst",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

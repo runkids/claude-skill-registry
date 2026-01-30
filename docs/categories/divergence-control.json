@@ -1,0 +1,20 @@
+{
+  "category": "divergence-control",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.460512Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Keep multiple instances aligned while allowing productive variance",
+      "repo": "agentgptsmith/MonadFramework",
+      "path": "divergence-control",
+      "branch": "main",
+      "category": "divergence-control",
+      "tags": [],
+      "stars": 0,
+      "install": "agentgptsmith/MonadFramework/divergence-control",
+      "source": "github.com/agentgptsmith/MonadFramework"
+    }
+  ]
+}

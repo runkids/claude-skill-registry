@@ -1,0 +1,20 @@
+{
+  "category": "diagram-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.450499Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Decision guidance for selecting the right diagram type and tool. Provides patterns for common visualization scenarios, tool comparison, and best practices.",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "diagram-patterns",
+      "branch": "main",
+      "category": "diagram-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/diagram-patterns",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

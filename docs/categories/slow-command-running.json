@@ -1,0 +1,20 @@
+{
+  "category": "slow-command-running",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.030922Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pipe long running commands through tee(1) to allow watching output and repeated analyses without rerunning",
+      "repo": "aspiers/ai-config",
+      "path": "slow-command-running",
+      "branch": "main",
+      "category": "slow-command-running",
+      "tags": [],
+      "stars": 0,
+      "install": "aspiers/ai-config/slow-command-running",
+      "source": "github.com/aspiers/ai-config"
+    }
+  ]
+}

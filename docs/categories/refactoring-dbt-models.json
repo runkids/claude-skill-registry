@@ -1,0 +1,20 @@
+{
+  "category": "refactoring-dbt-models",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.797541Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Safely refactors dbt models with downstream impact analysis. Use when restructuring dbt models for: (1) Task mentions \"refactor\", \"restructure\", \"extract\", \"split\", \"break into\", or \"reorganize\" (2) E",
+      "repo": "AltimateAI/data-engineering-skills",
+      "path": "refactoring-dbt-models",
+      "branch": "main",
+      "category": "refactoring-dbt-models",
+      "tags": [],
+      "stars": 0,
+      "install": "AltimateAI/data-engineering-skills/refactoring-dbt-models",
+      "source": "github.com/AltimateAI/data-engineering-skills"
+    }
+  ]
+}

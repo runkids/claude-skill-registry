@@ -1,0 +1,20 @@
+{
+  "category": "write-issue",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.491971Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Writing and maintaining GitHub issues for the tldraw repository. Use when creating new issues, editing issue titles/bodies, triaging issues, or cleaning up issue metadata (types, labels).",
+      "repo": "tldraw/tldraw",
+      "path": "write-issue",
+      "branch": "main",
+      "category": "write-issue",
+      "tags": [],
+      "stars": 0,
+      "install": "tldraw/tldraw/write-issue",
+      "source": "github.com/tldraw/tldraw"
+    }
+  ]
+}

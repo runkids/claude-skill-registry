@@ -1,0 +1,20 @@
+{
+  "category": "codex-self-rewriting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.608500Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Lisp machine self-modification patterns via MCP Tasks and Narya bridge types",
+      "repo": "plurigrid/asi",
+      "path": "codex-self-rewriting",
+      "branch": "main",
+      "category": "codex-self-rewriting",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/codex-self-rewriting",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

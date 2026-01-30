@@ -1,0 +1,20 @@
+{
+  "category": "tooling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.300722Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Flutter Tooling - Tools and Commands. Use when working with tooling.",
+      "repo": "TheBeardedBearSAS/claude-craft",
+      "path": "tooling",
+      "branch": "main",
+      "category": "tooling",
+      "tags": [],
+      "stars": 0,
+      "install": "TheBeardedBearSAS/claude-craft/tooling",
+      "source": "github.com/TheBeardedBearSAS/claude-craft"
+    }
+  ]
+}

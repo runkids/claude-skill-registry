@@ -1,0 +1,20 @@
+{
+  "category": "critical-thinking-logical-reasoning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.721102Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Critical thinking and logical reasoning analysis skills for when you are explicitly asked to critically analyse written content such as articles, blogs, transcripts and reports (not code).",
+      "repo": "sammcj/agentic-coding",
+      "path": "critical-thinking-logical-reasoning",
+      "branch": "main",
+      "category": "critical-thinking-logical-reasoning",
+      "tags": [],
+      "stars": 0,
+      "install": "sammcj/agentic-coding/critical-thinking-logical-reasoning",
+      "source": "github.com/sammcj/agentic-coding"
+    }
+  ]
+}

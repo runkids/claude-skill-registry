@@ -1,0 +1,20 @@
+{
+  "category": "git-worktrees",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.765232Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Work on multiple branches in parallel using git worktrees via the git-wt helper to avoid context switching or merge noise.",
+      "repo": "mattg101/SolidLink",
+      "path": "git-worktrees",
+      "branch": "main",
+      "category": "git-worktrees",
+      "tags": [],
+      "stars": 0,
+      "install": "mattg101/SolidLink/git-worktrees",
+      "source": "github.com/mattg101/SolidLink"
+    }
+  ]
+}

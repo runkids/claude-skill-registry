@@ -1,0 +1,20 @@
+{
+  "category": "saelens",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.876084Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides guidance for training and analyzing Sparse Autoencoders (SAEs) using SAELens to decompose neural network activations into interpretable features. Use when discovering interpretable features,",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "saelens",
+      "branch": "main",
+      "category": "saelens",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/saelens",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

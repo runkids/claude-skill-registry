@@ -1,0 +1,20 @@
+{
+  "category": "don-programmeertalen",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.524240Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Programming language guidelines for Dutch government software. Use when choosing programming languages, setting up development environments, or following language-specific best practices for governmen",
+      "repo": "dstotijn/developer-overheid-nl-agent-skills",
+      "path": "don-programmeertalen",
+      "branch": "main",
+      "category": "don-programmeertalen",
+      "tags": [],
+      "stars": 0,
+      "install": "dstotijn/developer-overheid-nl-agent-skills/don-programmeertalen",
+      "source": "github.com/dstotijn/developer-overheid-nl-agent-skills"
+    }
+  ]
+}

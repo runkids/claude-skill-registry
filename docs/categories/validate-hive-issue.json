@@ -1,0 +1,20 @@
+{
+  "category": "validate-hive-issue",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.391366Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate a GitHub issue with deeper cross-checking and risk assessment; use for high-impact issues.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "validate-hive-issue",
+      "branch": "main",
+      "category": "validate-hive-issue",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup/validate-hive-issue",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

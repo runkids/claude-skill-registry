@@ -1,0 +1,20 @@
+{
+  "category": "bellog-notion",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.424729Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides Notion CMS integration patterns and best practices for Bellog. Triggers when working with Notion data or implementing Notion-based features.",
+      "repo": "whddltjdwhd/bellog",
+      "path": "bellog-notion",
+      "branch": "main",
+      "category": "bellog-notion",
+      "tags": [],
+      "stars": 0,
+      "install": "whddltjdwhd/bellog/bellog-notion",
+      "source": "github.com/whddltjdwhd/bellog"
+    }
+  ]
+}

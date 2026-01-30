@@ -1,0 +1,20 @@
+{
+  "category": "agile",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.268550Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Agile product management, Scrum practices, and team collaboration for iterative product development.",
+      "repo": "nicepkg/ai-workflow",
+      "path": "agile",
+      "branch": "main",
+      "category": "agile",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/agile",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

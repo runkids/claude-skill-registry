@@ -1,0 +1,20 @@
+{
+  "category": "moai-security-ssrf",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.175014Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise SSRF Security Protection with AI-powered request validation, Context7 integration, and intelligent URL filtering for web application security",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-security-ssrf",
+      "branch": "main",
+      "category": "moai-security-ssrf",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-security-ssrf",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

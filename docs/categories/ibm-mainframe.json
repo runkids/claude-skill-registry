@@ -1,0 +1,20 @@
+{
+  "category": "ibm-mainframe",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.851044Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive IBM Mainframe administration, development, and modernization guidance including z/OS operations, JCL scripting, COBOL/PL/I programming, CICS/IMS configuration, DB2 administratio",
+      "repo": "DauQuangThanh/hanoi-rainbow",
+      "path": "ibm-mainframe",
+      "branch": "main",
+      "category": "ibm-mainframe",
+      "tags": [],
+      "stars": 0,
+      "install": "DauQuangThanh/hanoi-rainbow/ibm-mainframe",
+      "source": "github.com/DauQuangThanh/hanoi-rainbow"
+    }
+  ]
+}

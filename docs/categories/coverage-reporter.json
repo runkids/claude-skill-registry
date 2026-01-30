@@ -1,0 +1,20 @@
+{
+  "category": "coverage-reporter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.692017Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate and analyze test coverage reports. Use to identify coverage gaps, track coverage trends, and ensure quality thresholds are met.",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "coverage-reporter",
+      "branch": "main",
+      "category": "coverage-reporter",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/coverage-reporter",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

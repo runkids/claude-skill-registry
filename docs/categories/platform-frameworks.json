@@ -1,0 +1,20 @@
+{
+  "category": "platform-frameworks",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.588025Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when tailoring content formats, hooks, and publishing mechanics for each social platform.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "platform-frameworks",
+      "branch": "main",
+      "category": "platform-frameworks",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/platform-frameworks",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "structured-logging",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.106494Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement JSON-based structured logging for observability. Use when setting up logging, debugging production issues, or preparing for log aggregation (ELK, Datadog). Covers log levels, context, and be",
+      "repo": "Doyajin174/myskills",
+      "path": "structured-logging",
+      "branch": "main",
+      "category": "structured-logging",
+      "tags": [],
+      "stars": 0,
+      "install": "Doyajin174/myskills/structured-logging",
+      "source": "github.com/Doyajin174/myskills"
+    }
+  ]
+}

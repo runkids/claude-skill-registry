@@ -1,0 +1,20 @@
+{
+  "category": "jenkins-pipeline",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.919854Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build Jenkins declarative and scripted pipelines with stages, agents, parameters, and plugins. Implement multi-branch pipelines and deployment automation.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "jenkins-pipeline",
+      "branch": "main",
+      "category": "jenkins-pipeline",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/jenkins-pipeline",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

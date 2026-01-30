@@ -1,0 +1,20 @@
+{
+  "category": "ollama-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.282720Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure auto-configure Ollama when user needs local LLM deployment, free AI alternatives, or wants to eliminate hosted API costs. Trigger phrases: \"install ollama\", \"local AI\", \"free LLM\", \"self-hos",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "ollama-setup",
+      "branch": "main",
+      "category": "ollama-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/ollama-setup",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "aws-discover",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.388787Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Discover AWS infrastructure and save to JSON. Use when user asks to \"discover AWS\", \"explore AWS account\", \"scan AWS infrastructure\", or \"create infrastructure JSON\".",
+      "repo": "mpuig/claude-cloud-diagrams",
+      "path": "aws-discover",
+      "branch": "main",
+      "category": "aws-discover",
+      "tags": [],
+      "stars": 0,
+      "install": "mpuig/claude-cloud-diagrams/aws-discover",
+      "source": "github.com/mpuig/claude-cloud-diagrams"
+    }
+  ]
+}

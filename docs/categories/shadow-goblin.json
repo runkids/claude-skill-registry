@@ -1,0 +1,20 @@
+{
+  "category": "shadow-goblin",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.990131Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "shadow-goblin",
+      "repo": "plurigrid/asi",
+      "path": "shadow-goblin",
+      "branch": "main",
+      "category": "shadow-goblin",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/shadow-goblin",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

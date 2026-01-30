@@ -1,0 +1,20 @@
+{
+  "category": "📁 safe-project-organizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.522529Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive project cleanup and organization skill combining safe reorganization, root directory cleanup, and legacy tech removal. Features multi-stage validation, dry-run previews, and explicit use",
+      "repo": "endlessblink/flow-state",
+      "path": "📁 safe-project-organizer",
+      "branch": "main",
+      "category": "📁 safe-project-organizer",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/📁 safe-project-organizer",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

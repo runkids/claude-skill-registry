@@ -1,0 +1,20 @@
+{
+  "category": "react-best-practices",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.770393Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patter",
+      "repo": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
+      "path": "react-best-practices",
+      "branch": "main",
+      "category": "react-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "hoanghd218/landing-page-ai-kientruc-a-Ninh/react-best-practices",
+      "source": "github.com/hoanghd218/landing-page-ai-kientruc-a-Ninh"
+    }
+  ]
+}

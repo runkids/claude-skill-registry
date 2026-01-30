@@ -1,0 +1,20 @@
+{
+  "category": "unsloth-sft",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.354720Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Supervised fine-tuning using SFTTrainer, instruction formatting, and multi-turn dataset preparation with triggers like sft, instruction tuning, chat templates, sharegpt, alpaca, conversation_extension",
+      "repo": "cuba6112/skillfactory",
+      "path": "unsloth-sft",
+      "branch": "main",
+      "category": "unsloth-sft",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory/unsloth-sft",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ralph-resume",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.763380Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Resume RALPH execution from last checkpoint",
+      "repo": "doravidan/supreme-ralph",
+      "path": "ralph-resume",
+      "branch": "main",
+      "category": "ralph-resume",
+      "tags": [],
+      "stars": 0,
+      "install": "doravidan/supreme-ralph/ralph-resume",
+      "source": "github.com/doravidan/supreme-ralph"
+    }
+  ]
+}

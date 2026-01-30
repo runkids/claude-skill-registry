@@ -1,0 +1,20 @@
+{
+  "category": "md-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.108241Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Agent review for markdown quality, clarity, and structural integrity. Leverages deterministic lint output as input for subjective assessment.",
+      "repo": "JordanGunn/nunchuck",
+      "path": "md-review",
+      "branch": "main",
+      "category": "md-review",
+      "tags": [],
+      "stars": 0,
+      "install": "JordanGunn/nunchuck/md-review",
+      "source": "github.com/JordanGunn/nunchuck"
+    }
+  ]
+}

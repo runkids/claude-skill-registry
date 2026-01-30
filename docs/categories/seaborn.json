@@ -1,0 +1,20 @@
+{
+  "category": "seaborn",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.930373Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Statistical visualization. Scatter, box, violin, heatmaps, pair plots, regression, correlation matrices, KDE, faceted plots, for exploratory analysis and publication figures.",
+      "repo": "robinbarvaag/poynt",
+      "path": "seaborn",
+      "branch": "main",
+      "category": "seaborn",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/seaborn",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

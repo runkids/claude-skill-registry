@@ -1,0 +1,20 @@
+{
+  "category": "ebfe-validator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.549762Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate organized eBFE/BLE model using ras-commander dataframes.  Uses init_ras_project() then checks plan_df, boundary_df, rasmap_df to verify: - All plan files exist - All DSS files exist with rela",
+      "repo": "gpt-cmdr/ras-commander",
+      "path": "ebfe-validator",
+      "branch": "main",
+      "category": "ebfe-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "gpt-cmdr/ras-commander/ebfe-validator",
+      "source": "github.com/gpt-cmdr/ras-commander"
+    }
+  ]
+}

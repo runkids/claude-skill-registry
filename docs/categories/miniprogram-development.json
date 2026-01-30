@@ -1,0 +1,20 @@
+{
+  "category": "miniprogram-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.139691Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "WeChat Mini Program development rules. Use this skill when developing WeChat mini programs, integrating CloudBase capabilities, and deploying mini program projects.",
+      "repo": "baiyongping/cowork-platform",
+      "path": "miniprogram-development",
+      "branch": "main",
+      "category": "miniprogram-development",
+      "tags": [],
+      "stars": 0,
+      "install": "baiyongping/cowork-platform/miniprogram-development",
+      "source": "github.com/baiyongping/cowork-platform"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "data-validation-rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.035702Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implementing comprehensive validation rules across database, application, and pipeline layers to ensure data integrity.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "data-validation-rules",
+      "branch": "main",
+      "category": "data-validation-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/data-validation-rules",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

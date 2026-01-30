@@ -1,0 +1,20 @@
+{
+  "category": "freight-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.694460Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize freight transportation, reduce shipping costs, or improve carrier selection. Also use when the user mentions \"freight management,\" \"carrier optimization,\" \"mode selecti",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "freight-optimization",
+      "branch": "main",
+      "category": "freight-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/freight-optimization",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "xunit-test",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.506219Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute and generate xUnit tests for C#/.NET projects with FluentAssertions and Moq support",
+      "repo": "FortiumPartners/ai-mesh",
+      "path": "xunit-test",
+      "branch": "main",
+      "category": "xunit-test",
+      "tags": [],
+      "stars": 0,
+      "install": "FortiumPartners/ai-mesh/xunit-test",
+      "source": "github.com/FortiumPartners/ai-mesh"
+    }
+  ]
+}

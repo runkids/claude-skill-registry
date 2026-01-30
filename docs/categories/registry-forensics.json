@@ -1,0 +1,20 @@
+{
+  "category": "registry-forensics",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.803497Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze Windows Registry hives for forensic investigation. Use when investigating malware persistence, user activity, system configuration changes, or evidence of program execution. Supports offline r",
+      "repo": "SherifEldeeb/agentskills",
+      "path": "registry-forensics",
+      "branch": "main",
+      "category": "registry-forensics",
+      "tags": [],
+      "stars": 0,
+      "install": "SherifEldeeb/agentskills/registry-forensics",
+      "source": "github.com/SherifEldeeb/agentskills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "planning-disaster-recovery",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.584365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and implement disaster recovery strategies with RTO/RPO planning, database backups, Kubernetes DR, cross-region replication, and chaos engineering testing. Use when implementing backup systems,",
+      "repo": "ancoleman/ai-design-components",
+      "path": "planning-disaster-recovery",
+      "branch": "main",
+      "category": "planning-disaster-recovery",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/planning-disaster-recovery",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

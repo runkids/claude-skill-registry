@@ -1,0 +1,20 @@
+{
+  "category": "mcp-chaining",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.101098Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Research-to-implement pipeline chaining 5 MCP tools with graceful degradation",
+      "repo": "namesreallyblank/Clorch",
+      "path": "mcp-chaining",
+      "branch": "main",
+      "category": "mcp-chaining",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/mcp-chaining",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "pm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.595678Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Product Manager for spec-driven development with SpecWeave conventions. Use when writing user stories, defining acceptance criteria, planning MVPs, or prioritizing features. Creates specs with proper",
+      "repo": "anton-abyzov/specweave",
+      "path": "pm",
+      "branch": "main",
+      "category": "pm",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/pm",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

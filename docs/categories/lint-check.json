@@ -1,0 +1,20 @@
+{
+  "category": "lint-check",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.027721Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Checks code for linting issues and style compliance before commits",
+      "repo": "kzahedi/YARS",
+      "path": "lint-check",
+      "branch": "main",
+      "category": "lint-check",
+      "tags": [],
+      "stars": 0,
+      "install": "kzahedi/YARS/lint-check",
+      "source": "github.com/kzahedi/YARS"
+    }
+  ]
+}

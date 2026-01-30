@@ -1,0 +1,20 @@
+{
+  "category": "convex-security-audit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.682344Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deep security review patterns for authorization logic, data access boundaries, action isolation, rate limiting, and protecting sensitive operations",
+      "repo": "blocknavi/convex-batch-processor",
+      "path": "convex-security-audit",
+      "branch": "main",
+      "category": "convex-security-audit",
+      "tags": [],
+      "stars": 0,
+      "install": "blocknavi/convex-batch-processor/convex-security-audit",
+      "source": "github.com/blocknavi/convex-batch-processor"
+    }
+  ]
+}

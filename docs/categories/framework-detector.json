@@ -1,0 +1,20 @@
+{
+  "category": "framework-detector",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.692942Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-signal framework detection with confidence scoring for 6 major frameworks",
+      "repo": "FortiumPartners/ensemble",
+      "path": "framework-detector",
+      "branch": "main",
+      "category": "framework-detector",
+      "tags": [],
+      "stars": 0,
+      "install": "FortiumPartners/ensemble/framework-detector",
+      "source": "github.com/FortiumPartners/ensemble"
+    }
+  ]
+}

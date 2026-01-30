@@ -1,0 +1,20 @@
+{
+  "category": "start-tts",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.085691Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Start the TTS server in HTTP mode for audio generation",
+      "repo": "darthmolen/EnglishConnect",
+      "path": "start-tts",
+      "branch": "main",
+      "category": "start-tts",
+      "tags": [],
+      "stars": 0,
+      "install": "darthmolen/EnglishConnect/start-tts",
+      "source": "github.com/darthmolen/EnglishConnect"
+    }
+  ]
+}

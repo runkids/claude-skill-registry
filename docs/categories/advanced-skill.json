@@ -1,0 +1,20 @@
+{
+  "category": "advanced-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.217280Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Brief description - this triggers auto-loading when relevant",
+      "repo": "medride/claude-code-research",
+      "path": "advanced-skill",
+      "branch": "main",
+      "category": "advanced-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "medride/claude-code-research/advanced-skill",
+      "source": "github.com/medride/claude-code-research"
+    }
+  ]
+}

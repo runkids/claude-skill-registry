@@ -1,0 +1,20 @@
+{
+  "category": "router-first-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.855425Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Router-First Architecture",
+      "repo": "namesreallyblank/Clorch",
+      "path": "router-first-architecture",
+      "branch": "main",
+      "category": "router-first-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/router-first-architecture",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

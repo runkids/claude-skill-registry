@@ -1,0 +1,20 @@
+{
+  "category": "edd",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.552792Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Custom skill for edd",
+      "repo": "alfredolopez80/multi-agent-ralph-loop",
+      "path": "edd",
+      "branch": "main",
+      "category": "edd",
+      "tags": [],
+      "stars": 0,
+      "install": "alfredolopez80/multi-agent-ralph-loop/edd",
+      "source": "github.com/alfredolopez80/multi-agent-ralph-loop"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "webhook-security",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.452240Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement secure webhook handling with signature verification, replay protection, and idempotency. Use when receiving webhooks from third-party services like Stripe, GitHub, Twilio, or building your o",
+      "repo": "dadbodgeoff/drift",
+      "path": "webhook-security",
+      "branch": "main",
+      "category": "webhook-security",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/webhook-security",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

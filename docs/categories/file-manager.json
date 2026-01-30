@@ -1,0 +1,20 @@
+{
+  "category": "file-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.660281Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Skill: SKILL.md",
+      "repo": "marcelocmenezes/antigravity-agentkit",
+      "path": "file-manager",
+      "branch": "main",
+      "category": "file-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "marcelocmenezes/antigravity-agentkit/file-manager",
+      "source": "github.com/marcelocmenezes/antigravity-agentkit"
+    }
+  ]
+}

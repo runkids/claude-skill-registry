@@ -1,0 +1,20 @@
+{
+  "category": "self-audit-against-protocol",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.956146Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audit own behavior against protocol specifications.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "self-audit-against-protocol",
+      "branch": "main",
+      "category": "self-audit-against-protocol",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/self-audit-against-protocol",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

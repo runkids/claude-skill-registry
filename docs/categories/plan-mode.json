@@ -1,0 +1,20 @@
+{
+  "category": "plan-mode",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.581719Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating structured plans with numbered steps and quality gates",
+      "repo": "mpuig/raw",
+      "path": "plan-mode",
+      "branch": "main",
+      "category": "plan-mode",
+      "tags": [],
+      "stars": 0,
+      "install": "mpuig/raw/plan-mode",
+      "source": "github.com/mpuig/raw"
+    }
+  ]
+}

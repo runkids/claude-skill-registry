@@ -1,0 +1,20 @@
+{
+  "category": "autopilot",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.382470Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Full autonomous execution from idea to working code",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "autopilot",
+      "branch": "main",
+      "category": "autopilot",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/autopilot",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "subagent-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.111680Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and configure custom subagents in Claude Code. Use when user asks to create a new subagent, needs specialized AI assistance with specific tool restrictions or permissions, implements task-speci",
+      "repo": "mokbhai/claude",
+      "path": "subagent-builder",
+      "branch": "main",
+      "category": "subagent-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "mokbhai/claude/subagent-builder",
+      "source": "github.com/mokbhai/claude"
+    }
+  ]
+}

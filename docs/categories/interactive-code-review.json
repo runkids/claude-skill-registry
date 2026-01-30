@@ -1,0 +1,20 @@
+{
+  "category": "interactive-code-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.891251Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Human-in-the-loop code review with chunk-by-chunk approve/reject/chat loop (git add -p style). Use when reviewing PRs, diffs, patches, or documents interactively. Triggers on \"review my PR\", \"walk thr",
+      "repo": "saadshahd/moo.md",
+      "path": "interactive-code-review",
+      "branch": "main",
+      "category": "interactive-code-review",
+      "tags": [],
+      "stars": 0,
+      "install": "saadshahd/moo.md/interactive-code-review",
+      "source": "github.com/saadshahd/moo.md"
+    }
+  ]
+}

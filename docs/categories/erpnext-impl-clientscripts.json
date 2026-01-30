@@ -1,0 +1,20 @@
+{
+  "category": "erpnext-impl-clientscripts",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.587052Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implementation workflows and decision trees for ERPNext Client Scripts. Use when determining HOW to implement client-side features: form validations, dynamic UI, server integration, child table logic.",
+      "repo": "OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package",
+      "path": "erpnext-impl-clientscripts",
+      "branch": "main",
+      "category": "erpnext-impl-clientscripts",
+      "tags": [],
+      "stars": 0,
+      "install": "OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package/erpnext-impl-clientscripts",
+      "source": "github.com/OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "weather",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.442831Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Get current weather and forecasts (no API key required).",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "weather",
+      "branch": "main",
+      "category": "weather",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/weather",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

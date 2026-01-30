@@ -1,0 +1,20 @@
+{
+  "category": "multi-ai-implementation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.209171Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Production-ready code generation and incremental development using Explore-Plan-Code-Commit workflow. TDD-driven with <200 line changes, automatic rollback, and multi-agent coordination. Use when impl",
+      "repo": "adaptationio/Skrillz",
+      "path": "multi-ai-implementation",
+      "branch": "main",
+      "category": "multi-ai-implementation",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/multi-ai-implementation",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

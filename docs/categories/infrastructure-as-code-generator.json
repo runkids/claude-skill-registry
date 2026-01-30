@@ -1,0 +1,20 @@
+{
+  "category": "infrastructure-as-code-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.878276Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create Terraform/Pulumi/CloudFormation for multi-cloud.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "infrastructure-as-code-generator",
+      "branch": "main",
+      "category": "infrastructure-as-code-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/infrastructure-as-code-generator",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

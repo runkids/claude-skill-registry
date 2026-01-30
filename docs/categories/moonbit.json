@@ -1,0 +1,20 @@
+{
+  "category": "moonbit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.198844Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for writing, refactoring, and testing MoonBit projects. Use when working in MoonBit modules or packages, organizing MoonBit files, using moon tooling (build/check/test/doc/ide), or following Moo",
+      "repo": "loro-dev/loro",
+      "path": "moonbit",
+      "branch": "main",
+      "category": "moonbit",
+      "tags": [],
+      "stars": 0,
+      "install": "loro-dev/loro/moonbit",
+      "source": "github.com/loro-dev/loro"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "data-seeding",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.033389Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create database seed scripts with realistic test data for development and testing. Use when setting up development environment or creating demo data.",
+      "repo": "PrasadTelasula/EvokeQOne",
+      "path": "data-seeding",
+      "branch": "main",
+      "category": "data-seeding",
+      "tags": [],
+      "stars": 0,
+      "install": "PrasadTelasula/EvokeQOne/data-seeding",
+      "source": "github.com/PrasadTelasula/EvokeQOne"
+    }
+  ]
+}

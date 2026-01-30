@@ -1,0 +1,20 @@
+{
+  "category": "docusaurus-documentation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.516396Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when looking up information from the latest Docusaurus documentation at https://docusaurus.io/docs",
+      "repo": "mcclowes/lea",
+      "path": "docusaurus-documentation",
+      "branch": "main",
+      "category": "docusaurus-documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "mcclowes/lea/docusaurus-documentation",
+      "source": "github.com/mcclowes/lea"
+    }
+  ]
+}

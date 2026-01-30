@@ -1,0 +1,20 @@
+{
+  "category": "frontend-design-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.702552Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conducts comprehensive frontend design reviews covering UI/UX design quality, design system validation, accessibility compliance, responsive design patterns, component library architecture, and visual",
+      "repo": "DauQuangThanh/hanoi-rainbow",
+      "path": "frontend-design-review",
+      "branch": "main",
+      "category": "frontend-design-review",
+      "tags": [],
+      "stars": 0,
+      "install": "DauQuangThanh/hanoi-rainbow/frontend-design-review",
+      "source": "github.com/DauQuangThanh/hanoi-rainbow"
+    }
+  ]
+}

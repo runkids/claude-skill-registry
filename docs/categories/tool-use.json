@@ -1,0 +1,20 @@
+{
+  "category": "tool-use",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.300545Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tool use patterns for Claude including schema design, tool_choice modes, result handling, parallel execution, error recovery, and extended thinking integration.",
+      "repo": "Lobbi-Docs/claude",
+      "path": "tool-use",
+      "branch": "main",
+      "category": "tool-use",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/tool-use",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

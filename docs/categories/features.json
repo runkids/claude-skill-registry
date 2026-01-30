@@ -1,0 +1,20 @@
+{
+  "category": "features",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.649006Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "创建时间: 2026-01-25",
+      "repo": "hongliangc/combo_demon",
+      "path": "features",
+      "branch": "main",
+      "category": "features",
+      "tags": [],
+      "stars": 0,
+      "install": "hongliangc/combo_demon/features",
+      "source": "github.com/hongliangc/combo_demon"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "cleanup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.552015Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"clean up the code\", \"remove unnecessary comments\", \"simplify docstrings\", \"parameterize tests\", or wants to review and clean up code.",
+      "repo": "tbroadley/dotfiles",
+      "path": "cleanup",
+      "branch": "main",
+      "category": "cleanup",
+      "tags": [],
+      "stars": 0,
+      "install": "tbroadley/dotfiles/cleanup",
+      "source": "github.com/tbroadley/dotfiles"
+    }
+  ]
+}

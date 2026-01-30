@@ -1,0 +1,20 @@
+{
+  "category": "rss-catchup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.858948Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fetch and summarize latest articles from RSS feeds. Creates notes with article summaries as bullet points. Use to catch up on blogs without reading everything. Triggers on \"rss catchup\", \"blog catchup",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "rss-catchup",
+      "branch": "main",
+      "category": "rss-catchup",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager/rss-catchup",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

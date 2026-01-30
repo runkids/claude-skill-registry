@@ -1,0 +1,20 @@
+{
+  "category": "audit-comprehensive",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.368212Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run all 6 domain audits in parallel and aggregate results",
+      "repo": "jasonmichaelbell78-creator/sonash-v0",
+      "path": "audit-comprehensive",
+      "branch": "main",
+      "category": "audit-comprehensive",
+      "tags": [],
+      "stars": 0,
+      "install": "jasonmichaelbell78-creator/sonash-v0/audit-comprehensive",
+      "source": "github.com/jasonmichaelbell78-creator/sonash-v0"
+    }
+  ]
+}

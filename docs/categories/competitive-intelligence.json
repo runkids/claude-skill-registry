@@ -1,0 +1,20 @@
+{
+  "category": "competitive-intelligence",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.628038Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Porter's Five Forces, SWOT analysis, and competitive positioning matrix for strategic market analysis. Identifies threats, opportunities, and recommends positioning strategy.",
+      "repo": "maigentic/stratarts",
+      "path": "competitive-intelligence",
+      "branch": "main",
+      "category": "competitive-intelligence",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/competitive-intelligence",
+      "source": "github.com/maigentic/stratarts"
+    }
+  ]
+}

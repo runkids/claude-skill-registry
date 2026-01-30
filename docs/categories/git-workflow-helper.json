@@ -1,0 +1,20 @@
+{
+  "category": "git-workflow-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.764158Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guidance for Git workflows, troubleshooting, and best practices",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "git-workflow-helper",
+      "branch": "main",
+      "category": "git-workflow-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/git-workflow-helper",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "test-inherit-parent",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.205281Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Parent skill WITHOUT MCP tool - calls child that HAS MCP tool",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-inherit-parent",
+      "branch": "main",
+      "category": "test-inherit-parent",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/test-inherit-parent",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

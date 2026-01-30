@@ -1,0 +1,20 @@
+{
+  "category": "slb",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.028613Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Simultaneous Launch Button - two-person rule for destructive commands. Requires peer review before executing risky operations.",
+      "repo": "carmandale/agent-config",
+      "path": "slb",
+      "branch": "main",
+      "category": "slb",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config/slb",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

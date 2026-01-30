@@ -1,0 +1,20 @@
+{
+  "category": "mcp-code-execution",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.102077Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Quick Start",
+      "repo": "athola/claude-night-market",
+      "path": "mcp-code-execution",
+      "branch": "main",
+      "category": "mcp-code-execution",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/mcp-code-execution",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

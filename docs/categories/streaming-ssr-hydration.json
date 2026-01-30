@@ -1,0 +1,20 @@
+{
+  "category": "streaming-ssr-hydration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.100884Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design streaming SSR pipelines with predictable hydration behavior and progressive interactivity.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "streaming-ssr-hydration",
+      "branch": "main",
+      "category": "streaming-ssr-hydration",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/streaming-ssr-hydration",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

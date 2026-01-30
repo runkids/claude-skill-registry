@@ -1,0 +1,20 @@
+{
+  "category": "privilege-escalation-methods",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.642538Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"escalate privileges\", \"get root access\", \"become administrator\", \"privesc techniques\", \"abuse sudo\", \"exploit SUID binaries\", \"Kerberoasting\", \"pass-th",
+      "repo": "AxelMrak/ai",
+      "path": "privilege-escalation-methods",
+      "branch": "main",
+      "category": "privilege-escalation-methods",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/privilege-escalation-methods",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

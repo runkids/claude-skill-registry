@@ -1,0 +1,20 @@
+{
+  "category": "tech-spec-writer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.181854Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write implementation-ready software technical specifications for senior engineers.",
+      "repo": "mattg101/SolidLink",
+      "path": "tech-spec-writer",
+      "branch": "main",
+      "category": "tech-spec-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "mattg101/SolidLink/tech-spec-writer",
+      "source": "github.com/mattg101/SolidLink"
+    }
+  ]
+}

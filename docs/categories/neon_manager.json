@@ -1,0 +1,20 @@
+{
+  "category": "neon_manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.230748Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tool for managing Neon Postgres databases. Use for listing projects, inspecting schema, and running queries.",
+      "repo": "Verridian-ai/life-os-Pulse-banner-generator",
+      "path": "neon_manager",
+      "branch": "main",
+      "category": "neon_manager",
+      "tags": [],
+      "stars": 0,
+      "install": "Verridian-ai/life-os-Pulse-banner-generator/neon_manager",
+      "source": "github.com/Verridian-ai/life-os-Pulse-banner-generator"
+    }
+  ]
+}

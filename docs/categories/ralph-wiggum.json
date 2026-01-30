@@ -1,0 +1,20 @@
+{
+  "category": "ralph-wiggum",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.764283Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ralph Wiggum iterative development loop methodology for persistent AI agent work. Implements continuous iteration loops where AI works on tasks until completion, using Archon for state management and",
+      "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "path": "ralph-wiggum",
+      "branch": "main",
+      "category": "ralph-wiggum",
+      "tags": [],
+      "stars": 0,
+      "install": "fgarofalo56/Suppercharge_Microsoft_Fabric/ralph-wiggum",
+      "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric"
+    }
+  ]
+}

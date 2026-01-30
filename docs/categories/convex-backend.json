@@ -1,0 +1,20 @@
+{
+  "category": "convex-backend",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.678315Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build real-time, reactive backend applications with Convex using TypeScript queries, mutations, and actions with automatic reactivity and optimistic updates. Use when building real-time collaborative",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "convex-backend",
+      "branch": "main",
+      "category": "convex-backend",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2/convex-backend",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

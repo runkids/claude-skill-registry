@@ -1,0 +1,20 @@
+{
+  "category": "mock-generate",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.184152Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate mock data and test fixtures from schemas",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "mock-generate",
+      "branch": "main",
+      "category": "mock-generate",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/mock-generate",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

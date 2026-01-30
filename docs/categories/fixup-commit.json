@@ -1,0 +1,20 @@
+{
+  "category": "fixup-commit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.676056Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /fixup-commit <commit-hash> slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "fixup-commit",
+      "branch": "main",
+      "category": "fixup-commit",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles/fixup-commit",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "statistical-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.090248Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Statistical analysis for metabolomics data. Covers univariate testing, multivariate methods (PCA, PLS-DA), and biomarker discovery. Use when identifying differentially abundant metabolites or building",
+      "repo": "GPTomics/bioSkills",
+      "path": "statistical-analysis",
+      "branch": "main",
+      "category": "statistical-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/statistical-analysis",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

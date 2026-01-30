@@ -1,0 +1,20 @@
+{
+  "category": "scikit-learn",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.919154Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Machine learning in Python with scikit-learn. Use when working with supervised learning (classification, regression), unsupervised learning (clustering, dimensionality reduction), model evaluation, hy",
+      "repo": "ovachiever/droid-tings",
+      "path": "scikit-learn",
+      "branch": "main",
+      "category": "scikit-learn",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings/scikit-learn",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

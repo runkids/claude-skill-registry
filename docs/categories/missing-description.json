@@ -1,0 +1,20 @@
+{
+  "category": "missing-description",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.140492Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill is missing the required description field.",
+      "repo": "pproenca/dot-skills",
+      "path": "missing-description",
+      "branch": "main",
+      "category": "missing-description",
+      "tags": [],
+      "stars": 0,
+      "install": "pproenca/dot-skills/missing-description",
+      "source": "github.com/pproenca/dot-skills"
+    }
+  ]
+}

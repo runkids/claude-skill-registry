@@ -1,0 +1,20 @@
+{
+  "category": "vhs-recording",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.410823Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate professional terminal recordings from VHS tape files.",
+      "repo": "athola/claude-night-market",
+      "path": "vhs-recording",
+      "branch": "main",
+      "category": "vhs-recording",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/vhs-recording",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "dev-multiplayer-anti-cheat-validation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.170255Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Input validation and anti-cheat patterns for multiplayer servers. Use when implementing server-side validation.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-multiplayer-anti-cheat-validation",
+      "branch": "main",
+      "category": "dev-multiplayer-anti-cheat-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/dev-multiplayer-anti-cheat-validation",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

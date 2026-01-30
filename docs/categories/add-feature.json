@@ -1,0 +1,20 @@
+{
+  "category": "add-feature",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.204770Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffold a new toggleable feature with full structure, storage, API exposure, and bootstrap registration",
+      "repo": "Ariedam64/Gemini",
+      "path": "add-feature",
+      "branch": "main",
+      "category": "add-feature",
+      "tags": [],
+      "stars": 0,
+      "install": "Ariedam64/Gemini/add-feature",
+      "source": "github.com/Ariedam64/Gemini"
+    }
+  ]
+}

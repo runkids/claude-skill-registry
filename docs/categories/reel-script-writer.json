@@ -1,0 +1,20 @@
+{
+  "category": "reel-script-writer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.794366Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write engaging scripts for short-form video content (15-90 seconds) for Reels and TikTok",
+      "repo": "eddiebe147/claude-settings",
+      "path": "reel-script-writer",
+      "branch": "main",
+      "category": "reel-script-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/reel-script-writer",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "loop-breaker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.056068Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffold middleware to detect and block Worker self-recursion, infinite fetch chains, and runaway loops. Use this skill when designing Workers that call other Workers, implement webhooks, or handle ev",
+      "repo": "littlebearapps/cloudflare-engineer",
+      "path": "loop-breaker",
+      "branch": "main",
+      "category": "loop-breaker",
+      "tags": [],
+      "stars": 0,
+      "install": "littlebearapps/cloudflare-engineer/loop-breaker",
+      "source": "github.com/littlebearapps/cloudflare-engineer"
+    }
+  ]
+}

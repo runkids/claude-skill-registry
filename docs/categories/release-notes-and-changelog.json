@@ -1,0 +1,20 @@
+{
+  "category": "release-notes-and-changelog",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.807241Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate release notes from git history",
+      "repo": "EtroxTaran/conductor",
+      "path": "release-notes-and-changelog",
+      "branch": "main",
+      "category": "release-notes-and-changelog",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor/release-notes-and-changelog",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

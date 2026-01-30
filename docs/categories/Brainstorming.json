@@ -1,0 +1,20 @@
+{
+  "category": "Brainstorming",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.163992Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+      "repo": "Sameeh07/AGENT-SKILLS",
+      "path": "Brainstorming",
+      "branch": "main",
+      "category": "Brainstorming",
+      "tags": [],
+      "stars": 0,
+      "install": "Sameeh07/AGENT-SKILLS/Brainstorming",
+      "source": "github.com/Sameeh07/AGENT-SKILLS"
+    }
+  ]
+}

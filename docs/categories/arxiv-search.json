@@ -1,0 +1,20 @@
+{
+  "category": "arxiv-search",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.356290Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Search arXiv preprint repository for papers in physics, mathematics, computer science, quantitative biology, and related fields",
+      "repo": "Microck/ordinary-claude-skills",
+      "path": "arxiv-search",
+      "branch": "main",
+      "category": "arxiv-search",
+      "tags": [],
+      "stars": 0,
+      "install": "Microck/ordinary-claude-skills/arxiv-search",
+      "source": "github.com/Microck/ordinary-claude-skills"
+    }
+  ]
+}

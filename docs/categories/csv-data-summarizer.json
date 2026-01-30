@@ -1,0 +1,20 @@
+{
+  "category": "csv-data-summarizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.727917Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes CSV files, generates summary stats, and plots quick visualizations using Python and pandas.",
+      "repo": "ovachiever/droid-tings",
+      "path": "csv-data-summarizer",
+      "branch": "main",
+      "category": "csv-data-summarizer",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings/csv-data-summarizer",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

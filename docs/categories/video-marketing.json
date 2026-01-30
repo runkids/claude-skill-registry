@@ -1,0 +1,20 @@
+{
+  "category": "video-marketing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.415906Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по видео-маркетингу. Используй для YouTube стратегий, видео-контента, Reels/TikTok и video SEO.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "video-marketing",
+      "branch": "main",
+      "category": "video-marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/video-marketing",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

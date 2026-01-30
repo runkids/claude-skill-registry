@@ -1,0 +1,20 @@
+{
+  "category": "speak-deploy-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.048670Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploy Speak language learning integrations to Vercel, Fly.io, and Cloud Run platforms. Use when deploying Speak-powered applications to production, configuring platform-specific secrets, or setting u",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "speak-deploy-integration",
+      "branch": "main",
+      "category": "speak-deploy-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/speak-deploy-integration",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

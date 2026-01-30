@@ -1,0 +1,20 @@
+{
+  "category": "mdx-sanitizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.109660Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive MDX content sanitizer that escapes angle brackets, generics, and other JSX-conflicting patterns to prevent build failures",
+      "repo": "erichowens/some_claude_skills",
+      "path": "mdx-sanitizer",
+      "branch": "main",
+      "category": "mdx-sanitizer",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/mdx-sanitizer",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

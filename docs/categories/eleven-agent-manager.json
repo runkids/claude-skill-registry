@@ -1,0 +1,20 @@
+{
+  "category": "eleven-agent-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.564379Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage ElevenLabs Conversational AI agent configuration including prompts, voice settings, MCP servers, and conversation settings. Use when updating agent behavior, voice, or integrations.",
+      "repo": "dglowacki/mega-agent-v2",
+      "path": "eleven-agent-manager",
+      "branch": "main",
+      "category": "eleven-agent-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "dglowacki/mega-agent-v2/eleven-agent-manager",
+      "source": "github.com/dglowacki/mega-agent-v2"
+    }
+  ]
+}

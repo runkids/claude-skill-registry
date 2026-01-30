@@ -1,0 +1,20 @@
+{
+  "category": "ray-data",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.766440Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Distributed data processing library for ML and AI workloads.",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "ray-data",
+      "branch": "main",
+      "category": "ray-data",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/ray-data",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "dev-research-codebase-exploration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.173812Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Efficient codebase search using Glob and Grep",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-research-codebase-exploration",
+      "branch": "main",
+      "category": "dev-research-codebase-exploration",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/dev-research-codebase-exploration",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

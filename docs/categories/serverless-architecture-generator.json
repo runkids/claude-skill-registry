@@ -1,0 +1,20 @@
+{
+  "category": "serverless-architecture-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.972536Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design serverless functions, workflows, and event triggers with cold start mitigation.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "serverless-architecture-generator",
+      "branch": "main",
+      "category": "serverless-architecture-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/serverless-architecture-generator",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

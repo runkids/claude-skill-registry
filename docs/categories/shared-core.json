@@ -1,0 +1,20 @@
+{
+  "category": "shared-core",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.991715Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Core orchestration concepts - session structure, status values, heartbeat, commit format. Single source of truth for all Ralph agents.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "shared-core",
+      "branch": "main",
+      "category": "shared-core",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/shared-core",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

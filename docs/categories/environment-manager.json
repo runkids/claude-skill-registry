@@ -1,0 +1,20 @@
+{
+  "category": "environment-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.579622Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage environment configurations, secrets, and .env files across environments. Use when configuring application environments or managing secrets.",
+      "repo": "ntaksh42/agents",
+      "path": "environment-manager",
+      "branch": "main",
+      "category": "environment-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents/environment-manager",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

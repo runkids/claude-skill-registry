@@ -1,0 +1,20 @@
+{
+  "category": "disaster-recovery-planner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.455932Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan backups, failover, and RTO/RPO targets.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "disaster-recovery-planner",
+      "branch": "main",
+      "category": "disaster-recovery-planner",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/disaster-recovery-planner",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

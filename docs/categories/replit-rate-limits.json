@@ -1,0 +1,20 @@
+{
+  "category": "replit-rate-limits",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.815585Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement Replit rate limiting, backoff, and idempotency patterns. Use when handling rate limit errors, implementing retry logic, or optimizing API request throughput for Replit. Trigger with phrases",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "replit-rate-limits",
+      "branch": "main",
+      "category": "replit-rate-limits",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/replit-rate-limits",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

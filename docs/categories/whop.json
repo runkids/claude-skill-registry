@@ -1,0 +1,20 @@
+{
+  "category": "whop",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.468479Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Whop platform expert with access to 212 official documentation files covering memberships, payments, products, courses, experiences, forums, webhooks, and app development. Invoke when us",
+      "repo": "raintree-technology/claude-starter",
+      "path": "whop",
+      "branch": "main",
+      "category": "whop",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/whop",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

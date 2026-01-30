@@ -1,0 +1,20 @@
+{
+  "category": "sqlmodel-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.072098Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reusable SQLModel skill with database models, relationships, sessions, and async operations. Use for Python ORM with SQLModel.",
+      "repo": "Aqsagull99/hackathon-2-todo-app",
+      "path": "sqlmodel-skill",
+      "branch": "main",
+      "category": "sqlmodel-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "Aqsagull99/hackathon-2-todo-app/sqlmodel-skill",
+      "source": "github.com/Aqsagull99/hackathon-2-todo-app"
+    }
+  ]
+}

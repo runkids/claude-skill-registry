@@ -1,0 +1,20 @@
+{
+  "category": "md",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.107937Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write clean, error-free markdown that IDEs and linters can parse without warnings. Use when writing documentation, README files, or skill files with code examples.",
+      "repo": "georgekhananaev/claude-skills-vault",
+      "path": "md",
+      "branch": "main",
+      "category": "md",
+      "tags": [],
+      "stars": 0,
+      "install": "georgekhananaev/claude-skills-vault/md",
+      "source": "github.com/georgekhananaev/claude-skills-vault"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "browser-extension-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.448286Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in building browser extensions that solve real problems - Chrome, Firefox, and cross-browser extensions. Covers extension architecture, manifest v3, content scripts, popup UIs, monetization str",
+      "repo": "AxelMrak/ai",
+      "path": "browser-extension-builder",
+      "branch": "main",
+      "category": "browser-extension-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/browser-extension-builder",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

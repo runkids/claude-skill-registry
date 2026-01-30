@@ -1,0 +1,20 @@
+{
+  "category": "rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.860764Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A test skill for E2E conversion testing",
+      "repo": "pr-pm/prpm",
+      "path": "rules",
+      "branch": "main",
+      "category": "rules",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm/rules",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "usage-to-value-map",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.363047Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Method for translating product telemetry into ROI narratives and expansion triggers.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "usage-to-value-map",
+      "branch": "main",
+      "category": "usage-to-value-map",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/usage-to-value-map",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

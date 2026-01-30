@@ -1,0 +1,20 @@
+{
+  "category": "scaffold-component",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.889417Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffold a new presentational (dumb) component inside an existing feature module, with optional state variants, using shadcn/ui primitives.",
+      "repo": "mcgaryes/nextjs-template",
+      "path": "scaffold-component",
+      "branch": "main",
+      "category": "scaffold-component",
+      "tags": [],
+      "stars": 0,
+      "install": "mcgaryes/nextjs-template/scaffold-component",
+      "source": "github.com/mcgaryes/nextjs-template"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "aspose-slides",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.358287Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive skill for manipulating Microsoft PowerPoint presentations using Aspose.Slides.NET library with modern C# patterns",
+      "repo": "alanben/ClaudeSkills",
+      "path": "aspose-slides",
+      "branch": "main",
+      "category": "aspose-slides",
+      "tags": [],
+      "stars": 0,
+      "install": "alanben/ClaudeSkills/aspose-slides",
+      "source": "github.com/alanben/ClaudeSkills"
+    }
+  ]
+}

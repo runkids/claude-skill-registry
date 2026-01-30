@@ -1,0 +1,20 @@
+{
+  "category": "auto-updater",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.377342Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically apply improvements to skills and the ecosystem based on system-reviewer findings and best-practices-learner insights. Workflow for automated improvement identification, priority assessme",
+      "repo": "adaptationio/Skrillz",
+      "path": "auto-updater",
+      "branch": "main",
+      "category": "auto-updater",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/auto-updater",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "developer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.178145Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MUST BE USED for code implementation. Use PROACTIVELY when /implement or /fix commands are invoked, or when coding tasks need execution.",
+      "repo": "arttttt/CMIDCABot",
+      "path": "developer",
+      "branch": "main",
+      "category": "developer",
+      "tags": [],
+      "stars": 0,
+      "install": "arttttt/CMIDCABot/developer",
+      "source": "github.com/arttttt/CMIDCABot"
+    }
+  ]
+}

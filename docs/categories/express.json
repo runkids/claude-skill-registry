@@ -1,0 +1,20 @@
+{
+  "category": "express",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.626403Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Express.js framework including routing, middleware, request handling, templating, and API development. Use when the user asks about Express, needs to create Express",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "express",
+      "branch": "main",
+      "category": "express",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/express",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

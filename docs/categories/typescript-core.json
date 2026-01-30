@@ -1,0 +1,20 @@
+{
+  "category": "typescript-core",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.324884Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive TypeScript development guidance covering configuration, type safety, architectural patterns, and best practices. Use when working with TypeScript codebases for (1) TypeScript configurati",
+      "repo": "aaronbassett/paneful",
+      "path": "typescript-core",
+      "branch": "main",
+      "category": "typescript-core",
+      "tags": [],
+      "stars": 0,
+      "install": "aaronbassett/paneful/typescript-core",
+      "source": "github.com/aaronbassett/paneful"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "request-validation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.819326Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate API requests with schemas, sanitization, and helpful error messages. Covers Zod, Joi, and Pydantic patterns.",
+      "repo": "dadbodgeoff/drift",
+      "path": "request-validation",
+      "branch": "main",
+      "category": "request-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/request-validation",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

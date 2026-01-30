@@ -1,0 +1,20 @@
+{
+  "category": "ffmpeg-shapes-graphics",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.655537Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MANDATORY: Always Use Backslashes on Windows for File Paths",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "ffmpeg-shapes-graphics",
+      "branch": "main",
+      "category": "ffmpeg-shapes-graphics",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace/ffmpeg-shapes-graphics",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "domain-driven-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.521395Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guidance for Domain-Driven Design architecture and implementation. Use when designing complex business systems, defining bounded contexts, structuring domain models, choosing between modular mo",
+      "repo": "joaquimscosta/arkhe-claude-plugins",
+      "path": "domain-driven-design",
+      "branch": "main",
+      "category": "domain-driven-design",
+      "tags": [],
+      "stars": 0,
+      "install": "joaquimscosta/arkhe-claude-plugins/domain-driven-design",
+      "source": "github.com/joaquimscosta/arkhe-claude-plugins"
+    }
+  ]
+}

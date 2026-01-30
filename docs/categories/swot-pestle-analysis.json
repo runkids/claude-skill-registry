@@ -1,0 +1,20 @@
+{
+  "category": "swot-pestle-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.134722Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Strategic environmental analysis using SWOT, PESTLE, and Porter's Five Forces. Creates structured assessments with Mermaid visualizations for competitive positioning and strategic planning.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "swot-pestle-analysis",
+      "branch": "main",
+      "category": "swot-pestle-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent/swot-pestle-analysis",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

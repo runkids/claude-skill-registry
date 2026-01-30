@@ -1,0 +1,20 @@
+{
+  "category": "mind-parameter-modification",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.137304Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Modify cognitive parameters and behavioral settings.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "mind-parameter-modification",
+      "branch": "main",
+      "category": "mind-parameter-modification",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/mind-parameter-modification",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

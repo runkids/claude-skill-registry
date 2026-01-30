@@ -1,0 +1,20 @@
+{
+  "category": "expense-report-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.618124Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate formatted expense reports from receipt data or CSV. Create professional PDF reports with categorization, totals, and approval workflows.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "expense-report-generator",
+      "branch": "main",
+      "category": "expense-report-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/expense-report-generator",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

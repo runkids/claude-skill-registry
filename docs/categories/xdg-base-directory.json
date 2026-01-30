@@ -1,0 +1,20 @@
+{
+  "category": "xdg-base-directory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.503843Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When an application needs to store config, data, cache, or state files. When designing where user-specific files should live. When code writes to ~/.appname or hardcoded home paths. When implementing",
+      "repo": "BbgnsurfTech/claude-skills-collection",
+      "path": "xdg-base-directory",
+      "branch": "main",
+      "category": "xdg-base-directory",
+      "tags": [],
+      "stars": 0,
+      "install": "BbgnsurfTech/claude-skills-collection/xdg-base-directory",
+      "source": "github.com/BbgnsurfTech/claude-skills-collection"
+    }
+  ]
+}

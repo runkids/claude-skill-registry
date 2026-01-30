@@ -1,0 +1,20 @@
+{
+  "category": "value-proposition-crafter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.396896Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Jobs-to-be-Done framework for compelling value propositions. Creates customer-centric messaging with positioning statements, benefit hierarchies, and multi-channel messaging guides.",
+      "repo": "maigentic/stratarts",
+      "path": "value-proposition-crafter",
+      "branch": "main",
+      "category": "value-proposition-crafter",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/value-proposition-crafter",
+      "source": "github.com/maigentic/stratarts"
+    }
+  ]
+}

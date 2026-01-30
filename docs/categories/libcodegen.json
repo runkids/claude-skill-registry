@@ -1,0 +1,20 @@
+{
+  "category": "libcodegen",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.009813Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "libcodegen - Protocol Buffer code generation. TypeGenerator, ServiceGenerator, and DefinitionGenerator transform .proto files into JavaScript types, gRPC service stubs, and type definitions. Use for g",
+      "repo": "copilot-ld/copilot-ld",
+      "path": "libcodegen",
+      "branch": "main",
+      "category": "libcodegen",
+      "tags": [],
+      "stars": 0,
+      "install": "copilot-ld/copilot-ld/libcodegen",
+      "source": "github.com/copilot-ld/copilot-ld"
+    }
+  ]
+}

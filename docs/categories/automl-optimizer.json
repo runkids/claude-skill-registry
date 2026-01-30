@@ -1,0 +1,20 @@
+{
+  "category": "automl-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.380680Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated machine learning with hyperparameter optimization using Optuna, Hyperopt, or AutoML libraries. Activates for \"automl\", \"hyperparameter tuning\", \"optimize hyperparameters\", \"auto tune model\",",
+      "repo": "anton-abyzov/specweave",
+      "path": "automl-optimizer",
+      "branch": "main",
+      "category": "automl-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/automl-optimizer",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "template-selector",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.188069Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically selects and applies correct templates from /templates based on artifact type.",
+      "repo": "hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus",
+      "path": "template-selector",
+      "branch": "main",
+      "category": "template-selector",
+      "tags": [],
+      "stars": 0,
+      "install": "hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus/template-selector",
+      "source": "github.com/hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus"
+    }
+  ]
+}

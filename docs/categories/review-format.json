@@ -1,0 +1,20 @@
+{
+  "category": "review-format",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.841134Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Output in the specified format when a review of specific markdown is requested.",
+      "repo": "uuta/dotfiles",
+      "path": "review-format",
+      "branch": "main",
+      "category": "review-format",
+      "tags": [],
+      "stars": 0,
+      "install": "uuta/dotfiles/review-format",
+      "source": "github.com/uuta/dotfiles"
+    }
+  ]
+}

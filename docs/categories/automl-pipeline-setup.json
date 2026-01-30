@@ -1,0 +1,20 @@
+{
+  "category": "automl-pipeline-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.380824Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт AutoML. Используй для automated machine learning, hyperparameter tuning и model selection.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "automl-pipeline-setup",
+      "branch": "main",
+      "category": "automl-pipeline-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/automl-pipeline-setup",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

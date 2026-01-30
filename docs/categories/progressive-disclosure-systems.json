@@ -1,0 +1,20 @@
+{
+  "category": "progressive-disclosure-systems",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.687604Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design progressive disclosure UIs that reveal data and components in optimal sequences.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "progressive-disclosure-systems",
+      "branch": "main",
+      "category": "progressive-disclosure-systems",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/progressive-disclosure-systems",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

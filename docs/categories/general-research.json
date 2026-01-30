@@ -1,0 +1,20 @@
+{
+  "category": "general-research",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.738895Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conducts systematic internet research through strategic questioning and multi-source analysis. Gathers information from web sources (not codebase), cross-references claims across multiple sources, eva",
+      "repo": "Przemocny/generic-skills",
+      "path": "general-research",
+      "branch": "main",
+      "category": "general-research",
+      "tags": [],
+      "stars": 0,
+      "install": "Przemocny/generic-skills/general-research",
+      "source": "github.com/Przemocny/generic-skills"
+    }
+  ]
+}

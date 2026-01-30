@@ -1,0 +1,20 @@
+{
+  "category": "coding-rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.610861Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "プロジェクト共通のコーディングルール。",
+      "repo": "kimny1143/claude-code-template",
+      "path": "coding-rules",
+      "branch": "main",
+      "category": "coding-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "kimny1143/claude-code-template/coding-rules",
+      "source": "github.com/kimny1143/claude-code-template"
+    }
+  ]
+}

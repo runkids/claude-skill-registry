@@ -1,0 +1,20 @@
+{
+  "category": "moai-security-compliance",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.174026Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Skill for advanced development",
+      "repo": "dolsoon/my-awesome-project",
+      "path": "moai-security-compliance",
+      "branch": "main",
+      "category": "moai-security-compliance",
+      "tags": [],
+      "stars": 0,
+      "install": "dolsoon/my-awesome-project/moai-security-compliance",
+      "source": "github.com/dolsoon/my-awesome-project"
+    }
+  ]
+}

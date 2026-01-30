@@ -1,0 +1,20 @@
+{
+  "category": "generate-resume",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.742403Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate a print-optimized, ATS-friendly single-page resume PDF from portfolio content. Use when user wants to create or regenerate their resume. (project)",
+      "repo": "fotescodev/portfolio",
+      "path": "generate-resume",
+      "branch": "main",
+      "category": "generate-resume",
+      "tags": [],
+      "stars": 0,
+      "install": "fotescodev/portfolio/generate-resume",
+      "source": "github.com/fotescodev/portfolio"
+    }
+  ]
+}

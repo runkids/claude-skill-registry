@@ -1,0 +1,20 @@
+{
+  "category": "SWAP_EXECUTION",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.178555Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute resident-requested swaps with safety checks, audit trails, rollback capabilities, and escalation procedures. Use when processing swap requests, validating against constraints, or managing swap",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "SWAP_EXECUTION",
+      "branch": "main",
+      "category": "SWAP_EXECUTION",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/SWAP_EXECUTION",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "rmarkdown-reports",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.849646Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create reproducible bioinformatics analysis reports with R Markdown including code, results, and visualizations in HTML, PDF, or Word format. Use when generating analysis reports with RMarkdown.",
+      "repo": "GPTomics/bioSkills",
+      "path": "rmarkdown-reports",
+      "branch": "main",
+      "category": "rmarkdown-reports",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/rmarkdown-reports",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

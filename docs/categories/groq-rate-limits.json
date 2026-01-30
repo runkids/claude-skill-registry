@@ -1,0 +1,20 @@
+{
+  "category": "groq-rate-limits",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.807332Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement Groq rate limiting, backoff, and idempotency patterns. Use when handling rate limit errors, implementing retry logic, or optimizing API request throughput for Groq. Trigger with phrases like",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "groq-rate-limits",
+      "branch": "main",
+      "category": "groq-rate-limits",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/groq-rate-limits",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

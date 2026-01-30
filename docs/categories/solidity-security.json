@@ -1,0 +1,20 @@
+{
+  "category": "solidity-security",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.043152Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master smart contract security best practices to prevent common vulnerabilities and implement secure Solidity patterns. Use when writing smart contracts, auditing existing contracts, or implementing s",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "solidity-security",
+      "branch": "main",
+      "category": "solidity-security",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/solidity-security",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

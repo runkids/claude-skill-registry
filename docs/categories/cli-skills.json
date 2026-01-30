@@ -1,0 +1,20 @@
+{
+  "category": "cli-skills",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.558404Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CLI best practices for LlamaFarm. Covers Cobra, Bubbletea, Lipgloss patterns for Go CLI development.",
+      "repo": "llama-farm/llamafarm",
+      "path": "cli-skills",
+      "branch": "main",
+      "category": "cli-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "llama-farm/llamafarm/cli-skills",
+      "source": "github.com/llama-farm/llamafarm"
+    }
+  ]
+}

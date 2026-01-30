@@ -1,0 +1,20 @@
+{
+  "category": "beads-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.420588Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform project specifications into executable beads dependency graphs with proper decomposition, dependency mapping, and validation. Use when starting new projects, breaking down epics, planning mu",
+      "repo": "pentaxis93/beadsmith",
+      "path": "beads-plan",
+      "branch": "main",
+      "category": "beads-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "pentaxis93/beadsmith/beads-plan",
+      "source": "github.com/pentaxis93/beadsmith"
+    }
+  ]
+}

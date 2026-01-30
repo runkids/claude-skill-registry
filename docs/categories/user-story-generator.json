@@ -1,0 +1,20 @@
+{
+  "category": "user-story-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.367041Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create user stories from feature descriptions with interactive Q&A and automated validation",
+      "repo": "matteocervelli/llms",
+      "path": "user-story-generator",
+      "branch": "main",
+      "category": "user-story-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms/user-story-generator",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

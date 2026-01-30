@@ -1,0 +1,20 @@
+{
+  "category": "analytics-events",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.293403Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add product analytics events to track user interactions in the Metabase frontend",
+      "repo": "metabase/metabase",
+      "path": "analytics-events",
+      "branch": "main",
+      "category": "analytics-events",
+      "tags": [],
+      "stars": 0,
+      "install": "metabase/metabase/analytics-events",
+      "source": "github.com/metabase/metabase"
+    }
+  ]
+}

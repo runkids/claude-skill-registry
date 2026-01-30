@@ -1,0 +1,20 @@
+{
+  "category": "ux-researcher-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.383584Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in understanding user behaviors, needs, and motivations through qualitative and quantitative research methods to drive user-centered design.",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "ux-researcher-skill",
+      "branch": "main",
+      "category": "ux-researcher-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/ux-researcher-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

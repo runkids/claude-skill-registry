@@ -1,0 +1,20 @@
+{
+  "category": "audio-normalizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.366353Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when asked to normalize audio volume, match loudness, or apply peak/RMS normalization to audio files.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "audio-normalizer",
+      "branch": "main",
+      "category": "audio-normalizer",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/audio-normalizer",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

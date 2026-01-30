@@ -1,0 +1,20 @@
+{
+  "category": "moai-lang-ruby",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.167349Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ruby 3.3+ development specialist covering Rails 7.2, ActiveRecord, Hotwire/Turbo, and modern Ruby patterns. Use when developing Ruby APIs, web applications, or Rails projects.",
+      "repo": "modu-ai/moai-adk",
+      "path": "moai-lang-ruby",
+      "branch": "main",
+      "category": "moai-lang-ruby",
+      "tags": [],
+      "stars": 0,
+      "install": "modu-ai/moai-adk/moai-lang-ruby",
+      "source": "github.com/modu-ai/moai-adk"
+    }
+  ]
+}

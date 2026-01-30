@@ -1,0 +1,20 @@
+{
+  "category": "octave-mastery",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.279321Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced semantic vocabulary and architectural patterns for the OCTAVE format. REQUIRES octave-literacy to be loaded first",
+      "repo": "elevanaltd/octave-mcp",
+      "path": "octave-mastery",
+      "branch": "main",
+      "category": "octave-mastery",
+      "tags": [],
+      "stars": 0,
+      "install": "elevanaltd/octave-mcp/octave-mastery",
+      "source": "github.com/elevanaltd/octave-mcp"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "document-formatter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.476521Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Format and style documents with consistent formatting. Use when standardizing document formatting or cleaning up text.",
+      "repo": "ntaksh42/agents",
+      "path": "document-formatter",
+      "branch": "main",
+      "category": "document-formatter",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents/document-formatter",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

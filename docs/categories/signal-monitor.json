@@ -1,0 +1,20 @@
+{
+  "category": "signal-monitor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.998230Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Get real-time signal quality metrics (RSSI, SNR, S-meter) from WaveCap-SDR channels. Use when checking signal strength, monitoring reception quality, or debugging weak signals.",
+      "repo": "TobiasWooldridge/WaveCap-SDR",
+      "path": "signal-monitor",
+      "branch": "main",
+      "category": "signal-monitor",
+      "tags": [],
+      "stars": 0,
+      "install": "TobiasWooldridge/WaveCap-SDR/signal-monitor",
+      "source": "github.com/TobiasWooldridge/WaveCap-SDR"
+    }
+  ]
+}

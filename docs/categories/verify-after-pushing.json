@@ -1,0 +1,20 @@
+{
+  "category": "verify-after-pushing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.405524Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when after pushing commits to remote repository",
+      "repo": "viteinfinite/sync-skills",
+      "path": "verify-after-pushing",
+      "branch": "main",
+      "category": "verify-after-pushing",
+      "tags": [],
+      "stars": 0,
+      "install": "viteinfinite/sync-skills/verify-after-pushing",
+      "source": "github.com/viteinfinite/sync-skills"
+    }
+  ]
+}

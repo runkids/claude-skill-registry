@@ -1,0 +1,20 @@
+{
+  "category": "data-structures",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.034502Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master JavaScript objects and arrays including manipulation methods, prototypal inheritance, and complex data structure patterns.",
+      "repo": "pluginagentmarketplace/custom-plugin-javascript",
+      "path": "data-structures",
+      "branch": "main",
+      "category": "data-structures",
+      "tags": [],
+      "stars": 0,
+      "install": "pluginagentmarketplace/custom-plugin-javascript/data-structures",
+      "source": "github.com/pluginagentmarketplace/custom-plugin-javascript"
+    }
+  ]
+}

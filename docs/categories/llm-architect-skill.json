@@ -1,0 +1,20 @@
+{
+  "category": "llm-architect-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.033190Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when user needs LLM system architecture, model deployment, optimization strategies, and production serving infrastructure. Designs scalable large language model applications with focus on performa",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "llm-architect-skill",
+      "branch": "main",
+      "category": "llm-architect-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/llm-architect-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

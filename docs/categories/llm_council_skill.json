@@ -1,0 +1,20 @@
+{
+  "category": "llm_council_skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.034260Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Orchestrate multiple LLMs as a council, generating collective intelligence through peer review and chairman synthesis",
+      "repo": "shuntacurosu/llm_council_skill",
+      "path": "llm_council_skill",
+      "branch": "main",
+      "category": "llm_council_skill",
+      "tags": [],
+      "stars": 0,
+      "install": "shuntacurosu/llm_council_skill/llm_council_skill",
+      "source": "github.com/shuntacurosu/llm_council_skill"
+    }
+  ]
+}

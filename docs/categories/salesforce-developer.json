@@ -1,0 +1,20 @@
+{
+  "category": "salesforce-developer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.880790Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when developing Salesforce applications, Apex code, Lightning Web Components, SOQL queries, triggers, integrations, or CRM customizations. Invoke for governor limits, bulk processing, platform eve",
+      "repo": "Jeffallan/claude-skills",
+      "path": "salesforce-developer",
+      "branch": "main",
+      "category": "salesforce-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills/salesforce-developer",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

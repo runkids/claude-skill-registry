@@ -1,0 +1,20 @@
+{
+  "category": "start-release",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.084987Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Start new release branch",
+      "repo": "FradSer/dotclaude",
+      "path": "start-release",
+      "branch": "main",
+      "category": "start-release",
+      "tags": [],
+      "stars": 0,
+      "install": "FradSer/dotclaude/start-release",
+      "source": "github.com/FradSer/dotclaude"
+    }
+  ]
+}

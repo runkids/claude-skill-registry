@@ -1,0 +1,20 @@
+{
+  "category": "frontend-design-system",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.702893Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "フロントエンドUIデザインを洗練された独自性のあるスタイルで生成します。ランディングページ、ダッシュボード、Webアプリケーションのデザイン、UIコンポーネント作成時に使用してください。「AIっぽい」汎用デザインを避け、プロフェッショナルで記憶に残るUIを実現します。",
+      "repo": "oikon48/cc-frontend-skills",
+      "path": "frontend-design-system",
+      "branch": "main",
+      "category": "frontend-design-system",
+      "tags": [],
+      "stars": 0,
+      "install": "oikon48/cc-frontend-skills/frontend-design-system",
+      "source": "github.com/oikon48/cc-frontend-skills"
+    }
+  ]
+}

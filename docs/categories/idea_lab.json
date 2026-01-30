@@ -1,0 +1,20 @@
+{
+  "category": "idea_lab",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.856847Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Timeboxed divergent ideation that outputs ranked options plus day-one experiments.",
+      "repo": "NickCrew/claude-cortex",
+      "path": "idea_lab",
+      "branch": "main",
+      "category": "idea_lab",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex/idea_lab",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

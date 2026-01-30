@@ -1,0 +1,20 @@
+{
+  "category": "delegation-core",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.067712Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Delegate tasks to external LLM services (Gemini, Qwen) with quota, logging, and error handling.",
+      "repo": "athola/claude-night-market",
+      "path": "delegation-core",
+      "branch": "main",
+      "category": "delegation-core",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/delegation-core",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

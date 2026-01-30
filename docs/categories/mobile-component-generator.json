@@ -1,0 +1,20 @@
+{
+  "category": "mobile-component-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.178866Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates React Native components following GradientPeak mobile patterns with NativeWind styling, React Native Reusables, and proper hooks.",
+      "repo": "deancochran/gradientpeak",
+      "path": "mobile-component-generator",
+      "branch": "main",
+      "category": "mobile-component-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "deancochran/gradientpeak/mobile-component-generator",
+      "source": "github.com/deancochran/gradientpeak"
+    }
+  ]
+}

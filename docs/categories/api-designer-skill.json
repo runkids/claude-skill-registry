@@ -1,0 +1,20 @@
+{
+  "category": "api-designer-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.320781Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "REST/GraphQL API architect specializing in OpenAPI 3.1, HATEOAS, pagination, and versioning strategies",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "api-designer-skill",
+      "branch": "main",
+      "category": "api-designer-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/api-designer-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "auth-implementation-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.373114Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master authentication and authorization patterns including JWT, OAuth2, session management, and RBAC to build secure, scalable access control systems. Use when implementing auth systems, securing APIs",
+      "repo": "haxllo/repolens",
+      "path": "auth-implementation-patterns",
+      "branch": "main",
+      "category": "auth-implementation-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "haxllo/repolens/auth-implementation-patterns",
+      "source": "github.com/haxllo/repolens"
+    }
+  ]
+}

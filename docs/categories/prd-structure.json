@@ -1,0 +1,20 @@
+{
+  "category": "prd-structure",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.629112Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When creating or reviewing Product Requirements Documents. Used by PM-AGENT.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "prd-structure",
+      "branch": "main",
+      "category": "prd-structure",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/prd-structure",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "codex-validate-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.609173Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate architecture/plan quality via claude-delegator (Plan Reviewer expert). Use after writing context.md for complex feature/refactor work.",
+      "repo": "munlucky/claude-settings",
+      "path": "codex-validate-plan",
+      "branch": "main",
+      "category": "codex-validate-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "munlucky/claude-settings/codex-validate-plan",
+      "source": "github.com/munlucky/claude-settings"
+    }
+  ]
+}

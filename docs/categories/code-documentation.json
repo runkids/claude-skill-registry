@@ -1,0 +1,20 @@
+{
+  "category": "code-documentation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.588118Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TSDoc standards for TypeScript/JavaScript code. Automatically invoked when writing, reviewing, or editing any TSDoc comments, code documentation, or API documentation. (project)",
+      "repo": "plaited/development-skills",
+      "path": "code-documentation",
+      "branch": "main",
+      "category": "code-documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "plaited/development-skills/code-documentation",
+      "source": "github.com/plaited/development-skills"
+    }
+  ]
+}

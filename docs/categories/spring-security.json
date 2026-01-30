@@ -1,0 +1,20 @@
+{
+  "category": "spring-security",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.067419Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Spring Security including authentication, authorization, OAuth2, JWT, and security best practices. Use when the user asks about Spring Security, needs to implement",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "spring-security",
+      "branch": "main",
+      "category": "spring-security",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/spring-security",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

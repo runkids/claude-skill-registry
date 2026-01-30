@@ -1,0 +1,20 @@
+{
+  "category": "68-alignment-safety",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.157680Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create your model-alignment skill from TRL documentation before learning DPO theory",
+      "repo": "panaversity/agentfactory",
+      "path": "68-alignment-safety",
+      "branch": "main",
+      "category": "68-alignment-safety",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory/68-alignment-safety",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

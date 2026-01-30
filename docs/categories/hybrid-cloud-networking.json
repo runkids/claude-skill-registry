@@ -1,0 +1,20 @@
+{
+  "category": "hybrid-cloud-networking",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.847704Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure secure, high-performance connectivity between on-premises infrastructure and cloud platforms using VPN and dedicated connections. Use when building hybrid cloud architectures, connecting dat",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "hybrid-cloud-networking",
+      "branch": "main",
+      "category": "hybrid-cloud-networking",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/hybrid-cloud-networking",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

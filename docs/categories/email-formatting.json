@@ -1,0 +1,20 @@
+{
+  "category": "email-formatting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.567041Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Format emails with HTML templates using neo-brutal design aesthetic. Use when creating email reports, summaries, or formatted messages. Maintains consistent visual style across all communications.",
+      "repo": "dglowacki/mega-agent-v2",
+      "path": "email-formatting",
+      "branch": "main",
+      "category": "email-formatting",
+      "tags": [],
+      "stars": 0,
+      "install": "dglowacki/mega-agent-v2/email-formatting",
+      "source": "github.com/dglowacki/mega-agent-v2"
+    }
+  ]
+}

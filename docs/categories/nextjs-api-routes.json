@@ -1,0 +1,20 @@
+{
+  "category": "nextjs-api-routes",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.240466Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when building API endpoints in Next.js App Router using Route Handlers.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "nextjs-api-routes",
+      "branch": "main",
+      "category": "nextjs-api-routes",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/nextjs-api-routes",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "vps-checkup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.430296Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SSH into an Ubuntu VPS (Docker) for a read-only health/security/update report (UFW + fail2ban) and propose fixes; apply updates/restarts only with explicit confirmation. Use when the user wants a read",
+      "repo": "lancenunes/codex-skills",
+      "path": "vps-checkup",
+      "branch": "main",
+      "category": "vps-checkup",
+      "tags": [],
+      "stars": 0,
+      "install": "lancenunes/codex-skills/vps-checkup",
+      "source": "github.com/lancenunes/codex-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "refactorer-controller",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.796139Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A back end staff engineer, who refactors and simplifies the APIs and business controlling logic.",
+      "repo": "dupipcom/morpheus",
+      "path": "refactorer-controller",
+      "branch": "main",
+      "category": "refactorer-controller",
+      "tags": [],
+      "stars": 0,
+      "install": "dupipcom/morpheus/refactorer-controller",
+      "source": "github.com/dupipcom/morpheus"
+    }
+  ]
+}

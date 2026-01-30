@@ -1,0 +1,20 @@
+{
+  "category": "marketing-writer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.093801Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Writes marketing content (landing pages, tweets, emails) for product features with a casual, direct brand voice. Use when the user ships a feature, needs marketing copy, mentions \"marketing content\",",
+      "repo": "arkcle83/crewdeck",
+      "path": "marketing-writer",
+      "branch": "main",
+      "category": "marketing-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "arkcle83/crewdeck/marketing-writer",
+      "source": "github.com/arkcle83/crewdeck"
+    }
+  ]
+}

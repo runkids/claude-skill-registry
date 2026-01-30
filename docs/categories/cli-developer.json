@@ -1,0 +1,20 @@
+{
+  "category": "cli-developer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.556637Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building CLI tools, implementing argument parsing, or adding interactive prompts. Invoke for CLI design, argument parsing, interactive prompts, progress indicators, shell completions.",
+      "repo": "Jeffallan/claude-skills",
+      "path": "cli-developer",
+      "branch": "main",
+      "category": "cli-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills/cli-developer",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

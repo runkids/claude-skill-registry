@@ -1,0 +1,20 @@
+{
+  "category": "jira-work",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.924866Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Start working on a Jira issue with optimized tiered orchestration. Begins with intelligent question-gathering to ensure complete understanding before implementation.",
+      "repo": "Lobbi-Docs/claude",
+      "path": "jira-work",
+      "branch": "main",
+      "category": "jira-work",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/jira-work",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "incremental-load-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.874329Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Incremental Load Setup - Auto-activating skill for Data Pipelines. Triggers on: incremental load setup, incremental load setup Part of the Data Pipelines skill category.",
+      "repo": "byteworthy/Upstream",
+      "path": "incremental-load-setup",
+      "branch": "main",
+      "category": "incremental-load-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/incremental-load-setup",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

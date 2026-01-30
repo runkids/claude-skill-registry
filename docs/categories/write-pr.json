@@ -1,0 +1,20 @@
+{
+  "category": "write-pr",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.492501Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Writing pull request titles and descriptions for the tldraw repository. Use when creating a new PR, updating an existing PR's title or body, or when the /pr command needs PR content guidance.",
+      "repo": "tldraw/tldraw",
+      "path": "write-pr",
+      "branch": "main",
+      "category": "write-pr",
+      "tags": [],
+      "stars": 0,
+      "install": "tldraw/tldraw/write-pr",
+      "source": "github.com/tldraw/tldraw"
+    }
+  ]
+}

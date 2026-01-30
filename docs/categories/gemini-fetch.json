@@ -1,0 +1,20 @@
+{
+  "category": "gemini-fetch",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.734574Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Bypass blocked sites via Gemini CLI. Use when WebFetch fails with 403/blocked errors on Reddit, LinkedIn, X, Medium, etc.",
+      "repo": "sskim91/dotfiles",
+      "path": "gemini-fetch",
+      "branch": "main",
+      "category": "gemini-fetch",
+      "tags": [],
+      "stars": 0,
+      "install": "sskim91/dotfiles/gemini-fetch",
+      "source": "github.com/sskim91/dotfiles"
+    }
+  ]
+}

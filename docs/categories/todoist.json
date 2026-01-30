@@ -1,0 +1,20 @@
+{
+  "category": "todoist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.295515Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage tasks, projects, and productivity in Todoist. View tasks, add new items, check completed work, and organize projects.",
+      "repo": "tbroadley/dotfiles",
+      "path": "todoist",
+      "branch": "main",
+      "category": "todoist",
+      "tags": [],
+      "stars": 0,
+      "install": "tbroadley/dotfiles/todoist",
+      "source": "github.com/tbroadley/dotfiles"
+    }
+  ]
+}

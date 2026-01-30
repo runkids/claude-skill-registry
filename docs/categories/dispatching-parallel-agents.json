@@ -1,0 +1,20 @@
+{
+  "category": "dispatching-parallel-agents",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.458720Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use multiple Claude agents to investigate and fix independent problems concurrently",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "dispatching-parallel-agents",
+      "branch": "main",
+      "category": "dispatching-parallel-agents",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/dispatching-parallel-agents",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

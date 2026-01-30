@@ -1,0 +1,20 @@
+{
+  "category": "face-editor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.631911Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating custom pixel art faces for NPCs. Use when designing NPC appearances or working with face customization.",
+      "repo": "gigi-f/babylon_fp",
+      "path": "face-editor",
+      "branch": "main",
+      "category": "face-editor",
+      "tags": [],
+      "stars": 0,
+      "install": "gigi-f/babylon_fp/face-editor",
+      "source": "github.com/gigi-f/babylon_fp"
+    }
+  ]
+}

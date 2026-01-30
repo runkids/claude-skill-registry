@@ -1,0 +1,20 @@
+{
+  "category": "rlhf",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.848685Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Understanding Reinforcement Learning from Human Feedback (RLHF) for aligning language models. Use when learning about preference data, reward modeling, policy optimization, or direct alignment algorit",
+      "repo": "itsmostafa/llm-engineering-skills",
+      "path": "rlhf",
+      "branch": "main",
+      "category": "rlhf",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmostafa/llm-engineering-skills/rlhf",
+      "source": "github.com/itsmostafa/llm-engineering-skills"
+    }
+  ]
+}

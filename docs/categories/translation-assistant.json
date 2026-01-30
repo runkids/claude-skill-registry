@@ -1,0 +1,20 @@
+{
+  "category": "translation-assistant",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.310571Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Handle multilingual translation tasks with quality and cultural sensitivity",
+      "repo": "eddiebe147/claude-settings",
+      "path": "translation-assistant",
+      "branch": "main",
+      "category": "translation-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/translation-assistant",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

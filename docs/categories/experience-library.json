@@ -1,0 +1,20 @@
+{
+  "category": "experience-library",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.618317Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Capture task outcomes, score performance, and derive rules as token priors for continual learning without model weight changes. Use for post-task feedback, experience capture, pattern extraction, and",
+      "repo": "dredd-us/seashells",
+      "path": "experience-library",
+      "branch": "main",
+      "category": "experience-library",
+      "tags": [],
+      "stars": 0,
+      "install": "dredd-us/seashells/experience-library",
+      "source": "github.com/dredd-us/seashells"
+    }
+  ]
+}

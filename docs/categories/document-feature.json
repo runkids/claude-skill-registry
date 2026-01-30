@@ -1,0 +1,20 @@
+{
+  "category": "document-feature",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.476170Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate technical and user documentation for a feature",
+      "repo": "WhatIfWeDigDeeper/application-tracker",
+      "path": "document-feature",
+      "branch": "main",
+      "category": "document-feature",
+      "tags": [],
+      "stars": 0,
+      "install": "WhatIfWeDigDeeper/application-tracker/document-feature",
+      "source": "github.com/WhatIfWeDigDeeper/application-tracker"
+    }
+  ]
+}

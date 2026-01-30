@@ -1,0 +1,20 @@
+{
+  "category": "scientific-pufferlib",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.911296Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "High-performance reinforcement learning framework optimized for speed and scale. Use when you need fast parallel training, vectorized environments, multi-agent systems, or integration with game enviro",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-pufferlib",
+      "branch": "main",
+      "category": "scientific-pufferlib",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP/scientific-pufferlib",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

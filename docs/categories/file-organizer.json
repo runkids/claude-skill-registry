@@ -1,0 +1,20 @@
+{
+  "category": "file-organizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.660801Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Intelligently organizes files and folders by understanding context, finding duplicates, and suggesting better organizational structures. Use when user wants to clean up directories, organize downloads",
+      "repo": "AxelMrak/ai",
+      "path": "file-organizer",
+      "branch": "main",
+      "category": "file-organizer",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/file-organizer",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

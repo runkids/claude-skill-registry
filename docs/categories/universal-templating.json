@@ -1,0 +1,20 @@
+{
+  "category": "universal-templating",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.351053Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master all templating formats - Handlebars, Cookiecutter, Copier, Maven, and Harness - with format selection matrix, generation workflows, and best practices",
+      "repo": "Lobbi-Docs/claude",
+      "path": "universal-templating",
+      "branch": "main",
+      "category": "universal-templating",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/universal-templating",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

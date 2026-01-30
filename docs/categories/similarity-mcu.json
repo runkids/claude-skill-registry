@@ -1,0 +1,20 @@
+{
+  "category": "similarity-mcu",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.001972Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with MCU/microcontroller similarity calculations - comparing microcontroller MPNs, understanding family/series/feature matching, or MCU-specific similarity logic.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "similarity-mcu",
+      "branch": "main",
+      "category": "similarity-mcu",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/similarity-mcu",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "chicago-data-portal",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.520837Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"query Chicago data\", \"find Chicago datasets\", \"get Chicago crime data\", \"download Chicago permits\", \"write a SODA query for Chicago\", \"search data.city",
+      "repo": "MisterClean/claude-plugins",
+      "path": "chicago-data-portal",
+      "branch": "main",
+      "category": "chicago-data-portal",
+      "tags": [],
+      "stars": 0,
+      "install": "MisterClean/claude-plugins/chicago-data-portal",
+      "source": "github.com/MisterClean/claude-plugins"
+    }
+  ]
+}

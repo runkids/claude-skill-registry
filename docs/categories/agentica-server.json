@@ -1,0 +1,20 @@
+{
+  "category": "agentica-server",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.249053Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Agentica server + Claude proxy setup - architecture, startup sequence, debugging",
+      "repo": "namesreallyblank/Clorch",
+      "path": "agentica-server",
+      "branch": "main",
+      "category": "agentica-server",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/agentica-server",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

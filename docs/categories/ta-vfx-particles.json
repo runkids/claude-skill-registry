@@ -1,0 +1,20 @@
+{
+  "category": "ta-vfx-particles",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.147029Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "GPU particle systems for high-performance visual effects. Use when creating particle effects, instanced rendering, GPU-accelerated VFX.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "ta-vfx-particles",
+      "branch": "main",
+      "category": "ta-vfx-particles",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/ta-vfx-particles",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

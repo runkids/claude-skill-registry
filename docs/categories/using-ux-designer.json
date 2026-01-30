@@ -1,0 +1,20 @@
+{
+  "category": "using-ux-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.376488Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Route to the right UX skill based on your task and platform context",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-ux-designer",
+      "branch": "main",
+      "category": "using-ux-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks/using-ux-designer",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

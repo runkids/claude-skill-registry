@@ -1,0 +1,20 @@
+{
+  "category": "implement-agents",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.864454Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"implement in parallel\", \"run phases concurrently\", \"parallel implement\", \"implement-agents phase X phase Y\", or wants to orchestrate multiple agents ru",
+      "repo": "ianphil/prism",
+      "path": "implement-agents",
+      "branch": "main",
+      "category": "implement-agents",
+      "tags": [],
+      "stars": 0,
+      "install": "ianphil/prism/implement-agents",
+      "source": "github.com/ianphil/prism"
+    }
+  ]
+}

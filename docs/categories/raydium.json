@@ -1,0 +1,20 @@
+{
+  "category": "raydium",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.767030Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete Raydium Protocol SDK - the single source of truth for integrating Raydium on Solana. Covers SDK, Trade API, CLMM, CPMM, AMM pools, LaunchLab token launches, farming, CPI integration, and all",
+      "repo": "sendaifun/skills",
+      "path": "raydium",
+      "branch": "main",
+      "category": "raydium",
+      "tags": [],
+      "stars": 0,
+      "install": "sendaifun/skills/raydium",
+      "source": "github.com/sendaifun/skills"
+    }
+  ]
+}

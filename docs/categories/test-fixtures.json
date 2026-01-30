@@ -1,0 +1,20 @@
+{
+  "category": "test-fixtures",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.203634Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test fixture organization, sanitization, and realistic response patterns",
+      "repo": "zerobias-org/module",
+      "path": "test-fixtures",
+      "branch": "main",
+      "category": "test-fixtures",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/test-fixtures",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

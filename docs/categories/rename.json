@@ -1,0 +1,20 @@
+{
+  "category": "rename",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.811905Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "⚡ ULTRA-FAST skill - executes in seconds using pure Bash (no file reading to context).",
+      "repo": "kmylpenter/KFG-CCv2-Installer-Stable",
+      "path": "rename",
+      "branch": "main",
+      "category": "rename",
+      "tags": [],
+      "stars": 0,
+      "install": "kmylpenter/KFG-CCv2-Installer-Stable/rename",
+      "source": "github.com/kmylpenter/KFG-CCv2-Installer-Stable"
+    }
+  ]
+}

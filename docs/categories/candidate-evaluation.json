@@ -1,0 +1,20 @@
+{
+  "category": "candidate-evaluation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.483565Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Evaluate GitHub contributors for MLOps/engineering roles. Use when analyzing candidates, researching GitHub profiles, or updating CONTRIBUTORS.md with hiring assessments.",
+      "repo": "pollinations/pollinations",
+      "path": "candidate-evaluation",
+      "branch": "main",
+      "category": "candidate-evaluation",
+      "tags": [],
+      "stars": 0,
+      "install": "pollinations/pollinations/candidate-evaluation",
+      "source": "github.com/pollinations/pollinations"
+    }
+  ]
+}

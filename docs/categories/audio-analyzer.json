@@ -1,0 +1,20 @@
+{
+  "category": "audio-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.365939Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive audio analysis with waveform visualization, spectrogram, BPM detection, key detection, frequency analysis, and loudness metrics.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "audio-analyzer",
+      "branch": "main",
+      "category": "audio-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/audio-analyzer",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

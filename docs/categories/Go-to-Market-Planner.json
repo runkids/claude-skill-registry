@@ -1,0 +1,20 @@
+{
+  "category": "Go-to-Market-Planner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.169865Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan product launches and go-to-market strategy. Use when launching products, entering new markets, or planning marketing campaigns. Covers positioning, channels, messaging, and launch execution.",
+      "repo": "nicepkg/ai-workflow",
+      "path": "Go-to-Market-Planner",
+      "branch": "main",
+      "category": "Go-to-Market-Planner",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/Go-to-Market-Planner",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

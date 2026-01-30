@@ -1,0 +1,20 @@
+{
+  "category": "data-fetching",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.028534Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Best practices and conventions for server-side data fetching, caching, and rendering in Next.js 16+ applications.",
+      "repo": "putto11262002/jimmodel",
+      "path": "data-fetching",
+      "branch": "main",
+      "category": "data-fetching",
+      "tags": [],
+      "stars": 0,
+      "install": "putto11262002/jimmodel/data-fetching",
+      "source": "github.com/putto11262002/jimmodel"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "comms",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.623922Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Post to Slack channels and manage Trello cards with natural language",
+      "repo": "UnaMentis/unamentis",
+      "path": "comms",
+      "branch": "main",
+      "category": "comms",
+      "tags": [],
+      "stars": 0,
+      "install": "UnaMentis/unamentis/comms",
+      "source": "github.com/UnaMentis/unamentis"
+    }
+  ]
+}

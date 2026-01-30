@@ -1,0 +1,20 @@
+{
+  "category": "speak-prod-checklist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.048845Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute Speak production deployment checklist and rollback procedures. Use when deploying Speak integrations to production, preparing for launch, or implementing go-live procedures for language learni",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "speak-prod-checklist",
+      "branch": "main",
+      "category": "speak-prod-checklist",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/speak-prod-checklist",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

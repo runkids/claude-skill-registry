@@ -1,0 +1,20 @@
+{
+  "category": "behavioral-core",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.423677Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plaited behavioral programming patterns for event-driven coordination and symbolic reasoning. Use when implementing behavioral programs with behavioral()/useBehavioral, designing rule composition with",
+      "repo": "plaited/plaited",
+      "path": "behavioral-core",
+      "branch": "main",
+      "category": "behavioral-core",
+      "tags": [],
+      "stars": 0,
+      "install": "plaited/plaited/behavioral-core",
+      "source": "github.com/plaited/plaited"
+    }
+  ]
+}

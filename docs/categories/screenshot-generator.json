@@ -1,0 +1,20 @@
+{
+  "category": "screenshot-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.923505Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate screenshots for web audio apps (desktop, mobile landscape, mobile portrait) using Playwright. Also captures component-level screenshots for documentation.",
+      "repo": "acidsound/acidApps",
+      "path": "screenshot-generator",
+      "branch": "main",
+      "category": "screenshot-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "acidsound/acidApps/screenshot-generator",
+      "source": "github.com/acidsound/acidApps"
+    }
+  ]
+}

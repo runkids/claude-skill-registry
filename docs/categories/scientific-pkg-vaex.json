@@ -1,0 +1,20 @@
+{
+  "category": "scientific-pkg-vaex",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.910584Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill for processing and analyzing large tabular datasets (billions of rows) that exceed available RAM. Vaex excels at out-of-core DataFrame operations, lazy evaluation, fast aggregations, ef",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-pkg-vaex",
+      "branch": "main",
+      "category": "scientific-pkg-vaex",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/scientific-pkg-vaex",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "cloudflare-durable-objects",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.574989Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build stateful Durable Objects for real-time apps, WebSocket servers, coordination, and persistent state. Prevents 20 documented errors. Use when: implementing chat rooms, multiplayer games, rate limi",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "cloudflare-durable-objects",
+      "branch": "main",
+      "category": "cloudflare-durable-objects",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/cloudflare-durable-objects",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

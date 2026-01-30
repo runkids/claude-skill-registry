@@ -1,0 +1,20 @@
+{
+  "category": "docker-workflows",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.470902Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create Dockerfiles, docker-compose configurations, and container workflows for Python projects with UV. Use when containerizing applications, setting up development environments, or deploying with Doc",
+      "repo": "AutumnsGrove/GroveScout",
+      "path": "docker-workflows",
+      "branch": "main",
+      "category": "docker-workflows",
+      "tags": [],
+      "stars": 0,
+      "install": "AutumnsGrove/GroveScout/docker-workflows",
+      "source": "github.com/AutumnsGrove/GroveScout"
+    }
+  ]
+}

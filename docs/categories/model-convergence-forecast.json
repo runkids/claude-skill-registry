@@ -1,0 +1,20 @@
+{
+  "category": "model-convergence-forecast",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.186419Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Forecast convergence patterns in multi-model consensus scenarios.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "model-convergence-forecast",
+      "branch": "main",
+      "category": "model-convergence-forecast",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/model-convergence-forecast",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

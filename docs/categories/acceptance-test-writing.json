@@ -1,0 +1,20 @@
+{
+  "category": "acceptance-test-writing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.193716Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for writing high-quality acceptance criteria and acceptance tests using industry-standard BDD (Behavior-Driven Development) and ATDD (Acceptance Test-Driven Development) practices. Use this skil",
+      "repo": "vinceh/recipe",
+      "path": "acceptance-test-writing",
+      "branch": "main",
+      "category": "acceptance-test-writing",
+      "tags": [],
+      "stars": 0,
+      "install": "vinceh/recipe/acceptance-test-writing",
+      "source": "github.com/vinceh/recipe"
+    }
+  ]
+}

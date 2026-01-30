@@ -1,0 +1,20 @@
+{
+  "category": "10-planning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.142671Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "На втором этапе необходимо научиться осознанно управлять общим планом",
+      "repo": "aisystant/Self-development",
+      "path": "10-planning",
+      "branch": "main",
+      "category": "10-planning",
+      "tags": [],
+      "stars": 0,
+      "install": "aisystant/Self-development/10-planning",
+      "source": "github.com/aisystant/Self-development"
+    }
+  ]
+}

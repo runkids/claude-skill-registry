@@ -1,0 +1,20 @@
+{
+  "category": "moai-security-devsecops",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.174191Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SAST/DAST/SCA automation, CI/CD security pipelines, vulnerability management",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-security-devsecops",
+      "branch": "main",
+      "category": "moai-security-devsecops",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit/moai-security-devsecops",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

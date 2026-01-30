@@ -1,0 +1,20 @@
+{
+  "category": "sy7-path-dependence",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.136373Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply SY7 Path Dependence to acknowledge how early decisions constrain future options through accumulated consequences.",
+      "repo": "hummbl-dev/hummbl-agent",
+      "path": "sy7-path-dependence",
+      "branch": "main",
+      "category": "sy7-path-dependence",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/hummbl-agent/sy7-path-dependence",
+      "source": "github.com/hummbl-dev/hummbl-agent"
+    }
+  ]
+}

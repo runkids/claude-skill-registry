@@ -1,0 +1,20 @@
+{
+  "category": "moai-learning-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.168928Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Intelligent learning system optimizer that analyzes session patterns, identifies improvement opportunities, and continuously enhances Alfred's performance through adaptive learning and knowledge optim",
+      "repo": "dolsoon/my-awesome-project",
+      "path": "moai-learning-optimizer",
+      "branch": "main",
+      "category": "moai-learning-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "dolsoon/my-awesome-project/moai-learning-optimizer",
+      "source": "github.com/dolsoon/my-awesome-project"
+    }
+  ]
+}

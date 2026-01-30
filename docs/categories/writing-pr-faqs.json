@@ -1,0 +1,20 @@
+{
+  "category": "writing-pr-faqs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.498723Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write Press Release / FAQ documents. Use when proposing new products or features using Amazon's working backwards method. Covers PR/FAQ format.",
+      "repo": "dralgorhythm/claude-agentic-framework",
+      "path": "writing-pr-faqs",
+      "branch": "main",
+      "category": "writing-pr-faqs",
+      "tags": [],
+      "stars": 0,
+      "install": "dralgorhythm/claude-agentic-framework/writing-pr-faqs",
+      "source": "github.com/dralgorhythm/claude-agentic-framework"
+    }
+  ]
+}

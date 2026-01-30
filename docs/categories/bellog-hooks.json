@@ -1,0 +1,20 @@
+{
+  "category": "bellog-hooks",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.424584Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides custom React hooks patterns and best practices specific to Bellog. Triggers when creating custom hooks or implementing interactive features.",
+      "repo": "whddltjdwhd/bellog",
+      "path": "bellog-hooks",
+      "branch": "main",
+      "category": "bellog-hooks",
+      "tags": [],
+      "stars": 0,
+      "install": "whddltjdwhd/bellog/bellog-hooks",
+      "source": "github.com/whddltjdwhd/bellog"
+    }
+  ]
+}

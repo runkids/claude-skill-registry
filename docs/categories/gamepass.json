@@ -1,0 +1,20 @@
+{
+  "category": "gamepass",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.721573Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage Xbox Game Pass subscription, browse catalog, and track perks",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "gamepass",
+      "branch": "main",
+      "category": "gamepass",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/gamepass",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

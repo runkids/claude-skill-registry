@@ -1,0 +1,20 @@
+{
+  "category": "backend-developer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.406810Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Senior Backend Developer with 10+ years Java and 5+ years Spring Boot experience. Use when implementing Spring Boot features, writing Java code, creating REST APIs, working with databases (R2DBC, JPA)",
+      "repo": "olehsvyrydov/selfemploy-uk",
+      "path": "backend-developer",
+      "branch": "main",
+      "category": "backend-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "olehsvyrydov/selfemploy-uk/backend-developer",
+      "source": "github.com/olehsvyrydov/selfemploy-uk"
+    }
+  ]
+}

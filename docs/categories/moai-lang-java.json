@@ -1,0 +1,20 @@
+{
+  "category": "moai-lang-java",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.166357Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Java 21 LTS development specialist covering Spring Boot 3.3, virtual threads, pattern matching, and enterprise patterns. Use when building enterprise applications, microservices, or Spring projects.",
+      "repo": "modu-ai/moai-adk",
+      "path": "moai-lang-java",
+      "branch": "main",
+      "category": "moai-lang-java",
+      "tags": [],
+      "stars": 0,
+      "install": "modu-ai/moai-adk/moai-lang-java",
+      "source": "github.com/modu-ai/moai-adk"
+    }
+  ]
+}

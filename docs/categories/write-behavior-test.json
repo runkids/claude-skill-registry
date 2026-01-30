@@ -1,0 +1,20 @@
+{
+  "category": "write-behavior-test",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.490116Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill creates Playwright behavior tests (.spec.ts) that verify complete user workflows. Tests translate behavior specifications (with Act:/Check: steps) into executable Playwright code using PreD",
+      "repo": "coeus-ventures/epic-web",
+      "path": "write-behavior-test",
+      "branch": "main",
+      "category": "write-behavior-test",
+      "tags": [],
+      "stars": 0,
+      "install": "coeus-ventures/epic-web/write-behavior-test",
+      "source": "github.com/coeus-ventures/epic-web"
+    }
+  ]
+}

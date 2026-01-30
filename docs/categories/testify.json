@@ -1,0 +1,20 @@
+{
+  "category": "testify",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.217393Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Testing toolkit with assertions, mocks, and suites.",
+      "repo": "ngxtm/devkit",
+      "path": "testify",
+      "branch": "main",
+      "category": "testify",
+      "tags": [],
+      "stars": 0,
+      "install": "ngxtm/devkit/testify",
+      "source": "github.com/ngxtm/devkit"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "create-topic",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.707114Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a new topic file in .notes/ with frontmatter template",
+      "repo": "TheGoatedDev/Claude-Code-Notes",
+      "path": "create-topic",
+      "branch": "main",
+      "category": "create-topic",
+      "tags": [],
+      "stars": 0,
+      "install": "TheGoatedDev/Claude-Code-Notes/create-topic",
+      "source": "github.com/TheGoatedDev/Claude-Code-Notes"
+    }
+  ]
+}

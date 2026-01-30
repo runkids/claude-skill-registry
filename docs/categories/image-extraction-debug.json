@@ -1,0 +1,20 @@
+{
+  "category": "image-extraction-debug",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.860766Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Debug Gemini/GPT vision API issues in puzzle image extraction",
+      "repo": "tfunk1030/vibe",
+      "path": "image-extraction-debug",
+      "branch": "main",
+      "category": "image-extraction-debug",
+      "tags": [],
+      "stars": 0,
+      "install": "tfunk1030/vibe/image-extraction-debug",
+      "source": "github.com/tfunk1030/vibe"
+    }
+  ]
+}

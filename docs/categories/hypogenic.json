@@ -1,0 +1,20 @@
+{
+  "category": "hypogenic",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.848424Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated hypothesis generation and testing using large language models. Use this skill when generating scientific hypotheses from datasets, combining literature insights with empirical data, testing",
+      "repo": "robinbarvaag/poynt",
+      "path": "hypogenic",
+      "branch": "main",
+      "category": "hypogenic",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/hypogenic",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

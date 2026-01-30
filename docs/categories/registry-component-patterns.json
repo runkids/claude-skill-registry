@@ -1,0 +1,20 @@
+{
+  "category": "registry-component-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.803184Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Register components in registry.json for shadcn/ui add command. Apply when adding new 8-bit components to the component library.",
+      "repo": "TheOrcDev/8bitcn-ui",
+      "path": "registry-component-patterns",
+      "branch": "main",
+      "category": "registry-component-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "TheOrcDev/8bitcn-ui/registry-component-patterns",
+      "source": "github.com/TheOrcDev/8bitcn-ui"
+    }
+  ]
+}

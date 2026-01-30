@@ -1,0 +1,20 @@
+{
+  "category": "oauth-integrations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.271059Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement OAuth 2.0 authentication with GitHub and Microsoft Entra (Azure AD) in Cloudflare Workers and other edge environments. Covers provider-specific quirks, required headers, scope requirements,",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "oauth-integrations",
+      "branch": "main",
+      "category": "oauth-integrations",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/oauth-integrations",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

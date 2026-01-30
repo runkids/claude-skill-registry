@@ -1,0 +1,20 @@
+{
+  "category": "upgrade-java-25",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.359275Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Upgrade Java projects from Java 21 to Java 25 with required dependency updates. Requires Gradle 9.x, Groovy 5.x, and updated plugins for compatibility.",
+      "repo": "bitsoex/bitso-java",
+      "path": "upgrade-java-25",
+      "branch": "main",
+      "category": "upgrade-java-25",
+      "tags": [],
+      "stars": 0,
+      "install": "bitsoex/bitso-java/upgrade-java-25",
+      "source": "github.com/bitsoex/bitso-java"
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "category": "security",
   "code": "sec",
-  "count": 775,
-  "updated_at": "2026-01-29T04:50:39.203180Z",
+  "count": 770,
+  "updated_at": "2026-01-30T04:55:07.936102Z",
   "skills": [
     {
       "name": "git-workflow",
@@ -5324,18 +5324,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "https-certificate-checker",
-      "description": "Https Certificate Checker - Auto-activating skill for Security Fundamentals.Triggers on: https certificate checker, https certificate checkerPart of the Security Fundamentals skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/https-certificate-checker",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/https-certificate-checker",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "iam-policy-reviewer",
       "description": "Iam Policy Reviewer - Auto-activating skill for Security Advanced.Triggers on: iam policy reviewer, iam policy reviewerPart of the Security Advanced skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -5795,18 +5783,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "key-rotation-manager",
-      "description": "Key Rotation Manager - Auto-activating skill for Security Advanced.Triggers on: key rotation manager, key rotation managerPart of the Security Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/key-rotation-manager",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/key-rotation-manager",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "keycloak-admin",
       "description": "Keycloak administration including realm management, client configuration, OAuth 2.0 setup, user management with custom attributes, role and group management, theme deployment, and token configuration.",
       "repo": "Lobbi-Docs/claude",
@@ -5900,18 +5876,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/03-security-fundamentals/license-compliance-scanner",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "license-compliance-scanner",
-      "description": "License Compliance Scanner - Auto-activating skill for Security Fundamentals.Triggers on: license compliance scanner, license compliance scannerPart of the Security Fundamentals skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/license-compliance-scanner",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/license-compliance-scanner",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6220,18 +6184,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/04-security-advanced/network-security-scanner",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "network-security-scanner",
-      "description": "Network Security Scanner - Auto-activating skill for Security Advanced.Triggers on: network security scanner, network security scannerPart of the Security Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/network-security-scanner",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/network-security-scanner",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -8163,18 +8115,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "security-headers-generator",
-      "description": "Security Headers Generator - Auto-activating skill for Security Fundamentals.Triggers on: security headers generator, security headers generatorPart of the Security Fundamentals skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/security-headers-generator",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/security-headers-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "security-lens",
       "description": "Apply security awareness during code review and implementation. Catches common vulnerabilities without requiring full security audit.",
       "repo": "malston/claude-config",
@@ -8786,15 +8726,15 @@
     },
     {
       "name": "SKILL.md",
-      "description": "JavaScript security best practices and vulnerability prevention.",
-      "repo": "pluginagentmarketplace/custom-plugin-javascript",
-      "path": "skills/security",
+      "description": "Auto-activates when user mentions security, vulnerabilities, OWASP, or secure coding. Expert in web security including OWASP Top 10, authentication, authorization, and secure coding practices.",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "security",
       "branch": "main",
       "category": "security",
       "tags": [],
       "stars": 0,
-      "install": "pluginagentmarketplace/custom-plugin-javascript/skills/security",
-      "source": "github.com/pluginagentmarketplace/custom-plugin-javascript"
+      "install": "pascallammers/mylo-travel-concierge-v2/security",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
     },
     {
       "name": "slack-auth-security",

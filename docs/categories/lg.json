@@ -1,0 +1,20 @@
+{
+  "category": "lg",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.007956Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "LG Innotek MPN encoding patterns, LED suffix decoding, and handler guidance. Use when working with LG LEDs, camera modules, automotive components, or LGHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "lg",
+      "branch": "main",
+      "category": "lg",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/lg",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

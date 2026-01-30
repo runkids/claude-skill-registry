@@ -1,0 +1,20 @@
+{
+  "category": "context-compression",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.665008Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and evaluate context compression strategies for long-running agent sessions. Use when agents exhaust memory, need to summarize conversation history, or when optimizing tokens-per-task rather th",
+      "repo": "rohunvora/my-claude-skills",
+      "path": "context-compression",
+      "branch": "main",
+      "category": "context-compression",
+      "tags": [],
+      "stars": 0,
+      "install": "rohunvora/my-claude-skills/context-compression",
+      "source": "github.com/rohunvora/my-claude-skills"
+    }
+  ]
+}

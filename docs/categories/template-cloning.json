@@ -1,0 +1,20 @@
+{
+  "category": "template-cloning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.187376Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Clone and customize existing templates (landing pages, dashboards, admin panels) with style extraction, config-driven content, and theme customization",
+      "repo": "Awannaphasch2016/agent-kernel-mcp",
+      "path": "template-cloning",
+      "branch": "main",
+      "category": "template-cloning",
+      "tags": [],
+      "stars": 0,
+      "install": "Awannaphasch2016/agent-kernel-mcp/template-cloning",
+      "source": "github.com/Awannaphasch2016/agent-kernel-mcp"
+    }
+  ]
+}

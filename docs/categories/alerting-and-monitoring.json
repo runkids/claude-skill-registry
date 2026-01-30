@@ -1,0 +1,20 @@
+{
+  "category": "alerting-and-monitoring",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.287308Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define alerts, escalation, and incident response.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "alerting-and-monitoring",
+      "branch": "main",
+      "category": "alerting-and-monitoring",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/alerting-and-monitoring",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

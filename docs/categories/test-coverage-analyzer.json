@@ -1,0 +1,20 @@
+{
+  "category": "test-coverage-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.199241Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated test coverage analysis with support for multiple testing frameworks, coverage reporting, gap identification, metric tracking, and quality gate enforcement. Use when Claude needs to analyze t",
+      "repo": "MuhammadUsmanGM/Skills_Assignment",
+      "path": "test-coverage-analyzer",
+      "branch": "main",
+      "category": "test-coverage-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "MuhammadUsmanGM/Skills_Assignment/test-coverage-analyzer",
+      "source": "github.com/MuhammadUsmanGM/Skills_Assignment"
+    }
+  ]
+}

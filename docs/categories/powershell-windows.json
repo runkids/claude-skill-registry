@@ -1,0 +1,20 @@
+{
+  "category": "powershell-windows",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.618493Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PowerShell Windows patterns. Critical pitfalls, operator syntax, error handling.",
+      "repo": "BerkantYilmaz0/MegaStore",
+      "path": "powershell-windows",
+      "branch": "main",
+      "category": "powershell-windows",
+      "tags": [],
+      "stars": 0,
+      "install": "BerkantYilmaz0/MegaStore/powershell-windows",
+      "source": "github.com/BerkantYilmaz0/MegaStore"
+    }
+  ]
+}

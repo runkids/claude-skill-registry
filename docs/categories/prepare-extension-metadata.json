@@ -1,0 +1,20 @@
+{
+  "category": "prepare-extension-metadata",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.634119Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prepare and generate all required metadata files for Extension Index submission",
+      "repo": "benzwick/SlicerMouseMaster",
+      "path": "prepare-extension-metadata",
+      "branch": "main",
+      "category": "prepare-extension-metadata",
+      "tags": [],
+      "stars": 0,
+      "install": "benzwick/SlicerMouseMaster/prepare-extension-metadata",
+      "source": "github.com/benzwick/SlicerMouseMaster"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "lecture-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.000522Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform textbook chapters into engaging, evidence-based lectures with Google Slides. Guides instructors through learning outcomes, narrative design, active learning activities, and slide creation vi",
+      "repo": "nealcaren/social-data-analysis",
+      "path": "lecture-designer",
+      "branch": "main",
+      "category": "lecture-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "nealcaren/social-data-analysis/lecture-designer",
+      "source": "github.com/nealcaren/social-data-analysis"
+    }
+  ]
+}

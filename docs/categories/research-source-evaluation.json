@@ -1,0 +1,20 @@
+{
+  "category": "research-source-evaluation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.827124Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When searching for authoritative sources for skills or validating existing source links.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "research-source-evaluation",
+      "branch": "main",
+      "category": "research-source-evaluation",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/research-source-evaluation",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

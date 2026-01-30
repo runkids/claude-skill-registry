@@ -1,0 +1,20 @@
+{
+  "category": "golden-path-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.787681Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define and enforce golden paths and best practices for development teams",
+      "repo": "Dexploarer/hyper-forge",
+      "path": "golden-path-creator",
+      "branch": "main",
+      "category": "golden-path-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "Dexploarer/hyper-forge/golden-path-creator",
+      "source": "github.com/Dexploarer/hyper-forge"
+    }
+  ]
+}

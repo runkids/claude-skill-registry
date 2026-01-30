@@ -1,0 +1,20 @@
+{
+  "category": "xcode-project",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.503671Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add files and frameworks to Xcode projects programmatically",
+      "repo": "UnaMentis/unamentis",
+      "path": "xcode-project",
+      "branch": "main",
+      "category": "xcode-project",
+      "tags": [],
+      "stars": 0,
+      "install": "UnaMentis/unamentis/xcode-project",
+      "source": "github.com/UnaMentis/unamentis"
+    }
+  ]
+}

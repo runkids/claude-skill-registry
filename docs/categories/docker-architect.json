@@ -1,0 +1,20 @@
+{
+  "category": "docker-architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.467556Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SOTA Docker/Compose architecture, implementation, refactor, and security hardening. Use when working on containerization tasks such as creating or rewriting Dockerfiles, docker-compose files, buildx/b",
+      "repo": "BjornMelin/dev-skills",
+      "path": "docker-architect",
+      "branch": "main",
+      "category": "docker-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "BjornMelin/dev-skills/docker-architect",
+      "source": "github.com/BjornMelin/dev-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "gemini-genai",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.735113Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Google python-genai SDK for Gemini 3 Flash, Gemini 3 Pro, and Gemini models. Use when building with Google's Gemini API, google-genai, implementing thinking/reasoning, structured outputs, function cal",
+      "repo": "cuba6112/skillfactory",
+      "path": "gemini-genai",
+      "branch": "main",
+      "category": "gemini-genai",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory/gemini-genai",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

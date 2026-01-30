@@ -1,0 +1,20 @@
+{
+  "category": "kubernetes-deployment-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.960782Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Kubernetes deployment strategies and workload patterns for production-grade applications. Use when deploying to Kubernetes, implementing rollout strategies, or designing cloud-native application archi",
+      "repo": "NickCrew/claude-cortex",
+      "path": "kubernetes-deployment-patterns",
+      "branch": "main",
+      "category": "kubernetes-deployment-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex/kubernetes-deployment-patterns",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

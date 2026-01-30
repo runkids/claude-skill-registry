@@ -1,0 +1,20 @@
+{
+  "category": "clavix-summarize",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.546468Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract structured requirements from conversations into mini-PRD format. Use after conversational exploration to capture what was discussed.",
+      "repo": "alysonhower/dupcheck",
+      "path": "clavix-summarize",
+      "branch": "main",
+      "category": "clavix-summarize",
+      "tags": [],
+      "stars": 0,
+      "install": "alysonhower/dupcheck/clavix-summarize",
+      "source": "github.com/alysonhower/dupcheck"
+    }
+  ]
+}

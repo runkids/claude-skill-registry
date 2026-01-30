@@ -1,0 +1,20 @@
+{
+  "category": "todo",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.294636Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage and track all TODOs from code comments and todo files. Provides quick reports of open tasks, scans for untracked TODOs, and integrates with GitHub Issues. Triggered by \"/todo\", \"show todos\", \"l",
+      "repo": "boaznahum/cubesolve",
+      "path": "todo",
+      "branch": "main",
+      "category": "todo",
+      "tags": [],
+      "stars": 0,
+      "install": "boaznahum/cubesolve/todo",
+      "source": "github.com/boaznahum/cubesolve"
+    }
+  ]
+}

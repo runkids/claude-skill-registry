@@ -1,0 +1,20 @@
+{
+  "category": "gdpr-dsgvo-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.730927Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Senior GDPR/DSGVO expert and internal/external auditor for data protection compliance. Provides EU GDPR and German DSGVO expertise, privacy impact assessments, data protection auditing, and compliance",
+      "repo": "nimeshgurung/artifact-hub-collections",
+      "path": "gdpr-dsgvo-expert",
+      "branch": "main",
+      "category": "gdpr-dsgvo-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "nimeshgurung/artifact-hub-collections/gdpr-dsgvo-expert",
+      "source": "github.com/nimeshgurung/artifact-hub-collections"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "programming-ruby",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.686038Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Best practices when developing in Ruby codebases",
+      "repo": "mgomes/3xo-suit",
+      "path": "programming-ruby",
+      "branch": "main",
+      "category": "programming-ruby",
+      "tags": [],
+      "stars": 0,
+      "install": "mgomes/3xo-suit/programming-ruby",
+      "source": "github.com/mgomes/3xo-suit"
+    }
+  ]
+}

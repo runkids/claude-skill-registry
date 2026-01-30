@@ -1,0 +1,20 @@
+{
+  "category": "managing-git",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.073590Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guides git workflows, branching strategies, commit conventions, and version control best practices. Use when managing repositories, creating branches, or handling merges.",
+      "repo": "CloudAI-X/opencode-workflow",
+      "path": "managing-git",
+      "branch": "main",
+      "category": "managing-git",
+      "tags": [],
+      "stars": 0,
+      "install": "CloudAI-X/opencode-workflow/managing-git",
+      "source": "github.com/CloudAI-X/opencode-workflow"
+    }
+  ]
+}

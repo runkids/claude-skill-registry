@@ -1,0 +1,20 @@
+{
+  "category": "moai-domain-cloud",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.159156Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise-grade cloud architecture expertise with production-ready patterns for AWS (Lambda 3.13, ECS/Fargate 1.4.0, RDS, CDK 2.223.0), GCP (Cloud Run Gen2, Cloud Functions 2nd gen, Cloud SQL), Azure",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-domain-cloud",
+      "branch": "main",
+      "category": "moai-domain-cloud",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-domain-cloud",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

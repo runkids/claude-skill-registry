@@ -1,0 +1,20 @@
+{
+  "category": "modular-arithmetic",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.192265Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Problem-solving strategies for modular arithmetic in graph number theory",
+      "repo": "namesreallyblank/Clorch",
+      "path": "modular-arithmetic",
+      "branch": "main",
+      "category": "modular-arithmetic",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/modular-arithmetic",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

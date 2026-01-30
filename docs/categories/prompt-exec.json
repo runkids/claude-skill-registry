@@ -1,0 +1,20 @@
+{
+  "category": "prompt-exec",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.704145Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute the forged prompt exactly as written. Requires explicit consent and a ready artifact. Deletes artifact after successful execution.",
+      "repo": "JordanGunn/nunchuck",
+      "path": "prompt-exec",
+      "branch": "main",
+      "category": "prompt-exec",
+      "tags": [],
+      "stars": 0,
+      "install": "JordanGunn/nunchuck/prompt-exec",
+      "source": "github.com/JordanGunn/nunchuck"
+    }
+  ]
+}

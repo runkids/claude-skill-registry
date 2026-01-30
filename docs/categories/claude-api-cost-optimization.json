@@ -1,0 +1,20 @@
+{
+  "category": "claude-api-cost-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.533660Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Save 50-90% on Claude API costs with Batch API, Prompt Caching & Extended Thinking. Official techniques, verified.",
+      "repo": "sstklen/claude-api-cost-optimization",
+      "path": "claude-api-cost-optimization",
+      "branch": "main",
+      "category": "claude-api-cost-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "sstklen/claude-api-cost-optimization/claude-api-cost-optimization",
+      "source": "github.com/sstklen/claude-api-cost-optimization"
+    }
+  ]
+}

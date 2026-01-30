@@ -1,0 +1,20 @@
+{
+  "category": "full-stack-debugger",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.710855Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when debugging full-stack issues that span UI, backend, and database layers. It provides a systematic workflow to detect errors, analyze root causes, apply fixes iteratively,",
+      "repo": "ingpoc/SKILLS",
+      "path": "full-stack-debugger",
+      "branch": "main",
+      "category": "full-stack-debugger",
+      "tags": [],
+      "stars": 0,
+      "install": "ingpoc/SKILLS/full-stack-debugger",
+      "source": "github.com/ingpoc/SKILLS"
+    }
+  ]
+}

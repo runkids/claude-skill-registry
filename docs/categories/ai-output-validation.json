@@ -1,0 +1,20 @@
+{
+  "category": "ai-output-validation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.280122Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ensures all AI-generated output fields have proper validation. Auto-activates on \"AI 輸出\", \"LLM\", \"Gemini\", \"GPT\", \"truncate\", \"截斷\" keywords. Lesson learned: 2026-01-08 Quick Feedback, Report, Deep Ana",
+      "repo": "Youngger9765/career_ios_backend",
+      "path": "ai-output-validation",
+      "branch": "main",
+      "category": "ai-output-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "Youngger9765/career_ios_backend/ai-output-validation",
+      "source": "github.com/Youngger9765/career_ios_backend"
+    }
+  ]
+}

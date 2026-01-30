@@ -1,0 +1,20 @@
+{
+  "category": "scientific-astropy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.895494Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Python library for astronomy and astrophysics. This skill should be used when working with astronomical data including celestial coordinates, physical units, FITS files, cosmological cal",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-astropy",
+      "branch": "main",
+      "category": "scientific-astropy",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP/scientific-astropy",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

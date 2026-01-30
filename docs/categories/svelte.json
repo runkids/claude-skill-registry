@@ -1,0 +1,20 @@
+{
+  "category": "svelte",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.125173Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Builds UIs with Svelte 5 including runes, components, reactivity, and stores. Use when creating Svelte applications, building reactive interfaces, or working with compile-time frameworks.",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "svelte",
+      "branch": "main",
+      "category": "svelte",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini/svelte",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

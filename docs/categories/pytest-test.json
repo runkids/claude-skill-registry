@@ -1,0 +1,20 @@
+{
+  "category": "pytest-test",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.728755Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute and generate pytest tests for Python projects with fixtures, parametrization, and mocking support",
+      "repo": "FortiumPartners/ai-mesh",
+      "path": "pytest-test",
+      "branch": "main",
+      "category": "pytest-test",
+      "tags": [],
+      "stars": 0,
+      "install": "FortiumPartners/ai-mesh/pytest-test",
+      "source": "github.com/FortiumPartners/ai-mesh"
+    }
+  ]
+}

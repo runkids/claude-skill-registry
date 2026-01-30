@@ -1,0 +1,20 @@
+{
+  "category": "interview-script",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.893993Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "면접 스크립트 작성 및 PDF 내보내기가 필요할 때",
+      "repo": "younwony/younwony.github.io",
+      "path": "interview-script",
+      "branch": "main",
+      "category": "interview-script",
+      "tags": [],
+      "stars": 0,
+      "install": "younwony/younwony.github.io/interview-script",
+      "source": "github.com/younwony/younwony.github.io"
+    }
+  ]
+}

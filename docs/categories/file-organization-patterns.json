@@ -1,0 +1,20 @@
+{
+  "category": "file-organization-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.660623Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "> Template for project-specific file organization skill",
+      "repo": "michsindlinger/agent-os-extended",
+      "path": "file-organization-patterns",
+      "branch": "main",
+      "category": "file-organization-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "michsindlinger/agent-os-extended/file-organization-patterns",
+      "source": "github.com/michsindlinger/agent-os-extended"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "n-version-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.217814Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "N-version programming for critical implementations - generates N independent solutions and selects the best through comparison",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "n-version-workflow",
+      "branch": "main",
+      "category": "n-version-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/n-version-workflow",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

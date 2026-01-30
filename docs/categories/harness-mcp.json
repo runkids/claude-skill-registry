@@ -1,0 +1,20 @@
+{
+  "category": "harness-mcp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.822686Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Harness MCP (Model Context Protocol) server integration for AI-powered CD operations, pipeline management, Git repositories, pull requests, code review comments, and bidirectional Jira synchronization",
+      "repo": "Lobbi-Docs/claude",
+      "path": "harness-mcp",
+      "branch": "main",
+      "category": "harness-mcp",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/harness-mcp",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "Family",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.169296Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Family relationships and household management. USE WHEN user mentions Ashley, Sullivan, family, relationship, parenting, household, or any family-related concern.",
+      "repo": "Geralt1983/Thanos",
+      "path": "Family",
+      "branch": "main",
+      "category": "Family",
+      "tags": [],
+      "stars": 0,
+      "install": "Geralt1983/Thanos/Family",
+      "source": "github.com/Geralt1983/Thanos"
+    }
+  ]
+}

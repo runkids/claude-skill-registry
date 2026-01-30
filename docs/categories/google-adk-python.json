@@ -1,0 +1,20 @@
+{
+  "category": "google-adk-python",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.788551Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Google Agent Development Kit (ADK) for Python. Capabilities: AI agent building, multi-agent systems, workflow agents (sequential/parallel/loop), tool integration (Google Search, Code Execution), Verte",
+      "repo": "brixtonpham/claude-config",
+      "path": "google-adk-python",
+      "branch": "main",
+      "category": "google-adk-python",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/google-adk-python",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

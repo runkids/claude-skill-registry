@@ -1,8 +1,8 @@
 {
   "category": "docs",
   "code": "oth",
-  "count": 1,
-  "updated_at": "2026-01-29T04:50:38.899652Z",
+  "count": 2,
+  "updated_at": "2026-01-30T04:55:06.471354Z",
   "skills": [
     {
       "name": "agent-ops-versioning",
@@ -15,6 +15,18 @@
       "stars": 1,
       "install": "weholt/script-cast/docs/agent-ops-versioning",
       "source": "github.com/weholt/script-cast"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Name | Type | Description | Notes",
+      "repo": "INDA-HR/python_sdk",
+      "path": "docs",
+      "branch": "main",
+      "category": "docs",
+      "tags": [],
+      "stars": 0,
+      "install": "INDA-HR/python_sdk/docs",
+      "source": "github.com/INDA-HR/python_sdk"
     }
   ]
 }

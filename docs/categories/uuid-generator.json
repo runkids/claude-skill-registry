@@ -1,0 +1,20 @@
+{
+  "category": "uuid-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.378864Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "生成UUID（v1、v4、v5）和其他唯一标识符，如ULID、nanoid。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "uuid-generator",
+      "branch": "main",
+      "category": "uuid-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode/uuid-generator",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

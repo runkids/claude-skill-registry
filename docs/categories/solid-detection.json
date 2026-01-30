@@ -1,0 +1,20 @@
+{
+  "category": "solid-detection",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.042098Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-language SOLID detection rules. Project type detection, interface locations, file size limits per language.",
+      "repo": "fusengine/agents",
+      "path": "solid-detection",
+      "branch": "main",
+      "category": "solid-detection",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/solid-detection",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

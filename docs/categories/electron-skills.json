@@ -1,0 +1,20 @@
+{
+  "category": "electron-skills",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.563294Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Electron patterns for LlamaFarm Desktop. Covers main/renderer processes, IPC, security, and packaging.",
+      "repo": "llama-farm/llamafarm",
+      "path": "electron-skills",
+      "branch": "main",
+      "category": "electron-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "llama-farm/llamafarm/electron-skills",
+      "source": "github.com/llama-farm/llamafarm"
+    }
+  ]
+}

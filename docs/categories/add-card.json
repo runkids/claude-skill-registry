@@ -1,0 +1,20 @@
+{
+  "category": "add-card",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.202972Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a new card part within a section with factory/class pattern, Card wrapper, and proper cleanup",
+      "repo": "Ariedam64/Gemini",
+      "path": "add-card",
+      "branch": "main",
+      "category": "add-card",
+      "tags": [],
+      "stars": 0,
+      "install": "Ariedam64/Gemini/add-card",
+      "source": "github.com/Ariedam64/Gemini"
+    }
+  ]
+}

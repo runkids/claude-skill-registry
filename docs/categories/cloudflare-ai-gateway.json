@@ -1,0 +1,20 @@
+{
+  "category": "cloudflare-ai-gateway",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.573600Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cloudflare AI Gateway for unified interface to AI providers with caching, rate limiting, and analytics",
+      "repo": "enuno/claude-command-and-control",
+      "path": "cloudflare-ai-gateway",
+      "branch": "main",
+      "category": "cloudflare-ai-gateway",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control/cloudflare-ai-gateway",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

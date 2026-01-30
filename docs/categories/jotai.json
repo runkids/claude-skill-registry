@@ -1,0 +1,20 @@
+{
+  "category": "jotai",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.929070Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manages React state with Jotai including atoms, derived atoms, async atoms, and utilities. Use when building React applications needing atomic state, bottom-up state management, or fine-grained update",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "jotai",
+      "branch": "main",
+      "category": "jotai",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini/jotai",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

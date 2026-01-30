@@ -1,0 +1,20 @@
+{
+  "category": "rust-dev",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.867136Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when working with Rust code, reviewing Rust code, managing Rust dependencies, creating Rust projects, or fixing Rust compilation errors. It provides strict coding standards (",
+      "repo": "onsails/cc",
+      "path": "rust-dev",
+      "branch": "main",
+      "category": "rust-dev",
+      "tags": [],
+      "stars": 0,
+      "install": "onsails/cc/rust-dev",
+      "source": "github.com/onsails/cc"
+    }
+  ]
+}

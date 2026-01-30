@@ -1,0 +1,20 @@
+{
+  "category": "skillforge",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.023337Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Route any user request, error, code, or URL to the right skill action—recommend existing skills, suggest improvements, or create new skills via a triage-first process.",
+      "repo": "monkey1sai/ai-settings",
+      "path": "skillforge",
+      "branch": "main",
+      "category": "skillforge",
+      "tags": [],
+      "stars": 0,
+      "install": "monkey1sai/ai-settings/skillforge",
+      "source": "github.com/monkey1sai/ai-settings"
+    }
+  ]
+}

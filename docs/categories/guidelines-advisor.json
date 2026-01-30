@@ -1,0 +1,20 @@
+{
+  "category": "guidelines-advisor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.814547Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive smart contract development advisor based on Trail of Bits' best practices. Analyzes codebase to generate documentation/specifications, review architecture, check upgradeability patterns,",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "guidelines-advisor",
+      "branch": "main",
+      "category": "guidelines-advisor",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/guidelines-advisor",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

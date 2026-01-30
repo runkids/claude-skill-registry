@@ -1,0 +1,20 @@
+{
+  "category": "tool-authoring",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.298780Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creating reusable tools in tools/ directory that workflows can import and use",
+      "repo": "mpuig/raw",
+      "path": "tool-authoring",
+      "branch": "main",
+      "category": "tool-authoring",
+      "tags": [],
+      "stars": 0,
+      "install": "mpuig/raw/tool-authoring",
+      "source": "github.com/mpuig/raw"
+    }
+  ]
+}

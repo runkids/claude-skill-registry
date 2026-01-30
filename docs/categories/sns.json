@@ -1,0 +1,20 @@
+{
+  "category": "sns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.035860Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS SNS notification service for pub/sub messaging. Use when creating topics, managing subscriptions, configuring message filtering, sending notifications, or setting up mobile push.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "sns",
+      "branch": "main",
+      "category": "sns",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/sns",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

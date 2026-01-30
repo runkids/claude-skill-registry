@@ -1,0 +1,20 @@
+{
+  "category": "stripe-best-practices",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.103830Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Best practices for building a Stripe integrations",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "stripe-best-practices",
+      "branch": "main",
+      "category": "stripe-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet/stripe-best-practices",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

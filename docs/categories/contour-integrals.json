@@ -1,0 +1,20 @@
+{
+  "category": "contour-integrals",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.673464Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Problem-solving strategies for contour integrals in complex analysis",
+      "repo": "namesreallyblank/Clorch",
+      "path": "contour-integrals",
+      "branch": "main",
+      "category": "contour-integrals",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/contour-integrals",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "reverse-derivative-coordinator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.838240Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Triadic skill (coordination)",
+      "repo": "plurigrid/asi",
+      "path": "reverse-derivative-coordinator",
+      "branch": "main",
+      "category": "reverse-derivative-coordinator",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/reverse-derivative-coordinator",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

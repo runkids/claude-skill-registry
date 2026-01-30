@@ -1,0 +1,20 @@
+{
+  "category": "skill-code-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.011465Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates or Refactors the physical file structure based on a Blueprint or Audit Report.",
+      "repo": "marcelocmenezes/antigravity-agentkit",
+      "path": "skill-code-generator",
+      "branch": "main",
+      "category": "skill-code-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "marcelocmenezes/antigravity-agentkit/skill-code-generator",
+      "source": "github.com/marcelocmenezes/antigravity-agentkit"
+    }
+  ]
+}

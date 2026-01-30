@@ -1,0 +1,20 @@
+{
+  "category": "dspy-react-agent-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.541904Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"create a ReAct agent\", \"build an agent with tools\", \"implement tool-calling agent\", \"use dspy.ReAct\", mentions \"agent with tools\", \"reasoning and actin",
+      "repo": "OmidZamani/dspy-skills",
+      "path": "dspy-react-agent-builder",
+      "branch": "main",
+      "category": "dspy-react-agent-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "OmidZamani/dspy-skills/dspy-react-agent-builder",
+      "source": "github.com/OmidZamani/dspy-skills"
+    }
+  ]
+}

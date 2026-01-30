@@ -1,0 +1,20 @@
+{
+  "category": "introspection",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.894874Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze and explain Claude's reasoning, decision patterns, and problem-solving approaches. Use when user requests \"explain your reasoning\", \"why did you choose\", \"show your thinking\", or mentions deci",
+      "repo": "brixtonpham/claude-config",
+      "path": "introspection",
+      "branch": "main",
+      "category": "introspection",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/introspection",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

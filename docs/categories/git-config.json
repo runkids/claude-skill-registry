@@ -1,0 +1,20 @@
+{
+  "category": "git-config",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.757794Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Git configuration guide covering global settings, aliases, performance tuning, credential management, maintenance, .gitattributes, clone shortcuts, and troubleshooting. Use when configur",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "git-config",
+      "branch": "main",
+      "category": "git-config",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent/git-config",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

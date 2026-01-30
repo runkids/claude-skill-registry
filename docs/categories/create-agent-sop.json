@@ -1,0 +1,20 @@
+{
+  "category": "create-agent-sop",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.695997Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create agent-ready Standard Operating Procedure (SOP) skills that autonomous agents can execute deterministically. Use when creating workflow skills, procedural skills, or any skill that needs to be u",
+      "repo": "almai/superpowers",
+      "path": "create-agent-sop",
+      "branch": "main",
+      "category": "create-agent-sop",
+      "tags": [],
+      "stars": 0,
+      "install": "almai/superpowers/create-agent-sop",
+      "source": "github.com/almai/superpowers"
+    }
+  ]
+}

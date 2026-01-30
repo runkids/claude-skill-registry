@@ -1,0 +1,20 @@
+{
+  "category": "audit-documentation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.368758Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run a single-session documentation audit on the codebase",
+      "repo": "jasonmichaelbell78-creator/sonash-v0",
+      "path": "audit-documentation",
+      "branch": "main",
+      "category": "audit-documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "jasonmichaelbell78-creator/sonash-v0/audit-documentation",
+      "source": "github.com/jasonmichaelbell78-creator/sonash-v0"
+    }
+  ]
+}

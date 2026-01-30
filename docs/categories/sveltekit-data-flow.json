@@ -1,0 +1,20 @@
+{
+  "category": "sveltekit-data-flow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.126840Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SvelteKit data flow guidance. Use for load functions, form actions, and server/client data. Covers +page.server.ts vs +page.ts, serialization, fail(), redirect(), error().",
+      "repo": "dandedotdev/dotfiles",
+      "path": "sveltekit-data-flow",
+      "branch": "main",
+      "category": "sveltekit-data-flow",
+      "tags": [],
+      "stars": 0,
+      "install": "dandedotdev/dotfiles/sveltekit-data-flow",
+      "source": "github.com/dandedotdev/dotfiles"
+    }
+  ]
+}

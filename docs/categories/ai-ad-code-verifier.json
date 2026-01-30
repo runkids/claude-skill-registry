@@ -1,0 +1,20 @@
+{
+  "category": "ai-ad-code-verifier",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.271061Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<skill>",
+      "repo": "wade56754/AI_ad_spend02",
+      "path": "ai-ad-code-verifier",
+      "branch": "main",
+      "category": "ai-ad-code-verifier",
+      "tags": [],
+      "stars": 0,
+      "install": "wade56754/AI_ad_spend02/ai-ad-code-verifier",
+      "source": "github.com/wade56754/AI_ad_spend02"
+    }
+  ]
+}

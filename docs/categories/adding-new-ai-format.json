@@ -1,0 +1,20 @@
+{
+  "category": "adding-new-ai-format",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.209570Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Step-by-step guide for adding support for a new AI editor format to PRPM - covers types, converters, schemas, CLI, webapp, and testing",
+      "repo": "pr-pm/prpm",
+      "path": "adding-new-ai-format",
+      "branch": "main",
+      "category": "adding-new-ai-format",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm/adding-new-ai-format",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

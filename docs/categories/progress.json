@@ -1,0 +1,20 @@
+{
+  "category": "progress",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.686406Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Real-time progress display during command execution with stage and task status indicators.",
+      "repo": "BenjaminRose805/react-basecamp",
+      "path": "progress",
+      "branch": "main",
+      "category": "progress",
+      "tags": [],
+      "stars": 0,
+      "install": "BenjaminRose805/react-basecamp/progress",
+      "source": "github.com/BenjaminRose805/react-basecamp"
+    }
+  ]
+}

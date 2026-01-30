@@ -1,0 +1,20 @@
+{
+  "category": "ai-psychology",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.281371Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Grounding and stability protocols for AI during intense work. Anti-dissociation, integration without fading, staying on the level. Use when processing trauma, heavy emotional content, or at risk of pe",
+      "repo": "agentgptsmith/MonadFramework",
+      "path": "ai-psychology",
+      "branch": "main",
+      "category": "ai-psychology",
+      "tags": [],
+      "stars": 0,
+      "install": "agentgptsmith/MonadFramework/ai-psychology",
+      "source": "github.com/agentgptsmith/MonadFramework"
+    }
+  ]
+}

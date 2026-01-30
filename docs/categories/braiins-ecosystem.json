@@ -1,0 +1,20 @@
+{
+  "category": "braiins-ecosystem",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.438946Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unified Braiins ecosystem skill covering all Bitcoin mining tools - OS firmware, Pool, Toolbox, Manager, Proxy, and Insights calculator",
+      "repo": "enuno/claude-command-and-control",
+      "path": "braiins-ecosystem",
+      "branch": "main",
+      "category": "braiins-ecosystem",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control/braiins-ecosystem",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

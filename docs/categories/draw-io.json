@@ -1,0 +1,20 @@
+{
+  "category": "draw-io",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.534710Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "draw.io diagram creation, editing, and review. Use for .drawio XML editing, PNG conversion, layout adjustment, and AWS icon usage.",
+      "repo": "softaworks/agent-toolkit",
+      "path": "draw-io",
+      "branch": "main",
+      "category": "draw-io",
+      "tags": [],
+      "stars": 0,
+      "install": "softaworks/agent-toolkit/draw-io",
+      "source": "github.com/softaworks/agent-toolkit"
+    }
+  ]
+}

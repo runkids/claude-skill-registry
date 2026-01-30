@@ -1,0 +1,20 @@
+{
+  "category": "user-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.365981Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements Clix user identification and user properties (setUserId, removeUserId, setUserProperty/setUserProperties, removeUserProperty/removeUserProperties) with safe schemas, logout best practices,",
+      "repo": "clix-so/skills",
+      "path": "user-management",
+      "branch": "main",
+      "category": "user-management",
+      "tags": [],
+      "stars": 0,
+      "install": "clix-so/skills/user-management",
+      "source": "github.com/clix-so/skills"
+    }
+  ]
+}

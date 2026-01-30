@@ -1,0 +1,20 @@
+{
+  "category": "design-compare",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.152586Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Compare doc versions across git history. Use when reviewing changes, tracking evolution, or understanding modifications.",
+      "repo": "spencerbeggs/claude-design-coordinator",
+      "path": "design-compare",
+      "branch": "main",
+      "category": "design-compare",
+      "tags": [],
+      "stars": 0,
+      "install": "spencerbeggs/claude-design-coordinator/design-compare",
+      "source": "github.com/spencerbeggs/claude-design-coordinator"
+    }
+  ]
+}

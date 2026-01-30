@@ -1,0 +1,20 @@
+{
+  "category": "installing-skills",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.883933Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Install skills from github.com/oaustegard/claude-skills into /mnt/skills/user. Use when user mentions \"install skills\", \"load skills\", \"add skills\", \"update skills\", \"refresh skills\", or references a",
+      "repo": "oaustegard/claude-skills",
+      "path": "installing-skills",
+      "branch": "main",
+      "category": "installing-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "oaustegard/claude-skills/installing-skills",
+      "source": "github.com/oaustegard/claude-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "azure-dashboard-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.395127Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create Azure DevOps dashboards with widgets and metrics. Use when visualizing project metrics or creating team dashboards.",
+      "repo": "ntaksh42/agents",
+      "path": "azure-dashboard-creator",
+      "branch": "main",
+      "category": "azure-dashboard-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents/azure-dashboard-creator",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

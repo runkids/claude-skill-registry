@@ -1,0 +1,20 @@
+{
+  "category": "pileup-generation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.574162Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate pileup data for variant calling using samtools mpileup and pysam. Use when preparing data for variant calling, analyzing per-position read data, or calculating allele frequencies.",
+      "repo": "GPTomics/bioSkills",
+      "path": "pileup-generation",
+      "branch": "main",
+      "category": "pileup-generation",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/pileup-generation",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

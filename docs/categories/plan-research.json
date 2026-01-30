@@ -1,0 +1,20 @@
+{
+  "category": "plan-research",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.582253Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan technical research (enters plan mode)",
+      "repo": "anton-pt/algojuke",
+      "path": "plan-research",
+      "branch": "main",
+      "category": "plan-research",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-pt/algojuke/plan-research",
+      "source": "github.com/anton-pt/algojuke"
+    }
+  ]
+}

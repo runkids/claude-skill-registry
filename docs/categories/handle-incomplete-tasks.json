@@ -1,0 +1,20 @@
+{
+  "category": "handle-incomplete-tasks",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.819248Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "handle-incomplete-tasks",
+      "branch": "main",
+      "category": "handle-incomplete-tasks",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/handle-incomplete-tasks",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "security-antipatterns-python",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.946513Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when generating Python code for web applications, APIs, or handling user input - prevents OWASP Top 10 vulnerabilities in Django, Flask, FastAPI",
+      "repo": "subhashdasyam/security-antipatterns-python",
+      "path": "security-antipatterns-python",
+      "branch": "main",
+      "category": "security-antipatterns-python",
+      "tags": [],
+      "stars": 0,
+      "install": "subhashdasyam/security-antipatterns-python/security-antipatterns-python",
+      "source": "github.com/subhashdasyam/security-antipatterns-python"
+    }
+  ]
+}

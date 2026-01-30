@@ -1,0 +1,20 @@
+{
+  "category": "work-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.475727Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"show work plan\", \"what's the plan for feature N\", \"show progress\", \"view execution plan\", or wants to see phase breakdown, progress status, and next ac",
+      "repo": "ianphil/prism",
+      "path": "work-plan",
+      "branch": "main",
+      "category": "work-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "ianphil/prism/work-plan",
+      "source": "github.com/ianphil/prism"
+    }
+  ]
+}

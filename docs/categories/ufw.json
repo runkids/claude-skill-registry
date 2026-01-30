@@ -1,0 +1,20 @@
+{
+  "category": "ufw",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.333324Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Uncomplicated Firewall management commands.",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "ufw",
+      "branch": "main",
+      "category": "ufw",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet/ufw",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

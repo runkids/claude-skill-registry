@@ -1,0 +1,20 @@
+{
+  "category": "vrbo",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.430940Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Search and book vacation rentals, manage reservations, and communicate with property owners on Vrbo",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "vrbo",
+      "branch": "main",
+      "category": "vrbo",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/vrbo",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "turborepo-caching",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.319618Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure Turborepo for efficient monorepo builds with local and remote caching. Use when setting up Turborepo, optimizing build pipelines, or implementing distributed caching.",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "turborepo-caching",
+      "branch": "main",
+      "category": "turborepo-caching",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/turborepo-caching",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

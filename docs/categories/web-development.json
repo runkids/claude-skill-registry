@@ -1,0 +1,20 @@
+{
+  "category": "web-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.446053Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Web frontend project development rules. Use this skill when developing web frontend pages, deploying static hosting, and integrating CloudBase Web SDK.",
+      "repo": "baiyongping/cowork-platform",
+      "path": "web-development",
+      "branch": "main",
+      "category": "web-development",
+      "tags": [],
+      "stars": 0,
+      "install": "baiyongping/cowork-platform/web-development",
+      "source": "github.com/baiyongping/cowork-platform"
+    }
+  ]
+}

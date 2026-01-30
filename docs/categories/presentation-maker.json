@@ -1,0 +1,20 @@
+{
+  "category": "presentation-maker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.635634Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate PowerPoint presentations with slides, layouts, charts, and multimedia",
+      "repo": "eddiebe147/claude-settings",
+      "path": "presentation-maker",
+      "branch": "main",
+      "category": "presentation-maker",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/presentation-maker",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

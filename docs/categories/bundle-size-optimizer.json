@@ -1,0 +1,20 @@
+{
+  "category": "bundle-size-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.472685Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reduce bundle size with splitting and compression.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "bundle-size-optimizer",
+      "branch": "main",
+      "category": "bundle-size-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/bundle-size-optimizer",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

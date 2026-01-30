@@ -1,0 +1,20 @@
+{
+  "category": "typescript-conventions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.324739Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply TypeScript conventions when writing or refactoring TypeScript code to ensure type safety and consistency. Not for JavaScript or other languages.",
+      "repo": "Git-Fg/meta-plugin-manager",
+      "path": "typescript-conventions",
+      "branch": "main",
+      "category": "typescript-conventions",
+      "tags": [],
+      "stars": 0,
+      "install": "Git-Fg/meta-plugin-manager/typescript-conventions",
+      "source": "github.com/Git-Fg/meta-plugin-manager"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "mecw-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.110788Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Overview",
+      "repo": "athola/claude-night-market",
+      "path": "mecw-patterns",
+      "branch": "main",
+      "category": "mecw-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/mecw-patterns",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

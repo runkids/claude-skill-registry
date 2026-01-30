@@ -1,0 +1,20 @@
+{
+  "category": "somatic-variant-pipeline",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.044338Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "End-to-end somatic variant calling from tumor-normal paired samples using Mutect2 or Strelka2. Covers preprocessing, variant calling, filtering, and annotation for cancer genomics. Use when calling so",
+      "repo": "GPTomics/bioSkills",
+      "path": "somatic-variant-pipeline",
+      "branch": "main",
+      "category": "somatic-variant-pipeline",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/somatic-variant-pipeline",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

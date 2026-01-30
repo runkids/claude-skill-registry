@@ -1,0 +1,20 @@
+{
+  "category": "logger",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.051581Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Structured logging and reporting system for development work sessions. Trigger: Completing development tasks, generating session reports, documenting changes.",
+      "repo": "avvale/aurora-back",
+      "path": "logger",
+      "branch": "main",
+      "category": "logger",
+      "tags": [],
+      "stars": 0,
+      "install": "avvale/aurora-back/logger",
+      "source": "github.com/avvale/aurora-back"
+    }
+  ]
+}

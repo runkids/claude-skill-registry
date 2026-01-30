@@ -1,0 +1,20 @@
+{
+  "category": "email",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.566179Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Read and manage internal email messages between project roles",
+      "repo": "sensei-hacker/inav-claude",
+      "path": "email",
+      "branch": "main",
+      "category": "email",
+      "tags": [],
+      "stars": 0,
+      "install": "sensei-hacker/inav-claude/email",
+      "source": "github.com/sensei-hacker/inav-claude"
+    }
+  ]
+}

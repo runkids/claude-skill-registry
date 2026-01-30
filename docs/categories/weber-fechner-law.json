@@ -1,0 +1,20 @@
+{
+  "category": "weber-fechner-law",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.451115Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "La percepción de cambio es proporcional al estímulo original. Use cuando diseñe feedback de progreso, sistemas de pricing, o cambios visuales graduales.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "weber-fechner-law",
+      "branch": "main",
+      "category": "weber-fechner-law",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/weber-fechner-law",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

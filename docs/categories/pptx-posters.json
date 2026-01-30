@@ -1,0 +1,20 @@
+{
+  "category": "pptx-posters",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.620430Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create professional research posters in LaTeX using beamerposter, tikzposter, or baposter. Support for conference presentations, academic posters, and scientific communication. Includes layout design,",
+      "repo": "danieldekay/copilot-config-promptops",
+      "path": "pptx-posters",
+      "branch": "main",
+      "category": "pptx-posters",
+      "tags": [],
+      "stars": 0,
+      "install": "danieldekay/copilot-config-promptops/pptx-posters",
+      "source": "github.com/danieldekay/copilot-config-promptops"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "code-reviewing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.597866Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review code for quality, security, and maintainability. Use after code changes are completed and ready for review.",
+      "repo": "aspiers/ai-config",
+      "path": "code-reviewing",
+      "branch": "main",
+      "category": "code-reviewing",
+      "tags": [],
+      "stars": 0,
+      "install": "aspiers/ai-config/code-reviewing",
+      "source": "github.com/aspiers/ai-config"
+    }
+  ]
+}

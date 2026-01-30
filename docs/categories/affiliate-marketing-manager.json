@@ -1,0 +1,20 @@
+{
+  "category": "affiliate-marketing-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.220486Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up and manage affiliate marketing programs for growth and revenue",
+      "repo": "eddiebe147/claude-settings",
+      "path": "affiliate-marketing-manager",
+      "branch": "main",
+      "category": "affiliate-marketing-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/affiliate-marketing-manager",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

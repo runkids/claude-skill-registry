@@ -1,0 +1,20 @@
+{
+  "category": "optimize-plugin",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.300503Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"validate a plugin\", \"optimize plugin\", \"check plugin quality\", \"review plugin structure\", or mentions plugin optimization and validation tasks.",
+      "repo": "FradSer/dotclaude",
+      "path": "optimize-plugin",
+      "branch": "main",
+      "category": "optimize-plugin",
+      "tags": [],
+      "stars": 0,
+      "install": "FradSer/dotclaude/optimize-plugin",
+      "source": "github.com/FradSer/dotclaude"
+    }
+  ]
+}

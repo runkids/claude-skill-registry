@@ -1,0 +1,20 @@
+{
+  "category": "app-comprehensive-test-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.334695Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate exhaustive user-flow and edge-case test scenarios from an app's codebase, produce scenario .md files, execute tests using connected or newly created MCPs, and produce an app.qa.report.md summ",
+      "repo": "stravinest/house-hold-account",
+      "path": "app-comprehensive-test-generator",
+      "branch": "main",
+      "category": "app-comprehensive-test-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "stravinest/house-hold-account/app-comprehensive-test-generator",
+      "source": "github.com/stravinest/house-hold-account"
+    }
+  ]
+}

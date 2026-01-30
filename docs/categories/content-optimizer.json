@@ -1,0 +1,20 @@
+{
+  "category": "content-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.661377Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "On-page SEO optimization techniques including keyword density, meta tags, heading structure, and readability. Use when optimizing existing content or validating new content against SEO requirements.",
+      "repo": "nicepkg/ai-workflow",
+      "path": "content-optimizer",
+      "branch": "main",
+      "category": "content-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/content-optimizer",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

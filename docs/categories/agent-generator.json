@@ -1,0 +1,20 @@
+{
+  "category": "agent-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.231278Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ユーザーの責任範囲定義から、Agentのマークダウンファイルを生成する。エージェント作成時、プラグイン要素生成時、またはユーザーがエージェント定義、責任範囲、Agent生成、エージェントドキュメントに言及した際に使用する。",
+      "repo": "RevTechStudio/rts-plugins",
+      "path": "agent-generator",
+      "branch": "main",
+      "category": "agent-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "RevTechStudio/rts-plugins/agent-generator",
+      "source": "github.com/RevTechStudio/rts-plugins"
+    }
+  ]
+}

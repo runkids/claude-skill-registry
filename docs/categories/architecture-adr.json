@@ -1,0 +1,20 @@
+{
+  "category": "architecture-adr",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.345022Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When making significant architectural decisions that need to be documented. Used by ARCHITECT-AGENT.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "architecture-adr",
+      "branch": "main",
+      "category": "architecture-adr",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/architecture-adr",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

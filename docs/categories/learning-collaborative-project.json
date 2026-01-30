@@ -1,0 +1,20 @@
+{
+  "category": "learning-collaborative-project",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.986454Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design collaborative group projects with role assignments, scaffolding, team rubrics, and conflict resolution protocols. Use for team-based learning. Activates on \"group project\", \"team assignment\", \"",
+      "repo": "pauljbernard/content",
+      "path": "learning-collaborative-project",
+      "branch": "main",
+      "category": "learning-collaborative-project",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content/learning-collaborative-project",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

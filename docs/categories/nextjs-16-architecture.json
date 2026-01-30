@@ -1,0 +1,20 @@
+{
+  "category": "nextjs-16-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.240094Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Next.js v16 development with Cache Components, feature-based architecture, and best practices. Use for ANY Next.js 16 task to know - (1) Project structure with features folder pattern,",
+      "repo": "horuz-ai/claude-plugins",
+      "path": "nextjs-16-architecture",
+      "branch": "main",
+      "category": "nextjs-16-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "horuz-ai/claude-plugins/nextjs-16-architecture",
+      "source": "github.com/horuz-ai/claude-plugins"
+    }
+  ]
+}

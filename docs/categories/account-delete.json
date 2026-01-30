@@ -1,0 +1,20 @@
+{
+  "category": "account-delete",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.196662Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Полное удаление аккаунта и всех связанных данных из конфигурации.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "account-delete",
+      "branch": "main",
+      "category": "account-delete",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/account-delete",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

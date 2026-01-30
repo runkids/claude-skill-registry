@@ -1,0 +1,20 @@
+{
+  "category": "github-actions-starter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.766998Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Github Actions Starter - Auto-activating skill for DevOps Basics. Triggers on: github actions starter, github actions starter Part of the DevOps Basics skill category.",
+      "repo": "byteworthy/Upstream",
+      "path": "github-actions-starter",
+      "branch": "main",
+      "category": "github-actions-starter",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/github-actions-starter",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

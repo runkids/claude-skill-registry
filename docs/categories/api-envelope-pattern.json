@@ -1,0 +1,20 @@
+{
+  "category": "api-envelope-pattern",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.322890Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standard API envelope pattern for all responses (success/list/error). Wraps data in consistent structure with sys metadata, automatic payload compaction (30-40% reduction), timestamp injection. Trigge",
+      "repo": "planetaryescape/blah.chat",
+      "path": "api-envelope-pattern",
+      "branch": "main",
+      "category": "api-envelope-pattern",
+      "tags": [],
+      "stars": 0,
+      "install": "planetaryescape/blah.chat/api-envelope-pattern",
+      "source": "github.com/planetaryescape/blah.chat"
+    }
+  ]
+}

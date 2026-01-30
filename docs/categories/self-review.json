@@ -1,0 +1,20 @@
+{
+  "category": "self-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.957124Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "タスク完了前のセルフレビュー。Gemini CLI + Claude subagentで多角的に検証。",
+      "repo": "K9i-0/flutter_claude_sandbox",
+      "path": "self-review",
+      "branch": "main",
+      "category": "self-review",
+      "tags": [],
+      "stars": 0,
+      "install": "K9i-0/flutter_claude_sandbox/self-review",
+      "source": "github.com/K9i-0/flutter_claude_sandbox"
+    }
+  ]
+}

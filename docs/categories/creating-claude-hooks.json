@@ -1,0 +1,20 @@
+{
+  "category": "creating-claude-hooks",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.709690Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating or publishing Claude Code hooks - covers executable format, event types, JSON I/O, exit codes, security requirements, and PRPM package structure",
+      "repo": "pr-pm/prpm",
+      "path": "creating-claude-hooks",
+      "branch": "main",
+      "category": "creating-claude-hooks",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm/creating-claude-hooks",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

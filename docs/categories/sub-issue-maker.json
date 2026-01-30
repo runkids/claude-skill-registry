@@ -1,0 +1,20 @@
+{
+  "category": "sub-issue-maker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.110807Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provide the task granularity for cutting subissues.",
+      "repo": "uuta/dotfiles",
+      "path": "sub-issue-maker",
+      "branch": "main",
+      "category": "sub-issue-maker",
+      "tags": [],
+      "stars": 0,
+      "install": "uuta/dotfiles/sub-issue-maker",
+      "source": "github.com/uuta/dotfiles"
+    }
+  ]
+}

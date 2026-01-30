@@ -1,0 +1,20 @@
+{
+  "category": "md_files",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.109224Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "name: echo",
+      "repo": "fetchai/agents-aea",
+      "path": "md_files",
+      "branch": "main",
+      "category": "md_files",
+      "tags": [],
+      "stars": 0,
+      "install": "fetchai/agents-aea/md_files",
+      "source": "github.com/fetchai/agents-aea"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "atlassian-mcp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.363855Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when querying Jira issues, searching Confluence pages, creating tickets, updating documentation, or integrating Atlassian tools via MCP protocol.",
+      "repo": "Jeffallan/claude-skills",
+      "path": "atlassian-mcp",
+      "branch": "main",
+      "category": "atlassian-mcp",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills/atlassian-mcp",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

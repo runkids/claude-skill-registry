@@ -1,0 +1,20 @@
+{
+  "category": "architecture-validation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.351044Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Dynamically validate codebase compliance with architectural decisions and constraints",
+      "repo": "d-o-hub/rust-self-learning-memory",
+      "path": "architecture-validation",
+      "branch": "main",
+      "category": "architecture-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "d-o-hub/rust-self-learning-memory/architecture-validation",
+      "source": "github.com/d-o-hub/rust-self-learning-memory"
+    }
+  ]
+}

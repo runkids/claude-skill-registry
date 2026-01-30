@@ -1,0 +1,20 @@
+{
+  "category": "scientific-clinicaltrials-database",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.896500Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query ClinicalTrials.gov via API v2. Search trials by condition, drug, location, status, or phase. Retrieve trial details by NCT ID, export data, for clinical research and patient matching.",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-clinicaltrials-database",
+      "branch": "main",
+      "category": "scientific-clinicaltrials-database",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/scientific-clinicaltrials-database",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

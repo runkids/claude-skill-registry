@@ -1,0 +1,20 @@
+{
+  "category": "diagrams-architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.450942Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Mermaid diagrams following C4 Model and SpecWeave conventions - system architecture, sequence, ER, deployment diagrams. Use for architecture visualization.",
+      "repo": "anton-abyzov/specweave",
+      "path": "diagrams-architect",
+      "branch": "main",
+      "category": "diagrams-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/diagrams-architect",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

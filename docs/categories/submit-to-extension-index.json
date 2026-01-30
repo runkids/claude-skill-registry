@@ -1,0 +1,20 @@
+{
+  "category": "submit-to-extension-index",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.113282Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete workflow for submitting an extension to the 3D Slicer Extension Index",
+      "repo": "benzwick/SlicerMouseMaster",
+      "path": "submit-to-extension-index",
+      "branch": "main",
+      "category": "submit-to-extension-index",
+      "tags": [],
+      "stars": 0,
+      "install": "benzwick/SlicerMouseMaster/submit-to-extension-index",
+      "source": "github.com/benzwick/SlicerMouseMaster"
+    }
+  ]
+}

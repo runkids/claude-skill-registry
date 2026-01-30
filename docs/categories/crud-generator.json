@@ -1,0 +1,20 @@
+{
+  "category": "crud-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.724261Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate models, endpoints, UI forms, and validation.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "crud-generator",
+      "branch": "main",
+      "category": "crud-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/crud-generator",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

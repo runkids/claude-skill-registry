@@ -1,0 +1,20 @@
+{
+  "category": "test-coverage-improver",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.199763Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Improve test coverage in the OpenAI Agents Python repository: run `make coverage`, inspect coverage artifacts, identify low-coverage files, propose high-impact tests, and confirm with the user before",
+      "repo": "zaziedlm/openai-agents-python",
+      "path": "test-coverage-improver",
+      "branch": "main",
+      "category": "test-coverage-improver",
+      "tags": [],
+      "stars": 0,
+      "install": "zaziedlm/openai-agents-python/test-coverage-improver",
+      "source": "github.com/zaziedlm/openai-agents-python"
+    }
+  ]
+}

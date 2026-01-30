@@ -1,0 +1,20 @@
+{
+  "category": "semantic-theming",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.957686Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforce semantic CSS variable theming in Tailwind projects. Prevents raw colors (hex, rgb) and non-theme Tailwind classes. Use when project has semantic tokens, CSS vars, or custom ESLint theming rule",
+      "repo": "BerryKuipers/claude-code-toolkit",
+      "path": "semantic-theming",
+      "branch": "main",
+      "category": "semantic-theming",
+      "tags": [],
+      "stars": 0,
+      "install": "BerryKuipers/claude-code-toolkit/semantic-theming",
+      "source": "github.com/BerryKuipers/claude-code-toolkit"
+    }
+  ]
+}

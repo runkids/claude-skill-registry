@@ -1,0 +1,20 @@
+{
+  "category": "validation-quarantine",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.395129Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Data validation with quality scoring and quarantine for suspicious records. Validates incoming data without blocking the pipeline, enabling manual review of edge cases.",
+      "repo": "dadbodgeoff/drift",
+      "path": "validation-quarantine",
+      "branch": "main",
+      "category": "validation-quarantine",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/validation-quarantine",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

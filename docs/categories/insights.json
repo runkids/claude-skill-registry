@@ -1,0 +1,20 @@
+{
+  "category": "insights",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.882263Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Business intelligence expert - creates actionable insights, visualizations, and executive reports from GabeDA model outputs. Identifies data gaps and recommends new features.",
+      "repo": "Brownbull/khujta_ai_business",
+      "path": "insights",
+      "branch": "main",
+      "category": "insights",
+      "tags": [],
+      "stars": 0,
+      "install": "Brownbull/khujta_ai_business/insights",
+      "source": "github.com/Brownbull/khujta_ai_business"
+    }
+  ]
+}

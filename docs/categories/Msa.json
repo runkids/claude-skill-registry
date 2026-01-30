@@ -1,0 +1,20 @@
+{
+  "category": "Msa",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.173576Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conduct Gage R&R studies and validate measurement systems per AIAG MSA manual. Covers variable and attribute studies, acceptance criteria, and calculation methods. USE WHEN user says 'MSA', 'gage R&R'",
+      "repo": "robdtaylor/personal-ai-infrastructure",
+      "path": "Msa",
+      "branch": "main",
+      "category": "Msa",
+      "tags": [],
+      "stars": 0,
+      "install": "robdtaylor/personal-ai-infrastructure/Msa",
+      "source": "github.com/robdtaylor/personal-ai-infrastructure"
+    }
+  ]
+}

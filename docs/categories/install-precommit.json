@@ -1,0 +1,20 @@
+{
+  "category": "install-precommit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.883348Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Install the pre-commit review hook that forces you to understand changes before committing. Use when you want to enable commit reviews or when setting up a new project.",
+      "repo": "zbruhnke/claude-code-starter",
+      "path": "install-precommit",
+      "branch": "main",
+      "category": "install-precommit",
+      "tags": [],
+      "stars": 0,
+      "install": "zbruhnke/claude-code-starter/install-precommit",
+      "source": "github.com/zbruhnke/claude-code-starter"
+    }
+  ]
+}

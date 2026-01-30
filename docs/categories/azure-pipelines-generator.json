@@ -1,0 +1,20 @@
+{
+  "category": "azure-pipelines-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.397309Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate Azure Pipelines YAML for CI/CD with multi-stage builds and deployments. Use when creating Azure DevOps pipelines or automating builds.",
+      "repo": "ntaksh42/agents",
+      "path": "azure-pipelines-generator",
+      "branch": "main",
+      "category": "azure-pipelines-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents/azure-pipelines-generator",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

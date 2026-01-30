@@ -1,0 +1,20 @@
+{
+  "category": "suno-prompt-architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.116941Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert Suno AI prompt engineering for professional music creation. Use this skill when creating Suno prompts for any AI-generated music that needs commercial quality.",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "suno-prompt-architect",
+      "branch": "main",
+      "category": "suno-prompt-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os/suno-prompt-architect",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

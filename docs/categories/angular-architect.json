@@ -1,0 +1,20 @@
+{
+  "category": "angular-architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.298447Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building Angular 17+ applications with standalone components or signals. Invoke for enterprise apps, RxJS patterns, NgRx state management, performance optimization, advanced routing.",
+      "repo": "Jeffallan/claude-skills",
+      "path": "angular-architect",
+      "branch": "main",
+      "category": "angular-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills/angular-architect",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

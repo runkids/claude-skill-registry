@@ -1,0 +1,20 @@
+{
+  "category": "rspress-frontmatter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.857830Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure RSPress frontmatter for documentation pages. Use when setting up page metadata, controlling layout options, or configuring home page hero/features sections.",
+      "repo": "spencerbeggs/claude-design-coordinator",
+      "path": "rspress-frontmatter",
+      "branch": "main",
+      "category": "rspress-frontmatter",
+      "tags": [],
+      "stars": 0,
+      "install": "spencerbeggs/claude-design-coordinator/rspress-frontmatter",
+      "source": "github.com/spencerbeggs/claude-design-coordinator"
+    }
+  ]
+}

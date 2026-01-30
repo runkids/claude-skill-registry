@@ -1,0 +1,20 @@
+{
+  "category": "frankx-daily-execution",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.693568Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Helps execute Frank's daily workflow using the FRANKX-SUPERINTELLIGENT-AGENT-SYSTEM, Starlight Intelligence, and productivity methodologies for conscious creation",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "frankx-daily-execution",
+      "branch": "main",
+      "category": "frankx-daily-execution",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os/frankx-daily-execution",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

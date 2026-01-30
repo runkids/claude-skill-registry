@@ -1,0 +1,20 @@
+{
+  "category": "similarity-memory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.002142Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with memory IC similarity calculations - comparing EEPROM/Flash MPNs, understanding I2C/SPI interface matching, equivalent groups across manufacturers, or memory-specific similarity l",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "similarity-memory",
+      "branch": "main",
+      "category": "similarity-memory",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/similarity-memory",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

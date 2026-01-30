@@ -1,0 +1,20 @@
+{
+  "category": "vscode-test-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.433004Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill provides comprehensive guidance for setting up and configuring test environments for VS Code extension projects. Use when initializing a new test infrastructure, configuring test runners (M",
+      "repo": "s-hiraoku/vscode-sidebar-terminal",
+      "path": "vscode-test-setup",
+      "branch": "main",
+      "category": "vscode-test-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "s-hiraoku/vscode-sidebar-terminal/vscode-test-setup",
+      "source": "github.com/s-hiraoku/vscode-sidebar-terminal"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "declutter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.059637Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Identify misplaced files and organize project structure following open-source best practices, while delegating refactoring to specialized skills",
+      "repo": "wildcard/caro",
+      "path": "declutter",
+      "branch": "main",
+      "category": "declutter",
+      "tags": [],
+      "stars": 0,
+      "install": "wildcard/caro/declutter",
+      "source": "github.com/wildcard/caro"
+    }
+  ]
+}

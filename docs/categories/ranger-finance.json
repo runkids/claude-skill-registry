@@ -1,0 +1,20 @@
+{
+  "category": "ranger-finance",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.765152Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ranger Finance SDK for building perpetual futures trading applications on Solana. The first Solana Perps Aggregator - aggregates liquidity across multiple perp protocols (Drift, Flash, Adrena, Jupiter",
+      "repo": "sendaifun/skills",
+      "path": "ranger-finance",
+      "branch": "main",
+      "category": "ranger-finance",
+      "tags": [],
+      "stars": 0,
+      "install": "sendaifun/skills/ranger-finance",
+      "source": "github.com/sendaifun/skills"
+    }
+  ]
+}

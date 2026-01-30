@@ -1,0 +1,20 @@
+{
+  "category": "prowler-commit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.712598Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates professional git commits following conventional-commits format. Trigger: When creating commits, after completing code changes, when user asks to commit.",
+      "repo": "prowler-cloud/prowler",
+      "path": "prowler-commit",
+      "branch": "main",
+      "category": "prowler-commit",
+      "tags": [],
+      "stars": 0,
+      "install": "prowler-cloud/prowler/prowler-commit",
+      "source": "github.com/prowler-cloud/prowler"
+    }
+  ]
+}

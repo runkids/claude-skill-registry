@@ -1,0 +1,20 @@
+{
+  "category": "ta-assets-pipeline-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.143415Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "3D asset optimization and pipeline management for Vite 6. Use when optimizing models, compressing textures, reducing asset size.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "ta-assets-pipeline-optimization",
+      "branch": "main",
+      "category": "ta-assets-pipeline-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/ta-assets-pipeline-optimization",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

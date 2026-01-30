@@ -1,0 +1,20 @@
+{
+  "category": "llamaindex",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.032317Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Data framework for building LLM applications with RAG. Specializes in document ingestion (300+ connectors), indexing, and querying. Features vector indices, query engines, agents, and multi-modal supp",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "llamaindex",
+      "branch": "main",
+      "category": "llamaindex",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/llamaindex",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

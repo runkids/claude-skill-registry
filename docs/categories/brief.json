@@ -1,0 +1,20 @@
+{
+  "category": "brief",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.445939Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create or update project brief through interactive discovery. Use when starting any new idea, revisiting an idea after time away, or when vision feels unclear.",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "brief",
+      "branch": "main",
+      "category": "brief",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager/brief",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

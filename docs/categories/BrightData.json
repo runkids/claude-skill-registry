@@ -1,0 +1,20 @@
+{
+  "category": "BrightData",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.164165Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Progressive four-tier URL content scraping with automatic fallback strategy.  USE WHEN user says \"scrape this URL\", \"fetch this page\", \"get content from\", \"can't access this site\", \"use Bright Data\",",
+      "repo": "blackpwnguin/Personal-AI",
+      "path": "BrightData",
+      "branch": "main",
+      "category": "BrightData",
+      "tags": [],
+      "stars": 0,
+      "install": "blackpwnguin/Personal-AI/BrightData",
+      "source": "github.com/blackpwnguin/Personal-AI"
+    }
+  ]
+}

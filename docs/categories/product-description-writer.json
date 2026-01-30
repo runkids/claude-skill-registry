@@ -1,0 +1,20 @@
+{
+  "category": "product-description-writer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.659385Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates compelling product copy for e-commerce listings. Use when the user asks about product descriptions, e-commerce copy, product pages, marketplace listings, or converting features to benefits.",
+      "repo": "WesleySmits/agent-skills",
+      "path": "product-description-writer",
+      "branch": "main",
+      "category": "product-description-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills/product-description-writer",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

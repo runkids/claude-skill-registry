@@ -1,0 +1,20 @@
+{
+  "category": "csctf",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.725519Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Chat Shared Conversation To File - convert ChatGPT, Gemini, Grok, and Claude share links to clean Markdown + HTML transcripts with preserved code fences.",
+      "repo": "carmandale/agent-config",
+      "path": "csctf",
+      "branch": "main",
+      "category": "csctf",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config/csctf",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

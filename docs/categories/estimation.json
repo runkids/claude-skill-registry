@@ -1,0 +1,20 @@
+{
+  "category": "estimation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.597065Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Estimation techniques including analogous, parametric, three-point, and expert judgment methods. Provides effort, cost, duration, and complexity estimates for projects, features, and tasks.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "estimation",
+      "branch": "main",
+      "category": "estimation",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent/estimation",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

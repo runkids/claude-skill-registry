@@ -1,0 +1,20 @@
+{
+  "category": "deepwork_rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.064787Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates file-change rules that enforce guidelines during AI sessions. Use when automating documentation sync or code review triggers.",
+      "repo": "ncrmro/deepwork-permanent-portfolio",
+      "path": "deepwork_rules",
+      "branch": "main",
+      "category": "deepwork_rules",
+      "tags": [],
+      "stars": 0,
+      "install": "ncrmro/deepwork-permanent-portfolio/deepwork_rules",
+      "source": "github.com/ncrmro/deepwork-permanent-portfolio"
+    }
+  ]
+}

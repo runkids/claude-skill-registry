@@ -1,0 +1,20 @@
+{
+  "category": "don-leidraad",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.523864Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "NeRDS software development guidelines for Dutch government projects. Use when making architectural decisions, setting up CI/CD, implementing security practices, handling privacy requirements, or ensur",
+      "repo": "dstotijn/developer-overheid-nl-agent-skills",
+      "path": "don-leidraad",
+      "branch": "main",
+      "category": "don-leidraad",
+      "tags": [],
+      "stars": 0,
+      "install": "dstotijn/developer-overheid-nl-agent-skills/don-leidraad",
+      "source": "github.com/dstotijn/developer-overheid-nl-agent-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "dynamic-lot-sizing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.544408Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to solve lot-sizing problems with time-varying costs or demand, handle non-stationary inventory systems, or optimize replenishment with changing parameters over time. Also use when",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "dynamic-lot-sizing",
+      "branch": "main",
+      "category": "dynamic-lot-sizing",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/dynamic-lot-sizing",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

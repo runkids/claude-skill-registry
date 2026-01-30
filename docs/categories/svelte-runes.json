@@ -1,0 +1,20 @@
+{
+  "category": "svelte-runes",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.125893Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Svelte runes guidance. Use for reactive state, props, effects, attachments, or migration. Covers $state, $derived, $effect, @attach. Prevents reactivity mistakes.",
+      "repo": "dandedotdev/dotfiles",
+      "path": "svelte-runes",
+      "branch": "main",
+      "category": "svelte-runes",
+      "tags": [],
+      "stars": 0,
+      "install": "dandedotdev/dotfiles/svelte-runes",
+      "source": "github.com/dandedotdev/dotfiles"
+    }
+  ]
+}

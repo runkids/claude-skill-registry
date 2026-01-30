@@ -1,0 +1,20 @@
+{
+  "category": "plan-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.582598Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Strategic planning specialist for task breakdown, dependency management, timeline estimation, and resource allocation. Manual invocation only - expert at decomposing complex projects into manageable t",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "plan-skill",
+      "branch": "main",
+      "category": "plan-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/plan-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

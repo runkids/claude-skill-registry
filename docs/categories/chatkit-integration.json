@@ -1,0 +1,20 @@
+{
+  "category": "chatkit-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.514755Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Foundation skill for integrating OpenAI ChatKit framework with custom backends. This skill should be used for initial ChatKit setup including server implementation, React component integration, authen",
+      "repo": "mjunaidca/mjs-agent-skills",
+      "path": "chatkit-integration",
+      "branch": "main",
+      "category": "chatkit-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "mjunaidca/mjs-agent-skills/chatkit-integration",
+      "source": "github.com/mjunaidca/mjs-agent-skills"
+    }
+  ]
+}

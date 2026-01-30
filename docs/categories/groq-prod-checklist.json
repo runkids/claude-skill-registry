@@ -1,0 +1,20 @@
+{
+  "category": "groq-prod-checklist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.807144Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute Groq production deployment checklist and rollback procedures. Use when deploying Groq integrations to production, preparing for launch, or implementing go-live procedures. Trigger with phrases",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "groq-prod-checklist",
+      "branch": "main",
+      "category": "groq-prod-checklist",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/groq-prod-checklist",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

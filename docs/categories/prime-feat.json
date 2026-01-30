@@ -1,0 +1,20 @@
+{
+  "category": "prime-feat",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.638954Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"load feature context\", \"resume feature work\", \"prime feature N\", \"continue feature N\", or wants to load all planning artifacts for a specific feature n",
+      "repo": "ianphil/prism",
+      "path": "prime-feat",
+      "branch": "main",
+      "category": "prime-feat",
+      "tags": [],
+      "stars": 0,
+      "install": "ianphil/prism/prime-feat",
+      "source": "github.com/ianphil/prism"
+    }
+  ]
+}

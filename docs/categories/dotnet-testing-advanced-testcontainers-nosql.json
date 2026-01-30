@@ -1,0 +1,20 @@
+{
+  "category": "dotnet-testing-advanced-testcontainers-nosql",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.529305Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Testcontainers NoSQL 整合測試完整指南。 涵蓋 MongoDB 文件操作、Redis 五種資料結構、Collection Fixture 模式。 包含 BSON 序列化、索引效能測試、資料隔離策略與容器生命週期管理。",
+      "repo": "kevintsengtw/dotnet-testing-agent-skills",
+      "path": "dotnet-testing-advanced-testcontainers-nosql",
+      "branch": "main",
+      "category": "dotnet-testing-advanced-testcontainers-nosql",
+      "tags": [],
+      "stars": 0,
+      "install": "kevintsengtw/dotnet-testing-agent-skills/dotnet-testing-advanced-testcontainers-nosql",
+      "source": "github.com/kevintsengtw/dotnet-testing-agent-skills"
+    }
+  ]
+}

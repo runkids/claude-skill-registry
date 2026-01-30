@@ -1,0 +1,20 @@
+{
+  "category": "rubycon",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.859870Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Rubycon Corporation MPN encoding patterns, suffix decoding, and handler guidance. Use when working with Rubycon aluminum electrolytic capacitors.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "rubycon",
+      "branch": "main",
+      "category": "rubycon",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/rubycon",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

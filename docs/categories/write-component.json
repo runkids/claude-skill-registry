@@ -1,0 +1,20 @@
+{
+  "category": "write-component",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.490566Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write React components following the Epic architecture patterns. Use when creating page components, UI components, or refactoring components to follow the three-layer architecture. Triggers on \"create",
+      "repo": "coeus-ventures/epic-web",
+      "path": "write-component",
+      "branch": "main",
+      "category": "write-component",
+      "tags": [],
+      "stars": 0,
+      "install": "coeus-ventures/epic-web/write-component",
+      "source": "github.com/coeus-ventures/epic-web"
+    }
+  ]
+}

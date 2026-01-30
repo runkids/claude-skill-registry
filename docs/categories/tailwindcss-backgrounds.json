@@ -1,0 +1,20 @@
+{
+  "category": "tailwindcss-backgrounds",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.152766Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Background utilities Tailwind CSS v4.1. Colors (bg-{color}, palette OKLCH P3), Gradients (bg-linear-*, bg-radial-*, bg-conic-* NEW), Images (bg-cover, bg-contain, bg-repeat), Blend modes.",
+      "repo": "fusengine/agents",
+      "path": "tailwindcss-backgrounds",
+      "branch": "main",
+      "category": "tailwindcss-backgrounds",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/tailwindcss-backgrounds",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

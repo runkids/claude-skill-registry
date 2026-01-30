@@ -1,0 +1,20 @@
+{
+  "category": "vector-field",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.399095Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Assignment of vectors to points in phase space defining dynamics",
+      "repo": "plurigrid/asi",
+      "path": "vector-field",
+      "branch": "main",
+      "category": "vector-field",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/vector-field",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

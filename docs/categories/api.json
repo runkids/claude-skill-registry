@@ -1,8 +1,8 @@
 {
   "category": "api",
   "code": "oth",
-  "count": 1,
-  "updated_at": "2026-01-29T04:50:38.279632Z",
+  "count": 2,
+  "updated_at": "2026-01-30T04:55:05.316413Z",
   "skills": [
     {
       "name": "sse-resilience-dadbodgeoff-drift",
@@ -15,6 +15,18 @@
       "stars": 169,
       "install": "dadbodgeoff/drift/api/sse-resilience-dadbodgeoff-drift",
       "source": "github.com/dadbodgeoff/drift"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "RESTful API design patterns and best practices. Use when creating endpoints, designing APIs, or implementing routes.",
+      "repo": "xiaobei930/claude-code-best-practices",
+      "path": "api",
+      "branch": "main",
+      "category": "api",
+      "tags": [],
+      "stars": 0,
+      "install": "xiaobei930/claude-code-best-practices/api",
+      "source": "github.com/xiaobei930/claude-code-best-practices"
     }
   ]
 }

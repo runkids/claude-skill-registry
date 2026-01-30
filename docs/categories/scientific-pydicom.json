@@ -1,0 +1,20 @@
+{
+  "category": "scientific-pydicom",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.911647Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Python library for working with DICOM (Digital Imaging and Communications in Medicine) files. Use this skill when reading, writing, or modifying medical imaging data in DICOM format, extracting pixel",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-pydicom",
+      "branch": "main",
+      "category": "scientific-pydicom",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/scientific-pydicom",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

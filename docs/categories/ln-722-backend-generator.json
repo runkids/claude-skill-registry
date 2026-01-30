@@ -1,0 +1,20 @@
+{
+  "category": "ln-722-backend-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.041766Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates .NET Clean Architecture backend structure from entity definitions",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "ln-722-backend-generator",
+      "branch": "main",
+      "category": "ln-722-backend-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "levnikolaevich/claude-code-skills/ln-722-backend-generator",
+      "source": "github.com/levnikolaevich/claude-code-skills"
+    }
+  ]
+}

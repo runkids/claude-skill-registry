@@ -1,0 +1,20 @@
+{
+  "category": "security-check",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.947943Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "セキュリティスキャン実行。gitleaks、pre-commitフック、秘密情報検出。トリガー: security, gitleaks, pre-commit, secrets, scan",
+      "repo": "snkrheadz/laptop",
+      "path": "security-check",
+      "branch": "main",
+      "category": "security-check",
+      "tags": [],
+      "stars": 0,
+      "install": "snkrheadz/laptop/security-check",
+      "source": "github.com/snkrheadz/laptop"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ai",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.269713Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cheat sheet for AI tools including GEMINI and CODEX configurations.",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "ai",
+      "branch": "main",
+      "category": "ai",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet/ai",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

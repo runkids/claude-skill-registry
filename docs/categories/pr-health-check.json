@@ -1,0 +1,20 @@
+{
+  "category": "pr-health-check",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.623257Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when checking if PR is ready to merge. Validates merge-readiness and PR status patterns.",
+      "repo": "JacobPEvans/ai-assistant-instructions",
+      "path": "pr-health-check",
+      "branch": "main",
+      "category": "pr-health-check",
+      "tags": [],
+      "stars": 0,
+      "install": "JacobPEvans/ai-assistant-instructions/pr-health-check",
+      "source": "github.com/JacobPEvans/ai-assistant-instructions"
+    }
+  ]
+}

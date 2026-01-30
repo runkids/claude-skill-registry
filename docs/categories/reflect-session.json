@@ -1,0 +1,20 @@
+{
+  "category": "reflect-session",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.800980Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide an end-of-session reflection to capture learnings and feelings. Use when finishing a work session, after completing a challenging task, when wanting to consolidate what was learned, or to build",
+      "repo": "madebynoam/dcode",
+      "path": "reflect-session",
+      "branch": "main",
+      "category": "reflect-session",
+      "tags": [],
+      "stars": 0,
+      "install": "madebynoam/dcode/reflect-session",
+      "source": "github.com/madebynoam/dcode"
+    }
+  ]
+}

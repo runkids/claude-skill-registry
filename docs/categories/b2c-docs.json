@@ -1,0 +1,20 @@
+{
+  "category": "b2c-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.400662Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Search and read B2C Commerce Script API documentation and XSD schemas. Use when writing B2C scripts, looking up classes for the SFCC/Demandware/B2C Commerce script API, answering \"how do I\" questions",
+      "repo": "SalesforceCommerceCloud/b2c-developer-tooling",
+      "path": "b2c-docs",
+      "branch": "main",
+      "category": "b2c-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "SalesforceCommerceCloud/b2c-developer-tooling/b2c-docs",
+      "source": "github.com/SalesforceCommerceCloud/b2c-developer-tooling"
+    }
+  ]
+}

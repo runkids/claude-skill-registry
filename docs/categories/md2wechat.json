@@ -1,0 +1,20 @@
+{
+  "category": "md2wechat",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.108906Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Converts Markdown articles to WeChat Official Account formatted HTML with inline CSS and optionally uploads to draft box. Supports two modes:",
+      "repo": "geekjourneyx/md2wechat-skill",
+      "path": "md2wechat",
+      "branch": "main",
+      "category": "md2wechat",
+      "tags": [],
+      "stars": 0,
+      "install": "geekjourneyx/md2wechat-skill/md2wechat",
+      "source": "github.com/geekjourneyx/md2wechat-skill"
+    }
+  ]
+}

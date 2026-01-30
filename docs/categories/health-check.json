@@ -1,0 +1,20 @@
+{
+  "category": "health-check",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.826010Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "dotfiles全体の健全性チェック。シンボリックリンク、設定ファイル、依存関係の状態確認。トリガー: 健全性, 診断, check, health, dotfiles状態",
+      "repo": "snkrheadz/laptop",
+      "path": "health-check",
+      "branch": "main",
+      "category": "health-check",
+      "tags": [],
+      "stars": 0,
+      "install": "snkrheadz/laptop/health-check",
+      "source": "github.com/snkrheadz/laptop"
+    }
+  ]
+}

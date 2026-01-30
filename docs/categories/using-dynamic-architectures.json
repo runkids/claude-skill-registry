@@ -1,0 +1,20 @@
+{
+  "category": "using-dynamic-architectures",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.369663Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building networks that grow, prune, or adapt topology during training. Routes to continual learning, gradient isolation, modular composition, and lifecycle orchestration skills.",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-dynamic-architectures",
+      "branch": "main",
+      "category": "using-dynamic-architectures",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks/using-dynamic-architectures",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

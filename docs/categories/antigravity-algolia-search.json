@@ -1,0 +1,20 @@
+{
+  "category": "antigravity-algolia-search",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.305491Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert patterns for Algolia search implementation, indexing strategies, React InstantSearch, and relevance tuning Use when: adding search to, algolia, instantsearch, search api, search functionality.",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-algolia-search",
+      "branch": "main",
+      "category": "antigravity-algolia-search",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/antigravity-algolia-search",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

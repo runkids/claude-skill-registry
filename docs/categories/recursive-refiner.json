@@ -1,0 +1,20 @@
+{
+  "category": "recursive-refiner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.791542Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Self-improvement engine. Implements generate-critique-iterate loops for enhanced reasoning. Use when working through complex problems, synthesizing across domains, or when initial output needs refinem",
+      "repo": "agentgptsmith/MonadFramework",
+      "path": "recursive-refiner",
+      "branch": "main",
+      "category": "recursive-refiner",
+      "tags": [],
+      "stars": 0,
+      "install": "agentgptsmith/MonadFramework/recursive-refiner",
+      "source": "github.com/agentgptsmith/MonadFramework"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "text-translator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.277915Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "使用免费翻译API在语言之间翻译文本，支持批量处理和文件翻译。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "text-translator",
+      "branch": "main",
+      "category": "text-translator",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode/text-translator",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

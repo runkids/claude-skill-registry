@@ -1,0 +1,20 @@
+{
+  "category": "case-study-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.493731Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Writes compelling customer success stories with measurable results. Use when the user asks about case studies, success stories, customer stories, client wins, testimonials, or proof of results.",
+      "repo": "WesleySmits/agent-skills",
+      "path": "case-study-creator",
+      "branch": "main",
+      "category": "case-study-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills/case-study-creator",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "vibe-prd",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.412970Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a Product Requirements Document (PRD) for your MVP. Use when the user wants to define product requirements, create a PRD, or says \"help me write requirements\", \"create PRD\", or \"define my produ",
+      "repo": "KhazP/vibe-coding-prompt-template",
+      "path": "vibe-prd",
+      "branch": "main",
+      "category": "vibe-prd",
+      "tags": [],
+      "stars": 0,
+      "install": "KhazP/vibe-coding-prompt-template/vibe-prd",
+      "source": "github.com/KhazP/vibe-coding-prompt-template"
+    }
+  ]
+}

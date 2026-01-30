@@ -1,0 +1,20 @@
+{
+  "category": "writing-orchestration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.497939Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when orchestrating complex writing workflows with multiple phases. It provides two-agent orchestration patterns, the two-gate content readiness assessment, 10 baseline writin",
+      "repo": "robertguss/claude-code-toolkit",
+      "path": "writing-orchestration",
+      "branch": "main",
+      "category": "writing-orchestration",
+      "tags": [],
+      "stars": 0,
+      "install": "robertguss/claude-code-toolkit/writing-orchestration",
+      "source": "github.com/robertguss/claude-code-toolkit"
+    }
+  ]
+}

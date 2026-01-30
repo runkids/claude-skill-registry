@@ -1,0 +1,20 @@
+{
+  "category": "customer-insights",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.737558Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when consolidating product usage, health, and sentiment signals for lifecycle programs.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "customer-insights",
+      "branch": "main",
+      "category": "customer-insights",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/customer-insights",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

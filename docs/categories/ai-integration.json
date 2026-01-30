@@ -1,0 +1,20 @@
+{
+  "category": "ai-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.278476Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Chat endpoints, embeddings, RAG workflows, vector search",
+      "repo": "sylin-org/koan-framework",
+      "path": "ai-integration",
+      "branch": "main",
+      "category": "ai-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "sylin-org/koan-framework/ai-integration",
+      "source": "github.com/sylin-org/koan-framework"
+    }
+  ]
+}

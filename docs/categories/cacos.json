@@ -1,0 +1,20 @@
+{
+  "category": "cacos",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.479820Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Claude Agentic Creator OS - Native Claude Code implementation",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "cacos",
+      "branch": "main",
+      "category": "cacos",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os/cacos",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

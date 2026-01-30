@@ -1,0 +1,20 @@
+{
+  "category": "keycloak-theming",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.947726Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-tenant Keycloak authentication theming with realm-specific design systems",
+      "repo": "Lobbi-Docs/claude",
+      "path": "keycloak-theming",
+      "branch": "main",
+      "category": "keycloak-theming",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/keycloak-theming",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

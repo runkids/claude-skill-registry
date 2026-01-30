@@ -1,0 +1,20 @@
+{
+  "category": "codex-tools",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.609004Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute and manage Codex CLI tools including file operations, shell commands, web search, and automation patterns. Use for automated workflows, tool orchestration, and full automation with permission",
+      "repo": "adaptationio/Skrillz",
+      "path": "codex-tools",
+      "branch": "main",
+      "category": "codex-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/codex-tools",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

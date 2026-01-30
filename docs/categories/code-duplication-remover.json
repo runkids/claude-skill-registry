@@ -1,0 +1,20 @@
+{
+  "category": "code-duplication-remover",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.588898Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect clones and extract abstractions.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "code-duplication-remover",
+      "branch": "main",
+      "category": "code-duplication-remover",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/code-duplication-remover",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

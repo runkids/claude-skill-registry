@@ -1,0 +1,20 @@
+{
+  "category": "jira-sync",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.924060Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Sync local changes with Jira issue. Use when the user wants to \"sync to jira\", \"update jira\", \"push progress\", or \"sync status\".",
+      "repo": "Lobbi-Docs/claude",
+      "path": "jira-sync",
+      "branch": "main",
+      "category": "jira-sync",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/jira-sync",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

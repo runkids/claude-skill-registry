@@ -1,0 +1,20 @@
+{
+  "category": "dotnet-api-auth",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.526151Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Authentication and authorization patterns for ASP.NET Core Web APIs",
+      "repo": "medride/claude-code-research",
+      "path": "dotnet-api-auth",
+      "branch": "main",
+      "category": "dotnet-api-auth",
+      "tags": [],
+      "stars": 0,
+      "install": "medride/claude-code-research/dotnet-api-auth",
+      "source": "github.com/medride/claude-code-research"
+    }
+  ]
+}

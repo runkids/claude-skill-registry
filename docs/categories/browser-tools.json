@@ -1,0 +1,20 @@
+{
+  "category": "browser-tools",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.449385Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interactive browser automation via Chrome DevTools Protocol. Use when you need to interact with web pages, test frontends, or when user interaction with a visible browser is required.",
+      "repo": "RebelPotato/agent-config",
+      "path": "browser-tools",
+      "branch": "main",
+      "category": "browser-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "RebelPotato/agent-config/browser-tools",
+      "source": "github.com/RebelPotato/agent-config"
+    }
+  ]
+}

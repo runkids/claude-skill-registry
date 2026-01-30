@@ -1,0 +1,20 @@
+{
+  "category": "dataset-comparer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.045373Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Compare two datasets to find differences, added/removed rows, changed values. Use for data validation, ETL verification, or tracking changes.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "dataset-comparer",
+      "branch": "main",
+      "category": "dataset-comparer",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/dataset-comparer",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

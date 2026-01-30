@@ -1,0 +1,20 @@
+{
+  "category": "sikhaid-payment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.999815Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with donations, payments, or Razorpay integration in SikhAid project. Covers Razorpay setup, payment validation, donation flow, success/failure handling, and payment configuration.",
+      "repo": "the-non-expert/SikhAidSPA",
+      "path": "sikhaid-payment",
+      "branch": "main",
+      "category": "sikhaid-payment",
+      "tags": [],
+      "stars": 0,
+      "install": "the-non-expert/SikhAidSPA/sikhaid-payment",
+      "source": "github.com/the-non-expert/SikhAidSPA"
+    }
+  ]
+}

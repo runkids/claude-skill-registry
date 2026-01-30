@@ -1,0 +1,20 @@
+{
+  "category": "pgvector-semantic-search",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.568974Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "pgvector setup and best practices for semantic search with text embeddings in PostgreSQL",
+      "repo": "timescale/pg-aiguide",
+      "path": "pgvector-semantic-search",
+      "branch": "main",
+      "category": "pgvector-semantic-search",
+      "tags": [],
+      "stars": 0,
+      "install": "timescale/pg-aiguide/pgvector-semantic-search",
+      "source": "github.com/timescale/pg-aiguide"
+    }
+  ]
+}

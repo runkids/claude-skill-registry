@@ -1,0 +1,20 @@
+{
+  "category": "feature-prioritization-framework",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.646300Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "RICE scoring framework for ruthless feature prioritization. Evaluates features against strategic objectives, customer value, and resource constraints. Produces prioritized product roadmap with clear r",
+      "repo": "maigentic/stratarts",
+      "path": "feature-prioritization-framework",
+      "branch": "main",
+      "category": "feature-prioritization-framework",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/feature-prioritization-framework",
+      "source": "github.com/maigentic/stratarts"
+    }
+  ]
+}

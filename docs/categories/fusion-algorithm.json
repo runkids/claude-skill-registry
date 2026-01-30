@@ -1,0 +1,20 @@
+{
+  "category": "fusion-algorithm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.716012Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Compare multiple algorithm options and pick the best; use when choosing or optimizing an algorithm.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "fusion-algorithm",
+      "branch": "main",
+      "category": "fusion-algorithm",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup/fusion-algorithm",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

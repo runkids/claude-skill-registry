@@ -1,0 +1,20 @@
+{
+  "category": "vue-integration-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.435257Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write Vue 3 integration tests using Vitest Browser Mode and Page Objects. Use proactively whenever adding tests for views, components with routing, user flows, or features that span multiple component",
+      "repo": "alexanderop/workoutTracker",
+      "path": "vue-integration-testing",
+      "branch": "main",
+      "category": "vue-integration-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "alexanderop/workoutTracker/vue-integration-testing",
+      "source": "github.com/alexanderop/workoutTracker"
+    }
+  ]
+}

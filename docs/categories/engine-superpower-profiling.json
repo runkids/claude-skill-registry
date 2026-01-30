@@ -1,0 +1,20 @@
+{
+  "category": "engine-superpower-profiling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.573482Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Profile AI engine superpowers and capability boundaries.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "engine-superpower-profiling",
+      "branch": "main",
+      "category": "engine-superpower-profiling",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/engine-superpower-profiling",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

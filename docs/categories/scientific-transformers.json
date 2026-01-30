@@ -1,0 +1,20 @@
+{
+  "category": "scientific-transformers",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.917900Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when working with pre-trained transformer models for natural language processing, computer vision, audio, or multimodal tasks. Use for text generation, classification, questi",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-transformers",
+      "branch": "main",
+      "category": "scientific-transformers",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/scientific-transformers",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "adaptive-temporal-analysis-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.200692Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Integrate adaptive temporal analysis for drift detection.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "adaptive-temporal-analysis-integration",
+      "branch": "main",
+      "category": "adaptive-temporal-analysis-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/adaptive-temporal-analysis-integration",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

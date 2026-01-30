@@ -1,0 +1,20 @@
+{
+  "category": "strength-program",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.101942Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design evidence-based powerlifting and hypertrophy training programs. Use for strength training programming, workout planning, and progressive overload systems.",
+      "repo": "mattppal/prompts",
+      "path": "strength-program",
+      "branch": "main",
+      "category": "strength-program",
+      "tags": [],
+      "stars": 0,
+      "install": "mattppal/prompts/strength-program",
+      "source": "github.com/mattppal/prompts"
+    }
+  ]
+}

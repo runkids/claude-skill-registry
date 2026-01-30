@@ -1,0 +1,20 @@
+{
+  "category": "hash-calculator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.823736Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Calculate cryptographic hashes (MD5, SHA1, SHA256, SHA512) for text and files. Compare hashes, verify integrity, and batch process directories.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "hash-calculator",
+      "branch": "main",
+      "category": "hash-calculator",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/hash-calculator",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

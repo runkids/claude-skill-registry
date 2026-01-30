@@ -1,0 +1,20 @@
+{
+  "category": "mlflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.146302Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Track ML experiments, manage model registry with versioning, deploy models to production, and reproduce experiments with MLflow - framework-agnostic ML lifecycle platform",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "mlflow",
+      "branch": "main",
+      "category": "mlflow",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/mlflow",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

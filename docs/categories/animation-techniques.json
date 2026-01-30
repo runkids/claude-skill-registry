@@ -1,0 +1,20 @@
+{
+  "category": "animation-techniques",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.301508Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "> Decision-tree routing for animation pattern selection",
+      "repo": "creatifcoding/gbg",
+      "path": "animation-techniques",
+      "branch": "main",
+      "category": "animation-techniques",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/animation-techniques",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

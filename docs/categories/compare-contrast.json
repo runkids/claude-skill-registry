@@ -1,0 +1,20 @@
+{
+  "category": "compare-contrast",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.626611Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Compare two technical perspectives with evidence from the codebase; use when deciding between options.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "compare-contrast",
+      "branch": "main",
+      "category": "compare-contrast",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup/compare-contrast",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "thumbnail-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.285414Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate thumbnails from images with smart cropping, multiple sizes, and batch processing. Ideal for web galleries, social media, and app icons.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "thumbnail-generator",
+      "branch": "main",
+      "category": "thumbnail-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/thumbnail-generator",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

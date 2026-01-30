@@ -1,0 +1,20 @@
+{
+  "category": "saas-launch-planner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.875566Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive SaaS planning system for solo developers using Next.js + Supabase + Stripe stack. Converts ideas into shippable subscription products with scope control, feature prioritization, billing",
+      "repo": "sitechfromgeorgia/georgian-distribution-system",
+      "path": "saas-launch-planner",
+      "branch": "main",
+      "category": "saas-launch-planner",
+      "tags": [],
+      "stars": 0,
+      "install": "sitechfromgeorgia/georgian-distribution-system/saas-launch-planner",
+      "source": "github.com/sitechfromgeorgia/georgian-distribution-system"
+    }
+  ]
+}

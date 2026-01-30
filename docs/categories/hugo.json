@@ -1,0 +1,20 @@
+{
+  "category": "hugo",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.844621Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill provides comprehensive knowledge for building static websites with Hugo static site generator. It should be used when setting up Hugo projects (blogs, documentation sites, landing pages, po",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "hugo",
+      "branch": "main",
+      "category": "hugo",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/hugo",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

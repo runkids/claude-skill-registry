@@ -1,0 +1,20 @@
+{
+  "category": "jakobs-law",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.916388Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Los usuarios esperan que tu sitio funcione como otros que conocen. Use cuando evalúe patrones de diseño, tome decisiones sobre convenciones, o considere innovaciones en UI.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "jakobs-law",
+      "branch": "main",
+      "category": "jakobs-law",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/jakobs-law",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

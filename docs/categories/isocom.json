@@ -1,0 +1,20 @@
+{
+  "category": "isocom",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.905249Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Isocom Components MPN encoding patterns, suffix decoding, and handler guidance. Use when working with Isocom optocouplers or IsocomHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "isocom",
+      "branch": "main",
+      "category": "isocom",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/isocom",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

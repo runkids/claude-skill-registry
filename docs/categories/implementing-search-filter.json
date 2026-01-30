@@ -1,0 +1,20 @@
+{
+  "category": "implementing-search-filter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.869171Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Logic for constructing Appwrite queries to filter tours. Use when building the search sidebar or search bar.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "implementing-search-filter",
+      "branch": "main",
+      "category": "implementing-search-filter",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2/implementing-search-filter",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

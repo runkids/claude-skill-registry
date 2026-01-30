@@ -1,0 +1,20 @@
+{
+  "category": "redis-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.793482Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Redis for caching, pub/sub, data structures, and high-performance applications",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "redis-expert",
+      "branch": "main",
+      "category": "redis-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/redis-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

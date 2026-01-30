@@ -1,0 +1,20 @@
+{
+  "category": "testing-typescript",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.275882Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when writing tests for TypeScript or JavaScript code in frameworks such as Jest, Vitest, Bun, etc.",
+      "repo": "LandonSchropp/agent-toolkit",
+      "path": "testing-typescript",
+      "branch": "main",
+      "category": "testing-typescript",
+      "tags": [],
+      "stars": 0,
+      "install": "LandonSchropp/agent-toolkit/testing-typescript",
+      "source": "github.com/LandonSchropp/agent-toolkit"
+    }
+  ]
+}

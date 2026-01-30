@@ -1,0 +1,20 @@
+{
+  "category": "agentuity-cli-cloud-session-get",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.262126Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Get details about a specific session. Requires authentication. Use for Agentuity cloud platform operations",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-cloud-session-get",
+      "branch": "main",
+      "category": "agentuity-cli-cloud-session-get",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer/agentuity-cli-cloud-session-get",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "nodemailer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.258874Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "从Node.js应用发送邮件。最流行的邮件发送模块，支持SMTP、OAuth2、附件和HTML模板。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "nodemailer",
+      "branch": "main",
+      "category": "nodemailer",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode/nodemailer",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

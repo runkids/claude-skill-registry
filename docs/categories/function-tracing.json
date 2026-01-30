@@ -1,0 +1,20 @@
+{
+  "category": "function-tracing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.713759Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Instrument C/C++ with -finstrument-functions for execution tracing and Perfetto visualization",
+      "repo": "gadievron/raptor",
+      "path": "function-tracing",
+      "branch": "main",
+      "category": "function-tracing",
+      "tags": [],
+      "stars": 0,
+      "install": "gadievron/raptor/function-tracing",
+      "source": "github.com/gadievron/raptor"
+    }
+  ]
+}

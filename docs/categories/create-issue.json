@@ -1,0 +1,20 @@
+{
+  "category": "create-issue",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.700175Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /create-issue <description> slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "create-issue",
+      "branch": "main",
+      "category": "create-issue",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles/create-issue",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

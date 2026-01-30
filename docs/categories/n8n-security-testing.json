@@ -1,0 +1,20 @@
+{
+  "category": "n8n-security-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.220063Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Credential exposure detection, OAuth flow validation, API key management testing, and data sanitization verification for n8n workflows. Use when validating n8n workflow security.",
+      "repo": "proffesor-for-testing/agentic-qe",
+      "path": "n8n-security-testing",
+      "branch": "main",
+      "category": "n8n-security-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/agentic-qe/n8n-security-testing",
+      "source": "github.com/proffesor-for-testing/agentic-qe"
+    }
+  ]
+}

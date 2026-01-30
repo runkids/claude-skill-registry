@@ -1,0 +1,20 @@
+{
+  "category": "integrate-playground",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.885741Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic workflow and API reference for integrating Streamlit playground with vrp-toolkit modules. Use when developing playground features, connecting UI to vrp-toolkit APIs, or encountering API sig",
+      "repo": "dudusoar/VRP-Toolkit",
+      "path": "integrate-playground",
+      "branch": "main",
+      "category": "integrate-playground",
+      "tags": [],
+      "stars": 0,
+      "install": "dudusoar/VRP-Toolkit/integrate-playground",
+      "source": "github.com/dudusoar/VRP-Toolkit"
+    }
+  ]
+}

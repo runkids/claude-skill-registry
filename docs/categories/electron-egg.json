@@ -1,0 +1,20 @@
+{
+  "category": "electron-egg",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.562928Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Electron EGG framework including project structure, main/renderer processes, IPC, window management, and desktop app development. Use when the user asks about Elect",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "electron-egg",
+      "branch": "main",
+      "category": "electron-egg",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/electron-egg",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "fpf-methodology",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.691657Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "First Principles Framework (FPF) for structured, auditable reasoning.",
+      "repo": "ccf/claude-code-ccf-marketplace",
+      "path": "fpf-methodology",
+      "branch": "main",
+      "category": "fpf-methodology",
+      "tags": [],
+      "stars": 0,
+      "install": "ccf/claude-code-ccf-marketplace/fpf-methodology",
+      "source": "github.com/ccf/claude-code-ccf-marketplace"
+    }
+  ]
+}

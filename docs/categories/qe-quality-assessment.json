@@ -1,0 +1,20 @@
+{
+  "category": "qe-quality-assessment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.744589Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive quality gates, metrics analysis, and deployment readiness assessment for continuous quality assurance.",
+      "repo": "proffesor-for-testing/agentic-qe",
+      "path": "qe-quality-assessment",
+      "branch": "main",
+      "category": "qe-quality-assessment",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/agentic-qe/qe-quality-assessment",
+      "source": "github.com/proffesor-for-testing/agentic-qe"
+    }
+  ]
+}

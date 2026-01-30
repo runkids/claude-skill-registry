@@ -1,0 +1,20 @@
+{
+  "category": "forward-derivation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.690546Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Derive BDD scenarios and TDD test skeletons from approved SDD specifications. ATDD acceptance test tables are optional output for specialized needs. Use when: spec is approved, starting BDD/TDD implem",
+      "repo": "AsiaOstrich/universal-dev-standards",
+      "path": "forward-derivation",
+      "branch": "main",
+      "category": "forward-derivation",
+      "tags": [],
+      "stars": 0,
+      "install": "AsiaOstrich/universal-dev-standards/forward-derivation",
+      "source": "github.com/AsiaOstrich/universal-dev-standards"
+    }
+  ]
+}

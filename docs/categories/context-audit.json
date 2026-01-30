@@ -1,0 +1,20 @@
+{
+  "category": "context-audit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.664665Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive quality audit for CLAUDE.md context files. Use when performing thorough quality checks, preparing for releases, ensuring context efficiency, or verifying token optimization.",
+      "repo": "spencerbeggs/claude-design-coordinator",
+      "path": "context-audit",
+      "branch": "main",
+      "category": "context-audit",
+      "tags": [],
+      "stars": 0,
+      "install": "spencerbeggs/claude-design-coordinator/context-audit",
+      "source": "github.com/spencerbeggs/claude-design-coordinator"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "add-atom",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.202441Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add a new Jotai atom to the state system with type definitions, registry, and Store API access",
+      "repo": "Ariedam64/Gemini",
+      "path": "add-atom",
+      "branch": "main",
+      "category": "add-atom",
+      "tags": [],
+      "stars": 0,
+      "install": "Ariedam64/Gemini/add-atom",
+      "source": "github.com/Ariedam64/Gemini"
+    }
+  ]
+}

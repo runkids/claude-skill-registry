@@ -1,0 +1,20 @@
+{
+  "category": "video-script",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.417121Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create engaging video scripts for YouTube, TikTok, Instagram Reels, and podcasts",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "video-script",
+      "branch": "main",
+      "category": "video-script",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os/video-script",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

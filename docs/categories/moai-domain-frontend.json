@@ -1,0 +1,20 @@
+{
+  "category": "moai-domain-frontend",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.159976Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Frontend Development with AI-powered modern architecture, Context7 integration, and intelligent component orchestration for scalable user interfaces",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-domain-frontend",
+      "branch": "main",
+      "category": "moai-domain-frontend",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-domain-frontend",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

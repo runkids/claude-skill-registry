@@ -1,0 +1,20 @@
+{
+  "category": "hevy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.830917Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query workout data from Hevy including workouts, routines, exercises, and history. Use when user asks about their workouts, gym sessions, exercise progress, or fitness routines.",
+      "repo": "moltbot/skills",
+      "path": "hevy",
+      "branch": "main",
+      "category": "hevy",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/hevy",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

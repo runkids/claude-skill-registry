@@ -1,0 +1,20 @@
+{
+  "category": "token-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.297281Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Port of .claude/commands/token-plan.md for Codex.",
+      "repo": "OpenSourceSam/v2_heras_garden",
+      "path": "token-plan",
+      "branch": "main",
+      "category": "token-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "OpenSourceSam/v2_heras_garden/token-plan",
+      "source": "github.com/OpenSourceSam/v2_heras_garden"
+    }
+  ]
+}

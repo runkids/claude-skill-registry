@@ -1,0 +1,20 @@
+{
+  "category": "managing-loading-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.075166Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced code-splitting and lazy-loading techniques. Use to reduce initial bundle size and speed up the homepage.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "managing-loading-optimization",
+      "branch": "main",
+      "category": "managing-loading-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2/managing-loading-optimization",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

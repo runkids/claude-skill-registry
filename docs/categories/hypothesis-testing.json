@@ -1,0 +1,20 @@
+{
+  "category": "hypothesis-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.848942Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scientific approach to debugging with hypothesis formation and testing",
+      "repo": "rohitg00/skillkit",
+      "path": "hypothesis-testing",
+      "branch": "main",
+      "category": "hypothesis-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "rohitg00/skillkit/hypothesis-testing",
+      "source": "github.com/rohitg00/skillkit"
+    }
+  ]
+}

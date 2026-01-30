@@ -1,0 +1,20 @@
+{
+  "category": "Fabric",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.169098Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Native Fabric pattern execution for Claude Code. USE WHEN processing content with Fabric patterns (extract_wisdom, summarize, analyze_claims, threat modeling, etc.). Patterns run natively in Claude's",
+      "repo": "blackpwnguin/Personal-AI",
+      "path": "Fabric",
+      "branch": "main",
+      "category": "Fabric",
+      "tags": [],
+      "stars": 0,
+      "install": "blackpwnguin/Personal-AI/Fabric",
+      "source": "github.com/blackpwnguin/Personal-AI"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "tmnl-component-tiers",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.291895Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TMNL component organization system. Invoke when creating new components, refactoring file structures, or determining component placement. Defines the three-tier hierarchy - primitives, composites, tes",
+      "repo": "creatifcoding/gbg",
+      "path": "tmnl-component-tiers",
+      "branch": "main",
+      "category": "tmnl-component-tiers",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/tmnl-component-tiers",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

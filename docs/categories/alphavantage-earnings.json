@@ -1,0 +1,20 @@
+{
+  "category": "alphavantage-earnings",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.290344Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Consensus estimates and earnings data from Alpha Vantage.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "alphavantage-earnings",
+      "branch": "main",
+      "category": "alphavantage-earnings",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/alphavantage-earnings",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

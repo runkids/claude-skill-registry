@@ -1,0 +1,20 @@
+{
+  "category": "ci-fix",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.526259Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fix GitHub Actions CI failures using GitHub CLI (gh): inspect runs/logs, identify root cause, patch workflows/code, rerun jobs, and summarize verification. Use when GitHub Actions CI is failing or nee",
+      "repo": "lancenunes/codex-skills",
+      "path": "ci-fix",
+      "branch": "main",
+      "category": "ci-fix",
+      "tags": [],
+      "stars": 0,
+      "install": "lancenunes/codex-skills/ci-fix",
+      "source": "github.com/lancenunes/codex-skills"
+    }
+  ]
+}

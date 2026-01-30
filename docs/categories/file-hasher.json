@@ -1,0 +1,20 @@
+{
+  "category": "file-hasher",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.659669Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "计算文件哈希值（MD5、SHA1、SHA256、SHA512）用于完整性验证和比较。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "file-hasher",
+      "branch": "main",
+      "category": "file-hasher",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode/file-hasher",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "deliver-user-stories",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.068738Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<!-- PM-Skills | https://github.com/product-on-purpose/pm-skills | Apache 2.0 -->",
+      "repo": "product-on-purpose/pm-skills",
+      "path": "deliver-user-stories",
+      "branch": "main",
+      "category": "deliver-user-stories",
+      "tags": [],
+      "stars": 0,
+      "install": "product-on-purpose/pm-skills/deliver-user-stories",
+      "source": "github.com/product-on-purpose/pm-skills"
+    }
+  ]
+}

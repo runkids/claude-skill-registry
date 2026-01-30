@@ -1,0 +1,20 @@
+{
+  "category": "better-auth-ts",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.427506Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Better Auth TypeScript/JavaScript authentication library. Use when implementing auth in Next.js, React, Express, or any TypeScript project. Covers email/password, OAuth, JWT, sessions, 2FA, magic link",
+      "repo": "Syedaashnaghazanfar/todo-app",
+      "path": "better-auth-ts",
+      "branch": "main",
+      "category": "better-auth-ts",
+      "tags": [],
+      "stars": 0,
+      "install": "Syedaashnaghazanfar/todo-app/better-auth-ts",
+      "source": "github.com/Syedaashnaghazanfar/todo-app"
+    }
+  ]
+}

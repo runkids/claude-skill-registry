@@ -1,0 +1,20 @@
+{
+  "category": "stylelintrc",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.109566Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates .stylelintrc configuration for linting CSS, SCSS, and Vue component styles. Auto-detects stylesheet type and fetches latest package versions for plugins.",
+      "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+      "path": "stylelintrc",
+      "branch": "main",
+      "category": "stylelintrc",
+      "tags": [],
+      "stars": 0,
+      "install": "sayali-ingle-pdl/adusa-ai-vuejs-app-template/stylelintrc",
+      "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "biological-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.430482Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level biology, biotechnology, genetics, bioinformatics, and computational biology",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "biological-expert",
+      "branch": "main",
+      "category": "biological-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/biological-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

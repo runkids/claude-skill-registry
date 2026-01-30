@@ -1,0 +1,20 @@
+{
+  "category": "senior-fullstack",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.960508Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive fullstack development skill for building complete web applications with React, Next.js, Node.js, GraphQL, and PostgreSQL. Includes project scaffolding, code quality analysis, architectur",
+      "repo": "AxelMrak/ai",
+      "path": "senior-fullstack",
+      "branch": "main",
+      "category": "senior-fullstack",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/senior-fullstack",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

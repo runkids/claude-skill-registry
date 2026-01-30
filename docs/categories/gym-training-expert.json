@@ -1,0 +1,20 @@
+{
+  "category": "gym-training-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.815603Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply cutting-edge exercise science from 2025 research on hypertrophy, progressive overload, biomechanics, and evidence-based training protocols for optimal strength and muscle development",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "gym-training-expert",
+      "branch": "main",
+      "category": "gym-training-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os/gym-training-expert",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

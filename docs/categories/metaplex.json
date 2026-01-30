@@ -1,0 +1,20 @@
+{
+  "category": "metaplex",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.125526Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete Metaplex Protocol guide for Solana NFTs and digital assets. Covers Core (next-gen NFTs), Token Metadata, Bubblegum (compressed NFTs), Candy Machine, Genesis (token launches), MPL-Hybrid, Insc",
+      "repo": "sendaifun/skills",
+      "path": "metaplex",
+      "branch": "main",
+      "category": "metaplex",
+      "tags": [],
+      "stars": 0,
+      "install": "sendaifun/skills/metaplex",
+      "source": "github.com/sendaifun/skills"
+    }
+  ]
+}

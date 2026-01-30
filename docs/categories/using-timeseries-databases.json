@@ -1,0 +1,20 @@
+{
+  "category": "using-timeseries-databases",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.375766Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Time-series database implementation for metrics, IoT, financial data, and observability backends. Use when building dashboards, monitoring systems, IoT platforms, or financial applications. Covers Tim",
+      "repo": "ancoleman/ai-design-components",
+      "path": "using-timeseries-databases",
+      "branch": "main",
+      "category": "using-timeseries-databases",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/using-timeseries-databases",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

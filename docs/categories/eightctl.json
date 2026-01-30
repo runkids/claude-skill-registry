@@ -1,0 +1,20 @@
+{
+  "category": "eightctl",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.561011Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Control Eight Sleep pods (status, temperature, alarms, schedules).",
+      "repo": "Youjjwal/clawdbot",
+      "path": "eightctl",
+      "branch": "main",
+      "category": "eightctl",
+      "tags": [],
+      "stars": 0,
+      "install": "Youjjwal/clawdbot/eightctl",
+      "source": "github.com/Youjjwal/clawdbot"
+    }
+  ]
+}

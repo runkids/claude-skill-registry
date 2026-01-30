@@ -1,0 +1,20 @@
+{
+  "category": "merge-strategy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.120003Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Intelligent merge/rebase strategy selection with safe execution",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "merge-strategy",
+      "branch": "main",
+      "category": "merge-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/merge-strategy",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

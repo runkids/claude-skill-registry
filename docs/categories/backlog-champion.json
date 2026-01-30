@@ -1,0 +1,20 @@
+{
+  "category": "backlog-champion",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.411648Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Champion prioritization of discovered opportunities. Advocates for the most impactful, actionable items based on team velocity, business value, and technical feasibility.",
+      "repo": "pcortes/swarm-attack",
+      "path": "backlog-champion",
+      "branch": "main",
+      "category": "backlog-champion",
+      "tags": [],
+      "stars": 0,
+      "install": "pcortes/swarm-attack/backlog-champion",
+      "source": "github.com/pcortes/swarm-attack"
+    }
+  ]
+}

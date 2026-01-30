@@ -1,0 +1,20 @@
+{
+  "category": "check-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.516704Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check if recent changes need documentation updates and suggest which docs to update.",
+      "repo": "djimontyp/task-tracker",
+      "path": "check-docs",
+      "branch": "main",
+      "category": "check-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "djimontyp/task-tracker/check-docs",
+      "source": "github.com/djimontyp/task-tracker"
+    }
+  ]
+}

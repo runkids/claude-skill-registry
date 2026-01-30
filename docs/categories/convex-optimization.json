@@ -1,0 +1,20 @@
+{
+  "category": "convex-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.681065Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Problem-solving strategies for convex optimization in optimization",
+      "repo": "namesreallyblank/Clorch",
+      "path": "convex-optimization",
+      "branch": "main",
+      "category": "convex-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/convex-optimization",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

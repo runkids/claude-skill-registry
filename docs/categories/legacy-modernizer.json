@@ -1,0 +1,20 @@
+{
+  "category": "legacy-modernizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.001238Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Refactor legacy codebases, migrate outdated frameworks, and implement gradual modernization. Handles technical debt, dependency updates, and backward compatibility. Use PROACTIVELY for legacy system u",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "legacy-modernizer",
+      "branch": "main",
+      "category": "legacy-modernizer",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/legacy-modernizer",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

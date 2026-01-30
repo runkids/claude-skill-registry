@@ -1,0 +1,20 @@
+{
+  "category": "pdm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.555641Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Migrate pyproject.toml from pre-PDM 2.0 syntax to modern PEP-compliant format. Focuses on dev-dependencies to dependency-groups conversion and PEP 621 project metadata. Integrates with Context7 for la",
+      "repo": "paunchygent/skriptoteket",
+      "path": "pdm",
+      "branch": "main",
+      "category": "pdm",
+      "tags": [],
+      "stars": 0,
+      "install": "paunchygent/skriptoteket/pdm",
+      "source": "github.com/paunchygent/skriptoteket"
+    }
+  ]
+}

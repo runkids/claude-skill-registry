@@ -1,0 +1,20 @@
+{
+  "category": "expo",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.623100Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Expo expert with access to complete official documentation covering React Native development, EAS Build, EAS Submit, EAS Update, Expo Router, Expo Modules API, configuration, deployment,",
+      "repo": "raintree-technology/claude-starter",
+      "path": "expo",
+      "branch": "main",
+      "category": "expo",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/expo",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

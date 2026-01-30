@@ -1,0 +1,20 @@
+{
+  "category": "import-conventions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.870314Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Import conventions and ordering rules. Use when writing imports or organizing import statements. Enforces explicit named imports, never wildcards.",
+      "repo": "crmagz/cdk-constructs-library",
+      "path": "import-conventions",
+      "branch": "main",
+      "category": "import-conventions",
+      "tags": [],
+      "stars": 0,
+      "install": "crmagz/cdk-constructs-library/import-conventions",
+      "source": "github.com/crmagz/cdk-constructs-library"
+    }
+  ]
+}

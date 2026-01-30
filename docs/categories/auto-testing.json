@@ -1,0 +1,20 @@
+{
+  "category": "auto-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.377186Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pattern for automated testing with GitHub issue creation and Claude Code auto-fixing. Creates Test → Fail → Issue → Fix → Repeat cycle until tests pass.",
+      "repo": "lawless-m/Earwig",
+      "path": "auto-testing",
+      "branch": "main",
+      "category": "auto-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "lawless-m/Earwig/auto-testing",
+      "source": "github.com/lawless-m/Earwig"
+    }
+  ]
+}

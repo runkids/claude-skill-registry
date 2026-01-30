@@ -1,0 +1,20 @@
+{
+  "category": "avalonia-viewmodels-zafiro",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.383584Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimal ViewModel and Wizard creation patterns for Avalonia using Zafiro and ReactiveUI.",
+      "repo": "AxelMrak/ai",
+      "path": "avalonia-viewmodels-zafiro",
+      "branch": "main",
+      "category": "avalonia-viewmodels-zafiro",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/avalonia-viewmodels-zafiro",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

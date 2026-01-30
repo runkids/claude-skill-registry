@@ -1,0 +1,20 @@
+{
+  "category": "smart-bug-fix",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.031714Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Intelligent bug fixing workflow combining root cause analysis, multi-model reasoning, Codex auto-fix, and comprehensive testing. Uses RCA agent, Codex iteration, and validation to systematically fix b",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "smart-bug-fix",
+      "branch": "main",
+      "category": "smart-bug-fix",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension/smart-bug-fix",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

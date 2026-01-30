@@ -1,0 +1,20 @@
+{
+  "category": "mcp-recovery",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.105470Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Autonomous MCP and Godot recovery procedures. Use when MCP tools are unresponsive, port 9080 is not listening, or multiple Godot instances are causing conflicts.",
+      "repo": "OpenSourceSam/v2_heras_garden",
+      "path": "mcp-recovery",
+      "branch": "main",
+      "category": "mcp-recovery",
+      "tags": [],
+      "stars": 0,
+      "install": "OpenSourceSam/v2_heras_garden/mcp-recovery",
+      "source": "github.com/OpenSourceSam/v2_heras_garden"
+    }
+  ]
+}

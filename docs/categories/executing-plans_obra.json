@@ -1,0 +1,20 @@
+{
+  "category": "executing-plans_obra",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.614040Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when partner provides a complete implementation plan to execute in controlled batches with review checkpoints - loads plan, reviews critically, executes tasks in batches, reports for review betwee",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "executing-plans_obra",
+      "branch": "main",
+      "category": "executing-plans_obra",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/executing-plans_obra",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

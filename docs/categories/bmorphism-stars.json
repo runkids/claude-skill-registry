@@ -1,0 +1,20 @@
+{
+  "category": "bmorphism-stars",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.435053Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "bmorphism's GitHub stars (2155 repos) and created repos - a curated index",
+      "repo": "plurigrid/asi",
+      "path": "bmorphism-stars",
+      "branch": "main",
+      "category": "bmorphism-stars",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/bmorphism-stars",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

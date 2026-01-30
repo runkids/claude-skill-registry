@@ -1,0 +1,20 @@
+{
+  "category": "surveillance-monitoring",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.123896Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Monitor Ubiquiti Protect surveillance cameras and events. Track camera status, review recordings and alerts, and monitor system health.",
+      "repo": "DataKnifeAI/unifi-protect-mcp",
+      "path": "surveillance-monitoring",
+      "branch": "main",
+      "category": "surveillance-monitoring",
+      "tags": [],
+      "stars": 0,
+      "install": "DataKnifeAI/unifi-protect-mcp/surveillance-monitoring",
+      "source": "github.com/DataKnifeAI/unifi-protect-mcp"
+    }
+  ]
+}

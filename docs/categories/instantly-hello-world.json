@@ -1,0 +1,20 @@
+{
+  "category": "instantly-hello-world",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.884336Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a minimal working Instantly example. Use when starting a new Instantly integration, testing your setup, or learning basic Instantly API patterns. Trigger with phrases like \"instantly hello worl",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "instantly-hello-world",
+      "branch": "main",
+      "category": "instantly-hello-world",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/instantly-hello-world",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

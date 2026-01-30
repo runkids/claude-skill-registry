@@ -1,0 +1,20 @@
+{
+  "category": "dev-debug-canvas-nested-groups",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.168347Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when debugging Vue Flow canvas issues involving nested nodes, parent-child relationships, position coordinate systems, and containment detection. Triggers on nested group pro",
+      "repo": "endlessblink/flow-state",
+      "path": "dev-debug-canvas-nested-groups",
+      "branch": "main",
+      "category": "dev-debug-canvas-nested-groups",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/dev-debug-canvas-nested-groups",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

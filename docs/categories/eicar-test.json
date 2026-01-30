@@ -1,0 +1,20 @@
+{
+  "category": "eicar-test",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.560848Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test skill containing EICAR test file for malware detection",
+      "repo": "cisco-ai-defense/skill-scanner",
+      "path": "eicar-test",
+      "branch": "main",
+      "category": "eicar-test",
+      "tags": [],
+      "stars": 0,
+      "install": "cisco-ai-defense/skill-scanner/eicar-test",
+      "source": "github.com/cisco-ai-defense/skill-scanner"
+    }
+  ]
+}

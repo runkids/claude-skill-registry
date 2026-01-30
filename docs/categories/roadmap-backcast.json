@@ -1,0 +1,20 @@
+{
+  "category": "roadmap-backcast",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.850268Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when planning with fixed deadline or target outcome, working backward from future goal to present, defining milestones and dependencies, mapping critical path, identifying what must happen when, p",
+      "repo": "nicepkg/ai-workflow",
+      "path": "roadmap-backcast",
+      "branch": "main",
+      "category": "roadmap-backcast",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/roadmap-backcast",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

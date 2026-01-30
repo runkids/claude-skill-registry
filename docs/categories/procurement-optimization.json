@@ -1,0 +1,20 @@
+{
+  "category": "procurement-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.644961Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize procurement decisions, allocate orders across suppliers, or determine optimal order quantities. Also use when the user mentions \"order allocation,\" \"supplier portfolio",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "procurement-optimization",
+      "branch": "main",
+      "category": "procurement-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/procurement-optimization",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

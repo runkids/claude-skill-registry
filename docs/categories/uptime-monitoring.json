@@ -1,0 +1,20 @@
+{
+  "category": "uptime-monitoring",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.360928Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement uptime monitoring and status page systems for tracking service availability. Use when monitoring application uptime, creating status pages, or implementing health checks.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "uptime-monitoring",
+      "branch": "main",
+      "category": "uptime-monitoring",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/uptime-monitoring",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

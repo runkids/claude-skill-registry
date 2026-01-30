@@ -1,0 +1,20 @@
+{
+  "category": "create-cli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.697338Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design command-line interface parameters and UX: arguments, flags, subcommands, help text, output formats, error messages, exit codes, prompts, config/env precedence, and safe/dry-run behavior. Use wh",
+      "repo": "lancenunes/codex-skills",
+      "path": "create-cli",
+      "branch": "main",
+      "category": "create-cli",
+      "tags": [],
+      "stars": 0,
+      "install": "lancenunes/codex-skills/create-cli",
+      "source": "github.com/lancenunes/codex-skills"
+    }
+  ]
+}

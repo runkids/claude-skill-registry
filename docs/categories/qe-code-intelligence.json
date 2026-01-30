@@ -1,0 +1,20 @@
+{
+  "category": "qe-code-intelligence",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.743765Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Knowledge graph-based code understanding with semantic search and 80% token reduction through intelligent context retrieval.",
+      "repo": "proffesor-for-testing/agentic-qe",
+      "path": "qe-code-intelligence",
+      "branch": "main",
+      "category": "qe-code-intelligence",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/agentic-qe/qe-code-intelligence",
+      "source": "github.com/proffesor-for-testing/agentic-qe"
+    }
+  ]
+}

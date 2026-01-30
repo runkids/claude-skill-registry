@@ -1,0 +1,20 @@
+{
+  "category": "video-transcript-downloader",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.418985Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Download videos, audio, subtitles, and clean paragraph-style transcripts from YouTube and any other yt-dlp supported site. Use when asked to “download this video”, “save this clip”, “rip audio”, “get",
+      "repo": "lancenunes/codex-skills",
+      "path": "video-transcript-downloader",
+      "branch": "main",
+      "category": "video-transcript-downloader",
+      "tags": [],
+      "stars": 0,
+      "install": "lancenunes/codex-skills/video-transcript-downloader",
+      "source": "github.com/lancenunes/codex-skills"
+    }
+  ]
+}

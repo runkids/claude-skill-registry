@@ -1,0 +1,20 @@
+{
+  "category": "code-style",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.599186Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PHP coding standards and WordPress patterns for ActivityPub plugin. Use when writing PHP code, creating classes, implementing WordPress hooks, or structuring plugin files.",
+      "repo": "Automattic/wordpress-activitypub",
+      "path": "code-style",
+      "branch": "main",
+      "category": "code-style",
+      "tags": [],
+      "stars": 0,
+      "install": "Automattic/wordpress-activitypub/code-style",
+      "source": "github.com/Automattic/wordpress-activitypub"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "mvp-automation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.216522Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Orquesta el flujo completo de MVP automatizado: SPEC → Historias → Tareas → Skills. Genera skills especializadas para cada tarea para que los agentes paralelos tengan conocimiento contextual específic",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "mvp-automation",
+      "branch": "main",
+      "category": "mvp-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/mvp-automation",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

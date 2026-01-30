@@ -1,0 +1,20 @@
+{
+  "category": "idiomatic-go",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.858871Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Idiomatic Go patterns review. Use when checking Go-specific idioms, interface design, or pointer usage. Ensures code follows Go conventions and best practices.",
+      "repo": "saifoelloh/golang-best-practices-skill",
+      "path": "idiomatic-go",
+      "branch": "main",
+      "category": "idiomatic-go",
+      "tags": [],
+      "stars": 0,
+      "install": "saifoelloh/golang-best-practices-skill/idiomatic-go",
+      "source": "github.com/saifoelloh/golang-best-practices-skill"
+    }
+  ]
+}

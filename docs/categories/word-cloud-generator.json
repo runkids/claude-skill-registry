@@ -1,0 +1,20 @@
+{
+  "category": "word-cloud-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.472536Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate styled word clouds from text with custom shapes, colors, fonts, and stopword filtering. Supports PNG/SVG export and frequency dictionaries.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "word-cloud-generator",
+      "branch": "main",
+      "category": "word-cloud-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/word-cloud-generator",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

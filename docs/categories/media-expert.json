@@ -1,0 +1,20 @@
+{
+  "category": "media-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.111980Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level media production, content management, streaming, broadcasting, and media technology systems",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "media-expert",
+      "branch": "main",
+      "category": "media-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/media-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

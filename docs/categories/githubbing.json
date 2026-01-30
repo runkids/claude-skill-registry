@@ -1,0 +1,20 @@
+{
+  "category": "githubbing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.775620Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "GitHub CLI (gh) installation and authenticated operations in Claude.ai containers. Use when user needs to create issues, PRs, view repos, or perform GitHub operations beyond raw API calls.",
+      "repo": "oaustegard/claude-skills",
+      "path": "githubbing",
+      "branch": "main",
+      "category": "githubbing",
+      "tags": [],
+      "stars": 0,
+      "install": "oaustegard/claude-skills/githubbing",
+      "source": "github.com/oaustegard/claude-skills"
+    }
+  ]
+}

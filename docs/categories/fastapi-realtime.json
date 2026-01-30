@@ -1,0 +1,20 @@
+{
+  "category": "fastapi-realtime",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.637818Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"add WebSocket\", \"implement real-time\", \"create file upload\", \"add S3 upload\", \"send email\", \"implement notifications\", \"broadcast events\", or mentions",
+      "repo": "Lobbi-Docs/claude",
+      "path": "fastapi-realtime",
+      "branch": "main",
+      "category": "fastapi-realtime",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/fastapi-realtime",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

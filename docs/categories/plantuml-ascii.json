@@ -1,0 +1,20 @@
+{
+  "category": "plantuml-ascii",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.586987Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate ASCII art diagrams using PlantUML text mode. Use when user asks to create ASCII diagrams, text-based diagrams, terminal-friendly diagrams, or mentions plantuml ascii, text diagram, ascii art",
+      "repo": "github/awesome-copilot",
+      "path": "plantuml-ascii",
+      "branch": "main",
+      "category": "plantuml-ascii",
+      "tags": [],
+      "stars": 0,
+      "install": "github/awesome-copilot/plantuml-ascii",
+      "source": "github.com/github/awesome-copilot"
+    }
+  ]
+}

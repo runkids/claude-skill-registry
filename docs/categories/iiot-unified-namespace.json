@@ -1,0 +1,20 @@
+{
+  "category": "iiot-unified-namespace",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.859843Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unified Namespace (UNS) architecture for IIoT. Topic hierarchy, NATS subjects, and data flow patterns.",
+      "repo": "creatifcoding/gbg",
+      "path": "iiot-unified-namespace",
+      "branch": "main",
+      "category": "iiot-unified-namespace",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/iiot-unified-namespace",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

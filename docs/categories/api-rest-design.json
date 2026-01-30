@@ -1,0 +1,20 @@
+{
+  "category": "api-rest-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.328464Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when designing RESTful APIs, defining endpoints, HTTP methods, status codes, and response formats.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "api-rest-design",
+      "branch": "main",
+      "category": "api-rest-design",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/api-rest-design",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

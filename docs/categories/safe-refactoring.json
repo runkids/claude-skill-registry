@@ -1,0 +1,20 @@
+{
+  "category": "safe-refactoring",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.876836Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Change code structure without changing behavior, with zero tolerance for behavioral changes",
+      "repo": "LorenFrankLab/non_local_detector",
+      "path": "safe-refactoring",
+      "branch": "main",
+      "category": "safe-refactoring",
+      "tags": [],
+      "stars": 0,
+      "install": "LorenFrankLab/non_local_detector/safe-refactoring",
+      "source": "github.com/LorenFrankLab/non_local_detector"
+    }
+  ]
+}

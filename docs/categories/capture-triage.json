@@ -1,0 +1,20 @@
+{
+  "category": "capture-triage",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.489843Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Processes Drafts Pro captures from the Inbox folder. Classifies by intent, shows preview for approval, routes to Ready as tasks. Use when triaging captures, processing mobile notes, or as part of dail",
+      "repo": "nicepkg/ai-workflow",
+      "path": "capture-triage",
+      "branch": "main",
+      "category": "capture-triage",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/capture-triage",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

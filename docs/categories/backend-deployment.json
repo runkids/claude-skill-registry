@@ -1,0 +1,20 @@
+{
+  "category": "backend-deployment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.405925Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Your approach to handling backend deployment. Use this skill when working on files where backend deployment comes into play.",
+      "repo": "jaypaulb/CanvusAPI-LLMDemo",
+      "path": "backend-deployment",
+      "branch": "main",
+      "category": "backend-deployment",
+      "tags": [],
+      "stars": 0,
+      "install": "jaypaulb/CanvusAPI-LLMDemo/backend-deployment",
+      "source": "github.com/jaypaulb/CanvusAPI-LLMDemo"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "esmt",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.595693Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ESMT (Elite Semiconductor Memory Technology) MPN encoding patterns, suffix decoding, and handler guidance. Use when working with ESMT DRAM and Flash memory components or ESMTHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "esmt",
+      "branch": "main",
+      "category": "esmt",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/esmt",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

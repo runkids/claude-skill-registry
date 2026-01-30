@@ -1,0 +1,20 @@
+{
+  "category": "constitutional-ai",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.654487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Anthropic's method for training harmless AI through self-improvement. Two-phase approach - supervised learning with self-critique/revision, then RLAIF (RL from AI Feedback). Use for safety alignment,",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "constitutional-ai",
+      "branch": "main",
+      "category": "constitutional-ai",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/constitutional-ai",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

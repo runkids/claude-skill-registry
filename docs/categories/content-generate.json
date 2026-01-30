@@ -1,0 +1,20 @@
+{
+  "category": "content-generate",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.660129Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to generate content such as titles, slogans, dialogues, or scripts. It provides content generation capabilities for various platforms (WeChat, Xiaohongshu,",
+      "repo": "sunqb/ccsdk",
+      "path": "content-generate",
+      "branch": "main",
+      "category": "content-generate",
+      "tags": [],
+      "stars": 0,
+      "install": "sunqb/ccsdk/content-generate",
+      "source": "github.com/sunqb/ccsdk"
+    }
+  ]
+}

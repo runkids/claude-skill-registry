@@ -1,0 +1,20 @@
+{
+  "category": "moai-lang-php",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.166835Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PHP 8.4+ best practices with PHPUnit 11, Composer, PSR-12 standards, and web frameworks (Laravel, Symfony).",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-lang-php",
+      "branch": "main",
+      "category": "moai-lang-php",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-lang-php",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

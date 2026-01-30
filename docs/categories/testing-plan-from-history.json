@@ -1,0 +1,20 @@
+{
+  "category": "testing-plan-from-history",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.272094Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when you need testing instructions for changes in a branch, before manual QA or creating a PR",
+      "repo": "ebinnion/dotfiles",
+      "path": "testing-plan-from-history",
+      "branch": "main",
+      "category": "testing-plan-from-history",
+      "tags": [],
+      "stars": 0,
+      "install": "ebinnion/dotfiles/testing-plan-from-history",
+      "source": "github.com/ebinnion/dotfiles"
+    }
+  ]
+}

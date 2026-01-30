@@ -1,0 +1,20 @@
+{
+  "category": "miniapp-develop",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.138172Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "小程序开发专家，精通微信、支付宝、抖音等多个平台的小程序开发",
+      "repo": "lotosbin/claude-skills",
+      "path": "miniapp-develop",
+      "branch": "main",
+      "category": "miniapp-develop",
+      "tags": [],
+      "stars": 0,
+      "install": "lotosbin/claude-skills/miniapp-develop",
+      "source": "github.com/lotosbin/claude-skills"
+    }
+  ]
+}

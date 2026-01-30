@@ -1,0 +1,20 @@
+{
+  "category": "fleet-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.677873Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to manage vehicle fleets, optimize fleet size, or plan vehicle acquisition and maintenance. Also use when the user mentions \"fleet sizing,\" \"vehicle lifecycle,\" \"fleet utilization,",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "fleet-management",
+      "branch": "main",
+      "category": "fleet-management",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/fleet-management",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

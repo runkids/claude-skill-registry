@@ -1,0 +1,20 @@
+{
+  "category": "cdd-review-decision",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.498868Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DECIDED前の設計レビュー（重要な決断に推奨）",
+      "repo": "yutaro0915/cdd-workflow",
+      "path": "cdd-review-decision",
+      "branch": "main",
+      "category": "cdd-review-decision",
+      "tags": [],
+      "stars": 0,
+      "install": "yutaro0915/cdd-workflow/cdd-review-decision",
+      "source": "github.com/yutaro0915/cdd-workflow"
+    }
+  ]
+}

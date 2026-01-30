@@ -1,0 +1,20 @@
+{
+  "category": "magento-order-specialist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.064915Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes order data and order processing in Magento 2. Use when analyzing orders, retrieving order information, assessing order processing performance, or troubleshooting order issues. Masters order l",
+      "repo": "maxnorm/magento2-agent-skills",
+      "path": "magento-order-specialist",
+      "branch": "main",
+      "category": "magento-order-specialist",
+      "tags": [],
+      "stars": 0,
+      "install": "maxnorm/magento2-agent-skills/magento-order-specialist",
+      "source": "github.com/maxnorm/magento2-agent-skills"
+    }
+  ]
+}

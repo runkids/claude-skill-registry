@@ -1,0 +1,20 @@
+{
+  "category": "dev-r3f-r3f-materials",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.173474Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Material selection, shaders, and visual effects for R3F",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-r3f-r3f-materials",
+      "branch": "main",
+      "category": "dev-r3f-r3f-materials",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/dev-r3f-r3f-materials",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

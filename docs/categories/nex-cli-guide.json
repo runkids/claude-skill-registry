@@ -1,0 +1,20 @@
+{
+  "category": "nex-cli-guide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.238277Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "NATS NEX CLI usage guide. Node and workload commands, flags, configuration.",
+      "repo": "creatifcoding/gbg",
+      "path": "nex-cli-guide",
+      "branch": "main",
+      "category": "nex-cli-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/nex-cli-guide",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

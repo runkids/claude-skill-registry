@@ -1,0 +1,20 @@
+{
+  "category": "samtec",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.881823Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Samtec high-speed connector MPN encoding patterns, series identification, and handler guidance. Use when working with Samtec connectors or SamtecHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "samtec",
+      "branch": "main",
+      "category": "samtec",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/samtec",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "pwa-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.722802Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Progressive Web App setup with manifest, mobile meta tags, safe area handling for notched devices, and install prompts for app-like browser experience.",
+      "repo": "dadbodgeoff/drift",
+      "path": "pwa-setup",
+      "branch": "main",
+      "category": "pwa-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/pwa-setup",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

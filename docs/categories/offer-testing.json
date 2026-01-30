@@ -1,0 +1,20 @@
+{
+  "category": "offer-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.280601Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when designing copy experiments to optimize hooks, offers, and CTAs.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "offer-testing",
+      "branch": "main",
+      "category": "offer-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/offer-testing",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

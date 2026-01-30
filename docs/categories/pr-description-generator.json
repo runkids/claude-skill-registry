@@ -1,0 +1,20 @@
+{
+  "category": "pr-description-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.622732Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-activates when user mentions creating pull request, PR description, or merge request. Generates comprehensive PR descriptions from git diff and commit history.",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "pr-description-generator",
+      "branch": "main",
+      "category": "pr-description-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2/pr-description-generator",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

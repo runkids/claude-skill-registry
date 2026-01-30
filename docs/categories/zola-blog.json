@@ -1,0 +1,20 @@
+{
+  "category": "zola-blog",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.517015Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when publishing Vietnamese Obsidian notes to a Zola blog. It converts Vietnamese content to English, optimizes writing style following strict anti-AI-detection guidelines, an",
+      "repo": "nguyendinhquocx/code-ai",
+      "path": "zola-blog",
+      "branch": "main",
+      "category": "zola-blog",
+      "tags": [],
+      "stars": 0,
+      "install": "nguyendinhquocx/code-ai/zola-blog",
+      "source": "github.com/nguyendinhquocx/code-ai"
+    }
+  ]
+}

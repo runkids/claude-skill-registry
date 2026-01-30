@@ -1,0 +1,20 @@
+{
+  "category": "release-standards",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.808377Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Semantic versioning and changelog formatting for software releases. Use when: preparing releases, updating version numbers, writing changelogs. Keywords: version, release, changelog, semver, major, mi",
+      "repo": "AsiaOstrich/universal-dev-standards",
+      "path": "release-standards",
+      "branch": "main",
+      "category": "release-standards",
+      "tags": [],
+      "stars": 0,
+      "install": "AsiaOstrich/universal-dev-standards/release-standards",
+      "source": "github.com/AsiaOstrich/universal-dev-standards"
+    }
+  ]
+}

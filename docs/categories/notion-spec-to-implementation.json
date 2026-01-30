@@ -1,0 +1,20 @@
+{
+  "category": "notion-spec-to-implementation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.262828Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Turn Notion specs into implementation plans, tasks, and progress tracking; use when implementing PRDs/feature specs and creating Notion plans + tasks from them.",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "notion-spec-to-implementation",
+      "branch": "main",
+      "category": "notion-spec-to-implementation",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/notion-spec-to-implementation",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "blog-writing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.434021Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write blog posts in Matt Palmer's formal voice. Use for tech blogs, company posts, tutorials, and professional content about AI-assisted development.",
+      "repo": "mattppal/prompts",
+      "path": "blog-writing",
+      "branch": "main",
+      "category": "blog-writing",
+      "tags": [],
+      "stars": 0,
+      "install": "mattppal/prompts/blog-writing",
+      "source": "github.com/mattppal/prompts"
+    }
+  ]
+}

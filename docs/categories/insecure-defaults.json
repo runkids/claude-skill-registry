@@ -1,0 +1,20 @@
+{
+  "category": "insecure-defaults",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.882060Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detects fail-open insecure defaults (hardcoded secrets, weak auth, permissive security) that allow apps to run insecurely in production. Use when auditing security, reviewing config management, or ana",
+      "repo": "trailofbits/skills",
+      "path": "insecure-defaults",
+      "branch": "main",
+      "category": "insecure-defaults",
+      "tags": [],
+      "stars": 0,
+      "install": "trailofbits/skills/insecure-defaults",
+      "source": "github.com/trailofbits/skills"
+    }
+  ]
+}

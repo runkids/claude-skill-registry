@@ -1,0 +1,20 @@
+{
+  "category": "implementing-service-mesh",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.869474Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement production-ready service mesh deployments with Istio, Linkerd, or Cilium. Configure mTLS, authorization policies, traffic routing, and progressive delivery patterns for secure, observable mi",
+      "repo": "ancoleman/ai-design-components",
+      "path": "implementing-service-mesh",
+      "branch": "main",
+      "category": "implementing-service-mesh",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/implementing-service-mesh",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

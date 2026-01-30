@@ -1,0 +1,20 @@
+{
+  "category": "concurrent-rendering-orchestration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.642518Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and validate complex concurrent rendering workflows using `useTransition`, `Suspense`, and selective hydration to preserve responsiveness under heavy workloads.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "concurrent-rendering-orchestration",
+      "branch": "main",
+      "category": "concurrent-rendering-orchestration",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/concurrent-rendering-orchestration",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

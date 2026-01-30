@@ -1,0 +1,20 @@
+{
+  "category": "pragmatic-guard",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.626069Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enables and configures Pragmatic Guard Mode (YAGNI Enforcement) to prevent over-engineering. Use when the user requests \"Enable pragmatic mode\", \"Turn on YAGNI enforcement\", \"Activate simplicity guard",
+      "repo": "codenamev/ai-software-architect",
+      "path": "pragmatic-guard",
+      "branch": "main",
+      "category": "pragmatic-guard",
+      "tags": [],
+      "stars": 0,
+      "install": "codenamev/ai-software-architect/pragmatic-guard",
+      "source": "github.com/codenamev/ai-software-architect"
+    }
+  ]
+}

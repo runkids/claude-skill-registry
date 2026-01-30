@@ -1,0 +1,20 @@
+{
+  "category": "blind-spot-chain",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.432364Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Five-skill sequence for 'what am I missing?' - Collide → Critique → Scale → Synthesize → Simplify. Use when you suspect you're not seeing something.",
+      "repo": "agentgptsmith/MonadFramework",
+      "path": "blind-spot-chain",
+      "branch": "main",
+      "category": "blind-spot-chain",
+      "tags": [],
+      "stars": 0,
+      "install": "agentgptsmith/MonadFramework/blind-spot-chain",
+      "source": "github.com/agentgptsmith/MonadFramework"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "just",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.935712Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Just command runner for saving and running project-specific commands",
+      "repo": "enuno/claude-command-and-control",
+      "path": "just",
+      "branch": "main",
+      "category": "just",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control/just",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

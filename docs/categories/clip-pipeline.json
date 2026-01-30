@@ -1,0 +1,20 @@
+{
+  "category": "clip-pipeline",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.562711Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "End-to-end CLIP-seq analysis from FASTQ to binding sites and motif enrichment. Use when analyzing protein-RNA interactions from CLIP-based methods.",
+      "repo": "GPTomics/bioSkills",
+      "path": "clip-pipeline",
+      "branch": "main",
+      "category": "clip-pipeline",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/clip-pipeline",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

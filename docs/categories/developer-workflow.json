@@ -1,0 +1,20 @@
+{
+  "category": "developer-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.179091Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete Developer workflow orchestration - task research sequence, implementation flow, validation gates, PRD synchronization, exit conditions.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "developer-workflow",
+      "branch": "main",
+      "category": "developer-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/developer-workflow",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

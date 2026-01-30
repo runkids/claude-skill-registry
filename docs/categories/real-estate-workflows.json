@@ -1,0 +1,20 @@
+{
+  "category": "real-estate-workflows",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.785093Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "End-to-end workflows for real estate content production. Use when orchestrating multi-step processes like URL-to-video generation, batch processing, or social media distribution. Coordinates Firecrawl",
+      "repo": "Bobby44-max/boston-luxury-re-producer",
+      "path": "real-estate-workflows",
+      "branch": "main",
+      "category": "real-estate-workflows",
+      "tags": [],
+      "stars": 0,
+      "install": "Bobby44-max/boston-luxury-re-producer/real-estate-workflows",
+      "source": "github.com/Bobby44-max/boston-luxury-re-producer"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "gitinfo",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.775983Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provide a concise summary of git repository state; use when asked for repo status, branch, or recent commits.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "gitinfo",
+      "branch": "main",
+      "category": "gitinfo",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup/gitinfo",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

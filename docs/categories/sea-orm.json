@@ -1,0 +1,20 @@
+{
+  "category": "sea-orm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.930187Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Async ORM for Rust with compile-time checked queries.",
+      "repo": "ngxtm/devkit",
+      "path": "sea-orm",
+      "branch": "main",
+      "category": "sea-orm",
+      "tags": [],
+      "stars": 0,
+      "install": "ngxtm/devkit/sea-orm",
+      "source": "github.com/ngxtm/devkit"
+    }
+  ]
+}

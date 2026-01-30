@@ -1,0 +1,20 @@
+{
+  "category": "knowledge-capture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.952380Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform conversations and discussions into structured Notion documentation",
+      "repo": "tommy-ca/notion-skills",
+      "path": "knowledge-capture",
+      "branch": "main",
+      "category": "knowledge-capture",
+      "tags": [],
+      "stars": 0,
+      "install": "tommy-ca/notion-skills/knowledge-capture",
+      "source": "github.com/tommy-ca/notion-skills"
+    }
+  ]
+}

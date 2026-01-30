@@ -1,0 +1,20 @@
+{
+  "category": "finishing-a-development-branch_obra",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.668244Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "finishing-a-development-branch_obra",
+      "branch": "main",
+      "category": "finishing-a-development-branch_obra",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/finishing-a-development-branch_obra",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

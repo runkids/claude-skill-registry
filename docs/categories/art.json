@@ -1,0 +1,20 @@
+{
+  "category": "art",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.353785Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete visual content system. USE WHEN user wants to create visual content, illustrations, diagrams, OR mentions art, header images, visualizations, mermaid, flowchart, technical diagram, infographi",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "art",
+      "branch": "main",
+      "category": "art",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/art",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

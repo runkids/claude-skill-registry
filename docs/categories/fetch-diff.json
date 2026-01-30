@@ -1,0 +1,20 @@
+{
+  "category": "fetch-diff",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.651301Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fetch PR diff with filtering and line numbers for code review.",
+      "repo": "mlflow/mlflow",
+      "path": "fetch-diff",
+      "branch": "main",
+      "category": "fetch-diff",
+      "tags": [],
+      "stars": 0,
+      "install": "mlflow/mlflow/fetch-diff",
+      "source": "github.com/mlflow/mlflow"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "hk-stock-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.834531Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Hong Kong stock analysis covering H-shares, Red Chips, local HK stocks, AH premium analysis, Stock Connect flows, and HK market characteristics (T+0, no price limits, short selling). Use",
+      "repo": "nicepkg/ai-workflow",
+      "path": "hk-stock-analysis",
+      "branch": "main",
+      "category": "hk-stock-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/hk-stock-analysis",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

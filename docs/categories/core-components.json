@@ -1,0 +1,20 @@
+{
+  "category": "core-components",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.687464Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Core component library and design system patterns. Use when building UI, using design tokens, or working with the component library.",
+      "repo": "AxelMrak/ai",
+      "path": "core-components",
+      "branch": "main",
+      "category": "core-components",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/core-components",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "scientific-pennylane",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.906547Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Hardware-agnostic quantum ML framework with automatic differentiation. Use when training quantum circuits via gradients, building hybrid quantum-classical models, or needing device portability across",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-pennylane",
+      "branch": "main",
+      "category": "scientific-pennylane",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/scientific-pennylane",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

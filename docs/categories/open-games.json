@@ -1,0 +1,20 @@
+{
+  "category": "open-games",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.287256Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Open Games Skill (ERGODIC 0)",
+      "repo": "plurigrid/asi",
+      "path": "open-games",
+      "branch": "main",
+      "category": "open-games",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/open-games",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

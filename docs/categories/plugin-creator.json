@@ -1,0 +1,20 @@
+{
+  "category": "plugin-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.593659Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create automatically creates new AI assistant code plugins with proper structure, validation, and marketplace integration when user mentions creating a plugin, new plugin, or plugin from template. spe",
+      "repo": "byteworthy/Upstream",
+      "path": "plugin-creator",
+      "branch": "main",
+      "category": "plugin-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/plugin-creator",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

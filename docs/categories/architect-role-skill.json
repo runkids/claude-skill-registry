@@ -1,0 +1,20 @@
+{
+  "category": "architect-role-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.342796Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Professional software architecture skill for analyzing existing codebases, designing new systems, creating comprehensive planning documents, and guiding technical decision-making through structured ar",
+      "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+      "path": "architect-role-skill",
+      "branch": "main",
+      "category": "architect-role-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server/architect-role-skill",
+      "source": "github.com/Ryno-Crypto-Mining-Services/braiins-insights-mcp-server"
+    }
+  ]
+}

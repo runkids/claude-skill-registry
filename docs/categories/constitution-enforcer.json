@@ -1,0 +1,20 @@
+{
+  "category": "constitution-enforcer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.654116Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validates compliance with 9 Constitutional Articles and Phase -1 Gates before implementation.  Trigger terms: constitution, governance, compliance, validation, constitutional compliance, Phase -1 Gate",
+      "repo": "nahisaho/CodeGraphMCPServer",
+      "path": "constitution-enforcer",
+      "branch": "main",
+      "category": "constitution-enforcer",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/CodeGraphMCPServer/constitution-enforcer",
+      "source": "github.com/nahisaho/CodeGraphMCPServer"
+    }
+  ]
+}

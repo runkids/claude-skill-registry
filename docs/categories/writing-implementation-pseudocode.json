@@ -1,0 +1,20 @@
+{
+  "category": "writing-implementation-pseudocode",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.497041Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when adding pseudocode examples to implementation guides or technical documentation - creates readable TypeScript-style pseudocode with strategic comments (Boundary, Integration, Pattern, Decision",
+      "repo": "WesleyMFrederick/cc-workflows",
+      "path": "writing-implementation-pseudocode",
+      "branch": "main",
+      "category": "writing-implementation-pseudocode",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleyMFrederick/cc-workflows/writing-implementation-pseudocode",
+      "source": "github.com/WesleyMFrederick/cc-workflows"
+    }
+  ]
+}

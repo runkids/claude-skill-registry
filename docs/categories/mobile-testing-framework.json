@@ -1,0 +1,20 @@
+{
+  "category": "mobile-testing-framework",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.182730Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan cross-device automated tests.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "mobile-testing-framework",
+      "branch": "main",
+      "category": "mobile-testing-framework",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/mobile-testing-framework",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

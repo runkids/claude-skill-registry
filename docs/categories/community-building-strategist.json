@@ -1,0 +1,20 @@
+{
+  "category": "community-building-strategist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.624430Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive community building strategy including platform selection, channel structure, member journey mapping, engagement ladder tactics, community programming rituals, moderation guidelines, laun",
+      "repo": "maigentic/stratarts",
+      "path": "community-building-strategist",
+      "branch": "main",
+      "category": "community-building-strategist",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/community-building-strategist",
+      "source": "github.com/maigentic/stratarts"
+    }
+  ]
+}

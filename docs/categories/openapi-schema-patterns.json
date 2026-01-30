@@ -1,0 +1,20 @@
+{
+  "category": "openapi-schema-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.292718Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced OpenAPI schema patterns including allOf, naming hierarchies, and context separation",
+      "repo": "zerobias-org/module",
+      "path": "openapi-schema-patterns",
+      "branch": "main",
+      "category": "openapi-schema-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/openapi-schema-patterns",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

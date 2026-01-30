@@ -1,0 +1,20 @@
+{
+  "category": "esphome-config-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.596386Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"create an esphome config\", \"set up an esp32 device\", \"configure esphome yaml\", \"add a sensor to esphome\", \"fix esphome compile error\", or mentions \"gpi",
+      "repo": "nodnarbnitram/claude-code-extensions",
+      "path": "esphome-config-helper",
+      "branch": "main",
+      "category": "esphome-config-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "nodnarbnitram/claude-code-extensions/esphome-config-helper",
+      "source": "github.com/nodnarbnitram/claude-code-extensions"
+    }
+  ]
+}

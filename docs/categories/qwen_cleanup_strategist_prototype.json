@@ -1,0 +1,20 @@
+{
+  "category": "qwen_cleanup_strategist_prototype",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.755850Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Qwen Cleanup Strategist (Prototype)",
+      "repo": "Foundup/Foundups-Agent",
+      "path": "qwen_cleanup_strategist_prototype",
+      "branch": "main",
+      "category": "qwen_cleanup_strategist_prototype",
+      "tags": [],
+      "stars": 0,
+      "install": "Foundup/Foundups-Agent/qwen_cleanup_strategist_prototype",
+      "source": "github.com/Foundup/Foundups-Agent"
+    }
+  ]
+}

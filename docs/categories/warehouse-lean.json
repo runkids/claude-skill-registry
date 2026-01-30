@@ -1,0 +1,20 @@
+{
+  "category": "warehouse-lean",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.439775Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "World-class expert Warehouse & Distribution Manager certified in SCOR DS (Supply Chain Operations Reference - Digital Standard) and Lean Six Sigma Black Belt. Specializing in warehouse operations, dis",
+      "repo": "DonNigami/eddication.io",
+      "path": "warehouse-lean",
+      "branch": "main",
+      "category": "warehouse-lean",
+      "tags": [],
+      "stars": 0,
+      "install": "DonNigami/eddication.io/warehouse-lean",
+      "source": "github.com/DonNigami/eddication.io"
+    }
+  ]
+}

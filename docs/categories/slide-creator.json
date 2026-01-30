@@ -1,0 +1,20 @@
+{
+  "category": "slide-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.029153Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating slide decks with Marp/Marpit Markdown (marp), including authoring slide content, designing slide color schemes, and building SVG diagrams or illustrations for the deck.",
+      "repo": "narumiruna/agent-skills",
+      "path": "slide-creator",
+      "branch": "main",
+      "category": "slide-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "narumiruna/agent-skills/slide-creator",
+      "source": "github.com/narumiruna/agent-skills"
+    }
+  ]
+}

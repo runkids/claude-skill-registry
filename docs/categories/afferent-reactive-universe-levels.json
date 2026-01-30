@@ -1,0 +1,20 @@
+{
+  "category": "afferent-reactive-universe-levels",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.220120Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fix universe level mismatch errors when defining Lean 4 structures containing Reactive.Event or Reactive.Dynamic types in Afferent/Canopy widgets. Use when: (1) compiler error \"Type 1 of sort Type 2 b",
+      "repo": "nathanial/lean-workspace",
+      "path": "afferent-reactive-universe-levels",
+      "branch": "main",
+      "category": "afferent-reactive-universe-levels",
+      "tags": [],
+      "stars": 0,
+      "install": "nathanial/lean-workspace/afferent-reactive-universe-levels",
+      "source": "github.com/nathanial/lean-workspace"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "security-visual-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.954245Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Security-first visual testing combining URL validation, PII detection, and visual regression with parallel viewport support. Use when testing web applications that handle sensitive data, need visual r",
+      "repo": "proffesor-for-testing/agentic-qe",
+      "path": "security-visual-testing",
+      "branch": "main",
+      "category": "security-visual-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/agentic-qe/security-visual-testing",
+      "source": "github.com/proffesor-for-testing/agentic-qe"
+    }
+  ]
+}

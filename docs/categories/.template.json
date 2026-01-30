@@ -2,19 +2,19 @@
   "category": ".template",
   "code": "oth",
   "count": 1,
-  "updated_at": "2026-01-29T04:50:38.277805Z",
+  "updated_at": "2026-01-30T04:55:05.138717Z",
   "skills": [
     {
       "name": "SKILL.md",
-      "description": "Brief description of what this skill does and provides. Use when [clear trigger condition that indicates this skill should activate]. Keep under 200 words.",
-      "repo": "NickCrew/claude-cortex",
-      "path": "claude_ctx_py/assets/skills/community/.template",
+      "description": "<Brief description of what this skill does and when to use it. Include trigger keywords for agent discovery.>",
+      "repo": "pproenca/dot-skills",
+      "path": ".template",
       "branch": "main",
       "category": ".template",
       "tags": [],
       "stars": 0,
-      "install": "NickCrew/claude-cortex/claude_ctx_py/assets/skills/community/.template",
-      "source": "github.com/NickCrew/claude-cortex"
+      "install": "pproenca/dot-skills/.template",
+      "source": "github.com/pproenca/dot-skills"
     }
   ]
 }

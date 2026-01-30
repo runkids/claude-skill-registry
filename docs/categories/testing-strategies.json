@@ -1,0 +1,20 @@
+{
+  "category": "testing-strategies",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.274653Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides test design patterns, coverage strategies, and best practices for comprehensive test suite development",
+      "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+      "path": "testing-strategies",
+      "branch": "main",
+      "category": "testing-strategies",
+      "tags": [],
+      "stars": 0,
+      "install": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude/testing-strategies",
+      "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude"
+    }
+  ]
+}

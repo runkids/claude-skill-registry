@@ -1,0 +1,20 @@
+{
+  "category": "skill-intake-and-triage",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.017641Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standardize requirement intake, scope definition, and skill selection.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "skill-intake-and-triage",
+      "branch": "main",
+      "category": "skill-intake-and-triage",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/skill-intake-and-triage",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

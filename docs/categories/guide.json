@@ -1,0 +1,20 @@
+{
+  "category": "guide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.814377Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "STAR+I 기법으로 이력서/경력기술서 작성이 필요할 때",
+      "repo": "younwony/younwony.github.io",
+      "path": "guide",
+      "branch": "main",
+      "category": "guide",
+      "tags": [],
+      "stars": 0,
+      "install": "younwony/younwony.github.io/guide",
+      "source": "github.com/younwony/younwony.github.io"
+    }
+  ]
+}

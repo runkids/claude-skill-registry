@@ -1,0 +1,20 @@
+{
+  "category": "skill-embedding-vss",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.015108Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "P-adic ultrametric skill embeddings with MLX Snowflake Arctic, DuckDB VSS, and full SPI tracing",
+      "repo": "plurigrid/asi",
+      "path": "skill-embedding-vss",
+      "branch": "main",
+      "category": "skill-embedding-vss",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/skill-embedding-vss",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

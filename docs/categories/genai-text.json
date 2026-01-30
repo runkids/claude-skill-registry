@@ -1,0 +1,20 @@
+{
+  "category": "genai-text",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.737883Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate text using Google GenAI Gemini models via CLI. Use when the user asks to generate text, get AI responses, create content, write with AI, or use Gemini for text completion.",
+      "repo": "Onward-Technologies/onward-google-genai",
+      "path": "genai-text",
+      "branch": "main",
+      "category": "genai-text",
+      "tags": [],
+      "stars": 0,
+      "install": "Onward-Technologies/onward-google-genai/genai-text",
+      "source": "github.com/Onward-Technologies/onward-google-genai"
+    }
+  ]
+}

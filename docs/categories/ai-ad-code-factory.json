@@ -1,0 +1,20 @@
+{
+  "category": "ai-ad-code-factory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.270592Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<skill>",
+      "repo": "wade56754/AI_ad_spend02",
+      "path": "ai-ad-code-factory",
+      "branch": "main",
+      "category": "ai-ad-code-factory",
+      "tags": [],
+      "stars": 0,
+      "install": "wade56754/AI_ad_spend02/ai-ad-code-factory",
+      "source": "github.com/wade56754/AI_ad_spend02"
+    }
+  ]
+}

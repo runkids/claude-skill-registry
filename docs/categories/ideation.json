@@ -1,0 +1,20 @@
+{
+  "category": "ideation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.857016Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- skillname: ideation",
+      "repo": "turbobeest/cursor-dev-system",
+      "path": "ideation",
+      "branch": "main",
+      "category": "ideation",
+      "tags": [],
+      "stars": 0,
+      "install": "turbobeest/cursor-dev-system/ideation",
+      "source": "github.com/turbobeest/cursor-dev-system"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "land",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.965673Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "End session. Reconciles exploration folders, appends context to CAPCOM, syncs Beads, displays session stats.",
+      "repo": "thebrownproject/space-agents",
+      "path": "land",
+      "branch": "main",
+      "category": "land",
+      "tags": [],
+      "stars": 0,
+      "install": "thebrownproject/space-agents/land",
+      "source": "github.com/thebrownproject/space-agents"
+    }
+  ]
+}

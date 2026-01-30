@@ -1,0 +1,20 @@
+{
+  "category": "when-auditing-security-use-security-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.460297Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive security auditing across static analysis, dynamic testing, dependency vulnerabilities, secrets detection, and OWASP compliance",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "when-auditing-security-use-security-analyzer",
+      "branch": "main",
+      "category": "when-auditing-security-use-security-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension/when-auditing-security-use-security-analyzer",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

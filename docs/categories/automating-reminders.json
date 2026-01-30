@@ -1,0 +1,20 @@
+{
+  "category": "automating-reminders",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.379794Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automates Apple Reminders using JavaScript for Automation (JXA). Use when asked to \"create reminders programmatically\", \"automate reminder lists\", \"JXA Reminders scripting\", or \"manage reminders via a",
+      "repo": "SpillwaveSolutions/automating-mac-apps-plugin",
+      "path": "automating-reminders",
+      "branch": "main",
+      "category": "automating-reminders",
+      "tags": [],
+      "stars": 0,
+      "install": "SpillwaveSolutions/automating-mac-apps-plugin/automating-reminders",
+      "source": "github.com/SpillwaveSolutions/automating-mac-apps-plugin"
+    }
+  ]
+}

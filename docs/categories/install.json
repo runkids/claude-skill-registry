@@ -1,0 +1,20 @@
+{
+  "category": "install",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.883142Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to install Space-Agents in a project. Creates .space-agents/ directory and initializes Beads for issue tracking. Run once per project.",
+      "repo": "thebrownproject/space-agents",
+      "path": "install",
+      "branch": "main",
+      "category": "install",
+      "tags": [],
+      "stars": 0,
+      "install": "thebrownproject/space-agents/install",
+      "source": "github.com/thebrownproject/space-agents"
+    }
+  ]
+}

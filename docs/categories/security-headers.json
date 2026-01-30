@@ -1,0 +1,20 @@
+{
+  "category": "security-headers",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.949717Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Web security headers validation and configuration generation",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "security-headers",
+      "branch": "main",
+      "category": "security-headers",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/security-headers",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "clerk-rate-limits",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.554343Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Understand and manage Clerk rate limits and quotas. Use when hitting rate limits, optimizing API usage, or planning for high-traffic scenarios. Trigger with phrases like \"clerk rate limit\", \"clerk quo",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "clerk-rate-limits",
+      "branch": "main",
+      "category": "clerk-rate-limits",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/clerk-rate-limits",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

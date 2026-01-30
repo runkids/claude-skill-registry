@@ -1,0 +1,20 @@
+{
+  "category": "moai-alfred-config-schema",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.147697Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise configuration schema validation and management orchestrator with JSON Schema v2024-12, Context7 integration, semantic versioning compliance, environment variable management, secrets handlin",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-alfred-config-schema",
+      "branch": "main",
+      "category": "moai-alfred-config-schema",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-alfred-config-schema",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

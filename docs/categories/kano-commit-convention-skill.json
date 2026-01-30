@@ -1,0 +1,20 @@
+{
+  "category": "kano-commit-convention-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.945741Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Commit convention linting and changelog automation following the Kano commit format.",
+      "repo": "dorgonman/kano-agent-backlog-skill-demo",
+      "path": "kano-commit-convention-skill",
+      "branch": "main",
+      "category": "kano-commit-convention-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "dorgonman/kano-agent-backlog-skill-demo/kano-commit-convention-skill",
+      "source": "github.com/dorgonman/kano-agent-backlog-skill-demo"
+    }
+  ]
+}

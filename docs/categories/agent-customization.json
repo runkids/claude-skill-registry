@@ -1,0 +1,20 @@
+{
+  "category": "agent-customization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.226862Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create, update, review, fix, or debug VS Code agent customization files (.instructions.md, .prompt.md, .agent.md, SKILL.md, copilot-instructions.md, AGENTS.md). Use for: saving coding preferences; tro",
+      "repo": "microsoft/vscode-copilot-chat",
+      "path": "agent-customization",
+      "branch": "main",
+      "category": "agent-customization",
+      "tags": [],
+      "stars": 0,
+      "install": "microsoft/vscode-copilot-chat/agent-customization",
+      "source": "github.com/microsoft/vscode-copilot-chat"
+    }
+  ]
+}

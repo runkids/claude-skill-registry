@@ -1,0 +1,20 @@
+{
+  "category": "memcached-config-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.114633Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Memcached Config Helper - Auto-activating skill for Backend Development. Triggers on: memcached config helper, memcached config helper Part of the Backend Development skill category.",
+      "repo": "byteworthy/Upstream",
+      "path": "memcached-config-helper",
+      "branch": "main",
+      "category": "memcached-config-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/memcached-config-helper",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

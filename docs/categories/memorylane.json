@@ -1,0 +1,20 @@
+{
+  "category": "memorylane",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.118298Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MemoryLane provides persistent memory for Claude with proven 84.3% cost savings:",
+      "repo": "AWolf81/memory-lane",
+      "path": "memorylane",
+      "branch": "main",
+      "category": "memorylane",
+      "tags": [],
+      "stars": 0,
+      "install": "AWolf81/memory-lane/memorylane",
+      "source": "github.com/AWolf81/memory-lane"
+    }
+  ]
+}

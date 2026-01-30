@@ -1,0 +1,20 @@
+{
+  "category": "strategist-cooperation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.099488Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guides effective collaboration with the strategist agent—a remote expert providing unbiased advice on complex architectural decisions, trade-offs, and problems where you're stuck or need outside persp",
+      "repo": "qduc/claude-skills",
+      "path": "strategist-cooperation",
+      "branch": "main",
+      "category": "strategist-cooperation",
+      "tags": [],
+      "stars": 0,
+      "install": "qduc/claude-skills/strategist-cooperation",
+      "source": "github.com/qduc/claude-skills"
+    }
+  ]
+}

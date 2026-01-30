@@ -1,0 +1,20 @@
+{
+  "category": "effect-resources-scope",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.558722Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Resource safety with acquireRelease, Effect.scoped, and finalizers. Use when opening files, sockets, servers, or external handles.",
+      "repo": "mepuka/crate",
+      "path": "effect-resources-scope",
+      "branch": "main",
+      "category": "effect-resources-scope",
+      "tags": [],
+      "stars": 0,
+      "install": "mepuka/crate/effect-resources-scope",
+      "source": "github.com/mepuka/crate"
+    }
+  ]
+}

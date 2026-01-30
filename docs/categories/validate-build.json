@@ -1,0 +1,20 @@
+{
+  "category": "validate-build",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.390311Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validates YARS build by running braitenberg test and comparing logfile output with reference",
+      "repo": "kzahedi/YARS",
+      "path": "validate-build",
+      "branch": "main",
+      "category": "validate-build",
+      "tags": [],
+      "stars": 0,
+      "install": "kzahedi/YARS/validate-build",
+      "source": "github.com/kzahedi/YARS"
+    }
+  ]
+}

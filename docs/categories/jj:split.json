@@ -1,0 +1,20 @@
+{
+  "category": "jj:split",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.926029Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Split the current commit into multiple commits grouped by function",
+      "repo": "jbott/nix-config",
+      "path": "jj:split",
+      "branch": "main",
+      "category": "jj:split",
+      "tags": [],
+      "stars": 0,
+      "install": "jbott/nix-config/jj:split",
+      "source": "github.com/jbott/nix-config"
+    }
+  ]
+}

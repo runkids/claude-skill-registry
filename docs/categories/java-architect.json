@@ -1,0 +1,20 @@
+{
+  "category": "java-architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.916742Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building enterprise Java applications with Spring Boot 3.x, microservices, or reactive programming. Invoke for WebFlux, JPA optimization, Spring Security, cloud-native patterns.",
+      "repo": "Jeffallan/claude-skills",
+      "path": "java-architect",
+      "branch": "main",
+      "category": "java-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills/java-architect",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

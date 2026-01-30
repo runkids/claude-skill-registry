@@ -1,0 +1,20 @@
+{
+  "category": "detector",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.166018Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detects SpecWeave context and provides workflow documentation for available commands. Use when learning SpecWeave commands, understanding available slash commands (/sw:increment, /sw:do, /sw:progress,",
+      "repo": "anton-abyzov/specweave",
+      "path": "detector",
+      "branch": "main",
+      "category": "detector",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/detector",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

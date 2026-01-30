@@ -1,0 +1,20 @@
+{
+  "category": "css-module-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.727744Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Css Module Generator - Auto-activating skill for Frontend Development. Triggers on: css module generator, css module generator Part of the Frontend Development skill category.",
+      "repo": "byteworthy/Upstream",
+      "path": "css-module-generator",
+      "branch": "main",
+      "category": "css-module-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/css-module-generator",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

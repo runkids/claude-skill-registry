@@ -1,0 +1,20 @@
+{
+  "category": "streaming-data",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.100539Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build event streaming and real-time data pipelines with Kafka, Pulsar, Redpanda, Flink, and Spark. Covers producer/consumer patterns, stream processing, event sourcing, and CDC across TypeScript, Pyth",
+      "repo": "ancoleman/ai-design-components",
+      "path": "streaming-data",
+      "branch": "main",
+      "category": "streaming-data",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/streaming-data",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

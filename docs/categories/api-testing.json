@@ -1,0 +1,20 @@
+{
+  "category": "api-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.330554Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test FastAPI endpoints with pytest and generate API documentation. Use when creating new APIs or verifying existing endpoints work correctly.",
+      "repo": "PrasadTelasula/EvokeQOne",
+      "path": "api-testing",
+      "branch": "main",
+      "category": "api-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "PrasadTelasula/EvokeQOne/api-testing",
+      "source": "github.com/PrasadTelasula/EvokeQOne"
+    }
+  ]
+}

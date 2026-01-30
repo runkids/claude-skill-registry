@@ -1,0 +1,20 @@
+{
+  "category": "decibel",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.057785Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert on Decibel on-chain perpetual futures trading platform on Aptos. Covers trading engine, orderbook, TypeScript SDK, REST APIs, WebSocket streams, market data, position management, TWAP orders, a",
+      "repo": "raintree-technology/claude-starter",
+      "path": "decibel",
+      "branch": "main",
+      "category": "decibel",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/decibel",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "onboarding",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.284317Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Developer environment setup guides for Windows, macOS, Linux, and WSL. Use when setting up development machines, installing tools, configuring environments, or following platform-specific setup guides",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "onboarding",
+      "branch": "main",
+      "category": "onboarding",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/onboarding",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

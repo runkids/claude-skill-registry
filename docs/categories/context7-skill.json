@@ -1,0 +1,20 @@
+{
+  "category": "context7-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.670675Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access up-to-date, version-specific documentation and code examples from Context7. Use this skill to verify library and framework details.",
+      "repo": "ceshine/ceshine-agent-skills",
+      "path": "context7-skill",
+      "branch": "main",
+      "category": "context7-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "ceshine/ceshine-agent-skills/context7-skill",
+      "source": "github.com/ceshine/ceshine-agent-skills"
+    }
+  ]
+}

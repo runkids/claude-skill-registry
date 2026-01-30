@@ -1,0 +1,20 @@
+{
+  "category": "gemini-auth",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.732723Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Setup and manage Gemini CLI authentication methods including OAuth, API keys, and Vertex AI. Use when configuring Gemini access, switching auth methods, or troubleshooting authentication issues.",
+      "repo": "adaptationio/Skrillz",
+      "path": "gemini-auth",
+      "branch": "main",
+      "category": "gemini-auth",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/gemini-auth",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "hospitality-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.839795Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level hotel management, reservation systems, guest services, revenue management, and hospitality technology",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "hospitality-expert",
+      "branch": "main",
+      "category": "hospitality-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/hospitality-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

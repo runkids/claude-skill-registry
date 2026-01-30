@@ -1,0 +1,20 @@
+{
+  "category": "creative-chronicle-log",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.716891Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Document creative decisions and protocol evolution in structured chronicle format.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "creative-chronicle-log",
+      "branch": "main",
+      "category": "creative-chronicle-log",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/creative-chronicle-log",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

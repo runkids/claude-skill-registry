@@ -1,0 +1,20 @@
+{
+  "category": "pinia",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.574525Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pinia official Vue state management library, type-safe and extensible. Use when defining stores, working with state/getters/actions, or implementing store patterns in Vue apps.",
+      "repo": "antfu/skills",
+      "path": "pinia",
+      "branch": "main",
+      "category": "pinia",
+      "tags": [],
+      "stars": 0,
+      "install": "antfu/skills/pinia",
+      "source": "github.com/antfu/skills"
+    }
+  ]
+}

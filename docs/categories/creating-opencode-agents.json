@@ -1,0 +1,20 @@
+{
+  "category": "creating-opencode-agents",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.713892Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating OpenCode agents - provides markdown format with YAML frontmatter, mode/tools/permission configuration, and best practices for specialized AI assistants",
+      "repo": "pr-pm/prpm",
+      "path": "creating-opencode-agents",
+      "branch": "main",
+      "category": "creating-opencode-agents",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm/creating-opencode-agents",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

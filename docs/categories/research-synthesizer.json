@@ -1,0 +1,20 @@
+{
+  "category": "research-synthesizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.827442Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Synthesize insights from multiple research sources into cohesive analysis",
+      "repo": "eddiebe147/claude-settings",
+      "path": "research-synthesizer",
+      "branch": "main",
+      "category": "research-synthesizer",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/research-synthesizer",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

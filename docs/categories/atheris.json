@@ -1,0 +1,20 @@
+{
+  "category": "atheris",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.363501Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Atheris is a coverage-guided Python fuzzer based on libFuzzer. Use for fuzzing pure Python code and Python C extensions.",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "atheris",
+      "branch": "main",
+      "category": "atheris",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/atheris",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

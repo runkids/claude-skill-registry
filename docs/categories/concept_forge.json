@@ -1,0 +1,20 @@
+{
+  "category": "concept_forge",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.640970Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Score concepts on impact/delight/effort and pick a 1-day spike.",
+      "repo": "NickCrew/claude-cortex",
+      "path": "concept_forge",
+      "branch": "main",
+      "category": "concept_forge",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex/concept_forge",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

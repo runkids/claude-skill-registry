@@ -1,0 +1,20 @@
+{
+  "category": "persona-senior-full-stack-developer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.565741Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "persona-senior-full-stack-developer",
+      "branch": "main",
+      "category": "persona-senior-full-stack-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/persona-senior-full-stack-developer",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

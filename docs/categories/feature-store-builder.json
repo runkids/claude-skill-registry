@@ -1,0 +1,20 @@
+{
+  "category": "feature-store-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.648330Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Version features for offline and online serving.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "feature-store-builder",
+      "branch": "main",
+      "category": "feature-store-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/feature-store-builder",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "trein",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.312461Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query Dutch Railways (NS) for train departures, trip planning, disruptions, and station search via the trein CLI.",
+      "repo": "moltbot/skills",
+      "path": "trein",
+      "branch": "main",
+      "category": "trein",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/trein",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

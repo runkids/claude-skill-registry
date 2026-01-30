@@ -1,0 +1,20 @@
+{
+  "category": "policyengine-api-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.603418Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PolicyEngine API - Flask REST service powering policyengine.org and programmatic access",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-api-skill",
+      "branch": "main",
+      "category": "policyengine-api-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/policyengine-api-skill",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

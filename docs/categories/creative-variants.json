@@ -1,0 +1,20 @@
+{
+  "category": "creative-variants",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.717695Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when developing hooks, visuals, and copy variations for paid campaigns across channels.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "creative-variants",
+      "branch": "main",
+      "category": "creative-variants",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/creative-variants",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

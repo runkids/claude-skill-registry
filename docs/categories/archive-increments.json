@@ -1,0 +1,20 @@
+{
+  "category": "archive-increments",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.351777Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Intelligent increment archiving expert that analyzes age, status, and activity to recommend archiving. Use when workspace has too many increments, cleaning up completed work, or organizing the _archiv",
+      "repo": "anton-abyzov/specweave",
+      "path": "archive-increments",
+      "branch": "main",
+      "category": "archive-increments",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/archive-increments",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

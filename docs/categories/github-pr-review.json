@@ -1,0 +1,20 @@
+{
+  "category": "github-pr-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.772767Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract and review GitHub Pull Requests with comprehensive analysis",
+      "repo": "tolgaio/neo",
+      "path": "github-pr-review",
+      "branch": "main",
+      "category": "github-pr-review",
+      "tags": [],
+      "stars": 0,
+      "install": "tolgaio/neo/github-pr-review",
+      "source": "github.com/tolgaio/neo"
+    }
+  ]
+}

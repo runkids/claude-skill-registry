@@ -1,0 +1,20 @@
+{
+  "category": "wireframe-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.471133Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create low-fidelity wireframes for rapid prototyping",
+      "repo": "eddiebe147/claude-settings",
+      "path": "wireframe-creator",
+      "branch": "main",
+      "category": "wireframe-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/wireframe-creator",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

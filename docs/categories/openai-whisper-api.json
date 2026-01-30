@@ -1,0 +1,20 @@
+{
+  "category": "openai-whisper-api",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.291262Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transcribe audio via OpenAI Audio Transcriptions API (Whisper).",
+      "repo": "Youjjwal/clawdbot",
+      "path": "openai-whisper-api",
+      "branch": "main",
+      "category": "openai-whisper-api",
+      "tags": [],
+      "stars": 0,
+      "install": "Youjjwal/clawdbot/openai-whisper-api",
+      "source": "github.com/Youjjwal/clawdbot"
+    }
+  ]
+}

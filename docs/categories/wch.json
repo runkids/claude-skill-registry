@@ -1,0 +1,20 @@
+{
+  "category": "wch",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.442481Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "WCH (Nanjing Qinheng Microelectronics) MPN encoding patterns, suffix decoding, and handler guidance. Use when working with WCH RISC-V MCUs, USB interface chips, or WCHHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "wch",
+      "branch": "main",
+      "category": "wch",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/wch",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "moai-workflow-templates",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.177189Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise template management with code boilerplates, feedback templates, and project optimization workflows",
+      "repo": "modu-ai/moai-adk",
+      "path": "moai-workflow-templates",
+      "branch": "main",
+      "category": "moai-workflow-templates",
+      "tags": [],
+      "stars": 0,
+      "install": "modu-ai/moai-adk/moai-workflow-templates",
+      "source": "github.com/modu-ai/moai-adk"
+    }
+  ]
+}

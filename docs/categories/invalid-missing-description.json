@@ -1,0 +1,20 @@
+{
+  "category": "invalid-missing-description",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.895583Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should fail validation because it has no description.",
+      "repo": "maxvaega/skillkit",
+      "path": "invalid-missing-description",
+      "branch": "main",
+      "category": "invalid-missing-description",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit/invalid-missing-description",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

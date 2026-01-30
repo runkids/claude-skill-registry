@@ -1,0 +1,20 @@
+{
+  "category": "pre-release-validation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.632308Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate release readiness for any project type with comprehensive checks",
+      "repo": "jayteealao/Aperture",
+      "path": "pre-release-validation",
+      "branch": "main",
+      "category": "pre-release-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture/pre-release-validation",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "rspress-sync",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.858802Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Sync site docs with API changes. Use when APIs have been updated and documentation needs to reflect the changes.",
+      "repo": "spencerbeggs/claude-design-coordinator",
+      "path": "rspress-sync",
+      "branch": "main",
+      "category": "rspress-sync",
+      "tags": [],
+      "stars": 0,
+      "install": "spencerbeggs/claude-design-coordinator/rspress-sync",
+      "source": "github.com/spencerbeggs/claude-design-coordinator"
+    }
+  ]
+}

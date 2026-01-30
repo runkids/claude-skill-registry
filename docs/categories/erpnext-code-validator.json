@@ -1,0 +1,20 @@
+{
+  "category": "erpnext-code-validator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.585546Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Intelligent agent for validating ERPNext/Frappe code against best practices and common pitfalls. Use when reviewing generated code, checking for errors before deployment, or validating code quality. T",
+      "repo": "OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package",
+      "path": "erpnext-code-validator",
+      "branch": "main",
+      "category": "erpnext-code-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package/erpnext-code-validator",
+      "source": "github.com/OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "leann-search",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.983288Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Semantic search across codebase using LEANN vector index",
+      "repo": "namesreallyblank/Clorch",
+      "path": "leann-search",
+      "branch": "main",
+      "category": "leann-search",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/leann-search",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

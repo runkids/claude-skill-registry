@@ -1,0 +1,20 @@
+{
+  "category": "concept-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.640817Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "End-to-end workflow for creating complete JavaScript concept documentation, orchestrating all skills from research to final review",
+      "repo": "leonardomso/33-js-concepts",
+      "path": "concept-workflow",
+      "branch": "main",
+      "category": "concept-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "leonardomso/33-js-concepts/concept-workflow",
+      "source": "github.com/leonardomso/33-js-concepts"
+    }
+  ]
+}

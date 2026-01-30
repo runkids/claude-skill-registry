@@ -1,0 +1,20 @@
+{
+  "category": "context-preservation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.668168Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate structured handoff summaries between workflow phases. Use when transitioning between RQPIV phases.",
+      "repo": "vneseyoungster/ChocoVine",
+      "path": "context-preservation",
+      "branch": "main",
+      "category": "context-preservation",
+      "tags": [],
+      "stars": 0,
+      "install": "vneseyoungster/ChocoVine/context-preservation",
+      "source": "github.com/vneseyoungster/ChocoVine"
+    }
+  ]
+}

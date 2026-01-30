@@ -1,0 +1,20 @@
+{
+  "category": "sonoscli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.045032Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Control Sonos speakers (discover/status/play/volume/group).",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "sonoscli",
+      "branch": "main",
+      "category": "sonoscli",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/sonoscli",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

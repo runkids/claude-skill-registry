@@ -1,0 +1,20 @@
+{
+  "category": "survey-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.124069Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze survey responses with Likert scale analysis, cross-tabulations, sentiment scoring, and frequency distributions with visualizations.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "survey-analyzer",
+      "branch": "main",
+      "category": "survey-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/survey-analyzer",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

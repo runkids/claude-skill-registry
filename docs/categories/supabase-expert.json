@@ -1,0 +1,20 @@
+{
+  "category": "supabase-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.118878Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when working with Supabase database operations in the MyJKKN project, including creating modules, updating schemas, writing RLS policies, creating database functions, impleme",
+      "repo": "JKKN-Institutions/Kenavo",
+      "path": "supabase-expert",
+      "branch": "main",
+      "category": "supabase-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "JKKN-Institutions/Kenavo/supabase-expert",
+      "source": "github.com/JKKN-Institutions/Kenavo"
+    }
+  ]
+}

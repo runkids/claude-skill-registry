@@ -1,0 +1,20 @@
+{
+  "category": "no-task-output",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.257643Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Never Use TaskOutput",
+      "repo": "namesreallyblank/Clorch",
+      "path": "no-task-output",
+      "branch": "main",
+      "category": "no-task-output",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/no-task-output",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

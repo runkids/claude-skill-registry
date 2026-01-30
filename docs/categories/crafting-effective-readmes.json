@@ -1,0 +1,20 @@
+{
+  "category": "crafting-effective-readmes",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.694370Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when writing or improving README files. Not all READMEs are the same — provides templates and guidance matched to your audience and project type.",
+      "repo": "alfredolopez80/multi-agent-ralph-loop",
+      "path": "crafting-effective-readmes",
+      "branch": "main",
+      "category": "crafting-effective-readmes",
+      "tags": [],
+      "stars": 0,
+      "install": "alfredolopez80/multi-agent-ralph-loop/crafting-effective-readmes",
+      "source": "github.com/alfredolopez80/multi-agent-ralph-loop"
+    }
+  ]
+}

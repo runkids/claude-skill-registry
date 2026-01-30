@@ -1,0 +1,20 @@
+{
+  "category": "network-diagnostics",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.234721Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated network troubleshooting and diagnostics for WSL/Linux environments",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "network-diagnostics",
+      "branch": "main",
+      "category": "network-diagnostics",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/network-diagnostics",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

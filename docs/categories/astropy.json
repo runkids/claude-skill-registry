@@ -1,0 +1,20 @@
+{
+  "category": "astropy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.361566Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Python library for astronomy and astrophysics. This skill should be used when working with astronomical data including celestial coordinates, physical units, FITS files, cosmological cal",
+      "repo": "robinbarvaag/poynt",
+      "path": "astropy",
+      "branch": "main",
+      "category": "astropy",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/astropy",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

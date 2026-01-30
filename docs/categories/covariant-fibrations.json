@@ -1,0 +1,20 @@
+{
+  "category": "covariant-fibrations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.690977Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Riehl-Shulman covariant fibrations for dependent types over directed",
+      "repo": "plurigrid/asi",
+      "path": "covariant-fibrations",
+      "branch": "main",
+      "category": "covariant-fibrations",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/covariant-fibrations",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

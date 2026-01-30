@@ -1,0 +1,20 @@
+{
+  "category": "mot",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.200524Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "System health check (MOT) for skills, agents, hooks, and memory",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "mot",
+      "branch": "main",
+      "category": "mot",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/mot",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

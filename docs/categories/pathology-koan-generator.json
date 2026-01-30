@@ -1,0 +1,20 @@
+{
+  "category": "pathology-koan-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.547407Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate diagnostic koans to test reasoning boundaries and edge cases.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "pathology-koan-generator",
+      "branch": "main",
+      "category": "pathology-koan-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/pathology-koan-generator",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "esm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.595345Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ESM2 protein language model for embeddings and sequence scoring. Use this skill when: (1) Computing pseudo-log-likelihood (PLL) scores, (2) Getting protein embeddings for clustering, (3) Filtering des",
+      "repo": "adaptyvbio/protein-design-skills",
+      "path": "esm",
+      "branch": "main",
+      "category": "esm",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptyvbio/protein-design-skills/esm",
+      "source": "github.com/adaptyvbio/protein-design-skills"
+    }
+  ]
+}

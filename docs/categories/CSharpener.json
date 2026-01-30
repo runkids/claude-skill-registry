@@ -1,0 +1,20 @@
+{
+  "category": "CSharpener",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.165616Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "C# static analysis tool for call graphs, unused code detection, impact analysis, HTML documentation generation, and Graphviz diagram export",
+      "repo": "lawless-m/Earwig",
+      "path": "CSharpener",
+      "branch": "main",
+      "category": "CSharpener",
+      "tags": [],
+      "stars": 0,
+      "install": "lawless-m/Earwig/CSharpener",
+      "source": "github.com/lawless-m/Earwig"
+    }
+  ]
+}

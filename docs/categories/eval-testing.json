@@ -1,0 +1,20 @@
+{
+  "category": "eval-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.599785Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Develop and run agent behavior evaluations. Use this skill when asked to \"write evals\", \"test agent behavior\", \"create eval cases\", \"run evals\", \"add eval tests\", \"test tool selection\", \"verify agent",
+      "repo": "orient-bot/orient",
+      "path": "eval-testing",
+      "branch": "main",
+      "category": "eval-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/eval-testing",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

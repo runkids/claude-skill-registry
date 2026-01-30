@@ -1,0 +1,20 @@
+{
+  "category": "sast-configuration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.884315Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure Static Application Security Testing (SAST) tools for automated vulnerability detection in application code. Use when setting up security scanning, implementing DevSecOps practices, or automa",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "sast-configuration",
+      "branch": "main",
+      "category": "sast-configuration",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/sast-configuration",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

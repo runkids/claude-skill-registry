@@ -1,0 +1,20 @@
+{
+  "category": "requirements-clarity-scoring",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.821642Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When gathering requirements during discovery phase to measure answer quality and decide when to proceed.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "requirements-clarity-scoring",
+      "branch": "main",
+      "category": "requirements-clarity-scoring",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/requirements-clarity-scoring",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

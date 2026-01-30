@@ -1,0 +1,20 @@
+{
+  "category": "task-coding-loop",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.162691Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Earn trust through verification. Invoke at session start to establish verifiable checkpoints (environment, baseline, completion). Trust comes from gates, not claims.",
+      "repo": "Anveio/conveaux",
+      "path": "task-coding-loop",
+      "branch": "main",
+      "category": "task-coding-loop",
+      "tags": [],
+      "stars": 0,
+      "install": "Anveio/conveaux/task-coding-loop",
+      "source": "github.com/Anveio/conveaux"
+    }
+  ]
+}

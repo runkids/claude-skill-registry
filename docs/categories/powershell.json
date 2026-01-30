@@ -1,0 +1,20 @@
+{
+  "category": "powershell",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.617792Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cheat sheet for PowerShell commands and scripts.",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "powershell",
+      "branch": "main",
+      "category": "powershell",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet/powershell",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "brew-manage",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.445793Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Homebrewパッケージ管理。パッケージの追加・削除・検索、Brewfile更新。トリガー: brew, homebrew, package, cask, install, uninstall",
+      "repo": "snkrheadz/laptop",
+      "path": "brew-manage",
+      "branch": "main",
+      "category": "brew-manage",
+      "tags": [],
+      "stars": 0,
+      "install": "snkrheadz/laptop/brew-manage",
+      "source": "github.com/snkrheadz/laptop"
+    }
+  ]
+}

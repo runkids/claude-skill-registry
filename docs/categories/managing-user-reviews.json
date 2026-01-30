@@ -1,0 +1,20 @@
+{
+  "category": "managing-user-reviews",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.077550Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Logic for handling user reviews, ratings, and admin moderation. Use to build the community feedback section.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "managing-user-reviews",
+      "branch": "main",
+      "category": "managing-user-reviews",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2/managing-user-reviews",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

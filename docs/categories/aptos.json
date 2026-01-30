@@ -1,0 +1,20 @@
+{
+  "category": "aptos",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.339701Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert on Aptos blockchain, Move language, smart contracts, NFTs, DeFi, and Aptos development. Triggers on keywords aptos, move, blockchain, smart contract, nft, defi, web3, mainnet, testnet, devnet",
+      "repo": "raintree-technology/claude-starter",
+      "path": "aptos",
+      "branch": "main",
+      "category": "aptos",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/aptos",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

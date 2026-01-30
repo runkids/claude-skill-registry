@@ -1,0 +1,20 @@
+{
+  "category": "short-form-converter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.997089Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert long-form videos into short-form content for TikTok, YouTube Shorts, and Instagram Reels. Identifies viral moments, creates hooks, and adapts scripts for vertical format. Use when repurposing",
+      "repo": "nicepkg/ai-workflow",
+      "path": "short-form-converter",
+      "branch": "main",
+      "category": "short-form-converter",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/short-form-converter",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

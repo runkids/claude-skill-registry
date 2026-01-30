@@ -1,0 +1,20 @@
+{
+  "category": "rate-limiting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.765822Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement subscription-tier aware API rate limiting with sliding window algorithm. Use when building SaaS APIs that need per-user or per-tier rate limits with Redis or in-memory storage.",
+      "repo": "dadbodgeoff/drift",
+      "path": "rate-limiting",
+      "branch": "main",
+      "category": "rate-limiting",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/rate-limiting",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

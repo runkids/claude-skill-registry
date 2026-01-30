@@ -1,0 +1,20 @@
+{
+  "category": "async-runner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.362622Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run background agents and bash commands asynchronously for CircleTel development. Use when running dev servers, parallel tests, long builds, or multi-agent research tasks without blocking the main wor",
+      "repo": "jdeweedata/circletel",
+      "path": "async-runner",
+      "branch": "main",
+      "category": "async-runner",
+      "tags": [],
+      "stars": 0,
+      "install": "jdeweedata/circletel/async-runner",
+      "source": "github.com/jdeweedata/circletel"
+    }
+  ]
+}

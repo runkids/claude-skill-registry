@@ -1,0 +1,20 @@
+{
+  "category": "sans-course-extraction",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.883565Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract data from files related to SANS courses.",
+      "repo": "aRustyDev/dotfiles",
+      "path": "sans-course-extraction",
+      "branch": "main",
+      "category": "sans-course-extraction",
+      "tags": [],
+      "stars": 0,
+      "install": "aRustyDev/dotfiles/sans-course-extraction",
+      "source": "github.com/aRustyDev/dotfiles"
+    }
+  ]
+}

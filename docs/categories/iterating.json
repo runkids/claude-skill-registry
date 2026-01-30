@@ -1,0 +1,20 @@
+{
+  "category": "iterating",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.911412Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-conversation methodology for iterative stateful work with context accumulation. Use when users request work that spans multiple sessions (research, debugging, refactoring, feature development),",
+      "repo": "oaustegard/claude-skills",
+      "path": "iterating",
+      "branch": "main",
+      "category": "iterating",
+      "tags": [],
+      "stars": 0,
+      "install": "oaustegard/claude-skills/iterating",
+      "source": "github.com/oaustegard/claude-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "guru-mcp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.815262Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access Guru knowledge base via MCP - ask AI questions, search documents, create drafts, and update cards. Connects to all your Guru sources including Slack, Drive, Confluence, and SharePoint.",
+      "repo": "moltbot/skills",
+      "path": "guru-mcp",
+      "branch": "main",
+      "category": "guru-mcp",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/guru-mcp",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

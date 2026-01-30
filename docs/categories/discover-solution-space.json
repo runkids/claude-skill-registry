@@ -1,0 +1,20 @@
+{
+  "category": "discover-solution-space",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.457210Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deeply explore the solution space to find the optimal approach before committing to a plan.",
+      "repo": "kasperjunge/agent-resources",
+      "path": "discover-solution-space",
+      "branch": "main",
+      "category": "discover-solution-space",
+      "tags": [],
+      "stars": 0,
+      "install": "kasperjunge/agent-resources/discover-solution-space",
+      "source": "github.com/kasperjunge/agent-resources"
+    }
+  ]
+}

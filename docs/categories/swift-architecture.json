@@ -1,0 +1,20 @@
+{
+  "category": "swift-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.130168Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design Swift app architecture with MVVM, Clean Architecture, dependency injection, and repository patterns. Use when structuring iOS/macOS projects, creating ViewModels, implementing DI, or organizing",
+      "repo": "fusengine/agents",
+      "path": "swift-architecture",
+      "branch": "main",
+      "category": "swift-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/swift-architecture",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

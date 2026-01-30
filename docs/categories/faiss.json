@@ -1,0 +1,20 @@
+{
+  "category": "faiss",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.633159Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Facebook's library for efficient similarity search and clustering of dense vectors. Supports billions of vectors, GPU acceleration, and various index types (Flat, IVF, HNSW). Use for fast k-NN search,",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "faiss",
+      "branch": "main",
+      "category": "faiss",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/faiss",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

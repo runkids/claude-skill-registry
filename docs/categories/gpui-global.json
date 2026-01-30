@@ -1,0 +1,20 @@
+{
+  "category": "gpui-global",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.796501Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Global state management in GPUI. Use when implementing global state, app-wide configuration, or shared resources.",
+      "repo": "longbridge/gpui-component",
+      "path": "gpui-global",
+      "branch": "main",
+      "category": "gpui-global",
+      "tags": [],
+      "stars": 0,
+      "install": "longbridge/gpui-component/gpui-global",
+      "source": "github.com/longbridge/gpui-component"
+    }
+  ]
+}

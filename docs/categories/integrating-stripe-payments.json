@@ -1,0 +1,20 @@
+{
+  "category": "integrating-stripe-payments",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.886891Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete workflow for integrating Stripe payments (subscriptions or one-time) with Convex + Next.js. Includes hosted checkout, webhooks, UI components, and testing. Use when adding payment functionali",
+      "repo": "bountydotnew/bounty.new",
+      "path": "integrating-stripe-payments",
+      "branch": "main",
+      "category": "integrating-stripe-payments",
+      "tags": [],
+      "stars": 0,
+      "install": "bountydotnew/bounty.new/integrating-stripe-payments",
+      "source": "github.com/bountydotnew/bounty.new"
+    }
+  ]
+}

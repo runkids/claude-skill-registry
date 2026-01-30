@@ -1,0 +1,20 @@
+{
+  "category": "legal-assistant",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.001930Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Legal document analysis, contract review, and compliance guidance for business and personal legal matters",
+      "repo": "eddiebe147/claude-settings",
+      "path": "legal-assistant",
+      "branch": "main",
+      "category": "legal-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/legal-assistant",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

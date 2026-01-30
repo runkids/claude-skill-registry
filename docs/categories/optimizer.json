@@ -1,0 +1,20 @@
+{
+  "category": "optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.300852Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Performance tuning, profiling, and optimization. USE WHEN user mentions slow, performance, optimize, speed, latency, throughput, memory, CPU, bottleneck, profiling, caching, or asks why something is s",
+      "repo": "Geralt1983/Thanos",
+      "path": "optimizer",
+      "branch": "main",
+      "category": "optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "Geralt1983/Thanos/optimizer",
+      "source": "github.com/Geralt1983/Thanos"
+    }
+  ]
+}

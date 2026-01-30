@@ -1,0 +1,20 @@
+{
+  "category": "build-addin",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.454659Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TODO",
+      "repo": "mattg101/SolidLink",
+      "path": "build-addin",
+      "branch": "main",
+      "category": "build-addin",
+      "tags": [],
+      "stars": 0,
+      "install": "mattg101/SolidLink/build-addin",
+      "source": "github.com/mattg101/SolidLink"
+    }
+  ]
+}

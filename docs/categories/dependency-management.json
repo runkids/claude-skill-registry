@@ -1,0 +1,20 @@
+{
+  "category": "dependency-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.072584Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Version catalog strategy, dependency management, BOMs, and version constraints for Java/Gradle projects. Covers version centralization, never-downgrade policy, bundle patterns, resolution strategies,",
+      "repo": "bitsoex/bitso-java",
+      "path": "dependency-management",
+      "branch": "main",
+      "category": "dependency-management",
+      "tags": [],
+      "stars": 0,
+      "install": "bitsoex/bitso-java/dependency-management",
+      "source": "github.com/bitsoex/bitso-java"
+    }
+  ]
+}

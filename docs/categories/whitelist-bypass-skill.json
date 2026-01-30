@@ -1,0 +1,20 @@
+{
+  "category": "whitelist-bypass-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.466965Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Bypass attempt. Use for security testing.",
+      "repo": "matteocervelli/llms",
+      "path": "whitelist-bypass-skill",
+      "branch": "main",
+      "category": "whitelist-bypass-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms/whitelist-bypass-skill",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

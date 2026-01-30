@@ -1,0 +1,20 @@
+{
+  "category": "git-platform-cli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.760356Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MANDATORY: Use gh (GitHub) or glab (GitLab) CLI for ALL issue/task management. Unified workflow across platforms.",
+      "repo": "liauw-media/household-expense-tracker",
+      "path": "git-platform-cli",
+      "branch": "main",
+      "category": "git-platform-cli",
+      "tags": [],
+      "stars": 0,
+      "install": "liauw-media/household-expense-tracker/git-platform-cli",
+      "source": "github.com/liauw-media/household-expense-tracker"
+    }
+  ]
+}

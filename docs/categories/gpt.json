@@ -1,0 +1,20 @@
+{
+  "category": "gpt",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.794554Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use GPT-5.2 for long-running coding tasks: large refactors, feature implementation etc.",
+      "repo": "metrovoc/cc-skill-opencode",
+      "path": "gpt",
+      "branch": "main",
+      "category": "gpt",
+      "tags": [],
+      "stars": 0,
+      "install": "metrovoc/cc-skill-opencode/gpt",
+      "source": "github.com/metrovoc/cc-skill-opencode"
+    }
+  ]
+}

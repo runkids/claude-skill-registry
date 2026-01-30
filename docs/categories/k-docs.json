@@ -1,0 +1,20 @@
+{
+  "category": "k-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.937526Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Index of Mechanic documentation with summaries and links. Load this to understand what documentation exists and where to find detailed information on specific topics. Triggers: docs, documentation, re",
+      "repo": "Falkicon/Mechanic",
+      "path": "k-docs",
+      "branch": "main",
+      "category": "k-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "Falkicon/Mechanic/k-docs",
+      "source": "github.com/Falkicon/Mechanic"
+    }
+  ]
+}

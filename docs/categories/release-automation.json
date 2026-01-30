@@ -1,0 +1,20 @@
+{
+  "category": "release-automation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.805882Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automate complete release process with versioning and publishing",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "release-automation",
+      "branch": "main",
+      "category": "release-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/release-automation",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

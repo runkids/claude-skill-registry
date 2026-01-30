@@ -1,0 +1,20 @@
+{
+  "category": "playwright-dotnet",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.590667Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for E2E testing with Playwright for .NET using Microsoft.Playwright.MSTest.v4 integration",
+      "repo": "NotMyself/claude-stack-dotnet",
+      "path": "playwright-dotnet",
+      "branch": "main",
+      "category": "playwright-dotnet",
+      "tags": [],
+      "stars": 0,
+      "install": "NotMyself/claude-stack-dotnet/playwright-dotnet",
+      "source": "github.com/NotMyself/claude-stack-dotnet"
+    }
+  ]
+}

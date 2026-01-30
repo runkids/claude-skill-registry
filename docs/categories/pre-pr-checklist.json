@@ -1,0 +1,20 @@
+{
+  "category": "pre-pr-checklist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.631947Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate documentation requirements before creating a PR. Checks for scratchpad entries, CHANGELOG updates, tests, and plan files based on change type. Use before creating pull requests to ensure all",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "pre-pr-checklist",
+      "branch": "main",
+      "category": "pre-pr-checklist",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/pre-pr-checklist",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "aws-solution-architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.391993Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert AWS solution architecture for startups focusing on serverless, scalable, and cost-effective cloud infrastructure with modern DevOps practices and infrastructure-as-code",
+      "repo": "Yona544/AIskils",
+      "path": "aws-solution-architect",
+      "branch": "main",
+      "category": "aws-solution-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "Yona544/AIskils/aws-solution-architect",
+      "source": "github.com/Yona544/AIskils"
+    }
+  ]
+}

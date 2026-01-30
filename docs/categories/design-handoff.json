@@ -1,0 +1,20 @@
+{
+  "category": "design-handoff",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.154439Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prepare designs for development handoff. Document specifications, interactions, and assets to enable efficient development and maintain design quality.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "design-handoff",
+      "branch": "main",
+      "category": "design-handoff",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/design-handoff",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

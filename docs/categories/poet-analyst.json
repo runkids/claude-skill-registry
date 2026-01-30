@@ -1,0 +1,20 @@
+{
+  "category": "poet-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.602001Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes events through poetic lens using close reading, metaphor analysis, imagery, rhythm, form analysis, and attention to language's emotional and aesthetic dimensions. Provides insights on emotion",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "poet-analyst",
+      "branch": "main",
+      "category": "poet-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/poet-analyst",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

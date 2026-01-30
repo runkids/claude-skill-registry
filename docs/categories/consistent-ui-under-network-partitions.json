@@ -1,0 +1,20 @@
+{
+  "category": "consistent-ui-under-network-partitions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.652933Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Maintain UI consistency and graceful degradation during network partitions and partial connectivity.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "consistent-ui-under-network-partitions",
+      "branch": "main",
+      "category": "consistent-ui-under-network-partitions",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/consistent-ui-under-network-partitions",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

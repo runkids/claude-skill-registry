@@ -1,0 +1,20 @@
+{
+  "category": "audit-code-quality",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.368055Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scan codebase for bad coding practices that violate fail-fast principles",
+      "repo": "benzwick/SlicerMouseMaster",
+      "path": "audit-code-quality",
+      "branch": "main",
+      "category": "audit-code-quality",
+      "tags": [],
+      "stars": 0,
+      "install": "benzwick/SlicerMouseMaster/audit-code-quality",
+      "source": "github.com/benzwick/SlicerMouseMaster"
+    }
+  ]
+}

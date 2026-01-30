@@ -1,0 +1,20 @@
+{
+  "category": "autonomous-agent-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.381577Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design patterns for building autonomous coding agents. Covers tool integration, permission systems, browser automation, and human-in-the-loop workflows. Use when building AI agents, designing tool API",
+      "repo": "AxelMrak/ai",
+      "path": "autonomous-agent-patterns",
+      "branch": "main",
+      "category": "autonomous-agent-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/autonomous-agent-patterns",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

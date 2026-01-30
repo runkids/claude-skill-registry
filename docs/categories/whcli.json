@@ -1,0 +1,20 @@
+{
+  "category": "whcli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.457159Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Willhaben CLI for searching Austria's largest classifieds marketplace. Search listings, view details, check seller profiles.",
+      "repo": "moltbot/skills",
+      "path": "whcli",
+      "branch": "main",
+      "category": "whcli",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/whcli",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

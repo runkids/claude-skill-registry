@@ -1,0 +1,20 @@
+{
+  "category": "azure-test-plans",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.398499Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and manage Azure Test Plans including test cases, suites, and execution. Use when setting up test plans or managing QA processes.",
+      "repo": "ntaksh42/agents",
+      "path": "azure-test-plans",
+      "branch": "main",
+      "category": "azure-test-plans",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents/azure-test-plans",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

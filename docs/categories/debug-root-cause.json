@@ -1,0 +1,20 @@
+{
+  "category": "debug-root-cause",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.053586Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Root cause analysis with dependency tracing and call stack analysis",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "debug-root-cause",
+      "branch": "main",
+      "category": "debug-root-cause",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/debug-root-cause",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

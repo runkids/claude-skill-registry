@@ -1,0 +1,20 @@
+{
+  "category": "create-pull-request",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.702731Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create GitHub pull requests with proper issue linking, comprehensive descriptions, and quality metrics for WescoBar project",
+      "repo": "BerryKuipers/claude-code-toolkit",
+      "path": "create-pull-request",
+      "branch": "main",
+      "category": "create-pull-request",
+      "tags": [],
+      "stars": 0,
+      "install": "BerryKuipers/claude-code-toolkit/create-pull-request",
+      "source": "github.com/BerryKuipers/claude-code-toolkit"
+    }
+  ]
+}

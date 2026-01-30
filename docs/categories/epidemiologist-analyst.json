@@ -1,0 +1,20 @@
+{
+  "category": "epidemiologist-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.581812Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes disease patterns and health events through epidemiological lens using surveillance systems, outbreak investigation methods, and disease modeling frameworks. Provides insights on disease sprea",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "epidemiologist-analyst",
+      "branch": "main",
+      "category": "epidemiologist-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/epidemiologist-analyst",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

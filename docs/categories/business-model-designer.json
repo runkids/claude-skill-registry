@@ -1,0 +1,20 @@
+{
+  "category": "business-model-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.474358Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete Business Model Canvas design with all 9 blocks analyzed. Transforms validated ideas into viable business models with revenue clarity and operational strategy.",
+      "repo": "maigentic/stratarts",
+      "path": "business-model-designer",
+      "branch": "main",
+      "category": "business-model-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/business-model-designer",
+      "source": "github.com/maigentic/stratarts"
+    }
+  ]
+}

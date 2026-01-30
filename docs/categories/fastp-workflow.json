@@ -1,0 +1,20 @@
+{
+  "category": "fastp-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.639733Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "All-in-one read preprocessing with fastp including adapter trimming, quality filtering, deduplication, base correction, and HTML report generation. Use when preprocessing Illumina data and wanting a s",
+      "repo": "GPTomics/bioSkills",
+      "path": "fastp-workflow",
+      "branch": "main",
+      "category": "fastp-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/fastp-workflow",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

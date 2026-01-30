@@ -1,0 +1,20 @@
+{
+  "category": "quality-gates-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.748308Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CRITICAL: Code must pass all quality gates before committing: lint, format, test, build.",
+      "repo": "GolferGeek/orchestrator-ai",
+      "path": "quality-gates-skill",
+      "branch": "main",
+      "category": "quality-gates-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "GolferGeek/orchestrator-ai/quality-gates-skill",
+      "source": "github.com/GolferGeek/orchestrator-ai"
+    }
+  ]
+}

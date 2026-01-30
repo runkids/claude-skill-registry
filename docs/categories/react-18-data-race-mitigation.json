@@ -1,0 +1,20 @@
+{
+  "category": "react-18-data-race-mitigation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.769779Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Identify and mitigate data races arising from concurrent renders and asynchronous effects.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "react-18-data-race-mitigation",
+      "branch": "main",
+      "category": "react-18-data-race-mitigation",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/react-18-data-race-mitigation",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

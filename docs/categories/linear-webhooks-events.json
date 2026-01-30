@@ -1,0 +1,20 @@
+{
+  "category": "linear-webhooks-events",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.025169Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure and handle Linear webhooks for real-time event processing. Use when setting up webhooks, handling Linear events, or building real-time integrations. Trigger with phrases like \"linear webhook",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "linear-webhooks-events",
+      "branch": "main",
+      "category": "linear-webhooks-events",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/linear-webhooks-events",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

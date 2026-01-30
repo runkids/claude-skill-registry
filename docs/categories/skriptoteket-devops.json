@@ -1,0 +1,20 @@
+{
+  "category": "skriptoteket-devops",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.025520Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DevOps and server management for Skriptoteket on home server (hemma.hule.education). Branched skill covering deploy, database, users, CLI, security, network, DNS, and troubleshooting.",
+      "repo": "paunchygent/skriptoteket",
+      "path": "skriptoteket-devops",
+      "branch": "main",
+      "category": "skriptoteket-devops",
+      "tags": [],
+      "stars": 0,
+      "install": "paunchygent/skriptoteket/skriptoteket-devops",
+      "source": "github.com/paunchygent/skriptoteket"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "review-flow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.840834Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PR作成後に自動的に実行する必要があるフロースキルです",
+      "repo": "KanayaActa/ai-driven-dev-template",
+      "path": "review-flow",
+      "branch": "main",
+      "category": "review-flow",
+      "tags": [],
+      "stars": 0,
+      "install": "KanayaActa/ai-driven-dev-template/review-flow",
+      "source": "github.com/KanayaActa/ai-driven-dev-template"
+    }
+  ]
+}

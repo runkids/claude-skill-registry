@@ -1,0 +1,20 @@
+{
+  "category": "bash-script-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.416129Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate Bash 3.2-compatible scripts with a standardized check_requirements guardrail, friendly validation errors, and optional shfmt formatting. Use when writing or updating bash scripts that need co",
+      "repo": "tjmaynes/skills",
+      "path": "bash-script-generator",
+      "branch": "main",
+      "category": "bash-script-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "tjmaynes/skills/bash-script-generator",
+      "source": "github.com/tjmaynes/skills"
+    }
+  ]
+}

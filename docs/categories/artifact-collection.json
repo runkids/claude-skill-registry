@@ -1,0 +1,20 @@
+{
+  "category": "artifact-collection",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.354671Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Collect and preserve digital forensic artifacts from systems and devices. Use when responding to incidents, collecting evidence for investigation, or preserving volatile data. Supports Windows, Linux,",
+      "repo": "SherifEldeeb/agentskills",
+      "path": "artifact-collection",
+      "branch": "main",
+      "category": "artifact-collection",
+      "tags": [],
+      "stars": 0,
+      "install": "SherifEldeeb/agentskills/artifact-collection",
+      "source": "github.com/SherifEldeeb/agentskills"
+    }
+  ]
+}

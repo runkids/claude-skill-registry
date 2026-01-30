@@ -1,0 +1,20 @@
+{
+  "category": "screenshot",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.922960Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Take a screenshot of the plugin UI using the standalone app CLI for debugging and documentation",
+      "repo": "iPlug2/iPlug2",
+      "path": "screenshot",
+      "branch": "main",
+      "category": "screenshot",
+      "tags": [],
+      "stars": 0,
+      "install": "iPlug2/iPlug2/screenshot",
+      "source": "github.com/iPlug2/iPlug2"
+    }
+  ]
+}

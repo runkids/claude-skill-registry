@@ -1,0 +1,20 @@
+{
+  "category": "agentuity-cli-cloud-sandbox-env",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.258119Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set or delete environment variables on a sandbox. Requires authentication. Use for Agentuity cloud platform operations",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-cloud-sandbox-env",
+      "branch": "main",
+      "category": "agentuity-cli-cloud-sandbox-env",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer/agentuity-cli-cloud-sandbox-env",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

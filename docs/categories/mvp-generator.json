@@ -1,0 +1,20 @@
+{
+  "category": "mvp-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.216709Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Genera MVPs completos desde SPEC.md orquestando todos los agentes especializados",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "mvp-generator",
+      "branch": "main",
+      "category": "mvp-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/mvp-generator",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

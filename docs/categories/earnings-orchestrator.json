@@ -1,0 +1,20 @@
+{
+  "category": "earnings-orchestrator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.548548Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master orchestrator for batch earnings analysis",
+      "repo": "faisalanjum/EventTrader",
+      "path": "earnings-orchestrator",
+      "branch": "main",
+      "category": "earnings-orchestrator",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/earnings-orchestrator",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

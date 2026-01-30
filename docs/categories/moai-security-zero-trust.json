@@ -1,0 +1,20 @@
+{
+  "category": "moai-security-zero-trust",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.175340Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Skill for advanced development",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-security-zero-trust",
+      "branch": "main",
+      "category": "moai-security-zero-trust",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit/moai-security-zero-trust",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

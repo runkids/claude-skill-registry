@@ -1,0 +1,20 @@
+{
+  "category": "numpy-masked",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.266777Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "The numpy.ma module provides masked arrays, which couple a data array with a boolean mask. Masked elements are ignored in operations like mean(), sum(), and log(), making them ideal for datasets where",
+      "repo": "cuba6112/skillfactory",
+      "path": "numpy-masked",
+      "branch": "main",
+      "category": "numpy-masked",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory/numpy-masked",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "session-inspector",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.976493Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when inspecting, analyzing, or querying Claude Code session logs. Use when users ask about session history, want to find sessions, analyze context usage, extract tool call pa",
+      "repo": "dagster-io/erk",
+      "path": "session-inspector",
+      "branch": "main",
+      "category": "session-inspector",
+      "tags": [],
+      "stars": 0,
+      "install": "dagster-io/erk/session-inspector",
+      "source": "github.com/dagster-io/erk"
+    }
+  ]
+}

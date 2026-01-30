@@ -1,0 +1,20 @@
+{
+  "category": "supplier-collaboration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.122374Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to improve supplier relationships, implement collaboration programs, or enable information sharing with suppliers. Also use when the user mentions \"supplier partnership,\" \"collabor",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "supplier-collaboration",
+      "branch": "main",
+      "category": "supplier-collaboration",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/supplier-collaboration",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

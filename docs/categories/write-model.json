@@ -1,0 +1,20 @@
+{
+  "category": "write-model",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.492140Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write database models following the Epic architecture patterns. Use when creating Active Record models for database tables with CRUD operations. Triggers on \"create a model\", \"add a model\", or \"write",
+      "repo": "coeus-ventures/epic-web",
+      "path": "write-model",
+      "branch": "main",
+      "category": "write-model",
+      "tags": [],
+      "stars": 0,
+      "install": "coeus-ventures/epic-web/write-model",
+      "source": "github.com/coeus-ventures/epic-web"
+    }
+  ]
+}

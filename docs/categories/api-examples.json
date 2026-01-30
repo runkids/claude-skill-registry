@@ -1,0 +1,20 @@
+{
+  "category": "api-examples",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.323426Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate API usage examples and tutorials from code analysis",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "api-examples",
+      "branch": "main",
+      "category": "api-examples",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/api-examples",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "codeql",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.603815Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CodeQL is a static analysis framework that queries code as a database. Use when you need interprocedural analysis or complex data flow tracking.",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "codeql",
+      "branch": "main",
+      "category": "codeql",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/codeql",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

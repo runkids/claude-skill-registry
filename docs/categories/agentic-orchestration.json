@@ -1,0 +1,20 @@
+{
+  "category": "agentic-orchestration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.248274Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Patterns for multi-agent coordination, task decomposition, handoffs, and workflow orchestration. Best practices for building and managing agent systems.",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "agentic-orchestration",
+      "branch": "main",
+      "category": "agentic-orchestration",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os/agentic-orchestration",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

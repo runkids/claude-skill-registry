@@ -1,0 +1,20 @@
+{
+  "category": "data-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.026323Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when analyzing business sales and revenue data from CSV files to identify weak areas, generate statistical insights, and provide strategic improvement recommendations. Use wh",
+      "repo": "nguyendinhquocx/code-ai",
+      "path": "data-analyst",
+      "branch": "main",
+      "category": "data-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "nguyendinhquocx/code-ai/data-analyst",
+      "source": "github.com/nguyendinhquocx/code-ai"
+    }
+  ]
+}

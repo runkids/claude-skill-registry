@@ -1,0 +1,20 @@
+{
+  "category": "rover",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.855865Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for using Apollo Rover CLI to manage GraphQL schemas and federation. Use this skill when: (1) publishing or fetching subgraph/graph schemas, (2) composing supergraph schemas locally or via Graph",
+      "repo": "apollographql/skills",
+      "path": "rover",
+      "branch": "main",
+      "category": "rover",
+      "tags": [],
+      "stars": 0,
+      "install": "apollographql/skills/rover",
+      "source": "github.com/apollographql/skills"
+    }
+  ]
+}

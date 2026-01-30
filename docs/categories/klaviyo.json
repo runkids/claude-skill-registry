@@ -1,0 +1,20 @@
+{
+  "category": "klaviyo",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.950280Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage e-commerce email and SMS marketing with Klaviyo's data-driven platform.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "klaviyo",
+      "branch": "main",
+      "category": "klaviyo",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/klaviyo",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

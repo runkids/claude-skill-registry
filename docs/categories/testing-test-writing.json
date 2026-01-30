@@ -1,0 +1,20 @@
+{
+  "category": "testing-test-writing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.275535Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Your approach to handling testing test writing. Use this skill when working on files where testing test writing comes into play.",
+      "repo": "leaderiop/hex-di",
+      "path": "testing-test-writing",
+      "branch": "main",
+      "category": "testing-test-writing",
+      "tags": [],
+      "stars": 0,
+      "install": "leaderiop/hex-di/testing-test-writing",
+      "source": "github.com/leaderiop/hex-di"
+    }
+  ]
+}

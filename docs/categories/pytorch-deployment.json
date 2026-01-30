@@ -1,0 +1,20 @@
+{
+  "category": "pytorch-deployment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.737569Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide for deploying PyTorch models to production, covering export formats, optimization techniques, and deployment patterns.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "pytorch-deployment",
+      "branch": "main",
+      "category": "pytorch-deployment",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/pytorch-deployment",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

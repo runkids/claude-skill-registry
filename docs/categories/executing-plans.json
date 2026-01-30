@@ -1,0 +1,20 @@
+{
+  "category": "executing-plans",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.613871Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when partner provides a complete implementation plan to execute in controlled batches with review checkpoints - loads plan, reviews critically, executes tasks in batches, reports for review betwee",
+      "repo": "JKKN-Institutions/Kenavo",
+      "path": "executing-plans",
+      "branch": "main",
+      "category": "executing-plans",
+      "tags": [],
+      "stars": 0,
+      "install": "JKKN-Institutions/Kenavo/executing-plans",
+      "source": "github.com/JKKN-Institutions/Kenavo"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "screen-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.922276Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates new React Native screens following Ishkul patterns. Creates screen component with proper hooks ordering, state management, loading/error/success states, navigation setup, and matching test f",
+      "repo": "mesbahtanvir/ishkul",
+      "path": "screen-generator",
+      "branch": "main",
+      "category": "screen-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "mesbahtanvir/ishkul/screen-generator",
+      "source": "github.com/mesbahtanvir/ishkul"
+    }
+  ]
+}

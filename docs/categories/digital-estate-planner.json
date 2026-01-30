@@ -1,0 +1,20 @@
+{
+  "category": "digital-estate-planner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.455038Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Organizing digital life for legacy, emergency access, and death preparedness. Specializes in password management, account documentation, digital asset preservation, and ensuring loved ones can access",
+      "repo": "erichowens/some_claude_skills",
+      "path": "digital-estate-planner",
+      "branch": "main",
+      "category": "digital-estate-planner",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/digital-estate-planner",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

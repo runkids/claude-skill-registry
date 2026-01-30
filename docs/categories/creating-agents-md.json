@@ -1,0 +1,20 @@
+{
+  "category": "creating-agents-md",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.708554Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating agents.md files - provides plain markdown format with NO frontmatter, free-form structure, and project context guidelines for AI coding assistants",
+      "repo": "pr-pm/prpm",
+      "path": "creating-agents-md",
+      "branch": "main",
+      "category": "creating-agents-md",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm/creating-agents-md",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "releasing-plugin-versions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.808970Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when releasing a new plugin version, bumping versions, creating git tags, or publishing GitHub releases for this marketplace",
+      "repo": "ivan-magda/claude-superpowers",
+      "path": "releasing-plugin-versions",
+      "branch": "main",
+      "category": "releasing-plugin-versions",
+      "tags": [],
+      "stars": 0,
+      "install": "ivan-magda/claude-superpowers/releasing-plugin-versions",
+      "source": "github.com/ivan-magda/claude-superpowers"
+    }
+  ]
+}

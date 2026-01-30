@@ -1,0 +1,20 @@
+{
+  "category": "clojure-test-check",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.567861Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Property-based testing with clojure.test.check. Use when writing generative tests, creating custom generators, or debugging shrinking behavior. Triggers on test.check imports, prop/for-all, gen/* usag",
+      "repo": "Ramblurr/nix-devenv",
+      "path": "clojure-test-check",
+      "branch": "main",
+      "category": "clojure-test-check",
+      "tags": [],
+      "stars": 0,
+      "install": "Ramblurr/nix-devenv/clojure-test-check",
+      "source": "github.com/Ramblurr/nix-devenv"
+    }
+  ]
+}

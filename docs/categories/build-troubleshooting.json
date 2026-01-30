@@ -1,0 +1,20 @@
+{
+  "category": "build-troubleshooting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.457847Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "FAQ for diagnosing and resolving build and test failures",
+      "repo": "ksoichiro/ChronoDawn",
+      "path": "build-troubleshooting",
+      "branch": "main",
+      "category": "build-troubleshooting",
+      "tags": [],
+      "stars": 0,
+      "install": "ksoichiro/ChronoDawn/build-troubleshooting",
+      "source": "github.com/ksoichiro/ChronoDawn"
+    }
+  ]
+}

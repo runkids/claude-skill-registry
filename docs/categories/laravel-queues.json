@@ -1,0 +1,20 @@
+{
+  "category": "laravel-queues",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.975943Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement background jobs with queues, workers, batches, chains, events, broadcasting, and failure handling. Use when processing async tasks, sending emails, or handling long-running operations.",
+      "repo": "fusengine/agents",
+      "path": "laravel-queues",
+      "branch": "main",
+      "category": "laravel-queues",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/laravel-queues",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

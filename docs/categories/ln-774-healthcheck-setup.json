@@ -1,0 +1,20 @@
+{
+  "category": "ln-774-healthcheck-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.044766Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configures health check endpoints for Kubernetes readiness/liveness/startup",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "ln-774-healthcheck-setup",
+      "branch": "main",
+      "category": "ln-774-healthcheck-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "levnikolaevich/claude-code-skills/ln-774-healthcheck-setup",
+      "source": "github.com/levnikolaevich/claude-code-skills"
+    }
+  ]
+}

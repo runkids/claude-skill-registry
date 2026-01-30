@@ -1,0 +1,20 @@
+{
+  "category": "ru",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.859413Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Repo Updater - automation-friendly CLI for synchronizing GitHub repositories. Keep dozens or hundreds of repos in sync with a single command. Pure Bash with git plumbing, JSON output, meaningful exit",
+      "repo": "carmandale/agent-config",
+      "path": "ru",
+      "branch": "main",
+      "category": "ru",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config/ru",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

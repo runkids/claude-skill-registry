@@ -1,0 +1,20 @@
+{
+  "category": "gitlab-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.776765Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "The model must apply when tasks involve .gitlab-ci.yml configuration, GitLab Flavored Markdown (GLFM) syntax, gitlab-ci-local testing, CI/CD pipeline optimization, GitLab CI Steps composition, Docker-",
+      "repo": "BbgnsurfTech/claude-skills-collection",
+      "path": "gitlab-skill",
+      "branch": "main",
+      "category": "gitlab-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "BbgnsurfTech/claude-skills-collection/gitlab-skill",
+      "source": "github.com/BbgnsurfTech/claude-skills-collection"
+    }
+  ]
+}

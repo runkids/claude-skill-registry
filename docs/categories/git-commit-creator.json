@@ -1,0 +1,20 @@
+{
+  "category": "git-commit-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.756227Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates properly formatted Git commits following conventional commit standards for the MCPSpy project. Use when asked to commit changes, stage files, or manage git workflows. Has access to git status,",
+      "repo": "alex-ilgayev/MCPSpy",
+      "path": "git-commit-creator",
+      "branch": "main",
+      "category": "git-commit-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "alex-ilgayev/MCPSpy/git-commit-creator",
+      "source": "github.com/alex-ilgayev/MCPSpy"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "smart-contracts",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.032262Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert on Shelby Protocol smart contracts on Aptos blockchain. Helps with blob metadata, micropayment channels, auditing system, storage commitments, placement group assignments, Move modules, and on-",
+      "repo": "raintree-technology/claude-starter",
+      "path": "smart-contracts",
+      "branch": "main",
+      "category": "smart-contracts",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/smart-contracts",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

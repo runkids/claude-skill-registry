@@ -1,0 +1,20 @@
+{
+  "category": "octave-compression",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.278942Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Specialized workflow for transforming verbose natural language into semantic OCTAVE structures. REQUIRES octave-literacy to be loaded first",
+      "repo": "elevanaltd/octave-mcp",
+      "path": "octave-compression",
+      "branch": "main",
+      "category": "octave-compression",
+      "tags": [],
+      "stars": 0,
+      "install": "elevanaltd/octave-mcp/octave-compression",
+      "source": "github.com/elevanaltd/octave-mcp"
+    }
+  ]
+}

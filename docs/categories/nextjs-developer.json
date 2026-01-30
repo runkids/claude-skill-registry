@@ -1,0 +1,20 @@
+{
+  "category": "nextjs-developer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.242401Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building Next.js 14+ applications with App Router, server components, or server actions. Invoke for full-stack features, performance optimization, SEO implementation, production deployment.",
+      "repo": "Jeffallan/claude-skills",
+      "path": "nextjs-developer",
+      "branch": "main",
+      "category": "nextjs-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills/nextjs-developer",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "fix-lint",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.674352Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Helps fix oxlint errors and warnings in the OneKey codebase. Use when running yarn lint and encountering warnings, cleaning up code before committing, or fixing spellcheck, unused variable, or other l",
+      "repo": "OneKeyHQ/app-monorepo",
+      "path": "fix-lint",
+      "branch": "main",
+      "category": "fix-lint",
+      "tags": [],
+      "stars": 0,
+      "install": "OneKeyHQ/app-monorepo/fix-lint",
+      "source": "github.com/OneKeyHQ/app-monorepo"
+    }
+  ]
+}

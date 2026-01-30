@@ -1,0 +1,20 @@
+{
+  "category": "write-story",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.493720Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Story content structure, templates, and writing guidelines for branch narratives.",
+      "repo": "qmu/workaholic",
+      "path": "write-story",
+      "branch": "main",
+      "category": "write-story",
+      "tags": [],
+      "stars": 0,
+      "install": "qmu/workaholic/write-story",
+      "source": "github.com/qmu/workaholic"
+    }
+  ]
+}

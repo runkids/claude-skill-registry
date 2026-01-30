@@ -1,0 +1,20 @@
+{
+  "category": "swift-6-migration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.129823Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when encountering Swift 6 concurrency errors, Sendable conformance warnings, actor isolation issues, \"global variable is not concurrency-safe\" errors, or migrating codebases to Swift 6 language mo",
+      "repo": "ivan-magda/claude-superpowers",
+      "path": "swift-6-migration",
+      "branch": "main",
+      "category": "swift-6-migration",
+      "tags": [],
+      "stars": 0,
+      "install": "ivan-magda/claude-superpowers/swift-6-migration",
+      "source": "github.com/ivan-magda/claude-superpowers"
+    }
+  ]
+}

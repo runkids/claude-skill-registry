@@ -1,0 +1,20 @@
+{
+  "category": "coordinator-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.685052Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage coordinator daemon tasks, approve/reject work, monitor autonomous agents. Use when user asks to delegate tasks, check task status, review agent work, manage the coordinator, or use GitHub-drive",
+      "repo": "sunholo-data/ailang",
+      "path": "coordinator-helper",
+      "branch": "main",
+      "category": "coordinator-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "sunholo-data/ailang/coordinator-helper",
+      "source": "github.com/sunholo-data/ailang"
+    }
+  ]
+}

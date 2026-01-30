@@ -1,0 +1,20 @@
+{
+  "category": "agent-resources-vision",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.240565Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "North star guidance for the agent-resources project. Use this skill to understand project context, get inspiration for development decisions, and resolve uncertainty about feature priorities or design",
+      "repo": "kasperjunge/agent-resources-legacy",
+      "path": "agent-resources-vision",
+      "branch": "main",
+      "category": "agent-resources-vision",
+      "tags": [],
+      "stars": 0,
+      "install": "kasperjunge/agent-resources-legacy/agent-resources-vision",
+      "source": "github.com/kasperjunge/agent-resources-legacy"
+    }
+  ]
+}

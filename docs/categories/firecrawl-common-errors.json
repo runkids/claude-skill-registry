@@ -1,0 +1,20 @@
+{
+  "category": "firecrawl-common-errors",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.669740Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diagnose and fix FireCrawl common errors and exceptions. Use when encountering FireCrawl errors, debugging failed requests, or troubleshooting integration issues. Trigger with phrases like \"firecrawl",
+      "repo": "byteworthy/Upstream",
+      "path": "firecrawl-common-errors",
+      "branch": "main",
+      "category": "firecrawl-common-errors",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/firecrawl-common-errors",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

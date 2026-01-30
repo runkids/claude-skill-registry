@@ -1,8 +1,8 @@
 {
   "category": "integration",
   "code": "oth",
-  "count": 2,
-  "updated_at": "2026-01-29T04:50:38.936077Z",
+  "count": 3,
+  "updated_at": "2026-01-30T04:55:06.887433Z",
   "skills": [
     {
       "name": "web3-manager",
@@ -27,6 +27,18 @@
       "stars": 0,
       "install": "/integration/google-calendar-sync",
       "source": "github.com/badass-courses/course-builder"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Integrates Clix Mobile SDK into iOS, Android, Flutter, and React Native projects. Provides step-by-step guidance for installation, initialization, and verification. Use when the user asks to install,",
+      "repo": "clix-so/skills",
+      "path": "integration",
+      "branch": "main",
+      "category": "integration",
+      "tags": [],
+      "stars": 0,
+      "install": "clix-so/skills/integration",
+      "source": "github.com/clix-so/skills"
     }
   ]
 }

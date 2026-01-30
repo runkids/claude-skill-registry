@@ -1,0 +1,20 @@
+{
+  "category": "cqrs-implementation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.694008Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement Command Query Responsibility Segregation for scalable architectures. Use when separating read and write models, optimizing query performance, or building event-sourced systems.",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "cqrs-implementation",
+      "branch": "main",
+      "category": "cqrs-implementation",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/cqrs-implementation",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

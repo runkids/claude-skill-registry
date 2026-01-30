@@ -1,0 +1,20 @@
+{
+  "category": "qa-validation-asset-loading",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.742733Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Asset loading performance validation using Playwright. Use when validating FBX model loading performance and memory usage, testing asset loading across different environments, ensuring proper error ha",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "qa-validation-asset-loading",
+      "branch": "main",
+      "category": "qa-validation-asset-loading",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/qa-validation-asset-loading",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

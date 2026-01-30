@@ -1,0 +1,20 @@
+{
+  "category": "mood-board-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.198509Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to compile visual inspiration, color palettes, and typography references for creative concepts.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "mood-board-builder",
+      "branch": "main",
+      "category": "mood-board-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/mood-board-builder",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

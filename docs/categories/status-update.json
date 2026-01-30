@@ -1,0 +1,20 @@
+{
+  "category": "status-update",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.091340Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user says \"@status update\" or \"status update\", execute this command.",
+      "repo": "kmylpenter/KFG-CCv2-Installer-Stable",
+      "path": "status-update",
+      "branch": "main",
+      "category": "status-update",
+      "tags": [],
+      "stars": 0,
+      "install": "kmylpenter/KFG-CCv2-Installer-Stable/status-update",
+      "source": "github.com/kmylpenter/KFG-CCv2-Installer-Stable"
+    }
+  ]
+}

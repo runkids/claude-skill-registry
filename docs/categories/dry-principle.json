@@ -1,0 +1,20 @@
+{
+  "category": "dry-principle",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.538934Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "dry-principle",
+      "branch": "main",
+      "category": "dry-principle",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/dry-principle",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

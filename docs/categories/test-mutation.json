@@ -1,0 +1,20 @@
+{
+  "category": "test-mutation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.206947Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Mutation testing to verify test quality with Stryker, mutmut, or go-mutesting",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "test-mutation",
+      "branch": "main",
+      "category": "test-mutation",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/test-mutation",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "langsmith-fetch",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.972321Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Debug LangChain and LangGraph agents by fetching execution traces from LangSmith Studio. Use when debugging agent behavior, investigating errors, analyzing tool calls, checking memory operations, or e",
+      "repo": "ComposioHQ/awesome-claude-skills",
+      "path": "langsmith-fetch",
+      "branch": "main",
+      "category": "langsmith-fetch",
+      "tags": [],
+      "stars": 0,
+      "install": "ComposioHQ/awesome-claude-skills/langsmith-fetch",
+      "source": "github.com/ComposioHQ/awesome-claude-skills"
+    }
+  ]
+}

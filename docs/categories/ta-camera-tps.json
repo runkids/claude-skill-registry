@@ -1,0 +1,20 @@
+{
+  "category": "ta-camera-tps",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.143918Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Third-person shooter camera implementation with proper player-relative controls. Use when implementing TPS cameras, orbit controls, camera follow.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "ta-camera-tps",
+      "branch": "main",
+      "category": "ta-camera-tps",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/ta-camera-tps",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

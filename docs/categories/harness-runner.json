@@ -1,0 +1,20 @@
+{
+  "category": "harness-runner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.823192Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run WaveCap-SDR test harness with automated parameter sweeps and validation. Use when regression testing, validating audio quality across configurations, testing SDR hardware, or benchmarking demodula",
+      "repo": "TobiasWooldridge/WaveCap-SDR",
+      "path": "harness-runner",
+      "branch": "main",
+      "category": "harness-runner",
+      "tags": [],
+      "stars": 0,
+      "install": "TobiasWooldridge/WaveCap-SDR/harness-runner",
+      "source": "github.com/TobiasWooldridge/WaveCap-SDR"
+    }
+  ]
+}

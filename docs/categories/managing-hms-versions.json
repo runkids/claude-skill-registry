@@ -1,0 +1,20 @@
+{
+  "category": "managing-hms-versions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.074178Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manages HEC-HMS version differences (3.x vs 4.x), handles Python 2/3 compatibility, detects HMS installations, and generates version-appropriate Jython scripts. Use when working with legacy HMS 3.x pr",
+      "repo": "gpt-cmdr/hms-commander",
+      "path": "managing-hms-versions",
+      "branch": "main",
+      "category": "managing-hms-versions",
+      "tags": [],
+      "stars": 0,
+      "install": "gpt-cmdr/hms-commander/managing-hms-versions",
+      "source": "github.com/gpt-cmdr/hms-commander"
+    }
+  ]
+}

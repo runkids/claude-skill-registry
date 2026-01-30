@@ -1,0 +1,20 @@
+{
+  "category": "database-schema-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.042475Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design robust, scalable database schemas for SQL and NoSQL databases. Provides normalization guidelines, indexing strategies, migration patterns, constraint design, and performance optimization. Ensur",
+      "repo": "softaworks/agent-toolkit",
+      "path": "database-schema-designer",
+      "branch": "main",
+      "category": "database-schema-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "softaworks/agent-toolkit/database-schema-designer",
+      "source": "github.com/softaworks/agent-toolkit"
+    }
+  ]
+}

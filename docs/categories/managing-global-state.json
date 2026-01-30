@@ -1,0 +1,20 @@
+{
+  "category": "managing-global-state",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.073888Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Defines when and how to manage shared state using React Context or Zustand. Use for global persistent data like the \"Booking Cart\".",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "managing-global-state",
+      "branch": "main",
+      "category": "managing-global-state",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2/managing-global-state",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

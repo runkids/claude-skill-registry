@@ -1,0 +1,20 @@
+{
+  "category": "database-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.038367Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "设计和优化数据库模式，支持PostgreSQL、MySQL、SQLite和MongoDB。包括ER建模、规范化、索引优化和迁移脚本生成。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "database-designer",
+      "branch": "main",
+      "category": "database-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode/database-designer",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "dynamic-loglevel-rfc-27",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.544228Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "RFC-27 compliant runtime log level control for Java services. Covers proper log level usage, enabling dynamic log levels in estate-catalog, and changing levels via Developer Portal or Bitso CLI. Use w",
+      "repo": "bitsoex/bitso-java",
+      "path": "dynamic-loglevel-rfc-27",
+      "branch": "main",
+      "category": "dynamic-loglevel-rfc-27",
+      "tags": [],
+      "stars": 0,
+      "install": "bitsoex/bitso-java/dynamic-loglevel-rfc-27",
+      "source": "github.com/bitsoex/bitso-java"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "scout-plan-build-test",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.920919Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run scout, plan, build, and testing in one flow; use for end-to-end delivery with validation.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "scout-plan-build-test",
+      "branch": "main",
+      "category": "scout-plan-build-test",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup/scout-plan-build-test",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

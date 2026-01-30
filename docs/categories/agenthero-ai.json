@@ -1,0 +1,20 @@
+{
+  "category": "agenthero-ai",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.246354Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AgentHero AI - Hierarchical multi-agent orchestration system with PM coordination, file-based state management, and interactive menu interface. Use when managing complex multi-agent workflows, coordin",
+      "repo": "Interstellar-code/claud-skills",
+      "path": "agenthero-ai",
+      "branch": "main",
+      "category": "agenthero-ai",
+      "tags": [],
+      "stars": 0,
+      "install": "Interstellar-code/claud-skills/agenthero-ai",
+      "source": "github.com/Interstellar-code/claud-skills"
+    }
+  ]
+}

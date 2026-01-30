@@ -1,0 +1,20 @@
+{
+  "category": "create-an-edge-app",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.696279Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "The recommended way to create an Edge App",
+      "repo": "Screenly/Playground",
+      "path": "create-an-edge-app",
+      "branch": "main",
+      "category": "create-an-edge-app",
+      "tags": [],
+      "stars": 0,
+      "install": "Screenly/Playground/create-an-edge-app",
+      "source": "github.com/Screenly/Playground"
+    }
+  ]
+}

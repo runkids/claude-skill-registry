@@ -1,0 +1,20 @@
+{
+  "category": "discover-interview-synthesis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.457052Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<!-- PM-Skills | https://github.com/product-on-purpose/pm-skills | Apache 2.0 -->",
+      "repo": "product-on-purpose/pm-skills",
+      "path": "discover-interview-synthesis",
+      "branch": "main",
+      "category": "discover-interview-synthesis",
+      "tags": [],
+      "stars": 0,
+      "install": "product-on-purpose/pm-skills/discover-interview-synthesis",
+      "source": "github.com/product-on-purpose/pm-skills"
+    }
+  ]
+}

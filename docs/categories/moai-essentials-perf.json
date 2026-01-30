@@ -1,0 +1,20 @@
+{
+  "category": "moai-essentials-perf",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.161709Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI-powered enterprise performance optimization orchestrator with Context7 integration, Scalene AI profiling, intelligent bottleneck detection, automated optimization strategies, and predictive perform",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-essentials-perf",
+      "branch": "main",
+      "category": "moai-essentials-perf",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-essentials-perf",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "staging-validation-phase",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.077343Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guides manual staging validation before production deployment through smoke tests, critical user flow testing, data migration verification, and rollback capability checks. Use when validating staging",
+      "repo": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "path": "staging-validation-phase",
+      "branch": "main",
+      "category": "staging-validation-phase",
+      "tags": [],
+      "stars": 0,
+      "install": "Sjdjdiejdrirhdkjej/Claude-code-conductor/staging-validation-phase",
+      "source": "github.com/Sjdjdiejdrirhdkjej/Claude-code-conductor"
+    }
+  ]
+}

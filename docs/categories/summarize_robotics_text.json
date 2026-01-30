@@ -1,0 +1,20 @@
+{
+  "category": "summarize_robotics_text",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.115706Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Summarize robotics-related text, research papers, or lecture notes into concise, clear, and structured summaries. Use when user asks to condense or simplify robotics content.",
+      "repo": "MuhammadHassaanArain/Book-PAI",
+      "path": "summarize_robotics_text",
+      "branch": "main",
+      "category": "summarize_robotics_text",
+      "tags": [],
+      "stars": 0,
+      "install": "MuhammadHassaanArain/Book-PAI/summarize_robotics_text",
+      "source": "github.com/MuhammadHassaanArain/Book-PAI"
+    }
+  ]
+}

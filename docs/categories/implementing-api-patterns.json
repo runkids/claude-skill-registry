@@ -1,0 +1,20 @@
+{
+  "category": "implementing-api-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.867384Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "API design and implementation across REST, GraphQL, gRPC, and tRPC patterns. Use when building backend services, public APIs, or service-to-service communication. Covers REST frameworks (FastAPI, Axum",
+      "repo": "ancoleman/ai-design-components",
+      "path": "implementing-api-patterns",
+      "branch": "main",
+      "category": "implementing-api-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/implementing-api-patterns",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

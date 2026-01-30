@@ -1,0 +1,20 @@
+{
+  "category": "benchmark-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.425868Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and manage AILANG eval benchmarks. Use when user asks to create benchmarks, fix benchmark issues, debug failing benchmarks, or analyze benchmark results.",
+      "repo": "sunholo-data/ailang",
+      "path": "benchmark-manager",
+      "branch": "main",
+      "category": "benchmark-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "sunholo-data/ailang/benchmark-manager",
+      "source": "github.com/sunholo-data/ailang"
+    }
+  ]
+}

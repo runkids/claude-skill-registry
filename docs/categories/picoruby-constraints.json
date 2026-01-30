@@ -1,0 +1,20 @@
+{
+  "category": "picoruby-constraints",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.573998Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Documents memory limits and stdlib constraints for PicoRuby on ESP32. Use this when writing code that will run on ESP32 hardware or designing features for PicoRuby applications.",
+      "repo": "bash0C7/picotorokko",
+      "path": "picoruby-constraints",
+      "branch": "main",
+      "category": "picoruby-constraints",
+      "tags": [],
+      "stars": 0,
+      "install": "bash0C7/picotorokko/picoruby-constraints",
+      "source": "github.com/bash0C7/picotorokko"
+    }
+  ]
+}

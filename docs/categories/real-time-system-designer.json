@@ -1,0 +1,20 @@
+{
+  "category": "real-time-system-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.785994Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design WebSocket/SSE/long polling with ordering and delivery guarantees.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "real-time-system-designer",
+      "branch": "main",
+      "category": "real-time-system-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/real-time-system-designer",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "moai-workflow-spec",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.177027Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SPEC workflow orchestration with EARS format, requirement clarification, and Plan-Run-Sync integration for MoAI-ADK development methodology",
+      "repo": "modu-ai/moai-adk",
+      "path": "moai-workflow-spec",
+      "branch": "main",
+      "category": "moai-workflow-spec",
+      "tags": [],
+      "stars": 0,
+      "install": "modu-ai/moai-adk/moai-workflow-spec",
+      "source": "github.com/modu-ai/moai-adk"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "airflow-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.285423Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Apache Airflow orchestration, DAGs, operators, sensors, XComs, task dependencies, and scheduling",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "airflow-expert",
+      "branch": "main",
+      "category": "airflow-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/airflow-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

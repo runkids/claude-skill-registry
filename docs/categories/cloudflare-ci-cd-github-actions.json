@@ -1,0 +1,20 @@
+{
+  "category": "cloudflare-ci-cd-github-actions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.574108Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill whenever the user wants to set up, refactor, or maintain a GitHub Actions CI/CD pipeline for deploying Cloudflare Workers/Pages apps (e.g. Hono + TypeScript) with D1/R2, including tests",
+      "repo": "AgentiveCity/SkillFactory",
+      "path": "cloudflare-ci-cd-github-actions",
+      "branch": "main",
+      "category": "cloudflare-ci-cd-github-actions",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentiveCity/SkillFactory/cloudflare-ci-cd-github-actions",
+      "source": "github.com/AgentiveCity/SkillFactory"
+    }
+  ]
+}

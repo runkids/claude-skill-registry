@@ -1,0 +1,20 @@
+{
+  "category": "sync-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.137763Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /sync-plan slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "sync-plan",
+      "branch": "main",
+      "category": "sync-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles/sync-plan",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

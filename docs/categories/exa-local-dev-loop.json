@@ -1,0 +1,20 @@
+{
+  "category": "exa-local-dev-loop",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.606685Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure Exa local development with hot reload and testing. Use when setting up a development environment, configuring test workflows, or establishing a fast iteration cycle with Exa. Trigger with ph",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "exa-local-dev-loop",
+      "branch": "main",
+      "category": "exa-local-dev-loop",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/exa-local-dev-loop",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

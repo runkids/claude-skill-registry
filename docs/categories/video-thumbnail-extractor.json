@@ -1,0 +1,20 @@
+{
+  "category": "video-thumbnail-extractor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.417822Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract frames from videos at specific timestamps or intervals, find best frames, and generate thumbnail grids for previews.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "video-thumbnail-extractor",
+      "branch": "main",
+      "category": "video-thumbnail-extractor",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/video-thumbnail-extractor",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

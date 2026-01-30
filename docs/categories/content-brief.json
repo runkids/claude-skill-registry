@@ -1,0 +1,20 @@
+{
+  "category": "content-brief",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.659073Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Content brief template and creation methodology for SEO-optimized content. Use when preparing briefs for writers or planning new content pieces.",
+      "repo": "nicepkg/ai-workflow",
+      "path": "content-brief",
+      "branch": "main",
+      "category": "content-brief",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/content-brief",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

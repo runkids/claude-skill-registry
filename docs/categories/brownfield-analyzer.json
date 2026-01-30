@@ -1,0 +1,20 @@
+{
+  "category": "brownfield-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.447238Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes existing brownfield projects to map documentation to SpecWeave's structure (PRD/HLD/Spec/Runbook). Use when migrating existing projects to SpecWeave, scanning legacy docs, or creating project",
+      "repo": "anton-abyzov/specweave",
+      "path": "brownfield-analyzer",
+      "branch": "main",
+      "category": "brownfield-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/brownfield-analyzer",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

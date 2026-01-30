@@ -1,0 +1,20 @@
+{
+  "category": "skriptoteket-backend-dev",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.025341Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Backend engineering for Skriptoteket (FastAPI monolith): architecture + file tree navigation (DDD/Clean layers), protocol-first DI, Unit of Work + transactions, DomainError semantics, core data shapes",
+      "repo": "paunchygent/skriptoteket",
+      "path": "skriptoteket-backend-dev",
+      "branch": "main",
+      "category": "skriptoteket-backend-dev",
+      "tags": [],
+      "stars": 0,
+      "install": "paunchygent/skriptoteket/skriptoteket-backend-dev",
+      "source": "github.com/paunchygent/skriptoteket"
+    }
+  ]
+}

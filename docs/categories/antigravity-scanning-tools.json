@@ -1,0 +1,20 @@
+{
+  "category": "antigravity-scanning-tools",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.313744Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"perform vulnerability scanning\", \"scan networks for open ports\", \"assess web application security\", \"scan wireless networks\", \"detect malware\", \"check",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-scanning-tools",
+      "branch": "main",
+      "category": "antigravity-scanning-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/antigravity-scanning-tools",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "claude-command-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.535504Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interactive slash command creator for Claude Code. Triggers when user mentions creating commands, slash commands, command templates, command arguments, or wants to build a new command workflow.",
+      "repo": "raintree-technology/claude-starter",
+      "path": "claude-command-builder",
+      "branch": "main",
+      "category": "claude-command-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/claude-command-builder",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

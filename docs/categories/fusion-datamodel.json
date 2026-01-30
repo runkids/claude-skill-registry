@@ -1,0 +1,20 @@
+{
+  "category": "fusion-datamodel",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.716703Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Compare data model designs and pick the best fit; use when modeling new data or refactoring schemas.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "fusion-datamodel",
+      "branch": "main",
+      "category": "fusion-datamodel",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup/fusion-datamodel",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

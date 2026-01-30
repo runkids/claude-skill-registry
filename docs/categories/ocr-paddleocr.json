@@ -1,0 +1,20 @@
+{
+  "category": "ocr-paddleocr",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.278593Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide to PaddleOCR implementation for multi-language text recognition, table extraction, and document layout analysis",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "ocr-paddleocr",
+      "branch": "main",
+      "category": "ocr-paddleocr",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/ocr-paddleocr",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

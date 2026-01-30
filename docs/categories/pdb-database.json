@@ -1,0 +1,20 @@
+{
+  "category": "pdb-database",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.551683Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access RCSB PDB for 3D protein/nucleic acid structures. Search by text/sequence/structure, download coordinates (PDB/mmCIF), retrieve metadata, for structural biology and drug discovery.",
+      "repo": "robinbarvaag/poynt",
+      "path": "pdb-database",
+      "branch": "main",
+      "category": "pdb-database",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/pdb-database",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

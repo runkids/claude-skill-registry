@@ -1,0 +1,20 @@
+{
+  "category": "audit-dependencies",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.368508Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run npm audit and check for outdated/vulnerable dependencies. Returns structured output with vulnerability counts by severity, outdated packages, and recommended updates. Used for security validation",
+      "repo": "BerryKuipers/claude-code-toolkit",
+      "path": "audit-dependencies",
+      "branch": "main",
+      "category": "audit-dependencies",
+      "tags": [],
+      "stars": 0,
+      "install": "BerryKuipers/claude-code-toolkit/audit-dependencies",
+      "source": "github.com/BerryKuipers/claude-code-toolkit"
+    }
+  ]
+}

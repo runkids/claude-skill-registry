@@ -1,0 +1,20 @@
+{
+  "category": "confluent-ksqldb",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.650129Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ksqlDB stream processing expert. Covers SQL-like queries on Kafka topics, stream and table concepts, joins, aggregations, windowing, materialized views, and real-time data transformations. Activates f",
+      "repo": "anton-abyzov/specweave",
+      "path": "confluent-ksqldb",
+      "branch": "main",
+      "category": "confluent-ksqldb",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/confluent-ksqldb",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

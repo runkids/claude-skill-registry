@@ -1,0 +1,20 @@
+{
+  "category": "speckit-checklist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.055578Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate a custom checklist for the current feature based on user requirements.",
+      "repo": "dceoy/speckit-agent-skills",
+      "path": "speckit-checklist",
+      "branch": "main",
+      "category": "speckit-checklist",
+      "tags": [],
+      "stars": 0,
+      "install": "dceoy/speckit-agent-skills/speckit-checklist",
+      "source": "github.com/dceoy/speckit-agent-skills"
+    }
+  ]
+}

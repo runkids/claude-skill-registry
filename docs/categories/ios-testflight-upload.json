@@ -1,0 +1,20 @@
+{
+  "category": "ios-testflight-upload",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.902906Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build, archive, upload iOS app to TestFlight, auto-distribute to external testers, submit for Beta App Review, and update server version. Full automated pipeline via App Store Connect API.",
+      "repo": "asnar00/miso",
+      "path": "ios-testflight-upload",
+      "branch": "main",
+      "category": "ios-testflight-upload",
+      "tags": [],
+      "stars": 0,
+      "install": "asnar00/miso/ios-testflight-upload",
+      "source": "github.com/asnar00/miso"
+    }
+  ]
+}

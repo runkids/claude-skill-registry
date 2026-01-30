@@ -1,0 +1,20 @@
+{
+  "category": "auth-http-api",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.372968Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when you need to implement CloudBase Auth v2 over raw HTTP endpoints (login/signup, tokens, user operations) from backends or scripts that are not using the Web or Node SDKs.",
+      "repo": "baiyongping/cowork-platform",
+      "path": "auth-http-api",
+      "branch": "main",
+      "category": "auth-http-api",
+      "tags": [],
+      "stars": 0,
+      "install": "baiyongping/cowork-platform/auth-http-api",
+      "source": "github.com/baiyongping/cowork-platform"
+    }
+  ]
+}

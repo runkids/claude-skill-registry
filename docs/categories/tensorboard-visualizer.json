@@ -1,0 +1,20 @@
+{
+  "category": "tensorboard-visualizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.190630Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tensorboard Visualizer - Auto-activating skill for ML Training. Triggers on: tensorboard visualizer, tensorboard visualizer Part of the ML Training skill category.",
+      "repo": "byteworthy/Upstream",
+      "path": "tensorboard-visualizer",
+      "branch": "main",
+      "category": "tensorboard-visualizer",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/tensorboard-visualizer",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

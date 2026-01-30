@@ -1,0 +1,20 @@
+{
+  "category": "sniff-preventers",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.035056Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect change preventers smells (Shotgun Surgery) using deterministic heuristics and append findings to `.sniff/findings.jsonl`.",
+      "repo": "JordanGunn/nunchuck",
+      "path": "sniff-preventers",
+      "branch": "main",
+      "category": "sniff-preventers",
+      "tags": [],
+      "stars": 0,
+      "install": "JordanGunn/nunchuck/sniff-preventers",
+      "source": "github.com/JordanGunn/nunchuck"
+    }
+  ]
+}

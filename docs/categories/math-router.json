@@ -1,0 +1,20 @@
+{
+  "category": "math-router",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.096741Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deterministic router for math cognitive stack - maps user intent to exact CLI commands",
+      "repo": "carmandale/agent-config",
+      "path": "math-router",
+      "branch": "main",
+      "category": "math-router",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config/math-router",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "jest-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.920387Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate Jest unit tests for JavaScript/TypeScript with mocking, coverage. Use for JS/TS modules, React components, test generation, or encountering missing coverage, improper mocking, test structure",
+      "repo": "secondsky/claude-skills",
+      "path": "jest-generator",
+      "branch": "main",
+      "category": "jest-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills/jest-generator",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

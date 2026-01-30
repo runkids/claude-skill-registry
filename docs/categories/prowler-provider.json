@@ -1,0 +1,20 @@
+{
+  "category": "prowler-provider",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.713668Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates new Prowler cloud providers or adds services to existing providers. Trigger: When extending Prowler SDK provider architecture (adding a new provider or a new service to an existing provider).",
+      "repo": "prowler-cloud/prowler",
+      "path": "prowler-provider",
+      "branch": "main",
+      "category": "prowler-provider",
+      "tags": [],
+      "stars": 0,
+      "install": "prowler-cloud/prowler/prowler-provider",
+      "source": "github.com/prowler-cloud/prowler"
+    }
+  ]
+}

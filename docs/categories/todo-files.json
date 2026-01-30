@@ -1,0 +1,20 @@
+{
+  "category": "todo-files",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.295155Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage TODO files as persistent working memory for complex patterns. Track design decisions, implementation progress, and context across sessions. Use when starting complex patterns or resuming multi-",
+      "repo": "jkomoros/community-patterns",
+      "path": "todo-files",
+      "branch": "main",
+      "category": "todo-files",
+      "tags": [],
+      "stars": 0,
+      "install": "jkomoros/community-patterns/todo-files",
+      "source": "github.com/jkomoros/community-patterns"
+    }
+  ]
+}

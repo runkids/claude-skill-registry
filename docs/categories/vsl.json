@@ -1,0 +1,20 @@
+{
+  "category": "vsl",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.433347Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "VSL（ビデオセールスレター）の台本作成を支援。動画セールスレター、セールス動画、販売動画のスクリプトを書く際に使用。15章構成に対応。",
+      "repo": "taiyousan15/taisun_agent",
+      "path": "vsl",
+      "branch": "main",
+      "category": "vsl",
+      "tags": [],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/vsl",
+      "source": "github.com/taiyousan15/taisun_agent"
+    }
+  ]
+}

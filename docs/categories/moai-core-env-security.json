@@ -1,0 +1,20 @@
+{
+  "category": "moai-core-env-security",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.155779Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Environment variable security, secrets management, and secure credential handling for MoAI-ADK projects",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-core-env-security",
+      "branch": "main",
+      "category": "moai-core-env-security",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit/moai-core-env-security",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

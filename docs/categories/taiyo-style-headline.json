@@ -1,0 +1,20 @@
+{
+  "category": "taiyo-style-headline",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.157364Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "太陽スタイル完全準拠のヘッドライン・キャッチコピー生成。開封率・クリック率・注目率を最大化する衝撃的な見出しを作成。",
+      "repo": "taiyousan15/taisun_agent",
+      "path": "taiyo-style-headline",
+      "branch": "main",
+      "category": "taiyo-style-headline",
+      "tags": [],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/taiyo-style-headline",
+      "source": "github.com/taiyousan15/taisun_agent"
+    }
+  ]
+}

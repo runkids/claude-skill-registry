@@ -1,0 +1,20 @@
+{
+  "category": "error-handling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.591160Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "StepLeague uses a centralized error handling system in src/lib/errors.ts.",
+      "repo": "vassovass/scl-v3",
+      "path": "error-handling",
+      "branch": "main",
+      "category": "error-handling",
+      "tags": [],
+      "stars": 0,
+      "install": "vassovass/scl-v3/error-handling",
+      "source": "github.com/vassovass/scl-v3"
+    }
+  ]
+}

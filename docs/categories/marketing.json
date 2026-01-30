@@ -1,8 +1,8 @@
 {
   "category": "marketing",
   "code": "mkt",
-  "count": 460,
-  "updated_at": "2026-01-29T04:50:38.936885Z",
+  "count": 459,
+  "updated_at": "2026-01-30T04:55:07.084859Z",
   "skills": [
     {
       "name": "social-media",
@@ -4919,18 +4919,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "process-flow-generator",
-      "description": "Process Flow Generator - Auto-activating skill for Visual Content.Triggers on: process flow generator, process flow generatorPart of the Visual Content skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/process-flow-generator",
-      "branch": "main",
-      "category": "marketing",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/process-flow-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "prompt-writing",
       "description": "Generates, analyzes, and optimizes prompts for skills, commands, subagents, reference docs, and free-form text. Use when generating prompt content, analyzing prompt files, or optimizing prompt text to",
       "repo": "bcasci/hustler-marketplace",
@@ -5511,15 +5499,15 @@
     },
     {
       "name": "SKILL.md",
-      "description": "Create comprehensive marketing content for themes, plugins, and web products. Generates organized folder structure with product descriptions, feature highlights, social media posts, email campaigns, v",
-      "repo": "vapvarun/claude-backup",
-      "path": "skills/email-marketing",
+      "description": "Marketing strategist - identifies target audiences, creates compelling content, and optimizes messaging for GabeDA business intelligence platform. Specializes in B2B SaaS positioning for LATAM markets",
+      "repo": "Brownbull/khujta_ai_business",
+      "path": "marketing",
       "branch": "main",
       "category": "marketing",
       "tags": [],
       "stars": 0,
-      "install": "vapvarun/claude-backup/skills/email-marketing",
-      "source": "github.com/vapvarun/claude-backup"
+      "install": "Brownbull/khujta_ai_business/marketing",
+      "source": "github.com/Brownbull/khujta_ai_business"
     },
     {
       "name": "SKILL.md",

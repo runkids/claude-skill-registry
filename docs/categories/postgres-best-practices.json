@@ -1,0 +1,20 @@
+{
+  "category": "postgres-best-practices",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.612769Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Postgres performance optimization and best practices from Supabase. Use this skill when writing, reviewing, or optimizing Postgres queries, schema designs, or database configurations.",
+      "repo": "cgyudistira/code-agents",
+      "path": "postgres-best-practices",
+      "branch": "main",
+      "category": "postgres-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "cgyudistira/code-agents/postgres-best-practices",
+      "source": "github.com/cgyudistira/code-agents"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "start",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.084111Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Lean session start. Asks focus area first, then loads only relevant context. Use when \"start\" is said at session beginning.",
+      "repo": "joshuacook/motoko",
+      "path": "start",
+      "branch": "main",
+      "category": "start",
+      "tags": [],
+      "stars": 0,
+      "install": "joshuacook/motoko/start",
+      "source": "github.com/joshuacook/motoko"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "twitter-thread",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.321801Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create viral Twitter/X threads that educate, entertain, and grow your audience. Use when the user wants to write threads, needs to break down complex topics, or wants to repurpose long-form content in",
+      "repo": "az9713/ai-co-writing-claude-skills",
+      "path": "twitter-thread",
+      "branch": "main",
+      "category": "twitter-thread",
+      "tags": [],
+      "stars": 0,
+      "install": "az9713/ai-co-writing-claude-skills/twitter-thread",
+      "source": "github.com/az9713/ai-co-writing-claude-skills"
+    }
+  ]
+}

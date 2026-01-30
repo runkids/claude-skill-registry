@@ -1,0 +1,20 @@
+{
+  "category": "esphome-box3-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.596220Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"configure esp32-s3-box-3\", \"set up box-3\", \"create box-3 voice assistant\", \"display lambda on box-3\", \"configure ili9xxx display\", \"set up gt911 touch\"",
+      "repo": "nodnarbnitram/claude-code-extensions",
+      "path": "esphome-box3-builder",
+      "branch": "main",
+      "category": "esphome-box3-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "nodnarbnitram/claude-code-extensions/esphome-box3-builder",
+      "source": "github.com/nodnarbnitram/claude-code-extensions"
+    }
+  ]
+}

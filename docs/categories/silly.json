@@ -1,0 +1,20 @@
+{
+  "category": "silly",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.000755Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating ASCII art to guide your artistic approach",
+      "repo": "gaearon/woodshed",
+      "path": "silly",
+      "branch": "main",
+      "category": "silly",
+      "tags": [],
+      "stars": 0,
+      "install": "gaearon/woodshed/silly",
+      "source": "github.com/gaearon/woodshed"
+    }
+  ]
+}

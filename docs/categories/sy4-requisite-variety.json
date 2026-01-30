@@ -1,0 +1,20 @@
+{
+  "category": "sy4-requisite-variety",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.135935Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply SY4 Requisite Variety to match control system's complexity to system being controlled.",
+      "repo": "hummbl-dev/hummbl-agent",
+      "path": "sy4-requisite-variety",
+      "branch": "main",
+      "category": "sy4-requisite-variety",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/hummbl-agent/sy4-requisite-variety",
+      "source": "github.com/hummbl-dev/hummbl-agent"
+    }
+  ]
+}

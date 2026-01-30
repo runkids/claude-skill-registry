@@ -1,0 +1,20 @@
+{
+  "category": "kubernetes",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.960255Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Kubernetes and OpenShift cluster management skill covering operations, troubleshooting, manifest generation, security, and GitOps. Use this skill when: (1) Cluster operations: upgrades,",
+      "repo": "kcns008/cluster-skills",
+      "path": "kubernetes",
+      "branch": "main",
+      "category": "kubernetes",
+      "tags": [],
+      "stars": 0,
+      "install": "kcns008/cluster-skills/kubernetes",
+      "source": "github.com/kcns008/cluster-skills"
+    }
+  ]
+}

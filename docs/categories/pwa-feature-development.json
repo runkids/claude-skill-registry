@@ -1,0 +1,20 @@
+{
+  "category": "pwa-feature-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.722463Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Version: 1.0.0",
+      "repo": "vitorsilva/saberloop",
+      "path": "pwa-feature-development",
+      "branch": "main",
+      "category": "pwa-feature-development",
+      "tags": [],
+      "stars": 0,
+      "install": "vitorsilva/saberloop/pwa-feature-development",
+      "source": "github.com/vitorsilva/saberloop"
+    }
+  ]
+}

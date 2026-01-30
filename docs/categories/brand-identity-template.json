@@ -1,0 +1,20 @@
+{
+  "category": "brand-identity-template",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.443539Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Template skill providing the single source of truth for brand guidelines, design tokens, technology choices, and voice/tone. Customize this template for your brand. Use when generating UI components,",
+      "repo": "WesleySmits/agent-skills",
+      "path": "brand-identity-template",
+      "branch": "main",
+      "category": "brand-identity-template",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills/brand-identity-template",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "local-dev-standard",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.047770Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standardized local development environment setup ensuring consistency across team members and reducing \"works on my machine\" issues.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "local-dev-standard",
+      "branch": "main",
+      "category": "local-dev-standard",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/local-dev-standard",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

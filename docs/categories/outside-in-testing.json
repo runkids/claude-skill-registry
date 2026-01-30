@@ -1,0 +1,20 @@
+{
+  "category": "outside-in-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.531389Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates agentic outside-in tests using gadugi-agentic-test framework for CLI, TUI, Web, and Electron apps. Use when you need behavior-driven tests that verify external interfaces without internal im",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "outside-in-testing",
+      "branch": "main",
+      "category": "outside-in-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/outside-in-testing",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

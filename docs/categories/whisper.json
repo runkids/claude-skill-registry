@@ -1,0 +1,20 @@
+{
+  "category": "whisper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.466677Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "OpenAI's general-purpose speech recognition model. Supports 99 languages, transcription, translation to English, and language identification. Six model sizes from tiny (39M params) to large (1550M par",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "whisper",
+      "branch": "main",
+      "category": "whisper",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/whisper",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

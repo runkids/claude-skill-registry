@@ -1,0 +1,20 @@
+{
+  "category": "qa-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.740646Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level quality assurance, testing strategies, automation, and QA processes",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "qa-expert",
+      "branch": "main",
+      "category": "qa-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/qa-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

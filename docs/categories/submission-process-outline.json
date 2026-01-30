@@ -1,0 +1,20 @@
+{
+  "category": "submission-process-outline",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.113089Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "submission-process-outline",
+      "branch": "main",
+      "category": "submission-process-outline",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/submission-process-outline",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "admin-interface-rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.212279Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Rules for the Admin interface functionalities",
+      "repo": "oimiragieo/agent-studio",
+      "path": "admin-interface-rules",
+      "branch": "main",
+      "category": "admin-interface-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/admin-interface-rules",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

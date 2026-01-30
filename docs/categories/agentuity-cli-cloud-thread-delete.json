@@ -1,0 +1,20 @@
+{
+  "category": "agentuity-cli-cloud-thread-delete",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.263679Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Delete a thread. Requires authentication. Use for Agentuity cloud platform operations",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-cloud-thread-delete",
+      "branch": "main",
+      "category": "agentuity-cli-cloud-thread-delete",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer/agentuity-cli-cloud-thread-delete",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

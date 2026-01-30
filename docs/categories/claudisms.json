@@ -1,0 +1,20 @@
+{
+  "category": "claudisms",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.544837Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Claude Code plugin enforcing operational guidelines, terse responses, sequential execution, and no destructive operations without confirmation.",
+      "repo": "Microck/ordinary-claude-skills",
+      "path": "claudisms",
+      "branch": "main",
+      "category": "claudisms",
+      "tags": [],
+      "stars": 0,
+      "install": "Microck/ordinary-claude-skills/claudisms",
+      "source": "github.com/Microck/ordinary-claude-skills"
+    }
+  ]
+}

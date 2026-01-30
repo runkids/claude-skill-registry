@@ -1,0 +1,20 @@
+{
+  "category": "langsmith-agent-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.972129Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "LangSmith Agent Builder - No-code platform for creating AI agents with built-in tools (Gmail, Slack, GitHub, Linear), OAuth integrations, MCP server support, Slack deployment, and programmatic invocat",
+      "repo": "enuno/claude-command-and-control",
+      "path": "langsmith-agent-builder",
+      "branch": "main",
+      "category": "langsmith-agent-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control/langsmith-agent-builder",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "scenario-planning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.892178Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to analyze supply chain scenarios, perform risk analysis, evaluate what-if scenarios, or build contingency plans. Also use when the user mentions \"scenario analysis,\" \"what-if plan",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "scenario-planning",
+      "branch": "main",
+      "category": "scenario-planning",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/scenario-planning",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

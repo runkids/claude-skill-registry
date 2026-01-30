@@ -1,0 +1,20 @@
+{
+  "category": "add-event-type",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.204425Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add a new event type to the frontend feed system with corresponding React component. Use when user mentions \"new event\", \"add event type\", \"event block\", \"new block type\", or wants to display new agen",
+      "repo": "AppleLamps/web-term",
+      "path": "add-event-type",
+      "branch": "main",
+      "category": "add-event-type",
+      "tags": [],
+      "stars": 0,
+      "install": "AppleLamps/web-term/add-event-type",
+      "source": "github.com/AppleLamps/web-term"
+    }
+  ]
+}

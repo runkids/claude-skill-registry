@@ -1,0 +1,20 @@
+{
+  "category": "smoke-tests",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.033646Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run smoke tests on a deployed environment to ensure basic functionality.",
+      "repo": "METR/inspect-action",
+      "path": "smoke-tests",
+      "branch": "main",
+      "category": "smoke-tests",
+      "tags": [],
+      "stars": 0,
+      "install": "METR/inspect-action/smoke-tests",
+      "source": "github.com/METR/inspect-action"
+    }
+  ]
+}

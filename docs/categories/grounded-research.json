@@ -1,0 +1,20 @@
+{
+  "category": "grounded-research",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.808026Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Epistemic honesty protocol for code research. Forces uncertainty admission, cascading verification through authoritative sources (deepwiki, submodules, web), and approach validation before implementat",
+      "repo": "creatifcoding/gbg",
+      "path": "grounded-research",
+      "branch": "main",
+      "category": "grounded-research",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/grounded-research",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

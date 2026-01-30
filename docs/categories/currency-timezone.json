@@ -1,0 +1,20 @@
+{
+  "category": "currency-timezone",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.731022Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Handling currency conversion, formatting, and timezone management for global applications to support users worldwide with local currency and time display.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "currency-timezone",
+      "branch": "main",
+      "category": "currency-timezone",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/currency-timezone",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

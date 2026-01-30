@@ -1,0 +1,20 @@
+{
+  "category": "code-review-small",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.596911Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quick code review for small PRs (<100 lines). Focuses on basic code quality, naming conventions, and obvious bugs.",
+      "repo": "breaking-brake/cc-wf-studio",
+      "path": "code-review-small",
+      "branch": "main",
+      "category": "code-review-small",
+      "tags": [],
+      "stars": 0,
+      "install": "breaking-brake/cc-wf-studio/code-review-small",
+      "source": "github.com/breaking-brake/cc-wf-studio"
+    }
+  ]
+}

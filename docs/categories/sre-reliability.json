@@ -1,0 +1,20 @@
+{
+  "category": "sre-reliability",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.074136Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SRE Reliability Agent. 서비스 신뢰성, SLO/SLI 관리, 가용성 개선을 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "sre-reliability",
+      "branch": "main",
+      "category": "sre-reliability",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin/sre-reliability",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

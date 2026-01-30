@@ -1,0 +1,20 @@
+{
+  "category": "learning-peer-tutoring",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.994589Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "peer-tutoring for enhanced learning effectiveness and personal development.",
+      "repo": "pauljbernard/content",
+      "path": "learning-peer-tutoring",
+      "branch": "main",
+      "category": "learning-peer-tutoring",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content/learning-peer-tutoring",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

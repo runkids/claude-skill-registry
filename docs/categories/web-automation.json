@@ -1,0 +1,20 @@
+{
+  "category": "web-automation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.444488Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Web automation and scraping using Playwright, Puppeteer, Selenium, Scrapy, and n8n workflows. Create browser automation scripts, web scrapers, and workflow automations. Use when automating browser int",
+      "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "path": "web-automation",
+      "branch": "main",
+      "category": "web-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "fgarofalo56/Suppercharge_Microsoft_Fabric/web-automation",
+      "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric"
+    }
+  ]
+}

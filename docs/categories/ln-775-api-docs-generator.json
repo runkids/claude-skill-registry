@@ -1,0 +1,20 @@
+{
+  "category": "ln-775-api-docs-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.044908Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configures Swagger/OpenAPI documentation",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "ln-775-api-docs-generator",
+      "branch": "main",
+      "category": "ln-775-api-docs-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "levnikolaevich/claude-code-skills/ln-775-api-docs-generator",
+      "source": "github.com/levnikolaevich/claude-code-skills"
+    }
+  ]
+}

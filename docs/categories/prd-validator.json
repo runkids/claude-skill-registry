@@ -1,0 +1,20 @@
+{
+  "category": "prd-validator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.630541Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- skillname: prd-validator",
+      "repo": "turbobeest/cursor-dev-system",
+      "path": "prd-validator",
+      "branch": "main",
+      "category": "prd-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "turbobeest/cursor-dev-system/prd-validator",
+      "source": "github.com/turbobeest/cursor-dev-system"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "starwards-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.088946Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master index for Starwards development workflow - shows when to use each skill, workflow diagram, and how skills integrate together",
+      "repo": "starwards/starwards",
+      "path": "starwards-workflow",
+      "branch": "main",
+      "category": "starwards-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "starwards/starwards/starwards-workflow",
+      "source": "github.com/starwards/starwards"
+    }
+  ]
+}

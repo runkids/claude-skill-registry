@@ -1,0 +1,20 @@
+{
+  "category": "batching-caching",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.417507Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks about \"Effect batching\", \"request batching\", \"Effect caching\", \"Cache\", \"Request\", \"RequestResolver\", \"Effect.cached\", \"Effect.cachedWithTTL\", \"automatic b",
+      "repo": "andrueandersoncs/claude-skill-effect-ts",
+      "path": "batching-caching",
+      "branch": "main",
+      "category": "batching-caching",
+      "tags": [],
+      "stars": 0,
+      "install": "andrueandersoncs/claude-skill-effect-ts/batching-caching",
+      "source": "github.com/andrueandersoncs/claude-skill-effect-ts"
+    }
+  ]
+}

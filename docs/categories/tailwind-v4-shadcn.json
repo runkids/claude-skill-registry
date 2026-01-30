@@ -1,0 +1,20 @@
+{
+  "category": "tailwind-v4-shadcn",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.151633Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up Tailwind v4 with shadcn/ui using @theme inline pattern and CSS variable architecture. Four-step pattern: CSS variables, Tailwind mapping, base styles, automatic dark mode. Prevents 8 documented",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "tailwind-v4-shadcn",
+      "branch": "main",
+      "category": "tailwind-v4-shadcn",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/tailwind-v4-shadcn",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

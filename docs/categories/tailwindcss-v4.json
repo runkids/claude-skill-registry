@@ -1,0 +1,20 @@
+{
+  "category": "tailwindcss-v4",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.156044Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tailwind CSS v4.1 core features, @theme, directives, migration guide",
+      "repo": "fusengine/agents",
+      "path": "tailwindcss-v4",
+      "branch": "main",
+      "category": "tailwindcss-v4",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/tailwindcss-v4",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

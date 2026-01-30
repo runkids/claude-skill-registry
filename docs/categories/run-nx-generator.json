@@ -1,0 +1,20 @@
+{
+  "category": "run-nx-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.861359Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run Nx generators with prioritization for workspace-plugin generators. Use this when generating code, scaffolding new features, or automating repetitive tasks in the monorepo.",
+      "repo": "NeverSight/skills.sh_feed",
+      "path": "run-nx-generator",
+      "branch": "main",
+      "category": "run-nx-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "NeverSight/skills.sh_feed/run-nx-generator",
+      "source": "github.com/NeverSight/skills.sh_feed"
+    }
+  ]
+}

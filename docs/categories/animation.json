@@ -1,0 +1,20 @@
+{
+  "category": "animation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.300978Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Animation ใน React สามารถแบ่งออกเป็น 4 ประเภทหลัก:",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "animation",
+      "branch": "main",
+      "category": "animation",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/animation",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

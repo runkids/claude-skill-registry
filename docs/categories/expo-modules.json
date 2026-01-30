@@ -1,0 +1,20 @@
+{
+  "category": "expo-modules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.625184Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Building great Expo native modules for iOS and Android. Views, APIs, Marshalling, Shared Objects, Expo Documentation, Verifying Expo modules.",
+      "repo": "EvanBacon/apple-health",
+      "path": "expo-modules",
+      "branch": "main",
+      "category": "expo-modules",
+      "tags": [],
+      "stars": 0,
+      "install": "EvanBacon/apple-health/expo-modules",
+      "source": "github.com/EvanBacon/apple-health"
+    }
+  ]
+}

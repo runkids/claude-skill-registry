@@ -1,0 +1,20 @@
+{
+  "category": "add-subtitles",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.208303Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Adds SRT formatted subtitles to a video file when you want a video to have subtitles.",
+      "repo": "tpott/pub_musings",
+      "path": "add-subtitles",
+      "branch": "main",
+      "category": "add-subtitles",
+      "tags": [],
+      "stars": 0,
+      "install": "tpott/pub_musings/add-subtitles",
+      "source": "github.com/tpott/pub_musings"
+    }
+  ]
+}

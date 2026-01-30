@@ -1,0 +1,20 @@
+{
+  "category": "setup-ralph",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.985191Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Setup the Ralph autonomous AI coding loop - ships features while you sleep",
+      "repo": "cedricfressin/claude-config",
+      "path": "setup-ralph",
+      "branch": "main",
+      "category": "setup-ralph",
+      "tags": [],
+      "stars": 0,
+      "install": "cedricfressin/claude-config/setup-ralph",
+      "source": "github.com/cedricfressin/claude-config"
+    }
+  ]
+}

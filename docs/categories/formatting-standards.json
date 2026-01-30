@@ -1,0 +1,20 @@
+{
+  "category": "formatting-standards",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.689878Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Formatting and linting standards using GTS, ESLint, and Prettier. Use when writing or formatting TypeScript code in this project.",
+      "repo": "crmagz/cdk-constructs-library",
+      "path": "formatting-standards",
+      "branch": "main",
+      "category": "formatting-standards",
+      "tags": [],
+      "stars": 0,
+      "install": "crmagz/cdk-constructs-library/formatting-standards",
+      "source": "github.com/crmagz/cdk-constructs-library"
+    }
+  ]
+}

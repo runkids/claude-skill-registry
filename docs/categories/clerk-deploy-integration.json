@@ -1,0 +1,20 @@
+{
+  "category": "clerk-deploy-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.553272Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure Clerk for deployment on various platforms. Use when deploying to Vercel, Netlify, Railway, or other platforms, or when setting up production environment. Trigger with phrases like \"deploy cl",
+      "repo": "byteworthy/Upstream",
+      "path": "clerk-deploy-integration",
+      "branch": "main",
+      "category": "clerk-deploy-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/clerk-deploy-integration",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

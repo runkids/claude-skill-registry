@@ -1,0 +1,20 @@
+{
+  "category": "surfpool",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.123634Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete Surfpool development environment for Solana - drop-in replacement for solana-test-validator with mainnet forking, cheatcodes, Infrastructure as Code, and Surfpool Studio. The fastest way to d",
+      "repo": "sendaifun/skills",
+      "path": "surfpool",
+      "branch": "main",
+      "category": "surfpool",
+      "tags": [],
+      "stars": 0,
+      "install": "sendaifun/skills/surfpool",
+      "source": "github.com/sendaifun/skills"
+    }
+  ]
+}

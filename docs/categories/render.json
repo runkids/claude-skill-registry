@@ -1,0 +1,20 @@
+{
+  "category": "render",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.812219Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check deployments, manage services, monitor databases, and view logs on Render",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "render",
+      "branch": "main",
+      "category": "render",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/render",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

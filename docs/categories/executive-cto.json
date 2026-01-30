@@ -1,0 +1,20 @@
+{
+  "category": "executive-cto",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.616582Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Executive CTO Agent. 기술 전략, 아키텍처 결정, R&D 리더십을 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "executive-cto",
+      "branch": "main",
+      "category": "executive-cto",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin/executive-cto",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "design-intent-specialist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.155488Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates accurate frontend implementations from visual references while maintaining design consistency. Use when user provides Figma URLs, screenshots, design images, or requests UI implementation from",
+      "repo": "joaquimscosta/arkhe-claude-plugins",
+      "path": "design-intent-specialist",
+      "branch": "main",
+      "category": "design-intent-specialist",
+      "tags": [],
+      "stars": 0,
+      "install": "joaquimscosta/arkhe-claude-plugins/design-intent-specialist",
+      "source": "github.com/joaquimscosta/arkhe-claude-plugins"
+    }
+  ]
+}

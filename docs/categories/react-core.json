@@ -1,0 +1,20 @@
+{
+  "category": "react-core",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.772397Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive React application development guidance covering project architecture, state management, performance optimization, security, and modern best practices including React 19 features. Use whe",
+      "repo": "aaronbassett/paneful",
+      "path": "react-core",
+      "branch": "main",
+      "category": "react-core",
+      "tags": [],
+      "stars": 0,
+      "install": "aaronbassett/paneful/react-core",
+      "source": "github.com/aaronbassett/paneful"
+    }
+  ]
+}

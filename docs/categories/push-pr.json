@@ -1,0 +1,20 @@
+{
+  "category": "push-pr",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.721222Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Push branch and create GitHub PR",
+      "repo": "anton-pt/algojuke",
+      "path": "push-pr",
+      "branch": "main",
+      "category": "push-pr",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-pt/algojuke/push-pr",
+      "source": "github.com/anton-pt/algojuke"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "constitution-checker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.653939Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "プロジェクト憲法への準拠を検証します。実装完了時やPR作成時に全Articleをチェックし、違反がないことを確認します。",
+      "repo": "drillan/note-mcp",
+      "path": "constitution-checker",
+      "branch": "main",
+      "category": "constitution-checker",
+      "tags": [],
+      "stars": 0,
+      "install": "drillan/note-mcp/constitution-checker",
+      "source": "github.com/drillan/note-mcp"
+    }
+  ]
+}

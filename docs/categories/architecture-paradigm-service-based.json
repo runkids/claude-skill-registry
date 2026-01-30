@@ -1,0 +1,20 @@
+{
+  "category": "architecture-paradigm-service-based",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.349130Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- When teams require a degree of deployment independence but are not yet prepared for the complexity of managing numerous microservices.",
+      "repo": "athola/claude-night-market",
+      "path": "architecture-paradigm-service-based",
+      "branch": "main",
+      "category": "architecture-paradigm-service-based",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/architecture-paradigm-service-based",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

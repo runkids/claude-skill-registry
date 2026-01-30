@@ -1,0 +1,20 @@
+{
+  "category": "remote-code-agents",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.810484Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Delegate tasks to remote Claude Code agent containers for parallel execution, long-running analysis, or resource-intensive operations.",
+      "repo": "liauw-media/household-expense-tracker",
+      "path": "remote-code-agents",
+      "branch": "main",
+      "category": "remote-code-agents",
+      "tags": [],
+      "stars": 0,
+      "install": "liauw-media/household-expense-tracker/remote-code-agents",
+      "source": "github.com/liauw-media/household-expense-tracker"
+    }
+  ]
+}

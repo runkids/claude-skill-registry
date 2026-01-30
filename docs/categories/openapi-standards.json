@@ -1,0 +1,20 @@
+{
+  "category": "openapi-standards",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.293338Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "OpenAPI standards and guidelines for professional API specifications",
+      "repo": "zerobias-org/module",
+      "path": "openapi-standards",
+      "branch": "main",
+      "category": "openapi-standards",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/openapi-standards",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

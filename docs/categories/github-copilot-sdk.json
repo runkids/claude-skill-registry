@@ -1,0 +1,20 @@
+{
+  "category": "github-copilot-sdk",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.769788Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive knowledge of GitHub Copilot SDK for embedding Copilot's agentic workflows in Python, TypeScript, Go, and .NET applications. Auto-activates for Copilot SDK integration, CopilotClient usag",
+      "repo": "rysweet/amplihack",
+      "path": "github-copilot-sdk",
+      "branch": "main",
+      "category": "github-copilot-sdk",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/amplihack/github-copilot-sdk",
+      "source": "github.com/rysweet/amplihack"
+    }
+  ]
+}

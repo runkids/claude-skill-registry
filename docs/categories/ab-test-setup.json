@@ -1,0 +1,20 @@
+{
+  "category": "ab-test-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.184912Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to plan, design, or implement an A/B test or experiment. Also use when the user mentions \"A/B test,\" \"split test,\" \"experiment,\" \"test this change,\" \"variant copy,\" \"multivariate t",
+      "repo": "LeonMelamud/inspector-agents",
+      "path": "ab-test-setup",
+      "branch": "main",
+      "category": "ab-test-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "LeonMelamud/inspector-agents/ab-test-setup",
+      "source": "github.com/LeonMelamud/inspector-agents"
+    }
+  ]
+}

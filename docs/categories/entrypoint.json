@@ -1,0 +1,20 @@
+{
+  "category": "entrypoint",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.577427Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates entrypoint.sh script for Docker container runtime environment variable injection. Replaces placeholder values in built assets with actual environment variables at container startup.",
+      "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+      "path": "entrypoint",
+      "branch": "main",
+      "category": "entrypoint",
+      "tags": [],
+      "stars": 0,
+      "install": "sayali-ingle-pdl/adusa-ai-vuejs-app-template/entrypoint",
+      "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template"
+    }
+  ]
+}

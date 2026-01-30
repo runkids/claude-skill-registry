@@ -1,0 +1,20 @@
+{
+  "category": "memory-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.116354Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to maintain context across sessions - integrates episodic-memory for conversation recall and mcp__memory knowledge graph for persistent facts",
+      "repo": "troykelly/claude-skills",
+      "path": "memory-integration",
+      "branch": "main",
+      "category": "memory-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/memory-integration",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

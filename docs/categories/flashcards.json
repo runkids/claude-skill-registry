@@ -1,0 +1,20 @@
+{
+  "category": "flashcards",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.677153Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate spaced repetition flashcards from notes or topics. Use when user wants to create flashcards, make review cards, prepare for spaced repetition, or convert notes to quiz format. Triggers on \"fl",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "flashcards",
+      "branch": "main",
+      "category": "flashcards",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager/flashcards",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

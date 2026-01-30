@@ -1,0 +1,20 @@
+{
+  "category": "batch-correction",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.416899Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Batch effect correction for CRISPR screens. Covers normalization across batches, technical replicate handling, and batch-aware analysis. Use when combining screens from multiple batches or correcting",
+      "repo": "GPTomics/bioSkills",
+      "path": "batch-correction",
+      "branch": "main",
+      "category": "batch-correction",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/batch-correction",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

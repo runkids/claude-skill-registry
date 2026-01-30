@@ -1,0 +1,20 @@
+{
+  "category": "prowler-pr",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.713484Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates Pull Requests for Prowler following the project template and conventions. Trigger: When working on pull request requirements or creation (PR template sections, PR title Conventional Commits ch",
+      "repo": "prowler-cloud/prowler",
+      "path": "prowler-pr",
+      "branch": "main",
+      "category": "prowler-pr",
+      "tags": [],
+      "stars": 0,
+      "install": "prowler-cloud/prowler/prowler-pr",
+      "source": "github.com/prowler-cloud/prowler"
+    }
+  ]
+}

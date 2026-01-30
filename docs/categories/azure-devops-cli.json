@@ -1,0 +1,20 @@
+{
+  "category": "azure-devops-cli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.395594Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guidance for Azure DevOps CLI (az devops) - automation, pipelines, repos, boards, and artifacts management. Use when working with Azure DevOps, managing pipelines, creating work items, or when",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "azure-devops-cli",
+      "branch": "main",
+      "category": "azure-devops-cli",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/azure-devops-cli",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

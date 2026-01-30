@@ -1,0 +1,20 @@
+{
+  "category": "docusaurus-config",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.516081Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with docusaurus.config.js/ts files to validate or modify Docusaurus configuration",
+      "repo": "mcclowes/lea",
+      "path": "docusaurus-config",
+      "branch": "main",
+      "category": "docusaurus-config",
+      "tags": [],
+      "stars": 0,
+      "install": "mcclowes/lea/docusaurus-config",
+      "source": "github.com/mcclowes/lea"
+    }
+  ]
+}

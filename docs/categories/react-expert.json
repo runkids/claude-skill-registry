@@ -1,0 +1,20 @@
+{
+  "category": "react-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.773298Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building React 18+ applications requiring component architecture, hooks patterns, or state management. Invoke for Server Components, performance optimization, Suspense boundaries, React 19 fe",
+      "repo": "Jeffallan/claude-skills",
+      "path": "react-expert",
+      "branch": "main",
+      "category": "react-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills/react-expert",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

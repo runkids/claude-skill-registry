@@ -1,0 +1,20 @@
+{
+  "category": "fetch-issue",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.651469Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fetch Linear issue and create branch",
+      "repo": "anton-pt/algojuke",
+      "path": "fetch-issue",
+      "branch": "main",
+      "category": "fetch-issue",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-pt/algojuke/fetch-issue",
+      "source": "github.com/anton-pt/algojuke"
+    }
+  ]
+}

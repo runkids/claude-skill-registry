@@ -1,0 +1,20 @@
+{
+  "category": "verification-gates",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.404830Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define checkpoints to validate work before proceeding to next phase",
+      "repo": "rohitg00/skillkit",
+      "path": "verification-gates",
+      "branch": "main",
+      "category": "verification-gates",
+      "tags": [],
+      "stars": 0,
+      "install": "rohitg00/skillkit/verification-gates",
+      "source": "github.com/rohitg00/skillkit"
+    }
+  ]
+}

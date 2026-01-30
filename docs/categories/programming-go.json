@@ -1,0 +1,20 @@
+{
+  "category": "programming-go",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.685669Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Best practices when developing in Go codebases",
+      "repo": "mgomes/3xo-suit",
+      "path": "programming-go",
+      "branch": "main",
+      "category": "programming-go",
+      "tags": [],
+      "stars": 0,
+      "install": "mgomes/3xo-suit/programming-go",
+      "source": "github.com/mgomes/3xo-suit"
+    }
+  ]
+}

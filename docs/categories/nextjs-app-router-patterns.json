@@ -1,0 +1,20 @@
+{
+  "category": "nextjs-app-router-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.240999Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications, implementing SSR/SSG, or optimizing React Server C",
+      "repo": "haxllo/repolens",
+      "path": "nextjs-app-router-patterns",
+      "branch": "main",
+      "category": "nextjs-app-router-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "haxllo/repolens/nextjs-app-router-patterns",
+      "source": "github.com/haxllo/repolens"
+    }
+  ]
+}

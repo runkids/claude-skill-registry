@@ -1,0 +1,20 @@
+{
+  "category": "codemod-construction-ast",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.603650Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automate large-scale codebase refactoring using AST transformations on React code.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "codemod-construction-ast",
+      "branch": "main",
+      "category": "codemod-construction-ast",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/codemod-construction-ast",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

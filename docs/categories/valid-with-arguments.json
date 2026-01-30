@@ -1,0 +1,20 @@
+{
+  "category": "valid-with-arguments",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.389350Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A valid skill that uses $ARGUMENTS placeholder",
+      "repo": "maxvaega/skillkit",
+      "path": "valid-with-arguments",
+      "branch": "main",
+      "category": "valid-with-arguments",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit/valid-with-arguments",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

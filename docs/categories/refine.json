@@ -1,0 +1,20 @@
+{
+  "category": "refine",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.799631Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform ideas into Product Backlog Items using BA best practices, hypothesis validation, and domain research. Use when converting ideas to PBIs, validating problem hypotheses, adding acceptance crit",
+      "repo": "duc01226/EasyPlatform",
+      "path": "refine",
+      "branch": "main",
+      "category": "refine",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform/refine",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

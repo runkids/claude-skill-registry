@@ -1,0 +1,20 @@
+{
+  "category": "image-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.862413Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimizes images and generates responsive markup. Use when the user asks about image formats (WebP, AVIF), srcset, responsive images, Next.js Image, or reducing image file sizes.",
+      "repo": "WesleySmits/agent-skills",
+      "path": "image-optimizer",
+      "branch": "main",
+      "category": "image-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills/image-optimizer",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "edgartools",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.552979Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query and analyze SEC filings and financial statements using EdgarTools. Get company data, filings, XBRL financials, and perform multi-company analysis.",
+      "repo": "Microck/ordinary-claude-skills",
+      "path": "edgartools",
+      "branch": "main",
+      "category": "edgartools",
+      "tags": [],
+      "stars": 0,
+      "install": "Microck/ordinary-claude-skills/edgartools",
+      "source": "github.com/Microck/ordinary-claude-skills"
+    }
+  ]
+}

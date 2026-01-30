@@ -1,0 +1,20 @@
+{
+  "category": "prompt-generation-rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.704691Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "prompt-generation-rules",
+      "branch": "main",
+      "category": "prompt-generation-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/prompt-generation-rules",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

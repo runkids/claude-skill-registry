@@ -1,0 +1,20 @@
+{
+  "category": "bundle-analyze",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.471971Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Bundle size analysis and optimization for Webpack, Vite, and esbuild",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "bundle-analyze",
+      "branch": "main",
+      "category": "bundle-analyze",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/bundle-analyze",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

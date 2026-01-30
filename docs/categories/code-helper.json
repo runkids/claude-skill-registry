@@ -1,0 +1,20 @@
+{
+  "category": "code-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.591013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Helps with code analysis and refactoring tasks",
+      "repo": "fwdslsh/crosstrain",
+      "path": "code-helper",
+      "branch": "main",
+      "category": "code-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "fwdslsh/crosstrain/code-helper",
+      "source": "github.com/fwdslsh/crosstrain"
+    }
+  ]
+}

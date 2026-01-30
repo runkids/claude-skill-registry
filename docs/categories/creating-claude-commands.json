@@ -1,0 +1,20 @@
+{
+  "category": "creating-claude-commands",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.709514Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guidance for creating Claude Code slash commands with correct frontmatter, structure, and best practices",
+      "repo": "pr-pm/prpm",
+      "path": "creating-claude-commands",
+      "branch": "main",
+      "category": "creating-claude-commands",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm/creating-claude-commands",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "codebase-health-auditor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.601889Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unified dead code detection, AST-based duplicate detection, and cleanup tool combining Legacy Tech Remover + Comprehensive Auditor + Architectural Cleanup with Knip, depcheck, TypeScript, Vue-specific",
+      "repo": "endlessblink/flow-state",
+      "path": "codebase-health-auditor",
+      "branch": "main",
+      "category": "codebase-health-auditor",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/codebase-health-auditor",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

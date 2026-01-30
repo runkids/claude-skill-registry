@@ -1,0 +1,20 @@
+{
+  "category": "ai-generation-client",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.277514Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "External AI API integration with retry logic, rate limiting, content safety detection, and multi-turn conversation support for image generation.",
+      "repo": "dadbodgeoff/drift",
+      "path": "ai-generation-client",
+      "branch": "main",
+      "category": "ai-generation-client",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/ai-generation-client",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

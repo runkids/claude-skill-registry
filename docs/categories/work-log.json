@@ -1,0 +1,20 @@
+{
+  "category": "work-log",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.475207Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "작업 기록 및 이력서 반영 판단이 필요할 때",
+      "repo": "younwony/younwony.github.io",
+      "path": "work-log",
+      "branch": "main",
+      "category": "work-log",
+      "tags": [],
+      "stars": 0,
+      "install": "younwony/younwony.github.io/work-log",
+      "source": "github.com/younwony/younwony.github.io"
+    }
+  ]
+}

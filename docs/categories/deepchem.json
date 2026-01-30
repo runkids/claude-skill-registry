@@ -1,0 +1,20 @@
+{
+  "category": "deepchem",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.062405Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Molecular machine learning toolkit. Property prediction (ADMET, toxicity), GNNs (GCN, MPNN), MoleculeNet benchmarks, pretrained models, featurization, for drug discovery ML.",
+      "repo": "robinbarvaag/poynt",
+      "path": "deepchem",
+      "branch": "main",
+      "category": "deepchem",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/deepchem",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "sunlord",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.116596Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Sunlord Electronics inductor and ferrite bead MPN encoding patterns, value decoding, and handler guidance. Use when working with Sunlord inductors or SunlordHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "sunlord",
+      "branch": "main",
+      "category": "sunlord",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/sunlord",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

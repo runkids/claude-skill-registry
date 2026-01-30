@@ -1,0 +1,20 @@
+{
+  "category": "jinling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.921471Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Jinling (JILN) connector MPN encoding, position-based part numbering for pin headers, female headers, and IDC connectors.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "jinling",
+      "branch": "main",
+      "category": "jinling",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/jinling",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

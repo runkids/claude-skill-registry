@@ -1,0 +1,20 @@
+{
+  "category": "MCP_ORCHESTRATION",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.172223Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tool discovery, routing, chaining, error handling, and composition for the 34+ MCP scheduling tools. Use when orchestrating complex multi-tool workflows, handling MCP errors, or discovering available",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "MCP_ORCHESTRATION",
+      "branch": "main",
+      "category": "MCP_ORCHESTRATION",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/MCP_ORCHESTRATION",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "immcantation-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.863536Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze BCR repertoires for somatic hypermutation, clonal lineages, and B cell phylogenetics using the Immcantation framework. Use when studying B cell affinity maturation, germinal center dynamics, o",
+      "repo": "GPTomics/bioSkills",
+      "path": "immcantation-analysis",
+      "branch": "main",
+      "category": "immcantation-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/immcantation-analysis",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "migrate-to-skills",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.133048Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert legacy agent resources to the unified Agent Skills format.",
+      "repo": "kasperjunge/agent-resources",
+      "path": "migrate-to-skills",
+      "branch": "main",
+      "category": "migrate-to-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "kasperjunge/agent-resources/migrate-to-skills",
+      "source": "github.com/kasperjunge/agent-resources"
+    }
+  ]
+}

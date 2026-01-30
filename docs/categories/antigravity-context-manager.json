@@ -1,0 +1,20 @@
+{
+  "category": "antigravity-context-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.307108Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Elite AI context engineering specialist mastering dynamic context management, vector databases, knowledge graphs, and intelligent memory systems. Orchestrates context across multi-agent workflows, ent",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-context-manager",
+      "branch": "main",
+      "category": "antigravity-context-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/antigravity-context-manager",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

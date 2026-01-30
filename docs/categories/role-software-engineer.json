@@ -1,0 +1,20 @@
+{
+  "category": "role-software-engineer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.852618Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Role definition for software engineer agents. Defines responsibilities, principles, required skills, and success criteria. Use to understand what it means to operate as a software engineer in this cod",
+      "repo": "Anveio/conveaux",
+      "path": "role-software-engineer",
+      "branch": "main",
+      "category": "role-software-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "Anveio/conveaux/role-software-engineer",
+      "source": "github.com/Anveio/conveaux"
+    }
+  ]
+}

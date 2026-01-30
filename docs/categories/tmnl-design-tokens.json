@@ -1,0 +1,20 @@
+{
+  "category": "tmnl-design-tokens",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.292259Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TMNL design token system architecture. Invoke when implementing token-based theming, extending token hierarchies, or integrating CSS variables. Provides canonical token locations and extension pattern",
+      "repo": "creatifcoding/gbg",
+      "path": "tmnl-design-tokens",
+      "branch": "main",
+      "category": "tmnl-design-tokens",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/tmnl-design-tokens",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

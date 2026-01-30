@@ -1,0 +1,20 @@
+{
+  "category": "typescript-generics",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.325659Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when writing reusable functions, components, or utilities that work with multiple types while maintaining type safety.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "typescript-generics",
+      "branch": "main",
+      "category": "typescript-generics",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/typescript-generics",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

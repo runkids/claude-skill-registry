@@ -1,0 +1,20 @@
+{
+  "category": "feature-documentation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.642878Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт feature documentation. Используй для документации функций, release notes, user guides и product documentation.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "feature-documentation",
+      "branch": "main",
+      "category": "feature-documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/feature-documentation",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

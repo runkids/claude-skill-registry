@@ -1,0 +1,20 @@
+{
+  "category": "creating-components",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.710760Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "React component architecture for creating composable, accessible components with data attributes. Use when creating/updating composable components, not for higher-level feature/page components.",
+      "repo": "udecode/better-convex",
+      "path": "creating-components",
+      "branch": "main",
+      "category": "creating-components",
+      "tags": [],
+      "stars": 0,
+      "install": "udecode/better-convex/creating-components",
+      "source": "github.com/udecode/better-convex"
+    }
+  ]
+}

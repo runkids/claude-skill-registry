@@ -1,0 +1,20 @@
+{
+  "category": "scientific-opentrons-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.905839Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Official Opentrons Protocol API for OT-2 and Flex robots. Use when writing protocols specifically for Opentrons hardware with full access to Protocol API v2 features. Best for production Opentrons pro",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-opentrons-integration",
+      "branch": "main",
+      "category": "scientific-opentrons-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/scientific-opentrons-integration",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

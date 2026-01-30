@@ -1,0 +1,20 @@
+{
+  "category": "expo-dev-client",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.624135Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build and distribute Expo development clients locally or via TestFlight",
+      "repo": "luthebao/expo-template",
+      "path": "expo-dev-client",
+      "branch": "main",
+      "category": "expo-dev-client",
+      "tags": [],
+      "stars": 0,
+      "install": "luthebao/expo-template/expo-dev-client",
+      "source": "github.com/luthebao/expo-template"
+    }
+  ]
+}

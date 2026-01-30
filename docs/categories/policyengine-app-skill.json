@@ -1,0 +1,20 @@
+{
+  "category": "policyengine-app-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.603584Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PolicyEngine React web application - the user interface at policyengine.org",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-app-skill",
+      "branch": "main",
+      "category": "policyengine-app-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/policyengine-app-skill",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "email-sender",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.568253Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "使用SMTP发送带附件的邮件，支持HTML模板、多收件人和文件附件。基于nodemailer。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "email-sender",
+      "branch": "main",
+      "category": "email-sender",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode/email-sender",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

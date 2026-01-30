@@ -1,0 +1,20 @@
+{
+  "category": "error-debugger",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.590479Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes errors, searches past solutions in memory, provides immediate fixes with code examples, and saves solutions for future reference. Use when user says \"debug this\", \"fix this error\", \"why is th",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "error-debugger",
+      "branch": "main",
+      "category": "error-debugger",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/error-debugger",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

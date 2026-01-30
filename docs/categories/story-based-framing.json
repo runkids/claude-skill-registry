@@ -1,0 +1,20 @@
+{
+  "category": "story-based-framing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.095834Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when describing patterns or anti-patterns for detection by LLM agents across any domain (code analysis, business processes, security audits, UX design, data quality, medical",
+      "repo": "BbgnsurfTech/claude-skills-collection",
+      "path": "story-based-framing",
+      "branch": "main",
+      "category": "story-based-framing",
+      "tags": [],
+      "stars": 0,
+      "install": "BbgnsurfTech/claude-skills-collection/story-based-framing",
+      "source": "github.com/BbgnsurfTech/claude-skills-collection"
+    }
+  ]
+}

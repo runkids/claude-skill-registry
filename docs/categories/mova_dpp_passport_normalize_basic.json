@@ -1,0 +1,20 @@
+{
+  "category": "mova_dpp_passport_normalize_basic",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.202012Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Normalize a single DPP passport input into lab_battery_passport_extended_v1 (happy-path).",
+      "repo": "Leryk1981/mova_wf_cycle",
+      "path": "mova_dpp_passport_normalize_basic",
+      "branch": "main",
+      "category": "mova_dpp_passport_normalize_basic",
+      "tags": [],
+      "stars": 0,
+      "install": "Leryk1981/mova_wf_cycle/mova_dpp_passport_normalize_basic",
+      "source": "github.com/Leryk1981/mova_wf_cycle"
+    }
+  ]
+}

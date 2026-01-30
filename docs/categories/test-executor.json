@@ -1,0 +1,20 @@
+{
+  "category": "test-executor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.202376Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute test suites with proper configuration, parallel execution, and detailed reporting. Use when running unit tests, integration tests, or full test suites.",
+      "repo": "matteocervelli/llms",
+      "path": "test-executor",
+      "branch": "main",
+      "category": "test-executor",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms/test-executor",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

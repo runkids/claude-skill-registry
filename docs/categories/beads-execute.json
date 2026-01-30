@@ -1,0 +1,20 @@
+{
+  "category": "beads-execute",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.420299Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute beads tasks with proper claim/work/close workflow and session management",
+      "repo": "pentaxis93/beadsmith",
+      "path": "beads-execute",
+      "branch": "main",
+      "category": "beads-execute",
+      "tags": [],
+      "stars": 0,
+      "install": "pentaxis93/beadsmith/beads-execute",
+      "source": "github.com/pentaxis93/beadsmith"
+    }
+  ]
+}

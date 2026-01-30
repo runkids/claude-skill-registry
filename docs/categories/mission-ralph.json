@@ -1,0 +1,20 @@
+{
+  "category": "mission-ralph",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.141728Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Launch ralph.sh in background. Best for large features (10+ tasks). Automatic execution until completion.",
+      "repo": "thebrownproject/space-agents",
+      "path": "mission-ralph",
+      "branch": "main",
+      "category": "mission-ralph",
+      "tags": [],
+      "stars": 0,
+      "install": "thebrownproject/space-agents/mission-ralph",
+      "source": "github.com/thebrownproject/space-agents"
+    }
+  ]
+}

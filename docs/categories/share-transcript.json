@@ -1,0 +1,20 @@
+{
+  "category": "share-transcript",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.990833Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"share this session\", \"upload transcript\", \"create gist\", \"share conversation\", or wants to publish the current Claude Code session as a GitHub Gist.",
+      "repo": "ianphil/prism",
+      "path": "share-transcript",
+      "branch": "main",
+      "category": "share-transcript",
+      "tags": [],
+      "stars": 0,
+      "install": "ianphil/prism/share-transcript",
+      "source": "github.com/ianphil/prism"
+    }
+  ]
+}

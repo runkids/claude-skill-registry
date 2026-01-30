@@ -1,0 +1,20 @@
+{
+  "category": "superpowers-writing-skills",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.122002Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+      "repo": "boisenoise/skills-collections",
+      "path": "superpowers-writing-skills",
+      "branch": "main",
+      "category": "superpowers-writing-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/superpowers-writing-skills",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

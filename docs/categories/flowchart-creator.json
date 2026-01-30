@@ -1,0 +1,20 @@
+{
+  "category": "flowchart-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.679623Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create HTML flowcharts and process diagrams with decision trees, color-coded stages, arrows, and swimlanes. Use when users request flowcharts, process diagrams, workflow visualizations, or decision tr",
+      "repo": "mhattingpete/claude-skills-marketplace",
+      "path": "flowchart-creator",
+      "branch": "main",
+      "category": "flowchart-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "mhattingpete/claude-skills-marketplace/flowchart-creator",
+      "source": "github.com/mhattingpete/claude-skills-marketplace"
+    }
+  ]
+}

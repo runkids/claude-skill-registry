@@ -1,0 +1,20 @@
+{
+  "category": "sql-query-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.070346Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate, optimize, and explain SQL queries with best practices. Use when writing database queries or optimizing SQL performance.",
+      "repo": "ntaksh42/agents",
+      "path": "sql-query-helper",
+      "branch": "main",
+      "category": "sql-query-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents/sql-query-helper",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

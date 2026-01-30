@@ -1,0 +1,20 @@
+{
+  "category": "ux-toolkit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.384119Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive UX evaluation meta-skill. Use when conducting UI/UX audits, accessibility reviews, user flow analysis, responsive testing, or interaction design evaluation.",
+      "repo": "georgekhananaev/claude-skills-vault",
+      "path": "ux-toolkit",
+      "branch": "main",
+      "category": "ux-toolkit",
+      "tags": [],
+      "stars": 0,
+      "install": "georgekhananaev/claude-skills-vault/ux-toolkit",
+      "source": "github.com/georgekhananaev/claude-skills-vault"
+    }
+  ]
+}

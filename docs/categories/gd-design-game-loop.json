@@ -1,0 +1,20 @@
+{
+  "category": "gd-design-game-loop",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.729081Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Core gameplay loop design documentation. Use when defining the core gameplay loop, mapping the player experience over time, designing session structures, or identifying pacing issues.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "gd-design-game-loop",
+      "branch": "main",
+      "category": "gd-design-game-loop",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/gd-design-game-loop",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

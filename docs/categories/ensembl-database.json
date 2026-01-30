@@ -1,0 +1,20 @@
+{
+  "category": "ensembl-database",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.574752Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query Ensembl genome database REST API for 250+ species. Gene lookups, sequence retrieval, variant analysis, comparative genomics, orthologs, VEP predictions, for genomic research.",
+      "repo": "ovachiever/droid-tings",
+      "path": "ensembl-database",
+      "branch": "main",
+      "category": "ensembl-database",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings/ensembl-database",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

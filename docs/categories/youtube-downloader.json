@@ -1,0 +1,20 @@
+{
+  "category": "youtube-downloader",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.508065Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Download videos, audio, playlists, and channels from YouTube and 1000+ websites using yt-dlp. Supports quality selection, format conversion, subtitle download, playlist filtering, metadata extraction,",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "youtube-downloader",
+      "branch": "main",
+      "category": "youtube-downloader",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/youtube-downloader",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

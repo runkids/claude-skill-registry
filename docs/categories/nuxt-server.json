@@ -1,0 +1,20 @@
+{
+  "category": "nuxt-server",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.269513Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Nuxt 4 server-side development with Nitro: API routes, server middleware, database integration, and backend patterns.  Use when: creating server API routes, implementing server middleware, integrating",
+      "repo": "secondsky/claude-skills",
+      "path": "nuxt-server",
+      "branch": "main",
+      "category": "nuxt-server",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills/nuxt-server",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

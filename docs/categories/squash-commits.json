@@ -1,0 +1,20 @@
+{
+  "category": "squash-commits",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.072812Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /squash-commits slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "squash-commits",
+      "branch": "main",
+      "category": "squash-commits",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles/squash-commits",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

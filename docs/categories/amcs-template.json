@@ -1,0 +1,20 @@
+{
+  "category": "amcs-template",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.290947Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "{2-3 sentence overview of what this skill does and why it exists in the AMCS workflow.}",
+      "repo": "miethe/MeatyMusic",
+      "path": "amcs-template",
+      "branch": "main",
+      "category": "amcs-template",
+      "tags": [],
+      "stars": 0,
+      "install": "miethe/MeatyMusic/amcs-template",
+      "source": "github.com/miethe/MeatyMusic"
+    }
+  ]
+}

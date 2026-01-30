@@ -1,0 +1,20 @@
+{
+  "category": "wellally-tech",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.456107Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Integrate digital health data sources (Apple Health, Fitbit, Oura Ring) and connect to WellAlly.tech knowledge base. Import external health device data, standardize to local format, and recommend rele",
+      "repo": "huifer/WellAlly-health",
+      "path": "wellally-tech",
+      "branch": "main",
+      "category": "wellally-tech",
+      "tags": [],
+      "stars": 0,
+      "install": "huifer/WellAlly-health/wellally-tech",
+      "source": "github.com/huifer/WellAlly-health"
+    }
+  ]
+}

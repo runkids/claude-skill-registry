@@ -1,0 +1,20 @@
+{
+  "category": "gnomad-frequencies",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.782495Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query gnomAD for population allele frequencies to assess variant rarity. Use when filtering variants by population frequency for rare disease analysis or determining if a variant is common in the gene",
+      "repo": "GPTomics/bioSkills",
+      "path": "gnomad-frequencies",
+      "branch": "main",
+      "category": "gnomad-frequencies",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/gnomad-frequencies",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

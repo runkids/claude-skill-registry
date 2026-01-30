@@ -1,0 +1,20 @@
+{
+  "category": "form-state-management-engine",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.688351Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Architect a high-performance form engine handling validation, dirtiness, and dependent fields.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "form-state-management-engine",
+      "branch": "main",
+      "category": "form-state-management-engine",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/form-state-management-engine",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

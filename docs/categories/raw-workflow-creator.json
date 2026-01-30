@@ -1,0 +1,20 @@
+{
+  "category": "raw-workflow-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.766295Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and run RAW workflows. Use this skill when the user asks to create a workflow, automate a task, build a data pipeline, generate reports, or asks \"How do I build X with RAW?\".",
+      "repo": "mpuig/raw",
+      "path": "raw-workflow-creator",
+      "branch": "main",
+      "category": "raw-workflow-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "mpuig/raw/raw-workflow-creator",
+      "source": "github.com/mpuig/raw"
+    }
+  ]
+}

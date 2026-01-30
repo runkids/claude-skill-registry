@@ -1,0 +1,20 @@
+{
+  "category": "adaptive-ux-scheduling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.200865Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Adapt UI scheduling behavior dynamically based on runtime conditions and user context.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "adaptive-ux-scheduling",
+      "branch": "main",
+      "category": "adaptive-ux-scheduling",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/adaptive-ux-scheduling",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

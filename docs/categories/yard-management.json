@@ -1,0 +1,20 @@
+{
+  "category": "yard-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.507177Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize yard operations, manage trailer parking, or improve dock door utilization. Also use when the user mentions \"yard management,\" \"trailer tracking,\" \"yard jockey,\" \"drop t",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "yard-management",
+      "branch": "main",
+      "category": "yard-management",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/yard-management",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

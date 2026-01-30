@@ -1,0 +1,20 @@
+{
+  "category": "database-schema-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.042651Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate ORM models, migrations, and seeds.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "database-schema-generator",
+      "branch": "main",
+      "category": "database-schema-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/database-schema-generator",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

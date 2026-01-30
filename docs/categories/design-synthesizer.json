@@ -1,0 +1,20 @@
+{
+  "category": "design-synthesizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.158970Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-activates when synthesizing outputs from multiple parallel sub-agents to create cohesive, integrated design with consistency checking and conflict resolution.",
+      "repo": "matteocervelli/llms",
+      "path": "design-synthesizer",
+      "branch": "main",
+      "category": "design-synthesizer",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms/design-synthesizer",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

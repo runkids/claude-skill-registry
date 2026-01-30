@@ -1,0 +1,20 @@
+{
+  "category": "querying-hms-documentation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.752192Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Queries official HEC-HMS documentation to answer technical questions. Provides access to User's Manual, Technical Reference Manual, Release Notes, and community resources. Use when seeking official do",
+      "repo": "gpt-cmdr/hms-commander",
+      "path": "querying-hms-documentation",
+      "branch": "main",
+      "category": "querying-hms-documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "gpt-cmdr/hms-commander/querying-hms-documentation",
+      "source": "github.com/gpt-cmdr/hms-commander"
+    }
+  ]
+}

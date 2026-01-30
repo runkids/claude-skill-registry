@@ -1,0 +1,20 @@
+{
+  "category": "zod-validation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.516842Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Runtime type validation with Zod for schema definition, form validation, API contracts, and TypeScript type inference. Use when validating user input, defining API schemas, or building type-safe data",
+      "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "path": "zod-validation",
+      "branch": "main",
+      "category": "zod-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "fgarofalo56/Suppercharge_Microsoft_Fabric/zod-validation",
+      "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric"
+    }
+  ]
+}

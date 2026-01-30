@@ -1,0 +1,20 @@
+{
+  "category": "modularity-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.193146Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Recommends modularity, composition, and decoupling patterns for design challenges. Use when designing plugin architectures, reducing coupling, improving testability, or separating cross-cutting concer",
+      "repo": "jdubray/puffin",
+      "path": "modularity-patterns",
+      "branch": "main",
+      "category": "modularity-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "jdubray/puffin/modularity-patterns",
+      "source": "github.com/jdubray/puffin"
+    }
+  ]
+}

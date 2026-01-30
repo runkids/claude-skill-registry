@@ -1,0 +1,20 @@
+{
+  "category": "re8-bootstrapping",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.769025Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply RE8 Bootstrapping to build capability using currently available resources, then use that to build more.",
+      "repo": "hummbl-dev/hummbl-agent",
+      "path": "re8-bootstrapping",
+      "branch": "main",
+      "category": "re8-bootstrapping",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/hummbl-agent/re8-bootstrapping",
+      "source": "github.com/hummbl-dev/hummbl-agent"
+    }
+  ]
+}

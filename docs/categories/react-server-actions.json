@@ -1,0 +1,20 @@
+{
+  "category": "react-server-actions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.778562Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement React Server Actions in Next.js 14+ for secure, progressively enhanced form handling and server mutations without API routes. Use when handling form submissions, performing server-side mutat",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "react-server-actions",
+      "branch": "main",
+      "category": "react-server-actions",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2/react-server-actions",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

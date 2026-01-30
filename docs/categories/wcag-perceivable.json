@@ -1,0 +1,20 @@
+{
+  "category": "wcag-perceivable",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.441744Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Principio 1 de WCAG - contenido perceptible por todos los usuarios. Use cuando diseñe contenido multimedia, imágenes, o cualquier información visual o auditiva.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "wcag-perceivable",
+      "branch": "main",
+      "category": "wcag-perceivable",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/wcag-perceivable",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

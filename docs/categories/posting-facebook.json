@@ -1,0 +1,20 @@
+{
+  "category": "posting-facebook",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.616136Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Post content to Facebook using Meta Graph API. Use when publishing Facebook posts, configuring posting schedule, managing post queue, or getting engagement insights. NOT when posting to Instagram (use",
+      "repo": "AbdullahMalik17/Hacathan-2-",
+      "path": "posting-facebook",
+      "branch": "main",
+      "category": "posting-facebook",
+      "tags": [],
+      "stars": 0,
+      "install": "AbdullahMalik17/Hacathan-2-/posting-facebook",
+      "source": "github.com/AbdullahMalik17/Hacathan-2-"
+    }
+  ]
+}

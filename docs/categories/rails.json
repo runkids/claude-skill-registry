@@ -1,0 +1,20 @@
+{
+  "category": "rails",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.759442Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ruby on Rails backend development patterns for [PROJECT_NAME]",
+      "repo": "michsindlinger/agent-os-extended",
+      "path": "rails",
+      "branch": "main",
+      "category": "rails",
+      "tags": [],
+      "stars": 0,
+      "install": "michsindlinger/agent-os-extended/rails",
+      "source": "github.com/michsindlinger/agent-os-extended"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "launch",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.978114Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Start a Space-Agents session. Displays welcome screen with project status.",
+      "repo": "thebrownproject/space-agents",
+      "path": "launch",
+      "branch": "main",
+      "category": "launch",
+      "tags": [],
+      "stars": 0,
+      "install": "thebrownproject/space-agents/launch",
+      "source": "github.com/thebrownproject/space-agents"
+    }
+  ]
+}

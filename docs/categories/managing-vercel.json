@@ -1,0 +1,20 @@
+{
+  "category": "managing-vercel",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.077717Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Vercel platform CLI for frontend deployments, serverless functions, and edge network management. Use for deploying applications, managing domains, environment variables, and debugging deployments.",
+      "repo": "FortiumPartners/ensemble",
+      "path": "managing-vercel",
+      "branch": "main",
+      "category": "managing-vercel",
+      "tags": [],
+      "stars": 0,
+      "install": "FortiumPartners/ensemble/managing-vercel",
+      "source": "github.com/FortiumPartners/ensemble"
+    }
+  ]
+}

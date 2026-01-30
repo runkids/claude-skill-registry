@@ -1,0 +1,20 @@
+{
+  "category": "colored-output",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.615979Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Centralized colored output formatter for all skills, agents, and commands with ANSI escape codes",
+      "repo": "Interstellar-code/claud-skills",
+      "path": "colored-output",
+      "branch": "main",
+      "category": "colored-output",
+      "tags": [],
+      "stars": 0,
+      "install": "Interstellar-code/claud-skills/colored-output",
+      "source": "github.com/Interstellar-code/claud-skills"
+    }
+  ]
+}

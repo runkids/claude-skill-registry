@@ -1,0 +1,20 @@
+{
+  "category": "scrum-event-sprint-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.926560Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Verify Definition of Done and acceptance criteria for Sprint increments. Use when completing sprints, running verification commands, or preparing for acceptance.",
+      "repo": "staticWagomU/dotfiles",
+      "path": "scrum-event-sprint-review",
+      "branch": "main",
+      "category": "scrum-event-sprint-review",
+      "tags": [],
+      "stars": 0,
+      "install": "staticWagomU/dotfiles/scrum-event-sprint-review",
+      "source": "github.com/staticWagomU/dotfiles"
+    }
+  ]
+}

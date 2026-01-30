@@ -1,0 +1,20 @@
+{
+  "category": "entrez-link",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.576468Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Find cross-references between NCBI databases using Biopython Bio.Entrez. Use when navigating from genes to proteins, sequences to publications, finding related records, or discovering database relatio",
+      "repo": "GPTomics/bioSkills",
+      "path": "entrez-link",
+      "branch": "main",
+      "category": "entrez-link",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/entrez-link",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

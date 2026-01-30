@@ -1,0 +1,20 @@
+{
+  "category": "1k-date-formatting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.144725Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guides proper date and time formatting in OneKey app. Use when displaying dates/times in UI, formatting timestamps, or when dates need to follow app locale settings. Date, time, locale, formatDate, da",
+      "repo": "OneKeyHQ/app-monorepo",
+      "path": "1k-date-formatting",
+      "branch": "main",
+      "category": "1k-date-formatting",
+      "tags": [],
+      "stars": 0,
+      "install": "OneKeyHQ/app-monorepo/1k-date-formatting",
+      "source": "github.com/OneKeyHQ/app-monorepo"
+    }
+  ]
+}

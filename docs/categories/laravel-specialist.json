@@ -1,0 +1,20 @@
+{
+  "category": "laravel-specialist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.976112Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building Laravel 10+ applications requiring Eloquent ORM, API resources, or queue systems. Invoke for Laravel models, Livewire components, Sanctum authentication, Horizon queues.",
+      "repo": "Jeffallan/claude-skills",
+      "path": "laravel-specialist",
+      "branch": "main",
+      "category": "laravel-specialist",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills/laravel-specialist",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

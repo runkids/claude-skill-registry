@@ -1,0 +1,20 @@
+{
+  "category": "seo-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.967544Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SEO audits, keyword research with ReviewWeb.site API (keyword ideas, difficulty, traffic, backlinks), on-page optimization, technical SEO, programmatic SEO (pSEO), JSON+LD schema, Google Search Consol",
+      "repo": "NammDev/Goads-Krea",
+      "path": "seo-optimization",
+      "branch": "main",
+      "category": "seo-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "NammDev/Goads-Krea/seo-optimization",
+      "source": "github.com/NammDev/Goads-Krea"
+    }
+  ]
+}

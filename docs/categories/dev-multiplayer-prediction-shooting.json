@@ -1,0 +1,20 @@
+{
+  "category": "dev-multiplayer-prediction-shooting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.171306Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Shooting prediction with optimistic decals and server rollback. Use when implementing shooting mechanics.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-multiplayer-prediction-shooting",
+      "branch": "main",
+      "category": "dev-multiplayer-prediction-shooting",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/dev-multiplayer-prediction-shooting",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

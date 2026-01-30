@@ -1,0 +1,20 @@
+{
+  "category": "book-research-assistant",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.437109Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan, orchestrate, and validate deep research for nonfiction books. Use when an author has completed book architecture and needs to fill research gaps before outlining chapters. Triggers include reque",
+      "repo": "robertguss/claude-code-toolkit",
+      "path": "book-research-assistant",
+      "branch": "main",
+      "category": "book-research-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "robertguss/claude-code-toolkit/book-research-assistant",
+      "source": "github.com/robertguss/claude-code-toolkit"
+    }
+  ]
+}

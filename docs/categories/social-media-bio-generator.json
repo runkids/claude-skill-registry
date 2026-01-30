@@ -1,0 +1,20 @@
+{
+  "category": "social-media-bio-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.037470Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create compelling social media bios for any platform. Use when the user needs bios for Twitter/X, Instagram, LinkedIn, TikTok, YouTube, or any social platform.",
+      "repo": "az9713/ai-co-writing-claude-skills",
+      "path": "social-media-bio-generator",
+      "branch": "main",
+      "category": "social-media-bio-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "az9713/ai-co-writing-claude-skills/social-media-bio-generator",
+      "source": "github.com/az9713/ai-co-writing-claude-skills"
+    }
+  ]
+}

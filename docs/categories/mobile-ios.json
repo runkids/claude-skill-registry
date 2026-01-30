@@ -1,0 +1,20 @@
+{
+  "category": "mobile-ios",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.181842Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Mobile iOS Agent. Swift/SwiftUI를 사용한 iOS 앱 개발을 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "mobile-ios",
+      "branch": "main",
+      "category": "mobile-ios",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin/mobile-ios",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "code-documentation-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.588307Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по документации кода. Используй для JSDoc, docstrings, комментариев и автогенерации документации.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "code-documentation-generator",
+      "branch": "main",
+      "category": "code-documentation-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/code-documentation-generator",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

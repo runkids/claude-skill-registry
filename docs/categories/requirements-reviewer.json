@@ -1,0 +1,20 @@
+{
+  "category": "requirements-reviewer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.822642Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Copilot agent that assists with systematic requirements review using Fagan Inspection and Perspective-Based Reading (PBR) techniques  Trigger terms: requirements review, specification review, SRS revi",
+      "repo": "nahisaho/MUSUBI",
+      "path": "requirements-reviewer",
+      "branch": "main",
+      "category": "requirements-reviewer",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/MUSUBI/requirements-reviewer",
+      "source": "github.com/nahisaho/MUSUBI"
+    }
+  ]
+}

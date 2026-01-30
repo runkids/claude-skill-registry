@@ -1,0 +1,20 @@
+{
+  "category": "graceful-degradation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.797283Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build resilient systems that degrade gracefully under failure. Implement fallbacks, feature flags, and partial responses when dependencies fail.",
+      "repo": "dadbodgeoff/drift",
+      "path": "graceful-degradation",
+      "branch": "main",
+      "category": "graceful-degradation",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/graceful-degradation",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

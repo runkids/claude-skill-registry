@@ -1,0 +1,20 @@
+{
+  "category": "policyengine-code-style-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.604039Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PolicyEngine code writing style guide - formula optimization, direct returns, eliminating unnecessary variables",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-code-style-skill",
+      "branch": "main",
+      "category": "policyengine-code-style-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/policyengine-code-style-skill",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "monitor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.195924Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Monitor a PR until CI is 100% green, fixing any failures",
+      "repo": "elitan/frost",
+      "path": "monitor",
+      "branch": "main",
+      "category": "monitor",
+      "tags": [],
+      "stars": 0,
+      "install": "elitan/frost/monitor",
+      "source": "github.com/elitan/frost"
+    }
+  ]
+}

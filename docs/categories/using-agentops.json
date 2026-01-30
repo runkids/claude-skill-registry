@@ -1,0 +1,20 @@
+{
+  "category": "using-agentops",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.368097Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Meta skill explaining the AgentOps workflow. Auto-injected on session start. Covers RPI workflow, Knowledge Flywheel, and skill catalog.",
+      "repo": "boshu2/agentops",
+      "path": "using-agentops",
+      "branch": "main",
+      "category": "using-agentops",
+      "tags": [],
+      "stars": 0,
+      "install": "boshu2/agentops/using-agentops",
+      "source": "github.com/boshu2/agentops"
+    }
+  ]
+}

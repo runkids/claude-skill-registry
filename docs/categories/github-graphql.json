@@ -1,0 +1,20 @@
+{
+  "category": "github-graphql",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.770140Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when querying GitHub via GraphQL. Provides patterns for PR threads, comments, and mutations.",
+      "repo": "JacobPEvans/ai-assistant-instructions",
+      "path": "github-graphql",
+      "branch": "main",
+      "category": "github-graphql",
+      "tags": [],
+      "stars": 0,
+      "install": "JacobPEvans/ai-assistant-instructions/github-graphql",
+      "source": "github.com/JacobPEvans/ai-assistant-instructions"
+    }
+  ]
+}

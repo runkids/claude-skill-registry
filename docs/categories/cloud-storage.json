@@ -1,0 +1,20 @@
+{
+  "category": "cloud-storage",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.572382Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cloud storage integration with signed URLs, visibility control, multi-tenant path conventions, and presigned uploads for direct client uploads.",
+      "repo": "dadbodgeoff/drift",
+      "path": "cloud-storage",
+      "branch": "main",
+      "category": "cloud-storage",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/cloud-storage",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

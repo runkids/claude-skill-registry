@@ -1,0 +1,20 @@
+{
+  "category": "step-functions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.092217Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS Step Functions workflow orchestration with state machines. Use when designing workflows, implementing error handling, configuring parallel execution, integrating with AWS services, or debugging ex",
+      "repo": "itsmostafa/aws-agent-skills",
+      "path": "step-functions",
+      "branch": "main",
+      "category": "step-functions",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmostafa/aws-agent-skills/step-functions",
+      "source": "github.com/itsmostafa/aws-agent-skills"
+    }
+  ]
+}

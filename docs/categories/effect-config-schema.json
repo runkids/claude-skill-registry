@@ -1,0 +1,20 @@
+{
+  "category": "effect-config-schema",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.556218Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Config loading and Schema validation/transform. Use when defining configuration or validating inputs.",
+      "repo": "mepuka/crate",
+      "path": "effect-config-schema",
+      "branch": "main",
+      "category": "effect-config-schema",
+      "tags": [],
+      "stars": 0,
+      "install": "mepuka/crate/effect-config-schema",
+      "source": "github.com/mepuka/crate"
+    }
+  ]
+}

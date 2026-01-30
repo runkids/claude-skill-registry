@@ -1,0 +1,20 @@
+{
+  "category": "agentuity-cli-cloud-vector-delete-namespace",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.264368Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Delete a vector namespace and all its vectors. Requires authentication. Use for Agentuity cloud platform operations",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-cloud-vector-delete-namespace",
+      "branch": "main",
+      "category": "agentuity-cli-cloud-vector-delete-namespace",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer/agentuity-cli-cloud-vector-delete-namespace",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

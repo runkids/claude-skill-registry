@@ -1,0 +1,20 @@
+{
+  "category": "clustering-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.582587Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cluster data using K-Means, DBSCAN, hierarchical clustering. Use for customer segmentation, pattern discovery, or data grouping.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "clustering-analyzer",
+      "branch": "main",
+      "category": "clustering-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/clustering-analyzer",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

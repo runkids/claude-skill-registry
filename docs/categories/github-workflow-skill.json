@@ -1,0 +1,20 @@
+{
+  "category": "github-workflow-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.775273Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CRITICAL: Follow GitHub workflow patterns: conventional branch names, PR process, quality gates, code review.",
+      "repo": "GolferGeek/orchestrator-ai",
+      "path": "github-workflow-skill",
+      "branch": "main",
+      "category": "github-workflow-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "GolferGeek/orchestrator-ai/github-workflow-skill",
+      "source": "github.com/GolferGeek/orchestrator-ai"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "seo-keyword-research",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.966477Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expands keyword lists and analyzes search intent for content strategy. Use when the user asks about keyword research, search intent, long-tail keywords, keyword gaps, or SEO content planning.",
+      "repo": "WesleySmits/agent-skills",
+      "path": "seo-keyword-research",
+      "branch": "main",
+      "category": "seo-keyword-research",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills/seo-keyword-research",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

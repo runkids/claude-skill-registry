@@ -1,0 +1,20 @@
+{
+  "category": "ai-apis-like-chatgpt",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.273373Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "How to use AI APIs like OpenAI, ChatGPT, Elevenlabs, etc. When a user asks you to make an app that requires an AI API, use this skill to understand how to use the API or how to respond to the user.",
+      "repo": "tfunk1030/vibe",
+      "path": "ai-apis-like-chatgpt",
+      "branch": "main",
+      "category": "ai-apis-like-chatgpt",
+      "tags": [],
+      "stars": 0,
+      "install": "tfunk1030/vibe/ai-apis-like-chatgpt",
+      "source": "github.com/tfunk1030/vibe"
+    }
+  ]
+}

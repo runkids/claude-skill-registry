@@ -1,0 +1,20 @@
+{
+  "category": "react-native-i18n-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.776484Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manages internationalization strings and translation workflows using i18next and react-i18next. Use when adding new text, supporting additional languages, or implementing pluralization and interpolati",
+      "repo": "PlaneInABottle/fitnessMobileApp",
+      "path": "react-native-i18n-workflow",
+      "branch": "main",
+      "category": "react-native-i18n-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "PlaneInABottle/fitnessMobileApp/react-native-i18n-workflow",
+      "source": "github.com/PlaneInABottle/fitnessMobileApp"
+    }
+  ]
+}

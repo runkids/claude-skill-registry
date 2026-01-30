@@ -1,0 +1,20 @@
+{
+  "category": "log-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.050311Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "解析和分析日志文件，支持模式匹配、过滤、统计和错误检测。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "log-analyzer",
+      "branch": "main",
+      "category": "log-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode/log-analyzer",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

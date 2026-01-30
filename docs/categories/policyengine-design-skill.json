@@ -1,0 +1,20 @@
+{
+  "category": "policyengine-design-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.604563Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PolicyEngine visual identity - colors, fonts, logos, and branding for web apps, calculators, charts, and research",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-design-skill",
+      "branch": "main",
+      "category": "policyengine-design-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/policyengine-design-skill",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

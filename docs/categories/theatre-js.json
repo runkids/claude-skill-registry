@@ -1,0 +1,20 @@
+{
+  "category": "theatre-js",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.280365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementing motion design, timeline animations, visual animation editors, animating Three.js/R3F scenes, creating keyframe animations, or using Theatre.js, @theatre/core, @theatre/studio, @t",
+      "repo": "noklip-io/agent-skills",
+      "path": "theatre-js",
+      "branch": "main",
+      "category": "theatre-js",
+      "tags": [],
+      "stars": 0,
+      "install": "noklip-io/agent-skills/theatre-js",
+      "source": "github.com/noklip-io/agent-skills"
+    }
+  ]
+}

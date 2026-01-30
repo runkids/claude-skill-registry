@@ -1,0 +1,20 @@
+{
+  "category": "release-health-gates",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.806642Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standardize release approvals by expressing gates as GitHub-aware checklists. Ensure code, docs, comms, and observability items are green before deployment.",
+      "repo": "athola/claude-night-market",
+      "path": "release-health-gates",
+      "branch": "main",
+      "category": "release-health-gates",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/release-health-gates",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

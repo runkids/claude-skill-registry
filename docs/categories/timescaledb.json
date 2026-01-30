@@ -1,0 +1,20 @@
+{
+  "category": "timescaledb",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.289800Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MANDATORY when working with time-series data, hypertables, continuous aggregates, or compression - enforces TimescaleDB 2.24.0 best practices including lightning-fast recompression, UUIDv7 continuous",
+      "repo": "troykelly/claude-skills",
+      "path": "timescaledb",
+      "branch": "main",
+      "category": "timescaledb",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/timescaledb",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

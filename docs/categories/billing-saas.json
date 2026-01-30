@@ -1,0 +1,20 @@
+{
+  "category": "billing-saas",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.429594Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "name: billing-saas",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "billing-saas",
+      "branch": "main",
+      "category": "billing-saas",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/billing-saas",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

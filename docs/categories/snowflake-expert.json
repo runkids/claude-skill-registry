@@ -1,0 +1,20 @@
+{
+  "category": "snowflake-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.035244Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Snowflake data warehouse platform, virtual warehouses, data sharing, streams, tasks, and SQL optimization",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "snowflake-expert",
+      "branch": "main",
+      "category": "snowflake-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/snowflake-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

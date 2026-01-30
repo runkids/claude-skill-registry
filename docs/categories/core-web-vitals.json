@@ -1,0 +1,20 @@
+{
+  "category": "core-web-vitals",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.688281Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize Core Web Vitals (LCP, INP, CLS) for better page experience and search ranking. Use when asked to \"improve Core Web Vitals\", \"fix LCP\", \"reduce CLS\", \"optimize INP\", \"page experience optimizat",
+      "repo": "addyosmani/web-quality-skills",
+      "path": "core-web-vitals",
+      "branch": "main",
+      "category": "core-web-vitals",
+      "tags": [],
+      "stars": 0,
+      "install": "addyosmani/web-quality-skills/core-web-vitals",
+      "source": "github.com/addyosmani/web-quality-skills"
+    }
+  ]
+}

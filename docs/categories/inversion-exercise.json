@@ -1,0 +1,20 @@
+{
+  "category": "inversion-exercise",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.897622Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Flip core assumptions to reveal hidden constraints and alternative approaches - \"what if the opposite were true?\"",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "inversion-exercise",
+      "branch": "main",
+      "category": "inversion-exercise",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/inversion-exercise",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "category": "planning",
   "code": "oth",
-  "count": 1,
-  "updated_at": "2026-01-29T04:50:39.167526Z",
+  "count": 2,
+  "updated_at": "2026-01-30T04:55:07.584123Z",
   "skills": [
     {
       "name": "brainstorming-technickai-ai-coding-config",
@@ -15,6 +15,18 @@
       "stars": 16,
       "install": "TechNickAI/ai-coding-config/planning/brainstorming-technickai-ai-coding-config",
       "source": "github.com/TechNickAI/ai-coding-config"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Technical implementation planning and architecture design. Capabilities: feature planning, system architecture, technical evaluation, implementation roadmaps, requirement breakdown, trade-off analysis",
+      "repo": "brixtonpham/claude-config",
+      "path": "planning",
+      "branch": "main",
+      "category": "planning",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/planning",
+      "source": "github.com/brixtonpham/claude-config"
     }
   ]
 }

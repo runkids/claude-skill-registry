@@ -1,0 +1,20 @@
+{
+  "category": "nestjs-project-scaffold",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.232815Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill whenever the user wants to create, restructure, or standardize a NestJS backend project in TypeScript, including folder layout, config, environment setup, tooling, and initial integrati",
+      "repo": "AgentiveCity/SkillFactory",
+      "path": "nestjs-project-scaffold",
+      "branch": "main",
+      "category": "nestjs-project-scaffold",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentiveCity/SkillFactory/nestjs-project-scaffold",
+      "source": "github.com/AgentiveCity/SkillFactory"
+    }
+  ]
+}

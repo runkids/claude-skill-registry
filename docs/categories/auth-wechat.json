@@ -1,0 +1,20 @@
+{
+  "category": "auth-wechat",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.374167Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete guide for WeChat Mini Program authentication with CloudBase - native login, user identity, and cloud function integration.",
+      "repo": "baiyongping/cowork-platform",
+      "path": "auth-wechat",
+      "branch": "main",
+      "category": "auth-wechat",
+      "tags": [],
+      "stars": 0,
+      "install": "baiyongping/cowork-platform/auth-wechat",
+      "source": "github.com/baiyongping/cowork-platform"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "feature-dev-loop",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.642353Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute feature lifecycle from beads issue to GitHub push without git locks or JSONL corruption. Triggers on \"start feature\", \"implement issue\", \"feature workflow\", \"new feature\".",
+      "repo": "almai/superpowers",
+      "path": "feature-dev-loop",
+      "branch": "main",
+      "category": "feature-dev-loop",
+      "tags": [],
+      "stars": 0,
+      "install": "almai/superpowers/feature-dev-loop",
+      "source": "github.com/almai/superpowers"
+    }
+  ]
+}

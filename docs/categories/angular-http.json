@@ -1,0 +1,20 @@
+{
+  "category": "angular-http",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.299583Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement HTTP data fetching in Angular v20+ using resource(), httpResource(), and HttpClient. Use for API calls, data loading with signals, request/response handling, and interceptors. Triggers on da",
+      "repo": "analogjs/angular-skills",
+      "path": "angular-http",
+      "branch": "main",
+      "category": "angular-http",
+      "tags": [],
+      "stars": 0,
+      "install": "analogjs/angular-skills/angular-http",
+      "source": "github.com/analogjs/angular-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ui-ux-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.337483Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when users request UI/UX design work, component creation, page layouts, wireframes, or design system implementation for Next.js applications using Tailwind CSS with a custom",
+      "repo": "JKKN-Institutions/Kenavo",
+      "path": "ui-ux-designer",
+      "branch": "main",
+      "category": "ui-ux-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "JKKN-Institutions/Kenavo/ui-ux-designer",
+      "source": "github.com/JKKN-Institutions/Kenavo"
+    }
+  ]
+}

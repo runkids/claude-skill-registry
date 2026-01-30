@@ -1,0 +1,20 @@
+{
+  "category": "dotnet-centralized-packages",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.526865Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for Centralized Package Management (CPM) using Directory.Packages.props in .NET projects",
+      "repo": "NotMyself/claude-stack-dotnet",
+      "path": "dotnet-centralized-packages",
+      "branch": "main",
+      "category": "dotnet-centralized-packages",
+      "tags": [],
+      "stars": 0,
+      "install": "NotMyself/claude-stack-dotnet/dotnet-centralized-packages",
+      "source": "github.com/NotMyself/claude-stack-dotnet"
+    }
+  ]
+}

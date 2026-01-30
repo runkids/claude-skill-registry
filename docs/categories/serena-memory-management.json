@@ -1,0 +1,20 @@
+{
+  "category": "serena-memory-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.970446Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"create a memory\", \"read memories\", \"manage memories\", \"document patterns\", or when starting work on a Serena project with existing memories. Essential",
+      "repo": "helmecke/dotfiles",
+      "path": "serena-memory-management",
+      "branch": "main",
+      "category": "serena-memory-management",
+      "tags": [],
+      "stars": 0,
+      "install": "helmecke/dotfiles/serena-memory-management",
+      "source": "github.com/helmecke/dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "narwhals",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.224763Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Effectively use Narwhals to write dataframe-agnostic code that works seamlessly across multiple Python dataframe libraries. Write correct type annotations for code using Narwhals.",
+      "repo": "anam-org/metaxy",
+      "path": "narwhals",
+      "branch": "main",
+      "category": "narwhals",
+      "tags": [],
+      "stars": 0,
+      "install": "anam-org/metaxy/narwhals",
+      "source": "github.com/anam-org/metaxy"
+    }
+  ]
+}

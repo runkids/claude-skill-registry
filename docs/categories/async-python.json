@@ -1,0 +1,20 @@
+{
+  "category": "async-python",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.362280Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Python async/await patterns for concurrent programming. Covers asyncio, aiohttp, async databases, task groups, and performance optimization.",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "async-python",
+      "branch": "main",
+      "category": "async-python",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os/async-python",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "testing-ruby",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.273746Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when writing tests for Ruby code in frameworks such as RSpec or Minitest.",
+      "repo": "LandonSchropp/agent-toolkit",
+      "path": "testing-ruby",
+      "branch": "main",
+      "category": "testing-ruby",
+      "tags": [],
+      "stars": 0,
+      "install": "LandonSchropp/agent-toolkit/testing-ruby",
+      "source": "github.com/LandonSchropp/agent-toolkit"
+    }
+  ]
+}

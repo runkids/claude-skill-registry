@@ -1,0 +1,20 @@
+{
+  "category": "wrangler",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.489248Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cloudflare Workers CLI for deploying, developing, and managing Workers, KV, R2, D1, Vectorize, Hyperdrive, Workers AI, Containers, Queues, Workflows, Pipelines, and Secrets Store. Load before running",
+      "repo": "NeverSight/skills.sh_feed",
+      "path": "wrangler",
+      "branch": "main",
+      "category": "wrangler",
+      "tags": [],
+      "stars": 0,
+      "install": "NeverSight/skills.sh_feed/wrangler",
+      "source": "github.com/NeverSight/skills.sh_feed"
+    }
+  ]
+}

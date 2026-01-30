@@ -1,0 +1,20 @@
+{
+  "category": "fluxwing-enhancer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.682714Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Progressively enhance uxscii components from sketch to production quality.",
+      "repo": "trabian/fluxwing-skills",
+      "path": "fluxwing-enhancer",
+      "branch": "main",
+      "category": "fluxwing-enhancer",
+      "tags": [],
+      "stars": 0,
+      "install": "trabian/fluxwing-skills/fluxwing-enhancer",
+      "source": "github.com/trabian/fluxwing-skills"
+    }
+  ]
+}

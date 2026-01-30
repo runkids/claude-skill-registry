@@ -1,0 +1,20 @@
+{
+  "category": "widgets",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.468911Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Principles for maintainable UI components.",
+      "repo": "ngxtm/devkit",
+      "path": "widgets",
+      "branch": "main",
+      "category": "widgets",
+      "tags": [],
+      "stars": 0,
+      "install": "ngxtm/devkit/widgets",
+      "source": "github.com/ngxtm/devkit"
+    }
+  ]
+}

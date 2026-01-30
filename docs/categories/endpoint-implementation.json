@@ -1,0 +1,20 @@
+{
+  "category": "endpoint-implementation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.572161Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill to implement endpoints in the API",
+      "repo": "wmeints/promptyard",
+      "path": "endpoint-implementation",
+      "branch": "main",
+      "category": "endpoint-implementation",
+      "tags": [],
+      "stars": 0,
+      "install": "wmeints/promptyard/endpoint-implementation",
+      "source": "github.com/wmeints/promptyard"
+    }
+  ]
+}

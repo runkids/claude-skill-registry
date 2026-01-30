@@ -1,0 +1,20 @@
+{
+  "category": "self-improving",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.956780Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when starting infrastructure, testing, deployment, or framework-specific tasks - automatically searches PRPM registry for relevant expertise packages and suggests installation to enhance capabilit",
+      "repo": "pr-pm/prpm",
+      "path": "self-improving",
+      "branch": "main",
+      "category": "self-improving",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm/self-improving",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

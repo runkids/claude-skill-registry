@@ -1,0 +1,20 @@
+{
+  "category": "design-system-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.159508Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build scalable design systems with design tokens, component APIs, and documentation. Use when creating or evolving component libraries.",
+      "repo": "NickCrew/claude-cortex",
+      "path": "design-system-architecture",
+      "branch": "main",
+      "category": "design-system-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex/design-system-architecture",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

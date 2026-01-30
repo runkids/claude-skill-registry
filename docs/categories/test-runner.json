@@ -1,0 +1,20 @@
+{
+  "category": "test-runner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.211150Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run Vitest tests for the Babylon.js game project. Use when the user wants to run tests, check test coverage, debug failing tests, or validate code functionality.",
+      "repo": "gigi-f/babylon_fp",
+      "path": "test-runner",
+      "branch": "main",
+      "category": "test-runner",
+      "tags": [],
+      "stars": 0,
+      "install": "gigi-f/babylon_fp/test-runner",
+      "source": "github.com/gigi-f/babylon_fp"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "using-git-worktrees",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.370179Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create isolated git worktrees with smart directory selection and safety verification",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "using-git-worktrees",
+      "branch": "main",
+      "category": "using-git-worktrees",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/using-git-worktrees",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "terra-troubleshooting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.192588Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Terra API troubleshooting and debugging. Use when experiencing connection issues, data sync problems, webhook failures, SDK errors, or provider-specific issues.",
+      "repo": "adaptationio/Skrillz",
+      "path": "terra-troubleshooting",
+      "branch": "main",
+      "category": "terra-troubleshooting",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/terra-troubleshooting",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

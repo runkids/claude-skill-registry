@@ -1,0 +1,20 @@
+{
+  "category": "container-image-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.656841Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize layers and use minimal base images.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "container-image-optimizer",
+      "branch": "main",
+      "category": "container-image-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/container-image-optimizer",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

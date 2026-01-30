@@ -1,0 +1,20 @@
+{
+  "category": "developer-toolbox",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.178767Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Essential development workflow agents for code review, debugging, testing, documentation, and git operations. Includes 7 specialized agents with strong auto-discovery triggers.  Use when: setting up d",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "developer-toolbox",
+      "branch": "main",
+      "category": "developer-toolbox",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/developer-toolbox",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

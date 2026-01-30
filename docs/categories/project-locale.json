@@ -1,0 +1,20 @@
+{
+  "category": "project-locale",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.693591Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for adding localized text using l10n in app_lib/locale package (project)",
+      "repo": "gsmlg-app/flutter-app-template",
+      "path": "project-locale",
+      "branch": "main",
+      "category": "project-locale",
+      "tags": [],
+      "stars": 0,
+      "install": "gsmlg-app/flutter-app-template/project-locale",
+      "source": "github.com/gsmlg-app/flutter-app-template"
+    }
+  ]
+}

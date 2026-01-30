@@ -1,0 +1,20 @@
+{
+  "category": "api-generate",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.324880Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "API code generation from specifications. TODO: Implement for backend. Invoked by: \"generate api\", \"api codegen\", \"create endpoints\", \"scaffold api\".",
+      "repo": "eleva-labs/agentic-coding-templates",
+      "path": "api-generate",
+      "branch": "main",
+      "category": "api-generate",
+      "tags": [],
+      "stars": 0,
+      "install": "eleva-labs/agentic-coding-templates/api-generate",
+      "source": "github.com/eleva-labs/agentic-coding-templates"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ansible-automation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.302991Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Infrastructure automation and configuration management using Ansible playbooks, roles, and inventory. Use for deploying applications, patching, and managing servers.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "ansible-automation",
+      "branch": "main",
+      "category": "ansible-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/ansible-automation",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

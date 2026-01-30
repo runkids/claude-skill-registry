@@ -1,0 +1,20 @@
+{
+  "category": "nextjs-middleware",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.243717Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When you need to run code before a request completes: auth checks, redirects, headers, A/B testing.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "nextjs-middleware",
+      "branch": "main",
+      "category": "nextjs-middleware",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/nextjs-middleware",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

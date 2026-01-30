@@ -1,0 +1,20 @@
+{
+  "category": "rag-skills",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.759078Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "RAG-specific best practices for LlamaIndex, ChromaDB, and Celery workers. Covers ingestion, retrieval, embeddings, and performance.",
+      "repo": "llama-farm/llamafarm",
+      "path": "rag-skills",
+      "branch": "main",
+      "category": "rag-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "llama-farm/llamafarm/rag-skills",
+      "source": "github.com/llama-farm/llamafarm"
+    }
+  ]
+}

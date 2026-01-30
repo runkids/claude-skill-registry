@@ -1,0 +1,20 @@
+{
+  "category": "vercel-deploy-claimable",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.402727Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploy applications and websites to Vercel. Use this skill when the user requests deployment actions such as \"Deploy my app\", \"Deploy this to production\", \"Create a preview deployment\", \"Deploy and gi",
+      "repo": "dandedotdev/dotfiles",
+      "path": "vercel-deploy-claimable",
+      "branch": "main",
+      "category": "vercel-deploy-claimable",
+      "tags": [],
+      "stars": 0,
+      "install": "dandedotdev/dotfiles/vercel-deploy-claimable",
+      "source": "github.com/dandedotdev/dotfiles"
+    }
+  ]
+}

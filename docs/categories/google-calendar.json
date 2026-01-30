@@ -1,0 +1,20 @@
+{
+  "category": "google-calendar",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.789007Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "View and manage Google Calendar events. Check today's schedule, upcoming meetings, and calendar availability.",
+      "repo": "tbroadley/dotfiles",
+      "path": "google-calendar",
+      "branch": "main",
+      "category": "google-calendar",
+      "tags": [],
+      "stars": 0,
+      "install": "tbroadley/dotfiles/google-calendar",
+      "source": "github.com/tbroadley/dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "fine-tuning-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.666592Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when fine-tuning LLMs, training custom models, or optimizing model performance for specific tasks. Invoke for parameter-efficient methods, dataset preparation, or model adaptation.",
+      "repo": "Jeffallan/claude-skills",
+      "path": "fine-tuning-expert",
+      "branch": "main",
+      "category": "fine-tuning-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills/fine-tuning-expert",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

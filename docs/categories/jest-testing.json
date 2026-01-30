@@ -1,0 +1,20 @@
+{
+  "category": "jest-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.921079Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when writing Jest tests - covers testing patterns for interpreters, parsers, and async code",
+      "repo": "mcclowes/lea",
+      "path": "jest-testing",
+      "branch": "main",
+      "category": "jest-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "mcclowes/lea/jest-testing",
+      "source": "github.com/mcclowes/lea"
+    }
+  ]
+}

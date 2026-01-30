@@ -1,0 +1,20 @@
+{
+  "category": "test-3layer-mid",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.195965Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Layer 2 (middle) of 3-layer test - calls Layer 3",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-3layer-mid",
+      "branch": "main",
+      "category": "test-3layer-mid",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/test-3layer-mid",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

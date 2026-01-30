@@ -1,0 +1,20 @@
+{
+  "category": "Createskill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.167052Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MANDATORY skill creation framework for ALL skill creation requests. USE WHEN user wants to create, validate, update, or canonicalize a skill, OR user mentions skill creation, skill development, new sk",
+      "repo": "blackpwnguin/Personal-AI",
+      "path": "Createskill",
+      "branch": "main",
+      "category": "Createskill",
+      "tags": [],
+      "stars": 0,
+      "install": "blackpwnguin/Personal-AI/Createskill",
+      "source": "github.com/blackpwnguin/Personal-AI"
+    }
+  ]
+}

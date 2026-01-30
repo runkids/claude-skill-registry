@@ -1,0 +1,20 @@
+{
+  "category": "metagenomics-pipeline",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.125351Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "End-to-end metagenomics workflow from FASTQ to taxonomic and functional profiles. Covers Kraken2 classification, Bracken abundance estimation, and HUMAnN functional profiling. Use when profiling metag",
+      "repo": "GPTomics/bioSkills",
+      "path": "metagenomics-pipeline",
+      "branch": "main",
+      "category": "metagenomics-pipeline",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/metagenomics-pipeline",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

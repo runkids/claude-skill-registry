@@ -1,0 +1,20 @@
+{
+  "category": "cpu-gpu-performance",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.692912Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- When to Use",
+      "repo": "athola/claude-night-market",
+      "path": "cpu-gpu-performance",
+      "branch": "main",
+      "category": "cpu-gpu-performance",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/cpu-gpu-performance",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

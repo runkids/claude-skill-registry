@@ -1,0 +1,20 @@
+{
+  "category": "examples-auto-run",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.609553Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run python examples in auto mode with logging, rerun helpers, and background control.",
+      "repo": "zaziedlm/openai-agents-python",
+      "path": "examples-auto-run",
+      "branch": "main",
+      "category": "examples-auto-run",
+      "tags": [],
+      "stars": 0,
+      "install": "zaziedlm/openai-agents-python/examples-auto-run",
+      "source": "github.com/zaziedlm/openai-agents-python"
+    }
+  ]
+}

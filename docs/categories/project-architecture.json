@@ -1,0 +1,20 @@
+{
+  "category": "project-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.689327Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Understand the Orient monorepo architecture for making technical decisions. Use this skill when onboarding, adding new features, modifying services, or evaluating design choices. Covers packages, bots",
+      "repo": "orient-bot/orient",
+      "path": "project-architecture",
+      "branch": "main",
+      "category": "project-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/project-architecture",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "vibe-techdesign",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.413343Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a Technical Design Document for your MVP. Use when the user wants to plan architecture, choose tech stack, or says \"plan technical design\", \"choose tech stack\", or \"how should I build this\".",
+      "repo": "KhazP/vibe-coding-prompt-template",
+      "path": "vibe-techdesign",
+      "branch": "main",
+      "category": "vibe-techdesign",
+      "tags": [],
+      "stars": 0,
+      "install": "KhazP/vibe-coding-prompt-template/vibe-techdesign",
+      "source": "github.com/KhazP/vibe-coding-prompt-template"
+    }
+  ]
+}

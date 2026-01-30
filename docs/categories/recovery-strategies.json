@@ -1,0 +1,20 @@
+{
+  "category": "recovery-strategies",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.791086Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Escalation path when stuck on pattern development. Use when encountering TypeScript errors, framework confusion, unexpected behavior, or blocked progress. Five-step recovery: check docs, study example",
+      "repo": "jkomoros/community-patterns",
+      "path": "recovery-strategies",
+      "branch": "main",
+      "category": "recovery-strategies",
+      "tags": [],
+      "stars": 0,
+      "install": "jkomoros/community-patterns/recovery-strategies",
+      "source": "github.com/jkomoros/community-patterns"
+    }
+  ]
+}

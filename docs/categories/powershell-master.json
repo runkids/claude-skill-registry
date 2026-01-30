@@ -1,0 +1,20 @@
+{
+  "category": "powershell-master",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.617965Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete PowerShell expertise system across ALL platforms (Windows/Linux/macOS). PROACTIVELY activate for: (1) ANY PowerShell task (scripts/modules/cmdlets), (2) CI/CD automation (GitHub Actions/Azure",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "powershell-master",
+      "branch": "main",
+      "category": "powershell-master",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace/powershell-master",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

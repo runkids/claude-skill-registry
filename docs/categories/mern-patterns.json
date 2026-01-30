@@ -1,0 +1,20 @@
+{
+  "category": "mern-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.121513Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MERN stack patterns including React with Vite, Express middleware, MongoDB schemas, API Gateway architecture, session management, error handling, and testing strategies. Activate for MERN development,",
+      "repo": "Lobbi-Docs/claude",
+      "path": "mern-patterns",
+      "branch": "main",
+      "category": "mern-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/mern-patterns",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "hierarchical",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.831462Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive multi-stage code review using specialized subagents",
+      "repo": "FradSer/dotclaude",
+      "path": "hierarchical",
+      "branch": "main",
+      "category": "hierarchical",
+      "tags": [],
+      "stars": 0,
+      "install": "FradSer/dotclaude/hierarchical",
+      "source": "github.com/FradSer/dotclaude"
+    }
+  ]
+}

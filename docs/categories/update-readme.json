@@ -1,0 +1,20 @@
+{
+  "category": "update-readme",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.357683Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill whenever the README requires a structural refresh.",
+      "repo": "athola/claude-night-market",
+      "path": "update-readme",
+      "branch": "main",
+      "category": "update-readme",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/update-readme",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

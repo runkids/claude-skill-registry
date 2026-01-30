@@ -1,0 +1,20 @@
+{
+  "category": "cli-config",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.556087Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage CLI application configuration with Cobra and Viper. Use when implementing config files, environment variables, flags binding, or when user mentions Viper, configuration management, config files",
+      "repo": "yurifrl/cly",
+      "path": "cli-config",
+      "branch": "main",
+      "category": "cli-config",
+      "tags": [],
+      "stars": 0,
+      "install": "yurifrl/cly/cli-config",
+      "source": "github.com/yurifrl/cly"
+    }
+  ]
+}

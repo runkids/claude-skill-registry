@@ -1,0 +1,20 @@
+{
+  "category": "repository-structure",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.818996Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Monorepo structure, subpackage organization, and dependency rules. Use when creating new packages, understanding project layout, or organizing code.",
+      "repo": "crmagz/cdk-constructs-library",
+      "path": "repository-structure",
+      "branch": "main",
+      "category": "repository-structure",
+      "tags": [],
+      "stars": 0,
+      "install": "crmagz/cdk-constructs-library/repository-structure",
+      "source": "github.com/crmagz/cdk-constructs-library"
+    }
+  ]
+}

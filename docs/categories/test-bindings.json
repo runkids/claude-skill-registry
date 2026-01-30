@@ -1,0 +1,20 @@
+{
+  "category": "test-bindings",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.197721Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interactively test mouse button bindings in Slicer",
+      "repo": "benzwick/SlicerMouseMaster",
+      "path": "test-bindings",
+      "branch": "main",
+      "category": "test-bindings",
+      "tags": [],
+      "stars": 0,
+      "install": "benzwick/SlicerMouseMaster/test-bindings",
+      "source": "github.com/benzwick/SlicerMouseMaster"
+    }
+  ]
+}

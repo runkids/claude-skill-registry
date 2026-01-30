@@ -1,0 +1,20 @@
+{
+  "category": "beken",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.424282Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Beken Corporation MPN encoding patterns, suffix decoding, and handler guidance. Use when working with Beken WiFi and BLE SoC components or BekenHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "beken",
+      "branch": "main",
+      "category": "beken",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/beken",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

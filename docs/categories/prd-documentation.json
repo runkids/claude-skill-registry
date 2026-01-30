@@ -1,0 +1,20 @@
+{
+  "category": "prd-documentation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.627970Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Product Requirements Document creation and feature specification writing. Use when writing PRDs, technical specs, feature documentation, or requirements. Triggers on \"PRD\", \"product requirements\", \"fe",
+      "repo": "foolpoet44/ai-pm-agent",
+      "path": "prd-documentation",
+      "branch": "main",
+      "category": "prd-documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "foolpoet44/ai-pm-agent/prd-documentation",
+      "source": "github.com/foolpoet44/ai-pm-agent"
+    }
+  ]
+}

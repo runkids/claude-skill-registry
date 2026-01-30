@@ -1,0 +1,20 @@
+{
+  "category": "iterative-plan-execution",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.915492Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Autonomous phase-by-phase plan implementation with journaling. Decomposes phases into atomic tasks and verifies each via typecheck + spike + export resolution triad.",
+      "repo": "creatifcoding/gbg",
+      "path": "iterative-plan-execution",
+      "branch": "main",
+      "category": "iterative-plan-execution",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/iterative-plan-execution",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

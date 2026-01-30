@@ -1,0 +1,20 @@
+{
+  "category": "add-global",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.205113Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a reactive global variable that derives from atoms with subscription support",
+      "repo": "Ariedam64/Gemini",
+      "path": "add-global",
+      "branch": "main",
+      "category": "add-global",
+      "tags": [],
+      "stars": 0,
+      "install": "Ariedam64/Gemini/add-global",
+      "source": "github.com/Ariedam64/Gemini"
+    }
+  ]
+}

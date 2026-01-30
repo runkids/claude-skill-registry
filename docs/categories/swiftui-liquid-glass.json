@@ -1,0 +1,20 @@
+{
+  "category": "swiftui-liquid-glass",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.133106Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement, review, or improve SwiftUI features using the iOS 26+ Liquid Glass API. Use when asked to adopt Liquid Glass in new SwiftUI UI, refactor an existing feature to Liquid Glass, or review Liqui",
+      "repo": "dandedotdev/dotfiles",
+      "path": "swiftui-liquid-glass",
+      "branch": "main",
+      "category": "swiftui-liquid-glass",
+      "tags": [],
+      "stars": 0,
+      "install": "dandedotdev/dotfiles/swiftui-liquid-glass",
+      "source": "github.com/dandedotdev/dotfiles"
+    }
+  ]
+}

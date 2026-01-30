@@ -1,0 +1,20 @@
+{
+  "category": "sentry-prod-checklist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.963626Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute production deployment checklist for Sentry integration. Use when preparing for production deployment, reviewing Sentry configuration, or verifying production readiness. Trigger with phrases li",
+      "repo": "byteworthy/Upstream",
+      "path": "sentry-prod-checklist",
+      "branch": "main",
+      "category": "sentry-prod-checklist",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/sentry-prod-checklist",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

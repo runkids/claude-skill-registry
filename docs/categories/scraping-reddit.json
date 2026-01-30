@@ -1,0 +1,20 @@
+{
+  "category": "scraping-reddit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.921720Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scrapes top posts from specified subreddits using the Reddit JSON API. Use when the user needs to fetch post titles and links from Reddit without authentication.",
+      "repo": "TheeCoderAhmed/Skills-Master",
+      "path": "scraping-reddit",
+      "branch": "main",
+      "category": "scraping-reddit",
+      "tags": [],
+      "stars": 0,
+      "install": "TheeCoderAhmed/Skills-Master/scraping-reddit",
+      "source": "github.com/TheeCoderAhmed/Skills-Master"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "brief-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.446466Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Brief-specific code patterns and conventions",
+      "repo": "brief-hq/brief-wiggum",
+      "path": "brief-patterns",
+      "branch": "main",
+      "category": "brief-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "brief-hq/brief-wiggum/brief-patterns",
+      "source": "github.com/brief-hq/brief-wiggum"
+    }
+  ]
+}

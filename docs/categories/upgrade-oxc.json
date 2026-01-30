@@ -1,0 +1,20 @@
+{
+  "category": "upgrade-oxc",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.359450Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Upgrade oxc, run codegen, and fix any breaking changes.",
+      "repo": "rolldown/rolldown",
+      "path": "upgrade-oxc",
+      "branch": "main",
+      "category": "upgrade-oxc",
+      "tags": [],
+      "stars": 0,
+      "install": "rolldown/rolldown/upgrade-oxc",
+      "source": "github.com/rolldown/rolldown"
+    }
+  ]
+}

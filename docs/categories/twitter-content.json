@@ -1,0 +1,20 @@
+{
+  "category": "twitter-content",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.321627Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform changelogs, user showcases, and product updates into Twitter posts. Use for social media content creation with Matt Palmer's casual voice.",
+      "repo": "mattppal/prompts",
+      "path": "twitter-content",
+      "branch": "main",
+      "category": "twitter-content",
+      "tags": [],
+      "stars": 0,
+      "install": "mattppal/prompts/twitter-content",
+      "source": "github.com/mattppal/prompts"
+    }
+  ]
+}

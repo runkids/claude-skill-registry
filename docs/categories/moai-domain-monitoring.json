@@ -1,0 +1,20 @@
+{
+  "category": "moai-domain-monitoring",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.160718Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Observability with Prometheus, Grafana, logging, and tracing",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-domain-monitoring",
+      "branch": "main",
+      "category": "moai-domain-monitoring",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit/moai-domain-monitoring",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

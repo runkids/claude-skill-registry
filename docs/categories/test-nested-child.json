@@ -1,0 +1,20 @@
+{
+  "category": "test-nested-child",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.207115Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Layer 3 (innermost) - tests if return value reaches Layer 2",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-nested-child",
+      "branch": "main",
+      "category": "test-nested-child",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/test-nested-child",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

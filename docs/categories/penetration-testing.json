@@ -1,0 +1,20 @@
+{
+  "category": "penetration-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.557395Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Simulated cyberattacks on systems to identify vulnerabilities before malicious attackers do, including ethical hacking, vulnerability assessment, and security testing with explicit permission.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "penetration-testing",
+      "branch": "main",
+      "category": "penetration-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/penetration-testing",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

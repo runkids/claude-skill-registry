@@ -1,0 +1,20 @@
+{
+  "category": "planning-doc-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.584544Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate project assessment markdown documents from JSON data with WHY/WHO/WHAT sections and GO/NO-GO decision matrix.",
+      "repo": "matteocervelli/llms",
+      "path": "planning-doc-generator",
+      "branch": "main",
+      "category": "planning-doc-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms/planning-doc-generator",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

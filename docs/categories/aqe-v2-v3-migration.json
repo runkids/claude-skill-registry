@@ -1,0 +1,20 @@
+{
+  "category": "aqe-v2-v3-migration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.339874Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Migrate Agentic QE projects from v2 to v3 with zero data loss",
+      "repo": "proffesor-for-testing/agentic-qe",
+      "path": "aqe-v2-v3-migration",
+      "branch": "main",
+      "category": "aqe-v2-v3-migration",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/agentic-qe/aqe-v2-v3-migration",
+      "source": "github.com/proffesor-for-testing/agentic-qe"
+    }
+  ]
+}

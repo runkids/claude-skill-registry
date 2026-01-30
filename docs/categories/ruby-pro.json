@@ -1,0 +1,20 @@
+{
+  "category": "ruby-pro",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.859726Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write idiomatic Ruby code with metaprogramming, Rails patterns, and performance optimization. Specializes in Ruby on Rails, gem development, and testing frameworks. Use PROACTIVELY for Ruby refactorin",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "ruby-pro",
+      "branch": "main",
+      "category": "ruby-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/ruby-pro",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

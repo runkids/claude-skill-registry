@@ -1,0 +1,20 @@
+{
+  "category": "canvas-edit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.484689Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Live Annotation Feedback Toolbar that overlays design review findings directly on web pages. Displays numbered badges on elements with issues, severity indicators, filtering, and screenshot capture. I",
+      "repo": "edrouhardmicrosoft/agent-canvas-skills",
+      "path": "canvas-edit",
+      "branch": "main",
+      "category": "canvas-edit",
+      "tags": [],
+      "stars": 0,
+      "install": "edrouhardmicrosoft/agent-canvas-skills/canvas-edit",
+      "source": "github.com/edrouhardmicrosoft/agent-canvas-skills"
+    }
+  ]
+}

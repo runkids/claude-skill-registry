@@ -1,0 +1,20 @@
+{
+  "category": "swot-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.134548Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze Strengths, Weaknesses, Opportunities, and Threats when you need to make strategic decisions, evaluate positions, or plan initiatives. Not for simple technical choices, debugging, or tactical e",
+      "repo": "Git-Fg/meta-plugin-manager",
+      "path": "swot-analysis",
+      "branch": "main",
+      "category": "swot-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "Git-Fg/meta-plugin-manager/swot-analysis",
+      "source": "github.com/Git-Fg/meta-plugin-manager"
+    }
+  ]
+}

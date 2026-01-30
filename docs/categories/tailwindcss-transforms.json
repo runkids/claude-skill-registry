@@ -1,0 +1,20 @@
+{
+  "category": "tailwindcss-transforms",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.155348Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform & Animation utilities Tailwind CSS v4.1. Transform (scale-*, rotate-*, translate-*, skew-*, transform-origin), Transition (transition-*, duration-*, ease-*, delay-*), Animation (animate-*, @",
+      "repo": "fusengine/agents",
+      "path": "tailwindcss-transforms",
+      "branch": "main",
+      "category": "tailwindcss-transforms",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/tailwindcss-transforms",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

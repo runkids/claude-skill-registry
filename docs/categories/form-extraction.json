@@ -1,0 +1,20 @@
+{
+  "category": "form-extraction",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.687791Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract and analyze Angular Reactive Forms from source code for migration comparison and validation. Use when comparing forms between legacy and migrated code.",
+      "repo": "Michael0520/milo-claudekit",
+      "path": "form-extraction",
+      "branch": "main",
+      "category": "form-extraction",
+      "tags": [],
+      "stars": 0,
+      "install": "Michael0520/milo-claudekit/form-extraction",
+      "source": "github.com/Michael0520/milo-claudekit"
+    }
+  ]
+}

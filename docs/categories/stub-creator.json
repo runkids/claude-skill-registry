@@ -1,0 +1,20 @@
+{
+  "category": "stub-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.107629Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Stub Creator - Auto-activating skill for Test Automation. Triggers on: stub creator, stub creator Part of the Test Automation skill category.",
+      "repo": "byteworthy/Upstream",
+      "path": "stub-creator",
+      "branch": "main",
+      "category": "stub-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/stub-creator",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "dialogue-resolve-reference",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.453141Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Resolves framework reference IDs to their content. Use when you need to look up a document, decision, observation, task, or ADR by its ID. Triggers on \"resolve reference\", \"look up THY-001\", \"find DEC",
+      "repo": "pidster/project-2501",
+      "path": "dialogue-resolve-reference",
+      "branch": "main",
+      "category": "dialogue-resolve-reference",
+      "tags": [],
+      "stars": 0,
+      "install": "pidster/project-2501/dialogue-resolve-reference",
+      "source": "github.com/pidster/project-2501"
+    }
+  ]
+}

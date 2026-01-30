@@ -1,0 +1,20 @@
+{
+  "category": "linux-shell-scripting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.029239Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"create bash scripts\", \"automate Linux tasks\", \"monitor system resources\", \"backup files\", \"manage users\", or \"write production shell scripts\". It provi",
+      "repo": "Nguyenthang2292/Sovereign-IQ",
+      "path": "linux-shell-scripting",
+      "branch": "main",
+      "category": "linux-shell-scripting",
+      "tags": [],
+      "stars": 0,
+      "install": "Nguyenthang2292/Sovereign-IQ/linux-shell-scripting",
+      "source": "github.com/Nguyenthang2292/Sovereign-IQ"
+    }
+  ]
+}

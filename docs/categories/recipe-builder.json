@@ -1,0 +1,20 @@
+{
+  "category": "recipe-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.789231Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and manage WaveCap-SDR recipe templates for common capture scenarios. Use when setting up new band plans, creating presets for trunking systems, or building reusable multi-channel configuration",
+      "repo": "TobiasWooldridge/WaveCap-SDR",
+      "path": "recipe-builder",
+      "branch": "main",
+      "category": "recipe-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "TobiasWooldridge/WaveCap-SDR/recipe-builder",
+      "source": "github.com/TobiasWooldridge/WaveCap-SDR"
+    }
+  ]
+}

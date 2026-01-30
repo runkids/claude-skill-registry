@@ -1,0 +1,20 @@
+{
+  "category": "build-design-system",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.455896Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build a design system from scratch using the Design Graph methodology. Use when starting a component library, creating design tokens, establishing typography scales, or structuring a theme. Based on B",
+      "repo": "rohunvora/my-claude-skills",
+      "path": "build-design-system",
+      "branch": "main",
+      "category": "build-design-system",
+      "tags": [],
+      "stars": 0,
+      "install": "rohunvora/my-claude-skills/build-design-system",
+      "source": "github.com/rohunvora/my-claude-skills"
+    }
+  ]
+}

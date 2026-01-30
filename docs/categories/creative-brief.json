@@ -1,0 +1,20 @@
+{
+  "category": "creative-brief",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.716544Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate a complete creative brief from product/offer info using the GET framework. Use when starting work on a new offer, product, or campaign and need to gather brand info, identify target avatars,",
+      "repo": "WalkerHi11/mediabuy-plugins",
+      "path": "creative-brief",
+      "branch": "main",
+      "category": "creative-brief",
+      "tags": [],
+      "stars": 0,
+      "install": "WalkerHi11/mediabuy-plugins/creative-brief",
+      "source": "github.com/WalkerHi11/mediabuy-plugins"
+    }
+  ]
+}

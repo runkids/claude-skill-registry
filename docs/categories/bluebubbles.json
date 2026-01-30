@@ -1,0 +1,20 @@
+{
+  "category": "bluebubbles",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.434477Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build or update the BlueBubbles external channel plugin for Moltbot (extension package, REST send/probe, webhook inbound).",
+      "repo": "Youjjwal/clawdbot",
+      "path": "bluebubbles",
+      "branch": "main",
+      "category": "bluebubbles",
+      "tags": [],
+      "stars": 0,
+      "install": "Youjjwal/clawdbot/bluebubbles",
+      "source": "github.com/Youjjwal/clawdbot"
+    }
+  ]
+}

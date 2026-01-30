@@ -1,0 +1,20 @@
+{
+  "category": "design-system-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.159848Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build scalable design systems with design tokens, theming infrastructure, and component architecture patterns. Use when creating design tokens, implementing theme switching, building component librari",
+      "repo": "haxllo/repolens",
+      "path": "design-system-patterns",
+      "branch": "main",
+      "category": "design-system-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "haxllo/repolens/design-system-patterns",
+      "source": "github.com/haxllo/repolens"
+    }
+  ]
+}

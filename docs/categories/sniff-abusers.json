@@ -1,0 +1,20 @@
+{
+  "category": "sniff-abusers",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.034362Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect object-oriented abusers smells (Switch Statements) using deterministic heuristics and append findings to `.sniff/findings.jsonl`.",
+      "repo": "JordanGunn/nunchuck",
+      "path": "sniff-abusers",
+      "branch": "main",
+      "category": "sniff-abusers",
+      "tags": [],
+      "stars": 0,
+      "install": "JordanGunn/nunchuck/sniff-abusers",
+      "source": "github.com/JordanGunn/nunchuck"
+    }
+  ]
+}

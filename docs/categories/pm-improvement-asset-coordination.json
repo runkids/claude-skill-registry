@@ -1,0 +1,20 @@
+{
+  "category": "pm-improvement-asset-coordination",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.596823Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PM self-improvement skill for asset coordination learnings from completed tasks. Use after tasks involving asset loading coordination, when parallel development between Developer and Tech Artist cause",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "pm-improvement-asset-coordination",
+      "branch": "main",
+      "category": "pm-improvement-asset-coordination",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/pm-improvement-asset-coordination",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "pinme",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.574696Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"deploy\", \"upload\", \"publish\", or \"pin\" any files, folders, frontend projects, or static websites to IPFS. Also activates when user mentions \"pinme\", \"I",
+      "repo": "glitternetwork/pinme",
+      "path": "pinme",
+      "branch": "main",
+      "category": "pinme",
+      "tags": [],
+      "stars": 0,
+      "install": "glitternetwork/pinme/pinme",
+      "source": "github.com/glitternetwork/pinme"
+    }
+  ]
+}

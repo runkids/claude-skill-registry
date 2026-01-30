@@ -1,0 +1,20 @@
+{
+  "category": "abaqus-output",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.189034Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure output requests - field outputs, history outputs. Use when user asks what results to save, output variables, reduce output file size, or history output.",
+      "repo": "JaimeCernuda/abaqus-scripting",
+      "path": "abaqus-output",
+      "branch": "main",
+      "category": "abaqus-output",
+      "tags": [],
+      "stars": 0,
+      "install": "JaimeCernuda/abaqus-scripting/abaqus-output",
+      "source": "github.com/JaimeCernuda/abaqus-scripting"
+    }
+  ]
+}

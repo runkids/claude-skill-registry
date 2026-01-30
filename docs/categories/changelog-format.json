@@ -1,0 +1,20 @@
+{
+  "category": "changelog-format",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.508790Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Keep a Changelog format guidelines and entry writing best practices",
+      "repo": "sequenzia/claude-alchemy",
+      "path": "changelog-format",
+      "branch": "main",
+      "category": "changelog-format",
+      "tags": [],
+      "stars": 0,
+      "install": "sequenzia/claude-alchemy/changelog-format",
+      "source": "github.com/sequenzia/claude-alchemy"
+    }
+  ]
+}

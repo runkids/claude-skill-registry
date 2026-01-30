@@ -1,0 +1,20 @@
+{
+  "category": "kegg-database",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.947176Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Direct REST API access to KEGG (academic use only). Pathway analysis, gene-pathway mapping, metabolic pathways, drug interactions, ID conversion. For Python workflows with multiple databases, prefer b",
+      "repo": "robinbarvaag/poynt",
+      "path": "kegg-database",
+      "branch": "main",
+      "category": "kegg-database",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/kegg-database",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

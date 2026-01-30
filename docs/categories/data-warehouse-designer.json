@@ -1,0 +1,20 @@
+{
+  "category": "data-warehouse-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.036473Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design dimensional models and fact tables.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "data-warehouse-designer",
+      "branch": "main",
+      "category": "data-warehouse-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/data-warehouse-designer",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

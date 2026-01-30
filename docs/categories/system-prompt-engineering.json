@@ -1,0 +1,20 @@
+{
+  "category": "system-prompt-engineering",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.142180Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design effective system prompts for custom agents. Use when creating agent system prompts, defining agent identity and rules, or designing high-impact prompts that shape agent behavior.",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "system-prompt-engineering",
+      "branch": "main",
+      "category": "system-prompt-engineering",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/system-prompt-engineering",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

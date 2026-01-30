@@ -1,0 +1,20 @@
+{
+  "category": "phase0-discovery",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.570725Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- skillname: phase2-discovery",
+      "repo": "turbobeest/squawk",
+      "path": "phase0-discovery",
+      "branch": "main",
+      "category": "phase0-discovery",
+      "tags": [],
+      "stars": 0,
+      "install": "turbobeest/squawk/phase0-discovery",
+      "source": "github.com/turbobeest/squawk"
+    }
+  ]
+}

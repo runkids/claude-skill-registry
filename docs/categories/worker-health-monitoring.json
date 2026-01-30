@@ -1,0 +1,20 @@
+{
+  "category": "worker-health-monitoring",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.476799Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Heartbeat-based health monitoring for background workers with configurable thresholds, rolling duration windows, failure rate calculation, and stuck job detection.",
+      "repo": "dadbodgeoff/drift",
+      "path": "worker-health-monitoring",
+      "branch": "main",
+      "category": "worker-health-monitoring",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/worker-health-monitoring",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "demand-forecasting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.069295Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to forecast demand, build forecasting models, or improve forecast accuracy. Also use when the user mentions \"demand planning,\" \"sales forecasting,\" \"time series,\" \"forecast accurac",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "demand-forecasting",
+      "branch": "main",
+      "category": "demand-forecasting",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/demand-forecasting",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

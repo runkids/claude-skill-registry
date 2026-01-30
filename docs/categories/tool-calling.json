@@ -1,0 +1,20 @@
+{
+  "category": "tool-calling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.298951Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define tools as structured interfaces the model can call, then implement a loop that executes those calls and returns results. Treat tool calls as suggestions that must be validated before execution.",
+      "repo": "cuba6112/skillfactory",
+      "path": "tool-calling",
+      "branch": "main",
+      "category": "tool-calling",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory/tool-calling",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

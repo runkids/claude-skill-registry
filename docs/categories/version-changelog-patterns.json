@@ -1,0 +1,20 @@
+{
+  "category": "version-changelog-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.408758Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When checking if skill content matches current library/framework version.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "version-changelog-patterns",
+      "branch": "main",
+      "category": "version-changelog-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/version-changelog-patterns",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "technical-roadmaps",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.184764Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Turn an engineering strategy into a written Technical Roadmap Pack (Rumelt-style strategy: Diagnosis/Guiding Policy/Coherent Actions, roadmap table, initiative briefs, and alignment cadence). Use for",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "technical-roadmaps",
+      "branch": "main",
+      "category": "technical-roadmaps",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus/technical-roadmaps",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

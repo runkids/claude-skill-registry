@@ -1,0 +1,20 @@
+{
+  "category": "cree",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.718601Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cree LED MPN encoding patterns, suffix decoding, and handler guidance. Use when working with high-power LEDs, XLamp series, and SiC power devices.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "cree",
+      "branch": "main",
+      "category": "cree",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/cree",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

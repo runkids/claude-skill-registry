@@ -1,0 +1,20 @@
+{
+  "category": "insurance-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.885167Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level insurance systems, underwriting, claims processing, actuarial analysis, risk assessment, and insurtech solutions",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "insurance-expert",
+      "branch": "main",
+      "category": "insurance-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/insurance-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

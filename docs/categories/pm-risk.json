@@ -1,0 +1,20 @@
+{
+  "category": "pm-risk",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.599041Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "プロジェクトのリスクを識別・評価し、対応計画を策定・監視します。",
+      "repo": "infinith4/dev-flutter-realestate",
+      "path": "pm-risk",
+      "branch": "main",
+      "category": "pm-risk",
+      "tags": [],
+      "stars": 0,
+      "install": "infinith4/dev-flutter-realestate/pm-risk",
+      "source": "github.com/infinith4/dev-flutter-realestate"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "cybersecurity-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.740841Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes events through cybersecurity lens using threat modeling, attack surface analysis, defense-in-depth, zero-trust architecture, and risk-based frameworks (CIA triad, STRIDE, MITRE ATT&CK). Provi",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "cybersecurity-analyst",
+      "branch": "main",
+      "category": "cybersecurity-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/cybersecurity-analyst",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "parcel",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.543455Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Parcel bundler including zero-configuration setup, asset handling, hot module replacement, and production builds. Use when the user asks about Parcel, needs to set",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "parcel",
+      "branch": "main",
+      "category": "parcel",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/parcel",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "bun-sveltekit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.471581Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building or running SvelteKit apps on Bun, including SSR, adapters, and Bun-specific APIs",
+      "repo": "secondsky/claude-skills",
+      "path": "bun-sveltekit",
+      "branch": "main",
+      "category": "bun-sveltekit",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills/bun-sveltekit",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

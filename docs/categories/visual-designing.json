@@ -1,0 +1,20 @@
+{
+  "category": "visual-designing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.423334Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "视觉设计工具箱 - Canvas / Themes / Design System / Artifacts。The unified Visual Design Engine for Antigravity.",
+      "repo": "VidyFoo/antigravity-skill-engine",
+      "path": "visual-designing",
+      "branch": "main",
+      "category": "visual-designing",
+      "tags": [],
+      "stars": 0,
+      "install": "VidyFoo/antigravity-skill-engine/visual-designing",
+      "source": "github.com/VidyFoo/antigravity-skill-engine"
+    }
+  ]
+}

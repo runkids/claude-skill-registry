@@ -1,0 +1,20 @@
+{
+  "category": "structure-worldgen",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.106324Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for structure generation with waterlogging prevention, Jigsaw, boss spawning",
+      "repo": "ksoichiro/ChronoDawn",
+      "path": "structure-worldgen",
+      "branch": "main",
+      "category": "structure-worldgen",
+      "tags": [],
+      "stars": 0,
+      "install": "ksoichiro/ChronoDawn/structure-worldgen",
+      "source": "github.com/ksoichiro/ChronoDawn"
+    }
+  ]
+}

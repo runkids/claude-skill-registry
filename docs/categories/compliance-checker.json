@@ -1,0 +1,20 @@
+{
+  "category": "compliance-checker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.631923Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check regulatory compliance across finance, tax, employment, data privacy, and industry-specific requirements",
+      "repo": "eddiebe147/claude-settings",
+      "path": "compliance-checker",
+      "branch": "main",
+      "category": "compliance-checker",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/compliance-checker",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

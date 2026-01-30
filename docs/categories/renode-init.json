@@ -1,0 +1,20 @@
+{
+  "category": "renode-init",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.813419Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Headless tmux launch workflow for Renode in TMNL. Invoke when starting or restarting Renode sessions, UART sockets, or monitor panes.",
+      "repo": "creatifcoding/gbg",
+      "path": "renode-init",
+      "branch": "main",
+      "category": "renode-init",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/renode-init",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

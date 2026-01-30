@@ -1,0 +1,20 @@
+{
+  "category": "python-cli-typer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.730524Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building or structuring Python CLI commands with Typer, including commands, options, and multi-command apps.",
+      "repo": "narumiruna/agent-skills",
+      "path": "python-cli-typer",
+      "branch": "main",
+      "category": "python-cli-typer",
+      "tags": [],
+      "stars": 0,
+      "install": "narumiruna/agent-skills/python-cli-typer",
+      "source": "github.com/narumiruna/agent-skills"
+    }
+  ]
+}

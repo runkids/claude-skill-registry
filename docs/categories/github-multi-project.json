@@ -1,0 +1,20 @@
+{
+  "category": "github-multi-project",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.771804Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert at organizing specs and splitting tasks across multiple GitHub repositories for monorepo, polyrepo, and parent repo architectures. Use when managing specs across multiple repos, coordinating cr",
+      "repo": "anton-abyzov/specweave",
+      "path": "github-multi-project",
+      "branch": "main",
+      "category": "github-multi-project",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/github-multi-project",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

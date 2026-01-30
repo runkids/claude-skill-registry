@@ -1,0 +1,20 @@
+{
+  "category": "agent-invocation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.232486Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Agent invocation syntax and boundary rules",
+      "repo": "zerobias-org/module",
+      "path": "agent-invocation",
+      "branch": "main",
+      "category": "agent-invocation",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/agent-invocation",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

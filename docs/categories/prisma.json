@@ -1,0 +1,20 @@
+{
+  "category": "prisma",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.641142Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prisma ORM for type-safe database operations with PostgreSQL. Use when: Defining schemas, writing type-safe queries, creating migrations, modeling relations, or replacing raw SQL with ORM patterns.",
+      "repo": "kaxuna1/ecomsite",
+      "path": "prisma",
+      "branch": "main",
+      "category": "prisma",
+      "tags": [],
+      "stars": 0,
+      "install": "kaxuna1/ecomsite/prisma",
+      "source": "github.com/kaxuna1/ecomsite"
+    }
+  ]
+}

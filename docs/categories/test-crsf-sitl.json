@@ -1,0 +1,20 @@
+{
+  "category": "test-crsf-sitl",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.199929Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test CRSF telemetry changes using INAV SITL simulation",
+      "repo": "sensei-hacker/inav-claude",
+      "path": "test-crsf-sitl",
+      "branch": "main",
+      "category": "test-crsf-sitl",
+      "tags": [],
+      "stars": 0,
+      "install": "sensei-hacker/inav-claude/test-crsf-sitl",
+      "source": "github.com/sensei-hacker/inav-claude"
+    }
+  ]
+}

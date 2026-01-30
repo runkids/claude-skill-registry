@@ -1,0 +1,20 @@
+{
+  "category": "arm-fc-physical",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.353619Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Arm physical flight controller via MSP and download blackbox logs",
+      "repo": "sensei-hacker/inav-claude",
+      "path": "arm-fc-physical",
+      "branch": "main",
+      "category": "arm-fc-physical",
+      "tags": [],
+      "stars": 0,
+      "install": "sensei-hacker/inav-claude/arm-fc-physical",
+      "source": "github.com/sensei-hacker/inav-claude"
+    }
+  ]
+}

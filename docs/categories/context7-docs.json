@@ -1,0 +1,20 @@
+{
+  "category": "context7-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.670325Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill when working with any framework or library (React, Next.js, Vue, Astro, etc.) to fetch up-to-date documentation and prevent hallucinated APIs. Triggers on keywords like \"use context7\",",
+      "repo": "taiyousan15/taisun_agent",
+      "path": "context7-docs",
+      "branch": "main",
+      "category": "context7-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/context7-docs",
+      "source": "github.com/taiyousan15/taisun_agent"
+    }
+  ]
+}

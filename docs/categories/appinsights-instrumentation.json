@@ -1,0 +1,20 @@
+{
+  "category": "appinsights-instrumentation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.336355Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Instrument a webapp to send useful telemetry data to Azure App Insights",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "appinsights-instrumentation",
+      "branch": "main",
+      "category": "appinsights-instrumentation",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/appinsights-instrumentation",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

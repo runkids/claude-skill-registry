@@ -1,0 +1,20 @@
+{
+  "category": "answer-collector",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.303595Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TODO: Brief description of what the Skill does and when to use it",
+      "repo": "matteocervelli/llms",
+      "path": "answer-collector",
+      "branch": "main",
+      "category": "answer-collector",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms/answer-collector",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

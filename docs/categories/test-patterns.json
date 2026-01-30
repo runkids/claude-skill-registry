@@ -1,0 +1,20 @@
+{
+  "category": "test-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.209333Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Effective patterns for writing maintainable, reliable tests",
+      "repo": "rohitg00/skillkit",
+      "path": "test-patterns",
+      "branch": "main",
+      "category": "test-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "rohitg00/skillkit/test-patterns",
+      "source": "github.com/rohitg00/skillkit"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "component-screenshot-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.635388Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Screenshot testing for React components with Playwright. Captures component pixels and compares to baselines. Auto-apply when editing React component stories or *.visual.spec.ts files that test UI com",
+      "repo": "joshribakoff/surfsim",
+      "path": "component-screenshot-testing",
+      "branch": "main",
+      "category": "component-screenshot-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "joshribakoff/surfsim/component-screenshot-testing",
+      "source": "github.com/joshribakoff/surfsim"
+    }
+  ]
+}

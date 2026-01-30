@@ -1,0 +1,20 @@
+{
+  "category": "mcpbr-config",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.107497Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate and validate mcpbr configuration files for MCP server benchmarking.",
+      "repo": "greynewell/mcpbr",
+      "path": "mcpbr-config",
+      "branch": "main",
+      "category": "mcpbr-config",
+      "tags": [],
+      "stars": 0,
+      "install": "greynewell/mcpbr/mcpbr-config",
+      "source": "github.com/greynewell/mcpbr"
+    }
+  ]
+}

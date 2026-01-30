@@ -1,0 +1,20 @@
+{
+  "category": "dev-debug-reactivity",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.168699Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DEBUG when Vue components won't update, computed properties are stale, or watchers not firing. Fix reactivity issues with ref(), reactive(), Pinia stores, and component state. Use when UI is not updat",
+      "repo": "endlessblink/flow-state",
+      "path": "dev-debug-reactivity",
+      "branch": "main",
+      "category": "dev-debug-reactivity",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/dev-debug-reactivity",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "posix-shell-pro",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.611082Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in strict POSIX sh scripting for maximum portability across Unix-like systems. Specializes in shell scripts that run on any POSIX-compliant shell (dash, ash, sh, bash --posix).",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "posix-shell-pro",
+      "branch": "main",
+      "category": "posix-shell-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/posix-shell-pro",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

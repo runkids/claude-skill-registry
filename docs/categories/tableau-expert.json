@@ -1,0 +1,20 @@
+{
+  "category": "tableau-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.147839Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Tableau Desktop/Server, calculated fields, LOD expressions, dashboards, data blending, and performance optimization",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "tableau-expert",
+      "branch": "main",
+      "category": "tableau-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/tableau-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

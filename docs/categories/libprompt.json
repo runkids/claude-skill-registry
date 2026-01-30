@@ -1,0 +1,20 @@
+{
+  "category": "libprompt",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.014391Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "libprompt - Prompt template management with Mustache. PromptLoader loads .prompt.md files from directories and renders them with variable substitution. Use for managing LLM system prompts, creating re",
+      "repo": "copilot-ld/copilot-ld",
+      "path": "libprompt",
+      "branch": "main",
+      "category": "libprompt",
+      "tags": [],
+      "stars": 0,
+      "install": "copilot-ld/copilot-ld/libprompt",
+      "source": "github.com/copilot-ld/copilot-ld"
+    }
+  ]
+}

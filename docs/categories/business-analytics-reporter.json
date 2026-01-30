@@ -1,0 +1,20 @@
+{
+  "category": "business-analytics-reporter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.473582Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when analyzing business sales and revenue data from CSV files to identify weak areas, generate statistical insights, and provide strategic improvement recommendations. Use wh",
+      "repo": "nguyendinhquocx/code-ai",
+      "path": "business-analytics-reporter",
+      "branch": "main",
+      "category": "business-analytics-reporter",
+      "tags": [],
+      "stars": 0,
+      "install": "nguyendinhquocx/code-ai/business-analytics-reporter",
+      "source": "github.com/nguyendinhquocx/code-ai"
+    }
+  ]
+}

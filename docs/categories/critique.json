@@ -1,0 +1,20 @@
+{
+  "category": "critique",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.721312Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Challenge idea assumptions with skeptical VC-style evaluation. Use when user requests critique, validation, or 'is this a good idea' assessment.",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "critique",
+      "branch": "main",
+      "category": "critique",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager/critique",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

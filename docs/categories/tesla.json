@@ -1,0 +1,20 @@
+{
+  "category": "tesla",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.195032Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Control your Tesla vehicles - lock/unlock, climate, location, charge status, and more. Supports multiple vehicles.",
+      "repo": "moltbot/skills",
+      "path": "tesla",
+      "branch": "main",
+      "category": "tesla",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/tesla",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

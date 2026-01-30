@@ -1,0 +1,20 @@
+{
+  "category": "verify-information-rule",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.406645Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "verify-information-rule",
+      "branch": "main",
+      "category": "verify-information-rule",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/verify-information-rule",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

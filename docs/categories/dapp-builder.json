@@ -1,0 +1,20 @@
+{
+  "category": "dapp-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.748357Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert on building decentralized applications with Shelby Protocol storage on Aptos. Helps with dApp architecture, wallet integration (Petra), browser SDK usage, React/Vue integration, file uploads, c",
+      "repo": "raintree-technology/claude-starter",
+      "path": "dapp-builder",
+      "branch": "main",
+      "category": "dapp-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/dapp-builder",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

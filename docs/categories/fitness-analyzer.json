@@ -1,0 +1,20 @@
+{
+  "category": "fitness-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.672245Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "分析运动数据、识别运动模式、评估健身进展，并提供个性化训练建议。支持与慢性病数据的关联分析。",
+      "repo": "huifer/WellAlly-health",
+      "path": "fitness-analyzer",
+      "branch": "main",
+      "category": "fitness-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "huifer/WellAlly-health/fitness-analyzer",
+      "source": "github.com/huifer/WellAlly-health"
+    }
+  ]
+}

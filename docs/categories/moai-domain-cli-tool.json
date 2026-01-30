@@ -1,0 +1,20 @@
+{
+  "category": "moai-domain-cli-tool",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.159002Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise CLI tool architecture with multi-language patterns, UX/DX optimization, and production deployment strategies",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-domain-cli-tool",
+      "branch": "main",
+      "category": "moai-domain-cli-tool",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-domain-cli-tool",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

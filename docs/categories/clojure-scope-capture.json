@@ -1,0 +1,20 @@
+{
+  "category": "clojure-scope-capture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.567347Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "REPL debugging tool for capturing and inspecting local scope at runtime. Use when debugging functions, investigating test failures, understanding intermediate values, or when you need to recreate the",
+      "repo": "Ramblurr/nix-devenv",
+      "path": "clojure-scope-capture",
+      "branch": "main",
+      "category": "clojure-scope-capture",
+      "tags": [],
+      "stars": 0,
+      "install": "Ramblurr/nix-devenv/clojure-scope-capture",
+      "source": "github.com/Ramblurr/nix-devenv"
+    }
+  ]
+}

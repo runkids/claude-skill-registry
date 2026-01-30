@@ -1,0 +1,20 @@
+{
+  "category": "nielsen-flexibility",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.249604Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Proporciona atajos para usuarios expertos sin afectar a novatos. Use cuando diseñe interfaces que serán usadas repetidamente o por usuarios con diferentes niveles de experiencia.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "nielsen-flexibility",
+      "branch": "main",
+      "category": "nielsen-flexibility",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/nielsen-flexibility",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

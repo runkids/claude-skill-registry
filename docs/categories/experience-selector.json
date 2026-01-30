@@ -1,0 +1,20 @@
+{
+  "category": "experience-selector",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.618571Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Selects the most relevant experiences, projects, awards, and credentials from the master context based on JD keywords.",
+      "repo": "marswangyang/Roger",
+      "path": "experience-selector",
+      "branch": "main",
+      "category": "experience-selector",
+      "tags": [],
+      "stars": 0,
+      "install": "marswangyang/Roger/experience-selector",
+      "source": "github.com/marswangyang/Roger"
+    }
+  ]
+}

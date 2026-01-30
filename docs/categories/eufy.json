@@ -1,0 +1,20 @@
+{
+  "category": "eufy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.598225Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Control eufy smart home devices including cameras, doorbells, and robot vacuums",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "eufy",
+      "branch": "main",
+      "category": "eufy",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/eufy",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

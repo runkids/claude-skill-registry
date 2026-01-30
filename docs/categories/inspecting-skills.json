@@ -1,0 +1,20 @@
+{
+  "category": "inspecting-skills",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.882613Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Discovers and indexes Python code in skills, enabling cross-skill imports. Use when importing functions from other skills or analyzing skill codebases.",
+      "repo": "oaustegard/claude-skills",
+      "path": "inspecting-skills",
+      "branch": "main",
+      "category": "inspecting-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "oaustegard/claude-skills/inspecting-skills",
+      "source": "github.com/oaustegard/claude-skills"
+    }
+  ]
+}

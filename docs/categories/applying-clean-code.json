@@ -1,0 +1,20 @@
+{
+  "category": "applying-clean-code",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.338505Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "General syntax and naming rules to keep the codebase maintainable. Use for all code generation.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "applying-clean-code",
+      "branch": "main",
+      "category": "applying-clean-code",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2/applying-clean-code",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

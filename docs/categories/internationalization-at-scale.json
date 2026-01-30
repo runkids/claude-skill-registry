@@ -1,0 +1,20 @@
+{
+  "category": "internationalization-at-scale",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.892926Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement performant i18n pipelines with code-splitting and ICU message support.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "internationalization-at-scale",
+      "branch": "main",
+      "category": "internationalization-at-scale",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/internationalization-at-scale",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

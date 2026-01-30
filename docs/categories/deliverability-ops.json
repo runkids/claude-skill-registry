@@ -1,0 +1,20 @@
+{
+  "category": "deliverability-ops",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.068948Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when investigating inbox placement, reputation, and compliance signals across senders.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "deliverability-ops",
+      "branch": "main",
+      "category": "deliverability-ops",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/deliverability-ops",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

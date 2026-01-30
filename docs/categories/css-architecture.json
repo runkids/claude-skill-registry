@@ -1,0 +1,20 @@
+{
+  "category": "css-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.727183Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Organize CSS using BEM, SMACSS, and CSS-in-JS patterns. Use when building scalable, maintainable styling systems with proper naming conventions.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "css-architecture",
+      "branch": "main",
+      "category": "css-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/css-architecture",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

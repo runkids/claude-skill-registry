@@ -1,0 +1,20 @@
+{
+  "category": "automation-tester",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.380536Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Core QA engineering mindset for test planning and prioritization. Use when analyzing what to test, designing test cases, prioritizing by risk, or determining coverage strategy. Triggers on \"what shoul",
+      "repo": "cristian-robert/autonomous-automation-tester",
+      "path": "automation-tester",
+      "branch": "main",
+      "category": "automation-tester",
+      "tags": [],
+      "stars": 0,
+      "install": "cristian-robert/autonomous-automation-tester/automation-tester",
+      "source": "github.com/cristian-robert/autonomous-automation-tester"
+    }
+  ]
+}

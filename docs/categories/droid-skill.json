@@ -1,0 +1,20 @@
+{
+  "category": "droid-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.538245Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CI Test Factory Droid Skill",
+      "repo": "pr-pm/prpm",
+      "path": "droid-skill",
+      "branch": "main",
+      "category": "droid-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm/droid-skill",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

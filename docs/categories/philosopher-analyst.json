@@ -1,0 +1,20 @@
+{
+  "category": "philosopher-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.571608Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes fundamental questions and concepts through philosophical lens using logic, epistemology, metaphysics, and critical analysis frameworks. Provides insights on meaning, truth, knowledge, existen",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "philosopher-analyst",
+      "branch": "main",
+      "category": "philosopher-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/philosopher-analyst",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

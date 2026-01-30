@@ -1,0 +1,20 @@
+{
+  "category": "standards-components",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.079782Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design reusable, composable UI components following single responsibility principle with clear interfaces, encapsulation, and minimal props. Use this skill when creating or modifying frontend componen",
+      "repo": "maxritter/claude-codepro",
+      "path": "standards-components",
+      "branch": "main",
+      "category": "standards-components",
+      "tags": [],
+      "stars": 0,
+      "install": "maxritter/claude-codepro/standards-components",
+      "source": "github.com/maxritter/claude-codepro"
+    }
+  ]
+}

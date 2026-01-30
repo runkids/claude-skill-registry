@@ -1,0 +1,20 @@
+{
+  "category": "feedback-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.649887Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze skill effectiveness through usage feedback, metrics analysis, and outcome assessment. Task-based operations for feedback collection, effectiveness measurement, trend analysis, and insight extr",
+      "repo": "adaptationio/Skrillz",
+      "path": "feedback-analyzer",
+      "branch": "main",
+      "category": "feedback-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/feedback-analyzer",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

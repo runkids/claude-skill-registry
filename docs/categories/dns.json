@@ -1,0 +1,20 @@
+{
+  "category": "dns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.462964Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cloudflare DNS and infrastructure management. Manage DNS records, tunnels, Access policies, SSL certificates, and CDN caching.",
+      "repo": "BerryKuipers/claude-code-toolkit",
+      "path": "dns",
+      "branch": "main",
+      "category": "dns",
+      "tags": [],
+      "stars": 0,
+      "install": "BerryKuipers/claude-code-toolkit/dns",
+      "source": "github.com/BerryKuipers/claude-code-toolkit"
+    }
+  ]
+}

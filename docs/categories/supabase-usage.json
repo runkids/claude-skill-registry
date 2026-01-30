@@ -1,0 +1,20 @@
+{
+  "category": "supabase-usage",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.121116Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when user asks to \"query Supabase\", \"list Supabase tables\", \"get Supabase schema\", \"search Supabase records\", \"check Supabase database\", \"Supabase auth\", \"Supabase authentica",
+      "repo": "fcakyon/claude-codex-settings",
+      "path": "supabase-usage",
+      "branch": "main",
+      "category": "supabase-usage",
+      "tags": [],
+      "stars": 0,
+      "install": "fcakyon/claude-codex-settings/supabase-usage",
+      "source": "github.com/fcakyon/claude-codex-settings"
+    }
+  ]
+}

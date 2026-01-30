@@ -1,0 +1,20 @@
+{
+  "category": "launch-plays",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.978905Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when orchestrating Tier 1/2/3 launches with repeatable workstreams and governance.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "launch-plays",
+      "branch": "main",
+      "category": "launch-plays",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/launch-plays",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "dx-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.543797Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Developer Experience specialist. Improves tooling, setup, and workflows. Use PROACTIVELY when setting up new projects, after team feedback, or when development friction is noticed.",
+      "repo": "rmyndharis/antigravity-skills",
+      "path": "dx-optimizer",
+      "branch": "main",
+      "category": "dx-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "rmyndharis/antigravity-skills/dx-optimizer",
+      "source": "github.com/rmyndharis/antigravity-skills"
+    }
+  ]
+}

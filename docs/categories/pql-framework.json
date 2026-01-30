@@ -1,0 +1,20 @@
+{
+  "category": "pql-framework",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.621274Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Methodology for defining product-qualified lead (PQL) signals, scoring, and routing.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "pql-framework",
+      "branch": "main",
+      "category": "pql-framework",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/pql-framework",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

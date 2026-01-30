@@ -1,0 +1,20 @@
+{
+  "category": "evernote-debug-bundle",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.603385Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Debug Evernote API issues with diagnostic tools and techniques. Use when troubleshooting API calls, inspecting requests/responses, or diagnosing integration problems. Trigger with phrases like \"debug",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "evernote-debug-bundle",
+      "branch": "main",
+      "category": "evernote-debug-bundle",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/evernote-debug-bundle",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

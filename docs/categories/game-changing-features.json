@@ -1,0 +1,20 @@
+{
+  "category": "game-changing-features",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.719421Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Find 10x product opportunities and high-leverage improvements. Use when user wants strategic product thinking, mentions '10x', wants to find high-impact features, or says 'what would make this 10x bet",
+      "repo": "softaworks/agent-toolkit",
+      "path": "game-changing-features",
+      "branch": "main",
+      "category": "game-changing-features",
+      "tags": [],
+      "stars": 0,
+      "install": "softaworks/agent-toolkit/game-changing-features",
+      "source": "github.com/softaworks/agent-toolkit"
+    }
+  ]
+}

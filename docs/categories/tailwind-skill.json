@@ -1,0 +1,20 @@
+{
+  "category": "tailwind-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.151093Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive integration skill for building sites with SvelteKit 2, Svelte 5, and Tailwind CSS v4",
+      "repo": "enuno/claude-command-and-control",
+      "path": "tailwind-skill",
+      "branch": "main",
+      "category": "tailwind-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control/tailwind-skill",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

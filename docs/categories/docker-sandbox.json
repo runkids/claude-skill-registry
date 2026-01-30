@@ -1,0 +1,20 @@
+{
+  "category": "docker-sandbox",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.469942Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Docker sandbox environment management for dotfiles. Use when user mentions \"build docker\", \"start container\", \"enter shell\", \"clean container\", \"check status\", \"make build\", \"make shell\", \"make clean\"",
+      "repo": "sgotand/.dotfiles",
+      "path": "docker-sandbox",
+      "branch": "main",
+      "category": "docker-sandbox",
+      "tags": [],
+      "stars": 0,
+      "install": "sgotand/.dotfiles/docker-sandbox",
+      "source": "github.com/sgotand/.dotfiles"
+    }
+  ]
+}

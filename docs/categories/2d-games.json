@@ -1,0 +1,20 @@
+{
+  "category": "2d-games",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.148062Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "2D game development principles. Sprites, tilemaps, physics, camera.",
+      "repo": "BerkantYilmaz0/MegaStore",
+      "path": "2d-games",
+      "branch": "main",
+      "category": "2d-games",
+      "tags": [],
+      "stars": 0,
+      "install": "BerkantYilmaz0/MegaStore/2d-games",
+      "source": "github.com/BerkantYilmaz0/MegaStore"
+    }
+  ]
+}

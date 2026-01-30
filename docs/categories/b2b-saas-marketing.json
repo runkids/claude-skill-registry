@@ -1,0 +1,20 @@
+{
+  "category": "b2b-saas-marketing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.399395Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по B2B SaaS маркетингу. Используй для стратегий генерации спроса, growth-маркетинга, PLG, расчёта CAC/LTV, оптимизации воронки и маркетинговых операций.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "b2b-saas-marketing",
+      "branch": "main",
+      "category": "b2b-saas-marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/b2b-saas-marketing",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

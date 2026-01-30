@@ -1,0 +1,20 @@
+{
+  "category": "token-formatter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.296907Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert verbose docs/markdown/text into token-efficient formats. Use when user wants to reduce token count, compress content for LLM context, or optimize for AI consumption.",
+      "repo": "georgekhananaev/claude-skills-vault",
+      "path": "token-formatter",
+      "branch": "main",
+      "category": "token-formatter",
+      "tags": [],
+      "stars": 0,
+      "install": "georgekhananaev/claude-skills-vault/token-formatter",
+      "source": "github.com/georgekhananaev/claude-skills-vault"
+    }
+  ]
+}

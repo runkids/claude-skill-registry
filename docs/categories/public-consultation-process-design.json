@@ -1,0 +1,20 @@
+{
+  "category": "public-consultation-process-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.717298Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in designing and executing effective public consultation for infrastructure projects including stakeholder mapping, engagement level determination, meeting facilitation techniques, and feedback",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": "public-consultation-process-design",
+      "branch": "main",
+      "category": "public-consultation-process-design",
+      "tags": [],
+      "stars": 0,
+      "install": "reggiechan74/vp-real-estate/public-consultation-process-design",
+      "source": "github.com/reggiechan74/vp-real-estate"
+    }
+  ]
+}

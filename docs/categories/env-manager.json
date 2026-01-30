@@ -1,0 +1,20 @@
+{
+  "category": "env-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.578306Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "管理环境变量和.env文件，支持验证、加密和模板生成。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "env-manager",
+      "branch": "main",
+      "category": "env-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode/env-manager",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

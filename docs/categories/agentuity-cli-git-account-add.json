@@ -1,0 +1,20 @@
+{
+  "category": "agentuity-cli-git-account-add",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.265622Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add a GitHub account to your organization. Requires authentication",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-git-account-add",
+      "branch": "main",
+      "category": "agentuity-cli-git-account-add",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer/agentuity-cli-git-account-add",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

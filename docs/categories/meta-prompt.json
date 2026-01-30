@@ -1,0 +1,20 @@
+{
+  "category": "meta-prompt",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.122949Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate prompt variations from templates. Use when creating new commands, skills, or workflows.",
+      "repo": "seanchiuai/claude-web-template",
+      "path": "meta-prompt",
+      "branch": "main",
+      "category": "meta-prompt",
+      "tags": [],
+      "stars": 0,
+      "install": "seanchiuai/claude-web-template/meta-prompt",
+      "source": "github.com/seanchiuai/claude-web-template"
+    }
+  ]
+}

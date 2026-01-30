@@ -1,0 +1,20 @@
+{
+  "category": "eks-security",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.561730Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "EKS security hardening and best practices. Use when configuring cluster security, implementing pod security, managing secrets, preparing for compliance audits, hardening infrastructure, scanning conta",
+      "repo": "adaptationio/Skrillz",
+      "path": "eks-security",
+      "branch": "main",
+      "category": "eks-security",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/eks-security",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

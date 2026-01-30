@@ -1,0 +1,20 @@
+{
+  "category": "governance-and-risk",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.794013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when making architectural decisions without documentation, skipping risk analysis, accepting risks without mitigation, or treating governance as optional bureaucracy - enforces mandatory DAR/RSKM",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "governance-and-risk",
+      "branch": "main",
+      "category": "governance-and-risk",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks/governance-and-risk",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

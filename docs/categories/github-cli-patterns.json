@@ -1,0 +1,20 @@
+{
+  "category": "github-cli-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.769057Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with gh CLI. Provides patterns for PRs, issues, reviews, and repository operations.",
+      "repo": "JacobPEvans/ai-assistant-instructions",
+      "path": "github-cli-patterns",
+      "branch": "main",
+      "category": "github-cli-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "JacobPEvans/ai-assistant-instructions/github-cli-patterns",
+      "source": "github.com/JacobPEvans/ai-assistant-instructions"
+    }
+  ]
+}

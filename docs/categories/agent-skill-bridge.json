@@ -1,0 +1,20 @@
+{
+  "category": "agent-skill-bridge",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.241836Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Facilitates seamless integration between Claude Skills and the existing Agent framework, enabling skills to invoke agents and vice versa with proper context handoffs.",
+      "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+      "path": "agent-skill-bridge",
+      "branch": "main",
+      "category": "agent-skill-bridge",
+      "tags": [],
+      "stars": 0,
+      "install": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server/agent-skill-bridge",
+      "source": "github.com/Ryno-Crypto-Mining-Services/braiins-insights-mcp-server"
+    }
+  ]
+}

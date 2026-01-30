@@ -1,0 +1,20 @@
+{
+  "category": "idea-validator-pro",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.856669Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced product idea validation through comprehensive market research, competitive analysis, demand verification, technical feasibility assessment, and monetization potential analysis. Use when evalu",
+      "repo": "sitechfromgeorgia/georgian-distribution-system",
+      "path": "idea-validator-pro",
+      "branch": "main",
+      "category": "idea-validator-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "sitechfromgeorgia/georgian-distribution-system/idea-validator-pro",
+      "source": "github.com/sitechfromgeorgia/georgian-distribution-system"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "scientific-networkx",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.905656Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive toolkit for creating, analyzing, and visualizing complex networks and graphs in Python. Use when working with network/graph data structures, analyzing relationships between entities, com",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-networkx",
+      "branch": "main",
+      "category": "scientific-networkx",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/scientific-networkx",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

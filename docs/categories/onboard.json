@@ -1,0 +1,20 @@
+{
+  "category": "onboard",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.284128Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze brownfield codebase and create initial continuity ledger",
+      "repo": "tfunk1030/vibe",
+      "path": "onboard",
+      "branch": "main",
+      "category": "onboard",
+      "tags": [],
+      "stars": 0,
+      "install": "tfunk1030/vibe/onboard",
+      "source": "github.com/tfunk1030/vibe"
+    }
+  ]
+}

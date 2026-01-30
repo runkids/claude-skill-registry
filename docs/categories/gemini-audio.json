@@ -1,0 +1,20 @@
+{
+  "category": "gemini-audio",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.732554Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for implementing Google Gemini API audio capabilities - analyze audio with transcription, summarization, and understanding (up to 9.5 hours), plus generate speech with controllable TTS. Use when",
+      "repo": "alex-tgk/saasquatch",
+      "path": "gemini-audio",
+      "branch": "main",
+      "category": "gemini-audio",
+      "tags": [],
+      "stars": 0,
+      "install": "alex-tgk/saasquatch/gemini-audio",
+      "source": "github.com/alex-tgk/saasquatch"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "policyengine-simulation-mechanics-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.605790Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced simulation patterns with policyengine.py - ensure(), output_dataset.data, and map_to_entity()",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-simulation-mechanics-skill",
+      "branch": "main",
+      "category": "policyengine-simulation-mechanics-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/policyengine-simulation-mechanics-skill",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

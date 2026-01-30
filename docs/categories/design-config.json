@@ -1,0 +1,20 @@
+{
+  "category": "design-config",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.152762Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage design documentation system configuration. Use when initializing the system, adding modules, or updating quality standards.",
+      "repo": "spencerbeggs/claude-design-coordinator",
+      "path": "design-config",
+      "branch": "main",
+      "category": "design-config",
+      "tags": [],
+      "stars": 0,
+      "install": "spencerbeggs/claude-design-coordinator/design-config",
+      "source": "github.com/spencerbeggs/claude-design-coordinator"
+    }
+  ]
+}

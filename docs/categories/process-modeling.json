@@ -1,0 +1,20 @@
+{
+  "category": "process-modeling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.644270Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Process modeling using BPMN notation and flowchart patterns. Creates process diagrams with activities, gateways, events, swimlanes, and decision points for workflow documentation.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "process-modeling",
+      "branch": "main",
+      "category": "process-modeling",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent/process-modeling",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

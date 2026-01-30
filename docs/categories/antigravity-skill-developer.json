@@ -1,0 +1,20 @@
+{
+  "category": "antigravity-skill-developer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.314245Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and manage Claude Code skills following Anthropic best practices. Use when creating new skills, modifying skill-rules.json, understanding trigger patterns, working with hooks, debugging skill a",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-skill-developer",
+      "branch": "main",
+      "category": "antigravity-skill-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/antigravity-skill-developer",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

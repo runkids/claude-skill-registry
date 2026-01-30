@@ -1,0 +1,20 @@
+{
+  "category": "api-mock",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.326464Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate API mocks and stub servers from OpenAPI specs or code analysis",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "api-mock",
+      "branch": "main",
+      "category": "api-mock",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/api-mock",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "team-topologies",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.179217Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Four fundamental team types and interaction modes from Team Topologies",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "team-topologies",
+      "branch": "main",
+      "category": "team-topologies",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/team-topologies",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

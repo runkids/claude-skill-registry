@@ -1,0 +1,20 @@
+{
+  "category": "rebase",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.787298Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /rebase or /rebase <branch> slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "rebase",
+      "branch": "main",
+      "category": "rebase",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles/rebase",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

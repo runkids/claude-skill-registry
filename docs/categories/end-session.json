@@ -1,0 +1,20 @@
+{
+  "category": "end-session",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.571630Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "End the current learning session. Use when done studying to generate summary, update learning plan, and log final entries. Triggers on \"end session\", \"done learning\", \"finish studying\", \"wrap up\".",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "end-session",
+      "branch": "main",
+      "category": "end-session",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager/end-session",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

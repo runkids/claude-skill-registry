@@ -1,0 +1,20 @@
+{
+  "category": "backend-verification",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.411216Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically runs required Go checks after any backend code changes. Ensures go vet, gofmt, and go test pass before commits. Use whenever modifying files in the backend/ directory.",
+      "repo": "mesbahtanvir/ishkul",
+      "path": "backend-verification",
+      "branch": "main",
+      "category": "backend-verification",
+      "tags": [],
+      "stars": 0,
+      "install": "mesbahtanvir/ishkul/backend-verification",
+      "source": "github.com/mesbahtanvir/ishkul"
+    }
+  ]
+}

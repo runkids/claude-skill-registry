@@ -1,0 +1,20 @@
+{
+  "category": "backport-pr-assistant",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.412689Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Help backport PRs to release branches using the backport CLI tool. Use when backporting changes that have merge conflicts requiring manual resolution.",
+      "repo": "cockroachdb/cockroach",
+      "path": "backport-pr-assistant",
+      "branch": "main",
+      "category": "backport-pr-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "cockroachdb/cockroach/backport-pr-assistant",
+      "source": "github.com/cockroachdb/cockroach"
+    }
+  ]
+}

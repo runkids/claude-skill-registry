@@ -1,0 +1,20 @@
+{
+  "category": "project-bootstrapper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.689830Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Sets up new projects or improves existing projects with development best practices, tooling, documentation, and workflow automation. Use when user wants to start a new project, improve project structu",
+      "repo": "mhattingpete/claude-skills-marketplace",
+      "path": "project-bootstrapper",
+      "branch": "main",
+      "category": "project-bootstrapper",
+      "tags": [],
+      "stars": 0,
+      "install": "mhattingpete/claude-skills-marketplace/project-bootstrapper",
+      "source": "github.com/mhattingpete/claude-skills-marketplace"
+    }
+  ]
+}

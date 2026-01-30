@@ -1,0 +1,20 @@
+{
+  "category": "deployment-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.079086Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploy elizaOS agents to production with best practices, monitoring, and scaling. Triggers on \"deploy agent\", \"production setup\", or \"deploy elizaOS\"",
+      "repo": "Dexploarer/hyper-forge",
+      "path": "deployment-helper",
+      "branch": "main",
+      "category": "deployment-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "Dexploarer/hyper-forge/deployment-helper",
+      "source": "github.com/Dexploarer/hyper-forge"
+    }
+  ]
+}

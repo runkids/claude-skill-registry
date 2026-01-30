@@ -1,0 +1,20 @@
+{
+  "category": "scaffold-context",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.889565Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffold a new React Context module inside an existing feature using the Context + useReducer pattern (state, actions, reducer, context, provider, and barrel exports).",
+      "repo": "mcgaryes/nextjs-template",
+      "path": "scaffold-context",
+      "branch": "main",
+      "category": "scaffold-context",
+      "tags": [],
+      "stars": 0,
+      "install": "mcgaryes/nextjs-template/scaffold-context",
+      "source": "github.com/mcgaryes/nextjs-template"
+    }
+  ]
+}

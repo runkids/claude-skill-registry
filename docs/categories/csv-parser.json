@@ -1,0 +1,20 @@
+{
+  "category": "csv-parser",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.728661Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Parse and analyze CSV files with data validation",
+      "repo": "maxvaega/skillkit",
+      "path": "csv-parser",
+      "branch": "main",
+      "category": "csv-parser",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit/csv-parser",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "api-building",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.317096Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "EntityController<T>, custom routes, payload transformers, auth policies",
+      "repo": "sylin-org/koan-framework",
+      "path": "api-building",
+      "branch": "main",
+      "category": "api-building",
+      "tags": [],
+      "stars": 0,
+      "install": "sylin-org/koan-framework/api-building",
+      "source": "github.com/sylin-org/koan-framework"
+    }
+  ]
+}

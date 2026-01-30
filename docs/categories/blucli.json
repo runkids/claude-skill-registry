@@ -1,0 +1,20 @@
+{
+  "category": "blucli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.434328Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "BluOS CLI (blu) for discovery, playback, grouping, and volume.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "blucli",
+      "branch": "main",
+      "category": "blucli",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/blucli",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

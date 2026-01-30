@@ -1,0 +1,20 @@
+{
+  "category": "add-section",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.207800Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a new HUD section (tab) with lifecycle, persistent state, and registry registration",
+      "repo": "Ariedam64/Gemini",
+      "path": "add-section",
+      "branch": "main",
+      "category": "add-section",
+      "tags": [],
+      "stars": 0,
+      "install": "Ariedam64/Gemini/add-section",
+      "source": "github.com/Ariedam64/Gemini"
+    }
+  ]
+}

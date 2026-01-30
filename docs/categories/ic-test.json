@@ -1,0 +1,20 @@
+{
+  "category": "ic-test",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.853232Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test IC10 code for correctness and logic bugs. Use when user wants to verify IC10 code works through test cases or simulation analysis.",
+      "repo": "smileynet/stationeers-companion",
+      "path": "ic-test",
+      "branch": "main",
+      "category": "ic-test",
+      "tags": [],
+      "stars": 0,
+      "install": "smileynet/stationeers-companion/ic-test",
+      "source": "github.com/smileynet/stationeers-companion"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "video-engineer-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.415019Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in video processing, streaming protocols (HLS/DASH/WebRTC), and FFmpeg automation. Specializes in building scalable video infrastructure.",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "video-engineer-skill",
+      "branch": "main",
+      "category": "video-engineer-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/video-engineer-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

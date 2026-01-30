@@ -1,0 +1,20 @@
+{
+  "category": "segmentation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.955296Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when designing filters, suppression logic, and personalization cohorts for campaigns or automations.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "segmentation",
+      "branch": "main",
+      "category": "segmentation",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/segmentation",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "marketplace-integration-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.093976Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates boilerplate for e-commerce API integrations. Use when the user asks about WooCommerce, Shopify, Bol.com, or Etsy APIs, webhooks, product sync, or order handling.",
+      "repo": "WesleySmits/agent-skills",
+      "path": "marketplace-integration-helper",
+      "branch": "main",
+      "category": "marketplace-integration-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills/marketplace-integration-helper",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

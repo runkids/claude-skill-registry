@@ -1,0 +1,20 @@
+{
+  "category": "gamma-hello-world",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.723092Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a minimal working Gamma example. Use when starting a new Gamma integration, testing your setup, or learning basic Gamma API patterns. Trigger with phrases like \"gamma hello world\", \"gamma examp",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "gamma-hello-world",
+      "branch": "main",
+      "category": "gamma-hello-world",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/gamma-hello-world",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

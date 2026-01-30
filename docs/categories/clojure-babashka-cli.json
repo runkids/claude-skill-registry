@@ -1,0 +1,20 @@
+{
+  "category": "clojure-babashka-cli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.563603Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Turn Clojure functions into CLIs with babashka.cli. Use when working with command-line argument parsing, building CLIs, subcommand dispatching, option validation, or creating tools with babashka/cloju",
+      "repo": "Ramblurr/nix-devenv",
+      "path": "clojure-babashka-cli",
+      "branch": "main",
+      "category": "clojure-babashka-cli",
+      "tags": [],
+      "stars": 0,
+      "install": "Ramblurr/nix-devenv/clojure-babashka-cli",
+      "source": "github.com/Ramblurr/nix-devenv"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "implement_task",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.865352Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implementation agent that executes a single task and creates handoff on completion",
+      "repo": "tfunk1030/vibe",
+      "path": "implement_task",
+      "branch": "main",
+      "category": "implement_task",
+      "tags": [],
+      "stars": 0,
+      "install": "tfunk1030/vibe/implement_task",
+      "source": "github.com/tfunk1030/vibe"
+    }
+  ]
+}

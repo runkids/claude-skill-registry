@@ -1,0 +1,20 @@
+{
+  "category": "gastown",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.724656Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage multi-agent orchestrator for Claude Code. Use when user mentions gastown, gas town, gt commands, bd commands, convoys, polecats, crew, rigs, slinging work, multi-agent coordination, beads, hook",
+      "repo": "byteworthy/Upstream",
+      "path": "gastown",
+      "branch": "main",
+      "category": "gastown",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/gastown",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "openapi",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.291431Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Defines and generates OpenAPI 3.1 specifications with TypeScript type generation, validation, and documentation. Use when documenting APIs, generating client SDKs, or implementing contract-first API d",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "openapi",
+      "branch": "main",
+      "category": "openapi",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini/openapi",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

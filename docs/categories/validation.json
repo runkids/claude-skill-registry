@@ -1,0 +1,20 @@
+{
+  "category": "validation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.394427Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate code quality, test coverage, performance, and security. Use when verifying implemented features meet all standards and requirements before marking complete.",
+      "repo": "matteocervelli/llms",
+      "path": "validation",
+      "branch": "main",
+      "category": "validation",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms/validation",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

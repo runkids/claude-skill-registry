@@ -1,0 +1,20 @@
+{
+  "category": "supertest-nestjs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.122174Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Supertest patterns and best practices for NestJS e2e API testing. Trigger: When writing e2e tests, testing HTTP endpoints, or testing authentication flows in NestJS.",
+      "repo": "avvale/aurora-back",
+      "path": "supertest-nestjs",
+      "branch": "main",
+      "category": "supertest-nestjs",
+      "tags": [],
+      "stars": 0,
+      "install": "avvale/aurora-back/supertest-nestjs",
+      "source": "github.com/avvale/aurora-back"
+    }
+  ]
+}

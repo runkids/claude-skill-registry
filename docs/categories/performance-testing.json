@@ -1,0 +1,20 @@
+{
+  "category": "performance-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.562884Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test application performance, scalability, and resilience. Use when planning load testing, stress testing, or optimizing system performance.",
+      "repo": "proffesor-for-testing/sentinel-api-testing",
+      "path": "performance-testing",
+      "branch": "main",
+      "category": "performance-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/sentinel-api-testing/performance-testing",
+      "source": "github.com/proffesor-for-testing/sentinel-api-testing"
+    }
+  ]
+}

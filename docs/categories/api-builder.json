@@ -1,0 +1,20 @@
+{
+  "category": "api-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.316933Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate complete FastAPI backend scaffolds from OpenAPI 3.x specifications. Automatically creates SQLAlchemy models, Pydantic schemas, FastAPI routers, CRUD operations, database migrations, pytest te",
+      "repo": "H2OSLabs/SynnovatorZero",
+      "path": "api-builder",
+      "branch": "main",
+      "category": "api-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "H2OSLabs/SynnovatorZero/api-builder",
+      "source": "github.com/H2OSLabs/SynnovatorZero"
+    }
+  ]
+}

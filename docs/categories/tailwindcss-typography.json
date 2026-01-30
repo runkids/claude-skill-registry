@@ -1,0 +1,20 @@
+{
+  "category": "tailwindcss-typography",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.155528Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Typography utilities Tailwind CSS v4.1. Font (font-sans, font-serif, font-mono, font-size, font-weight), Text (text-color, text-align, text-wrap, text-shadow NEW), Letter/Line spacing, Decoration, Tra",
+      "repo": "fusengine/agents",
+      "path": "tailwindcss-typography",
+      "branch": "main",
+      "category": "tailwindcss-typography",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/tailwindcss-typography",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

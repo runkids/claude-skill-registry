@@ -1,0 +1,20 @@
+{
+  "category": "using-superpowers",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.374696Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "using-superpowers",
+      "branch": "main",
+      "category": "using-superpowers",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/using-superpowers",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

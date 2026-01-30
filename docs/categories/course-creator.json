@@ -1,0 +1,20 @@
+{
+  "category": "course-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.690635Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design educational courses and curriculum with learning objectives and assessments",
+      "repo": "eddiebe147/claude-settings",
+      "path": "course-creator",
+      "branch": "main",
+      "category": "course-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/course-creator",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

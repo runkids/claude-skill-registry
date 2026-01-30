@@ -1,0 +1,20 @@
+{
+  "category": "autumn-create-customer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.383294Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Skill for setting up Autumn billing integration and creating customers.",
+      "repo": "usenotra/notra",
+      "path": "autumn-create-customer",
+      "branch": "main",
+      "category": "autumn-create-customer",
+      "tags": [],
+      "stars": 0,
+      "install": "usenotra/notra/autumn-create-customer",
+      "source": "github.com/usenotra/notra"
+    }
+  ]
+}

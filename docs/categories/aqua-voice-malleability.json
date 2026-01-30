@@ -1,0 +1,20 @@
+{
+  "category": "aqua-voice-malleability",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.340044Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Adversarial malleability analysis of Aqua Voice Electron app with IPC injection, WebSocket interception, and braided monoidal skill interleaving",
+      "repo": "plurigrid/asi",
+      "path": "aqua-voice-malleability",
+      "branch": "main",
+      "category": "aqua-voice-malleability",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/aqua-voice-malleability",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

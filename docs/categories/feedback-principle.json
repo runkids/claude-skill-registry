@@ -1,0 +1,20 @@
+{
+  "category": "feedback-principle",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.650424Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "El sistema debe informar sobre resultados de acciones del usuario. Use cuando diseñe interacciones, estados de carga, confirmaciones, o manejo de errores.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "feedback-principle",
+      "branch": "main",
+      "category": "feedback-principle",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/feedback-principle",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

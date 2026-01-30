@@ -1,0 +1,20 @@
+{
+  "category": "vermillion-hunter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.408050Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Overview",
+      "repo": "plurigrid/asi",
+      "path": "vermillion-hunter",
+      "branch": "main",
+      "category": "vermillion-hunter",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/vermillion-hunter",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

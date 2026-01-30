@@ -1,0 +1,20 @@
+{
+  "category": "optimizing-iconography",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.301650Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Rules for using icons efficiently to maintain performance. Use when adding icons from Lucide React.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "optimizing-iconography",
+      "branch": "main",
+      "category": "optimizing-iconography",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2/optimizing-iconography",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

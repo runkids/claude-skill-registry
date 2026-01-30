@@ -1,0 +1,20 @@
+{
+  "category": "cloudflare-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.575362Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Cloudflare Workers, CDN, edge computing, and security services",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "cloudflare-expert",
+      "branch": "main",
+      "category": "cloudflare-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/cloudflare-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

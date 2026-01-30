@@ -1,0 +1,20 @@
+{
+  "category": "global-performance",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.780545Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Your approach to handling global performance. Use this skill when working on files where global performance comes into play.",
+      "repo": "jaypaulb/CanvusAPI-LLMDemo",
+      "path": "global-performance",
+      "branch": "main",
+      "category": "global-performance",
+      "tags": [],
+      "stars": 0,
+      "install": "jaypaulb/CanvusAPI-LLMDemo/global-performance",
+      "source": "github.com/jaypaulb/CanvusAPI-LLMDemo"
+    }
+  ]
+}

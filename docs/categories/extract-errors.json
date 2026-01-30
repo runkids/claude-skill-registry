@@ -1,0 +1,20 @@
+{
+  "category": "extract-errors",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.629181Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when adding new error messages to React, or seeing \"unknown error code\" warnings.",
+      "repo": "chltjs1921/udemy-github-tags-demo",
+      "path": "extract-errors",
+      "branch": "main",
+      "category": "extract-errors",
+      "tags": [],
+      "stars": 0,
+      "install": "chltjs1921/udemy-github-tags-demo/extract-errors",
+      "source": "github.com/chltjs1921/udemy-github-tags-demo"
+    }
+  ]
+}

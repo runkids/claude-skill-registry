@@ -1,0 +1,20 @@
+{
+  "category": "policyengine-data-testing-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.604400Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Testing patterns for PolicyEngine data generation pipelines (policyengine-us-data, policyengine-uk-data)",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-data-testing-skill",
+      "branch": "main",
+      "category": "policyengine-data-testing-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/policyengine-data-testing-skill",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

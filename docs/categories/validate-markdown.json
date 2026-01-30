@@ -1,0 +1,20 @@
+{
+  "category": "validate-markdown",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.392049Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "I'll validate markdown files for common formatting issues and optionally fix them.",
+      "repo": "WhatIfWeDigDeeper/claude-code-coursera",
+      "path": "validate-markdown",
+      "branch": "main",
+      "category": "validate-markdown",
+      "tags": [],
+      "stars": 0,
+      "install": "WhatIfWeDigDeeper/claude-code-coursera/validate-markdown",
+      "source": "github.com/WhatIfWeDigDeeper/claude-code-coursera"
+    }
+  ]
+}

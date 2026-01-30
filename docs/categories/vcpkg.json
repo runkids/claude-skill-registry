@@ -1,0 +1,20 @@
+{
+  "category": "vcpkg",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.398400Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "C++ package manager for Windows with installation, environment setup, and package installation commands.",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "vcpkg",
+      "branch": "main",
+      "category": "vcpkg",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet/vcpkg",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

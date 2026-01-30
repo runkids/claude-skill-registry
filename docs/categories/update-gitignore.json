@@ -1,0 +1,20 @@
+{
+  "category": "update-gitignore",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.356003Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create or update .gitignore file",
+      "repo": "FradSer/dotclaude",
+      "path": "update-gitignore",
+      "branch": "main",
+      "category": "update-gitignore",
+      "tags": [],
+      "stars": 0,
+      "install": "FradSer/dotclaude/update-gitignore",
+      "source": "github.com/FradSer/dotclaude"
+    }
+  ]
+}

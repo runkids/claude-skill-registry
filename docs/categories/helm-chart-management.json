@@ -1,0 +1,20 @@
+{
+  "category": "helm-chart-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.828561Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Helm chart development and management for Vigil Guard v2.0.0. Use when creating Vigil Guard Helm charts, managing chart dependencies for 11 services including heuristics and semantic subcharts, config",
+      "repo": "tbartel74/Vigil-Code",
+      "path": "helm-chart-management",
+      "branch": "main",
+      "category": "helm-chart-management",
+      "tags": [],
+      "stars": 0,
+      "install": "tbartel74/Vigil-Code/helm-chart-management",
+      "source": "github.com/tbartel74/Vigil-Code"
+    }
+  ]
+}

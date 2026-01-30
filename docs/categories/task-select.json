@@ -1,0 +1,20 @@
+{
+  "category": "task-select",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.167952Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Select a task by writing its ID to `.tasks/.active`. Prints the selected task path and any suspicion flags (stale, hash mismatch) to encourage skepticism.",
+      "repo": "JordanGunn/nunchuck",
+      "path": "task-select",
+      "branch": "main",
+      "category": "task-select",
+      "tags": [],
+      "stars": 0,
+      "install": "JordanGunn/nunchuck/task-select",
+      "source": "github.com/JordanGunn/nunchuck"
+    }
+  ]
+}

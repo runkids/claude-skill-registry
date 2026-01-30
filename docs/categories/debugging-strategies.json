@@ -1,0 +1,20 @@
+{
+  "category": "debugging-strategies",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.056724Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master systematic debugging techniques, profiling tools, and root cause analysis to efficiently track down bugs across any codebase or technology stack. Use when investigating bugs, performance issues",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "debugging-strategies",
+      "branch": "main",
+      "category": "debugging-strategies",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/debugging-strategies",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

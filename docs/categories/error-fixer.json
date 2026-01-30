@@ -1,0 +1,20 @@
+{
+  "category": "error-fixer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.590994Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fix JavaScript and HTTP errors flagged for AI in the admin dashboard. Queries the database for errors with ai_status='flagged_for_ai', analyzes them, and attempts to fix them.  Use when: - User says \"",
+      "repo": "Spectaculous-Code/raamattu-nyt",
+      "path": "error-fixer",
+      "branch": "main",
+      "category": "error-fixer",
+      "tags": [],
+      "stars": 0,
+      "install": "Spectaculous-Code/raamattu-nyt/error-fixer",
+      "source": "github.com/Spectaculous-Code/raamattu-nyt"
+    }
+  ]
+}

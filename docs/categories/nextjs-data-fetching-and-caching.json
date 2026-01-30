@@ -1,0 +1,20 @@
+{
+  "category": "nextjs-data-fetching-and-caching",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.241866Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill whenever the user wants to design, refactor, or optimize data fetching and caching in a Next.js (App Router) + TypeScript project, including server components, route handlers, server ac",
+      "repo": "AgentiveCity/SkillFactory",
+      "path": "nextjs-data-fetching-and-caching",
+      "branch": "main",
+      "category": "nextjs-data-fetching-and-caching",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentiveCity/SkillFactory/nextjs-data-fetching-and-caching",
+      "source": "github.com/AgentiveCity/SkillFactory"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "unit-testing-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.348238Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unit testing expert for Vitest and Jest. Use when writing unit tests, implementing mocking, or setting up test coverage.",
+      "repo": "anton-abyzov/specweave",
+      "path": "unit-testing-expert",
+      "branch": "main",
+      "category": "unit-testing-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/unit-testing-expert",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

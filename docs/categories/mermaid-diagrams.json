@@ -1,0 +1,20 @@
+{
+  "category": "mermaid-diagrams",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.120772Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate Mermaid diagrams in markdown. Triggers on: diagrams, charts, visualizations, flowcharts, sequence diagrams, architecture diagrams, ER diagrams, state machines, Gantt charts, mindmaps, C4, cla",
+      "repo": "ccheney/robust-skills",
+      "path": "mermaid-diagrams",
+      "branch": "main",
+      "category": "mermaid-diagrams",
+      "tags": [],
+      "stars": 0,
+      "install": "ccheney/robust-skills/mermaid-diagrams",
+      "source": "github.com/ccheney/robust-skills"
+    }
+  ]
+}

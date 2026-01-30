@@ -1,0 +1,20 @@
+{
+  "category": "performance-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.561022Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Copilot agent that assists with performance analysis, bottleneck detection, optimization strategies, and benchmarking  Trigger terms: performance optimization, performance tuning, profiling, benchmark",
+      "repo": "nahisaho/CodeGraphMCPServer",
+      "path": "performance-optimizer",
+      "branch": "main",
+      "category": "performance-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/CodeGraphMCPServer/performance-optimizer",
+      "source": "github.com/nahisaho/CodeGraphMCPServer"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "tdd-red-green",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.176431Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforce true RED/GREEN TDD workflow with fail-first testing methodology",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "tdd-red-green",
+      "branch": "main",
+      "category": "tdd-red-green",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/tdd-red-green",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

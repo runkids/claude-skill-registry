@@ -1,0 +1,20 @@
+{
+  "category": "qa-bug-reporting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.739681Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When reporting bugs found during manual testing or QA validation.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "qa-bug-reporting",
+      "branch": "main",
+      "category": "qa-bug-reporting",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/qa-bug-reporting",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

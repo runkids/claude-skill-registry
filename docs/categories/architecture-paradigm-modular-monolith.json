@@ -1,0 +1,20 @@
+{
+  "category": "architecture-paradigm-modular-monolith",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.348792Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- When you desire team autonomy similar to that of microservices, but without the operational overhead of a distributed system.",
+      "repo": "athola/claude-night-market",
+      "path": "architecture-paradigm-modular-monolith",
+      "branch": "main",
+      "category": "architecture-paradigm-modular-monolith",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/architecture-paradigm-modular-monolith",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

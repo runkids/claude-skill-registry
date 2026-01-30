@@ -1,0 +1,20 @@
+{
+  "category": "peptide-identification",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.558431Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Peptide-spectrum matching and protein identification from MS/MS data. Use when identifying peptides from tandem mass spectra. Covers database searching, spectral library matching, and FDR estimation u",
+      "repo": "GPTomics/bioSkills",
+      "path": "peptide-identification",
+      "branch": "main",
+      "category": "peptide-identification",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/peptide-identification",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

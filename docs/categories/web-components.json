@@ -1,0 +1,20 @@
+{
+  "category": "web-components",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.445536Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build web components using Custom Elements v1 API with Declarative Shadow DOM, attribute-driven state, handleEvent pattern, and zero DOM selection. Use when creating custom elements, extending built-i",
+      "repo": "matthewharwood/fantasy-phonics",
+      "path": "web-components",
+      "branch": "main",
+      "category": "web-components",
+      "tags": [],
+      "stars": 0,
+      "install": "matthewharwood/fantasy-phonics/web-components",
+      "source": "github.com/matthewharwood/fantasy-phonics"
+    }
+  ]
+}

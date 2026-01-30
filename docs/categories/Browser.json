@@ -1,0 +1,20 @@
+{
+  "category": "Browser",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.164530Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Code-first browser automation and web verification. USE WHEN browser, screenshot, navigate, web testing, verify UI, VERIFY phase. Replaces Playwright MCP with 99% token savings.",
+      "repo": "robdtaylor/personal-ai-infrastructure",
+      "path": "Browser",
+      "branch": "main",
+      "category": "Browser",
+      "tags": [],
+      "stars": 0,
+      "install": "robdtaylor/personal-ai-infrastructure/Browser",
+      "source": "github.com/robdtaylor/personal-ai-infrastructure"
+    }
+  ]
+}

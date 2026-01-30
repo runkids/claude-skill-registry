@@ -1,0 +1,20 @@
+{
+  "category": "test-privacylrs-hardware",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.209495Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Flash and test code on PrivacyLRS/ExpressLRS ESP32 hardware modules (TX/RX)",
+      "repo": "sensei-hacker/inav-claude",
+      "path": "test-privacylrs-hardware",
+      "branch": "main",
+      "category": "test-privacylrs-hardware",
+      "tags": [],
+      "stars": 0,
+      "install": "sensei-hacker/inav-claude/test-privacylrs-hardware",
+      "source": "github.com/sensei-hacker/inav-claude"
+    }
+  ]
+}

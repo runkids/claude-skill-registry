@@ -1,0 +1,20 @@
+{
+  "category": "esp32-debugging",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.596031Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Debug ESP32 firmware issues including compilation errors, runtime panics, memory issues, and communication failures",
+      "repo": "laurigates/mcu-tinkering-lab",
+      "path": "esp32-debugging",
+      "branch": "main",
+      "category": "esp32-debugging",
+      "tags": [],
+      "stars": 0,
+      "install": "laurigates/mcu-tinkering-lab/esp32-debugging",
+      "source": "github.com/laurigates/mcu-tinkering-lab"
+    }
+  ]
+}

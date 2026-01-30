@@ -1,0 +1,20 @@
+{
+  "category": "deepinit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.062935Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deep codebase initialization with hierarchical AGENTS.md documentation",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "deepinit",
+      "branch": "main",
+      "category": "deepinit",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/deepinit",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

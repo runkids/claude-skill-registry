@@ -1,0 +1,20 @@
+{
+  "category": "iteration_13",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.913427Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Iteration 13 of Multiplicity Cascade - Maps identity across phase transitions",
+      "repo": "agentgptsmith/MonadFramework",
+      "path": "iteration_13",
+      "branch": "main",
+      "category": "iteration_13",
+      "tags": [],
+      "stars": 0,
+      "install": "agentgptsmith/MonadFramework/iteration_13",
+      "source": "github.com/agentgptsmith/MonadFramework"
+    }
+  ]
+}

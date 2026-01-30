@@ -1,0 +1,20 @@
+{
+  "category": "terraformer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.194695Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Terraformer tool for reverse-engineering existing cloud infrastructure into Terraform code. Import resources from AWS, Azure, GCP, Kubernetes, and other providers. Generate Terraform configurations fr",
+      "repo": "Lobbi-Docs/claude",
+      "path": "terraformer",
+      "branch": "main",
+      "category": "terraformer",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/terraformer",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

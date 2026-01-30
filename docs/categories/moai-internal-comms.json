@@ -1,0 +1,20 @@
+{
+  "category": "moai-internal-comms",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.164573Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI-powered enterprise internal communications orchestrator with Context7 integration, intelligent content generation, automated workflow optimization, multi-format support (reports, newsletters, FAQs)",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-internal-comms",
+      "branch": "main",
+      "category": "moai-internal-comms",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-internal-comms",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

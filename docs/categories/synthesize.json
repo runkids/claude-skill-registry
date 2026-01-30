@@ -1,0 +1,20 @@
+{
+  "category": "synthesize",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.138991Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Synthesize information across multiple sources into a structured document. Processes sources in batches across sessions to handle more data than fits in context. Discovers and queues related sources a",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "synthesize",
+      "branch": "main",
+      "category": "synthesize",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager/synthesize",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

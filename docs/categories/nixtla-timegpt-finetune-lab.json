@@ -1,0 +1,20 @@
+{
+  "category": "nixtla-timegpt-finetune-lab",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.254567Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure TimeGPT fine-tuning on custom datasets with Nixtla SDK. Use when training domain-specific forecast models. Trigger with 'fine-tune TimeGPT' or 'train custom model'.",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "nixtla-timegpt-finetune-lab",
+      "branch": "main",
+      "category": "nixtla-timegpt-finetune-lab",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla/nixtla-timegpt-finetune-lab",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "conflict-resolve",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.649151Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guided conflict resolution with semantic analysis and validation",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "conflict-resolve",
+      "branch": "main",
+      "category": "conflict-resolve",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/conflict-resolve",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

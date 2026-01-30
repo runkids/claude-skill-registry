@@ -1,0 +1,20 @@
+{
+  "category": "health-checks",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.826277Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement health check endpoints for load balancers, Kubernetes, and monitoring. Covers liveness, readiness, and dependency checks.",
+      "repo": "dadbodgeoff/drift",
+      "path": "health-checks",
+      "branch": "main",
+      "category": "health-checks",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/health-checks",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

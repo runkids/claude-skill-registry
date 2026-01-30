@@ -1,0 +1,20 @@
+{
+  "category": "qr-barcode-reader",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.745904Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when asked to scan, decode, read, or extract data from QR codes or barcodes in images.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "qr-barcode-reader",
+      "branch": "main",
+      "category": "qr-barcode-reader",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/qr-barcode-reader",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

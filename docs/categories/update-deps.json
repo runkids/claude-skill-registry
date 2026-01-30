@@ -1,0 +1,20 @@
+{
+  "category": "update-deps",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.355653Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Update npm packages to latest versions with validation in isolated worktree",
+      "repo": "WhatIfWeDigDeeper/application-tracker",
+      "path": "update-deps",
+      "branch": "main",
+      "category": "update-deps",
+      "tags": [],
+      "stars": 0,
+      "install": "WhatIfWeDigDeeper/application-tracker/update-deps",
+      "source": "github.com/WhatIfWeDigDeeper/application-tracker"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "sales-operations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.880356Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт Sales Ops. Используй для процессов продаж, CRM, forecasting и sales analytics.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "sales-operations",
+      "branch": "main",
+      "category": "sales-operations",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/sales-operations",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

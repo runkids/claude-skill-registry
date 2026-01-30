@@ -1,0 +1,20 @@
+{
+  "category": "xkcd",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.504232Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fetch xkcd comics - latest, random, by number, or search by keyword. Display comics with title, image, and alt text (the hidden joke). Generate custom xkcd-style stick figure comics using image genera",
+      "repo": "moltbot/skills",
+      "path": "xkcd",
+      "branch": "main",
+      "category": "xkcd",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/xkcd",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

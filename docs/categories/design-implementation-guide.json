@@ -1,0 +1,20 @@
+{
+  "category": "design-implementation-guide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.154764Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "アクセシビリティ（WCAG/ARIA/コントラスト比）やデザイントークンを実装する際に使用。フォーム・エラー表示・キーボード操作の実装時に参照。",
+      "repo": "ludiscan/ludiscan-webapp",
+      "path": "design-implementation-guide",
+      "branch": "main",
+      "category": "design-implementation-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "ludiscan/ludiscan-webapp/design-implementation-guide",
+      "source": "github.com/ludiscan/ludiscan-webapp"
+    }
+  ]
+}

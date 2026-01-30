@@ -1,0 +1,20 @@
+{
+  "category": "designing-sdks",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.163786Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design production-ready SDKs with retry logic, error handling, pagination, and multi-language support. Use when building client libraries for APIs or creating developer-facing SDK interfaces.",
+      "repo": "ancoleman/ai-design-components",
+      "path": "designing-sdks",
+      "branch": "main",
+      "category": "designing-sdks",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/designing-sdks",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

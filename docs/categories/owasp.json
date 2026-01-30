@@ -1,0 +1,20 @@
+{
+  "category": "owasp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.532353Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "OWASP Top 10 security practices and secure coding patterns.",
+      "repo": "duthaho/claudekit",
+      "path": "owasp",
+      "branch": "main",
+      "category": "owasp",
+      "tags": [],
+      "stars": 0,
+      "install": "duthaho/claudekit/owasp",
+      "source": "github.com/duthaho/claudekit"
+    }
+  ]
+}

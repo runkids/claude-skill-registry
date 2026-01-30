@@ -1,0 +1,20 @@
+{
+  "category": "unicode_daemon_monitor_prototype",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.342521Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unicode Daemon Monitor Skill",
+      "repo": "Foundup/Foundups-Agent",
+      "path": "unicode_daemon_monitor_prototype",
+      "branch": "main",
+      "category": "unicode_daemon_monitor_prototype",
+      "tags": [],
+      "stars": 0,
+      "install": "Foundup/Foundups-Agent/unicode_daemon_monitor_prototype",
+      "source": "github.com/Foundup/Foundups-Agent"
+    }
+  ]
+}

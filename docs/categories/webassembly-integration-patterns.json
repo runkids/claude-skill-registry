@@ -1,0 +1,20 @@
+{
+  "category": "webassembly-integration-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.450970Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Integrate high-performance Wasm modules into the React render cycle without blocking the main thread.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "webassembly-integration-patterns",
+      "branch": "main",
+      "category": "webassembly-integration-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/webassembly-integration-patterns",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

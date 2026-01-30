@@ -1,0 +1,20 @@
+{
+  "category": "codex-review-code",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.607971Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review implementation quality and regression risks via claude-delegator (Code Reviewer expert). Use after implementation for complex tasks, refactors, or API changes.",
+      "repo": "munlucky/claude-settings",
+      "path": "codex-review-code",
+      "branch": "main",
+      "category": "codex-review-code",
+      "tags": [],
+      "stars": 0,
+      "install": "munlucky/claude-settings/codex-review-code",
+      "source": "github.com/munlucky/claude-settings"
+    }
+  ]
+}

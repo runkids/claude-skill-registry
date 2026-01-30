@@ -1,0 +1,20 @@
+{
+  "category": "neon-vercel-postgres",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.230593Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up serverless Postgres with Neon or Vercel Postgres for Cloudflare Workers/Edge. Includes connection pooling, git-like branching, and Drizzle ORM integration.  Use when: setting up edge Postgres,",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "neon-vercel-postgres",
+      "branch": "main",
+      "category": "neon-vercel-postgres",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/neon-vercel-postgres",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "bundle-dynamic-imports",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.472512Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use next/dynamic for lazy-loading heavy components. Apply when importing large components like editors, charts, or rich text editors that aren't needed on initial render.",
+      "repo": "TheOrcDev/8bitcn-ui",
+      "path": "bundle-dynamic-imports",
+      "branch": "main",
+      "category": "bundle-dynamic-imports",
+      "tags": [],
+      "stars": 0,
+      "install": "TheOrcDev/8bitcn-ui/bundle-dynamic-imports",
+      "source": "github.com/TheOrcDev/8bitcn-ui"
+    }
+  ]
+}

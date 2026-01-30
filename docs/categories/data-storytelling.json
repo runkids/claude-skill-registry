@@ -1,0 +1,20 @@
+{
+  "category": "data-storytelling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.034211Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform data into compelling narratives using visualization, context, and persuasive structure. Use when presenting analytics to stakeholders, creating data reports, or building executive presentati",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "data-storytelling",
+      "branch": "main",
+      "category": "data-storytelling",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/data-storytelling",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

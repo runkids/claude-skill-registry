@@ -1,0 +1,20 @@
+{
+  "category": "timer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.289555Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set timers and alarms. When a background timer completes, you receive a System notification - respond with the reminder message (NOT HEARTBEAT_OK) to notify the user.",
+      "repo": "moltbot/skills",
+      "path": "timer",
+      "branch": "main",
+      "category": "timer",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/timer",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

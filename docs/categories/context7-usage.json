@@ -1,0 +1,20 @@
+{
+  "category": "context7-usage",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.671107Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Patterns for using Context7 MCP for library documentation (v2.25)",
+      "repo": "alfredolopez80/multi-agent-ralph-loop",
+      "path": "context7-usage",
+      "branch": "main",
+      "category": "context7-usage",
+      "tags": [],
+      "stars": 0,
+      "install": "alfredolopez80/multi-agent-ralph-loop/context7-usage",
+      "source": "github.com/alfredolopez80/multi-agent-ralph-loop"
+    }
+  ]
+}

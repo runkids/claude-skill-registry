@@ -1,0 +1,20 @@
+{
+  "category": "code-review-medium",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.596573Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standard code review for medium PRs (100-500 lines). Includes code quality, security basics, and test coverage analysis.",
+      "repo": "breaking-brake/cc-wf-studio",
+      "path": "code-review-medium",
+      "branch": "main",
+      "category": "code-review-medium",
+      "tags": [],
+      "stars": 0,
+      "install": "breaking-brake/cc-wf-studio/code-review-medium",
+      "source": "github.com/breaking-brake/cc-wf-studio"
+    }
+  ]
+}

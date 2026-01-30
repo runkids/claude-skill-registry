@@ -1,0 +1,20 @@
+{
+  "category": "hqq",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.840676Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Half-Quadratic Quantization for LLMs without calibration data. Use when quantizing models to 4/3/2-bit precision without needing calibration datasets, for fast quantization workflows, or when deployin",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "hqq",
+      "branch": "main",
+      "category": "hqq",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/hqq",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

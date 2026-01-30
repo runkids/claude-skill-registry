@@ -1,0 +1,20 @@
+{
+  "category": "email-newsletter-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.567907Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffolds email campaigns with content blocks and copy. Use when the user asks about email templates, newsletter content, subject lines, email marketing, or campaign copy.",
+      "repo": "WesleySmits/agent-skills",
+      "path": "email-newsletter-builder",
+      "branch": "main",
+      "category": "email-newsletter-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills/email-newsletter-builder",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

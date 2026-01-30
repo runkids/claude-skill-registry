@@ -1,0 +1,20 @@
+{
+  "category": "fix",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.672770Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when review findings need fixing via subagents - invoked by review-loop after each iteration",
+      "repo": "onsails/cc",
+      "path": "fix",
+      "branch": "main",
+      "category": "fix",
+      "tags": [],
+      "stars": 0,
+      "install": "onsails/cc/fix",
+      "source": "github.com/onsails/cc"
+    }
+  ]
+}

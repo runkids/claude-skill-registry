@@ -1,0 +1,20 @@
+{
+  "category": "rust-macro-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.870050Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Rust macro development patterns including procedural macros, derive macros, attribute macros, and declarative macros. Use when implementing code generation, custom derives, attribute syntax, or compil",
+      "repo": "creatifcoding/gbg",
+      "path": "rust-macro-patterns",
+      "branch": "main",
+      "category": "rust-macro-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/rust-macro-patterns",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

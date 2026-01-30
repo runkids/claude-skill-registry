@@ -1,0 +1,20 @@
+{
+  "category": "tailwindcss-advanced-design-systems",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.152155Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tailwind CSS advanced design systems with design tokens and @theme configuration",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "tailwindcss-advanced-design-systems",
+      "branch": "main",
+      "category": "tailwindcss-advanced-design-systems",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace/tailwindcss-advanced-design-systems",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

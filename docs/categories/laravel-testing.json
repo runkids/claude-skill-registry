@@ -1,0 +1,20 @@
+{
+  "category": "laravel-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.976315Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write tests with Pest/PHPUnit, feature tests, unit tests, mocking, and factories. Use when testing controllers, services, models, or implementing TDD.",
+      "repo": "fusengine/agents",
+      "path": "laravel-testing",
+      "branch": "main",
+      "category": "laravel-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/laravel-testing",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

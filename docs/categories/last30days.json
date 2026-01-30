@@ -1,0 +1,20 @@
+{
+  "category": "last30days",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.977164Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Research a topic from the last 30 days on Reddit + X + Web, become an expert, and write copy-paste-ready prompts for the user's target tool.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "last30days",
+      "branch": "main",
+      "category": "last30days",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/last30days",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

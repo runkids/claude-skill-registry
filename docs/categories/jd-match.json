@@ -1,0 +1,20 @@
+{
+  "category": "jd-match",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.919673Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "JD 분석 및 맞춤형 지원서 작성이 필요할 때",
+      "repo": "younwony/younwony.github.io",
+      "path": "jd-match",
+      "branch": "main",
+      "category": "jd-match",
+      "tags": [],
+      "stars": 0,
+      "install": "younwony/younwony.github.io/jd-match",
+      "source": "github.com/younwony/younwony.github.io"
+    }
+  ]
+}

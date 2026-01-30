@@ -1,0 +1,20 @@
+{
+  "category": "in4-contra-logic",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.872121Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply IN4 Contra-Logic to argue the opposite position to stress-test assumptions and expose weak reasoning.",
+      "repo": "hummbl-dev/hummbl-agent",
+      "path": "in4-contra-logic",
+      "branch": "main",
+      "category": "in4-contra-logic",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/hummbl-agent/in4-contra-logic",
+      "source": "github.com/hummbl-dev/hummbl-agent"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "hono-routing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.837000Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build type-safe APIs with Hono for Cloudflare Workers, Deno, Bun, Node.js. Routing, middleware, validation (Zod/Valibot), RPC, streaming (SSE), WebSocket, security (CSRF, secureHeaders).  Use when: bu",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "hono-routing",
+      "branch": "main",
+      "category": "hono-routing",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/hono-routing",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

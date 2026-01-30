@@ -1,0 +1,20 @@
+{
+  "category": "test-parallel-child-a",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.208632Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Child A for parallel test - writes timestamp",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-parallel-child-a",
+      "branch": "main",
+      "category": "test-parallel-child-a",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/test-parallel-child-a",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

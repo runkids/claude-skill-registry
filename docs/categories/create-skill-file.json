@@ -1,0 +1,20 @@
+{
+  "category": "create-skill-file",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.704830Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guides Claude in creating well-structured SKILL.md files following best practices. Provides clear guidelines for naming, structure, and content organization to make skills easy to discover and execute",
+      "repo": "labring/FastGPT",
+      "path": "create-skill-file",
+      "branch": "main",
+      "category": "create-skill-file",
+      "tags": [],
+      "stars": 0,
+      "install": "labring/FastGPT/create-skill-file",
+      "source": "github.com/labring/FastGPT"
+    }
+  ]
+}

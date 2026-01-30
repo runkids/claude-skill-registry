@@ -1,0 +1,20 @@
+{
+  "category": "owasp-top-10",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.532883Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Understanding and mitigating the top 10 most critical security risks to web applications as defined by OWASP, including broken access control, cryptographic failures, injection, and insecure design.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "owasp-top-10",
+      "branch": "main",
+      "category": "owasp-top-10",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/owasp-top-10",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

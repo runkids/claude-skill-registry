@@ -1,0 +1,20 @@
+{
+  "category": "metabolite-annotation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.124660Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Metabolite identification from m/z and retention time. Covers database matching, MS/MS spectral matching, and confidence level assignment. Use when assigning compound identities to detected features i",
+      "repo": "GPTomics/bioSkills",
+      "path": "metabolite-annotation",
+      "branch": "main",
+      "category": "metabolite-annotation",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/metabolite-annotation",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

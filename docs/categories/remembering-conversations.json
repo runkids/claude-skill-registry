@@ -1,0 +1,20 @@
+{
+  "category": "remembering-conversations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.809880Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Search previous Claude Code conversations for facts, patterns, decisions, and context using semantic or text search",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "remembering-conversations",
+      "branch": "main",
+      "category": "remembering-conversations",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/remembering-conversations",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "workout",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.485700Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Track workouts, log sets, manage exercises and templates with workout-cli. Supports multi-user profiles. Use when helping users record gym sessions, view history, or analyze strength progression.",
+      "repo": "moltbot/skills",
+      "path": "workout",
+      "branch": "main",
+      "category": "workout",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/workout",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

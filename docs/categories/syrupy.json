@@ -1,0 +1,20 @@
+{
+  "category": "syrupy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.139888Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use syrupy for pytest snapshot testing to ensure the immutability of computed results, manage snapshots, customize serialization, and handle complex data structures with built-in matchers and filters.",
+      "repo": "anam-org/metaxy",
+      "path": "syrupy",
+      "branch": "main",
+      "category": "syrupy",
+      "tags": [],
+      "stars": 0,
+      "install": "anam-org/metaxy/syrupy",
+      "source": "github.com/anam-org/metaxy"
+    }
+  ]
+}

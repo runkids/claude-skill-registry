@@ -1,0 +1,20 @@
+{
+  "category": "release-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.807535Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PR creation, CI/CD validation, and release coordination patterns. Use when creating pull requests, running pre-PR validation, checking CI status, or coordinating merges.",
+      "repo": "bybren-llc/safe-agentic-workflow",
+      "path": "release-patterns",
+      "branch": "main",
+      "category": "release-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "bybren-llc/safe-agentic-workflow/release-patterns",
+      "source": "github.com/bybren-llc/safe-agentic-workflow"
+    }
+  ]
+}

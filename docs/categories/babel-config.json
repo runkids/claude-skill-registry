@@ -1,0 +1,20 @@
+{
+  "category": "babel-config",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.404606Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates Babel configuration for JavaScript transpilation in tests. Creates babel.config.js file.",
+      "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+      "path": "babel-config",
+      "branch": "main",
+      "category": "babel-config",
+      "tags": [],
+      "stars": 0,
+      "install": "sayali-ingle-pdl/adusa-ai-vuejs-app-template/babel-config",
+      "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template"
+    }
+  ]
+}

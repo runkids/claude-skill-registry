@@ -1,0 +1,20 @@
+{
+  "category": "accelerate",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.192929Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Simplest distributed training API. 4 lines to add distributed support to any PyTorch script. Unified API for DeepSpeed/FSDP/Megatron/DDP. Automatic device placement, mixed precision (FP16/BF16/FP8). I",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "accelerate",
+      "branch": "main",
+      "category": "accelerate",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/accelerate",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

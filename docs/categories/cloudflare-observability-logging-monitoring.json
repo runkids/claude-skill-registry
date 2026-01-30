@@ -1,0 +1,20 @@
+{
+  "category": "cloudflare-observability-logging-monitoring",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.576829Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill whenever the user wants to improve or set up logging, tracing, metrics, and monitoring for Cloudflare Workers/Pages (e.g. Hono + TypeScript), including Wrangler tail, Workers Analytics,",
+      "repo": "AgentiveCity/SkillFactory",
+      "path": "cloudflare-observability-logging-monitoring",
+      "branch": "main",
+      "category": "cloudflare-observability-logging-monitoring",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentiveCity/SkillFactory/cloudflare-observability-logging-monitoring",
+      "source": "github.com/AgentiveCity/SkillFactory"
+    }
+  ]
+}

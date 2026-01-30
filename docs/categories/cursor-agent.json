@@ -1,0 +1,20 @@
+{
+  "category": "cursor-agent",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.734865Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A comprehensive skill for using the Cursor CLI agent for various software engineering tasks (updated for 2026 features, includes tmux automation guide).",
+      "repo": "rdsthomas/mission-control",
+      "path": "cursor-agent",
+      "branch": "main",
+      "category": "cursor-agent",
+      "tags": [],
+      "stars": 0,
+      "install": "rdsthomas/mission-control/cursor-agent",
+      "source": "github.com/rdsthomas/mission-control"
+    }
+  ]
+}

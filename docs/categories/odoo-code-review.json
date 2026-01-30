@@ -1,0 +1,20 @@
+{
+  "category": "odoo-code-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.279997Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review Odoo code for correctness, security, performance, and Odoo 18 standards. Use when reviewing Odoo modules, diffs, or pull requests; produce a scored report with weighted criteria.",
+      "repo": "unclecatvn/agent-skills",
+      "path": "odoo-code-review",
+      "branch": "main",
+      "category": "odoo-code-review",
+      "tags": [],
+      "stars": 0,
+      "install": "unclecatvn/agent-skills/odoo-code-review",
+      "source": "github.com/unclecatvn/agent-skills"
+    }
+  ]
+}

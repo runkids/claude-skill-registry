@@ -1,0 +1,20 @@
+{
+  "category": "iot-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.903443Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level IoT systems, embedded devices, edge computing, and IoT protocols",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "iot-expert",
+      "branch": "main",
+      "category": "iot-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/iot-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

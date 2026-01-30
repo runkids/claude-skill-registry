@@ -1,0 +1,20 @@
+{
+  "category": "page-import",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.537891Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Import a single webpage from any URL to structured HTML content for authoring in AEM Edge Delivery Services. Scrapes the page, analyzes structure, maps to existing blocks, and generates HTML for immed",
+      "repo": "adobe/helix-website",
+      "path": "page-import",
+      "branch": "main",
+      "category": "page-import",
+      "tags": [],
+      "stars": 0,
+      "install": "adobe/helix-website/page-import",
+      "source": "github.com/adobe/helix-website"
+    }
+  ]
+}

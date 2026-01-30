@@ -1,0 +1,20 @@
+{
+  "category": "plugin-auditor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.593120Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audit automatically audits AI assistant code plugins for security vulnerabilities, best practices, AI assistant.md compliance, and quality standards when user mentions audit plugin, security review, o",
+      "repo": "byteworthy/Upstream",
+      "path": "plugin-auditor",
+      "branch": "main",
+      "category": "plugin-auditor",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/plugin-auditor",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

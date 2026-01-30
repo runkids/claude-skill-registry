@@ -1,0 +1,20 @@
+{
+  "category": "config",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.645357Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage Clorch configuration (Braintrust, API keys, features)",
+      "repo": "namesreallyblank/Clorch",
+      "path": "config",
+      "branch": "main",
+      "category": "config",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/config",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "markdown-formatter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.081342Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Format and clean up markdown documents following best practices",
+      "repo": "maxvaega/skillkit",
+      "path": "markdown-formatter",
+      "branch": "main",
+      "category": "markdown-formatter",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit/markdown-formatter",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

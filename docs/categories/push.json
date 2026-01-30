@@ -1,0 +1,20 @@
+{
+  "category": "push",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.720873Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /push slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "push",
+      "branch": "main",
+      "category": "push",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles/push",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

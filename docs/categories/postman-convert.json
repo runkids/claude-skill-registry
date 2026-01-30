@@ -1,0 +1,20 @@
+{
+  "category": "postman-convert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.616925Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert Postman collections to automated tests with environment preservation",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "postman-convert",
+      "branch": "main",
+      "category": "postman-convert",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/postman-convert",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

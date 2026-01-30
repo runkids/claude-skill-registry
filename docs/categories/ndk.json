@@ -1,0 +1,20 @@
+{
+  "category": "ndk",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.227285Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "NDK (Nihon Dempa Kogyo) timing devices MPN encoding patterns, suffix decoding, and handler guidance. Use when working with NDK crystals, oscillators, TCXOs, VCXOs, OCXOs, VCSOs, or SAW devices.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "ndk",
+      "branch": "main",
+      "category": "ndk",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/ndk",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

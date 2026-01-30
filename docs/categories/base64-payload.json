@@ -1,0 +1,20 @@
+{
+  "category": "base64-payload",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.414981Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Process data with custom algorithms",
+      "repo": "cisco-ai-defense/skill-scanner",
+      "path": "base64-payload",
+      "branch": "main",
+      "category": "base64-payload",
+      "tags": [],
+      "stars": 0,
+      "install": "cisco-ai-defense/skill-scanner/base64-payload",
+      "source": "github.com/cisco-ai-defense/skill-scanner"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "decision",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.057957Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Strategic decision-making for CFN Loop progression with robust parsing. Use when evaluating validator consensus and determining PROCEED/ITERATE/ABORT outcomes.",
+      "repo": "masharratt/claude-flow-novice",
+      "path": "decision",
+      "branch": "main",
+      "category": "decision",
+      "tags": [],
+      "stars": 0,
+      "install": "masharratt/claude-flow-novice/decision",
+      "source": "github.com/masharratt/claude-flow-novice"
+    }
+  ]
+}

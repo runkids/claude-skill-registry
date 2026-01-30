@@ -1,0 +1,20 @@
+{
+  "category": "ffmpeg-cloudflare-containers",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.653487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "| Component | Configuration |",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "ffmpeg-cloudflare-containers",
+      "branch": "main",
+      "category": "ffmpeg-cloudflare-containers",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace/ffmpeg-cloudflare-containers",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

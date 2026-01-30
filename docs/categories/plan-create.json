@@ -1,0 +1,20 @@
+{
+  "category": "plan-create",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.579423Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Compile `.plan/active.yaml` into a schema-validated active plan directory under `.plan/active/`.",
+      "repo": "JordanGunn/nunchuck",
+      "path": "plan-create",
+      "branch": "main",
+      "category": "plan-create",
+      "tags": [],
+      "stars": 0,
+      "install": "JordanGunn/nunchuck/plan-create",
+      "source": "github.com/JordanGunn/nunchuck"
+    }
+  ]
+}

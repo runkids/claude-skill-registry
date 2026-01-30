@@ -1,0 +1,20 @@
+{
+  "category": "cv-content-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.739425Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate case studies, blog posts, experience updates, and variant content from the knowledge base. Use when user wants to create new CV content, write articles, or generate job-specific variants.",
+      "repo": "fotescodev/portfolio",
+      "path": "cv-content-generator",
+      "branch": "main",
+      "category": "cv-content-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "fotescodev/portfolio/cv-content-generator",
+      "source": "github.com/fotescodev/portfolio"
+    }
+  ]
+}

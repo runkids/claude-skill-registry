@@ -1,0 +1,20 @@
+{
+  "category": "moai-foundation-core",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.162760Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MoAI-ADK's foundational principles - TRUST 5, SPEC-First DDD, delegation patterns, token optimization, progressive disclosure, modular architecture, agent catalog, command reference, and execution rul",
+      "repo": "modu-ai/moai-adk",
+      "path": "moai-foundation-core",
+      "branch": "main",
+      "category": "moai-foundation-core",
+      "tags": [],
+      "stars": 0,
+      "install": "modu-ai/moai-adk/moai-foundation-core",
+      "source": "github.com/modu-ai/moai-adk"
+    }
+  ]
+}

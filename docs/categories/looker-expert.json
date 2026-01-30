@@ -1,0 +1,20 @@
+{
+  "category": "looker-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.055490Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Looker BI, LookML, explores, dimensions, measures, dashboards, and data modeling",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "looker-expert",
+      "branch": "main",
+      "category": "looker-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/looker-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

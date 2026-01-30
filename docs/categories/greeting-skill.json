@@ -1,0 +1,20 @@
+{
+  "category": "greeting-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.805134Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "在回覆訊息時，開頭加上「您好」問候語。適用於需要禮貌問候的對話情境。",
+      "repo": "Rex-shark/JavaExample",
+      "path": "greeting-skill",
+      "branch": "main",
+      "category": "greeting-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "Rex-shark/JavaExample/greeting-skill",
+      "source": "github.com/Rex-shark/JavaExample"
+    }
+  ]
+}

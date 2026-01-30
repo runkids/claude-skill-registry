@@ -1,0 +1,20 @@
+{
+  "category": "github-manage",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.771636Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage operations concerning GitHub on behalf of user",
+      "repo": "matteocervelli/llms",
+      "path": "github-manage",
+      "branch": "main",
+      "category": "github-manage",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms/github-manage",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

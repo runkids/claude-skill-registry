@@ -1,0 +1,20 @@
+{
+  "category": "agent-run",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.240909Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run with user's arguments:",
+      "repo": "faisalanjum/EventTrader",
+      "path": "agent-run",
+      "branch": "main",
+      "category": "agent-run",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/agent-run",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

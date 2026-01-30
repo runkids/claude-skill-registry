@@ -1,0 +1,20 @@
+{
+  "category": "ai-prompt-engineer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.281011Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI engineering skill for prompt optimization, context inference, and intelligent command routing across different models and use cases",
+      "repo": "wildcard/caro",
+      "path": "ai-prompt-engineer",
+      "branch": "main",
+      "category": "ai-prompt-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "wildcard/caro/ai-prompt-engineer",
+      "source": "github.com/wildcard/caro"
+    }
+  ]
+}

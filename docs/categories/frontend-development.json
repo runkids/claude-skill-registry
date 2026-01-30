@@ -1,0 +1,20 @@
+{
+  "category": "frontend-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.703885Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-framework frontend development. Frameworks: React 18+ (Suspense, hooks, TanStack), Vue 3 (Composition API, Pinia, Nuxt), Svelte 5 (Runes, SvelteKit), Angular (Signals, standalone). Common: TypeS",
+      "repo": "brixtonpham/claude-config",
+      "path": "frontend-development",
+      "branch": "main",
+      "category": "frontend-development",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/frontend-development",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

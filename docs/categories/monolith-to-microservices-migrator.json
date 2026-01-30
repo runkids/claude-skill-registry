@@ -1,0 +1,20 @@
+{
+  "category": "monolith-to-microservices-migrator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.196982Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan strangler migration, service boundaries, and data decomposition.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "monolith-to-microservices-migrator",
+      "branch": "main",
+      "category": "monolith-to-microservices-migrator",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/monolith-to-microservices-migrator",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

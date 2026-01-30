@@ -1,0 +1,20 @@
+{
+  "category": "prowler-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.713109Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prowler documentation style guide and writing standards. Trigger: When writing documentation for Prowler features, tutorials, or guides.",
+      "repo": "prowler-cloud/prowler",
+      "path": "prowler-docs",
+      "branch": "main",
+      "category": "prowler-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "prowler-cloud/prowler/prowler-docs",
+      "source": "github.com/prowler-cloud/prowler"
+    }
+  ]
+}

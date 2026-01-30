@@ -1,0 +1,20 @@
+{
+  "category": "agent-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.237259Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute this skill should be used when the user asks about \"SPAWN REQUEST format\", \"agent reports\", \"agent coordination\", \"parallel agents\", \"report format\", \"agent communication\", or needs to underst",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "agent-patterns",
+      "branch": "main",
+      "category": "agent-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/agent-patterns",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

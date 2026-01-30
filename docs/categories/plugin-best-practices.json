@@ -1,0 +1,20 @@
+{
+  "category": "plugin-best-practices",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.593310Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"validate a plugin\", \"optimize plugin\", \"check plugin quality\", \"review plugin structure\", \"find plugin issues\", \"check best practices\", \"analyze plugin",
+      "repo": "FradSer/dotclaude",
+      "path": "plugin-best-practices",
+      "branch": "main",
+      "category": "plugin-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "FradSer/dotclaude/plugin-best-practices",
+      "source": "github.com/FradSer/dotclaude"
+    }
+  ]
+}

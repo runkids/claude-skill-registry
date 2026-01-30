@@ -1,0 +1,20 @@
+{
+  "category": "context-split",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.668724Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Split large CLAUDE.md into child files. Use when context files exceed line limits, are too verbose, or cover multiple distinct topics that should be separate.",
+      "repo": "spencerbeggs/claude-design-coordinator",
+      "path": "context-split",
+      "branch": "main",
+      "category": "context-split",
+      "tags": [],
+      "stars": 0,
+      "install": "spencerbeggs/claude-design-coordinator/context-split",
+      "source": "github.com/spencerbeggs/claude-design-coordinator"
+    }
+  ]
+}

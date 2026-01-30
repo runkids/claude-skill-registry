@@ -1,0 +1,20 @@
+{
+  "category": "video-content-strategy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.414412Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate viral video content ideas tailored for brands based on social media trends. MANDATORY TRIGGERS: video content, video ideas, viral content, TikTok, Instagram Reels, YouTube Shorts, social medi",
+      "repo": "kreas/ship-it",
+      "path": "video-content-strategy",
+      "branch": "main",
+      "category": "video-content-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "kreas/ship-it/video-content-strategy",
+      "source": "github.com/kreas/ship-it"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "clavix-prd",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.545708Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create comprehensive Product Requirements Documents through strategic questioning. Use when planning a new feature or project that needs clear requirements.",
+      "repo": "alysonhower/dupcheck",
+      "path": "clavix-prd",
+      "branch": "main",
+      "category": "clavix-prd",
+      "tags": [],
+      "stars": 0,
+      "install": "alysonhower/dupcheck/clavix-prd",
+      "source": "github.com/alysonhower/dupcheck"
+    }
+  ]
+}

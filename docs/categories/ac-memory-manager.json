@@ -1,0 +1,20 @@
+{
+  "category": "ac-memory-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.191714Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage persistent memory for autonomous coding. Use when storing/retrieving knowledge, managing Graphiti integration, persisting learnings, or accessing episodic memory.",
+      "repo": "adaptationio/Skrillz",
+      "path": "ac-memory-manager",
+      "branch": "main",
+      "category": "ac-memory-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/ac-memory-manager",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

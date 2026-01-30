@@ -1,0 +1,20 @@
+{
+  "category": "arch-performance-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.341350Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when analyzing and improving performance for database queries, API endpoints, frontend rendering, or cross-service communication. Triage skill that routes to database-optimization, frontend-patter",
+      "repo": "duc01226/EasyPlatform",
+      "path": "arch-performance-optimization",
+      "branch": "main",
+      "category": "arch-performance-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform/arch-performance-optimization",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

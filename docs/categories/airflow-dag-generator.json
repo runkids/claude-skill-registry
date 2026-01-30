@@ -1,0 +1,20 @@
+{
+  "category": "airflow-dag-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.285066Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Airflow Dag Generator - Auto-activating skill for Data Pipelines. Triggers on: airflow dag generator, airflow dag generator Part of the Data Pipelines skill category.",
+      "repo": "byteworthy/Upstream",
+      "path": "airflow-dag-generator",
+      "branch": "main",
+      "category": "airflow-dag-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/airflow-dag-generator",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

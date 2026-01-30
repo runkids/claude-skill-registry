@@ -1,0 +1,20 @@
+{
+  "category": "risk-register",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.848516Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to track pursuit risks, owners, mitigation steps, and escalation triggers.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "risk-register",
+      "branch": "main",
+      "category": "risk-register",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/risk-register",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

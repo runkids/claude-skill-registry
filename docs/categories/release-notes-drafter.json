@@ -1,0 +1,20 @@
+{
+  "category": "release-notes-drafter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.807390Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Draft release notes from changes and PRs. Use when a mid-level developer needs a structured changelog.",
+      "repo": "proflead/codex-skills-library",
+      "path": "release-notes-drafter",
+      "branch": "main",
+      "category": "release-notes-drafter",
+      "tags": [],
+      "stars": 0,
+      "install": "proflead/codex-skills-library/release-notes-drafter",
+      "source": "github.com/proflead/codex-skills-library"
+    }
+  ]
+}

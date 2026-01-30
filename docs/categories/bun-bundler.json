@@ -1,0 +1,20 @@
+{
+  "category": "bun-bundler",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.468145Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks about \"bun build\", \"Bun.build\", \"bundling with Bun\", \"code splitting\", \"tree shaking\", \"minification\", \"sourcemaps\", \"bundle optimization\", \"esbuild altern",
+      "repo": "secondsky/claude-skills",
+      "path": "bun-bundler",
+      "branch": "main",
+      "category": "bun-bundler",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills/bun-bundler",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

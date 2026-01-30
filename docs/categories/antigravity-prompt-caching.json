@@ -1,0 +1,20 @@
+{
+  "category": "antigravity-prompt-caching",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.312290Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Caching strategies for LLM prompts including Anthropic prompt caching, response caching, and CAG (Cache Augmented Generation) Use when: prompt caching, cache prompt, response cache, cag, cache augment",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-prompt-caching",
+      "branch": "main",
+      "category": "antigravity-prompt-caching",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/antigravity-prompt-caching",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

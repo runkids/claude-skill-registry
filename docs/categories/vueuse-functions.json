@@ -1,0 +1,20 @@
+{
+  "category": "vueuse-functions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.436404Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply VueUse composables where appropriate to build concise, maintainable Vue.js / Nuxt features.",
+      "repo": "vueuse/skills",
+      "path": "vueuse-functions",
+      "branch": "main",
+      "category": "vueuse-functions",
+      "tags": [],
+      "stars": 0,
+      "install": "vueuse/skills/vueuse-functions",
+      "source": "github.com/vueuse/skills"
+    }
+  ]
+}

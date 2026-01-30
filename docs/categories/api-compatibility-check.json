@@ -1,0 +1,20 @@
+{
+  "category": "api-compatibility-check",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.318100Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "API互換性を検証",
+      "repo": "Hopin-inc/civicship-api",
+      "path": "api-compatibility-check",
+      "branch": "main",
+      "category": "api-compatibility-check",
+      "tags": [],
+      "stars": 0,
+      "install": "Hopin-inc/civicship-api/api-compatibility-check",
+      "source": "github.com/Hopin-inc/civicship-api"
+    }
+  ]
+}

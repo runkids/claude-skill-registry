@@ -1,0 +1,20 @@
+{
+  "category": "standard-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.078704Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"perform standard task\", \"follow best practices\", \"implement common pattern\", or needs comprehensive guidance. Demonstrates recommended skill structure",
+      "repo": "helmecke/dotfiles",
+      "path": "standard-skill",
+      "branch": "main",
+      "category": "standard-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "helmecke/dotfiles/standard-skill",
+      "source": "github.com/helmecke/dotfiles"
+    }
+  ]
+}

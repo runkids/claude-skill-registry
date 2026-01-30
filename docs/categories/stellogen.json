@@ -1,0 +1,20 @@
+{
+  "category": "stellogen",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.092036Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Stellogen Skill",
+      "repo": "plurigrid/asi",
+      "path": "stellogen",
+      "branch": "main",
+      "category": "stellogen",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/stellogen",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

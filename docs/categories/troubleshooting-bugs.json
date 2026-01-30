@@ -1,0 +1,20 @@
+{
+  "category": "troubleshooting-bugs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.315241Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standard protocol for debugging and fixing issues across the stack. Use when encountering errors or unexpected behavior.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "troubleshooting-bugs",
+      "branch": "main",
+      "category": "troubleshooting-bugs",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2/troubleshooting-bugs",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

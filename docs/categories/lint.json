@@ -1,0 +1,20 @@
+{
+  "category": "lint",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.027274Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run formatting and linting checks on the codebase",
+      "repo": "ahtavarasmus/lightfriend-cloud",
+      "path": "lint",
+      "branch": "main",
+      "category": "lint",
+      "tags": [],
+      "stars": 0,
+      "install": "ahtavarasmus/lightfriend-cloud/lint",
+      "source": "github.com/ahtavarasmus/lightfriend-cloud"
+    }
+  ]
+}

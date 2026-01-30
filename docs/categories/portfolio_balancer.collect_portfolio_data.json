@@ -1,0 +1,20 @@
+{
+  "category": "portfolio_balancer.collect_portfolio_data",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.610137Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Gather current portfolio positions, values, and prices from Robinhood using bin/robinhood CLI",
+      "repo": "ncrmro/deepwork-permanent-portfolio",
+      "path": "portfolio_balancer.collect_portfolio_data",
+      "branch": "main",
+      "category": "portfolio_balancer.collect_portfolio_data",
+      "tags": [],
+      "stars": 0,
+      "install": "ncrmro/deepwork-permanent-portfolio/portfolio_balancer.collect_portfolio_data",
+      "source": "github.com/ncrmro/deepwork-permanent-portfolio"
+    }
+  ]
+}

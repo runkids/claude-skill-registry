@@ -1,0 +1,20 @@
+{
+  "category": "code-comment-enricher",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.587767Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add JSDoc/docstrings with examples.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "code-comment-enricher",
+      "branch": "main",
+      "category": "code-comment-enricher",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/code-comment-enricher",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

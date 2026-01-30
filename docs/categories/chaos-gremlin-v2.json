@@ -1,0 +1,20 @@
+{
+  "category": "chaos-gremlin-v2",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.512238Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "🍆👾 BIG DICK GLITCH GREMLIN SUPER COLLIDER. Unconventional problem-solving with chaotic good energy. Finds creative edge cases, challenges assumptions, explores weird solutions that technically work. F",
+      "repo": "agentgptsmith/MonadFramework",
+      "path": "chaos-gremlin-v2",
+      "branch": "main",
+      "category": "chaos-gremlin-v2",
+      "tags": [],
+      "stars": 0,
+      "install": "agentgptsmith/MonadFramework/chaos-gremlin-v2",
+      "source": "github.com/agentgptsmith/MonadFramework"
+    }
+  ]
+}

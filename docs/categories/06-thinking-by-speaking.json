@@ -1,0 +1,20 @@
+{
+  "category": "06-thinking-by-speaking",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.141184Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "На втором этапе необходимо осознанно практиковаться в мышлении",
+      "repo": "aisystant/Self-development",
+      "path": "06-thinking-by-speaking",
+      "branch": "main",
+      "category": "06-thinking-by-speaking",
+      "tags": [],
+      "stars": 0,
+      "install": "aisystant/Self-development/06-thinking-by-speaking",
+      "source": "github.com/aisystant/Self-development"
+    }
+  ]
+}

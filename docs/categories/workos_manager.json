@@ -1,0 +1,20 @@
+{
+  "category": "workos_manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.485522Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete WorkOS authentication management including OAuth, SSO, SCIM, email templates, domain verification, and user management. Use for enterprise auth configuration.",
+      "repo": "Verridian-ai/life-os-Pulse-banner-generator",
+      "path": "workos_manager",
+      "branch": "main",
+      "category": "workos_manager",
+      "tags": [],
+      "stars": 0,
+      "install": "Verridian-ai/life-os-Pulse-banner-generator/workos_manager",
+      "source": "github.com/Verridian-ai/life-os-Pulse-banner-generator"
+    }
+  ]
+}

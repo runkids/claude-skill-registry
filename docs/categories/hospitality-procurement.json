@@ -1,0 +1,20 @@
+{
+  "category": "hospitality-procurement",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.839968Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize hospitality purchasing, manage hotel/restaurant suppliers, or improve procurement processes. Also use when the user mentions \"hotel procurement,\" \"restaurant purchasing",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "hospitality-procurement",
+      "branch": "main",
+      "category": "hospitality-procurement",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/hospitality-procurement",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

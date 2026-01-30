@@ -1,0 +1,20 @@
+{
+  "category": "issue-resolver",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.908528Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "GitHub Issue resolver skill that analyzes, triages, and proposes solutions for issues with full SDD integration  Trigger terms: resolve issue, fix issue, github issue, issue triage, issue analysis, is",
+      "repo": "nahisaho/MUSUBI",
+      "path": "issue-resolver",
+      "branch": "main",
+      "category": "issue-resolver",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/MUSUBI/issue-resolver",
+      "source": "github.com/nahisaho/MUSUBI"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "join",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.928654Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "JOIN.com Bewerbungsmanagement - neue Bewerbungen anzeigen, Gehaltsvorstellungen prüfen, PDFs automatisch zu Google Drive hochladen. Use when user asks about applications, candidates, job applications,",
+      "repo": "rdsthomas/mission-control",
+      "path": "join",
+      "branch": "main",
+      "category": "join",
+      "tags": [],
+      "stars": 0,
+      "install": "rdsthomas/mission-control/join",
+      "source": "github.com/rdsthomas/mission-control"
+    }
+  ]
+}

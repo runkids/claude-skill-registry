@@ -1,0 +1,20 @@
+{
+  "category": "ebook-concept-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.549927Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Develop ebook ideas into structured concepts ready for architecture. Use when the user has an ebook idea (from a brainstorm document, existing content to repurpose, a book section to extract, or a fre",
+      "repo": "robertguss/claude-code-toolkit",
+      "path": "ebook-concept-development",
+      "branch": "main",
+      "category": "ebook-concept-development",
+      "tags": [],
+      "stars": 0,
+      "install": "robertguss/claude-code-toolkit/ebook-concept-development",
+      "source": "github.com/robertguss/claude-code-toolkit"
+    }
+  ]
+}

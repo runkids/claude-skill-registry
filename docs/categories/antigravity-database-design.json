@@ -1,0 +1,20 @@
+{
+  "category": "antigravity-database-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.308189Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Database design principles and decision-making. Schema design, indexing strategy, ORM selection, serverless databases.",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-database-design",
+      "branch": "main",
+      "category": "antigravity-database-design",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/antigravity-database-design",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

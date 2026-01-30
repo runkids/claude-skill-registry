@@ -1,0 +1,20 @@
+{
+  "category": "magento-issue-debugger",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.063784Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematically investigates, diagnoses, and resolves complex Magento 2 technical problems. Use when debugging issues, investigating bugs, analyzing performance problems, resolving errors, or troublesh",
+      "repo": "maxnorm/magento2-agent-skills",
+      "path": "magento-issue-debugger",
+      "branch": "main",
+      "category": "magento-issue-debugger",
+      "tags": [],
+      "stars": 0,
+      "install": "maxnorm/magento2-agent-skills/magento-issue-debugger",
+      "source": "github.com/maxnorm/magento2-agent-skills"
+    }
+  ]
+}

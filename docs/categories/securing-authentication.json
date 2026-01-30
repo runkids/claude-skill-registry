@@ -1,0 +1,20 @@
+{
+  "category": "securing-authentication",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.935643Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Authentication, authorization, and API security implementation. Use when building user systems, protecting APIs, or implementing access control. Covers OAuth 2.1/OIDC, JWT patterns, sessions, Passkeys",
+      "repo": "ancoleman/ai-design-components",
+      "path": "securing-authentication",
+      "branch": "main",
+      "category": "securing-authentication",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/securing-authentication",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

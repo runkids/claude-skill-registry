@@ -1,0 +1,20 @@
+{
+  "category": "google-app-engine",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.788834Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploy Python applications to Google App Engine Standard/Flexible. Covers app.yaml configuration, Cloud SQL socket connections, Cloud Storage for static files, scaling settings, and environment variab",
+      "repo": "jezweb/claude-skills",
+      "path": "google-app-engine",
+      "branch": "main",
+      "category": "google-app-engine",
+      "tags": [],
+      "stars": 0,
+      "install": "jezweb/claude-skills/google-app-engine",
+      "source": "github.com/jezweb/claude-skills"
+    }
+  ]
+}

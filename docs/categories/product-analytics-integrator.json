@@ -1,0 +1,20 @@
+{
+  "category": "product-analytics-integrator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.659001Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guidance for designing event tracking systems, implementing analytics SDKs (PostHog, Mixpanel, GA4, Amplitude), creating semantic event taxonomies, validating instrumentation, building dashboar",
+      "repo": "sitechfromgeorgia/georgian-distribution-system",
+      "path": "product-analytics-integrator",
+      "branch": "main",
+      "category": "product-analytics-integrator",
+      "tags": [],
+      "stars": 0,
+      "install": "sitechfromgeorgia/georgian-distribution-system/product-analytics-integrator",
+      "source": "github.com/sitechfromgeorgia/georgian-distribution-system"
+    }
+  ]
+}

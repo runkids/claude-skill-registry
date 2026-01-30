@@ -1,0 +1,20 @@
+{
+  "category": "feature-engineering-kit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.643241Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-generate features with encodings, scaling, polynomial features, and interaction terms for ML pipelines.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "feature-engineering-kit",
+      "branch": "main",
+      "category": "feature-engineering-kit",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/feature-engineering-kit",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

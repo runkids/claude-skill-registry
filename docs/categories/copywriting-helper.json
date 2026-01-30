@@ -1,0 +1,20 @@
+{
+  "category": "copywriting-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.687002Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "セールスレター、ステップメール、VSL、ローンチ動画スクリプトの作成を支援。マーケティングコピーやセールスライティングを書く際に使用。",
+      "repo": "taiyousan15/taisun_agent",
+      "path": "copywriting-helper",
+      "branch": "main",
+      "category": "copywriting-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/copywriting-helper",
+      "source": "github.com/taiyousan15/taisun_agent"
+    }
+  ]
+}

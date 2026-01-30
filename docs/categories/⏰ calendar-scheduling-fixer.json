@@ -1,0 +1,20 @@
+{
+  "category": "⏰ calendar-scheduling-fixer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.518447Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when fixing Vue.js calendar task scheduling issues, specifically when tasks with due dates incorrectly appear in calendar grid instead of staying in calendar inbox. The skill",
+      "repo": "endlessblink/flow-state",
+      "path": "⏰ calendar-scheduling-fixer",
+      "branch": "main",
+      "category": "⏰ calendar-scheduling-fixer",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/⏰ calendar-scheduling-fixer",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

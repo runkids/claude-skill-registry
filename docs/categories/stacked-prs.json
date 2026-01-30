@@ -1,0 +1,20 @@
+{
+  "category": "stacked-prs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.076641Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage stacked PRs with proper visualization, merge-based updates, and iterative CodeRabbit feedback cycles",
+      "repo": "bitsoex/bitso-java",
+      "path": "stacked-prs",
+      "branch": "main",
+      "category": "stacked-prs",
+      "tags": [],
+      "stars": 0,
+      "install": "bitsoex/bitso-java/stacked-prs",
+      "source": "github.com/bitsoex/bitso-java"
+    }
+  ]
+}

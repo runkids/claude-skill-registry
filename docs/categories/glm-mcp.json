@@ -1,0 +1,20 @@
+{
+  "category": "glm-mcp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.778705Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Custom skill for glm-mcp",
+      "repo": "alfredolopez80/multi-agent-ralph-loop",
+      "path": "glm-mcp",
+      "branch": "main",
+      "category": "glm-mcp",
+      "tags": [],
+      "stars": 0,
+      "install": "alfredolopez80/multi-agent-ralph-loop/glm-mcp",
+      "source": "github.com/alfredolopez80/multi-agent-ralph-loop"
+    }
+  ]
+}

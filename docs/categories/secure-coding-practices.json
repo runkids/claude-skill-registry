@@ -1,0 +1,20 @@
+{
+  "category": "secure-coding-practices",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.934749Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Secure coding practices and defensive programming patterns for building security-first applications. Use when implementing authentication, handling user input, managing sensitive data, or conducting s",
+      "repo": "NickCrew/claude-cortex",
+      "path": "secure-coding-practices",
+      "branch": "main",
+      "category": "secure-coding-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex/secure-coding-practices",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

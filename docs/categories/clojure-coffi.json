@@ -1,0 +1,20 @@
+{
+  "category": "clojure-coffi",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.564731Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coffi FFI library for calling native C code from Clojure via Panama FFM API (JDK 22+). Use when: wrapping native C libraries, calling native functions, working with off-heap memory and arenas, etc.",
+      "repo": "Ramblurr/nix-devenv",
+      "path": "clojure-coffi",
+      "branch": "main",
+      "category": "clojure-coffi",
+      "tags": [],
+      "stars": 0,
+      "install": "Ramblurr/nix-devenv/clojure-coffi",
+      "source": "github.com/Ramblurr/nix-devenv"
+    }
+  ]
+}

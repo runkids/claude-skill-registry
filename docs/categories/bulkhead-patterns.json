@@ -1,0 +1,20 @@
+{
+  "category": "bulkhead-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.467294Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Resource isolation strategies to prevent cascading failures and limit blast radius in distributed systems",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "bulkhead-patterns",
+      "branch": "main",
+      "category": "bulkhead-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/bulkhead-patterns",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

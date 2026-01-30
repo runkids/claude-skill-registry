@@ -1,0 +1,20 @@
+{
+  "category": "dependency-update",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.073530Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Safely update dependencies with version analysis, breaking change detection, and rollback planning",
+      "repo": "EtroxTaran/conductor",
+      "path": "dependency-update",
+      "branch": "main",
+      "category": "dependency-update",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor/dependency-update",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

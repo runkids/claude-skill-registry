@@ -1,0 +1,20 @@
+{
+  "category": "founder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.690933Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when validating ideas, sizing markets, building pitch decks, preparing for investors, modeling financials, planning launches, or creating board reports. Auto-activates on fundraising, pitch, inves",
+      "repo": "saadshahd/moo.md",
+      "path": "founder",
+      "branch": "main",
+      "category": "founder",
+      "tags": [],
+      "stars": 0,
+      "install": "saadshahd/moo.md/founder",
+      "source": "github.com/saadshahd/moo.md"
+    }
+  ]
+}

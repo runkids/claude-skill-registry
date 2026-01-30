@@ -1,0 +1,20 @@
+{
+  "category": "dependency-audit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.071288Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audit npm dependencies for security vulnerabilities, outdated packages, and license compliance.",
+      "repo": "cpa03/blueprintify",
+      "path": "dependency-audit",
+      "branch": "main",
+      "category": "dependency-audit",
+      "tags": [],
+      "stars": 0,
+      "install": "cpa03/blueprintify/dependency-audit",
+      "source": "github.com/cpa03/blueprintify"
+    }
+  ]
+}

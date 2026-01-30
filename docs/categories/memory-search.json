@@ -1,0 +1,20 @@
+{
+  "category": "memory-search",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.117835Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PROACTIVELY search conversation history when receiving user instructions. Find previous discussions, decisions, and context BEFORE starting new work. Your memory is valuable - use it.",
+      "repo": "23blocks-OS/ai-maestro",
+      "path": "memory-search",
+      "branch": "main",
+      "category": "memory-search",
+      "tags": [],
+      "stars": 0,
+      "install": "23blocks-OS/ai-maestro/memory-search",
+      "source": "github.com/23blocks-OS/ai-maestro"
+    }
+  ]
+}

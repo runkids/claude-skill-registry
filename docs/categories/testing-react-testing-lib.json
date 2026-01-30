@@ -1,0 +1,20 @@
+{
+  "category": "testing-react-testing-lib",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.273392Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when testing React components: rendering, user interactions, and accessibility-focused testing.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "testing-react-testing-lib",
+      "branch": "main",
+      "category": "testing-react-testing-lib",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/testing-react-testing-lib",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

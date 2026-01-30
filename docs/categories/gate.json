@@ -1,0 +1,20 @@
+{
+  "category": "gate",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.724814Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Verification before completion claims. Use when about to say \"done\", \"fixed\", or \"complete\". Runs checklist by workflow type with evidence requirements.",
+      "repo": "saadshahd/moo.md",
+      "path": "gate",
+      "branch": "main",
+      "category": "gate",
+      "tags": [],
+      "stars": 0,
+      "install": "saadshahd/moo.md/gate",
+      "source": "github.com/saadshahd/moo.md"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "remind-me",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.810031Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set reminders using natural language. Automatically creates one-time cron jobs and logs to markdown.",
+      "repo": "rdsthomas/mission-control",
+      "path": "remind-me",
+      "branch": "main",
+      "category": "remind-me",
+      "tags": [],
+      "stars": 0,
+      "install": "rdsthomas/mission-control/remind-me",
+      "source": "github.com/rdsthomas/mission-control"
+    }
+  ]
+}

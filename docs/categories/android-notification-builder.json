@@ -1,0 +1,20 @@
+{
+  "category": "android-notification-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.297183Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт Android notifications. Используй для push notifications, channels и notification patterns.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "android-notification-builder",
+      "branch": "main",
+      "category": "android-notification-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/android-notification-builder",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

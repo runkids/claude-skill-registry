@@ -1,0 +1,20 @@
+{
+  "category": "clojure-telemere",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.567689Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Structured telemetry library for Clojure/Script. Use when working with logging, tracing, structured logging, events, signal handling, observability, or replacing Timbre/tools.logging.",
+      "repo": "Ramblurr/nix-devenv",
+      "path": "clojure-telemere",
+      "branch": "main",
+      "category": "clojure-telemere",
+      "tags": [],
+      "stars": 0,
+      "install": "Ramblurr/nix-devenv/clojure-telemere",
+      "source": "github.com/Ramblurr/nix-devenv"
+    }
+  ]
+}

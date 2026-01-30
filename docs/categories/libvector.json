@@ -1,0 +1,20 @@
+{
+  "category": "libvector",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.018287Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "libvector - Vector similarity search. VectorIndex stores embeddings with metadata and performs cosine similarity search. VectorProcessor handles embedding generation and indexing. Supports filtering b",
+      "repo": "copilot-ld/copilot-ld",
+      "path": "libvector",
+      "branch": "main",
+      "category": "libvector",
+      "tags": [],
+      "stars": 0,
+      "install": "copilot-ld/copilot-ld/libvector",
+      "source": "github.com/copilot-ld/copilot-ld"
+    }
+  ]
+}

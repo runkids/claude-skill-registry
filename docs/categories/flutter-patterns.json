@@ -1,0 +1,20 @@
+{
+  "category": "flutter-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.681480Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Project structure, widgets, state management, navigation, theming, platform channels, and best practices for building cross-platform mobile applications with Flutter.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "flutter-patterns",
+      "branch": "main",
+      "category": "flutter-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/flutter-patterns",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

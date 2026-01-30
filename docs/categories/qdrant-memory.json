@@ -1,0 +1,20 @@
+{
+  "category": "qdrant-memory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.743470Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill for semantic search, long-term memory storage, and RAG (Retrieval Augmented Generation). Enables vector-based knowledge retrieval and persistent memory across sessions.",
+      "repo": "taiyousan15/taisun_agent",
+      "path": "qdrant-memory",
+      "branch": "main",
+      "category": "qdrant-memory",
+      "tags": [],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/qdrant-memory",
+      "source": "github.com/taiyousan15/taisun_agent"
+    }
+  ]
+}

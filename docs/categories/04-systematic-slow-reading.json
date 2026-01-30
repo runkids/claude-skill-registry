@@ -1,0 +1,20 @@
+{
+  "category": "04-systematic-slow-reading",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.140826Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Данная практика не особо сложная, поэтому попробуйте составить",
+      "repo": "aisystant/Self-development",
+      "path": "04-systematic-slow-reading",
+      "branch": "main",
+      "category": "04-systematic-slow-reading",
+      "tags": [],
+      "stars": 0,
+      "install": "aisystant/Self-development/04-systematic-slow-reading",
+      "source": "github.com/aisystant/Self-development"
+    }
+  ]
+}

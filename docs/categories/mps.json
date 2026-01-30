@@ -1,0 +1,20 @@
+{
+  "category": "mps",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.206384Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Monolithic Power Systems MPN encoding patterns, suffix decoding, and handler guidance. Use when working with MPS power components or MPSHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "mps",
+      "branch": "main",
+      "category": "mps",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/mps",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

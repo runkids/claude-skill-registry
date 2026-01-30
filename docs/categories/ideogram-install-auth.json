@@ -1,0 +1,20 @@
+{
+  "category": "ideogram-install-auth",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.858577Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Install and configure Ideogram SDK/CLI authentication. Use when setting up a new Ideogram integration, configuring API keys, or initializing Ideogram in your project. Trigger with phrases like \"instal",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "ideogram-install-auth",
+      "branch": "main",
+      "category": "ideogram-install-auth",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/ideogram-install-auth",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

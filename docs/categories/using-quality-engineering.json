@@ -1,0 +1,20 @@
+{
+  "category": "using-quality-engineering",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.372655Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when user asks about E2E testing, performance testing, chaos engineering, test automation, flaky tests, test data management, or quality practices - routes to specialist reference sheets with deep",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-quality-engineering",
+      "branch": "main",
+      "category": "using-quality-engineering",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks/using-quality-engineering",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

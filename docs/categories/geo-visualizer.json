@@ -1,0 +1,20 @@
+{
+  "category": "geo-visualizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.747732Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create interactive maps with markers, heatmaps, routes, and choropleth layers. Use when visualizing geographic data, plotting locations, or creating map-based reports.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "geo-visualizer",
+      "branch": "main",
+      "category": "geo-visualizer",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/geo-visualizer",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

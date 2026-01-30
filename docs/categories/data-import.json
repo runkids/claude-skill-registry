@@ -1,0 +1,20 @@
+{
+  "category": "data-import",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.028993Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Load and parse mass spectrometry data formats including mzML, mzXML, and quantification tool outputs like MaxQuant proteinGroups.txt. Use when starting a proteomics analysis with raw or processed MS d",
+      "repo": "GPTomics/bioSkills",
+      "path": "data-import",
+      "branch": "main",
+      "category": "data-import",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/data-import",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

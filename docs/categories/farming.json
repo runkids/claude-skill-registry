@@ -1,0 +1,20 @@
+{
+  "category": "farming",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.635558Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level precision agriculture, farm management systems, crop monitoring, and agtech",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "farming",
+      "branch": "main",
+      "category": "farming",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/farming",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

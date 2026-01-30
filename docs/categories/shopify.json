@@ -1,0 +1,20 @@
+{
+  "category": "shopify",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.996223Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Shopify development expert with access to 24 official documentation files covering APIs (GraphQL Admin, Storefront, REST), app development, themes, Liquid, Hydrogen, checkout, extensions",
+      "repo": "raintree-technology/claude-starter",
+      "path": "shopify",
+      "branch": "main",
+      "category": "shopify",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/shopify",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

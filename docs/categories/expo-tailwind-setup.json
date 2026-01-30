@@ -1,0 +1,20 @@
+{
+  "category": "expo-tailwind-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.625542Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up Tailwind CSS v4 in Expo with react-native-css and NativeWind v5 for universal styling",
+      "repo": "luthebao/expo-template",
+      "path": "expo-tailwind-setup",
+      "branch": "main",
+      "category": "expo-tailwind-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "luthebao/expo-template/expo-tailwind-setup",
+      "source": "github.com/luthebao/expo-template"
+    }
+  ]
+}

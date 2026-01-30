@@ -1,0 +1,20 @@
+{
+  "category": "local-env",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.048077Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Local environment management - run SQL queries, set up fake payments, reset test data. Use when the user needs help with local database operations or test data setup.",
+      "repo": "dailydotdev/daily-api",
+      "path": "local-env",
+      "branch": "main",
+      "category": "local-env",
+      "tags": [],
+      "stars": 0,
+      "install": "dailydotdev/daily-api/local-env",
+      "source": "github.com/dailydotdev/daily-api"
+    }
+  ]
+}

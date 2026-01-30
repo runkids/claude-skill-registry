@@ -1,0 +1,20 @@
+{
+  "category": "contract-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.673804Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to manage supplier contracts, negotiate terms, track compliance, or optimize contract performance. Also use when the user mentions \"contract lifecycle,\" \"contract negotiation,\" \"SL",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "contract-management",
+      "branch": "main",
+      "category": "contract-management",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/contract-management",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

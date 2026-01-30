@@ -1,0 +1,20 @@
+{
+  "category": "cfn-parameterized-queries",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.505021Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Secure SQL query execution with parameterized queries to prevent SQL injection attacks. Use when executing database queries, inserting/updating records, or performing any SQL operations that require s",
+      "repo": "masharratt/claude-flow-novice",
+      "path": "cfn-parameterized-queries",
+      "branch": "main",
+      "category": "cfn-parameterized-queries",
+      "tags": [],
+      "stars": 0,
+      "install": "masharratt/claude-flow-novice/cfn-parameterized-queries",
+      "source": "github.com/masharratt/claude-flow-novice"
+    }
+  ]
+}

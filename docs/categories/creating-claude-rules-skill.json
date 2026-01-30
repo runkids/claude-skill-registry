@@ -1,0 +1,20 @@
+{
+  "category": "creating-claude-rules-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.710230Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating or fixing .claude/rules/ files - provides correct paths frontmatter (not globs), glob patterns, and avoids Cursor-specific fields like alwaysApply",
+      "repo": "AgentWorkforce/relay",
+      "path": "creating-claude-rules-skill",
+      "branch": "main",
+      "category": "creating-claude-rules-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentWorkforce/relay/creating-claude-rules-skill",
+      "source": "github.com/AgentWorkforce/relay"
+    }
+  ]
+}

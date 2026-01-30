@@ -1,0 +1,20 @@
+{
+  "category": "anti-reversing-techniques",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.305314Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Understand anti-reversing, obfuscation, and protection techniques encountered during software analysis. Use when analyzing protected binaries, bypassing anti-debugging for authorized analysis, or unde",
+      "repo": "haxllo/repolens",
+      "path": "anti-reversing-techniques",
+      "branch": "main",
+      "category": "anti-reversing-techniques",
+      "tags": [],
+      "stars": 0,
+      "install": "haxllo/repolens/anti-reversing-techniques",
+      "source": "github.com/haxllo/repolens"
+    }
+  ]
+}

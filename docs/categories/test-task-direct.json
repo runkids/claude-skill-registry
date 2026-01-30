@@ -1,0 +1,20 @@
+{
+  "category": "test-task-direct",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.214334Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Direct test - just call TaskList and TaskCreate, no introspection",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-task-direct",
+      "branch": "main",
+      "category": "test-task-direct",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/test-task-direct",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "adoption-playbook",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.213790Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Structured guide for designing and executing customer adoption programs.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "adoption-playbook",
+      "branch": "main",
+      "category": "adoption-playbook",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/adoption-playbook",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

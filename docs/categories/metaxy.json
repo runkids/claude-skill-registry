@@ -1,0 +1,20 @@
+{
+  "category": "metaxy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.125869Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"define a feature\", \"create a BaseFeature class\", \"track feature versions\", \"set up metadata store\", \"field-level dependencies\", \"FieldSpec\", \"FeatureDe",
+      "repo": "anam-org/metaxy",
+      "path": "metaxy",
+      "branch": "main",
+      "category": "metaxy",
+      "tags": [],
+      "stars": 0,
+      "install": "anam-org/metaxy/metaxy",
+      "source": "github.com/anam-org/metaxy"
+    }
+  ]
+}

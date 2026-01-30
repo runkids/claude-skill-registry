@@ -1,0 +1,20 @@
+{
+  "category": "rails-rails-business-logic",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.760490Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Specialized skill for Rails business logic with ActiveInteraction, AASM state machines, and ActiveDecorator. Use when implementing complex operations, state transitions, or presentation logic. Enforce",
+      "repo": "boisenoise/skills-collections",
+      "path": "rails-rails-business-logic",
+      "branch": "main",
+      "category": "rails-rails-business-logic",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/rails-rails-business-logic",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

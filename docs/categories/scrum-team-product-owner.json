@@ -1,0 +1,20 @@
+{
+  "category": "scrum-team-product-owner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.927276Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI-Agentic Product Owner accountable for maximizing product value through effective Product Backlog management. Use when creating PBIs, ordering backlog, or accepting sprints.",
+      "repo": "staticWagomU/dotfiles",
+      "path": "scrum-team-product-owner",
+      "branch": "main",
+      "category": "scrum-team-product-owner",
+      "tags": [],
+      "stars": 0,
+      "install": "staticWagomU/dotfiles/scrum-team-product-owner",
+      "source": "github.com/staticWagomU/dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "postgresql-table-design copy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.615488Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design a PostgreSQL-specific schema. Covers best-practices, data types, indexing, constraints, performance patterns, and advanced features",
+      "repo": "algusaem/algusaem-portfolio",
+      "path": "postgresql-table-design copy",
+      "branch": "main",
+      "category": "postgresql-table-design copy",
+      "tags": [],
+      "stars": 0,
+      "install": "algusaem/algusaem-portfolio/postgresql-table-design copy",
+      "source": "github.com/algusaem/algusaem-portfolio"
+    }
+  ]
+}

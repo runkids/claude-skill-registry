@@ -1,0 +1,20 @@
+{
+  "category": "ios-debugger-agent",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.901435Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use XcodeBuildMCP to build, run, launch, and debug the current iOS project on a booted simulator. Trigger when asked to run an iOS app, interact with the simulator UI, inspect on-screen state, capture",
+      "repo": "dandedotdev/dotfiles",
+      "path": "ios-debugger-agent",
+      "branch": "main",
+      "category": "ios-debugger-agent",
+      "tags": [],
+      "stars": 0,
+      "install": "dandedotdev/dotfiles/ios-debugger-agent",
+      "source": "github.com/dandedotdev/dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "pm-resource",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.598534Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "プロジェクトに必要なリソース（人員、スキル、コスト）を計画・管理します。",
+      "repo": "infinith4/dev-flutter-realestate",
+      "path": "pm-resource",
+      "branch": "main",
+      "category": "pm-resource",
+      "tags": [],
+      "stars": 0,
+      "install": "infinith4/dev-flutter-realestate/pm-resource",
+      "source": "github.com/infinith4/dev-flutter-realestate"
+    }
+  ]
+}

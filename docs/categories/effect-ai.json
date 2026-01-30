@@ -1,0 +1,20 @@
+{
+  "category": "effect-ai",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.555530Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks about \"Effect AI\", \"@effect/ai\", \"LLM integration\", \"AI tool use\", \"AI execution planning\", \"building AI agents\", \"AI providers\", \"structured AI output\", \"",
+      "repo": "andrueandersoncs/claude-skill-effect-ts",
+      "path": "effect-ai",
+      "branch": "main",
+      "category": "effect-ai",
+      "tags": [],
+      "stars": 0,
+      "install": "andrueandersoncs/claude-skill-effect-ts/effect-ai",
+      "source": "github.com/andrueandersoncs/claude-skill-effect-ts"
+    }
+  ]
+}

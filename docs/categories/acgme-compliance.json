@@ -1,0 +1,20 @@
+{
+  "category": "acgme-compliance",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.198206Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ACGME regulatory compliance expertise for medical residency scheduling. Use when validating schedules, checking work hour limits, supervision ratios, or answering compliance questions. Integrates with",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "acgme-compliance",
+      "branch": "main",
+      "category": "acgme-compliance",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/acgme-compliance",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

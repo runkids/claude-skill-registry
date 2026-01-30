@@ -1,0 +1,20 @@
+{
+  "category": "service-mesh-observability",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.974050Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement comprehensive observability for service meshes including distributed tracing, metrics, and visualization. Use when setting up mesh monitoring, debugging latency issues, or implementing SLOs",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "service-mesh-observability",
+      "branch": "main",
+      "category": "service-mesh-observability",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/service-mesh-observability",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

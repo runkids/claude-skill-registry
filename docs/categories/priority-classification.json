@@ -1,0 +1,20 @@
+{
+  "category": "priority-classification",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.640887Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically classifies tasks into four priority levels (VERY IMPORTANT, HIGH, MEDIUM, LOW) based on due dates, urgency keywords, and explicit priority settings. Triggers special behaviors for VERY I",
+      "repo": "Syedaashnaghazanfar/todo-app",
+      "path": "priority-classification",
+      "branch": "main",
+      "category": "priority-classification",
+      "tags": [],
+      "stars": 0,
+      "install": "Syedaashnaghazanfar/todo-app/priority-classification",
+      "source": "github.com/Syedaashnaghazanfar/todo-app"
+    }
+  ]
+}

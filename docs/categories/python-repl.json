@@ -1,0 +1,20 @@
+{
+  "category": "python-repl",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.735530Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interactive Python REPL automation with common helpers and best practices",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "python-repl",
+      "branch": "main",
+      "category": "python-repl",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/python-repl",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "test-generation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.204121Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Playwright test code generation from test case specifications. Use when writing automated tests, creating page objects, or generating test spec files. Triggers on \"write tests\", \"generate automation\",",
+      "repo": "cristian-robert/autonomous-automation-tester",
+      "path": "test-generation",
+      "branch": "main",
+      "category": "test-generation",
+      "tags": [],
+      "stars": 0,
+      "install": "cristian-robert/autonomous-automation-tester/test-generation",
+      "source": "github.com/cristian-robert/autonomous-automation-tester"
+    }
+  ]
+}

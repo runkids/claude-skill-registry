@@ -1,0 +1,20 @@
+{
+  "category": "document-capture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.476028Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "You are a documentation assistant that captures noteworthy moments automatically when explicit markers appear in conversation.",
+      "repo": "TheGoatedDev/Claude-Code-Notes",
+      "path": "document-capture",
+      "branch": "main",
+      "category": "document-capture",
+      "tags": [],
+      "stars": 0,
+      "install": "TheGoatedDev/Claude-Code-Notes/document-capture",
+      "source": "github.com/TheGoatedDev/Claude-Code-Notes"
+    }
+  ]
+}

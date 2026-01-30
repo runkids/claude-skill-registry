@@ -1,0 +1,20 @@
+{
+  "category": "jira-commit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.922091Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create smart commit linked to Jira issue. Use when the user wants to \"commit\", \"smart commit\", \"jira commit\", or \"commit changes\".",
+      "repo": "Lobbi-Docs/claude",
+      "path": "jira-commit",
+      "branch": "main",
+      "category": "jira-commit",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/jira-commit",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

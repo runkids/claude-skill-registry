@@ -1,0 +1,20 @@
+{
+  "category": "prp-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.715615Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and execute PRPs (Product Requirements Prompts) for feature implementation using Context Engineering principles. Use when planning new features, initializing PRP setup, executing existing PRPs,",
+      "repo": "willywg/prp-manager",
+      "path": "prp-manager",
+      "branch": "main",
+      "category": "prp-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "willywg/prp-manager/prp-manager",
+      "source": "github.com/willywg/prp-manager"
+    }
+  ]
+}

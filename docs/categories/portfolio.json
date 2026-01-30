@@ -1,0 +1,20 @@
+{
+  "category": "portfolio",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.609454Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Portfolio management with OpenAlgo - funds, positions, holdings, order book, trade book, margin calculator, and account management",
+      "repo": "marketcalls/openalgo-claude-plugin",
+      "path": "portfolio",
+      "branch": "main",
+      "category": "portfolio",
+      "tags": [],
+      "stars": 0,
+      "install": "marketcalls/openalgo-claude-plugin/portfolio",
+      "source": "github.com/marketcalls/openalgo-claude-plugin"
+    }
+  ]
+}

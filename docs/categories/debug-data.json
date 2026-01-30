@@ -1,0 +1,20 @@
+{
+  "category": "debug-data",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.052515Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Debug data storage and persistence issues. Use when troubleshooting lost data, storage problems, or state persistence bugs.",
+      "repo": "chrissargent48/weekly_report",
+      "path": "debug-data",
+      "branch": "main",
+      "category": "debug-data",
+      "tags": [],
+      "stars": 0,
+      "install": "chrissargent48/weekly_report/debug-data",
+      "source": "github.com/chrissargent48/weekly_report"
+    }
+  ]
+}

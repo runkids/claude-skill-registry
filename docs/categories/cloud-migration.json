@@ -1,0 +1,20 @@
+{
+  "category": "cloud-migration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.571766Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan lift-and-shift, re-platforming, and migration waves.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "cloud-migration",
+      "branch": "main",
+      "category": "cloud-migration",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/cloud-migration",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

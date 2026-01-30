@@ -1,0 +1,20 @@
+{
+  "category": "color-palette-ref",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.615858Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "APC Mini MK2 color palette reference with velocity values and custom RGB via SysEx. Use when user asks about \"color\", \"velocity value\", \"RGB\", \"palette\", \"brightness\", \"LED color\", or needs to set spe",
+      "repo": "naporin0624/claude-plugin-apc-mini",
+      "path": "color-palette-ref",
+      "branch": "main",
+      "category": "color-palette-ref",
+      "tags": [],
+      "stars": 0,
+      "install": "naporin0624/claude-plugin-apc-mini/color-palette-ref",
+      "source": "github.com/naporin0624/claude-plugin-apc-mini"
+    }
+  ]
+}

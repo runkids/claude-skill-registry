@@ -1,0 +1,20 @@
+{
+  "category": "rendering-stability-under-load",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.812957Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guarantee UI stability during extreme rendering pressure using boundary partitioning and adaptive throttling.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "rendering-stability-under-load",
+      "branch": "main",
+      "category": "rendering-stability-under-load",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/rendering-stability-under-load",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

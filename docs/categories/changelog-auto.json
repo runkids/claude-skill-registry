@@ -1,0 +1,20 @@
+{
+  "category": "changelog-auto",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.508260Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-generate changelogs from commit history",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "changelog-auto",
+      "branch": "main",
+      "category": "changelog-auto",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/changelog-auto",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

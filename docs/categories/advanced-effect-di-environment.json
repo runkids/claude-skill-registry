@@ -1,0 +1,20 @@
+{
+  "category": "advanced-effect-di-environment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.216134Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Model dependencies using Effect-style Context, Layer, and Service patterns with compile-time safety. Use when designing DI systems, modeling environments, or building Effect-TS applications.",
+      "repo": "leaderiop/hex-di",
+      "path": "advanced-effect-di-environment",
+      "branch": "main",
+      "category": "advanced-effect-di-environment",
+      "tags": [],
+      "stars": 0,
+      "install": "leaderiop/hex-di/advanced-effect-di-environment",
+      "source": "github.com/leaderiop/hex-di"
+    }
+  ]
+}

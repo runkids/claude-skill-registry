@@ -1,0 +1,20 @@
+{
+  "category": "sse-streaming-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.075009Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Server-Sent Events streaming patterns for this project. Covers TransformStream-based SSE (mobile API), ReadableStream-based SSE (legacy tier 2), heartbeat keep-alive, polling loops, event formatting,",
+      "repo": "planetaryescape/blah.chat",
+      "path": "sse-streaming-patterns",
+      "branch": "main",
+      "category": "sse-streaming-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "planetaryescape/blah.chat/sse-streaming-patterns",
+      "source": "github.com/planetaryescape/blah.chat"
+    }
+  ]
+}

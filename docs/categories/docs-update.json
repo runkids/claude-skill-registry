@@ -1,0 +1,20 @@
+{
+  "category": "docs-update",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.474773Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standard procedure for updating documentation",
+      "repo": "cpa03/blueprintify",
+      "path": "docs-update",
+      "branch": "main",
+      "category": "docs-update",
+      "tags": [],
+      "stars": 0,
+      "install": "cpa03/blueprintify/docs-update",
+      "source": "github.com/cpa03/blueprintify"
+    }
+  ]
+}

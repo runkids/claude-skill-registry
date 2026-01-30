@@ -1,0 +1,20 @@
+{
+  "category": "tech-research-enforcer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.181516Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforces iterative web research for coding and DevOps questions to prevent assumptions about libraries, frameworks, APIs, versions, and configurations. Use this skill when the user asks about programm",
+      "repo": "jayteealao/Aperture",
+      "path": "tech-research-enforcer",
+      "branch": "main",
+      "category": "tech-research-enforcer",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture/tech-research-enforcer",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

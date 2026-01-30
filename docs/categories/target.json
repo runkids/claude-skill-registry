@@ -1,0 +1,20 @@
+{
+  "category": "target",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.160683Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enables Claude to browse Target products, manage lists, and track orders",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "target",
+      "branch": "main",
+      "category": "target",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/target",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

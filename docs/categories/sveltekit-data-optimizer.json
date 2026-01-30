@@ -1,0 +1,20 @@
+{
+  "category": "sveltekit-data-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.127003Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize SvelteKit applications by leveraging SvelteKit's full-stack architecture for instant server-side rendering and progressive enhancement. Specialized in load functions, form actions, and Svelte",
+      "repo": "ajianaz/skills-collection",
+      "path": "sveltekit-data-optimizer",
+      "branch": "main",
+      "category": "sveltekit-data-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "ajianaz/skills-collection/sveltekit-data-optimizer",
+      "source": "github.com/ajianaz/skills-collection"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "gitops-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.777109Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ArgoCD ApplicationSets, progressive delivery, Harness GitX, and multi-cluster GitOps patterns",
+      "repo": "Lobbi-Docs/claude",
+      "path": "gitops-patterns",
+      "branch": "main",
+      "category": "gitops-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/gitops-patterns",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

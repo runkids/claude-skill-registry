@@ -1,0 +1,20 @@
+{
+  "category": "research-strategy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.827294Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conduct systematic research with confidence scoring, source validation, and structured reporting for technology decisions and codebase analysis. Use for complex research tasks, technology selection, o",
+      "repo": "AutumnsGrove/GroveScout",
+      "path": "research-strategy",
+      "branch": "main",
+      "category": "research-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "AutumnsGrove/GroveScout/research-strategy",
+      "source": "github.com/AutumnsGrove/GroveScout"
+    }
+  ]
+}

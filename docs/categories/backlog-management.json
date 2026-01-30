@@ -1,0 +1,20 @@
+{
+  "category": "backlog-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.412092Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill when creating or editing issues on Github or when asked to write user-stories or record bugs.",
+      "repo": "wmeints/promptyard",
+      "path": "backlog-management",
+      "branch": "main",
+      "category": "backlog-management",
+      "tags": [],
+      "stars": 0,
+      "install": "wmeints/promptyard/backlog-management",
+      "source": "github.com/wmeints/promptyard"
+    }
+  ]
+}

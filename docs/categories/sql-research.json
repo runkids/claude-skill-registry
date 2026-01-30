@@ -1,0 +1,20 @@
+{
+  "category": "sql-research",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.070690Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for researching SQL syntax and behavior for database backends. Use when you need to research how a SQL function, command, or feature works in a specific database before implementing it in dbplyr",
+      "repo": "Microck/ordinary-claude-skills",
+      "path": "sql-research",
+      "branch": "main",
+      "category": "sql-research",
+      "tags": [],
+      "stars": 0,
+      "install": "Microck/ordinary-claude-skills/sql-research",
+      "source": "github.com/Microck/ordinary-claude-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "react-skills",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.778866Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "React 18 patterns for LlamaFarm Designer. Covers components, hooks, TanStack Query, and testing.",
+      "repo": "llama-farm/llamafarm",
+      "path": "react-skills",
+      "branch": "main",
+      "category": "react-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "llama-farm/llamafarm/react-skills",
+      "source": "github.com/llama-farm/llamafarm"
+    }
+  ]
+}

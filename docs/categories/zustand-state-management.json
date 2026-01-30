@@ -1,0 +1,20 @@
+{
+  "category": "zustand-state-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.517719Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build type-safe global state in React with Zustand. Supports TypeScript, persist middleware, devtools, slices pattern, and Next.js SSR with hydration handling. Prevents 6 documented errors.  Use when",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "zustand-state-management",
+      "branch": "main",
+      "category": "zustand-state-management",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/zustand-state-management",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

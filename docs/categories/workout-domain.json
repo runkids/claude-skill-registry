@@ -1,0 +1,20 @@
+{
+  "category": "workout-domain",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.485867Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Workouts are sequences of blocks using discriminated unions via kind:",
+      "repo": "alexanderop/workoutTracker",
+      "path": "workout-domain",
+      "branch": "main",
+      "category": "workout-domain",
+      "tags": [],
+      "stars": 0,
+      "install": "alexanderop/workoutTracker/workout-domain",
+      "source": "github.com/alexanderop/workoutTracker"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "qwen_roadmap_auditor_prototype",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.756307Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Qwen Roadmap Auditor (Prototype)",
+      "repo": "Foundup/Foundups-Agent",
+      "path": "qwen_roadmap_auditor_prototype",
+      "branch": "main",
+      "category": "qwen_roadmap_auditor_prototype",
+      "tags": [],
+      "stars": 0,
+      "install": "Foundup/Foundups-Agent/qwen_roadmap_auditor_prototype",
+      "source": "github.com/Foundup/Foundups-Agent"
+    }
+  ]
+}

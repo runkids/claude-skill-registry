@@ -1,0 +1,20 @@
+{
+  "category": "moai-lang-cpp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.165166Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "C++23 best practices with Google Test 1.15, clang-format 19, and modern C++ standards.",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-lang-cpp",
+      "branch": "main",
+      "category": "moai-lang-cpp",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-lang-cpp",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

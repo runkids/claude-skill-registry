@@ -1,0 +1,20 @@
+{
+  "category": "ci-github-actions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.526599Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Your approach to handling ci github actions. Use this skill when working on files where ci github actions comes into play.",
+      "repo": "leaderiop/hex-di",
+      "path": "ci-github-actions",
+      "branch": "main",
+      "category": "ci-github-actions",
+      "tags": [],
+      "stars": 0,
+      "install": "leaderiop/hex-di/ci-github-actions",
+      "source": "github.com/leaderiop/hex-di"
+    }
+  ]
+}

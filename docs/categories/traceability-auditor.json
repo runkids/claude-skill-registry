@@ -1,0 +1,20 @@
+{
+  "category": "traceability-auditor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.306390Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validates complete requirements traceability across EARS requirements → design → tasks → code → tests.  Trigger terms: traceability, requirements coverage, coverage matrix, traceability matrix, requir",
+      "repo": "nahisaho/CodeGraphMCPServer",
+      "path": "traceability-auditor",
+      "branch": "main",
+      "category": "traceability-auditor",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/CodeGraphMCPServer/traceability-auditor",
+      "source": "github.com/nahisaho/CodeGraphMCPServer"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "dev-typescript",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.175344Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "FIX TypeScript errors, WRITE better types, and CONVERT JavaScript to TypeScript. Use when encountering type errors, improving type safety, or migrating JS files.",
+      "repo": "endlessblink/flow-state",
+      "path": "dev-typescript",
+      "branch": "main",
+      "category": "dev-typescript",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/dev-typescript",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

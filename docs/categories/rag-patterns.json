@@ -1,0 +1,20 @@
+{
+  "category": "rag-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.758913Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Retrieval-Augmented Generation patterns and best practices. Implement chunking, embedding, retrieval, reranking, and generation pipelines. Use for knowledge-grounded AI, document QA, and semantic sear",
+      "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "path": "rag-patterns",
+      "branch": "main",
+      "category": "rag-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "fgarofalo56/Suppercharge_Microsoft_Fabric/rag-patterns",
+      "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric"
+    }
+  ]
+}

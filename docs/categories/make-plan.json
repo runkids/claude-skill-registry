@@ -1,0 +1,20 @@
+{
+  "category": "make-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.068044Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a comprehensive implementation plan and enter plan mode for execution.",
+      "repo": "kasperjunge/agent-resources",
+      "path": "make-plan",
+      "branch": "main",
+      "category": "make-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "kasperjunge/agent-resources/make-plan",
+      "source": "github.com/kasperjunge/agent-resources"
+    }
+  ]
+}

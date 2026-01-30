@@ -1,0 +1,20 @@
+{
+  "category": "circular-economy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.530827Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to implement circular economy principles, design closed-loop supply chains, or optimize reverse logistics. Also use when the user mentions \"circular supply chain,\" \"product lifecyc",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "circular-economy",
+      "branch": "main",
+      "category": "circular-economy",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/circular-economy",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

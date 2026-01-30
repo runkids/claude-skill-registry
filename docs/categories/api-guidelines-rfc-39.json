@@ -1,0 +1,20 @@
+{
+  "category": "api-guidelines-rfc-39",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.325049Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "RFC-39 compliant API best practices for Java services. Covers request/response patterns, error handling, pagination, versioning, and authentication standards. Use when designing or reviewing REST APIs",
+      "repo": "bitsoex/bitso-java",
+      "path": "api-guidelines-rfc-39",
+      "branch": "main",
+      "category": "api-guidelines-rfc-39",
+      "tags": [],
+      "stars": 0,
+      "install": "bitsoex/bitso-java/api-guidelines-rfc-39",
+      "source": "github.com/bitsoex/bitso-java"
+    }
+  ]
+}

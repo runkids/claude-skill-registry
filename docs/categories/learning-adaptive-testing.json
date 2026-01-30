@@ -1,0 +1,20 @@
+{
+  "category": "learning-adaptive-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.984510Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "adaptive-testing design for effective learning measurement.",
+      "repo": "pauljbernard/content",
+      "path": "learning-adaptive-testing",
+      "branch": "main",
+      "category": "learning-adaptive-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content/learning-adaptive-testing",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "test-strategy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.213275Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates comprehensive test strategies (60/30/10 distribution) from OpenSpec proposals. Activates via codeword [ACTIVATE:TEST_STRATEGY_V1] injected by hooks after OpenSpec proposal creation.  Activat",
+      "repo": "turbobeest/cursor-dev-system",
+      "path": "test-strategy",
+      "branch": "main",
+      "category": "test-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "turbobeest/cursor-dev-system/test-strategy",
+      "source": "github.com/turbobeest/cursor-dev-system"
+    }
+  ]
+}

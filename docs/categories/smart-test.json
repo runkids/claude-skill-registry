@@ -1,0 +1,20 @@
+{
+  "category": "smart-test",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.033304Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Intelligent test selection based on code changes. Maps source files to tests via import analysis, implements tiered testing (fast < 1 min, impacted < 5 min, full suite), and tracks test reliability. U",
+      "repo": "rysweet/azlin",
+      "path": "smart-test",
+      "branch": "main",
+      "category": "smart-test",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/azlin/smart-test",
+      "source": "github.com/rysweet/azlin"
+    }
+  ]
+}

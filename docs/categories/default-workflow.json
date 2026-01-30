@@ -1,0 +1,20 @@
+{
+  "category": "default-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.065343Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Development workflow for features, bugs, refactoring. Auto-activates for multi-file implementations.",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "default-workflow",
+      "branch": "main",
+      "category": "default-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/default-workflow",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

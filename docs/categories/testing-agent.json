@@ -1,0 +1,20 @@
+{
+  "category": "testing-agent",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.268073Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run goal-based evaluation tests for agents. Use when you need to verify an agent meets its goals, debug failing tests, or iterate on agent improvements based on test results.",
+      "repo": "adenhq/hive",
+      "path": "testing-agent",
+      "branch": "main",
+      "category": "testing-agent",
+      "tags": [],
+      "stars": 0,
+      "install": "adenhq/hive/testing-agent",
+      "source": "github.com/adenhq/hive"
+    }
+  ]
+}

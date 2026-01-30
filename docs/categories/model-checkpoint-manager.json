@@ -1,0 +1,20 @@
+{
+  "category": "model-checkpoint-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.185871Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Model Checkpoint Manager - Auto-activating skill for ML Training. Triggers on: model checkpoint manager, model checkpoint manager Part of the ML Training skill category.",
+      "repo": "byteworthy/Upstream",
+      "path": "model-checkpoint-manager",
+      "branch": "main",
+      "category": "model-checkpoint-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/model-checkpoint-manager",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

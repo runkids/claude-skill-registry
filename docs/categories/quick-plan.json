@@ -1,0 +1,20 @@
+{
+  "category": "quick-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.753382Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"create a quick plan\", \"draft a plan\", \"capture this idea\", \"plan this feature\", or wants a lightweight plan without full feature planning. Creates conc",
+      "repo": "ianphil/prism",
+      "path": "quick-plan",
+      "branch": "main",
+      "category": "quick-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "ianphil/prism/quick-plan",
+      "source": "github.com/ianphil/prism"
+    }
+  ]
+}

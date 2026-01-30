@@ -1,0 +1,20 @@
+{
+  "category": "microbiome-pipeline",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.128372Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "End-to-end 16S amplicon workflow from FASTQ reads to differential abundance. Orchestrates DADA2 ASV inference, taxonomy assignment, diversity analysis, and compositional testing with ALDEx2. Use when",
+      "repo": "GPTomics/bioSkills",
+      "path": "microbiome-pipeline",
+      "branch": "main",
+      "category": "microbiome-pipeline",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/microbiome-pipeline",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

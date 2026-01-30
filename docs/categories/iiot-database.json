@@ -1,0 +1,20 @@
+{
+  "category": "iiot-database",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.859554Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "IIoT Database interaction patterns. TimescaleDB + Apache AGE queries, helper functions, mock data generation.",
+      "repo": "creatifcoding/gbg",
+      "path": "iiot-database",
+      "branch": "main",
+      "category": "iiot-database",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/iiot-database",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

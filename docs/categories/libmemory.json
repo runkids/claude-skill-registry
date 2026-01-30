@@ -1,0 +1,20 @@
+{
+  "category": "libmemory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.013400Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "libmemory - Memory management for LLM context windows. WindowBuilder constructs token-limited context from conversation history and tools. createWindow factory simplifies window creation. MemoryIndex",
+      "repo": "copilot-ld/copilot-ld",
+      "path": "libmemory",
+      "branch": "main",
+      "category": "libmemory",
+      "tags": [],
+      "stars": 0,
+      "install": "copilot-ld/copilot-ld/libmemory",
+      "source": "github.com/copilot-ld/copilot-ld"
+    }
+  ]
+}

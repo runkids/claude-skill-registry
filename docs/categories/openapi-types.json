@@ -1,0 +1,20 @@
+{
+  "category": "openapi-types",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.294042Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate TypeScript types and client SDKs from OpenAPI specs",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "openapi-types",
+      "branch": "main",
+      "category": "openapi-types",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/openapi-types",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

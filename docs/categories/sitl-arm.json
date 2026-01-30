@@ -1,0 +1,20 @@
+{
+  "category": "sitl-arm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.008716Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Arm INAV SITL via MSP protocol for automated testing",
+      "repo": "sensei-hacker/inav-claude",
+      "path": "sitl-arm",
+      "branch": "main",
+      "category": "sitl-arm",
+      "tags": [],
+      "stars": 0,
+      "install": "sensei-hacker/inav-claude/sitl-arm",
+      "source": "github.com/sensei-hacker/inav-claude"
+    }
+  ]
+}

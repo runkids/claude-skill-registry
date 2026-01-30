@@ -1,0 +1,20 @@
+{
+  "category": "skill-improver",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.017072Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Research and improve Claude skills with current best practices. Triggers on requests to improve skills, update skills, research best practices for skills, enhance skill quality, or modernize existing",
+      "repo": "shakefu/contextium",
+      "path": "skill-improver",
+      "branch": "main",
+      "category": "skill-improver",
+      "tags": [],
+      "stars": 0,
+      "install": "shakefu/contextium/skill-improver",
+      "source": "github.com/shakefu/contextium"
+    }
+  ]
+}

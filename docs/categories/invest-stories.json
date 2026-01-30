@@ -1,0 +1,20 @@
+{
+  "category": "invest-stories",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.897981Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When writing, reviewing, or validating user stories. Used by ARCHITECT-AGENT and PRODUCT-OWNER.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "invest-stories",
+      "branch": "main",
+      "category": "invest-stories",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/invest-stories",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

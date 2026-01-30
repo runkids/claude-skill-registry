@@ -1,0 +1,20 @@
+{
+  "category": "meeting-synthesizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.113876Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Processes meeting notes or transcripts to extract structured information. Use after meetings to quickly generate action items, capture decisions, and create follow-up tasks. Extracts: action items wit",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "meeting-synthesizer",
+      "branch": "main",
+      "category": "meeting-synthesizer",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/meeting-synthesizer",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

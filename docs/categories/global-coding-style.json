@@ -1,0 +1,20 @@
+{
+  "category": "global-coding-style",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.779408Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Your approach to handling global coding style. Use this skill when working on files where global coding style comes into play.",
+      "repo": "leaderiop/hex-di",
+      "path": "global-coding-style",
+      "branch": "main",
+      "category": "global-coding-style",
+      "tags": [],
+      "stars": 0,
+      "install": "leaderiop/hex-di/global-coding-style",
+      "source": "github.com/leaderiop/hex-di"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "naming-rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.222838Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Настройка правил нейминга и структуры кампаний для аккаунта.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "naming-rules",
+      "branch": "main",
+      "category": "naming-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/naming-rules",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "brownfield-onboarder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.447387Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Intelligently onboards brownfield projects by merging existing CLAUDE.md backups into SpecWeave structure. Use when installing SpecWeave into existing projects with CLAUDE.md, merging documentation, o",
+      "repo": "anton-abyzov/specweave",
+      "path": "brownfield-onboarder",
+      "branch": "main",
+      "category": "brownfield-onboarder",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/brownfield-onboarder",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

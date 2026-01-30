@@ -1,0 +1,20 @@
+{
+  "category": "multi-compare",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.209958Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run this command with user's arguments:",
+      "repo": "faisalanjum/EventTrader",
+      "path": "multi-compare",
+      "branch": "main",
+      "category": "multi-compare",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/multi-compare",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

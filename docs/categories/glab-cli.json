@@ -1,0 +1,20 @@
+{
+  "category": "glab-cli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.778346Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interact with GitLab using the `glab` CLI. Use when Claude needs to work with GitLab merge requests, CI/CD pipelines, issues, releases, or make API requests. Supports gitlab.com and self-hosted instan",
+      "repo": "moltbot/skills",
+      "path": "glab-cli",
+      "branch": "main",
+      "category": "glab-cli",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/glab-cli",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

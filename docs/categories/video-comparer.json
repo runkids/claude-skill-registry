@@ -1,0 +1,20 @@
+{
+  "category": "video-comparer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.414240Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when comparing two videos to analyze compression results or quality differences. Generates interactive HTML reports with quality metrics (PSNR, SSIM) and frame-by-frame visua",
+      "repo": "nicepkg/ai-workflow",
+      "path": "video-comparer",
+      "branch": "main",
+      "category": "video-comparer",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/video-comparer",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

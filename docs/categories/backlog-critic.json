@@ -1,0 +1,20 @@
+{
+  "category": "backlog-critic",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.411795Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Engineering critic for backlog prioritization debates. Challenges proposed rankings with feasibility concerns, hidden complexity, and realistic effort estimates.",
+      "repo": "pcortes/swarm-attack",
+      "path": "backlog-critic",
+      "branch": "main",
+      "category": "backlog-critic",
+      "tags": [],
+      "stars": 0,
+      "install": "pcortes/swarm-attack/backlog-critic",
+      "source": "github.com/pcortes/swarm-attack"
+    }
+  ]
+}

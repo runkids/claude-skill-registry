@@ -1,0 +1,20 @@
+{
+  "category": "blender",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.432192Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Blender 3D creation suite for modeling, animation, rendering, compositing, video editing, and game development. Use for 3D modeling, sculpting, animation, shading, rendering, simulation, video editing",
+      "repo": "monkey1sai/ai-settings",
+      "path": "blender",
+      "branch": "main",
+      "category": "blender",
+      "tags": [],
+      "stars": 0,
+      "install": "monkey1sai/ai-settings/blender",
+      "source": "github.com/monkey1sai/ai-settings"
+    }
+  ]
+}

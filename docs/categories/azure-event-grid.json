@@ -1,0 +1,20 @@
+{
+  "category": "azure-event-grid",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.396177Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Event routing with Azure Event Grid. Configure topics, subscriptions, event handlers, and dead-lettering. Use for event-driven architectures, serverless triggers, and reactive systems on Azure.",
+      "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "path": "azure-event-grid",
+      "branch": "main",
+      "category": "azure-event-grid",
+      "tags": [],
+      "stars": 0,
+      "install": "fgarofalo56/Suppercharge_Microsoft_Fabric/azure-event-grid",
+      "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric"
+    }
+  ]
+}

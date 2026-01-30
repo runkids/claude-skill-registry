@@ -1,0 +1,20 @@
+{
+  "category": "tzurot-security",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.332365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Security best practices for Tzurot v3 - Secret management, AI-specific security (prompt injection, PII scrubbing), Economic DoS prevention, Discord permission verification, microservices security, and",
+      "repo": "lbds137/tzurot",
+      "path": "tzurot-security",
+      "branch": "main",
+      "category": "tzurot-security",
+      "tags": [],
+      "stars": 0,
+      "install": "lbds137/tzurot/tzurot-security",
+      "source": "github.com/lbds137/tzurot"
+    }
+  ]
+}

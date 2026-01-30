@@ -1,0 +1,20 @@
+{
+  "category": "detect-release-scope",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.165576Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze git changes to determine release scope (marketplace/plugin/variants)",
+      "repo": "jayteealao/Aperture",
+      "path": "detect-release-scope",
+      "branch": "main",
+      "category": "detect-release-scope",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture/detect-release-scope",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

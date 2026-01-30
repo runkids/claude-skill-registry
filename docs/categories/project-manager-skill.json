@@ -1,0 +1,20 @@
+{
+  "category": "project-manager-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.694320Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Project management expert specializing in planning, execution, monitoring, and closure of projects. Masters traditional and agile methodologies to deliver projects on time, within budget, and to quali",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "project-manager-skill",
+      "branch": "main",
+      "category": "project-manager-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/project-manager-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

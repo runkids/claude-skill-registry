@@ -1,0 +1,20 @@
+{
+  "category": "design-system-token-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.160386Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Architect scalable design token propagation using React Context and CSS-in-JS/Variables.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "design-system-token-architecture",
+      "branch": "main",
+      "category": "design-system-token-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/design-system-token-architecture",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

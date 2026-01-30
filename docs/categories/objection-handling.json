@@ -1,0 +1,20 @@
+{
+  "category": "objection-handling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.271607Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when preparing responses to prospect objections during outbound, discovery, or follow-up conversations.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "objection-handling",
+      "branch": "main",
+      "category": "objection-handling",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/objection-handling",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

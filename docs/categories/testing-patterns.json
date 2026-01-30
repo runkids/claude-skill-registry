@@ -1,0 +1,20 @@
+{
+  "category": "testing-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.271928Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Jest testing patterns, factory functions, mocking strategies, and TDD workflow. Use when writing unit tests, creating test factories, or following TDD red-green-refactor cycle.",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "testing-patterns",
+      "branch": "main",
+      "category": "testing-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/testing-patterns",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "writing-assistant",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.495081Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Edits, rewrites, or improves text for clarity, tone, grammar, or style.",
+      "repo": "proflead/codex-skills-library",
+      "path": "writing-assistant",
+      "branch": "main",
+      "category": "writing-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "proflead/codex-skills-library/writing-assistant",
+      "source": "github.com/proflead/codex-skills-library"
+    }
+  ]
+}

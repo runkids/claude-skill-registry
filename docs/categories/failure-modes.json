@@ -1,0 +1,20 @@
+{
+  "category": "failure-modes",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.632989Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide to identifying, analyzing, and documenting failure modes in distributed systems",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "failure-modes",
+      "branch": "main",
+      "category": "failure-modes",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/failure-modes",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

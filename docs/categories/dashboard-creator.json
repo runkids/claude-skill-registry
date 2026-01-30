@@ -1,0 +1,20 @@
+{
+  "category": "dashboard-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.749773Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create HTML dashboards with KPI metric cards, bar/pie/line charts, progress indicators, and data visualizations. Use when users request dashboards, metrics displays, KPI visualizations, data charts, o",
+      "repo": "mhattingpete/claude-skills-marketplace",
+      "path": "dashboard-creator",
+      "branch": "main",
+      "category": "dashboard-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "mhattingpete/claude-skills-marketplace/dashboard-creator",
+      "source": "github.com/mhattingpete/claude-skills-marketplace"
+    }
+  ]
+}

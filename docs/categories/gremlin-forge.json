@@ -1,0 +1,20 @@
+{
+  "category": "gremlin-forge",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.805325Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill when creating new skills via forced conceptual collision of existing patterns. Duct-tapes jank-builder to super-collider for autopoietic meta-skill generation.",
+      "repo": "agentgptsmith/MonadFramework",
+      "path": "gremlin-forge",
+      "branch": "main",
+      "category": "gremlin-forge",
+      "tags": [],
+      "stars": 0,
+      "install": "agentgptsmith/MonadFramework/gremlin-forge",
+      "source": "github.com/agentgptsmith/MonadFramework"
+    }
+  ]
+}

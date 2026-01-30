@@ -1,0 +1,20 @@
+{
+  "category": "policyengine-standards-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.605955Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PolicyEngine coding standards, formatters, CI requirements, and development best practices",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-standards-skill",
+      "branch": "main",
+      "category": "policyengine-standards-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/policyengine-standards-skill",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

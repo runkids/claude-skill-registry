@@ -1,8 +1,8 @@
 {
   "category": "skills",
   "code": "oth",
-  "count": 1,
-  "updated_at": "2026-01-29T04:50:39.213354Z",
+  "count": 2,
+  "updated_at": "2026-01-30T04:55:08.023682Z",
   "skills": [
     {
       "name": "skills",
@@ -15,6 +15,18 @@
       "stars": 1,
       "install": "plannededge/codebook/skills/skills",
       "source": "github.com/plannededge/codebook"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive fullstack development skill for building complete web applications with React, Next.js, Node.js, GraphQL, and PostgreSQL. Includes project scaffolding, code quality analysis, architectur",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "skills",
+      "branch": "main",
+      "category": "skills",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/skills",
+      "source": "github.com/GaitanS/AI-Mancare"
     }
   ]
 }

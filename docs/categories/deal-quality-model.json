@@ -1,0 +1,20 @@
+{
+  "category": "deal-quality-model",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.051096Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scoring system for opportunity hygiene, win likelihood, and inspection prioritization.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "deal-quality-model",
+      "branch": "main",
+      "category": "deal-quality-model",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/deal-quality-model",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

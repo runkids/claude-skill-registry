@@ -1,0 +1,20 @@
+{
+  "category": "cloudflare-sandbox",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.578059Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill provides comprehensive knowledge for building applications with Cloudflare Sandboxes SDK, which enables secure, isolated code execution in full Linux containers at the edge. It should be us",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "cloudflare-sandbox",
+      "branch": "main",
+      "category": "cloudflare-sandbox",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/cloudflare-sandbox",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

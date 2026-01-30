@@ -1,0 +1,20 @@
+{
+  "category": "wezterm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.456566Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Control WezTerm terminal emulator via CLI. Manage panes, tabs, workspaces, and execute commands in running terminals.",
+      "repo": "carmandale/agent-config",
+      "path": "wezterm",
+      "branch": "main",
+      "category": "wezterm",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config/wezterm",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

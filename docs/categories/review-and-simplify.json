@@ -1,0 +1,20 @@
+{
+  "category": "review-and-simplify",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.839428Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review and simplify implementation",
+      "repo": "anton-pt/algojuke",
+      "path": "review-and-simplify",
+      "branch": "main",
+      "category": "review-and-simplify",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-pt/algojuke/review-and-simplify",
+      "source": "github.com/anton-pt/algojuke"
+    }
+  ]
+}

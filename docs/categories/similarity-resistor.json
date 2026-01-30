@@ -1,0 +1,20 @@
+{
+  "category": "similarity-resistor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.003119Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with resistor similarity calculations - comparing resistor MPNs, understanding value/tolerance/package matching, or implementing resistor-specific similarity logic.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "similarity-resistor",
+      "branch": "main",
+      "category": "similarity-resistor",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/similarity-resistor",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

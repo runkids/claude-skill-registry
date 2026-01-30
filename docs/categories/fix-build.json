@@ -1,0 +1,20 @@
+{
+  "category": "fix-build",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.673098Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diagnose and fix build or type errors",
+      "repo": "WhatIfWeDigDeeper/application-tracker",
+      "path": "fix-build",
+      "branch": "main",
+      "category": "fix-build",
+      "tags": [],
+      "stars": 0,
+      "install": "WhatIfWeDigDeeper/application-tracker/fix-build",
+      "source": "github.com/WhatIfWeDigDeeper/application-tracker"
+    }
+  ]
+}

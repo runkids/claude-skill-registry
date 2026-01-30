@@ -1,0 +1,20 @@
+{
+  "category": "database-monitoring",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.040712Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Monitor database performance and health. Use when setting up monitoring, analyzing metrics, or troubleshooting database issues.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "database-monitoring",
+      "branch": "main",
+      "category": "database-monitoring",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/database-monitoring",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

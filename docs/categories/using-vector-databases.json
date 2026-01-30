@@ -1,0 +1,20 @@
+{
+  "category": "using-vector-databases",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.376692Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Vector database implementation for AI/ML applications, semantic search, and RAG systems. Use when building chatbots, search engines, recommendation systems, or similarity-based retrieval. Covers Qdran",
+      "repo": "ancoleman/ai-design-components",
+      "path": "using-vector-databases",
+      "branch": "main",
+      "category": "using-vector-databases",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/using-vector-databases",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

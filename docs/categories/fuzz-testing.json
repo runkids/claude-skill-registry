@@ -1,0 +1,20 @@
+{
+  "category": "fuzz-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.717831Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate malformed inputs and crash detection.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "fuzz-testing",
+      "branch": "main",
+      "category": "fuzz-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/fuzz-testing",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

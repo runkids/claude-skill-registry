@@ -1,0 +1,20 @@
+{
+  "category": "free-monad-gen",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.693910Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Free Monad Generation Skill (PLUS +1)",
+      "repo": "plurigrid/asi",
+      "path": "free-monad-gen",
+      "branch": "main",
+      "category": "free-monad-gen",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/free-monad-gen",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

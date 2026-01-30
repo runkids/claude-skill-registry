@@ -1,0 +1,20 @@
+{
+  "category": "tailwindcss-custom-styles",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.153306Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "@utility glass-effect {",
+      "repo": "fusengine/agents",
+      "path": "tailwindcss-custom-styles",
+      "branch": "main",
+      "category": "tailwindcss-custom-styles",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/tailwindcss-custom-styles",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

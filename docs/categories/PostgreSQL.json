@@ -1,0 +1,20 @@
+{
+  "category": "PostgreSQL",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.175892Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PostgreSQL database operations using PgQuery tool for DDL execution, schema management, and query operations",
+      "repo": "lawless-m/claude-skills",
+      "path": "PostgreSQL",
+      "branch": "main",
+      "category": "PostgreSQL",
+      "tags": [],
+      "stars": 0,
+      "install": "lawless-m/claude-skills/PostgreSQL",
+      "source": "github.com/lawless-m/claude-skills"
+    }
+  ]
+}

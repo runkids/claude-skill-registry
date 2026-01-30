@@ -1,0 +1,20 @@
+{
+  "category": "edge-model-compression",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.553553Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Model compression techniques including quantization, pruning, and knowledge distillation for edge deployment",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "edge-model-compression",
+      "branch": "main",
+      "category": "edge-model-compression",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/edge-model-compression",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

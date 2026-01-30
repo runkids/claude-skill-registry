@@ -1,0 +1,20 @@
+{
+  "category": "add-ws-action",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.208784Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add a new outgoing WebSocket action with typed payload and API exposure",
+      "repo": "Ariedam64/Gemini",
+      "path": "add-ws-action",
+      "branch": "main",
+      "category": "add-ws-action",
+      "tags": [],
+      "stars": 0,
+      "install": "Ariedam64/Gemini/add-ws-action",
+      "source": "github.com/Ariedam64/Gemini"
+    }
+  ]
+}

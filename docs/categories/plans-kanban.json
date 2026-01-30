@@ -1,0 +1,20 @@
+{
+  "category": "plans-kanban",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.586471Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "View plans dashboard with progress tracking and timeline visualization. Use for kanban boards, plan status overview, phase progress, milestone tracking, project visibility.",
+      "repo": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
+      "path": "plans-kanban",
+      "branch": "main",
+      "category": "plans-kanban",
+      "tags": [],
+      "stars": 0,
+      "install": "hoanghd218/landing-page-ai-kientruc-a-Ninh/plans-kanban",
+      "source": "github.com/hoanghd218/landing-page-ai-kientruc-a-Ninh"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "k8s-manifest-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.938838Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create production-ready Kubernetes manifests for Deployments, Services, ConfigMaps, and Secrets following best practices and security standards. Use when generating Kubernetes YAML manifests, creating",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "k8s-manifest-generator",
+      "branch": "main",
+      "category": "k8s-manifest-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/k8s-manifest-generator",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

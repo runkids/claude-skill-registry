@@ -1,0 +1,20 @@
+{
+  "category": "levin-levity",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.003467Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Leonid Levin''s algorithmic complexity meets playful mutual ingression. Use for: BB(n) prediction markets, Kolmogorov complexity rewards, WEV extraction from proof inefficiencies, Nash equilibrium bet",
+      "repo": "plurigrid/asi",
+      "path": "levin-levity",
+      "branch": "main",
+      "category": "levin-levity",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/levin-levity",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

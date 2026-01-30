@@ -1,0 +1,20 @@
+{
+  "category": "technical-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.182992Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when analyzing weekly price charts for stocks, stock indices, cryptocurrencies, or forex pairs. Use this skill when the user provides chart images and requests technical anal",
+      "repo": "nicepkg/ai-workflow",
+      "path": "technical-analyst",
+      "branch": "main",
+      "category": "technical-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/technical-analyst",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

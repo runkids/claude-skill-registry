@@ -1,0 +1,20 @@
+{
+  "category": "aeon",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.219115Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used for time series machine learning tasks including classification, regression, clustering, forecasting, anomaly detection, segmentation, and similarity search. Use when working",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "aeon",
+      "branch": "main",
+      "category": "aeon",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/aeon",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

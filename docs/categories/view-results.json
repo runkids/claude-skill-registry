@@ -1,0 +1,20 @@
+{
+  "category": "view-results",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.419357Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "View and analyze Hawk evaluation results. Use when the user wants to see eval-set results, check evaluation status, list samples, view transcripts, or analyze agent behavior from a completed evaluatio",
+      "repo": "METR/inspect-action",
+      "path": "view-results",
+      "branch": "main",
+      "category": "view-results",
+      "tags": [],
+      "stars": 0,
+      "install": "METR/inspect-action/view-results",
+      "source": "github.com/METR/inspect-action"
+    }
+  ]
+}

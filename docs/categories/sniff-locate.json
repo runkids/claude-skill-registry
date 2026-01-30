@@ -1,0 +1,20 @@
+{
+  "category": "sniff-locate",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.034885Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "List findings in `.sniff/findings.jsonl`, validate anchors, reanchor stale findings when code shifts, and regenerate `.sniff/index.json`.",
+      "repo": "JordanGunn/nunchuck",
+      "path": "sniff-locate",
+      "branch": "main",
+      "category": "sniff-locate",
+      "tags": [],
+      "stars": 0,
+      "install": "JordanGunn/nunchuck/sniff-locate",
+      "source": "github.com/JordanGunn/nunchuck"
+    }
+  ]
+}

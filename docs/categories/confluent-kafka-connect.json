@@ -1,0 +1,20 @@
+{
+  "category": "confluent-kafka-connect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.649959Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Kafka Connect integration expert. Covers source and sink connectors, JDBC, Elasticsearch, S3, Debezium CDC, SMT (Single Message Transforms), connector configuration, and data pipeline patterns. Activa",
+      "repo": "anton-abyzov/specweave",
+      "path": "confluent-kafka-connect",
+      "branch": "main",
+      "category": "confluent-kafka-connect",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/confluent-kafka-connect",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

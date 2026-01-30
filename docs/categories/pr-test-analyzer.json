@@ -1,0 +1,20 @@
+{
+  "category": "pr-test-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.625440Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when asked to evaluate PR test coverage or explicitly asked to run the pr-test-analyzer subagent.",
+      "repo": "troykelly/codex-skills",
+      "path": "pr-test-analyzer",
+      "branch": "main",
+      "category": "pr-test-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/codex-skills/pr-test-analyzer",
+      "source": "github.com/troykelly/codex-skills"
+    }
+  ]
+}

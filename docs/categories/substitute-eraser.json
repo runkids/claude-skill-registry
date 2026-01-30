@@ -1,0 +1,20 @@
+{
+  "category": "substitute-eraser",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.114218Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"scan for TODOs\", \"find placeholders\", \"clean up stubs\", \"remove temporary code\", \"audit for incomplete code\", or \"erase substitutions from codebase\". S",
+      "repo": "plurigrid/asi",
+      "path": "substitute-eraser",
+      "branch": "main",
+      "category": "substitute-eraser",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/substitute-eraser",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

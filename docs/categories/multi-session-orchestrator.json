@@ -1,0 +1,20 @@
+{
+  "category": "multi-session-orchestrator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.213552Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Orchestrate multi-session workflows that span multiple sessions or require state persistence. Use when tasks span multiple sessions. Not for single-session tasks or simple scripts.",
+      "repo": "Git-Fg/meta-plugin-manager",
+      "path": "multi-session-orchestrator",
+      "branch": "main",
+      "category": "multi-session-orchestrator",
+      "tags": [],
+      "stars": 0,
+      "install": "Git-Fg/meta-plugin-manager/multi-session-orchestrator",
+      "source": "github.com/Git-Fg/meta-plugin-manager"
+    }
+  ]
+}

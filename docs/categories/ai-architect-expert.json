@@ -1,0 +1,20 @@
+{
+  "category": "ai-architect-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.273546Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level AI system design, MLOps, architecture patterns, and AI infrastructure",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "ai-architect-expert",
+      "branch": "main",
+      "category": "ai-architect-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/ai-architect-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

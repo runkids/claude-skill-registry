@@ -1,0 +1,20 @@
+{
+  "category": "b2c-custom-caches",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.400368Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement custom caching with CacheMgr in B2C Commerce. Use when adding application-level caching, cache invalidation, or optimizing performance with custom cache regions. Covers cache definition JSON",
+      "repo": "SalesforceCommerceCloud/b2c-developer-tooling",
+      "path": "b2c-custom-caches",
+      "branch": "main",
+      "category": "b2c-custom-caches",
+      "tags": [],
+      "stars": 0,
+      "install": "SalesforceCommerceCloud/b2c-developer-tooling/b2c-custom-caches",
+      "source": "github.com/SalesforceCommerceCloud/b2c-developer-tooling"
+    }
+  ]
+}

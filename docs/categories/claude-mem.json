@@ -1,0 +1,20 @@
+{
+  "category": "claude-mem",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.540904Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Persistent memory compression system for Claude Code enabling context preservation across sessions with automatic observations, semantic search, and privacy controls",
+      "repo": "enuno/claude-command-and-control",
+      "path": "claude-mem",
+      "branch": "main",
+      "category": "claude-mem",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control/claude-mem",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

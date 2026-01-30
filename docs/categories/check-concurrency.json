@@ -1,0 +1,20 @@
+{
+  "category": "check-concurrency",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.516344Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Find concurrency issues including race conditions, deadlocks, unsafe shared state, and improper synchronization",
+      "repo": "pwittchen/varun.surf",
+      "path": "check-concurrency",
+      "branch": "main",
+      "category": "check-concurrency",
+      "tags": [],
+      "stars": 0,
+      "install": "pwittchen/varun.surf/check-concurrency",
+      "source": "github.com/pwittchen/varun.surf"
+    }
+  ]
+}

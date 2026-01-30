@@ -1,0 +1,20 @@
+{
+  "category": "ideogram-hello-world",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.858429Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a minimal working Ideogram example. Use when starting a new Ideogram integration, testing your setup, or learning basic Ideogram API patterns. Trigger with phrases like \"ideogram hello world\",",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "ideogram-hello-world",
+      "branch": "main",
+      "category": "ideogram-hello-world",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/ideogram-hello-world",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

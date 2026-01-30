@@ -1,0 +1,20 @@
+{
+  "category": "comprehensive-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.639058Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use after implementing features - 7-criteria code review with MANDATORY artifact posting to GitHub issue; blocks PR creation until complete",
+      "repo": "troykelly/claude-skills",
+      "path": "comprehensive-review",
+      "branch": "main",
+      "category": "comprehensive-review",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/comprehensive-review",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

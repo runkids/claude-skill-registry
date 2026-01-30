@@ -1,0 +1,20 @@
+{
+  "category": "test-3layer-top",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.196136Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Layer 1 (top) of 3-layer test - orchestrates Layer 2",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-3layer-top",
+      "branch": "main",
+      "category": "test-3layer-top",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/test-3layer-top",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

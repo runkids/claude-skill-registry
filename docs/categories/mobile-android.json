@@ -1,0 +1,20 @@
+{
+  "category": "mobile-android",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.177999Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Mobile Android Agent. Kotlin/Compose를 사용한 Android 앱 개발을 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "mobile-android",
+      "branch": "main",
+      "category": "mobile-android",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin/mobile-android",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

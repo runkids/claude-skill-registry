@@ -1,0 +1,20 @@
+{
+  "category": "tailored-resume-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.149355Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes job descriptions and generates tailored resumes that highlight relevant experience, skills, and achievements to maximize interview chances",
+      "repo": "ComposioHQ/awesome-claude-skills",
+      "path": "tailored-resume-generator",
+      "branch": "main",
+      "category": "tailored-resume-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "ComposioHQ/awesome-claude-skills/tailored-resume-generator",
+      "source": "github.com/ComposioHQ/awesome-claude-skills"
+    }
+  ]
+}

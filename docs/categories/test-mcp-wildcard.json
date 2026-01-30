@@ -1,0 +1,20 @@
+{
+  "category": "test-mcp-wildcard",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.205916Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test if MCP wildcards work in allowed-tools",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-mcp-wildcard",
+      "branch": "main",
+      "category": "test-mcp-wildcard",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/test-mcp-wildcard",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "data-scientist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.033080Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert data scientist for advanced analytics, machine learning, and statistical modeling. Handles complex data analysis, predictive modeling, and business intelligence. Use PROACTIVELY for data analys",
+      "repo": "rmyndharis/antigravity-skills",
+      "path": "data-scientist",
+      "branch": "main",
+      "category": "data-scientist",
+      "tags": [],
+      "stars": 0,
+      "install": "rmyndharis/antigravity-skills/data-scientist",
+      "source": "github.com/rmyndharis/antigravity-skills"
+    }
+  ]
+}

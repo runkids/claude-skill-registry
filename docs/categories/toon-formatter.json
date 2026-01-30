@@ -1,0 +1,20 @@
+{
+  "category": "toon-formatter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.301452Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Token-Oriented Object Notation (TOON) format expert for 30-60% token savings on structured data. Auto-applies to arrays with 5+ items, tables, logs, API responses, database results. Supports tabular,",
+      "repo": "raintree-technology/claude-starter",
+      "path": "toon-formatter",
+      "branch": "main",
+      "category": "toon-formatter",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/toon-formatter",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

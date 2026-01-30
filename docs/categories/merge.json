@@ -1,0 +1,20 @@
+{
+  "category": "merge",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.119713Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /merge or /merge <branch> slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "merge",
+      "branch": "main",
+      "category": "merge",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles/merge",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

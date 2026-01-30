@@ -1,0 +1,20 @@
+{
+  "category": "hummbl-framework",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.846568Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete HUMMBL Base120 mental models framework with all 120 models across 6 transformations (Perspective, Inversion, Composition, Decomposition, Recursion, Meta-Systems). Includes model selection gui",
+      "repo": "hummbl-dev/HUMMBL-Unified-Tier-Framework",
+      "path": "hummbl-framework",
+      "branch": "main",
+      "category": "hummbl-framework",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/HUMMBL-Unified-Tier-Framework/hummbl-framework",
+      "source": "github.com/hummbl-dev/HUMMBL-Unified-Tier-Framework"
+    }
+  ]
+}

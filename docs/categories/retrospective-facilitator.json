@@ -1,0 +1,20 @@
+{
+  "category": "retrospective-facilitator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.837348Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Facilitate productive team retrospectives with structured formats and actionable improvement outcomes",
+      "repo": "eddiebe147/claude-settings",
+      "path": "retrospective-facilitator",
+      "branch": "main",
+      "category": "retrospective-facilitator",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/retrospective-facilitator",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "blueprint-skill-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.434625Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates blueprint-driven skills for infrastructure and deployment tasks. This skill should be used when creating new skills that require templates, patterns, or reference configurations (e.g., Dockerf",
+      "repo": "mjunaidca/mjs-agent-skills",
+      "path": "blueprint-skill-creator",
+      "branch": "main",
+      "category": "blueprint-skill-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "mjunaidca/mjs-agent-skills/blueprint-skill-creator",
+      "source": "github.com/mjunaidca/mjs-agent-skills"
+    }
+  ]
+}

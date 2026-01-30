@@ -1,0 +1,20 @@
+{
+  "category": "measuring-product-market-fit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.110450Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Measure product-market fit (PMF) and produce a PMF Measurement Pack (Sean Ellis “very disappointed” survey, retention/usage evidence, reference-customer signals, and an action plan). Use for growth te",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "measuring-product-market-fit",
+      "branch": "main",
+      "category": "measuring-product-market-fit",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus/measuring-product-market-fit",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "content-marketing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.660845Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build a content marketing program by producing a Content Marketing Plan Pack (content market fit brief, demand-validated SEO topic map, human voice + primary channel strategy, editorial calendar, cont",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "content-marketing",
+      "branch": "main",
+      "category": "content-marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus/content-marketing",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

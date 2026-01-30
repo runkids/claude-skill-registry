@@ -1,0 +1,20 @@
+{
+  "category": "finishing-a-development-branch",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.667994Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete feature development with structured options for merge, PR, or cleanup",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "finishing-a-development-branch",
+      "branch": "main",
+      "category": "finishing-a-development-branch",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/finishing-a-development-branch",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

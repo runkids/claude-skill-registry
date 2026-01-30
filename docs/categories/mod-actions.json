@@ -1,0 +1,20 @@
+{
+  "category": "mod-actions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.185339Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Take moderator actions on users - ban, mute, remove content, manage leaderboard eligibility. Use when you need to ban a user, mute them, or take other moderation actions.",
+      "repo": "civitai/civitai",
+      "path": "mod-actions",
+      "branch": "main",
+      "category": "mod-actions",
+      "tags": [],
+      "stars": 0,
+      "install": "civitai/civitai/mod-actions",
+      "source": "github.com/civitai/civitai"
+    }
+  ]
+}

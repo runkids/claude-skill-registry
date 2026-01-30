@@ -1,0 +1,20 @@
+{
+  "category": "mere-exposure-effect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.119564Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "La familiaridad genera preferencia. Use cuando introduzca nuevos features, construya marca, o diseñe onboarding gradual.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "mere-exposure-effect",
+      "branch": "main",
+      "category": "mere-exposure-effect",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/mere-exposure-effect",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

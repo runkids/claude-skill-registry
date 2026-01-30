@@ -1,0 +1,20 @@
+{
+  "category": "similarity-diode",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.001462Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with diode similarity calculations - comparing signal/rectifier/zener/Schottky diode MPNs, understanding equivalent groups like 1N4148/1N914, or diode-specific similarity logic.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "similarity-diode",
+      "branch": "main",
+      "category": "similarity-diode",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/similarity-diode",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

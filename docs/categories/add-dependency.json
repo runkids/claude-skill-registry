@@ -1,0 +1,20 @@
+{
+  "category": "add-dependency",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.203698Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add a dependency to a Lean project's lakefile. Use when adding requires, dependencies, or imports to a project.",
+      "repo": "nathanial/lean-workspace",
+      "path": "add-dependency",
+      "branch": "main",
+      "category": "add-dependency",
+      "tags": [],
+      "stars": 0,
+      "install": "nathanial/lean-workspace/add-dependency",
+      "source": "github.com/nathanial/lean-workspace"
+    }
+  ]
+}

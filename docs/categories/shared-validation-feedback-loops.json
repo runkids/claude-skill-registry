@@ -1,0 +1,20 @@
+{
+  "category": "shared-validation-feedback-loops",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.992590Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Type-check, lint, test, build validation sequence. Use proactively before every commit across all agents.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "shared-validation-feedback-loops",
+      "branch": "main",
+      "category": "shared-validation-feedback-loops",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/shared-validation-feedback-loops",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

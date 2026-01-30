@@ -1,0 +1,20 @@
+{
+  "category": "pr-operations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.623773Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with PR review comments, resolving threads, or replying to discussion comments. Essential for understanding the correct erk exec commands for PR thread operations.",
+      "repo": "dagster-io/erk",
+      "path": "pr-operations",
+      "branch": "main",
+      "category": "pr-operations",
+      "tags": [],
+      "stars": 0,
+      "install": "dagster-io/erk/pr-operations",
+      "source": "github.com/dagster-io/erk"
+    }
+  ]
+}

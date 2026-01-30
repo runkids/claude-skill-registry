@@ -1,0 +1,20 @@
+{
+  "category": "api-contracts",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.319321Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Génère des contrats API cohérents entre Frontend (Next.js) et Backend (NestJS) avec types synchronisés, validation standardisée et error handling uniforme. À utiliser lors de la création d'APIs, DTOs,",
+      "repo": "RomualdP/hoki",
+      "path": "api-contracts",
+      "branch": "main",
+      "category": "api-contracts",
+      "tags": [],
+      "stars": 0,
+      "install": "RomualdP/hoki/api-contracts",
+      "source": "github.com/RomualdP/hoki"
+    }
+  ]
+}

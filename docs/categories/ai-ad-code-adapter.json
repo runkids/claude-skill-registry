@@ -1,0 +1,20 @@
+{
+  "category": "ai-ad-code-adapter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.270250Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<skill>",
+      "repo": "wade56754/AI_ad_spend02",
+      "path": "ai-ad-code-adapter",
+      "branch": "main",
+      "category": "ai-ad-code-adapter",
+      "tags": [],
+      "stars": 0,
+      "install": "wade56754/AI_ad_spend02/ai-ad-code-adapter",
+      "source": "github.com/wade56754/AI_ad_spend02"
+    }
+  ]
+}

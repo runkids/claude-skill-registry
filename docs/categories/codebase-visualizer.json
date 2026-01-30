@@ -1,0 +1,20 @@
+{
+  "category": "codebase-visualizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.603312Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract diagrams and explain complex logic",
+      "repo": "EtroxTaran/conductor",
+      "path": "codebase-visualizer",
+      "branch": "main",
+      "category": "codebase-visualizer",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor/codebase-visualizer",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

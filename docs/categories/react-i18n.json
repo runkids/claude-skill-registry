@@ -1,0 +1,20 @@
+{
+  "category": "react-i18n",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.774927Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "react-i18next modular SOLID - modules/cores/i18n/, useTranslation hook, namespaces, pluralization. Use when implementing translations in React apps (not Next.js).",
+      "repo": "fusengine/agents",
+      "path": "react-i18n",
+      "branch": "main",
+      "category": "react-i18n",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/react-i18n",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

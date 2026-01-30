@@ -1,0 +1,20 @@
+{
+  "category": "co2lpm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.583987Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validates code and provides physics reasoning for the 0-D CO2 lumped-parameter model for geothermal reservoirs. Use when modifying ODE solvers, parameter classes, emissions calculations, or concentrat",
+      "repo": "ddempsey/co2injection",
+      "path": "co2lpm",
+      "branch": "main",
+      "category": "co2lpm",
+      "tags": [],
+      "stars": 0,
+      "install": "ddempsey/co2injection/co2lpm",
+      "source": "github.com/ddempsey/co2injection"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "mcp-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.104482Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"add MCP server\", \"integrate MCP\", \"configure MCP in plugin\", \"use .mcp.json\", \"set up Model Context Protocol\", \"connect external service\", mentions \"${",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "mcp-integration",
+      "branch": "main",
+      "category": "mcp-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/mcp-integration",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

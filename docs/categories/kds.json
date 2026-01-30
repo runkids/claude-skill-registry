@@ -1,0 +1,20 @@
+{
+  "category": "kds",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.946828Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "KDS (Daishinku Corporation) MPN encoding patterns, crystal and oscillator decoding, and handler guidance. Use when working with KDS timing devices (DSX, DST, DSO, DSB series).",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "kds",
+      "branch": "main",
+      "category": "kds",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/kds",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

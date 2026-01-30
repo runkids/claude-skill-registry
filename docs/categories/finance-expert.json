@@ -1,0 +1,20 @@
+{
+  "category": "finance-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.664120Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level financial systems, FinTech, banking, payments, and financial technology",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "finance-expert",
+      "branch": "main",
+      "category": "finance-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/finance-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

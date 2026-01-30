@@ -1,0 +1,20 @@
+{
+  "category": "sveltekit-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.127162Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SvelteKit patterns for devhub-crm. Use for remote functions (query, form, command), routing, and server-side logic.",
+      "repo": "spences10/devhub-crm",
+      "path": "sveltekit-patterns",
+      "branch": "main",
+      "category": "sveltekit-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "spences10/devhub-crm/sveltekit-patterns",
+      "source": "github.com/spences10/devhub-crm"
+    }
+  ]
+}

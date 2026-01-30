@@ -1,0 +1,20 @@
+{
+  "category": "remotion",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.810926Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Best practices for Remotion - Video creation in React",
+      "repo": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
+      "path": "remotion",
+      "branch": "main",
+      "category": "remotion",
+      "tags": [],
+      "stars": 0,
+      "install": "hoanghd218/landing-page-ai-kientruc-a-Ninh/remotion",
+      "source": "github.com/hoanghd218/landing-page-ai-kientruc-a-Ninh"
+    }
+  ]
+}

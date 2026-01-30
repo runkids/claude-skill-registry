@@ -1,0 +1,20 @@
+{
+  "category": "component-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.634116Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for documenting project components and features. Creates or updates documentation in docs/components/ by exploring git changes to understand implementation details. Provides templates and conven",
+      "repo": "putto11262002/jimmodel",
+      "path": "component-docs",
+      "branch": "main",
+      "category": "component-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "putto11262002/jimmodel/component-docs",
+      "source": "github.com/putto11262002/jimmodel"
+    }
+  ]
+}

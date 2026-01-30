@@ -1,0 +1,20 @@
+{
+  "category": "codebase-organizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.602423Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Monitor and refactor large files into smaller, AI-friendly modules. Use when user asks to check file sizes, split large files, or organize the codebase. Ensures tests pass before and after refactoring",
+      "repo": "sunholo-data/ailang",
+      "path": "codebase-organizer",
+      "branch": "main",
+      "category": "codebase-organizer",
+      "tags": [],
+      "stars": 0,
+      "install": "sunholo-data/ailang/codebase-organizer",
+      "source": "github.com/sunholo-data/ailang"
+    }
+  ]
+}

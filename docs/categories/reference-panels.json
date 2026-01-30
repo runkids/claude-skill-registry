@@ -1,0 +1,20 @@
+{
+  "category": "reference-panels",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.798959Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Download, prepare, and manage reference panels for phasing and imputation. Covers 1000 Genomes, HRC, and TOPMed panels. Use when setting up imputation infrastructure or selecting appropriate reference",
+      "repo": "GPTomics/bioSkills",
+      "path": "reference-panels",
+      "branch": "main",
+      "category": "reference-panels",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/reference-panels",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

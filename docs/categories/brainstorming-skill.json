@@ -1,0 +1,20 @@
+{
+  "category": "brainstorming-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.440391Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when users need to generate ideas, explore creative solutions, or systematically brainstorm approaches to problems. Use when users request help with ideation, content plannin",
+      "repo": "BbgnsurfTech/claude-skills-collection",
+      "path": "brainstorming-skill",
+      "branch": "main",
+      "category": "brainstorming-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "BbgnsurfTech/claude-skills-collection/brainstorming-skill",
+      "source": "github.com/BbgnsurfTech/claude-skills-collection"
+    }
+  ]
+}

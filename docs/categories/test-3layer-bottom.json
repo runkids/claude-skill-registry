@@ -1,0 +1,20 @@
+{
+  "category": "test-3layer-bottom",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.195789Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Layer 3 (bottom) of 3-layer test - executes MCP query",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-3layer-bottom",
+      "branch": "main",
+      "category": "test-3layer-bottom",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/test-3layer-bottom",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

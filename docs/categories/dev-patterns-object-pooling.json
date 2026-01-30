@@ -1,0 +1,20 @@
+{
+  "category": "dev-patterns-object-pooling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.172238Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Object pooling for high-performance R3F components (decals, particles, projectiles)",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-patterns-object-pooling",
+      "branch": "main",
+      "category": "dev-patterns-object-pooling",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/dev-patterns-object-pooling",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

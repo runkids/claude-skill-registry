@@ -1,0 +1,20 @@
+{
+  "category": "nano-pdf",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.223369Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Edit PDFs with natural-language instructions using the nano-pdf CLI.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "nano-pdf",
+      "branch": "main",
+      "category": "nano-pdf",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/nano-pdf",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

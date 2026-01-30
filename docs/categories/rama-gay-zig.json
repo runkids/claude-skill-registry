@@ -1,0 +1,20 @@
+{
+  "category": "rama-gay-zig",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.764721Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "rama-gay-zig skill",
+      "repo": "plurigrid/asi",
+      "path": "rama-gay-zig",
+      "branch": "main",
+      "category": "rama-gay-zig",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/rama-gay-zig",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

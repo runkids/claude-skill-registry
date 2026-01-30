@@ -1,0 +1,20 @@
+{
+  "category": "precision-re-render-control",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.633051Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Minimize unnecessary re-renders through precise state partitioning and selector-driven updates.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "precision-re-render-control",
+      "branch": "main",
+      "category": "precision-re-render-control",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/precision-re-render-control",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "webpack",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.452970Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configures Webpack 5 for JavaScript/TypeScript bundling with loaders, plugins, code splitting, and Module Federation. Use when setting up custom builds, migrating to Webpack 5, or implementing micro-f",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "webpack",
+      "branch": "main",
+      "category": "webpack",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini/webpack",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

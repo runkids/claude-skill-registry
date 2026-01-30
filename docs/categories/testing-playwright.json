@@ -1,0 +1,20 @@
+{
+  "category": "testing-playwright",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.272285Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when writing end-to-end tests: user flows, cross-browser testing, visual regression, and API testing.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "testing-playwright",
+      "branch": "main",
+      "category": "testing-playwright",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/testing-playwright",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

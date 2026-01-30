@@ -1,0 +1,20 @@
+{
+  "category": "vibe-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.412460Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create stunning, modern web designs with aurora effects, glassmorphism, neon glows, and sophisticated aesthetics. Perfect for developer tools, dashboards, and apps targeting vibe coders who appreciate",
+      "repo": "tmdgusya/sprinter",
+      "path": "vibe-designer",
+      "branch": "main",
+      "category": "vibe-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "tmdgusya/sprinter/vibe-designer",
+      "source": "github.com/tmdgusya/sprinter"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "roster-party",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.854134Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Parallel team composition analysis using G-1 PERSONNEL. Deploy 6 probes for comprehensive roster assessment before complex task assembly.",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "roster-party",
+      "branch": "main",
+      "category": "roster-party",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/roster-party",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

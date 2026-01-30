@@ -1,0 +1,20 @@
+{
+  "category": "variant-calling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.397600Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Call SNPs and indels from aligned reads using bcftools mpileup and call. Use when detecting variants from BAM files or generating VCF from alignments.",
+      "repo": "GPTomics/bioSkills",
+      "path": "variant-calling",
+      "branch": "main",
+      "category": "variant-calling",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/variant-calling",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

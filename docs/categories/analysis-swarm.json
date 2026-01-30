@@ -1,0 +1,20 @@
+{
+  "category": "analysis-swarm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.292694Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-persona analytical framework for comprehensive code review and decision-making",
+      "repo": "d-o-hub/rust-self-learning-memory",
+      "path": "analysis-swarm",
+      "branch": "main",
+      "category": "analysis-swarm",
+      "tags": [],
+      "stars": 0,
+      "install": "d-o-hub/rust-self-learning-memory/analysis-swarm",
+      "source": "github.com/d-o-hub/rust-self-learning-memory"
+    }
+  ]
+}

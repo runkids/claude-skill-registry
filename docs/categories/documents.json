@@ -1,8 +1,8 @@
 {
   "category": "documents",
   "code": "doc",
-  "count": 2753,
-  "updated_at": "2026-01-29T04:50:38.900811Z",
+  "count": 2738,
+  "updated_at": "2026-01-30T04:55:06.482776Z",
   "skills": [
     {
       "name": "docs-review",
@@ -675,21 +675,6 @@
       ],
       "stars": 433,
       "install": "r3bl-org/r3bl-open-core/.claude/skills/write-documentation",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "write-documentation",
-      "description": "Write and format Rust documentation correctly. Apply proactively when writing code with rustdoc comments (//! or ///). Covers structure (inverted pyramid), intra-doc links (crate:: paths, reference-st",
-      "repo": "r3bl-org/r3bl-open-core",
-      "path": "data/write-documentation",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "write",
-        "documentation"
-      ],
-      "stars": 433,
-      "install": "r3bl-org/r3bl-open-core/data/write-documentation",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -2763,21 +2748,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "documentation-guidelines",
-      "description": "Write or update backend feature documentation that follows a repo's DOCUMENTATION_GUIDELINES.md (or equivalent) across any project. Use when asked to create/update module docs, API contracts, or backe",
-      "repo": "thienanblog/awesome-ai-agent-skills",
-      "path": "data/documentation-guidelines",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "documentation",
-        "guidelines"
-      ],
-      "stars": 16,
-      "install": "thienanblog/awesome-ai-agent-skills/data/documentation-guidelines",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "docusaurus",
       "description": "Docusaurus documentation expert. Specializes in creating, configuring, and deploying Docusaurus documentation sites, MDX authoring, plugin development, theming, versioning, and i18n. Activates for Doc",
       "repo": "anton-abyzov/specweave",
@@ -3014,39 +2984,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "ln-100-documents-pipeline",
-      "description": "Top orchestrator for complete doc system. Delegates to ln-110 coordinator (project docs via 5 L3 workers) + ln-120-150 workers. Phase 4: global cleanup. Idempotent.",
-      "repo": "levnikolaevich/claude-code-skills",
-      "path": "ln-100-documents-pipeline",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "100",
-        "documents",
-        "pipeline"
-      ],
-      "stars": 13,
-      "install": "levnikolaevich/claude-code-skills/ln-100-documents-pipeline",
-      "source": "local"
-    },
-    {
-      "name": "ln-110-project-docs-coordinator",
-      "description": "Coordinates project documentation creation. Gathers context once, detects project type, delegates to 5 L3 workers (ln-111-115). L2 Coordinator invoked by ln-100.",
-      "repo": "levnikolaevich/claude-code-skills",
-      "path": "ln-110-project-docs-coordinator",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "110",
-        "project",
-        "docs",
-        "coordinator"
-      ],
-      "stars": 13,
-      "install": "levnikolaevich/claude-code-skills/ln-110-project-docs-coordinator",
-      "source": "local"
-    },
-    {
       "name": "ln-111-root-docs-creator",
       "description": "Creates 4 root documentation files (CLAUDE.md, docs/README.md, documentation_standards.md, principles.md). L3 Worker invoked by ln-110-project-docs-coordinator.",
       "repo": "levnikolaevich/claude-code-skills",
@@ -3061,40 +2998,6 @@
       ],
       "stars": 13,
       "install": "levnikolaevich/claude-code-skills/ln-111-root-docs-creator",
-      "source": "local"
-    },
-    {
-      "name": "ln-120-reference-docs-creator",
-      "description": "Creates reference documentation structure + smart documents (ADRs/Guides/Manuals) based on TECH_STACK. Only creates justified documents (nontrivial technology choices). L2 Worker in ln-100-documents-p",
-      "repo": "levnikolaevich/claude-code-skills",
-      "path": "ln-120-reference-docs-creator",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "120",
-        "reference",
-        "docs",
-        "creator"
-      ],
-      "stars": 13,
-      "install": "levnikolaevich/claude-code-skills/ln-120-reference-docs-creator",
-      "source": "local"
-    },
-    {
-      "name": "ln-130-tasks-docs-creator",
-      "description": "Creates task management documentation (docs/tasks/README.md + kanban_board.md). L2 Worker in ln-100-documents-pipeline. Sets up Linear integration and task tracking rules.",
-      "repo": "levnikolaevich/claude-code-skills",
-      "path": "ln-130-tasks-docs-creator",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "130",
-        "tasks",
-        "docs",
-        "creator"
-      ],
-      "stars": 13,
-      "install": "levnikolaevich/claude-code-skills/ln-130-tasks-docs-creator",
       "source": "local"
     },
     {
@@ -3286,21 +3189,6 @@
       "stars": 12,
       "install": "DCjanus/prompts/skills/tech-doc",
       "source": "local"
-    },
-    {
-      "name": "brand-yml",
-      "description": "Create and use brand.yml files for consistent branding across Shiny apps and Quarto documents. Use when working with brand styling, colors, fonts, logos, or corporate identity in Shiny or Quarto proje",
-      "repo": "posit-dev/skills",
-      "path": "brand-yml",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "brand",
-        "yml"
-      ],
-      "stars": 11,
-      "install": "posit-dev/skills/brand-yml",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "confluence-docs",
@@ -5839,20 +5727,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "braiins-os",
-      "description": "Comprehensive Braiins OS skill covering API, feeds, and documentation",
-      "repo": "enuno/claude-command-and-control",
-      "path": "data/braiins-os",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "braiins"
-      ],
-      "stars": 3,
-      "install": "enuno/claude-command-and-control/data/braiins-os",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "codebase-context",
       "description": "Generates and maintains codebase context documentation (.context.md files).Implements the Codebase Context Specification for AI-friendly projectdocumentation. Activates when documenting architecture o",
       "repo": "seanchatmangpt/agile-protocol-specification",
@@ -7869,21 +7743,6 @@
       "source": "local"
     },
     {
-      "name": "codebase-research",
-      "description": "Orchestrates comprehensive codebase research by decomposing user queries into parallel sub-agent tasks and synthesizing findings. This skill should be used when users ask questions about how code work",
-      "repo": "mhylle/claude-skills-collection",
-      "path": "data/codebase-research",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "codebase",
-        "research"
-      ],
-      "stars": 1,
-      "install": "mhylle/claude-skills-collection/data/codebase-research",
-      "source": "local"
-    },
-    {
       "name": "command-verify",
       "description": "Intelligent command verification for documentation. Discovers all commands in markdown files, validates them using git diff-based cache invalidation, and ensures documentation accuracy with zero token",
       "repo": "d-oit/command-verify",
@@ -9346,22 +9205,6 @@
       "source": "local"
     },
     {
-      "name": "ocr-document-processor",
-      "description": "Extract text from images and scanned PDFs using OCR. Supports 100+ languages, table detection, structured output (markdown/JSON), and batch processing.",
-      "repo": "dkyazzentwatwa/chatgpt-skills",
-      "path": "ocr-document-processor",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "ocr",
-        "document",
-        "processor"
-      ],
-      "stars": 1,
-      "install": "dkyazzentwatwa/chatgpt-skills/ocr-document-processor",
-      "source": "local"
-    },
-    {
       "name": "openspec-archiving",
       "description": "Archives completed changes and merges specification deltas into living documentation. Use when changes are deployed, ready to archive, or specs need updating after implementation. Triggers include \"op",
       "repo": "forztf/open-skilled-sdd",
@@ -9451,21 +9294,6 @@
       ],
       "stars": 1,
       "install": "daishir0/Papernote/data/paper-translate",
-      "source": "local"
-    },
-    {
-      "name": "pdf-toolkit",
-      "description": "Comprehensive PDF manipulation - merge, split, rotate, extract pages, add watermarks, compress, and encrypt PDFs programmatically.",
-      "repo": "dkyazzentwatwa/chatgpt-skills",
-      "path": "pdf-toolkit",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "pdf",
-        "toolkit"
-      ],
-      "stars": 1,
-      "install": "dkyazzentwatwa/chatgpt-skills/pdf-toolkit",
       "source": "local"
     },
     {
@@ -10017,21 +9845,6 @@
       ],
       "stars": 1,
       "install": "CANTAGESTUDIO/CosmicAtlasPacker/.claude/skills/smart-rules",
-      "source": "local"
-    },
-    {
-      "name": "table-extractor",
-      "description": "Extract tables from PDFs and images to CSV or Excel. Support for scanned documents with OCR, multi-page PDFs, and complex table structures.",
-      "repo": "dkyazzentwatwa/chatgpt-skills",
-      "path": "table-extractor",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "table",
-        "extractor"
-      ],
-      "stars": 1,
-      "install": "dkyazzentwatwa/chatgpt-skills/table-extractor",
       "source": "local"
     },
     {
@@ -18211,18 +18024,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "docusaurus-config-setup",
-      "description": "Docusaurus Config Setup - Auto-activating skill for Technical Documentation.Triggers on: docusaurus config setup, docusaurus config setupPart of the Technical Documentation skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/docusaurus-config-setup",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/docusaurus-config-setup",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "docusaurus-initializer",
       "description": "This skill should be used when initializing a new Docusaurus documentation site with TypeScript and custom dark mode theme. Provides basic setup with pnpm, theme installation, and configuration templa",
       "repo": "DevHammad0/physical-ai-robotics-textbook",
@@ -24441,21 +24242,6 @@
       "source": "local"
     },
     {
-      "name": "manage-adr",
-      "description": "Architecture Decision Records (ADRs)をdocs/adr/ディレクトリで管理します。新しいADRの作成、既存ADRの編集、ADR索引の確認を行います。ユーザーがアーキテクチャ決定の記録、ADRの作成・更新・検索を依頼したときに使用してください。番号の自動採番、プロジェクト固有のフォーマット（日本語、メタデータ構造）を遵守します。",
-      "repo": "yattom/timtam",
-      "path": "data/manage-adr",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "manage",
-        "adr"
-      ],
-      "stars": 0,
-      "install": "yattom/timtam/data/manage-adr",
-      "source": "local"
-    },
-    {
       "name": "manage-markdown-docs",
       "description": "Standardize markdown document creation and updates with proper headers and footers. Use when creating OR updating any markdown file that is NOT a subagent, command, or skill definition. Ensures consis",
       "repo": "rayk/lucid-toolkit",
@@ -24465,18 +24251,6 @@
       "tags": [],
       "stars": 0,
       "install": "rayk/lucid-toolkit/plugins/luc/skills/manage-markdown-docs",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "manage-markdown-docs",
-      "description": "Standardize markdown document creation and updates with proper headers and footers. Use when creating OR updating any markdown file that is NOT a subagent, command, or skill definition. Ensures consis",
-      "repo": "rayk/lucid-toolkit",
-      "path": "data/manage-markdown-docs",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "rayk/lucid-toolkit/data/manage-markdown-docs",
       "source": "SkillsMP + GitHub Raw"
     },
     {

@@ -1,0 +1,20 @@
+{
+  "category": "methylkit-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.126573Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DNA methylation analysis with methylKit in R. Import Bismark coverage files, filter by coverage, normalize samples, and perform statistical comparisons. Use when analyzing single-base methylation patt",
+      "repo": "GPTomics/bioSkills",
+      "path": "methylkit-analysis",
+      "branch": "main",
+      "category": "methylkit-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/methylkit-analysis",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

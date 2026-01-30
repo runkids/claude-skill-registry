@@ -1,0 +1,20 @@
+{
+  "category": "clawdhub",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.546991Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use the ClawdHub CLI to search, install, update, and publish agent skills from clawdhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "clawdhub",
+      "branch": "main",
+      "category": "clawdhub",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/clawdhub",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

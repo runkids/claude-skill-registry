@@ -1,0 +1,20 @@
+{
+  "category": "maintenance-planning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.067590Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize maintenance strategies, improve equipment reliability, reduce downtime, or implement predictive maintenance. Also use when the user mentions \"preventive maintenance,\" \"",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "maintenance-planning",
+      "branch": "main",
+      "category": "maintenance-planning",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/maintenance-planning",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

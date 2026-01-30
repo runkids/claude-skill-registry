@@ -1,0 +1,20 @@
+{
+  "category": "active-learning-system",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.199709Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт active learning. Используй для ML с участием человека, uncertainty sampling, annotation workflows и labeling optimization.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "active-learning-system",
+      "branch": "main",
+      "category": "active-learning-system",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/active-learning-system",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

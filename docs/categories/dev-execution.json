@@ -1,0 +1,20 @@
+{
+  "category": "dev-execution",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.169038Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unified execution engine for all development workflows. Progressive disclosure for phase execution, quick features, story completion, and scaffolding. Integrates with artifact-tracking and meatycaptur",
+      "repo": "miethe/skillmeat",
+      "path": "dev-execution",
+      "branch": "main",
+      "category": "dev-execution",
+      "tags": [],
+      "stars": 0,
+      "install": "miethe/skillmeat/dev-execution",
+      "source": "github.com/miethe/skillmeat"
+    }
+  ]
+}

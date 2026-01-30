@@ -1,0 +1,20 @@
+{
+  "category": "beads",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.419836Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Issue tracking with Beads (bd CLI). Use when commands need to create, query, update, or close issues, or manage dependencies.",
+      "repo": "arttttt/CMIDCABot",
+      "path": "beads",
+      "branch": "main",
+      "category": "beads",
+      "tags": [],
+      "stars": 0,
+      "install": "arttttt/CMIDCABot/beads",
+      "source": "github.com/arttttt/CMIDCABot"
+    }
+  ]
+}

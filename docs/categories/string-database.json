@@ -1,0 +1,20 @@
+{
+  "category": "string-database",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.103299Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query STRING API for protein-protein interactions (59M proteins, 20B interactions). Network analysis, GO/KEGG enrichment, interaction discovery, 5000+ species, for systems biology.",
+      "repo": "ovachiever/droid-tings",
+      "path": "string-database",
+      "branch": "main",
+      "category": "string-database",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings/string-database",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

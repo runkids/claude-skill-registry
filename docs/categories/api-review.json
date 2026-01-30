@@ -1,0 +1,20 @@
+{
+  "category": "api-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.328631Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill to review public API changes, design new surfaces, audit consistency, and validate documentation completeness. Run it before any API release to confirm alignment with project guidelines",
+      "repo": "athola/claude-night-market",
+      "path": "api-review",
+      "branch": "main",
+      "category": "api-review",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/api-review",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

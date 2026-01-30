@@ -1,0 +1,20 @@
+{
+  "category": "technical-indicators",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.184393Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Technical analysis with TA-Lib - Moving averages, RSI, MACD, Bollinger Bands, Stochastic, ATR, candlestick patterns, and strategy signals using OpenAlgo market data",
+      "repo": "marketcalls/openalgo-claude-plugin",
+      "path": "technical-indicators",
+      "branch": "main",
+      "category": "technical-indicators",
+      "tags": [],
+      "stars": 0,
+      "install": "marketcalls/openalgo-claude-plugin/technical-indicators",
+      "source": "github.com/marketcalls/openalgo-claude-plugin"
+    }
+  ]
+}

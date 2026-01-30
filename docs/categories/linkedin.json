@@ -1,0 +1,20 @@
+{
+  "category": "linkedin",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.025624Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create LinkedIn posts for lead generation and thought leadership. Use when projecting ideas to LinkedIn, creating post series, or reviewing LinkedIn content. Includes LinkedIn-specific voice (punchier",
+      "repo": "xavierfuentes/xavierfuentes.com",
+      "path": "linkedin",
+      "branch": "main",
+      "category": "linkedin",
+      "tags": [],
+      "stars": 0,
+      "install": "xavierfuentes/xavierfuentes.com/linkedin",
+      "source": "github.com/xavierfuentes/xavierfuentes.com"
+    }
+  ]
+}

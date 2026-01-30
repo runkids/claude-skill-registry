@@ -1,0 +1,20 @@
+{
+  "category": "photo-collage-maker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.572284Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create photo collages with grid layouts, custom arrangements, borders, and backgrounds. Combine multiple images into single compositions.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "photo-collage-maker",
+      "branch": "main",
+      "category": "photo-collage-maker",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/photo-collage-maker",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

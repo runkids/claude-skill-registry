@@ -1,0 +1,20 @@
+{
+  "category": "applying-a11y-standards",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.338145Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Rules for ensuring Accessibility (a11y) across the Tourly app. Use to build inclusive interfaces.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "applying-a11y-standards",
+      "branch": "main",
+      "category": "applying-a11y-standards",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2/applying-a11y-standards",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

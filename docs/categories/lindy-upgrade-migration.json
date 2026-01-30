@@ -1,0 +1,20 @@
+{
+  "category": "lindy-upgrade-migration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.023007Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for upgrading Lindy SDK and migrating between versions. Use when upgrading SDK versions, migrating agents, or handling breaking changes. Trigger with phrases like \"upgrade lindy\", \"lindy migrati",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "lindy-upgrade-migration",
+      "branch": "main",
+      "category": "lindy-upgrade-migration",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/lindy-upgrade-migration",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

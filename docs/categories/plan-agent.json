@@ -1,0 +1,20 @@
+{
+  "category": "plan-agent",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.578458Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Planning agent that creates implementation plans and handoffs from conversation context",
+      "repo": "tfunk1030/vibe",
+      "path": "plan-agent",
+      "branch": "main",
+      "category": "plan-agent",
+      "tags": [],
+      "stars": 0,
+      "install": "tfunk1030/vibe/plan-agent",
+      "source": "github.com/tfunk1030/vibe"
+    }
+  ]
+}

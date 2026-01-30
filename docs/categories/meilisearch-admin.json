@@ -1,0 +1,20 @@
+{
+  "category": "meilisearch-admin",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.114338Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check Meilisearch index status, tasks, health, and settings. Use for debugging search issues, monitoring indexing tasks, and inspecting index configuration. Read-only admin operations.",
+      "repo": "civitai/civitai",
+      "path": "meilisearch-admin",
+      "branch": "main",
+      "category": "meilisearch-admin",
+      "tags": [],
+      "stars": 0,
+      "install": "civitai/civitai/meilisearch-admin",
+      "source": "github.com/civitai/civitai"
+    }
+  ]
+}

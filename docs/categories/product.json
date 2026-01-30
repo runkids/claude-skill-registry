@@ -2,7 +2,7 @@
   "category": "product",
   "code": "prd",
   "count": 1079,
-  "updated_at": "2026-01-29T04:50:39.168306Z",
+  "updated_at": "2026-01-30T04:55:07.645929Z",
   "skills": [
     {
       "name": "using-git-worktrees",
@@ -11595,6 +11595,18 @@
       "source": "local"
     },
     {
+      "name": "SKILL.md",
+      "description": "Product workflows router. Use when validating product ideas, writing specs, analyzing competitors, or tracking metrics. Triggers on \"PRD\", \"competitive analysis\", \"metrics\", \"OKRs\", \"cohort\", \"require",
+      "repo": "saadshahd/moo.md",
+      "path": "product",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "saadshahd/moo.md/product",
+      "source": "github.com/saadshahd/moo.md"
+    },
+    {
       "name": "skillstash-research",
       "description": "Gather sources and summarize research for skillstash skills",
       "repo": "galligan/skillstash",
@@ -13174,18 +13186,6 @@
       "tags": [],
       "stars": 0,
       "install": "cjmellor/mella-marketplace/plugins/mella/skills/walkthrough",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "walkthrough",
-      "description": "Generate step-by-step walkthrough guides for testing features or bug fixes. Use when the user asks to create testing instructions, QA guides, walkthrough documentation, or says something like \"write a",
-      "repo": "cjmellor/mella-marketplace",
-      "path": "data/walkthrough",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "cjmellor/mella-marketplace/data/walkthrough",
       "source": "SkillsMP + GitHub Raw"
     },
     {

@@ -1,0 +1,20 @@
+{
+  "category": "prowler-test-sdk",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.714232Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Testing patterns for Prowler SDK (Python). Trigger: When writing tests for the Prowler SDK (checks/services/providers), including provider-specific mocking rules (moto for AWS only).",
+      "repo": "prowler-cloud/prowler",
+      "path": "prowler-test-sdk",
+      "branch": "main",
+      "category": "prowler-test-sdk",
+      "tags": [],
+      "stars": 0,
+      "install": "prowler-cloud/prowler/prowler-test-sdk",
+      "source": "github.com/prowler-cloud/prowler"
+    }
+  ]
+}

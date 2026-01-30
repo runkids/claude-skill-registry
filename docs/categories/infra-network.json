@@ -1,0 +1,20 @@
+{
+  "category": "infra-network",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.877810Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Infra Network Agent. VPC, 서브넷, 방화벽, DNS 설정을 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "infra-network",
+      "branch": "main",
+      "category": "infra-network",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin/infra-network",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

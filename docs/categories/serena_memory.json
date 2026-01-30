@@ -1,0 +1,20 @@
+{
+  "category": "serena_memory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.970783Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interface for long-term memory and context management. Use to store and retrieve user preferences, project context, and past learnings.",
+      "repo": "Verridian-ai/life-os-Pulse-banner-generator",
+      "path": "serena_memory",
+      "branch": "main",
+      "category": "serena_memory",
+      "tags": [],
+      "stars": 0,
+      "install": "Verridian-ai/life-os-Pulse-banner-generator/serena_memory",
+      "source": "github.com/Verridian-ai/life-os-Pulse-banner-generator"
+    }
+  ]
+}

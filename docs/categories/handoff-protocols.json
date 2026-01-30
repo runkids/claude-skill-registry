@@ -1,0 +1,20 @@
+{
+  "category": "handoff-protocols",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.821020Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Effectively transfer work context between team members or agents",
+      "repo": "rohitg00/skillkit",
+      "path": "handoff-protocols",
+      "branch": "main",
+      "category": "handoff-protocols",
+      "tags": [],
+      "stars": 0,
+      "install": "rohitg00/skillkit/handoff-protocols",
+      "source": "github.com/rohitg00/skillkit"
+    }
+  ]
+}

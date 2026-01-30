@@ -1,0 +1,20 @@
+{
+  "category": "worktree-manager-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.487422Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive git worktree management. Use when the user wants to create, remove, list, or manage worktrees. Handles all worktree operations including creation, deletion, and status checking.",
+      "repo": "GolferGeek/orchestrator-ai",
+      "path": "worktree-manager-skill",
+      "branch": "main",
+      "category": "worktree-manager-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "GolferGeek/orchestrator-ai/worktree-manager-skill",
+      "source": "github.com/GolferGeek/orchestrator-ai"
+    }
+  ]
+}

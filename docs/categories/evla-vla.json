@@ -1,0 +1,20 @@
+{
+  "category": "evla-vla",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.604264Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "EdgeVLA - Open-source edge vision-language-action model for robotics. Standardizes Open-X Embodiment datasets for consistent VLA training and deployment.",
+      "repo": "plurigrid/asi",
+      "path": "evla-vla",
+      "branch": "main",
+      "category": "evla-vla",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/evla-vla",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "implement",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.864293Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute plan phases, writing code in spaces/ while tracking in ideas/. Use after creating a plan with /plan to implement work.",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "implement",
+      "branch": "main",
+      "category": "implement",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager/implement",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

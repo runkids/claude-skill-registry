@@ -1,0 +1,20 @@
+{
+  "category": "building-with-google-adk",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.464501Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building AI agents with Google's Agent Development Kit (ADK). Triggers include creating ADK agents, Gemini-powered agents, multi-agent workflows, MCP integration with ADK, agent evaluation, w",
+      "repo": "panaversity/agentfactory",
+      "path": "building-with-google-adk",
+      "branch": "main",
+      "category": "building-with-google-adk",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory/building-with-google-adk",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "fintech-engineer-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.668563Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in financial technology systems, double-entry ledger design, high-precision math, and regulatory compliance. Use when building payment systems, ledger architectures, financial calculations, PCI",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "fintech-engineer-skill",
+      "branch": "main",
+      "category": "fintech-engineer-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/fintech-engineer-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "add-module",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.206295Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a new core infrastructure module with standard API, lazy init, and proper structure",
+      "repo": "Ariedam64/Gemini",
+      "path": "add-module",
+      "branch": "main",
+      "category": "add-module",
+      "tags": [],
+      "stars": 0,
+      "install": "Ariedam64/Gemini/add-module",
+      "source": "github.com/Ariedam64/Gemini"
+    }
+  ]
+}

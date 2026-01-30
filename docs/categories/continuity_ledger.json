@@ -1,0 +1,20 @@
+{
+  "category": "continuity_ledger",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.672170Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create or update continuity ledger for state preservation across clears",
+      "repo": "tfunk1030/vibe",
+      "path": "continuity_ledger",
+      "branch": "main",
+      "category": "continuity_ledger",
+      "tags": [],
+      "stars": 0,
+      "install": "tfunk1030/vibe/continuity_ledger",
+      "source": "github.com/tfunk1030/vibe"
+    }
+  ]
+}

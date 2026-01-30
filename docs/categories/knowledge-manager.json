@@ -1,0 +1,20 @@
+{
+  "category": "knowledge-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.952909Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "智能知识管理助手,自动分析和优化知识库结构。",
+      "repo": "huifer/Claude-Code-KnowCraft",
+      "path": "knowledge-manager",
+      "branch": "main",
+      "category": "knowledge-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "huifer/Claude-Code-KnowCraft/knowledge-manager",
+      "source": "github.com/huifer/Claude-Code-KnowCraft"
+    }
+  ]
+}

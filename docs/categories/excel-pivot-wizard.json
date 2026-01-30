@@ -1,0 +1,20 @@
+{
+  "category": "excel-pivot-wizard",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.611109Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate pivot tables and charts from raw data using natural language - analyze sales by region, summarize data by category, and create visualizations effortlessly",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "excel-pivot-wizard",
+      "branch": "main",
+      "category": "excel-pivot-wizard",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla/excel-pivot-wizard",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "figma-to-page",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.658794Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates React code for a full page based on pasted Figma 'Inspect' details. Uses the page scaffolder.",
+      "repo": "okgoogle13/careercopilot",
+      "path": "figma-to-page",
+      "branch": "main",
+      "category": "figma-to-page",
+      "tags": [],
+      "stars": 0,
+      "install": "okgoogle13/careercopilot/figma-to-page",
+      "source": "github.com/okgoogle13/careercopilot"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "using-perplexity-platform",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.371768Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Perplexity Sonar API development with search-augmented generation, real-time web search, citations, and OpenAI-compatible Chat Completions. Use for AI-powered applications requiring up-to-date informa",
+      "repo": "FortiumPartners/ensemble",
+      "path": "using-perplexity-platform",
+      "branch": "main",
+      "category": "using-perplexity-platform",
+      "tags": [],
+      "stars": 0,
+      "install": "FortiumPartners/ensemble/using-perplexity-platform",
+      "source": "github.com/FortiumPartners/ensemble"
+    }
+  ]
+}

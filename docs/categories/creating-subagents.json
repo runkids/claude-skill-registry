@@ -1,0 +1,20 @@
+{
+  "category": "creating-subagents",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.715478Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating custom Claude Code subagents (Task tool agents). Use when building specialized autonomous agents for specific domains or workflows. Covers agent definition, frontmatter options, too",
+      "repo": "hgeldenhuys/claude-code-sdk",
+      "path": "creating-subagents",
+      "branch": "main",
+      "category": "creating-subagents",
+      "tags": [],
+      "stars": 0,
+      "install": "hgeldenhuys/claude-code-sdk/creating-subagents",
+      "source": "github.com/hgeldenhuys/claude-code-sdk"
+    }
+  ]
+}

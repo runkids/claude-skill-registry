@@ -1,0 +1,20 @@
+{
+  "category": "database-analyzer-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.037231Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze and optimize database schemas, identify performance issues, and suggest improvements. Use when working with database structure, indexes, or query performance.",
+      "repo": "netresearch/composer-agent-skill-plugin",
+      "path": "database-analyzer-skill",
+      "branch": "main",
+      "category": "database-analyzer-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "netresearch/composer-agent-skill-plugin/database-analyzer-skill",
+      "source": "github.com/netresearch/composer-agent-skill-plugin"
+    }
+  ]
+}

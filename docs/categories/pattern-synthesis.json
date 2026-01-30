@@ -1,0 +1,20 @@
+{
+  "category": "pattern-synthesis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.548951Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract common patterns from multiple instance outputs, find what persists",
+      "repo": "agentgptsmith/MonadFramework",
+      "path": "pattern-synthesis",
+      "branch": "main",
+      "category": "pattern-synthesis",
+      "tags": [],
+      "stars": 0,
+      "install": "agentgptsmith/MonadFramework/pattern-synthesis",
+      "source": "github.com/agentgptsmith/MonadFramework"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "graphql-implementation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.803013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Builds GraphQL APIs with schema design, resolvers, error handling, and performance optimization using Apollo or Graphene. Use when creating flexible query APIs, migrating from REST, or implementing re",
+      "repo": "secondsky/claude-skills",
+      "path": "graphql-implementation",
+      "branch": "main",
+      "category": "graphql-implementation",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills/graphql-implementation",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "typescript-configuration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.324595Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TypeScript configuration standards and tsconfig.json patterns",
+      "repo": "zerobias-org/module",
+      "path": "typescript-configuration",
+      "branch": "main",
+      "category": "typescript-configuration",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/typescript-configuration",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

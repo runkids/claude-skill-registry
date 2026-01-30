@@ -1,0 +1,20 @@
+{
+  "category": "user-research",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.366525Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "User research methods, customer insight gathering, and problem validation for product discovery.",
+      "repo": "nicepkg/ai-workflow",
+      "path": "user-research",
+      "branch": "main",
+      "category": "user-research",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/user-research",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

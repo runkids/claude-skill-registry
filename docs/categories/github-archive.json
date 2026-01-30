@@ -1,0 +1,20 @@
+{
+  "category": "github-archive",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.768535Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Investigate GitHub security incidents using tamper-proof GitHub Archive data via BigQuery. Use when verifying repository activity claims, recovering deleted PRs/branches/tags/repos, attributing action",
+      "repo": "gadievron/raptor",
+      "path": "github-archive",
+      "branch": "main",
+      "category": "github-archive",
+      "tags": [],
+      "stars": 0,
+      "install": "gadievron/raptor/github-archive",
+      "source": "github.com/gadievron/raptor"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "theme-to-component-migration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.281479Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic migration from hardcoded styles to theme tokens and UI components. Identifies hardcoded Tailwind classes, inline styles, and native HTML elements, then replaces them with theme tokens and S",
+      "repo": "Higashi-Kota/react-tailwindcss-sandbox",
+      "path": "theme-to-component-migration",
+      "branch": "main",
+      "category": "theme-to-component-migration",
+      "tags": [],
+      "stars": 0,
+      "install": "Higashi-Kota/react-tailwindcss-sandbox/theme-to-component-migration",
+      "source": "github.com/Higashi-Kota/react-tailwindcss-sandbox"
+    }
+  ]
+}

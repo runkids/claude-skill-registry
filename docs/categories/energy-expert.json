@@ -1,0 +1,20 @@
+{
+  "category": "energy-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.572346Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level energy systems, smart grids, renewable energy, power management, and energy analytics",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "energy-expert",
+      "branch": "main",
+      "category": "energy-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/energy-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

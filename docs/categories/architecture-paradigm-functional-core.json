@@ -1,0 +1,20 @@
+{
+  "category": "architecture-paradigm-functional-core",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.348013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- When business logic is entangled with I/O operations (e.g., database calls, HTTP requests), making tests brittle and slow.",
+      "repo": "athola/claude-night-market",
+      "path": "architecture-paradigm-functional-core",
+      "branch": "main",
+      "category": "architecture-paradigm-functional-core",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/architecture-paradigm-functional-core",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

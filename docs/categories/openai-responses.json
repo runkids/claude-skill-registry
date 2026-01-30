@@ -1,0 +1,20 @@
+{
+  "category": "openai-responses",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.290670Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build agentic AI with OpenAI Responses API - stateful conversations with preserved reasoning, built-in tools (Code Interpreter, File Search, Web Search), and MCP integration. Prevents 11 documented er",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "openai-responses",
+      "branch": "main",
+      "category": "openai-responses",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/openai-responses",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

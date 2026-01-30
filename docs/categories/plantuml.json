@@ -1,0 +1,20 @@
+{
+  "category": "plantuml",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.586804Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ALWAYS use this skill when the user mentions:",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "plantuml",
+      "branch": "main",
+      "category": "plantuml",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/plantuml",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

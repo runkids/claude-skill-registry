@@ -1,0 +1,20 @@
+{
+  "category": "architecture-fit-check",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.347667Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Framework for evaluating if change-set specs fit existing codebase architecture",
+      "repo": "shanepadgett/agent-extensions",
+      "path": "architecture-fit-check",
+      "branch": "main",
+      "category": "architecture-fit-check",
+      "tags": [],
+      "stars": 0,
+      "install": "shanepadgett/agent-extensions/architecture-fit-check",
+      "source": "github.com/shanepadgett/agent-extensions"
+    }
+  ]
+}

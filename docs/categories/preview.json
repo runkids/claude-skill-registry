@@ -1,0 +1,20 @@
+{
+  "category": "preview",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.637403Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Display execution plan preview before running commands, allowing user confirmation or modification.",
+      "repo": "BenjaminRose805/react-basecamp",
+      "path": "preview",
+      "branch": "main",
+      "category": "preview",
+      "tags": [],
+      "stars": 0,
+      "install": "BenjaminRose805/react-basecamp/preview",
+      "source": "github.com/BenjaminRose805/react-basecamp"
+    }
+  ]
+}

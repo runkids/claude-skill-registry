@@ -1,0 +1,20 @@
+{
+  "category": "frontend-coding",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.699837Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert frontend development guidance covering React, Vue, Angular, TypeScript, state management, component architecture, performance optimization, accessibility, testing, and modern web APIs. Produces",
+      "repo": "DauQuangThanh/hanoi-rainbow",
+      "path": "frontend-coding",
+      "branch": "main",
+      "category": "frontend-coding",
+      "tags": [],
+      "stars": 0,
+      "install": "DauQuangThanh/hanoi-rainbow/frontend-coding",
+      "source": "github.com/DauQuangThanh/hanoi-rainbow"
+    }
+  ]
+}

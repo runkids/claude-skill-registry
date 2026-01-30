@@ -1,0 +1,20 @@
+{
+  "category": "fastmcp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.638881Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build MCP servers in Python with FastMCP to expose tools, resources, and prompts to LLMs. Supports storage backends, middleware, OAuth Proxy, OpenAPI integration, and FastMCP Cloud deployment. Prevent",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "fastmcp",
+      "branch": "main",
+      "category": "fastmcp",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/fastmcp",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ta-input-validation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.144290Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Player input validation testing patterns for WASD, mouse, and touch controls. Use when testing input systems, validating controls.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "ta-input-validation",
+      "branch": "main",
+      "category": "ta-input-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/ta-input-validation",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

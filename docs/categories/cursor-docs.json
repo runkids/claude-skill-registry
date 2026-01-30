@@ -1,0 +1,20 @@
+{
+  "category": "cursor-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.735241Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Single source of truth and librarian for ALL Cursor documentation. Manages local documentation storage, scraping, discovery, and resolution. Use when finding, locating, searching, or resolving Cursor",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "cursor-docs",
+      "branch": "main",
+      "category": "cursor-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/cursor-docs",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

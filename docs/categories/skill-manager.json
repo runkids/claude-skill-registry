@@ -1,0 +1,20 @@
+{
+  "category": "skill-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.018692Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Native Python-based skill management for enabling/disabling skills, configuring permissions, and managing settings.local.json",
+      "repo": "Interstellar-code/claud-skills",
+      "path": "skill-manager",
+      "branch": "main",
+      "category": "skill-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "Interstellar-code/claud-skills/skill-manager",
+      "source": "github.com/Interstellar-code/claud-skills"
+    }
+  ]
+}

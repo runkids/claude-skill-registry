@@ -1,0 +1,20 @@
+{
+  "category": "benchmark-advisor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.425724Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Suggests which benchmarks to run based on code changes",
+      "repo": "wildcard/caro",
+      "path": "benchmark-advisor",
+      "branch": "main",
+      "category": "benchmark-advisor",
+      "tags": [],
+      "stars": 0,
+      "install": "wildcard/caro/benchmark-advisor",
+      "source": "github.com/wildcard/caro"
+    }
+  ]
+}

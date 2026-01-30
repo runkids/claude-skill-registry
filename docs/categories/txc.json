@@ -1,0 +1,20 @@
+{
+  "category": "txc",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.322341Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TXC Corporation MPN encoding patterns, frequency and temperature decoding, and handler guidance. Use when working with TXC timing devices (crystals, oscillators, TCXO, VCXO).",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "txc",
+      "branch": "main",
+      "category": "txc",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/txc",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

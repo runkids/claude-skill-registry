@@ -1,0 +1,20 @@
+{
+  "category": "s-clean",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.873903Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Find and remove dead code and stale documentation. Covers unused functions, orphaned files, dead links, and outdated references. Use for maintenance, pre-release cleanup, or codebase hygiene. Triggers",
+      "repo": "Falkicon/Mechanic",
+      "path": "s-clean",
+      "branch": "main",
+      "category": "s-clean",
+      "tags": [],
+      "stars": 0,
+      "install": "Falkicon/Mechanic/s-clean",
+      "source": "github.com/Falkicon/Mechanic"
+    }
+  ]
+}

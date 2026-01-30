@@ -1,0 +1,20 @@
+{
+  "category": "implementation-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.867079Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when turning PRDs or feature specs into actionable implementation workflows - provides structured task decomposition, dependency mapping, and validation gates.",
+      "repo": "NickCrew/claude-cortex",
+      "path": "implementation-workflow",
+      "branch": "main",
+      "category": "implementation-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex/implementation-workflow",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

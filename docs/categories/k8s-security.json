@@ -1,0 +1,20 @@
+{
+  "category": "k8s-security",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.939562Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Kubernetes and OpenShift security assessment, hardening, and compliance. Use this skill when: (1) Auditing cluster or workload security posture (2) Implementing Pod Security Standards/Admission (3) Co",
+      "repo": "kcns008/cluster-skills",
+      "path": "k8s-security",
+      "branch": "main",
+      "category": "k8s-security",
+      "tags": [],
+      "stars": 0,
+      "install": "kcns008/cluster-skills/k8s-security",
+      "source": "github.com/kcns008/cluster-skills"
+    }
+  ]
+}

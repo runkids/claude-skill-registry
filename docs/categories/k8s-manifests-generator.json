@@ -1,0 +1,20 @@
+{
+  "category": "k8s-manifests-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.939216Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Purpose: Generate production-ready Kubernetes manifests for todo app deployment (Phase V preparation).",
+      "repo": "hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus",
+      "path": "k8s-manifests-generator",
+      "branch": "main",
+      "category": "k8s-manifests-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus/k8s-manifests-generator",
+      "source": "github.com/hamzashakoor119/Build-ToDo-App-Using-Claude-and-SpecKitPlus"
+    }
+  ]
+}

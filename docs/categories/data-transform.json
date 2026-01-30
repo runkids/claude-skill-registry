@@ -1,0 +1,20 @@
+{
+  "category": "data-transform",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.034946Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform, clean, reshape, and preprocess data using pandas and numpy. Works with ANY LLM provider (GPT, Gemini, Claude, etc.).",
+      "repo": "Starlitnightly/omicverse",
+      "path": "data-transform",
+      "branch": "main",
+      "category": "data-transform",
+      "tags": [],
+      "stars": 0,
+      "install": "Starlitnightly/omicverse/data-transform",
+      "source": "github.com/Starlitnightly/omicverse"
+    }
+  ]
+}

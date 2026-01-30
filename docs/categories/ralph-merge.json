@@ -1,0 +1,20 @@
+{
+  "category": "ralph-merge",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.762496Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Merge completed RALPH worktree changes to main branch",
+      "repo": "doravidan/supreme-ralph",
+      "path": "ralph-merge",
+      "branch": "main",
+      "category": "ralph-merge",
+      "tags": [],
+      "stars": 0,
+      "install": "doravidan/supreme-ralph/ralph-merge",
+      "source": "github.com/doravidan/supreme-ralph"
+    }
+  ]
+}

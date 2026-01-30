@@ -1,0 +1,20 @@
+{
+  "category": "strongs-doctor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.105049Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert assistant for diagnosing and fixing Strong's concordance issues in the Raamattu Nyt project. Use when (1) debugging infinite loops or performance issues with Strong's lookups, (2) validating le",
+      "repo": "Spectaculous-Code/raamattu-nyt",
+      "path": "strongs-doctor",
+      "branch": "main",
+      "category": "strongs-doctor",
+      "tags": [],
+      "stars": 0,
+      "install": "Spectaculous-Code/raamattu-nyt/strongs-doctor",
+      "source": "github.com/Spectaculous-Code/raamattu-nyt"
+    }
+  ]
+}

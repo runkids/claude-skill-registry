@@ -1,0 +1,20 @@
+{
+  "category": "plugin-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.593825Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Claude Code plugin development - plugin structure, slash commands, skills, sub-agents, YAML frontmatter. Use when creating plugins.",
+      "repo": "anton-abyzov/specweave",
+      "path": "plugin-development",
+      "branch": "main",
+      "category": "plugin-development",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/plugin-development",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

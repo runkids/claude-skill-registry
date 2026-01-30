@@ -1,0 +1,20 @@
+{
+  "category": "biopython",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.430924Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Primary Python toolkit for molecular biology. Preferred for Python-based PubMed/NCBI queries (Bio.Entrez), sequence manipulation, file parsing (FASTA, GenBank, FASTQ, PDB), advanced BLAST workflows, s",
+      "repo": "robinbarvaag/poynt",
+      "path": "biopython",
+      "branch": "main",
+      "category": "biopython",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/biopython",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

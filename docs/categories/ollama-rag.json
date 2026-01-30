@@ -1,0 +1,20 @@
+{
+  "category": "ollama-rag",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.282553Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build RAG systems with Ollama local + cloud models. Latest cloud models include DeepSeek-V3.2 (GPT-5 level), Qwen3-Coder-480B (1M context), MiniMax-M2. Use for document Q&A, knowledge bases, and agent",
+      "repo": "cuba6112/skillfactory",
+      "path": "ollama-rag",
+      "branch": "main",
+      "category": "ollama-rag",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory/ollama-rag",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

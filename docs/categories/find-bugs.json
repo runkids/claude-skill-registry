@@ -1,0 +1,20 @@
+{
+  "category": "find-bugs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.665160Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Find bugs, security vulnerabilities, and code quality issues in local branch changes. Use when asked to review changes, find bugs, security review, or audit code on the current branch.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "find-bugs",
+      "branch": "main",
+      "category": "find-bugs",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/find-bugs",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

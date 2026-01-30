@@ -1,0 +1,20 @@
+{
+  "category": "storyline-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.097599Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "McKinsey-style storyline framework for building presentation decks. Use when users need to structure presentations, pitch decks, or strategic communications. Creates logical flow where each storyline",
+      "repo": "nicepkg/ai-workflow",
+      "path": "storyline-builder",
+      "branch": "main",
+      "category": "storyline-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/storyline-builder",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "doc-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.463692Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze and extract relevant patterns, best practices, and usage examples from fetched documentation for implementation guidance.",
+      "repo": "matteocervelli/llms",
+      "path": "doc-analyzer",
+      "branch": "main",
+      "category": "doc-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms/doc-analyzer",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ci-cd-implementation-rule",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.524943Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "ci-cd-implementation-rule",
+      "branch": "main",
+      "category": "ci-cd-implementation-rule",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/ci-cd-implementation-rule",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

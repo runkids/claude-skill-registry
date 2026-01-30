@@ -1,0 +1,20 @@
+{
+  "category": "configuring",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.648085Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Universal environment variable loader for AI agent environments. Loads secrets and config from Claude.ai, Claude Code, OpenAI Codex, Jules, and standard .env files.",
+      "repo": "oaustegard/claude-skills",
+      "path": "configuring",
+      "branch": "main",
+      "category": "configuring",
+      "tags": [],
+      "stars": 0,
+      "install": "oaustegard/claude-skills/configuring",
+      "source": "github.com/oaustegard/claude-skills"
+    }
+  ]
+}

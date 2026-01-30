@@ -1,0 +1,20 @@
+{
+  "category": "blog",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.433437Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and edit blog posts for Ghost CMS. Use when creating blog post projections from ideas, editing existing posts, or working with Ghost frontmatter and SEO. Includes blog-specific voice, structure",
+      "repo": "xavierfuentes/xavierfuentes.com",
+      "path": "blog",
+      "branch": "main",
+      "category": "blog",
+      "tags": [],
+      "stars": 0,
+      "install": "xavierfuentes/xavierfuentes.com/blog",
+      "source": "github.com/xavierfuentes/xavierfuentes.com"
+    }
+  ]
+}

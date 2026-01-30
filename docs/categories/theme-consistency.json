@@ -1,0 +1,20 @@
+{
+  "category": "theme-consistency",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.280703Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforce consistent theming across all prototype mockup screens. Auto-loads theme.yaml, validates CSS variable usage, prevents hardcoded values, and maintains visual consistency session-to-session. Use",
+      "repo": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "path": "theme-consistency",
+      "branch": "main",
+      "category": "theme-consistency",
+      "tags": [],
+      "stars": 0,
+      "install": "Sjdjdiejdrirhdkjej/Claude-code-conductor/theme-consistency",
+      "source": "github.com/Sjdjdiejdrirhdkjej/Claude-code-conductor"
+    }
+  ]
+}

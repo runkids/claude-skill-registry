@@ -1,0 +1,20 @@
+{
+  "category": "nextjs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.239585Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Next.js 16 patterns for App Router, Server/Client Components, proxy.ts authentication, data fetching, caching, and React Server Components. Use when building Next.js applications with modern patterns.",
+      "repo": "Syedaashnaghazanfar/todo-app",
+      "path": "nextjs",
+      "branch": "main",
+      "category": "nextjs",
+      "tags": [],
+      "stars": 0,
+      "install": "Syedaashnaghazanfar/todo-app/nextjs",
+      "source": "github.com/Syedaashnaghazanfar/todo-app"
+    }
+  ]
+}

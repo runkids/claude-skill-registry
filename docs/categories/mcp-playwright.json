@@ -1,0 +1,20 @@
+{
+  "category": "mcp-playwright",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.105320Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill provides guidance for using Playwright MCP for browser automation. Use when navigating web pages, interacting with web elements, taking screenshots, filling forms, running browser tests, or",
+      "repo": "s-hiraoku/vscode-sidebar-terminal",
+      "path": "mcp-playwright",
+      "branch": "main",
+      "category": "mcp-playwright",
+      "tags": [],
+      "stars": 0,
+      "install": "s-hiraoku/vscode-sidebar-terminal/mcp-playwright",
+      "source": "github.com/s-hiraoku/vscode-sidebar-terminal"
+    }
+  ]
+}

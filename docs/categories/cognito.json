@@ -1,0 +1,20 @@
+{
+  "category": "cognito",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.613322Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS Cognito user authentication and authorization service. Use when setting up user pools, configuring identity pools, implementing OAuth flows, managing user attributes, or integrating with social id",
+      "repo": "itsmostafa/aws-agent-skills",
+      "path": "cognito",
+      "branch": "main",
+      "category": "cognito",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmostafa/aws-agent-skills/cognito",
+      "source": "github.com/itsmostafa/aws-agent-skills"
+    }
+  ]
+}

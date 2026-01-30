@@ -1,0 +1,20 @@
+{
+  "category": "evidence-standards",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.604065Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Evidence citation and domain scope standards for Neo4j subagents. Prevents hallucination and ensures audit trail.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "evidence-standards",
+      "branch": "main",
+      "category": "evidence-standards",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/evidence-standards",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

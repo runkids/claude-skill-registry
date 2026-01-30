@@ -1,0 +1,20 @@
+{
+  "category": "google-oauth-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.790774Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete Google OAuth integration architecture including token storage and debugging",
+      "repo": "orient-bot/orient",
+      "path": "google-oauth-integration",
+      "branch": "main",
+      "category": "google-oauth-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/google-oauth-integration",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

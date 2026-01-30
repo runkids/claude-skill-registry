@@ -1,0 +1,20 @@
+{
+  "category": "quick",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.752935Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Streamlined code review for rapid assessment and targeted feedback",
+      "repo": "FradSer/dotclaude",
+      "path": "quick",
+      "branch": "main",
+      "category": "quick",
+      "tags": [],
+      "stars": 0,
+      "install": "FradSer/dotclaude/quick",
+      "source": "github.com/FradSer/dotclaude"
+    }
+  ]
+}

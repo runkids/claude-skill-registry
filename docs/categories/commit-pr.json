@@ -1,0 +1,20 @@
+{
+  "category": "commit-pr",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.620867Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Commit, push changes, and create a Pull Request on GitHub. Trigger: User runs /commit-pr command.",
+      "repo": "avvale/aurora-back",
+      "path": "commit-pr",
+      "branch": "main",
+      "category": "commit-pr",
+      "tags": [],
+      "stars": 0,
+      "install": "avvale/aurora-back/commit-pr",
+      "source": "github.com/avvale/aurora-back"
+    }
+  ]
+}

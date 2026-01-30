@@ -1,0 +1,20 @@
+{
+  "category": "panjit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.540183Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Panjit International MPN encoding patterns, suffix decoding, and handler guidance. Use when working with Panjit diodes, transistors, MOSFETs, or PanjitHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "panjit",
+      "branch": "main",
+      "category": "panjit",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/panjit",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

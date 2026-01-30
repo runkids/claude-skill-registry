@@ -1,0 +1,20 @@
+{
+  "category": "mapping-principle",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.080603Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Los controles deben corresponder naturalmente a sus efectos. Use cuando diseñe controles de UI, layouts de controles, o cualquier relación causa-efecto.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "mapping-principle",
+      "branch": "main",
+      "category": "mapping-principle",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/mapping-principle",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

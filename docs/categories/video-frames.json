@@ -1,0 +1,20 @@
+{
+  "category": "video-frames",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.415392Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract frames or short clips from videos using ffmpeg.",
+      "repo": "Youjjwal/clawdbot",
+      "path": "video-frames",
+      "branch": "main",
+      "category": "video-frames",
+      "tags": [],
+      "stars": 0,
+      "install": "Youjjwal/clawdbot/video-frames",
+      "source": "github.com/Youjjwal/clawdbot"
+    }
+  ]
+}

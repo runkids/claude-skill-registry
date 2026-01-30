@@ -1,0 +1,20 @@
+{
+  "category": "integrate-openai-agents",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.885567Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when integrating OpenAI Agents SDK with FastAPI, building message arrays from database history, running agents with MCP tools, parsing tool calls, executing them, and saving",
+      "repo": "SyedaNabila559/phase2-3-todo-full-web-with-ai-chatbot",
+      "path": "integrate-openai-agents",
+      "branch": "main",
+      "category": "integrate-openai-agents",
+      "tags": [],
+      "stars": 0,
+      "install": "SyedaNabila559/phase2-3-todo-full-web-with-ai-chatbot/integrate-openai-agents",
+      "source": "github.com/SyedaNabila559/phase2-3-todo-full-web-with-ai-chatbot"
+    }
+  ]
+}

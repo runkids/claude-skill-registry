@@ -1,0 +1,20 @@
+{
+  "category": "agentmd-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.249626Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create AI agent configuration files (AGENTS.md, CLAUDE.md, .cursorrules, etc.) for general-purpose and business-domain agents through guided briefing process. Use when user wants to create agent confi",
+      "repo": "Przemocny/generic-skills",
+      "path": "agentmd-creator",
+      "branch": "main",
+      "category": "agentmd-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "Przemocny/generic-skills/agentmd-creator",
+      "source": "github.com/Przemocny/generic-skills"
+    }
+  ]
+}

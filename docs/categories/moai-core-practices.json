@@ -1,0 +1,20 @@
+{
+  "category": "moai-core-practices",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.156880Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise practical workflows, context engineering strategies, JIT (Just-In-Time) retrieval optimization, real-world execution examples, debugging patterns, and moai-adk workflow mastery; activates f",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-core-practices",
+      "branch": "main",
+      "category": "moai-core-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit/moai-core-practices",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

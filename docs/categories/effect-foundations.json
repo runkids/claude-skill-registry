@@ -1,0 +1,20 @@
+{
+  "category": "effect-foundations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.556823Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Core Effect foundations and style for a coding agent. Use when starting an Effect task, choosing operators, or structuring a small pipeline.",
+      "repo": "mepuka/crate",
+      "path": "effect-foundations",
+      "branch": "main",
+      "category": "effect-foundations",
+      "tags": [],
+      "stars": 0,
+      "install": "mepuka/crate/effect-foundations",
+      "source": "github.com/mepuka/crate"
+    }
+  ]
+}

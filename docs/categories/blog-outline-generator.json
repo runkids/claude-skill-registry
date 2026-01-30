@@ -1,0 +1,20 @@
+{
+  "category": "blog-outline-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.433730Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates structured blog post outlines based on topics and keywords. Use when the user asks about blog structure, content outlines, SEO article planning, or wants to organize ideas before writing.",
+      "repo": "WesleySmits/agent-skills",
+      "path": "blog-outline-generator",
+      "branch": "main",
+      "category": "blog-outline-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills/blog-outline-generator",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

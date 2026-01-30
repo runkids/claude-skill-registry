@@ -1,0 +1,20 @@
+{
+  "category": "dev-server",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.174612Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage Next.js dev servers across worktrees. Start, stop, and read logs from dev servers. Agents can access logs from any running session, regardless of who started it.",
+      "repo": "civitai/civitai",
+      "path": "dev-server",
+      "branch": "main",
+      "category": "dev-server",
+      "tags": [],
+      "stars": 0,
+      "install": "civitai/civitai/dev-server",
+      "source": "github.com/civitai/civitai"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "github-repo-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.774015Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure and initialize GitHub repositories with privacy settings, repository metadata, and feature toggles. Use when preparing repositories for publication on GitHub, including setting up private re",
+      "repo": "0GiS0/ghcp-agent-skills",
+      "path": "github-repo-setup",
+      "branch": "main",
+      "category": "github-repo-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "0GiS0/ghcp-agent-skills/github-repo-setup",
+      "source": "github.com/0GiS0/ghcp-agent-skills"
+    }
+  ]
+}

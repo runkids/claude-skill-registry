@@ -1,0 +1,20 @@
+{
+  "category": "serverless-recommender",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.972702Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Serverless platform selection expert for AWS Lambda, Azure Functions, GCP Cloud Functions, and Firebase. Use when choosing between serverless platforms, evaluating cold start requirements, or designin",
+      "repo": "anton-abyzov/specweave",
+      "path": "serverless-recommender",
+      "branch": "main",
+      "category": "serverless-recommender",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/serverless-recommender",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

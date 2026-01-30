@@ -1,0 +1,20 @@
+{
+  "category": "Workflows",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.182307Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create or edit a Cline Skill with guided assistance and best practices",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "Workflows",
+      "branch": "main",
+      "category": "Workflows",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/Workflows",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

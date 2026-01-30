@@ -1,0 +1,20 @@
+{
+  "category": "validate-skill@plaited_development-skills",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.392740Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate skill directories against AgentSkills spec",
+      "repo": "plaited/plaited",
+      "path": "validate-skill@plaited_development-skills",
+      "branch": "main",
+      "category": "validate-skill@plaited_development-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "plaited/plaited/validate-skill@plaited_development-skills",
+      "source": "github.com/plaited/plaited"
+    }
+  ]
+}

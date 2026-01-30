@@ -1,0 +1,20 @@
+{
+  "category": "review-pr",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.842507Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /review-pr <pr-number> slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "review-pr",
+      "branch": "main",
+      "category": "review-pr",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles/review-pr",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

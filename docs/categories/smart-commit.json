@@ -1,0 +1,20 @@
+{
+  "category": "smart-commit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.031887Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when user asks to commit changes to git repository. Triggers on Ukrainian/English phrases like \"закоміть зміни\", \"commit changes\", \"створи коміт\", \"зроби коміт\", or any reque",
+      "repo": "djimontyp/task-tracker",
+      "path": "smart-commit",
+      "branch": "main",
+      "category": "smart-commit",
+      "tags": [],
+      "stars": 0,
+      "install": "djimontyp/task-tracker/smart-commit",
+      "source": "github.com/djimontyp/task-tracker"
+    }
+  ]
+}

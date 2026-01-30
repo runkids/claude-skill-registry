@@ -1,0 +1,20 @@
+{
+  "category": "done",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.524581Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Task completion workflow - run tests, commit/push, update MASTER_PLAN.md status, create SOP if needed. This skill should be used when a task is complete and ready to be finalized. Triggers on \"/done\",",
+      "repo": "endlessblink/flow-state",
+      "path": "done",
+      "branch": "main",
+      "category": "done",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/done",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

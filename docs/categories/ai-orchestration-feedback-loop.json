@@ -1,0 +1,20 @@
+{
+  "category": "ai-orchestration-feedback-loop",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.279944Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-AI engineering loop orchestrating Claude, Codex, and Gemini for comprehensive validation. USE WHEN (1) mission-critical features requiring multi-perspective validation, (2) complex architectural",
+      "repo": "creator-hian/claude-code-plugins",
+      "path": "ai-orchestration-feedback-loop",
+      "branch": "main",
+      "category": "ai-orchestration-feedback-loop",
+      "tags": [],
+      "stars": 0,
+      "install": "creator-hian/claude-code-plugins/ai-orchestration-feedback-loop",
+      "source": "github.com/creator-hian/claude-code-plugins"
+    }
+  ]
+}

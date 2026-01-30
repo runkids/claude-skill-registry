@@ -1,0 +1,20 @@
+{
+  "category": "autogpt",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.377489Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Autonomous AI agent platform for building and deploying continuous agents. Use when creating visual workflow agents, deploying persistent autonomous agents, or building complex multi-step AI automatio",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "autogpt",
+      "branch": "main",
+      "category": "autogpt",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/autogpt",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

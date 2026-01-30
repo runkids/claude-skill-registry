@@ -1,0 +1,20 @@
+{
+  "category": "control-tower-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.674683Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to design supply chain control towers, implement visibility platforms, or establish centralized monitoring. Also use when the user mentions \"control tower,\" \"supply chain visibilit",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "control-tower-design",
+      "branch": "main",
+      "category": "control-tower-design",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/control-tower-design",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

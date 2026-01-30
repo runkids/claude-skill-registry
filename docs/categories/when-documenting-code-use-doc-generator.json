@@ -1,0 +1,20 @@
+{
+  "category": "when-documenting-code-use-doc-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.462162Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated comprehensive code documentation generation with API docs, README files, inline comments, and architecture diagrams",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "when-documenting-code-use-doc-generator",
+      "branch": "main",
+      "category": "when-documenting-code-use-doc-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension/when-documenting-code-use-doc-generator",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

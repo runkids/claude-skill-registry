@@ -1,0 +1,20 @@
+{
+  "category": "prompt-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.706479Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when users request help optimizing, improving, or refining their prompts or instructions for AI models. Use this skill when users provide vague, unclear, or poorly structured",
+      "repo": "viktorvan/dot-files",
+      "path": "prompt-optimizer",
+      "branch": "main",
+      "category": "prompt-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "viktorvan/dot-files/prompt-optimizer",
+      "source": "github.com/viktorvan/dot-files"
+    }
+  ]
+}

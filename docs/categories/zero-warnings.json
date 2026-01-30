@@ -1,0 +1,20 @@
+{
+  "category": "zero-warnings",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.514434Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Applique la philosophie \"Broken Window\" avec zéro tolérance pour les warnings/errors ESLint et TypeScript. JAMAIS désactiver les règles, TOUJOURS corriger la cause racine. À utiliser lors de la correc",
+      "repo": "RomualdP/hoki",
+      "path": "zero-warnings",
+      "branch": "main",
+      "category": "zero-warnings",
+      "tags": [],
+      "stars": 0,
+      "install": "RomualdP/hoki/zero-warnings",
+      "source": "github.com/RomualdP/hoki"
+    }
+  ]
+}

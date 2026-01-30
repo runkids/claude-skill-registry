@@ -1,0 +1,20 @@
+{
+  "category": "changelog-guide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.509139Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write and maintain CHANGELOG.md following Keep a Changelog format. Use when: creating changelog entries, preparing releases, documenting changes. Keywords: changelog, release notes, CHANGELOG.md, keep",
+      "repo": "AsiaOstrich/universal-dev-standards",
+      "path": "changelog-guide",
+      "branch": "main",
+      "category": "changelog-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "AsiaOstrich/universal-dev-standards/changelog-guide",
+      "source": "github.com/AsiaOstrich/universal-dev-standards"
+    }
+  ]
+}

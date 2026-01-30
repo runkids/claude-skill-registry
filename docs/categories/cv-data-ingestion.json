@@ -1,0 +1,20 @@
+{
+  "category": "cv-data-ingestion",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.739950Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ingest and organize raw career data from Obsidian notes, CSV files, zip archives, and markdown documents into the Universal CV portfolio system. Use when processing career history, work experience, te",
+      "repo": "fotescodev/portfolio",
+      "path": "cv-data-ingestion",
+      "branch": "main",
+      "category": "cv-data-ingestion",
+      "tags": [],
+      "stars": 0,
+      "install": "fotescodev/portfolio/cv-data-ingestion",
+      "source": "github.com/fotescodev/portfolio"
+    }
+  ]
+}

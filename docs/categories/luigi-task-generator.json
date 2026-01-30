@@ -1,0 +1,20 @@
+{
+  "category": "luigi-task-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.059163Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Luigi Task Generator - Auto-activating skill for Data Pipelines. Triggers on: luigi task generator, luigi task generator Part of the Data Pipelines skill category.",
+      "repo": "byteworthy/Upstream",
+      "path": "luigi-task-generator",
+      "branch": "main",
+      "category": "luigi-task-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/luigi-task-generator",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ic-lookup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.852361Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Look up Stationeers device properties and IC10 instruction syntax. Use when user asks about logic values, device pins, prefab hashes, or IC10 command syntax.",
+      "repo": "smileynet/stationeers-companion",
+      "path": "ic-lookup",
+      "branch": "main",
+      "category": "ic-lookup",
+      "tags": [],
+      "stars": 0,
+      "install": "smileynet/stationeers-companion/ic-lookup",
+      "source": "github.com/smileynet/stationeers-companion"
+    }
+  ]
+}

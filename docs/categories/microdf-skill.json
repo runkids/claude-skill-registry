@@ -1,0 +1,20 @@
+{
+  "category": "microdf-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.128890Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Weighted pandas DataFrames for survey microdata analysis - inequality, poverty, and distributional calculations",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "microdf-skill",
+      "branch": "main",
+      "category": "microdf-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/microdf-skill",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

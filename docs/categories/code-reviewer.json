@@ -1,0 +1,20 @@
+{
+  "category": "code-reviewer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.597526Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated code review using official Claude Code plugin with 4 parallel agents.",
+      "repo": "alfredolopez80/multi-agent-ralph-loop",
+      "path": "code-reviewer",
+      "branch": "main",
+      "category": "code-reviewer",
+      "tags": [],
+      "stars": 0,
+      "install": "alfredolopez80/multi-agent-ralph-loop/code-reviewer",
+      "source": "github.com/alfredolopez80/multi-agent-ralph-loop"
+    }
+  ]
+}

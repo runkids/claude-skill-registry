@@ -1,0 +1,20 @@
+{
+  "category": "_posts",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.183529Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "普通人必须掌握的基本IT技能",
+      "repo": "ercong21/ercong21.github.io",
+      "path": "_posts",
+      "branch": "main",
+      "category": "_posts",
+      "tags": [],
+      "stars": 0,
+      "install": "ercong21/ercong21.github.io/_posts",
+      "source": "github.com/ercong21/ercong21.github.io"
+    }
+  ]
+}

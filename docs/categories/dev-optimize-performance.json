@@ -1,0 +1,20 @@
+{
+  "category": "dev-optimize-performance",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.171646Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "OPTIMIZE slow Vue applications, fix memory leaks, and improve render performance. Reduce unnecessary re-renders, optimize computed properties, and fix expensive operations. Use when application feels",
+      "repo": "endlessblink/flow-state",
+      "path": "dev-optimize-performance",
+      "branch": "main",
+      "category": "dev-optimize-performance",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/dev-optimize-performance",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

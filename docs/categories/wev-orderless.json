@@ -1,0 +1,20 @@
+{
+  "category": "wev-orderless",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.456423Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "WEV Orderless — World Extractable Value",
+      "repo": "plurigrid/asi",
+      "path": "wev-orderless",
+      "branch": "main",
+      "category": "wev-orderless",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/wev-orderless",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

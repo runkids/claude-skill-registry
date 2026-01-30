@@ -1,0 +1,20 @@
+{
+  "category": "aflpp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.220820Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AFL++ is a fork of AFL with better fuzzing performance and advanced features. Use for multi-core fuzzing of C/C++ projects.",
+      "repo": "trailofbits/skills",
+      "path": "aflpp",
+      "branch": "main",
+      "category": "aflpp",
+      "tags": [],
+      "stars": 0,
+      "install": "trailofbits/skills/aflpp",
+      "source": "github.com/trailofbits/skills"
+    }
+  ]
+}

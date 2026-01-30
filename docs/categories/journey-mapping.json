@@ -1,0 +1,20 @@
+{
+  "category": "journey-mapping",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.929692Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "User and customer journey mapping for experience analysis. Creates journey maps with touchpoints, emotions, pain points, and opportunity identification.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "journey-mapping",
+      "branch": "main",
+      "category": "journey-mapping",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent/journey-mapping",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

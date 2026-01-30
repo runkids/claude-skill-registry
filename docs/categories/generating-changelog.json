@@ -1,0 +1,20 @@
+{
+  "category": "generating-changelog",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.745125Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes git commit history and generates professional changelogs with semantic versioning, conventional commit support, and multiple output formats (Keep a Changelog, Conventional, GitHub). Use when",
+      "repo": "joaquimscosta/arkhe-claude-plugins",
+      "path": "generating-changelog",
+      "branch": "main",
+      "category": "generating-changelog",
+      "tags": [],
+      "stars": 0,
+      "install": "joaquimscosta/arkhe-claude-plugins/generating-changelog",
+      "source": "github.com/joaquimscosta/arkhe-claude-plugins"
+    }
+  ]
+}

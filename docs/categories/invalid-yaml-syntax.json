@@ -1,0 +1,20 @@
+{
+  "category": "invalid-yaml-syntax",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.896817Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill has malformed YAML syntax and should fail to parse.",
+      "repo": "maxvaega/skillkit",
+      "path": "invalid-yaml-syntax",
+      "branch": "main",
+      "category": "invalid-yaml-syntax",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit/invalid-yaml-syntax",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

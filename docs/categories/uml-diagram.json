@@ -1,0 +1,20 @@
+{
+  "category": "uml-diagram",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.340011Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate UML diagrams including class, sequence, and use case diagrams. Use when modeling software systems or documenting architecture.",
+      "repo": "ntaksh42/agents",
+      "path": "uml-diagram",
+      "branch": "main",
+      "category": "uml-diagram",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents/uml-diagram",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

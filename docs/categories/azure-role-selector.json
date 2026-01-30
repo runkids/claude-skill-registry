@@ -1,0 +1,20 @@
+{
+  "category": "azure-role-selector",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.397889Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When user is asking for guidance for which role to assign to an identity given desired permissions, this agent helps them understand the role that will meet the requirements with least privilege acces",
+      "repo": "KrismithReddy12/awesome-copilot",
+      "path": "azure-role-selector",
+      "branch": "main",
+      "category": "azure-role-selector",
+      "tags": [],
+      "stars": 0,
+      "install": "KrismithReddy12/awesome-copilot/azure-role-selector",
+      "source": "github.com/KrismithReddy12/awesome-copilot"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "community-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.624590Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Community superstitions - unverified observations from pattern development. Use when encountering undocumented edge cases or framework quirks not in official docs. Verified knowledge should be upstrea",
+      "repo": "jkomoros/community-patterns",
+      "path": "community-docs",
+      "branch": "main",
+      "category": "community-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "jkomoros/community-patterns/community-docs",
+      "source": "github.com/jkomoros/community-patterns"
+    }
+  ]
+}

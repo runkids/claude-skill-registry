@@ -1,0 +1,20 @@
+{
+  "category": "scaffold-rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.890083Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffold development rules for AI coding agents. Auto-invoked when user asks about setting up rules, coding conventions, or configuring their AI agent environment.",
+      "repo": "plaited/development-skills",
+      "path": "scaffold-rules",
+      "branch": "main",
+      "category": "scaffold-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "plaited/development-skills/scaffold-rules",
+      "source": "github.com/plaited/development-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "Browse",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.164358Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Discover trending topics and content ideas from social feeds for post creation. Use when scanning Twitter timeline or finding content inspiration.",
+      "repo": "Gerstep/cybos",
+      "path": "Browse",
+      "branch": "main",
+      "category": "Browse",
+      "tags": [],
+      "stars": 0,
+      "install": "Gerstep/cybos/Browse",
+      "source": "github.com/Gerstep/cybos"
+    }
+  ]
+}

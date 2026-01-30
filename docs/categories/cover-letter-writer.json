@@ -1,0 +1,20 @@
+{
+  "category": "cover-letter-writer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.691346Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Drafts a persuasive, narrative-driven cover letter by synthesizing the user's diverse achievements with the company's mission.",
+      "repo": "marswangyang/Roger",
+      "path": "cover-letter-writer",
+      "branch": "main",
+      "category": "cover-letter-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "marswangyang/Roger/cover-letter-writer",
+      "source": "github.com/marswangyang/Roger"
+    }
+  ]
+}

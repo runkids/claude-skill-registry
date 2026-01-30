@@ -1,0 +1,20 @@
+{
+  "category": "browser-debugging",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.448113Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Debug client-side issues using browser developer tools. Identify JavaScript errors, styling issues, and performance problems in the browser.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "browser-debugging",
+      "branch": "main",
+      "category": "browser-debugging",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/browser-debugging",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

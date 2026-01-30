@@ -1,0 +1,20 @@
+{
+  "category": "phone-number-formatter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.572103Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standardize and format phone numbers with international support, validation, and multiple output formats.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "phone-number-formatter",
+      "branch": "main",
+      "category": "phone-number-formatter",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/phone-number-formatter",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

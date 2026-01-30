@@ -1,0 +1,20 @@
+{
+  "category": "gt",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.812686Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when working with Graphite (gt) for stacked pull requests. Use when users mention gt commands, stack management, PR workflows, or when dealing with dependent branches. Essent",
+      "repo": "dagster-io/erk",
+      "path": "gt",
+      "branch": "main",
+      "category": "gt",
+      "tags": [],
+      "stars": 0,
+      "install": "dagster-io/erk/gt",
+      "source": "github.com/dagster-io/erk"
+    }
+  ]
+}

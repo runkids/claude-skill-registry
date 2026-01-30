@@ -1,0 +1,20 @@
+{
+  "category": "agent-django-developer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.228415Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert Django developer mastering Django 4+ with modern Python practices. Specializes in scalable web applications, REST API development, async views, and enterprise patterns with focus on rapid devel",
+      "repo": "Tony363/SuperClaude",
+      "path": "agent-django-developer",
+      "branch": "main",
+      "category": "agent-django-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "Tony363/SuperClaude/agent-django-developer",
+      "source": "github.com/Tony363/SuperClaude"
+    }
+  ]
+}

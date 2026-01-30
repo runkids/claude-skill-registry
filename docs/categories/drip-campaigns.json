@@ -1,0 +1,20 @@
+{
+  "category": "drip-campaigns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.536158Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when you need to map sequenced nurture flows with pacing, storytelling arcs, and value ladders.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "drip-campaigns",
+      "branch": "main",
+      "category": "drip-campaigns",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/drip-campaigns",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "solana-kit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.041407Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete guide for @solana/kit - the modern, tree-shakeable, zero-dependency JavaScript SDK from Anza. Covers RPC connections, signers, transaction building with pipe, signing, sending, and account fe",
+      "repo": "sendaifun/skills",
+      "path": "solana-kit",
+      "branch": "main",
+      "category": "solana-kit",
+      "tags": [],
+      "stars": 0,
+      "install": "sendaifun/skills/solana-kit",
+      "source": "github.com/sendaifun/skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "fda-database",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.641104Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query openFDA API for drugs, devices, adverse events, recalls, regulatory submissions (510k, PMA), substance identification (UNII), for FDA regulatory data analysis and safety research.",
+      "repo": "robinbarvaag/poynt",
+      "path": "fda-database",
+      "branch": "main",
+      "category": "fda-database",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/fda-database",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

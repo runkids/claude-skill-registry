@@ -1,0 +1,20 @@
+{
+  "category": "peak-end-rule",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.555813Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Las experiencias se juzgan por su punto más intenso y su final. Use cuando diseñe user journeys, onboarding, checkout, o cualquier experiencia extendida.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "peak-end-rule",
+      "branch": "main",
+      "category": "peak-end-rule",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/peak-end-rule",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

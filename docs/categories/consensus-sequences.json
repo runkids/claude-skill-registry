@@ -1,0 +1,20 @@
+{
+  "category": "consensus-sequences",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.651882Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate consensus FASTA sequences by applying VCF variants to a reference using bcftools consensus. Use when creating sample-specific reference sequences or reconstructing haplotypes.",
+      "repo": "GPTomics/bioSkills",
+      "path": "consensus-sequences",
+      "branch": "main",
+      "category": "consensus-sequences",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/consensus-sequences",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

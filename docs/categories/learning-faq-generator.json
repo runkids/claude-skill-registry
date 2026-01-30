@@ -1,0 +1,20 @@
+{
+  "category": "learning-faq-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.988593Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate comprehensive FAQs from common learner questions, analytics, discussion forums, and support tickets. Use for self-service support. Activates on \"FAQ\", \"common questions\", \"help documentation\"",
+      "repo": "pauljbernard/content",
+      "path": "learning-faq-generator",
+      "branch": "main",
+      "category": "learning-faq-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content/learning-faq-generator",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

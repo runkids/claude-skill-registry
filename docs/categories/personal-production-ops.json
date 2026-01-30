@@ -1,0 +1,20 @@
+{
+  "category": "personal-production-ops",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.567044Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide for deploying the Orient to production. Use this skill when deploying changes, updating production, fixing deployment failures, or rolling back. Covers pre-flight checks, environme",
+      "repo": "orient-bot/orient",
+      "path": "personal-production-ops",
+      "branch": "main",
+      "category": "personal-production-ops",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/personal-production-ops",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

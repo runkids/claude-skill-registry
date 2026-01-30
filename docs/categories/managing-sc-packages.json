@@ -1,0 +1,20 @@
+{
+  "category": "managing-sc-packages",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.076001Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "List, install, or uninstall Synaptic Canvas packages. Use with the `/sc-manage` command.",
+      "repo": "randlee/synaptic-canvas",
+      "path": "managing-sc-packages",
+      "branch": "main",
+      "category": "managing-sc-packages",
+      "tags": [],
+      "stars": 0,
+      "install": "randlee/synaptic-canvas/managing-sc-packages",
+      "source": "github.com/randlee/synaptic-canvas"
+    }
+  ]
+}

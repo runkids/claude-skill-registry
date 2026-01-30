@@ -1,0 +1,20 @@
+{
+  "category": "Prompting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.176414Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prompt engineering standards and context engineering principles for AI agents based on Anthropic best practices. Covers clarity, structure, progressive discovery, and optimization for signal-to-noise",
+      "repo": "blackpwnguin/Personal-AI",
+      "path": "Prompting",
+      "branch": "main",
+      "category": "Prompting",
+      "tags": [],
+      "stars": 0,
+      "install": "blackpwnguin/Personal-AI/Prompting",
+      "source": "github.com/blackpwnguin/Personal-AI"
+    }
+  ]
+}

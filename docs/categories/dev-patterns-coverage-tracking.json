@@ -1,0 +1,20 @@
+{
+  "category": "dev-patterns-coverage-tracking",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.171815Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Grid-based surface coverage tracking for territorial game mechanics",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-patterns-coverage-tracking",
+      "branch": "main",
+      "category": "dev-patterns-coverage-tracking",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/dev-patterns-coverage-tracking",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

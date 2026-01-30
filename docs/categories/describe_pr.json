@@ -1,0 +1,20 @@
+{
+  "category": "describe_pr",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.081892Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate comprehensive PR descriptions following repository templates",
+      "repo": "tfunk1030/vibe",
+      "path": "describe_pr",
+      "branch": "main",
+      "category": "describe_pr",
+      "tags": [],
+      "stars": 0,
+      "install": "tfunk1030/vibe/describe_pr",
+      "source": "github.com/tfunk1030/vibe"
+    }
+  ]
+}

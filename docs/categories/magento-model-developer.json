@@ -1,0 +1,20 @@
+{
+  "category": "magento-model-developer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.064614Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Designs and implements data layer architecture for Magento 2. Use when creating data models, designing database schemas, implementing repositories, or working with EAV/flat table structures. Masters e",
+      "repo": "maxnorm/magento2-agent-skills",
+      "path": "magento-model-developer",
+      "branch": "main",
+      "category": "magento-model-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "maxnorm/magento2-agent-skills/magento-model-developer",
+      "source": "github.com/maxnorm/magento2-agent-skills"
+    }
+  ]
+}

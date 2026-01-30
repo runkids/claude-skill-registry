@@ -1,0 +1,20 @@
+{
+  "category": "mcp-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.100233Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and implement Model Context Protocol servers for standardized AI-to-data integration with resources, tools, prompts, and security best practices",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "mcp-architecture",
+      "branch": "main",
+      "category": "mcp-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os/mcp-architecture",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

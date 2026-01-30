@@ -1,0 +1,20 @@
+{
+  "category": "dynamic-sufficiency-goblin",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.544918Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Self-regulating Goblins actor implementing Ivan Illich's dynamic sufficiency",
+      "repo": "plurigrid/asi",
+      "path": "dynamic-sufficiency-goblin",
+      "branch": "main",
+      "category": "dynamic-sufficiency-goblin",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/dynamic-sufficiency-goblin",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

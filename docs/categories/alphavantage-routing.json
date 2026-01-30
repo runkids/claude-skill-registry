@@ -1,0 +1,20 @@
+{
+  "category": "alphavantage-routing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.290514Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reference for all Alpha Vantage MCP tools. Use when exploring available data.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "alphavantage-routing",
+      "branch": "main",
+      "category": "alphavantage-routing",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/alphavantage-routing",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

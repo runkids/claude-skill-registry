@@ -1,0 +1,20 @@
+{
+  "category": "wcag-understandable",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.442110Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Principio 3 de WCAG - contenido comprensible para todos. Use cuando escriba contenido, diseñe flujos, o implemente comportamientos predecibles.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "wcag-understandable",
+      "branch": "main",
+      "category": "wcag-understandable",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/wcag-understandable",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

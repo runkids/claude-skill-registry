@@ -1,0 +1,20 @@
+{
+  "category": "review-ux",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.844234Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "UX-focused review covering accessibility, frontend accessibility, frontend performance, and UX copy. Spawns the senior-review-specialist agent for user experience analysis.",
+      "repo": "jayteealao/Aperture",
+      "path": "review-ux",
+      "branch": "main",
+      "category": "review-ux",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture/review-ux",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

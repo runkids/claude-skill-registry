@@ -1,0 +1,20 @@
+{
+  "category": "email-notifications",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.568062Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guide for sending transactional emails, creating templates, scheduling notifications, and email best practices. Use when implementing email functionality, notifications, or campaigns.",
+      "repo": "eddiebe147/claude-settings",
+      "path": "email-notifications",
+      "branch": "main",
+      "category": "email-notifications",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/email-notifications",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

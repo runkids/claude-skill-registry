@@ -1,0 +1,20 @@
+{
+  "category": "pexels-media",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.568799Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Source royalty-free images and videos from Pexels API for design, placeholders, or content. Supports search, curated/popular content, collections, multiple resolutions, and ALWAYS creates detailed sid",
+      "repo": "troykelly/claude-skills",
+      "path": "pexels-media",
+      "branch": "main",
+      "category": "pexels-media",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/pexels-media",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

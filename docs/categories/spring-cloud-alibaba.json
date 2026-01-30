@@ -1,0 +1,20 @@
+{
+  "category": "spring-cloud-alibaba",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.066880Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Spring Cloud Alibaba including Nacos, Sentinel, RocketMQ, and Alibaba Cloud integration. Use when the user asks about Spring Cloud Alibaba, needs to use Alibaba Clo",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "spring-cloud-alibaba",
+      "branch": "main",
+      "category": "spring-cloud-alibaba",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/spring-cloud-alibaba",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

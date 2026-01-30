@@ -1,0 +1,20 @@
+{
+  "category": "jira-pr",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.923233Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create pull request linked to Jira issue. Use when the user wants to \"create PR\", \"open pull request\", \"submit for review\", or \"jira pr\".",
+      "repo": "Lobbi-Docs/claude",
+      "path": "jira-pr",
+      "branch": "main",
+      "category": "jira-pr",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/jira-pr",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "uv-oneliners",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.379433Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "UV/UVX zero-install Python with comma-syntax deps, justfile patterns, PEP 723 scripts",
+      "repo": "plurigrid/asi",
+      "path": "uv-oneliners",
+      "branch": "main",
+      "category": "uv-oneliners",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/uv-oneliners",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

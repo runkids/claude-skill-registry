@@ -1,0 +1,20 @@
+{
+  "category": "60-real-cloud-deployment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.156620Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create your multi-cloud-deployer skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "60-real-cloud-deployment",
+      "branch": "main",
+      "category": "60-real-cloud-deployment",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory/60-real-cloud-deployment",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

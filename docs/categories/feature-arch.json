@@ -1,0 +1,20 @@
+{
+  "category": "feature-arch",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.641986Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "React feature-based architecture guidelines for scalable applications (formerly feature-architecture). This skill should be used when writing, reviewing, or refactoring React code to ensure proper fea",
+      "repo": "pproenca/dot-skills",
+      "path": "feature-arch",
+      "branch": "main",
+      "category": "feature-arch",
+      "tags": [],
+      "stars": 0,
+      "install": "pproenca/dot-skills/feature-arch",
+      "source": "github.com/pproenca/dot-skills"
+    }
+  ]
+}

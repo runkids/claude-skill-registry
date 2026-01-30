@@ -1,0 +1,20 @@
+{
+  "category": "fusion-bugfix",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.716531Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Propose multiple bug-fix strategies and pick the safest; use when a bug has more than one viable fix.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "fusion-bugfix",
+      "branch": "main",
+      "category": "fusion-bugfix",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup/fusion-bugfix",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

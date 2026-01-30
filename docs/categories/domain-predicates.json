@@ -1,0 +1,20 @@
+{
+  "category": "domain-predicates",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.522514Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate comprehensive predicates and orders for domain types using typeclass patterns",
+      "repo": "front-depiction/cli-stock",
+      "path": "domain-predicates",
+      "branch": "main",
+      "category": "domain-predicates",
+      "tags": [],
+      "stars": 0,
+      "install": "front-depiction/cli-stock/domain-predicates",
+      "source": "github.com/front-depiction/cli-stock"
+    }
+  ]
+}

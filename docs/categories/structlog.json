@@ -1,0 +1,20 @@
+{
+  "category": "structlog",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.105246Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Structured logging for Python applications with context support and powerful processors",
+      "repo": "SlanyCukr/riot-api-project",
+      "path": "structlog",
+      "branch": "main",
+      "category": "structlog",
+      "tags": [],
+      "stars": 0,
+      "install": "SlanyCukr/riot-api-project/structlog",
+      "source": "github.com/SlanyCukr/riot-api-project"
+    }
+  ]
+}

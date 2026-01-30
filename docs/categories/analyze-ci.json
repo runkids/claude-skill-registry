@@ -1,0 +1,20 @@
+{
+  "category": "analyze-ci",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.294093Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze failed GitHub Action jobs for a pull request.",
+      "repo": "mlflow/mlflow",
+      "path": "analyze-ci",
+      "branch": "main",
+      "category": "analyze-ci",
+      "tags": [],
+      "stars": 0,
+      "install": "mlflow/mlflow/analyze-ci",
+      "source": "github.com/mlflow/mlflow"
+    }
+  ]
+}

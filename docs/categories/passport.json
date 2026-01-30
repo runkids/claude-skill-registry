@@ -1,0 +1,20 @@
+{
+  "category": "passport",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.545715Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements Passport.js authentication middleware with local, OAuth, and JWT strategies for Express/Node.js. Use when building Node.js APIs, implementing custom auth flows, or needing flexible authenti",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "passport",
+      "branch": "main",
+      "category": "passport",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini/passport",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

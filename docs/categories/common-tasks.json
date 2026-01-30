@@ -1,0 +1,20 @@
+{
+  "category": "common-tasks",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.623748Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Step-by-step guides for common development tasks like adding constructs, creating packages, and using workspace packages. Use when performing routine development tasks.",
+      "repo": "crmagz/cdk-constructs-library",
+      "path": "common-tasks",
+      "branch": "main",
+      "category": "common-tasks",
+      "tags": [],
+      "stars": 0,
+      "install": "crmagz/cdk-constructs-library/common-tasks",
+      "source": "github.com/crmagz/cdk-constructs-library"
+    }
+  ]
+}

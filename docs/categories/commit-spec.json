@@ -1,0 +1,20 @@
+{
+  "category": "commit-spec",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.621832Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create comprehensive commit message from spec phases and commit all changes",
+      "repo": "Hoang604/get-thing-done",
+      "path": "commit-spec",
+      "branch": "main",
+      "category": "commit-spec",
+      "tags": [],
+      "stars": 0,
+      "install": "Hoang604/get-thing-done/commit-spec",
+      "source": "github.com/Hoang604/get-thing-done"
+    }
+  ]
+}

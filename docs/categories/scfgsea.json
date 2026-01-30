@@ -1,0 +1,20 @@
+{
+  "category": "scfgsea",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.892343Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Performs fast Gene Set Enrichment Analysis (GSEA) on single-cell data using fgsea R package. Identifies enriched biological pathways by ranking genes based on differential expression between cell grou",
+      "repo": "pwwang/immunopipe",
+      "path": "scfgsea",
+      "branch": "main",
+      "category": "scfgsea",
+      "tags": [],
+      "stars": 0,
+      "install": "pwwang/immunopipe/scfgsea",
+      "source": "github.com/pwwang/immunopipe"
+    }
+  ]
+}

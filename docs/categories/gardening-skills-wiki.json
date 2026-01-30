@@ -1,0 +1,20 @@
+{
+  "category": "gardening-skills-wiki",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.724339Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Maintain skills wiki health - check links, naming, cross-references, and coverage",
+      "repo": "BbgnsurfTech/claude-skills-collection",
+      "path": "gardening-skills-wiki",
+      "branch": "main",
+      "category": "gardening-skills-wiki",
+      "tags": [],
+      "stars": 0,
+      "install": "BbgnsurfTech/claude-skills-collection/gardening-skills-wiki",
+      "source": "github.com/BbgnsurfTech/claude-skills-collection"
+    }
+  ]
+}

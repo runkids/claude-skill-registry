@@ -1,0 +1,20 @@
+{
+  "category": "re11-calibration-loops",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.767911Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply RE11 Calibration Loops to repeatedly check predictions against outcomes to improve forecasting accuracy.",
+      "repo": "hummbl-dev/hummbl-agent",
+      "path": "re11-calibration-loops",
+      "branch": "main",
+      "category": "re11-calibration-loops",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/hummbl-agent/re11-calibration-loops",
+      "source": "github.com/hummbl-dev/hummbl-agent"
+    }
+  ]
+}

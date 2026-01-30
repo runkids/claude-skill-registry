@@ -1,0 +1,20 @@
+{
+  "category": "jest-test-scaffolder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.920901Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffolds Jest unit tests for React components and hooks. Use when creating tests for frontend components.",
+      "repo": "okgoogle13/careercopilot",
+      "path": "jest-test-scaffolder",
+      "branch": "main",
+      "category": "jest-test-scaffolder",
+      "tags": [],
+      "stars": 0,
+      "install": "okgoogle13/careercopilot/jest-test-scaffolder",
+      "source": "github.com/okgoogle13/careercopilot"
+    }
+  ]
+}

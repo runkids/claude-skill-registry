@@ -1,0 +1,20 @@
+{
+  "category": "detect-project-type",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.165400Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect project type and configuration for generic application releases",
+      "repo": "jayteealao/Aperture",
+      "path": "detect-project-type",
+      "branch": "main",
+      "category": "detect-project-type",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture/detect-project-type",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "brainstorming",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.440248Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill before any creative or constructive work (features, components, architecture, behavior changes, or functionality). This skill transforms vague ideas into validated designs through disci",
+      "repo": "AxelMrak/ai",
+      "path": "brainstorming",
+      "branch": "main",
+      "category": "brainstorming",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/brainstorming",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "revenue-operations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.838079Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт RevOps. Используй для GTM стратегий, процессов продаж, CRM систем и revenue метрик.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "revenue-operations",
+      "branch": "main",
+      "category": "revenue-operations",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/revenue-operations",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

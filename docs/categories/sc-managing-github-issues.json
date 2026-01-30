@@ -1,0 +1,20 @@
+{
+  "category": "sc-managing-github-issues",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.887644Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "GitHub issue lifecycle management with worktree isolation",
+      "repo": "randlee/synaptic-canvas",
+      "path": "sc-managing-github-issues",
+      "branch": "main",
+      "category": "sc-managing-github-issues",
+      "tags": [],
+      "stars": 0,
+      "install": "randlee/synaptic-canvas/sc-managing-github-issues",
+      "source": "github.com/randlee/synaptic-canvas"
+    }
+  ]
+}

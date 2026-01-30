@@ -1,0 +1,20 @@
+{
+  "category": "relational-database-tool",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.805292Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This is the required documentation for agents operating on the CloudBase Relational Database. It lists the only four supported tools for running SQL and managing security rules. Read the full content",
+      "repo": "baiyongping/cowork-platform",
+      "path": "relational-database-tool",
+      "branch": "main",
+      "category": "relational-database-tool",
+      "tags": [],
+      "stars": 0,
+      "install": "baiyongping/cowork-platform/relational-database-tool",
+      "source": "github.com/baiyongping/cowork-platform"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "business-feature-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.473762Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create or update EasyPlatform business feature documentation in docs/business-features/{Module}/. Use when asked to document a feature, create module docs, update feature documentation, or add detaile",
+      "repo": "duc01226/EasyPlatform",
+      "path": "business-feature-docs",
+      "branch": "main",
+      "category": "business-feature-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform/business-feature-docs",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

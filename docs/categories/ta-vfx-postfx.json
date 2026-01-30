@@ -1,0 +1,20 @@
+{
+  "category": "ta-vfx-postfx",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.147187Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Post-processing effects with React Three Fiber. Use when adding bloom, depth of field, effect composer, visual polish.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "ta-vfx-postfx",
+      "branch": "main",
+      "category": "ta-vfx-postfx",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/ta-vfx-postfx",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

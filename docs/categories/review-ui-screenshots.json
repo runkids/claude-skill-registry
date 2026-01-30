@@ -1,0 +1,20 @@
+{
+  "category": "review-ui-screenshots",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.844071Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze UI screenshots to identify issues and suggest improvements",
+      "repo": "benzwick/SlicerMouseMaster",
+      "path": "review-ui-screenshots",
+      "branch": "main",
+      "category": "review-ui-screenshots",
+      "tags": [],
+      "stars": 0,
+      "install": "benzwick/SlicerMouseMaster/review-ui-screenshots",
+      "source": "github.com/benzwick/SlicerMouseMaster"
+    }
+  ]
+}

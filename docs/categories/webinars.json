@@ -1,0 +1,20 @@
+{
+  "category": "webinars",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.452820Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when planning, producing, and repurposing webinars or virtual events for GTM campaigns.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "webinars",
+      "branch": "main",
+      "category": "webinars",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/webinars",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

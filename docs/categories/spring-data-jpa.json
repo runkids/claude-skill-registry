@@ -1,0 +1,20 @@
+{
+  "category": "spring-data-jpa",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.067051Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Spring Data JPA including repositories, entity management, query methods, and database operations. Use when the user asks about Spring Data JPA, needs to work with",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "spring-data-jpa",
+      "branch": "main",
+      "category": "spring-data-jpa",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/spring-data-jpa",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

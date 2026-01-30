@@ -1,0 +1,20 @@
+{
+  "category": "rails-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.759734Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building Rails 7+ web applications with Hotwire, real-time features, or background job processing. Invoke for Active Record optimization, Turbo Frames/Streams, Action Cable, Sidekiq.",
+      "repo": "Jeffallan/claude-skills",
+      "path": "rails-expert",
+      "branch": "main",
+      "category": "rails-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills/rails-expert",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

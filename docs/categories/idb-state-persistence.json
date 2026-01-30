@@ -1,0 +1,20 @@
+{
+  "category": "idb-state-persistence",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.854808Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "IndexedDB patterns for local-first state persistence using the idb library. Use when implementing features that require persistent state across navigation and sessions. Covers data modeling, defaults,",
+      "repo": "matthewharwood/fantasy-phonics",
+      "path": "idb-state-persistence",
+      "branch": "main",
+      "category": "idb-state-persistence",
+      "tags": [],
+      "stars": 0,
+      "install": "matthewharwood/fantasy-phonics/idb-state-persistence",
+      "source": "github.com/matthewharwood/fantasy-phonics"
+    }
+  ]
+}

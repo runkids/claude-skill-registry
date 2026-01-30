@@ -1,0 +1,20 @@
+{
+  "category": "presence-detection",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.634989Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tracking user online/offline status, typing indicators, and activity states using WebSocket connections and Redis for real-time presence information.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "presence-detection",
+      "branch": "main",
+      "category": "presence-detection",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/presence-detection",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

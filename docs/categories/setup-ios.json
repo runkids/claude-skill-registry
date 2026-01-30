@@ -1,0 +1,20 @@
+{
+  "category": "setup-ios",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.984501Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up iOS development environment for React Native/Expo. Use when configuring Xcode, CocoaPods, iOS simulators, or troubleshooting iOS-specific build issues. Invoked by: \"ios setup\", \"xcode\", \"cocoap",
+      "repo": "eleva-labs/agentic-coding-templates",
+      "path": "setup-ios",
+      "branch": "main",
+      "category": "setup-ios",
+      "tags": [],
+      "stars": 0,
+      "install": "eleva-labs/agentic-coding-templates/setup-ios",
+      "source": "github.com/eleva-labs/agentic-coding-templates"
+    }
+  ]
+}

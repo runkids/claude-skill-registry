@@ -1,0 +1,20 @@
+{
+  "category": "roadmap",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.850091Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create sequential phases from spec. Creates ./.gtd/<task_name>/ROADMAP.md",
+      "repo": "Hoang604/get-thing-done",
+      "path": "roadmap",
+      "branch": "main",
+      "category": "roadmap",
+      "tags": [],
+      "stars": 0,
+      "install": "Hoang604/get-thing-done/roadmap",
+      "source": "github.com/Hoang604/get-thing-done"
+    }
+  ]
+}

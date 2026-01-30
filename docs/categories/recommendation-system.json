@@ -1,0 +1,20 @@
+{
+  "category": "recommendation-system",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.789814Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploy production recommendation systems with feature stores, caching, A/B testing. Use for personalization APIs, low latency serving, or encountering cache invalidation, experiment tracking, quality",
+      "repo": "secondsky/claude-skills",
+      "path": "recommendation-system",
+      "branch": "main",
+      "category": "recommendation-system",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills/recommendation-system",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

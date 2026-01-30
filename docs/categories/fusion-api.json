@@ -1,0 +1,20 @@
+{
+  "category": "fusion-api",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.716172Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and compare alternative API shapes; use when deciding on endpoints, request or response formats, or versioning.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "fusion-api",
+      "branch": "main",
+      "category": "fusion-api",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup/fusion-api",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

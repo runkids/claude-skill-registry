@@ -1,0 +1,20 @@
+{
+  "category": "zai-cli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.512432Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute z.AI CLI providing vision, search, reader, and GitHub exploration via CLI and MCP. Use when user needs image/video analysis, OCR, UI-to-code conversion, error diagnosis, real-time web search,",
+      "repo": "byteworthy/Upstream",
+      "path": "zai-cli",
+      "branch": "main",
+      "category": "zai-cli",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/zai-cli",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

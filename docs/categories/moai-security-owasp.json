@@ -1,0 +1,20 @@
+{
+  "category": "moai-security-owasp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.174694Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Skill for advanced development",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-security-owasp",
+      "branch": "main",
+      "category": "moai-security-owasp",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit/moai-security-owasp",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

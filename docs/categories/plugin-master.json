@@ -1,0 +1,20 @@
+{
+  "category": "plugin-master",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.594578Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete Claude Code plugin development system. PROACTIVELY activate when users want to: (1) Create/build/make plugins with 2025 features (2) Add skills/commands/agents to plugins (3) Package existing",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "plugin-master",
+      "branch": "main",
+      "category": "plugin-master",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace/plugin-master",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ack-resources",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.198366Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS Controllers for Kubernetes (ACK) for Kubernetes-native AWS resource management. Use when managing AWS resources via kubectl, implementing GitOps for infrastructure, creating self-service developer",
+      "repo": "adaptationio/Skrillz",
+      "path": "ack-resources",
+      "branch": "main",
+      "category": "ack-resources",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/ack-resources",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

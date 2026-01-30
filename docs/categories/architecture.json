@@ -1,0 +1,20 @@
+{
+  "category": "architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.344856Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Architectural decision-making framework. Requirements analysis, trade-off evaluation, ADR documentation. Use when making architecture decisions or analyzing system design.",
+      "repo": "AxelMrak/ai",
+      "path": "architecture",
+      "branch": "main",
+      "category": "architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/architecture",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "renode-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.813105Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Editing .resc scripts or swapping firmware.",
+      "repo": "creatifcoding/gbg",
+      "path": "renode-development",
+      "branch": "main",
+      "category": "renode-development",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/renode-development",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

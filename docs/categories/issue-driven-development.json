@@ -1,0 +1,20 @@
+{
+  "category": "issue-driven-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.906728Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use for any development work - the master 13-step coding process that orchestrates all other skills, ensuring GitHub issue tracking, proper branching, TDD, code review, and CI verification",
+      "repo": "troykelly/claude-skills",
+      "path": "issue-driven-development",
+      "branch": "main",
+      "category": "issue-driven-development",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/issue-driven-development",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "learning-path-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.993510Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates personalized learning paths for technologies, frameworks, or concepts. Use for user-interactive session only for onboarding new technologies, hackathon skill-building, or personal development",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "learning-path-builder",
+      "branch": "main",
+      "category": "learning-path-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/learning-path-builder",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

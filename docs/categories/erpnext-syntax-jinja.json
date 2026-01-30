@@ -1,0 +1,20 @@
+{
+  "category": "erpnext-syntax-jinja",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.589328Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deterministic Jinja template syntax for ERPNext/Frappe Print Formats, Email Templates, and Portal Pages",
+      "repo": "OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package",
+      "path": "erpnext-syntax-jinja",
+      "branch": "main",
+      "category": "erpnext-syntax-jinja",
+      "tags": [],
+      "stars": 0,
+      "install": "OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package/erpnext-syntax-jinja",
+      "source": "github.com/OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "verify-code",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.406227Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- After tasks are marked done",
+      "repo": "EtroxTaran/conductor",
+      "path": "verify-code",
+      "branch": "main",
+      "category": "verify-code",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor/verify-code",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

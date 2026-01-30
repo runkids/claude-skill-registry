@@ -1,0 +1,20 @@
+{
+  "category": "defining-tech-stack",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.067158Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Locks in specific versions for the Tourly project tech stack. Use when initializing the project or adding new core dependencies.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "defining-tech-stack",
+      "branch": "main",
+      "category": "defining-tech-stack",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2/defining-tech-stack",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "file-processing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.661327Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Process and analyze CSV, JSON, and text files with data transformation, cleaning, analysis, and visualization capabilities",
+      "repo": "aws-samples/sample-strands-agents-agentskills",
+      "path": "file-processing",
+      "branch": "main",
+      "category": "file-processing",
+      "tags": [],
+      "stars": 0,
+      "install": "aws-samples/sample-strands-agents-agentskills/file-processing",
+      "source": "github.com/aws-samples/sample-strands-agents-agentskills"
+    }
+  ]
+}

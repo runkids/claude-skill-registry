@@ -1,0 +1,20 @@
+{
+  "category": "instrumentation-and-telemetry",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.884657Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement deep instrumentation pipelines for tracing, metrics, and real-user monitoring of React apps.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "instrumentation-and-telemetry",
+      "branch": "main",
+      "category": "instrumentation-and-telemetry",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/instrumentation-and-telemetry",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

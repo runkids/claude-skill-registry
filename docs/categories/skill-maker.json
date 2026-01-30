@@ -1,0 +1,20 @@
+{
+  "category": "skill-maker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.018346Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Meta-skill that generates domain-specific AI skills from tool documentation",
+      "repo": "plurigrid/asi",
+      "path": "skill-maker",
+      "branch": "main",
+      "category": "skill-maker",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/skill-maker",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

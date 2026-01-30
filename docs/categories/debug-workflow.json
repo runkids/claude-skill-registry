@@ -1,0 +1,20 @@
+{
+  "category": "debug-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.055077Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guides developers through scenario test debugging using Ruby debug gem step execution. Provides interactive debugging patterns and test helper context.",
+      "repo": "bash0C7/picotorokko",
+      "path": "debug-workflow",
+      "branch": "main",
+      "category": "debug-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "bash0C7/picotorokko/debug-workflow",
+      "source": "github.com/bash0C7/picotorokko"
+    }
+  ]
+}

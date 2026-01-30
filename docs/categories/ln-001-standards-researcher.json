@@ -1,0 +1,20 @@
+{
+  "category": "ln-001-standards-researcher",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.034703Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Research standards/patterns via MCP Ref. Generates Standards Research for Story Technical Notes subsection. Reusable worker.",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "ln-001-standards-researcher",
+      "branch": "main",
+      "category": "ln-001-standards-researcher",
+      "tags": [],
+      "stars": 0,
+      "install": "levnikolaevich/claude-code-skills/ln-001-standards-researcher",
+      "source": "github.com/levnikolaevich/claude-code-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "summarize-epic",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.115355Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /summarize-epic <epic-url> slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "summarize-epic",
+      "branch": "main",
+      "category": "summarize-epic",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles/summarize-epic",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

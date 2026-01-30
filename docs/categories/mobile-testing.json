@@ -1,0 +1,20 @@
+{
+  "category": "mobile-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.182554Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive mobile testing for iOS and Android platforms including gestures, sensors, permissions, device fragmentation, and performance. Use when testing native apps, hybrid apps, or mobile web, en",
+      "repo": "proffesor-for-testing/sentinel-api-testing",
+      "path": "mobile-testing",
+      "branch": "main",
+      "category": "mobile-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/sentinel-api-testing/mobile-testing",
+      "source": "github.com/proffesor-for-testing/sentinel-api-testing"
+    }
+  ]
+}

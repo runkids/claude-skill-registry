@@ -1,0 +1,20 @@
+{
+  "category": "hmdb-database",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.834703Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access Human Metabolome Database (220K+ metabolites). Search by name/ID/structure, retrieve chemical properties, biomarker data, NMR/MS spectra, pathways, for metabolomics and identification.",
+      "repo": "ovachiever/droid-tings",
+      "path": "hmdb-database",
+      "branch": "main",
+      "category": "hmdb-database",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings/hmdb-database",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

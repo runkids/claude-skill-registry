@@ -1,0 +1,20 @@
+{
+  "category": "team-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.178092Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Designs high-performing team structures using organizational psychology AND creates new skills on-the-fly when team needs unmet expertise. Expert in team composition, personality balancing, collaborat",
+      "repo": "erichowens/some_claude_skills",
+      "path": "team-builder",
+      "branch": "main",
+      "category": "team-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/team-builder",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

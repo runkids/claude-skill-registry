@@ -1,0 +1,20 @@
+{
+  "category": "sanity-check",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.883276Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Step back, reflect on current work, validate direction and alignment. Use when complexity is increasing, feeling uncertain, before major decisions, or something feels off.",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "sanity-check",
+      "branch": "main",
+      "category": "sanity-check",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager/sanity-check",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

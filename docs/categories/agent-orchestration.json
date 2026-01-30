@@ -1,0 +1,20 @@
+{
+  "category": "agent-orchestration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.236728Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the model's ROLE_TYPE is orchestrator and needs to delegate tasks to specialist sub-agents. Provides scientific delegation framework ensuring world-building context (WHE",
+      "repo": "BbgnsurfTech/claude-skills-collection",
+      "path": "agent-orchestration",
+      "branch": "main",
+      "category": "agent-orchestration",
+      "tags": [],
+      "stars": 0,
+      "install": "BbgnsurfTech/claude-skills-collection/agent-orchestration",
+      "source": "github.com/BbgnsurfTech/claude-skills-collection"
+    }
+  ]
+}

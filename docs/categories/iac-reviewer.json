@@ -1,0 +1,20 @@
+{
+  "category": "iac-reviewer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.850519Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review infrastructure-as-code changes for safety and correctness. Use when a mid-level developer needs a second look on IaC.",
+      "repo": "proflead/codex-skills-library",
+      "path": "iac-reviewer",
+      "branch": "main",
+      "category": "iac-reviewer",
+      "tags": [],
+      "stars": 0,
+      "install": "proflead/codex-skills-library/iac-reviewer",
+      "source": "github.com/proflead/codex-skills-library"
+    }
+  ]
+}

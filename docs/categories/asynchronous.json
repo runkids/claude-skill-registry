@@ -1,0 +1,20 @@
+{
+  "category": "asynchronous",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.362792Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master asynchronous JavaScript patterns including callbacks, promises, async/await, event loop mechanics, and real-world async patterns.",
+      "repo": "pluginagentmarketplace/custom-plugin-javascript",
+      "path": "asynchronous",
+      "branch": "main",
+      "category": "asynchronous",
+      "tags": [],
+      "stars": 0,
+      "install": "pluginagentmarketplace/custom-plugin-javascript/asynchronous",
+      "source": "github.com/pluginagentmarketplace/custom-plugin-javascript"
+    }
+  ]
+}

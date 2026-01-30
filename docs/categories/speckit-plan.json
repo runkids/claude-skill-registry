@@ -1,0 +1,20 @@
+{
+  "category": "speckit-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.056284Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute the implementation planning workflow using the plan template to generate design artifacts.",
+      "repo": "dceoy/speckit-agent-skills",
+      "path": "speckit-plan",
+      "branch": "main",
+      "category": "speckit-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "dceoy/speckit-agent-skills/speckit-plan",
+      "source": "github.com/dceoy/speckit-agent-skills"
+    }
+  ]
+}

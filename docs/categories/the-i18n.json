@@ -1,0 +1,20 @@
+{
+  "category": "the-i18n",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.279336Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manages internationalization - adds translations, fixes missing keys, and ensures locale consistency.",
+      "repo": "dupipcom/morpheus",
+      "path": "the-i18n",
+      "branch": "main",
+      "category": "the-i18n",
+      "tags": [],
+      "stars": 0,
+      "install": "dupipcom/morpheus/the-i18n",
+      "source": "github.com/dupipcom/morpheus"
+    }
+  ]
+}

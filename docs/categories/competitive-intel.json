@@ -1,0 +1,20 @@
+{
+  "category": "competitive-intel",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.627865Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when researching, documenting, and sharing competitor insights with GTM teams.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "competitive-intel",
+      "branch": "main",
+      "category": "competitive-intel",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/competitive-intel",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

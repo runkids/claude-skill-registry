@@ -1,0 +1,20 @@
+{
+  "category": "time-crystal-scheduling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.287631Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Time crystal-inspired schedule stability analysis. Use when analyzing schedule churn, detecting natural periodicities, or optimizing for minimal disruption.",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "time-crystal-scheduling",
+      "branch": "main",
+      "category": "time-crystal-scheduling",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/time-crystal-scheduling",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "moai-baas-foundation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.151385Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Backend-as-a-Service Foundation with AI-powered BaaS architecture patterns, strategic provider selection, and intelligent multi-service orchestration for scalable production applications",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-baas-foundation",
+      "branch": "main",
+      "category": "moai-baas-foundation",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit/moai-baas-foundation",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

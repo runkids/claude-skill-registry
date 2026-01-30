@@ -1,0 +1,20 @@
+{
+  "category": "safe-git-guard",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.876695Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prevents destructive Git operations by requiring backup and confirmation. Blocks git reset --hard, git push --force on main, git clean -fd. Requires backup before git checkout, git reset, git rebase.",
+      "repo": "freitasp1/claude-code-skills",
+      "path": "safe-git-guard",
+      "branch": "main",
+      "category": "safe-git-guard",
+      "tags": [],
+      "stars": 0,
+      "install": "freitasp1/claude-code-skills/safe-git-guard",
+      "source": "github.com/freitasp1/claude-code-skills"
+    }
+  ]
+}

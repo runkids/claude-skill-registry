@@ -1,0 +1,20 @@
+{
+  "category": "ADAPTATION_GUIDE",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.162148Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when adapting Droidz framework or creating custom workflows. Guide for customizing droids, skills, and commands for specific project needs.",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "ADAPTATION_GUIDE",
+      "branch": "main",
+      "category": "ADAPTATION_GUIDE",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2/ADAPTATION_GUIDE",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

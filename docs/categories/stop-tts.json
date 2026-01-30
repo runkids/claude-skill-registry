@@ -1,0 +1,20 @@
+{
+  "category": "stop-tts",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.093961Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Stop the TTS server",
+      "repo": "darthmolen/EnglishConnect",
+      "path": "stop-tts",
+      "branch": "main",
+      "category": "stop-tts",
+      "tags": [],
+      "stars": 0,
+      "install": "darthmolen/EnglishConnect/stop-tts",
+      "source": "github.com/darthmolen/EnglishConnect"
+    }
+  ]
+}

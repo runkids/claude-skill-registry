@@ -1,0 +1,20 @@
+{
+  "category": "progressions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.687253Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Kettlebell swing progression tracker with automatic advancement through reps, time, and weight phases. EMOM timer for session tracking. Use when building progressions, logging completed sessions, calc",
+      "repo": "alexanderop/workoutTracker",
+      "path": "progressions",
+      "branch": "main",
+      "category": "progressions",
+      "tags": [],
+      "stars": 0,
+      "install": "alexanderop/workoutTracker/progressions",
+      "source": "github.com/alexanderop/workoutTracker"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "changeset",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.510298Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when writing changesets for releases",
+      "repo": "udecode/better-convex",
+      "path": "changeset",
+      "branch": "main",
+      "category": "changeset",
+      "tags": [],
+      "stars": 0,
+      "install": "udecode/better-convex/changeset",
+      "source": "github.com/udecode/better-convex"
+    }
+  ]
+}

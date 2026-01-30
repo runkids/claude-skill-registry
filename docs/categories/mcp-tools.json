@@ -1,0 +1,20 @@
+{
+  "category": "mcp-tools",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.107349Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MCP tools for Xcode automation and Apple documentation access. XcodeBuildMCP for builds, apple-docs for WWDC and API docs.",
+      "repo": "fusengine/agents",
+      "path": "mcp-tools",
+      "branch": "main",
+      "category": "mcp-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/mcp-tools",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

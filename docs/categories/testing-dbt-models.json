@@ -1,0 +1,20 @@
+{
+  "category": "testing-dbt-models",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.270000Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Adds schema tests and data quality validation to dbt models. Use when working with dbt tests for: (1) Adding or modifying tests in schema.yml files (2) Task mentions \"test\", \"validate\", \"data quality\"",
+      "repo": "AltimateAI/data-engineering-skills",
+      "path": "testing-dbt-models",
+      "branch": "main",
+      "category": "testing-dbt-models",
+      "tags": [],
+      "stars": 0,
+      "install": "AltimateAI/data-engineering-skills/testing-dbt-models",
+      "source": "github.com/AltimateAI/data-engineering-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "substack-note",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.114035Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate high-performing Substack notes that drive engagement and newsletter growth. Use when the user wants to create Substack notes, needs content ideas for notes, or wants to repurpose content into",
+      "repo": "az9713/ai-co-writing-claude-skills",
+      "path": "substack-note",
+      "branch": "main",
+      "category": "substack-note",
+      "tags": [],
+      "stars": 0,
+      "install": "az9713/ai-co-writing-claude-skills/substack-note",
+      "source": "github.com/az9713/ai-co-writing-claude-skills"
+    }
+  ]
+}

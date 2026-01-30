@@ -1,0 +1,20 @@
+{
+  "category": "releasing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.808823Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "BoxLogのリリース作業をガイド。バージョン決定、重複チェック、リリースノート作成、タグ付けまでの全プロセスを支援。",
+      "repo": "Dayopt/app",
+      "path": "releasing",
+      "branch": "main",
+      "category": "releasing",
+      "tags": [],
+      "stars": 0,
+      "install": "Dayopt/app/releasing",
+      "source": "github.com/Dayopt/app"
+    }
+  ]
+}

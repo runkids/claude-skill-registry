@@ -1,0 +1,20 @@
+{
+  "category": "rust-core",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.866834Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Rust development expertise covering core principles, patterns, error handling, async programming, testing, and performance optimization. Use when working on Rust projects requiring guida",
+      "repo": "aaronbassett/claude-bell",
+      "path": "rust-core",
+      "branch": "main",
+      "category": "rust-core",
+      "tags": [],
+      "stars": 0,
+      "install": "aaronbassett/claude-bell/rust-core",
+      "source": "github.com/aaronbassett/claude-bell"
+    }
+  ]
+}

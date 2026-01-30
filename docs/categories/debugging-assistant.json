@@ -1,0 +1,20 @@
+{
+  "category": "debugging-assistant",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.055818Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diagnose bugs, analyze stack traces, provide fixes",
+      "repo": "jk278/veld",
+      "path": "debugging-assistant",
+      "branch": "main",
+      "category": "debugging-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "jk278/veld/debugging-assistant",
+      "source": "github.com/jk278/veld"
+    }
+  ]
+}

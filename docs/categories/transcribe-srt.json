@@ -1,0 +1,20 @@
+{
+  "category": "transcribe-srt",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.308692Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transcribes SRT formatted subtitles given a video or audio content file. Use when you want subtitles for a file that doesn't have any.",
+      "repo": "tpott/pub_musings",
+      "path": "transcribe-srt",
+      "branch": "main",
+      "category": "transcribe-srt",
+      "tags": [],
+      "stars": 0,
+      "install": "tpott/pub_musings/transcribe-srt",
+      "source": "github.com/tpott/pub_musings"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "product-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.660077Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Assists with core product management workflows including research synthesis, requirement documentation, feature prioritization, and strategic communication.",
+      "repo": "jk278/veld",
+      "path": "product-manager",
+      "branch": "main",
+      "category": "product-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "jk278/veld/product-manager",
+      "source": "github.com/jk278/veld"
+    }
+  ]
+}

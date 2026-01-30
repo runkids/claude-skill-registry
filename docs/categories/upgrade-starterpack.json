@@ -1,0 +1,20 @@
+{
+  "category": "upgrade-starterpack",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.359787Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<!-- ⚠️ STARTERPACK CORE — DO NOT MODIFY. This file is managed by the starterpack. -->",
+      "repo": "7PH/website-starter-pack",
+      "path": "upgrade-starterpack",
+      "branch": "main",
+      "category": "upgrade-starterpack",
+      "tags": [],
+      "stars": 0,
+      "install": "7PH/website-starter-pack/upgrade-starterpack",
+      "source": "github.com/7PH/website-starter-pack"
+    }
+  ]
+}

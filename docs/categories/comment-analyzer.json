@@ -1,0 +1,20 @@
+{
+  "category": "comment-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.618256Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when asked to review code comments for accuracy/quality or explicitly asked to run the comment-analyzer subagent.",
+      "repo": "troykelly/codex-skills",
+      "path": "comment-analyzer",
+      "branch": "main",
+      "category": "comment-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/codex-skills/comment-analyzer",
+      "source": "github.com/troykelly/codex-skills"
+    }
+  ]
+}

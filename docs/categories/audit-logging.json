@@ -1,0 +1,20 @@
+{
+  "category": "audit-logging",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.369352Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement comprehensive audit logging for all admin actions, capturing user ID, action type, entity changes, IP address, and user agent. Use when tracking system activities or adding audit trails.",
+      "repo": "PrasadTelasula/EvokeQOne",
+      "path": "audit-logging",
+      "branch": "main",
+      "category": "audit-logging",
+      "tags": [],
+      "stars": 0,
+      "install": "PrasadTelasula/EvokeQOne/audit-logging",
+      "source": "github.com/PrasadTelasula/EvokeQOne"
+    }
+  ]
+}

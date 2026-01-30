@@ -1,0 +1,20 @@
+{
+  "category": "linear-usage",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.025024Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when user asks about \"Linear issues\", \"issue tracking best practices\", \"sprint planning\", \"Linear project management\", or \"creating Linear issues\".",
+      "repo": "fcakyon/claude-codex-settings",
+      "path": "linear-usage",
+      "branch": "main",
+      "category": "linear-usage",
+      "tags": [],
+      "stars": 0,
+      "install": "fcakyon/claude-codex-settings/linear-usage",
+      "source": "github.com/fcakyon/claude-codex-settings"
+    }
+  ]
+}

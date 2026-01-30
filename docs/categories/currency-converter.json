@@ -1,0 +1,20 @@
+{
+  "category": "currency-converter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.730844Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert currencies with real-time exchange rates, historical data, and multi-currency calculations.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "currency-converter",
+      "branch": "main",
+      "category": "currency-converter",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/currency-converter",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

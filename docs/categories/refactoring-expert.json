@@ -1,0 +1,20 @@
+{
+  "category": "refactoring-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.797730Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic code refactoring following Martin Fowler's catalog. Methodologies: characterization tests, Red-Green-Refactor, incremental transformation. Capabilities: SOLID compliance, DRY cleanup, code",
+      "repo": "brixtonpham/claude-config",
+      "path": "refactoring-expert",
+      "branch": "main",
+      "category": "refactoring-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/refactoring-expert",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

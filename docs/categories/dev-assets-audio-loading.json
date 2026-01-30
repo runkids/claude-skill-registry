@@ -1,0 +1,20 @@
+{
+  "category": "dev-assets-audio-loading",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.166910Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audio loading patterns for R3F/Three.js. Use when adding sound effects.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-assets-audio-loading",
+      "branch": "main",
+      "category": "dev-assets-audio-loading",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/dev-assets-audio-loading",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

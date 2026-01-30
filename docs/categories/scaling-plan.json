@@ -1,0 +1,20 @@
+{
+  "category": "scaling-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.891601Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create scaling strategy for winning campaigns including budget increments, multi-account distribution, and day-parting schedules. Use when you have proven winners and need a structured plan to increas",
+      "repo": "WalkerHi11/mediabuy-plugins",
+      "path": "scaling-plan",
+      "branch": "main",
+      "category": "scaling-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "WalkerHi11/mediabuy-plugins/scaling-plan",
+      "source": "github.com/WalkerHi11/mediabuy-plugins"
+    }
+  ]
+}

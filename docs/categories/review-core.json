@@ -1,0 +1,20 @@
+{
+  "category": "review-core",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.840391Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Use this skill at the beginning of any detailed review workflow (e.g., for architecture, math, or an API).",
+      "repo": "athola/claude-night-market",
+      "path": "review-core",
+      "branch": "main",
+      "category": "review-core",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/review-core",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

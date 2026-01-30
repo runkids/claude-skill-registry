@@ -1,0 +1,20 @@
+{
+  "category": "changelog-automation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.508435Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automate changelog generation from commits, PRs, and releases following Keep a Changelog format. Use when setting up release workflows, generating release notes, or standardizing commit conventions.",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "changelog-automation",
+      "branch": "main",
+      "category": "changelog-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/changelog-automation",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

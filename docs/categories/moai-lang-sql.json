@@ -1,0 +1,20 @@
+{
+  "category": "moai-lang-sql",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.168042Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SQL best practices with pgTAP, sqlfluff 3.2, query optimization, and migration management.",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-lang-sql",
+      "branch": "main",
+      "category": "moai-lang-sql",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-lang-sql",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

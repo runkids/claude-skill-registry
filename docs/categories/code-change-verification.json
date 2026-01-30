@@ -1,0 +1,20 @@
+{
+  "category": "code-change-verification",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.587254Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run the mandatory verification stack when changes affect runtime code, tests, or build/test behavior in the OpenAI Agents Python repository.",
+      "repo": "zaziedlm/openai-agents-python",
+      "path": "code-change-verification",
+      "branch": "main",
+      "category": "code-change-verification",
+      "tags": [],
+      "stars": 0,
+      "install": "zaziedlm/openai-agents-python/code-change-verification",
+      "source": "github.com/zaziedlm/openai-agents-python"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "xlsx-processing-anthropic",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.504759Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Toolkit for comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. Use to work with spreadsheets (.xlsx, .xlsm, .csv, .tsv,",
+      "repo": "lawvable/awesome-legal-skills",
+      "path": "xlsx-processing-anthropic",
+      "branch": "main",
+      "category": "xlsx-processing-anthropic",
+      "tags": [],
+      "stars": 0,
+      "install": "lawvable/awesome-legal-skills/xlsx-processing-anthropic",
+      "source": "github.com/lawvable/awesome-legal-skills"
+    }
+  ]
+}

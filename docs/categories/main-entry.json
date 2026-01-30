@@ -1,0 +1,20 @@
+{
+  "category": "main-entry",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.066580Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates src/main.ts application entry point. Creates different versions based on app type - micro-frontend with single-spa lifecycle or standalone SPA initialization.",
+      "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+      "path": "main-entry",
+      "branch": "main",
+      "category": "main-entry",
+      "tags": [],
+      "stars": 0,
+      "install": "sayali-ingle-pdl/adusa-ai-vuejs-app-template/main-entry",
+      "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template"
+    }
+  ]
+}

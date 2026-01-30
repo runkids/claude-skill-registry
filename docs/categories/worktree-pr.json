@@ -1,0 +1,20 @@
+{
+  "category": "worktree-pr",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.487782Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage git worktrees with PR workflow and multi-agent review (Claude + Codex). Use when developing features in isolation with easy rollback.",
+      "repo": "alfredolopez80/multi-agent-ralph-loop",
+      "path": "worktree-pr",
+      "branch": "main",
+      "category": "worktree-pr",
+      "tags": [],
+      "stars": 0,
+      "install": "alfredolopez80/multi-agent-ralph-loop/worktree-pr",
+      "source": "github.com/alfredolopez80/multi-agent-ralph-loop"
+    }
+  ]
+}

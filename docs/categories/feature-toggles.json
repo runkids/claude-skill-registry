@@ -1,0 +1,20 @@
+{
+  "category": "feature-toggles",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.648673Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Using runtime switches to enable or disable features without deploying new code, decoupling deployment from release and enabling gradual rollouts, A/B testing, and emergency feature disabling.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "feature-toggles",
+      "branch": "main",
+      "category": "feature-toggles",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/feature-toggles",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

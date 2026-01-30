@@ -1,0 +1,20 @@
+{
+  "category": "Observability",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.174297Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Real-time monitoring dashboard for PAI multi-agent activity. USE WHEN user says 'start observability', 'stop dashboard', 'restart observability', 'monitor agents', 'show agent activity', or needs to d",
+      "repo": "blackpwnguin/Personal-AI",
+      "path": "Observability",
+      "branch": "main",
+      "category": "Observability",
+      "tags": [],
+      "stars": 0,
+      "install": "blackpwnguin/Personal-AI/Observability",
+      "source": "github.com/blackpwnguin/Personal-AI"
+    }
+  ]
+}

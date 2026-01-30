@@ -1,0 +1,20 @@
+{
+  "category": "using-systems-as-experience",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.375243Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Router for systems-as-experience - emergence, sandbox, optimization, discovery, narrative, modding",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-systems-as-experience",
+      "branch": "main",
+      "category": "using-systems-as-experience",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks/using-systems-as-experience",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

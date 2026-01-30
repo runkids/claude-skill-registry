@@ -1,0 +1,20 @@
+{
+  "category": "actix-web",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.199870Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "High-performance Rust web framework with actor model foundation.",
+      "repo": "ngxtm/devkit",
+      "path": "actix-web",
+      "branch": "main",
+      "category": "actix-web",
+      "tags": [],
+      "stars": 0,
+      "install": "ngxtm/devkit/actix-web",
+      "source": "github.com/ngxtm/devkit"
+    }
+  ]
+}

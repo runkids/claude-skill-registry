@@ -1,0 +1,20 @@
+{
+  "category": "no-hardcoding",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.256948Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Forbid hardcoded values in code. Use this when reviewing code, writing new features, or when magic numbers/strings are detected. Enforces constants, env variables, and config files.",
+      "repo": "Doyajin174/myskills",
+      "path": "no-hardcoding",
+      "branch": "main",
+      "category": "no-hardcoding",
+      "tags": [],
+      "stars": 0,
+      "install": "Doyajin174/myskills/no-hardcoding",
+      "source": "github.com/Doyajin174/myskills"
+    }
+  ]
+}

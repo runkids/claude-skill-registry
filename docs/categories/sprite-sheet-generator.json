@@ -1,0 +1,20 @@
+{
+  "category": "sprite-sheet-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.068642Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Combine multiple images into sprite sheets with customizable grid layouts and generate CSS sprite maps for web development.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "sprite-sheet-generator",
+      "branch": "main",
+      "category": "sprite-sheet-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/sprite-sheet-generator",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

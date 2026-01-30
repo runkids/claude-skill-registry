@@ -1,0 +1,20 @@
+{
+  "category": "data-quality-rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.032495Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "See the main Data Validation Rules skill for comprehensive coverage of data quality rule implementation.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "data-quality-rules",
+      "branch": "main",
+      "category": "data-quality-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/data-quality-rules",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

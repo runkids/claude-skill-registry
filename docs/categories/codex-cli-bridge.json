@@ -1,0 +1,20 @@
+{
+  "category": "codex-cli-bridge",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.606942Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Bridge between Claude Code and OpenAI Codex CLI - generates AGENTS.md from CLAUDE.md, provides Codex CLI execution helpers, and enables seamless interoperability between both tools",
+      "repo": "Yona544/AIskils",
+      "path": "codex-cli-bridge",
+      "branch": "main",
+      "category": "codex-cli-bridge",
+      "tags": [],
+      "stars": 0,
+      "install": "Yona544/AIskils/codex-cli-bridge",
+      "source": "github.com/Yona544/AIskils"
+    }
+  ]
+}

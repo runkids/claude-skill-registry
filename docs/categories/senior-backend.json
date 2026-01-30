@@ -1,0 +1,20 @@
+{
+  "category": "senior-backend",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.959442Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive backend development skill for building scalable backend systems using NodeJS, Express, Go, Python, Postgres, GraphQL, REST APIs. Includes API scaffolding, database optimization, security",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "senior-backend",
+      "branch": "main",
+      "category": "senior-backend",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/senior-backend",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "design-token-validator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.160898Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ensures CSS and components only use approved design tokens. Use when the user asks about design system enforcement, hardcoded colors, spacing values, or wants to validate token usage across files.",
+      "repo": "WesleySmits/agent-skills",
+      "path": "design-token-validator",
+      "branch": "main",
+      "category": "design-token-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills/design-token-validator",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

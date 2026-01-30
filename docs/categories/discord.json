@@ -1,0 +1,20 @@
+{
+  "category": "discord",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.456149Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Post announcements and messages to Discord channels. Use when sharing updates, releases, or team communications.",
+      "repo": "civitai/civitai",
+      "path": "discord",
+      "branch": "main",
+      "category": "discord",
+      "tags": [],
+      "stars": 0,
+      "install": "civitai/civitai/discord",
+      "source": "github.com/civitai/civitai"
+    }
+  ]
+}

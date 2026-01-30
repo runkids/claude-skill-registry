@@ -1,0 +1,20 @@
+{
+  "category": "testing-suite-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.275002Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Version: 1.0.0",
+      "repo": "vitorsilva/saberloop",
+      "path": "testing-suite-management",
+      "branch": "main",
+      "category": "testing-suite-management",
+      "tags": [],
+      "stars": 0,
+      "install": "vitorsilva/saberloop/testing-suite-management",
+      "source": "github.com/vitorsilva/saberloop"
+    }
+  ]
+}

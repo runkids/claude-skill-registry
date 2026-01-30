@@ -1,0 +1,20 @@
+{
+  "category": "permission-test-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.563767Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Permission test. Use for testing.",
+      "repo": "matteocervelli/llms",
+      "path": "permission-test-skill",
+      "branch": "main",
+      "category": "permission-test-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms/permission-test-skill",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "architecture-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.346775Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when designing new system architecture, reviewing existing designs, or making architectural decisions. Invoke for system design, architecture review, design patterns, ADRs, scalability planning.",
+      "repo": "Jeffallan/claude-skills",
+      "path": "architecture-designer",
+      "branch": "main",
+      "category": "architecture-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills/architecture-designer",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

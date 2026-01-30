@@ -1,0 +1,20 @@
+{
+  "category": "auditability",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.370545Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implementing comprehensive logging, tracking, and audit trails for AI systems to ensure compliance and enable debugging.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "auditability",
+      "branch": "main",
+      "category": "auditability",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/auditability",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

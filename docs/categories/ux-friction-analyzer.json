@@ -1,0 +1,20 @@
+{
+  "category": "ux-friction-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.382521Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive UX analysis using cognitive psychology, ADHD-friendly design, Gestalt principles, and flow state engineering. Specializes in friction audits, user journey simulation, cognitive load opti",
+      "repo": "erichowens/some_claude_skills",
+      "path": "ux-friction-analyzer",
+      "branch": "main",
+      "category": "ux-friction-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/ux-friction-analyzer",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

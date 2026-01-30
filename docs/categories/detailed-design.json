@@ -1,0 +1,20 @@
+{
+  "category": "detailed-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.164842Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "基本設計に基づいた詳細設計を担当します。",
+      "repo": "infinith4/dev-flutter-realestate",
+      "path": "detailed-design",
+      "branch": "main",
+      "category": "detailed-design",
+      "tags": [],
+      "stars": 0,
+      "install": "infinith4/dev-flutter-realestate/detailed-design",
+      "source": "github.com/infinith4/dev-flutter-realestate"
+    }
+  ]
+}

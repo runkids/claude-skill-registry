@@ -1,0 +1,20 @@
+{
+  "category": "anomaly-detection",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.302451Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Rule-based anomaly detection for production systems with configurable thresholds, cooldown periods to prevent alert storms, and error pattern tracking for repeated failures.",
+      "repo": "dadbodgeoff/drift",
+      "path": "anomaly-detection",
+      "branch": "main",
+      "category": "anomaly-detection",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/anomaly-detection",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

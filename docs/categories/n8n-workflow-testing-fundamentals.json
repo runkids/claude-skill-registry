@@ -1,0 +1,20 @@
+{
+  "category": "n8n-workflow-testing-fundamentals",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.221164Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive n8n workflow testing including execution lifecycle, node connection patterns, data flow validation, and error handling strategies. Use when testing n8n workflow automation applications.",
+      "repo": "proffesor-for-testing/agentic-qe",
+      "path": "n8n-workflow-testing-fundamentals",
+      "branch": "main",
+      "category": "n8n-workflow-testing-fundamentals",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/agentic-qe/n8n-workflow-testing-fundamentals",
+      "source": "github.com/proffesor-for-testing/agentic-qe"
+    }
+  ]
+}

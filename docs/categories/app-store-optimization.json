@@ -1,0 +1,20 @@
+{
+  "category": "app-store-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.335900Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete App Store Optimization (ASO) toolkit for researching, optimizing, and tracking mobile app performance on Apple App Store and Google Play Store",
+      "repo": "Yona544/AIskils",
+      "path": "app-store-optimization",
+      "branch": "main",
+      "category": "app-store-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "Yona544/AIskils/app-store-optimization",
+      "source": "github.com/Yona544/AIskils"
+    }
+  ]
+}

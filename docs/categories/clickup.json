@@ -1,0 +1,20 @@
+{
+  "category": "clickup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.560278Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interact with ClickUp tasks and documents - get task details, view comments, create and manage tasks, create and edit docs. Use when working with ClickUp task/doc URLs or IDs.",
+      "repo": "civitai/civitai",
+      "path": "clickup",
+      "branch": "main",
+      "category": "clickup",
+      "tags": [],
+      "stars": 0,
+      "install": "civitai/civitai/clickup",
+      "source": "github.com/civitai/civitai"
+    }
+  ]
+}

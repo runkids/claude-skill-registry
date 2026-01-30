@@ -1,0 +1,20 @@
+{
+  "category": "ios",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.900819Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert on iOS development with Swift, UIKit, SwiftUI, Xcode, app architecture, platform features, and Apple ecosystem integration. Invoke when user mentions iOS, iPhone, iPad, Swift, SwiftUI, UIKit, X",
+      "repo": "raintree-technology/claude-starter",
+      "path": "ios",
+      "branch": "main",
+      "category": "ios",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/ios",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

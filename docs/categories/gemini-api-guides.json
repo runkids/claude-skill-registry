@@ -1,0 +1,20 @@
+{
+  "category": "gemini-api-guides",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.732382Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive reference for Google's Gemini API. Use when building applications with: (1) Gemini models (Gemini 3 Pro, 2.5 Flash/Pro/Flash-Lite) for text and multimodal generation, (2) Image generatio",
+      "repo": "geopti/gemini-api-claude-skills",
+      "path": "gemini-api-guides",
+      "branch": "main",
+      "category": "gemini-api-guides",
+      "tags": [],
+      "stars": 0,
+      "install": "geopti/gemini-api-claude-skills/gemini-api-guides",
+      "source": "github.com/geopti/gemini-api-claude-skills"
+    }
+  ]
+}

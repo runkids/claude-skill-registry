@@ -1,0 +1,20 @@
+{
+  "category": "gemini-cli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.733437Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Google Gemini CLI orchestration for AI-assisted development. Capabilities: second opinion/cross-validation, real-time web search (Google Search), codebase architecture analysis, parallel code generati",
+      "repo": "brixtonpham/claude-config",
+      "path": "gemini-cli",
+      "branch": "main",
+      "category": "gemini-cli",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/gemini-cli",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

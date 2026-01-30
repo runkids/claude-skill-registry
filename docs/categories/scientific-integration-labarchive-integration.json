@@ -1,0 +1,20 @@
+{
+  "category": "scientific-integration-labarchive-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.903307Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Electronic lab notebook API integration. Access notebooks, manage entries/attachments, backup notebooks, integrate with Protocols.io/Jupyter/REDCap, for programmatic ELN workflows.",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-integration-labarchive-integration",
+      "branch": "main",
+      "category": "scientific-integration-labarchive-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/scientific-integration-labarchive-integration",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

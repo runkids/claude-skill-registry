@@ -1,0 +1,20 @@
+{
+  "category": "conference-paper-writer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.644829Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write academic conference papers and research submissions",
+      "repo": "eddiebe147/claude-settings",
+      "path": "conference-paper-writer",
+      "branch": "main",
+      "category": "conference-paper-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/conference-paper-writer",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "Topic_Planning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.181056Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "选题策划主入口 - 识别策划场景，引导用户进入对应的专项Skill流程",
+      "repo": "sunqb/ccsdk",
+      "path": "Topic_Planning",
+      "branch": "main",
+      "category": "Topic_Planning",
+      "tags": [],
+      "stars": 0,
+      "install": "sunqb/ccsdk/Topic_Planning",
+      "source": "github.com/sunqb/ccsdk"
+    }
+  ]
+}

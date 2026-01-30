@@ -1,0 +1,20 @@
+{
+  "category": "react-tailwind-vigil-ui",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.779915Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "React 18 + Vite + Tailwind CSS v4 frontend development for Vigil Guard v2.0.0 configuration interface. Use when building UI components, creating forms, implementing API integration for 3-branch detect",
+      "repo": "tbartel74/Vigil-Code",
+      "path": "react-tailwind-vigil-ui",
+      "branch": "main",
+      "category": "react-tailwind-vigil-ui",
+      "tags": [],
+      "stars": 0,
+      "install": "tbartel74/Vigil-Code/react-tailwind-vigil-ui",
+      "source": "github.com/tbartel74/Vigil-Code"
+    }
+  ]
+}

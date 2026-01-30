@@ -1,0 +1,20 @@
+{
+  "category": "discovery",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.457786Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conduct discovery interviews to gather requirements, clarify vague ideas, and create detailed specifications. Use when gathering requirements or clarifying vague ideas. Not for execution or simple par",
+      "repo": "Git-Fg/meta-plugin-manager",
+      "path": "discovery",
+      "branch": "main",
+      "category": "discovery",
+      "tags": [],
+      "stars": 0,
+      "install": "Git-Fg/meta-plugin-manager/discovery",
+      "source": "github.com/Git-Fg/meta-plugin-manager"
+    }
+  ]
+}

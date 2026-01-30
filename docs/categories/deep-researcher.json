@@ -1,0 +1,20 @@
+{
+  "category": "deep-researcher",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.061782Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Performs comprehensive, multi-layered research on any topic with structured analysis and synthesis of information from multiple sources. Use when the user needs thorough investigation, market research",
+      "repo": "Karanjot786/agent-skills-cli",
+      "path": "deep-researcher",
+      "branch": "main",
+      "category": "deep-researcher",
+      "tags": [],
+      "stars": 0,
+      "install": "Karanjot786/agent-skills-cli/deep-researcher",
+      "source": "github.com/Karanjot786/agent-skills-cli"
+    }
+  ]
+}

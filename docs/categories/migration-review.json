@@ -1,0 +1,20 @@
+{
+  "category": "migration-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.135383Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review migration completeness between old and new codebase.",
+      "repo": "Michael0520/milo-claudekit",
+      "path": "migration-review",
+      "branch": "main",
+      "category": "migration-review",
+      "tags": [],
+      "stars": 0,
+      "install": "Michael0520/milo-claudekit/migration-review",
+      "source": "github.com/Michael0520/milo-claudekit"
+    }
+  ]
+}

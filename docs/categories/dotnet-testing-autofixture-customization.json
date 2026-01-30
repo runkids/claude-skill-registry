@@ -1,0 +1,20 @@
+{
+  "category": "dotnet-testing-autofixture-customization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.530666Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AutoFixture 進階自訂化技術完整指南。 涵蓋 DataAnnotations 自動整合、ISpecimenBuilder 實作、優先順序管理。 包含 DateTime/數值範圍建構器、泛型化設計與流暢式擴充方法。",
+      "repo": "kevintsengtw/dotnet-testing-agent-skills",
+      "path": "dotnet-testing-autofixture-customization",
+      "branch": "main",
+      "category": "dotnet-testing-autofixture-customization",
+      "tags": [],
+      "stars": 0,
+      "install": "kevintsengtw/dotnet-testing-agent-skills/dotnet-testing-autofixture-customization",
+      "source": "github.com/kevintsengtw/dotnet-testing-agent-skills"
+    }
+  ]
+}

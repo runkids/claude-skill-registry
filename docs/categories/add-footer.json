@@ -1,0 +1,20 @@
+{
+  "category": "add-footer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.204942Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add a professional footer to README files with engagement prompts, community channels, and call-to-action for subscriptions. Use when you need to enhance your README with a footer that encourages inte",
+      "repo": "0GiS0/ghcp-agent-skills",
+      "path": "add-footer",
+      "branch": "main",
+      "category": "add-footer",
+      "tags": [],
+      "stars": 0,
+      "install": "0GiS0/ghcp-agent-skills/add-footer",
+      "source": "github.com/0GiS0/ghcp-agent-skills"
+    }
+  ]
+}

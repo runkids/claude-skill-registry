@@ -1,0 +1,20 @@
+{
+  "category": "sqlalchemy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.071224Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Modern async ORM with type-safe models and efficient queries",
+      "repo": "SlanyCukr/riot-api-project",
+      "path": "sqlalchemy",
+      "branch": "main",
+      "category": "sqlalchemy",
+      "tags": [],
+      "stars": 0,
+      "install": "SlanyCukr/riot-api-project/sqlalchemy",
+      "source": "github.com/SlanyCukr/riot-api-project"
+    }
+  ]
+}

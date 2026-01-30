@@ -1,0 +1,20 @@
+{
+  "category": "config-skills",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.647018Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configuration module patterns for LlamaFarm. Covers Pydantic v2 models, JSONSchema generation, YAML processing, and validation.",
+      "repo": "llama-farm/llamafarm",
+      "path": "config-skills",
+      "branch": "main",
+      "category": "config-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "llama-farm/llamafarm/config-skills",
+      "source": "github.com/llama-farm/llamafarm"
+    }
+  ]
+}

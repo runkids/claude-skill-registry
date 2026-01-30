@@ -1,0 +1,20 @@
+{
+  "category": "reference",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.798460Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "toloka.client.skill.Skill | Source code",
+      "repo": "Toloka/docs",
+      "path": "reference",
+      "branch": "main",
+      "category": "reference",
+      "tags": [],
+      "stars": 0,
+      "install": "Toloka/docs/reference",
+      "source": "github.com/Toloka/docs"
+    }
+  ]
+}

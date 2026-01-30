@@ -1,0 +1,20 @@
+{
+  "category": "clerk-prod-checklist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.554109Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Production readiness checklist for Clerk deployment. Use when preparing to deploy, reviewing production configuration, or auditing Clerk implementation before launch. Trigger with phrases like \"clerk",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "clerk-prod-checklist",
+      "branch": "main",
+      "category": "clerk-prod-checklist",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/clerk-prod-checklist",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

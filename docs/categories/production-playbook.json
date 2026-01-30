@@ -1,0 +1,20 @@
+{
+  "category": "production-playbook",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.663511Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to convert creative briefs into actionable task plans with owners and SLAs.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "production-playbook",
+      "branch": "main",
+      "category": "production-playbook",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/production-playbook",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

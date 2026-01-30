@@ -1,0 +1,20 @@
+{
+  "category": "understand-context",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.340721Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /understand-context slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "understand-context",
+      "branch": "main",
+      "category": "understand-context",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles/understand-context",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

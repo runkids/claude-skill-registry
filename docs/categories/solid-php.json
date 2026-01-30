@@ -1,0 +1,20 @@
+{
+  "category": "solid-php",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.042459Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SOLID principles for Laravel 12 and PHP 8.5. Files < 100 lines, interfaces separated, PHPDoc mandatory.",
+      "repo": "fusengine/agents",
+      "path": "solid-php",
+      "branch": "main",
+      "category": "solid-php",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/solid-php",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

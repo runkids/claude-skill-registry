@@ -1,0 +1,20 @@
+{
+  "category": "architecture-planning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.349829Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create detailed architecture plans with decision records and risk assessments. Use when planning significant features or system changes.",
+      "repo": "vneseyoungster/ChocoVine",
+      "path": "architecture-planning",
+      "branch": "main",
+      "category": "architecture-planning",
+      "tags": [],
+      "stars": 0,
+      "install": "vneseyoungster/ChocoVine/architecture-planning",
+      "source": "github.com/vneseyoungster/ChocoVine"
+    }
+  ]
+}

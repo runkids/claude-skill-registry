@@ -1,0 +1,20 @@
+{
+  "category": "typescript-build-checker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.324300Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check TypeScript compilation errors, run build commands, and validate the codebase. Use when the user mentions TypeScript errors, build issues, compilation problems, or wants to verify code integrity.",
+      "repo": "gigi-f/babylon_fp",
+      "path": "typescript-build-checker",
+      "branch": "main",
+      "category": "typescript-build-checker",
+      "tags": [],
+      "stars": 0,
+      "install": "gigi-f/babylon_fp/typescript-build-checker",
+      "source": "github.com/gigi-f/babylon_fp"
+    }
+  ]
+}

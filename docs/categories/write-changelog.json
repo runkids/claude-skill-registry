@@ -1,0 +1,20 @@
+{
+  "category": "write-changelog",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.490389Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate and format changelog entries for CHANGELOG.md from archived tickets.",
+      "repo": "qmu/workaholic",
+      "path": "write-changelog",
+      "branch": "main",
+      "category": "write-changelog",
+      "tags": [],
+      "stars": 0,
+      "install": "qmu/workaholic/write-changelog",
+      "source": "github.com/qmu/workaholic"
+    }
+  ]
+}

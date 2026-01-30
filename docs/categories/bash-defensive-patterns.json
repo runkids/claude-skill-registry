@@ -1,0 +1,20 @@
+{
+  "category": "bash-defensive-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.415660Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master defensive Bash programming techniques for production-grade scripts. Use when writing robust shell scripts, CI/CD pipelines, or system utilities requiring fault tolerance and safety.",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "bash-defensive-patterns",
+      "branch": "main",
+      "category": "bash-defensive-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/bash-defensive-patterns",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

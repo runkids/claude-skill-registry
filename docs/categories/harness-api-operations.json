@@ -1,0 +1,20 @@
+{
+  "category": "harness-api-operations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.821902Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide for Harness Platform API authentication, rate limiting, error handling, and endpoint operations",
+      "repo": "Lobbi-Docs/claude",
+      "path": "harness-api-operations",
+      "branch": "main",
+      "category": "harness-api-operations",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/harness-api-operations",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

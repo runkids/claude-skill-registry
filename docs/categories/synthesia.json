@@ -1,0 +1,20 @@
+{
+  "category": "synthesia",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.138648Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create AI avatar videos with Synthesia - generate spokesperson videos, manage projects, and export content",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "synthesia",
+      "branch": "main",
+      "category": "synthesia",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/synthesia",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

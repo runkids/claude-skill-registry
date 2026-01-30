@@ -1,0 +1,20 @@
+{
+  "category": "utopia-grid-layout",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.378693Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CSS Grid utilities using Utopia fluid spacing. Reference for the grid variables and utility classes defined in this project.",
+      "repo": "matthewharwood/fantasy-phonics",
+      "path": "utopia-grid-layout",
+      "branch": "main",
+      "category": "utopia-grid-layout",
+      "tags": [],
+      "stars": 0,
+      "install": "matthewharwood/fantasy-phonics/utopia-grid-layout",
+      "source": "github.com/matthewharwood/fantasy-phonics"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "abaqus-shape-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.189302Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize fillet/notch geometry. Use when user mentions stress concentration, fillet optimization, reshaping surfaces, or reducing peak stress. Moves surfaces only.",
+      "repo": "JaimeCernuda/abaqus-scripting",
+      "path": "abaqus-shape-optimization",
+      "branch": "main",
+      "category": "abaqus-shape-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "JaimeCernuda/abaqus-scripting/abaqus-shape-optimization",
+      "source": "github.com/JaimeCernuda/abaqus-scripting"
+    }
+  ]
+}

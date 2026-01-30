@@ -1,0 +1,20 @@
+{
+  "category": "roier-seo",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.851999Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Technical SEO auditor and fixer. Use when the user wants to: - Run a Lighthouse/PageSpeed audit on a website or local dev server - Analyze SEO, performance, accessibility, or best practices scores - F",
+      "repo": "KemenyStudio/roier-seo",
+      "path": "roier-seo",
+      "branch": "main",
+      "category": "roier-seo",
+      "tags": [],
+      "stars": 0,
+      "install": "KemenyStudio/roier-seo/roier-seo",
+      "source": "github.com/KemenyStudio/roier-seo"
+    }
+  ]
+}

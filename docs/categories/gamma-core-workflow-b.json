@@ -1,0 +1,20 @@
+{
+  "category": "gamma-core-workflow-b",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.722749Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement core Gamma workflow for presentation editing and export. Use when modifying existing presentations, exporting to various formats, or managing presentation assets. Trigger with phrases like \"",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "gamma-core-workflow-b",
+      "branch": "main",
+      "category": "gamma-core-workflow-b",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/gamma-core-workflow-b",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

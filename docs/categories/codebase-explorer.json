@@ -1,0 +1,20 @@
+{
+  "category": "codebase-explorer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.601379Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deep codebase exploration using semantic search and relationship mapping. Use when you need to understand the current codebase.",
+      "repo": "madeinoz67/madeinoz-recordmanager-skill",
+      "path": "codebase-explorer",
+      "branch": "main",
+      "category": "codebase-explorer",
+      "tags": [],
+      "stars": 0,
+      "install": "madeinoz67/madeinoz-recordmanager-skill/codebase-explorer",
+      "source": "github.com/madeinoz67/madeinoz-recordmanager-skill"
+    }
+  ]
+}

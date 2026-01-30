@@ -1,0 +1,20 @@
+{
+  "category": "Blog Management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.163581Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Managing Cyril's Workshop blog posts and devblog via API - creating, editing, publishing, and updating content programmatically",
+      "repo": "lawless-m/Earwig",
+      "path": "Blog Management",
+      "branch": "main",
+      "category": "Blog Management",
+      "tags": [],
+      "stars": 0,
+      "install": "lawless-m/Earwig/Blog Management",
+      "source": "github.com/lawless-m/Earwig"
+    }
+  ]
+}

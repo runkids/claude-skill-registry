@@ -1,0 +1,20 @@
+{
+  "category": "similarity-connector",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.001286Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with connector similarity calculations - comparing connector MPNs, understanding pin count/pitch/family matching, or connector-specific similarity logic.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "similarity-connector",
+      "branch": "main",
+      "category": "similarity-connector",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/similarity-connector",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

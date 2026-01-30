@@ -1,0 +1,20 @@
+{
+  "category": "builder-role-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.458571Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Professional software implementation skill for building features, components, and systems through multi-phase TDD development and incremental delivery.",
+      "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+      "path": "builder-role-skill",
+      "branch": "main",
+      "category": "builder-role-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server/builder-role-skill",
+      "source": "github.com/Ryno-Crypto-Mining-Services/braiins-insights-mcp-server"
+    }
+  ]
+}

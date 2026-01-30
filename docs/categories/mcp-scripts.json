@@ -1,0 +1,20 @@
+{
+  "category": "mcp-scripts",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.105775Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MCP Script Rules",
+      "repo": "namesreallyblank/Clorch",
+      "path": "mcp-scripts",
+      "branch": "main",
+      "category": "mcp-scripts",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/mcp-scripts",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

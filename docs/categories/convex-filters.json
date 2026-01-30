@@ -1,0 +1,20 @@
+{
+  "category": "convex-filters",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.679815Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementing full-text search or complex filtering in Convex - provides search indexes, streams, query optimization, pagination, and relevance scoring",
+      "repo": "udecode/better-convex",
+      "path": "convex-filters",
+      "branch": "main",
+      "category": "convex-filters",
+      "tags": [],
+      "stars": 0,
+      "install": "udecode/better-convex/convex-filters",
+      "source": "github.com/udecode/better-convex"
+    }
+  ]
+}

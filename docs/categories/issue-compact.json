@@ -1,0 +1,20 @@
+{
+  "category": "issue-compact",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.906022Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Consolidate GitHub issue discussion into clean body for handoff",
+      "repo": "vm0-ai/vm0",
+      "path": "issue-compact",
+      "branch": "main",
+      "category": "issue-compact",
+      "tags": [],
+      "stars": 0,
+      "install": "vm0-ai/vm0/issue-compact",
+      "source": "github.com/vm0-ai/vm0"
+    }
+  ]
+}

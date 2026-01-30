@@ -1,0 +1,20 @@
+{
+  "category": "motion",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.200685Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build React animations with Motion (Framer Motion) - gestures (drag, hover, tap), scroll effects, spring physics, layout animations, SVG. Bundle: 2.3 KB (mini) to 34 KB (full).  Use when: drag-and-dro",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "motion",
+      "branch": "main",
+      "category": "motion",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/motion",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

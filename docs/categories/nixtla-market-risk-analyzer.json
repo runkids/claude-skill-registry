@@ -1,0 +1,20 @@
+{
+  "category": "nixtla-market-risk-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.253077Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze market risk with VaR, volatility, and position sizing using forecast data. Use when assessing investment risk. Trigger with 'analyze market risk' or 'calculate VaR'.",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "nixtla-market-risk-analyzer",
+      "branch": "main",
+      "category": "nixtla-market-risk-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla/nixtla-market-risk-analyzer",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

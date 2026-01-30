@@ -1,0 +1,20 @@
+{
+  "category": "gay-mcp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.726972Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deterministic color generation with SplitMix64, GF(3) trits, and MCP tools for palettes and threads.",
+      "repo": "plurigrid/asi",
+      "path": "gay-mcp",
+      "branch": "main",
+      "category": "gay-mcp",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/gay-mcp",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

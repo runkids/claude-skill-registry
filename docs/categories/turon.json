@@ -1,0 +1,20 @@
+{
+  "category": "turon",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.319964Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write Rust code in the style of Aaron Turon, former Rust team lead. Emphasizes API design, async Rust, and ecosystem architecture. Use when designing public APIs, async systems, or library interfaces.",
+      "repo": "copyleftdev/blsmesh",
+      "path": "turon",
+      "branch": "main",
+      "category": "turon",
+      "tags": [],
+      "stars": 0,
+      "install": "copyleftdev/blsmesh/turon",
+      "source": "github.com/copyleftdev/blsmesh"
+    }
+  ]
+}

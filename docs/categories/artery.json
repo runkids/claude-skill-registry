@@ -1,0 +1,20 @@
+{
+  "category": "artery",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.354126Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Artery Technology MPN encoding patterns, suffix decoding, and handler guidance. Use when working with Artery AT32 MCUs (STM32-compatible ARM Cortex-M4) or ArteryHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "artery",
+      "branch": "main",
+      "category": "artery",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/artery",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

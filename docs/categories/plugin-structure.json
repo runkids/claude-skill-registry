@@ -1,0 +1,20 @@
+{
+  "category": "plugin-structure",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.595146Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"create a plugin\", \"scaffold a plugin\", \"understand plugin structure\", \"organize plugin components\", \"set up plugin.json\", \"use ${CLAUDE_PLUGIN_ROOT}\",",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "plugin-structure",
+      "branch": "main",
+      "category": "plugin-structure",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/plugin-structure",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "stack-audit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.076287Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive stack health audit for codebase and infrastructure. Runs 10 health checks covering frontend, backend, migrations, Docker, API integrity, and backup status. Use routinely to prevent \"time",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "stack-audit",
+      "branch": "main",
+      "category": "stack-audit",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/stack-audit",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "chipone",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.521377Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Chipone Technology MPN encoding patterns, suffix decoding, and handler guidance. Use when working with Chipone LED driver components or ChiponeHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "chipone",
+      "branch": "main",
+      "category": "chipone",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/chipone",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

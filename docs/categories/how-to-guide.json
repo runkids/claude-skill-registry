@@ -1,0 +1,20 @@
+{
+  "category": "how-to-guide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.840503Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create comprehensive how-to guides and tutorials. Use when the user needs step-by-step instructional content, tutorials, documentation, or educational guides.",
+      "repo": "az9713/ai-co-writing-claude-skills",
+      "path": "how-to-guide",
+      "branch": "main",
+      "category": "how-to-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "az9713/ai-co-writing-claude-skills/how-to-guide",
+      "source": "github.com/az9713/ai-co-writing-claude-skills"
+    }
+  ]
+}

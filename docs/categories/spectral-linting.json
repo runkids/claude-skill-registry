@@ -1,0 +1,20 @@
+{
+  "category": "spectral-linting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.058126Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Spectral API linting configuration, rules, and validation for OpenAPI specs",
+      "repo": "zerobias-org/module",
+      "path": "spectral-linting",
+      "branch": "main",
+      "category": "spectral-linting",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/spectral-linting",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "deepwork_jobs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.063881Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates and manages multi-step AI workflows. Use when defining, implementing, or improving DeepWork jobs.",
+      "repo": "ncrmro/deepwork-permanent-portfolio",
+      "path": "deepwork_jobs",
+      "branch": "main",
+      "category": "deepwork_jobs",
+      "tags": [],
+      "stars": 0,
+      "install": "ncrmro/deepwork-permanent-portfolio/deepwork_jobs",
+      "source": "github.com/ncrmro/deepwork-permanent-portfolio"
+    }
+  ]
+}

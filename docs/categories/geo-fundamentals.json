@@ -1,0 +1,20 @@
+{
+  "category": "geo-fundamentals",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.747562Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generative Engine Optimization for AI search engines (ChatGPT, Claude, Perplexity).",
+      "repo": "AxelMrak/ai",
+      "path": "geo-fundamentals",
+      "branch": "main",
+      "category": "geo-fundamentals",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/geo-fundamentals",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

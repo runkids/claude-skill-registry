@@ -1,0 +1,20 @@
+{
+  "category": "intent-sink",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.890544Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Intent Sink Skill",
+      "repo": "plurigrid/asi",
+      "path": "intent-sink",
+      "branch": "main",
+      "category": "intent-sink",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/intent-sink",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

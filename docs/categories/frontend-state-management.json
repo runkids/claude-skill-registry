@@ -1,0 +1,20 @@
+{
+  "category": "frontend-state-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.707251Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Your approach to handling frontend state management. Use this skill when working on files where frontend state management comes into play.",
+      "repo": "jaypaulb/CanvusAPI-LLMDemo",
+      "path": "frontend-state-management",
+      "branch": "main",
+      "category": "frontend-state-management",
+      "tags": [],
+      "stars": 0,
+      "install": "jaypaulb/CanvusAPI-LLMDemo/frontend-state-management",
+      "source": "github.com/jaypaulb/CanvusAPI-LLMDemo"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "create-slidev-presentation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.705555Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when asked to create or edit Slidev (sli.dev) presentation slide decks.",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "create-slidev-presentation",
+      "branch": "main",
+      "category": "create-slidev-presentation",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/create-slidev-presentation",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "mcp-building",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.100923Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools.",
+      "repo": "VidyFoo/antigravity-skill-engine",
+      "path": "mcp-building",
+      "branch": "main",
+      "category": "mcp-building",
+      "tags": [],
+      "stars": 0,
+      "install": "VidyFoo/antigravity-skill-engine/mcp-building",
+      "source": "github.com/VidyFoo/antigravity-skill-engine"
+    }
+  ]
+}

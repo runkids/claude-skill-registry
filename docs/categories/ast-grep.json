@@ -1,0 +1,20 @@
+{
+  "category": "ast-grep",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.360592Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for writing ast-grep rules to perform structural code search and analysis. Use when users need to search codebases using Abstract Syntax Tree (AST) patterns, find specific code structures, or pe",
+      "repo": "OutlineDriven/odin-claude-plugin",
+      "path": "ast-grep",
+      "branch": "main",
+      "category": "ast-grep",
+      "tags": [],
+      "stars": 0,
+      "install": "OutlineDriven/odin-claude-plugin/ast-grep",
+      "source": "github.com/OutlineDriven/odin-claude-plugin"
+    }
+  ]
+}

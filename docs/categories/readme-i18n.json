@@ -1,0 +1,20 @@
+{
+  "category": "readme-i18n",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.784190Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "維護 README 的多語言版本，確保中文與英文內容對照同步。",
+      "repo": "u9401066/rootcause-mcp",
+      "path": "readme-i18n",
+      "branch": "main",
+      "category": "readme-i18n",
+      "tags": [],
+      "stars": 0,
+      "install": "u9401066/rootcause-mcp/readme-i18n",
+      "source": "github.com/u9401066/rootcause-mcp"
+    }
+  ]
+}

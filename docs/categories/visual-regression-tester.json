@@ -1,0 +1,20 @@
+{
+  "category": "visual-regression-tester",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.424382Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Compare screenshots and pixel diffs.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "visual-regression-tester",
+      "branch": "main",
+      "category": "visual-regression-tester",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/visual-regression-tester",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "transactional-ui-updates",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.308146Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Model UI updates as transactions to ensure consistency across complex interactions.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "transactional-ui-updates",
+      "branch": "main",
+      "category": "transactional-ui-updates",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/transactional-ui-updates",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

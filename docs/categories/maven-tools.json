@@ -1,0 +1,20 @@
+{
+  "category": "maven-tools",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.099041Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "JVM dependency intelligence via Maven Tools MCP server. Use when user asks about Java/Kotlin/Scala dependencies, versions, upgrades, CVEs, or licenses. Use when analyzing pom.xml, build.gradle, or any",
+      "repo": "arvindand/agent-skills",
+      "path": "maven-tools",
+      "branch": "main",
+      "category": "maven-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "arvindand/agent-skills/maven-tools",
+      "source": "github.com/arvindand/agent-skills"
+    }
+  ]
+}

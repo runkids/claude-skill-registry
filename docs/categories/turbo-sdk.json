@@ -1,0 +1,20 @@
+{
+  "category": "turbo-sdk",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.319078Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete Arweave Turbo ecosystem including client SDKs, core upload infrastructure, payment service backend, and CLI tools for permanent decentralized storage",
+      "repo": "enuno/claude-command-and-control",
+      "path": "turbo-sdk",
+      "branch": "main",
+      "category": "turbo-sdk",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control/turbo-sdk",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

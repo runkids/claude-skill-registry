@@ -1,0 +1,20 @@
+{
+  "category": "exa-core-workflow-a",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.605162Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute Exa primary workflow: Core Workflow A. Use when implementing primary use case, building main features, or core integration tasks. Trigger with phrases like \"exa main workflow\", \"primary task w",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "exa-core-workflow-a",
+      "branch": "main",
+      "category": "exa-core-workflow-a",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/exa-core-workflow-a",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

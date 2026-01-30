@@ -1,0 +1,20 @@
+{
+  "category": "memory-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.117399Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Profile and optimize application memory usage. Identify memory leaks, reduce memory footprint, and improve efficiency for better performance and reliability.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "memory-optimization",
+      "branch": "main",
+      "category": "memory-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/memory-optimization",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

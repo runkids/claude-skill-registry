@@ -1,0 +1,20 @@
+{
+  "category": "qe-contract-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.743908Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Consumer-driven contract testing for APIs including REST, GraphQL, and event-driven systems with schema validation.",
+      "repo": "proffesor-for-testing/agentic-qe",
+      "path": "qe-contract-testing",
+      "branch": "main",
+      "category": "qe-contract-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/agentic-qe/qe-contract-testing",
+      "source": "github.com/proffesor-for-testing/agentic-qe"
+    }
+  ]
+}

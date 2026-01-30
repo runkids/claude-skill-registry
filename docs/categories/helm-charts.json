@@ -1,0 +1,20 @@
+{
+  "category": "helm-charts",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.829080Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates and manages Helm charts for Kubernetes deployments. This skill should be used when packaging applications for Kubernetes using Helm, creating Chart.yaml, values.yaml, and templates. It covers",
+      "repo": "mjunaidca/mjs-agent-skills",
+      "path": "helm-charts",
+      "branch": "main",
+      "category": "helm-charts",
+      "tags": [],
+      "stars": 0,
+      "install": "mjunaidca/mjs-agent-skills/helm-charts",
+      "source": "github.com/mjunaidca/mjs-agent-skills"
+    }
+  ]
+}

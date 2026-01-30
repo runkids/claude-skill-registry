@@ -1,0 +1,20 @@
+{
+  "category": "postgresql-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.614831Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level PostgreSQL database administration, advanced queries, performance tuning, and production operations",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "postgresql-expert",
+      "branch": "main",
+      "category": "postgresql-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/postgresql-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

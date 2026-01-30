@@ -1,0 +1,20 @@
+{
+  "category": "binding-site-annotation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.430335Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Annotate CLIP-seq binding sites to genomic features including 3'UTR, 5'UTR, CDS, introns, and ncRNAs. Use when characterizing where an RBP binds in transcripts.",
+      "repo": "GPTomics/bioSkills",
+      "path": "binding-site-annotation",
+      "branch": "main",
+      "category": "binding-site-annotation",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/binding-site-annotation",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

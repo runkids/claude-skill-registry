@@ -1,0 +1,20 @@
+{
+  "category": "comment-style-guide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.618594Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Code comment style guidelines - when to comment and when not to",
+      "repo": "zerobias-org/module",
+      "path": "comment-style-guide",
+      "branch": "main",
+      "category": "comment-style-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/comment-style-guide",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

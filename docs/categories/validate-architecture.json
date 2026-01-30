@@ -1,0 +1,20 @@
+{
+  "category": "validate-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.390117Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate DDD/Clean Architecture compliance in code changes, checking layer violations, transaction patterns, and Row-Level Security",
+      "repo": "Hopin-inc/civicship-api",
+      "path": "validate-architecture",
+      "branch": "main",
+      "category": "validate-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "Hopin-inc/civicship-api/validate-architecture",
+      "source": "github.com/Hopin-inc/civicship-api"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "impl-wrapper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.864127Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Connector wrapper (Impl) class patterns and delegation rules",
+      "repo": "zerobias-org/module",
+      "path": "impl-wrapper",
+      "branch": "main",
+      "category": "impl-wrapper",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/impl-wrapper",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "gpt-sovits-tts",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.794899Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "高品質な音声クローニング・TTS（Text-to-Speech）システム。",
+      "repo": "taiyousan15/taisun_agent",
+      "path": "gpt-sovits-tts",
+      "branch": "main",
+      "category": "gpt-sovits-tts",
+      "tags": [],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/gpt-sovits-tts",
+      "source": "github.com/taiyousan15/taisun_agent"
+    }
+  ]
+}

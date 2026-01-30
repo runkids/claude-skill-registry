@@ -1,0 +1,20 @@
+{
+  "category": "textmate-grammar",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.278087Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when authoring TextMate grammars for syntax highlighting - covers scopes, patterns, and language injection",
+      "repo": "mcclowes/lea",
+      "path": "textmate-grammar",
+      "branch": "main",
+      "category": "textmate-grammar",
+      "tags": [],
+      "stars": 0,
+      "install": "mcclowes/lea/textmate-grammar",
+      "source": "github.com/mcclowes/lea"
+    }
+  ]
+}

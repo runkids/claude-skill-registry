@@ -1,0 +1,20 @@
+{
+  "category": "api-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.327146Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "API design principles and decision-making. REST vs GraphQL vs tRPC selection, response formats, versioning, pagination.",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "api-patterns",
+      "branch": "main",
+      "category": "api-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/api-patterns",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

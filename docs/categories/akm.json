@@ -1,0 +1,20 @@
+{
+  "category": "akm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.285929Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AKM (Asahi Kasei Microdevices) MPN encoding patterns, suffix decoding, and handler guidance. Use when working with AKM audio ICs, magnetic sensors, or electronic compasses.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "akm",
+      "branch": "main",
+      "category": "akm",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/akm",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

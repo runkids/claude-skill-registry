@@ -1,0 +1,20 @@
+{
+  "category": "react-strict-dom",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.779770Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up react-strict-dom with Babel, PostCSS, and CSS-wrapped HTML components for universal Expo apps",
+      "repo": "EvanBacon/crispy",
+      "path": "react-strict-dom",
+      "branch": "main",
+      "category": "react-strict-dom",
+      "tags": [],
+      "stars": 0,
+      "install": "EvanBacon/crispy/react-strict-dom",
+      "source": "github.com/EvanBacon/crispy"
+    }
+  ]
+}

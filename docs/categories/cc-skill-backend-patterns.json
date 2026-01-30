@@ -1,0 +1,20 @@
+{
+  "category": "cc-skill-backend-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.496165Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes.",
+      "repo": "Nguyenthang2292/Sovereign-IQ",
+      "path": "cc-skill-backend-patterns",
+      "branch": "main",
+      "category": "cc-skill-backend-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "Nguyenthang2292/Sovereign-IQ/cc-skill-backend-patterns",
+      "source": "github.com/Nguyenthang2292/Sovereign-IQ"
+    }
+  ]
+}

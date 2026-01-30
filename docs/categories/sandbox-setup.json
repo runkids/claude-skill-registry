@@ -1,0 +1,20 @@
+{
+  "category": "sandbox-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.882277Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure Claude Code sandbox settings for this repository",
+      "repo": "ohare93/juggle",
+      "path": "sandbox-setup",
+      "branch": "main",
+      "category": "sandbox-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "ohare93/juggle/sandbox-setup",
+      "source": "github.com/ohare93/juggle"
+    }
+  ]
+}

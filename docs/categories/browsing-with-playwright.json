@@ -1,0 +1,20 @@
+{
+  "category": "browsing-with-playwright",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.450190Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Browser automation using Playwright MCP. Navigate websites, fill forms, click elements, take screenshots, and extract data. Use when tasks require web browsing, form submission, web scraping, UI testi",
+      "repo": "AbdullahMalik17/Hacathan-2-",
+      "path": "browsing-with-playwright",
+      "branch": "main",
+      "category": "browsing-with-playwright",
+      "tags": [],
+      "stars": 0,
+      "install": "AbdullahMalik17/Hacathan-2-/browsing-with-playwright",
+      "source": "github.com/AbdullahMalik17/Hacathan-2-"
+    }
+  ]
+}

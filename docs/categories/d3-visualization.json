@@ -1,0 +1,20 @@
+{
+  "category": "d3-visualization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.743477Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate D3.js visualizations including charts, graphs, and interactive data visualizations. Use when creating data visualizations with D3.js.",
+      "repo": "ntaksh42/agents",
+      "path": "d3-visualization",
+      "branch": "main",
+      "category": "d3-visualization",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents/d3-visualization",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

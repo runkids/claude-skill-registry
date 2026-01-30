@@ -1,0 +1,20 @@
+{
+  "category": "community-building",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.624271Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build a Community Building Pack (strategy, platform plan, programming calendar, ambassador program, governance, metrics, launch plan). Use for community building, community-led growth, developer commu",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "community-building",
+      "branch": "main",
+      "category": "community-building",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus/community-building",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

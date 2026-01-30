@@ -1,0 +1,20 @@
+{
+  "category": "business-analyst-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.473407Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in bridging the gap between business needs and technical solutions. Specializes in Requirements Engineering, BPMN, and Agile User Stories. Use when gathering requirements, creating user stories",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "business-analyst-skill",
+      "branch": "main",
+      "category": "business-analyst-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/business-analyst-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

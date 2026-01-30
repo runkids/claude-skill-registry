@@ -1,0 +1,20 @@
+{
+  "category": "analyzing-aorc-precipitation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.295431Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Retrieves and processes AORC precipitation data for HEC-RAS/HMS models. Handles spatial averaging over watersheds, temporal aggregation, DSS export, and Atlas 14 design storms. Use when working with h",
+      "repo": "gpt-cmdr/ras-commander",
+      "path": "analyzing-aorc-precipitation",
+      "branch": "main",
+      "category": "analyzing-aorc-precipitation",
+      "tags": [],
+      "stars": 0,
+      "install": "gpt-cmdr/ras-commander/analyzing-aorc-precipitation",
+      "source": "github.com/gpt-cmdr/ras-commander"
+    }
+  ]
+}

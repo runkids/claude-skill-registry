@@ -1,0 +1,20 @@
+{
+  "category": "capgo-live-updates",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.488965Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete guide to implementing live updates in Capacitor apps using Capgo. Covers account creation, plugin installation, configuration, update strategies, and CI/CD integration. Use this skill when us",
+      "repo": "Cap-go/capacitor-skills",
+      "path": "capgo-live-updates",
+      "branch": "main",
+      "category": "capgo-live-updates",
+      "tags": [],
+      "stars": 0,
+      "install": "Cap-go/capacitor-skills/capgo-live-updates",
+      "source": "github.com/Cap-go/capacitor-skills"
+    }
+  ]
+}

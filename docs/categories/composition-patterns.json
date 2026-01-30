@@ -1,0 +1,20 @@
+{
+  "category": "composition-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.638270Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "React composition patterns that scale. Use when refactoring components with boolean prop proliferation, building flexible component libraries, or designing reusable APIs. Triggers on tasks involving c",
+      "repo": "dandedotdev/dotfiles",
+      "path": "composition-patterns",
+      "branch": "main",
+      "category": "composition-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "dandedotdev/dotfiles/composition-patterns",
+      "source": "github.com/dandedotdev/dotfiles"
+    }
+  ]
+}

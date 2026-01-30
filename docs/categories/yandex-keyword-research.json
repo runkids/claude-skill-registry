@@ -1,0 +1,20 @@
+{
+  "category": "yandex-keyword-research",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.506925Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Research keywords for Russian/CIS markets using Yandex Wordstat data. Analyzes search volumes, trends over time, and regional distribution. Use when user asks about keyword research, search volumes, t",
+      "repo": "altrr2/yandex-tools-mcp",
+      "path": "yandex-keyword-research",
+      "branch": "main",
+      "category": "yandex-keyword-research",
+      "tags": [],
+      "stars": 0,
+      "install": "altrr2/yandex-tools-mcp/yandex-keyword-research",
+      "source": "github.com/altrr2/yandex-tools-mcp"
+    }
+  ]
+}

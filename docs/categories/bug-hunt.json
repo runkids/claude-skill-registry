@@ -1,0 +1,20 @@
+{
+  "category": "bug-hunt",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.453084Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Investigate suspected bugs with git archaeology and root cause analysis. Triggers: \"bug\", \"broken\", \"doesn't work\", \"failing\", \"investigate bug\".",
+      "repo": "boshu2/agentops",
+      "path": "bug-hunt",
+      "branch": "main",
+      "category": "bug-hunt",
+      "tags": [],
+      "stars": 0,
+      "install": "boshu2/agentops/bug-hunt",
+      "source": "github.com/boshu2/agentops"
+    }
+  ]
+}

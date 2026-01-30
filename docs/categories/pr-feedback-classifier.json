@@ -1,0 +1,20 @@
+{
+  "category": "pr-feedback-classifier",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.623071Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fetches and classifies PR review feedback with context isolation. Returns structured JSON with thread IDs for deterministic resolution. Use when analyzing PR comments before addressing them.",
+      "repo": "dagster-io/erk",
+      "path": "pr-feedback-classifier",
+      "branch": "main",
+      "category": "pr-feedback-classifier",
+      "tags": [],
+      "stars": 0,
+      "install": "dagster-io/erk/pr-feedback-classifier",
+      "source": "github.com/dagster-io/erk"
+    }
+  ]
+}

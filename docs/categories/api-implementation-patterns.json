@@ -1,0 +1,20 @@
+{
+  "category": "api-implementation-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.325415Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "> Template for project-specific API implementation skill",
+      "repo": "michsindlinger/agent-os-extended",
+      "path": "api-implementation-patterns",
+      "branch": "main",
+      "category": "api-implementation-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "michsindlinger/agent-os-extended/api-implementation-patterns",
+      "source": "github.com/michsindlinger/agent-os-extended"
+    }
+  ]
+}

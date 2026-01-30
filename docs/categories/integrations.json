@@ -1,0 +1,20 @@
+{
+  "category": "integrations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.889534Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Third-party WordPress plugin integration patterns. Use when adding new integrations, debugging compatibility with other plugins, or working with existing integrations.",
+      "repo": "Automattic/wordpress-activitypub",
+      "path": "integrations",
+      "branch": "main",
+      "category": "integrations",
+      "tags": [],
+      "stars": 0,
+      "install": "Automattic/wordpress-activitypub/integrations",
+      "source": "github.com/Automattic/wordpress-activitypub"
+    }
+  ]
+}

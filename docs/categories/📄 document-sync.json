@@ -1,0 +1,20 @@
+{
+  "category": "📄 document-sync",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.522714Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A robust skill that analyzes your app's actual codebase, tech stack, configuration, and architecture to ensure ALL documentation is current and accurate. It never assumes—always verifies and compares",
+      "repo": "endlessblink/flow-state",
+      "path": "📄 document-sync",
+      "branch": "main",
+      "category": "📄 document-sync",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/📄 document-sync",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

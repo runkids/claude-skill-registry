@@ -1,0 +1,20 @@
+{
+  "category": "writing-product-specs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.499263Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when asked to design a new feature or project",
+      "repo": "nicepkg/ai-workflow",
+      "path": "writing-product-specs",
+      "branch": "main",
+      "category": "writing-product-specs",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/writing-product-specs",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

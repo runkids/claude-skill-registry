@@ -1,0 +1,20 @@
+{
+  "category": "curator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.730502Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Autonomous curator for Source Library. Discover, evaluate, and import historical texts from digital archives (Archive.org, Gallica, MDZ). Use for acquisition sessions, collection gap analysis, or buil",
+      "repo": "Embassy-of-the-Free-Mind/sourcelibrary-v2",
+      "path": "curator",
+      "branch": "main",
+      "category": "curator",
+      "tags": [],
+      "stars": 0,
+      "install": "Embassy-of-the-Free-Mind/sourcelibrary-v2/curator",
+      "source": "github.com/Embassy-of-the-Free-Mind/sourcelibrary-v2"
+    }
+  ]
+}

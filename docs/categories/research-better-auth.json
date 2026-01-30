@@ -1,0 +1,20 @@
+{
+  "category": "research-better-auth",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.824651Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Research Better Auth patterns, authentication flows, and session management using Exa code search and Ref documentation",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "research-better-auth",
+      "branch": "main",
+      "category": "research-better-auth",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2/research-better-auth",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

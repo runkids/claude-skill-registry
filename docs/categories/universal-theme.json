@@ -1,0 +1,20 @@
+{
+  "category": "universal-theme",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.351301Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure light/dark/system theme handling across iOS, Android, and Web with universal CSS",
+      "repo": "EvanBacon/crispy",
+      "path": "universal-theme",
+      "branch": "main",
+      "category": "universal-theme",
+      "tags": [],
+      "stars": 0,
+      "install": "EvanBacon/crispy/universal-theme",
+      "source": "github.com/EvanBacon/crispy"
+    }
+  ]
+}

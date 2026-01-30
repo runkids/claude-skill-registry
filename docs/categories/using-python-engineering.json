@@ -1,0 +1,20 @@
+{
+  "category": "using-python-engineering",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.372113Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Routes to appropriate Python specialist skill based on symptoms and problem type",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-python-engineering",
+      "branch": "main",
+      "category": "using-python-engineering",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks/using-python-engineering",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

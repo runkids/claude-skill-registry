@@ -1,0 +1,20 @@
+{
+  "category": "gap-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.724159Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Identify differences between current state and desired future state. Analyze gaps in capabilities, processes, skills, and technology to plan improvements and investments.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "gap-analysis",
+      "branch": "main",
+      "category": "gap-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/gap-analysis",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

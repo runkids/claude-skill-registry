@@ -1,0 +1,20 @@
+{
+  "category": "🔧 dev-fix-task-store",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.525090Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When task operations don't work correctly, systematically debug:",
+      "repo": "endlessblink/flow-state",
+      "path": "🔧 dev-fix-task-store",
+      "branch": "main",
+      "category": "🔧 dev-fix-task-store",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/🔧 dev-fix-task-store",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

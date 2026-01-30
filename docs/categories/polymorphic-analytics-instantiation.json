@@ -1,0 +1,20 @@
+{
+  "category": "polymorphic-analytics-instantiation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.608584Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Instantiate polymorphic analytics for multi-context analysis.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "polymorphic-analytics-instantiation",
+      "branch": "main",
+      "category": "polymorphic-analytics-instantiation",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/polymorphic-analytics-instantiation",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

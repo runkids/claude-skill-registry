@@ -1,0 +1,20 @@
+{
+  "category": "pm-architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.596103Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert project manager orchestrating backlog-curator, work-delegator, workstream-coordinator, and roadmap-strategist sub-skills. Coordinates complex software projects through delegation and strategic",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "pm-architect",
+      "branch": "main",
+      "category": "pm-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/pm-architect",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

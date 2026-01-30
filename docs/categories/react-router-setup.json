@@ -1,0 +1,20 @@
+{
+  "category": "react-router-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.778417Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add URL routing to React Vite SPAs using react-router-dom v6. Use when asked to \"add routing\", \"add URL navigation\", \"make URLs work\", \"add deep linking\", \"enable browser back/forward\", or when conver",
+      "repo": "orient-bot/orient",
+      "path": "react-router-setup",
+      "branch": "main",
+      "category": "react-router-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/react-router-setup",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

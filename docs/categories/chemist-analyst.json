@@ -1,0 +1,20 @@
+{
+  "category": "chemist-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.520667Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes events through chemistry lens using molecular structure, reaction mechanisms, thermodynamics, kinetics, and analytical techniques (spectroscopy, chromatography, mass spectrometry). Provides i",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "chemist-analyst",
+      "branch": "main",
+      "category": "chemist-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/chemist-analyst",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

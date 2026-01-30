@@ -1,0 +1,20 @@
+{
+  "category": "create-clickup-task",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.697519Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create ClickUp tasks with proper formatting, task types, custom fields, and assignment. Use when the user wants to create a task, bug, feature, or ticket in ClickUp, or when they mention Sprint planni",
+      "repo": "colinmollenhour/dotfiles",
+      "path": "create-clickup-task",
+      "branch": "main",
+      "category": "create-clickup-task",
+      "tags": [],
+      "stars": 0,
+      "install": "colinmollenhour/dotfiles/create-clickup-task",
+      "source": "github.com/colinmollenhour/dotfiles"
+    }
+  ]
+}

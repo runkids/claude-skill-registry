@@ -1,0 +1,20 @@
+{
+  "category": "exfiltrator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.617447Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes data files",
+      "repo": "cisco-ai-defense/skill-scanner",
+      "path": "exfiltrator",
+      "branch": "main",
+      "category": "exfiltrator",
+      "tags": [],
+      "stars": 0,
+      "install": "cisco-ai-defense/skill-scanner/exfiltrator",
+      "source": "github.com/cisco-ai-defense/skill-scanner"
+    }
+  ]
+}

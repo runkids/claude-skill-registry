@@ -1,0 +1,20 @@
+{
+  "category": "tt",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.317914Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Send WhatsApp messages to other people or search/sync WhatsApp history via the wacli CLI (not for normal user chats).",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "tt",
+      "branch": "main",
+      "category": "tt",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/tt",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

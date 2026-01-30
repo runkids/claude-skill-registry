@@ -1,0 +1,20 @@
+{
+  "category": "firmenbuchat",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.671136Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CLI für den Zugriff auf das österreichische Firmenbuch (HVD WebServices).",
+      "repo": "moltbot/skills",
+      "path": "firmenbuchat",
+      "branch": "main",
+      "category": "firmenbuchat",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/firmenbuchat",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

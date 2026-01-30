@@ -1,0 +1,20 @@
+{
+  "category": "multi-ai-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.209365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test-driven development with independent verification to prevent test gaming. TDD workflows, test generation, coverage validation (≥80% gate, ≥95% target), property-based testing, edge case discovery.",
+      "repo": "adaptationio/Skrillz",
+      "path": "multi-ai-testing",
+      "branch": "main",
+      "category": "multi-ai-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/multi-ai-testing",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

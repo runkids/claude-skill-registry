@@ -1,0 +1,20 @@
+{
+  "category": "managing-layouts-navigation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.074870Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manages root layout, persistent navbar, and footer. Use when defining the global shell of the application.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "managing-layouts-navigation",
+      "branch": "main",
+      "category": "managing-layouts-navigation",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2/managing-layouts-navigation",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

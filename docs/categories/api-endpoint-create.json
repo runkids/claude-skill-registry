@@ -1,0 +1,20 @@
+{
+  "category": "api-endpoint-create",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.322724Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standard procedure for creating robust API endpoints",
+      "repo": "cpa03/blueprintify",
+      "path": "api-endpoint-create",
+      "branch": "main",
+      "category": "api-endpoint-create",
+      "tags": [],
+      "stars": 0,
+      "install": "cpa03/blueprintify/api-endpoint-create",
+      "source": "github.com/cpa03/blueprintify"
+    }
+  ]
+}

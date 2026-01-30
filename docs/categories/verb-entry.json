@@ -1,0 +1,20 @@
+{
+  "category": "verb-entry",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.401035Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Requirements for creating or revising verb entries in je-dict-1. Covers transitivity, aspect/ている behavior, particle patterns, and collocations.",
+      "repo": "tkgally/je-dict-1",
+      "path": "verb-entry",
+      "branch": "main",
+      "category": "verb-entry",
+      "tags": [],
+      "stars": 0,
+      "install": "tkgally/je-dict-1/verb-entry",
+      "source": "github.com/tkgally/je-dict-1"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "indigenous-leader-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.875074Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes events through indigenous knowledge systems using relational thinking, seven generations principle, reciprocity, holistic integration, and traditional ecological knowledge frameworks. Provide",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "indigenous-leader-analyst",
+      "branch": "main",
+      "category": "indigenous-leader-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/indigenous-leader-analyst",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

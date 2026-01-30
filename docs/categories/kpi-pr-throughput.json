@@ -1,0 +1,20 @@
+{
+  "category": "kpi-pr-throughput",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.955186Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "KPI for measuring and improving PR throughput. Defines metrics, measurement methods, and improvement strategies. Use to optimize how many quality PRs get merged.",
+      "repo": "Anveio/conveaux",
+      "path": "kpi-pr-throughput",
+      "branch": "main",
+      "category": "kpi-pr-throughput",
+      "tags": [],
+      "stars": 0,
+      "install": "Anveio/conveaux/kpi-pr-throughput",
+      "source": "github.com/Anveio/conveaux"
+    }
+  ]
+}

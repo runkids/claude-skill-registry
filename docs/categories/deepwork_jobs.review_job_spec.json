@@ -1,0 +1,20 @@
+{
+  "category": "deepwork_jobs.review_job_spec",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.064607Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reviews job.yml against quality criteria using a sub-agent for unbiased validation. Use after defining a job specification.",
+      "repo": "ncrmro/deepwork-permanent-portfolio",
+      "path": "deepwork_jobs.review_job_spec",
+      "branch": "main",
+      "category": "deepwork_jobs.review_job_spec",
+      "tags": [],
+      "stars": 0,
+      "install": "ncrmro/deepwork-permanent-portfolio/deepwork_jobs.review_job_spec",
+      "source": "github.com/ncrmro/deepwork-permanent-portfolio"
+    }
+  ]
+}

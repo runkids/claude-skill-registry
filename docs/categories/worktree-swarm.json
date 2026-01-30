@@ -1,0 +1,20 @@
+{
+  "category": "worktree-swarm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.487971Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up and orchestrate parallel Claude Code agents using git worktrees. Use this skill when the user wants to parallelize a feature across multiple agents, spawn worktrees, or merge agent work back to",
+      "repo": "AbeJitsu/Need_This_Done",
+      "path": "worktree-swarm",
+      "branch": "main",
+      "category": "worktree-swarm",
+      "tags": [],
+      "stars": 0,
+      "install": "AbeJitsu/Need_This_Done/worktree-swarm",
+      "source": "github.com/AbeJitsu/Need_This_Done"
+    }
+  ]
+}

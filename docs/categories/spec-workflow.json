@@ -1,0 +1,20 @@
+{
+  "category": "spec-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.052654Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standard software engineering workflow for requirement analysis, technical design, and task planning. Use this skill when developing new features, complex architecture designs, multi-module integratio",
+      "repo": "baiyongping/cowork-platform",
+      "path": "spec-workflow",
+      "branch": "main",
+      "category": "spec-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "baiyongping/cowork-platform/spec-workflow",
+      "source": "github.com/baiyongping/cowork-platform"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "comp-mechanics",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.625281Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to assemble rate tables, accelerator logic, and plan governance templates.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "comp-mechanics",
+      "branch": "main",
+      "category": "comp-mechanics",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/comp-mechanics",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

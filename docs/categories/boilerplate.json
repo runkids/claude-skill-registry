@@ -1,0 +1,20 @@
+{
+  "category": "boilerplate",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.435710Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate framework-specific boilerplate code",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "boilerplate",
+      "branch": "main",
+      "category": "boilerplate",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/boilerplate",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

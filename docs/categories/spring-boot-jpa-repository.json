@@ -1,0 +1,20 @@
+{
+  "category": "spring-boot-jpa-repository",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.063581Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for implementing Spring Data JPA repositories with best practices for queries, transactions, and data access patterns. Use this when creating or modifying data access layer code.",
+      "repo": "ductringuyen0186/salon-hub-api",
+      "path": "spring-boot-jpa-repository",
+      "branch": "main",
+      "category": "spring-boot-jpa-repository",
+      "tags": [],
+      "stars": 0,
+      "install": "ductringuyen0186/salon-hub-api/spring-boot-jpa-repository",
+      "source": "github.com/ductringuyen0186/salon-hub-api"
+    }
+  ]
+}

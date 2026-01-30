@@ -1,0 +1,20 @@
+{
+  "category": "wide-event-observability",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.468623Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and implement wide-event logging with tail sampling for context-rich, queryable observability",
+      "repo": "jayteealao/Aperture",
+      "path": "wide-event-observability",
+      "branch": "main",
+      "category": "wide-event-observability",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture/wide-event-observability",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

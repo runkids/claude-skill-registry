@@ -1,0 +1,20 @@
+{
+  "category": "mobile-fab-navigation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.180337Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete workflow for implementing mobile bottom navigation with FAB (Floating Action Button) for Next.js/React applications. Use when creating mobile-responsive navigation with bottom nav bar, FAB me",
+      "repo": "JKKN-Institutions/Kenavo",
+      "path": "mobile-fab-navigation",
+      "branch": "main",
+      "category": "mobile-fab-navigation",
+      "tags": [],
+      "stars": 0,
+      "install": "JKKN-Institutions/Kenavo/mobile-fab-navigation",
+      "source": "github.com/JKKN-Institutions/Kenavo"
+    }
+  ]
+}

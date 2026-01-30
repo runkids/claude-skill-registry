@@ -1,0 +1,20 @@
+{
+  "category": "nb",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.226927Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage notes, bookmarks, and notebooks using the nb CLI. Create, list, search, and organize notes across multiple notebooks with Git-backed versioning.",
+      "repo": "moltbot/skills",
+      "path": "nb",
+      "branch": "main",
+      "category": "nb",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/nb",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "agent-workflow-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.245321Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build multi-agent AI workflows with orchestration, tool use, and state management",
+      "repo": "eddiebe147/claude-settings",
+      "path": "agent-workflow-builder",
+      "branch": "main",
+      "category": "agent-workflow-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/agent-workflow-builder",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

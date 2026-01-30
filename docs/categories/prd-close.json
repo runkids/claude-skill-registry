@@ -1,0 +1,20 @@
+{
+  "category": "prd-close",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.627097Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Close a PRD that is already implemented or no longer needed",
+      "repo": "wiggitywhitney/cluster-whisperer",
+      "path": "prd-close",
+      "branch": "main",
+      "category": "prd-close",
+      "tags": [],
+      "stars": 0,
+      "install": "wiggitywhitney/cluster-whisperer/prd-close",
+      "source": "github.com/wiggitywhitney/cluster-whisperer"
+    }
+  ]
+}

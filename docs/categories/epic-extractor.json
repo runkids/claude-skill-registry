@@ -1,0 +1,20 @@
+{
+  "category": "epic-extractor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.580838Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "﻿---",
+      "repo": "Darkpunkki/v-forge",
+      "path": "epic-extractor",
+      "branch": "main",
+      "category": "epic-extractor",
+      "tags": [],
+      "stars": 0,
+      "install": "Darkpunkki/v-forge/epic-extractor",
+      "source": "github.com/Darkpunkki/v-forge"
+    }
+  ]
+}

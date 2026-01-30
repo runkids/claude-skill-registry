@@ -1,0 +1,20 @@
+{
+  "category": "spring-boot-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.063410Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Spring Boot, Spring Framework, REST APIs, and microservices development",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "spring-boot-expert",
+      "branch": "main",
+      "category": "spring-boot-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/spring-boot-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

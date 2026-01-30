@@ -1,0 +1,20 @@
+{
+  "category": "LangChain",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.171621Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "LangChain skill for building LLM orchestration, agents, RAG pipelines, tools, memory, callbacks, and deployment.",
+      "repo": "Sameeh07/AGENT-SKILLS",
+      "path": "LangChain",
+      "branch": "main",
+      "category": "LangChain",
+      "tags": [],
+      "stars": 0,
+      "install": "Sameeh07/AGENT-SKILLS/LangChain",
+      "source": "github.com/Sameeh07/AGENT-SKILLS"
+    }
+  ]
+}

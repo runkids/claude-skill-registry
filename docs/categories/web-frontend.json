@@ -1,0 +1,20 @@
+{
+  "category": "web-frontend",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.446419Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Next.js App Router, Server/Client components, shadcn/ui patterns, Tailwind CSS conventions",
+      "repo": "deancochran/gradientpeak",
+      "path": "web-frontend",
+      "branch": "main",
+      "category": "web-frontend",
+      "tags": [],
+      "stars": 0,
+      "install": "deancochran/gradientpeak/web-frontend",
+      "source": "github.com/deancochran/gradientpeak"
+    }
+  ]
+}

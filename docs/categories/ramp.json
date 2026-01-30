@@ -1,0 +1,20 @@
+{
+  "category": "ramp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.764865Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Corporate cards and spend management platform.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "ramp",
+      "branch": "main",
+      "category": "ramp",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/ramp",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

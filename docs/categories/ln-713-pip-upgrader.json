@@ -1,0 +1,20 @@
+{
+  "category": "ln-713-pip-upgrader",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.041318Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Upgrades Python pip/poetry/pipenv dependencies with breaking change handling",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "ln-713-pip-upgrader",
+      "branch": "main",
+      "category": "ln-713-pip-upgrader",
+      "tags": [],
+      "stars": 0,
+      "install": "levnikolaevich/claude-code-skills/ln-713-pip-upgrader",
+      "source": "github.com/levnikolaevich/claude-code-skills"
+    }
+  ]
+}

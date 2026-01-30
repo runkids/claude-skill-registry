@@ -1,0 +1,20 @@
+{
+  "category": "openapi-code-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.291605Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate typed clients, servers, validators, and docs.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "openapi-code-generator",
+      "branch": "main",
+      "category": "openapi-code-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/openapi-code-generator",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

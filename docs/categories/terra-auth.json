@@ -1,0 +1,20 @@
+{
+  "category": "terra-auth",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.192038Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Terra API authentication, credentials management, and environment configuration. Use when setting up Terra integration, managing API keys, generating widget sessions, or configuring testing/staging/pr",
+      "repo": "adaptationio/Skrillz",
+      "path": "terra-auth",
+      "branch": "main",
+      "category": "terra-auth",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/terra-auth",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

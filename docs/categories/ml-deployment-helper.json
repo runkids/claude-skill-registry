@@ -1,0 +1,20 @@
+{
+  "category": "ml-deployment-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.143897Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prepares ML models for production deployment with containerization, API creation, monitoring setup, and A/B testing. Activates for \"deploy model\", \"production deployment\", \"model API\", \"containerize m",
+      "repo": "anton-abyzov/specweave",
+      "path": "ml-deployment-helper",
+      "branch": "main",
+      "category": "ml-deployment-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/ml-deployment-helper",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

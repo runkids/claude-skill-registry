@@ -1,0 +1,20 @@
+{
+  "category": "when-implementing-adaptive-learning-use-reasoningbank-agentdb",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.462548Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement ReasoningBank adaptive learning with AgentDB's 150x faster vector database for trajectory tracking, verdict judgment, memory distillation, and pattern recognition. Build self-learning agents",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "when-implementing-adaptive-learning-use-reasoningbank-agentdb",
+      "branch": "main",
+      "category": "when-implementing-adaptive-learning-use-reasoningbank-agentdb",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension/when-implementing-adaptive-learning-use-reasoningbank-agentdb",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

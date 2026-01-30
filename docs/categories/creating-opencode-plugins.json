@@ -1,0 +1,20 @@
+{
+  "category": "creating-opencode-plugins",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.714067Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating OpenCode plugins that hook into command, file, LSP, message, permission, server, session, todo, tool, or TUI events - provides plugin structure, event API specifications, and impleme",
+      "repo": "pr-pm/prpm",
+      "path": "creating-opencode-plugins",
+      "branch": "main",
+      "category": "creating-opencode-plugins",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm/creating-opencode-plugins",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "pubmed-database",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.717475Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Direct REST API access to PubMed. Advanced Boolean/MeSH queries, E-utilities API, batch processing, citation management. For Python workflows, prefer biopython (Bio.Entrez). Use this for direct HTTP/R",
+      "repo": "robinbarvaag/poynt",
+      "path": "pubmed-database",
+      "branch": "main",
+      "category": "pubmed-database",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/pubmed-database",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

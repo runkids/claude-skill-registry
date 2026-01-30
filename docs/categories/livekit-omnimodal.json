@@ -1,0 +1,20 @@
+{
+  "category": "livekit-omnimodal",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.031323Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "LiveKit omni-modal continuous coaching with stick-breaking color selection,",
+      "repo": "plurigrid/asi",
+      "path": "livekit-omnimodal",
+      "branch": "main",
+      "category": "livekit-omnimodal",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/livekit-omnimodal",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

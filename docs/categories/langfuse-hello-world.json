@@ -1,0 +1,20 @@
+{
+  "category": "langfuse-hello-world",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.970885Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a minimal working Langfuse trace example. Use when starting a new Langfuse integration, testing your setup, or learning basic Langfuse tracing patterns. Trigger with phrases like \"langfuse hell",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "langfuse-hello-world",
+      "branch": "main",
+      "category": "langfuse-hello-world",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/langfuse-hello-world",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

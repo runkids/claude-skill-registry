@@ -1,0 +1,20 @@
+{
+  "category": "validation-coordinator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.394767Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-activates when coordinating sequential validation specialists with workflow management, dependency tracking, and overall validation status monitoring.",
+      "repo": "matteocervelli/llms",
+      "path": "validation-coordinator",
+      "branch": "main",
+      "category": "validation-coordinator",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms/validation-coordinator",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

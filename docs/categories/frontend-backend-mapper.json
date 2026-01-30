@@ -1,0 +1,20 @@
+{
+  "category": "frontend-backend-mapper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.699130Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes and maps frontend API calls to backend endpoints. Detects missing endpoints, unused endpoints, and integration gaps. Optional: trace complete data flows to database and design tokens. Related",
+      "repo": "okgoogle13/careercopilot",
+      "path": "frontend-backend-mapper",
+      "branch": "main",
+      "category": "frontend-backend-mapper",
+      "tags": [],
+      "stars": 0,
+      "install": "okgoogle13/careercopilot/frontend-backend-mapper",
+      "source": "github.com/okgoogle13/careercopilot"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "vercel-deployment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.403077Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploy and optimize applications on Vercel with preview deployments, edge functions, environment variables, and performance monitoring. Use when deploying Next.js applications, setting up preview depl",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "vercel-deployment",
+      "branch": "main",
+      "category": "vercel-deployment",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2/vercel-deployment",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

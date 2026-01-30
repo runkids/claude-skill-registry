@@ -1,0 +1,20 @@
+{
+  "category": "planning-documents",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.584711Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Naming conventions for planning documents in prompts/. Use when creating plans, PRDs, research reports, idea capture or other workflow documents. Triggers on (1) creating new planning documents, (2) n",
+      "repo": "Ramblurr/nix-devenv",
+      "path": "planning-documents",
+      "branch": "main",
+      "category": "planning-documents",
+      "tags": [],
+      "stars": 0,
+      "install": "Ramblurr/nix-devenv/planning-documents",
+      "source": "github.com/Ramblurr/nix-devenv"
+    }
+  ]
+}

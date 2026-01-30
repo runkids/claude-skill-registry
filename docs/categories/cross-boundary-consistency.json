@@ -1,0 +1,20 @@
+{
+  "category": "cross-boundary-consistency",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.722466Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guarantee data and UI consistency across multiple `Suspense` and error boundaries.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "cross-boundary-consistency",
+      "branch": "main",
+      "category": "cross-boundary-consistency",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/cross-boundary-consistency",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ml-engineer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.144065Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build production ML systems with PyTorch 2.x, TensorFlow, and modern ML frameworks. Implements model serving, feature engineering, A/B testing, and monitoring. Use PROACTIVELY for ML model deployment,",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "ml-engineer",
+      "branch": "main",
+      "category": "ml-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/ml-engineer",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

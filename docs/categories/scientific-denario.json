@@ -1,0 +1,20 @@
+{
+  "category": "scientific-denario",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.899558Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multiagent AI system for scientific research assistance that automates research workflows from data analysis to publication. This skill should be used when generating research ideas from datasets, dev",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-denario",
+      "branch": "main",
+      "category": "scientific-denario",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP/scientific-denario",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

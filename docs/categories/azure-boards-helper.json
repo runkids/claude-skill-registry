@@ -1,0 +1,20 @@
+{
+  "category": "azure-boards-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.394537Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage Azure Boards work items including user stories, tasks, and bugs with WIQL queries. Use when managing Azure Boards work items or creating sprint backlogs.",
+      "repo": "ntaksh42/agents",
+      "path": "azure-boards-helper",
+      "branch": "main",
+      "category": "azure-boards-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents/azure-boards-helper",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

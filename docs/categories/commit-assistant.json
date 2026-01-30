@@ -1,0 +1,20 @@
+{
+  "category": "commit-assistant",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.619823Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Help create git commits and PRs with properly formatted messages and release notes following CockroachDB conventions. Use when committing changes or creating pull requests.",
+      "repo": "PeterFile/my-common-skills",
+      "path": "commit-assistant",
+      "branch": "main",
+      "category": "commit-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "PeterFile/my-common-skills/commit-assistant",
+      "source": "github.com/PeterFile/my-common-skills"
+    }
+  ]
+}

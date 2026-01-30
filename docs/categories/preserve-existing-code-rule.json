@@ -1,0 +1,20 @@
+{
+  "category": "preserve-existing-code-rule",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.635792Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "preserve-existing-code-rule",
+      "branch": "main",
+      "category": "preserve-existing-code-rule",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/preserve-existing-code-rule",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

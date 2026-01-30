@@ -1,0 +1,20 @@
+{
+  "category": "testing-framework-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.270360Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates comprehensive test suites with unit tests, integration tests, and E2E tests for various frameworks (Jest, Pytest, Vitest, etc.). Use when writing tests.",
+      "repo": "Dexploarer/hyper-forge",
+      "path": "testing-framework-helper",
+      "branch": "main",
+      "category": "testing-framework-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "Dexploarer/hyper-forge/testing-framework-helper",
+      "source": "github.com/Dexploarer/hyper-forge"
+    }
+  ]
+}

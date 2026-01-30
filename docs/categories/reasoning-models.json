@@ -1,0 +1,20 @@
+{
+  "category": "reasoning-models",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.786459Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-provider reasoning/thinking configuration. Discriminated unions for OpenAI effort, Anthropic budget, Google level/budget, DeepSeek middleware. Triggers on \"reasoning\", \"thinking\", \"o1\", \"deepsee",
+      "repo": "planetaryescape/blah.chat",
+      "path": "reasoning-models",
+      "branch": "main",
+      "category": "reasoning-models",
+      "tags": [],
+      "stars": 0,
+      "install": "planetaryescape/blah.chat/reasoning-models",
+      "source": "github.com/planetaryescape/blah.chat"
+    }
+  ]
+}

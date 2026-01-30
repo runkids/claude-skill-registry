@@ -1,0 +1,20 @@
+{
+  "category": "cleanproject",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.551843Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Remove debug artifacts and temporary files safely with git checkpoint protection",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "cleanproject",
+      "branch": "main",
+      "category": "cleanproject",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/cleanproject",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

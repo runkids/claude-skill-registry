@@ -1,0 +1,20 @@
+{
+  "category": "research-zod-validation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.828030Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Research Zod validation patterns, schema design, and TypeScript integration using Exa code search and Ref documentation",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "research-zod-validation",
+      "branch": "main",
+      "category": "research-zod-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2/research-zod-validation",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

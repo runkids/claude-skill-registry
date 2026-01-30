@@ -1,0 +1,20 @@
+{
+  "category": "web-ui-ux",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.450044Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Web UI/UX specialist guidance for designing, reviewing, and polishing web product UI (layout, usability, microcopy, accessibility, responsive behavior, forms, navigation). Use when asked to improve UI",
+      "repo": "ssdeanx/AI-Skills",
+      "path": "web-ui-ux",
+      "branch": "main",
+      "category": "web-ui-ux",
+      "tags": [],
+      "stars": 0,
+      "install": "ssdeanx/AI-Skills/web-ui-ux",
+      "source": "github.com/ssdeanx/AI-Skills"
+    }
+  ]
+}

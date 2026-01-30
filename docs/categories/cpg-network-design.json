@@ -1,0 +1,20 @@
+{
+  "category": "cpg-network-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.692193Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to design CPG (Consumer Packaged Goods) distribution networks, optimize DC locations for retail distribution, or plan omnichannel fulfillment networks. Also use when the user menti",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "cpg-network-design",
+      "branch": "main",
+      "category": "cpg-network-design",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/cpg-network-design",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "site-reliability-engineer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.008364Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Production monitoring, observability, SLO/SLI management, and incident response.  Trigger terms: monitoring, observability, SRE, site reliability, alerting, incident response, SLO, SLI, error budget,",
+      "repo": "nahisaho/CodeGraphMCPServer",
+      "path": "site-reliability-engineer",
+      "branch": "main",
+      "category": "site-reliability-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/CodeGraphMCPServer/site-reliability-engineer",
+      "source": "github.com/nahisaho/CodeGraphMCPServer"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "network-forensics",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.235269Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze network traffic captures and artifacts for forensic investigation. Use when investigating data exfiltration, command and control communications, lateral movement, or network-based attacks. Sup",
+      "repo": "SherifEldeeb/agentskills",
+      "path": "network-forensics",
+      "branch": "main",
+      "category": "network-forensics",
+      "tags": [],
+      "stars": 0,
+      "install": "SherifEldeeb/agentskills/network-forensics",
+      "source": "github.com/SherifEldeeb/agentskills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "check-spots",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.518584Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate spots.json for common issues including missing fields, invalid URLs, duplicate entries, and data consistency problems",
+      "repo": "pwittchen/varun.surf",
+      "path": "check-spots",
+      "branch": "main",
+      "category": "check-spots",
+      "tags": [],
+      "stars": 0,
+      "install": "pwittchen/varun.surf/check-spots",
+      "source": "github.com/pwittchen/varun.surf"
+    }
+  ]
+}

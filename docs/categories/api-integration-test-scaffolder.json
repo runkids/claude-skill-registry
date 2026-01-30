@@ -1,0 +1,20 @@
+{
+  "category": "api-integration-test-scaffolder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.325925Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates integration tests for frontend → backend → Genkit flow connections. Use when creating E2E API tests.",
+      "repo": "okgoogle13/careercopilot",
+      "path": "api-integration-test-scaffolder",
+      "branch": "main",
+      "category": "api-integration-test-scaffolder",
+      "tags": [],
+      "stars": 0,
+      "install": "okgoogle13/careercopilot/api-integration-test-scaffolder",
+      "source": "github.com/okgoogle13/careercopilot"
+    }
+  ]
+}

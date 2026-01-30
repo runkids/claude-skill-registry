@@ -1,0 +1,20 @@
+{
+  "category": "git-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.758843Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate git commit messages and help with git workflows",
+      "repo": "maxvaega/skillkit",
+      "path": "git-helper",
+      "branch": "main",
+      "category": "git-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit/git-helper",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

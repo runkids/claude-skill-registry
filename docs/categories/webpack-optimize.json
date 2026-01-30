@@ -1,0 +1,20 @@
+{
+  "category": "webpack-optimize",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.453114Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Webpack/Vite/esbuild configuration optimization for build performance",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "webpack-optimize",
+      "branch": "main",
+      "category": "webpack-optimize",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/webpack-optimize",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

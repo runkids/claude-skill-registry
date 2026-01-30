@@ -1,0 +1,20 @@
+{
+  "category": "agentuity-cli-profile-delete",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.266989Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Delete a configuration profile",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-profile-delete",
+      "branch": "main",
+      "category": "agentuity-cli-profile-delete",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer/agentuity-cli-profile-delete",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "agentuity-cli-cloud-env-get",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.255447Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Get an environment variable value. Requires authentication. Use for Agentuity cloud platform operations",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-cloud-env-get",
+      "branch": "main",
+      "category": "agentuity-cli-cloud-env-get",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer/agentuity-cli-cloud-env-get",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

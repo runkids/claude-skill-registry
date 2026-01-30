@@ -1,0 +1,20 @@
+{
+  "category": "starwards-monorepo",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.088259Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "npm workspace monorepo workflow for Starwards - build order, module dependencies, watch mode, testing across modules, and avoiding common monorepo pitfalls; core builds first always",
+      "repo": "starwards/starwards",
+      "path": "starwards-monorepo",
+      "branch": "main",
+      "category": "starwards-monorepo",
+      "tags": [],
+      "stars": 0,
+      "install": "starwards/starwards/starwards-monorepo",
+      "source": "github.com/starwards/starwards"
+    }
+  ]
+}

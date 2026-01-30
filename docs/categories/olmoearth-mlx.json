@@ -1,0 +1,20 @@
+{
+  "category": "olmoearth-mlx",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.282892Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "OlmoEarth MLX: Spatio-Temporal Earth Intelligence",
+      "repo": "plurigrid/asi",
+      "path": "olmoearth-mlx",
+      "branch": "main",
+      "category": "olmoearth-mlx",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/olmoearth-mlx",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

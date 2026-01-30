@@ -1,0 +1,20 @@
+{
+  "category": "unsloth-inference",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.353494Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unsloth models can be deployed using native optimized inference or through production serving engines like vLLM and SGLang. Native inference is accelerated 2x via forinference(), while production serv",
+      "repo": "cuba6112/skillfactory",
+      "path": "unsloth-inference",
+      "branch": "main",
+      "category": "unsloth-inference",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory/unsloth-inference",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

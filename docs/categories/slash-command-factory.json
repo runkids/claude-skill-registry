@@ -1,0 +1,20 @@
+{
+  "category": "slash-command-factory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.028073Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate custom Claude Code slash commands through intelligent 5-7 question flow. Creates powerful commands for business research, content analysis, healthcare compliance, API integration, documentati",
+      "repo": "Yona544/AIskils",
+      "path": "slash-command-factory",
+      "branch": "main",
+      "category": "slash-command-factory",
+      "tags": [],
+      "stars": 0,
+      "install": "Yona544/AIskils/slash-command-factory",
+      "source": "github.com/Yona544/AIskils"
+    }
+  ]
+}

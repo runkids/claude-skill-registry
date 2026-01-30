@@ -1,0 +1,20 @@
+{
+  "category": "color-palette",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.615709Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate complete, accessible color palettes from a single brand hex. Creates 11-shade scale (50-950), semantic tokens (background, foreground, card, muted), and dark mode variants. Includes WCAG cont",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "color-palette",
+      "branch": "main",
+      "category": "color-palette",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/color-palette",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

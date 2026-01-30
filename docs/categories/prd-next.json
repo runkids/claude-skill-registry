@@ -1,0 +1,20 @@
+{
+  "category": "prd-next",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.628502Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze existing PRD to identify and recommend the single highest-priority task to work on next",
+      "repo": "wiggitywhitney/cluster-whisperer",
+      "path": "prd-next",
+      "branch": "main",
+      "category": "prd-next",
+      "tags": [],
+      "stars": 0,
+      "install": "wiggitywhitney/cluster-whisperer/prd-next",
+      "source": "github.com/wiggitywhitney/cluster-whisperer"
+    }
+  ]
+}

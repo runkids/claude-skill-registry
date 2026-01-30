@@ -1,0 +1,20 @@
+{
+  "category": "thesys-generative-ui",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.282020Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI-powered generative UI with Thesys - create React components from natural language.",
+      "repo": "secondsky/claude-skills",
+      "path": "thesys-generative-ui",
+      "branch": "main",
+      "category": "thesys-generative-ui",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills/thesys-generative-ui",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

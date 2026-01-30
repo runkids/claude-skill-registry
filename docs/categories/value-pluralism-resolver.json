@@ -1,0 +1,20 @@
+{
+  "category": "value-pluralism-resolver",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.396729Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Resolve conflicts between competing values through structured pluralistic analysis.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "value-pluralism-resolver",
+      "branch": "main",
+      "category": "value-pluralism-resolver",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/value-pluralism-resolver",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "value-messaging",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.396568Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to map pricing/packaging tiers to tailored value pillars, proof, and objection handling.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "value-messaging",
+      "branch": "main",
+      "category": "value-messaging",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/value-messaging",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

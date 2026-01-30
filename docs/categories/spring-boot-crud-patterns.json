@@ -1,0 +1,20 @@
+{
+  "category": "spring-boot-crud-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.062160Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provide repeatable CRUD workflows for Spring Boot 3 services with Spring Data JPA and feature-focused architecture; apply when modeling aggregates, repositories, controllers, and DTOs for REST APIs.",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "spring-boot-crud-patterns",
+      "branch": "main",
+      "category": "spring-boot-crud-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/spring-boot-crud-patterns",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    }
+  ]
+}

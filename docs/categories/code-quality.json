@@ -1,0 +1,20 @@
+{
+  "category": "code-quality",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.592755Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Code quality improvement: review, refactoring, debugging. Phases: review feedback, systematic refactoring, root cause debugging, verification. Capabilities: SOLID/DRY compliance, code smell detection,",
+      "repo": "brixtonpham/claude-config",
+      "path": "code-quality",
+      "branch": "main",
+      "category": "code-quality",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/code-quality",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

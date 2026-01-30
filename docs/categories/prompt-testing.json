@@ -1,0 +1,20 @@
+{
+  "category": "prompt-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.707166Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A/B testing and performance metrics for prompts",
+      "repo": "fusengine/agents",
+      "path": "prompt-testing",
+      "branch": "main",
+      "category": "prompt-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/prompt-testing",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

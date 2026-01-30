@@ -1,0 +1,20 @@
+{
+  "category": "pqc-for-iot",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.621079Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement post-quantum cryptographic algorithms (NIST PQC standards) for IoT devices, including quantum-resistant mTLS, crypto-agility, and migration planning to prepare for the quantum computing era.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "pqc-for-iot",
+      "branch": "main",
+      "category": "pqc-for-iot",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/pqc-for-iot",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

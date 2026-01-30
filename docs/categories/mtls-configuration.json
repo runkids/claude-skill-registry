@@ -1,0 +1,20 @@
+{
+  "category": "mtls-configuration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.207604Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure mutual TLS (mTLS) for zero-trust service-to-service communication. Use when implementing zero-trust networking, certificate management, or securing internal service communication.",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "mtls-configuration",
+      "branch": "main",
+      "category": "mtls-configuration",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/mtls-configuration",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

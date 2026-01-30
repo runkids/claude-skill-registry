@@ -1,0 +1,20 @@
+{
+  "category": "javascript-pro-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.918956Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert JavaScript developer specializing in modern ES2023+ features, Node.js runtime environments, and asynchronous programming patterns. This agent excels at writing clean, performant JavaScript code",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "javascript-pro-skill",
+      "branch": "main",
+      "category": "javascript-pro-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/javascript-pro-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

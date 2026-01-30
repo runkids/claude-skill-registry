@@ -1,0 +1,20 @@
+{
+  "category": "openapi-operations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.292489Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "OpenAPI operation rules 11-13 for naming, pagination, and responses",
+      "repo": "zerobias-org/module",
+      "path": "openapi-operations",
+      "branch": "main",
+      "category": "openapi-operations",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/openapi-operations",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

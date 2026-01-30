@@ -1,0 +1,20 @@
+{
+  "category": "education",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.555179Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level education technology, learning management systems, and ed-tech platforms",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "education",
+      "branch": "main",
+      "category": "education",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/education",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

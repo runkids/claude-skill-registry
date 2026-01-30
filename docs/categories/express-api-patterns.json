@@ -1,0 +1,20 @@
+{
+  "category": "express-api-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.626988Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Express.js API development, route handling, middleware, error handling, request validation, CORS. Use when building Express routes, implementing middleware, handling API requests, or setting up the ba",
+      "repo": "BPMSTC/websiteagent",
+      "path": "express-api-patterns",
+      "branch": "main",
+      "category": "express-api-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "BPMSTC/websiteagent/express-api-patterns",
+      "source": "github.com/BPMSTC/websiteagent"
+    }
+  ]
+}

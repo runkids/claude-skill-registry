@@ -1,0 +1,20 @@
+{
+  "category": "calm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.481967Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Practice wellness with Calm - track meditation and sleep sessions, view progress, and access content library",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "calm",
+      "branch": "main",
+      "category": "calm",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/calm",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

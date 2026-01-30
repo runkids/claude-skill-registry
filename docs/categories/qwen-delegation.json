@@ -1,0 +1,20 @@
+{
+  "category": "qwen-delegation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.755706Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Qwen CLI delegation workflow implementing delegation-core for Alibaba's Qwen models.",
+      "repo": "athola/claude-night-market",
+      "path": "qwen-delegation",
+      "branch": "main",
+      "category": "qwen-delegation",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/qwen-delegation",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

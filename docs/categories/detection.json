@@ -1,0 +1,20 @@
+{
+  "category": "detection",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.165828Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Security detection use cases for identifying threats across network, endpoint, identity, cloud, application, and email vectors. Use for building detection rules, analyzing security events, and threat",
+      "repo": "SherifEldeeb/agentskills",
+      "path": "detection",
+      "branch": "main",
+      "category": "detection",
+      "tags": [],
+      "stars": 0,
+      "install": "SherifEldeeb/agentskills/detection",
+      "source": "github.com/SherifEldeeb/agentskills"
+    }
+  ]
+}

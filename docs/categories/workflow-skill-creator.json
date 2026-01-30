@@ -1,0 +1,20 @@
+{
+  "category": "workflow-skill-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.482470Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Compose multiple Claude Code skills into integrated workflows. Creates workflow skills that orchestrate skill sequences, handle dependencies, and automate multi-step processes. Use when building compl",
+      "repo": "adaptationio/Skrillz",
+      "path": "workflow-skill-creator",
+      "branch": "main",
+      "category": "workflow-skill-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/workflow-skill-creator",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

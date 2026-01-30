@@ -1,0 +1,20 @@
+{
+  "category": "ffmpeg-audio-processing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.653114Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MANDATORY: Always Use Backslashes on Windows for File Paths",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "ffmpeg-audio-processing",
+      "branch": "main",
+      "category": "ffmpeg-audio-processing",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace/ffmpeg-audio-processing",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

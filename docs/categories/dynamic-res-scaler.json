@@ -1,0 +1,20 @@
+{
+  "category": "dynamic-res-scaler",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.544577Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement dynamic resolution scaling for React Three Fiber / Three.js by adjusting DPR based on measured FPS. Use when asked to add adaptive performance scaling, automatic DPR tuning, or a DynamicResS",
+      "repo": "deadronos/voxel-celebration",
+      "path": "dynamic-res-scaler",
+      "branch": "main",
+      "category": "dynamic-res-scaler",
+      "tags": [],
+      "stars": 0,
+      "install": "deadronos/voxel-celebration/dynamic-res-scaler",
+      "source": "github.com/deadronos/voxel-celebration"
+    }
+  ]
+}

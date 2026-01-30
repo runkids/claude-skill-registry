@@ -1,0 +1,20 @@
+{
+  "category": "mit-exam-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.142983Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate rigorous MIT PhD-level qualifying examinations from Markdown/Obsidian notes. This skill should be used when users request quiz creation, exam generation, assessment materials, practice questi",
+      "repo": "panaversity/agentfactory",
+      "path": "mit-exam-generator",
+      "branch": "main",
+      "category": "mit-exam-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory/mit-exam-generator",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

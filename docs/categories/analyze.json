@@ -1,0 +1,20 @@
+{
+  "category": "analyze",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.293917Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "需求分析阶段详细规则；进入需求分析时读取；包含需求评分、追问逻辑、代码分析步骤",
+      "repo": "pianzhu/my-claude-skills",
+      "path": "analyze",
+      "branch": "main",
+      "category": "analyze",
+      "tags": [],
+      "stars": 0,
+      "install": "pianzhu/my-claude-skills/analyze",
+      "source": "github.com/pianzhu/my-claude-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "project-api",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.688959Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating API client packages from OpenAPI specs using the api_client brick in app_api (project)",
+      "repo": "gsmlg-app/flutter-app-template",
+      "path": "project-api",
+      "branch": "main",
+      "category": "project-api",
+      "tags": [],
+      "stars": 0,
+      "install": "gsmlg-app/flutter-app-template/project-api",
+      "source": "github.com/gsmlg-app/flutter-app-template"
+    }
+  ]
+}

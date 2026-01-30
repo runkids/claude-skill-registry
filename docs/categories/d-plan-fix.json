@@ -1,0 +1,20 @@
+{
+  "category": "d-plan-fix",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.742688Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create execution plan to fix root cause. Creates ./.gtd/debug/current/FIX_PLAN.md",
+      "repo": "Hoang604/get-thing-done",
+      "path": "d-plan-fix",
+      "branch": "main",
+      "category": "d-plan-fix",
+      "tags": [],
+      "stars": 0,
+      "install": "Hoang604/get-thing-done/d-plan-fix",
+      "source": "github.com/Hoang604/get-thing-done"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "Unifi",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.181428Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "UniFi Network Monitoring and Management Skill  Monitor and query UniFi network devices (USG, Cloud Key, Access Points, Switches). Provides real-time network status, client information, device health,",
+      "repo": "robdtaylor/personal-ai-infrastructure",
+      "path": "Unifi",
+      "branch": "main",
+      "category": "Unifi",
+      "tags": [],
+      "stars": 0,
+      "install": "robdtaylor/personal-ai-infrastructure/Unifi",
+      "source": "github.com/robdtaylor/personal-ai-infrastructure"
+    }
+  ]
+}

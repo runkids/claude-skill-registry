@@ -1,0 +1,20 @@
+{
+  "category": "code-smell-detector",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.598864Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Identifies anti-patterns specific to amplihack philosophy. Use when reviewing code for quality issues or refactoring. Detects: over-abstraction, complex inheritance, large functions (>50 lines), tight",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "code-smell-detector",
+      "branch": "main",
+      "category": "code-smell-detector",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/code-smell-detector",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

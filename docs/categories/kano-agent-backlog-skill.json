@@ -1,0 +1,20 @@
+{
+  "category": "kano-agent-backlog-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.945569Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Local-first, multi-product backlog management with agent collaboration discipline.",
+      "repo": "dorgonman/kano-agent-backlog-skill-demo",
+      "path": "kano-agent-backlog-skill",
+      "branch": "main",
+      "category": "kano-agent-backlog-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "dorgonman/kano-agent-backlog-skill-demo/kano-agent-backlog-skill",
+      "source": "github.com/dorgonman/kano-agent-backlog-skill-demo"
+    }
+  ]
+}

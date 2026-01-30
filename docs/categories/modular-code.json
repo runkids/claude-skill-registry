@@ -1,0 +1,20 @@
+{
+  "category": "modular-code",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.192437Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Modular Code Organization",
+      "repo": "namesreallyblank/Clorch",
+      "path": "modular-code",
+      "branch": "main",
+      "category": "modular-code",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/modular-code",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

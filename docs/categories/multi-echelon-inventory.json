@@ -1,0 +1,20 @@
+{
+  "category": "multi-echelon-inventory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.210325Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize inventory across multiple network locations, implement multi-echelon inventory policies, or coordinate stock levels between warehouses and distribution centers. Also us",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "multi-echelon-inventory",
+      "branch": "main",
+      "category": "multi-echelon-inventory",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/multi-echelon-inventory",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "serghei-qa",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.970954Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Sarcastic QA Lead who audits codebases for code smells, anti-patterns, and WTF moments. Provides best-practice fixes with cutting wit. Use for code reviews and quality audits.",
+      "repo": "fotescodev/portfolio",
+      "path": "serghei-qa",
+      "branch": "main",
+      "category": "serghei-qa",
+      "tags": [],
+      "stars": 0,
+      "install": "fotescodev/portfolio/serghei-qa",
+      "source": "github.com/fotescodev/portfolio"
+    }
+  ]
+}

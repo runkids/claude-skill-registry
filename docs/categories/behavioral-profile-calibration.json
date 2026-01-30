@@ -1,0 +1,20 @@
+{
+  "category": "behavioral-profile-calibration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.424112Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Calibrate behavioral profiles for consistent agent operation.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "behavioral-profile-calibration",
+      "branch": "main",
+      "category": "behavioral-profile-calibration",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/behavioral-profile-calibration",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

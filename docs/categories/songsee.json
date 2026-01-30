@@ -1,0 +1,20 @@
+{
+  "category": "songsee",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.044862Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate spectrograms and feature-panel visualizations from audio with the songsee CLI.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "songsee",
+      "branch": "main",
+      "category": "songsee",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/songsee",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

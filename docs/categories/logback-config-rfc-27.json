@@ -1,0 +1,20 @@
+{
+  "category": "logback-config-rfc-27",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.051413Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "RFC-27 compliant static Logback configuration for Java services. Covers logback.xml structure, appenders, encoders, and deployment-specific configuration. Use when setting up or reviewing logging conf",
+      "repo": "bitsoex/bitso-java",
+      "path": "logback-config-rfc-27",
+      "branch": "main",
+      "category": "logback-config-rfc-27",
+      "tags": [],
+      "stars": 0,
+      "install": "bitsoex/bitso-java/logback-config-rfc-27",
+      "source": "github.com/bitsoex/bitso-java"
+    }
+  ]
+}

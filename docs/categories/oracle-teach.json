@@ -1,0 +1,20 @@
+{
+  "category": "oracle-teach",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.305076Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate learning materials from mature patterns. Use when user says \"teach me\", \"explain this pattern\", \"create a guide\", \"how does X work\", \"document this for others\". Auto-trigger when sharing know",
+      "repo": "laris-co/nat-agents-core",
+      "path": "oracle-teach",
+      "branch": "main",
+      "category": "oracle-teach",
+      "tags": [],
+      "stars": 0,
+      "install": "laris-co/nat-agents-core/oracle-teach",
+      "source": "github.com/laris-co/nat-agents-core"
+    }
+  ]
+}

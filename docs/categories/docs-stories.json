@@ -1,0 +1,20 @@
+{
+  "category": "docs-stories",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.474482Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete CRUD for SDLC documentation (stories, tasks, context retrieval). Use when creating/managing stories, creating/managing tasks, updating task state, or retrieving full context for any user stor",
+      "repo": "shredbx/demo-3d-model",
+      "path": "docs-stories",
+      "branch": "main",
+      "category": "docs-stories",
+      "tags": [],
+      "stars": 0,
+      "install": "shredbx/demo-3d-model/docs-stories",
+      "source": "github.com/shredbx/demo-3d-model"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "team-onboarding-guide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.178630Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create an onboarding guide for new engineers. Use when a senior developer needs structured onboarding materials.",
+      "repo": "proflead/codex-skills-library",
+      "path": "team-onboarding-guide",
+      "branch": "main",
+      "category": "team-onboarding-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "proflead/codex-skills-library/team-onboarding-guide",
+      "source": "github.com/proflead/codex-skills-library"
+    }
+  ]
+}

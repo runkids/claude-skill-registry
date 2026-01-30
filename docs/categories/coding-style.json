@@ -1,0 +1,20 @@
+{
+  "category": "coding-style",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.612068Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coding style, testing, and PR guidelines for the Kubb ecosystem. Use when writing or reviewing code for the Kubb ecosystem.",
+      "repo": "kubb-labs/fabric",
+      "path": "coding-style",
+      "branch": "main",
+      "category": "coding-style",
+      "tags": [],
+      "stars": 0,
+      "install": "kubb-labs/fabric/coding-style",
+      "source": "github.com/kubb-labs/fabric"
+    }
+  ]
+}

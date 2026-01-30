@@ -1,0 +1,20 @@
+{
+  "category": "Architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.162856Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Software architecture, system design, and technical planning. USE WHEN user mentions architecture, design systems, refactor, restructure, scalability, patterns, tech debt, dependencies, or asks about",
+      "repo": "Geralt1983/Thanos",
+      "path": "Architect",
+      "branch": "main",
+      "category": "Architect",
+      "tags": [],
+      "stars": 0,
+      "install": "Geralt1983/Thanos/Architect",
+      "source": "github.com/Geralt1983/Thanos"
+    }
+  ]
+}

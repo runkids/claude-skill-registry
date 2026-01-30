@@ -1,0 +1,20 @@
+{
+  "category": "using-celery",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.368915Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Celery 5.3+ distributed task queue with Beat scheduler, Redis/RabbitMQ brokers, workflow patterns, and FastAPI integration. Use for background jobs, periodic tasks, and async processing.",
+      "repo": "FortiumPartners/ensemble",
+      "path": "using-celery",
+      "branch": "main",
+      "category": "using-celery",
+      "tags": [],
+      "stars": 0,
+      "install": "FortiumPartners/ensemble/using-celery",
+      "source": "github.com/FortiumPartners/ensemble"
+    }
+  ]
+}

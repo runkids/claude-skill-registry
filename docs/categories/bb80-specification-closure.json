@@ -1,0 +1,20 @@
+{
+  "category": "bb80-specification-closure",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.418792Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Verify 100% specification closure before Big Bang 80/20 single-pass construction.",
+      "repo": "seanchatmangpt/ggen",
+      "path": "bb80-specification-closure",
+      "branch": "main",
+      "category": "bb80-specification-closure",
+      "tags": [],
+      "stars": 0,
+      "install": "seanchatmangpt/ggen/bb80-specification-closure",
+      "source": "github.com/seanchatmangpt/ggen"
+    }
+  ]
+}

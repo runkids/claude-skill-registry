@@ -1,0 +1,20 @@
+{
+  "category": "schema",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.893421Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks about \"Effect Schema\", \"Schema.Struct\", \"Schema.decodeUnknown\", \"data validation\", \"parsing\", \"Schema.transform\", \"Schema filters\", \"Schema annotations\", \"",
+      "repo": "andrueandersoncs/claude-skill-effect-ts",
+      "path": "schema",
+      "branch": "main",
+      "category": "schema",
+      "tags": [],
+      "stars": 0,
+      "install": "andrueandersoncs/claude-skill-effect-ts/schema",
+      "source": "github.com/andrueandersoncs/claude-skill-effect-ts"
+    }
+  ]
+}

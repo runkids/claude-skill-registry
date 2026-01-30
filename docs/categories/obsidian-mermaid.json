@@ -1,0 +1,20 @@
+{
+  "category": "obsidian-mermaid",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.276558Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create Obsidian-compatible Mermaid diagrams. Prefer square layouts (TB + subgraph LR), avoid markdown in labels. Use when creating flowcharts, sequence diagrams, or any Mermaid diagrams in markdown fi",
+      "repo": "jykim/ai4pkm-vault",
+      "path": "obsidian-mermaid",
+      "branch": "main",
+      "category": "obsidian-mermaid",
+      "tags": [],
+      "stars": 0,
+      "install": "jykim/ai4pkm-vault/obsidian-mermaid",
+      "source": "github.com/jykim/ai4pkm-vault"
+    }
+  ]
+}

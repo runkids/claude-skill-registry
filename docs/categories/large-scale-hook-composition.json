@@ -1,0 +1,20 @@
+{
+  "category": "large-scale-hook-composition",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.976486Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Engineer hook ecosystems with composable, scalable abstractions that preserve correctness under concurrency.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "large-scale-hook-composition",
+      "branch": "main",
+      "category": "large-scale-hook-composition",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/large-scale-hook-composition",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

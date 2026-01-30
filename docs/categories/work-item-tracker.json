@@ -1,0 +1,20 @@
+{
+  "category": "work-item-tracker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.475011Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Update the current work item displayed in the status line. Use when you want to set or analyze what task is being worked on. Triggers on \"/work-item\", \"update work item\", \"set current task\", or \"what",
+      "repo": "orient-bot/orient",
+      "path": "work-item-tracker",
+      "branch": "main",
+      "category": "work-item-tracker",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/work-item-tracker",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

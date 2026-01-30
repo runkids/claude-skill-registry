@@ -1,0 +1,20 @@
+{
+  "category": "tmdb",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.291554Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Search movies/TV, get cast, ratings, streaming info, and personalized recommendations via TMDb API.",
+      "repo": "moltbot/skills",
+      "path": "tmdb",
+      "branch": "main",
+      "category": "tmdb",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/tmdb",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

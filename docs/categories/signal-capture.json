@@ -1,0 +1,20 @@
+{
+  "category": "signal-capture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.997801Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect and capture technical preferences, naming conventions, and architectural practices from user messages into Packmind standards. Trigger when user prescribes HOW to code through direct statements",
+      "repo": "PackmindHub/packmind",
+      "path": "signal-capture",
+      "branch": "main",
+      "category": "signal-capture",
+      "tags": [],
+      "stars": 0,
+      "install": "PackmindHub/packmind/signal-capture",
+      "source": "github.com/PackmindHub/packmind"
+    }
+  ]
+}

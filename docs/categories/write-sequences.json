@@ -1,0 +1,20 @@
+{
+  "category": "write-sequences",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.493013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write biological sequences to files (FASTA, FASTQ, GenBank, EMBL) using Biopython Bio.SeqIO. Use when saving sequences, creating new sequence files, or outputting modified records.",
+      "repo": "GPTomics/bioSkills",
+      "path": "write-sequences",
+      "branch": "main",
+      "category": "write-sequences",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/write-sequences",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "libutil",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.018119Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "libutil - General utilities. countTokens and estimateTokens for GPT-style token counting. generateHash creates SHA256 hashes. generateUuid creates unique IDs findProjectRoot locates repository root. u",
+      "repo": "copilot-ld/copilot-ld",
+      "path": "libutil",
+      "branch": "main",
+      "category": "libutil",
+      "tags": [],
+      "stars": 0,
+      "install": "copilot-ld/copilot-ld/libutil",
+      "source": "github.com/copilot-ld/copilot-ld"
+    }
+  ]
+}

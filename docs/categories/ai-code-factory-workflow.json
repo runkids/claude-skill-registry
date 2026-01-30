@@ -1,0 +1,20 @@
+{
+  "category": "ai-code-factory-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.274153Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<skill>",
+      "repo": "wade56754/AI_ad_spend02",
+      "path": "ai-code-factory-workflow",
+      "branch": "main",
+      "category": "ai-code-factory-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "wade56754/AI_ad_spend02/ai-code-factory-workflow",
+      "source": "github.com/wade56754/AI_ad_spend02"
+    }
+  ]
+}

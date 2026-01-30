@@ -1,0 +1,20 @@
+{
+  "category": "database-audit-logger",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.037590Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill helps implement database audit logging for tracking changes and ensuring compliance. It is triggered when the user requests to \"implement database audit logging\", \"add audit trails\", \"track",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "database-audit-logger",
+      "branch": "main",
+      "category": "database-audit-logger",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla/database-audit-logger",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "development-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.405262Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "detailed development workflow with modular patterns for git, code review, testing, documentation, and deployment",
+      "repo": "athola/claude-night-market",
+      "path": "development-workflow",
+      "branch": "main",
+      "category": "development-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/development-workflow",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

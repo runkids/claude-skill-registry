@@ -1,0 +1,20 @@
+{
+  "category": "cloudflare-pages",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.577013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cloudflare Pages - Full-stack JAMstack platform with global CDN, serverless functions, Git integration, and native bindings to Workers, KV, R2, D1, and Durable Objects",
+      "repo": "enuno/claude-command-and-control",
+      "path": "cloudflare-pages",
+      "branch": "main",
+      "category": "cloudflare-pages",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control/cloudflare-pages",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

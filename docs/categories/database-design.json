@@ -1,0 +1,20 @@
+{
+  "category": "database-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.038053Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Database design principles and decision-making. Schema design, indexing strategy, ORM selection, serverless databases.",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "database-design",
+      "branch": "main",
+      "category": "database-design",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/database-design",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

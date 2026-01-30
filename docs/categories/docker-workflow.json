@@ -1,0 +1,20 @@
+{
+  "category": "docker-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.470760Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Docker containerization workflow covering multi-stage builds, docker-compose orchestration, image optimization, debugging, and production best practices. Use when containerizing applicat",
+      "repo": "AutumnsGrove/ClaudeSkills",
+      "path": "docker-workflow",
+      "branch": "main",
+      "category": "docker-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "AutumnsGrove/ClaudeSkills/docker-workflow",
+      "source": "github.com/AutumnsGrove/ClaudeSkills"
+    }
+  ]
+}

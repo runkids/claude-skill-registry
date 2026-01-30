@@ -1,0 +1,20 @@
+{
+  "category": "file-issue",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.659842Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Draft GitHub issues for i-am-bee/agentstack. Use when the user wants to report a bug, request a feature, or draft a general GitHub issue.",
+      "repo": "i-am-bee/agentstack",
+      "path": "file-issue",
+      "branch": "main",
+      "category": "file-issue",
+      "tags": [],
+      "stars": 0,
+      "install": "i-am-bee/agentstack/file-issue",
+      "source": "github.com/i-am-bee/agentstack"
+    }
+  ]
+}

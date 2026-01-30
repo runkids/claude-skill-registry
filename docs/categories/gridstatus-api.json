@@ -1,0 +1,20 @@
+{
+  "category": "gridstatus-api",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.805575Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"get electricity data\", \"query grid data\", \"get LMP prices\", \"fetch load data\", \"get fuel mix\", \"query ERCOT data\", \"query CAISO data\", \"query PJM data\"",
+      "repo": "MisterClean/claude-plugins",
+      "path": "gridstatus-api",
+      "branch": "main",
+      "category": "gridstatus-api",
+      "tags": [],
+      "stars": 0,
+      "install": "MisterClean/claude-plugins/gridstatus-api",
+      "source": "github.com/MisterClean/claude-plugins"
+    }
+  ]
+}

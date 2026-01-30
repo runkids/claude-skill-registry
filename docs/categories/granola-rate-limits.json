@@ -1,0 +1,20 @@
+{
+  "category": "granola-rate-limits",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.800321Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Understand Granola usage limits, quotas, and plan restrictions. Use when hitting usage limits, planning capacity, or understanding plan differences. Trigger with phrases like \"granola limits\", \"granol",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "granola-rate-limits",
+      "branch": "main",
+      "category": "granola-rate-limits",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/granola-rate-limits",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

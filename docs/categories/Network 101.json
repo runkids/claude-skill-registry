@@ -1,0 +1,20 @@
+{
+  "category": "Network 101",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.173747Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"set up a web server\", \"configure HTTP or HTTPS\", \"perform SNMP enumeration\", \"configure SMB shares\", \"test network services\", or needs guidance on conf",
+      "repo": "byteworthy/Upstream",
+      "path": "Network 101",
+      "branch": "main",
+      "category": "Network 101",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/Network 101",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

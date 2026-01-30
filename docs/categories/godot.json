@@ -1,0 +1,20 @@
+{
+  "category": "godot",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.785914Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with godot",
+      "repo": "monkey1sai/ai-settings",
+      "path": "godot",
+      "branch": "main",
+      "category": "godot",
+      "tags": [],
+      "stars": 0,
+      "install": "monkey1sai/ai-settings/godot",
+      "source": "github.com/monkey1sai/ai-settings"
+    }
+  ]
+}

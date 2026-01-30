@@ -1,0 +1,20 @@
+{
+  "category": "asmedia",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.357927Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ASMedia Technology MPN encoding patterns, series identification, and handler guidance. Use when working with USB/Storage controller ICs or ASMediaHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "asmedia",
+      "branch": "main",
+      "category": "asmedia",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/asmedia",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

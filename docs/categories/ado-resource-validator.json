@@ -1,0 +1,20 @@
+{
+  "category": "ado-resource-validator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.213158Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validates Azure DevOps projects, area paths, and teams exist with auto-creation of missing resources. Use when setting up ADO integration, configuring .env variables, or troubleshooting missing projec",
+      "repo": "anton-abyzov/specweave",
+      "path": "ado-resource-validator",
+      "branch": "main",
+      "category": "ado-resource-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/ado-resource-validator",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

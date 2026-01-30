@@ -1,0 +1,20 @@
+{
+  "category": "parallel-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.542034Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "name: parallel-integration",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "parallel-integration",
+      "branch": "main",
+      "category": "parallel-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/parallel-integration",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

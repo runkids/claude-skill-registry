@@ -1,0 +1,20 @@
+{
+  "category": "write-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.490919Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Writing SDK documentation for tldraw. Use when creating new documentation articles, updating existing docs, or when documentation writing guidance is needed. Applies to docs in apps/docs/content/.",
+      "repo": "tldraw/tldraw",
+      "path": "write-docs",
+      "branch": "main",
+      "category": "write-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "tldraw/tldraw/write-docs",
+      "source": "github.com/tldraw/tldraw"
+    }
+  ]
+}

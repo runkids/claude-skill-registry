@@ -1,0 +1,20 @@
+{
+  "category": "trace-debugger",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.306124Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Debug performance issues and understand code flow using AILANG telemetry traces. Use when user asks to debug slow compilation, analyze benchmarks, find bottlenecks, investigate hangs, or understand sy",
+      "repo": "sunholo-data/ailang",
+      "path": "trace-debugger",
+      "branch": "main",
+      "category": "trace-debugger",
+      "tags": [],
+      "stars": 0,
+      "install": "sunholo-data/ailang/trace-debugger",
+      "source": "github.com/sunholo-data/ailang"
+    }
+  ]
+}

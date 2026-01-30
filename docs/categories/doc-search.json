@@ -1,0 +1,20 @@
+{
+  "category": "doc-search",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.465983Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Token-efficient documentation search using Serena Document Index. 90%+ token savings vs reading full files. Use BEFORE reading README.md or docs/ files. Triggers on architecture questions, pattern loo",
+      "repo": "1ambda/dataops-platform",
+      "path": "doc-search",
+      "branch": "main",
+      "category": "doc-search",
+      "tags": [],
+      "stars": 0,
+      "install": "1ambda/dataops-platform/doc-search",
+      "source": "github.com/1ambda/dataops-platform"
+    }
+  ]
+}

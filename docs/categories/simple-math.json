@@ -1,0 +1,20 @@
+{
+  "category": "simple-math",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.004182Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Perform basic arithmetic operations safely using standard operators without eval or exec",
+      "repo": "cisco-ai-defense/skill-scanner",
+      "path": "simple-math",
+      "branch": "main",
+      "category": "simple-math",
+      "tags": [],
+      "stars": 0,
+      "install": "cisco-ai-defense/skill-scanner/simple-math",
+      "source": "github.com/cisco-ai-defense/skill-scanner"
+    }
+  ]
+}

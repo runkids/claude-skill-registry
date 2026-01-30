@@ -1,0 +1,20 @@
+{
+  "category": "debug-skills",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.054014Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic error debugging with analysis, solution discovery, and verification",
+      "repo": "cedricfressin/claude-config",
+      "path": "debug-skills",
+      "branch": "main",
+      "category": "debug-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "cedricfressin/claude-config/debug-skills",
+      "source": "github.com/cedricfressin/claude-config"
+    }
+  ]
+}

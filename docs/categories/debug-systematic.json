@@ -1,0 +1,20 @@
+{
+  "category": "debug-systematic",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.054373Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic debugging workflow with hypothesis testing",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "debug-systematic",
+      "branch": "main",
+      "category": "debug-systematic",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/debug-systematic",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

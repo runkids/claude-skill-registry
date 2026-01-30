@@ -1,0 +1,20 @@
+{
+  "category": "github-oauth-nango-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.772416Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementing GitHub OAuth + GitHub App authentication with Nango - provides two-connection pattern for user login and repo access with webhook handling",
+      "repo": "AgentWorkforce/relay",
+      "path": "github-oauth-nango-integration",
+      "branch": "main",
+      "category": "github-oauth-nango-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentWorkforce/relay/github-oauth-nango-integration",
+      "source": "github.com/AgentWorkforce/relay"
+    }
+  ]
+}

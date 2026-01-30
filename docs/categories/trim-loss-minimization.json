@@ -1,0 +1,20 @@
+{
+  "category": "trim-loss-minimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.313875Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to minimize material waste, reduce trim loss, or optimize material utilization in cutting operations. Also use when the user mentions \"waste minimization,\" \"scrap reduction,\" \"mate",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "trim-loss-minimization",
+      "branch": "main",
+      "category": "trim-loss-minimization",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/trim-loss-minimization",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "nesting-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.231419Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to nest irregular shapes on sheets, pack non-rectangular parts optimally, or solve nesting problems for manufacturing. Also use when the user mentions \"nesting,\" \"irregular shape p",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "nesting-optimization",
+      "branch": "main",
+      "category": "nesting-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/nesting-optimization",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "prompt-injection",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.704870Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A test skill with prompt injection patterns",
+      "repo": "cisco-ai-defense/skill-scanner",
+      "path": "prompt-injection",
+      "branch": "main",
+      "category": "prompt-injection",
+      "tags": [],
+      "stars": 0,
+      "install": "cisco-ai-defense/skill-scanner/prompt-injection",
+      "source": "github.com/cisco-ai-defense/skill-scanner"
+    }
+  ]
+}

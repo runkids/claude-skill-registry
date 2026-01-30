@@ -1,0 +1,20 @@
+{
+  "category": "dojo-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.519789Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when setting up dojo.js SDK in a frontend project. Triggers: setup dojo, initialize dojo, configure dojo, dojoengine setup, sdk init, DojoSdkProvider, world address, torii url, dojo config",
+      "repo": "dojoengine/dojo.js",
+      "path": "dojo-setup",
+      "branch": "main",
+      "category": "dojo-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "dojoengine/dojo.js/dojo-setup",
+      "source": "github.com/dojoengine/dojo.js"
+    }
+  ]
+}

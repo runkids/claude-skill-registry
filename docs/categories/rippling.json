@@ -1,0 +1,20 @@
+{
+  "category": "rippling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.846897Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage workforce operations with Rippling's unified HR, IT, and Finance platform.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "rippling",
+      "branch": "main",
+      "category": "rippling",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/rippling",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "s3-bucket-policy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.875259Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по S3 политикам. Используй для IAM policies, bucket permissions, cross-account access и security best practices.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "s3-bucket-policy",
+      "branch": "main",
+      "category": "s3-bucket-policy",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/s3-bucket-policy",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

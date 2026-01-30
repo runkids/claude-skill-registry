@@ -1,0 +1,20 @@
+{
+  "category": "ha-automation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.816130Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and debug Home Assistant automations, scripts, blueprints, and Jinja2 templates. Use when working with triggers, conditions, actions, automation YAML, scripts, blueprints, or template expressio",
+      "repo": "nodnarbnitram/claude-code-extensions",
+      "path": "ha-automation",
+      "branch": "main",
+      "category": "ha-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "nodnarbnitram/claude-code-extensions/ha-automation",
+      "source": "github.com/nodnarbnitram/claude-code-extensions"
+    }
+  ]
+}

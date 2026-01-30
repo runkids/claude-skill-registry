@@ -1,0 +1,20 @@
+{
+  "category": "tanstack-ai",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.159273Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Status: Production Ready ✅",
+      "repo": "secondsky/claude-skills",
+      "path": "tanstack-ai",
+      "branch": "main",
+      "category": "tanstack-ai",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills/tanstack-ai",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

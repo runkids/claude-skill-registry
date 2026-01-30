@@ -1,0 +1,20 @@
+{
+  "category": "documentation-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.479183Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when writing code documentation: JSDoc comments, README files, API documentation, and inline comments.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "documentation-patterns",
+      "branch": "main",
+      "category": "documentation-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/documentation-patterns",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

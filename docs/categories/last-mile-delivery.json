@@ -1,0 +1,20 @@
+{
+  "category": "last-mile-delivery",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.976991Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize last-mile delivery operations, urban logistics, or final-mile fulfillment. Also use when the user mentions \"last mile,\" \"final mile,\" \"urban delivery,\" \"home delivery,\"",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "last-mile-delivery",
+      "branch": "main",
+      "category": "last-mile-delivery",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/last-mile-delivery",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

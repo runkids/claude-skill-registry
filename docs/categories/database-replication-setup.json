@@ -1,0 +1,20 @@
+{
+  "category": "database-replication-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.041732Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт DB replication. Используй для настройки репликации MySQL, PostgreSQL, MongoDB, failover и high availability.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "database-replication-setup",
+      "branch": "main",
+      "category": "database-replication-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/database-replication-setup",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

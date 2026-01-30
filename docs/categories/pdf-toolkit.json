@@ -1,0 +1,20 @@
+{
+  "category": "pdf-toolkit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.554907Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive PDF manipulation - merge, split, rotate, extract pages, add watermarks, compress, and encrypt PDFs programmatically.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "pdf-toolkit",
+      "branch": "main",
+      "category": "pdf-toolkit",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/pdf-toolkit",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

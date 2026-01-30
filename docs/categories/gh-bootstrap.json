@@ -1,0 +1,20 @@
+{
+  "category": "gh-bootstrap",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.750726Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "一站式 GitHub 仓库配置初始化工具。",
+      "repo": "Prorise-cool/prorise-claude-skills",
+      "path": "gh-bootstrap",
+      "branch": "main",
+      "category": "gh-bootstrap",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/prorise-claude-skills/gh-bootstrap",
+      "source": "github.com/Prorise-cool/prorise-claude-skills"
+    }
+  ]
+}

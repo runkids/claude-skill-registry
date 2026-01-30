@@ -1,0 +1,20 @@
+{
+  "category": "call-highlights",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.481634Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to capture, tag, and distribute call clips for coaching and enablement programs.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "call-highlights",
+      "branch": "main",
+      "category": "call-highlights",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/call-highlights",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

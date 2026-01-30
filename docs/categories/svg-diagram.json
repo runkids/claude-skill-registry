@@ -1,0 +1,20 @@
+{
+  "category": "svg-diagram",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.127815Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "정교한 SVG 아키텍처 다이어그램이 필요할 때",
+      "repo": "younwony/younwony.github.io",
+      "path": "svg-diagram",
+      "branch": "main",
+      "category": "svg-diagram",
+      "tags": [],
+      "stars": 0,
+      "install": "younwony/younwony.github.io/svg-diagram",
+      "source": "github.com/younwony/younwony.github.io"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "linear-multi-env-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.024368Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure Linear across development, staging, and production environments. Use when setting up multi-environment deployments, managing per-environment API keys, or implementing environment-specific Li",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "linear-multi-env-setup",
+      "branch": "main",
+      "category": "linear-multi-env-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/linear-multi-env-setup",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

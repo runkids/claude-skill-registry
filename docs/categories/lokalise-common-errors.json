@@ -1,0 +1,20 @@
+{
+  "category": "lokalise-common-errors",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.053751Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diagnose and fix Lokalise common errors and exceptions. Use when encountering Lokalise errors, debugging failed requests, or troubleshooting integration issues. Trigger with phrases like \"lokalise err",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "lokalise-common-errors",
+      "branch": "main",
+      "category": "lokalise-common-errors",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/lokalise-common-errors",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "dockerfile-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.471046Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate optimized Dockerfiles with multi-stage builds and best practices. Use when containerizing applications or creating Docker configurations.",
+      "repo": "ntaksh42/agents",
+      "path": "dockerfile-generator",
+      "branch": "main",
+      "category": "dockerfile-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents/dockerfile-generator",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

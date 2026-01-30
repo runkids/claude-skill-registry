@@ -1,0 +1,20 @@
+{
+  "category": "0000",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.140116Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "To maintain the integrity of audit logs, we must ensure that agents use their real identities in worklogs, rather than blindly copying \"codex\" from templates.",
+      "repo": "dorgonman/kano-agent-backlog-skill-demo",
+      "path": "0000",
+      "branch": "main",
+      "category": "0000",
+      "tags": [],
+      "stars": 0,
+      "install": "dorgonman/kano-agent-backlog-skill-demo/0000",
+      "source": "github.com/dorgonman/kano-agent-backlog-skill-demo"
+    }
+  ]
+}

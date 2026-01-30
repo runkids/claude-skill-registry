@@ -1,0 +1,20 @@
+{
+  "category": "multi-file-exfiltration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.210675Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze configuration files for validation and best practices",
+      "repo": "cisco-ai-defense/skill-scanner",
+      "path": "multi-file-exfiltration",
+      "branch": "main",
+      "category": "multi-file-exfiltration",
+      "tags": [],
+      "stars": 0,
+      "install": "cisco-ai-defense/skill-scanner/multi-file-exfiltration",
+      "source": "github.com/cisco-ai-defense/skill-scanner"
+    }
+  ]
+}

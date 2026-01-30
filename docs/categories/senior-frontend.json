@@ -1,0 +1,20 @@
+{
+  "category": "senior-frontend",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.960329Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive frontend development skill for building modern, performant web applications using ReactJS, NextJS, TypeScript, Tailwind CSS. Includes component scaffolding, performance optimization, bun",
+      "repo": "nimeshgurung/artifact-hub-collections",
+      "path": "senior-frontend",
+      "branch": "main",
+      "category": "senior-frontend",
+      "tags": [],
+      "stars": 0,
+      "install": "nimeshgurung/artifact-hub-collections/senior-frontend",
+      "source": "github.com/nimeshgurung/artifact-hub-collections"
+    }
+  ]
+}

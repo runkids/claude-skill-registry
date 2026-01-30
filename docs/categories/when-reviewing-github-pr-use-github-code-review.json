@@ -1,0 +1,20 @@
+{
+  "category": "when-reviewing-github-pr-use-github-code-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.464730Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive GitHub pull request code review using multi-agent swarm with specialized reviewers for security, performance, style, tests, and documentation. Coordinates security-auditor, perf-analyzer",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "when-reviewing-github-pr-use-github-code-review",
+      "branch": "main",
+      "category": "when-reviewing-github-pr-use-github-code-review",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension/when-reviewing-github-pr-use-github-code-review",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

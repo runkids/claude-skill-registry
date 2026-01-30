@@ -1,0 +1,20 @@
+{
+  "category": "tzurot-slash-command-ux",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.332653Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementing Discord slash commands, building list/browse UX, adding buttons or pagination, or creating dashboard patterns. Covers standard naming, shared utilities, and confirmation flows.",
+      "repo": "lbds137/tzurot",
+      "path": "tzurot-slash-command-ux",
+      "branch": "main",
+      "category": "tzurot-slash-command-ux",
+      "tags": [],
+      "stars": 0,
+      "install": "lbds137/tzurot/tzurot-slash-command-ux",
+      "source": "github.com/lbds137/tzurot"
+    }
+  ]
+}

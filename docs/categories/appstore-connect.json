@@ -1,0 +1,20 @@
+{
+  "category": "appstore-connect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.339010Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with App Store Connect, TestFlight builds, beta testers, beta groups, or checking build review status. Covers iOS app management, TestFlight distribution, and beta testing workflows.",
+      "repo": "dglowacki/mega-agent-v2",
+      "path": "appstore-connect",
+      "branch": "main",
+      "category": "appstore-connect",
+      "tags": [],
+      "stars": 0,
+      "install": "dglowacki/mega-agent-v2/appstore-connect",
+      "source": "github.com/dglowacki/mega-agent-v2"
+    }
+  ]
+}

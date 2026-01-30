@@ -1,0 +1,20 @@
+{
+  "category": "issue-create",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.906187Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create GitHub issues from conversation context (general, bug reports, or feature requests)",
+      "repo": "vm0-ai/vm0",
+      "path": "issue-create",
+      "branch": "main",
+      "category": "issue-create",
+      "tags": [],
+      "stars": 0,
+      "install": "vm0-ai/vm0/issue-create",
+      "source": "github.com/vm0-ai/vm0"
+    }
+  ]
+}

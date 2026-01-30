@@ -1,0 +1,20 @@
+{
+  "category": "fastapi",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.635721Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "FastAPI patterns for building high-performance Python APIs. Covers routing, dependency injection, Pydantic models, background tasks, WebSockets, testing, and production deployment.",
+      "repo": "Syedaashnaghazanfar/todo-app",
+      "path": "fastapi",
+      "branch": "main",
+      "category": "fastapi",
+      "tags": [],
+      "stars": 0,
+      "install": "Syedaashnaghazanfar/todo-app/fastapi",
+      "source": "github.com/Syedaashnaghazanfar/todo-app"
+    }
+  ]
+}

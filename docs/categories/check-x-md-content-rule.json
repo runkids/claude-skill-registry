@@ -1,0 +1,20 @@
+{
+  "category": "check-x-md-content-rule",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.518925Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "check-x-md-content-rule",
+      "branch": "main",
+      "category": "check-x-md-content-rule",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/check-x-md-content-rule",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

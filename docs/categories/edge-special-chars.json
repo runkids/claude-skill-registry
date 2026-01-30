@@ -1,0 +1,20 @@
+{
+  "category": "edge-special-chars",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.553897Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A skill for testing special characters and injection patterns",
+      "repo": "maxvaega/skillkit",
+      "path": "edge-special-chars",
+      "branch": "main",
+      "category": "edge-special-chars",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit/edge-special-chars",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "tg",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.278461Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Telegram CLI for reading, searching, and sending messages. Use when the user asks about Telegram messages, wants to check inbox, search chats, send messages, or look up contacts and groups.",
+      "repo": "moltbot/skills",
+      "path": "tg",
+      "branch": "main",
+      "category": "tg",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/tg",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "jq",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.929880Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "JSON processor for filtering, transforming, and manipulating JSON data in command line.",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "jq",
+      "branch": "main",
+      "category": "jq",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet/jq",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

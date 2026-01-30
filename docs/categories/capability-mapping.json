@@ -1,0 +1,20 @@
+{
+  "category": "capability-mapping",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.485230Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Business capability modeling using BABOK Business Capability Analysis. Creates hierarchical capability maps (L1-L3) linking strategy to architecture with Mermaid visualization.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "capability-mapping",
+      "branch": "main",
+      "category": "capability-mapping",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent/capability-mapping",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "create-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.701503Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a concise plan. Use when a user explicitly asks for a plan related to a coding task.",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "create-plan",
+      "branch": "main",
+      "category": "create-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/create-plan",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

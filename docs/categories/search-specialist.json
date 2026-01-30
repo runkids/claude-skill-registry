@@ -1,0 +1,20 @@
+{
+  "category": "search-specialist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.931245Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert web researcher using advanced search techniques and synthesis. Masters search operators, result filtering, and multi-source verification. Handles competitive analysis and fact-checking. Use PRO",
+      "repo": "rmyndharis/antigravity-skills",
+      "path": "search-specialist",
+      "branch": "main",
+      "category": "search-specialist",
+      "tags": [],
+      "stars": 0,
+      "install": "rmyndharis/antigravity-skills/search-specialist",
+      "source": "github.com/rmyndharis/antigravity-skills"
+    }
+  ]
+}

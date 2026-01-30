@@ -1,0 +1,20 @@
+{
+  "category": "uniapp-project",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.341984Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive uni-app component and API integration guidance. Use when the user needs official uni-app components or APIs, wants per-component or per-API examples, or needs cross-platform com",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "uniapp-project",
+      "branch": "main",
+      "category": "uniapp-project",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/uniapp-project",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

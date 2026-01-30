@@ -1,0 +1,20 @@
+{
+  "category": "kratos-wire-provider",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.959721Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manages Wire dependency injection providers in go-kratos microservices. Adds constructors to ProviderSets and regenerates Wire code. Use when integrating new components into dependency injection.",
+      "repo": "alecszaharia/brizy-microservices-go",
+      "path": "kratos-wire-provider",
+      "branch": "main",
+      "category": "kratos-wire-provider",
+      "tags": [],
+      "stars": 0,
+      "install": "alecszaharia/brizy-microservices-go/kratos-wire-provider",
+      "source": "github.com/alecszaharia/brizy-microservices-go"
+    }
+  ]
+}

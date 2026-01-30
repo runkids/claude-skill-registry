@@ -1,0 +1,20 @@
+{
+  "category": "fiber-scheduling-theory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.656839Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply deep knowledge of Fiber scheduling to reason about rendering priorities, preemption, and starvation avoidance.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "fiber-scheduling-theory",
+      "branch": "main",
+      "category": "fiber-scheduling-theory",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/fiber-scheduling-theory",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

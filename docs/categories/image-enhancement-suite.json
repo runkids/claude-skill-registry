@@ -1,0 +1,20 @@
+{
+  "category": "image-enhancement-suite",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.860467Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Batch image processing: resize, crop, watermark, color correction, format conversion, compression. Quality presets for web, print, and social media.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "image-enhancement-suite",
+      "branch": "main",
+      "category": "image-enhancement-suite",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/image-enhancement-suite",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

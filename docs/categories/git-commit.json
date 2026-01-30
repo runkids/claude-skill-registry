@@ -1,0 +1,20 @@
+{
+  "category": "git-commit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.755700Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Stage meaningful diffs and create commits with WHY-focused messages. Use whenever making git commits.",
+      "repo": "staticWagomU/dotfiles",
+      "path": "git-commit",
+      "branch": "main",
+      "category": "git-commit",
+      "tags": [],
+      "stars": 0,
+      "install": "staticWagomU/dotfiles/git-commit",
+      "source": "github.com/staticWagomU/dotfiles"
+    }
+  ]
+}

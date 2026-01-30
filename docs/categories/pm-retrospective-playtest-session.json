@@ -1,0 +1,20 @@
+{
+  "category": "pm-retrospective-playtest-session",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.598871Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Request and process playtest session from Game Designer after retrospective synthesis",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "pm-retrospective-playtest-session",
+      "branch": "main",
+      "category": "pm-retrospective-playtest-session",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/pm-retrospective-playtest-session",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

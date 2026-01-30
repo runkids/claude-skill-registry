@@ -1,0 +1,20 @@
+{
+  "category": "ide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.854977Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "几个我日常工作以及阅读源码必备的 IntelliJ IDEA 高级调试技巧，分分钟要起飞的节奏。",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "ide",
+      "branch": "main",
+      "category": "ide",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/ide",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

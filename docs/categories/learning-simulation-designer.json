@@ -1,0 +1,20 @@
+{
+  "category": "learning-simulation-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.996487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "simulation-designer for engaging, immersive learning experiences.",
+      "repo": "pauljbernard/content",
+      "path": "learning-simulation-designer",
+      "branch": "main",
+      "category": "learning-simulation-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content/learning-simulation-designer",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

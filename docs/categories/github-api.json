@@ -1,0 +1,20 @@
+{
+  "category": "github-api",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.768165Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access GitHub API using gh CLI in sandboxed environment - install binary, authenticate with tokens, query repos, PRs, issues, workflow runs, and download artifacts",
+      "repo": "starwards/starwards",
+      "path": "github-api",
+      "branch": "main",
+      "category": "github-api",
+      "tags": [],
+      "stars": 0,
+      "install": "starwards/starwards/github-api",
+      "source": "github.com/starwards/starwards"
+    }
+  ]
+}

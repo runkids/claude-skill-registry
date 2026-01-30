@@ -1,0 +1,20 @@
+{
+  "category": "rule-validator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.860614Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate code compliance with Gemini mod rules (core, modules, features, UI, WebSocket, state)",
+      "repo": "Ariedam64/Gemini",
+      "path": "rule-validator",
+      "branch": "main",
+      "category": "rule-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "Ariedam64/Gemini/rule-validator",
+      "source": "github.com/Ariedam64/Gemini"
+    }
+  ]
+}

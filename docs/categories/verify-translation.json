@@ -1,0 +1,20 @@
+{
+  "category": "verify-translation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.407520Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Capture all manual pages and verify translations match page images using AI-powered checking. Identifies extraction failures and can regenerate extracted text from images.",
+      "repo": "Takazudo/takazudomodular-manuals",
+      "path": "verify-translation",
+      "branch": "main",
+      "category": "verify-translation",
+      "tags": [],
+      "stars": 0,
+      "install": "Takazudo/takazudomodular-manuals/verify-translation",
+      "source": "github.com/Takazudo/takazudomodular-manuals"
+    }
+  ]
+}

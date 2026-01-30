@@ -1,0 +1,20 @@
+{
+  "category": "whole-brain-emulation-core-simulation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.467567Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Simulate whole-brain emulation core processes.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "whole-brain-emulation-core-simulation",
+      "branch": "main",
+      "category": "whole-brain-emulation-core-simulation",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/whole-brain-emulation-core-simulation",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

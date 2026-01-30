@@ -1,0 +1,20 @@
+{
+  "category": "discover",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.456473Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Read product and technical docs, then summarize requirements and gaps.",
+      "repo": "EtroxTaran/conductor",
+      "path": "discover",
+      "branch": "main",
+      "category": "discover",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor/discover",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

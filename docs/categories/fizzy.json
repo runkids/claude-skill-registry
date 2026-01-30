@@ -1,0 +1,20 @@
+{
+  "category": "fizzy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.676315Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manages Fizzy boards, cards, steps, comments, and reactions. Use when user asks about boards, cards, tasks, backlog or anything Fizzy.",
+      "repo": "moltbot/skills",
+      "path": "fizzy",
+      "branch": "main",
+      "category": "fizzy",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/fizzy",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "codebase-documenter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.601186Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates comprehensive documentation explaining how a codebase works, including architecture, key components, data flow, and development guidelines. Use when user wants to understand unfamiliar code,",
+      "repo": "mhattingpete/claude-skills-marketplace",
+      "path": "codebase-documenter",
+      "branch": "main",
+      "category": "codebase-documenter",
+      "tags": [],
+      "stars": 0,
+      "install": "mhattingpete/claude-skills-marketplace/codebase-documenter",
+      "source": "github.com/mhattingpete/claude-skills-marketplace"
+    }
+  ]
+}

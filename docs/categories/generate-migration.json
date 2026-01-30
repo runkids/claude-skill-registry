@@ -1,0 +1,20 @@
+{
+  "category": "generate-migration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.741535Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate Django database migrations for Sentry. Use when creating migrations, adding/removing columns or tables, adding indexes, or resolving migration conflicts.",
+      "repo": "getsentry/sentry",
+      "path": "generate-migration",
+      "branch": "main",
+      "category": "generate-migration",
+      "tags": [],
+      "stars": 0,
+      "install": "getsentry/sentry/generate-migration",
+      "source": "github.com/getsentry/sentry"
+    }
+  ]
+}

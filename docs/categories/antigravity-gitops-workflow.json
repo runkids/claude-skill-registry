@@ -1,0 +1,20 @@
+{
+  "category": "antigravity-gitops-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.309898Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement GitOps workflows with ArgoCD and Flux for automated, declarative Kubernetes deployments with continuous reconciliation. Use when implementing GitOps practices, automating Kubernetes deployme",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-gitops-workflow",
+      "branch": "main",
+      "category": "antigravity-gitops-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/antigravity-gitops-workflow",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

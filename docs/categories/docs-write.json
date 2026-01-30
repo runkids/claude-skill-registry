@@ -1,0 +1,20 @@
+{
+  "category": "docs-write",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.475282Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write documentation following Metabase's conversational, clear, and user-focused style. Use when creating or editing documentation files (markdown, MDX, etc.).",
+      "repo": "Kidoz-SDK/metabase",
+      "path": "docs-write",
+      "branch": "main",
+      "category": "docs-write",
+      "tags": [],
+      "stars": 0,
+      "install": "Kidoz-SDK/metabase/docs-write",
+      "source": "github.com/Kidoz-SDK/metabase"
+    }
+  ]
+}

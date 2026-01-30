@@ -1,0 +1,20 @@
+{
+  "category": "meta-skill-router",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.123592Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Intelligent skill selection system that automatically routes to appropriate skills based on user intent, context, and project requirements. Enforces quality gates and optimizes development workflow.",
+      "repo": "endlessblink/flow-state",
+      "path": "meta-skill-router",
+      "branch": "main",
+      "category": "meta-skill-router",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/meta-skill-router",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "peekaboo",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.555992Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Capture and automate macOS UI with the Peekaboo CLI.",
+      "repo": "Youjjwal/clawdbot",
+      "path": "peekaboo",
+      "branch": "main",
+      "category": "peekaboo",
+      "tags": [],
+      "stars": 0,
+      "install": "Youjjwal/clawdbot/peekaboo",
+      "source": "github.com/Youjjwal/clawdbot"
+    }
+  ]
+}

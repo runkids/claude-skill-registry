@@ -1,0 +1,20 @@
+{
+  "category": "storyboard-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.096896Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create detailed storyboards from ad scripts with 2-4 second elements, B-roll specs, and AI generation prompts. Use when preparing scripts for editors, planning video shoots, or generating production-r",
+      "repo": "WalkerHi11/mediabuy-plugins",
+      "path": "storyboard-generator",
+      "branch": "main",
+      "category": "storyboard-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "WalkerHi11/mediabuy-plugins/storyboard-generator",
+      "source": "github.com/WalkerHi11/mediabuy-plugins"
+    }
+  ]
+}

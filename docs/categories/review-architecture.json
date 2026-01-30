@@ -1,0 +1,20 @@
+{
+  "category": "review-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.839572Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Architecture-focused review covering boundaries, performance, scalability, and API contracts. Spawns the senior-review-specialist agent for architectural analysis.",
+      "repo": "jayteealao/Aperture",
+      "path": "review-architecture",
+      "branch": "main",
+      "category": "review-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture/review-architecture",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

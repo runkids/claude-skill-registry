@@ -1,0 +1,20 @@
+{
+  "category": "speckit-tasks",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.056704Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate an actionable, dependency-ordered tasks.md for the feature based on available design artifacts.",
+      "repo": "dceoy/speckit-agent-skills",
+      "path": "speckit-tasks",
+      "branch": "main",
+      "category": "speckit-tasks",
+      "tags": [],
+      "stars": 0,
+      "install": "dceoy/speckit-agent-skills/speckit-tasks",
+      "source": "github.com/dceoy/speckit-agent-skills"
+    }
+  ]
+}

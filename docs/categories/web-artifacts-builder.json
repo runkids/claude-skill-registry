@@ -1,0 +1,20 @@
+{
+  "category": "web-artifacts-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.443933Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state manag",
+      "repo": "anthropics/skills",
+      "path": "web-artifacts-builder",
+      "branch": "main",
+      "category": "web-artifacts-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "anthropics/skills/web-artifacts-builder",
+      "source": "github.com/anthropics/skills"
+    }
+  ]
+}

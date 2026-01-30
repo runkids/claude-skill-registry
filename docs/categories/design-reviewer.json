@@ -1,0 +1,20 @@
+{
+  "category": "design-reviewer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.157716Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Copilot agent that assists with systematic design review using ATAM (Architecture Tradeoff Analysis Method), SOLID principles, design patterns, coupling/cohesion analysis, error handling, and security",
+      "repo": "nahisaho/MUSUBI",
+      "path": "design-reviewer",
+      "branch": "main",
+      "category": "design-reviewer",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/MUSUBI/design-reviewer",
+      "source": "github.com/nahisaho/MUSUBI"
+    }
+  ]
+}

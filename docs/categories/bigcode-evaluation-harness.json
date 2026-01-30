@@ -1,0 +1,20 @@
+{
+  "category": "bigcode-evaluation-harness",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.428831Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Evaluates code generation models across HumanEval, MBPP, MultiPL-E, and 15+ benchmarks with pass@k metrics. Use when benchmarking code models, comparing coding abilities, testing multi-language suppor",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "bigcode-evaluation-harness",
+      "branch": "main",
+      "category": "bigcode-evaluation-harness",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/bigcode-evaluation-harness",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

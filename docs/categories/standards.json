@@ -1,0 +1,20 @@
+{
+  "category": "standards",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.079055Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plaited code conventions and development standards. Use when writing or editing TypeScript code in Plaited projects, following code conventions (type system, function style, imports), generating code,",
+      "repo": "plaited/plaited",
+      "path": "standards",
+      "branch": "main",
+      "category": "standards",
+      "tags": [],
+      "stars": 0,
+      "install": "plaited/plaited/standards",
+      "source": "github.com/plaited/plaited"
+    }
+  ]
+}

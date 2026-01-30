@@ -1,0 +1,20 @@
+{
+  "category": "backend-kotlin",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.407942Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Kotlin Developer Agent. Kotlin 기반 백엔드 개발을 담당합니다. Coroutines, Ktor, Spring Boot + Kotlin 전문.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "backend-kotlin",
+      "branch": "main",
+      "category": "backend-kotlin",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin/backend-kotlin",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "hypothesis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.848598Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use Hypothesis for property-based testing to automatically generate comprehensive test cases, find edge cases, and write more robust tests with minimal example shrinking. Includes Polars parametric te",
+      "repo": "anam-org/metaxy",
+      "path": "hypothesis",
+      "branch": "main",
+      "category": "hypothesis",
+      "tags": [],
+      "stars": 0,
+      "install": "anam-org/metaxy/hypothesis",
+      "source": "github.com/anam-org/metaxy"
+    }
+  ]
+}

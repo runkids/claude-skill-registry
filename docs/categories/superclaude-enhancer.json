@@ -1,0 +1,20 @@
+{
+  "category": "superclaude-enhancer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.121312Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SuperClaude 增强层 Skill，为其他 Skills 提供 SuperClaude 能力增强。 支持前置分析、后置审查、智能建议等增强模式。",
+      "repo": "wade56754/AI_ad_spend02",
+      "path": "superclaude-enhancer",
+      "branch": "main",
+      "category": "superclaude-enhancer",
+      "tags": [],
+      "stars": 0,
+      "install": "wade56754/AI_ad_spend02/superclaude-enhancer",
+      "source": "github.com/wade56754/AI_ad_spend02"
+    }
+  ]
+}

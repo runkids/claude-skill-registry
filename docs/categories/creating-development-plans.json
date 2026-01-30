@@ -1,0 +1,20 @@
+{
+  "category": "creating-development-plans",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.712019Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates structured development plans with phased task breakdowns, requirements, and QA checklists. Use when the user explicitly asks to create a dev plan, development plan, or document development req",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "creating-development-plans",
+      "branch": "main",
+      "category": "creating-development-plans",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/creating-development-plans",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "fail-fast-no-hedging",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.632638Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Eliminate component hedging anti-patterns that mask infrastructure failures. Build systems that fail loudly when broken instead of limping along in degraded states. Critical for production reliability",
+      "repo": "taylorsatula/mira-OSS",
+      "path": "fail-fast-no-hedging",
+      "branch": "main",
+      "category": "fail-fast-no-hedging",
+      "tags": [],
+      "stars": 0,
+      "install": "taylorsatula/mira-OSS/fail-fast-no-hedging",
+      "source": "github.com/taylorsatula/mira-OSS"
+    }
+  ]
+}

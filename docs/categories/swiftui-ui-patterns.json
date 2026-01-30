@@ -1,0 +1,20 @@
+{
+  "category": "swiftui-ui-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.134002Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Best practices and example-driven guidance for building SwiftUI views and components. Use when creating or refactoring SwiftUI UI, designing tab architecture with TabView, composing screens, or needin",
+      "repo": "dandedotdev/dotfiles",
+      "path": "swiftui-ui-patterns",
+      "branch": "main",
+      "category": "swiftui-ui-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "dandedotdev/dotfiles/swiftui-ui-patterns",
+      "source": "github.com/dandedotdev/dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "six-thinking-hats",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.009051Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply Edward de Bono's Six Thinking Hats methodology to software testing for comprehensive quality analysis. Use when designing test strategies, conducting test retrospectives, analyzing test failures",
+      "repo": "proffesor-for-testing/sentinel-api-testing",
+      "path": "six-thinking-hats",
+      "branch": "main",
+      "category": "six-thinking-hats",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/sentinel-api-testing/six-thinking-hats",
+      "source": "github.com/proffesor-for-testing/sentinel-api-testing"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "dendrite-reforging-protocol",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.070284Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reforge neural dendrite patterns after catastrophic failure.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "dendrite-reforging-protocol",
+      "branch": "main",
+      "category": "dendrite-reforging-protocol",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/dendrite-reforging-protocol",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

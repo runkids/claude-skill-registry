@@ -1,0 +1,20 @@
+{
+  "category": "export",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.625710Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PDF/PPTX 내보내기가 필요할 때",
+      "repo": "younwony/younwony.github.io",
+      "path": "export",
+      "branch": "main",
+      "category": "export",
+      "tags": [],
+      "stars": 0,
+      "install": "younwony/younwony.github.io/export",
+      "source": "github.com/younwony/younwony.github.io"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "auth-security",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.373583Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "name: auth-security",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "auth-security",
+      "branch": "main",
+      "category": "auth-security",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/auth-security",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

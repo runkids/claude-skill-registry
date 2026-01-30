@@ -1,0 +1,20 @@
+{
+  "category": "move-prover",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.205851Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Move Prover formal verification expert for Aptos smart contracts. Write specifications (MSL), preconditions (requires), postconditions (ensures), invariants, abort conditions (aborts_if), quantifiers,",
+      "repo": "raintree-technology/claude-starter",
+      "path": "move-prover",
+      "branch": "main",
+      "category": "move-prover",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/move-prover",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

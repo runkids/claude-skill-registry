@@ -1,0 +1,20 @@
+{
+  "category": "multicultural-holidays",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.215059Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert on multicultural heritage traditions, holidays, and celebrations. Use for maintaining holiday theme features, adding new cultural events, ensuring cultural sensitivity, and managing the data-dr",
+      "repo": "wildcard/caro",
+      "path": "multicultural-holidays",
+      "branch": "main",
+      "category": "multicultural-holidays",
+      "tags": [],
+      "stars": 0,
+      "install": "wildcard/caro/multicultural-holidays",
+      "source": "github.com/wildcard/caro"
+    }
+  ]
+}

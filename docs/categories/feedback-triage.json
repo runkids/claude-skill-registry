@@ -1,0 +1,20 @@
+{
+  "category": "feedback-triage",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.650603Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when receiving UAT feedback, bug reports, user testing results, stakeholder feedback, QA findings, or any batch of issues to investigate. Investigates each item BEFORE creating issues, classifies",
+      "repo": "troykelly/claude-skills",
+      "path": "feedback-triage",
+      "branch": "main",
+      "category": "feedback-triage",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/feedback-triage",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

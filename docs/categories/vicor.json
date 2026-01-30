@@ -1,0 +1,20 @@
+{
+  "category": "vicor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.413881Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Vicor Corporation MPN encoding patterns for high-performance power modules, DC-DC converters, and ZVS regulators. Use when working with Vicor power components or VicorHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "vicor",
+      "branch": "main",
+      "category": "vicor",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/vicor",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "system-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.140606Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design multi-service architectures with RAW workflows as components",
+      "repo": "mpuig/raw",
+      "path": "system-architecture",
+      "branch": "main",
+      "category": "system-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "mpuig/raw/system-architecture",
+      "source": "github.com/mpuig/raw"
+    }
+  ]
+}

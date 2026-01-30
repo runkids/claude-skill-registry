@@ -1,0 +1,20 @@
+{
+  "category": "customer-lookup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.738080Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Search for customers by email or order number, view their purchase history, subscriptions, and license keys. Use for customer support, refund processing, or account verification. Triggers on \"find cus",
+      "repo": "adrianwedd/lemonsqueezy-claude-skills",
+      "path": "customer-lookup",
+      "branch": "main",
+      "category": "customer-lookup",
+      "tags": [],
+      "stars": 0,
+      "install": "adrianwedd/lemonsqueezy-claude-skills/customer-lookup",
+      "source": "github.com/adrianwedd/lemonsqueezy-claude-skills"
+    }
+  ]
+}

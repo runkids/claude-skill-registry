@@ -1,0 +1,20 @@
+{
+  "category": "dev",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.166738Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Development workflows for WordPress ActivityPub plugin including wp-env setup, testing commands, linting, and build processes. Use when setting up development environment, running tests, checking code",
+      "repo": "Automattic/wordpress-activitypub",
+      "path": "dev",
+      "branch": "main",
+      "category": "dev",
+      "tags": [],
+      "stars": 0,
+      "install": "Automattic/wordpress-activitypub/dev",
+      "source": "github.com/Automattic/wordpress-activitypub"
+    }
+  ]
+}

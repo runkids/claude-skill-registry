@@ -1,0 +1,20 @@
+{
+  "category": "dotnet-cqrs-api",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.527723Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for building .NET APIs using CQRS pattern with MediatR, FluentValidation, and Carter modules",
+      "repo": "alanben/ClaudeSkills",
+      "path": "dotnet-cqrs-api",
+      "branch": "main",
+      "category": "dotnet-cqrs-api",
+      "tags": [],
+      "stars": 0,
+      "install": "alanben/ClaudeSkills/dotnet-cqrs-api",
+      "source": "github.com/alanben/ClaudeSkills"
+    }
+  ]
+}

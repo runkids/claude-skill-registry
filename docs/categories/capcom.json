@@ -1,0 +1,20 @@
+{
+  "category": "capcom",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.488792Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check mission status and progress via fresh subagent. Queries Beads for features, tasks, bugs, and recent work activity. Keeps HOUSTON context lean.",
+      "repo": "thebrownproject/space-agents",
+      "path": "capcom",
+      "branch": "main",
+      "category": "capcom",
+      "tags": [],
+      "stars": 0,
+      "install": "thebrownproject/space-agents/capcom",
+      "source": "github.com/thebrownproject/space-agents"
+    }
+  ]
+}

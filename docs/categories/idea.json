@@ -1,0 +1,20 @@
+{
+  "category": "idea",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.855419Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Brainstorm a feature idea, then generate PRDs for Ralph autonomous execution.",
+      "repo": "allierays/agentic-loop",
+      "path": "idea",
+      "branch": "main",
+      "category": "idea",
+      "tags": [],
+      "stars": 0,
+      "install": "allierays/agentic-loop/idea",
+      "source": "github.com/allierays/agentic-loop"
+    }
+  ]
+}

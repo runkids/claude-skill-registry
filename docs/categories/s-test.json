@@ -1,0 +1,20 @@
+{
+  "category": "s-test",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.874810Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write and run unit tests for WoW addons using Busted and the Mechanic test framework. Covers test structure, mocking WoW APIs, and coverage analysis. Use when adding tests, fixing bugs with regression",
+      "repo": "Falkicon/Mechanic",
+      "path": "s-test",
+      "branch": "main",
+      "category": "s-test",
+      "tags": [],
+      "stars": 0,
+      "install": "Falkicon/Mechanic/s-test",
+      "source": "github.com/Falkicon/Mechanic"
+    }
+  ]
+}

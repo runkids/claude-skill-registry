@@ -1,0 +1,20 @@
+{
+  "category": "baseline",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.415301Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating ASCII art to guide your artistic approach",
+      "repo": "gaearon/woodshed",
+      "path": "baseline",
+      "branch": "main",
+      "category": "baseline",
+      "tags": [],
+      "stars": 0,
+      "install": "gaearon/woodshed/baseline",
+      "source": "github.com/gaearon/woodshed"
+    }
+  ]
+}

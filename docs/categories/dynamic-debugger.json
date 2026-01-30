@@ -1,0 +1,20 @@
+{
+  "category": "dynamic-debugger",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.543959Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interactive debugging via DAP-MCP for multiple languages with natural language commands",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "dynamic-debugger",
+      "branch": "main",
+      "category": "dynamic-debugger",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/dynamic-debugger",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

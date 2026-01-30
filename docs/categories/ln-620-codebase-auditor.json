@@ -1,0 +1,20 @@
+{
+  "category": "ln-620-codebase-auditor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.039047Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coordinates 9 specialized audit workers (security, build, architecture, code quality, dependencies, dead code, observability, concurrency, lifecycle). Researches best practices, delegates parallel aud",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "ln-620-codebase-auditor",
+      "branch": "main",
+      "category": "ln-620-codebase-auditor",
+      "tags": [],
+      "stars": 0,
+      "install": "levnikolaevich/claude-code-skills/ln-620-codebase-auditor",
+      "source": "github.com/levnikolaevich/claude-code-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "api-rate-limiting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.327334Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement API rate limiting strategies using token bucket, sliding window, and fixed window algorithms. Use when protecting APIs from abuse, managing traffic, or implementing tiered rate limits.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "api-rate-limiting",
+      "branch": "main",
+      "category": "api-rate-limiting",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/api-rate-limiting",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "viisonary",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.420055Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "name: Visionary Architect",
+      "repo": "rwHiveAqua/_idea_spinner",
+      "path": "viisonary",
+      "branch": "main",
+      "category": "viisonary",
+      "tags": [],
+      "stars": 0,
+      "install": "rwHiveAqua/_idea_spinner/viisonary",
+      "source": "github.com/rwHiveAqua/_idea_spinner"
+    }
+  ]
+}

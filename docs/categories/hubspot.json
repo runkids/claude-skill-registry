@@ -1,0 +1,20 @@
+{
+  "category": "hubspot",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.843739Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "HubSpot CRM and CMS API integration for contacts, companies, deals, owners, and content management.",
+      "repo": "moltbot/skills",
+      "path": "hubspot",
+      "branch": "main",
+      "category": "hubspot",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/hubspot",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

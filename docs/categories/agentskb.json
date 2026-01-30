@@ -1,0 +1,20 @@
+{
+  "category": "agentskb",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.250497Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AgentsKB - Knowledge Base API for AI Agents with 32K+ technical Q&As",
+      "repo": "enuno/claude-command-and-control",
+      "path": "agentskb",
+      "branch": "main",
+      "category": "agentskb",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control/agentskb",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

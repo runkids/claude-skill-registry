@@ -1,0 +1,20 @@
+{
+  "category": "trust-credibility",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.316320Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Principios de BJ Fogg sobre credibilidad en web. Use cuando diseñe para conversión, e-commerce, o cualquier contexto donde la confianza es crítica.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "trust-credibility",
+      "branch": "main",
+      "category": "trust-credibility",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/trust-credibility",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

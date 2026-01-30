@@ -1,0 +1,20 @@
+{
+  "category": "hud",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.844084Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure HUD display options (layout, presets, display elements)",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "hud",
+      "branch": "main",
+      "category": "hud",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/hud",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

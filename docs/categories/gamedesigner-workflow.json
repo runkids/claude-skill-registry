@@ -1,0 +1,20 @@
+{
+  "category": "gamedesigner-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.721402Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete Game Designer workflow - skill invocation protocol, GDD creation, playtest flow with GDD review, design sessions. MUST load before starting assignments.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "gamedesigner-workflow",
+      "branch": "main",
+      "category": "gamedesigner-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/gamedesigner-workflow",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

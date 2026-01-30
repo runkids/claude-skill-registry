@@ -1,0 +1,20 @@
+{
+  "category": "lorcana-rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.056376Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guide for explaining Disney Lorcana TCG rules using indexed reference documents",
+      "repo": "TheCardGoat/tcg-engines",
+      "path": "lorcana-rules",
+      "branch": "main",
+      "category": "lorcana-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "TheCardGoat/tcg-engines/lorcana-rules",
+      "source": "github.com/TheCardGoat/tcg-engines"
+    }
+  ]
+}

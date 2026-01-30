@@ -1,0 +1,20 @@
+{
+  "category": "pre_mortem",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.632636Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Imagine failure first to surface guardrails and feature mitigations.",
+      "repo": "NickCrew/claude-cortex",
+      "path": "pre_mortem",
+      "branch": "main",
+      "category": "pre_mortem",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex/pre_mortem",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "cdn-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.499580Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when designing content delivery networks, caching strategies, or global content distribution. Covers CDN architecture, cache hierarchies, origin shielding, cache invalidation, and edge optimizatio",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "cdn-architecture",
+      "branch": "main",
+      "category": "cdn-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/cdn-architecture",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

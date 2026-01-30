@@ -1,0 +1,20 @@
+{
+  "category": "typescript-lsp@plaited_development-skills",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.326225Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "REQUIRED for searching code in *.ts, *.tsx, *.js, *.jsx files. Use INSTEAD of Grep for TypeScript/JavaScript - provides type-aware symbol search that understands imports, exports, and relationships. A",
+      "repo": "plaited/plaited",
+      "path": "typescript-lsp@plaited_development-skills",
+      "branch": "main",
+      "category": "typescript-lsp@plaited_development-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "plaited/plaited/typescript-lsp@plaited_development-skills",
+      "source": "github.com/plaited/plaited"
+    }
+  ]
+}

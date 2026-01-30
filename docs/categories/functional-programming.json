@@ -1,0 +1,20 @@
+{
+  "category": "functional-programming",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.714663Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when writing functional code - covers FP best practices (Lea differs from traditional FP languages)",
+      "repo": "mcclowes/lea",
+      "path": "functional-programming",
+      "branch": "main",
+      "category": "functional-programming",
+      "tags": [],
+      "stars": 0,
+      "install": "mcclowes/lea/functional-programming",
+      "source": "github.com/mcclowes/lea"
+    }
+  ]
+}

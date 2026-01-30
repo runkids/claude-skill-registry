@@ -1,0 +1,20 @@
+{
+  "category": "accountant-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.197396Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level accounting, tax, financial reporting, and accounting systems",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "accountant-expert",
+      "branch": "main",
+      "category": "accountant-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/accountant-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

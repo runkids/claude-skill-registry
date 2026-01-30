@@ -1,0 +1,20 @@
+{
+  "category": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.143096Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically creates user-facing changelogs from git commits by analyzing commit history, categorizing changes, and transforming technical commits into clear, customer-friendly release notes. Turns h",
+      "repo": "onurkanbakirci/awesome-skills",
+      "path": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+      "branch": "main",
+      "category": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+      "tags": [],
+      "stars": 0,
+      "install": "onurkanbakirci/awesome-skills/1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+      "source": "github.com/onurkanbakirci/awesome-skills"
+    }
+  ]
+}

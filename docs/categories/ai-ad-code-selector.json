@@ -1,0 +1,20 @@
+{
+  "category": "ai-ad-code-selector",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.270909Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<skill>",
+      "repo": "wade56754/AI_ad_spend02",
+      "path": "ai-ad-code-selector",
+      "branch": "main",
+      "category": "ai-ad-code-selector",
+      "tags": [],
+      "stars": 0,
+      "install": "wade56754/AI_ad_spend02/ai-ad-code-selector",
+      "source": "github.com/wade56754/AI_ad_spend02"
+    }
+  ]
+}

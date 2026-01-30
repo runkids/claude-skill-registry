@@ -1,0 +1,20 @@
+{
+  "category": "elicitation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.564971Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-review skill for expert agents. After coding, expert applies elicitation techniques to self-correct before sniper validation. Inspired by BMAD-METHOD.",
+      "repo": "fusengine/agents",
+      "path": "elicitation",
+      "branch": "main",
+      "category": "elicitation",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/elicitation",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "wheels-debugging",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.457974Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Troubleshoot common Wheels errors and provide debugging guidance. Use when encountering errors, exceptions, or unexpected behavior. Provides error analysis, common solutions, and debugging strategies",
+      "repo": "wheels-dev/wheels",
+      "path": "wheels-debugging",
+      "branch": "main",
+      "category": "wheels-debugging",
+      "tags": [],
+      "stars": 0,
+      "install": "wheels-dev/wheels/wheels-debugging",
+      "source": "github.com/wheels-dev/wheels"
+    }
+  ]
+}

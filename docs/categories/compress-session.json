@@ -1,0 +1,20 @@
+{
+  "category": "compress-session",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.639243Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Compress session conversation into structured summary for system memory. Activate when user says \"compress\", \"compress session\", or after significant work. Captures decisions, tools built, breakthroug",
+      "repo": "joshuacook/motoko",
+      "path": "compress-session",
+      "branch": "main",
+      "category": "compress-session",
+      "tags": [],
+      "stars": 0,
+      "install": "joshuacook/motoko/compress-session",
+      "source": "github.com/joshuacook/motoko"
+    }
+  ]
+}

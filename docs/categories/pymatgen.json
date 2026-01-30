@@ -1,0 +1,20 @@
+{
+  "category": "pymatgen",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.725514Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Materials science toolkit. Crystal structures (CIF, POSCAR), phase diagrams, band structure, DOS, Materials Project integration, format conversion, for computational materials science.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "pymatgen",
+      "branch": "main",
+      "category": "pymatgen",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/pymatgen",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

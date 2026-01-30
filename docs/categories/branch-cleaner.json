@@ -1,0 +1,20 @@
+{
+  "category": "branch-cleaner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.441108Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Identify and clean up stale git branches locally and on remotes with safe, reversible steps. Use when asked to prune, list, or delete merged/old branches or audit branch hygiene.",
+      "repo": "lancenunes/codex-skills",
+      "path": "branch-cleaner",
+      "branch": "main",
+      "category": "branch-cleaner",
+      "tags": [],
+      "stars": 0,
+      "install": "lancenunes/codex-skills/branch-cleaner",
+      "source": "github.com/lancenunes/codex-skills"
+    }
+  ]
+}

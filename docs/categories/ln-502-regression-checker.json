@@ -1,0 +1,20 @@
+{
+  "category": "ln-502-regression-checker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.038170Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Worker that runs existing tests to catch regressions. Auto-detects framework, reports pass/fail. No status changes or task creation.",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "ln-502-regression-checker",
+      "branch": "main",
+      "category": "ln-502-regression-checker",
+      "tags": [],
+      "stars": 0,
+      "install": "levnikolaevich/claude-code-skills/ln-502-regression-checker",
+      "source": "github.com/levnikolaevich/claude-code-skills"
+    }
+  ]
+}

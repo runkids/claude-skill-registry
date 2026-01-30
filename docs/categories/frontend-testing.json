@@ -1,0 +1,20 @@
+{
+  "category": "frontend-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.708310Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive frontend testing with Playwright, Cypress, Jest, and React Testing Library. Covers E2E testing, component testing, unit testing, visual regression, and accessibility testing. Use for qua",
+      "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "path": "frontend-testing",
+      "branch": "main",
+      "category": "frontend-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "fgarofalo56/Suppercharge_Microsoft_Fabric/frontend-testing",
+      "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "launch-planner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.978730Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan and orchestrate successful product and company launches with timeline and tasks",
+      "repo": "eddiebe147/claude-settings",
+      "path": "launch-planner",
+      "branch": "main",
+      "category": "launch-planner",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/launch-planner",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

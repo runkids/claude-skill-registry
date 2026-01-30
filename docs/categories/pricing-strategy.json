@@ -1,0 +1,20 @@
+{
+  "category": "pricing-strategy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.638452Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase",
+      "repo": "LeonMelamud/inspector-agents",
+      "path": "pricing-strategy",
+      "branch": "main",
+      "category": "pricing-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "LeonMelamud/inspector-agents/pricing-strategy",
+      "source": "github.com/LeonMelamud/inspector-agents"
+    }
+  ]
+}

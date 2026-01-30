@@ -1,0 +1,20 @@
+{
+  "category": "nanobanana-pro",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.223714Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate images using Google Gemini NanoBanana via browser automation. Use this skill for general-purpose AI image generation from text prompts. Includes persistent authentication, automatic environme",
+      "repo": "taiyousan15/taisun_agent",
+      "path": "nanobanana-pro",
+      "branch": "main",
+      "category": "nanobanana-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/nanobanana-pro",
+      "source": "github.com/taiyousan15/taisun_agent"
+    }
+  ]
+}

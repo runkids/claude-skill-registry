@@ -1,0 +1,20 @@
+{
+  "category": "structured-output",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.106919Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- When to Use",
+      "repo": "athola/claude-night-market",
+      "path": "structured-output",
+      "branch": "main",
+      "category": "structured-output",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/structured-output",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

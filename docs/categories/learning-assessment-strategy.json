@@ -1,0 +1,20 @@
+{
+  "category": "learning-assessment-strategy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.984856Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Develops comprehensive assessment strategies aligned to learning objectives and pedagogical goals.",
+      "repo": "pauljbernard/content",
+      "path": "learning-assessment-strategy",
+      "branch": "main",
+      "category": "learning-assessment-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content/learning-assessment-strategy",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "file-upload-handling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.662371Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement secure file uploads with validation, size limits, type checking, virus scanning, and UUID naming. Use when handling file uploads like profile photos, documents, or resources.",
+      "repo": "PrasadTelasula/EvokeQOne",
+      "path": "file-upload-handling",
+      "branch": "main",
+      "category": "file-upload-handling",
+      "tags": [],
+      "stars": 0,
+      "install": "PrasadTelasula/EvokeQOne/file-upload-handling",
+      "source": "github.com/PrasadTelasula/EvokeQOne"
+    }
+  ]
+}

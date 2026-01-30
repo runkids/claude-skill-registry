@@ -1,0 +1,20 @@
+{
+  "category": "elna",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.566011Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Elna Company MPN encoding patterns, suffix decoding, and handler guidance. Use when working with Elna audio-grade aluminum electrolytic capacitors and supercapacitors.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "elna",
+      "branch": "main",
+      "category": "elna",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/elna",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

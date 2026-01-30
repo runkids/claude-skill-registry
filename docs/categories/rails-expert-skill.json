@@ -1,0 +1,20 @@
+{
+  "category": "rails-expert-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.759897Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Rails 7+ specialist with expertise in Hotwire, Turbo, Stimulus, and modern Rails development",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "rails-expert-skill",
+      "branch": "main",
+      "category": "rails-expert-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/rails-expert-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

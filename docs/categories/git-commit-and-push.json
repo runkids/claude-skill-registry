@@ -1,0 +1,20 @@
+{
+  "category": "git-commit-and-push",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.755871Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Git Commit and Push. Use when user wants to commit and push changes together.",
+      "repo": "sskim91/dotfiles",
+      "path": "git-commit-and-push",
+      "branch": "main",
+      "category": "git-commit-and-push",
+      "tags": [],
+      "stars": 0,
+      "install": "sskim91/dotfiles/git-commit-and-push",
+      "source": "github.com/sskim91/dotfiles"
+    }
+  ]
+}

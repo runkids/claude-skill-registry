@@ -1,0 +1,20 @@
+{
+  "category": "infrastructure",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.878104Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TMNL Docker infrastructure documentation. Service topology, health checks, troubleshooting. Model-invoked when debugging containers or understanding service architecture.",
+      "repo": "creatifcoding/gbg",
+      "path": "infrastructure",
+      "branch": "main",
+      "category": "infrastructure",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/infrastructure",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ess",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.596559Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ESS Technology MPN encoding patterns, high-end audio DAC decoding, and handler guidance. Use when working with ESS Sabre DACs or ESSHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "ess",
+      "branch": "main",
+      "category": "ess",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/ess",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "skill-alias",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.009713Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create command aliases for skills with arguments",
+      "repo": "vm0-ai/vm0",
+      "path": "skill-alias",
+      "branch": "main",
+      "category": "skill-alias",
+      "tags": [],
+      "stars": 0,
+      "install": "vm0-ai/vm0/skill-alias",
+      "source": "github.com/vm0-ai/vm0"
+    }
+  ]
+}

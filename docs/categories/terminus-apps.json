@@ -1,0 +1,20 @@
+{
+  "category": "terminus-apps",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.191864Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build terminal user interface (TUI) applications using the Terminus library for Lean 4. Use when creating games, interactive tools, or apps with keyboard/mouse input.",
+      "repo": "nathanial/lean-workspace",
+      "path": "terminus-apps",
+      "branch": "main",
+      "category": "terminus-apps",
+      "tags": [],
+      "stars": 0,
+      "install": "nathanial/lean-workspace/terminus-apps",
+      "source": "github.com/nathanial/lean-workspace"
+    }
+  ]
+}

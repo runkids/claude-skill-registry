@@ -1,0 +1,20 @@
+{
+  "category": "moai-core-code-reviewer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.155455Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise systematic code review orchestrator with TRUST 5 principles, multi-language support, Context7 integration, AI-powered quality checks, SOLID principle validation, security vulnerability dete",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-core-code-reviewer",
+      "branch": "main",
+      "category": "moai-core-code-reviewer",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit/moai-core-code-reviewer",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

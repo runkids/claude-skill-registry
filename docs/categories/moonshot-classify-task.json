@@ -1,0 +1,20 @@
+{
+  "category": "moonshot-classify-task",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.199020Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Classifies a user request into task types (feature, modification, bugfix, refactor) and extracts intent keywords. Use at the start of PM analysis.",
+      "repo": "munlucky/claude-settings",
+      "path": "moonshot-classify-task",
+      "branch": "main",
+      "category": "moonshot-classify-task",
+      "tags": [],
+      "stars": 0,
+      "install": "munlucky/claude-settings/moonshot-classify-task",
+      "source": "github.com/munlucky/claude-settings"
+    }
+  ]
+}

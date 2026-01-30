@@ -1,0 +1,20 @@
+{
+  "category": "sanctum",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.881969Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete Sanctum SDK for liquid staking, LST swaps, and Infinity pool operations on Solana. Use when working with LSTs (mSOL, jitoSOL, bSOL, INF), staking SOL, swapping between liquid staking tokens,",
+      "repo": "sendaifun/skills",
+      "path": "sanctum",
+      "branch": "main",
+      "category": "sanctum",
+      "tags": [],
+      "stars": 0,
+      "install": "sendaifun/skills/sanctum",
+      "source": "github.com/sendaifun/skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "dart-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.749065Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Dart, Flutter, mobile development, and cross-platform apps",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "dart-expert",
+      "branch": "main",
+      "category": "dart-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/dart-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

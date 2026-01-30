@@ -1,0 +1,20 @@
+{
+  "category": "create-branch",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.696979Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create timestamped topic branch.",
+      "repo": "qmu/workaholic",
+      "path": "create-branch",
+      "branch": "main",
+      "category": "create-branch",
+      "tags": [],
+      "stars": 0,
+      "install": "qmu/workaholic/create-branch",
+      "source": "github.com/qmu/workaholic"
+    }
+  ]
+}

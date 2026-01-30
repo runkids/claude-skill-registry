@@ -1,0 +1,20 @@
+{
+  "category": "execution-roadmaps",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.614655Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create execution roadmaps for projects. Use when planning multi-phase projects or feature rollouts. Covers phased delivery and milestone planning.",
+      "repo": "dralgorhythm/claude-agentic-framework",
+      "path": "execution-roadmaps",
+      "branch": "main",
+      "category": "execution-roadmaps",
+      "tags": [],
+      "stars": 0,
+      "install": "dralgorhythm/claude-agentic-framework/execution-roadmaps",
+      "source": "github.com/dralgorhythm/claude-agentic-framework"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "nanobanana-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.224053Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate or edit images using Google Gemini API via nanobanana. Use when the user asks to create, generate, edit images with nanobanana, or mentions image generation/editing tasks.",
+      "repo": "feiskyer/codex-settings",
+      "path": "nanobanana-skill",
+      "branch": "main",
+      "category": "nanobanana-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "feiskyer/codex-settings/nanobanana-skill",
+      "source": "github.com/feiskyer/codex-settings"
+    }
+  ]
+}

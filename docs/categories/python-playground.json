@@ -1,0 +1,20 @@
+{
+  "category": "python-playground",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.734325Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run and test Python code in a dedicated playground directory. Use when you need to execute Python scripts, test code snippets, investigate CPython behavior, or experiment with Python without affecting",
+      "repo": "pydantic/monty",
+      "path": "python-playground",
+      "branch": "main",
+      "category": "python-playground",
+      "tags": [],
+      "stars": 0,
+      "install": "pydantic/monty/python-playground",
+      "source": "github.com/pydantic/monty"
+    }
+  ]
+}

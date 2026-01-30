@@ -1,0 +1,20 @@
+{
+  "category": "review-for-prod",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.840987Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Production-ready Go code review (QA + security + maintainability) for this project only.",
+      "repo": "freepik-company/knowledge-agent",
+      "path": "review-for-prod",
+      "branch": "main",
+      "category": "review-for-prod",
+      "tags": [],
+      "stars": 0,
+      "install": "freepik-company/knowledge-agent/review-for-prod",
+      "source": "github.com/freepik-company/knowledge-agent"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "qa-orchestrator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.741548Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coordinates adaptive QA testing across behavioral, contract, and regression dimensions. Routes to specialized sub-agents based on context and depth.",
+      "repo": "pcortes/swarm-attack",
+      "path": "qa-orchestrator",
+      "branch": "main",
+      "category": "qa-orchestrator",
+      "tags": [],
+      "stars": 0,
+      "install": "pcortes/swarm-attack/qa-orchestrator",
+      "source": "github.com/pcortes/swarm-attack"
+    }
+  ]
+}

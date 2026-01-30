@@ -1,0 +1,20 @@
+{
+  "category": "js-worker-multithreading",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.931652Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement, refactor, or review worker-based multithreading in TypeScript/JavaScript apps (browser or Node). Use when offloading CPU-heavy loops to Web Workers, setting up a worker pool, moving data ac",
+      "repo": "deadronos/voxel-celebration",
+      "path": "js-worker-multithreading",
+      "branch": "main",
+      "category": "js-worker-multithreading",
+      "tags": [],
+      "stars": 0,
+      "install": "deadronos/voxel-celebration/js-worker-multithreading",
+      "source": "github.com/deadronos/voxel-celebration"
+    }
+  ]
+}

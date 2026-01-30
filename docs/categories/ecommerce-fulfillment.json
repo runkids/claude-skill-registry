@@ -1,0 +1,20 @@
+{
+  "category": "ecommerce-fulfillment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.550811Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize e-commerce fulfillment, online order processing, or direct-to-consumer logistics. Also use when the user mentions \"e-commerce fulfillment,\" \"online orders,\" \"DTC fulfil",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "ecommerce-fulfillment",
+      "branch": "main",
+      "category": "ecommerce-fulfillment",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/ecommerce-fulfillment",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

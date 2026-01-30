@@ -1,0 +1,20 @@
+{
+  "category": "oapply-colimit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.270890Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "oapply operad algebra evaluation via colimits with Specter-style composition patterns",
+      "repo": "plurigrid/asi",
+      "path": "oapply-colimit",
+      "branch": "main",
+      "category": "oapply-colimit",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/oapply-colimit",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

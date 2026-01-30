@@ -1,0 +1,20 @@
+{
+  "category": "architecting-components",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.343142Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Defines rules for Atomic Design and separating logic from UI. Use when creating new components in the src directory.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "architecting-components",
+      "branch": "main",
+      "category": "architecting-components",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2/architecting-components",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "measure-dashboard-requirements",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.109806Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<!-- PM-Skills | https://github.com/product-on-purpose/pm-skills | Apache 2.0 -->",
+      "repo": "product-on-purpose/pm-skills",
+      "path": "measure-dashboard-requirements",
+      "branch": "main",
+      "category": "measure-dashboard-requirements",
+      "tags": [],
+      "stars": 0,
+      "install": "product-on-purpose/pm-skills/measure-dashboard-requirements",
+      "source": "github.com/product-on-purpose/pm-skills"
+    }
+  ]
+}

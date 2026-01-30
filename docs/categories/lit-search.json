@@ -1,0 +1,20 @@
+{
+  "category": "lit-search",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.030117Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build systematic literature databases for sociology research using OpenAlex API. Guides you through search, screening, snowballing, annotation, and synthesis with structured user interaction at each s",
+      "repo": "nealcaren/social-data-analysis",
+      "path": "lit-search",
+      "branch": "main",
+      "category": "lit-search",
+      "tags": [],
+      "stars": 0,
+      "install": "nealcaren/social-data-analysis/lit-search",
+      "source": "github.com/nealcaren/social-data-analysis"
+    }
+  ]
+}

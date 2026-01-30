@@ -1,0 +1,20 @@
+{
+  "category": "skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.009242Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Launch complete Taboola native ad campaigns with AI-generated creative assets. Use when user wants to create a new Taboola campaign, launch native ads for mortgage (or other verticals), or run \"/launc",
+      "repo": "WalkerHi11/mediabuy-plugins",
+      "path": "skill",
+      "branch": "main",
+      "category": "skill",
+      "tags": [],
+      "stars": 0,
+      "install": "WalkerHi11/mediabuy-plugins/skill",
+      "source": "github.com/WalkerHi11/mediabuy-plugins"
+    }
+  ]
+}

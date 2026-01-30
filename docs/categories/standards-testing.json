@@ -1,0 +1,20 @@
+{
+  "category": "standards-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.082705Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prevent common testing anti-patterns that undermine test effectiveness and code quality by ensuring tests verify real behavior rather than mock behavior, keeping production code free from test-only po",
+      "repo": "maxritter/claude-codepro",
+      "path": "standards-testing",
+      "branch": "main",
+      "category": "standards-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "maxritter/claude-codepro/standards-testing",
+      "source": "github.com/maxritter/claude-codepro"
+    }
+  ]
+}

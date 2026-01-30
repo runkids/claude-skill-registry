@@ -1,0 +1,20 @@
+{
+  "category": "spring-boot-scanner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.065444Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Smart code scanner that detects Spring Boot patterns and routes to appropriate skills. Auto-invokes when editing Java or Kotlin files in Spring Boot projects, working with pom.xml/build.gradle contain",
+      "repo": "joaquimscosta/arkhe-claude-plugins",
+      "path": "spring-boot-scanner",
+      "branch": "main",
+      "category": "spring-boot-scanner",
+      "tags": [],
+      "stars": 0,
+      "install": "joaquimscosta/arkhe-claude-plugins/spring-boot-scanner",
+      "source": "github.com/joaquimscosta/arkhe-claude-plugins"
+    }
+  ]
+}

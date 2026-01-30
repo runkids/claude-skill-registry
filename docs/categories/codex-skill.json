@@ -1,0 +1,20 @@
+{
+  "category": "codex-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.608666Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Leverage OpenAI Codex/GPT models for autonomous code implementation. Triggers: \"codex\", \"use gpt\", \"gpt-5\", \"gpt-5.2\", \"let openai\", \"full-auto\", \"用codex\", \"让gpt实现\".",
+      "repo": "feiskyer/claude-code-settings",
+      "path": "codex-skill",
+      "branch": "main",
+      "category": "codex-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "feiskyer/claude-code-settings/codex-skill",
+      "source": "github.com/feiskyer/claude-code-settings"
+    }
+  ]
+}

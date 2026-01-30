@@ -1,0 +1,20 @@
+{
+  "category": "better-auth",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.426761Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TypeScript authentication framework (framework-agnostic). Features: email/password, OAuth (Google, GitHub, Discord), 2FA (TOTP, SMS), passkeys/WebAuthn, session management, RBAC, rate limiting, databa",
+      "repo": "brixtonpham/claude-config",
+      "path": "better-auth",
+      "branch": "main",
+      "category": "better-auth",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/better-auth",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "github-actions-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.767553Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate workflow templates and matrices.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "github-actions-workflow",
+      "branch": "main",
+      "category": "github-actions-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/github-actions-workflow",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

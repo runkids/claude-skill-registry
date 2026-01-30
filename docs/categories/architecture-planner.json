@@ -1,0 +1,20 @@
+{
+  "category": "architecture-planner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.349661Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design component architecture and module structure using established architectural patterns for clean, maintainable, and scalable systems.",
+      "repo": "matteocervelli/llms",
+      "path": "architecture-planner",
+      "branch": "main",
+      "category": "architecture-planner",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms/architecture-planner",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

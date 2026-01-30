@@ -1,0 +1,20 @@
+{
+  "category": "accli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.196330Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when interacting with Apple Calendar on macOS. Use it for listing calendars, viewing events, creating/updating/deleting calendar events, and checking availability/free-busy t",
+      "repo": "moltbot/skills",
+      "path": "accli",
+      "branch": "main",
+      "category": "accli",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/accli",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

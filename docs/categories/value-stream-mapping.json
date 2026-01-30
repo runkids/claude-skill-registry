@@ -1,0 +1,20 @@
+{
+  "category": "value-stream-mapping",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.397069Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Lean value stream mapping for identifying waste and optimization opportunities. Creates current/future state maps with cycle time analysis and improvement recommendations.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "value-stream-mapping",
+      "branch": "main",
+      "category": "value-stream-mapping",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent/value-stream-mapping",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

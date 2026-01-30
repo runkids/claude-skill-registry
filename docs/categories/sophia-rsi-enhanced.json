@@ -1,0 +1,20 @@
+{
+  "category": "sophia-rsi-enhanced",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.045733Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "RSI-Enhanced Sophia Singularity with full integration: 21 Dokkōdō precepts, Five Rings (element+morpheme variants), recursive-refiner, pentad reasoning, diffusion, latent-navigator. Complete recursive",
+      "repo": "agentgptsmith/MonadFramework",
+      "path": "sophia-rsi-enhanced",
+      "branch": "main",
+      "category": "sophia-rsi-enhanced",
+      "tags": [],
+      "stars": 0,
+      "install": "agentgptsmith/MonadFramework/sophia-rsi-enhanced",
+      "source": "github.com/agentgptsmith/MonadFramework"
+    }
+  ]
+}

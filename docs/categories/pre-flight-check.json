@@ -1,0 +1,20 @@
+{
+  "category": "pre-flight-check",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.631602Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Checks essential information and project status before starting a task.",
+      "repo": "munlucky/claude-settings",
+      "path": "pre-flight-check",
+      "branch": "main",
+      "category": "pre-flight-check",
+      "tags": [],
+      "stars": 0,
+      "install": "munlucky/claude-settings/pre-flight-check",
+      "source": "github.com/munlucky/claude-settings"
+    }
+  ]
+}

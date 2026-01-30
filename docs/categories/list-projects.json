@@ -1,0 +1,20 @@
+{
+  "category": "list-projects",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.029973Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "List all available projects in the Conductor workspace with status summaries.",
+      "repo": "EtroxTaran/conductor",
+      "path": "list-projects",
+      "branch": "main",
+      "category": "list-projects",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor/list-projects",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

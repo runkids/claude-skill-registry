@@ -1,0 +1,20 @@
+{
+  "category": "trading-core",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.307446Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Core trading operations with OpenAlgo - place orders, smart orders, basket orders, split orders, and order management across 25+ Indian brokers",
+      "repo": "marketcalls/openalgo-claude-plugin",
+      "path": "trading-core",
+      "branch": "main",
+      "category": "trading-core",
+      "tags": [],
+      "stars": 0,
+      "install": "marketcalls/openalgo-claude-plugin/trading-core",
+      "source": "github.com/marketcalls/openalgo-claude-plugin"
+    }
+  ]
+}

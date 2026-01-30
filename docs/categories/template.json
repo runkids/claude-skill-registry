@@ -1,0 +1,20 @@
+{
+  "category": "template",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.187184Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Replace with description of the skill and when Claude should use it.",
+      "repo": "anthropics/skills",
+      "path": "template",
+      "branch": "main",
+      "category": "template",
+      "tags": [],
+      "stars": 0,
+      "install": "anthropics/skills/template",
+      "source": "github.com/anthropics/skills"
+    }
+  ]
+}

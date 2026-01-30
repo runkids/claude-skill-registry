@@ -1,0 +1,20 @@
+{
+  "category": "matchms",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.095890Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Mass spectrometry analysis. Process mzML/MGF/MSP, spectral similarity (cosine, modified cosine), metadata harmonization, compound ID, for metabolomics and MS data processing.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "matchms",
+      "branch": "main",
+      "category": "matchms",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/matchms",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

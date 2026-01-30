@@ -1,0 +1,20 @@
+{
+  "category": "gate-4b-integration-tests",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.725662Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Purpose: Validate integration test quality, test data management, and credential handling",
+      "repo": "zerobias-org/module",
+      "path": "gate-4b-integration-tests",
+      "branch": "main",
+      "category": "gate-4b-integration-tests",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/gate-4b-integration-tests",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

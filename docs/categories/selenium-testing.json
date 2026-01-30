@@ -1,0 +1,20 @@
+{
+  "category": "selenium-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.955981Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Browser automation with Selenium WebDriver for Python. (project)",
+      "repo": "paunchygent/skriptoteket",
+      "path": "selenium-testing",
+      "branch": "main",
+      "category": "selenium-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "paunchygent/skriptoteket/selenium-testing",
+      "source": "github.com/paunchygent/skriptoteket"
+    }
+  ]
+}

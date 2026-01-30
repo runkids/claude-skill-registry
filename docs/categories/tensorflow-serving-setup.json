@@ -1,0 +1,20 @@
+{
+  "category": "tensorflow-serving-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.190801Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tensorflow Serving Setup - Auto-activating skill for ML Deployment. Triggers on: tensorflow serving setup, tensorflow serving setup Part of the ML Deployment skill category.",
+      "repo": "byteworthy/Upstream",
+      "path": "tensorflow-serving-setup",
+      "branch": "main",
+      "category": "tensorflow-serving-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/tensorflow-serving-setup",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

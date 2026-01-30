@@ -1,0 +1,20 @@
+{
+  "category": "resource-scout",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.832020Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Search and discover Claude Code skills and MCP servers from marketplaces, GitHub repositories, and registries. Use when (1) user asks to find skills for a specific task, (2) looking for MCP servers to",
+      "repo": "nicepkg/vsync",
+      "path": "resource-scout",
+      "branch": "main",
+      "category": "resource-scout",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/vsync/resource-scout",
+      "source": "github.com/nicepkg/vsync"
+    }
+  ]
+}

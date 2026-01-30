@@ -1,0 +1,20 @@
+{
+  "category": "federation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.649361Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ActivityPub protocol specification and federation concepts. Use when working with ActivityPub activities, understanding federation mechanics, implementing protocol features, or debugging federation is",
+      "repo": "Automattic/wordpress-activitypub",
+      "path": "federation",
+      "branch": "main",
+      "category": "federation",
+      "tags": [],
+      "stars": 0,
+      "install": "Automattic/wordpress-activitypub/federation",
+      "source": "github.com/Automattic/wordpress-activitypub"
+    }
+  ]
+}

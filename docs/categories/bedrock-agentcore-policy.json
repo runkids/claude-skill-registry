@@ -1,0 +1,20 @@
+{
+  "category": "bedrock-agentcore-policy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.422470Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Amazon Bedrock AgentCore Policy for defining agent boundaries using natural language and Cedar. Deterministic policy enforcement at the Gateway level. Use when setting agent guardrails, access control",
+      "repo": "adaptationio/Skrillz",
+      "path": "bedrock-agentcore-policy",
+      "branch": "main",
+      "category": "bedrock-agentcore-policy",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/bedrock-agentcore-policy",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

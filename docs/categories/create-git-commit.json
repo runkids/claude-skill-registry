@@ -1,0 +1,20 @@
+{
+  "category": "create-git-commit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.699484Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating git commits - mandates commits format with required scopes for all new commits, provides scope discovery from codebase structure, and prevents rationalization under pressure (emergen",
+      "repo": "WesleyMFrederick/cc-workflows",
+      "path": "create-git-commit",
+      "branch": "main",
+      "category": "create-git-commit",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleyMFrederick/cc-workflows/create-git-commit",
+      "source": "github.com/WesleyMFrederick/cc-workflows"
+    }
+  ]
+}

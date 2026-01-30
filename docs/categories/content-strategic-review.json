@@ -1,0 +1,20 @@
+{
+  "category": "content-strategic-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.663419Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive content strategy review from reader's perspective. Acts as Chief Web Editor + Technical Writer to audit site clarity, practical information completeness, instructional quality, informati",
+      "repo": "RogueRope/docs",
+      "path": "content-strategic-review",
+      "branch": "main",
+      "category": "content-strategic-review",
+      "tags": [],
+      "stars": 0,
+      "install": "RogueRope/docs/content-strategic-review",
+      "source": "github.com/RogueRope/docs"
+    }
+  ]
+}

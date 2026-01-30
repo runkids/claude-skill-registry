@@ -1,0 +1,20 @@
+{
+  "category": "social-selling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.039047Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when engaging prospects through LinkedIn, communities, and social channels to spark warm conversations and meetings.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "social-selling",
+      "branch": "main",
+      "category": "social-selling",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/social-selling",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

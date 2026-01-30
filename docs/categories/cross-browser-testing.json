@@ -1,0 +1,20 @@
+{
+  "category": "cross-browser-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.722643Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test cross-browser compatibility on Chrome, Firefox, Safari, and Edge using Playwright. Use when ensuring browser compatibility or fixing browser-specific issues.",
+      "repo": "PrasadTelasula/EvokeQOne",
+      "path": "cross-browser-testing",
+      "branch": "main",
+      "category": "cross-browser-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "PrasadTelasula/EvokeQOne/cross-browser-testing",
+      "source": "github.com/PrasadTelasula/EvokeQOne"
+    }
+  ]
+}

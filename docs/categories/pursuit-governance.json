@@ -1,0 +1,20 @@
+{
+  "category": "pursuit-governance",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.720703Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to set cadences, decision logs, and escalation paths for enterprise pursuits.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "pursuit-governance",
+      "branch": "main",
+      "category": "pursuit-governance",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/pursuit-governance",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

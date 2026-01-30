@@ -1,0 +1,20 @@
+{
+  "category": "platform-strategy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.589080Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a Platform Strategy Pack (platform-as-product charter, interface map, lifecycle stage, ecosystem/moat model, governance, metrics, roadmap). Use for platform strategy, developer platforms, APIs,",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "platform-strategy",
+      "branch": "main",
+      "category": "platform-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus/platform-strategy",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "scientific-pytdc",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.912818Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Therapeutics Data Commons. AI-ready drug discovery datasets (ADME, toxicity, DTI), benchmarks, scaffold splits, molecular oracles, for therapeutic ML and pharmacological prediction.",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-pytdc",
+      "branch": "main",
+      "category": "scientific-pytdc",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP/scientific-pytdc",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ipad-pro-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.903623Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CSS and UX patterns for iPad Pro 12.9\" development. Covers viewport configuration, touch optimization, safe areas, ProMotion animations, and child-friendly design patterns. Use when building education",
+      "repo": "matthewharwood/fantasy-phonics",
+      "path": "ipad-pro-design",
+      "branch": "main",
+      "category": "ipad-pro-design",
+      "tags": [],
+      "stars": 0,
+      "install": "matthewharwood/fantasy-phonics/ipad-pro-design",
+      "source": "github.com/matthewharwood/fantasy-phonics"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "kanban",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.944829Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Kanban methodology including boards, WIP limits, flow metrics, and continuous delivery. Activate for Kanban boards, workflow visualization, and lean project management.",
+      "repo": "Lobbi-Docs/claude",
+      "path": "kanban",
+      "branch": "main",
+      "category": "kanban",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/kanban",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

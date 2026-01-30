@@ -1,0 +1,20 @@
+{
+  "category": "implement-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.864747Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement technical plans from thoughts/shared/plans with verification",
+      "repo": "carmandale/agent-config",
+      "path": "implement-plan",
+      "branch": "main",
+      "category": "implement-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config/implement-plan",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

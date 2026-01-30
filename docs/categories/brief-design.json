@@ -1,0 +1,20 @@
+{
+  "category": "brief-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.446248Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Brief-specific design system, typography, colors, and component patterns",
+      "repo": "brief-hq/brief-wiggum",
+      "path": "brief-design",
+      "branch": "main",
+      "category": "brief-design",
+      "tags": [],
+      "stars": 0,
+      "install": "brief-hq/brief-wiggum/brief-design",
+      "source": "github.com/brief-hq/brief-wiggum"
+    }
+  ]
+}

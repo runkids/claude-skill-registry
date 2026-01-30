@@ -1,0 +1,20 @@
+{
+  "category": "frameworks-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.693208Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when asking about \"Hono\", \"itty-router\", \"routing frameworks\", \"middleware\", \"API framework\", \"web framework for Workers\", \"request routing\", \"Express-like\", or choosing between web frameworks for",
+      "repo": "SteveLeve/claude-marketplace",
+      "path": "frameworks-integration",
+      "branch": "main",
+      "category": "frameworks-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "SteveLeve/claude-marketplace/frameworks-integration",
+      "source": "github.com/SteveLeve/claude-marketplace"
+    }
+  ]
+}

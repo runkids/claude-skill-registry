@@ -1,0 +1,20 @@
+{
+  "category": "step-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.092721Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Explains step-based workflow system for Synapse plugin actions. Use when the user mentions \"BaseStep\", \"StepRegistry\", \"Orchestrator\", \"StepResult\", \"BaseStepContext\", \"step-based workflow\", \"workflow",
+      "repo": "datamaker-kr/synapse-claude-marketplace",
+      "path": "step-workflow",
+      "branch": "main",
+      "category": "step-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "datamaker-kr/synapse-claude-marketplace/step-workflow",
+      "source": "github.com/datamaker-kr/synapse-claude-marketplace"
+    }
+  ]
+}

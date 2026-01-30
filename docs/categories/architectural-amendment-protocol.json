@@ -1,0 +1,20 @@
+{
+  "category": "architectural-amendment-protocol",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.344512Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Amend architectural specifications through formal protocol.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "architectural-amendment-protocol",
+      "branch": "main",
+      "category": "architectural-amendment-protocol",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/architectural-amendment-protocol",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

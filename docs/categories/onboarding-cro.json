@@ -1,0 +1,20 @@
+{
+  "category": "onboarding-cro",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.284488Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize post-signup onboarding, user activation, first-run experience, or time-to-value. Also use when the user mentions \"onboarding flow,\" \"activation rate,\" \"user activation,",
+      "repo": "AxelMrak/ai",
+      "path": "onboarding-cro",
+      "branch": "main",
+      "category": "onboarding-cro",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/onboarding-cro",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

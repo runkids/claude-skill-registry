@@ -1,0 +1,20 @@
+{
+  "category": "access-control-rbac",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.194067Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement Role-Based Access Control (RBAC), permissions management, and authorization policies. Use when building secure access control systems with fine-grained permissions.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "access-control-rbac",
+      "branch": "main",
+      "category": "access-control-rbac",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/access-control-rbac",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

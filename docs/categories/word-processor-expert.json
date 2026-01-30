@@ -1,0 +1,20 @@
+{
+  "category": "word-processor-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.472703Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guide for building professional word processors with Tiptap/ProseMirror. Use for text editor features, document formatting, export functionality, and achieving Word/Pages/Docs feature parity.",
+      "repo": "eddiebe147/claude-settings",
+      "path": "word-processor-expert",
+      "branch": "main",
+      "category": "word-processor-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/word-processor-expert",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

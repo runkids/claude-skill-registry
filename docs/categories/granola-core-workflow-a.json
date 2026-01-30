@@ -1,0 +1,20 @@
+{
+  "category": "granola-core-workflow-a",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.799780Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Meeting preparation and template setup workflow with Granola. Use when preparing for important meetings, setting up note templates, or configuring meeting-specific capture settings. Trigger with phras",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "granola-core-workflow-a",
+      "branch": "main",
+      "category": "granola-core-workflow-a",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/granola-core-workflow-a",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

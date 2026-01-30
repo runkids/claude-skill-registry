@@ -1,0 +1,20 @@
+{
+  "category": "cdd-doc-update",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.498345Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DONE決断のドキュメント同期（gathered_context参照）",
+      "repo": "yutaro0915/cdd-workflow",
+      "path": "cdd-doc-update",
+      "branch": "main",
+      "category": "cdd-doc-update",
+      "tags": [],
+      "stars": 0,
+      "install": "yutaro0915/cdd-workflow/cdd-doc-update",
+      "source": "github.com/yutaro0915/cdd-workflow"
+    }
+  ]
+}

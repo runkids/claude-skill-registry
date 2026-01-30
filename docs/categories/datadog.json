@@ -1,0 +1,20 @@
+{
+  "category": "datadog",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.044810Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query logs, metrics, monitors, and dashboards from Datadog. Search logs, check alert status, and investigate incidents.",
+      "repo": "tbroadley/dotfiles",
+      "path": "datadog",
+      "branch": "main",
+      "category": "datadog",
+      "tags": [],
+      "stars": 0,
+      "install": "tbroadley/dotfiles/datadog",
+      "source": "github.com/tbroadley/dotfiles"
+    }
+  ]
+}

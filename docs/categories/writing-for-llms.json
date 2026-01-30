@@ -1,0 +1,20 @@
+{
+  "category": "writing-for-llms",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.496697Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when writing prompts, agent instructions, SKILL.md, commands, system prompts, Task tool prompts, prompt engineering, or LLM-to-LLM content",
+      "repo": "TechNickAI/ai-coding-config",
+      "path": "writing-for-llms",
+      "branch": "main",
+      "category": "writing-for-llms",
+      "tags": [],
+      "stars": 0,
+      "install": "TechNickAI/ai-coding-config/writing-for-llms",
+      "source": "github.com/TechNickAI/ai-coding-config"
+    }
+  ]
+}

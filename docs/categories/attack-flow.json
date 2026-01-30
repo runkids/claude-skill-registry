@@ -1,0 +1,20 @@
+{
+  "category": "attack-flow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.364906Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate SITF-compliant attack flow JSON files from attack descriptions or incident reports. Use when analyzing supply chain attacks, breaches, or security incidents.",
+      "repo": "wiz-sec-public/SITF",
+      "path": "attack-flow",
+      "branch": "main",
+      "category": "attack-flow",
+      "tags": [],
+      "stars": 0,
+      "install": "wiz-sec-public/SITF/attack-flow",
+      "source": "github.com/wiz-sec-public/SITF"
+    }
+  ]
+}

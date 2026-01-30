@@ -1,0 +1,20 @@
+{
+  "category": "content-repurposer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.662257Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master skill that transforms ANY content into 8+ formats: slides, infographic, video script, podcast, social posts, email series, flashcards, quiz, one-pager, interactive game.",
+      "repo": "nicepkg/ai-workflow",
+      "path": "content-repurposer",
+      "branch": "main",
+      "category": "content-repurposer",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/content-repurposer",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

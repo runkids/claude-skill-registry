@@ -1,0 +1,20 @@
+{
+  "category": "ink",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.880999Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ink - React for CLI applications, build interactive command-line interfaces using React components with Flexbox layout, hooks for input/focus, and testing support",
+      "repo": "enuno/claude-command-and-control",
+      "path": "ink",
+      "branch": "main",
+      "category": "ink",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control/ink",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

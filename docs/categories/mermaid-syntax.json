@@ -1,0 +1,20 @@
+{
+  "category": "mermaid-syntax",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.121061Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Authoritative reference for Mermaid diagram syntax. Provides diagram types, syntax patterns, examples, and platform integration guidance for generating accurate Mermaid diagrams.",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "mermaid-syntax",
+      "branch": "main",
+      "category": "mermaid-syntax",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/mermaid-syntax",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

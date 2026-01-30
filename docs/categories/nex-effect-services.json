@@ -1,0 +1,20 @@
+{
+  "category": "nex-effect-services",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.238621Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build NEX-integrated services using Effect-TS. Workload clients, RPC patterns, event subscriptions.",
+      "repo": "creatifcoding/gbg",
+      "path": "nex-effect-services",
+      "branch": "main",
+      "category": "nex-effect-services",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/nex-effect-services",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

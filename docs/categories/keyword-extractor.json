@@ -1,0 +1,20 @@
+{
+  "category": "keyword-extractor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.948285Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract keywords and key phrases from text using TF-IDF, RAKE, and frequency analysis. Generate word clouds and export to various formats.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "keyword-extractor",
+      "branch": "main",
+      "category": "keyword-extractor",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/keyword-extractor",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

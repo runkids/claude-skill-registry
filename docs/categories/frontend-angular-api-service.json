@@ -1,0 +1,20 @@
+{
+  "category": "frontend-angular-api-service",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.697884Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating API services for backend communication with proper patterns for caching, error handling, and type safety.",
+      "repo": "duc01226/EasyPlatform",
+      "path": "frontend-angular-api-service",
+      "branch": "main",
+      "category": "frontend-angular-api-service",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform/frontend-angular-api-service",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

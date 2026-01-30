@@ -1,0 +1,20 @@
+{
+  "category": "bellog-rsc",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.424873Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides guidance on React Server Components vs Client Components decision-making in Bellog. Triggers when creating new components.",
+      "repo": "whddltjdwhd/bellog",
+      "path": "bellog-rsc",
+      "branch": "main",
+      "category": "bellog-rsc",
+      "tags": [],
+      "stars": 0,
+      "install": "whddltjdwhd/bellog/bellog-rsc",
+      "source": "github.com/whddltjdwhd/bellog"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "levn-ln-712-nuget-upgrader",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.005617Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Upgrades .NET NuGet packages with breaking change handling",
+      "repo": "boisenoise/skills-collections",
+      "path": "levn-ln-712-nuget-upgrader",
+      "branch": "main",
+      "category": "levn-ln-712-nuget-upgrader",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/levn-ln-712-nuget-upgrader",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

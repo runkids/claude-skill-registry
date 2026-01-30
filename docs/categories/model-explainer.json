@@ -1,0 +1,20 @@
+{
+  "category": "model-explainer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.187572Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Model interpretability and explainability using SHAP, LIME, feature importance, and partial dependence plots. Activates for \"explain model\", \"model interpretability\", \"SHAP\", \"LIME\", \"feature importan",
+      "repo": "anton-abyzov/specweave",
+      "path": "model-explainer",
+      "branch": "main",
+      "category": "model-explainer",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/model-explainer",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "when-using-flow-nexus-platform-use-flow-nexus-platform",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.466036Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "metadata:",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "when-using-flow-nexus-platform-use-flow-nexus-platform",
+      "branch": "main",
+      "category": "when-using-flow-nexus-platform-use-flow-nexus-platform",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension/when-using-flow-nexus-platform-use-flow-nexus-platform",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

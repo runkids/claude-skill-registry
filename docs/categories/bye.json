@@ -1,0 +1,20 @@
+{
+  "category": "bye",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.475884Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Save session state (continue working or exit safely)",
+      "repo": "namesreallyblank/Clorch",
+      "path": "bye",
+      "branch": "main",
+      "category": "bye",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/bye",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

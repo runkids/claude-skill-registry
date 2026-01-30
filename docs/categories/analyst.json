@@ -1,0 +1,20 @@
+{
+  "category": "analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.292856Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Gather requirements, perform technical research, and estimate effort/risk. Use for requirements analysis, stakeholder analysis, technology research, and competitive analysis.",
+      "repo": "wtthornton/HomeIQ",
+      "path": "analyst",
+      "branch": "main",
+      "category": "analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "wtthornton/HomeIQ/analyst",
+      "source": "github.com/wtthornton/HomeIQ"
+    }
+  ]
+}

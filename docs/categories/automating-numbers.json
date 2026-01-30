@@ -1,0 +1,20 @@
+{
+  "category": "automating-numbers",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.379353Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automates Apple Numbers via JXA with AppleScript dictionary discovery. Use when asked to \"automate Numbers spreadsheets\", \"create spreadsheets programmatically\", \"JXA Numbers scripting\", or \"bulk data",
+      "repo": "SpillwaveSolutions/automating-mac-apps-plugin",
+      "path": "automating-numbers",
+      "branch": "main",
+      "category": "automating-numbers",
+      "tags": [],
+      "stars": 0,
+      "install": "SpillwaveSolutions/automating-mac-apps-plugin/automating-numbers",
+      "source": "github.com/SpillwaveSolutions/automating-mac-apps-plugin"
+    }
+  ]
+}

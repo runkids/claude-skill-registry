@@ -1,0 +1,20 @@
+{
+  "category": "7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.159612Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting",
+      "repo": "onurkanbakirci/awesome-skills",
+      "path": "7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b",
+      "branch": "main",
+      "category": "7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b",
+      "tags": [],
+      "stars": 0,
+      "install": "onurkanbakirci/awesome-skills/7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b",
+      "source": "github.com/onurkanbakirci/awesome-skills"
+    }
+  ]
+}

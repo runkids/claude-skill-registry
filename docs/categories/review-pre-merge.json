@@ -1,0 +1,20 @@
+{
+  "category": "review-pre-merge",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.842653Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pre-merge review focusing on correctness, testing, security, refactor safety, and maintainability. Spawns the senior-review-specialist agent for thorough pre-merge analysis.",
+      "repo": "jayteealao/Aperture",
+      "path": "review-pre-merge",
+      "branch": "main",
+      "category": "review-pre-merge",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture/review-pre-merge",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

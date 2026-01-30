@@ -1,0 +1,20 @@
+{
+  "category": "advanced-typescript-type-level",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.218063Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master TypeScript type-level programming with conditional types, mapped types, template literals, and infer patterns. Use when writing advanced types, creating utility types, or solving complex type c",
+      "repo": "leaderiop/hex-di",
+      "path": "advanced-typescript-type-level",
+      "branch": "main",
+      "category": "advanced-typescript-type-level",
+      "tags": [],
+      "stars": 0,
+      "install": "leaderiop/hex-di/advanced-typescript-type-level",
+      "source": "github.com/leaderiop/hex-di"
+    }
+  ]
+}

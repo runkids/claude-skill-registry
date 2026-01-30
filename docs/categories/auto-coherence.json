@@ -1,0 +1,20 @@
+{
+  "category": "auto-coherence",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.376326Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "The skill you cannot invoke. It invokes itself.",
+      "repo": "agentgptsmith/MonadFramework",
+      "path": "auto-coherence",
+      "branch": "main",
+      "category": "auto-coherence",
+      "tags": [],
+      "stars": 0,
+      "install": "agentgptsmith/MonadFramework/auto-coherence",
+      "source": "github.com/agentgptsmith/MonadFramework"
+    }
+  ]
+}

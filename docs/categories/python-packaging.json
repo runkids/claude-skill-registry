@@ -1,0 +1,20 @@
+{
+  "category": "python-packaging",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.733433Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create distributable Python packages with proper project structure, setup.py/pyproject.toml, and publishing to PyPI. Use when packaging Python libraries, creating CLI tools, or distributing Python cod",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "python-packaging",
+      "branch": "main",
+      "category": "python-packaging",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/python-packaging",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

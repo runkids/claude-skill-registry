@@ -1,0 +1,20 @@
+{
+  "category": "bump-tantivy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.467639Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Bump tantivy to the latest commit on main branch, fix compilation issues, and open a PR",
+      "repo": "quickwit-oss/quickwit",
+      "path": "bump-tantivy",
+      "branch": "main",
+      "category": "bump-tantivy",
+      "tags": [],
+      "stars": 0,
+      "install": "quickwit-oss/quickwit/bump-tantivy",
+      "source": "github.com/quickwit-oss/quickwit"
+    }
+  ]
+}

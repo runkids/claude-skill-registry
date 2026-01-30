@@ -1,0 +1,20 @@
+{
+  "category": "minimalist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.138830Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforce a precise, minimal design system inspired by Linear, Notion, and Stripe. Use this skill when building dashboards, admin interfaces, or any UI that needs Jony Ive-level precision - clean, moder",
+      "repo": "nguyendinhquocx/code-ai",
+      "path": "minimalist",
+      "branch": "main",
+      "category": "minimalist",
+      "tags": [],
+      "stars": 0,
+      "install": "nguyendinhquocx/code-ai/minimalist",
+      "source": "github.com/nguyendinhquocx/code-ai"
+    }
+  ]
+}

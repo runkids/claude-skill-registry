@@ -1,0 +1,20 @@
+{
+  "category": "file-management-rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.660084Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "file-management-rules",
+      "branch": "main",
+      "category": "file-management-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/file-management-rules",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "drift",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.535364Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete Drift Protocol SDK for building perpetual futures, spot trading, and DeFi applications on Solana. Use when building trading bots, integrating Drift markets, managing positions, or working wit",
+      "repo": "sendaifun/skills",
+      "path": "drift",
+      "branch": "main",
+      "category": "drift",
+      "tags": [],
+      "stars": 0,
+      "install": "sendaifun/skills/drift",
+      "source": "github.com/sendaifun/skills"
+    }
+  ]
+}

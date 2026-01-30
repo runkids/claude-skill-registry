@@ -1,0 +1,20 @@
+{
+  "category": "oracle-path",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.304647Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create learning paths for topics. Use when user says \"learning path\", \"how do I learn\", \"roadmap for\", \"curriculum\", \"what should I learn first\". Auto-trigger when onboarding or skill development disc",
+      "repo": "laris-co/nat-agents-core",
+      "path": "oracle-path",
+      "branch": "main",
+      "category": "oracle-path",
+      "tags": [],
+      "stars": 0,
+      "install": "laris-co/nat-agents-core/oracle-path",
+      "source": "github.com/laris-co/nat-agents-core"
+    }
+  ]
+}

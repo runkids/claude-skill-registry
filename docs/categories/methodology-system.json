@@ -1,0 +1,20 @@
+{
+  "category": "methodology-system",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.126398Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage and guide developers through active development methodology workflows. Use when: TDD, BDD, SDD, ATDD, or custom methodology workflows are needed. Keywords: methodology, workflow, TDD, BDD, SDD,",
+      "repo": "AsiaOstrich/universal-dev-standards",
+      "path": "methodology-system",
+      "branch": "main",
+      "category": "methodology-system",
+      "tags": [],
+      "stars": 0,
+      "install": "AsiaOstrich/universal-dev-standards/methodology-system",
+      "source": "github.com/AsiaOstrich/universal-dev-standards"
+    }
+  ]
+}

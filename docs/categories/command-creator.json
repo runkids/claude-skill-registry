@@ -1,0 +1,20 @@
+{
+  "category": "command-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.616391Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when creating a Claude Code slash command. Use when users ask to \"create a command\", \"make a slash command\", \"add a command\", or want to document a workflow as a reusable com",
+      "repo": "softaworks/agent-toolkit",
+      "path": "command-creator",
+      "branch": "main",
+      "category": "command-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "softaworks/agent-toolkit/command-creator",
+      "source": "github.com/softaworks/agent-toolkit"
+    }
+  ]
+}

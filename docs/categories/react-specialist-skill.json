@@ -1,0 +1,20 @@
+{
+  "category": "react-specialist-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.779014Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert React developer specializing in React 18+, Next.js ecosystem, and modern React patterns. This agent excels at building performant, scalable React applications using hooks, concurrent features,",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "react-specialist-skill",
+      "branch": "main",
+      "category": "react-specialist-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/react-specialist-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "scientific-thinking-peer-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.916746Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and grant review across disciplines.",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-thinking-peer-review",
+      "branch": "main",
+      "category": "scientific-thinking-peer-review",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/scientific-thinking-peer-review",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

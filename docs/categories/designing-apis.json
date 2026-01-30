@@ -1,0 +1,20 @@
+{
+  "category": "designing-apis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.162104Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guides REST and GraphQL API design, endpoint patterns, request/response schemas, versioning, and API best practices. Use when building APIs, designing endpoints, or reviewing API contracts.",
+      "repo": "CloudAI-X/opencode-workflow",
+      "path": "designing-apis",
+      "branch": "main",
+      "category": "designing-apis",
+      "tags": [],
+      "stars": 0,
+      "install": "CloudAI-X/opencode-workflow/designing-apis",
+      "source": "github.com/CloudAI-X/opencode-workflow"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "protocolsio-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.710251Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Integration with protocols.io API for managing scientific protocols. This skill should be used when working with protocols.io to search, create, update, or publish protocols; manage protocol steps and",
+      "repo": "ovachiever/droid-tings",
+      "path": "protocolsio-integration",
+      "branch": "main",
+      "category": "protocolsio-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings/protocolsio-integration",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

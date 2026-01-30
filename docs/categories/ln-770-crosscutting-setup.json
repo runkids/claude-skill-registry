@@ -1,0 +1,20 @@
+{
+  "category": "ln-770-crosscutting-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.044173Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coordinates logging, error handling, CORS, health checks, and API docs",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "ln-770-crosscutting-setup",
+      "branch": "main",
+      "category": "ln-770-crosscutting-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "levnikolaevich/claude-code-skills/ln-770-crosscutting-setup",
+      "source": "github.com/levnikolaevich/claude-code-skills"
+    }
+  ]
+}

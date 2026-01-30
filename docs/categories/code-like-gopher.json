@@ -1,0 +1,20 @@
+{
+  "category": "code-like-gopher",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.591546Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides Go programming expertise, including language syntax, idiomatic patterns, concurrency, and standard library usage. Use when generating, analyzing, refactoring, or reviewing Go code.",
+      "repo": "vigo/claude-skills",
+      "path": "code-like-gopher",
+      "branch": "main",
+      "category": "code-like-gopher",
+      "tags": [],
+      "stars": 0,
+      "install": "vigo/claude-skills/code-like-gopher",
+      "source": "github.com/vigo/claude-skills"
+    }
+  ]
+}

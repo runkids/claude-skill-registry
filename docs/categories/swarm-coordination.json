@@ -1,0 +1,20 @@
+{
+  "category": "swarm-coordination",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.129103Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coordinate multi-agent swarm workflows. Use when working in parallel with other agents, managing shared resources, or orchestrating distributed tasks. Covers conflict prevention, handoffs, and state s",
+      "repo": "dralgorhythm/claude-agentic-framework",
+      "path": "swarm-coordination",
+      "branch": "main",
+      "category": "swarm-coordination",
+      "tags": [],
+      "stars": 0,
+      "install": "dralgorhythm/claude-agentic-framework/swarm-coordination",
+      "source": "github.com/dralgorhythm/claude-agentic-framework"
+    }
+  ]
+}

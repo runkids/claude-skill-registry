@@ -1,0 +1,20 @@
+{
+  "category": "frontend-aesthetic",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.697359Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "UI/UX visual design, styling, and aesthetic validation",
+      "repo": "namesreallyblank/Clorch",
+      "path": "frontend-aesthetic",
+      "branch": "main",
+      "category": "frontend-aesthetic",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/frontend-aesthetic",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

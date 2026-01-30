@@ -1,0 +1,20 @@
+{
+  "category": "human-writing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.846033Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write content that sounds natural, conversational, and authentically human - avoiding AI-generated patterns, corporate speak, and generic phrasing",
+      "repo": "pr-pm/prpm",
+      "path": "human-writing",
+      "branch": "main",
+      "category": "human-writing",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm/human-writing",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

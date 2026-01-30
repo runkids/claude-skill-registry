@@ -1,0 +1,20 @@
+{
+  "category": "typescript-advanced-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.323828Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced TypeScript patterns for type-safe, maintainable code using sophisticated type system features. Use when building type-safe APIs, implementing complex domain models, or leveraging TypeScript's",
+      "repo": "NickCrew/claude-cortex",
+      "path": "typescript-advanced-patterns",
+      "branch": "main",
+      "category": "typescript-advanced-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex/typescript-advanced-patterns",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

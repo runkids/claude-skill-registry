@@ -1,0 +1,20 @@
+{
+  "category": "groq-common-errors",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.805924Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diagnose and fix Groq common errors and exceptions. Use when encountering Groq errors, debugging failed requests, or troubleshooting integration issues. Trigger with phrases like \"groq error\", \"fix gr",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "groq-common-errors",
+      "branch": "main",
+      "category": "groq-common-errors",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/groq-common-errors",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

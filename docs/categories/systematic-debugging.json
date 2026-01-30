@@ -1,0 +1,20 @@
+{
+  "category": "systematic-debugging",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.142879Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Applies a modified Fagan Inspection methodology to systematically resolve persistent bugs and complex issues. Use when multiple previous fix attempts have failed repeatedly, when dealing with intricat",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "systematic-debugging",
+      "branch": "main",
+      "category": "systematic-debugging",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/systematic-debugging",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

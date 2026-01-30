@@ -1,0 +1,20 @@
+{
+  "category": "project-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.691324Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Development workflow guide for choosing the right skill based on your task - screens, widgets, BLoC, APIs, forms, storage, and more (project)",
+      "repo": "gsmlg-app/flutter-app-template",
+      "path": "project-development",
+      "branch": "main",
+      "category": "project-development",
+      "tags": [],
+      "stars": 0,
+      "install": "gsmlg-app/flutter-app-template/project-development",
+      "source": "github.com/gsmlg-app/flutter-app-template"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "commit-work",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.622528Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create high-quality git commits: review/stage intended changes, split into logical commits, and write clear commit messages (including Conventional Commits). Use when the user asks to commit, craft a",
+      "repo": "lancenunes/codex-skills",
+      "path": "commit-work",
+      "branch": "main",
+      "category": "commit-work",
+      "tags": [],
+      "stars": 0,
+      "install": "lancenunes/codex-skills/commit-work",
+      "source": "github.com/lancenunes/codex-skills"
+    }
+  ]
+}

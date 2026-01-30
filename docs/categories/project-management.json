@@ -1,0 +1,20 @@
+{
+  "category": "project-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.693778Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "> Reusable workflow extracted from davide-project-manager expertise.",
+      "repo": "Roberdan/MyConvergio",
+      "path": "project-management",
+      "branch": "main",
+      "category": "project-management",
+      "tags": [],
+      "stars": 0,
+      "install": "Roberdan/MyConvergio/project-management",
+      "source": "github.com/Roberdan/MyConvergio"
+    }
+  ]
+}

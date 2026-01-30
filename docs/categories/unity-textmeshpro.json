@@ -1,0 +1,20 @@
+{
+  "category": "unity-textmeshpro",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.350009Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TextMeshPro (TMPro) expert for Unity text rendering with advanced typography, performance optimization, and professional text effects. Masters font asset creation, dynamic fonts, rich text formatting,",
+      "repo": "creator-hian/claude-code-plugins",
+      "path": "unity-textmeshpro",
+      "branch": "main",
+      "category": "unity-textmeshpro",
+      "tags": [],
+      "stars": 0,
+      "install": "creator-hian/claude-code-plugins/unity-textmeshpro",
+      "source": "github.com/creator-hian/claude-code-plugins"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "adding-markdown-highlighted-comments",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.209322Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when adding responses to markdown documents with user-highlighted comments, encountering markup errors, or unsure about mark tag placement - ensures proper model-highlight formatting with required",
+      "repo": "WesleyMFrederick/cc-workflows",
+      "path": "adding-markdown-highlighted-comments",
+      "branch": "main",
+      "category": "adding-markdown-highlighted-comments",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleyMFrederick/cc-workflows/adding-markdown-highlighted-comments",
+      "source": "github.com/WesleyMFrederick/cc-workflows"
+    }
+  ]
+}

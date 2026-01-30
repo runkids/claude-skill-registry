@@ -1,0 +1,20 @@
+{
+  "category": "tailwindcss-layout",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.154070Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Layout utilities Tailwind CSS v4.1. Flexbox (flex, justify, items, gap), Grid (grid-cols, grid-rows, place), Position (absolute, relative, fixed, sticky, inset, z-index), Container queries (@container",
+      "repo": "fusengine/agents",
+      "path": "tailwindcss-layout",
+      "branch": "main",
+      "category": "tailwindcss-layout",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/tailwindcss-layout",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

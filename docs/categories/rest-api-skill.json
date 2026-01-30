@@ -1,0 +1,20 @@
+{
+  "category": "rest-api-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.833494Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reusable REST API skill with HTTP methods, status codes, error handling, and API design patterns.",
+      "repo": "Aqsagull99/hackathon-2-todo-app",
+      "path": "rest-api-skill",
+      "branch": "main",
+      "category": "rest-api-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "Aqsagull99/hackathon-2-todo-app/rest-api-skill",
+      "source": "github.com/Aqsagull99/hackathon-2-todo-app"
+    }
+  ]
+}

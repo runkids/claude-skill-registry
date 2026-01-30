@@ -1,0 +1,20 @@
+{
+  "category": "session-intelligence-harvester",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.976663Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used after productive sessions to extract learnings and route them to appropriate Reusable Intelligence Infrastructure (RII) components. Use when corrections were made, format dri",
+      "repo": "92Bilal26/TaskPilotAI",
+      "path": "session-intelligence-harvester",
+      "branch": "main",
+      "category": "session-intelligence-harvester",
+      "tags": [],
+      "stars": 0,
+      "install": "92Bilal26/TaskPilotAI/session-intelligence-harvester",
+      "source": "github.com/92Bilal26/TaskPilotAI"
+    }
+  ]
+}

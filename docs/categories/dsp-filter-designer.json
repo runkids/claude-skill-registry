@@ -1,0 +1,20 @@
+{
+  "category": "dsp-filter-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.539492Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and test DSP filters (highpass, lowpass, bandpass, notch) for WaveCap-SDR. Use when adding filters to demodulation pipeline, debugging filter response, or tuning cutoff frequencies and rolloff",
+      "repo": "TobiasWooldridge/WaveCap-SDR",
+      "path": "dsp-filter-designer",
+      "branch": "main",
+      "category": "dsp-filter-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "TobiasWooldridge/WaveCap-SDR/dsp-filter-designer",
+      "source": "github.com/TobiasWooldridge/WaveCap-SDR"
+    }
+  ]
+}

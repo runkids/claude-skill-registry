@@ -1,0 +1,20 @@
+{
+  "category": "severity-levels",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.987056Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide to incident severity classification and response requirements",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "severity-levels",
+      "branch": "main",
+      "category": "severity-levels",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/severity-levels",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

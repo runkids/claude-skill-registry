@@ -1,0 +1,20 @@
+{
+  "category": "novatek",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.263175Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Novatek Microelectronics MPN encoding patterns, suffix decoding, and handler guidance. Use when working with Novatek display driver components or NovatekHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "novatek",
+      "branch": "main",
+      "category": "novatek",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/novatek",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

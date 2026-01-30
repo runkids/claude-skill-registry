@@ -1,0 +1,20 @@
+{
+  "category": "osgrep-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.309541Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Semantic search for local files. Backed by a background osgrep server with live indexing. Always use osgrep instead of grep/find.",
+      "repo": "pr-pm/prpm",
+      "path": "osgrep-skill",
+      "branch": "main",
+      "category": "osgrep-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm/osgrep-skill",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

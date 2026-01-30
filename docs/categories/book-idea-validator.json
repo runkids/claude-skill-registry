@@ -1,0 +1,20 @@
+{
+  "category": "book-idea-validator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.436618Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Stress-test book concepts against existing research before committing to architecture. Use when the user has a Book Concept Document ready for validation, wants to verify their thesis is defensible, n",
+      "repo": "robertguss/claude-code-toolkit",
+      "path": "book-idea-validator",
+      "branch": "main",
+      "category": "book-idea-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "robertguss/claude-code-toolkit/book-idea-validator",
+      "source": "github.com/robertguss/claude-code-toolkit"
+    }
+  ]
+}

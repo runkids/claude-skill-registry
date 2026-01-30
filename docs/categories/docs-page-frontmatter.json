@@ -1,0 +1,20 @@
+{
+  "category": "docs-page-frontmatter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.473648Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write YAML front matter for documentation pages with appropriate titles and descriptions for social cards.",
+      "repo": "anam-org/metaxy",
+      "path": "docs-page-frontmatter",
+      "branch": "main",
+      "category": "docs-page-frontmatter",
+      "tags": [],
+      "stars": 0,
+      "install": "anam-org/metaxy/docs-page-frontmatter",
+      "source": "github.com/anam-org/metaxy"
+    }
+  ]
+}

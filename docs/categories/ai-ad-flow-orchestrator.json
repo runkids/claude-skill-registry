@@ -1,0 +1,20 @@
+{
+  "category": "ai-ad-flow-orchestrator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.271754Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<skill>",
+      "repo": "wade56754/AI_ad_spend02",
+      "path": "ai-ad-flow-orchestrator",
+      "branch": "main",
+      "category": "ai-ad-flow-orchestrator",
+      "tags": [],
+      "stars": 0,
+      "install": "wade56754/AI_ad_spend02/ai-ad-flow-orchestrator",
+      "source": "github.com/wade56754/AI_ad_spend02"
+    }
+  ]
+}

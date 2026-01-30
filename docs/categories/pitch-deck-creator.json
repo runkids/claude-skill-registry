@@ -1,0 +1,20 @@
+{
+  "category": "pitch-deck-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.576549Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create compelling investor pitch decks that tell your story and secure funding",
+      "repo": "eddiebe147/claude-settings",
+      "path": "pitch-deck-creator",
+      "branch": "main",
+      "category": "pitch-deck-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/pitch-deck-creator",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

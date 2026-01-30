@@ -1,0 +1,20 @@
+{
+  "category": "clojure-trove",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.568031Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Trove is a minimal logging facade for Clojure/Script supporting both traditional and structured logging. Use when writing libraries that need logging without forcing a backend choice, or when you need",
+      "repo": "Ramblurr/nix-devenv",
+      "path": "clojure-trove",
+      "branch": "main",
+      "category": "clojure-trove",
+      "tags": [],
+      "stars": 0,
+      "install": "Ramblurr/nix-devenv/clojure-trove",
+      "source": "github.com/Ramblurr/nix-devenv"
+    }
+  ]
+}

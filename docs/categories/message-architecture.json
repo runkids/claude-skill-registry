@@ -1,0 +1,20 @@
+{
+  "category": "message-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.121816Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when structuring messaging hierarchy, hook banks, and CTA playbooks.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "message-architecture",
+      "branch": "main",
+      "category": "message-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/message-architecture",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

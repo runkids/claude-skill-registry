@@ -1,0 +1,20 @@
+{
+  "category": "overnight-dev",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.531742Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill automates software development overnight by leveraging Git hooks to enforce test-driven development (TDD). It ensures that all code changes are fully tested and meet specified quality stand",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "overnight-dev",
+      "branch": "main",
+      "category": "overnight-dev",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla/overnight-dev",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

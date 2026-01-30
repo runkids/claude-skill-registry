@@ -1,0 +1,20 @@
+{
+  "category": "coding-standard-cpp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.611216Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforce C++ coding standards including camelCase or snake_case variables, PascalCase classes, and consistent file naming.",
+      "repo": "jdubray/puffin",
+      "path": "coding-standard-cpp",
+      "branch": "main",
+      "category": "coding-standard-cpp",
+      "tags": [],
+      "stars": 0,
+      "install": "jdubray/puffin/coding-standard-cpp",
+      "source": "github.com/jdubray/puffin"
+    }
+  ]
+}

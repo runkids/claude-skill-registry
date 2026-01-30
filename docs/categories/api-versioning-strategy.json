@@ -1,0 +1,20 @@
+{
+  "category": "api-versioning-strategy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.332434Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements API versioning using URL paths, headers, or query parameters with backward compatibility and deprecation strategies. Use when managing multiple API versions, planning breaking changes, or d",
+      "repo": "secondsky/claude-skills",
+      "path": "api-versioning-strategy",
+      "branch": "main",
+      "category": "api-versioning-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills/api-versioning-strategy",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

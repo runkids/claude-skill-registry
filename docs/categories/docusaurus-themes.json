@@ -1,0 +1,20 @@
+{
+  "category": "docusaurus-themes",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.516880Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when swizzling Docusaurus theme components and editing theme elements",
+      "repo": "mcclowes/lea",
+      "path": "docusaurus-themes",
+      "branch": "main",
+      "category": "docusaurus-themes",
+      "tags": [],
+      "stars": 0,
+      "install": "mcclowes/lea/docusaurus-themes",
+      "source": "github.com/mcclowes/lea"
+    }
+  ]
+}

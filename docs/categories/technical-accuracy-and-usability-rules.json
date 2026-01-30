@@ -1,0 +1,20 @@
+{
+  "category": "technical-accuracy-and-usability-rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.182825Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "technical-accuracy-and-usability-rules",
+      "branch": "main",
+      "category": "technical-accuracy-and-usability-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/technical-accuracy-and-usability-rules",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

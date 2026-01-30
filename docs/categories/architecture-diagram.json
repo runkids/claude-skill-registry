@@ -1,0 +1,20 @@
+{
+  "category": "architecture-diagram",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.346944Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate architecture diagrams in Mermaid, PlantUML, or diagrams.net formats",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "architecture-diagram",
+      "branch": "main",
+      "category": "architecture-diagram",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/architecture-diagram",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

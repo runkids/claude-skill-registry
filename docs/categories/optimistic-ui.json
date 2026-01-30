@@ -1,0 +1,20 @@
+{
+  "category": "optimistic-ui",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.298887Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimistic message updates with time-window deduplication. React state only, never touches Dexie cache. Triggers on \"optimistic\", \"useOptimisticMessages\", \"deduplication\", \"instant feedback\".",
+      "repo": "planetaryescape/blah.chat",
+      "path": "optimistic-ui",
+      "branch": "main",
+      "category": "optimistic-ui",
+      "tags": [],
+      "stars": 0,
+      "install": "planetaryescape/blah.chat/optimistic-ui",
+      "source": "github.com/planetaryescape/blah.chat"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "least-astonishment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.000148Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "El sistema debe comportarse como el usuario espera. Use cuando diseñe interacciones, tome decisiones sobre comportamientos, o evalúe sorpresas en la UX.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "least-astonishment",
+      "branch": "main",
+      "category": "least-astonishment",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/least-astonishment",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

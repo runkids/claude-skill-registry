@@ -1,0 +1,20 @@
+{
+  "category": "fresh-install-cleanup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.694806Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Clean up and perform a fresh install of the Orient monorepo. Use when asked to \"fresh install\", \"clean install\", \"rebuild from scratch\", \"fix build issues\", \"clean node_modules\", or when encountering",
+      "repo": "orient-bot/orient",
+      "path": "fresh-install-cleanup",
+      "branch": "main",
+      "category": "fresh-install-cleanup",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/fresh-install-cleanup",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "efficiency-tracker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.560675Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tracks workflow status and generates a flow report.",
+      "repo": "munlucky/claude-settings",
+      "path": "efficiency-tracker",
+      "branch": "main",
+      "category": "efficiency-tracker",
+      "tags": [],
+      "stars": 0,
+      "install": "munlucky/claude-settings/efficiency-tracker",
+      "source": "github.com/munlucky/claude-settings"
+    }
+  ]
+}

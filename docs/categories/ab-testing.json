@@ -1,0 +1,20 @@
+{
+  "category": "ab-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.185163Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when designing experiments for subject lines, offers, cadences, or journeys.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "ab-testing",
+      "branch": "main",
+      "category": "ab-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/ab-testing",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

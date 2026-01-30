@@ -1,0 +1,20 @@
+{
+  "category": "dotnet10-pack-tool",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.533536Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates hybrid Native AOT + CoreCLR .NET 10 tool packages using ToolPackageRuntimeIdentifiers. Use for building high-performance CLI tools with Native AOT on supported platforms and CoreCLR fallback f",
+      "repo": "rysweet/amplihack",
+      "path": "dotnet10-pack-tool",
+      "branch": "main",
+      "category": "dotnet10-pack-tool",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/amplihack/dotnet10-pack-tool",
+      "source": "github.com/rysweet/amplihack"
+    }
+  ]
+}

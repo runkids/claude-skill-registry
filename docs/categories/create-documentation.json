@@ -1,0 +1,20 @@
+{
+  "category": "create-documentation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.698594Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Document a new or existing design system component",
+      "repo": "eqtylab/equality",
+      "path": "create-documentation",
+      "branch": "main",
+      "category": "create-documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "eqtylab/equality/create-documentation",
+      "source": "github.com/eqtylab/equality"
+    }
+  ]
+}

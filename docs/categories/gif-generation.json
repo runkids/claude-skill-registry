@@ -1,0 +1,20 @@
+{
+  "category": "gif-generation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.752574Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Overview",
+      "repo": "athola/claude-night-market",
+      "path": "gif-generation",
+      "branch": "main",
+      "category": "gif-generation",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/gif-generation",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

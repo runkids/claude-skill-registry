@@ -1,0 +1,20 @@
+{
+  "category": "rails-rails-project-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.760637Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Project management skill that analyzes tasks, breaks them down into stages, coordinates other skills, and ensures proper workflow. Use when planning features, managing complex multi-step implementatio",
+      "repo": "boisenoise/skills-collections",
+      "path": "rails-rails-project-manager",
+      "branch": "main",
+      "category": "rails-rails-project-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/rails-rails-project-manager",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "pricing-strategy-architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.638620Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Value-based pricing framework with Van Westendorp PSM analysis. Designs tier structure, packaging strategy, and unit economics. Produces comprehensive pricing strategy with Good-Better-Best model, com",
+      "repo": "maigentic/stratarts",
+      "path": "pricing-strategy-architect",
+      "branch": "main",
+      "category": "pricing-strategy-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/pricing-strategy-architect",
+      "source": "github.com/maigentic/stratarts"
+    }
+  ]
+}

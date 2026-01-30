@@ -1,0 +1,20 @@
+{
+  "category": "📋 master-plan-manager-archived-20260115",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.523523Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SAFE MASTER-PLAN MAINTENANCE - Intelligent master-plan file management with comprehensive analysis, backup, and validation. Reads entire file, detects changes, updates only when needed, maintains docu",
+      "repo": "endlessblink/flow-state",
+      "path": "📋 master-plan-manager-archived-20260115",
+      "branch": "main",
+      "category": "📋 master-plan-manager-archived-20260115",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/📋 master-plan-manager-archived-20260115",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "solid-swift",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.042977Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SOLID principles for Swift 6 and SwiftUI (iOS 26+). Apple recommended patterns, @Observable, actors, Preview-driven development.",
+      "repo": "fusengine/agents",
+      "path": "solid-swift",
+      "branch": "main",
+      "category": "solid-swift",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/solid-swift",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

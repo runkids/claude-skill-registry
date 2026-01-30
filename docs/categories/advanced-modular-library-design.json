@@ -1,0 +1,20 @@
+{
+  "category": "advanced-modular-library-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.216855Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design modular libraries with clear package boundaries, feature-first organization, and clean API surfaces. Use when structuring monorepos, defining module boundaries, or designing library APIs.",
+      "repo": "leaderiop/hex-di",
+      "path": "advanced-modular-library-design",
+      "branch": "main",
+      "category": "advanced-modular-library-design",
+      "tags": [],
+      "stars": 0,
+      "install": "leaderiop/hex-di/advanced-modular-library-design",
+      "source": "github.com/leaderiop/hex-di"
+    }
+  ]
+}

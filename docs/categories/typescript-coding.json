@@ -1,0 +1,20 @@
+{
+  "category": "typescript-coding",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.324448Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TypeScript coding patterns and type system best practices. Use when writing TypeScript code, designing types, working with generics, discriminated unions, conditional types, or when the user mentions",
+      "repo": "Anveio/conveaux",
+      "path": "typescript-coding",
+      "branch": "main",
+      "category": "typescript-coding",
+      "tags": [],
+      "stars": 0,
+      "install": "Anveio/conveaux/typescript-coding",
+      "source": "github.com/Anveio/conveaux"
+    }
+  ]
+}

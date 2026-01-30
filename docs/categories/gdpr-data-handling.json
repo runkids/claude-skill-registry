@@ -1,0 +1,20 @@
+{
+  "category": "gdpr-data-handling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.730755Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement GDPR-compliant data handling with consent management, data subject rights, and privacy by design. Use when building systems that process EU personal data, implementing privacy controls, or c",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "gdpr-data-handling",
+      "branch": "main",
+      "category": "gdpr-data-handling",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/gdpr-data-handling",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

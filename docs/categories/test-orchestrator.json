@@ -1,0 +1,20 @@
+{
+  "category": "test-orchestrator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.207970Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test ClaudeKit workflows by scanning commands/agents/skills, generating test scenarios, and executing step-by-step with manual verification.",
+      "repo": "NammDev/Goads-Krea",
+      "path": "test-orchestrator",
+      "branch": "main",
+      "category": "test-orchestrator",
+      "tags": [],
+      "stars": 0,
+      "install": "NammDev/Goads-Krea/test-orchestrator",
+      "source": "github.com/NammDev/Goads-Krea"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "change-impact-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.507540Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes impact of proposed changes on existing systems (brownfield projects) with delta spec validation.  Trigger terms: change impact, impact analysis, brownfield, delta spec, change proposal, chang",
+      "repo": "nahisaho/CodeGraphMCPServer",
+      "path": "change-impact-analyzer",
+      "branch": "main",
+      "category": "change-impact-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/CodeGraphMCPServer/change-impact-analyzer",
+      "source": "github.com/nahisaho/CodeGraphMCPServer"
+    }
+  ]
+}

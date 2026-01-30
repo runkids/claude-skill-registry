@@ -1,0 +1,20 @@
+{
+  "category": "scaffold-hook",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.889854Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffold a new custom React hook inside an existing feature module, with templates for data fetching, state management, or utility hooks, and update the feature hooks barrel export.",
+      "repo": "mcgaryes/nextjs-template",
+      "path": "scaffold-hook",
+      "branch": "main",
+      "category": "scaffold-hook",
+      "tags": [],
+      "stars": 0,
+      "install": "mcgaryes/nextjs-template/scaffold-hook",
+      "source": "github.com/mcgaryes/nextjs-template"
+    }
+  ]
+}

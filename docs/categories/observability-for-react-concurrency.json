@@ -1,0 +1,20 @@
+{
+  "category": "observability-for-react-concurrency",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.273099Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement advanced observability to capture concurrent rendering behavior and scheduling anomalies.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "observability-for-react-concurrency",
+      "branch": "main",
+      "category": "observability-for-react-concurrency",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/observability-for-react-concurrency",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "tanstack-query",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.159756Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-activates when user mentions TanStack Query, React Query, useQuery, useMutation, or server state management. Expert in TanStack Query v5 including caching strategies, optimistic updates, and infi",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "tanstack-query",
+      "branch": "main",
+      "category": "tanstack-query",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2/tanstack-query",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

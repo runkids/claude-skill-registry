@@ -1,0 +1,20 @@
+{
+  "category": "allegro",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.289352Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Allegro MicroSystems MPN encoding patterns, suffix decoding, and handler guidance. Use when working with current sensors, motor drivers, or Hall effect sensors.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "allegro",
+      "branch": "main",
+      "category": "allegro",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/allegro",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

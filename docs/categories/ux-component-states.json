@@ -1,0 +1,20 @@
+{
+  "category": "ux-component-states",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.380995Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interactive component state patterns including hover, focus, active, disabled, loading, and error states. Use when building buttons, inputs, cards, or any interactive elements. (project)",
+      "repo": "matthewharwood/fantasy-phonics",
+      "path": "ux-component-states",
+      "branch": "main",
+      "category": "ux-component-states",
+      "tags": [],
+      "stars": 0,
+      "install": "matthewharwood/fantasy-phonics/ux-component-states",
+      "source": "github.com/matthewharwood/fantasy-phonics"
+    }
+  ]
+}

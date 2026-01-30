@@ -1,0 +1,20 @@
+{
+  "category": "log-analysis-tools",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.050133Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fast log file analysis with lnav, multi-framework support (Laravel, CodeIgniter, React, Next.js), automatic log pruning, and 70-80% token savings vs reading entire logs",
+      "repo": "Interstellar-code/claud-skills",
+      "path": "log-analysis-tools",
+      "branch": "main",
+      "category": "log-analysis-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "Interstellar-code/claud-skills/log-analysis-tools",
+      "source": "github.com/Interstellar-code/claud-skills"
+    }
+  ]
+}

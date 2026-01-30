@@ -1,0 +1,20 @@
+{
+  "category": "entity-first",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.576090Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Entity<T> patterns, GUID v7 auto-generation, static methods vs manual repositories",
+      "repo": "sylin-org/koan-framework",
+      "path": "entity-first",
+      "branch": "main",
+      "category": "entity-first",
+      "tags": [],
+      "stars": 0,
+      "install": "sylin-org/koan-framework/entity-first",
+      "source": "github.com/sylin-org/koan-framework"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "research-documentation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.825412Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Research topics and document findings in Notion with organized structure and sources",
+      "repo": "tommy-ca/notion-skills",
+      "path": "research-documentation",
+      "branch": "main",
+      "category": "research-documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "tommy-ca/notion-skills/research-documentation",
+      "source": "github.com/tommy-ca/notion-skills"
+    }
+  ]
+}

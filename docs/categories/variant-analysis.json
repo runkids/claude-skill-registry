@@ -1,0 +1,20 @@
+{
+  "category": "variant-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.397258Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Find similar vulnerabilities and bugs across codebases using pattern-based analysis. Use when hunting bug variants, building CodeQL/Semgrep queries, analyzing security vulnerabilities, or performing s",
+      "repo": "trailofbits/skills",
+      "path": "variant-analysis",
+      "branch": "main",
+      "category": "variant-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "trailofbits/skills/variant-analysis",
+      "source": "github.com/trailofbits/skills"
+    }
+  ]
+}

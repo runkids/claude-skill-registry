@@ -1,0 +1,20 @@
+{
+  "category": "deep-research",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.061609Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when user requests research requiring multiple sources, comprehensive analysis, or synthesis across topics - technical research, domain knowledge gathering, market analysis, or learning about comp",
+      "repo": "mhagrelius/dotfiles",
+      "path": "deep-research",
+      "branch": "main",
+      "category": "deep-research",
+      "tags": [],
+      "stars": 0,
+      "install": "mhagrelius/dotfiles/deep-research",
+      "source": "github.com/mhagrelius/dotfiles"
+    }
+  ]
+}

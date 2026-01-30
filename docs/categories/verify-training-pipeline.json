@@ -1,0 +1,20 @@
+{
+  "category": "verify-training-pipeline",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.407348Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Verify a CVlization training pipeline example is properly structured, can build, trains successfully, and logs appropriate metrics. Use when validating example implementations or debugging training is",
+      "repo": "kungfuai/CVlization",
+      "path": "verify-training-pipeline",
+      "branch": "main",
+      "category": "verify-training-pipeline",
+      "tags": [],
+      "stars": 0,
+      "install": "kungfuai/CVlization/verify-training-pipeline",
+      "source": "github.com/kungfuai/CVlization"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "invalid-description-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.895240Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should fail parsing because it's description field is misspelled.",
+      "repo": "maxvaega/skillkit",
+      "path": "invalid-description-skill",
+      "branch": "main",
+      "category": "invalid-description-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit/invalid-description-skill",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

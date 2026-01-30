@@ -1,0 +1,20 @@
+{
+  "category": "safe-area-handling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.876251Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete guide to handling safe areas in Capacitor apps for iPhone notch, Dynamic Island, home indicator, and Android cutouts. Covers CSS, JavaScript, and native solutions. Use this skill when users h",
+      "repo": "Cap-go/capacitor-skills",
+      "path": "safe-area-handling",
+      "branch": "main",
+      "category": "safe-area-handling",
+      "tags": [],
+      "stars": 0,
+      "install": "Cap-go/capacitor-skills/safe-area-handling",
+      "source": "github.com/Cap-go/capacitor-skills"
+    }
+  ]
+}

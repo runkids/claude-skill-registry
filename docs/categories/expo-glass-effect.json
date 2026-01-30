@@ -1,0 +1,20 @@
+{
+  "category": "expo-glass-effect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.624662Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for using expo-glass-effect to create iOS native liquid glass UI effects. Apply when implementing glass effect UI components, cards, or surfaces on iOS.",
+      "repo": "jchaselubitz/drill-app",
+      "path": "expo-glass-effect",
+      "branch": "main",
+      "category": "expo-glass-effect",
+      "tags": [],
+      "stars": 0,
+      "install": "jchaselubitz/drill-app/expo-glass-effect",
+      "source": "github.com/jchaselubitz/drill-app"
+    }
+  ]
+}

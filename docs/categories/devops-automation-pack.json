@@ -1,0 +1,20 @@
+{
+  "category": "devops-automation-pack",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.446457Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates conventional commit messages using AI. It analyzes code changes and suggests a commit message adhering to the conventional commits specification. Use this skill when you need help writing cl",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "devops-automation-pack",
+      "branch": "main",
+      "category": "devops-automation-pack",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla/devops-automation-pack",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

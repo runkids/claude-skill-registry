@@ -1,0 +1,20 @@
+{
+  "category": "scope-guard",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.919688Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Philosophy",
+      "repo": "athola/claude-night-market",
+      "path": "scope-guard",
+      "branch": "main",
+      "category": "scope-guard",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/scope-guard",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

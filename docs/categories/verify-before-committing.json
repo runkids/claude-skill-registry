@@ -1,0 +1,20 @@
+{
+  "category": "verify-before-committing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.405697Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when about to create a git commit in this project",
+      "repo": "viteinfinite/sync-skills",
+      "path": "verify-before-committing",
+      "branch": "main",
+      "category": "verify-before-committing",
+      "tags": [],
+      "stars": 0,
+      "install": "viteinfinite/sync-skills/verify-before-committing",
+      "source": "github.com/viteinfinite/sync-skills"
+    }
+  ]
+}

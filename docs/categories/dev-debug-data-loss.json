@@ -1,0 +1,20 @@
+{
+  "category": "dev-debug-data-loss",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.168525Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DEBUG mysteriously disappearing tasks using the taskDisappearanceLogger. Use when tasks vanish without user deletion, data seems to be lost, or you need to track what's modifying the task array. Provi",
+      "repo": "endlessblink/flow-state",
+      "path": "dev-debug-data-loss",
+      "branch": "main",
+      "category": "dev-debug-data-loss",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/dev-debug-data-loss",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

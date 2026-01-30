@@ -1,0 +1,20 @@
+{
+  "category": "worktree-operations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.487601Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for working within git worktrees in the Orient monorepo. Use this skill when you detect you're working in a worktree (path contains \"skill-worktrees\", \"app-worktrees\", or is outside the main pro",
+      "repo": "orient-bot/orient",
+      "path": "worktree-operations",
+      "branch": "main",
+      "category": "worktree-operations",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/worktree-operations",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

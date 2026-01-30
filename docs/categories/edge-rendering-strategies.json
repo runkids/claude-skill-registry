@@ -1,0 +1,20 @@
+{
+  "category": "edge-rendering-strategies",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.553729Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Distribute rendering logic to edge nodes to minimize TTFB and support personalized caching.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "edge-rendering-strategies",
+      "branch": "main",
+      "category": "edge-rendering-strategies",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/edge-rendering-strategies",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

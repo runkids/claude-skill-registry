@@ -1,0 +1,20 @@
+{
+  "category": "build-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.456962Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement caching, parallel builds, and artifacts.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "build-optimization",
+      "branch": "main",
+      "category": "build-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/build-optimization",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

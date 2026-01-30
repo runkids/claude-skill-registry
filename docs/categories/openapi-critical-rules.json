@@ -1,0 +1,20 @@
+{
+  "category": "openapi-critical-rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.291776Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "The 12 critical OpenAPI rules that cause immediate task failure if violated",
+      "repo": "zerobias-org/module",
+      "path": "openapi-critical-rules",
+      "branch": "main",
+      "category": "openapi-critical-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/openapi-critical-rules",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

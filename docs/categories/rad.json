@@ -1,0 +1,20 @@
+{
+  "category": "rad",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.757489Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Response-Aware Development (RAD) - Systematic verification of code assumptions using multi-model AI analysis. Auto-activates on keywords assumption, verify assumptions, list assumptions, RAD, response",
+      "repo": "williaby/image-preprocessing-detector",
+      "path": "rad",
+      "branch": "main",
+      "category": "rad",
+      "tags": [],
+      "stars": 0,
+      "install": "williaby/image-preprocessing-detector/rad",
+      "source": "github.com/williaby/image-preprocessing-detector"
+    }
+  ]
+}

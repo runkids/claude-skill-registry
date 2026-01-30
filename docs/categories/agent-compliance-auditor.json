@@ -1,0 +1,20 @@
+{
+  "category": "agent-compliance-auditor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.225100Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validates agent definitions against the Antigravity audit rubric.",
+      "repo": "marcelocmenezes/antigravity-agentkit",
+      "path": "agent-compliance-auditor",
+      "branch": "main",
+      "category": "agent-compliance-auditor",
+      "tags": [],
+      "stars": 0,
+      "install": "marcelocmenezes/antigravity-agentkit/agent-compliance-auditor",
+      "source": "github.com/marcelocmenezes/antigravity-agentkit"
+    }
+  ]
+}

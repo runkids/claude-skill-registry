@@ -1,0 +1,20 @@
+{
+  "category": "project-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.694124Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Copilot agent that assists with project planning, scheduling, risk management, and progress tracking for software development projects  Trigger terms: project management, project plan, WBS, Gantt char",
+      "repo": "nahisaho/CodeGraphMCPServer",
+      "path": "project-manager",
+      "branch": "main",
+      "category": "project-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/CodeGraphMCPServer/project-manager",
+      "source": "github.com/nahisaho/CodeGraphMCPServer"
+    }
+  ]
+}

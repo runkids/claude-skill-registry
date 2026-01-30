@@ -1,0 +1,20 @@
+{
+  "category": "migration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.133773Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Crowi 2.0 移行ワークフロー。Express/Swig から Next.js + ts-rest への移行時に自動適用。 キーワード: migrate, 移行, Express, Swig, legacy, 旧実装",
+      "repo": "crowi/crowi",
+      "path": "migration",
+      "branch": "main",
+      "category": "migration",
+      "tags": [],
+      "stars": 0,
+      "install": "crowi/crowi/migration",
+      "source": "github.com/crowi/crowi"
+    }
+  ]
+}

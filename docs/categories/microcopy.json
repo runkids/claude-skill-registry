@@ -1,0 +1,20 @@
+{
+  "category": "microcopy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.128713Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide to writing effective microcopy including buttons, labels, tooltips, placeholders, and empty states",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "microcopy",
+      "branch": "main",
+      "category": "microcopy",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/microcopy",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

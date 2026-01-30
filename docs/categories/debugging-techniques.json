@@ -1,0 +1,20 @@
+{
+  "category": "debugging-techniques",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.057069Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Debugging workflows for Python (pdb, debugpy), Go (delve), Rust (lldb), and Node.js, including container debugging (kubectl debug, ephemeral containers) and production-safe debugging techniques with d",
+      "repo": "ancoleman/ai-design-components",
+      "path": "debugging-techniques",
+      "branch": "main",
+      "category": "debugging-techniques",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/debugging-techniques",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

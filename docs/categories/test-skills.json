@@ -1,0 +1,20 @@
+{
+  "category": "test-skills",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.212732Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A legitimate skill with no security issues",
+      "repo": "brucevanfdm/agent-skills-guard",
+      "path": "test-skills",
+      "branch": "main",
+      "category": "test-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "brucevanfdm/agent-skills-guard/test-skills",
+      "source": "github.com/brucevanfdm/agent-skills-guard"
+    }
+  ]
+}

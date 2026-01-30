@@ -1,0 +1,20 @@
+{
+  "category": "database-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.039227Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive database management workflow that orchestrates database architecture, schema design, performance optimization, and data governance. Handles everything from database design and implementa",
+      "repo": "ajianaz/skills-collection",
+      "path": "database-manager",
+      "branch": "main",
+      "category": "database-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "ajianaz/skills-collection/database-manager",
+      "source": "github.com/ajianaz/skills-collection"
+    }
+  ]
+}

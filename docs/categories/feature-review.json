@@ -1,0 +1,20 @@
+{
+  "category": "feature-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.646650Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Philosophy",
+      "repo": "athola/claude-night-market",
+      "path": "feature-review",
+      "branch": "main",
+      "category": "feature-review",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/feature-review",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

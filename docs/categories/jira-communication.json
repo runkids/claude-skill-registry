@@ -1,0 +1,20 @@
+{
+  "category": "jira-communication",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.922284Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Jira API operations via Python CLI scripts. AUTOMATICALLY TRIGGER when user mentions Jira URLs (https://jira.*/browse/*, https://*.atlassian.net/browse/*), issue keys (PROJ-123), or asks about Jira is",
+      "repo": "netresearch/jira-skill",
+      "path": "jira-communication",
+      "branch": "main",
+      "category": "jira-communication",
+      "tags": [],
+      "stars": 0,
+      "install": "netresearch/jira-skill/jira-communication",
+      "source": "github.com/netresearch/jira-skill"
+    }
+  ]
+}

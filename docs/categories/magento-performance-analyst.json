@@ -1,0 +1,20 @@
+{
+  "category": "magento-performance-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.065064Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conducts comprehensive Magento 2 performance analysis and optimization. Use when analyzing performance bottlenecks, profiling applications, optimizing database queries, or improving system scalability",
+      "repo": "maxnorm/magento2-agent-skills",
+      "path": "magento-performance-analyst",
+      "branch": "main",
+      "category": "magento-performance-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "maxnorm/magento2-agent-skills/magento-performance-analyst",
+      "source": "github.com/maxnorm/magento2-agent-skills"
+    }
+  ]
+}

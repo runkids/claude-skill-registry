@@ -1,0 +1,20 @@
+{
+  "category": "laravel-permission",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.975772Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Spatie Laravel Permission - roles, permissions, middleware, Blade directives. Use when implementing RBAC, role-based access control, or user authorization.",
+      "repo": "fusengine/agents",
+      "path": "laravel-permission",
+      "branch": "main",
+      "category": "laravel-permission",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/laravel-permission",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

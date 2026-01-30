@@ -1,0 +1,20 @@
+{
+  "category": "sponsor-pitch-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.059565Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate professional sponsorship pitches and media kits for brands. Creates compelling proposals highlighting channel value, audience demographics, and collaboration ideas. Use when seeking sponsorsh",
+      "repo": "nicepkg/ai-workflow",
+      "path": "sponsor-pitch-generator",
+      "branch": "main",
+      "category": "sponsor-pitch-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/sponsor-pitch-generator",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

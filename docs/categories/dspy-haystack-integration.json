@@ -1,0 +1,20 @@
+{
+  "category": "dspy-haystack-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.541219Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"integrate DSPy with Haystack\", \"optimize Haystack prompts using DSPy\", \"use DSPy to improve Haystack pipeline\", mentions \"Haystack pipeline optimizatio",
+      "repo": "OmidZamani/dspy-skills",
+      "path": "dspy-haystack-integration",
+      "branch": "main",
+      "category": "dspy-haystack-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "OmidZamani/dspy-skills/dspy-haystack-integration",
+      "source": "github.com/OmidZamani/dspy-skills"
+    }
+  ]
+}

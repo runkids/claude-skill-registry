@@ -1,0 +1,20 @@
+{
+  "category": "architecture-documentation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.347494Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill when modifying or creating architecture documentation.",
+      "repo": "wmeints/promptyard",
+      "path": "architecture-documentation",
+      "branch": "main",
+      "category": "architecture-documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "wmeints/promptyard/architecture-documentation",
+      "source": "github.com/wmeints/promptyard"
+    }
+  ]
+}

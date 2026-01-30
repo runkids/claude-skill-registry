@@ -1,0 +1,20 @@
+{
+  "category": "pull-request",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.719554Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PR lifecycle management - create PRs with proper commits, merge with validation, and manage PR comments",
+      "repo": "vm0-ai/vm0",
+      "path": "pull-request",
+      "branch": "main",
+      "category": "pull-request",
+      "tags": [],
+      "stars": 0,
+      "install": "vm0-ai/vm0/pull-request",
+      "source": "github.com/vm0-ai/vm0"
+    }
+  ]
+}

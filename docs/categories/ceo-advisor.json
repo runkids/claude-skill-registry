@@ -1,0 +1,20 @@
+{
+  "category": "ceo-advisor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.501414Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Executive leadership guidance for strategic decision-making, organizational development, and stakeholder management. Includes strategy analyzer, financial scenario modeling, board governance framework",
+      "repo": "nimeshgurung/artifact-hub-collections",
+      "path": "ceo-advisor",
+      "branch": "main",
+      "category": "ceo-advisor",
+      "tags": [],
+      "stars": 0,
+      "install": "nimeshgurung/artifact-hub-collections/ceo-advisor",
+      "source": "github.com/nimeshgurung/artifact-hub-collections"
+    }
+  ]
+}

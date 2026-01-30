@@ -1,0 +1,20 @@
+{
+  "category": "code-refactoring-dry",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.594781Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Remove code duplication by extracting shared logic into reusable components. Use when the same logic appears in multiple places.",
+      "repo": "aspiers/ai-config",
+      "path": "code-refactoring-dry",
+      "branch": "main",
+      "category": "code-refactoring-dry",
+      "tags": [],
+      "stars": 0,
+      "install": "aspiers/ai-config/code-refactoring-dry",
+      "source": "github.com/aspiers/ai-config"
+    }
+  ]
+}

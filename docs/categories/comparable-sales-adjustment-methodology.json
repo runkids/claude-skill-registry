@@ -1,0 +1,20 @@
+{
+  "category": "comparable-sales-adjustment-methodology",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.626430Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in technical adjustment grid construction for comparable sales analysis including adjustment hierarchy, quantification methods (paired sales, regression, cost, income), and validation technique",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": "comparable-sales-adjustment-methodology",
+      "branch": "main",
+      "category": "comparable-sales-adjustment-methodology",
+      "tags": [],
+      "stars": 0,
+      "install": "reggiechan74/vp-real-estate/comparable-sales-adjustment-methodology",
+      "source": "github.com/reggiechan74/vp-real-estate"
+    }
+  ]
+}

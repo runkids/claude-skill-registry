@@ -1,0 +1,20 @@
+{
+  "category": "replit-install-auth",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.815223Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Install and configure Replit SDK/CLI authentication. Use when setting up a new Replit integration, configuring API keys, or initializing Replit in your project. Trigger with phrases like \"install repl",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "replit-install-auth",
+      "branch": "main",
+      "category": "replit-install-auth",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/replit-install-auth",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

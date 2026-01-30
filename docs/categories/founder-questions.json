@@ -1,0 +1,20 @@
+{
+  "category": "founder-questions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.691307Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate 50-100 interview questions to extract authentic founder content for ads. Use when preparing for a founder video shoot, wanting to capture genuine stories, or building a question bank for ongo",
+      "repo": "WalkerHi11/mediabuy-plugins",
+      "path": "founder-questions",
+      "branch": "main",
+      "category": "founder-questions",
+      "tags": [],
+      "stars": 0,
+      "install": "WalkerHi11/mediabuy-plugins/founder-questions",
+      "source": "github.com/WalkerHi11/mediabuy-plugins"
+    }
+  ]
+}

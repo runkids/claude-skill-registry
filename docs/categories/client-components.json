@@ -1,0 +1,20 @@
+{
+  "category": "client-components",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.560619Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforces project client component conventions for interactive React components with hooks, event handlers, Radix UI integration, and server action consumption. Extends react-coding-conventions with cl",
+      "repo": "JasonPaff/head-shakers",
+      "path": "client-components",
+      "branch": "main",
+      "category": "client-components",
+      "tags": [],
+      "stars": 0,
+      "install": "JasonPaff/head-shakers/client-components",
+      "source": "github.com/JasonPaff/head-shakers"
+    }
+  ]
+}

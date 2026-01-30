@@ -1,0 +1,20 @@
+{
+  "category": "3d-games",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.150685Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "3D game development principles. Rendering, shaders, physics, cameras.",
+      "repo": "BerkantYilmaz0/MegaStore",
+      "path": "3d-games",
+      "branch": "main",
+      "category": "3d-games",
+      "tags": [],
+      "stars": 0,
+      "install": "BerkantYilmaz0/MegaStore/3d-games",
+      "source": "github.com/BerkantYilmaz0/MegaStore"
+    }
+  ]
+}

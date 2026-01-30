@@ -1,0 +1,20 @@
+{
+  "category": "ln-751-command-templates",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.043584Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates individual .claude/commands files from templates",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "ln-751-command-templates",
+      "branch": "main",
+      "category": "ln-751-command-templates",
+      "tags": [],
+      "stars": 0,
+      "install": "levnikolaevich/claude-code-skills/ln-751-command-templates",
+      "source": "github.com/levnikolaevich/claude-code-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "the-linter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.279507Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Identifies and fixes ESLint errors and TypeScript type issues across the codebase.",
+      "repo": "dupipcom/morpheus",
+      "path": "the-linter",
+      "branch": "main",
+      "category": "the-linter",
+      "tags": [],
+      "stars": 0,
+      "install": "dupipcom/morpheus/the-linter",
+      "source": "github.com/dupipcom/morpheus"
+    }
+  ]
+}

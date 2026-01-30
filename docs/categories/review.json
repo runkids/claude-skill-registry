@@ -1,0 +1,20 @@
+{
+  "category": "review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.838969Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quick code review for files or recent changes, checking for bugs, best practices, and potential improvements",
+      "repo": "pwittchen/varun.surf",
+      "path": "review",
+      "branch": "main",
+      "category": "review",
+      "tags": [],
+      "stars": 0,
+      "install": "pwittchen/varun.surf/review",
+      "source": "github.com/pwittchen/varun.surf"
+    }
+  ]
+}

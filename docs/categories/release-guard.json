@@ -1,0 +1,20 @@
+{
+  "category": "release-guard",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.806488Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "STRICT GitHub release gatekeeper. Blocks premature releases (from develop, incomplete CI). Verifies PR merged to main + ALL CI passed before allowing tag/release. Triggers on \"release\", \"tag\", \"publis",
+      "repo": "d-o-hub/rust-self-learning-memory",
+      "path": "release-guard",
+      "branch": "main",
+      "category": "release-guard",
+      "tags": [],
+      "stars": 0,
+      "install": "d-o-hub/rust-self-learning-memory/release-guard",
+      "source": "github.com/d-o-hub/rust-self-learning-memory"
+    }
+  ]
+}

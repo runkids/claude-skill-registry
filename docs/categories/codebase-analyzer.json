@@ -1,0 +1,20 @@
+{
+  "category": "codebase-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.600413Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze implementation details, trace data flow, and explain technical workings with precise file:line references. Use when you need to understand HOW code works.",
+      "repo": "d-o-hub/rust-self-learning-memory",
+      "path": "codebase-analyzer",
+      "branch": "main",
+      "category": "codebase-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "d-o-hub/rust-self-learning-memory/codebase-analyzer",
+      "source": "github.com/d-o-hub/rust-self-learning-memory"
+    }
+  ]
+}

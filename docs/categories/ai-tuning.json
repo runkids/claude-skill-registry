@@ -1,0 +1,20 @@
+{
+  "category": "ai-tuning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.283826Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize AI assistant configurations for maximum effectiveness. USE THIS SKILL when user says \"improve CLAUDE.md\", \"better copilot instructions\", \"tune AI\", \"optimize prompts\", \"MCP configuration\", or",
+      "repo": "Ven0m0/.github",
+      "path": "ai-tuning",
+      "branch": "main",
+      "category": "ai-tuning",
+      "tags": [],
+      "stars": 0,
+      "install": "Ven0m0/.github/ai-tuning",
+      "source": "github.com/Ven0m0/.github"
+    }
+  ]
+}

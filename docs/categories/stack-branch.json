@@ -1,0 +1,20 @@
+{
+  "category": "stack-branch",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.076468Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a new branch stacked on another PR. Use when you want to start work that depends on an existing PR that hasn't been merged yet.",
+      "repo": "flurdy/agent-skills",
+      "path": "stack-branch",
+      "branch": "main",
+      "category": "stack-branch",
+      "tags": [],
+      "stars": 0,
+      "install": "flurdy/agent-skills/stack-branch",
+      "source": "github.com/flurdy/agent-skills"
+    }
+  ]
+}

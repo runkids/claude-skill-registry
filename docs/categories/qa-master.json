@@ -1,0 +1,20 @@
+{
+  "category": "qa-master",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.741256Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master skill for Testing, Verification, and Auditing. Includes E2E (Playwright), Unit Tests, and UI/UX Audits.",
+      "repo": "endlessblink/flow-state",
+      "path": "qa-master",
+      "branch": "main",
+      "category": "qa-master",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/qa-master",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

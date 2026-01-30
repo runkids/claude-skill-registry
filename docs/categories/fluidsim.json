@@ -1,0 +1,20 @@
+{
+  "category": "fluidsim",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.680139Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Framework for computational fluid dynamics simulations using Python. Use when running fluid dynamics simulations including Navier-Stokes equations (2D/3D), shallow water equations, stratified flows, o",
+      "repo": "ovachiever/droid-tings",
+      "path": "fluidsim",
+      "branch": "main",
+      "category": "fluidsim",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings/fluidsim",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

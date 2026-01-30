@@ -1,0 +1,20 @@
+{
+  "category": "time-series-decomposer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.288150Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Decompose time series into trend, seasonal, and residual components. Use for forecasting, pattern analysis, and seasonality detection.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "time-series-decomposer",
+      "branch": "main",
+      "category": "time-series-decomposer",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/time-series-decomposer",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

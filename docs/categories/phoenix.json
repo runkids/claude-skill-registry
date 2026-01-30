@@ -1,0 +1,20 @@
+{
+  "category": "phoenix",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.571945Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Open-source AI observability platform for LLM tracing, evaluation, and monitoring. Use when debugging LLM applications with detailed traces, running evaluations on datasets, or monitoring production A",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "phoenix",
+      "branch": "main",
+      "category": "phoenix",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/phoenix",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "matlab-performance-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.097875Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize MATLAB code for better performance through vectorization, memory management, and profiling. Use when user requests optimization, mentions slow code, performance issues, speed improvements, or",
+      "repo": "matlab/skills",
+      "path": "matlab-performance-optimizer",
+      "branch": "main",
+      "category": "matlab-performance-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "matlab/skills/matlab-performance-optimizer",
+      "source": "github.com/matlab/skills"
+    }
+  ]
+}

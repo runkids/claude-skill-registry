@@ -1,0 +1,20 @@
+{
+  "category": "kratos-new-service",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.958832Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates a new go-kratos microservice skeleton with clean architecture (server/service/biz/data), minimal Wire setup, HTTP + gRPC metrics, and complete project structure. Use when scaffolding new servi",
+      "repo": "alecszaharia/brizy-microservices-go",
+      "path": "kratos-new-service",
+      "branch": "main",
+      "category": "kratos-new-service",
+      "tags": [],
+      "stars": 0,
+      "install": "alecszaharia/brizy-microservices-go/kratos-new-service",
+      "source": "github.com/alecszaharia/brizy-microservices-go"
+    }
+  ]
+}

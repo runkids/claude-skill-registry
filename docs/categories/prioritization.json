@@ -1,0 +1,20 @@
+{
+  "category": "prioritization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.640379Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prioritization techniques including MoSCoW, Kano model, weighted scoring, and value-effort matrices. Ranks requirements, features, backlog items, and investment decisions.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "prioritization",
+      "branch": "main",
+      "category": "prioritization",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent/prioritization",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

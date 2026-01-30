@@ -1,0 +1,20 @@
+{
+  "category": "tzurot-observability",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.332169Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Logging and debugging patterns for Tzurot v3. Use when adding logs, debugging production, or analyzing Railway logs. Covers structured logging and correlation IDs.",
+      "repo": "lbds137/tzurot",
+      "path": "tzurot-observability",
+      "branch": "main",
+      "category": "tzurot-observability",
+      "tags": [],
+      "stars": 0,
+      "install": "lbds137/tzurot/tzurot-observability",
+      "source": "github.com/lbds137/tzurot"
+    }
+  ]
+}

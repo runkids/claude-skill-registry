@@ -1,0 +1,20 @@
+{
+  "category": "complexity",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.630715Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Code complexity guidelines to keep cyclomatic complexity below 6 using strategy patterns or dispatch tables. Use when writing or refactoring functions with complex branching logic.",
+      "repo": "kevincrabbe/wrapkit",
+      "path": "complexity",
+      "branch": "main",
+      "category": "complexity",
+      "tags": [],
+      "stars": 0,
+      "install": "kevincrabbe/wrapkit/complexity",
+      "source": "github.com/kevincrabbe/wrapkit"
+    }
+  ]
+}

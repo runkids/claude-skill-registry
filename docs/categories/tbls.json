@@ -1,0 +1,20 @@
+{
+  "category": "tbls",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.172930Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Database schema documentation tool for PostgreSQL and other databases.",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "tbls",
+      "branch": "main",
+      "category": "tbls",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet/tbls",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

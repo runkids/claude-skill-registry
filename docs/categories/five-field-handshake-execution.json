@@ -1,0 +1,20 @@
+{
+  "category": "five-field-handshake-execution",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.672599Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute five-field diagnostic handshake protocol.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "five-field-handshake-execution",
+      "branch": "main",
+      "category": "five-field-handshake-execution",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/five-field-handshake-execution",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

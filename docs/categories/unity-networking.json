@@ -1,0 +1,20 @@
+{
+  "category": "unity-networking",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.349488Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement multiplayer games with Unity Netcode, Mirror, or Photon. Masters client-server architecture, state synchronization, and lag compensation. Use for multiplayer features, networking issues, or",
+      "repo": "creator-hian/claude-code-plugins",
+      "path": "unity-networking",
+      "branch": "main",
+      "category": "unity-networking",
+      "tags": [],
+      "stars": 0,
+      "install": "creator-hian/claude-code-plugins/unity-networking",
+      "source": "github.com/creator-hian/claude-code-plugins"
+    }
+  ]
+}

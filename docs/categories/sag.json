@@ -1,0 +1,20 @@
+{
+  "category": "sag",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.878017Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ElevenLabs text-to-speech with mac-style say UX.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "sag",
+      "branch": "main",
+      "category": "sag",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/sag",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

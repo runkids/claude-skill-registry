@@ -1,0 +1,20 @@
+{
+  "category": "npm-publishing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.264153Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when publishing npm packages - covers package.json configuration, versioning, and provenance",
+      "repo": "mcclowes/lea",
+      "path": "npm-publishing",
+      "branch": "main",
+      "category": "npm-publishing",
+      "tags": [],
+      "stars": 0,
+      "install": "mcclowes/lea/npm-publishing",
+      "source": "github.com/mcclowes/lea"
+    }
+  ]
+}

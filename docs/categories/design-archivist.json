@@ -1,0 +1,20 @@
+{
+  "category": "design-archivist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.151957Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Long-running design anthropologist that builds comprehensive visual databases from 500-1000 real-world examples, extracting color palettes, typography patterns, layout systems, and interaction design",
+      "repo": "erichowens/some_claude_skills",
+      "path": "design-archivist",
+      "branch": "main",
+      "category": "design-archivist",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/design-archivist",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

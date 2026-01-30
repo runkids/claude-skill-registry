@@ -1,0 +1,20 @@
+{
+  "category": "backend-design-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.406230Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Find the best backend architecture, database design, and API patterns using deep research. Use when user asks \"best database for...\", \"optimize API\", \"backend architecture for...\", or \"scale this serv",
+      "repo": "HR-AR/Project-Conductor",
+      "path": "backend-design-optimizer",
+      "branch": "main",
+      "category": "backend-design-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "HR-AR/Project-Conductor/backend-design-optimizer",
+      "source": "github.com/HR-AR/Project-Conductor"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "github-cli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.768883Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"use GitHub CLI\", \"use gh command\", work with \"pull requests\", \"create a PR\", \"merge pull request\", \"approve PR\", \"review PR comments\", \"check PR status",
+      "repo": "aaronbassett/claude-bell",
+      "path": "github-cli",
+      "branch": "main",
+      "category": "github-cli",
+      "tags": [],
+      "stars": 0,
+      "install": "aaronbassett/claude-bell/github-cli",
+      "source": "github.com/aaronbassett/claude-bell"
+    }
+  ]
+}

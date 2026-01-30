@@ -1,0 +1,20 @@
+{
+  "category": "financial-model-architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.664652Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build comprehensive 3-5 year financial models projecting revenue, expenses, headcount, cash flow, and runway. Model unit economics, scenario planning, and path to profitability. Generate investor-read",
+      "repo": "maigentic/stratarts",
+      "path": "financial-model-architect",
+      "branch": "main",
+      "category": "financial-model-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/financial-model-architect",
+      "source": "github.com/maigentic/stratarts"
+    }
+  ]
+}

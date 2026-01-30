@@ -1,0 +1,20 @@
+{
+  "category": "scientific-db-hmdb-database",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.898642Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access Human Metabolome Database (220K+ metabolites). Search by name/ID/structure, retrieve chemical properties, biomarker data, NMR/MS spectra, pathways, for metabolomics and identification.",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-db-hmdb-database",
+      "branch": "main",
+      "category": "scientific-db-hmdb-database",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/scientific-db-hmdb-database",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "navigation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.226416Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Navegación - Expo Router. Use when implementing navigation.",
+      "repo": "TheBeardedBearSAS/claude-craft",
+      "path": "navigation",
+      "branch": "main",
+      "category": "navigation",
+      "tags": [],
+      "stars": 0,
+      "install": "TheBeardedBearSAS/claude-craft/navigation",
+      "source": "github.com/TheBeardedBearSAS/claude-craft"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "styling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.109733Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Zero-runtime CSS strategies (Tailwind) and RSC compatibility.",
+      "repo": "ngxtm/devkit",
+      "path": "styling",
+      "branch": "main",
+      "category": "styling",
+      "tags": [],
+      "stars": 0,
+      "install": "ngxtm/devkit/styling",
+      "source": "github.com/ngxtm/devkit"
+    }
+  ]
+}

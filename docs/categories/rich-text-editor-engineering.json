@@ -1,0 +1,20 @@
+{
+  "category": "rich-text-editor-engineering",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.845877Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Integrate or build a contenteditable-based editor with custom data models.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "rich-text-editor-engineering",
+      "branch": "main",
+      "category": "rich-text-editor-engineering",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/rich-text-editor-engineering",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

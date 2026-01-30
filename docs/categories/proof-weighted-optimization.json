@@ -1,0 +1,20 @@
+{
+  "category": "proof-weighted-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.708130Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize decisions using proof-weighted scoring.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "proof-weighted-optimization",
+      "branch": "main",
+      "category": "proof-weighted-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/proof-weighted-optimization",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

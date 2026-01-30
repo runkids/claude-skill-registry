@@ -1,0 +1,20 @@
+{
+  "category": "type-hardening",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.322866Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Incrementally improve type safety by replacing string literals with enums, narrowing `any` types, and using shared types. Works in small verified batches. Preserves functionality while improving code",
+      "repo": "BerryKuipers/claude-code-toolkit",
+      "path": "type-hardening",
+      "branch": "main",
+      "category": "type-hardening",
+      "tags": [],
+      "stars": 0,
+      "install": "BerryKuipers/claude-code-toolkit/type-hardening",
+      "source": "github.com/BerryKuipers/claude-code-toolkit"
+    }
+  ]
+}

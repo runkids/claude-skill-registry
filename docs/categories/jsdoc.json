@@ -1,0 +1,20 @@
+{
+  "category": "jsdoc",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.932017Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guidelines for writing minimal, high-quality JSDoc comments in TypeScript.",
+      "repo": "kubb-labs/fabric",
+      "path": "jsdoc",
+      "branch": "main",
+      "category": "jsdoc",
+      "tags": [],
+      "stars": 0,
+      "install": "kubb-labs/fabric/jsdoc",
+      "source": "github.com/kubb-labs/fabric"
+    }
+  ]
+}

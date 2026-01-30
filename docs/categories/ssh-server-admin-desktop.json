@@ -1,0 +1,20 @@
+{
+  "category": "ssh-server-admin-desktop",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.075560Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Securely connect to and manage remote Linux/Unix servers via SSH. Execute commands, transfer files (SCP/SFTP), set up port forwarding and tunnels. Use when the user asks to SSH into a server, connect",
+      "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "path": "ssh-server-admin-desktop",
+      "branch": "main",
+      "category": "ssh-server-admin-desktop",
+      "tags": [],
+      "stars": 0,
+      "install": "fgarofalo56/Suppercharge_Microsoft_Fabric/ssh-server-admin-desktop",
+      "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric"
+    }
+  ]
+}

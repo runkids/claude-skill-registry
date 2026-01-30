@@ -1,0 +1,20 @@
+{
+  "category": "seo-meta-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.967004Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Seo Meta Generator - Auto-activating skill for Frontend Development. Triggers on: seo meta generator, seo meta generator Part of the Frontend Development skill category.",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "seo-meta-generator",
+      "branch": "main",
+      "category": "seo-meta-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/seo-meta-generator",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "text-to-speech",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.277731Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "将文本转换为语音音频文件，支持多种声音和语言。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "text-to-speech",
+      "branch": "main",
+      "category": "text-to-speech",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode/text-to-speech",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

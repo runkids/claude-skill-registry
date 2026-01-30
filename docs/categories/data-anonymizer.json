@@ -1,0 +1,20 @@
+{
+  "category": "data-anonymizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.026696Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect and mask PII (names, emails, phones, SSN, addresses) in text and CSV files. Multiple masking strategies with reversible tokenization option.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "data-anonymizer",
+      "branch": "main",
+      "category": "data-anonymizer",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/data-anonymizer",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

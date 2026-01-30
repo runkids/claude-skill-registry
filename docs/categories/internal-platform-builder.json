@@ -1,0 +1,20 @@
+{
+  "category": "internal-platform-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.892646Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and build internal developer platforms for self-service infrastructure",
+      "repo": "Dexploarer/hyper-forge",
+      "path": "internal-platform-builder",
+      "branch": "main",
+      "category": "internal-platform-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "Dexploarer/hyper-forge/internal-platform-builder",
+      "source": "github.com/Dexploarer/hyper-forge"
+    }
+  ]
+}

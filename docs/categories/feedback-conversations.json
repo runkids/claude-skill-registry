@@ -1,0 +1,20 @@
+{
+  "category": "feedback-conversations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.650059Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Navigate difficult conversations and deliver constructive feedback using structured frameworks. Covers the Preparation-Delivery-Follow-up model and Situation-Behavior-Impact (SBI) feedback technique.",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "feedback-conversations",
+      "branch": "main",
+      "category": "feedback-conversations",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/feedback-conversations",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

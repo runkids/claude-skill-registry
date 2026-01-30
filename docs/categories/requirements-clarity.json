@@ -1,0 +1,20 @@
+{
+  "category": "requirements-clarity",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.821494Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Clarify ambiguous requirements through focused dialogue before implementation. Use when requirements are unclear, features are complex (>2 days), or involve cross-team coordination. Ask two core quest",
+      "repo": "softaworks/agent-toolkit",
+      "path": "requirements-clarity",
+      "branch": "main",
+      "category": "requirements-clarity",
+      "tags": [],
+      "stars": 0,
+      "install": "softaworks/agent-toolkit/requirements-clarity",
+      "source": "github.com/softaworks/agent-toolkit"
+    }
+  ]
+}

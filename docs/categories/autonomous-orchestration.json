@@ -1,0 +1,20 @@
+{
+  "category": "autonomous-orchestration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.382156Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when user requests autonomous operation across multiple issues. Orchestrates parallel workers using Task tool, monitors with TaskOutput, handles SLEEP/WAKE cycles, and works until scope is complet",
+      "repo": "troykelly/claude-skills",
+      "path": "autonomous-orchestration",
+      "branch": "main",
+      "category": "autonomous-orchestration",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/autonomous-orchestration",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

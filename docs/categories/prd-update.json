@@ -1,0 +1,20 @@
+{
+  "category": "prd-update",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.629826Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fast PRD updates - Quick version and feature status updates. Auto-activates on \"更新 PRD\", \"update PRD\", \"PRD 版本\", \"完成功能\" keywords. AMP principle: Automate the meta workflow.",
+      "repo": "Youngger9765/career_ios_backend",
+      "path": "prd-update",
+      "branch": "main",
+      "category": "prd-update",
+      "tags": [],
+      "stars": 0,
+      "install": "Youngger9765/career_ios_backend/prd-update",
+      "source": "github.com/Youngger9765/career_ios_backend"
+    }
+  ]
+}

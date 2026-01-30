@@ -1,0 +1,20 @@
+{
+  "category": "agent-cross-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.226528Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Structured cross-review protocol between specialized agents. Ensures scope alignment, priority calibration, and domain-aware feedback. Use when one agent reviews another's work, during handoffs, or wh",
+      "repo": "1ambda/dataops-platform",
+      "path": "agent-cross-review",
+      "branch": "main",
+      "category": "agent-cross-review",
+      "tags": [],
+      "stars": 0,
+      "install": "1ambda/dataops-platform/agent-cross-review",
+      "source": "github.com/1ambda/dataops-platform"
+    }
+  ]
+}

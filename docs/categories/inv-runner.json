@@ -1,0 +1,20 @@
+{
+  "category": "inv-runner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.895048Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Python Invoke task automation for DTX website. This skill should be used when running repo commands, backend tests via Docker, database migrations, updating invoke tasks, Docker operations, or workflo",
+      "repo": "kettleofketchup/DraftForge",
+      "path": "inv-runner",
+      "branch": "main",
+      "category": "inv-runner",
+      "tags": [],
+      "stars": 0,
+      "install": "kettleofketchup/DraftForge/inv-runner",
+      "source": "github.com/kettleofketchup/DraftForge"
+    }
+  ]
+}

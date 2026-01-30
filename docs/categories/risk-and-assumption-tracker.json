@@ -1,0 +1,20 @@
+{
+  "category": "risk-and-assumption-tracker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.847181Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Capture risks, assumptions, and mitigation plans throughout delivery.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "risk-and-assumption-tracker",
+      "branch": "main",
+      "category": "risk-and-assumption-tracker",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/risk-and-assumption-tracker",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

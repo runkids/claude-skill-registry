@@ -1,0 +1,20 @@
+{
+  "category": "gitlab",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.776154Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interact with GitLab repositories, merge requests, and APIs using the GITLAB_TOKEN environment variable. Use when working with code hosted on GitLab or managing GitLab resources.",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "gitlab",
+      "branch": "main",
+      "category": "gitlab",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/gitlab",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

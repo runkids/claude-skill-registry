@@ -1,0 +1,20 @@
+{
+  "category": "design-report",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.157061Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate status reports for design documentation. Use when creating documentation summaries, tracking progress, or preparing documentation reviews.",
+      "repo": "spencerbeggs/claude-design-coordinator",
+      "path": "design-report",
+      "branch": "main",
+      "category": "design-report",
+      "tags": [],
+      "stars": 0,
+      "install": "spencerbeggs/claude-design-coordinator/design-report",
+      "source": "github.com/spencerbeggs/claude-design-coordinator"
+    }
+  ]
+}

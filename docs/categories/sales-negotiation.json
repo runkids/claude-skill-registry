@@ -1,0 +1,20 @@
+{
+  "category": "sales-negotiation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.880215Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по переговорам. Используй для sales negotiation, objection handling и deal closing.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "sales-negotiation",
+      "branch": "main",
+      "category": "sales-negotiation",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/sales-negotiation",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

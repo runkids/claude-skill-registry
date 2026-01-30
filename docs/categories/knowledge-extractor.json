@@ -1,0 +1,20 @@
+{
+  "category": "knowledge-extractor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.952723Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extracts key learnings from conversations, debugging sessions, and failed attempts. Use at session end or after solving complex problems to capture insights. Automatically suggests updates to: DISCOVE",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "knowledge-extractor",
+      "branch": "main",
+      "category": "knowledge-extractor",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/knowledge-extractor",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

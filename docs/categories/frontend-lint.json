@@ -1,0 +1,20 @@
+{
+  "category": "frontend-lint",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.704875Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "코드 품질 검사 에이전트. 린팅과 포맷팅을 관리합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "frontend-lint",
+      "branch": "main",
+      "category": "frontend-lint",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin/frontend-lint",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

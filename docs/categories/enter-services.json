@@ -1,0 +1,20 @@
+{
+  "category": "enter-services",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.575069Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploy and manage enter.pollinations.ai text/image services on EC2 and Cloudflare Workers. Requires: SSH keys, sops, wrangler.",
+      "repo": "pollinations/pollinations",
+      "path": "enter-services",
+      "branch": "main",
+      "category": "enter-services",
+      "tags": [],
+      "stars": 0,
+      "install": "pollinations/pollinations/enter-services",
+      "source": "github.com/pollinations/pollinations"
+    }
+  ]
+}

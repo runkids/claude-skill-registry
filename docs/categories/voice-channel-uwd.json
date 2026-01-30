@@ -1,0 +1,20 @@
+{
+  "category": "voice-channel-uwd",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.428700Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Voice Channel UWD Skill",
+      "repo": "plurigrid/asi",
+      "path": "voice-channel-uwd",
+      "branch": "main",
+      "category": "voice-channel-uwd",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/voice-channel-uwd",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

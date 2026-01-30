@@ -1,0 +1,20 @@
+{
+  "category": "sequence-statistics",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.969590Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Calculate sequence statistics (N50, length distribution, GC content, summary reports) using Biopython. Use when analyzing sequence datasets, generating QC reports, or comparing assemblies.",
+      "repo": "GPTomics/bioSkills",
+      "path": "sequence-statistics",
+      "branch": "main",
+      "category": "sequence-statistics",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/sequence-statistics",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

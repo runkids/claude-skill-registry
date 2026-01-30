@@ -1,0 +1,20 @@
+{
+  "category": "valid-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.388996Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review code for best practices and potential issues",
+      "repo": "maxvaega/skillkit",
+      "path": "valid-skill",
+      "branch": "main",
+      "category": "valid-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit/valid-skill",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

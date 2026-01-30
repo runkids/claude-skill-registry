@@ -1,0 +1,20 @@
+{
+  "category": "consistency-principle",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.652584Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comportamientos y apariencias consistentes mejoran la usabilidad. Use cuando establezca patrones de diseño, defina guidelines, o evalúe coherencia del sistema.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "consistency-principle",
+      "branch": "main",
+      "category": "consistency-principle",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/consistency-principle",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

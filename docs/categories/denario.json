@@ -1,0 +1,20 @@
+{
+  "category": "denario",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.070102Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multiagent AI system for scientific research assistance that automates research workflows from data analysis to publication. This skill should be used when generating research ideas from datasets, dev",
+      "repo": "robinbarvaag/poynt",
+      "path": "denario",
+      "branch": "main",
+      "category": "denario",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/denario",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

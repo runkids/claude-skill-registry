@@ -1,0 +1,20 @@
+{
+  "category": "auditing-security",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.371118Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<objective>",
+      "repo": "0xHoneyJar/rm-lurker",
+      "path": "auditing-security",
+      "branch": "main",
+      "category": "auditing-security",
+      "tags": [],
+      "stars": 0,
+      "install": "0xHoneyJar/rm-lurker/auditing-security",
+      "source": "github.com/0xHoneyJar/rm-lurker"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "universal-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.350883Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diseño que funciona para todos sin necesidad de adaptación. Use cuando diseñe productos para audiencias diversas o cuando busque máximo alcance.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "universal-design",
+      "branch": "main",
+      "category": "universal-design",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/universal-design",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "intelligent-debugger",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.890022Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive systematic debugging agent for hunting down complex bugs, root causes, and error propagation across full stack (frontend, backend, APIs, databases). Use when diagnosing errors, troublesh",
+      "repo": "sitechfromgeorgia/georgian-distribution-system",
+      "path": "intelligent-debugger",
+      "branch": "main",
+      "category": "intelligent-debugger",
+      "tags": [],
+      "stars": 0,
+      "install": "sitechfromgeorgia/georgian-distribution-system/intelligent-debugger",
+      "source": "github.com/sitechfromgeorgia/georgian-distribution-system"
+    }
+  ]
+}

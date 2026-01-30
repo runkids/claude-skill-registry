@@ -1,0 +1,20 @@
+{
+  "category": "archive-ticket",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.351945Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete commit workflow - format, archive, update changelog, and commit in one operation.",
+      "repo": "qmu/workaholic",
+      "path": "archive-ticket",
+      "branch": "main",
+      "category": "archive-ticket",
+      "tags": [],
+      "stars": 0,
+      "install": "qmu/workaholic/archive-ticket",
+      "source": "github.com/qmu/workaholic"
+    }
+  ]
+}

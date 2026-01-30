@@ -1,0 +1,20 @@
+{
+  "category": "dev-multiplayer-prediction-movement",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.171111Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Movement prediction with server reconciliation for WASD controls. Use when implementing player movement.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-multiplayer-prediction-movement",
+      "branch": "main",
+      "category": "dev-multiplayer-prediction-movement",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/dev-multiplayer-prediction-movement",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

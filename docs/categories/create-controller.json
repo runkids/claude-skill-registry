@@ -1,0 +1,20 @@
+{
+  "category": "create-controller",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.698042Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a controller for handling HTTP requests. Use when creating a controller to connect routes to services. Triggers on \"create controller\", \"controller for\", \"HTTP handler\".",
+      "repo": "madooei/backend-template",
+      "path": "create-controller",
+      "branch": "main",
+      "category": "create-controller",
+      "tags": [],
+      "stars": 0,
+      "install": "madooei/backend-template/create-controller",
+      "source": "github.com/madooei/backend-template"
+    }
+  ]
+}

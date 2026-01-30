@@ -1,0 +1,20 @@
+{
+  "category": "dspy-debugging-observability",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.540507Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"debug DSPy programs\", \"trace LLM calls\", \"monitor production DSPy\", \"use MLflow with DSPy\", mentions \"inspect_history\", \"custom callbacks\", \"observabil",
+      "repo": "OmidZamani/dspy-skills",
+      "path": "dspy-debugging-observability",
+      "branch": "main",
+      "category": "dspy-debugging-observability",
+      "tags": [],
+      "stars": 0,
+      "install": "OmidZamani/dspy-skills/dspy-debugging-observability",
+      "source": "github.com/OmidZamani/dspy-skills"
+    }
+  ]
+}

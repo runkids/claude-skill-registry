@@ -1,0 +1,20 @@
+{
+  "category": "transcript-saver",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.309041Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Save and export the current Claude Code session as a shareable HTML transcript. Use this skill when the user asks to save, export, archive, or publish their current Claude Code conversation or session",
+      "repo": "fpl9000/ai-skills",
+      "path": "transcript-saver",
+      "branch": "main",
+      "category": "transcript-saver",
+      "tags": [],
+      "stars": 0,
+      "install": "fpl9000/ai-skills/transcript-saver",
+      "source": "github.com/fpl9000/ai-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "vps",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.430112Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Direct VPS operations via SSH MCP. Manage Docker containers, check logs, run commands, and troubleshoot services on registered VPS servers.",
+      "repo": "BerryKuipers/claude-code-toolkit",
+      "path": "vps",
+      "branch": "main",
+      "category": "vps",
+      "tags": [],
+      "stars": 0,
+      "install": "BerryKuipers/claude-code-toolkit/vps",
+      "source": "github.com/BerryKuipers/claude-code-toolkit"
+    }
+  ]
+}

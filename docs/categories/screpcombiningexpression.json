@@ -1,0 +1,20 @@
+{
+  "category": "screpcombiningexpression",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.923862Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Combine scTCR/BCR repertoire data with scRNA-seq expression data using `scRepertoire::combineExpression()`. This process integrates immune receptor information (CDR3 sequences, V(D)J genes, clonotypes",
+      "repo": "pwwang/immunopipe",
+      "path": "screpcombiningexpression",
+      "branch": "main",
+      "category": "screpcombiningexpression",
+      "tags": [],
+      "stars": 0,
+      "install": "pwwang/immunopipe/screpcombiningexpression",
+      "source": "github.com/pwwang/immunopipe"
+    }
+  ]
+}

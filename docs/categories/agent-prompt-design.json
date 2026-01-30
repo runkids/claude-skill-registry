@@ -1,0 +1,20 @@
+{
+  "category": "agent-prompt-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.238915Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create well-structured prompts for AI agents using proven architecture patterns. Use when users ask to write agent prompts, system prompts, or agent instructions, or want to improve existing prompts t",
+      "repo": "agentailor/skills",
+      "path": "agent-prompt-design",
+      "branch": "main",
+      "category": "agent-prompt-design",
+      "tags": [],
+      "stars": 0,
+      "install": "agentailor/skills/agent-prompt-design",
+      "source": "github.com/agentailor/skills"
+    }
+  ]
+}

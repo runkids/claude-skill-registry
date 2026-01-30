@@ -1,0 +1,20 @@
+{
+  "category": "compliance-auditor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.631586Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated compliance auditing for SOC2, HIPAA, GDPR, and PCI-DSS. Activates for compliance checks, security audits, regulatory requirements, and compliance automation.",
+      "repo": "Dexploarer/hyper-forge",
+      "path": "compliance-auditor",
+      "branch": "main",
+      "category": "compliance-auditor",
+      "tags": [],
+      "stars": 0,
+      "install": "Dexploarer/hyper-forge/compliance-auditor",
+      "source": "github.com/Dexploarer/hyper-forge"
+    }
+  ]
+}

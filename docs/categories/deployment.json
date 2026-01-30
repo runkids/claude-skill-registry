@@ -1,0 +1,20 @@
+{
+  "category": "deployment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.078182Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploy applications ไปยังทุก platform อย่างมืออาชีพ",
+      "repo": "saknarinZ/agent_skills_gemini",
+      "path": "deployment",
+      "branch": "main",
+      "category": "deployment",
+      "tags": [],
+      "stars": 0,
+      "install": "saknarinZ/agent_skills_gemini/deployment",
+      "source": "github.com/saknarinZ/agent_skills_gemini"
+    }
+  ]
+}

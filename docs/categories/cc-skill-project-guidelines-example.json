@@ -1,0 +1,20 @@
+{
+  "category": "cc-skill-project-guidelines-example",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.496941Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Project Guidelines Skill (Example)",
+      "repo": "chrissargent48/weekly_report",
+      "path": "cc-skill-project-guidelines-example",
+      "branch": "main",
+      "category": "cc-skill-project-guidelines-example",
+      "tags": [],
+      "stars": 0,
+      "install": "chrissargent48/weekly_report/cc-skill-project-guidelines-example",
+      "source": "github.com/chrissargent48/weekly_report"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "backend-coding",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.405640Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert backend development guidance covering Node.js, Python, Java, Go, API design (REST/GraphQL/gRPC), database patterns, authentication, caching, message queues, microservices, and testing. Produces",
+      "repo": "DauQuangThanh/hanoi-rainbow",
+      "path": "backend-coding",
+      "branch": "main",
+      "category": "backend-coding",
+      "tags": [],
+      "stars": 0,
+      "install": "DauQuangThanh/hanoi-rainbow/backend-coding",
+      "source": "github.com/DauQuangThanh/hanoi-rainbow"
+    }
+  ]
+}

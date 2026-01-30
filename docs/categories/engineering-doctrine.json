@@ -1,0 +1,20 @@
+{
+  "category": "engineering-doctrine",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.574238Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TODO",
+      "repo": "mattg101/SolidLink",
+      "path": "engineering-doctrine",
+      "branch": "main",
+      "category": "engineering-doctrine",
+      "tags": [],
+      "stars": 0,
+      "install": "mattg101/SolidLink/engineering-doctrine",
+      "source": "github.com/mattg101/SolidLink"
+    }
+  ]
+}

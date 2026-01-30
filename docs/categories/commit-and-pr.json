@@ -1,0 +1,20 @@
+{
+  "category": "commit-and-pr",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.619491Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /commit-and-pr slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "commit-and-pr",
+      "branch": "main",
+      "category": "commit-and-pr",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles/commit-and-pr",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

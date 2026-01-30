@@ -1,0 +1,20 @@
+{
+  "category": "agentuity-cli-project-delete",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.267866Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Delete a project. Requires authentication. Use for project management operations",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-project-delete",
+      "branch": "main",
+      "category": "agentuity-cli-project-delete",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer/agentuity-cli-project-delete",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

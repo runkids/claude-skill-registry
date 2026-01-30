@@ -1,0 +1,20 @@
+{
+  "category": "architecture-paradigm-client-server",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.347839Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- For traditional applications that have centralized services, such as web or mobile clients communicating with backend APIs.",
+      "repo": "athola/claude-night-market",
+      "path": "architecture-paradigm-client-server",
+      "branch": "main",
+      "category": "architecture-paradigm-client-server",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/architecture-paradigm-client-server",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

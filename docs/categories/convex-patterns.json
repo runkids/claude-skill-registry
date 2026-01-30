@@ -1,0 +1,20 @@
+{
+  "category": "convex-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.681428Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convex backend patterns for this project. Query/mutation/action structure, TypeScript recursion workarounds, auth patterns, resilient generation (10min actions), normalized schema design. Triggers on",
+      "repo": "planetaryescape/blah.chat",
+      "path": "convex-patterns",
+      "branch": "main",
+      "category": "convex-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "planetaryescape/blah.chat/convex-patterns",
+      "source": "github.com/planetaryescape/blah.chat"
+    }
+  ]
+}

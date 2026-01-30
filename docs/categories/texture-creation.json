@@ -1,0 +1,20 @@
+{
+  "category": "texture-creation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.278281Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating textures using vanilla texture reuse and color transformation",
+      "repo": "ksoichiro/ChronoDawn",
+      "path": "texture-creation",
+      "branch": "main",
+      "category": "texture-creation",
+      "tags": [],
+      "stars": 0,
+      "install": "ksoichiro/ChronoDawn/texture-creation",
+      "source": "github.com/ksoichiro/ChronoDawn"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "data-pipeline-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.031580Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build orchestration pipelines with idempotency.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "data-pipeline-builder",
+      "branch": "main",
+      "category": "data-pipeline-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/data-pipeline-builder",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

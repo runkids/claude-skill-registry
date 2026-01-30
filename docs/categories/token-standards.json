@@ -1,0 +1,20 @@
+{
+  "category": "token-standards",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.297466Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert on Aptos token standards including fungible tokens (Coin, Fungible Asset), non-fungible tokens (Digital Asset standard, Token V1/V2), collections, metadata, minting, burning, and transfer patte",
+      "repo": "raintree-technology/claude-starter",
+      "path": "token-standards",
+      "branch": "main",
+      "category": "token-standards",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/token-standards",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

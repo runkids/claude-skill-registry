@@ -1,0 +1,20 @@
+{
+  "category": "resolve-conflict",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.830365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Resolve disagreements between security and architecture reviews conservatively.",
+      "repo": "EtroxTaran/conductor",
+      "path": "resolve-conflict",
+      "branch": "main",
+      "category": "resolve-conflict",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor/resolve-conflict",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

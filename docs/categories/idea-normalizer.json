@@ -1,0 +1,20 @@
+{
+  "category": "idea-normalizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.856499Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "﻿---",
+      "repo": "Darkpunkki/v-forge",
+      "path": "idea-normalizer",
+      "branch": "main",
+      "category": "idea-normalizer",
+      "tags": [],
+      "stars": 0,
+      "install": "Darkpunkki/v-forge/idea-normalizer",
+      "source": "github.com/Darkpunkki/v-forge"
+    }
+  ]
+}

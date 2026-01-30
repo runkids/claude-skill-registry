@@ -1,0 +1,20 @@
+{
+  "category": "pr-patrol",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.623945Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"handle bot comments\", \"fix PR review feedback\", \"address CodeRabbit/Greptile/Copilot issues\", \"respond to review bot suggestions\", \"process automated r",
+      "repo": "SmartOzzehir/smart-plugins",
+      "path": "pr-patrol",
+      "branch": "main",
+      "category": "pr-patrol",
+      "tags": [],
+      "stars": 0,
+      "install": "SmartOzzehir/smart-plugins/pr-patrol",
+      "source": "github.com/SmartOzzehir/smart-plugins"
+    }
+  ]
+}

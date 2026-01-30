@@ -1,0 +1,20 @@
+{
+  "category": "💡 idea-issue-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.522131Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform bullet points into enhanced, prioritized items for MASTER_PLAN.md. Process ideas inbox and integrate with project tracking.",
+      "repo": "endlessblink/flow-state",
+      "path": "💡 idea-issue-creator",
+      "branch": "main",
+      "category": "💡 idea-issue-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/💡 idea-issue-creator",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "test-suite-create",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.213623Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates a comprehensive test suite for a feature",
+      "repo": "cpa03/blueprintify",
+      "path": "test-suite-create",
+      "branch": "main",
+      "category": "test-suite-create",
+      "tags": [],
+      "stars": 0,
+      "install": "cpa03/blueprintify/test-suite-create",
+      "source": "github.com/cpa03/blueprintify"
+    }
+  ]
+}

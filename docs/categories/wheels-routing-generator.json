@@ -1,0 +1,20 @@
+{
+  "category": "wheels-routing-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.459268Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate RESTful routes, nested routes, and custom routing patterns for Wheels applications. Use when defining URL structure, creating RESTful resources, or implementing custom route patterns. Ensures",
+      "repo": "wheels-dev/wheels",
+      "path": "wheels-routing-generator",
+      "branch": "main",
+      "category": "wheels-routing-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "wheels-dev/wheels/wheels-routing-generator",
+      "source": "github.com/wheels-dev/wheels"
+    }
+  ]
+}

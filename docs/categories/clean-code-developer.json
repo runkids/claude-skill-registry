@@ -1,0 +1,20 @@
+{
+  "category": "clean-code-developer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.550319Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Assist developers in writing clean, maintainable code following software engineering best practices. Use when conducting code reviews, refactoring code, enforcing coding standards, seeking guidance on",
+      "repo": "d-o-hub/rust-self-learning-memory",
+      "path": "clean-code-developer",
+      "branch": "main",
+      "category": "clean-code-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "d-o-hub/rust-self-learning-memory/clean-code-developer",
+      "source": "github.com/d-o-hub/rust-self-learning-memory"
+    }
+  ]
+}

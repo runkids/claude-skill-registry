@@ -1,0 +1,20 @@
+{
+  "category": "resource-tagging",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.832164Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply and enforce cloud resource tagging strategies across AWS, Azure, GCP, and Kubernetes for cost allocation, ownership tracking, compliance, and automation. Use when implementing cloud governance,",
+      "repo": "ancoleman/ai-design-components",
+      "path": "resource-tagging",
+      "branch": "main",
+      "category": "resource-tagging",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/resource-tagging",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

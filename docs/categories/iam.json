@@ -1,0 +1,20 @@
+{
+  "category": "iam",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.850696Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS Identity and Access Management for users, roles, policies, and permissions. Use when creating IAM policies, configuring cross-account access, setting up service roles, troubleshooting permission e",
+      "repo": "itsmostafa/aws-agent-skills",
+      "path": "iam",
+      "branch": "main",
+      "category": "iam",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmostafa/aws-agent-skills/iam",
+      "source": "github.com/itsmostafa/aws-agent-skills"
+    }
+  ]
+}

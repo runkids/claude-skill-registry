@@ -1,0 +1,20 @@
+{
+  "category": "api-testing-suite",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.330891Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate API responses and schemas.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "api-testing-suite",
+      "branch": "main",
+      "category": "api-testing-suite",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/api-testing-suite",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

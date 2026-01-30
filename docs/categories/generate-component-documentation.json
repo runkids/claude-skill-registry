@@ -1,0 +1,20 @@
+{
+  "category": "generate-component-documentation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.740311Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate documentation for new components. Use when writing docs, documenting components, or creating component documentation.",
+      "repo": "longbridge/gpui-component",
+      "path": "generate-component-documentation",
+      "branch": "main",
+      "category": "generate-component-documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "longbridge/gpui-component/generate-component-documentation",
+      "source": "github.com/longbridge/gpui-component"
+    }
+  ]
+}

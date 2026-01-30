@@ -1,0 +1,20 @@
+{
+  "category": "evaluation-framework",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.601002Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Overview",
+      "repo": "athola/claude-night-market",
+      "path": "evaluation-framework",
+      "branch": "main",
+      "category": "evaluation-framework",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/evaluation-framework",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

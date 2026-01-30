@@ -1,0 +1,20 @@
+{
+  "category": "magento-cache-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.061959Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimizes Magento 2 caching strategies for enterprise performance. Use when optimizing cache performance, configuring full-page cache, implementing Redis/Memcached, or designing cache invalidation str",
+      "repo": "maxnorm/magento2-agent-skills",
+      "path": "magento-cache-analyst",
+      "branch": "main",
+      "category": "magento-cache-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "maxnorm/magento2-agent-skills/magento-cache-analyst",
+      "source": "github.com/maxnorm/magento2-agent-skills"
+    }
+  ]
+}

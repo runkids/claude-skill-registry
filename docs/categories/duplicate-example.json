@@ -1,0 +1,20 @@
+{
+  "category": "duplicate-example",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.543296Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a new iPlug2 plugin project by duplicating an example template",
+      "repo": "iPlug2/iPlug2",
+      "path": "duplicate-example",
+      "branch": "main",
+      "category": "duplicate-example",
+      "tags": [],
+      "stars": 0,
+      "install": "iPlug2/iPlug2/duplicate-example",
+      "source": "github.com/iPlug2/iPlug2"
+    }
+  ]
+}

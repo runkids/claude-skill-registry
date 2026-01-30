@@ -1,0 +1,20 @@
+{
+  "category": "mock-authoring",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.183453Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Writing effective dry_run.py mocks for workflow testing without external dependencies",
+      "repo": "mpuig/raw",
+      "path": "mock-authoring",
+      "branch": "main",
+      "category": "mock-authoring",
+      "tags": [],
+      "stars": 0,
+      "install": "mpuig/raw/mock-authoring",
+      "source": "github.com/mpuig/raw"
+    }
+  ]
+}

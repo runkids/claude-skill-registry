@@ -1,0 +1,20 @@
+{
+  "category": "project-updates",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.699345Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MANDATORY: Every completed feature must be tracked in:",
+      "repo": "vassovass/scl-v3",
+      "path": "project-updates",
+      "branch": "main",
+      "category": "project-updates",
+      "tags": [],
+      "stars": 0,
+      "install": "vassovass/scl-v3/project-updates",
+      "source": "github.com/vassovass/scl-v3"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "linkedin-post-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.026066Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Professional narrative style with line breaks, hashtag strategy, and hooks in first 2 lines to avoid truncation",
+      "repo": "nicepkg/ai-workflow",
+      "path": "linkedin-post-optimizer",
+      "branch": "main",
+      "category": "linkedin-post-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/linkedin-post-optimizer",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

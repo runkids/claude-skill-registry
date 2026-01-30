@@ -1,0 +1,20 @@
+{
+  "category": "compliance",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.631251Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ensure regulatory compliance. Use when implementing GDPR, HIPAA, PCI-DSS, or SOC2 requirements. Covers compliance frameworks and controls.",
+      "repo": "dralgorhythm/claude-agentic-framework",
+      "path": "compliance",
+      "branch": "main",
+      "category": "compliance",
+      "tags": [],
+      "stars": 0,
+      "install": "dralgorhythm/claude-agentic-framework/compliance",
+      "source": "github.com/dralgorhythm/claude-agentic-framework"
+    }
+  ]
+}

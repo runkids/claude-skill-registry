@@ -1,0 +1,20 @@
+{
+  "category": "component-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.633944Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design React/Vue components following atomic design and composition patterns. Use when creating UI components.",
+      "repo": "vneseyoungster/ChocoVine",
+      "path": "component-design",
+      "branch": "main",
+      "category": "component-design",
+      "tags": [],
+      "stars": 0,
+      "install": "vneseyoungster/ChocoVine/component-design",
+      "source": "github.com/vneseyoungster/ChocoVine"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "wiggum",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.469070Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Start an autonomous implementation loop from a spec or PRD. Enters plan mode for user approval, enforces command gates (test/lint/typecheck/build), validates dependencies, commits incrementally, and m",
+      "repo": "zbruhnke/claude-code-starter",
+      "path": "wiggum",
+      "branch": "main",
+      "category": "wiggum",
+      "tags": [],
+      "stars": 0,
+      "install": "zbruhnke/claude-code-starter/wiggum",
+      "source": "github.com/zbruhnke/claude-code-starter"
+    }
+  ]
+}

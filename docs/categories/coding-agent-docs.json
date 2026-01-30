@@ -1,0 +1,20 @@
+{
+  "category": "coding-agent-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.609598Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Stay current with how OpenCode, OpenAI Codex, and Claude Code implement extensibility features (skills, slash commands, subagents, custom prompts). Use when comparing implementations across AI coding",
+      "repo": "kasperjunge/agent-resources-legacy",
+      "path": "coding-agent-docs",
+      "branch": "main",
+      "category": "coding-agent-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "kasperjunge/agent-resources-legacy/coding-agent-docs",
+      "source": "github.com/kasperjunge/agent-resources-legacy"
+    }
+  ]
+}

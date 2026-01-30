@@ -1,0 +1,20 @@
+{
+  "category": "agentuity-cli-build",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.252064Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build Agentuity application for deployment",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-build",
+      "branch": "main",
+      "category": "agentuity-cli-build",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer/agentuity-cli-build",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "data-manager-system",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.029915Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Service-scoped data orchestration for TMNL. Invoke when implementing search, data streams, kernel systems, or Effect-based DAQ. Covers hybrid dispatch (fibers + workers), Atom-as-State pattern, and pr",
+      "repo": "creatifcoding/gbg",
+      "path": "data-manager-system",
+      "branch": "main",
+      "category": "data-manager-system",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/data-manager-system",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

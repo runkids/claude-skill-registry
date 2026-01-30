@@ -1,0 +1,20 @@
+{
+  "category": "occams-razor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.277874Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "La solución más simple suele ser la mejor. Use cuando evalúe complejidad de diseño, tome decisiones de features, o simplifique interfaces.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "occams-razor",
+      "branch": "main",
+      "category": "occams-razor",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/occams-razor",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

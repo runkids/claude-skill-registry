@@ -1,0 +1,20 @@
+{
+  "category": "optimizing-performance",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.302169Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guides performance optimization, profiling techniques, and bottleneck identification. Use when improving application speed, reducing resource usage, or diagnosing performance issues.",
+      "repo": "CloudAI-X/opencode-workflow",
+      "path": "optimizing-performance",
+      "branch": "main",
+      "category": "optimizing-performance",
+      "tags": [],
+      "stars": 0,
+      "install": "CloudAI-X/opencode-workflow/optimizing-performance",
+      "source": "github.com/CloudAI-X/opencode-workflow"
+    }
+  ]
+}

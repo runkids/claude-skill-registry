@@ -1,0 +1,20 @@
+{
+  "category": "scientific-peer-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.906365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Structured manuscript/grant review with checklist-based evaluation. Use when writing formal peer reviews with specific criteria methodology assessment, statistical validity, reporting standards compli",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-peer-review",
+      "branch": "main",
+      "category": "scientific-peer-review",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP/scientific-peer-review",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

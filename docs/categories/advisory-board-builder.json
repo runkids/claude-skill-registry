@@ -1,0 +1,20 @@
+{
+  "category": "advisory-board-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.218603Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Recruit, structure, and manage advisory boards for strategic guidance",
+      "repo": "eddiebe147/claude-settings",
+      "path": "advisory-board-builder",
+      "branch": "main",
+      "category": "advisory-board-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/advisory-board-builder",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "authentication-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.374911Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement JWT authentication with bcrypt password hashing, refresh tokens, account lockout, and password reset flow. Use when setting up authentication or login system.",
+      "repo": "PrasadTelasula/EvokeQOne",
+      "path": "authentication-setup",
+      "branch": "main",
+      "category": "authentication-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "PrasadTelasula/EvokeQOne/authentication-setup",
+      "source": "github.com/PrasadTelasula/EvokeQOne"
+    }
+  ]
+}

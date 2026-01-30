@@ -1,0 +1,20 @@
+{
+  "category": "deepgram-cost-tuning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.062761Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize Deepgram costs and usage for budget-conscious deployments. Use when reducing transcription costs, implementing usage controls, or optimizing pricing tier utilization. Trigger with phrases lik",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "deepgram-cost-tuning",
+      "branch": "main",
+      "category": "deepgram-cost-tuning",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/deepgram-cost-tuning",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

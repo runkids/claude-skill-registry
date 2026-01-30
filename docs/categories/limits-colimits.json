@@ -1,0 +1,20 @@
+{
+  "category": "limits-colimits",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.021503Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Problem-solving strategies for limits colimits in category theory",
+      "repo": "namesreallyblank/Clorch",
+      "path": "limits-colimits",
+      "branch": "main",
+      "category": "limits-colimits",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/limits-colimits",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "cqrs-command-query",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.693653Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Génère des Commands, Queries et Handlers suivant le pattern CQRS (Command Query Responsibility Segregation). À utiliser lors de la création de use cases, commands, queries, handlers, read models, ou q",
+      "repo": "RomualdP/hoki",
+      "path": "cqrs-command-query",
+      "branch": "main",
+      "category": "cqrs-command-query",
+      "tags": [],
+      "stars": 0,
+      "install": "RomualdP/hoki/cqrs-command-query",
+      "source": "github.com/RomualdP/hoki"
+    }
+  ]
+}

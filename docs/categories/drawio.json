@@ -1,0 +1,20 @@
+{
+  "category": "drawio",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.535013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate draw.io diagrams programmatically using Python. Creates flowcharts, architecture diagrams, tree structures, network diagrams, and more. Use when the user requests a .drawio file, diagram, flo",
+      "repo": "fpl9000/ai-skills",
+      "path": "drawio",
+      "branch": "main",
+      "category": "drawio",
+      "tags": [],
+      "stars": 0,
+      "install": "fpl9000/ai-skills/drawio",
+      "source": "github.com/fpl9000/ai-skills"
+    }
+  ]
+}

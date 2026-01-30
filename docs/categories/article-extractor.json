@@ -1,0 +1,20 @@
+{
+  "category": "article-extractor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.354327Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract clean article content from URLs (blog posts, articles, tutorials) and save as readable text. Use when user wants to download, extract, or save an article/blog post from a URL without ads, navi",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "article-extractor",
+      "branch": "main",
+      "category": "article-extractor",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/article-extractor",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

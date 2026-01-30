@@ -1,0 +1,20 @@
+{
+  "category": "crm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.721565Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Research people and companies, add to CRM database with smart linking",
+      "repo": "leovigna/jarvis-template",
+      "path": "crm",
+      "branch": "main",
+      "category": "crm",
+      "tags": [],
+      "stars": 0,
+      "install": "leovigna/jarvis-template/crm",
+      "source": "github.com/leovigna/jarvis-template"
+    }
+  ]
+}

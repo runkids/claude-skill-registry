@@ -1,0 +1,20 @@
+{
+  "category": "refresh",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.801681Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Silently refresh AI context by reading project configuration and guidelines. Use when starting a new conversation, after context loss, or before major tasks.",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "refresh",
+      "branch": "main",
+      "category": "refresh",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager/refresh",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

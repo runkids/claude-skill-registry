@@ -1,0 +1,20 @@
+{
+  "category": "dev-fix-task-store",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.169580Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DEBUG task store synchronization, task creation/deletion bugs, and state persistence problems. Fix when tasks don't save, disappear unexpectedly, or don't update in UI. Use for Pinia task store, task",
+      "repo": "endlessblink/flow-state",
+      "path": "dev-fix-task-store",
+      "branch": "main",
+      "category": "dev-fix-task-store",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/dev-fix-task-store",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

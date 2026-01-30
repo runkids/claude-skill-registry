@@ -1,0 +1,20 @@
+{
+  "category": "read-issue",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.782451Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /read-issue <issue-number> slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "read-issue",
+      "branch": "main",
+      "category": "read-issue",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles/read-issue",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

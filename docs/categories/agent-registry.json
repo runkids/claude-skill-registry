@@ -1,0 +1,20 @@
+{
+  "category": "agent-registry",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.240109Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for managing the Agent Registry - database-backed agent configuration system. Use when asked to \"configure agents\", \"manage skills\", \"set tool permissions\", \"create context rules\", or when worki",
+      "repo": "orient-bot/orient",
+      "path": "agent-registry",
+      "branch": "main",
+      "category": "agent-registry",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/agent-registry",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

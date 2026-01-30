@@ -1,0 +1,20 @@
+{
+  "category": "bun-workers",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.471753Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use for Web Workers in Bun, worker_threads, parallel processing, and background tasks.",
+      "repo": "secondsky/claude-skills",
+      "path": "bun-workers",
+      "branch": "main",
+      "category": "bun-workers",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills/bun-workers",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

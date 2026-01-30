@@ -1,0 +1,20 @@
+{
+  "category": "opentofu",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.295810Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Open-source Terraform alternative for infrastructure provisioning with installation and workflow commands.",
+      "repo": "jyasuu/cheat-sheet",
+      "path": "opentofu",
+      "branch": "main",
+      "category": "opentofu",
+      "tags": [],
+      "stars": 0,
+      "install": "jyasuu/cheat-sheet/opentofu",
+      "source": "github.com/jyasuu/cheat-sheet"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "domain-modeling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.522150Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Model domains and bounded contexts for complex systems. Use when a senior developer needs domain-driven design guidance.",
+      "repo": "proflead/codex-skills-library",
+      "path": "domain-modeling",
+      "branch": "main",
+      "category": "domain-modeling",
+      "tags": [],
+      "stars": 0,
+      "install": "proflead/codex-skills-library/domain-modeling",
+      "source": "github.com/proflead/codex-skills-library"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "langfuse-install-auth",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.971059Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Install and configure Langfuse SDK authentication for LLM observability. Use when setting up a new Langfuse integration, configuring API keys, or initializing Langfuse tracing in your project. Trigger",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "langfuse-install-auth",
+      "branch": "main",
+      "category": "langfuse-install-auth",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/langfuse-install-auth",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

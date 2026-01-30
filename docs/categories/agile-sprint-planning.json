@@ -1,0 +1,20 @@
+{
+  "category": "agile-sprint-planning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.269251Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan and execute effective sprints using Agile methodologies. Define sprint goals, estimate user stories, manage sprint backlog, and facilitate daily standups to maximize team productivity and deliver",
+      "repo": "nicepkg/ai-workflow",
+      "path": "agile-sprint-planning",
+      "branch": "main",
+      "category": "agile-sprint-planning",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/agile-sprint-planning",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

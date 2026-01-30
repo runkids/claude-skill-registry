@@ -1,0 +1,20 @@
+{
+  "category": "forge",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.686743Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Mine transcripts for knowledge - decisions, learnings, failures, patterns. Triggers: \"forge insights\", \"mine transcripts\", \"extract knowledge\".",
+      "repo": "boshu2/agentops",
+      "path": "forge",
+      "branch": "main",
+      "category": "forge",
+      "tags": [],
+      "stars": 0,
+      "install": "boshu2/agentops/forge",
+      "source": "github.com/boshu2/agentops"
+    }
+  ]
+}

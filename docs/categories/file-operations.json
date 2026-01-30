@@ -1,0 +1,20 @@
+{
+  "category": "file-operations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.660454Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze files and get detailed metadata including size, line counts, modification times, and content statistics. Use when users request file information, statistics, or analysis without modifying file",
+      "repo": "mhattingpete/claude-skills-marketplace",
+      "path": "file-operations",
+      "branch": "main",
+      "category": "file-operations",
+      "tags": [],
+      "stars": 0,
+      "install": "mhattingpete/claude-skills-marketplace/file-operations",
+      "source": "github.com/mhattingpete/claude-skills-marketplace"
+    }
+  ]
+}

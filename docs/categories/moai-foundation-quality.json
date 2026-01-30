@@ -1,0 +1,20 @@
+{
+  "category": "moai-foundation-quality",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.163650Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise code quality orchestrator with TRUST 5 validation, proactive analysis, and automated best practices enforcement",
+      "repo": "modu-ai/moai-adk",
+      "path": "moai-foundation-quality",
+      "branch": "main",
+      "category": "moai-foundation-quality",
+      "tags": [],
+      "stars": 0,
+      "install": "modu-ai/moai-adk/moai-foundation-quality",
+      "source": "github.com/modu-ai/moai-adk"
+    }
+  ]
+}

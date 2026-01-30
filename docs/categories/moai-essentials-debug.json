@@ -1,0 +1,20 @@
+{
+  "category": "moai-essentials-debug",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.161533Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI-powered enterprise debugging orchestrator with Context7 integration, intelligent error pattern recognition, automated root cause analysis, predictive fix suggestions, and multi-process debugging co",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-essentials-debug",
+      "branch": "main",
+      "category": "moai-essentials-debug",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-essentials-debug",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

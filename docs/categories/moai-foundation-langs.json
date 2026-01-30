@@ -1,0 +1,20 @@
+{
+  "category": "moai-foundation-langs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.163304Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Programming Languages Foundation with AI-powered language selection, Context7 integration, and intelligent multi-language orchestration for optimal technology choices",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-foundation-langs",
+      "branch": "main",
+      "category": "moai-foundation-langs",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-foundation-langs",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

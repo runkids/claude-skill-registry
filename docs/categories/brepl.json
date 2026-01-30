@@ -1,0 +1,20 @@
+{
+  "category": "brepl",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.445647Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "You MUST load this skill before using brepl. Do NOT attempt to use brepl without loading this skill first, or you will use incorrect syntax.",
+      "repo": "Ramblurr/nix-devenv",
+      "path": "brepl",
+      "branch": "main",
+      "category": "brepl",
+      "tags": [],
+      "stars": 0,
+      "install": "Ramblurr/nix-devenv/brepl",
+      "source": "github.com/Ramblurr/nix-devenv"
+    }
+  ]
+}

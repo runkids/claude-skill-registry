@@ -1,0 +1,20 @@
+{
+  "category": "mcp-registry",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.105630Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Official MCP Registry for discovering and publishing Model Context Protocol servers - the app store for MCP servers",
+      "repo": "enuno/claude-command-and-control",
+      "path": "mcp-registry",
+      "branch": "main",
+      "category": "mcp-registry",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control/mcp-registry",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

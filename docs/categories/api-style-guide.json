@@ -1,0 +1,20 @@
+{
+  "category": "api-style-guide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.329841Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Style and formatting rules for API/SDK documentation, samples, and tutorials.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "api-style-guide",
+      "branch": "main",
+      "category": "api-style-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/api-style-guide",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

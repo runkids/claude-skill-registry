@@ -1,0 +1,20 @@
+{
+  "category": "supabase-realtime",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.120245Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when implementing real-time features: live updates, presence, broadcast messages, or database change subscriptions.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "supabase-realtime",
+      "branch": "main",
+      "category": "supabase-realtime",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/supabase-realtime",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

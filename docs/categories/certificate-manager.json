@@ -1,0 +1,20 @@
+{
+  "category": "certificate-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.501583Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automate TLS certificates, rotation, and mTLS configuration.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "certificate-manager",
+      "branch": "main",
+      "category": "certificate-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/certificate-manager",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

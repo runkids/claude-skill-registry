@@ -1,0 +1,20 @@
+{
+  "category": "story-validator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.096557Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate user stories against INVEST criteria and suggest improvements",
+      "repo": "matteocervelli/llms",
+      "path": "story-validator",
+      "branch": "main",
+      "category": "story-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms/story-validator",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

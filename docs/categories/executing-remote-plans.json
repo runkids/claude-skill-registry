@@ -1,0 +1,20 @@
+{
+  "category": "executing-remote-plans",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.614230Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Distributed HEC-RAS execution across remote workers (PsExec, Docker, SSH, cloud). Handles worker initialization, queue scheduling, and result aggregation. Use when setting up remote execution, distrib",
+      "repo": "gpt-cmdr/ras-commander",
+      "path": "executing-remote-plans",
+      "branch": "main",
+      "category": "executing-remote-plans",
+      "tags": [],
+      "stars": 0,
+      "install": "gpt-cmdr/ras-commander/executing-remote-plans",
+      "source": "github.com/gpt-cmdr/ras-commander"
+    }
+  ]
+}

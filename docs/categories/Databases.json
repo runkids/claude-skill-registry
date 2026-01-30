@@ -1,0 +1,20 @@
+{
+  "category": "Databases",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.167772Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "RDBMS access patterns for DuckDB, MySQL (keycloak), PostgreSQL (dw, x3rocs), SQL Server (sage1000, x3), and DBISAM (Exportmaster) using ODBC and native drivers",
+      "repo": "lawless-m/Earwig",
+      "path": "Databases",
+      "branch": "main",
+      "category": "Databases",
+      "tags": [],
+      "stars": 0,
+      "install": "lawless-m/Earwig/Databases",
+      "source": "github.com/lawless-m/Earwig"
+    }
+  ]
+}

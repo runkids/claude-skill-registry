@@ -1,0 +1,20 @@
+{
+  "category": "building-mcp-servers",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.461720Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building MCP servers in TypeScript, Python, or C#; when implementing tools, resources, or prompts; when configuring Streamable HTTP transport; when migrating from SSE; when adding OAuth authe",
+      "repo": "mhagrelius/dotfiles",
+      "path": "building-mcp-servers",
+      "branch": "main",
+      "category": "building-mcp-servers",
+      "tags": [],
+      "stars": 0,
+      "install": "mhagrelius/dotfiles/building-mcp-servers",
+      "source": "github.com/mhagrelius/dotfiles"
+    }
+  ]
+}

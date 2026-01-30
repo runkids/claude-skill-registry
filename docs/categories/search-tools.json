@@ -1,0 +1,20 @@
+{
+  "category": "search-tools",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.931596Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Search Tool Hierarchy",
+      "repo": "namesreallyblank/Clorch",
+      "path": "search-tools",
+      "branch": "main",
+      "category": "search-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/search-tools",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

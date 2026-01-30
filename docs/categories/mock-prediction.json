@@ -1,0 +1,20 @@
+{
+  "category": "mock-prediction",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.184523Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Mock prediction skill for 4-layer thinking test. Calls Task subagent.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "mock-prediction",
+      "branch": "main",
+      "category": "mock-prediction",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/mock-prediction",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

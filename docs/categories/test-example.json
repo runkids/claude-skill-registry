@@ -1,0 +1,20 @@
+{
+  "category": "test-example",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.202209Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test a Nextflow script by running it, verifying outputs, testing resume functionality, and comparing results with documentation. Use when validating that example scripts work correctly and match their",
+      "repo": "nextflow-io/training",
+      "path": "test-example",
+      "branch": "main",
+      "category": "test-example",
+      "tags": [],
+      "stars": 0,
+      "install": "nextflow-io/training/test-example",
+      "source": "github.com/nextflow-io/training"
+    }
+  ]
+}

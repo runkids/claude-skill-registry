@@ -1,0 +1,20 @@
+{
+  "category": "Image Files",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.170748Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Image manipulation using ImageMagick command-line tools for resizing, converting, optimizing, and batch processing",
+      "repo": "lawless-m/Earwig",
+      "path": "Image Files",
+      "branch": "main",
+      "category": "Image Files",
+      "tags": [],
+      "stars": 0,
+      "install": "lawless-m/Earwig/Image Files",
+      "source": "github.com/lawless-m/Earwig"
+    }
+  ]
+}

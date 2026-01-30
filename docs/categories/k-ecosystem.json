@@ -1,0 +1,20 @@
+{
+  "category": "k-ecosystem",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.937707Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Context for the Mechanic/Fen WoW addon development ecosystem. Covers all components (Mechanic, FenCore, FenUI, MechanicLib), their relationships, and AFD principles. Load this at the start of addon wo",
+      "repo": "Falkicon/Mechanic",
+      "path": "k-ecosystem",
+      "branch": "main",
+      "category": "k-ecosystem",
+      "tags": [],
+      "stars": 0,
+      "install": "Falkicon/Mechanic/k-ecosystem",
+      "source": "github.com/Falkicon/Mechanic"
+    }
+  ]
+}

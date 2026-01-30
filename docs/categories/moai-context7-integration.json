@@ -1,0 +1,20 @@
+{
+  "category": "moai-context7-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.154757Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enhanced context7 integration with AI-powered features",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-context7-integration",
+      "branch": "main",
+      "category": "moai-context7-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit/moai-context7-integration",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "discount-analytics",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.456321Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Track promotional code performance and marketing attribution. Shows redemptions, revenue, conversion rates, and ROI by discount code. Identifies which marketing channels drive sales. Triggers on \"disc",
+      "repo": "adrianwedd/lemonsqueezy-claude-skills",
+      "path": "discount-analytics",
+      "branch": "main",
+      "category": "discount-analytics",
+      "tags": [],
+      "stars": 0,
+      "install": "adrianwedd/lemonsqueezy-claude-skills/discount-analytics",
+      "source": "github.com/adrianwedd/lemonsqueezy-claude-skills"
+    }
+  ]
+}

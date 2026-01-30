@@ -1,0 +1,20 @@
+{
+  "category": "git-commit-conventional",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.756041Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate conventional commit messages with strict formatting rules",
+      "repo": "EtroxTaran/conductor",
+      "path": "git-commit-conventional",
+      "branch": "main",
+      "category": "git-commit-conventional",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor/git-commit-conventional",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

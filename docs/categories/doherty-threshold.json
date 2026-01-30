@@ -1,0 +1,20 @@
+{
+  "category": "doherty-threshold",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.518619Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Mantén tiempos de respuesta bajo 400ms para mantener la atención del usuario. Use cuando optimice performance, diseñe feedback de carga, o evalúe latencia percibida.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "doherty-threshold",
+      "branch": "main",
+      "category": "doherty-threshold",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/doherty-threshold",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

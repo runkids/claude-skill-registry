@@ -1,0 +1,20 @@
+{
+  "category": "fix-hierarchy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.673471Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used to fix visual hierarchy when everything looks equally important, CTAs don't stand out, or users miss key information. Applies Von Restorff Effect, Serial Position Effect, and",
+      "repo": "rohunvora/my-claude-skills",
+      "path": "fix-hierarchy",
+      "branch": "main",
+      "category": "fix-hierarchy",
+      "tags": [],
+      "stars": 0,
+      "install": "rohunvora/my-claude-skills/fix-hierarchy",
+      "source": "github.com/rohunvora/my-claude-skills"
+    }
+  ]
+}

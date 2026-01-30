@@ -1,0 +1,20 @@
+{
+  "category": "writing-dockerfiles",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.496347Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Writing optimized, secure, multi-stage Dockerfiles with language-specific patterns (Python, Node.js, Go, Rust), BuildKit features, and distroless images. Use when containerizing applications, optimizi",
+      "repo": "ancoleman/ai-design-components",
+      "path": "writing-dockerfiles",
+      "branch": "main",
+      "category": "writing-dockerfiles",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/writing-dockerfiles",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

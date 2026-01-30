@@ -1,0 +1,20 @@
+{
+  "category": "code-cleanup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.587425Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect and clean redundant code in Python and TypeScript projects. Finds unused imports, dead functions, stale comments, debug statements, and unused dependencies. Use when asked to \"clean code\", \"fin",
+      "repo": "wade56754/AI_ad_spend02",
+      "path": "code-cleanup",
+      "branch": "main",
+      "category": "code-cleanup",
+      "tags": [],
+      "stars": 0,
+      "install": "wade56754/AI_ad_spend02/code-cleanup",
+      "source": "github.com/wade56754/AI_ad_spend02"
+    }
+  ]
+}

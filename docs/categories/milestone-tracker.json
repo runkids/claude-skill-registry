@@ -1,0 +1,20 @@
+{
+  "category": "milestone-tracker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.136419Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по отслеживанию milestones. Используй для трекинга прогресса, critical path, статус-репортов и earned value.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "milestone-tracker",
+      "branch": "main",
+      "category": "milestone-tracker",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/milestone-tracker",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

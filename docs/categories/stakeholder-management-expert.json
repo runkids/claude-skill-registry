@@ -1,0 +1,20 @@
+{
+  "category": "stakeholder-management-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.078171Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Public and Indigenous consultation, stakeholder feedback analysis, response strategy. Categorizes themes, performs sentiment analysis (support/opposition/neutral), generates prioritized response strat",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": "stakeholder-management-expert",
+      "branch": "main",
+      "category": "stakeholder-management-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "reggiechan74/vp-real-estate/stakeholder-management-expert",
+      "source": "github.com/reggiechan74/vp-real-estate"
+    }
+  ]
+}

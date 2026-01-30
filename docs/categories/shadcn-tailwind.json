@@ -1,0 +1,20 @@
+{
+  "category": "shadcn-tailwind",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.988649Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "React component library skill for shadcn/ui + Tailwind CSS. Use for React/Next.js/Vite projects needing accessible UI components (dialogs, forms, tables, navigation), Radix UI primitives, Tailwind uti",
+      "repo": "duc01226/EasyPlatform",
+      "path": "shadcn-tailwind",
+      "branch": "main",
+      "category": "shadcn-tailwind",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform/shadcn-tailwind",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

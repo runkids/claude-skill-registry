@@ -1,0 +1,20 @@
+{
+  "category": "torbcellselection",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.302765Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Separates T and non-T cells or B and non-B cells from a mixed cell population. Uses either clonotype percentage from VDJ data, indicator gene expression (CD3 markers for T cells, CD19/CD20 for B cells",
+      "repo": "pwwang/immunopipe",
+      "path": "torbcellselection",
+      "branch": "main",
+      "category": "torbcellselection",
+      "tags": [],
+      "stars": 0,
+      "install": "pwwang/immunopipe/torbcellselection",
+      "source": "github.com/pwwang/immunopipe"
+    }
+  ]
+}

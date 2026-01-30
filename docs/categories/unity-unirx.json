@@ -1,0 +1,20 @@
+{
+  "category": "unity-unirx",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.350370Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "UniRx (Reactive Extensions) library expert for legacy Unity projects. Specializes in UniRx-specific patterns, Observable streams, and ReactiveProperty. Use for maintaining existing UniRx codebases. Fo",
+      "repo": "creator-hian/claude-code-plugins",
+      "path": "unity-unirx",
+      "branch": "main",
+      "category": "unity-unirx",
+      "tags": [],
+      "stars": 0,
+      "install": "creator-hian/claude-code-plugins/unity-unirx",
+      "source": "github.com/creator-hian/claude-code-plugins"
+    }
+  ]
+}

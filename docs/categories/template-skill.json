@@ -1,0 +1,20 @@
+{
+  "category": "template-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.188256Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Replace with description of the skill and when Claude should use it.",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "template-skill",
+      "branch": "main",
+      "category": "template-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/template-skill",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

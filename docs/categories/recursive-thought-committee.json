@@ -1,0 +1,20 @@
+{
+  "category": "recursive-thought-committee",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.791689Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute recursive thought committee multi-perspective analysis.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "recursive-thought-committee",
+      "branch": "main",
+      "category": "recursive-thought-committee",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/recursive-thought-committee",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

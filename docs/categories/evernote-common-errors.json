@@ -1,0 +1,20 @@
+{
+  "category": "evernote-common-errors",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.603193Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diagnose and fix common Evernote API errors. Use when encountering Evernote API exceptions, debugging failures, or troubleshooting integration issues. Trigger with phrases like \"evernote error\", \"ever",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "evernote-common-errors",
+      "branch": "main",
+      "category": "evernote-common-errors",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/evernote-common-errors",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

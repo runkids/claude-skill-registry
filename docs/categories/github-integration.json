@@ -1,8 +1,8 @@
 {
   "category": "github-integration",
   "code": "oth",
-  "count": 1,
-  "updated_at": "2026-01-29T04:50:38.935870Z",
+  "count": 2,
+  "updated_at": "2026-01-30T04:55:06.770334Z",
   "skills": [
     {
       "name": "github-multi-repo",
@@ -15,6 +15,18 @@
       "stars": 20,
       "install": "mattnigh/skills_collection/github-integration/github-multi-repo",
       "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Advanced GitHub automation via MCP GitHub server or gh CLI",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "github-integration",
+      "branch": "main",
+      "category": "github-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/github-integration",
+      "source": "github.com/manastalukdar/claude-devstudio"
     }
   ]
 }

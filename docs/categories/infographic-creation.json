@@ -1,0 +1,20 @@
+{
+  "category": "infographic-creation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.876098Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create beautiful infographics based on the given text content. Use this when users request creating infographics.",
+      "repo": "LisaPullman/foxai_skills",
+      "path": "infographic-creation",
+      "branch": "main",
+      "category": "infographic-creation",
+      "tags": [],
+      "stars": 0,
+      "install": "LisaPullman/foxai_skills/infographic-creation",
+      "source": "github.com/LisaPullman/foxai_skills"
+    }
+  ]
+}

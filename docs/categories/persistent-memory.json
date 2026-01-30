@@ -1,0 +1,20 @@
+{
+  "category": "persistent-memory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.565407Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working on long-running projects or needing context across sessions. Covers memory architecture, privacy controls, efficient retrieval, and integration with claude-mem plugin. Apply when buil",
+      "repo": "liauw-media/CodeAssist",
+      "path": "persistent-memory",
+      "branch": "main",
+      "category": "persistent-memory",
+      "tags": [],
+      "stars": 0,
+      "install": "liauw-media/CodeAssist/persistent-memory",
+      "source": "github.com/liauw-media/CodeAssist"
+    }
+  ]
+}

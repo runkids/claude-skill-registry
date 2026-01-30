@@ -1,0 +1,20 @@
+{
+  "category": "framework-conventions-guide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.692766Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when writing code in any opinionated framework's distinctive style. It applies when writing framework-based applications, creating models/controllers/views, or any framework",
+      "repo": "jayteealao/Aperture",
+      "path": "framework-conventions-guide",
+      "branch": "main",
+      "category": "framework-conventions-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture/framework-conventions-guide",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

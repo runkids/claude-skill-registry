@@ -1,0 +1,20 @@
+{
+  "category": "program-ops",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.685120Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when standardizing event workflows, tooling, and routing across portfolios.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "program-ops",
+      "branch": "main",
+      "category": "program-ops",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/program-ops",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

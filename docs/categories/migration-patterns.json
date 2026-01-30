@@ -1,0 +1,20 @@
+{
+  "category": "migration-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.134844Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Database migration creation with mandatory RLS policies and ARCHitect approval workflow. Use when creating migrations, adding tables with RLS, or updating Prisma schema.",
+      "repo": "bybren-llc/safe-agentic-workflow",
+      "path": "migration-patterns",
+      "branch": "main",
+      "category": "migration-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "bybren-llc/safe-agentic-workflow/migration-patterns",
+      "source": "github.com/bybren-llc/safe-agentic-workflow"
+    }
+  ]
+}

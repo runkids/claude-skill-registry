@@ -1,0 +1,20 @@
+{
+  "category": "hono-app-scaffold",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.836308Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill whenever the user wants to create, restructure, or standardize a Hono + TypeScript backend/API project, including project layout, runtime targeting (Node/Cloudflare/Vercel Edge), routin",
+      "repo": "AgentiveCity/SkillFactory",
+      "path": "hono-app-scaffold",
+      "branch": "main",
+      "category": "hono-app-scaffold",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentiveCity/SkillFactory/hono-app-scaffold",
+      "source": "github.com/AgentiveCity/SkillFactory"
+    }
+  ]
+}

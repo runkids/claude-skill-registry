@@ -1,0 +1,20 @@
+{
+  "category": "incident-post-mortem",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.872749Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create post-incident timeline and actions.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "incident-post-mortem",
+      "branch": "main",
+      "category": "incident-post-mortem",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/incident-post-mortem",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

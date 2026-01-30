@@ -1,0 +1,20 @@
+{
+  "category": "live-streaming",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.031156Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Real-time video broadcasting using RTMP, HLS, WebRTC protocols with streaming servers and cloud platforms for low-latency live video delivery.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "live-streaming",
+      "branch": "main",
+      "category": "live-streaming",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/live-streaming",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

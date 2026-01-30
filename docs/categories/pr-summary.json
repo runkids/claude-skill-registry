@@ -1,0 +1,20 @@
+{
+  "category": "pr-summary",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.625268Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate a PR summary and write to workflows/ pr_summary.md",
+      "repo": "gittower/git-flow-next",
+      "path": "pr-summary",
+      "branch": "main",
+      "category": "pr-summary",
+      "tags": [],
+      "stars": 0,
+      "install": "gittower/git-flow-next/pr-summary",
+      "source": "github.com/gittower/git-flow-next"
+    }
+  ]
+}

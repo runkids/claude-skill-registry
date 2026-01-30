@@ -1,0 +1,20 @@
+{
+  "category": "acceptance-criteria-verification",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.193545Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use after implementing features - verifies each acceptance criterion with structured testing and posts verification reports to the GitHub issue",
+      "repo": "troykelly/claude-skills",
+      "path": "acceptance-criteria-verification",
+      "branch": "main",
+      "category": "acceptance-criteria-verification",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/acceptance-criteria-verification",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

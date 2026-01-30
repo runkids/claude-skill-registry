@@ -1,0 +1,20 @@
+{
+  "category": "tldr-deep",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.291025Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deep dive analysis of specific code areas",
+      "repo": "carmandale/agent-config",
+      "path": "tldr-deep",
+      "branch": "main",
+      "category": "tldr-deep",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config/tldr-deep",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

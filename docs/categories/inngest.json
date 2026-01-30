@@ -1,0 +1,20 @@
+{
+  "category": "inngest",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.881466Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Inngest expert for serverless-first background jobs, event-driven workflows, and durable execution without managing queues or workers. Use when: inngest, serverless background job, event-driven workfl",
+      "repo": "AxelMrak/ai",
+      "path": "inngest",
+      "branch": "main",
+      "category": "inngest",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/inngest",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

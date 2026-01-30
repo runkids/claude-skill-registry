@@ -1,0 +1,20 @@
+{
+  "category": "xai",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.503114Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Chat with Grok models via xAI API. Supports Grok-3, Grok-3-mini, vision, and more.",
+      "repo": "moltbot/skills",
+      "path": "xai",
+      "branch": "main",
+      "category": "xai",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/xai",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "gpui-layout-and-style",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.796679Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Layout and styling in GPUI. Use when styling components, layout systems, or CSS-like properties.",
+      "repo": "longbridge/gpui-component",
+      "path": "gpui-layout-and-style",
+      "branch": "main",
+      "category": "gpui-layout-and-style",
+      "tags": [],
+      "stars": 0,
+      "install": "longbridge/gpui-component/gpui-layout-and-style",
+      "source": "github.com/longbridge/gpui-component"
+    }
+  ]
+}

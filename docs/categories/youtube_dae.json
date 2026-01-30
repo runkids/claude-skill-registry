@@ -1,0 +1,20 @@
+{
+  "category": "youtube_dae",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.511097Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate YouTube Live stream content, consciousness responses, and engagement prompts. Use when creating stream announcements, chat responses, moderation messages, community engagement prompts, or eme",
+      "repo": "Foundup/Foundups-Agent",
+      "path": "youtube_dae",
+      "branch": "main",
+      "category": "youtube_dae",
+      "tags": [],
+      "stars": 0,
+      "install": "Foundup/Foundups-Agent/youtube_dae",
+      "source": "github.com/Foundup/Foundups-Agent"
+    }
+  ]
+}

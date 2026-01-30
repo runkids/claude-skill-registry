@@ -1,0 +1,20 @@
+{
+  "category": "politique-cookies-malik-taiar",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.608127Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide pour la rédaction de politiques cookies conformes au RGPD et à la directive ePrivacy. Contient les recommandations CNIL 2020, un template de référence et les bonnes pratiques. À utiliser lors de",
+      "repo": "lawvable/awesome-legal-skills",
+      "path": "politique-cookies-malik-taiar",
+      "branch": "main",
+      "category": "politique-cookies-malik-taiar",
+      "tags": [],
+      "stars": 0,
+      "install": "lawvable/awesome-legal-skills/politique-cookies-malik-taiar",
+      "source": "github.com/lawvable/awesome-legal-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "task-rsid",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.167615Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Recursive Self-Improvement Development. Continually improve the codebase.",
+      "repo": "Anveio/conveaux",
+      "path": "task-rsid",
+      "branch": "main",
+      "category": "task-rsid",
+      "tags": [],
+      "stars": 0,
+      "install": "Anveio/conveaux/task-rsid",
+      "source": "github.com/Anveio/conveaux"
+    }
+  ]
+}

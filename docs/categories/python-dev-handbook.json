@@ -1,0 +1,20 @@
+{
+  "category": "python-dev-handbook",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.731228Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "當要開發或修改 Python 程式碼時使用。",
+      "repo": "monkey1sai/ai-settings",
+      "path": "python-dev-handbook",
+      "branch": "main",
+      "category": "python-dev-handbook",
+      "tags": [],
+      "stars": 0,
+      "install": "monkey1sai/ai-settings/python-dev-handbook",
+      "source": "github.com/monkey1sai/ai-settings"
+    }
+  ]
+}

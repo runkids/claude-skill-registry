@@ -1,0 +1,20 @@
+{
+  "category": "nixtla-timegpt-lab",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.254738Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides expert Nixtla forecasting using TimeGPT, StatsForecast, and MLForecast. Generates time series forecasts, analyzes trends, compares models, performs cross-validation, and recommends best pract",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "nixtla-timegpt-lab",
+      "branch": "main",
+      "category": "nixtla-timegpt-lab",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla/nixtla-timegpt-lab",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

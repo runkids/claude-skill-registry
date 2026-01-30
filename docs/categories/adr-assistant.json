@@ -1,0 +1,20 @@
+{
+  "category": "adr-assistant",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.214151Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Helps create, analyze, and maintain Architecture Decision Records",
+      "repo": "Dexploarer/hyper-forge",
+      "path": "adr-assistant",
+      "branch": "main",
+      "category": "adr-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "Dexploarer/hyper-forge/adr-assistant",
+      "source": "github.com/Dexploarer/hyper-forge"
+    }
+  ]
+}

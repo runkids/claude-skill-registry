@@ -1,0 +1,20 @@
+{
+  "category": "stagehand-automation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.076980Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI-powered browser automation using Stagehand v3 and Claude. Use when building self-healing tests, AI agents, dynamic web automation, or when traditional selectors break frequently due to UI changes.",
+      "repo": "adaptationio/Skrillz",
+      "path": "stagehand-automation",
+      "branch": "main",
+      "category": "stagehand-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/stagehand-automation",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

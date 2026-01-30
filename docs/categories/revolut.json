@@ -1,0 +1,20 @@
+{
+  "category": "revolut",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.845107Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "View multi-currency accounts, check crypto holdings, and monitor spending on Revolut",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "revolut",
+      "branch": "main",
+      "category": "revolut",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/revolut",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

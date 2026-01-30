@@ -1,0 +1,20 @@
+{
+  "category": "groq-data-handling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.806291Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement Groq PII handling, data retention, and GDPR/CCPA compliance patterns. Use when handling sensitive data, implementing data redaction, configuring retention policies, or ensuring compliance wi",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "groq-data-handling",
+      "branch": "main",
+      "category": "groq-data-handling",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/groq-data-handling",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

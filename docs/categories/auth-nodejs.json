@@ -1,0 +1,20 @@
+{
+  "category": "auth-nodejs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.373290Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete guide for CloudBase Auth using the CloudBase Node SDK – caller identity, user lookup, custom login tickets, and server-side best practices.",
+      "repo": "baiyongping/cowork-platform",
+      "path": "auth-nodejs",
+      "branch": "main",
+      "category": "auth-nodejs",
+      "tags": [],
+      "stars": 0,
+      "install": "baiyongping/cowork-platform/auth-nodejs",
+      "source": "github.com/baiyongping/cowork-platform"
+    }
+  ]
+}

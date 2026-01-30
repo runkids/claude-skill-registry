@@ -1,0 +1,20 @@
+{
+  "category": "duckdb-timetravel",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.542766Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Layer 3: Temporal Versioning and ACSet Schema Generation for DuckDB",
+      "repo": "plurigrid/asi",
+      "path": "duckdb-timetravel",
+      "branch": "main",
+      "category": "duckdb-timetravel",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/duckdb-timetravel",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

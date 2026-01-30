@@ -1,0 +1,20 @@
+{
+  "category": "review-leaks",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.841761Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect secrets, credentials, and sensitive data leaks before pushing to public repositories.",
+      "repo": "freepik-company/knowledge-agent",
+      "path": "review-leaks",
+      "branch": "main",
+      "category": "review-leaks",
+      "tags": [],
+      "stars": 0,
+      "install": "freepik-company/knowledge-agent/review-leaks",
+      "source": "github.com/freepik-company/knowledge-agent"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "image-optimization-rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.862267Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Rules for optimizing images within React components to improve performance.",
+      "repo": "oimiragieo/agent-studio",
+      "path": "image-optimization-rules",
+      "branch": "main",
+      "category": "image-optimization-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/image-optimization-rules",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

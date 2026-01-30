@@ -1,0 +1,20 @@
+{
+  "category": "braiins-insights",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.439092Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Braiins Learn - Bitcoin mining profitability calculators, charts, and data dashboard",
+      "repo": "enuno/claude-command-and-control",
+      "path": "braiins-insights",
+      "branch": "main",
+      "category": "braiins-insights",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control/braiins-insights",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

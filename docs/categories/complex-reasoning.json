@@ -1,0 +1,20 @@
+{
+  "category": "complex-reasoning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.630547Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-step reasoning patterns and frameworks for systematic problem solving. Activate for Chain-of-Thought, Tree-of-Thought, hypothesis-driven debugging, and structured analytical approaches that leve",
+      "repo": "Lobbi-Docs/claude",
+      "path": "complex-reasoning",
+      "branch": "main",
+      "category": "complex-reasoning",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/complex-reasoning",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

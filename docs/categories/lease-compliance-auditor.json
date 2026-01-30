@@ -1,0 +1,20 @@
+{
+  "category": "lease-compliance-auditor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.999796Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in lease compliance monitoring and obligation tracking. Use when auditing insurance requirements, verifying environmental compliance, checking use clause adherence, or monitoring covenant compl",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": "lease-compliance-auditor",
+      "branch": "main",
+      "category": "lease-compliance-auditor",
+      "tags": [],
+      "stars": 0,
+      "install": "reggiechan74/vp-real-estate/lease-compliance-auditor",
+      "source": "github.com/reggiechan74/vp-real-estate"
+    }
+  ]
+}

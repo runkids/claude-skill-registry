@@ -1,0 +1,20 @@
+{
+  "category": "Summarize",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.180105Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Summarize various content types (therapy sessions, meetings, documents) into structured notes. Use when processing transcripts or long-form content.",
+      "repo": "Gerstep/cybos",
+      "path": "Summarize",
+      "branch": "main",
+      "category": "Summarize",
+      "tags": [],
+      "stars": 0,
+      "install": "Gerstep/cybos/Summarize",
+      "source": "github.com/Gerstep/cybos"
+    }
+  ]
+}

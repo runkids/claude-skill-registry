@@ -1,0 +1,20 @@
+{
+  "category": "slash-command-encoder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.027901Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates ergonomic slash commands (/command) that provide fast, unambiguous access to micro-skills, cascades, and agents. Enhanced with auto-discovery, intelligent routing, parameter validation, and co",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "slash-command-encoder",
+      "branch": "main",
+      "category": "slash-command-encoder",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension/slash-command-encoder",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

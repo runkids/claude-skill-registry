@@ -1,0 +1,20 @@
+{
+  "category": "test-error-parent",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.201853Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Parent that calls error-prone child to test error propagation",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-error-parent",
+      "branch": "main",
+      "category": "test-error-parent",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/test-error-parent",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

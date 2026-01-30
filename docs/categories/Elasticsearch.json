@@ -1,0 +1,20 @@
+{
+  "category": "Elasticsearch",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.168578Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Elasticsearch 5.2 operations using HTTP API - searching, indexing, bulk operations, scroll API, and alias management",
+      "repo": "lawless-m/Earwig",
+      "path": "Elasticsearch",
+      "branch": "main",
+      "category": "Elasticsearch",
+      "tags": [],
+      "stars": 0,
+      "install": "lawless-m/Earwig/Elasticsearch",
+      "source": "github.com/lawless-m/Earwig"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "multiversion-support",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.215810Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for multi-version development and version-specific API differences",
+      "repo": "ksoichiro/ChronoDawn",
+      "path": "multiversion-support",
+      "branch": "main",
+      "category": "multiversion-support",
+      "tags": [],
+      "stars": 0,
+      "install": "ksoichiro/ChronoDawn/multiversion-support",
+      "source": "github.com/ksoichiro/ChronoDawn"
+    }
+  ]
+}

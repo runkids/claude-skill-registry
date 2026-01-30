@@ -1,0 +1,20 @@
+{
+  "category": "graph-draw",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.801435Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create Excalidraw diagrams. USE WHEN user specifically asks for Excalidraw. WORKFLOWS - mind-maps, swimlane, process-flow.",
+      "repo": "Kjdragan/universal_agent",
+      "path": "graph-draw",
+      "branch": "main",
+      "category": "graph-draw",
+      "tags": [],
+      "stars": 0,
+      "install": "Kjdragan/universal_agent/graph-draw",
+      "source": "github.com/Kjdragan/universal_agent"
+    }
+  ]
+}

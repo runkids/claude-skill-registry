@@ -1,0 +1,20 @@
+{
+  "category": "content-strategy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.663595Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Strategic content planning with pillar mapping, editorial calendars, and SEO optimization. Use this skill when planning content, managing editorial calendars, auditing existing content, or developing",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "content-strategy",
+      "branch": "main",
+      "category": "content-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os/content-strategy",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

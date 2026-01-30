@@ -1,0 +1,20 @@
+{
+  "category": "incident-postmortem",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.872906Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Draft an incident postmortem with timeline, RCA, and action items. Use when a senior developer needs a structured post-incident report.",
+      "repo": "proflead/codex-skills-library",
+      "path": "incident-postmortem",
+      "branch": "main",
+      "category": "incident-postmortem",
+      "tags": [],
+      "stars": 0,
+      "install": "proflead/codex-skills-library/incident-postmortem",
+      "source": "github.com/proflead/codex-skills-library"
+    }
+  ]
+}

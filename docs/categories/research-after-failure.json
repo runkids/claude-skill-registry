@@ -1,0 +1,20 @@
+{
+  "category": "research-after-failure",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.823546Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use after 2 consecutive failed attempts at solving a problem - STOP guessing and research documentation, codebase, and online resources before resuming",
+      "repo": "troykelly/claude-skills",
+      "path": "research-after-failure",
+      "branch": "main",
+      "category": "research-after-failure",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/research-after-failure",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

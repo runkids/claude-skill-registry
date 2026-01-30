@@ -1,0 +1,20 @@
+{
+  "category": "claude-web",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.544335Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Anthropic's Claude AI assistant via web interface.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "claude-web",
+      "branch": "main",
+      "category": "claude-web",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/claude-web",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

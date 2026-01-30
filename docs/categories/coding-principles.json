@@ -1,0 +1,20 @@
+{
+  "category": "coding-principles",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.610683Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Language-agnostic coding principles for maintainability, readability, and quality. Use when implementing features, refactoring code, or reviewing code quality.",
+      "repo": "shinpr/claude-code-workflows",
+      "path": "coding-principles",
+      "branch": "main",
+      "category": "coding-principles",
+      "tags": [],
+      "stars": 0,
+      "install": "shinpr/claude-code-workflows/coding-principles",
+      "source": "github.com/shinpr/claude-code-workflows"
+    }
+  ]
+}

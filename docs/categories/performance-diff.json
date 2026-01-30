@@ -1,0 +1,20 @@
+{
+  "category": "performance-diff",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.560146Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "変更前後のパフォーマンスを比較し、リグレッションを検出",
+      "repo": "Hopin-inc/civicship-api",
+      "path": "performance-diff",
+      "branch": "main",
+      "category": "performance-diff",
+      "tags": [],
+      "stars": 0,
+      "install": "Hopin-inc/civicship-api/performance-diff",
+      "source": "github.com/Hopin-inc/civicship-api"
+    }
+  ]
+}

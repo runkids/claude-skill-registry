@@ -1,0 +1,20 @@
+{
+  "category": "competitor-content-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.629050Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes competitor content strategy and identifies differentiation opportunities. Use when the user asks about competitor analysis, content gaps, competitive research, or finding unique angles.",
+      "repo": "WesleySmits/agent-skills",
+      "path": "competitor-content-analyzer",
+      "branch": "main",
+      "category": "competitor-content-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills/competitor-content-analyzer",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

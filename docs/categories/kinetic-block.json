@@ -1,0 +1,20 @@
+{
+  "category": "kinetic-block",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.948810Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Kinetic Block Skill",
+      "repo": "plurigrid/asi",
+      "path": "kinetic-block",
+      "branch": "main",
+      "category": "kinetic-block",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/kinetic-block",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

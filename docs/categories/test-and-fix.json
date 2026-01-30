@@ -1,0 +1,20 @@
+{
+  "category": "test-and-fix",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.196843Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run unit tests and automatically fix code failures, regression bugs, or test mismatches. Use when tests are failing, after implementing new features, or to repair \"broken\" tests.",
+      "repo": "yu-iskw/skill-inspector",
+      "path": "test-and-fix",
+      "branch": "main",
+      "category": "test-and-fix",
+      "tags": [],
+      "stars": 0,
+      "install": "yu-iskw/skill-inspector/test-and-fix",
+      "source": "github.com/yu-iskw/skill-inspector"
+    }
+  ]
+}

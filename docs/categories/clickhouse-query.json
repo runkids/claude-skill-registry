@@ -1,0 +1,20 @@
+{
+  "category": "clickhouse-query",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.559814Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run ClickHouse queries for analytics, metrics analysis, and event data exploration. Use when you need to query ClickHouse directly, analyze metrics, check event tracking data, or test query performanc",
+      "repo": "civitai/civitai",
+      "path": "clickhouse-query",
+      "branch": "main",
+      "category": "clickhouse-query",
+      "tags": [],
+      "stars": 0,
+      "install": "civitai/civitai/clickhouse-query",
+      "source": "github.com/civitai/civitai"
+    }
+  ]
+}

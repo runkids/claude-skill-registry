@@ -1,0 +1,20 @@
+{
+  "category": "constraints-principle",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.655211Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Limita acciones posibles para prevenir errores. Use cuando diseñe formularios, flujos críticos, o sistemas donde los errores son costosos.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "constraints-principle",
+      "branch": "main",
+      "category": "constraints-principle",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/constraints-principle",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "export-log",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.625889Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Export Claude conversation logs to markdown",
+      "repo": "ivy/dotfiles",
+      "path": "export-log",
+      "branch": "main",
+      "category": "export-log",
+      "tags": [],
+      "stars": 0,
+      "install": "ivy/dotfiles/export-log",
+      "source": "github.com/ivy/dotfiles"
+    }
+  ]
+}

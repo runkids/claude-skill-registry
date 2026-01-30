@@ -1,0 +1,20 @@
+{
+  "category": "beta-test-cycles",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.426619Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"run beta test cycle\", \"run next cycle\", \"test static patterns\", \"analyze test failures\", \"improve pass rate\", or wants to systematically improve comman",
+      "repo": "wildcard/caro",
+      "path": "beta-test-cycles",
+      "branch": "main",
+      "category": "beta-test-cycles",
+      "tags": [],
+      "stars": 0,
+      "install": "wildcard/caro/beta-test-cycles",
+      "source": "github.com/wildcard/caro"
+    }
+  ]
+}

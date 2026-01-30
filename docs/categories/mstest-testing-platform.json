@@ -1,0 +1,20 @@
+{
+  "category": "mstest-testing-platform",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.207257Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for using MSTest with Microsoft.Testing.Platform (the new test runner, not legacy VSTest) in .NET 10 projects",
+      "repo": "NotMyself/claude-stack-dotnet",
+      "path": "mstest-testing-platform",
+      "branch": "main",
+      "category": "mstest-testing-platform",
+      "tags": [],
+      "stars": 0,
+      "install": "NotMyself/claude-stack-dotnet/mstest-testing-platform",
+      "source": "github.com/NotMyself/claude-stack-dotnet"
+    }
+  ]
+}

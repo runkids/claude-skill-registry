@@ -1,0 +1,20 @@
+{
+  "category": "review-workflow-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.844530Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design spec-based review workflows with visual proof and issue classification. Use when setting up review processes, validating against specifications, or implementing screenshot-based visual validati",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "review-workflow-design",
+      "branch": "main",
+      "category": "review-workflow-design",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/review-workflow-design",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

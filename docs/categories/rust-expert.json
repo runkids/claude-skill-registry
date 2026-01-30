@@ -1,0 +1,20 @@
+{
+  "category": "rust-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.868785Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Rust development with ownership, lifetimes, async, error handling, and production-grade patterns",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "rust-expert",
+      "branch": "main",
+      "category": "rust-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/rust-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

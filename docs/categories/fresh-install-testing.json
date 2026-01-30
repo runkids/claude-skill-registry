@@ -1,0 +1,20 @@
+{
+  "category": "fresh-install-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.694979Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test Orient from a clean clone to validate the full development setup and test suite",
+      "repo": "orient-bot/orient",
+      "path": "fresh-install-testing",
+      "branch": "main",
+      "category": "fresh-install-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/fresh-install-testing",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

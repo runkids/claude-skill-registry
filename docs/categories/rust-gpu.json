@@ -1,0 +1,20 @@
+{
+  "category": "rust-gpu",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.869150Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "GPU 内存与计算专家。处理 CUDA, OpenCL, GPU memory, compute shader, memory coalescing, zero-copy, 显存管理, 异构计算",
+      "repo": "huiali/rust-skills",
+      "path": "rust-gpu",
+      "branch": "main",
+      "category": "rust-gpu",
+      "tags": [],
+      "stars": 0,
+      "install": "huiali/rust-skills/rust-gpu",
+      "source": "github.com/huiali/rust-skills"
+    }
+  ]
+}

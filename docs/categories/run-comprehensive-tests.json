@@ -1,0 +1,20 @@
+{
+  "category": "run-comprehensive-tests",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.861055Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute comprehensive test suite (Vitest/Jest) with coverage reporting and failure analysis. Returns structured output with test counts (total/passed/failed), coverage percentage, duration, and detail",
+      "repo": "BerryKuipers/claude-code-toolkit",
+      "path": "run-comprehensive-tests",
+      "branch": "main",
+      "category": "run-comprehensive-tests",
+      "tags": [],
+      "stars": 0,
+      "install": "BerryKuipers/claude-code-toolkit/run-comprehensive-tests",
+      "source": "github.com/BerryKuipers/claude-code-toolkit"
+    }
+  ]
+}

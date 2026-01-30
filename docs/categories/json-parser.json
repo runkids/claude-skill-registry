@@ -1,0 +1,20 @@
+{
+  "category": "json-parser",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.932764Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Parse and validate JSON data with schema support",
+      "repo": "maxvaega/skillkit",
+      "path": "json-parser",
+      "branch": "main",
+      "category": "json-parser",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit/json-parser",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

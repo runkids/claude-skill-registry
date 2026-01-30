@@ -1,0 +1,20 @@
+{
+  "category": "ai-sdk-best-practices",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.282382Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Production best practices for building AI agents with Vercel AI SDK v5. Covers security, performance, error handling, testing, deployment patterns, and real-world implementation guidelines.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "ai-sdk-best-practices",
+      "branch": "main",
+      "category": "ai-sdk-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup/ai-sdk-best-practices",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "security-testing-automation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.953704Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automate vulnerability scans.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "security-testing-automation",
+      "branch": "main",
+      "category": "security-testing-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/security-testing-automation",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

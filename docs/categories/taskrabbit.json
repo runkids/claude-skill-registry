@@ -1,0 +1,20 @@
+{
+  "category": "taskrabbit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.169502Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Hire local Taskers for everyday tasks and handyman services.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "taskrabbit",
+      "branch": "main",
+      "category": "taskrabbit",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/taskrabbit",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

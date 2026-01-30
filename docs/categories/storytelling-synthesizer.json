@@ -1,0 +1,20 @@
+{
+  "category": "storytelling-synthesizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.097955Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Converts technical work into compelling narratives for demos, blog posts, or presentations. Use when preparing hackathon demos, writing technical blog posts, or creating marketing content. Transforms:",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "storytelling-synthesizer",
+      "branch": "main",
+      "category": "storytelling-synthesizer",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/storytelling-synthesizer",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

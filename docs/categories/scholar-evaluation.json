@@ -1,0 +1,20 @@
+{
+  "category": "scholar-evaluation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.894407Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematically evaluate scholarly work using the ScholarEval framework, providing structured assessment across research quality dimensions including problem formulation, methodology, analysis, and wri",
+      "repo": "K-Dense-AI/claude-scientific-skills",
+      "path": "scholar-evaluation",
+      "branch": "main",
+      "category": "scholar-evaluation",
+      "tags": [],
+      "stars": 0,
+      "install": "K-Dense-AI/claude-scientific-skills/scholar-evaluation",
+      "source": "github.com/K-Dense-AI/claude-scientific-skills"
+    }
+  ]
+}

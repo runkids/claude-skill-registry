@@ -1,0 +1,20 @@
+{
+  "category": "prompt-engineer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.702823Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in designing effective prompts for LLM-powered applications. Masters prompt structure, context management, output formatting, and prompt evaluation. Use when: prompt engineering, system prompt,",
+      "repo": "AxelMrak/ai",
+      "path": "prompt-engineer",
+      "branch": "main",
+      "category": "prompt-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/prompt-engineer",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

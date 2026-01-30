@@ -1,0 +1,20 @@
+{
+  "category": "task-orchestration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.166731Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute repo work one task at a time using a strict plan → execute → iterate loop tracked in .copilot-todo.yaml.",
+      "repo": "utzcoz/skill-task-orchestration",
+      "path": "task-orchestration",
+      "branch": "main",
+      "category": "task-orchestration",
+      "tags": [],
+      "stars": 0,
+      "install": "utzcoz/skill-task-orchestration/task-orchestration",
+      "source": "github.com/utzcoz/skill-task-orchestration"
+    }
+  ]
+}

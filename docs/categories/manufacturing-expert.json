@@ -1,0 +1,20 @@
+{
+  "category": "manufacturing-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.079527Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level manufacturing systems, Industry 4.0, production optimization, quality control, and smart factory solutions",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "manufacturing-expert",
+      "branch": "main",
+      "category": "manufacturing-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/manufacturing-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

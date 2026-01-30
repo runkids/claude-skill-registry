@@ -1,0 +1,20 @@
+{
+  "category": "rules-organizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.860908Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Organize Claude Code instructions into modular rule files in .claude/rules/. Use when setting up project standards, adding team conventions, creating domain-specific rules, or managing shared coding g",
+      "repo": "jdeweedata/circletel",
+      "path": "rules-organizer",
+      "branch": "main",
+      "category": "rules-organizer",
+      "tags": [],
+      "stars": 0,
+      "install": "jdeweedata/circletel/rules-organizer",
+      "source": "github.com/jdeweedata/circletel"
+    }
+  ]
+}

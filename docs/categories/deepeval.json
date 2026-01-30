@@ -1,0 +1,20 @@
+{
+  "category": "deepeval",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.062586Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when discussing or working with DeepEval (the python AI evaluation framework)",
+      "repo": "sammcj/agentic-coding",
+      "path": "deepeval",
+      "branch": "main",
+      "category": "deepeval",
+      "tags": [],
+      "stars": 0,
+      "install": "sammcj/agentic-coding/deepeval",
+      "source": "github.com/sammcj/agentic-coding"
+    }
+  ]
+}

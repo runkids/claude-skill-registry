@@ -1,0 +1,20 @@
+{
+  "category": "prove",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.710763Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Formal theorem proving with research, testing, and verification phases",
+      "repo": "namesreallyblank/Clorch",
+      "path": "prove",
+      "branch": "main",
+      "category": "prove",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/prove",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

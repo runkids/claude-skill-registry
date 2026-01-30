@@ -1,0 +1,20 @@
+{
+  "category": "dotnet-testing-autofixture-nsubstitute-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.530832Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AutoFixture 與 NSubstitute 整合指南 - 實現自動模擬 (Auto-Mocking)。 涵蓋 AutoNSubstituteDataAttribute、Frozen 機制、Greedy 建構策略。 包含 IMapper (AutoMapper/Mapster) 等特殊相依性的客製化處理。 適用於複雜相依性注入測試、Mock 驗證與行為設定。",
+      "repo": "kevintsengtw/dotnet-testing-agent-skills",
+      "path": "dotnet-testing-autofixture-nsubstitute-integration",
+      "branch": "main",
+      "category": "dotnet-testing-autofixture-nsubstitute-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "kevintsengtw/dotnet-testing-agent-skills/dotnet-testing-autofixture-nsubstitute-integration",
+      "source": "github.com/kevintsengtw/dotnet-testing-agent-skills"
+    }
+  ]
+}

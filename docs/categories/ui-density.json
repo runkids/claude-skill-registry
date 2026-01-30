@@ -1,0 +1,20 @@
+{
+  "category": "ui-density",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.334512Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze and improve UI density using Matt Ström's 4-dimensional framework. Use when interfaces feel too sparse, too cluttered, or when users complain about efficiency.",
+      "repo": "rohunvora/my-claude-skills",
+      "path": "ui-density",
+      "branch": "main",
+      "category": "ui-density",
+      "tags": [],
+      "stars": 0,
+      "install": "rohunvora/my-claude-skills/ui-density",
+      "source": "github.com/rohunvora/my-claude-skills"
+    }
+  ]
+}

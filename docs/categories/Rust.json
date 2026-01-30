@@ -1,0 +1,20 @@
+{
+  "category": "Rust",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.177862Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Rust development patterns, project setup, CLI/TUI applications, error handling, and system integration",
+      "repo": "lawless-m/Earwig",
+      "path": "Rust",
+      "branch": "main",
+      "category": "Rust",
+      "tags": [],
+      "stars": 0,
+      "install": "lawless-m/Earwig/Rust",
+      "source": "github.com/lawless-m/Earwig"
+    }
+  ]
+}

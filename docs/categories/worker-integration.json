@@ -1,0 +1,20 @@
+{
+  "category": "worker-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.477021Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Worker-Agent integration for intelligent task dispatch and performance tracking",
+      "repo": "EarthmanWeb/claude-flow-plugin",
+      "path": "worker-integration",
+      "branch": "main",
+      "category": "worker-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "EarthmanWeb/claude-flow-plugin/worker-integration",
+      "source": "github.com/EarthmanWeb/claude-flow-plugin"
+    }
+  ]
+}

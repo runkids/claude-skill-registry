@@ -1,0 +1,20 @@
+{
+  "category": "frontend-design-pro",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.702192Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates jaw-dropping, production-ready frontend interfaces AND delivers perfectly matched real photos (Unsplash/Pexels direct links) OR flawless custom image-generation prompts for hero images, backgr",
+      "repo": "ngocsangyem/ngocsangyem.dev",
+      "path": "frontend-design-pro",
+      "branch": "main",
+      "category": "frontend-design-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "ngocsangyem/ngocsangyem.dev/frontend-design-pro",
+      "source": "github.com/ngocsangyem/ngocsangyem.dev"
+    }
+  ]
+}

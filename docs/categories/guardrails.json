@@ -1,0 +1,20 @@
+{
+  "category": "guardrails",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.813405Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Security techniques and quality control for prompts and agents",
+      "repo": "fusengine/agents",
+      "path": "guardrails",
+      "branch": "main",
+      "category": "guardrails",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/guardrails",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

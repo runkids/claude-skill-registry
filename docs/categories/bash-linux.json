@@ -1,0 +1,20 @@
+{
+  "category": "bash-linux",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.415808Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Bash/Linux terminal patterns. Critical commands, piping, error handling, scripting. Use when working on macOS or Linux systems.",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "bash-linux",
+      "branch": "main",
+      "category": "bash-linux",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/bash-linux",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "usage-logging",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.362707Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Overview",
+      "repo": "athola/claude-night-market",
+      "path": "usage-logging",
+      "branch": "main",
+      "category": "usage-logging",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/usage-logging",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

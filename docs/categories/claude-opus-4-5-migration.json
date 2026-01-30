@@ -1,0 +1,20 @@
+{
+  "category": "claude-opus-4-5-migration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.541262Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Migrate prompts and code from Claude Sonnet 4.0, Sonnet 4.5, or Opus 4.1 to Opus 4.5. Use when the user wants to update their codebase, prompts, or API calls to use Opus 4.5. Handles model string upda",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "claude-opus-4-5-migration",
+      "branch": "main",
+      "category": "claude-opus-4-5-migration",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/claude-opus-4-5-migration",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

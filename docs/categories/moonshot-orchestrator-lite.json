@@ -1,0 +1,20 @@
+{
+  "category": "moonshot-orchestrator-lite",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.199861Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PM workflow orchestrator (Lite). Lightweight version that runs all agents directly without fork.",
+      "repo": "munlucky/claude-settings",
+      "path": "moonshot-orchestrator-lite",
+      "branch": "main",
+      "category": "moonshot-orchestrator-lite",
+      "tags": [],
+      "stars": 0,
+      "install": "munlucky/claude-settings/moonshot-orchestrator-lite",
+      "source": "github.com/munlucky/claude-settings"
+    }
+  ]
+}

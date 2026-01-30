@@ -1,0 +1,20 @@
+{
+  "category": "api-design-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.320286Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive REST and GraphQL API design patterns with versioning, pagination, error handling, and HATEOAS principles. Use when designing APIs, defining endpoints, or architecting service contracts r",
+      "repo": "NickCrew/claude-cortex",
+      "path": "api-design-patterns",
+      "branch": "main",
+      "category": "api-design-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex/api-design-patterns",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

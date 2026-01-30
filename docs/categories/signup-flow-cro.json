@@ -1,0 +1,20 @@
+{
+  "category": "signup-flow-cro",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.998750Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize signup, registration, account creation, or trial activation flows. Also use when the user mentions \"signup conversions,\" \"registration friction,\" \"signup form optimizat",
+      "repo": "LeonMelamud/inspector-agents",
+      "path": "signup-flow-cro",
+      "branch": "main",
+      "category": "signup-flow-cro",
+      "tags": [],
+      "stars": 0,
+      "install": "LeonMelamud/inspector-agents/signup-flow-cro",
+      "source": "github.com/LeonMelamud/inspector-agents"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "retellai-rate-limits",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.835908Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement Retell AI rate limiting, backoff, and idempotency patterns. Use when handling rate limit errors, implementing retry logic, or optimizing API request throughput for Retell AI. Trigger with ph",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "retellai-rate-limits",
+      "branch": "main",
+      "category": "retellai-rate-limits",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/retellai-rate-limits",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

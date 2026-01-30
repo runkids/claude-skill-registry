@@ -1,0 +1,20 @@
+{
+  "category": "clojure-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.566631Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review Clojure and ClojureScript code changes for compliance with Metabase coding standards, style violations, and code quality issues. Use when reviewing pull requests or diffs containing Clojure/Clo",
+      "repo": "Kidoz-SDK/metabase",
+      "path": "clojure-review",
+      "branch": "main",
+      "category": "clojure-review",
+      "tags": [],
+      "stars": 0,
+      "install": "Kidoz-SDK/metabase/clojure-review",
+      "source": "github.com/Kidoz-SDK/metabase"
+    }
+  ]
+}

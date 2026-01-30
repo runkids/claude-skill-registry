@@ -1,0 +1,20 @@
+{
+  "category": "task-memory-consolidation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.166562Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Parse memory.yaml and consolidate recurring patterns into skills. Use when memory.yaml grows large, when patterns recur 3+ times, or during RSID Ideate stage. Automates the memory-to-skill pipeline.",
+      "repo": "Anveio/conveaux",
+      "path": "task-memory-consolidation",
+      "branch": "main",
+      "category": "task-memory-consolidation",
+      "tags": [],
+      "stars": 0,
+      "install": "Anveio/conveaux/task-memory-consolidation",
+      "source": "github.com/Anveio/conveaux"
+    }
+  ]
+}

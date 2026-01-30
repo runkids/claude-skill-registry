@@ -1,0 +1,20 @@
+{
+  "category": "pm-validation-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.599562Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect and validate client-authoritative vs server-authoritative architecture gaps",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "pm-validation-architecture",
+      "branch": "main",
+      "category": "pm-validation-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/pm-validation-architecture",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

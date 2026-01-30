@@ -1,0 +1,20 @@
+{
+  "category": "seo-technical-audit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.968251Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Professional technical SEO audit that analyzes crawlability, Core Web Vitals, site architecture, mobile readiness, security, structured data, and AI crawler configuration. Use when auditing websites f",
+      "repo": "schwepps/skills",
+      "path": "seo-technical-audit",
+      "branch": "main",
+      "category": "seo-technical-audit",
+      "tags": [],
+      "stars": 0,
+      "install": "schwepps/skills/seo-technical-audit",
+      "source": "github.com/schwepps/skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "story-sequencer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.096386Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan and structure Instagram and Facebook Stories sequences for maximum engagement",
+      "repo": "eddiebe147/claude-settings",
+      "path": "story-sequencer",
+      "branch": "main",
+      "category": "story-sequencer",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/story-sequencer",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

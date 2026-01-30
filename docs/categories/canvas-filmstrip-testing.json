@@ -1,0 +1,20 @@
+{
+  "category": "canvas-filmstrip-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.484859Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Visual regression for canvas-rendered matrix progressions. Tests filmstrip strips that show how 2D data evolves visually over time. Auto-apply when editing *Progressions.ts strip definitions or storie",
+      "repo": "joshribakoff/surfsim",
+      "path": "canvas-filmstrip-testing",
+      "branch": "main",
+      "category": "canvas-filmstrip-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "joshribakoff/surfsim/canvas-filmstrip-testing",
+      "source": "github.com/joshribakoff/surfsim"
+    }
+  ]
+}

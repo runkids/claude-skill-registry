@@ -1,0 +1,20 @@
+{
+  "category": "claude-restart-resume",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.542561Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quick restart to reload configuration changes (skills, settings, hooks, MCP services). Use PROACTIVELY after modifying .claude/ files. Preserves conversation history.",
+      "repo": "ManuelKugelmann/BitBot",
+      "path": "claude-restart-resume",
+      "branch": "main",
+      "category": "claude-restart-resume",
+      "tags": [],
+      "stars": 0,
+      "install": "ManuelKugelmann/BitBot/claude-restart-resume",
+      "source": "github.com/ManuelKugelmann/BitBot"
+    }
+  ]
+}

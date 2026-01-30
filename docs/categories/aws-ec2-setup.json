@@ -1,0 +1,20 @@
+{
+  "category": "aws-ec2-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.388929Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Launch and configure EC2 instances with security groups, IAM roles, key pairs, AMIs, and auto-scaling. Use for virtual servers and managed infrastructure.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "aws-ec2-setup",
+      "branch": "main",
+      "category": "aws-ec2-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/aws-ec2-setup",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

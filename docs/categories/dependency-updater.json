@@ -1,0 +1,20 @@
+{
+  "category": "dependency-updater",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.073695Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Smart dependency management for any language. Auto-detects project type, applies safe updates automatically, prompts for major versions, diagnoses and fixes dependency issues.",
+      "repo": "softaworks/agent-toolkit",
+      "path": "dependency-updater",
+      "branch": "main",
+      "category": "dependency-updater",
+      "tags": [],
+      "stars": 0,
+      "install": "softaworks/agent-toolkit/dependency-updater",
+      "source": "github.com/softaworks/agent-toolkit"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "gkg",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.778159Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Semantic code analysis with GitLab Knowledge Graph. Use for go-to-definition, find-usages, impact analysis, architecture visualization. Supports Ruby, Java, Kotlin, Python, TypeScript/JavaScript.",
+      "repo": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
+      "path": "gkg",
+      "branch": "main",
+      "category": "gkg",
+      "tags": [],
+      "stars": 0,
+      "install": "hoanghd218/landing-page-ai-kientruc-a-Ninh/gkg",
+      "source": "github.com/hoanghd218/landing-page-ai-kientruc-a-Ninh"
+    }
+  ]
+}

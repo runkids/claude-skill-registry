@@ -1,0 +1,20 @@
+{
+  "category": "newsvendor-problem",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.238039Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to solve single-period inventory problems, optimize stocking levels for perishable goods, or make one-time purchase decisions under demand uncertainty. Also use when the user menti",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "newsvendor-problem",
+      "branch": "main",
+      "category": "newsvendor-problem",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/newsvendor-problem",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

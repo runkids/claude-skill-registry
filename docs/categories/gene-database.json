@@ -1,0 +1,20 @@
+{
+  "category": "gene-database",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.738242Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query NCBI Gene via E-utilities/Datasets API. Search by symbol/ID, retrieve gene info (RefSeqs, GO, locations, phenotypes), batch lookups, for gene annotation and functional analysis.",
+      "repo": "robinbarvaag/poynt",
+      "path": "gene-database",
+      "branch": "main",
+      "category": "gene-database",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/gene-database",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

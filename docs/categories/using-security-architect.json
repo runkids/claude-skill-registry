@@ -1,0 +1,20 @@
+{
+  "category": "using-security-architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.373279Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Routes to security architecture skills - threat modeling, controls, compliance, authorization",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-security-architect",
+      "branch": "main",
+      "category": "using-security-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks/using-security-architect",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

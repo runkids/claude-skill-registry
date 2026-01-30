@@ -1,0 +1,20 @@
+{
+  "category": "rust-middleware",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.870212Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "请求追踪、CORS 配置、限流、中间件模式",
+      "repo": "huiali/rust-skills",
+      "path": "rust-middleware",
+      "branch": "main",
+      "category": "rust-middleware",
+      "tags": [],
+      "stars": 0,
+      "install": "huiali/rust-skills/rust-middleware",
+      "source": "github.com/huiali/rust-skills"
+    }
+  ]
+}

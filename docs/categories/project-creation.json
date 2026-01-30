@@ -1,0 +1,20 @@
+{
+  "category": "project-creation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.690527Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "สร้างโปรเจคใหม่ทุก Tech Stack พร้อม setup ที่สมบูรณ์",
+      "repo": "saknarinZ/agent_skills_gemini",
+      "path": "project-creation",
+      "branch": "main",
+      "category": "project-creation",
+      "tags": [],
+      "stars": 0,
+      "install": "saknarinZ/agent_skills_gemini/project-creation",
+      "source": "github.com/saknarinZ/agent_skills_gemini"
+    }
+  ]
+}

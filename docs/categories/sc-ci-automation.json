@@ -1,0 +1,20 @@
+{
+  "category": "sc-ci-automation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.885644Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run CI quality gates with optional auto-fix and PR creation.",
+      "repo": "randlee/synaptic-canvas",
+      "path": "sc-ci-automation",
+      "branch": "main",
+      "category": "sc-ci-automation",
+      "tags": [],
+      "stars": 0,
+      "install": "randlee/synaptic-canvas/sc-ci-automation",
+      "source": "github.com/randlee/synaptic-canvas"
+    }
+  ]
+}

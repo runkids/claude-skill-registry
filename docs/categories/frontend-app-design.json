@@ -1,0 +1,20 @@
+{
+  "category": "frontend-app-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.698953Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create distinctive, production-grade React Native Expo interfaces following iOS Human Interface Guidelines and liquid glass design principles. Use when building mobile screens, components, or styling",
+      "repo": "tfunk1030/vibe",
+      "path": "frontend-app-design",
+      "branch": "main",
+      "category": "frontend-app-design",
+      "tags": [],
+      "stars": 0,
+      "install": "tfunk1030/vibe/frontend-app-design",
+      "source": "github.com/tfunk1030/vibe"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "clerk-cost-tuning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.553029Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize Clerk costs and understand pricing. Use when planning budget, reducing costs, or understanding Clerk pricing model. Trigger with phrases like \"clerk cost\", \"clerk pricing\", \"reduce clerk cost",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "clerk-cost-tuning",
+      "branch": "main",
+      "category": "clerk-cost-tuning",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/clerk-cost-tuning",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

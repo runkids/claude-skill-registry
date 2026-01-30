@@ -1,0 +1,20 @@
+{
+  "category": "icp-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.854299Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create detailed Ideal Client Profile through guided interview. Use when the user needs to define their target audience, understand their customers' problems and language, or build an ICP for content t",
+      "repo": "az9713/ai-co-writing-claude-skills",
+      "path": "icp-creator",
+      "branch": "main",
+      "category": "icp-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "az9713/ai-co-writing-claude-skills/icp-creator",
+      "source": "github.com/az9713/ai-co-writing-claude-skills"
+    }
+  ]
+}

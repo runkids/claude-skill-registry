@@ -1,0 +1,20 @@
+{
+  "category": "youtube-catchup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.507897Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fetch and summarize latest videos from priority YouTube channels. Creates notes with transcripts summarized as bullet points. Use to catch up on subscriptions without watching everything. Triggers on",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "youtube-catchup",
+      "branch": "main",
+      "category": "youtube-catchup",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager/youtube-catchup",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

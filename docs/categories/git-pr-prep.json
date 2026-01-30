@@ -1,0 +1,20 @@
+{
+  "category": "git-pr-prep",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.760873Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prepares a Pull Request by staging changes, verifying against acceptance criteria, and creating the PR via GH CLI. Use this skill when a feature is complete and ready for review.",
+      "repo": "mattg101/SolidLink",
+      "path": "git-pr-prep",
+      "branch": "main",
+      "category": "git-pr-prep",
+      "tags": [],
+      "stars": 0,
+      "install": "mattg101/SolidLink/git-pr-prep",
+      "source": "github.com/mattg101/SolidLink"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "iterative-loop",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.915306Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement continuous AI iteration loops for complex development tasks. Use when building features requiring test-driven refinement, implementing tasks with clear success criteria, or automating iterat",
+      "repo": "proffesor-for-testing/agentic-qe",
+      "path": "iterative-loop",
+      "branch": "main",
+      "category": "iterative-loop",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/agentic-qe/iterative-loop",
+      "source": "github.com/proffesor-for-testing/agentic-qe"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "compact",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.625456Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manually trigger context save when auto-compact fails in VSCode/Cursor extensions. Use when context is high and you need to preserve state before starting fresh.",
+      "repo": "alfredolopez80/multi-agent-ralph-loop",
+      "path": "compact",
+      "branch": "main",
+      "category": "compact",
+      "tags": [],
+      "stars": 0,
+      "install": "alfredolopez80/multi-agent-ralph-loop/compact",
+      "source": "github.com/alfredolopez80/multi-agent-ralph-loop"
+    }
+  ]
+}

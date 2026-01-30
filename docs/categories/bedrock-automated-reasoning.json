@@ -1,0 +1,20 @@
+{
+  "category": "bedrock-automated-reasoning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.422757Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Amazon Bedrock Automated Reasoning for mathematical verification of AI responses against formal policy rules with up to 99% accuracy. Use when validating healthcare protocols, financial compliance, le",
+      "repo": "adaptationio/Skrillz",
+      "path": "bedrock-automated-reasoning",
+      "branch": "main",
+      "category": "bedrock-automated-reasoning",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/bedrock-automated-reasoning",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

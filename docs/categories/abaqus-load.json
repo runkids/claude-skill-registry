@@ -1,0 +1,20 @@
+{
+  "category": "abaqus-load",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.187963Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply forces and pressures to structures. Use when user asks to apply a force, add pressure, put a load on, or mentions gravity, point loads, or distributed forces.",
+      "repo": "JaimeCernuda/abaqus-scripting",
+      "path": "abaqus-load",
+      "branch": "main",
+      "category": "abaqus-load",
+      "tags": [],
+      "stars": 0,
+      "install": "JaimeCernuda/abaqus-scripting/abaqus-load",
+      "source": "github.com/JaimeCernuda/abaqus-scripting"
+    }
+  ]
+}

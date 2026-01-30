@@ -1,0 +1,20 @@
+{
+  "category": "gsc-assistant",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.812155Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Google Search Console indexing assistant. Use when the user wants to track page indexing status, compare sitemap against GSC indexed pages, manage submission tracking, or move false positives (pages i",
+      "repo": "nicepkg/ai-workflow",
+      "path": "gsc-assistant",
+      "branch": "main",
+      "category": "gsc-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/gsc-assistant",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

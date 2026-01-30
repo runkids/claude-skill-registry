@@ -1,0 +1,20 @@
+{
+  "category": "computer-vision",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.640023Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement computer vision tasks including image classification, object detection, segmentation, and pose estimation using PyTorch and TensorFlow",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "computer-vision",
+      "branch": "main",
+      "category": "computer-vision",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/computer-vision",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

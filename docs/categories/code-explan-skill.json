@@ -1,0 +1,20 @@
+{
+  "category": "code-explan-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.589428Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "明示的に呼び出されたときのみ使用します。自律的にエージェントが使用する必要はありません。",
+      "repo": "rimanem18/hoxt-backlog",
+      "path": "code-explan-skill",
+      "branch": "main",
+      "category": "code-explan-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "rimanem18/hoxt-backlog/code-explan-skill",
+      "source": "github.com/rimanem18/hoxt-backlog"
+    }
+  ]
+}

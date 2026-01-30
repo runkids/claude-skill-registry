@@ -1,0 +1,20 @@
+{
+  "category": "root-finding",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.853991Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Problem-solving strategies for root finding in numerical methods",
+      "repo": "namesreallyblank/Clorch",
+      "path": "root-finding",
+      "branch": "main",
+      "category": "root-finding",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/root-finding",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

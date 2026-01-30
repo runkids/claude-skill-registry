@@ -1,0 +1,20 @@
+{
+  "category": "go-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.783541Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Go development with Go 1.22+ features, concurrency, standard library, and production-grade best practices",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "go-expert",
+      "branch": "main",
+      "category": "go-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/go-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

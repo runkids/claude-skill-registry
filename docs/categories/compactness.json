@@ -1,0 +1,20 @@
+{
+  "category": "compactness",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.626059Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Problem-solving strategies for compactness in topology",
+      "repo": "namesreallyblank/Clorch",
+      "path": "compactness",
+      "branch": "main",
+      "category": "compactness",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/compactness",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

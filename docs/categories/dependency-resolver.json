@@ -1,0 +1,20 @@
+{
+  "category": "dependency-resolver",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.072925Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated dependency conflict detection and resolution. Detects local vs CI environment mismatches, compares versions, and generates pinning recommendations. Run as pre-push check to catch issues earl",
+      "repo": "rysweet/azlin",
+      "path": "dependency-resolver",
+      "branch": "main",
+      "category": "dependency-resolver",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/azlin/dependency-resolver",
+      "source": "github.com/rysweet/azlin"
+    }
+  ]
+}

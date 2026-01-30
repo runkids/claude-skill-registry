@@ -1,0 +1,20 @@
+{
+  "category": "sdlc-develop",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.929039Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Orchestrates 6-phase SDLC pipeline for feature development. Use when user runs /develop command, requests guided feature development, wants to create implementation plans, or mentions \"develop\", \"feat",
+      "repo": "joaquimscosta/arkhe-claude-plugins",
+      "path": "sdlc-develop",
+      "branch": "main",
+      "category": "sdlc-develop",
+      "tags": [],
+      "stars": 0,
+      "install": "joaquimscosta/arkhe-claude-plugins/sdlc-develop",
+      "source": "github.com/joaquimscosta/arkhe-claude-plugins"
+    }
+  ]
+}

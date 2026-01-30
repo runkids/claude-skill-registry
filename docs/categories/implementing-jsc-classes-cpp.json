@@ -1,0 +1,20 @@
+{
+  "category": "implementing-jsc-classes-cpp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.868421Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements JavaScript classes in C++ using JavaScriptCore. Use when creating new JS classes with C++ bindings, prototypes, or constructors.",
+      "repo": "oven-sh/bun",
+      "path": "implementing-jsc-classes-cpp",
+      "branch": "main",
+      "category": "implementing-jsc-classes-cpp",
+      "tags": [],
+      "stars": 0,
+      "install": "oven-sh/bun/implementing-jsc-classes-cpp",
+      "source": "github.com/oven-sh/bun"
+    }
+  ]
+}

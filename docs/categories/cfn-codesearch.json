@@ -1,0 +1,20 @@
+{
+  "category": "cfn-codesearch",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.502095Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "MANDATORY: Query CodeSearch BEFORE using grep, glob, find, or search. Performs 400x faster semantic and structural code search via SQL on indexed codebase. Use for finding functions, classes, patterns",
+      "repo": "masharratt/claude-flow-novice",
+      "path": "cfn-codesearch",
+      "branch": "main",
+      "category": "cfn-codesearch",
+      "tags": [],
+      "stars": 0,
+      "install": "masharratt/claude-flow-novice/cfn-codesearch",
+      "source": "github.com/masharratt/claude-flow-novice"
+    }
+  ]
+}

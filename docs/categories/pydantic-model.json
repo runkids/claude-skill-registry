@@ -1,0 +1,20 @@
+{
+  "category": "pydantic-model",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.724468Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pydantic v2 model patterns for req/res validation, MongoDB conversion, validation rules. Travel Panel conventions.",
+      "repo": "georgekhananaev/claude-skills-vault",
+      "path": "pydantic-model",
+      "branch": "main",
+      "category": "pydantic-model",
+      "tags": [],
+      "stars": 0,
+      "install": "georgekhananaev/claude-skills-vault/pydantic-model",
+      "source": "github.com/georgekhananaev/claude-skills-vault"
+    }
+  ]
+}

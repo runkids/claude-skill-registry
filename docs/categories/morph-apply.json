@@ -1,0 +1,20 @@
+{
+  "category": "morph-apply",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.200189Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fast file editing via Morph Apply API (10,500 tokens/sec, 98% accuracy)",
+      "repo": "tfunk1030/vibe",
+      "path": "morph-apply",
+      "branch": "main",
+      "category": "morph-apply",
+      "tags": [],
+      "stars": 0,
+      "install": "tfunk1030/vibe/morph-apply",
+      "source": "github.com/tfunk1030/vibe"
+    }
+  ]
+}

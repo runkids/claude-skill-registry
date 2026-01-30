@@ -1,0 +1,20 @@
+{
+  "category": "building-agent-tools",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.459002Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for creating effective tools for AI agents. Use when building MCP tools, agent APIs, or any tool interface that agents will consume. Focuses on token efficiency, meaningful context, and proper n",
+      "repo": "Byunk/claude-code-essentials",
+      "path": "building-agent-tools",
+      "branch": "main",
+      "category": "building-agent-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "Byunk/claude-code-essentials/building-agent-tools",
+      "source": "github.com/Byunk/claude-code-essentials"
+    }
+  ]
+}

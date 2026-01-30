@@ -1,0 +1,20 @@
+{
+  "category": "box",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.438802Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise cloud content management and collaboration.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "box",
+      "branch": "main",
+      "category": "box",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/box",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

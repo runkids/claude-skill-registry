@@ -1,0 +1,20 @@
+{
+  "category": "documentation-audit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.477963Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when documentation drift is detected. Comprehensively audits codebase and creates/updates Swagger, features docs, and general documentation to achieve full sync.",
+      "repo": "troykelly/claude-skills",
+      "path": "documentation-audit",
+      "branch": "main",
+      "category": "documentation-audit",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/documentation-audit",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

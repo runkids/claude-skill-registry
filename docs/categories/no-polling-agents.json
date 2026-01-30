@@ -1,0 +1,20 @@
+{
+  "category": "no-polling-agents",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.257115Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "No Polling for Background Agents",
+      "repo": "namesreallyblank/Clorch",
+      "path": "no-polling-agents",
+      "branch": "main",
+      "category": "no-polling-agents",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/no-polling-agents",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

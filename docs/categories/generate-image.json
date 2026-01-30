@@ -1,0 +1,20 @@
+{
+  "category": "generate-image",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.741178Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate or edit images using AI models (FLUX, Gemini). Use for scientific illustrations, diagrams, schematics, infographics, concept visualizations, and artistic images. Supports image editing to mod",
+      "repo": "robinbarvaag/poynt",
+      "path": "generate-image",
+      "branch": "main",
+      "category": "generate-image",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/generate-image",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

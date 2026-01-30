@@ -1,0 +1,20 @@
+{
+  "category": "scientific-molfeat",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.905487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Molecular featurization for ML (100+ featurizers). ECFP, MACCS, descriptors, pretrained models (ChemBERTa), convert SMILES to features, for QSAR and molecular ML.",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-molfeat",
+      "branch": "main",
+      "category": "scientific-molfeat",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP/scientific-molfeat",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

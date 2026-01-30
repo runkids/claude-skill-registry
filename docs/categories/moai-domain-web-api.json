@@ -1,0 +1,20 @@
+{
+  "category": "moai-domain-web-api",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.161366Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "REST API and GraphQL design with OpenAPI 3.1, authentication, versioning, and rate limiting.",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-domain-web-api",
+      "branch": "main",
+      "category": "moai-domain-web-api",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-domain-web-api",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

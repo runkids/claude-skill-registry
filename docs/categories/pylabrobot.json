@@ -1,0 +1,20 @@
+{
+  "category": "pylabrobot",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.725344Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Laboratory automation toolkit for controlling liquid handlers, plate readers, pumps, heater shakers, incubators, centrifuges, and analytical equipment. Use this skill when automating laboratory workfl",
+      "repo": "robinbarvaag/poynt",
+      "path": "pylabrobot",
+      "branch": "main",
+      "category": "pylabrobot",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/pylabrobot",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "designing-ui",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.164501Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates unique, high-fidelity, and non-generic UI designs by synthesizing modern component libraries with specific design movements. Use when the user requests UI design, frontend architecture, or a",
+      "repo": "TheeCoderAhmed/Skills-Master",
+      "path": "designing-ui",
+      "branch": "main",
+      "category": "designing-ui",
+      "tags": [],
+      "stars": 0,
+      "install": "TheeCoderAhmed/Skills-Master/designing-ui",
+      "source": "github.com/TheeCoderAhmed/Skills-Master"
+    }
+  ]
+}

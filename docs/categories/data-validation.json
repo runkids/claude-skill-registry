@@ -1,0 +1,20 @@
+{
+  "category": "data-validation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.035554Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive data validation framework for testing schema compliance, data quality, and referential integrity. Validates databases, APIs, data pipelines, and file formats. Generates data quality scor",
+      "repo": "chaserbreitenbach/claude-skills-and-agents",
+      "path": "data-validation",
+      "branch": "main",
+      "category": "data-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "chaserbreitenbach/claude-skills-and-agents/data-validation",
+      "source": "github.com/chaserbreitenbach/claude-skills-and-agents"
+    }
+  ]
+}

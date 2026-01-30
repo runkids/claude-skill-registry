@@ -1,0 +1,20 @@
+{
+  "category": "moai-foundation-git",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.163100Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise GitFlow automation, PR policy enforcement, Git 2.47-2.50 features, trunk-based development, comprehensive branching strategies, commit conventions, GitHub CLI 2.83.0 integration",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-foundation-git",
+      "branch": "main",
+      "category": "moai-foundation-git",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-foundation-git",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

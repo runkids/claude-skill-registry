@@ -1,0 +1,20 @@
+{
+  "category": "Content",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.165963Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate posts, essays and images following brand guidelines. Use for tweets, essays, Telegram posts, and image generation. Load identity from ~/CybosVault/private/context/identity.md.",
+      "repo": "Gerstep/cybos",
+      "path": "Content",
+      "branch": "main",
+      "category": "Content",
+      "tags": [],
+      "stars": 0,
+      "install": "Gerstep/cybos/Content",
+      "source": "github.com/Gerstep/cybos"
+    }
+  ]
+}

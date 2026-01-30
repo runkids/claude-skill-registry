@@ -1,0 +1,20 @@
+{
+  "category": "multi-tenancy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.213978Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement multi-tenant architecture with tenant isolation, data separation, and per-tenant configuration. Supports shared database and schema-per-tenant models.",
+      "repo": "dadbodgeoff/drift",
+      "path": "multi-tenancy",
+      "branch": "main",
+      "category": "multi-tenancy",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/multi-tenancy",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

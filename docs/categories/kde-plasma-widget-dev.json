@@ -1,0 +1,20 @@
+{
+  "category": "kde-plasma-widget-dev",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.946642Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when developing, debugging, or fixing KDE Plasma 6 widgets (plasmoids). Triggers on QML widget issues, compactRepresentation not showing, system tray integration, Kirigami.Ic",
+      "repo": "endlessblink/flow-state",
+      "path": "kde-plasma-widget-dev",
+      "branch": "main",
+      "category": "kde-plasma-widget-dev",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/kde-plasma-widget-dev",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

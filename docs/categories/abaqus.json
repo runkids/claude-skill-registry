@@ -1,0 +1,20 @@
+{
+  "category": "abaqus",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.185704Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master skill for Abaqus FEA scripting. Use for any finite element analysis, topology optimization, or Abaqus Python scripting task. Routes to appropriate specialized skills.",
+      "repo": "JaimeCernuda/abaqus-scripting",
+      "path": "abaqus",
+      "branch": "main",
+      "category": "abaqus",
+      "tags": [],
+      "stars": 0,
+      "install": "JaimeCernuda/abaqus-scripting/abaqus",
+      "source": "github.com/JaimeCernuda/abaqus-scripting"
+    }
+  ]
+}

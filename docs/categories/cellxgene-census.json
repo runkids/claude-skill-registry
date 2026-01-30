@@ -1,0 +1,20 @@
+{
+  "category": "cellxgene-census",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.501052Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query CZ CELLxGENE Census (61M+ cells). Filter by cell type/tissue/disease, retrieve expression data, integrate with scanpy/PyTorch, for population-scale single-cell analysis.",
+      "repo": "robinbarvaag/poynt",
+      "path": "cellxgene-census",
+      "branch": "main",
+      "category": "cellxgene-census",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/cellxgene-census",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

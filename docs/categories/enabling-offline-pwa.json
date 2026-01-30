@@ -1,0 +1,20 @@
+{
+  "category": "enabling-offline-pwa",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.570936Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements PWA features and service workers for offline access. Use to cache itineraries and critical travel info for users on the go.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "enabling-offline-pwa",
+      "branch": "main",
+      "category": "enabling-offline-pwa",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2/enabling-offline-pwa",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

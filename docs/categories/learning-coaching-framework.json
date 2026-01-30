@@ -1,0 +1,20 @@
+{
+  "category": "learning-coaching-framework",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.986086Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "coaching-framework for enhanced learning effectiveness and personal development.",
+      "repo": "pauljbernard/content",
+      "path": "learning-coaching-framework",
+      "branch": "main",
+      "category": "learning-coaching-framework",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content/learning-coaching-framework",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "69-evaluation-quality-gates",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.158018Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a reusable skill for evaluating fine-tuned models, benchmarking performance, and detecting quality regressions",
+      "repo": "panaversity/agentfactory",
+      "path": "69-evaluation-quality-gates",
+      "branch": "main",
+      "category": "69-evaluation-quality-gates",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory/69-evaluation-quality-gates",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

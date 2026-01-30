@@ -1,0 +1,20 @@
+{
+  "category": "hook-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.837718Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"create a hook\", \"add a PreToolUse/PostToolUse/Stop hook\", \"validate tool use\", \"implement prompt-based hooks\", \"use ${CLAUDE_PLUGIN_ROOT}\", \"set up eve",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "hook-development",
+      "branch": "main",
+      "category": "hook-development",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/hook-development",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

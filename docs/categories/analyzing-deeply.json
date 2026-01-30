@@ -1,0 +1,20 @@
+{
+  "category": "analyzing-deeply",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.295599Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Performs deep structured analysis on complex or ambiguous problems. Activates when problems are unclear, have multiple perspectives, or require careful thinking before proceeding. Uses ultrathink meth",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "analyzing-deeply",
+      "branch": "main",
+      "category": "analyzing-deeply",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/analyzing-deeply",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

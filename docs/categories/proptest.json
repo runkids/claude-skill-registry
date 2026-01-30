@@ -1,0 +1,20 @@
+{
+  "category": "proptest",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.708656Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Property-based testing for Rust using proptest. Use when writing tests that verify properties hold for arbitrary inputs, implementing custom strategies for generating test data, testing edge cases aut",
+      "repo": "patrykgz/rust-devagent-loop-template",
+      "path": "proptest",
+      "branch": "main",
+      "category": "proptest",
+      "tags": [],
+      "stars": 0,
+      "install": "patrykgz/rust-devagent-loop-template/proptest",
+      "source": "github.com/patrykgz/rust-devagent-loop-template"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "azure",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.393321Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Microsoft Azure architecture patterns and best practices. Use when designing, deploying, or reviewing Azure infrastructure including AKS, App Service, Functions, CosmosDB, and Entra ID.",
+      "repo": "liauw-media/CodeAssist",
+      "path": "azure",
+      "branch": "main",
+      "category": "azure",
+      "tags": [],
+      "stars": 0,
+      "install": "liauw-media/CodeAssist/azure",
+      "source": "github.com/liauw-media/CodeAssist"
+    }
+  ]
+}

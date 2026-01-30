@@ -1,0 +1,20 @@
+{
+  "category": "test-error-child",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.201680Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Child skill that deliberately fails - for error propagation test",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-error-child",
+      "branch": "main",
+      "category": "test-error-child",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/test-error-child",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "laravel-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.974375Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design Laravel app architecture with services, repositories, actions, and clean code patterns. Use when structuring projects, creating services, implementing DI, or organizing code layers.",
+      "repo": "fusengine/agents",
+      "path": "laravel-architecture",
+      "branch": "main",
+      "category": "laravel-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/laravel-architecture",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

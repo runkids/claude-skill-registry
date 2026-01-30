@@ -1,0 +1,20 @@
+{
+  "category": "verify-inference-example",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.406473Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Verify a CVlization inference example is properly structured, builds successfully, and runs inference correctly. Use when validating inference example implementations or debugging inference issues.",
+      "repo": "kungfuai/CVlization",
+      "path": "verify-inference-example",
+      "branch": "main",
+      "category": "verify-inference-example",
+      "tags": [],
+      "stars": 0,
+      "install": "kungfuai/CVlization/verify-inference-example",
+      "source": "github.com/kungfuai/CVlization"
+    }
+  ]
+}

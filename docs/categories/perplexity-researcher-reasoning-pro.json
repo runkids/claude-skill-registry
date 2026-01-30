@@ -1,0 +1,20 @@
+{
+  "category": "perplexity-researcher-reasoning-pro",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.564759Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Highest level of research and reasoning capabilities for complex decision-making with significant consequences, strategic planning, technical architecture decisions, multi-stakeholder problems, or hig",
+      "repo": "d-o-hub/rust-self-learning-memory",
+      "path": "perplexity-researcher-reasoning-pro",
+      "branch": "main",
+      "category": "perplexity-researcher-reasoning-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "d-o-hub/rust-self-learning-memory/perplexity-researcher-reasoning-pro",
+      "source": "github.com/d-o-hub/rust-self-learning-memory"
+    }
+  ]
+}

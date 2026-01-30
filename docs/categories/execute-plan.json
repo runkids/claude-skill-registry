@@ -1,0 +1,20 @@
+{
+  "category": "execute-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.612475Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute structured task plans with status tracking. Use when the user provides a plan file path in the format `plans/{current-date}-{task-name}-{version}.md` or explicitly asks you to execute a plan f",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "execute-plan",
+      "branch": "main",
+      "category": "execute-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/execute-plan",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

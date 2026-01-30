@@ -1,0 +1,20 @@
+{
+  "category": "deployment-checklist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.078727Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pre-deployment verification steps and checks",
+      "repo": "medride/claude-code-research",
+      "path": "deployment-checklist",
+      "branch": "main",
+      "category": "deployment-checklist",
+      "tags": [],
+      "stars": 0,
+      "install": "medride/claude-code-research/deployment-checklist",
+      "source": "github.com/medride/claude-code-research"
+    }
+  ]
+}

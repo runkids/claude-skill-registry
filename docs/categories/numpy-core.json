@@ -1,0 +1,20 @@
+{
+  "category": "numpy-core",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.265552Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "NumPy Core focuses on the foundational architecture of the ndarray. This includes how data types (dtypes) interpret raw memory, how shapes are manipulated without copying data through \"views,\" and how",
+      "repo": "cuba6112/skillfactory",
+      "path": "numpy-core",
+      "branch": "main",
+      "category": "numpy-core",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory/numpy-core",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

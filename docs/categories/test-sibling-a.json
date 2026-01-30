@@ -1,0 +1,20 @@
+{
+  "category": "test-sibling-a",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.212226Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Sibling A for isolation test - writes secret, checks for sibling B's secret",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-sibling-a",
+      "branch": "main",
+      "category": "test-sibling-a",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/test-sibling-a",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

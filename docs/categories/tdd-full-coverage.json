@@ -1,0 +1,20 @@
+{
+  "category": "tdd-full-coverage",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.174597Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementing features or fixes - test-driven development with RED-GREEN-REFACTOR cycle and full code coverage requirement",
+      "repo": "troykelly/claude-skills",
+      "path": "tdd-full-coverage",
+      "branch": "main",
+      "category": "tdd-full-coverage",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/tdd-full-coverage",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

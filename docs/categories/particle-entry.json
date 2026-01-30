@@ -1,0 +1,20 @@
+{
+  "category": "particle-entry",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.544852Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Requirements for creating or revising particle entries in je-dict-1. HIGH PRIORITY - covers predicate lists, particle contrasts, and fixed patterns.",
+      "repo": "tkgally/je-dict-1",
+      "path": "particle-entry",
+      "branch": "main",
+      "category": "particle-entry",
+      "tags": [],
+      "stars": 0,
+      "install": "tkgally/je-dict-1/particle-entry",
+      "source": "github.com/tkgally/je-dict-1"
+    }
+  ]
+}

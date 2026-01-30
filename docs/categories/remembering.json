@@ -1,0 +1,20 @@
+{
+  "category": "remembering",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.809726Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced memory operations reference. Basic patterns (profile loading, simple recall/remember) are in project instructions. Consult this skill for background writes, memory versioning, complex queries",
+      "repo": "oaustegard/claude-skills",
+      "path": "remembering",
+      "branch": "main",
+      "category": "remembering",
+      "tags": [],
+      "stars": 0,
+      "install": "oaustegard/claude-skills/remembering",
+      "source": "github.com/oaustegard/claude-skills"
+    }
+  ]
+}

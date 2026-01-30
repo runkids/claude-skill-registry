@@ -1,0 +1,20 @@
+{
+  "category": "test-task-visibility",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.215135Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test if forked skill can see tasks created by parent/main conversation",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-task-visibility",
+      "branch": "main",
+      "category": "test-task-visibility",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/test-task-visibility",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

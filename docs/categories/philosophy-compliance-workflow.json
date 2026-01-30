@@ -1,0 +1,20 @@
+{
+  "category": "philosophy-compliance-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.571781Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Philosophy compliance guardian - ensures code aligns with amplihack's ruthless simplicity, brick philosophy, and Zen-like minimalism through systematic review",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "philosophy-compliance-workflow",
+      "branch": "main",
+      "category": "philosophy-compliance-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/philosophy-compliance-workflow",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

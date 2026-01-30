@@ -1,0 +1,20 @@
+{
+  "category": "frontend-checker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.699494Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Kiểm tra sức khỏe frontend tự động using Puppeteer. Invoke khi user muốn tìm broken pages, console errors, hoặc verify frontend stability.",
+      "repo": "maxlogvn/AiCMR",
+      "path": "frontend-checker",
+      "branch": "main",
+      "category": "frontend-checker",
+      "tags": [],
+      "stars": 0,
+      "install": "maxlogvn/AiCMR/frontend-checker",
+      "source": "github.com/maxlogvn/AiCMR"
+    }
+  ]
+}

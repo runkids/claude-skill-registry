@@ -1,0 +1,20 @@
+{
+  "category": "scientific-pkg-aeon",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.906716Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used for time series machine learning tasks including classification, regression, clustering, forecasting, anomaly detection, segmentation, and similarity search. Use when working",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-pkg-aeon",
+      "branch": "main",
+      "category": "scientific-pkg-aeon",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/scientific-pkg-aeon",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

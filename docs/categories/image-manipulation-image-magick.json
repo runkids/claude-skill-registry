@@ -1,0 +1,20 @@
+{
+  "category": "image-manipulation-image-magick",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.861806Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Process and manipulate images using ImageMagick. Supports resizing, format conversion, batch processing, and retrieving image metadata. Use when working with images, creating thumbnails, resizing wall",
+      "repo": "dhar174/langgraph_system_generator",
+      "path": "image-manipulation-image-magick",
+      "branch": "main",
+      "category": "image-manipulation-image-magick",
+      "tags": [],
+      "stars": 0,
+      "install": "dhar174/langgraph_system_generator/image-manipulation-image-magick",
+      "source": "github.com/dhar174/langgraph_system_generator"
+    }
+  ]
+}

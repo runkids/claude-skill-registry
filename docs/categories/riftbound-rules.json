@@ -1,0 +1,20 @@
+{
+  "category": "riftbound-rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.846330Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guide for explaining Riftbound TCG rules using indexed reference documents. Use when answering questions about game mechanics, card interactions, combat, abilities, or tournament rules.",
+      "repo": "TheCardGoat/tcg-engines",
+      "path": "riftbound-rules",
+      "branch": "main",
+      "category": "riftbound-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "TheCardGoat/tcg-engines/riftbound-rules",
+      "source": "github.com/TheCardGoat/tcg-engines"
+    }
+  ]
+}

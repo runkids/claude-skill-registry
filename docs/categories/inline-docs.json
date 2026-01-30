@@ -1,0 +1,20 @@
+{
+  "category": "inline-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.881154Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate JSDoc/docstrings from code analysis",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "inline-docs",
+      "branch": "main",
+      "category": "inline-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/inline-docs",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

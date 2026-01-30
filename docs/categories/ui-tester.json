@@ -1,0 +1,20 @@
+{
+  "category": "ui-tester",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.337098Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "UI/E2E testing specialist. Use for Playwright tests and browser-based verification of critical user journeys.",
+      "repo": "EtroxTaran/conductor",
+      "path": "ui-tester",
+      "branch": "main",
+      "category": "ui-tester",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor/ui-tester",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

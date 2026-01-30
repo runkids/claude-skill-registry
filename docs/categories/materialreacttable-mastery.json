@@ -1,0 +1,20 @@
+{
+  "category": "materialreacttable-mastery",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.096247Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Material React Table V3 expert skill. Use when building feature-rich data tables w/ MUI styling, server-side ops, CRUD editing, virtualization, or complex filtering/sorting.",
+      "repo": "georgekhananaev/claude-skills-vault",
+      "path": "materialreacttable-mastery",
+      "branch": "main",
+      "category": "materialreacttable-mastery",
+      "tags": [],
+      "stars": 0,
+      "install": "georgekhananaev/claude-skills-vault/materialreacttable-mastery",
+      "source": "github.com/georgekhananaev/claude-skills-vault"
+    }
+  ]
+}

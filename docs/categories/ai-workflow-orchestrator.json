@@ -1,0 +1,20 @@
+{
+  "category": "ai-workflow-orchestrator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.283993Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert guidance for building AI-powered workflows with n8n, Zapier, and custom orchestration systems. Use when automating workflows, integrating AI agents, or building no-code/low-code automation.",
+      "repo": "Krosebrook/source-of-truth-monorepo",
+      "path": "ai-workflow-orchestrator",
+      "branch": "main",
+      "category": "ai-workflow-orchestrator",
+      "tags": [],
+      "stars": 0,
+      "install": "Krosebrook/source-of-truth-monorepo/ai-workflow-orchestrator",
+      "source": "github.com/Krosebrook/source-of-truth-monorepo"
+    }
+  ]
+}

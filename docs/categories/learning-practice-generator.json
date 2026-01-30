@@ -1,0 +1,20 @@
+{
+  "category": "learning-practice-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.995115Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate varied practice problems, exercises, and drills with progressive difficulty and interleaving for skill mastery. Use for deliberate practice. Activates on \"practice problems\", \"exercises\", \"dr",
+      "repo": "pauljbernard/content",
+      "path": "learning-practice-generator",
+      "branch": "main",
+      "category": "learning-practice-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content/learning-practice-generator",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

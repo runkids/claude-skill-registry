@@ -1,0 +1,20 @@
+{
+  "category": "azure-repos-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.397605Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage Azure Repos including branches, pull requests, and code reviews. Use when working with Azure Repos or managing repository operations.",
+      "repo": "ntaksh42/agents",
+      "path": "azure-repos-helper",
+      "branch": "main",
+      "category": "azure-repos-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents/azure-repos-helper",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ddd-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.049594Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Standards de tests exhaustifs pour les bounded contexts DDD (Domain, Application, Integration). À utiliser lors de l'écriture de tests backend, tests unitaires, tests d'intégration, ou quand l'utilisa",
+      "repo": "RomualdP/hoki",
+      "path": "ddd-testing",
+      "branch": "main",
+      "category": "ddd-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "RomualdP/hoki/ddd-testing",
+      "source": "github.com/RomualdP/hoki"
+    }
+  ]
+}

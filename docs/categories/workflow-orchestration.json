@@ -1,0 +1,20 @@
+{
+  "category": "workflow-orchestration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.481134Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coordinate structured thinking and multi-agent parallel execution for complex tasks. Use when tackling multi-step projects, planning parallel work, breaking down complex problems, coordinating special",
+      "repo": "joaquimscosta/arkhe-claude-plugins",
+      "path": "workflow-orchestration",
+      "branch": "main",
+      "category": "workflow-orchestration",
+      "tags": [],
+      "stars": 0,
+      "install": "joaquimscosta/arkhe-claude-plugins/workflow-orchestration",
+      "source": "github.com/joaquimscosta/arkhe-claude-plugins"
+    }
+  ]
+}

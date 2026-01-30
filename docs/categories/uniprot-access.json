@@ -1,0 +1,20 @@
+{
+  "category": "uniprot-access",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.343849Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access UniProt protein database for sequences, annotations, and functional information. Use when retrieving protein data, GO terms, domain annotations, or protein-protein interactions.",
+      "repo": "GPTomics/bioSkills",
+      "path": "uniprot-access",
+      "branch": "main",
+      "category": "uniprot-access",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/uniprot-access",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

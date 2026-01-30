@@ -1,0 +1,20 @@
+{
+  "category": "module-exports",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.193325Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Module export patterns including factory functions and public API design",
+      "repo": "zerobias-org/module",
+      "path": "module-exports",
+      "branch": "main",
+      "category": "module-exports",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/module-exports",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

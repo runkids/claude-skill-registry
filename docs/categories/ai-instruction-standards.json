@@ -1,0 +1,20 @@
+{
+  "category": "ai-instruction-standards",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.278299Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and maintain AI instruction files (CLAUDE.md, .cursorrules, etc.) with proper structure. Use when: creating AI instruction files, separating universal vs project-specific rules, configuring AI",
+      "repo": "AsiaOstrich/universal-dev-standards",
+      "path": "ai-instruction-standards",
+      "branch": "main",
+      "category": "ai-instruction-standards",
+      "tags": [],
+      "stars": 0,
+      "install": "AsiaOstrich/universal-dev-standards/ai-instruction-standards",
+      "source": "github.com/AsiaOstrich/universal-dev-standards"
+    }
+  ]
+}

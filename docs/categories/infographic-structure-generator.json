@@ -1,0 +1,20 @@
+{
+  "category": "infographic-structure-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.876563Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate or update infographic Structure components for this repo (TypeScript/TSX in src/designs/structures). Use when asked to design, implement, or modify structure layouts (list/compare/sequence/hi",
+      "repo": "zhuxingwan/Infographic",
+      "path": "infographic-structure-generator",
+      "branch": "main",
+      "category": "infographic-structure-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "zhuxingwan/Infographic/infographic-structure-generator",
+      "source": "github.com/zhuxingwan/Infographic"
+    }
+  ]
+}

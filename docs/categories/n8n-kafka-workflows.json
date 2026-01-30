@@ -1,0 +1,20 @@
+{
+  "category": "n8n-kafka-workflows",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.219532Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "n8n workflow automation with Kafka integration expert. Covers Kafka trigger node, producer node, event-driven workflows, error handling, retries, and no-code/low-code event processing patterns. Activa",
+      "repo": "anton-abyzov/specweave",
+      "path": "n8n-kafka-workflows",
+      "branch": "main",
+      "category": "n8n-kafka-workflows",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/n8n-kafka-workflows",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "review-security",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.843555Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Security-focused review covering vulnerabilities, privacy, infrastructure security, data integrity, and supply chain. Spawns the senior-review-specialist agent for thorough security analysis.",
+      "repo": "jayteealao/Aperture",
+      "path": "review-security",
+      "branch": "main",
+      "category": "review-security",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture/review-security",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

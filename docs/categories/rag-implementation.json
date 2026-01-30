@@ -1,0 +1,20 @@
+{
+  "category": "rag-implementation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.758769Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Retrieval-Augmented Generation patterns including chunking, embeddings, vector stores, and retrieval optimization Use when: rag, retrieval augmented, vector search, embeddings, semantic search.",
+      "repo": "AxelMrak/ai",
+      "path": "rag-implementation",
+      "branch": "main",
+      "category": "rag-implementation",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/rag-implementation",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "middleware-protection",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.131174Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Protect routes with Next.js middleware. Check authentication once, protect routes declaratively. Supports public routes, protected routes, and role-based access.",
+      "repo": "dadbodgeoff/drift",
+      "path": "middleware-protection",
+      "branch": "main",
+      "category": "middleware-protection",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/middleware-protection",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

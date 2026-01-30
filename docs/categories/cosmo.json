@@ -1,0 +1,20 @@
+{
+  "category": "cosmo",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.689179Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cosmo Electronics MPN encoding patterns, suffix decoding, and handler guidance. Use when working with Cosmo optocouplers or CosmoHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "cosmo",
+      "branch": "main",
+      "category": "cosmo",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/cosmo",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

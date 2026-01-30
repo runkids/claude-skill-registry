@@ -1,0 +1,20 @@
+{
+  "category": "prioritize",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.640549Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Order backlog items using RICE, MoSCoW, or Value-Effort frameworks. Use when prioritizing backlog, ranking features, or ordering work items. Triggers on keywords like \"prioritize\", \"RICE score\", \"MoSC",
+      "repo": "duc01226/EasyPlatform",
+      "path": "prioritize",
+      "branch": "main",
+      "category": "prioritize",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform/prioritize",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

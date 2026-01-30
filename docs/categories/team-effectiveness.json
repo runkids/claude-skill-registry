@@ -1,0 +1,20 @@
+{
+  "category": "team-effectiveness",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.178456Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Building high-performing teams through psychological safety, diversity leverage, inclusive practices, and healthy team dynamics. Use when improving team collaboration, addressing team dysfunction, bui",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "team-effectiveness",
+      "branch": "main",
+      "category": "team-effectiveness",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/team-effectiveness",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

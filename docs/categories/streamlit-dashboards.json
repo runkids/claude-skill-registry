@@ -1,0 +1,20 @@
+{
+  "category": "streamlit-dashboards",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.101060Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build Python-native dashboards with Streamlit. Covers layouts, components, session state, caching, charts, custom components, and deployment. Use for data science dashboards, ML demos, internal tools,",
+      "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "path": "streamlit-dashboards",
+      "branch": "main",
+      "category": "streamlit-dashboards",
+      "tags": [],
+      "stars": 0,
+      "install": "fgarofalo56/Suppercharge_Microsoft_Fabric/streamlit-dashboards",
+      "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric"
+    }
+  ]
+}

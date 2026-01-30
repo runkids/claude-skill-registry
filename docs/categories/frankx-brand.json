@@ -1,0 +1,20 @@
+{
+  "category": "frankx-brand",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.693391Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply official FrankX brand standards to all artifacts, ensuring visual consistency across content, products, and communications. Use this skill for any FrankX-related content creation, design work, o",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "frankx-brand",
+      "branch": "main",
+      "category": "frankx-brand",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os/frankx-brand",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

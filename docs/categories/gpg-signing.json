@@ -1,0 +1,20 @@
+{
+  "category": "gpg-signing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.794384Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide to GPG commit signing. Set up, configure, and troubleshoot GPG commit signing. Fix GPG signing errors, configure passphrase caching, verify commit signatures. Use when working with",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "gpg-signing",
+      "branch": "main",
+      "category": "gpg-signing",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent/gpg-signing",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

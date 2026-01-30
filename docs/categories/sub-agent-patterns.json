@@ -1,0 +1,20 @@
+{
+  "category": "sub-agent-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.110452Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide to sub-agents in Claude Code: built-in agents (Explore, Plan, general-purpose), custom agent creation, configuration, and delegation patterns.  Use when: creating custom sub-agents",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "sub-agent-patterns",
+      "branch": "main",
+      "category": "sub-agent-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/sub-agent-patterns",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

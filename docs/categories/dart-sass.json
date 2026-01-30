@@ -1,0 +1,20 @@
+{
+  "category": "dart-sass",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.749254Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Dart Sass including Sass syntax, compilation, mixins, functions, and best practices. Use when the user asks about Dart Sass, needs to compile Sass to CSS, use Sass",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "dart-sass",
+      "branch": "main",
+      "category": "dart-sass",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/dart-sass",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

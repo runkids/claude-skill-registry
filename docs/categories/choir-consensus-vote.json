@@ -1,0 +1,20 @@
+{
+  "category": "choir-consensus-vote",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.521961Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute structured voting protocol for multi-perspective consensus.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "choir-consensus-vote",
+      "branch": "main",
+      "category": "choir-consensus-vote",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/choir-consensus-vote",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

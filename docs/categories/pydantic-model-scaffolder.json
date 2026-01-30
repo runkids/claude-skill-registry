@@ -1,0 +1,20 @@
+{
+  "category": "pydantic-model-scaffolder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.724635Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffolds Pydantic models for request/response validation with advanced validation rules. Use for complex data models. Related: fastapi-endpoint-scaffolder for quick endpoint creation.",
+      "repo": "okgoogle13/careercopilot",
+      "path": "pydantic-model-scaffolder",
+      "branch": "main",
+      "category": "pydantic-model-scaffolder",
+      "tags": [],
+      "stars": 0,
+      "install": "okgoogle13/careercopilot/pydantic-model-scaffolder",
+      "source": "github.com/okgoogle13/careercopilot"
+    }
+  ]
+}

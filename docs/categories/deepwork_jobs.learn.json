@@ -1,0 +1,20 @@
+{
+  "category": "deepwork_jobs.learn",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.064432Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes conversation history to improve job instructions and capture learnings. Use after running a job to refine it.",
+      "repo": "ncrmro/deepwork-permanent-portfolio",
+      "path": "deepwork_jobs.learn",
+      "branch": "main",
+      "category": "deepwork_jobs.learn",
+      "tags": [],
+      "stars": 0,
+      "install": "ncrmro/deepwork-permanent-portfolio/deepwork_jobs.learn",
+      "source": "github.com/ncrmro/deepwork-permanent-portfolio"
+    }
+  ]
+}

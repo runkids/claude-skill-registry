@@ -1,0 +1,20 @@
+{
+  "category": "firebase-storage",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.669406Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build with Firebase Cloud Storage - file uploads, downloads, and secure access. Use when: uploading images/files, generating download URLs, implementing file pickers, setting up storage security rules",
+      "repo": "jezweb/claude-skills",
+      "path": "firebase-storage",
+      "branch": "main",
+      "category": "firebase-storage",
+      "tags": [],
+      "stars": 0,
+      "install": "jezweb/claude-skills/firebase-storage",
+      "source": "github.com/jezweb/claude-skills"
+    }
+  ]
+}

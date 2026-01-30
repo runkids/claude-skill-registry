@@ -1,0 +1,20 @@
+{
+  "category": "similarity-led",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.001632Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with LED similarity calculations - comparing LED MPNs, understanding color bins, brightness bins, families, or LED-specific similarity logic.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "similarity-led",
+      "branch": "main",
+      "category": "similarity-led",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/similarity-led",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

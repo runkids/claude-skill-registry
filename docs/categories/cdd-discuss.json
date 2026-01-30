@@ -1,0 +1,20 @@
+{
+  "category": "cdd-discuss",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.498159Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "決断の議論・作成（タスク開始時、または継続議論）",
+      "repo": "yutaro0915/cdd-workflow",
+      "path": "cdd-discuss",
+      "branch": "main",
+      "category": "cdd-discuss",
+      "tags": [],
+      "stars": 0,
+      "install": "yutaro0915/cdd-workflow/cdd-discuss",
+      "source": "github.com/yutaro0915/cdd-workflow"
+    }
+  ]
+}

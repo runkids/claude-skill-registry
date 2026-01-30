@@ -1,0 +1,20 @@
+{
+  "category": "conductor-manage",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.644135Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage track lifecycle: archive, restore, delete, rename, and cleanup",
+      "repo": "rmyndharis/antigravity-skills",
+      "path": "conductor-manage",
+      "branch": "main",
+      "category": "conductor-manage",
+      "tags": [],
+      "stars": 0,
+      "install": "rmyndharis/antigravity-skills/conductor-manage",
+      "source": "github.com/rmyndharis/antigravity-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "elite-powerpoint-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.565139Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create world-class PowerPoint presentations with professional design, consistent branding, sophisticated animations, and polished visual hierarchy. Use when users request presentations, slide decks, p",
+      "repo": "willem4130/claude-code-skills",
+      "path": "elite-powerpoint-designer",
+      "branch": "main",
+      "category": "elite-powerpoint-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "willem4130/claude-code-skills/elite-powerpoint-designer",
+      "source": "github.com/willem4130/claude-code-skills"
+    }
+  ]
+}

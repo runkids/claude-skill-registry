@@ -1,0 +1,20 @@
+{
+  "category": "pymc-modeling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.725856Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Bayesian statistical modeling with PyMC v5+. Use when building probabilistic models, specifying priors, running MCMC inference, diagnosing convergence, or comparing models. Covers PyMC, ArviZ, pymc-ba",
+      "repo": "pymc-labs/agent-skills",
+      "path": "pymc-modeling",
+      "branch": "main",
+      "category": "pymc-modeling",
+      "tags": [],
+      "stars": 0,
+      "install": "pymc-labs/agent-skills/pymc-modeling",
+      "source": "github.com/pymc-labs/agent-skills"
+    }
+  ]
+}

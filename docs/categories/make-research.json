@@ -1,0 +1,20 @@
+{
+  "category": "make-research",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.068509Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Research a task, problem, bug, or feature by exploring the codebase. Use when starting new work, encountering bugs, or needing to understand how existing implementation relates to a task. Triggers on",
+      "repo": "kasperjunge/agent-resources",
+      "path": "make-research",
+      "branch": "main",
+      "category": "make-research",
+      "tags": [],
+      "stars": 0,
+      "install": "kasperjunge/agent-resources/make-research",
+      "source": "github.com/kasperjunge/agent-resources"
+    }
+  ]
+}

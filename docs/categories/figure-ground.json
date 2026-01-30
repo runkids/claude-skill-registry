@@ -1,0 +1,20 @@
+{
+  "category": "figure-ground",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.658957Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "El cerebro separa elementos en primer plano y fondo. Use cuando diseñe modales, overlays, focus states, o jerarquía visual de capas.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "figure-ground",
+      "branch": "main",
+      "category": "figure-ground",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/figure-ground",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

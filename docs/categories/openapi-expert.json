@@ -1,0 +1,20 @@
+{
+  "category": "openapi-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.292118Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level OpenAPI/Swagger specification for API design, documentation, and code generation",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "openapi-expert",
+      "branch": "main",
+      "category": "openapi-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/openapi-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

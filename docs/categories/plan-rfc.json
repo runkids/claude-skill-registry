@@ -1,0 +1,20 @@
+{
+  "category": "plan-rfc",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.582429Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan and draft RFCs (Request for Comments) for major features or architectural changes. Use when user wants to propose a significant feature, system redesign, or cross-cutting change that requires sta",
+      "repo": "anton-pt/algojuke",
+      "path": "plan-rfc",
+      "branch": "main",
+      "category": "plan-rfc",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-pt/algojuke/plan-rfc",
+      "source": "github.com/anton-pt/algojuke"
+    }
+  ]
+}

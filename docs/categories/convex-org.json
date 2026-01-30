@@ -1,0 +1,20 @@
+{
+  "category": "convex-org",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.681257Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementing multi-tenant organization features with Better Auth and Convex - organization management, member roles, invitations, and access control",
+      "repo": "udecode/better-convex",
+      "path": "convex-org",
+      "branch": "main",
+      "category": "convex-org",
+      "tags": [],
+      "stars": 0,
+      "install": "udecode/better-convex/convex-org",
+      "source": "github.com/udecode/better-convex"
+    }
+  ]
+}

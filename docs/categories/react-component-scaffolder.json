@@ -1,0 +1,20 @@
+{
+  "category": "react-component-scaffolder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.771730Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DEPRECATED: Use component-builder instead for M3-compliant, production-grade components.",
+      "repo": "okgoogle13/careercopilot",
+      "path": "react-component-scaffolder",
+      "branch": "main",
+      "category": "react-component-scaffolder",
+      "tags": [],
+      "stars": 0,
+      "install": "okgoogle13/careercopilot/react-component-scaffolder",
+      "source": "github.com/okgoogle13/careercopilot"
+    }
+  ]
+}

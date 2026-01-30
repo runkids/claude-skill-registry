@@ -1,0 +1,20 @@
+{
+  "category": "kafka-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.940750Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Apache Kafka, event streaming, Kafka Streams, and distributed messaging",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "kafka-expert",
+      "branch": "main",
+      "category": "kafka-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/kafka-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

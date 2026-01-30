@@ -1,0 +1,20 @@
+{
+  "category": "route-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.854669Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Adds new routes to TanStack Router in src/router.tsx. Creates route definitions following project patterns. Use when adding new pages or sections.",
+      "repo": "eug-subscription/ERP_v3",
+      "path": "route-generator",
+      "branch": "main",
+      "category": "route-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "eug-subscription/ERP_v3/route-generator",
+      "source": "github.com/eug-subscription/ERP_v3"
+    }
+  ]
+}

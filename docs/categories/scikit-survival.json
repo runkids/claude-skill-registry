@@ -1,0 +1,20 @@
+{
+  "category": "scikit-survival",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.919341Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive toolkit for survival analysis and time-to-event modeling in Python using scikit-survival. Use this skill when working with censored survival data, performing time-to-event analysis, fitt",
+      "repo": "robinbarvaag/poynt",
+      "path": "scikit-survival",
+      "branch": "main",
+      "category": "scikit-survival",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/scikit-survival",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "personal-jira-project-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.566424Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage JIRA issues for the Orient Task Force (YOUR_COMPONENT component). Use this skill when creating, updating, querying, or managing JIRA issues including Epics, Stories, Tasks, Bugs, and Sub-tasks.",
+      "repo": "orient-bot/orient",
+      "path": "personal-jira-project-management",
+      "branch": "main",
+      "category": "personal-jira-project-management",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/personal-jira-project-management",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

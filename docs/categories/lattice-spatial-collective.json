@@ -1,0 +1,20 @@
+{
+  "category": "lattice-spatial-collective",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.977943Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-agent distributed context preservation protocol using cryptographic sharding, gossip propagation, and Byzantine fault tolerance to maintain coherent shared memory across dynamic agent networks.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "lattice-spatial-collective",
+      "branch": "main",
+      "category": "lattice-spatial-collective",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/lattice-spatial-collective",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

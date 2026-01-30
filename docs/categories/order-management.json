@@ -1,0 +1,20 @@
+{
+  "category": "order-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.307420Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Handling the complete order lifecycle from creation to fulfillment, including order validation, status tracking, inventory reservation, payment processing, and returns.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "order-management",
+      "branch": "main",
+      "category": "order-management",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/order-management",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

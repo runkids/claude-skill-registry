@@ -1,0 +1,20 @@
+{
+  "category": "differential-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.454452Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Differential abundance and state analysis for cytometry data. Compare cell populations between conditions using statistical methods. Use when testing for significant changes in cell frequencies or mar",
+      "repo": "GPTomics/bioSkills",
+      "path": "differential-analysis",
+      "branch": "main",
+      "category": "differential-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/differential-analysis",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

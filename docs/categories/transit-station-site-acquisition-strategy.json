@@ -1,0 +1,20 @@
+{
+  "category": "transit-station-site-acquisition-strategy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.309936Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in site selection and property assembly for transit stations including TOD potential scoring, multi-modal connection assessment, property acquisition complexity analysis, and strategic sequenci",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": "transit-station-site-acquisition-strategy",
+      "branch": "main",
+      "category": "transit-station-site-acquisition-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "reggiechan74/vp-real-estate/transit-station-site-acquisition-strategy",
+      "source": "github.com/reggiechan74/vp-real-estate"
+    }
+  ]
+}

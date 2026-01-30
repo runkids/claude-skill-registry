@@ -1,0 +1,20 @@
+{
+  "category": "java-standards",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.917882Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Java service standards for Bitso projects. Covers tech stack requirements, project organization, code review guidelines, MapStruct usage, and build verification practices. Use when creating new Java s",
+      "repo": "bitsoex/bitso-java",
+      "path": "java-standards",
+      "branch": "main",
+      "category": "java-standards",
+      "tags": [],
+      "stars": 0,
+      "install": "bitsoex/bitso-java/java-standards",
+      "source": "github.com/bitsoex/bitso-java"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "call-gemini",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.481466Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Invoke the Gemini CLI for architecture and scalability review.",
+      "repo": "EtroxTaran/conductor",
+      "path": "call-gemini",
+      "branch": "main",
+      "category": "call-gemini",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor/call-gemini",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

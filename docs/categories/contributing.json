@@ -1,0 +1,20 @@
+{
+  "category": "contributing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.674342Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Contribution readiness assessment analyzing project guidelines and requirements",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "contributing",
+      "branch": "main",
+      "category": "contributing",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/contributing",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

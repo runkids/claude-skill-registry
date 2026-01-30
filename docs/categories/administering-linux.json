@@ -1,0 +1,20 @@
+{
+  "category": "administering-linux",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.212630Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage Linux systems covering systemd services, process management, filesystems, networking, performance tuning, and troubleshooting. Use when deploying applications, optimizing server performance, di",
+      "repo": "ancoleman/ai-design-components",
+      "path": "administering-linux",
+      "branch": "main",
+      "category": "administering-linux",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/administering-linux",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

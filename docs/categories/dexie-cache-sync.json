@@ -1,0 +1,20 @@
+{
+  "category": "dexie-cache-sync",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.449296Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Dexie IndexedDB caching layer with Convex sync for local-first architecture. Covers sync hooks, optimistic updates (React state only), cascade deletes, orphan detection, SSR safety. Triggers on \"cache",
+      "repo": "planetaryescape/blah.chat",
+      "path": "dexie-cache-sync",
+      "branch": "main",
+      "category": "dexie-cache-sync",
+      "tags": [],
+      "stars": 0,
+      "install": "planetaryescape/blah.chat/dexie-cache-sync",
+      "source": "github.com/planetaryescape/blah.chat"
+    }
+  ]
+}

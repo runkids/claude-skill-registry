@@ -1,0 +1,20 @@
+{
+  "category": "nextjs-performance-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.244607Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill whenever the user wants to analyze, improve, or enforce performance best practices in a Next.js (App Router) + TypeScript + Tailwind + shadcn/ui project, including bundle size, data fet",
+      "repo": "AgentiveCity/SkillFactory",
+      "path": "nextjs-performance-optimizer",
+      "branch": "main",
+      "category": "nextjs-performance-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentiveCity/SkillFactory/nextjs-performance-optimizer",
+      "source": "github.com/AgentiveCity/SkillFactory"
+    }
+  ]
+}

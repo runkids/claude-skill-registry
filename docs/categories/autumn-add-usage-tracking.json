@@ -1,0 +1,20 @@
+{
+  "category": "autumn-add-usage-tracking",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.382978Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Skill for adding feature gating and usage tracking using Autumn.",
+      "repo": "usenotra/notra",
+      "path": "autumn-add-usage-tracking",
+      "branch": "main",
+      "category": "autumn-add-usage-tracking",
+      "tags": [],
+      "stars": 0,
+      "install": "usenotra/notra/autumn-add-usage-tracking",
+      "source": "github.com/usenotra/notra"
+    }
+  ]
+}

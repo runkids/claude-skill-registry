@@ -1,0 +1,20 @@
+{
+  "category": "bb80-invariant-construction",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.418483Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract invariants from specification, encode in types/structure, enable single-pass construction.",
+      "repo": "seanchatmangpt/ggen",
+      "path": "bb80-invariant-construction",
+      "branch": "main",
+      "category": "bb80-invariant-construction",
+      "tags": [],
+      "stars": 0,
+      "install": "seanchatmangpt/ggen/bb80-invariant-construction",
+      "source": "github.com/seanchatmangpt/ggen"
+    }
+  ]
+}

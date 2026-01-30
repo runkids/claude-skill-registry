@@ -1,0 +1,20 @@
+{
+  "category": "54-cicd-gitops-argocd",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.155487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create your GitOps deployment skill in one prompt, then learn to improve it throughout the chapter",
+      "repo": "panaversity/agentfactory",
+      "path": "54-cicd-gitops-argocd",
+      "branch": "main",
+      "category": "54-cicd-gitops-argocd",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory/54-cicd-gitops-argocd",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

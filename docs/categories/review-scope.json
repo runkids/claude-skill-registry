@@ -1,0 +1,20 @@
+{
+  "category": "review-scope",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.843409Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use before code review - determine if change is minor (review new code only) or major (review impacted code too)",
+      "repo": "troykelly/claude-skills",
+      "path": "review-scope",
+      "branch": "main",
+      "category": "review-scope",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/review-scope",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

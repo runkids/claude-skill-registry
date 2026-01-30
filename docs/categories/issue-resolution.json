@@ -1,0 +1,20 @@
+{
+  "category": "issue-resolution",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.908356Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematically diagnose and fix bugs through triage, reproduction, root cause analysis, and verified fixes. Use when resolving bugs, errors, failing tests, or investigating unexpected behavior.",
+      "repo": "draphonix/skills",
+      "path": "issue-resolution",
+      "branch": "main",
+      "category": "issue-resolution",
+      "tags": [],
+      "stars": 0,
+      "install": "draphonix/skills/issue-resolution",
+      "source": "github.com/draphonix/skills"
+    }
+  ]
+}

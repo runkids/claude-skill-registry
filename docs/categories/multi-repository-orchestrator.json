@@ -1,0 +1,20 @@
+{
+  "category": "multi-repository-orchestrator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.213377Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coordinate development workflows across multiple Git repositories with synchronized branching, batch commits, cross-repo operations, and monorepo-like workflows for microservices and multi-package pro",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "multi-repository-orchestrator",
+      "branch": "main",
+      "category": "multi-repository-orchestrator",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/multi-repository-orchestrator",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "cloud-logging-sink-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.571598Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cloud Logging Sink Setup - Auto-activating skill for GCP Skills. Triggers on: cloud logging sink setup, cloud logging sink setup Part of the GCP Skills skill category.",
+      "repo": "byteworthy/Upstream",
+      "path": "cloud-logging-sink-setup",
+      "branch": "main",
+      "category": "cloud-logging-sink-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/cloud-logging-sink-setup",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

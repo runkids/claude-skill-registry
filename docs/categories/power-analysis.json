@@ -1,0 +1,20 @@
+{
+  "category": "power-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.617457Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Calculates statistical power and minimum sample sizes for RNA-seq, ATAC-seq, and other sequencing experiments. Use when planning experiments, determining how many replicates are needed, or assessing w",
+      "repo": "GPTomics/bioSkills",
+      "path": "power-analysis",
+      "branch": "main",
+      "category": "power-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/power-analysis",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

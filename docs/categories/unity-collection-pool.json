@@ -1,0 +1,20 @@
+{
+  "category": "unity-collection-pool",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.348596Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unity Collection Pool expert for GC-free collection management using ListPool, DictionaryPool, HashSetPool, and ObjectPool. Masters memory optimization, pool sizing, and allocation-free patterns. Use",
+      "repo": "creator-hian/claude-code-plugins",
+      "path": "unity-collection-pool",
+      "branch": "main",
+      "category": "unity-collection-pool",
+      "tags": [],
+      "stars": 0,
+      "install": "creator-hian/claude-code-plugins/unity-collection-pool",
+      "source": "github.com/creator-hian/claude-code-plugins"
+    }
+  ]
+}

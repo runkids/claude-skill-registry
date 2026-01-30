@@ -1,0 +1,20 @@
+{
+  "category": "unity-ui",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.350182Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build and optimize Unity UI with UI Toolkit and UGUI. Masters responsive layouts, event systems, and performance optimization. Use for UI implementation, Canvas optimization, or cross-platform UI chal",
+      "repo": "creator-hian/claude-code-plugins",
+      "path": "unity-ui",
+      "branch": "main",
+      "category": "unity-ui",
+      "tags": [],
+      "stars": 0,
+      "install": "creator-hian/claude-code-plugins/unity-ui",
+      "source": "github.com/creator-hian/claude-code-plugins"
+    }
+  ]
+}

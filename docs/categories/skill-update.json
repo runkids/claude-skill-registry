@@ -1,0 +1,20 @@
+{
+  "category": "skill-update",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.022219Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Self-improvement protocol for Neo4j agents. Instructs agents to report skill updates needed.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "skill-update",
+      "branch": "main",
+      "category": "skill-update",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/skill-update",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

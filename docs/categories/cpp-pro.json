@@ -1,0 +1,20 @@
+{
+  "category": "cpp-pro",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.692559Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write idiomatic C++ code with modern features, RAII, smart pointers, and STL algorithms. Handles templates, move semantics, and performance optimization. Use PROACTIVELY for C++ refactoring, memory sa",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "cpp-pro",
+      "branch": "main",
+      "category": "cpp-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/cpp-pro",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

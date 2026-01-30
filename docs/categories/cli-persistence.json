@@ -1,0 +1,20 @@
+{
+  "category": "cli-persistence",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.557703Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SQLite storage patterns for Effect CLI using @effect/sql-sqlite-bun. Covers schema migrations, repositories, and transactional operations.",
+      "repo": "creatifcoding/gbg",
+      "path": "cli-persistence",
+      "branch": "main",
+      "category": "cli-persistence",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/cli-persistence",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

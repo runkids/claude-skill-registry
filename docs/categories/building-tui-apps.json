@@ -1,0 +1,20 @@
+{
+  "category": "building-tui-apps",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.463588Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building interactive terminal dashboards or full-screen terminal applications; when implementing keyboard navigation, live data updates, or multi-panel layouts; when TUI is flickering, slow,",
+      "repo": "mhagrelius/dotfiles",
+      "path": "building-tui-apps",
+      "branch": "main",
+      "category": "building-tui-apps",
+      "tags": [],
+      "stars": 0,
+      "install": "mhagrelius/dotfiles/building-tui-apps",
+      "source": "github.com/mhagrelius/dotfiles"
+    }
+  ]
+}

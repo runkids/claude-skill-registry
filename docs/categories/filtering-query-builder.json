@@ -1,0 +1,20 @@
+{
+  "category": "filtering-query-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.663534Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Filtering Query Builder - Auto-activating skill for API Development. Triggers on: filtering query builder, filtering query builder Part of the API Development skill category.",
+      "repo": "byteworthy/Upstream",
+      "path": "filtering-query-builder",
+      "branch": "main",
+      "category": "filtering-query-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/filtering-query-builder",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

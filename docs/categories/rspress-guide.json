@@ -1,0 +1,20 @@
+{
+  "category": "rspress-guide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.857972Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate progressive learning guides for RSPress documentation. Use when creating concept docs, how-to guides, or example pages with Twoslash code blocks.",
+      "repo": "spencerbeggs/claude-design-coordinator",
+      "path": "rspress-guide",
+      "branch": "main",
+      "category": "rspress-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "spencerbeggs/claude-design-coordinator/rspress-guide",
+      "source": "github.com/spencerbeggs/claude-design-coordinator"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "feature-spec",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.647156Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Feature specification and planning guidelines for software engineers. This skill should be used when writing PRDs, defining requirements, managing scope, prioritizing features, or handling change requ",
+      "repo": "pproenca/dot-skills",
+      "path": "feature-spec",
+      "branch": "main",
+      "category": "feature-spec",
+      "tags": [],
+      "stars": 0,
+      "install": "pproenca/dot-skills/feature-spec",
+      "source": "github.com/pproenca/dot-skills"
+    }
+  ]
+}

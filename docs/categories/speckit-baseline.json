@@ -1,0 +1,20 @@
+{
+  "category": "speckit-baseline",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.055399Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate feature specifications by analyzing existing source code.",
+      "repo": "dceoy/speckit-agent-skills",
+      "path": "speckit-baseline",
+      "branch": "main",
+      "category": "speckit-baseline",
+      "tags": [],
+      "stars": 0,
+      "install": "dceoy/speckit-agent-skills/speckit-baseline",
+      "source": "github.com/dceoy/speckit-agent-skills"
+    }
+  ]
+}

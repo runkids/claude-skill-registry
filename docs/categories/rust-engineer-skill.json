@@ -1,0 +1,20 @@
+{
+  "category": "rust-engineer-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.868349Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Rust specialist with expertise in async programming, ownership patterns, FFI, and WebAssembly development",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "rust-engineer-skill",
+      "branch": "main",
+      "category": "rust-engineer-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/rust-engineer-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

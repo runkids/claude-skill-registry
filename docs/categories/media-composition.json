@@ -1,0 +1,20 @@
+{
+  "category": "media-composition",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.111690Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Overview",
+      "repo": "athola/claude-night-market",
+      "path": "media-composition",
+      "branch": "main",
+      "category": "media-composition",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/media-composition",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

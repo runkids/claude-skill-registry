@@ -1,0 +1,20 @@
+{
+  "category": "build123d",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.458217Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"create a 3D model with build123d\", \"design parametric parts\", \"use builder mode\", \"use algebra mode\", \"select faces or edges\", \"export STEP or STL\", or",
+      "repo": "helmecke/dotfiles",
+      "path": "build123d",
+      "branch": "main",
+      "category": "build123d",
+      "tags": [],
+      "stars": 0,
+      "install": "helmecke/dotfiles/build123d",
+      "source": "github.com/helmecke/dotfiles"
+    }
+  ]
+}

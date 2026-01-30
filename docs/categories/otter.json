@@ -1,0 +1,20 @@
+{
+  "category": "otter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.530075Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Otter.ai transcription CLI - list, search, download, and sync meeting transcripts to CRM.",
+      "repo": "moltbot/skills",
+      "path": "otter",
+      "branch": "main",
+      "category": "otter",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/otter",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

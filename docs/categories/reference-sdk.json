@@ -1,0 +1,20 @@
+{
+  "category": "reference-sdk",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.799121Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Check reference SDK implementations using btca ask",
+      "repo": "namesreallyblank/Clorch",
+      "path": "reference-sdk",
+      "branch": "main",
+      "category": "reference-sdk",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/reference-sdk",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

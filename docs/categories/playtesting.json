@@ -1,0 +1,20 @@
+{
+  "category": "playtesting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.589440Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "﻿---",
+      "repo": "OpenSourceSam/v2_heras_garden",
+      "path": "playtesting",
+      "branch": "main",
+      "category": "playtesting",
+      "tags": [],
+      "stars": 0,
+      "install": "OpenSourceSam/v2_heras_garden/playtesting",
+      "source": "github.com/OpenSourceSam/v2_heras_garden"
+    }
+  ]
+}

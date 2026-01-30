@@ -1,0 +1,20 @@
+{
+  "category": "antigravity-api-documenter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.305668Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master API documentation with OpenAPI 3.1, AI-powered tools, and modern developer experience practices. Create interactive docs, generate SDKs, and build comprehensive developer portals. Use PROACTIVE",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-api-documenter",
+      "branch": "main",
+      "category": "antigravity-api-documenter",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/antigravity-api-documenter",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

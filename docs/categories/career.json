@@ -1,0 +1,20 @@
+{
+  "category": "career",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.490021Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "경력기술서(5페이지+) 작성이 필요할 때",
+      "repo": "younwony/younwony.github.io",
+      "path": "career",
+      "branch": "main",
+      "category": "career",
+      "tags": [],
+      "stars": 0,
+      "install": "younwony/younwony.github.io/career",
+      "source": "github.com/younwony/younwony.github.io"
+    }
+  ]
+}

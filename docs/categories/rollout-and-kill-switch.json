@@ -1,0 +1,20 @@
+{
+  "category": "rollout-and-kill-switch",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.852914Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide to safe agent deployment strategies including canary releases, feature flags, kill switches, and automated rollback mechanisms",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "rollout-and-kill-switch",
+      "branch": "main",
+      "category": "rollout-and-kill-switch",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/rollout-and-kill-switch",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

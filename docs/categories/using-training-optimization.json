@@ -1,0 +1,20 @@
+{
+  "category": "using-training-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.376129Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Router to training optimization skills based on symptoms and training problems",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-training-optimization",
+      "branch": "main",
+      "category": "using-training-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks/using-training-optimization",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "review-infra",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.841615Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Infrastructure-focused review covering IaC, CI/CD, releases, migrations, logging, and observability. Spawns the senior-review-specialist agent for infrastructure analysis.",
+      "repo": "jayteealao/Aperture",
+      "path": "review-infra",
+      "branch": "main",
+      "category": "review-infra",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture/review-infra",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

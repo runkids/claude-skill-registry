@@ -1,0 +1,20 @@
+{
+  "category": "github-auth",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.768712Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Securely authenticate with GitHub using stored credentials for API operations and git commands",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "github-auth",
+      "branch": "main",
+      "category": "github-auth",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/github-auth",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "api-contract",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.318290Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure this skill should be used when the user asks about \"API contract\", \"api-contract.md\", \"shared interface\", \"TypeScript interfaces\", \"request response schemas\", \"endpoint design\", or needs gui",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "api-contract",
+      "branch": "main",
+      "category": "api-contract",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/api-contract",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

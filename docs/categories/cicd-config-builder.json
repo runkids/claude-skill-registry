@@ -1,0 +1,20 @@
+{
+  "category": "cicd-config-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.528681Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates or updates CI/CD pipeline configurations for GitHub Actions, GitLab CI, or CircleCI. Use when the user asks to set up CI/CD, create workflows, automate deployment, or mentions GitHub Actions",
+      "repo": "WesleySmits/agent-skills",
+      "path": "cicd-config-builder",
+      "branch": "main",
+      "category": "cicd-config-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleySmits/agent-skills/cicd-config-builder",
+      "source": "github.com/WesleySmits/agent-skills"
+    }
+  ]
+}

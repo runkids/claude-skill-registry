@@ -1,0 +1,20 @@
+{
+  "category": "react-hook-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.774498Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffold custom hooks and state patterns.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "react-hook-generator",
+      "branch": "main",
+      "category": "react-hook-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/react-hook-generator",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

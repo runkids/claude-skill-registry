@@ -1,0 +1,20 @@
+{
+  "category": "nixtla-usage-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.255092Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze Nixtla usage and optimize cost-effective forecast routing strategies. Use when auditing API usage or reducing costs. Trigger with 'optimize nixtla costs' or 'audit API usage'.",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "nixtla-usage-optimizer",
+      "branch": "main",
+      "category": "nixtla-usage-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla/nixtla-usage-optimizer",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "agent-memory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.234969Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Retain and recall work context across sessions. Use when user asks to remember something, recall previous work, or reference past discussions. Triggered by phrases like 'remember this', 'save for late",
+      "repo": "gtakairo/dotfiles",
+      "path": "agent-memory",
+      "branch": "main",
+      "category": "agent-memory",
+      "tags": [],
+      "stars": 0,
+      "install": "gtakairo/dotfiles/agent-memory",
+      "source": "github.com/gtakairo/dotfiles"
+    }
+  ]
+}

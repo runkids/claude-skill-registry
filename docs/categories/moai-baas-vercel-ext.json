@@ -1,0 +1,20 @@
+{
+  "category": "moai-baas-vercel-ext",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.152126Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Vercel Edge Platform with AI-powered deployment, Context7 integration",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-baas-vercel-ext",
+      "branch": "main",
+      "category": "moai-baas-vercel-ext",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit/moai-baas-vercel-ext",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

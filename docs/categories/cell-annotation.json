@@ -1,0 +1,20 @@
+{
+  "category": "cell-annotation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.500089Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated cell type annotation using reference-based methods including CellTypist, scPred, SingleR, and Azimuth for consistent, reproducible cell labeling. Use when automatically annotating cell types",
+      "repo": "GPTomics/bioSkills",
+      "path": "cell-annotation",
+      "branch": "main",
+      "category": "cell-annotation",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/cell-annotation",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

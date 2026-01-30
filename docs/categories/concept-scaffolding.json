@@ -1,0 +1,20 @@
+{
+  "category": "concept-scaffolding",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.640508Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design progressive learning sequences that build foundational understanding before complexity. Use when breaking complex concepts into steps, managing cognitive load, or validating prerequisite unders",
+      "repo": "panaversity/agentfactory",
+      "path": "concept-scaffolding",
+      "branch": "main",
+      "category": "concept-scaffolding",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory/concept-scaffolding",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

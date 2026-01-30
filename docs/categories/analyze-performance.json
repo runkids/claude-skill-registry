@@ -1,0 +1,20 @@
+{
+  "category": "analyze-performance",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.294807Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Evaluation framework for analyzing decision-making quality across five dimensions.",
+      "repo": "qmu/workaholic",
+      "path": "analyze-performance",
+      "branch": "main",
+      "category": "analyze-performance",
+      "tags": [],
+      "stars": 0,
+      "install": "qmu/workaholic/analyze-performance",
+      "source": "github.com/qmu/workaholic"
+    }
+  ]
+}

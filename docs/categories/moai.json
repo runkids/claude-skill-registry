@@ -1,0 +1,20 @@
+{
+  "category": "moai",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.146987Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Skill creation specialist. Use PROACTIVELY for creating skills, YAML frontmatter design, and knowledge organization. MUST INVOKE when ANY of these keywords appear in user request: --ultrathink flag: A",
+      "repo": "modu-ai/moai-adk",
+      "path": "moai",
+      "branch": "main",
+      "category": "moai",
+      "tags": [],
+      "stars": 0,
+      "install": "modu-ai/moai-adk/moai",
+      "source": "github.com/modu-ai/moai-adk"
+    }
+  ]
+}

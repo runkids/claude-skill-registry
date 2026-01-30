@@ -1,0 +1,20 @@
+{
+  "category": "design-system-planning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.160012Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan design systems - component libraries, design tokens, documentation strategies, versioning, governance, and adoption frameworks.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "design-system-planning",
+      "branch": "main",
+      "category": "design-system-planning",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent/design-system-planning",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

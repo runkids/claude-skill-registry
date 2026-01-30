@@ -1,0 +1,20 @@
+{
+  "category": "forecast-discipline",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.685645Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to drive consistent forecast methodology, grading, and inspection cadences.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "forecast-discipline",
+      "branch": "main",
+      "category": "forecast-discipline",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/forecast-discipline",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

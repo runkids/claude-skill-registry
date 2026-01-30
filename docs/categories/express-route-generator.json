@@ -1,0 +1,20 @@
+{
+  "category": "express-route-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.627164Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Express Route Generator - Auto-activating skill for Backend Development. Triggers on: express route generator, express route generator Part of the Backend Development skill category.",
+      "repo": "byteworthy/Upstream",
+      "path": "express-route-generator",
+      "branch": "main",
+      "category": "express-route-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/express-route-generator",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

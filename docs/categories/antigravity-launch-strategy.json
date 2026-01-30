@@ -1,0 +1,20 @@
+{
+  "category": "antigravity-launch-strategy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.310571Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to plan a product launch, feature announcement, or release strategy. Also use when the user mentions 'launch,' 'Product Hunt,' 'feature release,' 'announcement,' 'go-to-market,' 'b",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-launch-strategy",
+      "branch": "main",
+      "category": "antigravity-launch-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/antigravity-launch-strategy",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

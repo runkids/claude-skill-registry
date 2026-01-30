@@ -1,0 +1,20 @@
+{
+  "category": "policyengine-core-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.604230Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PolicyEngine Core simulation engine - the foundation powering all PolicyEngine calculations",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-core-skill",
+      "branch": "main",
+      "category": "policyengine-core-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/policyengine-core-skill",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

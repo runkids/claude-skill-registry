@@ -1,0 +1,20 @@
+{
+  "category": "historian",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.833220Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Invoke HISTORIAN for session documentation, historical records, and continuity. Creates human-readable narratives for non-technical stakeholders. Not invoked for routine work - only for poignant, sign",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "historian",
+      "branch": "main",
+      "category": "historian",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/historian",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "modular-monolith-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.192754Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define module boundaries, shared kernel, and anti-corruption layers.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "modular-monolith-designer",
+      "branch": "main",
+      "category": "modular-monolith-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/modular-monolith-designer",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

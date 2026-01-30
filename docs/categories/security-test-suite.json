@@ -1,0 +1,20 @@
+{
+  "category": "security-test-suite",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.953350Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive security testing framework aligned with OWASP Top 10 and CWE/SANS Top 25. Performs static analysis (SAST), dependency auditing (SCA), secret scanning, and infrastructure security checks.",
+      "repo": "chaserbreitenbach/claude-skills-and-agents",
+      "path": "security-test-suite",
+      "branch": "main",
+      "category": "security-test-suite",
+      "tags": [],
+      "stars": 0,
+      "install": "chaserbreitenbach/claude-skills-and-agents/security-test-suite",
+      "source": "github.com/chaserbreitenbach/claude-skills-and-agents"
+    }
+  ]
+}

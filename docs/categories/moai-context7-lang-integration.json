@@ -1,0 +1,20 @@
+{
+  "category": "moai-context7-lang-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.154928Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise-grade Context7 MCP integration patterns for language-specific documentation access with real-time library resolution and intelligent caching",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-context7-lang-integration",
+      "branch": "main",
+      "category": "moai-context7-lang-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-context7-lang-integration",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

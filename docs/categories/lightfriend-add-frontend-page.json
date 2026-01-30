@@ -1,0 +1,20 @@
+{
+  "category": "lightfriend-add-frontend-page",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.020063Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Step-by-step guide for adding new pages to the Yew frontend",
+      "repo": "ahtavarasmus/lightfriend-cloud",
+      "path": "lightfriend-add-frontend-page",
+      "branch": "main",
+      "category": "lightfriend-add-frontend-page",
+      "tags": [],
+      "stars": 0,
+      "install": "ahtavarasmus/lightfriend-cloud/lightfriend-add-frontend-page",
+      "source": "github.com/ahtavarasmus/lightfriend-cloud"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "auth-web",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.374025Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete guide for CloudBase Auth v2 using Web SDK (@cloudbase/js-sdk@2.x) - all login flows, user management, captcha handling, and best practices in one file.",
+      "repo": "baiyongping/cowork-platform",
+      "path": "auth-web",
+      "branch": "main",
+      "category": "auth-web",
+      "tags": [],
+      "stars": 0,
+      "install": "baiyongping/cowork-platform/auth-web",
+      "source": "github.com/baiyongping/cowork-platform"
+    }
+  ]
+}

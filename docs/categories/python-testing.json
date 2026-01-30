@@ -1,0 +1,20 @@
+{
+  "category": "python-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.736037Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write and run Python tests using pytest with fixtures, mocking, coverage, and the AAA pattern. Use when writing Python tests, creating test files, or setting up pytest configuration.",
+      "repo": "AutumnsGrove/GroveScout",
+      "path": "python-testing",
+      "branch": "main",
+      "category": "python-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "AutumnsGrove/GroveScout/python-testing",
+      "source": "github.com/AutumnsGrove/GroveScout"
+    }
+  ]
+}

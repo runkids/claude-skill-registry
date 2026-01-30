@@ -1,0 +1,20 @@
+{
+  "category": "chatbot",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.514054Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Details of the RAG Chatbot, including UI and backend logic.",
+      "repo": "AbdulSamad94/Hackhaton-SpecsKitPlus",
+      "path": "chatbot",
+      "branch": "main",
+      "category": "chatbot",
+      "tags": [],
+      "stars": 0,
+      "install": "AbdulSamad94/Hackhaton-SpecsKitPlus/chatbot",
+      "source": "github.com/AbdulSamad94/Hackhaton-SpecsKitPlus"
+    }
+  ]
+}

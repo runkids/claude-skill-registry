@@ -1,0 +1,20 @@
+{
+  "category": "gogcli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.786799Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Skill: SKILL.md",
+      "repo": "moltbot/skills",
+      "path": "gogcli",
+      "branch": "main",
+      "category": "gogcli",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/gogcli",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

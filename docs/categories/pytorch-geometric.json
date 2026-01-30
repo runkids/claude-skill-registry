@@ -1,0 +1,20 @@
+{
+  "category": "pytorch-geometric",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.738042Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Library for Graph Neural Networks (GNNs). Covers MessagePassing layers, modular aggregation schemes, and handling large graphs via mini-batching with disjoint graph representation. (pyg, messagepassin",
+      "repo": "cuba6112/skillfactory",
+      "path": "pytorch-geometric",
+      "branch": "main",
+      "category": "pytorch-geometric",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory/pytorch-geometric",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

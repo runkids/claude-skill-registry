@@ -1,0 +1,20 @@
+{
+  "category": "execute",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.612108Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute implementation plans phase-by-phase with progress tracking and automatic checkpoints. Use after /plan to implement the execution roadmap.",
+      "repo": "rchanda1392/VibeCodeProjects",
+      "path": "execute",
+      "branch": "main",
+      "category": "execute",
+      "tags": [],
+      "stars": 0,
+      "install": "rchanda1392/VibeCodeProjects/execute",
+      "source": "github.com/rchanda1392/VibeCodeProjects"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "logging-aggregation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.051874Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Centralize logs with ELK/EFK and retention policies.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "logging-aggregation",
+      "branch": "main",
+      "category": "logging-aggregation",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/logging-aggregation",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "telink",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.186845Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Telink Semiconductor MPN encoding patterns, BLE/Zigbee SoC decoding, and handler guidance. Use when working with Telink wireless components or TelinkHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "telink",
+      "branch": "main",
+      "category": "telink",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/telink",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

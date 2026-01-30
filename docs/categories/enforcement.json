@@ -1,0 +1,20 @@
+{
+  "category": "enforcement",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.573306Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementing hooks that BLOCK invalid actions, creating quality gates for state transitions, or enforcing tested:true verification. Load when designing enforcement mechanisms. Uses exit code",
+      "repo": "ingpoc/SKILLS",
+      "path": "enforcement",
+      "branch": "main",
+      "category": "enforcement",
+      "tags": [],
+      "stars": 0,
+      "install": "ingpoc/SKILLS/enforcement",
+      "source": "github.com/ingpoc/SKILLS"
+    }
+  ]
+}

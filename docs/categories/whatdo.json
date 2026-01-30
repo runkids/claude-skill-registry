@@ -1,0 +1,20 @@
+{
+  "category": "whatdo",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.456713Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "What should we do? Smart activity discovery with live weather, local movie showtimes, streaming recommendations, game library matching, group profiles, routines & traditions, favorites/blacklists, bus",
+      "repo": "moltbot/skills",
+      "path": "whatdo",
+      "branch": "main",
+      "category": "whatdo",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/whatdo",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

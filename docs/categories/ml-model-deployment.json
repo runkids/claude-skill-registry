@@ -1,0 +1,20 @@
+{
+  "category": "ml-model-deployment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.144695Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Serve models with A/B testing, monitoring, retraining.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "ml-model-deployment",
+      "branch": "main",
+      "category": "ml-model-deployment",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/ml-model-deployment",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

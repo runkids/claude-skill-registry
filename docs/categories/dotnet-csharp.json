@@ -1,0 +1,20 @@
+{
+  "category": "dotnet-csharp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.527888Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build .NET 8+ applications with C#. Covers ASP.NET Core, Minimal APIs, Entity Framework Core, dependency injection, and testing. Use for .NET development, C# programming, and Azure backend services.",
+      "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "path": "dotnet-csharp",
+      "branch": "main",
+      "category": "dotnet-csharp",
+      "tags": [],
+      "stars": 0,
+      "install": "fgarofalo56/Suppercharge_Microsoft_Fabric/dotnet-csharp",
+      "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric"
+    }
+  ]
+}

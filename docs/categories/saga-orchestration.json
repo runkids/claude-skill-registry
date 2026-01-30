@@ -1,0 +1,20 @@
+{
+  "category": "saga-orchestration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.878161Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement saga patterns for distributed transactions and cross-aggregate workflows. Use when coordinating multi-step business processes, handling compensating transactions, or managing long-running wo",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "saga-orchestration",
+      "branch": "main",
+      "category": "saga-orchestration",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/saga-orchestration",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

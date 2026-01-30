@@ -1,0 +1,20 @@
+{
+  "category": "prepare-otterstack-deployment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.634477Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes a codebase and prepares it for OtterStack deployment. Use when preparing docker-compose projects, checking OtterStack compatibility, scanning for environment variables, validating compose fil",
+      "repo": "jayteealao/Aperture",
+      "path": "prepare-otterstack-deployment",
+      "branch": "main",
+      "category": "prepare-otterstack-deployment",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture/prepare-otterstack-deployment",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

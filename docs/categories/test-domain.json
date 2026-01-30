@@ -1,0 +1,20 @@
+{
+  "category": "test-domain",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.200972Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ドメイン単位テスト実行",
+      "repo": "Hopin-inc/civicship-api",
+      "path": "test-domain",
+      "branch": "main",
+      "category": "test-domain",
+      "tags": [],
+      "stars": 0,
+      "install": "Hopin-inc/civicship-api/test-domain",
+      "source": "github.com/Hopin-inc/civicship-api"
+    }
+  ]
+}

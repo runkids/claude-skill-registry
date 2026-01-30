@@ -1,0 +1,20 @@
+{
+  "category": "cli-tool-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.558574Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffold command parsing, help, and completion.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "cli-tool-builder",
+      "branch": "main",
+      "category": "cli-tool-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/cli-tool-builder",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

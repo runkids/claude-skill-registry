@@ -1,0 +1,20 @@
+{
+  "category": "camsnap",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.483024Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Capture frames or clips from RTSP/ONVIF cameras.",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "camsnap",
+      "branch": "main",
+      "category": "camsnap",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/camsnap",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "v3-security-overhaul",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.387945Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete security architecture overhaul for claude-flow v3. Addresses critical CVEs (CVE-1, CVE-2, CVE-3) and implements secure-by-default patterns. Use for security-first v3 implementation.",
+      "repo": "EarthmanWeb/claude-flow-plugin",
+      "path": "v3-security-overhaul",
+      "branch": "main",
+      "category": "v3-security-overhaul",
+      "tags": [],
+      "stars": 0,
+      "install": "EarthmanWeb/claude-flow-plugin/v3-security-overhaul",
+      "source": "github.com/EarthmanWeb/claude-flow-plugin"
+    }
+  ]
+}

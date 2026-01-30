@@ -1,0 +1,20 @@
+{
+  "category": "issue-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.907809Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Start working on GitHub issue with deep-dive workflow (research, innovate, plan phases)",
+      "repo": "vm0-ai/vm0",
+      "path": "issue-plan",
+      "branch": "main",
+      "category": "issue-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "vm0-ai/vm0/issue-plan",
+      "source": "github.com/vm0-ai/vm0"
+    }
+  ]
+}

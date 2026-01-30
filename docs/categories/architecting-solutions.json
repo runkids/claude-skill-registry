@@ -1,0 +1,20 @@
+{
+  "category": "architecting-solutions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.344077Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes problems and designs system architecture before implementation. Activates when user asks design questions, discusses architecture, or needs to break down complex features. Creates clear speci",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "architecting-solutions",
+      "branch": "main",
+      "category": "architecting-solutions",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/architecting-solutions",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

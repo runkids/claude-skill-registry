@@ -1,0 +1,20 @@
+{
+  "category": "mob",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.177837Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when the user wants to set, change, or clear git commit co-authors for pair or mob programming.",
+      "repo": "ivy/dotfiles",
+      "path": "mob",
+      "branch": "main",
+      "category": "mob",
+      "tags": [],
+      "stars": 0,
+      "install": "ivy/dotfiles/mob",
+      "source": "github.com/ivy/dotfiles"
+    }
+  ]
+}

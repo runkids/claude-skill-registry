@@ -1,0 +1,20 @@
+{
+  "category": "image-generation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.861359Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create diagrams, charts, and visual assets for security documentation. Generate network diagrams, architecture visuals, and data visualizations. Use when creating visual content for reports or present",
+      "repo": "SherifEldeeb/agentskills",
+      "path": "image-generation",
+      "branch": "main",
+      "category": "image-generation",
+      "tags": [],
+      "stars": 0,
+      "install": "SherifEldeeb/agentskills/image-generation",
+      "source": "github.com/SherifEldeeb/agentskills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "scientific-thinking-statistical-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.917287Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Statistical analysis toolkit. Hypothesis tests (t-test, ANOVA, chi-square), regression, correlation, Bayesian stats, power analysis, assumption checks, APA reporting, for academic research.",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-thinking-statistical-analysis",
+      "branch": "main",
+      "category": "scientific-thinking-statistical-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/scientific-thinking-statistical-analysis",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

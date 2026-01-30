@@ -1,0 +1,20 @@
+{
+  "category": "config-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.646336Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate master configuration files in ai-state/config that map web app use cases, code components, and user interactions to their corresponding config structure, enabling rapid discovery and AI-drive",
+      "repo": "Brownbull/taskflow",
+      "path": "config-generator",
+      "branch": "main",
+      "category": "config-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "Brownbull/taskflow/config-generator",
+      "source": "github.com/Brownbull/taskflow"
+    }
+  ]
+}

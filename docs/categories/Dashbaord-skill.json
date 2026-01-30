@@ -1,0 +1,20 @@
+{
+  "category": "Dashbaord-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.167589Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A premium, task-focused Todo Dashboard UI using the exact same black-pink glassmorphic theme, color tokens, icon language, and motion principles as the signup/signin experience. Header intentionally e",
+      "repo": "Aqsagull99/hackathon-2-todo-app",
+      "path": "Dashbaord-skill",
+      "branch": "main",
+      "category": "Dashbaord-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "Aqsagull99/hackathon-2-todo-app/Dashbaord-skill",
+      "source": "github.com/Aqsagull99/hackathon-2-todo-app"
+    }
+  ]
+}

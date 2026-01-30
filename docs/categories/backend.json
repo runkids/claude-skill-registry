@@ -1,0 +1,20 @@
+{
+  "category": "backend",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.404902Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "พัฒนา Backend ด้วย Spring Boot, Node.js, Python อย่างมืออาชีพ",
+      "repo": "saknarinZ/agent_skills_gemini",
+      "path": "backend",
+      "branch": "main",
+      "category": "backend",
+      "tags": [],
+      "stars": 0,
+      "install": "saknarinZ/agent_skills_gemini/backend",
+      "source": "github.com/saknarinZ/agent_skills_gemini"
+    }
+  ]
+}

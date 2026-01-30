@@ -1,0 +1,20 @@
+{
+  "category": "using-deep-rl",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.369088Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Routes to appropriate deep-RL skills based on problem type and algorithm family",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-deep-rl",
+      "branch": "main",
+      "category": "using-deep-rl",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks/using-deep-rl",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

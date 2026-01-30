@@ -1,0 +1,20 @@
+{
+  "category": "event-store-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.602676Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design and implement event stores for event-sourced systems. Use when building event sourcing infrastructure, choosing event store technologies, or implementing event persistence patterns.",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "event-store-design",
+      "branch": "main",
+      "category": "event-store-design",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/event-store-design",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

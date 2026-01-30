@@ -1,0 +1,20 @@
+{
+  "category": "css-layout-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.727555Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Explain CSS layout issues and propose fixes. Use when a junior developer is struggling with alignment or spacing.",
+      "repo": "proflead/codex-skills-library",
+      "path": "css-layout-helper",
+      "branch": "main",
+      "category": "css-layout-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "proflead/codex-skills-library/css-layout-helper",
+      "source": "github.com/proflead/codex-skills-library"
+    }
+  ]
+}

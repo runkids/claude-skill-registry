@@ -1,8 +1,8 @@
 {
   "category": "writing",
   "code": "oth",
-  "count": 1,
-  "updated_at": "2026-01-29T04:50:39.267479Z",
+  "count": 2,
+  "updated_at": "2026-01-30T04:55:08.494679Z",
   "skills": [
     {
       "name": "blog-post-writer",
@@ -15,6 +15,18 @@
       "stars": 6,
       "install": "eddiebe147/claude-settings/writing/blog-post-writer",
       "source": "github.com/eddiebe147/claude-settings"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Precision editing for prose and copy. Use when user says \"edit this\", \"improve this\", \"review my writing\", \"use [name]'s voice\", or provides draft text to refine. Triggers on editing, voice extraction",
+      "repo": "saadshahd/moo.md",
+      "path": "writing",
+      "branch": "main",
+      "category": "writing",
+      "tags": [],
+      "stars": 0,
+      "install": "saadshahd/moo.md/writing",
+      "source": "github.com/saadshahd/moo.md"
     }
   ]
 }

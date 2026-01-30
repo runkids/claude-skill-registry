@@ -1,0 +1,20 @@
+{
+  "category": "keynote-slides",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.947912Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build Keynote-style single-file HTML slide decks with brand-ready templates, minimal navigation, and Gemini nano banana media generation. Includes Narrative Engine integration for framework-driven dec",
+      "repo": "dbmcco/keynote-slides-skill",
+      "path": "keynote-slides",
+      "branch": "main",
+      "category": "keynote-slides",
+      "tags": [],
+      "stars": 0,
+      "install": "dbmcco/keynote-slides-skill/keynote-slides",
+      "source": "github.com/dbmcco/keynote-slides-skill"
+    }
+  ]
+}

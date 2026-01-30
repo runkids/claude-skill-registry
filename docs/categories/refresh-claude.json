@@ -1,0 +1,20 @@
+{
+  "category": "refresh-claude",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.801827Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review recent changes and update CLAUDE.md to keep it relevant for future sessions. Use after significant changes or periodically to maintain context.",
+      "repo": "zbruhnke/claude-code-starter",
+      "path": "refresh-claude",
+      "branch": "main",
+      "category": "refresh-claude",
+      "tags": [],
+      "stars": 0,
+      "install": "zbruhnke/claude-code-starter/refresh-claude",
+      "source": "github.com/zbruhnke/claude-code-starter"
+    }
+  ]
+}

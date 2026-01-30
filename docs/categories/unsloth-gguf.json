@@ -1,0 +1,20 @@
+{
+  "category": "unsloth-gguf",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.353131Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unsloth provides a streamlined method to export fine-tuned models directly to GGUF format. It features \"Dynamic 2.0\" quantization, which protects sensitive weights to maintain high accuracy, and autom",
+      "repo": "cuba6112/skillfactory",
+      "path": "unsloth-gguf",
+      "branch": "main",
+      "category": "unsloth-gguf",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory/unsloth-gguf",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "abaqus-step",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.189647Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define analysis steps and procedures. Use when user mentions static analysis, dynamic step, frequency analysis, heat transfer step, or asks about analysis type, time increments, or nlgeom.",
+      "repo": "JaimeCernuda/abaqus-scripting",
+      "path": "abaqus-step",
+      "branch": "main",
+      "category": "abaqus-step",
+      "tags": [],
+      "stars": 0,
+      "install": "JaimeCernuda/abaqus-scripting/abaqus-step",
+      "source": "github.com/JaimeCernuda/abaqus-scripting"
+    }
+  ]
+}

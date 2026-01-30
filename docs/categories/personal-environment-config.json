@@ -1,0 +1,20 @@
+{
+  "category": "personal-environment-config",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.566072Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage environment variables and deployment configuration across local and production environments. Use this skill when asked to \"add environment variable\", \"configure production\", \"sync env vars\", \"s",
+      "repo": "orient-bot/orient",
+      "path": "personal-environment-config",
+      "branch": "main",
+      "category": "personal-environment-config",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/personal-environment-config",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

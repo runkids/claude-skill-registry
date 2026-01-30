@@ -1,0 +1,20 @@
+{
+  "category": "scientific-rowan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.913544Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cloud-based quantum chemistry platform with Python API. Preferred for computational chemistry workflows including pKa prediction, geometry optimization, conformer searching, molecular property calcula",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-rowan",
+      "branch": "main",
+      "category": "scientific-rowan",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/scientific-rowan",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

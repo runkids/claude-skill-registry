@@ -1,0 +1,20 @@
+{
+  "category": "convex-file-storage",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.679640Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete file handling including upload flows, serving files via URL, storing generated files from actions, deletion, and accessing file metadata from system tables",
+      "repo": "blocknavi/convex-batch-processor",
+      "path": "convex-file-storage",
+      "branch": "main",
+      "category": "convex-file-storage",
+      "tags": [],
+      "stars": 0,
+      "install": "blocknavi/convex-batch-processor/convex-file-storage",
+      "source": "github.com/blocknavi/convex-batch-processor"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "guillotine-cutting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.815069Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to solve cutting problems with guillotine constraints, implement edge-to-edge cutting, or optimize guillotine cutting patterns. Also use when the user mentions \"guillotine cuts,\" \"",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "guillotine-cutting",
+      "branch": "main",
+      "category": "guillotine-cutting",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/guillotine-cutting",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "generate-translations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.744254Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when new translation keys are added to packages to generate new translations strings",
+      "repo": "payloadcms/payload",
+      "path": "generate-translations",
+      "branch": "main",
+      "category": "generate-translations",
+      "tags": [],
+      "stars": 0,
+      "install": "payloadcms/payload/generate-translations",
+      "source": "github.com/payloadcms/payload"
+    }
+  ]
+}

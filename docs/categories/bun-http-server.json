@@ -1,0 +1,20 @@
+{
+  "category": "bun-http-server",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.469531Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building HTTP servers with Bun.serve, handling requests/responses, implementing routing, creating REST APIs, or configuring fetch handlers.",
+      "repo": "secondsky/claude-skills",
+      "path": "bun-http-server",
+      "branch": "main",
+      "category": "bun-http-server",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills/bun-http-server",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

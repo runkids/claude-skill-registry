@@ -1,0 +1,20 @@
+{
+  "category": "n8n-node-configuration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.219890Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Operation-aware node configuration guidance. Use when configuring nodes, understanding property dependencies, determining required fields, choosing between get_node_essentials and get_node_info, or le",
+      "repo": "Brmbobo/Lead-Gen",
+      "path": "n8n-node-configuration",
+      "branch": "main",
+      "category": "n8n-node-configuration",
+      "tags": [],
+      "stars": 0,
+      "install": "Brmbobo/Lead-Gen/n8n-node-configuration",
+      "source": "github.com/Brmbobo/Lead-Gen"
+    }
+  ]
+}

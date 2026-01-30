@@ -1,0 +1,20 @@
+{
+  "category": "validate-spec",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.393090Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate spec completeness and implementation compliance. Use before approval (--pre) or before completion (--post).",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "validate-spec",
+      "branch": "main",
+      "category": "validate-spec",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager/validate-spec",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

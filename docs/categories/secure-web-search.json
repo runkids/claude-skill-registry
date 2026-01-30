@@ -1,0 +1,20 @@
+{
+  "category": "secure-web-search",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.935297Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for performing secure web searches with privacy protection, source verification, and information validation. Use when the user wants to search the web securely, verify sources, fact-check inform",
+      "repo": "ronnycoding/.claude",
+      "path": "secure-web-search",
+      "branch": "main",
+      "category": "secure-web-search",
+      "tags": [],
+      "stars": 0,
+      "install": "ronnycoding/.claude/secure-web-search",
+      "source": "github.com/ronnycoding/.claude"
+    }
+  ]
+}

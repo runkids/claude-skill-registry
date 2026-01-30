@@ -1,0 +1,20 @@
+{
+  "category": "create-memory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.700621Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create memory files to track important learnings, decisions, and system changes. Use when implementing major features, making architectural decisions, or learning important project patterns.",
+      "repo": "Dexploarer/hyper-forge",
+      "path": "create-memory",
+      "branch": "main",
+      "category": "create-memory",
+      "tags": [],
+      "stars": 0,
+      "install": "Dexploarer/hyper-forge/create-memory",
+      "source": "github.com/Dexploarer/hyper-forge"
+    }
+  ]
+}

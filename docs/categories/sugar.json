@@ -1,0 +1,20 @@
+{
+  "category": "sugar",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.114575Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enables claude to manage sugar's autonomous development workflows. it allows claude to create tasks, view the status of the system, review pending tasks, and start autonomous execution mode. use this",
+      "repo": "BbgnsurfTech/claude-skills-collection",
+      "path": "sugar",
+      "branch": "main",
+      "category": "sugar",
+      "tags": [],
+      "stars": 0,
+      "install": "BbgnsurfTech/claude-skills-collection/sugar",
+      "source": "github.com/BbgnsurfTech/claude-skills-collection"
+    }
+  ]
+}

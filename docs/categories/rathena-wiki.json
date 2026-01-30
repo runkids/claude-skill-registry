@@ -1,0 +1,20 @@
+{
+  "category": "rathena-wiki",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.765967Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Category:ScriptCommand",
+      "repo": "cydh/rathena-wiki",
+      "path": "rathena-wiki",
+      "branch": "main",
+      "category": "rathena-wiki",
+      "tags": [],
+      "stars": 0,
+      "install": "cydh/rathena-wiki/rathena-wiki",
+      "source": "github.com/cydh/rathena-wiki"
+    }
+  ]
+}

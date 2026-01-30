@@ -1,0 +1,20 @@
+{
+  "category": "skill-validator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.022726Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ensure Claude Code skills meet quality standards through validation operations for structure, content, patterns, and production readiness. Task-based validation with pass/fail criteria, automated chec",
+      "repo": "adaptationio/Skrillz",
+      "path": "skill-validator",
+      "branch": "main",
+      "category": "skill-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/skill-validator",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

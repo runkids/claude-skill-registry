@@ -1,0 +1,20 @@
+{
+  "category": "c4-container",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.477159Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert C4 Container-level documentation specialist. Synthesizes Component-level documentation into Container-level architecture, mapping components to deployment units, documenting container interface",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "c4-container",
+      "branch": "main",
+      "category": "c4-container",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/c4-container",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "social-sharing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.039238Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill documents patterns for social sharing in StepLeague, including:",
+      "repo": "vassovass/scl-v3",
+      "path": "social-sharing",
+      "branch": "main",
+      "category": "social-sharing",
+      "tags": [],
+      "stars": 0,
+      "install": "vassovass/scl-v3/social-sharing",
+      "source": "github.com/vassovass/scl-v3"
+    }
+  ]
+}

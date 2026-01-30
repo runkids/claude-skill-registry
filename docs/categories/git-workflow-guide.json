@@ -1,0 +1,20 @@
+{
+  "category": "git-workflow-guide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.763980Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide Git branching strategies, branch naming, and merge operations. Use when: creating branches, merging, pull requests, Git workflow questions. Keywords: branch, merge, PR, pull request, GitFlow, Gi",
+      "repo": "AsiaOstrich/universal-dev-standards",
+      "path": "git-workflow-guide",
+      "branch": "main",
+      "category": "git-workflow-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "AsiaOstrich/universal-dev-standards/git-workflow-guide",
+      "source": "github.com/AsiaOstrich/universal-dev-standards"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "production-scale-launcher",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.663848Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "﻿---",
+      "repo": "monicajeon28/GMcruise",
+      "path": "production-scale-launcher",
+      "branch": "main",
+      "category": "production-scale-launcher",
+      "tags": [],
+      "stars": 0,
+      "install": "monicajeon28/GMcruise/production-scale-launcher",
+      "source": "github.com/monicajeon28/GMcruise"
+    }
+  ]
+}

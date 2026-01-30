@@ -1,0 +1,20 @@
+{
+  "category": "add-skill-templates",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.207958Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add new Agent Skill templates to the meta-agent-skills framework.",
+      "repo": "yu-iskw/meta-agent-skills",
+      "path": "add-skill-templates",
+      "branch": "main",
+      "category": "add-skill-templates",
+      "tags": [],
+      "stars": 0,
+      "install": "yu-iskw/meta-agent-skills/add-skill-templates",
+      "source": "github.com/yu-iskw/meta-agent-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "on-page",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.283958Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when crafting or refreshing pages to align copy, UX, and conversion goals with target keywords.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "on-page",
+      "branch": "main",
+      "category": "on-page",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/on-page",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

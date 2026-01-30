@@ -1,0 +1,20 @@
+{
+  "category": "PythonJson",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.176589Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "UTF-8 JSON file I/O utilities to avoid Windows encoding issues (CP-1252 vs UTF-8)",
+      "repo": "lawless-m/Earwig",
+      "path": "PythonJson",
+      "branch": "main",
+      "category": "PythonJson",
+      "tags": [],
+      "stars": 0,
+      "install": "lawless-m/Earwig/PythonJson",
+      "source": "github.com/lawless-m/Earwig"
+    }
+  ]
+}

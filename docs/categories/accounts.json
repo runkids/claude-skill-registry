@@ -1,0 +1,20 @@
+{
+  "category": "accounts",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.197556Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert on Plaid accounts and account management. Covers account data retrieval, balance checking, account types, multi-account handling, and account webhooks. Invoke when user mentions Plaid accounts,",
+      "repo": "raintree-technology/claude-starter",
+      "path": "accounts",
+      "branch": "main",
+      "category": "accounts",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/accounts",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

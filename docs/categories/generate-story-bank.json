@@ -1,0 +1,20 @@
+{
+  "category": "generate-story-bank",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.742999Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate interview-ready stories using HPARL format (Hook, Principles, Action, Results, Learnings). Transforms achievements into compelling narratives for behavioral interviews.",
+      "repo": "fotescodev/portfolio",
+      "path": "generate-story-bank",
+      "branch": "main",
+      "category": "generate-story-bank",
+      "tags": [],
+      "stars": 0,
+      "install": "fotescodev/portfolio/generate-story-bank",
+      "source": "github.com/fotescodev/portfolio"
+    }
+  ]
+}

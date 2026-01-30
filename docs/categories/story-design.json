@@ -1,0 +1,20 @@
+{
+  "category": "story-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.096192Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate story specification markdown files for various fiction genres. Use when: (1) User says \"write a [genre] story\" in pinyin (e.g., \"tonghua\", \"wuxia\", \"kehuan\") (2) User says \"策划/设计一个[类型]类别的小说\"",
+      "repo": "aicoder2048/story-writer",
+      "path": "story-design",
+      "branch": "main",
+      "category": "story-design",
+      "tags": [],
+      "stars": 0,
+      "install": "aicoder2048/story-writer/story-design",
+      "source": "github.com/aicoder2048/story-writer"
+    }
+  ]
+}

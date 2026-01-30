@@ -1,0 +1,20 @@
+{
+  "category": "socratic-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.039755Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Socratic code review using probing questions instead of direct critique. Based on Feynman's principle that teaching reveals gaps in understanding. Helps developers articulate reasoning, surface hidden",
+      "repo": "rysweet/amplihack",
+      "path": "socratic-review",
+      "branch": "main",
+      "category": "socratic-review",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/amplihack/socratic-review",
+      "source": "github.com/rysweet/amplihack"
+    }
+  ]
+}

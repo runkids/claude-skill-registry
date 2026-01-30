@@ -1,0 +1,20 @@
+{
+  "category": "skill-memory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.018977Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use skill-memory to download, view and edit agent skills in memory. TRIGGER by 'skill', 'memory', 'learn'.",
+      "repo": "memodb-io/skill-memory",
+      "path": "skill-memory",
+      "branch": "main",
+      "category": "skill-memory",
+      "tags": [],
+      "stars": 0,
+      "install": "memodb-io/skill-memory/skill-memory",
+      "source": "github.com/memodb-io/skill-memory"
+    }
+  ]
+}

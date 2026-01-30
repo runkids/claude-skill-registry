@@ -1,0 +1,20 @@
+{
+  "category": "implementing-realtime-sync",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.869053Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Real-time communication patterns for live updates, collaboration, and presence. Use when building chat applications, collaborative tools, live dashboards, or streaming interfaces (LLM responses, metri",
+      "repo": "ancoleman/ai-design-components",
+      "path": "implementing-realtime-sync",
+      "branch": "main",
+      "category": "implementing-realtime-sync",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/implementing-realtime-sync",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

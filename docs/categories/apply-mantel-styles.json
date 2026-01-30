@@ -1,0 +1,20 @@
+{
+  "category": "apply-mantel-styles",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.337810Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides guidelines for applying Mantel's brand styles to diagrams and frontend components. Use when asked to create visuals that need to align with Mantel's branding.",
+      "repo": "sammcj/agentic-coding",
+      "path": "apply-mantel-styles",
+      "branch": "main",
+      "category": "apply-mantel-styles",
+      "tags": [],
+      "stars": 0,
+      "install": "sammcj/agentic-coding/apply-mantel-styles",
+      "source": "github.com/sammcj/agentic-coding"
+    }
+  ]
+}

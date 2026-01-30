@@ -1,0 +1,20 @@
+{
+  "category": "json-schema-validator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.932936Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate JSON data against JSON Schema specifications. Use for API validation, config file validation, or data quality checks.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "json-schema-validator",
+      "branch": "main",
+      "category": "json-schema-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/json-schema-validator",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "godel-machine",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.785738Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Schmidhuber''s Gödel Machine: Self-improving systems that prove their",
+      "repo": "plurigrid/asi",
+      "path": "godel-machine",
+      "branch": "main",
+      "category": "godel-machine",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/godel-machine",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

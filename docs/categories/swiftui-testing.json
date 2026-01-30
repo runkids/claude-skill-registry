@@ -1,0 +1,20 @@
+{
+  "category": "swiftui-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.133830Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test SwiftUI apps with XCTest, UI tests, snapshot testing, and async testing. Use when writing unit tests for ViewModels, creating UI automation tests, implementing snapshot tests, or testing async co",
+      "repo": "fusengine/agents",
+      "path": "swiftui-testing",
+      "branch": "main",
+      "category": "swiftui-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/swiftui-testing",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

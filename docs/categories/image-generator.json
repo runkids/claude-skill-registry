@@ -1,0 +1,20 @@
+{
+  "category": "image-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.861504Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate professional visuals using Gemini via browser automation with 6-gate quality control. Use when creating chapter illustrations, diagrams, or teaching visuals. NOT for stock photos or decorativ",
+      "repo": "92Bilal26/TaskPilotAI",
+      "path": "image-generator",
+      "branch": "main",
+      "category": "image-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "92Bilal26/TaskPilotAI/image-generator",
+      "source": "github.com/92Bilal26/TaskPilotAI"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "quality-gates",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.747997Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Understanding and passing workflow quality gates (validate, dry, pytest, ruff, typecheck)",
+      "repo": "mpuig/raw",
+      "path": "quality-gates",
+      "branch": "main",
+      "category": "quality-gates",
+      "tags": [],
+      "stars": 0,
+      "install": "mpuig/raw/quality-gates",
+      "source": "github.com/mpuig/raw"
+    }
+  ]
+}

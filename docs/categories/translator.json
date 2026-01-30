@@ -1,0 +1,20 @@
+{
+  "category": "translator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.310934Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Translate code comments, documentation, and UI strings between multiple languages. Use when internationalizing applications or translating technical documentation.",
+      "repo": "ntaksh42/agents",
+      "path": "translator",
+      "branch": "main",
+      "category": "translator",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents/translator",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

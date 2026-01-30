@@ -1,0 +1,20 @@
+{
+  "category": "ship-learn-next",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.995684Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform learning content (like YouTube transcripts, articles, tutorials) into actionable implementation plans using the Ship-Learn-Next framework. Use when user wants to turn advice, lessons, or edu",
+      "repo": "softaworks/agent-toolkit",
+      "path": "ship-learn-next",
+      "branch": "main",
+      "category": "ship-learn-next",
+      "tags": [],
+      "stars": 0,
+      "install": "softaworks/agent-toolkit/ship-learn-next",
+      "source": "github.com/softaworks/agent-toolkit"
+    }
+  ]
+}

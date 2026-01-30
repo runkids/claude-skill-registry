@@ -1,0 +1,20 @@
+{
+  "category": "env-standalone",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.578655Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conditionally generates .env.standalone file for micro-frontend applications only. Enables running micro-frontends in standalone mode without single-spa launcher. Skipped for standalone applications.",
+      "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+      "path": "env-standalone",
+      "branch": "main",
+      "category": "env-standalone",
+      "tags": [],
+      "stars": 0,
+      "install": "sayali-ingle-pdl/adusa-ai-vuejs-app-template/env-standalone",
+      "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template"
+    }
+  ]
+}

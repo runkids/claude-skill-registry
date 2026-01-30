@@ -1,0 +1,20 @@
+{
+  "category": "rotation-signal-writer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.854305Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert Structure/Flows JSON into concrete rotation actions with size, stop, invalidation under the Crypto Rotation Playbook v2. Use after structure or flows outputs are available.",
+      "repo": "ricketter1984/crypto-rotation-agents",
+      "path": "rotation-signal-writer",
+      "branch": "main",
+      "category": "rotation-signal-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "ricketter1984/crypto-rotation-agents/rotation-signal-writer",
+      "source": "github.com/ricketter1984/crypto-rotation-agents"
+    }
+  ]
+}

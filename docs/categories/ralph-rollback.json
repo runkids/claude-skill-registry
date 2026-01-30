@@ -1,0 +1,20 @@
+{
+  "category": "ralph-rollback",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.763679Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Rollback to a previous checkpoint",
+      "repo": "doravidan/supreme-ralph",
+      "path": "ralph-rollback",
+      "branch": "main",
+      "category": "ralph-rollback",
+      "tags": [],
+      "stars": 0,
+      "install": "doravidan/supreme-ralph/ralph-rollback",
+      "source": "github.com/doravidan/supreme-ralph"
+    }
+  ]
+}

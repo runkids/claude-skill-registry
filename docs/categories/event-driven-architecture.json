@@ -1,0 +1,20 @@
+{
+  "category": "event-driven-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.601980Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Event-driven architecture patterns with event sourcing, CQRS, and message-driven communication. Use when designing distributed systems, microservices communication, or systems requiring eventual consi",
+      "repo": "NickCrew/claude-cortex",
+      "path": "event-driven-architecture",
+      "branch": "main",
+      "category": "event-driven-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex/event-driven-architecture",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "cli-messaging",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.557147Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Agent-guiding error messages and output formatting for Effect CLI. Covers Data.TaggedError patterns, recovery suggestions, and structured output.",
+      "repo": "creatifcoding/gbg",
+      "path": "cli-messaging",
+      "branch": "main",
+      "category": "cli-messaging",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/cli-messaging",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

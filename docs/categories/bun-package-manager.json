@@ -1,0 +1,20 @@
+{
+  "category": "bun-package-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.470443Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Bun package manager commands (install, add, remove, update), workspaces, lockfiles, npm/yarn/pnpm migration. Use for dependency management with Bun.",
+      "repo": "secondsky/claude-skills",
+      "path": "bun-package-manager",
+      "branch": "main",
+      "category": "bun-package-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills/bun-package-manager",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

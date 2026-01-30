@@ -1,0 +1,20 @@
+{
+  "category": "plan-adr-flow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.578300Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan and document coding tasks with PLAN.md and ADRs in docs/ADR. Use when a task can be decomposed, when asked to create or update PLAN.md, or when capturing technical decisions.",
+      "repo": "fyuuki0jp/SourceDoc",
+      "path": "plan-adr-flow",
+      "branch": "main",
+      "category": "plan-adr-flow",
+      "tags": [],
+      "stars": 0,
+      "install": "fyuuki0jp/SourceDoc/plan-adr-flow",
+      "source": "github.com/fyuuki0jp/SourceDoc"
+    }
+  ]
+}

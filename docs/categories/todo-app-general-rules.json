@@ -1,0 +1,20 @@
+{
+  "category": "todo-app-general-rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.294805Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "General rules for the entire Todo web application project. Encompasses specifications and guidelines applicable across all files.",
+      "repo": "oimiragieo/agent-studio",
+      "path": "todo-app-general-rules",
+      "branch": "main",
+      "category": "todo-app-general-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/todo-app-general-rules",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

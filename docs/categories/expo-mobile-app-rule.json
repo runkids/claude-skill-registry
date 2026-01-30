@@ -1,0 +1,20 @@
+{
+  "category": "expo-mobile-app-rule",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.625013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Specifies best practices and conventions for Expo-based mobile app development.",
+      "repo": "oimiragieo/agent-studio",
+      "path": "expo-mobile-app-rule",
+      "branch": "main",
+      "category": "expo-mobile-app-rule",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/expo-mobile-app-rule",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

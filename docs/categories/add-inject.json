@@ -1,0 +1,20 @@
+{
+  "category": "add-inject",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.205572Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a game UI injection that modifies existing game elements with proper cleanup",
+      "repo": "Ariedam64/Gemini",
+      "path": "add-inject",
+      "branch": "main",
+      "category": "add-inject",
+      "tags": [],
+      "stars": 0,
+      "install": "Ariedam64/Gemini/add-inject",
+      "source": "github.com/Ariedam64/Gemini"
+    }
+  ]
+}

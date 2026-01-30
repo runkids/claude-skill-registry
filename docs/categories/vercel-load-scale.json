@@ -1,0 +1,20 @@
+{
+  "category": "vercel-load-scale",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.403438Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement Vercel load testing, auto-scaling, and capacity planning strategies. Use when running performance tests, configuring horizontal scaling, or planning capacity for Vercel integrations. Trigger",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "vercel-load-scale",
+      "branch": "main",
+      "category": "vercel-load-scale",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/vercel-load-scale",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "aws-beanstalk-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.384902Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert knowledge for deploying, managing, and troubleshooting AWS Elastic Beanstalk applications with production best practices",
+      "repo": "pr-pm/prpm",
+      "path": "aws-beanstalk-expert",
+      "branch": "main",
+      "category": "aws-beanstalk-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm/aws-beanstalk-expert",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

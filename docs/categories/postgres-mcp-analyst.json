@@ -1,0 +1,20 @@
+{
+  "category": "postgres-mcp-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.613296Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PostgreSQL MCPでスキーマ確認とread-only分析を行う。集計・意思決定資料が必要な時に使う。",
+      "repo": "taiyousan15/taisun_agent",
+      "path": "postgres-mcp-analyst",
+      "branch": "main",
+      "category": "postgres-mcp-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/postgres-mcp-analyst",
+      "source": "github.com/taiyousan15/taisun_agent"
+    }
+  ]
+}

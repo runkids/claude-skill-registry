@@ -1,0 +1,20 @@
+{
+  "category": "workflow-router",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.482105Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Goal-based workflow orchestration - routes tasks to specialist agents based on user goals",
+      "repo": "namesreallyblank/Clorch",
+      "path": "workflow-router",
+      "branch": "main",
+      "category": "workflow-router",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/workflow-router",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

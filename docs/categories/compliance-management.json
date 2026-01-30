@@ -1,0 +1,20 @@
+{
+  "category": "compliance-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.632292Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to manage regulatory compliance, ensure supply chain adherence to standards, or navigate trade regulations. Also use when the user mentions \"regulatory compliance,\" \"trade complian",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "compliance-management",
+      "branch": "main",
+      "category": "compliance-management",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/compliance-management",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

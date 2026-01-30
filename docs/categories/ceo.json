@@ -1,0 +1,20 @@
+{
+  "category": "ceo",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.501242Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "首席执行官专家，精通战略规划、商业决策、融资管理和团队建设",
+      "repo": "lotosbin/claude-skills",
+      "path": "ceo",
+      "branch": "main",
+      "category": "ceo",
+      "tags": [],
+      "stars": 0,
+      "install": "lotosbin/claude-skills/ceo",
+      "source": "github.com/lotosbin/claude-skills"
+    }
+  ]
+}

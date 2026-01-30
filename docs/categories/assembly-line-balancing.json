@@ -1,0 +1,20 @@
+{
+  "category": "assembly-line-balancing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.358630Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to balance assembly lines, assign tasks to workstations, calculate takt time, or optimize line efficiency. Also use when the user mentions \"line balancing,\" \"workstation assignment",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "assembly-line-balancing",
+      "branch": "main",
+      "category": "assembly-line-balancing",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/assembly-line-balancing",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "duende-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.542931Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Single source of truth and librarian for ALL Duende Software documentation. Manages local documentation storage, scraping, discovery, and resolution. Use when finding, locating, searching, or resolvin",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "duende-docs",
+      "branch": "main",
+      "category": "duende-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/duende-docs",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

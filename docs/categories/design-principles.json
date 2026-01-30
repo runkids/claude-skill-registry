@@ -1,8 +1,8 @@
 {
   "category": "design-principles",
   "code": "oth",
-  "count": 1,
-  "updated_at": "2026-01-29T04:50:38.633405Z",
+  "count": 2,
+  "updated_at": "2026-01-30T04:55:06.156649Z",
   "skills": [
     {
       "name": "affordances",
@@ -15,6 +15,18 @@
       "stars": 1,
       "install": "vjrivmon/Setup-Software-IA/design-principles/affordances",
       "source": "github.com/vjrivmon/Setup-Software-IA"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "UI/UX design system for dashboards, admin panels, SaaS interfaces, and web apps. Stack: React, Tailwind, CSS, styled-components. Capabilities: spacing systems (4px grid), color palettes, typography hi",
+      "repo": "brixtonpham/claude-config",
+      "path": "design-principles",
+      "branch": "main",
+      "category": "design-principles",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/design-principles",
+      "source": "github.com/brixtonpham/claude-config"
     }
   ]
 }

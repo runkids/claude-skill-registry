@@ -1,0 +1,20 @@
+{
+  "category": "browser-testing-with-screenshots",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.449170Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when testing web applications with visual verification - automates Chrome browser interactions, element selection, and screenshot capture for confirming UI functionality",
+      "repo": "AgentWorkforce/relay",
+      "path": "browser-testing-with-screenshots",
+      "branch": "main",
+      "category": "browser-testing-with-screenshots",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentWorkforce/relay/browser-testing-with-screenshots",
+      "source": "github.com/AgentWorkforce/relay"
+    }
+  ]
+}

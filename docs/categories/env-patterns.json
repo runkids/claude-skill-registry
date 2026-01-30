@@ -1,0 +1,20 @@
+{
+  "category": "env-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.578479Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Environment/config conventions (env vars, defaults, validation, CI/local differences). Use when adding config or diagnosing env-related failures.",
+      "repo": "Anveio/conveaux",
+      "path": "env-patterns",
+      "branch": "main",
+      "category": "env-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "Anveio/conveaux/env-patterns",
+      "source": "github.com/Anveio/conveaux"
+    }
+  ]
+}

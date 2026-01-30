@@ -1,0 +1,20 @@
+{
+  "category": "erpnext-permissions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.588383Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete guide for Frappe/ERPNext permission system - roles, user permissions, perm levels, data masking, and permission hooks",
+      "repo": "OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package",
+      "path": "erpnext-permissions",
+      "branch": "main",
+      "category": "erpnext-permissions",
+      "tags": [],
+      "stars": 0,
+      "install": "OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package/erpnext-permissions",
+      "source": "github.com/OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package"
+    }
+  ]
+}

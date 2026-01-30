@@ -1,0 +1,20 @@
+{
+  "category": "scrum-team-developer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.927081Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI Developer following TDD principles in AI-Agentic Scrum. Use when implementing PBIs, managing subtasks, or executing the TDD cycle within Scrum.",
+      "repo": "staticWagomU/dotfiles",
+      "path": "scrum-team-developer",
+      "branch": "main",
+      "category": "scrum-team-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "staticWagomU/dotfiles/scrum-team-developer",
+      "source": "github.com/staticWagomU/dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "perplexity-research",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.564434Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Exhaustive multi-source research reports. Use for deep investigation.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "perplexity-research",
+      "branch": "main",
+      "category": "perplexity-research",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/perplexity-research",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

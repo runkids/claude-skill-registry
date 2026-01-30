@@ -1,0 +1,20 @@
+{
+  "category": "environmentalist-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.580319Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes events through environmental lens using ecological principles, systems thinking, sustainability frameworks, and conservation biology to assess ecosystem health, biodiversity impacts, and long",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "environmentalist-analyst",
+      "branch": "main",
+      "category": "environmentalist-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/environmentalist-analyst",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

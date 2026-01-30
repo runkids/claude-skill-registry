@@ -1,0 +1,20 @@
+{
+  "category": "new-component",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.236477Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create new GPUI components. Use when building components, writing UI elements, or creating new component implementations.",
+      "repo": "longbridge/gpui-component",
+      "path": "new-component",
+      "branch": "main",
+      "category": "new-component",
+      "tags": [],
+      "stars": 0,
+      "install": "longbridge/gpui-component/new-component",
+      "source": "github.com/longbridge/gpui-component"
+    }
+  ]
+}

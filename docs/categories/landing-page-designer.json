@@ -1,0 +1,20 @@
+{
+  "category": "landing-page-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.966988Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Senior landing page designer specializing in high-converting pages for SaaS, apps, and services. Use when building landing pages, hero sections, pricing pages, or any conversion-focused marketing page",
+      "repo": "eddiebe147/claude-settings",
+      "path": "landing-page-designer",
+      "branch": "main",
+      "category": "landing-page-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/landing-page-designer",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

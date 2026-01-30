@@ -1,0 +1,20 @@
+{
+  "category": "every-style-editor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.603734Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when reviewing or editing copy to ensure adherence to Every's style guide. It provides a systematic line-by-line review process for grammar, punctuation, mechanics, and style",
+      "repo": "robertguss/claude-code-toolkit",
+      "path": "every-style-editor",
+      "branch": "main",
+      "category": "every-style-editor",
+      "tags": [],
+      "stars": 0,
+      "install": "robertguss/claude-code-toolkit/every-style-editor",
+      "source": "github.com/robertguss/claude-code-toolkit"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "cancel",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.483389Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cancel active Loop. Use when loop needs to stop early, done iterating manually, want to abort, or change direction. Triggers on \"cancel loop\", \"stop iterating\", \"end loop\", \"terminate loop\", \"abort lo",
+      "repo": "saadshahd/moo.md",
+      "path": "cancel",
+      "branch": "main",
+      "category": "cancel",
+      "tags": [],
+      "stars": 0,
+      "install": "saadshahd/moo.md/cancel",
+      "source": "github.com/saadshahd/moo.md"
+    }
+  ]
+}

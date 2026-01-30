@@ -1,0 +1,20 @@
+{
+  "category": "aws-cloudformation-lambda",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.386904Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS CloudFormation patterns for Lambda functions, layers, event sources, and integrations. Use when creating Lambda functions with CloudFormation, configuring API Gateway, Step Functions, EventBridge,",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "aws-cloudformation-lambda",
+      "branch": "main",
+      "category": "aws-cloudformation-lambda",
+      "tags": [],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/aws-cloudformation-lambda",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    }
+  ]
+}

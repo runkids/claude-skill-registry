@@ -1,0 +1,20 @@
+{
+  "category": "grpc-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.811300Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level gRPC, Protocol Buffers, microservices communication, and streaming",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "grpc-expert",
+      "branch": "main",
+      "category": "grpc-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/grpc-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

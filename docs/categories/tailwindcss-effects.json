@@ -1,0 +1,20 @@
+{
+  "category": "tailwindcss-effects",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.153478Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Effects utilities Tailwind CSS v4.1. Shadows (shadow-*, shadow-color, inset-shadow-* NEW), Opacity (opacity-*), Filters (blur, brightness, contrast, grayscale, sepia), Backdrop filters (backdrop-blur-",
+      "repo": "fusengine/agents",
+      "path": "tailwindcss-effects",
+      "branch": "main",
+      "category": "tailwindcss-effects",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/tailwindcss-effects",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

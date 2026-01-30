@@ -1,0 +1,20 @@
+{
+  "category": "scientific-pkg-denario",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.907833Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multiagent AI system for scientific research assistance that automates research workflows from data analysis to publication. This skill should be used when generating research ideas from datasets, dev",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-pkg-denario",
+      "branch": "main",
+      "category": "scientific-pkg-denario",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/scientific-pkg-denario",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

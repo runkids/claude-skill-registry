@@ -1,0 +1,20 @@
+{
+  "category": "readme-generate",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.783898Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate comprehensive README files from code analysis",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "readme-generate",
+      "branch": "main",
+      "category": "readme-generate",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/readme-generate",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "api-gateway",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.324183Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS API Gateway for REST and HTTP API management. Use when creating APIs, configuring integrations, setting up authorization, managing stages, implementing rate limiting, or troubleshooting API issues",
+      "repo": "itsmostafa/aws-agent-skills",
+      "path": "api-gateway",
+      "branch": "main",
+      "category": "api-gateway",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmostafa/aws-agent-skills/api-gateway",
+      "source": "github.com/itsmostafa/aws-agent-skills"
+    }
+  ]
+}

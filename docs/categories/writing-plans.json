@@ -1,0 +1,20 @@
+{
+  "category": "writing-plans",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.498112Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "writing-plans",
+      "branch": "main",
+      "category": "writing-plans",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/writing-plans",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

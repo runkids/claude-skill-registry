@@ -1,0 +1,20 @@
+{
+  "category": "Reverse Proxy Deployment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.177531Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploy web applications behind Apache reverse proxy on rivsprod01 with relative URLs and proper path configuration",
+      "repo": "lawless-m/Earwig",
+      "path": "Reverse Proxy Deployment",
+      "branch": "main",
+      "category": "Reverse Proxy Deployment",
+      "tags": [],
+      "stars": 0,
+      "install": "lawless-m/Earwig/Reverse Proxy Deployment",
+      "source": "github.com/lawless-m/Earwig"
+    }
+  ]
+}

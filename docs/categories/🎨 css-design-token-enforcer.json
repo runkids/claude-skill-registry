@@ -1,0 +1,20 @@
+{
+  "category": "🎨 css-design-token-enforcer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.520980Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematically find and replace ALL hardcoded hex values with proper CSS design tokens to ensure complete color consistency across the Pomo-Flow application. This skill addresses the critical issue of",
+      "repo": "endlessblink/flow-state",
+      "path": "🎨 css-design-token-enforcer",
+      "branch": "main",
+      "category": "🎨 css-design-token-enforcer",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/🎨 css-design-token-enforcer",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "spending-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.058856Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze Pollinations revenue, pack purchases, and tier spending patterns. Query Polar for payment history and Tinybird for usage data.",
+      "repo": "pollinations/pollinations",
+      "path": "spending-analysis",
+      "branch": "main",
+      "category": "spending-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "pollinations/pollinations/spending-analysis",
+      "source": "github.com/pollinations/pollinations"
+    }
+  ]
+}

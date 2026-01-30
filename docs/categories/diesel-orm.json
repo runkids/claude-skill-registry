@@ -1,0 +1,20 @@
+{
+  "category": "diesel-orm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.453955Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Type-safe Rust ORM with compile-time query validation.",
+      "repo": "ngxtm/devkit",
+      "path": "diesel-orm",
+      "branch": "main",
+      "category": "diesel-orm",
+      "tags": [],
+      "stars": 0,
+      "install": "ngxtm/devkit/diesel-orm",
+      "source": "github.com/ngxtm/devkit"
+    }
+  ]
+}

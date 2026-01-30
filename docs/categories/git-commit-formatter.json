@@ -1,0 +1,20 @@
+{
+  "category": "git-commit-formatter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.756401Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "生成符合 Conventional Commits 规范的 Git 提交信息。当用户要求生成提交、创建 commit 或写提交信息时使用",
+      "repo": "einverne/dotfiles",
+      "path": "git-commit-formatter",
+      "branch": "main",
+      "category": "git-commit-formatter",
+      "tags": [],
+      "stars": 0,
+      "install": "einverne/dotfiles/git-commit-formatter",
+      "source": "github.com/einverne/dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "test-configurator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.198263Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test INAV Configurator with remote debugging and Chrome DevTools Protocol",
+      "repo": "sensei-hacker/inav-claude",
+      "path": "test-configurator",
+      "branch": "main",
+      "category": "test-configurator",
+      "tags": [],
+      "stars": 0,
+      "install": "sensei-hacker/inav-claude/test-configurator",
+      "source": "github.com/sensei-hacker/inav-claude"
+    }
+  ]
+}

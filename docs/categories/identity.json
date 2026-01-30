@@ -1,0 +1,20 @@
+{
+  "category": "identity",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.858056Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert on Plaid Identity product for retrieving account holder information. Covers identity verification, KYC compliance, name/address retrieval, and fraud prevention. Invoke when user mentions Plaid",
+      "repo": "raintree-technology/claude-starter",
+      "path": "identity",
+      "branch": "main",
+      "category": "identity",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/identity",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

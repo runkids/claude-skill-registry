@@ -1,0 +1,20 @@
+{
+  "category": "podcast-splitter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.601490Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Split audio files by detecting silence gaps. Auto-segment podcasts into chapters, remove long silences, and export individual clips.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "podcast-splitter",
+      "branch": "main",
+      "category": "podcast-splitter",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/podcast-splitter",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

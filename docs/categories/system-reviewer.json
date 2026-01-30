@@ -1,0 +1,20 @@
+{
+  "category": "system-reviewer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.142537Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review the skill development ecosystem itself - assess ecosystem health, identify systemic issues, evaluate toolkit effectiveness, and recommend system-level improvements. Task-based operations for ec",
+      "repo": "adaptationio/Skrillz",
+      "path": "system-reviewer",
+      "branch": "main",
+      "category": "system-reviewer",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/system-reviewer",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

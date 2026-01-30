@@ -1,0 +1,20 @@
+{
+  "category": "gh-fix-ci",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.751078Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Inspect GitHub PR checks with gh, pull failing GitHub Actions logs, summarize failure context, then create a fix plan and implement after user approval. Use when a user asks to debug or fix failing PR",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "gh-fix-ci",
+      "branch": "main",
+      "category": "gh-fix-ci",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/gh-fix-ci",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

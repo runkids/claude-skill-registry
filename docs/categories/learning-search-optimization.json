@@ -1,0 +1,20 @@
+{
+  "category": "learning-search-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.996096Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "search-optimization for learning content management and knowledge systems.",
+      "repo": "pauljbernard/content",
+      "path": "learning-search-optimization",
+      "branch": "main",
+      "category": "learning-search-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content/learning-search-optimization",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

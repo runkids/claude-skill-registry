@@ -1,0 +1,20 @@
+{
+  "category": "wormhole",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.488696Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Sync work between AI agents. Log actions, manage sessions, detect conflicts.",
+      "repo": "fatmali/wormhole",
+      "path": "wormhole",
+      "branch": "main",
+      "category": "wormhole",
+      "tags": [],
+      "stars": 0,
+      "install": "fatmali/wormhole/wormhole",
+      "source": "github.com/fatmali/wormhole"
+    }
+  ]
+}

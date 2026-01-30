@@ -1,0 +1,20 @@
+{
+  "category": "midi-agent-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.131626Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate MIDI files with GM instruments and music theory. Use when creating music, composing melodies, or generating MIDI files.",
+      "repo": "tubone24/midi-agent-skill",
+      "path": "midi-agent-skill",
+      "branch": "main",
+      "category": "midi-agent-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "tubone24/midi-agent-skill/midi-agent-skill",
+      "source": "github.com/tubone24/midi-agent-skill"
+    }
+  ]
+}

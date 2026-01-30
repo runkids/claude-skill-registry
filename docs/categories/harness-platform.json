@@ -1,0 +1,20 @@
+{
+  "category": "harness-platform",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.822854Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Harness Platform administration including delegates, RBAC, connectors, secrets, templates, policy as code (OPA), user management, audit logs, and governance",
+      "repo": "Lobbi-Docs/claude",
+      "path": "harness-platform",
+      "branch": "main",
+      "category": "harness-platform",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/harness-platform",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

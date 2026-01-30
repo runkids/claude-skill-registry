@@ -1,0 +1,20 @@
+{
+  "category": "plaid-fintech",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.577231Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert patterns for Plaid API integration including Link token flows, transactions sync, identity verification, Auth for ACH, balance checks, webhook handling, and fintech compliance best practices. U",
+      "repo": "Nguyenthang2292/Sovereign-IQ",
+      "path": "plaid-fintech",
+      "branch": "main",
+      "category": "plaid-fintech",
+      "tags": [],
+      "stars": 0,
+      "install": "Nguyenthang2292/Sovereign-IQ/plaid-fintech",
+      "source": "github.com/Nguyenthang2292/Sovereign-IQ"
+    }
+  ]
+}

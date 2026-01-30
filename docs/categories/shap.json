@@ -1,0 +1,20 @@
+{
+  "category": "shap",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.990492Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Model interpretability and explainability using SHAP (SHapley Additive exPlanations). Use this skill when explaining machine learning model predictions, computing feature importance, generating SHAP p",
+      "repo": "ovachiever/droid-tings",
+      "path": "shap",
+      "branch": "main",
+      "category": "shap",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings/shap",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "session-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.977970Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements secure session management with JWT tokens, Redis storage, refresh flows, and proper cookie configuration. Use when building authentication systems, managing user sessions, or implementing s",
+      "repo": "secondsky/claude-skills",
+      "path": "session-management",
+      "branch": "main",
+      "category": "session-management",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills/session-management",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "managing-dependencies",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.073109Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Evaluates packages, manages dependencies, and addresses supply chain security. Use when adding npm/pip/cargo/bundler/go dependencies, auditing packages, reviewing lockfile changes, checking for vulner",
+      "repo": "andrew/managing-dependencies",
+      "path": "managing-dependencies",
+      "branch": "main",
+      "category": "managing-dependencies",
+      "tags": [],
+      "stars": 0,
+      "install": "andrew/managing-dependencies/managing-dependencies",
+      "source": "github.com/andrew/managing-dependencies"
+    }
+  ]
+}

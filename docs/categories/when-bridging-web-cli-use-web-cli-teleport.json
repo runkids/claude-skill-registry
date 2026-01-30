@@ -1,0 +1,20 @@
+{
+  "category": "when-bridging-web-cli-use-web-cli-teleport",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.460585Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Bridge web interfaces with CLI workflows for seamless bidirectional integration",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "when-bridging-web-cli-use-web-cli-teleport",
+      "branch": "main",
+      "category": "when-bridging-web-cli-use-web-cli-teleport",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension/when-bridging-web-cli-use-web-cli-teleport",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "vercel-blob",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.401933Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Integrate Vercel Blob for file uploads and CDN-delivered assets in Next.js. Supports client-side uploads with presigned URLs and multipart transfers for large files.  Use when implementing file upload",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "vercel-blob",
+      "branch": "main",
+      "category": "vercel-blob",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/vercel-blob",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

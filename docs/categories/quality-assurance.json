@@ -1,0 +1,20 @@
+{
+  "category": "quality-assurance",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.746579Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when deciding test strategy, struggling with code reviews, shipping without tests, or conflating verification with validation",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "quality-assurance",
+      "branch": "main",
+      "category": "quality-assurance",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks/quality-assurance",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "commit-detection",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.619989Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detects optimal commit type from git changes. Use when analyzing commits, determining commit type, or before committing.",
+      "repo": "fusengine/agents",
+      "path": "commit-detection",
+      "branch": "main",
+      "category": "commit-detection",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/commit-detection",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

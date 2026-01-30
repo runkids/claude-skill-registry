@@ -1,0 +1,20 @@
+{
+  "category": "cloudflare-deployment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.574820Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploy and manage Cloudflare Workers, Pages, KV, R2, and D1 using wrangler CLI or MCP server. Use when working with Cloudflare services, serverless functions, or edge deployments.",
+      "repo": "AutumnsGrove/GroveScout",
+      "path": "cloudflare-deployment",
+      "branch": "main",
+      "category": "cloudflare-deployment",
+      "tags": [],
+      "stars": 0,
+      "install": "AutumnsGrove/GroveScout/cloudflare-deployment",
+      "source": "github.com/AutumnsGrove/GroveScout"
+    }
+  ]
+}

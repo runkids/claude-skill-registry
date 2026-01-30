@@ -1,0 +1,20 @@
+{
+  "category": "brand-identity-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.443393Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive brand identity system including brand strategy, visual identity (colors, typography, logo direction), messaging architecture (taglines, boilerplates), and tone of voice guidelines with b",
+      "repo": "maigentic/stratarts",
+      "path": "brand-identity-designer",
+      "branch": "main",
+      "category": "brand-identity-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/brand-identity-designer",
+      "source": "github.com/maigentic/stratarts"
+    }
+  ]
+}

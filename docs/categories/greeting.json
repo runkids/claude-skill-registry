@@ -1,0 +1,20 @@
+{
+  "category": "greeting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.804965Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill when asked to greet someone or say hello",
+      "repo": "plaited/plaited",
+      "path": "greeting",
+      "branch": "main",
+      "category": "greeting",
+      "tags": [],
+      "stars": 0,
+      "install": "plaited/plaited/greeting",
+      "source": "github.com/plaited/plaited"
+    }
+  ]
+}

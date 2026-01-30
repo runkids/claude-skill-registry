@@ -1,0 +1,20 @@
+{
+  "category": "text-diff",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.276948Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "比较文件和文本，支持统一diff、并排视图和补丁生成。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "text-diff",
+      "branch": "main",
+      "category": "text-diff",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode/text-diff",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

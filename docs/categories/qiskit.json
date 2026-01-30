@@ -1,0 +1,20 @@
+{
+  "category": "qiskit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.745017Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive quantum computing toolkit for building, optimizing, and executing quantum circuits. Use when working with quantum algorithms, simulations, or quantum hardware including (1) Building quan",
+      "repo": "robinbarvaag/poynt",
+      "path": "qiskit",
+      "branch": "main",
+      "category": "qiskit",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/qiskit",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

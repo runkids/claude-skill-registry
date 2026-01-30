@@ -1,0 +1,20 @@
+{
+  "category": "user-journey-mapping",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.365805Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create comprehensive user journey maps that identify pain points, opportunities, and emotional states across touchpoints. Use when mapping user experiences or analyzing conversion flows.",
+      "repo": "NickCrew/claude-cortex",
+      "path": "user-journey-mapping",
+      "branch": "main",
+      "category": "user-journey-mapping",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex/user-journey-mapping",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "refund-order",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.802121Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Process customer refunds quickly. Search by order number or email, view order details, and issue full/partial refunds with automatic customer notifications. Use for customer support, order issues, or",
+      "repo": "adrianwedd/lemonsqueezy-claude-skills",
+      "path": "refund-order",
+      "branch": "main",
+      "category": "refund-order",
+      "tags": [],
+      "stars": 0,
+      "install": "adrianwedd/lemonsqueezy-claude-skills/refund-order",
+      "source": "github.com/adrianwedd/lemonsqueezy-claude-skills"
+    }
+  ]
+}

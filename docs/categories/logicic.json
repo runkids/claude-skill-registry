@@ -1,0 +1,20 @@
+{
+  "category": "logicic",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.052794Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with 74xx and CD4xxx series logic ICs - standard TTL/CMOS logic gates, flip-flops, counters, decoders, multiplexers. Includes technology families (LS, HC, HCT, AC, AHC) and LogicICHan",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "logicic",
+      "branch": "main",
+      "category": "logicic",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/logicic",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

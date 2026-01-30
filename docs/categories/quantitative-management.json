@@ -1,0 +1,20 @@
+{
+  "category": "quantitative-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.750603Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when establishing measurement programs, analyzing metrics with statistical process control, setting baselines, or implementing CMMI Level 4 quantitative management - prevents vanity metrics and me",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "quantitative-management",
+      "branch": "main",
+      "category": "quantitative-management",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks/quantitative-management",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

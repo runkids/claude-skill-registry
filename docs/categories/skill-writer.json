@@ -1,0 +1,20 @@
+{
+  "category": "skill-writer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.022896Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide users through creating Agent Skills for Claude Code. Use when the user wants to create, write, author, or design a new Skill, or needs help with SKILL.md files, frontmatter, or skill structure.",
+      "repo": "sskim91/dotfiles",
+      "path": "skill-writer",
+      "branch": "main",
+      "category": "skill-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "sskim91/dotfiles/skill-writer",
+      "source": "github.com/sskim91/dotfiles"
+    }
+  ]
+}

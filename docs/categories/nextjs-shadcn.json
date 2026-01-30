@@ -1,0 +1,20 @@
+{
+  "category": "nextjs-shadcn",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.245477Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "shadcn/ui for Next.js App Router - Field components, TanStack Form integration, Server/Client Components. Use when building UI with shadcn in Next.js.",
+      "repo": "fusengine/agents",
+      "path": "nextjs-shadcn",
+      "branch": "main",
+      "category": "nextjs-shadcn",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/nextjs-shadcn",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

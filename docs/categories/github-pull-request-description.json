@@ -1,0 +1,20 @@
+{
+  "category": "github-pull-request-description",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.773497Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write a description to description GitHub Pull Request.",
+      "repo": "longbridge/gpui-component",
+      "path": "github-pull-request-description",
+      "branch": "main",
+      "category": "github-pull-request-description",
+      "tags": [],
+      "stars": 0,
+      "install": "longbridge/gpui-component/github-pull-request-description",
+      "source": "github.com/longbridge/gpui-component"
+    }
+  ]
+}

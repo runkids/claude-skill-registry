@@ -1,0 +1,20 @@
+{
+  "category": "seuratclustering",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.985812Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Performs unsupervised clustering on single-cell RNA-seq data using Seurat. This process finds nearest neighbors, computes UMAP for visualization, and applies Louvain/Leiden algorithms to identify cell",
+      "repo": "pwwang/immunopipe",
+      "path": "seuratclustering",
+      "branch": "main",
+      "category": "seuratclustering",
+      "tags": [],
+      "stars": 0,
+      "install": "pwwang/immunopipe/seuratclustering",
+      "source": "github.com/pwwang/immunopipe"
+    }
+  ]
+}

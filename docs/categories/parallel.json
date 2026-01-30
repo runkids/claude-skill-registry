@@ -1,0 +1,20 @@
+{
+  "category": "parallel",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.540908Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run multiple Ralph loops concurrently for independent tasks. Manages parallel agent execution with proper isolation and result aggregation. Use when: (1) multiple independent fixes needed, (2) paralle",
+      "repo": "alfredolopez80/multi-agent-ralph-loop",
+      "path": "parallel",
+      "branch": "main",
+      "category": "parallel",
+      "tags": [],
+      "stars": 0,
+      "install": "alfredolopez80/multi-agent-ralph-loop/parallel",
+      "source": "github.com/alfredolopez80/multi-agent-ralph-loop"
+    }
+  ]
+}

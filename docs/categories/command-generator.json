@@ -1,0 +1,20 @@
+{
+  "category": "command-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.616709Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "エージェントとスキルの組み合わせから、Commandのマークダウンファイルを生成する。コマンド作成時、スラッシュコマンド定義時、またはユーザーがCommand生成、スラッシュコマンド、コマンド定義、実行フローに言及した際に使用する。",
+      "repo": "RevTechStudio/rts-plugins",
+      "path": "command-generator",
+      "branch": "main",
+      "category": "command-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "RevTechStudio/rts-plugins/command-generator",
+      "source": "github.com/RevTechStudio/rts-plugins"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "secure-workflow-guide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.935471Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide you through Trail of Bits' 5-step secure development workflow. Runs Slither scans, checks special features (upgradeability/ERC conformance/token integration), generates visual security diagrams,",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "secure-workflow-guide",
+      "branch": "main",
+      "category": "secure-workflow-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/secure-workflow-guide",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "bot-developer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.438172Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert bot developer specializing in Discord, Telegram, Slack automation with deep knowledge of rate limiting, state machines, event sourcing, moderation systems, and conversational AI integration. Ac",
+      "repo": "erichowens/some_claude_skills",
+      "path": "bot-developer",
+      "branch": "main",
+      "category": "bot-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/bot-developer",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

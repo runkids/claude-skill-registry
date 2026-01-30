@@ -1,0 +1,20 @@
+{
+  "category": "quota-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.755421Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Overview",
+      "repo": "athola/claude-night-market",
+      "path": "quota-management",
+      "branch": "main",
+      "category": "quota-management",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/quota-management",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

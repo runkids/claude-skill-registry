@@ -1,0 +1,20 @@
+{
+  "category": "prompt-creation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.702480Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Techniques and templates for creating optimal prompts following Anthropic conventions",
+      "repo": "fusengine/agents",
+      "path": "prompt-creation",
+      "branch": "main",
+      "category": "prompt-creation",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/prompt-creation",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

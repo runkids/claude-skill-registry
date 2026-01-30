@@ -1,0 +1,20 @@
+{
+  "category": "wheels-email-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.458431Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate email functionality including mailer controllers, email templates, and configuration. Use when sending emails, creating notifications, or implementing transactional emails. Ensures proper ema",
+      "repo": "wheels-dev/wheels",
+      "path": "wheels-email-generator",
+      "branch": "main",
+      "category": "wheels-email-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "wheels-dev/wheels/wheels-email-generator",
+      "source": "github.com/wheels-dev/wheels"
+    }
+  ]
+}

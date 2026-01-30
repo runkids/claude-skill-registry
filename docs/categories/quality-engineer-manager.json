@@ -1,0 +1,20 @@
+{
+  "category": "quality-engineer-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.747491Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quality Engineer Manager skill for orchestrating release validation, beta testing coordination, feedback analysis, and release sign-off decisions",
+      "repo": "wildcard/caro",
+      "path": "quality-engineer-manager",
+      "branch": "main",
+      "category": "quality-engineer-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "wildcard/caro/quality-engineer-manager",
+      "source": "github.com/wildcard/caro"
+    }
+  ]
+}

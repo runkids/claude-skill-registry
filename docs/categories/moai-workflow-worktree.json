@@ -1,0 +1,20 @@
+{
+  "category": "moai-workflow-worktree",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.177678Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Git worktree management for parallel SPEC development with isolated workspaces, automatic registration, and seamless MoAI-ADK integration",
+      "repo": "modu-ai/moai-adk",
+      "path": "moai-workflow-worktree",
+      "branch": "main",
+      "category": "moai-workflow-worktree",
+      "tags": [],
+      "stars": 0,
+      "install": "modu-ai/moai-adk/moai-workflow-worktree",
+      "source": "github.com/modu-ai/moai-adk"
+    }
+  ]
+}

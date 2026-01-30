@@ -1,0 +1,20 @@
+{
+  "category": "conversation-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.676187Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes your Claude Code conversation history to identify patterns, common mistakes, and opportunities for workflow improvement. Use when user wants to understand usage patterns, optimize workflow, i",
+      "repo": "mhattingpete/claude-skills-marketplace",
+      "path": "conversation-analyzer",
+      "branch": "main",
+      "category": "conversation-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "mhattingpete/claude-skills-marketplace/conversation-analyzer",
+      "source": "github.com/mhattingpete/claude-skills-marketplace"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "worker-orchestration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.477214Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage concurrent background workers with scheduling, dependencies, health monitoring, and automatic disabling of failing workers.",
+      "repo": "dadbodgeoff/drift",
+      "path": "worker-orchestration",
+      "branch": "main",
+      "category": "worker-orchestration",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/worker-orchestration",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

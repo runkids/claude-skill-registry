@@ -1,0 +1,20 @@
+{
+  "category": "sharp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.993122Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "高性能Node.js图片处理库。使用libvips最快速地调整JPEG、PNG、WebP、AVIF和TIFF图片大小。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "sharp",
+      "branch": "main",
+      "category": "sharp",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode/sharp",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

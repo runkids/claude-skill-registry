@@ -1,0 +1,20 @@
+{
+  "category": "basic-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.416755Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Brief description - this triggers auto-loading when relevant",
+      "repo": "medride/claude-code-research",
+      "path": "basic-skill",
+      "branch": "main",
+      "category": "basic-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "medride/claude-code-research/basic-skill",
+      "source": "github.com/medride/claude-code-research"
+    }
+  ]
+}

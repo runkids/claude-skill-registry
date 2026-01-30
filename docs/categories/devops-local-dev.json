@@ -1,0 +1,20 @@
+{
+  "category": "devops-local-dev",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.447815Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manages the Bestays Docker Compose development environment including service orchestration, Makefile workflows, logs monitoring, and hot-reload development. This skill should be used when starting/sto",
+      "repo": "shredbx/demo-3d-model",
+      "path": "devops-local-dev",
+      "branch": "main",
+      "category": "devops-local-dev",
+      "tags": [],
+      "stars": 0,
+      "install": "shredbx/demo-3d-model/devops-local-dev",
+      "source": "github.com/shredbx/demo-3d-model"
+    }
+  ]
+}

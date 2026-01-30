@@ -1,0 +1,20 @@
+{
+  "category": "conducting-user-interviews",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.643820Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan, conduct, and synthesize high-signal user interviews and produce a User Interview Pack (recruiting plan, screener, discussion guide, notes template, synthesis report). Use for user interview, cus",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "conducting-user-interviews",
+      "branch": "main",
+      "category": "conducting-user-interviews",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus/conducting-user-interviews",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

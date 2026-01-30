@@ -1,0 +1,20 @@
+{
+  "category": "bug-bounty-program",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.452187Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по bug bounty. Используй для поиска уязвимостей, написания отчётов, responsible disclosure и penetration testing.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "bug-bounty-program",
+      "branch": "main",
+      "category": "bug-bounty-program",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/bug-bounty-program",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

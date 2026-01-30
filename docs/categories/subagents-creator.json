@@ -1,0 +1,20 @@
+{
+  "category": "subagents-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.112401Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for defining and using Claude subagents effectively. Use when (1) creating new subagent types, (2) learning how to delegate work to specialized subagents, (3) improving subagent delegation promp",
+      "repo": "Mineru98/skills-store",
+      "path": "subagents-creator",
+      "branch": "main",
+      "category": "subagents-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "Mineru98/skills-store/subagents-creator",
+      "source": "github.com/Mineru98/skills-store"
+    }
+  ]
+}

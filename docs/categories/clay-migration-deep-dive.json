@@ -1,0 +1,20 @@
+{
+  "category": "clay-migration-deep-dive",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.548917Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute Clay major re-architecture and migration strategies with strangler fig pattern. Use when migrating to or from Clay, performing major version upgrades, or re-platforming existing integrations t",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "clay-migration-deep-dive",
+      "branch": "main",
+      "category": "clay-migration-deep-dive",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/clay-migration-deep-dive",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "budget-tracker-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.451841Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Backend budget tracking patterns for AI generation. Awareness-based tracking (not blocking), tool timeouts, per-tool rate limits, token estimates, context window management, truncation strategies, sea",
+      "repo": "planetaryescape/blah.chat",
+      "path": "budget-tracker-patterns",
+      "branch": "main",
+      "category": "budget-tracker-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "planetaryescape/blah.chat/budget-tracker-patterns",
+      "source": "github.com/planetaryescape/blah.chat"
+    }
+  ]
+}

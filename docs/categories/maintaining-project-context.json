@@ -1,0 +1,20 @@
+{
+  "category": "maintaining-project-context",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.067225Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when completing development phases or branches to identify and update CLAUDE.md files that may have become stale - analyzes what changed, determines affected contracts and documentation, and coord",
+      "repo": "brmatola/gremlins",
+      "path": "maintaining-project-context",
+      "branch": "main",
+      "category": "maintaining-project-context",
+      "tags": [],
+      "stars": 0,
+      "install": "brmatola/gremlins/maintaining-project-context",
+      "source": "github.com/brmatola/gremlins"
+    }
+  ]
+}

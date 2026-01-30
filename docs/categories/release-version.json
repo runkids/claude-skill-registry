@@ -1,0 +1,20 @@
+{
+  "category": "release-version",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.808527Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "rainMcp 项目版本发布相关操作流程",
+      "repo": "shellRaining/rainMcp",
+      "path": "release-version",
+      "branch": "main",
+      "category": "release-version",
+      "tags": [],
+      "stars": 0,
+      "install": "shellRaining/rainMcp/release-version",
+      "source": "github.com/shellRaining/rainMcp"
+    }
+  ]
+}

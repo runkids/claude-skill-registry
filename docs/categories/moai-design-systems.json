@@ -1,0 +1,20 @@
+{
+  "category": "moai-design-systems",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.157701Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design system patterns, W3C DTCG 2025.10 token architecture, WCAG 2.2 accessibility standards, and Figma MCP workflows for consistent, accessible UI development",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-design-systems",
+      "branch": "main",
+      "category": "moai-design-systems",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-design-systems",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

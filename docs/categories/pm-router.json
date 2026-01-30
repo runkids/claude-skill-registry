@@ -1,0 +1,20 @@
+{
+  "category": "pm-router",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.599217Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Routes PM coordinator to appropriate skills and sub-agents based on workflow phase, task category, and signal keywords. Use when starting PM session, assigning tasks, running retrospectives, or managi",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "pm-router",
+      "branch": "main",
+      "category": "pm-router",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/pm-router",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "goal-seeking-agent-pattern",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.785220Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guides architects on when and how to use goal-seeking agents as a design pattern. This skill helps evaluate whether autonomous agents are appropriate for a given problem, how to structure their object",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "goal-seeking-agent-pattern",
+      "branch": "main",
+      "category": "goal-seeking-agent-pattern",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/goal-seeking-agent-pattern",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "media-processing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.112370Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Video/audio/image processing with FFmpeg and ImageMagick. Tools: FFmpeg (video/audio), ImageMagick (images). Capabilities: format conversion, encoding (H.264/H.265/VP9/AV1), streaming (HLS/DASH), filt",
+      "repo": "brixtonpham/claude-config",
+      "path": "media-processing",
+      "branch": "main",
+      "category": "media-processing",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/media-processing",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

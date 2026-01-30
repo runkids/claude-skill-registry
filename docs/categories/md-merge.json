@@ -1,0 +1,20 @@
+{
+  "category": "md-merge",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.108081Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Merges markdown chunks back into a single document, reversing the split operation with integrity checks.",
+      "repo": "JordanGunn/nunchuck",
+      "path": "md-merge",
+      "branch": "main",
+      "category": "md-merge",
+      "tags": [],
+      "stars": 0,
+      "install": "JordanGunn/nunchuck/md-merge",
+      "source": "github.com/JordanGunn/nunchuck"
+    }
+  ]
+}

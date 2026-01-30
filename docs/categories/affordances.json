@@ -1,0 +1,20 @@
+{
+  "category": "affordances",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.220651Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Los objetos deben sugerir cómo se usan. Use cuando diseñe botones, controles interactivos, o cualquier elemento que invite a la acción.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "affordances",
+      "branch": "main",
+      "category": "affordances",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/affordances",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

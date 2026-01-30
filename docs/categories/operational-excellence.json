@@ -1,0 +1,20 @@
+{
+  "category": "operational-excellence",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.296858Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementing Kubernetes cost visibility (OpenCost, VPA), backup/disaster recovery (Velero, RTO/RPO), or chaos engineering (Chaos Mesh). Triggers on cost optimization, right-sizing, FinOps, ba",
+      "repo": "panaversity/agentfactory",
+      "path": "operational-excellence",
+      "branch": "main",
+      "category": "operational-excellence",
+      "tags": [],
+      "stars": 0,
+      "install": "panaversity/agentfactory/operational-excellence",
+      "source": "github.com/panaversity/agentfactory"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "dignified-python",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.455642Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Python coding standards with automatic version detection. Use when writing, reviewing, or refactoring Python to ensure adherence to LBYL exception handling patterns, modern type syntax (list[str], str",
+      "repo": "dagster-io/erk",
+      "path": "dignified-python",
+      "branch": "main",
+      "category": "dignified-python",
+      "tags": [],
+      "stars": 0,
+      "install": "dagster-io/erk/dignified-python",
+      "source": "github.com/dagster-io/erk"
+    }
+  ]
+}

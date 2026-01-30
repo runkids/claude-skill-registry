@@ -1,0 +1,20 @@
+{
+  "category": "cc-skill-continuous-learning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.496765Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Development skill from everything-claude-code",
+      "repo": "AxelMrak/ai",
+      "path": "cc-skill-continuous-learning",
+      "branch": "main",
+      "category": "cc-skill-continuous-learning",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/cc-skill-continuous-learning",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

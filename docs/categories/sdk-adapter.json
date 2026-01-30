@@ -1,0 +1,20 @@
+{
+  "category": "sdk-adapter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.928498Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create SDK adapters for new app integrations. Use when onboarding a new Skill Recordings product, implementing the SupportIntegration interface, or scaffolding a new app.",
+      "repo": "skillrecordings/support",
+      "path": "sdk-adapter",
+      "branch": "main",
+      "category": "sdk-adapter",
+      "tags": [],
+      "stars": 0,
+      "install": "skillrecordings/support/sdk-adapter",
+      "source": "github.com/skillrecordings/support"
+    }
+  ]
+}

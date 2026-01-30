@@ -1,0 +1,20 @@
+{
+  "category": "privacy-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.642188Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated privacy review for git repositories. Scans for sensitive data exposure including API keys, passwords, database credentials, and tokens. Use before pushing to public repositories or sharing c",
+      "repo": "emliunix/home.conf",
+      "path": "privacy-review",
+      "branch": "main",
+      "category": "privacy-review",
+      "tags": [],
+      "stars": 0,
+      "install": "emliunix/home.conf/privacy-review",
+      "source": "github.com/emliunix/home.conf"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "solidjs-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.043529Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SolidJS expert including reactivity, components, and store patterns",
+      "repo": "oimiragieo/agent-studio",
+      "path": "solidjs-expert",
+      "branch": "main",
+      "category": "solidjs-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/solidjs-expert",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "star-alignment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.083588Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Align RNA-seq reads with STAR (Spliced Transcripts Alignment to a Reference). Supports two-pass mode for novel splice junction discovery. Use when aligning RNA-seq data requiring splice-aware alignmen",
+      "repo": "GPTomics/bioSkills",
+      "path": "star-alignment",
+      "branch": "main",
+      "category": "star-alignment",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/star-alignment",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

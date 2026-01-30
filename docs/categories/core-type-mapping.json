@@ -1,0 +1,20 @@
+{
+  "category": "core-type-mapping",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.688075Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Type mapping reference for OpenAPI formats to TypeScript core types",
+      "repo": "zerobias-org/module",
+      "path": "core-type-mapping",
+      "branch": "main",
+      "category": "core-type-mapping",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/core-type-mapping",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

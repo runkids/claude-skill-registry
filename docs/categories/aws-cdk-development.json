@@ -1,0 +1,20 @@
+{
+  "category": "aws-cdk-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.385191Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS Cloud Development Kit (CDK) expert for building cloud infrastructure with TypeScript/Python. Use when creating CDK stacks, defining CDK constructs, implementing infrastructure as code, or when the",
+      "repo": "dglowacki/mega-agent-v2",
+      "path": "aws-cdk-development",
+      "branch": "main",
+      "category": "aws-cdk-development",
+      "tags": [],
+      "stars": 0,
+      "install": "dglowacki/mega-agent-v2/aws-cdk-development",
+      "source": "github.com/dglowacki/mega-agent-v2"
+    }
+  ]
+}

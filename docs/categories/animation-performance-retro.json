@@ -1,0 +1,20 @@
+{
+  "category": "animation-performance-retro",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.301333Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize 8-bit animations for smooth performance. Apply when creating animated pixel art, game UI effects, or any retro-styled animations.",
+      "repo": "TheOrcDev/8bitcn-ui",
+      "path": "animation-performance-retro",
+      "branch": "main",
+      "category": "animation-performance-retro",
+      "tags": [],
+      "stars": 0,
+      "install": "TheOrcDev/8bitcn-ui/animation-performance-retro",
+      "source": "github.com/TheOrcDev/8bitcn-ui"
+    }
+  ]
+}

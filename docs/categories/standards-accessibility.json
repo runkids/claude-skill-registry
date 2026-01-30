@@ -1,0 +1,20 @@
+{
+  "category": "standards-accessibility",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.079250Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build accessible user interfaces using semantic HTML, proper ARIA attributes, keyboard navigation, color contrast, and screen reader compatibility. Use this skill when creating or modifying frontend c",
+      "repo": "maxritter/claude-codepro",
+      "path": "standards-accessibility",
+      "branch": "main",
+      "category": "standards-accessibility",
+      "tags": [],
+      "stars": 0,
+      "install": "maxritter/claude-codepro/standards-accessibility",
+      "source": "github.com/maxritter/claude-codepro"
+    }
+  ]
+}

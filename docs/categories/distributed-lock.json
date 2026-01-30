@@ -1,0 +1,20 @@
+{
+  "category": "distributed-lock",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.459345Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prevent race conditions across multiple instances. Only one instance can hold a lock at a time. Automatic expiration prevents deadlocks.",
+      "repo": "dadbodgeoff/drift",
+      "path": "distributed-lock",
+      "branch": "main",
+      "category": "distributed-lock",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/distributed-lock",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

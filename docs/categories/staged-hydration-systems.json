@@ -1,0 +1,20 @@
+{
+  "category": "staged-hydration-systems",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.076807Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Develop staged hydration systems for prioritizing critical UI regions and progressive interactivity.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "staged-hydration-systems",
+      "branch": "main",
+      "category": "staged-hydration-systems",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/staged-hydration-systems",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

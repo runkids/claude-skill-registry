@@ -1,0 +1,20 @@
+{
+  "category": "api-docs-generate",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.321506Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate OpenAPI/Swagger documentation from code analysis",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "api-docs-generate",
+      "branch": "main",
+      "category": "api-docs-generate",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/api-docs-generate",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "plain-upgrade",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.577738Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Upgrades Plain packages and applies required migration changes. Use when updating to newer package versions.",
+      "repo": "dropseed/plain",
+      "path": "plain-upgrade",
+      "branch": "main",
+      "category": "plain-upgrade",
+      "tags": [],
+      "stars": 0,
+      "install": "dropseed/plain/plain-upgrade",
+      "source": "github.com/dropseed/plain"
+    }
+  ]
+}

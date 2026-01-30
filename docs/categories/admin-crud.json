@@ -1,0 +1,20 @@
+{
+  "category": "admin-crud",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.211900Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate admin dashboard pages with data tables, filters, bulk actions, dialogs, and forms. Use when building admin interfaces, management pages, or dashboard components.",
+      "repo": "Mavrick91/tanstack-start-app",
+      "path": "admin-crud",
+      "branch": "main",
+      "category": "admin-crud",
+      "tags": [],
+      "stars": 0,
+      "install": "Mavrick91/tanstack-start-app/admin-crud",
+      "source": "github.com/Mavrick91/tanstack-start-app"
+    }
+  ]
+}

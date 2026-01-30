@@ -1,0 +1,20 @@
+{
+  "category": "complete",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.629416Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete task: validate, document, review, commit, and merge to develop. Use when all implementation is done and ready to finalize.",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "complete",
+      "branch": "main",
+      "category": "complete",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager/complete",
+      "source": "github.com/TaylorHuston/local-life-manager"
+    }
+  ]
+}

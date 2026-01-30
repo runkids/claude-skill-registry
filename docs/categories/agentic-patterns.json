@@ -1,0 +1,20 @@
+{
+  "category": "agentic-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.248430Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use simple, composable patterns to decide when to keep a deterministic workflow versus letting an LLM drive its own control flow with tools, retrieval, and memory. Prefer minimal patterns and add agen",
+      "repo": "cuba6112/skillfactory",
+      "path": "agentic-patterns",
+      "branch": "main",
+      "category": "agentic-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory/agentic-patterns",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

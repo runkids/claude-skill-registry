@@ -1,0 +1,20 @@
+{
+  "category": "fitts-law",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.672418Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Calcula el tiempo para alcanzar un objetivo basado en distancia y tamaño. Use cuando dimensione botones, posicione CTAs, o diseñe áreas interactivas.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "fitts-law",
+      "branch": "main",
+      "category": "fitts-law",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/fitts-law",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

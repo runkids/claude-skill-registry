@@ -1,0 +1,20 @@
+{
+  "category": "exa-performance-tuning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.607247Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize Exa API performance with caching, batching, and connection pooling. Use when experiencing slow API responses, implementing caching strategies, or optimizing request throughput for Exa integra",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "exa-performance-tuning",
+      "branch": "main",
+      "category": "exa-performance-tuning",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/exa-performance-tuning",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

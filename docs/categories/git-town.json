@@ -1,0 +1,20 @@
+{
+  "category": "git-town",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.763005Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"create a feature branch\", \"start a new feature\", \"sync my branch\", \"sync with main\", \"update from main\", \"create a PR\", \"create a pull request\", \"ship",
+      "repo": "FortiumPartners/ensemble",
+      "path": "git-town",
+      "branch": "main",
+      "category": "git-town",
+      "tags": [],
+      "stars": 0,
+      "install": "FortiumPartners/ensemble/git-town",
+      "source": "github.com/FortiumPartners/ensemble"
+    }
+  ]
+}

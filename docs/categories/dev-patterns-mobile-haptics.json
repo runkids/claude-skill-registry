@@ -1,0 +1,20 @@
+{
+  "category": "dev-patterns-mobile-haptics",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.172039Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Haptic feedback patterns for mobile games using Vibration API. Use when adding tactile feedback.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-patterns-mobile-haptics",
+      "branch": "main",
+      "category": "dev-patterns-mobile-haptics",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/dev-patterns-mobile-haptics",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "dependency-injection-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.072235Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Decouple business logic from UI using Inversion of Control with Context and Hooks.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "dependency-injection-patterns",
+      "branch": "main",
+      "category": "dependency-injection-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/dependency-injection-patterns",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

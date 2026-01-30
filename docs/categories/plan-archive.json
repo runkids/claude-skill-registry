@@ -1,0 +1,20 @@
+{
+  "category": "plan-archive",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.578975Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when a plan is abandoned, obsolete, or superseded and should be archived",
+      "repo": "brmatola/gremlins",
+      "path": "plan-archive",
+      "branch": "main",
+      "category": "plan-archive",
+      "tags": [],
+      "stars": 0,
+      "install": "brmatola/gremlins/plan-archive",
+      "source": "github.com/brmatola/gremlins"
+    }
+  ]
+}

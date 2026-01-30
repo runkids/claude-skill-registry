@@ -1,0 +1,20 @@
+{
+  "category": "write-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.491796Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write external integrations following the Epic architecture patterns. Use when creating services for third-party APIs, email, payments, or complex business logic. Triggers on \"create an integration\",",
+      "repo": "coeus-ventures/epic-web",
+      "path": "write-integration",
+      "branch": "main",
+      "category": "write-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "coeus-ventures/epic-web/write-integration",
+      "source": "github.com/coeus-ventures/epic-web"
+    }
+  ]
+}

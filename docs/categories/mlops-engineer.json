@@ -1,0 +1,20 @@
+{
+  "category": "mlops-engineer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.146648Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build comprehensive ML pipelines, experiment tracking, and model registries with MLflow, Kubeflow, and modern MLOps tools. Implements automated training, deployment, and monitoring across cloud platfo",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "mlops-engineer",
+      "branch": "main",
+      "category": "mlops-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/mlops-engineer",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

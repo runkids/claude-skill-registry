@@ -1,0 +1,20 @@
+{
+  "category": "lea",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.981753Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when writing or modifying Lea code - pipe-oriented functional language with tree-walk interpreter",
+      "repo": "mcclowes/lea",
+      "path": "lea",
+      "branch": "main",
+      "category": "lea",
+      "tags": [],
+      "stars": 0,
+      "install": "mcclowes/lea/lea",
+      "source": "github.com/mcclowes/lea"
+    }
+  ]
+}

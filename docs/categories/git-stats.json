@@ -1,0 +1,20 @@
+{
+  "category": "git-stats",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.762652Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "分析Git仓库统计信息，包括提交、贡献者和代码变更。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "git-stats",
+      "branch": "main",
+      "category": "git-stats",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode/git-stats",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

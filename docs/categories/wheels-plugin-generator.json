@@ -1,0 +1,20 @@
+{
+  "category": "wheels-plugin-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.458951Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate Wheels plugins with proper structure, configuration, and ForgeBox packaging. Use when creating plugins, extending Wheels functionality, or packaging reusable components. Ensures plugins follo",
+      "repo": "wheels-dev/wheels",
+      "path": "wheels-plugin-generator",
+      "branch": "main",
+      "category": "wheels-plugin-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "wheels-dev/wheels/wheels-plugin-generator",
+      "source": "github.com/wheels-dev/wheels"
+    }
+  ]
+}

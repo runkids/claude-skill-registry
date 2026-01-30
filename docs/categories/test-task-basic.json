@@ -1,0 +1,20 @@
+{
+  "category": "test-task-basic",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.213967Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test if TaskCreate/List/Get/Update tools are available in forked skills",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-task-basic",
+      "branch": "main",
+      "category": "test-task-basic",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/test-task-basic",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

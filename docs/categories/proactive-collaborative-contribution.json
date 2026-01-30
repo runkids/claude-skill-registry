@@ -1,0 +1,20 @@
+{
+  "category": "proactive-collaborative-contribution",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.642710Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Contribute proactively to collaborative workflows.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "proactive-collaborative-contribution",
+      "branch": "main",
+      "category": "proactive-collaborative-contribution",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/proactive-collaborative-contribution",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

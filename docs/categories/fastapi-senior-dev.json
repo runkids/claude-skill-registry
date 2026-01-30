@@ -1,0 +1,20 @@
+{
+  "category": "fastapi-senior-dev",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.637992Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Senior Python Backend Engineer skill for FastAPI. Use when scaffolding production-ready APIs, enforcing clean architecture, optimizing async patterns, or auditing FastAPI codebases.",
+      "repo": "georgekhananaev/claude-skills-vault",
+      "path": "fastapi-senior-dev",
+      "branch": "main",
+      "category": "fastapi-senior-dev",
+      "tags": [],
+      "stars": 0,
+      "install": "georgekhananaev/claude-skills-vault/fastapi-senior-dev",
+      "source": "github.com/georgekhananaev/claude-skills-vault"
+    }
+  ]
+}

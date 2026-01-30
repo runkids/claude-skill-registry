@@ -1,0 +1,20 @@
+{
+  "category": "klingai-prod-checklist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.950791Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute pre-launch production readiness checklist for Kling AI. Use when preparing to deploy video generation to production. Trigger with phrases like 'klingai production', 'kling ai go-live', 'klinga",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "klingai-prod-checklist",
+      "branch": "main",
+      "category": "klingai-prod-checklist",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/klingai-prod-checklist",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

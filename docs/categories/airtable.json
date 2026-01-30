@@ -1,0 +1,20 @@
+{
+  "category": "airtable",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.285760Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access Airtable bases, tables, and records. Query data, search records, and read structured information.",
+      "repo": "tbroadley/dotfiles",
+      "path": "airtable",
+      "branch": "main",
+      "category": "airtable",
+      "tags": [],
+      "stars": 0,
+      "install": "tbroadley/dotfiles/airtable",
+      "source": "github.com/tbroadley/dotfiles"
+    }
+  ]
+}

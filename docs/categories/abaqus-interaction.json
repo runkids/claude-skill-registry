@@ -1,0 +1,20 @@
+{
+  "category": "abaqus-interaction",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.187616Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define contact and interactions - contact pairs, tie constraints, connectors. Use when user mentions contact, friction, tie, parts touching, or bonded surfaces.",
+      "repo": "JaimeCernuda/abaqus-scripting",
+      "path": "abaqus-interaction",
+      "branch": "main",
+      "category": "abaqus-interaction",
+      "tags": [],
+      "stars": 0,
+      "install": "JaimeCernuda/abaqus-scripting/abaqus-interaction",
+      "source": "github.com/JaimeCernuda/abaqus-scripting"
+    }
+  ]
+}

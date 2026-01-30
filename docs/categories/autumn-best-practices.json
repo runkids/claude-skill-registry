@@ -1,0 +1,20 @@
+{
+  "category": "autumn-best-practices",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.383129Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Skill for integrating Autumn - the billing and entitlements layer over Stripe.",
+      "repo": "usenotra/notra",
+      "path": "autumn-best-practices",
+      "branch": "main",
+      "category": "autumn-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "usenotra/notra/autumn-best-practices",
+      "source": "github.com/usenotra/notra"
+    }
+  ]
+}

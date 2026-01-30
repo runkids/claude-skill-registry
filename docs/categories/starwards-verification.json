@@ -1,0 +1,20 @@
+{
+  "category": "starwards-verification",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.088774Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Evidence-based completion verification for Starwards - run actual npm test commands, check E2E snapshots, verify TypeScript types, and confirm build success before claiming work is complete; evidence",
+      "repo": "starwards/starwards",
+      "path": "starwards-verification",
+      "branch": "main",
+      "category": "starwards-verification",
+      "tags": [],
+      "stars": 0,
+      "install": "starwards/starwards/starwards-verification",
+      "source": "github.com/starwards/starwards"
+    }
+  ]
+}

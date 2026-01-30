@@ -1,0 +1,20 @@
+{
+  "category": "calculator-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.480586Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Simple calculator for basic arithmetic operations (addition, subtraction, multiplication, division). Use when performing calculations, converting units, or working with numbers.",
+      "repo": "adaptationio/Skrillz",
+      "path": "calculator-skill",
+      "branch": "main",
+      "category": "calculator-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/calculator-skill",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "update-instructions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.356445Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Smart merge for CLAUDE.md and AGENTS.md instruction files that preserves user customizations while updating SpecWeave sections. Use after plugin refresh, version upgrade, or when instruction files nee",
+      "repo": "anton-abyzov/specweave",
+      "path": "update-instructions",
+      "branch": "main",
+      "category": "update-instructions",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/update-instructions",
+      "source": "github.com/anton-abyzov/specweave"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ossfuzz",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.309877Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "OSS-Fuzz provides free continuous fuzzing for open source projects. Use when setting up continuous fuzzing infrastructure or enrolling projects.",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "ossfuzz",
+      "branch": "main",
+      "category": "ossfuzz",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/ossfuzz",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

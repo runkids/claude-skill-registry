@@ -1,0 +1,20 @@
+{
+  "category": "kratos-proto-api",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.959002Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates protobuf API definitions for go-kratos microservices with HTTP annotations, validation rules, and OpenAPI documentation. Use when defining service contracts and APIs.",
+      "repo": "alecszaharia/brizy-microservices-go",
+      "path": "kratos-proto-api",
+      "branch": "main",
+      "category": "kratos-proto-api",
+      "tags": [],
+      "stars": 0,
+      "install": "alecszaharia/brizy-microservices-go/kratos-proto-api",
+      "source": "github.com/alecszaharia/brizy-microservices-go"
+    }
+  ]
+}

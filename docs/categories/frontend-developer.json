@@ -1,0 +1,20 @@
+{
+  "category": "frontend-developer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.703724Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build React components, implement responsive layouts, and handle client-side state management. Masters React 19, Next.js 15, and modern frontend architecture. Optimizes performance and ensures accessi",
+      "repo": "rmyndharis/antigravity-skills",
+      "path": "frontend-developer",
+      "branch": "main",
+      "category": "frontend-developer",
+      "tags": [],
+      "stars": 0,
+      "install": "rmyndharis/antigravity-skills/frontend-developer",
+      "source": "github.com/rmyndharis/antigravity-skills"
+    }
+  ]
+}

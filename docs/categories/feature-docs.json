@@ -1,0 +1,20 @@
+{
+  "category": "feature-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.642706Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when the user asks to generate comprehensive feature documentation with verified test cases, create feature README with code evidence, or document a complete feature with test verification. Trigge",
+      "repo": "duc01226/EasyPlatform",
+      "path": "feature-docs",
+      "branch": "main",
+      "category": "feature-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform/feature-docs",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

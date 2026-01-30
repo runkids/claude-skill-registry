@@ -1,0 +1,20 @@
+{
+  "category": "cicd-pipeline-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.529539Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Version: 1.0.0",
+      "repo": "vitorsilva/saberloop",
+      "path": "cicd-pipeline-management",
+      "branch": "main",
+      "category": "cicd-pipeline-management",
+      "tags": [],
+      "stars": 0,
+      "install": "vitorsilva/saberloop/cicd-pipeline-management",
+      "source": "github.com/vitorsilva/saberloop"
+    }
+  ]
+}

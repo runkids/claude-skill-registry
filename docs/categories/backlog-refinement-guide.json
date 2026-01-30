@@ -1,0 +1,20 @@
+{
+  "category": "backlog-refinement-guide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.412543Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт backlog refinement. Используй для grooming sessions, story estimation и prioritization.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "backlog-refinement-guide",
+      "branch": "main",
+      "category": "backlog-refinement-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/backlog-refinement-guide",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

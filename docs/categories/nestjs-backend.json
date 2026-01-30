@@ -1,0 +1,20 @@
+{
+  "category": "nestjs-backend",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.231930Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill whenever the user wants to set up, configure, or refactor TypeORM within a NestJS TypeScript project, including data sources, entities, migrations, repositories, relations, and transact",
+      "repo": "Vong3432/vibemark",
+      "path": "nestjs-backend",
+      "branch": "main",
+      "category": "nestjs-backend",
+      "tags": [],
+      "stars": 0,
+      "install": "Vong3432/vibemark/nestjs-backend",
+      "source": "github.com/Vong3432/vibemark"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "antigravity-sales-automator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.313586Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Draft cold emails, follow-ups, and proposal templates. Creates pricing pages, case studies, and sales scripts. Use PROACTIVELY for sales outreach or lead nurturing.",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-sales-automator",
+      "branch": "main",
+      "category": "antigravity-sales-automator",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/antigravity-sales-automator",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

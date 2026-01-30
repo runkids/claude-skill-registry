@@ -1,0 +1,20 @@
+{
+  "category": "migration-generate",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.134116Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate database migrations from schema changes",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "migration-generate",
+      "branch": "main",
+      "category": "migration-generate",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/migration-generate",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

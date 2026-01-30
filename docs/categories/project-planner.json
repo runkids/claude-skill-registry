@@ -1,0 +1,20 @@
+{
+  "category": "project-planner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.695617Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Universal project planning for non-technical projects. Domains: business, personal, creative, academic, organizational, events. Capabilities: goal setting, milestone planning, resource allocation, tim",
+      "repo": "brixtonpham/claude-config",
+      "path": "project-planner",
+      "branch": "main",
+      "category": "project-planner",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/project-planner",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

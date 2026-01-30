@@ -1,0 +1,20 @@
+{
+  "category": "ruby-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.859580Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Ruby development with Rails, modern features, testing, and best practices",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "ruby-expert",
+      "branch": "main",
+      "category": "ruby-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/ruby-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

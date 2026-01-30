@@ -1,0 +1,20 @@
+{
+  "category": "content-collections",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.659440Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Production-tested setup for Content Collections - a TypeScript-first build tool that transforms local content files (Markdown/MDX) into type-safe data collections with automatic validation.  Use when:",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "content-collections",
+      "branch": "main",
+      "category": "content-collections",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/content-collections",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

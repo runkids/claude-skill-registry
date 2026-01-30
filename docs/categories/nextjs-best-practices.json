@@ -1,0 +1,20 @@
+{
+  "category": "nextjs-best-practices",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.241358Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Next.js App Router principles. Server Components, data fetching, routing patterns.",
+      "repo": "LeonMelamud/inspector-agents",
+      "path": "nextjs-best-practices",
+      "branch": "main",
+      "category": "nextjs-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "LeonMelamud/inspector-agents/nextjs-best-practices",
+      "source": "github.com/LeonMelamud/inspector-agents"
+    }
+  ]
+}

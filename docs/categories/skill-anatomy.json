@@ -1,0 +1,20 @@
+{
+  "category": "skill-anatomy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.009865Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide for understanding and fixing skill structure issues. Use this skill when skills aren't loading, when creating new skills, when organizing skills for open-source vs personal use, or",
+      "repo": "orient-bot/orient",
+      "path": "skill-anatomy",
+      "branch": "main",
+      "category": "skill-anatomy",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/skill-anatomy",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

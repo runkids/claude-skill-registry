@@ -1,0 +1,20 @@
+{
+  "category": "grafana-dashboard",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.798363Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create professional Grafana dashboards with visualizations, templating, and alerts. Use when building monitoring dashboards, creating data visualizations, or setting up operational insights.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "grafana-dashboard",
+      "branch": "main",
+      "category": "grafana-dashboard",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/grafana-dashboard",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

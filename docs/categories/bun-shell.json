@@ -1,0 +1,20 @@
+{
+  "category": "bun-shell",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.470968Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Bun shell scripting with Bun.$, Bun.spawn, subprocess management. Use for shell commands, template literals, or command execution.",
+      "repo": "secondsky/claude-skills",
+      "path": "bun-shell",
+      "branch": "main",
+      "category": "bun-shell",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills/bun-shell",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

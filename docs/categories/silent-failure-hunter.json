@@ -1,0 +1,20 @@
+{
+  "category": "silent-failure-hunter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.000356Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when asked to detect silent failures/weak error handling or explicitly asked to run the silent-failure-hunter subagent.",
+      "repo": "troykelly/codex-skills",
+      "path": "silent-failure-hunter",
+      "branch": "main",
+      "category": "silent-failure-hunter",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/codex-skills/silent-failure-hunter",
+      "source": "github.com/troykelly/codex-skills"
+    }
+  ]
+}

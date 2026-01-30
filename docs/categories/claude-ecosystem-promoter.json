@@ -1,0 +1,20 @@
+{
+  "category": "claude-ecosystem-promoter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.537270Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Marketing and promotion specialist for Claude ecosystem technology - MCP servers, skills, plugins, and agents. Expert in community engagement, registry submissions, content marketing, and developer re",
+      "repo": "erichowens/some_claude_skills",
+      "path": "claude-ecosystem-promoter",
+      "branch": "main",
+      "category": "claude-ecosystem-promoter",
+      "tags": [],
+      "stars": 0,
+      "install": "erichowens/some_claude_skills/claude-ecosystem-promoter",
+      "source": "github.com/erichowens/some_claude_skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "design-spec",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.158059Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create UI/UX design specifications from requirements or Figma designs. Covers component specs (Atom/Molecule/Organism), accessibility audits (WCAG 2.1 AA), design tokens, responsive behavior, and dev",
+      "repo": "duc01226/EasyPlatform",
+      "path": "design-spec",
+      "branch": "main",
+      "category": "design-spec",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform/design-spec",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

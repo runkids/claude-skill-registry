@@ -1,0 +1,20 @@
+{
+  "category": "managing-handoffs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.074035Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create, update, and archive handoffs with proper metadata and verification",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "managing-handoffs",
+      "branch": "main",
+      "category": "managing-handoffs",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/managing-handoffs",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "alert-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.286734Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement comprehensive alert management with PagerDuty, escalation policies, and incident coordination. Use when setting up alerting systems, managing on-call schedules, or coordinating incident resp",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "alert-management",
+      "branch": "main",
+      "category": "alert-management",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/alert-management",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

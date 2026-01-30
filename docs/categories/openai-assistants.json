@@ -1,0 +1,20 @@
+{
+  "category": "openai-assistants",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.289078Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build stateful chatbots with OpenAI Assistants API v2 - Code Interpreter, File Search (10k files), Function Calling. Prevents 10 documented errors including vector store upload bugs, temperature param",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "openai-assistants",
+      "branch": "main",
+      "category": "openai-assistants",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/openai-assistants",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

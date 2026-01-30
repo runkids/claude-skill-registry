@@ -1,0 +1,20 @@
+{
+  "category": "project-execution",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.692008Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic task execution with checkpoint validation, progress tracking, and quality gates",
+      "repo": "athola/claude-night-market",
+      "path": "project-execution",
+      "branch": "main",
+      "category": "project-execution",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/project-execution",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

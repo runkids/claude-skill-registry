@@ -1,0 +1,20 @@
+{
+  "category": "ntm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.264689Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Named Tmux Manager - orchestrate multiple AI coding agents (Claude Code, Codex, Gemini) in tiled tmux panes with visual dashboards, command palette, context rotation, Agent Mail integration, and robot",
+      "repo": "carmandale/agent-config",
+      "path": "ntm",
+      "branch": "main",
+      "category": "ntm",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config/ntm",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

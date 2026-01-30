@@ -1,0 +1,20 @@
+{
+  "category": "spawn-agent",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.047871Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Spawn PAI agents via MCP factory tool. Loads identity, injects RAG context, validates spawn chain, and executes via Task(). The bridge between MCP tools and Claude Code's agent spawning.",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "spawn-agent",
+      "branch": "main",
+      "category": "spawn-agent",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/spawn-agent",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

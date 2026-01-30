@@ -1,0 +1,20 @@
+{
+  "category": "documentation-templates",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.480550Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Documentation templates and structure guidelines. README, API docs, code comments, and AI-friendly documentation.",
+      "repo": "AxelMrak/ai",
+      "path": "documentation-templates",
+      "branch": "main",
+      "category": "documentation-templates",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/documentation-templates",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

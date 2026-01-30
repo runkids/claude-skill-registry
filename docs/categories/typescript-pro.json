@@ -1,0 +1,20 @@
+{
+  "category": "typescript-pro",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.326946Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master TypeScript with advanced types, generics, and strict type safety. Handles complex type systems, decorators, and enterprise-grade patterns. Use PROACTIVELY for TypeScript architecture, type infe",
+      "repo": "rmyndharis/antigravity-skills",
+      "path": "typescript-pro",
+      "branch": "main",
+      "category": "typescript-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "rmyndharis/antigravity-skills/typescript-pro",
+      "source": "github.com/rmyndharis/antigravity-skills"
+    }
+  ]
+}

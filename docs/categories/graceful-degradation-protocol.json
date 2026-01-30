@@ -1,0 +1,20 @@
+{
+  "category": "graceful-degradation-protocol",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.797460Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute graceful degradation when system constraints exceeded.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "graceful-degradation-protocol",
+      "branch": "main",
+      "category": "graceful-degradation-protocol",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/graceful-degradation-protocol",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

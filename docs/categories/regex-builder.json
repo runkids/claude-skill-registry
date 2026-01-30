@@ -1,0 +1,20 @@
+{
+  "category": "regex-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.802592Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build, test, and explain regular expressions against sample text or files using CLI tools (rg, python) and specific regex flavors. Use when asked to craft, debug, or validate regexes or search pattern",
+      "repo": "lancenunes/codex-skills",
+      "path": "regex-builder",
+      "branch": "main",
+      "category": "regex-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "lancenunes/codex-skills/regex-builder",
+      "source": "github.com/lancenunes/codex-skills"
+    }
+  ]
+}

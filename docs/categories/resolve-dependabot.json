@@ -1,0 +1,20 @@
+{
+  "category": "resolve-dependabot",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.830624Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Resolve Dependabot dependency updates locally; use when asked to handle dependency bumps or security updates.",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "resolve-dependabot",
+      "branch": "main",
+      "category": "resolve-dependabot",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup/resolve-dependabot",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

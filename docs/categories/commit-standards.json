@@ -1,0 +1,20 @@
+{
+  "category": "commit-standards",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.621996Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Format commit messages following conventional commits standard. Use when: writing commit messages, git commit, reviewing commit history. Keywords: commit, git, message, conventional, feat, fix, refact",
+      "repo": "AsiaOstrich/universal-dev-standards",
+      "path": "commit-standards",
+      "branch": "main",
+      "category": "commit-standards",
+      "tags": [],
+      "stars": 0,
+      "install": "AsiaOstrich/universal-dev-standards/commit-standards",
+      "source": "github.com/AsiaOstrich/universal-dev-standards"
+    }
+  ]
+}

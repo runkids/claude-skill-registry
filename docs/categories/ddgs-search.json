@@ -1,0 +1,20 @@
+{
+  "category": "ddgs-search",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.050025Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Web search via the DDGS metasearch library. Use for searching for unknown documentation, facts, or any web content. Lightweight, no browser required.",
+      "repo": "RebelPotato/agent-config",
+      "path": "ddgs-search",
+      "branch": "main",
+      "category": "ddgs-search",
+      "tags": [],
+      "stars": 0,
+      "install": "RebelPotato/agent-config/ddgs-search",
+      "source": "github.com/RebelPotato/agent-config"
+    }
+  ]
+}

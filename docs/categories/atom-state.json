@@ -1,0 +1,20 @@
+{
+  "category": "atom-state",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.364214Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement reactive state management with Effect Atom for React applications",
+      "repo": "front-depiction/cli-stock",
+      "path": "atom-state",
+      "branch": "main",
+      "category": "atom-state",
+      "tags": [],
+      "stars": 0,
+      "install": "front-depiction/cli-stock/atom-state",
+      "source": "github.com/front-depiction/cli-stock"
+    }
+  ]
+}

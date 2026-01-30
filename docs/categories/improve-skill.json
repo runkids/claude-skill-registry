@@ -1,0 +1,20 @@
+{
+  "category": "improve-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.870923Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze coding agent session transcripts to improve existing skills or create new ones. Use when asked to improve a skill based on a session, or extract a new skill from session history.",
+      "repo": "alexanderop/workoutTracker",
+      "path": "improve-skill",
+      "branch": "main",
+      "category": "improve-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "alexanderop/workoutTracker/improve-skill",
+      "source": "github.com/alexanderop/workoutTracker"
+    }
+  ]
+}

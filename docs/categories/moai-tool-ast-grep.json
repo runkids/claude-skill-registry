@@ -1,0 +1,20 @@
+{
+  "category": "moai-tool-ast-grep",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.175819Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AST-based structural code search, security scanning, and refactoring using ast-grep (sg CLI). Supports 40+ languages with pattern matching and code transformation.",
+      "repo": "modu-ai/moai-adk",
+      "path": "moai-tool-ast-grep",
+      "branch": "main",
+      "category": "moai-tool-ast-grep",
+      "tags": [],
+      "stars": 0,
+      "install": "modu-ai/moai-adk/moai-tool-ast-grep",
+      "source": "github.com/modu-ai/moai-adk"
+    }
+  ]
+}

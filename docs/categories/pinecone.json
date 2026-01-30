@@ -1,0 +1,20 @@
+{
+  "category": "pinecone",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.574354Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Managed vector database for production AI applications. Fully managed, auto-scaling, with hybrid search (dense + sparse), metadata filtering, and namespaces. Low latency (<100ms p95). Use for producti",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "pinecone",
+      "branch": "main",
+      "category": "pinecone",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/pinecone",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

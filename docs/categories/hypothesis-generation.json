@@ -1,0 +1,20 @@
+{
+  "category": "hypothesis-generation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.848769Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate testable hypotheses. Formulate from observations, design experiments, explore competing explanations, develop predictions, propose mechanisms, for scientific inquiry across domains.",
+      "repo": "ovachiever/droid-tings",
+      "path": "hypothesis-generation",
+      "branch": "main",
+      "category": "hypothesis-generation",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings/hypothesis-generation",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

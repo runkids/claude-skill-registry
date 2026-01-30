@@ -1,0 +1,20 @@
+{
+  "category": "scientific-markitdown",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.904356Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert files and office documents to Markdown. Supports PDF, DOCX, PPTX, XLSX, images (with OCR), audio (with transcription), HTML, CSV, JSON, XML, ZIP, YouTube URLs, EPubs and more.",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "scientific-markitdown",
+      "branch": "main",
+      "category": "scientific-markitdown",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP/scientific-markitdown",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

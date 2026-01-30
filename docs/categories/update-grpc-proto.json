@@ -1,0 +1,20 @@
+{
+  "category": "update-grpc-proto",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.356267Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Update @dojoengine/grpc proto files from Torii repository",
+      "repo": "dojoengine/dojo.js",
+      "path": "update-grpc-proto",
+      "branch": "main",
+      "category": "update-grpc-proto",
+      "tags": [],
+      "stars": 0,
+      "install": "dojoengine/dojo.js/update-grpc-proto",
+      "source": "github.com/dojoengine/dojo.js"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "workers-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.477812Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks about \"Workers API\", \"fetch handler\", \"Workers runtime\", \"request handling\", \"response handling\", \"Workers bindings\", \"environment variables in Workers\", \"",
+      "repo": "SteveLeve/claude-marketplace",
+      "path": "workers-development",
+      "branch": "main",
+      "category": "workers-development",
+      "tags": [],
+      "stars": 0,
+      "install": "SteveLeve/claude-marketplace/workers-development",
+      "source": "github.com/SteveLeve/claude-marketplace"
+    }
+  ]
+}

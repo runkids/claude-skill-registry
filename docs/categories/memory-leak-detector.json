@@ -1,0 +1,20 @@
+{
+  "category": "memory-leak-detector",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.116798Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze heap and GC behavior.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "memory-leak-detector",
+      "branch": "main",
+      "category": "memory-leak-detector",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/memory-leak-detector",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

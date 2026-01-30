@@ -1,0 +1,20 @@
+{
+  "category": "html-specific-rules",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.841900Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "html-specific-rules",
+      "branch": "main",
+      "category": "html-specific-rules",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/html-specific-rules",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

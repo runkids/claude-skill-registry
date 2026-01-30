@@ -1,0 +1,20 @@
+{
+  "category": "umap-learn",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.339661Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "UMAP dimensionality reduction. Fast nonlinear manifold learning for 2D/3D visualization, clustering preprocessing (HDBSCAN), supervised/parametric UMAP, for high-dimensional data.",
+      "repo": "robinbarvaag/poynt",
+      "path": "umap-learn",
+      "branch": "main",
+      "category": "umap-learn",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/umap-learn",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "test-feedback",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.202994Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "File structured GitHub issues for testing feedback on prototype releases. Use when testing a new prototype build and need to report bugs, usability issues, or feature requests. Guides through creating",
+      "repo": "MQFacultyOfArts/PromptGrimoireTool",
+      "path": "test-feedback",
+      "branch": "main",
+      "category": "test-feedback",
+      "tags": [],
+      "stars": 0,
+      "install": "MQFacultyOfArts/PromptGrimoireTool/test-feedback",
+      "source": "github.com/MQFacultyOfArts/PromptGrimoireTool"
+    }
+  ]
+}

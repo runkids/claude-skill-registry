@@ -1,0 +1,20 @@
+{
+  "category": "spring-boot-observability",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.063925Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Spring Boot 4 observability with Actuator, Micrometer, and OpenTelemetry. Use when configuring health indicators, custom metrics, distributed tracing, production endpoint exposure, or Kubernetes/Cloud",
+      "repo": "joaquimscosta/arkhe-claude-plugins",
+      "path": "spring-boot-observability",
+      "branch": "main",
+      "category": "spring-boot-observability",
+      "tags": [],
+      "stars": 0,
+      "install": "joaquimscosta/arkhe-claude-plugins/spring-boot-observability",
+      "source": "github.com/joaquimscosta/arkhe-claude-plugins"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "skillmeat-cli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.023510Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage Claude Code environments using natural language. Use this skill when: - User wants to add, deploy, or manage Claude Code artifacts (skills, commands, agents, MCP servers) - User asks about avai",
+      "repo": "miethe/skillmeat",
+      "path": "skillmeat-cli",
+      "branch": "main",
+      "category": "skillmeat-cli",
+      "tags": [],
+      "stars": 0,
+      "install": "miethe/skillmeat/skillmeat-cli",
+      "source": "github.com/miethe/skillmeat"
+    }
+  ]
+}

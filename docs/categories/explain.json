@@ -1,0 +1,20 @@
+{
+  "category": "explain",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.619460Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Explain data flows, features, and code paths in the varun.surf application with visual diagrams and step-by-step breakdowns",
+      "repo": "pwittchen/varun.surf",
+      "path": "explain",
+      "branch": "main",
+      "category": "explain",
+      "tags": [],
+      "stars": 0,
+      "install": "pwittchen/varun.surf/explain",
+      "source": "github.com/pwittchen/varun.surf"
+    }
+  ]
+}

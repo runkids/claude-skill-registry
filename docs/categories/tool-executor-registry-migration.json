@@ -1,0 +1,20 @@
+{
+  "category": "tool-executor-registry-migration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.300007Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for migrating tools from legacy switch statements to ToolExecutorRegistry handlers in Orient",
+      "repo": "orient-bot/orient",
+      "path": "tool-executor-registry-migration",
+      "branch": "main",
+      "category": "tool-executor-registry-migration",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/tool-executor-registry-migration",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

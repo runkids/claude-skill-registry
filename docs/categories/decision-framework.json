@@ -1,0 +1,20 @@
+{
+  "category": "decision-framework",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.058578Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Autonomous decision-making CLI for strategy development (project)",
+      "repo": "derekcrosslu/CLAUDE_CODE_EXPLORE",
+      "path": "decision-framework",
+      "branch": "main",
+      "category": "decision-framework",
+      "tags": [],
+      "stars": 0,
+      "install": "derekcrosslu/CLAUDE_CODE_EXPLORE/decision-framework",
+      "source": "github.com/derekcrosslu/CLAUDE_CODE_EXPLORE"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "file-todos",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.662188Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when managing the file-based todo tracking system in the todos/ directory. It provides workflows for creating todos, managing status and dependencies, conducting triage, and",
+      "repo": "Microck/ordinary-claude-skills",
+      "path": "file-todos",
+      "branch": "main",
+      "category": "file-todos",
+      "tags": [],
+      "stars": 0,
+      "install": "Microck/ordinary-claude-skills/file-todos",
+      "source": "github.com/Microck/ordinary-claude-skills"
+    }
+  ]
+}

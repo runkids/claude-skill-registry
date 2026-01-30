@@ -1,0 +1,20 @@
+{
+  "category": "unit-economics-calculator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.344387Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Calculate and optimize unit economics including CAC, LTV, payback periods, and contribution margins",
+      "repo": "eddiebe147/claude-settings",
+      "path": "unit-economics-calculator",
+      "branch": "main",
+      "category": "unit-economics-calculator",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/unit-economics-calculator",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

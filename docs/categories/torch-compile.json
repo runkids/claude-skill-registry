@@ -1,0 +1,20 @@
+{
+  "category": "torch-compile",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.302949Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use torch.compile to JIT-compile PyTorch code into optimized kernels, then validate speedups with warmups and graph-break audits.",
+      "repo": "cuba6112/skillfactory",
+      "path": "torch-compile",
+      "branch": "main",
+      "category": "torch-compile",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory/torch-compile",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ts-agent-sdk",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.316676Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate typed TypeScript SDKs for AI agents to interact with MCP servers. Converts JSON-RPC curl commands to clean function calls. Auto-generates types, client methods, and example scripts from MCP t",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "ts-agent-sdk",
+      "branch": "main",
+      "category": "ts-agent-sdk",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/ts-agent-sdk",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "langchain-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.968077Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design LLM applications using the LangChain framework with agents, memory, and tool integration patterns. Use when building LangChain applications, implementing AI agents, or creating complex LLM work",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "langchain-architecture",
+      "branch": "main",
+      "category": "langchain-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/langchain-architecture",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

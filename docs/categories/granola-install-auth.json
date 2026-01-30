@@ -1,0 +1,20 @@
+{
+  "category": "granola-install-auth",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.800127Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Install and configure Granola AI meeting notes app with calendar integration. Use when setting up Granola for the first time, connecting calendar accounts, or configuring audio capture permissions. Tr",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "granola-install-auth",
+      "branch": "main",
+      "category": "granola-install-auth",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/granola-install-auth",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

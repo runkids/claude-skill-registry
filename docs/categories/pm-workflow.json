@@ -1,0 +1,20 @@
+{
+  "category": "pm-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.599956Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete PM Coordinator workflow - task assignment, retrospective orchestration, PRD management, worker coordination. Use proactively when starting PM agent work.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "pm-workflow",
+      "branch": "main",
+      "category": "pm-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/pm-workflow",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

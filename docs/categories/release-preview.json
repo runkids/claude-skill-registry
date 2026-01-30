@@ -1,0 +1,20 @@
+{
+  "category": "release-preview",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.808134Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "次回リリースに含まれる変更をプレビューする。「リリースプレビュー」「次のリリース」「リリース内容確認」と言われた場合に使用する。",
+      "repo": "neptaco/mcproc",
+      "path": "release-preview",
+      "branch": "main",
+      "category": "release-preview",
+      "tags": [],
+      "stars": 0,
+      "install": "neptaco/mcproc/release-preview",
+      "source": "github.com/neptaco/mcproc"
+    }
+  ]
+}

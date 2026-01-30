@@ -1,0 +1,20 @@
+{
+  "category": "research-cited-report",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.824950Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "調査→論点整理→出典付きレポート化。ユーザーが「調べて」「比較して」「根拠/出典付きで」等を求めたら使う。",
+      "repo": "taiyousan15/taisun_agent",
+      "path": "research-cited-report",
+      "branch": "main",
+      "category": "research-cited-report",
+      "tags": [],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/research-cited-report",
+      "source": "github.com/taiyousan15/taisun_agent"
+    }
+  ]
+}

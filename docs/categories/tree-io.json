@@ -1,0 +1,20 @@
+{
+  "category": "tree-io",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.311879Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Read, write, and convert phylogenetic tree files using Biopython Bio.Phylo. Use when parsing Newick, Nexus, PhyloXML, or NeXML tree formats, converting between formats, or handling multiple trees.",
+      "repo": "GPTomics/bioSkills",
+      "path": "tree-io",
+      "branch": "main",
+      "category": "tree-io",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/tree-io",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

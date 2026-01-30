@@ -1,0 +1,20 @@
+{
+  "category": "cold-outreach",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.614091Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master cold email, LinkedIn, and first-touch prospect outreach. Use when crafting outbound sequences, social touches, or follow-ups that must earn fast responses.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "cold-outreach",
+      "branch": "main",
+      "category": "cold-outreach",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/cold-outreach",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

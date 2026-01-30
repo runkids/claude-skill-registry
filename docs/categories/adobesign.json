@@ -1,0 +1,20 @@
+{
+  "category": "adobesign",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.213525Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage enterprise e-signatures with Adobe Sign's document signing solution.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "adobesign",
+      "branch": "main",
+      "category": "adobesign",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/adobesign",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

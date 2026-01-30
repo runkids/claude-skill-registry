@@ -1,0 +1,20 @@
+{
+  "category": "reading-dss-boundary-data",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.783121Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reads HEC-DSS files (V6 and V7) for boundary condition extraction using RasDss class. Handles JVM configuration, HEC Monolith download, catalog reading, and time series extraction. Use when working wi",
+      "repo": "gpt-cmdr/ras-commander",
+      "path": "reading-dss-boundary-data",
+      "branch": "main",
+      "category": "reading-dss-boundary-data",
+      "tags": [],
+      "stars": 0,
+      "install": "gpt-cmdr/ras-commander/reading-dss-boundary-data",
+      "source": "github.com/gpt-cmdr/ras-commander"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "design-first",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.154099Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Think before coding - design the solution before implementing",
+      "repo": "rohitg00/skillkit",
+      "path": "design-first",
+      "branch": "main",
+      "category": "design-first",
+      "tags": [],
+      "stars": 0,
+      "install": "rohitg00/skillkit/design-first",
+      "source": "github.com/rohitg00/skillkit"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "agent-context-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.225434Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate project-level AGENTS.md guides that capture conventions, workflows, and required follow-up tasks. Use when a repository needs clear agent onboarding covering structure, tooling, testing, task",
+      "repo": "tjmaynes/skills",
+      "path": "agent-context-generator",
+      "branch": "main",
+      "category": "agent-context-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "tjmaynes/skills/agent-context-generator",
+      "source": "github.com/tjmaynes/skills"
+    }
+  ]
+}

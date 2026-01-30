@@ -1,0 +1,20 @@
+{
+  "category": "positioning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.610738Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when structuring positioning statements, message houses, and proof libraries for GTM teams.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "positioning",
+      "branch": "main",
+      "category": "positioning",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/positioning",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

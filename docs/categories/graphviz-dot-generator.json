@@ -1,0 +1,20 @@
+{
+  "category": "graphviz-dot-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.804439Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Graphviz Dot Generator - Auto-activating skill for Visual Content. Triggers on: graphviz dot generator, graphviz dot generator Part of the Visual Content skill category.",
+      "repo": "byteworthy/Upstream",
+      "path": "graphviz-dot-generator",
+      "branch": "main",
+      "category": "graphviz-dot-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "byteworthy/Upstream/graphviz-dot-generator",
+      "source": "github.com/byteworthy/Upstream"
+    }
+  ]
+}

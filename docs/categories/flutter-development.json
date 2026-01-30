@@ -1,0 +1,20 @@
+{
+  "category": "flutter-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.680768Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build beautiful cross-platform mobile apps with Flutter and Dart. Covers widgets, state management with Provider/BLoC, navigation, API integration, and material design.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "flutter-development",
+      "branch": "main",
+      "category": "flutter-development",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/flutter-development",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

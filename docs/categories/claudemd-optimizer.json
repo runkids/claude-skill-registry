@@ -1,0 +1,20 @@
+{
+  "category": "claudemd-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.544667Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize CLAUDE.md files based on Claude 4 best practices from Anthropic's official documentation. Use when reviewing or improving CLAUDE.md, creating new project instructions, analyzing prompt effect",
+      "repo": "staticWagomU/dotfiles",
+      "path": "claudemd-optimizer",
+      "branch": "main",
+      "category": "claudemd-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "staticWagomU/dotfiles/claudemd-optimizer",
+      "source": "github.com/staticWagomU/dotfiles"
+    }
+  ]
+}

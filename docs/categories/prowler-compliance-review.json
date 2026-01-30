@@ -1,0 +1,20 @@
+{
+  "category": "prowler-compliance-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.712936Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reviews Pull Requests that add or modify compliance frameworks. Trigger: When reviewing PRs with compliance framework changes, CIS/NIST/PCI-DSS additions, or compliance JSON files.",
+      "repo": "prowler-cloud/prowler",
+      "path": "prowler-compliance-review",
+      "branch": "main",
+      "category": "prowler-compliance-review",
+      "tags": [],
+      "stars": 0,
+      "install": "prowler-cloud/prowler/prowler-compliance-review",
+      "source": "github.com/prowler-cloud/prowler"
+    }
+  ]
+}

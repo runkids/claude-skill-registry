@@ -1,0 +1,20 @@
+{
+  "category": "funnel-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.715696Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze user conversion funnels, identify drop-off points, and optimize conversion rates for conversion optimization and user flow analysis",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "funnel-analysis",
+      "branch": "main",
+      "category": "funnel-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/funnel-analysis",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

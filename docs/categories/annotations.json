@@ -1,0 +1,20 @@
+{
+  "category": "annotations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.302274Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Workflow for adding type annotations to Plain packages. Use this when adding or improving type coverage.",
+      "repo": "dropseed/plain",
+      "path": "annotations",
+      "branch": "main",
+      "category": "annotations",
+      "tags": [],
+      "stars": 0,
+      "install": "dropseed/plain/annotations",
+      "source": "github.com/dropseed/plain"
+    }
+  ]
+}

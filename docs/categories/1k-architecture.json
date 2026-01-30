@@ -1,0 +1,20 @@
+{
+  "category": "1k-architecture",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.144169Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "OneKey monorepo architecture and code organization. Use when understanding project structure, package relationships, import rules, or component organization. Triggers on architecture, structure, packa",
+      "repo": "OneKeyHQ/app-monorepo",
+      "path": "1k-architecture",
+      "branch": "main",
+      "category": "1k-architecture",
+      "tags": [],
+      "stars": 0,
+      "install": "OneKeyHQ/app-monorepo/1k-architecture",
+      "source": "github.com/OneKeyHQ/app-monorepo"
+    }
+  ]
+}

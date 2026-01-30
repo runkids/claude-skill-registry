@@ -1,0 +1,20 @@
+{
+  "category": "moai-baas-clerk-ext",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.150682Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Clerk Authentication Platform with AI-powered modern identity architecture, Context7 integration, and intelligent user management orchestration for scalable applications",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-baas-clerk-ext",
+      "branch": "main",
+      "category": "moai-baas-clerk-ext",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-baas-clerk-ext",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

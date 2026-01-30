@@ -1,0 +1,20 @@
+{
+  "category": "futurist-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.717577Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes events through futures lens using scenario planning, trend analysis, weak signals, drivers of change, and forecasting methods (exploratory, normative, backcasting). Provides insights on possi",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "futurist-analyst",
+      "branch": "main",
+      "category": "futurist-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/futurist-analyst",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

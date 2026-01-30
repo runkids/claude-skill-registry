@@ -1,0 +1,20 @@
+{
+  "category": "escalation-paths",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.594990Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Clear escalation procedures and paths for incident response",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "escalation-paths",
+      "branch": "main",
+      "category": "escalation-paths",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/escalation-paths",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

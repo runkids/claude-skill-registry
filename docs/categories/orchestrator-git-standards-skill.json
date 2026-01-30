@@ -1,0 +1,20 @@
+{
+  "category": "orchestrator-git-standards-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.307051Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CRITICAL: Follow Orchestrator AI Git standards: conventional branch names, conventional commits, clean history.",
+      "repo": "GolferGeek/orchestrator-ai",
+      "path": "orchestrator-git-standards-skill",
+      "branch": "main",
+      "category": "orchestrator-git-standards-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "GolferGeek/orchestrator-ai/orchestrator-git-standards-skill",
+      "source": "github.com/GolferGeek/orchestrator-ai"
+    }
+  ]
+}

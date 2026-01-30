@@ -1,0 +1,20 @@
+{
+  "category": "conductor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.643981Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive assistance with conductor",
+      "repo": "enuno/claude-command-and-control",
+      "path": "conductor",
+      "branch": "main",
+      "category": "conductor",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control/conductor",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

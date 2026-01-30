@@ -1,8 +1,8 @@
 {
   "category": "testing",
   "code": "tst",
-  "count": 4060,
-  "updated_at": "2026-01-29T04:50:39.216148Z",
+  "count": 4037,
+  "updated_at": "2026-01-30T04:55:08.218837Z",
   "skills": [
     {
       "name": "frontend-testing-langgenius-dify",
@@ -1457,21 +1457,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "svelte-components",
-      "description": "Svelte component patterns. Use for web components, component libraries (Bits UI, Ark UI, Melt UI), form patterns, or third-party integration.",
-      "repo": "spences10/svelte-claude-skills",
-      "path": "data/svelte-components",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "svelte",
-        "components"
-      ],
-      "stars": 107,
-      "install": "spences10/svelte-claude-skills/data/svelte-components",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "uloop-clear-console",
       "description": "Clear Unity console logs via uloop CLI. Use when you need to: (1) Clear the console before running tests, (2) Start a fresh debugging session, (3) Clean up log output for better readability.",
       "repo": "hatayama/uLoopMCP",
@@ -2447,21 +2432,6 @@
       ],
       "stars": 83,
       "install": "eser/stack/.claude/skills/architecture-guidelines",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "architecture-guidelines",
-      "description": "System architecture: modules, project structure, ADRs, and testing. Use when designing or reviewing systems.",
-      "repo": "eser/stack",
-      "path": "data/architecture-guidelines",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "architecture",
-        "guidelines"
-      ],
-      "stars": 83,
-      "install": "eser/stack/data/architecture-guidelines",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -5712,23 +5682,6 @@
       "stars": 13,
       "install": "withzombies/hyperpowers/skills/finishing-a-development-branch",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "ln-140-test-docs-creator",
-      "description": "Creates test documentation (testing-strategy.md + tests/README.md). Establishes testing philosophy and Story-Level Test Task Pattern. L2 Worker in ln-100-documents-pipeline workflow.",
-      "repo": "levnikolaevich/claude-code-skills",
-      "path": "ln-140-test-docs-creator",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "140",
-        "test",
-        "docs",
-        "creator"
-      ],
-      "stars": 13,
-      "install": "levnikolaevich/claude-code-skills/ln-140-test-docs-creator",
-      "source": "local"
     },
     {
       "name": "mock-data",
@@ -13757,22 +13710,6 @@
       "source": "local"
     },
     {
-      "name": "lorem-ipsum-generator",
-      "description": "Generate placeholder text (lorem ipsum) in various formats. Create paragraphs, sentences, words, or custom templates for mockups and testing.",
-      "repo": "dkyazzentwatwa/chatgpt-skills",
-      "path": "lorem-ipsum-generator",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "lorem",
-        "ipsum",
-        "generator"
-      ],
-      "stars": 1,
-      "install": "dkyazzentwatwa/chatgpt-skills/lorem-ipsum-generator",
-      "source": "local"
-    },
-    {
       "name": "lsp",
       "description": "Use when implementing Language Server Protocol features - diagnostics, completions, hover, go-to-definition, and editor integration",
       "repo": "mcclowes/omg",
@@ -13784,20 +13721,6 @@
       ],
       "stars": 1,
       "install": "mcclowes/omg/.claude/skills/lsp",
-      "source": "local"
-    },
-    {
-      "name": "lsp",
-      "description": "Use when implementing Language Server Protocol features - diagnostics, completions, hover, go-to-definition, and editor integration",
-      "repo": "mcclowes/omg",
-      "path": "data/lsp",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "lsp"
-      ],
-      "stars": 1,
-      "install": "mcclowes/omg/data/lsp",
       "source": "local"
     },
     {
@@ -14329,22 +14252,6 @@
       ],
       "stars": 1,
       "install": "pluginagentmarketplace/custom-plugin-react-native/skills/react-native-navigation",
-      "source": "local"
-    },
-    {
-      "name": "react-native-navigation",
-      "description": "Master React Navigation - stacks, tabs, drawers, deep linking, and TypeScript integration",
-      "repo": "pluginagentmarketplace/custom-plugin-react-native",
-      "path": "data/react-native-navigation",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "react",
-        "native",
-        "navigation"
-      ],
-      "stars": 1,
-      "install": "pluginagentmarketplace/custom-plugin-react-native/data/react-native-navigation",
       "source": "local"
     },
     {
@@ -14950,21 +14857,6 @@
       ],
       "stars": 1,
       "install": "pluginagentmarketplace/custom-plugin-spring-boot/data/spring-testing",
-      "source": "local"
-    },
-    {
-      "name": "statistical-analyzer",
-      "description": "Perform statistical hypothesis testing, regression analysis, ANOVA, and t-tests with plain-English interpretations and visualizations.",
-      "repo": "dkyazzentwatwa/chatgpt-skills",
-      "path": "statistical-analyzer",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "statistical",
-        "analyzer"
-      ],
-      "stars": 1,
-      "install": "dkyazzentwatwa/chatgpt-skills/statistical-analyzer",
       "source": "local"
     },
     {
@@ -19560,21 +19452,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "browser-screenshot",
-      "description": "This skill should be used when users need to capture screenshots of web pages. It supports full-page screenshots, viewport-specific captures, responsive screenshots across multiple device sizes, and e",
-      "repo": "Igosuki/claude-skills",
-      "path": "data/browser-screenshot",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "browser",
-        "screenshot"
-      ],
-      "stars": 0,
-      "install": "Igosuki/claude-skills/data/browser-screenshot",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "browser-testing-patterns",
       "description": "This skill should be used when performing browser-based exploratory testing of web applications, including functional testing, visual inspection, accessibility checks, and performance analysis. Trigge",
       "repo": "tommymorgan/claude-plugins",
@@ -23130,18 +23007,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "cui-cypress",
-      "description": "Cypress E2E testing standards including framework adaptations, test organization, and best practices",
-      "repo": "cuioss/cui-llm-rules",
-      "path": "data/cui-cypress",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "cuioss/cui-llm-rules/data/cui-cypress",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "cui-java-cdi",
       "description": "CDI and Quarkus development standards for CUI projects, including CDI aspects, container configuration, testing, and native optimization",
       "repo": "cuioss/cui-llm-rules",
@@ -23329,18 +23194,6 @@
       "tags": [],
       "stars": 0,
       "install": "TheBushidoCollective/han/jutsu/jutsu-cypress/skills/cypress-fundamentals",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "cypress-fundamentals",
-      "description": "Use when cypress fundamentals including commands, assertions, fixtures, and E2E testing patterns.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/cypress-fundamentals",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/cypress-fundamentals",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -24015,18 +23868,6 @@
       "tags": [],
       "stars": 0,
       "install": "wombat9000/claude-plugins/plugins/config-wizard/skills/designing-claude-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "designing-claude-skills",
-      "description": "Comprehensive guide for creating, reviewing, and improving skills that extend Claude's capabilities with specialized knowledge, workflows, and tool integrations. Use this skill when: (1) Creating a ne",
-      "repo": "wombat9000/claude-plugins",
-      "path": "data/designing-claude-skills",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "wombat9000/claude-plugins/data/designing-claude-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -31050,21 +30891,6 @@
       "source": "local"
     },
     {
-      "name": "jira-integration",
-      "description": "Master Jira integration using acli CLI, Jira REST API, issue management, sprint operations, JQL queries, and ADF comment formatting. Essential for Jira-based project management automation.",
-      "repo": "squirrelsoft-dev/agency",
-      "path": "data/jira-integration",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "jira",
-        "integration"
-      ],
-      "stars": 0,
-      "install": "squirrelsoft-dev/agency/data/jira-integration",
-      "source": "local"
-    },
-    {
       "name": "jira-sync",
       "description": "Sync SpecWeave increments with JIRA epics/stories. Content flows SpecWeave→JIRA, status flows JIRA→SpecWeave. Activates ONLY when user asks questions about JIRA integration or needs help configuring J",
       "repo": "anton-abyzov/specweave",
@@ -32675,18 +32501,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/16-api-integration/long-polling-handler",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "long-polling-handler",
-      "description": "Long Polling Handler - Auto-activating skill for API Integration.Triggers on: long polling handler, long polling handlerPart of the API Integration skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/long-polling-handler",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/long-polling-handler",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -39759,18 +39573,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "pytest-plugins",
-      "description": "Use when pytest plugin ecosystem including pytest-cov, pytest-mock, and custom plugin development.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/pytest-plugins",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/pytest-plugins",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "pytest-recording",
       "description": "Work with pytest-recording (VCR.py) for recording and replaying HTTP interactions in tests. Use when writing VCR tests, managing cassettes, configuring VCR options, filtering sensitive data, or debugg",
       "repo": "bossjones/logging-lab",
@@ -40705,18 +40507,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "react-native-web-navigation",
-      "description": "Use when implementing navigation in React Native Web projects. Provides patterns for React Navigation, deep linking, and web-specific routing.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/react-native-web-navigation",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/react-native-web-navigation",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "react-native-web-testing",
       "description": "Use when testing React Native Web applications. Provides patterns for Jest, React Native Testing Library, component testing, and web-specific testing strategies.",
       "repo": "TheBushidoCollective/han",
@@ -40886,18 +40676,6 @@
       "tags": [],
       "stars": 0,
       "install": "chekos/bns-marketplace/tdd-growth/skills/referral-program-designer",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "referral-program-designer",
-      "description": "Design referral programs for newsletter growth. Use when: (1) Creating a newreferral program, (2) Choosing referral rewards, (3) Writing referral copy inSpanish, (4) Planning referral program launch.",
-      "repo": "chekos/bns-marketplace",
-      "path": "data/referral-program-designer",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "chekos/bns-marketplace/data/referral-program-designer",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -41588,18 +41366,6 @@
       "tags": [],
       "stars": 0,
       "install": "zenobi-us/dotfiles/ai/files/skills/experts/specialized-domains/risk-manager",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "risk-manager",
-      "description": "Expert risk manager specializing in comprehensive risk assessment, mitigation strategies, and compliance frameworks. Masters risk modeling, stress testing, and regulatory compliance with focus on prot",
-      "repo": "zenobi-us/dotfiles",
-      "path": "data/risk-manager",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "zenobi-us/dotfiles/data/risk-manager",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -43971,15 +43737,15 @@
     },
     {
       "name": "SKILL.md",
-      "description": "Write tests for IntelliFill using Jest (backend) and Vitest (frontend). Use when adding unit tests, integration tests, or component tests.",
-      "repo": "Intellifill/IntelliFill",
-      "path": ".claude/skills/testing",
+      "description": "Testing strategy orchestrator. Use when discussing test types, test order, or choosing how to test something. Auto-apply for general testing questions.",
+      "repo": "joshribakoff/surfsim",
+      "path": "testing",
       "branch": "main",
       "category": "testing",
       "tags": [],
       "stars": 0,
-      "install": "Intellifill/IntelliFill/.claude/skills/testing",
-      "source": "github.com/Intellifill/IntelliFill"
+      "install": "joshribakoff/surfsim/testing",
+      "source": "github.com/joshribakoff/surfsim"
     },
     {
       "name": "skills",
@@ -49853,18 +49619,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "testng-fundamentals",
-      "description": "Use when working with TestNG annotations, assertions, test lifecycle, and configuration for Java testing.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/testng-fundamentals",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/testng-fundamentals",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "testng-parallel",
       "description": "Use when configuring parallel test execution with TestNG including thread pools, suite configuration, and synchronization.",
       "repo": "TheBushidoCollective/han",
@@ -49874,18 +49628,6 @@
       "tags": [],
       "stars": 0,
       "install": "TheBushidoCollective/han/jutsu/jutsu-testng/skills/testng-parallel",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "testng-parallel",
-      "description": "Use when configuring parallel test execution with TestNG including thread pools, suite configuration, and synchronization.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/testng-parallel",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/testng-parallel",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -53082,18 +52824,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "webhook-sender-creator",
-      "description": "Webhook Sender Creator - Auto-activating skill for API Integration.Triggers on: webhook sender creator, webhook sender creatorPart of the API Integration skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/webhook-sender-creator",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/webhook-sender-creator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "webhook-signature-validator",
       "description": "Webhook Signature Validator - Auto-activating skill for API Integration.Triggers on: webhook signature validator, webhook signature validatorPart of the API Integration skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -53193,18 +52923,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/16-api-integration/websocket-client-creator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "websocket-client-creator",
-      "description": "Websocket Client Creator - Auto-activating skill for API Integration.Triggers on: websocket client creator, websocket client creatorPart of the API Integration skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/websocket-client-creator",
-      "branch": "main",
-      "category": "testing",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/websocket-client-creator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -53785,21 +53503,6 @@
       "source": "local"
     },
     {
-      "name": "write-tests",
-      "description": "Generates comprehensive unit tests and integration tests for code with test coverage analysis and edge cases",
-      "repo": "ltoscano/mossab",
-      "path": "data/write-tests",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "write",
-        "tests"
-      ],
-      "stars": 0,
-      "install": "ltoscano/mossab/data/write-tests",
-      "source": "local"
-    },
-    {
       "name": "write-unit-test",
       "description": "Generate behavioral unit tests from functional specifications using PreDB/PostDB pattern. Use when user provides specs with Preconditions/Workflow/Postconditions structure or asks to write tests for a",
       "repo": "edmar/dap-client",
@@ -54204,20 +53907,6 @@
       ],
       "stars": 0,
       "install": "jruz/dotfiles/.claude/skills/zellij",
-      "source": "local"
-    },
-    {
-      "name": "zellij",
-      "description": "Use when editing ANY zellij configuration including layouts, swap layouts, keybindings, or zjstatus plugin. Provides rules for powerline characters, VHS testing, and verification.",
-      "repo": "jruz/dotfiles",
-      "path": "data/zellij",
-      "branch": "main",
-      "category": "testing",
-      "tags": [
-        "zellij"
-      ],
-      "stars": 0,
-      "install": "jruz/dotfiles/data/zellij",
       "source": "local"
     },
     {

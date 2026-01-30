@@ -1,0 +1,20 @@
+{
+  "category": "orchestrator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.306712Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Full orchestration workflow with Smart Memory-Driven context (v2.47), RLM-inspired routing (v2.46), and quality gates: clarify, smart memory search, classify 3D, plan, delegate, execute with parallel",
+      "repo": "alfredolopez80/multi-agent-ralph-loop",
+      "path": "orchestrator",
+      "branch": "main",
+      "category": "orchestrator",
+      "tags": [],
+      "stars": 0,
+      "install": "alfredolopez80/multi-agent-ralph-loop/orchestrator",
+      "source": "github.com/alfredolopez80/multi-agent-ralph-loop"
+    }
+  ]
+}

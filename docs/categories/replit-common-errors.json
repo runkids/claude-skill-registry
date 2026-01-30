@@ -1,0 +1,20 @@
+{
+  "category": "replit-common-errors",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.814469Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Diagnose and fix Replit common errors and exceptions. Use when encountering Replit errors, debugging failed requests, or troubleshooting integration issues. Trigger with phrases like \"replit error\", \"",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "replit-common-errors",
+      "branch": "main",
+      "category": "replit-common-errors",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/replit-common-errors",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

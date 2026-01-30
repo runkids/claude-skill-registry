@@ -1,0 +1,20 @@
+{
+  "category": "ti",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.285695Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Texas Instruments MPN encoding patterns, suffix decoding, and handler guidance. Use when working with TI components or TIHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "ti",
+      "branch": "main",
+      "category": "ti",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/ti",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

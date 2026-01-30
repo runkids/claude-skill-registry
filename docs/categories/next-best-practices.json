@@ -1,0 +1,20 @@
+{
+  "category": "next-best-practices",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.239044Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, bundling",
+      "repo": "usenotra/notra",
+      "path": "next-best-practices",
+      "branch": "main",
+      "category": "next-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "usenotra/notra/next-best-practices",
+      "source": "github.com/usenotra/notra"
+    }
+  ]
+}

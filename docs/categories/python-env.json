@@ -1,0 +1,20 @@
+{
+  "category": "python-env",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.731570Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Python environment variable management using .env files and python-dotenv for simple projects",
+      "repo": "Awannaphasch2016/agent-kernel-mcp",
+      "path": "python-env",
+      "branch": "main",
+      "category": "python-env",
+      "tags": [],
+      "stars": 0,
+      "install": "Awannaphasch2016/agent-kernel-mcp/python-env",
+      "source": "github.com/Awannaphasch2016/agent-kernel-mcp"
+    }
+  ]
+}

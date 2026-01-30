@@ -1,0 +1,20 @@
+{
+  "category": "write-app-change-log",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.489940Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates and updates the latest app changelog based on git history since the last version tag.",
+      "repo": "AnySoftKeyboard/janus",
+      "path": "write-app-change-log",
+      "branch": "main",
+      "category": "write-app-change-log",
+      "tags": [],
+      "stars": 0,
+      "install": "AnySoftKeyboard/janus/write-app-change-log",
+      "source": "github.com/AnySoftKeyboard/janus"
+    }
+  ]
+}

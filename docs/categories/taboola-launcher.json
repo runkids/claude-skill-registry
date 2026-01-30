@@ -1,0 +1,20 @@
+{
+  "category": "taboola-launcher",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.148012Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Launch complete Taboola native ad campaigns with AI-generated creative assets. Use when user wants to create a new Taboola campaign, launch native ads for mortgage (or other verticals), or run \"/launc",
+      "repo": "WalkerHi11/mediabuy-plugins",
+      "path": "taboola-launcher",
+      "branch": "main",
+      "category": "taboola-launcher",
+      "tags": [],
+      "stars": 0,
+      "install": "WalkerHi11/mediabuy-plugins/taboola-launcher",
+      "source": "github.com/WalkerHi11/mediabuy-plugins"
+    }
+  ]
+}

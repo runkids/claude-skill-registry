@@ -1,0 +1,20 @@
+{
+  "category": "rspec-test",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.857237Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute and generate RSpec tests for Ruby projects with let bindings, before hooks, and mocking support",
+      "repo": "FortiumPartners/ai-mesh",
+      "path": "rspec-test",
+      "branch": "main",
+      "category": "rspec-test",
+      "tags": [],
+      "stars": 0,
+      "install": "FortiumPartners/ai-mesh/rspec-test",
+      "source": "github.com/FortiumPartners/ai-mesh"
+    }
+  ]
+}

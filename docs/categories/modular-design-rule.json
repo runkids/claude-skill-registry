@@ -1,0 +1,20 @@
+{
+  "category": "modular-design-rule",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.192597Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<identity>",
+      "repo": "oimiragieo/agent-studio",
+      "path": "modular-design-rule",
+      "branch": "main",
+      "category": "modular-design-rule",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/modular-design-rule",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

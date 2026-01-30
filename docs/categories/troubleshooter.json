@@ -1,0 +1,20 @@
+{
+  "category": "troubleshooter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.314869Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Proactively detect and diagnose DAPR runtime issues based on error patterns, log analysis, and common misconfigurations. Provides immediate solutions for service invocation failures, state management",
+      "repo": "Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace",
+      "path": "troubleshooter",
+      "branch": "main",
+      "category": "troubleshooter",
+      "tags": [],
+      "stars": 0,
+      "install": "Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace/troubleshooter",
+      "source": "github.com/Sahib-Sawhney-WH/sahibs-claude-plugin-marketplace"
+    }
+  ]
+}

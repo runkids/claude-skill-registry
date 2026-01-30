@@ -1,0 +1,20 @@
+{
+  "category": "torchforge",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.303660Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides guidance for PyTorch-native agentic RL using torchforge, Meta's library separating infra from algorithms. Use when you want clean RL abstractions, easy algorithm experimentation, or scalable",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "torchforge",
+      "branch": "main",
+      "category": "torchforge",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/torchforge",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

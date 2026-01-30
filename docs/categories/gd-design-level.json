@@ -1,0 +1,20 @@
+{
+  "category": "gd-design-level",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.729271Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Map and level design documentation. Use when designing map layouts, creating level templates, placing loot and spawns, designing flow and pacing, or creating navigation systems.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "gd-design-level",
+      "branch": "main",
+      "category": "gd-design-level",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/gd-design-level",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

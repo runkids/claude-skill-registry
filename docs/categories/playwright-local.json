@@ -1,0 +1,20 @@
+{
+  "category": "playwright-local",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.591182Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build browser automation and web scraping with Playwright on your local machine. Prevents 10 documented errors including CI timeout hangs, extension testing failures, and Ubuntu compatibility issues.",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "playwright-local",
+      "branch": "main",
+      "category": "playwright-local",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/playwright-local",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

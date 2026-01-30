@@ -1,0 +1,20 @@
+{
+  "category": "install-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.883538Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"install a skill\", \"add a skill to the project\", \"unpack a skill\", or \"integrate a new skill\". Automates the full workflow of unpacking .skill packages",
+      "repo": "schwepps/skills",
+      "path": "install-skill",
+      "branch": "main",
+      "category": "install-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "schwepps/skills/install-skill",
+      "source": "github.com/schwepps/skills"
+    }
+  ]
+}

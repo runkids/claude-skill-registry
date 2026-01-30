@@ -1,0 +1,20 @@
+{
+  "category": "contract-test-validator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.673981Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill validates API contracts using consumer-driven testing and OpenAPI validation. It leverages Pact for consumer-driven contract testing, ensuring that API providers adhere to the expectations",
+      "repo": "apassuello/multimodal_insight_engine",
+      "path": "contract-test-validator",
+      "branch": "main",
+      "category": "contract-test-validator",
+      "tags": [],
+      "stars": 0,
+      "install": "apassuello/multimodal_insight_engine/contract-test-validator",
+      "source": "github.com/apassuello/multimodal_insight_engine"
+    }
+  ]
+}

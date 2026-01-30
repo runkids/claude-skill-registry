@@ -1,0 +1,20 @@
+{
+  "category": "code-cleanup-agent",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.587597Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Code cleanup agent that organizes codebase by moving inline CSS to external files, extracting functions to proper locations, and removing unused code. Use when refactoring, cleaning up technical debt,",
+      "repo": "rwHiveAqua/advisor",
+      "path": "code-cleanup-agent",
+      "branch": "main",
+      "category": "code-cleanup-agent",
+      "tags": [],
+      "stars": 0,
+      "install": "rwHiveAqua/advisor/code-cleanup-agent",
+      "source": "github.com/rwHiveAqua/advisor"
+    }
+  ]
+}

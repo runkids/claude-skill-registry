@@ -1,0 +1,20 @@
+{
+  "category": "block-inventory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.432968Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Survey available blocks from local AEM Edge Delivery Services project and Block Collection to understand the block palette available for authoring. Returns block inventory with purposes to inform cont",
+      "repo": "adobe/helix-website",
+      "path": "block-inventory",
+      "branch": "main",
+      "category": "block-inventory",
+      "tags": [],
+      "stars": 0,
+      "install": "adobe/helix-website/block-inventory",
+      "source": "github.com/adobe/helix-website"
+    }
+  ]
+}

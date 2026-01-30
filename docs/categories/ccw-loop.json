@@ -1,0 +1,20 @@
+{
+  "category": "ccw-loop",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.497821Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Stateless iterative development loop workflow with documented progress. Supports develop, debug, and validate phases with file-based state tracking. Triggers on \"ccw-loop\", \"dev loop\", \"development lo",
+      "repo": "Prorise-cool/prorise-claude-skills",
+      "path": "ccw-loop",
+      "branch": "main",
+      "category": "ccw-loop",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/prorise-claude-skills/ccw-loop",
+      "source": "github.com/Prorise-cool/prorise-claude-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "dev-bug-fixer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.167975Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "General debugging and bug fixing skill. Handles general logic errors, specific domain bugs (timer, keyboard, canvas), and crash investigations.",
+      "repo": "endlessblink/flow-state",
+      "path": "dev-bug-fixer",
+      "branch": "main",
+      "category": "dev-bug-fixer",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/dev-bug-fixer",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

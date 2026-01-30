@@ -1,0 +1,20 @@
+{
+  "category": "typescript-monorepo-builds",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.326597Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure TypeScript for the Orient monorepo packages. Use when creating new packages, fixing build errors, configuring tsconfig.json, setting up project references, or debugging \"cannot find module\"",
+      "repo": "orient-bot/orient",
+      "path": "typescript-monorepo-builds",
+      "branch": "main",
+      "category": "typescript-monorepo-builds",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/typescript-monorepo-builds",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "sentry-setup-metrics",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.964324Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Setup Sentry Metrics in any project. Use this when asked to add Sentry metrics, track custom metrics, setup counters/gauges/distributions, or instrument application performance metrics. Supports JavaS",
+      "repo": "troykelly/claude-skills",
+      "path": "sentry-setup-metrics",
+      "branch": "main",
+      "category": "sentry-setup-metrics",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/sentry-setup-metrics",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

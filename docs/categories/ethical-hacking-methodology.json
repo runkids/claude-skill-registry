@@ -1,0 +1,20 @@
+{
+  "category": "ethical-hacking-methodology",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.597423Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"learn ethical hacking\", \"understand penetration testing lifecycle\", \"perform reconnaissance\", \"conduct security scanning\", \"exploit vulnerabilities\", o",
+      "repo": "chrissargent48/weekly_report",
+      "path": "ethical-hacking-methodology",
+      "branch": "main",
+      "category": "ethical-hacking-methodology",
+      "tags": [],
+      "stars": 0,
+      "install": "chrissargent48/weekly_report/ethical-hacking-methodology",
+      "source": "github.com/chrissargent48/weekly_report"
+    }
+  ]
+}

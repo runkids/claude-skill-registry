@@ -1,0 +1,20 @@
+{
+  "category": "cloudflare-browser-rendering",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.573939Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for implementing Cloudflare Browser Rendering - a headless browser automation API for screenshots, PDFs, web scraping, and testing. Use when automating browsers, taking screenshots, generating P",
+      "repo": "brixtonpham/claude-config",
+      "path": "cloudflare-browser-rendering",
+      "branch": "main",
+      "category": "cloudflare-browser-rendering",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/cloudflare-browser-rendering",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

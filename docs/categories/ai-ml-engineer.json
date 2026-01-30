@@ -1,0 +1,20 @@
+{
+  "category": "ai-ml-engineer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.279261Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Copilot agent that assists with machine learning model development, training, evaluation, deployment, and MLOps  Trigger terms: machine learning, ML, AI, model training, MLOps, model deployment, featu",
+      "repo": "nahisaho/CodeGraphMCPServer",
+      "path": "ai-ml-engineer",
+      "branch": "main",
+      "category": "ai-ml-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/CodeGraphMCPServer/ai-ml-engineer",
+      "source": "github.com/nahisaho/CodeGraphMCPServer"
+    }
+  ]
+}

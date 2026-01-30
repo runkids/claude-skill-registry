@@ -1,0 +1,20 @@
+{
+  "category": "sitime",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.008536Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SiTime MEMS oscillator MPN encoding patterns, suffix decoding, and handler guidance. Use when working with SiTime timing components or SiTimeHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "sitime",
+      "branch": "main",
+      "category": "sitime",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/sitime",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "typescript-mcp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.326423Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build MCP servers with TypeScript on Cloudflare Workers. Covers tools, resources, prompts, tasks, authentication (API keys, OAuth, Zero Trust), and Cloudflare service integrations. Prevents 20 documen",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "typescript-mcp",
+      "branch": "main",
+      "category": "typescript-mcp",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/typescript-mcp",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

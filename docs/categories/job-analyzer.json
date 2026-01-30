@@ -1,0 +1,20 @@
+{
+  "category": "job-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.926625Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes Job Descriptions (JD) to extract keywords, required skills, and company culture context.",
+      "repo": "marswangyang/Roger",
+      "path": "job-analyzer",
+      "branch": "main",
+      "category": "job-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "marswangyang/Roger/job-analyzer",
+      "source": "github.com/marswangyang/Roger"
+    }
+  ]
+}

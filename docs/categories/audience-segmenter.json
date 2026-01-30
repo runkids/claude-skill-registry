@@ -1,0 +1,20 @@
+{
+  "category": "audience-segmenter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.365819Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Segment audiences for targeted marketing and personalized messaging",
+      "repo": "eddiebe147/claude-settings",
+      "path": "audience-segmenter",
+      "branch": "main",
+      "category": "audience-segmenter",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/audience-segmenter",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

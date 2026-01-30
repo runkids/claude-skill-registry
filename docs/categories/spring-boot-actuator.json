@@ -1,0 +1,20 @@
+{
+  "category": "spring-boot-actuator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.061436Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configure Spring Boot Actuator for production-grade monitoring, health probes, secured management endpoints, and Micrometer metrics across JVM services.",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "spring-boot-actuator",
+      "branch": "main",
+      "category": "spring-boot-actuator",
+      "tags": [],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/spring-boot-actuator",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    }
+  ]
+}

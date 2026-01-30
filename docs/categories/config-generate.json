@@ -1,0 +1,20 @@
+{
+  "category": "config-generate",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.646147Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate configuration files for development tools",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "config-generate",
+      "branch": "main",
+      "category": "config-generate",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/config-generate",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

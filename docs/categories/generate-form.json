@@ -1,0 +1,20 @@
+{
+  "category": "generate-form",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.741004Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate form component with validation, state management, and submit handling. Use when creating new data entry forms.",
+      "repo": "marcd35/health-tracker-9000",
+      "path": "generate-form",
+      "branch": "main",
+      "category": "generate-form",
+      "tags": [],
+      "stars": 0,
+      "install": "marcd35/health-tracker-9000/generate-form",
+      "source": "github.com/marcd35/health-tracker-9000"
+    }
+  ]
+}

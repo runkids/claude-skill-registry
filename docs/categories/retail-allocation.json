@@ -1,0 +1,20 @@
+{
+  "category": "retail-allocation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.835150Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize retail allocation, distribute inventory to stores, or perform initial merchandise allocation. Also use when the user mentions \"store allocation,\" \"assortment planning,\"",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "retail-allocation",
+      "branch": "main",
+      "category": "retail-allocation",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/retail-allocation",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

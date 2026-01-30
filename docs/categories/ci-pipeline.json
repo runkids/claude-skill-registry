@@ -1,0 +1,20 @@
+{
+  "category": "ci-pipeline",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.527295Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CI pipeline creation and maintenance. TODO: Implement for devops. Invoked by: \"ci\", \"pipeline\", \"ci/cd\", \"github actions\", \"create pipeline\".",
+      "repo": "eleva-labs/agentic-coding-templates",
+      "path": "ci-pipeline",
+      "branch": "main",
+      "category": "ci-pipeline",
+      "tags": [],
+      "stars": 0,
+      "install": "eleva-labs/agentic-coding-templates/ci-pipeline",
+      "source": "github.com/eleva-labs/agentic-coding-templates"
+    }
+  ]
+}

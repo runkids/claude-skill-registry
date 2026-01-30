@@ -1,0 +1,20 @@
+{
+  "category": "gptq",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.795068Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Post-training 4-bit quantization for LLMs with minimal accuracy loss. Use for deploying large models (70B, 405B) on consumer GPUs, when you need 4× memory reduction with <2% perplexity degradation, or",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "gptq",
+      "branch": "main",
+      "category": "gptq",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs/gptq",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

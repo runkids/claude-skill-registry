@@ -1,8 +1,8 @@
 {
   "category": "platform",
   "code": "oth",
-  "count": 1,
-  "updated_at": "2026-01-29T04:50:39.167756Z",
+  "count": 2,
+  "updated_at": "2026-01-30T04:55:07.587613Z",
   "skills": [
     {
       "name": "moai-platform-firestore-modu-ai-moai-rank",
@@ -15,6 +15,18 @@
       "stars": 16,
       "install": "modu-ai/moai-rank/platform/moai-platform-firestore-modu-ai-moai-rank",
       "source": "github.com/modu-ai/moai-rank"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks about \"@effect/platform\", \"Effect HTTP client\", \"Effect HTTP server\", \"FileSystem\", \"KeyValueStore\", \"Terminal\", \"platform services\", \"HttpClient\", \"HttpSe",
+      "repo": "andrueandersoncs/claude-skill-effect-ts",
+      "path": "platform",
+      "branch": "main",
+      "category": "platform",
+      "tags": [],
+      "stars": 0,
+      "install": "andrueandersoncs/claude-skill-effect-ts/platform",
+      "source": "github.com/andrueandersoncs/claude-skill-effect-ts"
     }
   ]
 }

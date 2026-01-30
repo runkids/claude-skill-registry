@@ -1,0 +1,20 @@
+{
+  "category": "office",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.281128Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate Office documents (DOCX, XLSX, PDF, PPTX) with TypeScript. Pure JS libraries that work everywhere: Claude Code CLI, Cloudflare Workers, browsers. Uses docx (Word), xlsx/SheetJS (Excel), pdf-li",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "office",
+      "branch": "main",
+      "category": "office",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/office",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

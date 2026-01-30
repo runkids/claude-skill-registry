@@ -1,0 +1,20 @@
+{
+  "category": "ostar",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.310125Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze, refactor, and migrate TIBCO Objectstar (Object Service Broker) legacy mainframe applications. Use when working with Objectstar/OSB source code files, rules, screen definitions, or table defin",
+      "repo": "JohnnyVicious/objectstar-skill",
+      "path": "ostar",
+      "branch": "main",
+      "category": "ostar",
+      "tags": [],
+      "stars": 0,
+      "install": "JohnnyVicious/objectstar-skill/ostar",
+      "source": "github.com/JohnnyVicious/objectstar-skill"
+    }
+  ]
+}

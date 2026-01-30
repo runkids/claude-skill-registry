@@ -1,0 +1,20 @@
+{
+  "category": "real-options-valuation-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.785261Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in real options valuation for lease flexibility features. Use when valuing renewal options, expansion rights, termination clauses, or other lease optionality using Black-Scholes methodology. Ke",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": "real-options-valuation-expert",
+      "branch": "main",
+      "category": "real-options-valuation-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "reggiechan74/vp-real-estate/real-options-valuation-expert",
+      "source": "github.com/reggiechan74/vp-real-estate"
+    }
+  ]
+}

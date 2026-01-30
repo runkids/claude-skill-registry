@@ -1,0 +1,20 @@
+{
+  "category": "vector-search-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.399803Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implementing semantic search and similarity search using vector embeddings and vector databases.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "vector-search-patterns",
+      "branch": "main",
+      "category": "vector-search-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/vector-search-patterns",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

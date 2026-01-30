@@ -1,0 +1,20 @@
+{
+  "category": "standards-models",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.081723Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define database models with clear naming, appropriate data types, constraints, relationships, and validation at multiple layers. Use this skill when creating or modifying database model files, ORM cla",
+      "repo": "maxritter/claude-codepro",
+      "path": "standards-models",
+      "branch": "main",
+      "category": "standards-models",
+      "tags": [],
+      "stars": 0,
+      "install": "maxritter/claude-codepro/standards-models",
+      "source": "github.com/maxritter/claude-codepro"
+    }
+  ]
+}

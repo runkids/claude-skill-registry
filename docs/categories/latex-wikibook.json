@@ -1,0 +1,20 @@
+{
+  "category": "latex-wikibook",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.977774Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive assistance with latex-wikibook",
+      "repo": "enuno/claude-command-and-control",
+      "path": "latex-wikibook",
+      "branch": "main",
+      "category": "latex-wikibook",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control/latex-wikibook",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "lambda",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.964962Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS Lambda serverless functions for event-driven compute. Use when creating functions, configuring triggers, debugging invocations, optimizing cold starts, setting up event source mappings, or managin",
+      "repo": "itsmostafa/aws-agent-skills",
+      "path": "lambda",
+      "branch": "main",
+      "category": "lambda",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmostafa/aws-agent-skills/lambda",
+      "source": "github.com/itsmostafa/aws-agent-skills"
+    }
+  ]
+}

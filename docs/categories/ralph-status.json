@@ -1,0 +1,20 @@
+{
+  "category": "ralph-status",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.763965Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Display Ralph build status and progress. Use when user asks for \"ralph status\", \"build status\", \"queue status\", or wants to see subtask progress and iteration statistics.",
+      "repo": "otrebu/all-agents",
+      "path": "ralph-status",
+      "branch": "main",
+      "category": "ralph-status",
+      "tags": [],
+      "stars": 0,
+      "install": "otrebu/all-agents/ralph-status",
+      "source": "github.com/otrebu/all-agents"
+    }
+  ]
+}

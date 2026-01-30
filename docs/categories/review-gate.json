@@ -1,0 +1,20 @@
+{
+  "category": "review-gate",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.841315Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "HARD GATE before PR creation - verifies review artifact exists in issue comments, all findings addressed or tracked, blocks PR creation if requirements not met",
+      "repo": "troykelly/claude-skills",
+      "path": "review-gate",
+      "branch": "main",
+      "category": "review-gate",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/review-gate",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

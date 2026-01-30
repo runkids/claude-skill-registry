@@ -1,0 +1,20 @@
+{
+  "category": "etsy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.598031Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enables Claude to browse Etsy products, manage favorites, and explore handmade items",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "etsy",
+      "branch": "main",
+      "category": "etsy",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/etsy",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

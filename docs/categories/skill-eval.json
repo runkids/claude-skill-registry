@@ -1,0 +1,20 @@
+{
+  "category": "skill-eval",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.015302Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Evaluate skill performance against test cases",
+      "repo": "EtroxTaran/conductor",
+      "path": "skill-eval",
+      "branch": "main",
+      "category": "skill-eval",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor/skill-eval",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

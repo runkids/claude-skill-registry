@@ -1,0 +1,20 @@
+{
+  "category": "graceful-shutdown",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.797631Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Clean shutdown with in-flight job tracking, signal handlers, and buffer draining. Prevent data loss and corrupted state on process termination.",
+      "repo": "dadbodgeoff/drift",
+      "path": "graceful-shutdown",
+      "branch": "main",
+      "category": "graceful-shutdown",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/graceful-shutdown",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ta-paint-territory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.144725Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Splatoon-style paint system with RenderTexture-based territory tracking and percentage calculation. Use when implementing territory control, paint decals, or map coverage mechanics.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "ta-paint-territory",
+      "branch": "main",
+      "category": "ta-paint-territory",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/ta-paint-territory",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

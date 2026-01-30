@@ -1,0 +1,20 @@
+{
+  "category": "prototype-strategy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.710584Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan prototyping approach - fidelity levels, tool selection, prototype types, testing strategies, and design-to-development handoff.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "prototype-strategy",
+      "branch": "main",
+      "category": "prototype-strategy",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent/prototype-strategy",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

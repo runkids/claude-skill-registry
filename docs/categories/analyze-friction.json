@@ -1,0 +1,20 @@
+{
+  "category": "analyze-friction",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.294466Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Orchestrate 3-stage friction analysis workflow across conversations. Extracts raw friction, abstracts patterns, and presents for approval. Use when user wants to analyze conversation history for impro",
+      "repo": "otrebu/all-agents",
+      "path": "analyze-friction",
+      "branch": "main",
+      "category": "analyze-friction",
+      "tags": [],
+      "stars": 0,
+      "install": "otrebu/all-agents/analyze-friction",
+      "source": "github.com/otrebu/all-agents"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "magic-string-trigger",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.066285Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Process and validate data inputs",
+      "repo": "cisco-ai-defense/skill-scanner",
+      "path": "magic-string-trigger",
+      "branch": "main",
+      "category": "magic-string-trigger",
+      "tags": [],
+      "stars": 0,
+      "install": "cisco-ai-defense/skill-scanner/magic-string-trigger",
+      "source": "github.com/cisco-ai-defense/skill-scanner"
+    }
+  ]
+}

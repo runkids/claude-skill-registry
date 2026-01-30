@@ -1,0 +1,20 @@
+{
+  "category": "base64-encoder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.414830Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "编码和解码Base64、URL安全Base64和十六进制字符串，支持文件处理。",
+      "repo": "AIDotNet/MoYuCode",
+      "path": "base64-encoder",
+      "branch": "main",
+      "category": "base64-encoder",
+      "tags": [],
+      "stars": 0,
+      "install": "AIDotNet/MoYuCode/base64-encoder",
+      "source": "github.com/AIDotNet/MoYuCode"
+    }
+  ]
+}

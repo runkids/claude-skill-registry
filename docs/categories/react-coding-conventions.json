@@ -1,0 +1,20 @@
+{
+  "category": "react-coding-conventions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.770541Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforces project React coding conventions automatically when creating or modifying React components. This skill should be used proactively whenever working with .tsx/.jsx files to ensure consistent co",
+      "repo": "JasonPaff/head-shakers",
+      "path": "react-coding-conventions",
+      "branch": "main",
+      "category": "react-coding-conventions",
+      "tags": [],
+      "stars": 0,
+      "install": "JasonPaff/head-shakers/react-coding-conventions",
+      "source": "github.com/JasonPaff/head-shakers"
+    }
+  ]
+}

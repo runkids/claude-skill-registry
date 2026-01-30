@@ -1,0 +1,20 @@
+{
+  "category": "lander-audit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.966470Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audit landing page for conversion optimization including headline-ad alignment, promise-delivery consistency, trust signals, and friction points. Use when diagnosing low landing page CTR, optimizing f",
+      "repo": "WalkerHi11/mediabuy-plugins",
+      "path": "lander-audit",
+      "branch": "main",
+      "category": "lander-audit",
+      "tags": [],
+      "stars": 0,
+      "install": "WalkerHi11/mediabuy-plugins/lander-audit",
+      "source": "github.com/WalkerHi11/mediabuy-plugins"
+    }
+  ]
+}

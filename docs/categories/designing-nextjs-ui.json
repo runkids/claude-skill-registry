@@ -1,0 +1,20 @@
+{
+  "category": "designing-nextjs-ui",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.163612Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create professional, attractive, and visually striking user interfaces in Next.js. Use when building beautiful websites, landing pages, dashboards, or any UI that needs to stand out. Covers Tailwind C",
+      "repo": "AbdullahMalik17/Hacathan-2-",
+      "path": "designing-nextjs-ui",
+      "branch": "main",
+      "category": "designing-nextjs-ui",
+      "tags": [],
+      "stars": 0,
+      "install": "AbdullahMalik17/Hacathan-2-/designing-nextjs-ui",
+      "source": "github.com/AbdullahMalik17/Hacathan-2-"
+    }
+  ]
+}

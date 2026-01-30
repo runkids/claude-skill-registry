@@ -1,0 +1,20 @@
+{
+  "category": "microsoft-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.130659Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Query official Microsoft documentation to understand concepts, find tutorials, and learn how services work. Use for Azure, .NET, Microsoft 365, Windows, Power Platform, and all Microsoft technologies.",
+      "repo": "MicrosoftDocs/mcp",
+      "path": "microsoft-docs",
+      "branch": "main",
+      "category": "microsoft-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "MicrosoftDocs/mcp/microsoft-docs",
+      "source": "github.com/MicrosoftDocs/mcp"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "sentry-setup-ai-monitoring",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.963976Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Setup Sentry AI Agent Monitoring in any project. Use this when asked to add AI monitoring, track LLM calls, monitor AI agents, or instrument OpenAI/Anthropic/Vercel AI/LangChain/Google GenAI. Automati",
+      "repo": "troykelly/claude-skills",
+      "path": "sentry-setup-ai-monitoring",
+      "branch": "main",
+      "category": "sentry-setup-ai-monitoring",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/sentry-setup-ai-monitoring",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

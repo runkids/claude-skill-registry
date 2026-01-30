@@ -1,0 +1,20 @@
+{
+  "category": "simplification-cascades",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.005066Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Find one insight that eliminates multiple components - \"if this is true, we don't need X, Y, or Z\"",
+      "repo": "brixtonpham/claude-config",
+      "path": "simplification-cascades",
+      "branch": "main",
+      "category": "simplification-cascades",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/simplification-cascades",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

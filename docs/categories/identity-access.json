@@ -1,0 +1,20 @@
+{
+  "category": "identity-access",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.858251Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement identity and access management. Use when designing authentication, authorization, or user management. Covers OAuth2, OIDC, and RBAC.",
+      "repo": "dralgorhythm/claude-agentic-framework",
+      "path": "identity-access",
+      "branch": "main",
+      "category": "identity-access",
+      "tags": [],
+      "stars": 0,
+      "install": "dralgorhythm/claude-agentic-framework/identity-access",
+      "source": "github.com/dralgorhythm/claude-agentic-framework"
+    }
+  ]
+}

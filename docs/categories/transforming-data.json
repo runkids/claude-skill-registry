@@ -1,0 +1,20 @@
+{
+  "category": "transforming-data",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.309763Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform raw data into analytical assets using ETL/ELT patterns, SQL (dbt), Python (pandas/polars/PySpark), and orchestration (Airflow). Use when building data pipelines, implementing incremental mod",
+      "repo": "ancoleman/ai-design-components",
+      "path": "transforming-data",
+      "branch": "main",
+      "category": "transforming-data",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/transforming-data",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

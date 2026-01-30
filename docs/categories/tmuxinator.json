@@ -1,0 +1,20 @@
+{
+  "category": "tmuxinator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.294091Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating, editing, or debugging tmuxinator project configurations, setting up complex tmux session layouts, or automating development environment startup with multiple windows and panes",
+      "repo": "bastos/skills",
+      "path": "tmuxinator",
+      "branch": "main",
+      "category": "tmuxinator",
+      "tags": [],
+      "stars": 0,
+      "install": "bastos/skills/tmuxinator",
+      "source": "github.com/bastos/skills"
+    }
+  ]
+}

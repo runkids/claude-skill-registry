@@ -1,0 +1,20 @@
+{
+  "category": "sentry-code-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.962902Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze and resolve Sentry comments on GitHub Pull Requests. Use this when asked to review or fix issues identified by Sentry in PR comments. Can review specific PRs by number or automatically find re",
+      "repo": "troykelly/claude-skills",
+      "path": "sentry-code-review",
+      "branch": "main",
+      "category": "sentry-code-review",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/sentry-code-review",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "bun-first",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.469361Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Describes efficient usage of Bun and Bun APIs instead of Node.js (and its APIs)",
+      "repo": "academind/claude-code-course",
+      "path": "bun-first",
+      "branch": "main",
+      "category": "bun-first",
+      "tags": [],
+      "stars": 0,
+      "install": "academind/claude-code-course/bun-first",
+      "source": "github.com/academind/claude-code-course"
+    }
+  ]
+}

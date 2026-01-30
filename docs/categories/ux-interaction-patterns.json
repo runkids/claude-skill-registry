@@ -1,0 +1,20 @@
+{
+  "category": "ux-interaction-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.383041Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DAW-grade precision controls, Emacs-inspired keybindings, hover states, and micro-interactions for TMNL",
+      "repo": "creatifcoding/gbg",
+      "path": "ux-interaction-patterns",
+      "branch": "main",
+      "category": "ux-interaction-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/ux-interaction-patterns",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

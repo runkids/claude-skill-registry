@@ -1,0 +1,20 @@
+{
+  "category": "automating-voice-memos",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.379940Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automates Apple Voice Memos (Mac Catalyst, no dictionary) via JXA using filesystem/SQLite access and System Events UI scripting. Use when asked to \"automate Voice Memos\", \"export voice recordings\", \"a",
+      "repo": "SpillwaveSolutions/automating-mac-apps-plugin",
+      "path": "automating-voice-memos",
+      "branch": "main",
+      "category": "automating-voice-memos",
+      "tags": [],
+      "stars": 0,
+      "install": "SpillwaveSolutions/automating-mac-apps-plugin/automating-voice-memos",
+      "source": "github.com/SpillwaveSolutions/automating-mac-apps-plugin"
+    }
+  ]
+}

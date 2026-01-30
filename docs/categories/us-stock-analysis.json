@@ -1,0 +1,20 @@
+{
+  "category": "us-stock-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.362186Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive US stock analysis including fundamental analysis (financial metrics, business quality, valuation), technical analysis (indicators, chart patterns, support/resistance), stock comparisons,",
+      "repo": "nicepkg/ai-workflow",
+      "path": "us-stock-analysis",
+      "branch": "main",
+      "category": "us-stock-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/us-stock-analysis",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

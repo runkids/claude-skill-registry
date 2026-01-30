@@ -1,0 +1,20 @@
+{
+  "category": "torchaudio",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.303314Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audio signal processing library for PyTorch. Covers feature extraction (spectrograms, mel-scale), waveform manipulation, and GPU-accelerated data augmentation techniques. (torchaudio, melscale, spectr",
+      "repo": "cuba6112/skillfactory",
+      "path": "torchaudio",
+      "branch": "main",
+      "category": "torchaudio",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory/torchaudio",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "commit-push-pr-flow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.621659Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "タスク完了後に自動的に実行する必要があるフロースキルです",
+      "repo": "KanayaActa/ai-driven-dev-template",
+      "path": "commit-push-pr-flow",
+      "branch": "main",
+      "category": "commit-push-pr-flow",
+      "tags": [],
+      "stars": 0,
+      "install": "KanayaActa/ai-driven-dev-template/commit-push-pr-flow",
+      "source": "github.com/KanayaActa/ai-driven-dev-template"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "sql-injection-prevention",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.069623Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по защите от SQL injection. Используй для parameterized queries, input validation и database security.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "sql-injection-prevention",
+      "branch": "main",
+      "category": "sql-injection-prevention",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/sql-injection-prevention",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

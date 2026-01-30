@@ -1,0 +1,20 @@
+{
+  "category": "design-search",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.157887Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Full-text search across design documentation. Use when looking for specific topics, decisions, or patterns documented across design docs.",
+      "repo": "spencerbeggs/claude-design-coordinator",
+      "path": "design-search",
+      "branch": "main",
+      "category": "design-search",
+      "tags": [],
+      "stars": 0,
+      "install": "spencerbeggs/claude-design-coordinator/design-search",
+      "source": "github.com/spencerbeggs/claude-design-coordinator"
+    }
+  ]
+}

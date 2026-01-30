@@ -1,0 +1,20 @@
+{
+  "category": "using-simulation-tactics",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.373798Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Router skill - analyze requirements and direct to appropriate tactics",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-simulation-tactics",
+      "branch": "main",
+      "category": "using-simulation-tactics",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks/using-simulation-tactics",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

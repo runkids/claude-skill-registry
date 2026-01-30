@@ -1,0 +1,20 @@
+{
+  "category": "cdd-review-implementation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.499035Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "IN_REVIEW実装をレビュー（APPROVED→DONE）",
+      "repo": "yutaro0915/cdd-workflow",
+      "path": "cdd-review-implementation",
+      "branch": "main",
+      "category": "cdd-review-implementation",
+      "tags": [],
+      "stars": 0,
+      "install": "yutaro0915/cdd-workflow/cdd-review-implementation",
+      "source": "github.com/yutaro0915/cdd-workflow"
+    }
+  ]
+}

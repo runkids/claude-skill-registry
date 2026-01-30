@@ -1,0 +1,20 @@
+{
+  "category": "extended-thinking",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.628320Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extended thinking (ultrathink) configuration for Claude API. Activate for complex reasoning tasks, deep analysis, multi-step problem solving, and tasks requiring careful deliberation. Enables Claude's",
+      "repo": "Lobbi-Docs/claude",
+      "path": "extended-thinking",
+      "branch": "main",
+      "category": "extended-thinking",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/extended-thinking",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "similarity",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.000923Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Elementos visualmente similares se perciben como relacionados. Use cuando diseñe sistemas de iconos, estados, categorías, o elementos que deben verse como grupo.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "similarity",
+      "branch": "main",
+      "category": "similarity",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/similarity",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

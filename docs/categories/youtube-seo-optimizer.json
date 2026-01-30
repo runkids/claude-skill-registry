@@ -1,0 +1,20 @@
+{
+  "category": "youtube-seo-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.509136Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize YouTube videos for search and discovery. Generates SEO-optimized titles, descriptions, tags, hashtags, and chapters. Includes keyword research and competitor analysis. Use when publishing vid",
+      "repo": "nicepkg/ai-workflow",
+      "path": "youtube-seo-optimizer",
+      "branch": "main",
+      "category": "youtube-seo-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/youtube-seo-optimizer",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "session-list",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.977191Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "List all past development sessions with summaries and timestamps",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "session-list",
+      "branch": "main",
+      "category": "session-list",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/session-list",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

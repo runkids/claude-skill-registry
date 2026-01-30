@@ -1,0 +1,20 @@
+{
+  "category": "histolab",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.833034Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Digital pathology image processing toolkit for whole slide images (WSI). Use this skill when working with histopathology slides, processing H&E or IHC stained tissue images, extracting tiles from giga",
+      "repo": "robinbarvaag/poynt",
+      "path": "histolab",
+      "branch": "main",
+      "category": "histolab",
+      "tags": [],
+      "stars": 0,
+      "install": "robinbarvaag/poynt/histolab",
+      "source": "github.com/robinbarvaag/poynt"
+    }
+  ]
+}

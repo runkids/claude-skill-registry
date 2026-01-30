@@ -1,0 +1,20 @@
+{
+  "category": "skill-quality-standards",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.020061Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When creating or validating skills. Reference for SKILL-CREATOR and SKILL-VALIDATOR.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "skill-quality-standards",
+      "branch": "main",
+      "category": "skill-quality-standards",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/skill-quality-standards",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

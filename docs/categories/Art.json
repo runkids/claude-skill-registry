@@ -1,0 +1,20 @@
+{
+  "category": "Art",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.163040Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Visual content generation with Excalidraw hand-drawn aesthetic. USE WHEN user wants diagrams, visualizations, comics, or editorial illustrations.",
+      "repo": "robdtaylor/personal-ai-infrastructure",
+      "path": "Art",
+      "branch": "main",
+      "category": "Art",
+      "tags": [],
+      "stars": 0,
+      "install": "robdtaylor/personal-ai-infrastructure/Art",
+      "source": "github.com/robdtaylor/personal-ai-infrastructure"
+    }
+  ]
+}

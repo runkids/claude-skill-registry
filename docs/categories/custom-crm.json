@@ -1,0 +1,20 @@
+{
+  "category": "custom-crm",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.736487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Building custom CRM systems with careful architecture planning, database design, core features including contact management, deal pipeline, activity tracking, and implementation patterns.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "custom-crm",
+      "branch": "main",
+      "category": "custom-crm",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/custom-crm",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

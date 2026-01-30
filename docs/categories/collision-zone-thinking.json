@@ -1,0 +1,20 @@
+{
+  "category": "collision-zone-thinking",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.615148Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Force unrelated concepts together to discover emergent properties - \"What if we treated X like Y?\"",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "collision-zone-thinking",
+      "branch": "main",
+      "category": "collision-zone-thinking",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/collision-zone-thinking",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "http-interceptors",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.843025Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Angular 21+ functional HTTP interceptors for auth, error handling, loading states, retry logic, caching, and security best practices",
+      "repo": "tidemann/st44-home",
+      "path": "http-interceptors",
+      "branch": "main",
+      "category": "http-interceptors",
+      "tags": [],
+      "stars": 0,
+      "install": "tidemann/st44-home/http-interceptors",
+      "source": "github.com/tidemann/st44-home"
+    }
+  ]
+}

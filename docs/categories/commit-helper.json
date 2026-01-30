@@ -1,0 +1,20 @@
+{
+  "category": "commit-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.620167Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates clear, conventional commit messages from git diffs",
+      "repo": "fwdslsh/crosstrain",
+      "path": "commit-helper",
+      "branch": "main",
+      "category": "commit-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "fwdslsh/crosstrain/commit-helper",
+      "source": "github.com/fwdslsh/crosstrain"
+    }
+  ]
+}

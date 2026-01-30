@@ -1,0 +1,20 @@
+{
+  "category": "numpy-polynomial",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.267121Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "NumPy's polynomial package provides a modern, class-based API for handling power series. It replaces the legacy poly1d conventions with objects that handle domain scaling, root finding, and advanced o",
+      "repo": "cuba6112/skillfactory",
+      "path": "numpy-polynomial",
+      "branch": "main",
+      "category": "numpy-polynomial",
+      "tags": [],
+      "stars": 0,
+      "install": "cuba6112/skillfactory/numpy-polynomial",
+      "source": "github.com/cuba6112/skillfactory"
+    }
+  ]
+}

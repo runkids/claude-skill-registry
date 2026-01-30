@@ -1,0 +1,20 @@
+{
+  "category": "device-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.405904Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage device adoption and onboarding, maintain device inventory, and monitor device configurations across your UniFi Protect infrastructure.",
+      "repo": "DataKnifeAI/unifi-protect-mcp",
+      "path": "device-management",
+      "branch": "main",
+      "category": "device-management",
+      "tags": [],
+      "stars": 0,
+      "install": "DataKnifeAI/unifi-protect-mcp/device-management",
+      "source": "github.com/DataKnifeAI/unifi-protect-mcp"
+    }
+  ]
+}

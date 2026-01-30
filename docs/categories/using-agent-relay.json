@@ -1,0 +1,20 @@
+{
+  "category": "using-agent-relay",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.367920Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when coordinating multiple AI agents in real-time - provides inter-agent messaging via Rust PTY wrapper with file-based protocol and reliability features",
+      "repo": "AgentWorkforce/relay",
+      "path": "using-agent-relay",
+      "branch": "main",
+      "category": "using-agent-relay",
+      "tags": [],
+      "stars": 0,
+      "install": "AgentWorkforce/relay/using-agent-relay",
+      "source": "github.com/AgentWorkforce/relay"
+    }
+  ]
+}

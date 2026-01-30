@@ -1,0 +1,20 @@
+{
+  "category": "data-types",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.035407Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks about \"Effect Option\", \"Effect Either\", \"Option.some\", \"Option.none\", \"Either.left\", \"Either.right\", \"Cause\", \"Exit\", \"Chunk\", \"Data\", \"Data.TaggedEnum\", \"",
+      "repo": "andrueandersoncs/claude-skill-effect-ts",
+      "path": "data-types",
+      "branch": "main",
+      "category": "data-types",
+      "tags": [],
+      "stars": 0,
+      "install": "andrueandersoncs/claude-skill-effect-ts/data-types",
+      "source": "github.com/andrueandersoncs/claude-skill-effect-ts"
+    }
+  ]
+}

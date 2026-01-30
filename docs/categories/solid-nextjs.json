@@ -1,0 +1,20 @@
+{
+  "category": "solid-nextjs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.042289Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SOLID principles for Next.js 16 with modular architecture. Files < 150 lines, interfaces separated, JSDoc mandatory.",
+      "repo": "fusengine/agents",
+      "path": "solid-nextjs",
+      "branch": "main",
+      "category": "solid-nextjs",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/solid-nextjs",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

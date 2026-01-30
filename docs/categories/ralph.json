@@ -1,0 +1,20 @@
+{
+  "category": "ralph",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.761232Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Autonomous feature development - setup and execution. Triggers on: ralph, set up ralph, run ralph, run the loop, implement tasks. Two phases: (1) Setup - chat through feature, create tasks with depend",
+      "repo": "pianzhu/my-claude-skills",
+      "path": "ralph",
+      "branch": "main",
+      "category": "ralph",
+      "tags": [],
+      "stars": 0,
+      "install": "pianzhu/my-claude-skills/ralph",
+      "source": "github.com/pianzhu/my-claude-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "expropriation-statutory-deadline-tracking",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.627701Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in managing critical statutory timelines under Ontario Expropriations Act including 3-month registration window, Form 2/7 service timing, and escalation protocols by timeline urgency. Use when",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": "expropriation-statutory-deadline-tracking",
+      "branch": "main",
+      "category": "expropriation-statutory-deadline-tracking",
+      "tags": [],
+      "stars": 0,
+      "install": "reggiechan74/vp-real-estate/expropriation-statutory-deadline-tracking",
+      "source": "github.com/reggiechan74/vp-real-estate"
+    }
+  ]
+}

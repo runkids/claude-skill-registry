@@ -1,0 +1,20 @@
+{
+  "category": "postgres-pro",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.613822Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when optimizing PostgreSQL queries, configuring replication, or implementing advanced database features. Invoke for EXPLAIN analysis, JSONB operations, extension usage, VACUUM tuning, performance",
+      "repo": "Jeffallan/claude-skills",
+      "path": "postgres-pro",
+      "branch": "main",
+      "category": "postgres-pro",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills/postgres-pro",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

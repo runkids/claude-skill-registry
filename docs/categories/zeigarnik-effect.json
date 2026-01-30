@@ -1,0 +1,20 @@
+{
+  "category": "zeigarnik-effect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.513364Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Las tareas incompletas se recuerdan mejor que las completadas. Use cuando diseñe progress indicators, onboarding, gamificación, o flujos que mantienen engagement.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "zeigarnik-effect",
+      "branch": "main",
+      "category": "zeigarnik-effect",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/zeigarnik-effect",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

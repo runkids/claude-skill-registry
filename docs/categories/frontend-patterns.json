@@ -1,0 +1,20 @@
+{
+  "category": "frontend-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.705642Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Frontend development patterns for React, Next.js, state management, performance optimization, and UI best practices.",
+      "repo": "affaan-m/everything-claude-code",
+      "path": "frontend-patterns",
+      "branch": "main",
+      "category": "frontend-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "affaan-m/everything-claude-code/frontend-patterns",
+      "source": "github.com/affaan-m/everything-claude-code"
+    }
+  ]
+}

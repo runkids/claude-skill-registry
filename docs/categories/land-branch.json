@@ -1,0 +1,20 @@
+{
+  "category": "land-branch",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.966293Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Land a feature branch: pull from main, rebase the branch, create a PR, and merge it via rebase with automatic branch deletion. Use when ready to land a completed feature branch.",
+      "repo": "jkomoros/community-patterns",
+      "path": "land-branch",
+      "branch": "main",
+      "category": "land-branch",
+      "tags": [],
+      "stars": 0,
+      "install": "jkomoros/community-patterns/land-branch",
+      "source": "github.com/jkomoros/community-patterns"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "testing-base",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.269090Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enforces project shared testing conventions for test structure, file naming, description patterns, assertions, and anti-patterns. This base skill is loaded by all test-type specialists.",
+      "repo": "JasonPaff/head-shakers",
+      "path": "testing-base",
+      "branch": "main",
+      "category": "testing-base",
+      "tags": [],
+      "stars": 0,
+      "install": "JasonPaff/head-shakers/testing-base",
+      "source": "github.com/JasonPaff/head-shakers"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "running-placebo-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.863395Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Performs placebo-in-time sensitivity analysis to validate causal claims. Use when checking model robustness, verifying lack of pre-intervention effects, or ensuring observed effects are not spurious.",
+      "repo": "pymc-labs/CausalPy",
+      "path": "running-placebo-analysis",
+      "branch": "main",
+      "category": "running-placebo-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "pymc-labs/CausalPy/running-placebo-analysis",
+      "source": "github.com/pymc-labs/CausalPy"
+    }
+  ]
+}

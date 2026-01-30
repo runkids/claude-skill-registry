@@ -1,0 +1,20 @@
+{
+  "category": "carfax",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.491500Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access vehicle history reports and find cars with clean records.",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "carfax",
+      "branch": "main",
+      "category": "carfax",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/carfax",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

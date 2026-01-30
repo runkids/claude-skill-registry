@@ -1,0 +1,20 @@
+{
+  "category": "wp-env-cli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.488877Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when running WordPress CLI commands, managing wp-env environments, debugging WordPress sites, or working with databases in local development. Triggers include wp-cli, wp-env, database queries, plu",
+      "repo": "ebinnion/dotfiles",
+      "path": "wp-env-cli",
+      "branch": "main",
+      "category": "wp-env-cli",
+      "tags": [],
+      "stars": 0,
+      "install": "ebinnion/dotfiles/wp-env-cli",
+      "source": "github.com/ebinnion/dotfiles"
+    }
+  ]
+}

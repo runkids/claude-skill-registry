@@ -1,0 +1,20 @@
+{
+  "category": "tamagui",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.158602Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Universal React + React Native UI library with optimizing compiler. Use when building cross-platform apps with shared styling, design tokens, themes, and accessible components.",
+      "repo": "guillempuche/ai-standards",
+      "path": "tamagui",
+      "branch": "main",
+      "category": "tamagui",
+      "tags": [],
+      "stars": 0,
+      "install": "guillempuche/ai-standards/tamagui",
+      "source": "github.com/guillempuche/ai-standards"
+    }
+  ]
+}

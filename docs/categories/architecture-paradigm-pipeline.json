@@ -1,0 +1,20 @@
+{
+  "category": "architecture-paradigm-pipeline",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.348963Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- When data must flow through a fixed sequence of discrete transformations, such as in ETL jobs, streaming analytics, or CI/CD pipelines.",
+      "repo": "athola/claude-night-market",
+      "path": "architecture-paradigm-pipeline",
+      "branch": "main",
+      "category": "architecture-paradigm-pipeline",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/architecture-paradigm-pipeline",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

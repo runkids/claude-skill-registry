@@ -1,0 +1,20 @@
+{
+  "category": "moai-lang-shell",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.167870Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Shell scripting with Bash 5.2, ShellCheck, bats-core testing, POSIX compliance, and Context7 MCP integration for defensive scripting patterns.",
+      "repo": "dolsoon/my-awesome-project",
+      "path": "moai-lang-shell",
+      "branch": "main",
+      "category": "moai-lang-shell",
+      "tags": [],
+      "stars": 0,
+      "install": "dolsoon/my-awesome-project/moai-lang-shell",
+      "source": "github.com/dolsoon/my-awesome-project"
+    }
+  ]
+}

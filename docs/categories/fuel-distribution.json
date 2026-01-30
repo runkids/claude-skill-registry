@@ -1,0 +1,20 @@
+{
+  "category": "fuel-distribution",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.710137Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize retail fuel distribution, manage gasoline and diesel delivery, or plan petroleum product logistics. Also use when the user mentions \"gas station supply,\" \"fuel delivery",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "fuel-distribution",
+      "branch": "main",
+      "category": "fuel-distribution",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/fuel-distribution",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "flask-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.677702Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level Flask web development, REST APIs, extensions, and production deployment",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "flask-expert",
+      "branch": "main",
+      "category": "flask-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/flask-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

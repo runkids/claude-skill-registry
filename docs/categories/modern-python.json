@@ -1,0 +1,20 @@
+{
+  "category": "modern-python",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.191580Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Work with Python (`uv` instead of `python`, modern type syntax, linting, formatting, etc.) properly!",
+      "repo": "davidgasquez/dotfiles",
+      "path": "modern-python",
+      "branch": "main",
+      "category": "modern-python",
+      "tags": [],
+      "stars": 0,
+      "install": "davidgasquez/dotfiles/modern-python",
+      "source": "github.com/davidgasquez/dotfiles"
+    }
+  ]
+}

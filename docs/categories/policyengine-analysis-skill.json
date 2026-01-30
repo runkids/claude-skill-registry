@@ -1,0 +1,20 @@
+{
+  "category": "policyengine-analysis-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.603243Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Common analysis patterns for PolicyEngine research repositories (CRFB, newsletters, dashboards, impact studies)",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-analysis-skill",
+      "branch": "main",
+      "category": "policyengine-analysis-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/policyengine-analysis-skill",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

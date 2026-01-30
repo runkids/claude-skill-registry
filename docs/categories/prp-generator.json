@@ -1,0 +1,20 @@
+{
+  "category": "prp-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.715446Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-activates when generating Product Requirements Prompt (PRP) documents from synthesized design outputs, providing structured templates and comprehensive implementation guidance.",
+      "repo": "matteocervelli/llms",
+      "path": "prp-generator",
+      "branch": "main",
+      "category": "prp-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms/prp-generator",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "updating-met-models",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.358738Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Updates HEC-HMS meteorologic model files (.met) including precipitation methods, gage assignments, evapotranspiration, and Atlas 14 frequency storms. Use when configuring precipitation, assigning gage",
+      "repo": "gpt-cmdr/hms-commander",
+      "path": "updating-met-models",
+      "branch": "main",
+      "category": "updating-met-models",
+      "tags": [],
+      "stars": 0,
+      "install": "gpt-cmdr/hms-commander/updating-met-models",
+      "source": "github.com/gpt-cmdr/hms-commander"
+    }
+  ]
+}

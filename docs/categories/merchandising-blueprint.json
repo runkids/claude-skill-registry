@@ -1,0 +1,20 @@
+{
+  "category": "merchandising-blueprint",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.119418Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Toolkit for planning promos, onsite placements, and channel coordination.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "merchandising-blueprint",
+      "branch": "main",
+      "category": "merchandising-blueprint",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/merchandising-blueprint",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

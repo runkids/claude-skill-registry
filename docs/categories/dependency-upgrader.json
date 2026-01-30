@@ -1,0 +1,20 @@
+{
+  "category": "dependency-upgrader",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.074406Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Upgrade dependencies for Java/Kotlin (Gradle/Maven) and TypeScript/Node projects with minimal risk: plan the bump, apply changes incrementally, run tests/builds, and document breaking changes. Use whe",
+      "repo": "lancenunes/codex-skills",
+      "path": "dependency-upgrader",
+      "branch": "main",
+      "category": "dependency-upgrader",
+      "tags": [],
+      "stars": 0,
+      "install": "lancenunes/codex-skills/dependency-upgrader",
+      "source": "github.com/lancenunes/codex-skills"
+    }
+  ]
+}

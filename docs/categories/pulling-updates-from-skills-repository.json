@@ -1,0 +1,20 @@
+{
+  "category": "pulling-updates-from-skills-repository",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.719725Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Sync local skills repository with upstream changes from obra/superpowers-skills",
+      "repo": "Blurjp/ImagePrepMCP",
+      "path": "pulling-updates-from-skills-repository",
+      "branch": "main",
+      "category": "pulling-updates-from-skills-repository",
+      "tags": [],
+      "stars": 0,
+      "install": "Blurjp/ImagePrepMCP/pulling-updates-from-skills-repository",
+      "source": "github.com/Blurjp/ImagePrepMCP"
+    }
+  ]
+}

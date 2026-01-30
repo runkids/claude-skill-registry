@@ -1,0 +1,20 @@
+{
+  "category": "azure-functions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.396486Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert patterns for Azure Functions development including isolated worker model, Durable Functions orchestration, cold start optimization, and production patterns. Covers .NET, Python, and Node.js pro",
+      "repo": "AxelMrak/ai",
+      "path": "azure-functions",
+      "branch": "main",
+      "category": "azure-functions",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/azure-functions",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

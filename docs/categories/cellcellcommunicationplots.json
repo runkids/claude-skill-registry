@@ -1,0 +1,20 @@
+{
+  "category": "cellcellcommunicationplots",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.500619Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Visualize cell-cell communication inference results from CellCellCommunication process. Creates publication-ready network diagrams, heatmaps, and interaction plots to help interpret ligand-receptor in",
+      "repo": "pwwang/immunopipe",
+      "path": "cellcellcommunicationplots",
+      "branch": "main",
+      "category": "cellcellcommunicationplots",
+      "tags": [],
+      "stars": 0,
+      "install": "pwwang/immunopipe/cellcellcommunicationplots",
+      "source": "github.com/pwwang/immunopipe"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "backend-async-python",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.405351Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master Python asyncio, concurrent programming, and async/await patterns for high-performance FastAPI applications. Use when building async APIs, concurrent systems, or I/O-bound applications requiring",
+      "repo": "shredbx/demo-3d-model",
+      "path": "backend-async-python",
+      "branch": "main",
+      "category": "backend-async-python",
+      "tags": [],
+      "stars": 0,
+      "install": "shredbx/demo-3d-model/backend-async-python",
+      "source": "github.com/shredbx/demo-3d-model"
+    }
+  ]
+}

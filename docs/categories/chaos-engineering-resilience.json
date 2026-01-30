@@ -1,0 +1,20 @@
+{
+  "category": "chaos-engineering-resilience",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.511354Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Chaos engineering principles, controlled failure injection, resilience testing, and system recovery validation. Use when testing distributed systems, building confidence in fault tolerance, or validat",
+      "repo": "proffesor-for-testing/sentinel-api-testing",
+      "path": "chaos-engineering-resilience",
+      "branch": "main",
+      "category": "chaos-engineering-resilience",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/sentinel-api-testing/chaos-engineering-resilience",
+      "source": "github.com/proffesor-for-testing/sentinel-api-testing"
+    }
+  ]
+}

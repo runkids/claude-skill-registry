@@ -1,0 +1,20 @@
+{
+  "category": "prompt-tuner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.707351Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Improve embedded LLM system prompt based on evaluation test failures",
+      "repo": "wildcard/caro",
+      "path": "prompt-tuner",
+      "branch": "main",
+      "category": "prompt-tuner",
+      "tags": [],
+      "stars": 0,
+      "install": "wildcard/caro/prompt-tuner",
+      "source": "github.com/wildcard/caro"
+    }
+  ]
+}

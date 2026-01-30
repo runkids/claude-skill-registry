@@ -1,0 +1,20 @@
+{
+  "category": "planka",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.583779Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage Planka (Kanban) projects, boards, lists, cards, and notifications via a custom Python CLI.",
+      "repo": "moltbot/skills",
+      "path": "planka",
+      "branch": "main",
+      "category": "planka",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/planka",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

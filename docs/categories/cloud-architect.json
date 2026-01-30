@@ -1,0 +1,20 @@
+{
+  "category": "cloud-architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.569513Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Copilot agent for cloud architecture design, AWS/Azure/GCP configuration, IaC code generation (Terraform/Bicep), and cost optimization  Trigger terms: cloud architecture, AWS, Azure, GCP, cloud infras",
+      "repo": "nahisaho/CodeGraphMCPServer",
+      "path": "cloud-architect",
+      "branch": "main",
+      "category": "cloud-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/CodeGraphMCPServer/cloud-architect",
+      "source": "github.com/nahisaho/CodeGraphMCPServer"
+    }
+  ]
+}

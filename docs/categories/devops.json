@@ -1,8 +1,8 @@
 {
   "category": "devops",
   "code": "ops",
-  "count": 3204,
-  "updated_at": "2026-01-29T04:50:38.860685Z",
+  "count": 3191,
+  "updated_at": "2026-01-30T04:55:06.407517Z",
   "skills": [
     {
       "name": "create-pr-n8n-io-n8n",
@@ -550,22 +550,6 @@
       ],
       "stars": 283,
       "install": "Dimillian/Skills/app-store-changelog",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "app-store-changelog",
-      "description": "Create user-facing App Store release notes by collecting and summarizing all user-impacting changes since the last git tag (or a specified ref). Use when asked to generate a comprehensive release chan",
-      "repo": "Dimillian/Skills",
-      "path": "data/app-store-changelog",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "app",
-        "store",
-        "changelog"
-      ],
-      "stars": 283,
-      "install": "Dimillian/Skills/data/app-store-changelog",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -7574,21 +7558,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "address-parser",
-      "description": "Parse unstructured addresses into structured components - street, city, state, zip, country with validation.",
-      "repo": "dkyazzentwatwa/chatgpt-skills",
-      "path": "address-parser",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "address",
-        "parser"
-      ],
-      "stars": 1,
-      "install": "dkyazzentwatwa/chatgpt-skills/address-parser",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "adr-roadmap",
       "description": "Generate phased implementation roadmaps from Architecture Decision Records",
       "repo": "vladm3105/aidoc-flow-framework",
@@ -8437,21 +8406,6 @@
       ],
       "stars": 1,
       "install": "pluginagentmarketplace/custom-plugin-nodejs/skills/docker-deployment",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "docker-deployment",
-      "description": "Containerize and deploy Node.js applications with Docker including multi-stage builds, Docker Compose, and production optimization",
-      "repo": "pluginagentmarketplace/custom-plugin-nodejs",
-      "path": "data/docker-deployment",
-      "branch": "main",
-      "category": "devops",
-      "tags": [
-        "docker",
-        "deployment"
-      ],
-      "stars": 1,
-      "install": "pluginagentmarketplace/custom-plugin-nodejs/data/docker-deployment",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -14613,18 +14567,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "cdk-stack-generator",
-      "description": "Cdk Stack Generator - Auto-activating skill for AWS Skills.Triggers on: cdk stack generator, cdk stack generatorPart of the AWS Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/cdk-stack-generator",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/cdk-stack-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "cdn-usage",
       "description": "Use when adding external browser dependencies via CDN - Provides CDN selection guidance to ensure reliable script loading.",
       "repo": "dave1010/tools",
@@ -15982,18 +15924,6 @@
       "tags": [],
       "stars": 0,
       "install": "anton-abyzov/specweave/plugins/specweave-cost-optimizer/skills/cloud-pricing",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "cloud-pricing",
-      "description": "Expert knowledge of cloud provider pricing models for AWS, Azure, GCP covering compute, storage, database, networking, and serverless services. Includes 2025 pricing data, regional differences, free t",
-      "repo": "anton-abyzov/specweave",
-      "path": "data/cloud-pricing",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "anton-abyzov/specweave/data/cloud-pricing",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -20514,18 +20444,6 @@
       "tags": [],
       "stars": 0,
       "install": "TheBushidoCollective/han/jutsu/jutsu-docker-compose/skills/docker-compose-production",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "docker-compose-production",
-      "description": "Use when deploying Docker Compose applications to production including security hardening, resource management, health checks, logging, monitoring, and high-availability patterns.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/docker-compose-production",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/docker-compose-production",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -26944,18 +26862,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "js-micro-utilities",
-      "description": "Zero-dependency JavaScript utilities using native APIs and just-* micro-packages. Use when manipulating objects, arrays, strings, numbers, or functions. Scan tables for native solution first (backtick",
-      "repo": "matthewharwood/fantasy-phonics",
-      "path": "data/js-micro-utilities",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "matthewharwood/fantasy-phonics/data/js-micro-utilities",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "julien-infra-hostinger-web",
       "description": "Web infrastructure for Hostinger VPS - Nginx reverse proxy, SSL/Let's Encrypt, configuration audit, and application deployment (INCLUZ'HACT). Use for site configuration, SSL setup, 502/504 errors, or",
       "repo": "theflysurfer/claude-skills-marketplace",
@@ -27944,18 +27850,6 @@
       "tags": [],
       "stars": 0,
       "install": "TheBushidoCollective/han/jutsu/jutsu-kustomize/skills/kustomize-basics",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "kustomize-basics",
-      "description": "Use when customizing Kubernetes configurations without templates using Kustomize overlays and patches.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/kustomize-basics",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/kustomize-basics",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -31723,18 +31617,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/packages/ai-ml-engineering-pack/skills/optimizing-prompts",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "optimizing-prompts",
-      "description": "This skill optimizes prompts for large language models (llms) to reduce token usage, lower costs, and improve performance. it analyzes the prompt, identifies areas for simplification and redundancy re",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/optimizing-prompts",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/optimizing-prompts",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -37055,15 +36937,15 @@
     },
     {
       "name": "SKILL.md",
-      "description": "DevOps standards, CI/CD pipelines, and containerization practices. Use this when users need guidance on setting up GitHub Actions workflows, Docker containerization, monitoring with Prometheus and Gra",
-      "repo": "leovido/leo-skills",
-      "path": "skills/devops",
+      "description": "Deploy to Cloudflare (Workers, R2, D1), Docker, GCP (Cloud Run, GKE), Kubernetes (kubectl, Helm). Use for serverless, containers, CI/CD, GitOps, security audit.",
+      "repo": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
+      "path": "devops",
       "branch": "main",
       "category": "devops",
       "tags": [],
       "stars": 0,
-      "install": "leovido/leo-skills/skills/devops",
-      "source": "github.com/leovido/leo-skills"
+      "install": "hoanghd218/landing-page-ai-kientruc-a-Ninh/devops",
+      "source": "github.com/hoanghd218/landing-page-ai-kientruc-a-Ninh"
     },
     {
       "name": "skills",
@@ -38743,18 +38625,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/08-ml-deployment/tensorflow-serving-setup",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "tensorflow-serving-setup",
-      "description": "Tensorflow Serving Setup - Auto-activating skill for ML Deployment.Triggers on: tensorflow serving setup, tensorflow serving setupPart of the ML Deployment skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/tensorflow-serving-setup",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/tensorflow-serving-setup",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -41029,18 +40899,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "vpc-network-setup",
-      "description": "Vpc Network Setup - Auto-activating skill for GCP Skills.Triggers on: vpc network setup, vpc network setupPart of the GCP Skills skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/vpc-network-setup",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/vpc-network-setup",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "vsa-pattern-selector",
       "description": "Blazor VSA パターンカタログからの適切なパターン選択支援。新機能追加、 CRUD 操作、クエリ実装、状態遷移、バウンダリー設計などの文脈で、 catalog/index.json の ai_decision_matrix に基づいて最適なパターンを 提案する。Feature Slice、Pipeline Behavior、Domain Pattern、 Query Pattern などか",
       "repo": "akiramei/blazor-enterprise-architecture-poc",
@@ -41223,18 +41081,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "weaviate-local-setup",
-      "description": "Set up and manage a local Weaviate instance using Docker",
-      "repo": "saskinosie/weaviate-claude-skills",
-      "path": "weaviate-local-setup",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "saskinosie/weaviate-claude-skills/weaviate-local-setup",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "web",
       "description": "Use to browse or verify external info—run web searches, open pages, drive Chrome via CDP tools, and cite sources when facts may be outdated, niche, or user-requested.",
       "repo": "gakonst/dotfiles",
@@ -41244,18 +41090,6 @@
       "tags": [],
       "stars": 0,
       "install": "gakonst/dotfiles/.codex/skills/web",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "web",
-      "description": "Use to browse or verify external info—run web searches, open pages, drive Chrome via CDP tools, and cite sources when facts may be outdated, niche, or user-requested.",
-      "repo": "gakonst/dotfiles",
-      "path": "data/web",
-      "branch": "main",
-      "category": "devops",
-      "tags": [],
-      "stars": 0,
-      "install": "gakonst/dotfiles/data/web",
       "source": "SkillsMP + GitHub Raw"
     },
     {

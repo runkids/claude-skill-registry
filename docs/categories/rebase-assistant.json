@@ -1,0 +1,20 @@
+{
+  "category": "rebase-assistant",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.787445Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide a safe git rebase of the current branch onto a target branch, including conflict triage and resolution steps. Use when asked to rebase, update a branch, or resolve rebase conflicts.",
+      "repo": "lancenunes/codex-skills",
+      "path": "rebase-assistant",
+      "branch": "main",
+      "category": "rebase-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "lancenunes/codex-skills/rebase-assistant",
+      "source": "github.com/lancenunes/codex-skills"
+    }
+  ]
+}

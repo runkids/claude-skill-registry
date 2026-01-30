@@ -1,0 +1,20 @@
+{
+  "category": "todozi",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.296027Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Todozi Eisenhower matrix API client + LangChain tools. Create matrices, tasks, goals, notes; list/search/update; bulk operations; webhooks. Categories: do, done, dream, delegate, defer, dont.",
+      "repo": "moltbot/skills",
+      "path": "todozi",
+      "branch": "main",
+      "category": "todozi",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/todozi",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

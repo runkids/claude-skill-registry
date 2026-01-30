@@ -1,0 +1,20 @@
+{
+  "category": "structured-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.107284Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-stage code review process for thorough and constructive feedback",
+      "repo": "rohitg00/skillkit",
+      "path": "structured-review",
+      "branch": "main",
+      "category": "structured-review",
+      "tags": [],
+      "stars": 0,
+      "install": "rohitg00/skillkit/structured-review",
+      "source": "github.com/rohitg00/skillkit"
+    }
+  ]
+}

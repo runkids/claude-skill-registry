@@ -1,0 +1,20 @@
+{
+  "category": "vps-deployment-specialist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.430464Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Full-stack VPS deployment: Docker, Caddy/Nginx, SSL, CI/CD, monitoring, security hardening. Use for server setup, deployment failures, SSL issues, Docker problems, reverse proxy config, GitHub Actions",
+      "repo": "endlessblink/flow-state",
+      "path": "vps-deployment-specialist",
+      "branch": "main",
+      "category": "vps-deployment-specialist",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/vps-deployment-specialist",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

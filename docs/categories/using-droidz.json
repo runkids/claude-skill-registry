@@ -1,0 +1,20 @@
+{
+  "category": "using-droidz",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.369488Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when starting any conversation - establishes mandatory workflows for finding and using skills in the Droidz/Factory.ai system, including reading skills before usage, following brainstorming before",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "using-droidz",
+      "branch": "main",
+      "category": "using-droidz",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2/using-droidz",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

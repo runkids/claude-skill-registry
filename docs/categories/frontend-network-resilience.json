@@ -1,0 +1,20 @@
+{
+  "category": "frontend-network-resilience",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.705190Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Network resilience patterns for frontend - retry logic, exponential backoff, error handling, offline detection",
+      "repo": "shredbx/demo-3d-model",
+      "path": "frontend-network-resilience",
+      "branch": "main",
+      "category": "frontend-network-resilience",
+      "tags": [],
+      "stars": 0,
+      "install": "shredbx/demo-3d-model/frontend-network-resilience",
+      "source": "github.com/shredbx/demo-3d-model"
+    }
+  ]
+}

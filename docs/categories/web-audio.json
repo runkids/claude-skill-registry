@@ -1,0 +1,20 @@
+{
+  "category": "web-audio",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.444311Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Production-tested patterns for fault-tolerant browser audio with zero-lag rapid-fire support. Use when implementing sound effects, background music, voice feedback, or any audio playback in web applic",
+      "repo": "matthewharwood/fantasy-phonics",
+      "path": "web-audio",
+      "branch": "main",
+      "category": "web-audio",
+      "tags": [],
+      "stars": 0,
+      "install": "matthewharwood/fantasy-phonics/web-audio",
+      "source": "github.com/matthewharwood/fantasy-phonics"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "use-optimistic",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.363951Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implémente useOptimistic pour instant UI updates avec VRAIE gestion du rollback. MANDATORY pour delete operations. À utiliser lors de mutations, deletes, ou quand l'utilisateur mentionne \"optimistic\",",
+      "repo": "RomualdP/hoki",
+      "path": "use-optimistic",
+      "branch": "main",
+      "category": "use-optimistic",
+      "tags": [],
+      "stars": 0,
+      "install": "RomualdP/hoki/use-optimistic",
+      "source": "github.com/RomualdP/hoki"
+    }
+  ]
+}

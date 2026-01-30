@@ -1,0 +1,20 @@
+{
+  "category": "csharp-xml-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.726831Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "C# XML documentation with on-demand Haiku→Expert Review→Final workflow. Flexible Korean/English language support. Use when documenting C# APIs, properties, methods, classes, and interfaces.",
+      "repo": "creator-hian/claude-code-plugins",
+      "path": "csharp-xml-docs",
+      "branch": "main",
+      "category": "csharp-xml-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "creator-hian/claude-code-plugins/csharp-xml-docs",
+      "source": "github.com/creator-hian/claude-code-plugins"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "claude-sdk",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.542731Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build autonomous AI agents using Claude Agent SDK with computer use, tool calling, MCP integration, and production best practices for Anthropic models",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "claude-sdk",
+      "branch": "main",
+      "category": "claude-sdk",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os/claude-sdk",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

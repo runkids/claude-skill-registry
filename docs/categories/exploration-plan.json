@@ -1,0 +1,20 @@
+{
+  "category": "exploration-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.620961Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Structure work into plans and Beads. Three modes: plan from brainstorm, plan from scratch, or create Beads from existing plan.",
+      "repo": "thebrownproject/space-agents",
+      "path": "exploration-plan",
+      "branch": "main",
+      "category": "exploration-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "thebrownproject/space-agents/exploration-plan",
+      "source": "github.com/thebrownproject/space-agents"
+    }
+  ]
+}

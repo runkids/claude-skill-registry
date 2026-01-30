@@ -1,0 +1,20 @@
+{
+  "category": "agentic-layer-audit",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.248101Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audit codebase for agentic layer coverage and identify gaps. Use when assessing agentic layer maturity, identifying investment opportunities, or evaluating primitive coverage.",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "agentic-layer-audit",
+      "branch": "main",
+      "category": "agentic-layer-audit",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/agentic-layer-audit",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

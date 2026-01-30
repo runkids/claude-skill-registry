@@ -1,0 +1,20 @@
+{
+  "category": "image-gen",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.861217Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate website images with Gemini 3 Native Image Generation. Covers hero banners, service cards, infographics with legible text, and multi-turn editing. Includes Australian-specific imagery patterns",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "image-gen",
+      "branch": "main",
+      "category": "image-gen",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/image-gen",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

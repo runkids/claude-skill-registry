@@ -1,0 +1,20 @@
+{
+  "category": "magento-index-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.063634Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimizes Magento 2 indexing for search performance and database efficiency. Use when optimizing search performance, configuring Elasticsearch, designing database indexes, or improving reindexing stra",
+      "repo": "maxnorm/magento2-agent-skills",
+      "path": "magento-index-analyst",
+      "branch": "main",
+      "category": "magento-index-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "maxnorm/magento2-agent-skills/magento-index-analyst",
+      "source": "github.com/maxnorm/magento2-agent-skills"
+    }
+  ]
+}

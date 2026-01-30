@@ -1,0 +1,20 @@
+{
+  "category": "ask-question-if-underspecified",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.357409Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Clarify requirements before implementing. Use when serious doubts arise.",
+      "repo": "petebarbosa/dotfiles",
+      "path": "ask-question-if-underspecified",
+      "branch": "main",
+      "category": "ask-question-if-underspecified",
+      "tags": [],
+      "stars": 0,
+      "install": "petebarbosa/dotfiles/ask-question-if-underspecified",
+      "source": "github.com/petebarbosa/dotfiles"
+    }
+  ]
+}

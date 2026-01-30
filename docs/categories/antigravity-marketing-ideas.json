@@ -1,0 +1,20 @@
+{
+  "category": "antigravity-marketing-ideas",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.311065Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provide proven marketing strategies and growth ideas for SaaS and software products, prioritized using a marketing feasibility scoring system.",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-marketing-ideas",
+      "branch": "main",
+      "category": "antigravity-marketing-ideas",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/antigravity-marketing-ideas",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

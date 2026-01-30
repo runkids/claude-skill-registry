@@ -1,0 +1,20 @@
+{
+  "category": "pydantic-ai",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.724022Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build AI agents with PydanticAI. Type-safe agent framework with structured outputs, tools, and dependency injection. Use for production AI agents, type-safe LLM applications, and Python AI development",
+      "repo": "fgarofalo56/Suppercharge_Microsoft_Fabric",
+      "path": "pydantic-ai",
+      "branch": "main",
+      "category": "pydantic-ai",
+      "tags": [],
+      "stars": 0,
+      "install": "fgarofalo56/Suppercharge_Microsoft_Fabric/pydantic-ai",
+      "source": "github.com/fgarofalo56/Suppercharge_Microsoft_Fabric"
+    }
+  ]
+}

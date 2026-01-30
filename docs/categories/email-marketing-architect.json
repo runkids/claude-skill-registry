@@ -1,0 +1,20 @@
+{
+  "category": "email-marketing-architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.567743Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive email marketing strategy including drip campaigns, segmentation, automation workflows, copywriting guidelines, deliverability best practices, and 90-day implementation roadmap with full-",
+      "repo": "maigentic/stratarts",
+      "path": "email-marketing-architect",
+      "branch": "main",
+      "category": "email-marketing-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/email-marketing-architect",
+      "source": "github.com/maigentic/stratarts"
+    }
+  ]
+}

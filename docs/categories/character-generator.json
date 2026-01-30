@@ -1,0 +1,20 @@
+{
+  "category": "character-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.513103Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate complete elizaOS character configurations with personality, knowledge, and plugin setup. Triggers when user asks to \"create character\", \"generate agent config\", or \"build elizaOS character\"",
+      "repo": "Dexploarer/hyper-forge",
+      "path": "character-generator",
+      "branch": "main",
+      "category": "character-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "Dexploarer/hyper-forge/character-generator",
+      "source": "github.com/Dexploarer/hyper-forge"
+    }
+  ]
+}

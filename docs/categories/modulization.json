@@ -1,0 +1,20 @@
+{
+  "category": "modulization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.193986Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cadence-driven work moderation and recomposition system that discovers unfinished, fragmented, and drifting work across the codebase and collaboration surfaces, then recomposes it into coherent, sched",
+      "repo": "wildcard/caro",
+      "path": "modulization",
+      "branch": "main",
+      "category": "modulization",
+      "tags": [],
+      "stars": 0,
+      "install": "wildcard/caro/modulization",
+      "source": "github.com/wildcard/caro"
+    }
+  ]
+}

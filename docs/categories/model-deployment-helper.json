@@ -1,0 +1,20 @@
+{
+  "category": "model-deployment-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.186913Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill enables Claude to deploy machine learning models to production environments. It automates the deployment workflow, implements best practices for serving models, optimizes performance, and h",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "model-deployment-helper",
+      "branch": "main",
+      "category": "model-deployment-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla/model-deployment-helper",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

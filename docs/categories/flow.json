@@ -1,0 +1,20 @@
+{
+  "category": "flow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.678571Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when you need to run Flow type checking, or when seeing Flow type errors in React code.",
+      "repo": "chltjs1921/udemy-github-tags-demo",
+      "path": "flow",
+      "branch": "main",
+      "category": "flow",
+      "tags": [],
+      "stars": 0,
+      "install": "chltjs1921/udemy-github-tags-demo/flow",
+      "source": "github.com/chltjs1921/udemy-github-tags-demo"
+    }
+  ]
+}

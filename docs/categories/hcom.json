@@ -1,0 +1,20 @@
+{
+  "category": "hcom",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.825125Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "multi-agent communication and coordination for Claude Code, Gemini CLI & Codex. Use this skill when the human user needs help, status, or reference about hcom - when user asks questions like \"how to s",
+      "repo": "aannoo/hcom",
+      "path": "hcom",
+      "branch": "main",
+      "category": "hcom",
+      "tags": [],
+      "stars": 0,
+      "install": "aannoo/hcom/hcom",
+      "source": "github.com/aannoo/hcom"
+    }
+  ]
+}

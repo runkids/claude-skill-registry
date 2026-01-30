@@ -1,0 +1,20 @@
+{
+  "category": "validate-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.392237Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- After a plan has been created",
+      "repo": "EtroxTaran/conductor",
+      "path": "validate-plan",
+      "branch": "main",
+      "category": "validate-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor/validate-plan",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

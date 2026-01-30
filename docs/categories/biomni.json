@@ -1,0 +1,20 @@
+{
+  "category": "biomni",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.430768Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Autonomous biomedical AI agent framework for executing complex research tasks across genomics, drug discovery, molecular biology, and clinical analysis. Use this skill when conducting multi-step biome",
+      "repo": "ovachiever/droid-tings",
+      "path": "biomni",
+      "branch": "main",
+      "category": "biomni",
+      "tags": [],
+      "stars": 0,
+      "install": "ovachiever/droid-tings/biomni",
+      "source": "github.com/ovachiever/droid-tings"
+    }
+  ]
+}

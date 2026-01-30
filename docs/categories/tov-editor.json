@@ -1,0 +1,20 @@
+{
+  "category": "tov-editor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.305414Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Brand voice editor trained on the Tone & Writing Style Guide. Reviews copy for alignment with intimate, bold, consent-forward, sex-positive tone. Audits microcopy, red flags, lexicon, rhythm, consent",
+      "repo": "RogueRope/docs",
+      "path": "tov-editor",
+      "branch": "main",
+      "category": "tov-editor",
+      "tags": [],
+      "stars": 0,
+      "install": "RogueRope/docs/tov-editor",
+      "source": "github.com/RogueRope/docs"
+    }
+  ]
+}

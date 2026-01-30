@@ -1,0 +1,20 @@
+{
+  "category": "dev-workflows",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.176579Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when running builds, executing tests, or improving developer experience workflows - provides structured guidance for build/test execution and DX improvement.",
+      "repo": "NickCrew/claude-cortex",
+      "path": "dev-workflows",
+      "branch": "main",
+      "category": "dev-workflows",
+      "tags": [],
+      "stars": 0,
+      "install": "NickCrew/claude-cortex/dev-workflows",
+      "source": "github.com/NickCrew/claude-cortex"
+    }
+  ]
+}

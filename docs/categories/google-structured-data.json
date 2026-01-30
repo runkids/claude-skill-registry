@@ -1,0 +1,20 @@
+{
+  "category": "google-structured-data",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.792004Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Google Search structured data implementation - Schema.org markup for rich results, JSON-LD templates, JavaScript generation, and SEO best practices",
+      "repo": "enuno/claude-command-and-control",
+      "path": "google-structured-data",
+      "branch": "main",
+      "category": "google-structured-data",
+      "tags": [],
+      "stars": 0,
+      "install": "enuno/claude-command-and-control/google-structured-data",
+      "source": "github.com/enuno/claude-command-and-control"
+    }
+  ]
+}

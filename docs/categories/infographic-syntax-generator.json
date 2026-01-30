@@ -1,0 +1,20 @@
+{
+  "category": "infographic-syntax-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.876921Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate AntV Infographic syntax outputs. Use when asked to turn user content into the Infographic DSL (template selection, data structuring, theme), or to output `infographic <template>` plain syntax",
+      "repo": "zhuxingwan/Infographic",
+      "path": "infographic-syntax-generator",
+      "branch": "main",
+      "category": "infographic-syntax-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "zhuxingwan/Infographic/infographic-syntax-generator",
+      "source": "github.com/zhuxingwan/Infographic"
+    }
+  ]
+}

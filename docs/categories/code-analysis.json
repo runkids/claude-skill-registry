@@ -1,0 +1,20 @@
+{
+  "category": "code-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.586377Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides methodologies, metrics, and best practices for analyzing code structure, complexity, and quality",
+      "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+      "path": "code-analysis",
+      "branch": "main",
+      "category": "code-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude/code-analysis",
+      "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude"
+    }
+  ]
+}

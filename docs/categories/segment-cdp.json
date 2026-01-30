@@ -1,0 +1,20 @@
+{
+  "category": "segment-cdp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.955102Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert patterns for Segment Customer Data Platform including Analytics.js, server-side tracking, tracking plans with Protocols, identity resolution, destinations configuration, and data governance bes",
+      "repo": "AxelMrak/ai",
+      "path": "segment-cdp",
+      "branch": "main",
+      "category": "segment-cdp",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/segment-cdp",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

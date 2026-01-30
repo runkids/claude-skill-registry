@@ -1,0 +1,20 @@
+{
+  "category": "optimizing-query-text",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.302704Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimizes Snowflake SQL query performance from provided query text. Use when optimizing Snowflake SQL for: (1) User provides or pastes a SQL query and asks to optimize, tune, or improve it (2) Task me",
+      "repo": "AltimateAI/data-engineering-skills",
+      "path": "optimizing-query-text",
+      "branch": "main",
+      "category": "optimizing-query-text",
+      "tags": [],
+      "stars": 0,
+      "install": "AltimateAI/data-engineering-skills/optimizing-query-text",
+      "source": "github.com/AltimateAI/data-engineering-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "langchain4j-rag-implementation-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.969160Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement Retrieval-Augmented Generation (RAG) systems with LangChain4j. Build document ingestion pipelines, embedding stores, vector search strategies, and knowledge-enhanced AI applications. Use whe",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "langchain4j-rag-implementation-patterns",
+      "branch": "main",
+      "category": "langchain4j-rag-implementation-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/langchain4j-rag-implementation-patterns",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "funnel-map",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.715855Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Map complete funnel from ad to conversion, documenting each step, identifying metrics at each stage, calculating stage-to-stage conversion rates, and highlighting biggest drop-off points. Use for funn",
+      "repo": "WalkerHi11/mediabuy-plugins",
+      "path": "funnel-map",
+      "branch": "main",
+      "category": "funnel-map",
+      "tags": [],
+      "stars": 0,
+      "install": "WalkerHi11/mediabuy-plugins/funnel-map",
+      "source": "github.com/WalkerHi11/mediabuy-plugins"
+    }
+  ]
+}

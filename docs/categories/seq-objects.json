@@ -1,0 +1,20 @@
+{
+  "category": "seq-objects",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.969241Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and manipulate Seq, MutableSeq, and SeqRecord objects using Biopython. Use when creating sequences from strings, modifying sequence data in-place, or building annotated sequence records.",
+      "repo": "GPTomics/bioSkills",
+      "path": "seq-objects",
+      "branch": "main",
+      "category": "seq-objects",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/seq-objects",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

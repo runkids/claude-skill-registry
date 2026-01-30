@@ -1,0 +1,20 @@
+{
+  "category": "composio-invoice-organizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.637530Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automatically organizes invoices and receipts for tax preparation by reading messy files, extracting key information, renaming them consistently, and sorting them into logical folders. Turns hours of",
+      "repo": "boisenoise/skills-collections",
+      "path": "composio-invoice-organizer",
+      "branch": "main",
+      "category": "composio-invoice-organizer",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/composio-invoice-organizer",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

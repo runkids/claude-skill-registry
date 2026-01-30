@@ -1,0 +1,20 @@
+{
+  "category": "worker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.476078Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute beads autonomously within a track. Handles bead-to-bead context persistence via Agent Mail, uses preferred tools from AGENTS.md, and reports progress to orchestrator.",
+      "repo": "draphonix/skills",
+      "path": "worker",
+      "branch": "main",
+      "category": "worker",
+      "tags": [],
+      "stars": 0,
+      "install": "draphonix/skills/worker",
+      "source": "github.com/draphonix/skills"
+    }
+  ]
+}

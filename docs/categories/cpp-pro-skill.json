@@ -1,0 +1,20 @@
+{
+  "category": "cpp-pro-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.692735Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "C++20 specialist with expertise in modern C++ features, performance optimization, and system programming",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "cpp-pro-skill",
+      "branch": "main",
+      "category": "cpp-pro-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/cpp-pro-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

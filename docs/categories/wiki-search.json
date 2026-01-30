@@ -1,0 +1,20 @@
+{
+  "category": "wiki-search",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.469247Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Search INAV wiki documentation for implementation guidance",
+      "repo": "sensei-hacker/inav-claude",
+      "path": "wiki-search",
+      "branch": "main",
+      "category": "wiki-search",
+      "tags": [],
+      "stars": 0,
+      "install": "sensei-hacker/inav-claude/wiki-search",
+      "source": "github.com/sensei-hacker/inav-claude"
+    }
+  ]
+}

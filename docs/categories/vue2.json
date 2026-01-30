@@ -1,0 +1,20 @@
+{
+  "category": "vue2",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.436031Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Vue 2.x development including Options API, components, directives, lifecycle hooks, computed properties, watchers, Vuex state management, and Vue Router. Use when t",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "vue2",
+      "branch": "main",
+      "category": "vue2",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/vue2",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

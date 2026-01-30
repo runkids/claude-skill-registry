@@ -1,0 +1,20 @@
+{
+  "category": "backup-retention-policy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.413436Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по политикам бэкапов. Используй для стратегий резервного копирования, retention rules и disaster recovery.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "backup-retention-policy",
+      "branch": "main",
+      "category": "backup-retention-policy",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/backup-retention-policy",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

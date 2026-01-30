@@ -1,0 +1,20 @@
+{
+  "category": "commands-ja",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.617918Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ユーザーのスキル変更要求を精度最大化して実装",
+      "repo": "shinpr/ai-coding-project-boilerplate",
+      "path": "commands-ja",
+      "branch": "main",
+      "category": "commands-ja",
+      "tags": [],
+      "stars": 0,
+      "install": "shinpr/ai-coding-project-boilerplate/commands-ja",
+      "source": "github.com/shinpr/ai-coding-project-boilerplate"
+    }
+  ]
+}

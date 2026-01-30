@@ -1,0 +1,20 @@
+{
+  "category": "reference-operations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.798792Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate consensus sequences and manage reference files using samtools. Use when creating consensus from alignments, indexing references, or creating sequence dictionaries.",
+      "repo": "GPTomics/bioSkills",
+      "path": "reference-operations",
+      "branch": "main",
+      "category": "reference-operations",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/reference-operations",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

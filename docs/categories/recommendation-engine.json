@@ -1,0 +1,20 @@
+{
+  "category": "recommendation-engine",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.789670Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build recommendation systems with collaborative filtering, matrix factorization, hybrid approaches. Use for product recommendations, personalization, or encountering cold start, sparsity, quality eval",
+      "repo": "secondsky/claude-skills",
+      "path": "recommendation-engine",
+      "branch": "main",
+      "category": "recommendation-engine",
+      "tags": [],
+      "stars": 0,
+      "install": "secondsky/claude-skills/recommendation-engine",
+      "source": "github.com/secondsky/claude-skills"
+    }
+  ]
+}

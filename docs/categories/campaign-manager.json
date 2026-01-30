@@ -1,0 +1,20 @@
+{
+  "category": "campaign-manager",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.482681Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Goal-oriented binder design campaign planning and health assessment. Use this skill when: (1) Planning a complete binder design campaign, (2) Converting high-level goals into runnable pipelines, (3) A",
+      "repo": "adaptyvbio/protein-design-skills",
+      "path": "campaign-manager",
+      "branch": "main",
+      "category": "campaign-manager",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptyvbio/protein-design-skills/campaign-manager",
+      "source": "github.com/adaptyvbio/protein-design-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "ops-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.298547Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide user through support platform setup. Use when user says \"set up\", \"configure\", \"I'm on step X\", or provides API keys/credentials.",
+      "repo": "skillrecordings/support",
+      "path": "ops-setup",
+      "branch": "main",
+      "category": "ops-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "skillrecordings/support/ops-setup",
+      "source": "github.com/skillrecordings/support"
+    }
+  ]
+}

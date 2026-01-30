@@ -1,0 +1,20 @@
+{
+  "category": "archive",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.351610Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Archive completed task/spec work to ./.gtd/archive/",
+      "repo": "Hoang604/get-thing-done",
+      "path": "archive",
+      "branch": "main",
+      "category": "archive",
+      "tags": [],
+      "stars": 0,
+      "install": "Hoang604/get-thing-done/archive",
+      "source": "github.com/Hoang604/get-thing-done"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "debugger",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.055275Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Debugging specialist for errors, test failures, and unexpected behavior. Use proactively when encountering any issues.",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "debugger",
+      "branch": "main",
+      "category": "debugger",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/debugger",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

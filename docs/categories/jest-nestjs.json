@@ -1,0 +1,20 @@
+{
+  "category": "jest-nestjs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.920558Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Jest + NestJS testing patterns for unit and e2e tests in Aurora projects. Trigger: When writing tests, mocking dependencies, or implementing test coverage in NestJS/Aurora.",
+      "repo": "avvale/aurora-back",
+      "path": "jest-nestjs",
+      "branch": "main",
+      "category": "jest-nestjs",
+      "tags": [],
+      "stars": 0,
+      "install": "avvale/aurora-back/jest-nestjs",
+      "source": "github.com/avvale/aurora-back"
+    }
+  ]
+}

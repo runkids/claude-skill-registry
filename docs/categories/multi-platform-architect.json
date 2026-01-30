@@ -1,0 +1,20 @@
+{
+  "category": "multi-platform-architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.212334Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-Platform AI Ecosystem Architect - Master skill for creating ecosystem components across Claude Code, Codex, Auggie, Kilocode, Goose, Gemini-CLI",
+      "repo": "aegntic/claudeism",
+      "path": "multi-platform-architect",
+      "branch": "main",
+      "category": "multi-platform-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "aegntic/claudeism/multi-platform-architect",
+      "source": "github.com/aegntic/claudeism"
+    }
+  ]
+}

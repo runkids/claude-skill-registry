@@ -1,0 +1,20 @@
+{
+  "category": "release-coordinator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.806341Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Coordinates multi-component releases, feature flags, versioning, and rollback strategies.  Trigger terms: release management, release planning, release coordination, feature flags, canary deployment,",
+      "repo": "nahisaho/CodeGraphMCPServer",
+      "path": "release-coordinator",
+      "branch": "main",
+      "category": "release-coordinator",
+      "tags": [],
+      "stars": 0,
+      "install": "nahisaho/CodeGraphMCPServer/release-coordinator",
+      "source": "github.com/nahisaho/CodeGraphMCPServer"
+    }
+  ]
+}

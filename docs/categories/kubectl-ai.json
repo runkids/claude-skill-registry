@@ -1,0 +1,20 @@
+{
+  "category": "kubectl-ai",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.960064Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AI-powered Kubernetes operations using kubectl-ai from Google Cloud Platform. This skill should be used when managing Kubernetes clusters with natural language commands, generating manifests, troubles",
+      "repo": "mjunaidca/mjs-agent-skills",
+      "path": "kubectl-ai",
+      "branch": "main",
+      "category": "kubectl-ai",
+      "tags": [],
+      "stars": 0,
+      "install": "mjunaidca/mjs-agent-skills/kubectl-ai",
+      "source": "github.com/mjunaidca/mjs-agent-skills"
+    }
+  ]
+}

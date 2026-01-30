@@ -1,0 +1,20 @@
+{
+  "category": "readme-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.784042Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-activates when user mentions README, project documentation, getting started guide, or creating project docs. Generates comprehensive README.md.",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "readme-generator",
+      "branch": "main",
+      "category": "readme-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2/readme-generator",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

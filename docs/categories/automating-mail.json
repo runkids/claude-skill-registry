@@ -1,0 +1,20 @@
+{
+  "category": "automating-mail",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.378816Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automates Apple Mail via JXA with AppleScript dictionary discovery. Use when asked to \"automate email\", \"send mail via script\", \"JXA Mail automation\", or \"filter email messages\". Covers accounts, mail",
+      "repo": "SpillwaveSolutions/automating-mac-apps-plugin",
+      "path": "automating-mail",
+      "branch": "main",
+      "category": "automating-mail",
+      "tags": [],
+      "stars": 0,
+      "install": "SpillwaveSolutions/automating-mac-apps-plugin/automating-mail",
+      "source": "github.com/SpillwaveSolutions/automating-mac-apps-plugin"
+    }
+  ]
+}

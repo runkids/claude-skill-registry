@@ -1,0 +1,20 @@
+{
+  "category": "tdd-loop",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.175884Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test-driven development loop for workflows - write tests first, then implementation",
+      "repo": "mpuig/raw",
+      "path": "tdd-loop",
+      "branch": "main",
+      "category": "tdd-loop",
+      "tags": [],
+      "stars": 0,
+      "install": "mpuig/raw/tdd-loop",
+      "source": "github.com/mpuig/raw"
+    }
+  ]
+}

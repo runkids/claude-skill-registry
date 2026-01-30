@@ -1,0 +1,20 @@
+{
+  "category": "vision",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.422365Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "这个技能接收用户给出的图片、pdf文件，按照用户的要求进行描述、综述、解释、界面截图复刻等功能。",
+      "repo": "flyingtimes/podcast-using-skill",
+      "path": "vision",
+      "branch": "main",
+      "category": "vision",
+      "tags": [],
+      "stars": 0,
+      "install": "flyingtimes/podcast-using-skill/vision",
+      "source": "github.com/flyingtimes/podcast-using-skill"
+    }
+  ]
+}

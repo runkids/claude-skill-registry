@@ -1,0 +1,20 @@
+{
+  "category": "add-custom-mob",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.203343Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when adding new mobs or entities. Covers entity class, model, renderer, client registration, spawn config, loot tables.",
+      "repo": "ksoichiro/ChronoDawn",
+      "path": "add-custom-mob",
+      "branch": "main",
+      "category": "add-custom-mob",
+      "tags": [],
+      "stars": 0,
+      "install": "ksoichiro/ChronoDawn/add-custom-mob",
+      "source": "github.com/ksoichiro/ChronoDawn"
+    }
+  ]
+}

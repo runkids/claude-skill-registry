@@ -1,0 +1,20 @@
+{
+  "category": "suggestion-engine",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.114750Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "智能建议引擎，根据上下文和用户行为主动推荐相关操作",
+      "repo": "huifer/Claude-Code-KnowCraft",
+      "path": "suggestion-engine",
+      "branch": "main",
+      "category": "suggestion-engine",
+      "tags": [],
+      "stars": 0,
+      "install": "huifer/Claude-Code-KnowCraft/suggestion-engine",
+      "source": "github.com/huifer/Claude-Code-KnowCraft"
+    }
+  ]
+}

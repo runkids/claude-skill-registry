@@ -1,0 +1,20 @@
+{
+  "category": "terraform-engineer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.193398Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when implementing infrastructure as code with Terraform across AWS, Azure, or GCP. Invoke for module development, state management, provider configuration, multi-environment workflows, infrastruct",
+      "repo": "Jeffallan/claude-skills",
+      "path": "terraform-engineer",
+      "branch": "main",
+      "category": "terraform-engineer",
+      "tags": [],
+      "stars": 0,
+      "install": "Jeffallan/claude-skills/terraform-engineer",
+      "source": "github.com/Jeffallan/claude-skills"
+    }
+  ]
+}

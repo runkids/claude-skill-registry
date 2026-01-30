@@ -1,0 +1,20 @@
+{
+  "category": "okyline",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.282009Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert assistant for the Okyline schema language. Okyline enables JSON data  validation by example, where constraints are expressed inline on field names.  Use when creating, editing, or converting JS",
+      "repo": "Okyline/Okyline-skill",
+      "path": "okyline",
+      "branch": "main",
+      "category": "okyline",
+      "tags": [],
+      "stars": 0,
+      "install": "Okyline/Okyline-skill/okyline",
+      "source": "github.com/Okyline/Okyline-skill"
+    }
+  ]
+}

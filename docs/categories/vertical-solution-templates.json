@@ -1,0 +1,20 @@
+{
+  "category": "vertical-solution-templates",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.410175Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Library of reusable solution briefs, architecture, and pricing frames per industry.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "vertical-solution-templates",
+      "branch": "main",
+      "category": "vertical-solution-templates",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/vertical-solution-templates",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

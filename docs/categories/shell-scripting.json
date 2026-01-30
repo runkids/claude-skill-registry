@@ -1,0 +1,20 @@
+{
+  "category": "shell-scripting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.994457Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Specialized knowledge of Bash and Zsh scripting, shell automation, command-line tools, and scripting best practices. Use when the user needs to write, debug, or optimize shell scripts or work with com",
+      "repo": "einverne/dotfiles",
+      "path": "shell-scripting",
+      "branch": "main",
+      "category": "shell-scripting",
+      "tags": [],
+      "stars": 0,
+      "install": "einverne/dotfiles/shell-scripting",
+      "source": "github.com/einverne/dotfiles"
+    }
+  ]
+}

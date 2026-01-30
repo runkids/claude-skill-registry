@@ -1,0 +1,20 @@
+{
+  "category": "ralph-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.762778Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interactive vision planning using Socratic method. Use when user asks to \"ralph plan vision\", \"plan a vision\", \"ralph plan roadmap\", \"ralph plan stories\", \"ralph plan tasks\", or needs to define produc",
+      "repo": "otrebu/all-agents",
+      "path": "ralph-plan",
+      "branch": "main",
+      "category": "ralph-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "otrebu/all-agents/ralph-plan",
+      "source": "github.com/otrebu/all-agents"
+    }
+  ]
+}

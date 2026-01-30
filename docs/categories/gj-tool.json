@@ -1,0 +1,20 @@
+{
+  "category": "gj-tool",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.777819Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build, run, test, and debug GrooveTech apps (Orchestrator, Pfizer, GMP, Media Server). Use gj commands - never construct xcodebuild commands manually.",
+      "repo": "carmandale/agent-config",
+      "path": "gj-tool",
+      "branch": "main",
+      "category": "gj-tool",
+      "tags": [],
+      "stars": 0,
+      "install": "carmandale/agent-config/gj-tool",
+      "source": "github.com/carmandale/agent-config"
+    }
+  ]
+}

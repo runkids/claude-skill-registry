@@ -1,0 +1,20 @@
+{
+  "category": "agent-tool",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.243572Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define tools for the support agent. Use when adding new capabilities like refund processing, license transfer, knowledge lookup, or any agent action.",
+      "repo": "skillrecordings/support",
+      "path": "agent-tool",
+      "branch": "main",
+      "category": "agent-tool",
+      "tags": [],
+      "stars": 0,
+      "install": "skillrecordings/support/agent-tool",
+      "source": "github.com/skillrecordings/support"
+    }
+  ]
+}

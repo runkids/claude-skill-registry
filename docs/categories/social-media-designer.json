@@ -1,0 +1,20 @@
+{
+  "category": "social-media-designer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.037823Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create platform-optimized social media graphics",
+      "repo": "eddiebe147/claude-settings",
+      "path": "social-media-designer",
+      "branch": "main",
+      "category": "social-media-designer",
+      "tags": [],
+      "stars": 0,
+      "install": "eddiebe147/claude-settings/social-media-designer",
+      "source": "github.com/eddiebe147/claude-settings"
+    }
+  ]
+}

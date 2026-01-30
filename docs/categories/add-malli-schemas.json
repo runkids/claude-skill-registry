@@ -1,0 +1,20 @@
+{
+  "category": "add-malli-schemas",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.206090Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Efficiently add Malli schemas to API endpoints in the Metabase codebase with proper patterns, validation timing, and error handling",
+      "repo": "Kidoz-SDK/metabase",
+      "path": "add-malli-schemas",
+      "branch": "main",
+      "category": "add-malli-schemas",
+      "tags": [],
+      "stars": 0,
+      "install": "Kidoz-SDK/metabase/add-malli-schemas",
+      "source": "github.com/Kidoz-SDK/metabase"
+    }
+  ]
+}

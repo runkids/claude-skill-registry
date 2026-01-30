@@ -1,0 +1,20 @@
+{
+  "category": "storybook-scaffolder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.097426Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates a Storybook story file (*.stories.tsx) with M3 design token imports and interactive variant stories. Use when documenting React components for development and QA testing.",
+      "repo": "okgoogle13/careercopilot",
+      "path": "storybook-scaffolder",
+      "branch": "main",
+      "category": "storybook-scaffolder",
+      "tags": [],
+      "stars": 0,
+      "install": "okgoogle13/careercopilot/storybook-scaffolder",
+      "source": "github.com/okgoogle13/careercopilot"
+    }
+  ]
+}

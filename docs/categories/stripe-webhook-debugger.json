@@ -1,0 +1,20 @@
+{
+  "category": "stripe-webhook-debugger",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.104877Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Debug and analyze Stripe webhook issues including signature verification failures, event payload analysis, error code interpretation, and integration troubleshooting. Use when webhooks are failing, wh",
+      "repo": "whatnextjamie/stripe-webhook-skills",
+      "path": "stripe-webhook-debugger",
+      "branch": "main",
+      "category": "stripe-webhook-debugger",
+      "tags": [],
+      "stars": 0,
+      "install": "whatnextjamie/stripe-webhook-skills/stripe-webhook-debugger",
+      "source": "github.com/whatnextjamie/stripe-webhook-skills"
+    }
+  ]
+}

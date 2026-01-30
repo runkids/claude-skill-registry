@@ -1,0 +1,20 @@
+{
+  "category": "job-description-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.927389Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по job descriptions. Используй для создания вакансий, требований и EVP.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "job-description-generator",
+      "branch": "main",
+      "category": "job-description-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/job-description-generator",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

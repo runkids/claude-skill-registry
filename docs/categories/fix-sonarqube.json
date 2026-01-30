@@ -1,0 +1,20 @@
+{
+  "category": "fix-sonarqube",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.675216Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SonarQube integration via MCP for Java projects. The MCP server runs remotely and requires no local setup. Use natural language to query issues, analyze code, and check quality gates.",
+      "repo": "bitsoex/bitso-java",
+      "path": "fix-sonarqube",
+      "branch": "main",
+      "category": "fix-sonarqube",
+      "tags": [],
+      "stars": 0,
+      "install": "bitsoex/bitso-java/fix-sonarqube",
+      "source": "github.com/bitsoex/bitso-java"
+    }
+  ]
+}

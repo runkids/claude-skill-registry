@@ -1,0 +1,20 @@
+{
+  "category": "engineer-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.573647Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes technical systems and problems through engineering lens using first principles, systems thinking, design methodologies, and optimization frameworks. Provides insights on feasibility, performa",
+      "repo": "rysweet/AzureHayMaker",
+      "path": "engineer-analyst",
+      "branch": "main",
+      "category": "engineer-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/AzureHayMaker/engineer-analyst",
+      "source": "github.com/rysweet/AzureHayMaker"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "bird",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.431374Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "X/Twitter CLI for reading, searching, and posting via cookies or Sweetistics.",
+      "repo": "rdsthomas/mission-control",
+      "path": "bird",
+      "branch": "main",
+      "category": "bird",
+      "tags": [],
+      "stars": 0,
+      "install": "rdsthomas/mission-control/bird",
+      "source": "github.com/rdsthomas/mission-control"
+    }
+  ]
+}

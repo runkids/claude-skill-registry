@@ -1,0 +1,20 @@
+{
+  "category": "clerk-sdk-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.554558Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Common Clerk SDK patterns and best practices. Use when implementing authentication flows, accessing user data, or integrating Clerk SDK methods in your application. Trigger with phrases like \"clerk SD",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "clerk-sdk-patterns",
+      "branch": "main",
+      "category": "clerk-sdk-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/clerk-sdk-patterns",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

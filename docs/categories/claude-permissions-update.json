@@ -1,0 +1,20 @@
+{
+  "category": "claude-permissions-update",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.541434Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Sync auto-approved permissions from all community-patterns directories (including community-patterns-2, -3, etc.) to the shared project settings. Shows new permissions for review before adding.",
+      "repo": "jkomoros/community-patterns",
+      "path": "claude-permissions-update",
+      "branch": "main",
+      "category": "claude-permissions-update",
+      "tags": [],
+      "stars": 0,
+      "install": "jkomoros/community-patterns/claude-permissions-update",
+      "source": "github.com/jkomoros/community-patterns"
+    }
+  ]
+}

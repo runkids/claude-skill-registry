@@ -1,0 +1,20 @@
+{
+  "category": "create-assistant",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.696629Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide users through creating custom assistants via interactive dialogue.",
+      "repo": "zhu1090093659/CodeConductor",
+      "path": "create-assistant",
+      "branch": "main",
+      "category": "create-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "zhu1090093659/CodeConductor/create-assistant",
+      "source": "github.com/zhu1090093659/CodeConductor"
+    }
+  ]
+}

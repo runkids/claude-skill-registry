@@ -1,0 +1,20 @@
+{
+  "category": "scientific-drugbank-database",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.899873Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Access and analyze comprehensive drug information from the DrugBank database including drug properties, interactions, targets, pathways, chemical structures, and pharmacology data. This skill should b",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "scientific-drugbank-database",
+      "branch": "main",
+      "category": "scientific-drugbank-database",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/scientific-drugbank-database",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "when-managing-token-budget-use-token-budget-advisor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.463126Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Proactive token budget management tool for assessing usage, analyzing task complexity, generating chunking strategies, and creating execution plans that stay within budget limits",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "when-managing-token-budget-use-token-budget-advisor",
+      "branch": "main",
+      "category": "when-managing-token-budget-use-token-budget-advisor",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension/when-managing-token-budget-use-token-budget-advisor",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

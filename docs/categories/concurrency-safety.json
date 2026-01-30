@@ -1,0 +1,20 @@
+{
+  "category": "concurrency-safety",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.641704Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Go concurrency safety review. Use when checking goroutines, channels, race conditions, or synchronization. Detects goroutine leaks, deadlocks, race conditions, and unsafe channel operations.",
+      "repo": "saifoelloh/golang-best-practices-skill",
+      "path": "concurrency-safety",
+      "branch": "main",
+      "category": "concurrency-safety",
+      "tags": [],
+      "stars": 0,
+      "install": "saifoelloh/golang-best-practices-skill/concurrency-safety",
+      "source": "github.com/saifoelloh/golang-best-practices-skill"
+    }
+  ]
+}

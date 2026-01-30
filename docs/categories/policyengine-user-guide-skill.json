@@ -1,0 +1,20 @@
+{
+  "category": "policyengine-user-guide-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.606908Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Using PolicyEngine web apps to analyze tax and benefit policy impacts - for users of policyengine.org",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-user-guide-skill",
+      "branch": "main",
+      "category": "policyengine-user-guide-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/policyengine-user-guide-skill",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

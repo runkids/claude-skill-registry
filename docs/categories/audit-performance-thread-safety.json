@@ -1,0 +1,20 @@
+{
+  "category": "audit-performance-thread-safety",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.369648Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audit codebase for performance bottlenecks and thread-safety issues",
+      "repo": "ksoichiro/ChronoDawn",
+      "path": "audit-performance-thread-safety",
+      "branch": "main",
+      "category": "audit-performance-thread-safety",
+      "tags": [],
+      "stars": 0,
+      "install": "ksoichiro/ChronoDawn/audit-performance-thread-safety",
+      "source": "github.com/ksoichiro/ChronoDawn"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "add-admin-api-endpoint",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.201517Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Add a new endpoint or endpoints to Ghost's Admin API at `ghost/api/admin/**`.",
+      "repo": "iBoostAI/Ghost",
+      "path": "add-admin-api-endpoint",
+      "branch": "main",
+      "category": "add-admin-api-endpoint",
+      "tags": [],
+      "stars": 0,
+      "install": "iBoostAI/Ghost/add-admin-api-endpoint",
+      "source": "github.com/iBoostAI/Ghost"
+    }
+  ]
+}

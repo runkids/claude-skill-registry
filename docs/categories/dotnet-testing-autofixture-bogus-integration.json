@@ -1,0 +1,20 @@
+{
+  "category": "dotnet-testing-autofixture-bogus-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.530486Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AutoFixture 與 Bogus 整合完整指南。 結合匿名測試資料與真實感語意化資料產生。 涵蓋 SpecimenBuilder 整合、混合產生器、測試資料工廠與循環參考處理。",
+      "repo": "kevintsengtw/dotnet-testing-agent-skills",
+      "path": "dotnet-testing-autofixture-bogus-integration",
+      "branch": "main",
+      "category": "dotnet-testing-autofixture-bogus-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "kevintsengtw/dotnet-testing-agent-skills/dotnet-testing-autofixture-bogus-integration",
+      "source": "github.com/kevintsengtw/dotnet-testing-agent-skills"
+    }
+  ]
+}

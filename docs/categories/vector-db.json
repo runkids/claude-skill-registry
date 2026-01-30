@@ -1,0 +1,20 @@
+{
+  "category": "vector-db",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.398927Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Vector database operations for embeddings and semantic search. Activate for Pinecone, Weaviate, Chroma, pgvector, RAG, and similarity search.",
+      "repo": "Lobbi-Docs/claude",
+      "path": "vector-db",
+      "branch": "main",
+      "category": "vector-db",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/vector-db",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

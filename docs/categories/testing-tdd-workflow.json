@@ -1,0 +1,20 @@
+{
+  "category": "testing-tdd-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.275362Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when implementing new features, fixing bugs, or refactoring code. TDD ensures tests drive design and all code is covered.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "testing-tdd-workflow",
+      "branch": "main",
+      "category": "testing-tdd-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/testing-tdd-workflow",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

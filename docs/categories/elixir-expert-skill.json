@@ -1,0 +1,20 @@
+{
+  "category": "elixir-expert-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.565507Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in Elixir, Phoenix Framework, and OTP. Specializes in building concurrent, fault-tolerant, and real-time applications using the BEAM. Use when building Elixir applications, working with Phoenix",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "elixir-expert-skill",
+      "branch": "main",
+      "category": "elixir-expert-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/elixir-expert-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

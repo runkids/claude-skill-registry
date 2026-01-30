@@ -1,0 +1,20 @@
+{
+  "category": "dependency-verifier",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.074581Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated package dependency verification skill that validates npm and Python package versions from package.json and requirements.txt files. Uses parallel subagents (1 per 10 dependencies) to efficien",
+      "repo": "rdfitted/Claude-Code-Setup",
+      "path": "dependency-verifier",
+      "branch": "main",
+      "category": "dependency-verifier",
+      "tags": [],
+      "stars": 0,
+      "install": "rdfitted/Claude-Code-Setup/dependency-verifier",
+      "source": "github.com/rdfitted/Claude-Code-Setup"
+    }
+  ]
+}

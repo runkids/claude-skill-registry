@@ -1,0 +1,20 @@
+{
+  "category": "bun",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.467976Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Configures Bun as an all-in-one JavaScript runtime, bundler, package manager, and test runner with native TypeScript support. Use when building fast applications, bundling for production, or replacing",
+      "repo": "mgd34msu/goodvibes-gemini",
+      "path": "bun",
+      "branch": "main",
+      "category": "bun",
+      "tags": [],
+      "stars": 0,
+      "install": "mgd34msu/goodvibes-gemini/bun",
+      "source": "github.com/mgd34msu/goodvibes-gemini"
+    }
+  ]
+}

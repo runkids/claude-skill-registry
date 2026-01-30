@@ -1,0 +1,20 @@
+{
+  "category": "tracing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.306569Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Structured logging and distributed tracing for Rust.",
+      "repo": "ngxtm/devkit",
+      "path": "tracing",
+      "branch": "main",
+      "category": "tracing",
+      "tags": [],
+      "stars": 0,
+      "install": "ngxtm/devkit/tracing",
+      "source": "github.com/ngxtm/devkit"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "curriculum-iterate-feedback",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.732643Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Synthesize feedback from students, outcomes data, and peer reviews to generate prioritized curriculum revision recommendations and track effectiveness over versions. Use when revising curriculum, anal",
+      "repo": "pauljbernard/content",
+      "path": "curriculum-iterate-feedback",
+      "branch": "main",
+      "category": "curriculum-iterate-feedback",
+      "tags": [],
+      "stars": 0,
+      "install": "pauljbernard/content/curriculum-iterate-feedback",
+      "source": "github.com/pauljbernard/content"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "qe-learning-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.744448Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transfer learning, metrics optimization, and continuous improvement for AI-powered QE agents.",
+      "repo": "proffesor-for-testing/agentic-qe",
+      "path": "qe-learning-optimization",
+      "branch": "main",
+      "category": "qe-learning-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/agentic-qe/qe-learning-optimization",
+      "source": "github.com/proffesor-for-testing/agentic-qe"
+    }
+  ]
+}

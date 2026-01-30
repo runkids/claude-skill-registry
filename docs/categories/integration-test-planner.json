@@ -1,0 +1,20 @@
+{
+  "category": "integration-test-planner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.888266Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Plan integration tests across modules or services. Use when a mid-level developer needs to verify system interactions.",
+      "repo": "proflead/codex-skills-library",
+      "path": "integration-test-planner",
+      "branch": "main",
+      "category": "integration-test-planner",
+      "tags": [],
+      "stars": 0,
+      "install": "proflead/codex-skills-library/integration-test-planner",
+      "source": "github.com/proflead/codex-skills-library"
+    }
+  ]
+}

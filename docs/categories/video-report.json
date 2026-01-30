@@ -1,0 +1,20 @@
+{
+  "category": "video-report",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.416953Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate a report about a video",
+      "repo": "remotion-dev/remotion",
+      "path": "video-report",
+      "branch": "main",
+      "category": "video-report",
+      "tags": [],
+      "stars": 0,
+      "install": "remotion-dev/remotion/video-report",
+      "source": "github.com/remotion-dev/remotion"
+    }
+  ]
+}

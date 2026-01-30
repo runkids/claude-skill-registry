@@ -1,0 +1,20 @@
+{
+  "category": "frontend-design-optimizer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.701852Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Find the best UI/UX design patterns and architectures using deep research. Use when user asks to \"improve UI\", \"optimize UX\", \"best design for [feature]\", or \"modern UI patterns\".",
+      "repo": "HR-AR/Project-Conductor",
+      "path": "frontend-design-optimizer",
+      "branch": "main",
+      "category": "frontend-design-optimizer",
+      "tags": [],
+      "stars": 0,
+      "install": "HR-AR/Project-Conductor/frontend-design-optimizer",
+      "source": "github.com/HR-AR/Project-Conductor"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "utm-tracking",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.378134Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Adding UTM parameters to URLs to track marketing campaign effectiveness across channels, including UTM builder, attribution models, analytics integration, and campaign reporting.",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "utm-tracking",
+      "branch": "main",
+      "category": "utm-tracking",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/utm-tracking",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

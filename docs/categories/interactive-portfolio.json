@@ -1,0 +1,20 @@
+{
+  "category": "interactive-portfolio",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.891592Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in building portfolios that actually land jobs and clients - not just showing work, but creating memorable experiences. Covers developer portfolios, designer portfolios, creative portfolios, an",
+      "repo": "Nguyenthang2292/Sovereign-IQ",
+      "path": "interactive-portfolio",
+      "branch": "main",
+      "category": "interactive-portfolio",
+      "tags": [],
+      "stars": 0,
+      "install": "Nguyenthang2292/Sovereign-IQ/interactive-portfolio",
+      "source": "github.com/Nguyenthang2292/Sovereign-IQ"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "route-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.854815Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize delivery routes, solve vehicle routing problems, or minimize transportation costs. Also use when the user mentions \"route planning,\" \"delivery optimization,\" \"VRP,\" \"TS",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "route-optimization",
+      "branch": "main",
+      "category": "route-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/route-optimization",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

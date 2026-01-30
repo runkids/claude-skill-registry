@@ -1,0 +1,20 @@
+{
+  "category": "chaotic-attractor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.512417Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Strange attractor with sensitive dependence on initial conditions",
+      "repo": "plurigrid/asi",
+      "path": "chaotic-attractor",
+      "branch": "main",
+      "category": "chaotic-attractor",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/chaotic-attractor",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

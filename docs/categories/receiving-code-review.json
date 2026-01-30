@@ -1,0 +1,20 @@
+{
+  "category": "receiving-code-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.788477Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Receive and act on code review feedback with technical rigor, not performative agreement or blind implementation",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "receiving-code-review",
+      "branch": "main",
+      "category": "receiving-code-review",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/receiving-code-review",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

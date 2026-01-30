@@ -1,0 +1,20 @@
+{
+  "category": "tzurot-db-vector",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.331544Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PostgreSQL and pgvector patterns for Tzurot v3. Use when writing Prisma queries, migrations, or vector operations. Covers connection management and Railway-specific considerations.",
+      "repo": "lbds137/tzurot",
+      "path": "tzurot-db-vector",
+      "branch": "main",
+      "category": "tzurot-db-vector",
+      "tags": [],
+      "stars": 0,
+      "install": "lbds137/tzurot/tzurot-db-vector",
+      "source": "github.com/lbds137/tzurot"
+    }
+  ]
+}

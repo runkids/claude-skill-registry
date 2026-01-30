@@ -1,0 +1,20 @@
+{
+  "category": "rudin-real-complex-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.860164Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Problem-solving with Rudin's Real and Complex Analysis textbook",
+      "repo": "namesreallyblank/Clorch",
+      "path": "rudin-real-complex-analysis",
+      "branch": "main",
+      "category": "rudin-real-complex-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/rudin-real-complex-analysis",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

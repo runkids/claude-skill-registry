@@ -1,0 +1,20 @@
+{
+  "category": "agents-md-improver",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.250323Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Keeps repo-local agent instructions consistent by proposing updates to AGENTS.md when a user corrects the coding agent or asks to change AGENTS.md, CLAUDE.md, .claude/CLAUDE.md, or GEMINI.md.",
+      "repo": "ericmjl/skills",
+      "path": "agents-md-improver",
+      "branch": "main",
+      "category": "agents-md-improver",
+      "tags": [],
+      "stars": 0,
+      "install": "ericmjl/skills/agents-md-improver",
+      "source": "github.com/ericmjl/skills"
+    }
+  ]
+}

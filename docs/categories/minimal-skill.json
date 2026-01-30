@@ -1,0 +1,20 @@
+{
+  "category": "minimal-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.138667Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A minimal skill with no resources",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "minimal-skill",
+      "branch": "main",
+      "category": "minimal-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/minimal-skill",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

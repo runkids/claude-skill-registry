@@ -1,0 +1,20 @@
+{
+  "category": "worker-protocol",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.477388Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Defines behavior protocol for spawned worker agents. Injected into worker prompts. Covers startup, progress reporting, exit conditions, and handover preparation.",
+      "repo": "troykelly/claude-skills",
+      "path": "worker-protocol",
+      "branch": "main",
+      "category": "worker-protocol",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/worker-protocol",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

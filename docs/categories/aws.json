@@ -1,0 +1,20 @@
+{
+  "category": "aws",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.384470Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Integrate your Alexa Skill with a backend Lambda function with ease, on Sigma IDE",
+      "repo": "slappforge/sigma",
+      "path": "aws",
+      "branch": "main",
+      "category": "aws",
+      "tags": [],
+      "stars": 0,
+      "install": "slappforge/sigma/aws",
+      "source": "github.com/slappforge/sigma"
+    }
+  ]
+}

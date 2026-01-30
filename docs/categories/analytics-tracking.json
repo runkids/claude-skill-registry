@@ -1,0 +1,20 @@
+{
+  "category": "analytics-tracking",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.293742Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event trackin",
+      "repo": "LeonMelamud/inspector-agents",
+      "path": "analytics-tracking",
+      "branch": "main",
+      "category": "analytics-tracking",
+      "tags": [],
+      "stars": 0,
+      "install": "LeonMelamud/inspector-agents/analytics-tracking",
+      "source": "github.com/LeonMelamud/inspector-agents"
+    }
+  ]
+}

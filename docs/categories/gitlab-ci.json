@@ -1,0 +1,20 @@
+{
+  "category": "gitlab-ci",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.776422Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for GitLab CI/CD including pipeline configuration, jobs, stages, and GitLab Runner. Use when the user asks about GitLab CI, needs to create CI/CD pipelines, configure G",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "gitlab-ci",
+      "branch": "main",
+      "category": "gitlab-ci",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/gitlab-ci",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

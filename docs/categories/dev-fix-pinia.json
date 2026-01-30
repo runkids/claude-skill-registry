@@ -1,0 +1,20 @@
+{
+  "category": "dev-fix-pinia",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.169406Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DEBUG Pinia store state not updating, persistence conflicts, and store synchronization issues. Fix when store actions don't work, state gets stale, or localStorage hydration problems occur. Use when P",
+      "repo": "endlessblink/flow-state",
+      "path": "dev-fix-pinia",
+      "branch": "main",
+      "category": "dev-fix-pinia",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/dev-fix-pinia",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

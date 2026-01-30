@@ -1,0 +1,20 @@
+{
+  "category": "product-planning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.661313Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Product Owner / Business Analyst toolkit for product planning tasks. Use when the user wants to: - Write or refine user stories, epics, or acceptance criteria - Create or review PRDs (Product Requirem",
+      "repo": "alexanderop/workoutTracker",
+      "path": "product-planning",
+      "branch": "main",
+      "category": "product-planning",
+      "tags": [],
+      "stars": 0,
+      "install": "alexanderop/workoutTracker/product-planning",
+      "source": "github.com/alexanderop/workoutTracker"
+    }
+  ]
+}

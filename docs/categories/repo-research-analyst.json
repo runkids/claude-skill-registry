@@ -1,0 +1,20 @@
+{
+  "category": "repo-research-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.816815Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze repository structure, patterns, conventions, and documentation for understanding a new codebase",
+      "repo": "tfunk1030/vibe",
+      "path": "repo-research-analyst",
+      "branch": "main",
+      "category": "repo-research-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "tfunk1030/vibe/repo-research-analyst",
+      "source": "github.com/tfunk1030/vibe"
+    }
+  ]
+}

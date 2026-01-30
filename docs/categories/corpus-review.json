@@ -1,0 +1,20 @@
+{
+  "category": "corpus-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.688468Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Strategic review of your Resume Corpus against market data. Identifies high-demand skill gaps and strengthens your career story.",
+      "repo": "shindo107/job-coach-and-scout",
+      "path": "corpus-review",
+      "branch": "main",
+      "category": "corpus-review",
+      "tags": [],
+      "stars": 0,
+      "install": "shindo107/job-coach-and-scout/corpus-review",
+      "source": "github.com/shindo107/job-coach-and-scout"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "gherkin",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.751691Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and format Gherkin feature files using BDD syntax. Use when creating feature files, scenarios, or writing behavioral specifications.",
+      "repo": "lilliangreenberg/valuations-autonomous_coding",
+      "path": "gherkin",
+      "branch": "main",
+      "category": "gherkin",
+      "tags": [],
+      "stars": 0,
+      "install": "lilliangreenberg/valuations-autonomous_coding/gherkin",
+      "source": "github.com/lilliangreenberg/valuations-autonomous_coding"
+    }
+  ]
+}

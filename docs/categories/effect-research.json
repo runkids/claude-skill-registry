@@ -1,0 +1,20 @@
+{
+  "category": "effect-research",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.558552Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Effect-TS specialized research via deepwiki and submodules. Query Effect-TS/effect, tim-smart/effect-atom for verified patterns. Enforces grounded verification before implementation.",
+      "repo": "creatifcoding/gbg",
+      "path": "effect-research",
+      "branch": "main",
+      "category": "effect-research",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/effect-research",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "jsonapi",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.933689Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Strict JSON:API v1.1 specification compliance. Trigger: When creating or modifying API endpoints, reviewing API responses, or validating JSON:API compliance.",
+      "repo": "prowler-cloud/prowler",
+      "path": "jsonapi",
+      "branch": "main",
+      "category": "jsonapi",
+      "tags": [],
+      "stars": 0,
+      "install": "prowler-cloud/prowler/jsonapi",
+      "source": "github.com/prowler-cloud/prowler"
+    }
+  ]
+}

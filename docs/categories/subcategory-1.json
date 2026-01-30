@@ -1,0 +1,20 @@
+{
+  "category": "subcategory-1",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.112745Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Example skill demonstrating nested directory structure at depth 3",
+      "repo": "maxvaega/skillkit",
+      "path": "subcategory-1",
+      "branch": "main",
+      "category": "subcategory-1",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit/subcategory-1",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

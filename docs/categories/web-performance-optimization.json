@@ -1,0 +1,20 @@
+{
+  "category": "web-performance-optimization",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.447671Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Optimize website and web application performance including loading speed, Core Web Vitals, bundle size, caching strategies, and runtime performance",
+      "repo": "JohnMarkCapones/Aralify",
+      "path": "web-performance-optimization",
+      "branch": "main",
+      "category": "web-performance-optimization",
+      "tags": [],
+      "stars": 0,
+      "install": "JohnMarkCapones/Aralify/web-performance-optimization",
+      "source": "github.com/JohnMarkCapones/Aralify"
+    }
+  ]
+}

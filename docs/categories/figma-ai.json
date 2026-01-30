@@ -1,0 +1,20 @@
+{
+  "category": "figma-ai",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.657909Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Figma AI features including AI-powered design tools, automation, and AI-assisted design workflows. Use when the user asks about Figma AI, needs to use AI features i",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "figma-ai",
+      "branch": "main",
+      "category": "figma-ai",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/figma-ai",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

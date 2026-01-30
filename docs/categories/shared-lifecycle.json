@@ -1,0 +1,20 @@
+{
+  "category": "shared-lifecycle",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.991885Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Process lifecycle management and auxiliary script rules for Ralph agents",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "shared-lifecycle",
+      "branch": "main",
+      "category": "shared-lifecycle",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/shared-lifecycle",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

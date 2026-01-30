@@ -1,0 +1,20 @@
+{
+  "category": "bitwarden",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.431821Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage passwords and credentials via Bitwarden CLI (bw). Use for storing, retrieving, creating, or updating logins, credit cards, secure notes, and identities. Trigger when automating authentication,",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "bitwarden",
+      "branch": "main",
+      "category": "bitwarden",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/bitwarden",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "tailwindcss-utilities",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.155699Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete reference for Tailwind CSS utility classes",
+      "repo": "fusengine/agents",
+      "path": "tailwindcss-utilities",
+      "branch": "main",
+      "category": "tailwindcss-utilities",
+      "tags": [],
+      "stars": 0,
+      "install": "fusengine/agents/tailwindcss-utilities",
+      "source": "github.com/fusengine/agents"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "data-partitioner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.031431Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Data Partitioner - Auto-activating skill for Data Pipelines. Triggers on: data partitioner, data partitioner Part of the Data Pipelines skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "data-partitioner",
+      "branch": "main",
+      "category": "data-partitioner",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/data-partitioner",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

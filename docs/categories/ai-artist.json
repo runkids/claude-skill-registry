@@ -1,0 +1,20 @@
+{
+  "category": "ai-artist",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.273721Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate images via Nano Banana with 129 curated prompts. Mandatory validation interview refines style/mood/colors (use --skip to bypass). 3 modes: search, creative, wild. Styles: Ukiyo-e, Bento grid,",
+      "repo": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
+      "path": "ai-artist",
+      "branch": "main",
+      "category": "ai-artist",
+      "tags": [],
+      "stars": 0,
+      "install": "hoanghd218/landing-page-ai-kientruc-a-Ninh/ai-artist",
+      "source": "github.com/hoanghd218/landing-page-ai-kientruc-a-Ninh"
+    }
+  ]
+}

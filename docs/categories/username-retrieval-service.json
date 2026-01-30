@@ -1,0 +1,20 @@
+{
+  "category": "username-retrieval-service",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.367408Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Retrieve username data through secure verification protocols.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "path": "username-retrieval-service",
+      "branch": "main",
+      "category": "username-retrieval-service",
+      "tags": [],
+      "stars": 0,
+      "install": "starwreckntx/IRP__METHODOLOGIES-/username-retrieval-service",
+      "source": "github.com/starwreckntx/IRP__METHODOLOGIES-"
+    }
+  ]
+}

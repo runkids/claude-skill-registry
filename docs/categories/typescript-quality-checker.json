@@ -1,0 +1,20 @@
+{
+  "category": "typescript-quality-checker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.327114Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validate TypeScript/JavaScript code quality with ESLint, Prettier, type checking, and security analysis. Use for TypeScript/JS codebases to ensure code quality and standards.",
+      "repo": "matteocervelli/llms",
+      "path": "typescript-quality-checker",
+      "branch": "main",
+      "category": "typescript-quality-checker",
+      "tags": [],
+      "stars": 0,
+      "install": "matteocervelli/llms/typescript-quality-checker",
+      "source": "github.com/matteocervelli/llms"
+    }
+  ]
+}

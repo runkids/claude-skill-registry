@@ -1,0 +1,20 @@
+{
+  "category": "session-logger",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.977627Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Logs development sessions in real-time to track decisions and issues.",
+      "repo": "munlucky/claude-settings",
+      "path": "session-logger",
+      "branch": "main",
+      "category": "session-logger",
+      "tags": [],
+      "stars": 0,
+      "install": "munlucky/claude-settings/session-logger",
+      "source": "github.com/munlucky/claude-settings"
+    }
+  ]
+}

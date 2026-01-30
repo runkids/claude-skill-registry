@@ -1,0 +1,20 @@
+{
+  "category": "searching-files",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.932124Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Finding files on Linux and macOS machines",
+      "repo": "mgomes/3xo-suit",
+      "path": "searching-files",
+      "branch": "main",
+      "category": "searching-files",
+      "tags": [],
+      "stars": 0,
+      "install": "mgomes/3xo-suit/searching-files",
+      "source": "github.com/mgomes/3xo-suit"
+    }
+  ]
+}

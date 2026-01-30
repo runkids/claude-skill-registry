@@ -1,0 +1,20 @@
+{
+  "category": "stash-and-rebase",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.089114Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /stash-and-rebase slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "stash-and-rebase",
+      "branch": "main",
+      "category": "stash-and-rebase",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles/stash-and-rebase",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "settlement-analysis-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.982013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Settlement vs. hearing decision analysis with probability-weighted outcomes. Compares settlement offers against hearing expected value using BATNA, assesses owner holdout risk, litigation probability,",
+      "repo": "reggiechan74/vp-real-estate",
+      "path": "settlement-analysis-expert",
+      "branch": "main",
+      "category": "settlement-analysis-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "reggiechan74/vp-real-estate/settlement-analysis-expert",
+      "source": "github.com/reggiechan74/vp-real-estate"
+    }
+  ]
+}

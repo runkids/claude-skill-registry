@@ -1,0 +1,20 @@
+{
+  "category": "runbook-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.862165Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по runbooks. Используй для создания операционных процедур, incident response и maintenance документации.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "runbook-generator",
+      "branch": "main",
+      "category": "runbook-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/runbook-generator",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

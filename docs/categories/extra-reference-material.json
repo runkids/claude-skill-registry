@@ -1,0 +1,20 @@
+{
+  "category": "extra-reference-material",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.628844Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage offline reference material in the `extra/` directory. Use when needing external documentation, library source code, screenshots, PDFs, or API specs. ALWAYS check `extra/` before web searches. H",
+      "repo": "Ramblurr/nix-devenv",
+      "path": "extra-reference-material",
+      "branch": "main",
+      "category": "extra-reference-material",
+      "tags": [],
+      "stars": 0,
+      "install": "Ramblurr/nix-devenv/extra-reference-material",
+      "source": "github.com/Ramblurr/nix-devenv"
+    }
+  ]
+}

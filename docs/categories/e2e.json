@@ -1,0 +1,20 @@
+{
+  "category": "e2e",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.545618Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run E2E tests for Sentry JavaScript SDK test applications",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "e2e",
+      "branch": "main",
+      "category": "e2e",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/e2e",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "perplexity-sec",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.565251Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SEC EDGAR filings search. Use for official regulatory documents.",
+      "repo": "faisalanjum/EventTrader",
+      "path": "perplexity-sec",
+      "branch": "main",
+      "category": "perplexity-sec",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/perplexity-sec",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

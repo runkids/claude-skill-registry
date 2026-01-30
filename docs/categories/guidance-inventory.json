@@ -1,0 +1,20 @@
+{
+  "category": "guidance-inventory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.814192Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Builds and maintains cumulative guidance inventory for a company. Use when collecting historical guidance, updating guidance after earnings, preparing context for prediction/attribution workflows, or",
+      "repo": "faisalanjum/EventTrader",
+      "path": "guidance-inventory",
+      "branch": "main",
+      "category": "guidance-inventory",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/guidance-inventory",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

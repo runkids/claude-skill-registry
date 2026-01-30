@@ -1,0 +1,20 @@
+{
+  "category": "slowtime-mcp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.031094Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Asymmetric time dilation for MCP operations - deliberate slow paths enable capability accumulation through Cat# bicomodule composition.",
+      "repo": "plurigrid/asi",
+      "path": "slowtime-mcp",
+      "branch": "main",
+      "category": "slowtime-mcp",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/slowtime-mcp",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

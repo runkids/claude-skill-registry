@@ -1,0 +1,20 @@
+{
+  "category": "load-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.046336Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-activates when user mentions load test, performance test, stress test, k6, Artillery, benchmark, or scalability testing. Expert in designing and executing performance tests.",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "load-testing",
+      "branch": "main",
+      "category": "load-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "pascallammers/mylo-travel-concierge-v2/load-testing",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
+    }
+  ]
+}

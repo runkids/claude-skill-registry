@@ -1,0 +1,20 @@
+{
+  "category": "mcp-server",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.105920Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when setting up a stateless MCP (Model Context Protocol) server in FastAPI using the Official MCP SDK with 5 task management tools that interact with SQLModel database.",
+      "repo": "SyedaNabila559/phase2-3-todo-full-web-with-ai-chatbot",
+      "path": "mcp-server",
+      "branch": "main",
+      "category": "mcp-server",
+      "tags": [],
+      "stars": 0,
+      "install": "SyedaNabila559/phase2-3-todo-full-web-with-ai-chatbot/mcp-server",
+      "source": "github.com/SyedaNabila559/phase2-3-todo-full-web-with-ai-chatbot"
+    }
+  ]
+}

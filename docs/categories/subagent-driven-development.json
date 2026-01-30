@@ -1,0 +1,20 @@
+{
+  "category": "subagent-driven-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.112031Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when executing implementation plans with independent tasks in the current session",
+      "repo": "AxelMrak/ai",
+      "path": "subagent-driven-development",
+      "branch": "main",
+      "category": "subagent-driven-development",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/subagent-driven-development",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

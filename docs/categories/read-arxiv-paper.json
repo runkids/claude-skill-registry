@@ -1,0 +1,20 @@
+{
+  "category": "read-arxiv-paper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.782000Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill when when asked to read an arxiv paper given an arxiv URL",
+      "repo": "karpathy/nanochat",
+      "path": "read-arxiv-paper",
+      "branch": "main",
+      "category": "read-arxiv-paper",
+      "tags": [],
+      "stars": 0,
+      "install": "karpathy/nanochat/read-arxiv-paper",
+      "source": "github.com/karpathy/nanochat"
+    }
+  ]
+}

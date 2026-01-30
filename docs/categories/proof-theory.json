@@ -1,0 +1,20 @@
+{
+  "category": "proof-theory",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.707959Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Problem-solving strategies for proof theory in mathematical logic",
+      "repo": "namesreallyblank/Clorch",
+      "path": "proof-theory",
+      "branch": "main",
+      "category": "proof-theory",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/proof-theory",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

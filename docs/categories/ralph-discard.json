@@ -1,0 +1,20 @@
+{
+  "category": "ralph-discard",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.761893Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Abandon RALPH worktree without merging changes",
+      "repo": "doravidan/supreme-ralph",
+      "path": "ralph-discard",
+      "branch": "main",
+      "category": "ralph-discard",
+      "tags": [],
+      "stars": 0,
+      "install": "doravidan/supreme-ralph/ralph-discard",
+      "source": "github.com/doravidan/supreme-ralph"
+    }
+  ]
+}

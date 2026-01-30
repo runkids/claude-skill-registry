@@ -1,0 +1,20 @@
+{
+  "category": "longread-sv-pipeline",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.055166Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "End-to-end workflow for detecting structural variants from long-read sequencing data. Covers ONT/PacBio alignment with minimap2 and SV calling with Sniffles or cuteSV. Use when detecting structural va",
+      "repo": "GPTomics/bioSkills",
+      "path": "longread-sv-pipeline",
+      "branch": "main",
+      "category": "longread-sv-pipeline",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/longread-sv-pipeline",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

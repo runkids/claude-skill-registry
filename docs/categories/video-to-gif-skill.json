@@ -1,0 +1,20 @@
+{
+  "category": "video-to-gif-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.418360Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert multiple video files (MOV/MP4) into a single merged GIF with customizable speed per segment. Use this skill when users want to: - Merge multiple videos into one GIF - Create demo GIFs from scr",
+      "repo": "TeXmeijin/video-to-gif-skill",
+      "path": "video-to-gif-skill",
+      "branch": "main",
+      "category": "video-to-gif-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "TeXmeijin/video-to-gif-skill/video-to-gif-skill",
+      "source": "github.com/TeXmeijin/video-to-gif-skill"
+    }
+  ]
+}

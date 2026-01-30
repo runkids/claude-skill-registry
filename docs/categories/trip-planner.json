@@ -1,0 +1,20 @@
+{
+  "category": "trip-planner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.314056Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create detailed travel itineraries with activities, logistics, and day-by-day schedules. Use for vacation planning, trip organization, and travel documentation.",
+      "repo": "mattppal/prompts",
+      "path": "trip-planner",
+      "branch": "main",
+      "category": "trip-planner",
+      "tags": [],
+      "stars": 0,
+      "install": "mattppal/prompts/trip-planner",
+      "source": "github.com/mattppal/prompts"
+    }
+  ]
+}

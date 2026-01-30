@@ -1,0 +1,20 @@
+{
+  "category": "api-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.321318Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"look up Effect API\", \"check the Effect docs\", \"find Effect function signature\", \"what does Effect.X do\", \"how to use Effect.X\", \"Effect API reference\",",
+      "repo": "andrueandersoncs/claude-skill-effect-ts",
+      "path": "api-docs",
+      "branch": "main",
+      "category": "api-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "andrueandersoncs/claude-skill-effect-ts/api-docs",
+      "source": "github.com/andrueandersoncs/claude-skill-effect-ts"
+    }
+  ]
+}

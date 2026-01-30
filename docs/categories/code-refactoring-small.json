@@ -1,0 +1,20 @@
+{
+  "category": "code-refactoring-small",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.594961Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Refactor overly large code units into smaller, more focused components. Use when code has grown too large or complex.",
+      "repo": "aspiers/ai-config",
+      "path": "code-refactoring-small",
+      "branch": "main",
+      "category": "code-refactoring-small",
+      "tags": [],
+      "stars": 0,
+      "install": "aspiers/ai-config/code-refactoring-small",
+      "source": "github.com/aspiers/ai-config"
+    }
+  ]
+}

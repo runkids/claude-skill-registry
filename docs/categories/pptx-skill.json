@@ -1,0 +1,20 @@
+{
+  "category": "pptx-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.620904Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in creating, editing, and automating PowerPoint presentations using python-pptx and PptxGenJS. Use when generating slides programmatically, modifying presentations, or building report automatio",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "pptx-skill",
+      "branch": "main",
+      "category": "pptx-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/pptx-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

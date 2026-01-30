@@ -1,0 +1,20 @@
+{
+  "category": "tasks",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.169671Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate dependency-ordered user stories and tasks from plan. Use after creating plan. Triggers on: create tasks, generate user stories, break down implementation.",
+      "repo": "ArvorCo/Relentless",
+      "path": "tasks",
+      "branch": "main",
+      "category": "tasks",
+      "tags": [],
+      "stars": 0,
+      "install": "ArvorCo/Relentless/tasks",
+      "source": "github.com/ArvorCo/Relentless"
+    }
+  ]
+}

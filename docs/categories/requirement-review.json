@@ -1,0 +1,20 @@
+{
+  "category": "requirement-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.820590Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Conducts comprehensive requirements review including completeness validation, clarity assessment, consistency checking, testability evaluation, and standards compliance. Produces detailed review repor",
+      "repo": "DauQuangThanh/hanoi-rainbow",
+      "path": "requirement-review",
+      "branch": "main",
+      "category": "requirement-review",
+      "tags": [],
+      "stars": 0,
+      "install": "DauQuangThanh/hanoi-rainbow/requirement-review",
+      "source": "github.com/DauQuangThanh/hanoi-rainbow"
+    }
+  ]
+}

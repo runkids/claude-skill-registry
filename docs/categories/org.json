@@ -1,0 +1,20 @@
+{
+  "category": "org",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.307936Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Org-mode manual (25K lines info).",
+      "repo": "plurigrid/asi",
+      "path": "org",
+      "branch": "main",
+      "category": "org",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/org",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

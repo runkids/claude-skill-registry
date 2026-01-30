@@ -1,0 +1,20 @@
+{
+  "category": "work-iq",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.474656Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Microsoft Work IQ MCP integration for querying M365 data (emails, meetings, Teams, documents) with natural language. Enables searching your Microsoft 365 workspace directly from Claude Code.",
+      "repo": "rysweet/amplihack",
+      "path": "work-iq",
+      "branch": "main",
+      "category": "work-iq",
+      "tags": [],
+      "stars": 0,
+      "install": "rysweet/amplihack/work-iq",
+      "source": "github.com/rysweet/amplihack"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "kratos-service-layer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.959366Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates gRPC/HTTP service handlers for go-kratos microservices. Creates service structs, handler methods, and integrates with protobuf definitions. Use when implementing RPC handlers, adding API end",
+      "repo": "alecszaharia/brizy-microservices-go",
+      "path": "kratos-service-layer",
+      "branch": "main",
+      "category": "kratos-service-layer",
+      "tags": [],
+      "stars": 0,
+      "install": "alecszaharia/brizy-microservices-go/kratos-service-layer",
+      "source": "github.com/alecszaharia/brizy-microservices-go"
+    }
+  ]
+}

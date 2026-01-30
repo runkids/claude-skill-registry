@@ -1,0 +1,20 @@
+{
+  "category": "layers",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.980376Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-layer validation strategy for CFN Loop to prevent \"consensus on vapor\" and ensure robust, high-quality deliverables",
+      "repo": "masharratt/claude-flow-novice",
+      "path": "layers",
+      "branch": "main",
+      "category": "layers",
+      "tags": [],
+      "stars": 0,
+      "install": "masharratt/claude-flow-novice/layers",
+      "source": "github.com/masharratt/claude-flow-novice"
+    }
+  ]
+}

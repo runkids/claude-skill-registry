@@ -1,0 +1,20 @@
+{
+  "category": "prowler-ci",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.712425Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Helps with Prowler repository CI and PR gates (GitHub Actions workflows). Trigger: When investigating CI checks failing on a PR, PR title validation, changelog gate/no-changelog label, conflict marker",
+      "repo": "prowler-cloud/prowler",
+      "path": "prowler-ci",
+      "branch": "main",
+      "category": "prowler-ci",
+      "tags": [],
+      "stars": 0,
+      "install": "prowler-cloud/prowler/prowler-ci",
+      "source": "github.com/prowler-cloud/prowler"
+    }
+  ]
+}

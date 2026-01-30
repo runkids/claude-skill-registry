@@ -1,0 +1,20 @@
+{
+  "category": "manus",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.079703Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and manage AI agent tasks via Manus API. Manus is an autonomous AI agent that can browse the web, use tools, and deliver complete work products.",
+      "repo": "moltbot/skills",
+      "path": "manus",
+      "branch": "main",
+      "category": "manus",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/manus",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

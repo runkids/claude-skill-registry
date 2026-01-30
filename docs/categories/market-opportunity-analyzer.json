@@ -1,0 +1,20 @@
+{
+  "category": "market-opportunity-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.083971Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "TAM/SAM/SOM analysis and competitive landscape mapping. Identifies beachhead markets and expansion opportunities with data-driven market sizing.",
+      "repo": "maigentic/stratarts",
+      "path": "market-opportunity-analyzer",
+      "branch": "main",
+      "category": "market-opportunity-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/market-opportunity-analyzer",
+      "source": "github.com/maigentic/stratarts"
+    }
+  ]
+}

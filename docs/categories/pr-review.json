@@ -1,0 +1,20 @@
+{
+  "category": "pr-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.624638Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PR Code Review Processor",
+      "repo": "jasonmichaelbell78-creator/sonash-v0",
+      "path": "pr-review",
+      "branch": "main",
+      "category": "pr-review",
+      "tags": [],
+      "stars": 0,
+      "install": "jasonmichaelbell78-creator/sonash-v0/pr-review",
+      "source": "github.com/jasonmichaelbell78-creator/sonash-v0"
+    }
+  ]
+}

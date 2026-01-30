@@ -1,0 +1,20 @@
+{
+  "category": "retail-replenishment",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.835474Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize retail store replenishment, calculate reorder points for stores, or manage continuous replenishment. Also use when the user mentions \"store replenishment,\" \"auto-replen",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "retail-replenishment",
+      "branch": "main",
+      "category": "retail-replenishment",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/retail-replenishment",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

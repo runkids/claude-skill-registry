@@ -1,8 +1,8 @@
 {
   "category": "workflow",
   "code": "oth",
-  "count": 3,
-  "updated_at": "2026-01-29T04:50:39.267244Z",
+  "count": 4,
+  "updated_at": "2026-01-30T04:55:08.477988Z",
   "skills": [
     {
       "name": "moai-workflow-ddd",
@@ -39,6 +39,18 @@
       "stars": 20,
       "install": "mattnigh/skills_collection/workflow/moai-workflow-templates",
       "source": "github.com/mattnigh/skills_collection"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Manages workflow transitions including handoffs between PM and implementation roles, and auto-fixes review comments. Use when user mentions handoffs, reporting to PM, handing off to implementation, co",
+      "repo": "Chachamaru127/claude-code-harness",
+      "path": "workflow",
+      "branch": "main",
+      "category": "workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "Chachamaru127/claude-code-harness/workflow",
+      "source": "github.com/Chachamaru127/claude-code-harness"
     }
   ]
 }

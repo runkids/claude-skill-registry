@@ -1,0 +1,20 @@
+{
+  "category": "moai-library-nextra",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.169420Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise Nextra documentation framework with Next.js. Use when building documentation sites, knowledge bases, or API reference documentation.",
+      "repo": "modu-ai/moai-adk",
+      "path": "moai-library-nextra",
+      "branch": "main",
+      "category": "moai-library-nextra",
+      "tags": [],
+      "stars": 0,
+      "install": "modu-ai/moai-adk/moai-library-nextra",
+      "source": "github.com/modu-ai/moai-adk"
+    }
+  ]
+}

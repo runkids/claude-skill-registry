@@ -1,0 +1,20 @@
+{
+  "category": "api-validation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.332031Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when validating API request inputs: body, query params, path params, and headers. This skill covers Zod v4 patterns.",
+      "repo": "CoderMariusz/MonoPilot",
+      "path": "api-validation",
+      "branch": "main",
+      "category": "api-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "CoderMariusz/MonoPilot/api-validation",
+      "source": "github.com/CoderMariusz/MonoPilot"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "sales-compensation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.878617Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design a sales compensation plan (OTE & pay mix, quotas & ramp, commission mechanics, and retention-aligned incentives) and produce a Sales Comp Plan Pack. Use for AE/SDR/AM comp plans, early sales hi",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "sales-compensation",
+      "branch": "main",
+      "category": "sales-compensation",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus/sales-compensation",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

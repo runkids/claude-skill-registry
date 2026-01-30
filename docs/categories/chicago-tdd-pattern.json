@@ -1,0 +1,20 @@
+{
+  "category": "chicago-tdd-pattern",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.521009Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master Chicago TDD (state-based testing). Create tests that verify observable behavior with real collaborators. Use chicago-tdd-tools 1.4.0 AAA pattern. When writing tests, verifying implementation co",
+      "repo": "seanchatmangpt/ggen",
+      "path": "chicago-tdd-pattern",
+      "branch": "main",
+      "category": "chicago-tdd-pattern",
+      "tags": [],
+      "stars": 0,
+      "install": "seanchatmangpt/ggen/chicago-tdd-pattern",
+      "source": "github.com/seanchatmangpt/ggen"
+    }
+  ]
+}

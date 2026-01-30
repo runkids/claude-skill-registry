@@ -1,0 +1,20 @@
+{
+  "category": "image-enhancer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.860618Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Improves the quality of images, especially screenshots, by enhancing resolution, sharpness, and clarity. Perfect for preparing images for presentations, documentation, or social media posts.",
+      "repo": "ComposioHQ/awesome-claude-skills",
+      "path": "image-enhancer",
+      "branch": "main",
+      "category": "image-enhancer",
+      "tags": [],
+      "stars": 0,
+      "install": "ComposioHQ/awesome-claude-skills/image-enhancer",
+      "source": "github.com/ComposioHQ/awesome-claude-skills"
+    }
+  ]
+}

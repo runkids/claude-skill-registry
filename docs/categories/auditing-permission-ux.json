@@ -1,0 +1,20 @@
+{
+  "category": "auditing-permission-ux",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.370833Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Audits notification permission request flows. Use when reviewing or improving permission prompts, settings paths, or denial handling.",
+      "repo": "clix-so/skills",
+      "path": "auditing-permission-ux",
+      "branch": "main",
+      "category": "auditing-permission-ux",
+      "tags": [],
+      "stars": 0,
+      "install": "clix-so/skills/auditing-permission-ux",
+      "source": "github.com/clix-so/skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "bellog-animations",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.424435Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides Framer Motion animation patterns and best practices specific to the Bellog blog project. Triggers when implementing animated components or interactions.",
+      "repo": "whddltjdwhd/bellog",
+      "path": "bellog-animations",
+      "branch": "main",
+      "category": "bellog-animations",
+      "tags": [],
+      "stars": 0,
+      "install": "whddltjdwhd/bellog/bellog-animations",
+      "source": "github.com/whddltjdwhd/bellog"
+    }
+  ]
+}

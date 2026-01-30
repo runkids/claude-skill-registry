@@ -1,0 +1,20 @@
+{
+  "category": "building-agents-construction",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.459172Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Step-by-step guide for building goal-driven agents. Creates package structure, defines goals, adds nodes, connects edges, and finalizes agent class. Use when actively building an agent.",
+      "repo": "adenhq/hive",
+      "path": "building-agents-construction",
+      "branch": "main",
+      "category": "building-agents-construction",
+      "tags": [],
+      "stars": 0,
+      "install": "adenhq/hive/building-agents-construction",
+      "source": "github.com/adenhq/hive"
+    }
+  ]
+}

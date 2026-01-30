@@ -1,0 +1,20 @@
+{
+  "category": "deployment-orchestrator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.079582Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated deployment orchestration supporting multiple environments, infrastructure as code, CI/CD pipeline management, rollback procedures, and monitoring integration. Use when Claude needs to manage",
+      "repo": "MuhammadUsmanGM/Skills_Assignment",
+      "path": "deployment-orchestrator",
+      "branch": "main",
+      "category": "deployment-orchestrator",
+      "tags": [],
+      "stars": 0,
+      "install": "MuhammadUsmanGM/Skills_Assignment/deployment-orchestrator",
+      "source": "github.com/MuhammadUsmanGM/Skills_Assignment"
+    }
+  ]
+}

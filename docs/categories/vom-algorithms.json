@@ -1,0 +1,20 @@
+{
+  "category": "vom-algorithms",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.429582Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implements and extends the Visual Object Model (VOM) algorithms for terminal UI element detection in agent-tui. Use when: (1) Modifying cli/src/vom/ segmentation or classification code, (2) Adding new",
+      "repo": "pproenca/agent-tui",
+      "path": "vom-algorithms",
+      "branch": "main",
+      "category": "vom-algorithms",
+      "tags": [],
+      "stars": 0,
+      "install": "pproenca/agent-tui/vom-algorithms",
+      "source": "github.com/pproenca/agent-tui"
+    }
+  ]
+}

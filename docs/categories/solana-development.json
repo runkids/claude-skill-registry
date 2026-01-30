@@ -1,0 +1,20 @@
+{
+  "category": "solana-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.041229Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build Solana programs with Anchor framework or native Rust. Use when developing Solana smart contracts, implementing token operations, testing programs, deploying to networks, or working with Solana d",
+      "repo": "tenequm/claude-plugins",
+      "path": "solana-development",
+      "branch": "main",
+      "category": "solana-development",
+      "tags": [],
+      "stars": 0,
+      "install": "tenequm/claude-plugins/solana-development",
+      "source": "github.com/tenequm/claude-plugins"
+    }
+  ]
+}

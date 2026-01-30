@@ -1,0 +1,20 @@
+{
+  "category": "theme-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.281229Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates beautiful, consistent Preline Theme CSS files. Agent interprets user request, runs build script, delivers complete CSS.",
+      "repo": "htmlstreamofficial/preline",
+      "path": "theme-generator",
+      "branch": "main",
+      "category": "theme-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "htmlstreamofficial/preline/theme-generator",
+      "source": "github.com/htmlstreamofficial/preline"
+    }
+  ]
+}

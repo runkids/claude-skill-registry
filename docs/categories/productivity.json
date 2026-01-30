@@ -1,8 +1,8 @@
 {
   "category": "productivity",
   "code": "pro",
-  "count": 1548,
-  "updated_at": "2026-01-29T04:50:39.181784Z",
+  "count": 1546,
+  "updated_at": "2026-01-30T04:55:07.664674Z",
   "skills": [
     {
       "name": "commit-helper",
@@ -4761,6 +4761,21 @@
       ],
       "stars": 3,
       "install": "Microck/ordinary-claude-skills/skills_all/create-plan",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "email-marketing",
+      "description": "Create email marketing campaigns including newsletters, drip sequences, promotional emails, and transactional emails. Use when writing email copy, designing email templates, or planning email automati",
+      "repo": "vapvarun/claude-backup",
+      "path": "skills/email-marketing",
+      "branch": "main",
+      "category": "productivity",
+      "tags": [
+        "email",
+        "marketing"
+      ],
+      "stars": 3,
+      "install": "vapvarun/claude-backup/skills/email-marketing",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -13398,18 +13413,6 @@
       "name": "governance-checklist-generator",
       "description": "Governance Checklist Generator - Auto-activating skill for Enterprise Workflows.Triggers on: governance checklist generator, governance checklist generatorPart of the Enterprise Workflows skill catego",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/governance-checklist-generator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/governance-checklist-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "governance-checklist-generator",
-      "description": "Governance Checklist Generator - Auto-activating skill for Enterprise Workflows.Triggers on: governance checklist generator, governance checklist generatorPart of the Enterprise Workflows skill catego",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "planned-skills/generated/20-enterprise-workflows/governance-checklist-generator",
       "branch": "main",
       "category": "productivity",
@@ -14764,23 +14767,6 @@
       "stars": 0,
       "install": "anthropics/claude-agent-sdk-demos/email-agent/agent/.claude/skills/listener-creator",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ln-300-task-coordinator",
-      "description": "Task decomposition coordinator for development",
-      "repo": "levnikolaevich/claude-code-skills",
-      "path": "ln-300-task-coordinator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [
-        "agile",
-        "tasks",
-        "decomposition",
-        "linear"
-      ],
-      "stars": 0,
-      "install": "levnikolaevich/claude-code-skills/ln-300-task-coordinator",
-      "source": "local"
     },
     {
       "name": "load-memory",
@@ -17704,18 +17690,6 @@
       "stars": 0,
       "install": "obra/superpowers-skills/skills/collaboration/remembering-conversations",
       "source": "local"
-    },
-    {
-      "name": "reminder-system-creator",
-      "description": "Reminder System Creator - Auto-activating skill for Business Automation.Triggers on: reminder system creator, reminder system creatorPart of the Business Automation skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/reminder-system-creator",
-      "branch": "main",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/reminder-system-creator",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "reminder-system-creator",

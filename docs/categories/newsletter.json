@@ -1,0 +1,20 @@
+{
+  "category": "newsletter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.237702Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create The Jungle Brief newsletter issues. Use when assembling newsletter content from ideas and posts, creating issue sections, or reviewing newsletter drafts. Includes newsletter-specific voice (cur",
+      "repo": "xavierfuentes/xavierfuentes.com",
+      "path": "newsletter",
+      "branch": "main",
+      "category": "newsletter",
+      "tags": [],
+      "stars": 0,
+      "install": "xavierfuentes/xavierfuentes.com/newsletter",
+      "source": "github.com/xavierfuentes/xavierfuentes.com"
+    }
+  ]
+}

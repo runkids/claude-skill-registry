@@ -1,0 +1,20 @@
+{
+  "category": "apollo-connectors",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.333121Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Help users write Apollo Connectors schemas to integrate REST APIs into GraphQL supergraphs using @source and @connect directives with selection mapping. Use this skill when the user: (1) mentions \"con",
+      "repo": "apollographql/skills",
+      "path": "apollo-connectors",
+      "branch": "main",
+      "category": "apollo-connectors",
+      "tags": [],
+      "stars": 0,
+      "install": "apollographql/skills/apollo-connectors",
+      "source": "github.com/apollographql/skills"
+    }
+  ]
+}

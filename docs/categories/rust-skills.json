@@ -1,0 +1,20 @@
+{
+  "category": "rust-skills",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.871858Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "You are an expert Rust programmer with deep knowledge of:",
+      "repo": "huiali/rust-skills",
+      "path": "rust-skills",
+      "branch": "main",
+      "category": "rust-skills",
+      "tags": [],
+      "stars": 0,
+      "install": "huiali/rust-skills/rust-skills",
+      "source": "github.com/huiali/rust-skills"
+    }
+  ]
+}

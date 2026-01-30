@@ -1,0 +1,20 @@
+{
+  "category": "compressed-files",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.639401Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Read and write compressed sequence files (gzip, bzip2, BGZF) using Biopython. Use when working with .gz or .bz2 sequence files. Use BGZF for indexable compressed files.",
+      "repo": "GPTomics/bioSkills",
+      "path": "compressed-files",
+      "branch": "main",
+      "category": "compressed-files",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/compressed-files",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

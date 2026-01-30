@@ -1,0 +1,20 @@
+{
+  "category": "subagent-best-practices",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.111501Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-injects subagent delegation best practices when agents, subagents, Task tool, or parallel execution is mentioned.",
+      "repo": "OpenSourceSam/v2_heras_garden",
+      "path": "subagent-best-practices",
+      "branch": "main",
+      "category": "subagent-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "OpenSourceSam/v2_heras_garden/subagent-best-practices",
+      "source": "github.com/OpenSourceSam/v2_heras_garden"
+    }
+  ]
+}

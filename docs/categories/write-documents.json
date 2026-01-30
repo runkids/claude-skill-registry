@@ -1,0 +1,20 @@
+{
+  "category": "write-documents",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.491089Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when creating or editing INFO, SPEC, IMPL, TEST, FIX documents, or STRUT plans",
+      "repo": "karstenheld3/OpenAI-BackendTools",
+      "path": "write-documents",
+      "branch": "main",
+      "category": "write-documents",
+      "tags": [],
+      "stars": 0,
+      "install": "karstenheld3/OpenAI-BackendTools/write-documents",
+      "source": "github.com/karstenheld3/OpenAI-BackendTools"
+    }
+  ]
+}

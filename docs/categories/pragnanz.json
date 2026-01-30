@@ -1,0 +1,20 @@
+{
+  "category": "pragnanz",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.626415Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "El cerebro prefiere formas simples y ordenadas. Use cuando simplifique interfaces, diseñe iconos, o reduzca complejidad visual innecesaria.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "pragnanz",
+      "branch": "main",
+      "category": "pragnanz",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/pragnanz",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

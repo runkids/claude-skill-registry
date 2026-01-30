@@ -1,0 +1,20 @@
+{
+  "category": "deployment-guide",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.078892Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по deployment документации. Используй для гайдов по деплою, CI/CD и release processes.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "deployment-guide",
+      "branch": "main",
+      "category": "deployment-guide",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/deployment-guide",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

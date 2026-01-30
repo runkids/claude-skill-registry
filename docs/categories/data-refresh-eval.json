@@ -1,0 +1,20 @@
+{
+  "category": "data-refresh-eval",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.032639Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build and refresh eval datasets from Front, run routing evals, and analyze agent response quality.",
+      "repo": "skillrecordings/support",
+      "path": "data-refresh-eval",
+      "branch": "main",
+      "category": "data-refresh-eval",
+      "tags": [],
+      "stars": 0,
+      "install": "skillrecordings/support/data-refresh-eval",
+      "source": "github.com/skillrecordings/support"
+    }
+  ]
+}

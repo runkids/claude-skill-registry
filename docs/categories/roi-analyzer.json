@@ -1,0 +1,20 @@
+{
+  "category": "roi-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.851849Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when preparing executive reports, evaluating investments, or calculating ROI/break-even/payback period. 30-minute analysis (87.5% time saving). Includes scenario analysis.",
+      "repo": "nicepkg/ai-workflow",
+      "path": "roi-analyzer",
+      "branch": "main",
+      "category": "roi-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/roi-analyzer",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

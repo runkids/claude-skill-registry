@@ -1,0 +1,20 @@
+{
+  "category": "design-and-build",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.151489Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when making architecture decisions, setting up CI/CD, managing technical debt, or choosing branching strategies - enforces ADR requirements and prevents resume-driven design",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "design-and-build",
+      "branch": "main",
+      "category": "design-and-build",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks/design-and-build",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

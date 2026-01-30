@@ -1,0 +1,20 @@
+{
+  "category": "readme-polish",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.784356Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Improve a README for clarity and completeness. Use when a junior developer needs guidance on documenting setup and usage.",
+      "repo": "proflead/codex-skills-library",
+      "path": "readme-polish",
+      "branch": "main",
+      "category": "readme-polish",
+      "tags": [],
+      "stars": 0,
+      "install": "proflead/codex-skills-library/readme-polish",
+      "source": "github.com/proflead/codex-skills-library"
+    }
+  ]
+}

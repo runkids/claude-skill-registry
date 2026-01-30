@@ -1,0 +1,20 @@
+{
+  "category": "speckit-implement",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.056091Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute the implementation plan by processing and executing all tasks defined in tasks.md",
+      "repo": "dceoy/speckit-agent-skills",
+      "path": "speckit-implement",
+      "branch": "main",
+      "category": "speckit-implement",
+      "tags": [],
+      "stars": 0,
+      "install": "dceoy/speckit-agent-skills/speckit-implement",
+      "source": "github.com/dceoy/speckit-agent-skills"
+    }
+  ]
+}

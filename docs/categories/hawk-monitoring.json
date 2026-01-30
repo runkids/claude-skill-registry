@@ -1,0 +1,20 @@
+{
+  "category": "hawk-monitoring",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.824779Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Monitor Hawk job status, view logs, and diagnose issues. Use when the user wants to check job progress, view error logs, debug a failing job, or generate a monitoring report for a Hawk evaluation run.",
+      "repo": "tbroadley/dotfiles",
+      "path": "hawk-monitoring",
+      "branch": "main",
+      "category": "hawk-monitoring",
+      "tags": [],
+      "stars": 0,
+      "install": "tbroadley/dotfiles/hawk-monitoring",
+      "source": "github.com/tbroadley/dotfiles"
+    }
+  ]
+}

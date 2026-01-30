@@ -1,0 +1,20 @@
+{
+  "category": "antigravity-react-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.312924Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Modern React patterns and principles. Hooks, composition, performance, TypeScript best practices.",
+      "repo": "boisenoise/skills-collections",
+      "path": "antigravity-react-patterns",
+      "branch": "main",
+      "category": "antigravity-react-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/antigravity-react-patterns",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

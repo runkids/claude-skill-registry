@@ -1,0 +1,20 @@
+{
+  "category": "bug-fixing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.452912Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic debugging workflow for CircleTel - analyzes errors, identifies root causes, proposes fixes, and validates solutions with tests",
+      "repo": "jdeweedata/circletel",
+      "path": "bug-fixing",
+      "branch": "main",
+      "category": "bug-fixing",
+      "tags": [],
+      "stars": 0,
+      "install": "jdeweedata/circletel/bug-fixing",
+      "source": "github.com/jdeweedata/circletel"
+    }
+  ]
+}

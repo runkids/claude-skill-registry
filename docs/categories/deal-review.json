@@ -1,0 +1,20 @@
+{
+  "category": "deal-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.051287Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to run structured opportunity inspections that align pipeline data with buyer reality.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "deal-review",
+      "branch": "main",
+      "category": "deal-review",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/deal-review",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

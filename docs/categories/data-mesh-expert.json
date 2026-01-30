@@ -1,0 +1,20 @@
+{
+  "category": "data-mesh-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.030348Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert-level data mesh architecture, domain-oriented ownership, data products, federated governance, and self-serve platforms",
+      "repo": "personamanagmentlayer/pcl",
+      "path": "data-mesh-expert",
+      "branch": "main",
+      "category": "data-mesh-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "personamanagmentlayer/pcl/data-mesh-expert",
+      "source": "github.com/personamanagmentlayer/pcl"
+    }
+  ]
+}

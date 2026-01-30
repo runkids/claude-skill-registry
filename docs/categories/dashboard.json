@@ -1,0 +1,20 @@
+{
+  "category": "dashboard",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.749431Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Мультиаккаунтный дашборд. Статистика по всем аккаунтам с детализацией до уровня объявлений.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "dashboard",
+      "branch": "main",
+      "category": "dashboard",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/dashboard",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

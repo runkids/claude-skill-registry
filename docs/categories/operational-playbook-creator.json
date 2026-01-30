@@ -1,0 +1,20 @@
+{
+  "category": "operational-playbook-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.297029Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create comprehensive operational playbook documenting organizational structure, processes, meeting rhythms, communication protocols, OKRs, tools, onboarding, and culture. Build the operating system th",
+      "repo": "maigentic/stratarts",
+      "path": "operational-playbook-creator",
+      "branch": "main",
+      "category": "operational-playbook-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "maigentic/stratarts/operational-playbook-creator",
+      "source": "github.com/maigentic/stratarts"
+    }
+  ]
+}

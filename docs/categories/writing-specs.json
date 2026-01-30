@@ -1,0 +1,20 @@
+{
+  "category": "writing-specs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.500193Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete spec workflow - generates Run ID, creates isolated worktree, brainstorms requirements, writes lean spec documents that reference constitutions, validates architecture quality, and reports com",
+      "repo": "arittr/spectacular",
+      "path": "writing-specs",
+      "branch": "main",
+      "category": "writing-specs",
+      "tags": [],
+      "stars": 0,
+      "install": "arittr/spectacular/writing-specs",
+      "source": "github.com/arittr/spectacular"
+    }
+  ]
+}

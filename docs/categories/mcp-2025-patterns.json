@@ -1,0 +1,20 @@
+{
+  "category": "mcp-2025-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.100048Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Current best practices for Model Context Protocol server design, implementation, and integration. Updated patterns for 2025 MCP ecosystem including multi-server orchestration, security, and performanc",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "mcp-2025-patterns",
+      "branch": "main",
+      "category": "mcp-2025-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os/mcp-2025-patterns",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "query-deduplication-engines",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.751046Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Build mechanisms to debounce and deduplicate redundant data fetching requests.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "query-deduplication-engines",
+      "branch": "main",
+      "category": "query-deduplication-engines",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/query-deduplication-engines",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

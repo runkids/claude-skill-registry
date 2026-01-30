@@ -1,0 +1,20 @@
+{
+  "category": "tip-javascript-typescript",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.290145Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when writing or refactoring TypeScript/JavaScript code. It provides coding patterns and best practices aligned with the user's preferred development style, typescript languag",
+      "repo": "staticWagomU/dotfiles",
+      "path": "tip-javascript-typescript",
+      "branch": "main",
+      "category": "tip-javascript-typescript",
+      "tags": [],
+      "stars": 0,
+      "install": "staticWagomU/dotfiles/tip-javascript-typescript",
+      "source": "github.com/staticWagomU/dotfiles"
+    }
+  ]
+}

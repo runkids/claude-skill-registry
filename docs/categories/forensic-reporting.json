@@ -1,0 +1,20 @@
+{
+  "category": "forensic-reporting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.686358Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate professional forensic reports and documentation. Use when creating investigation reports, expert witness documentation, executive summaries, or technical findings. Supports multiple report fo",
+      "repo": "SherifEldeeb/agentskills",
+      "path": "forensic-reporting",
+      "branch": "main",
+      "category": "forensic-reporting",
+      "tags": [],
+      "stars": 0,
+      "install": "SherifEldeeb/agentskills/forensic-reporting",
+      "source": "github.com/SherifEldeeb/agentskills"
+    }
+  ]
+}

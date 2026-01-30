@@ -1,8 +1,8 @@
 {
   "category": "design",
   "code": "des",
-  "count": 5620,
-  "updated_at": "2026-01-29T04:50:38.565564Z",
+  "count": 5576,
+  "updated_at": "2026-01-30T04:55:06.083736Z",
   "skills": [
     {
       "name": "add-uint-support",
@@ -1305,21 +1305,6 @@
       "name": "svelte-runes",
       "description": "Svelte runes guidance. Use for reactive state, props, effects, attachments, or migration. Covers $state, $derived, $effect, @attach. Prevents reactivity mistakes.",
       "repo": "spences10/svelte-claude-skills",
-      "path": "data/svelte-runes",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "svelte",
-        "runes"
-      ],
-      "stars": 107,
-      "install": "spences10/svelte-claude-skills/data/svelte-runes",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "svelte-runes",
-      "description": "Svelte runes guidance. Use for reactive state, props, effects, attachments, or migration. Covers $state, $derived, $effect, @attach. Prevents reactivity mistakes.",
-      "repo": "spences10/svelte-claude-skills",
       "path": ".claude/skills/svelte-runes",
       "branch": "main",
       "category": "design",
@@ -1345,21 +1330,6 @@
       ],
       "stars": 107,
       "install": "spences10/svelte-claude-skills/.claude/skills/sveltekit-remote-functions",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "sveltekit-structure",
-      "description": "SvelteKit structure guidance. Use for routing, layouts, error handling, SSR, or svelte:boundary. Covers file naming, nested layouts, error boundaries, pending UI, and hydration.",
-      "repo": "spences10/svelte-claude-skills",
-      "path": "data/sveltekit-structure",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "sveltekit",
-        "structure"
-      ],
-      "stars": 107,
-      "install": "spences10/svelte-claude-skills/data/sveltekit-structure",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -1842,6 +1812,18 @@
       "stars": 49,
       "install": "korallis/Droidz/droidz_installer/payloads/droid_cli/default/skills/error-handling-patterns",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "building-project",
+      "description": "Used to build a project",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "data/building-project",
+      "branch": "main",
+      "category": "design",
+      "tags": [],
+      "stars": 48,
+      "install": "majiayu000/claude-skill-registry/data/building-project",
+      "source": "github.com/majiayu000/claude-skill-registry"
     },
     {
       "name": "building-project",
@@ -3156,21 +3138,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "asking-questions",
-      "description": "Guidance for asking clarifying questions when user requests are ambiguous, have multiple valid approaches, or require critical decisions. Use when implementation choices exist that could significantly",
-      "repo": "oaustegard/claude-skills",
-      "path": "asking-questions",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "asking",
-        "questions"
-      ],
-      "stars": 21,
-      "install": "oaustegard/claude-skills/asking-questions",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "business-analyst",
       "description": "Expert business analyst specializing in requirements gathering, process improvement, and data-driven decision making. Masters stakeholder management, business process modeling, and solution design wit",
       "repo": "zenobi-us/dotfiles",
@@ -3663,23 +3630,6 @@
       ],
       "stars": 13,
       "install": "sgcarstrends/sgcarstrends/.claude/skills/heroui-components",
-      "source": "local"
-    },
-    {
-      "name": "ln-112-project-core-creator",
-      "description": "Creates 3 core project docs (requirements.md, architecture.md, tech_stack.md). L3 Worker invoked by ln-110-project-docs-coordinator. ALWAYS created.",
-      "repo": "levnikolaevich/claude-code-skills",
-      "path": "ln-112-project-core-creator",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "112",
-        "project",
-        "core",
-        "creator"
-      ],
-      "stars": 13,
-      "install": "levnikolaevich/claude-code-skills/ln-112-project-core-creator",
       "source": "local"
     },
     {
@@ -4340,6 +4290,20 @@
       "stars": 10,
       "install": "OneWave-AI/claude-skills/deal-review-framework",
       "source": "local"
+    },
+    {
+      "name": "design",
+      "description": "Design system architecture, API contracts, and data flows. Use when translating analyzed requirements into technical design for feature implementation.",
+      "repo": "matteocervelli/llms",
+      "path": ".claude/skills/design",
+      "branch": "main",
+      "category": "design",
+      "tags": [
+        "design"
+      ],
+      "stars": 10,
+      "install": "matteocervelli/llms/.claude/skills/design",
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "design-patterns-expert",
@@ -12054,21 +12018,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "d3js-visualization",
-      "description": "\"Professional data visualization creation using D3.js with support for interactive charts, custom visualizations, animations, and responsive design. Use for: (1) Creating custom interactive charts, (2",
-      "repo": "AutumnsGrove/ClaudeSkills",
-      "path": "d3js-visualization",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "d3js",
-        "visualization"
-      ],
-      "stars": 1,
-      "install": "AutumnsGrove/ClaudeSkills/d3js-visualization",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "daisy-ui",
       "description": "A Tailwind CSS component library that provides a set of pre-designed UI components. Use for accessible, themed components that match Williamstown SC brand.",
       "repo": "dejanvasic85/williamstownsc",
@@ -12942,22 +12891,6 @@
       "source": "local"
     },
     {
-      "name": "image-enhancement-suite",
-      "description": "\"Batch image processing: resize, crop, watermark, color correction, format conversion, compression. Quality presets for web, print, and social media.\"",
-      "repo": "dkyazzentwatwa/chatgpt-skills",
-      "path": "image-enhancement-suite",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "image",
-        "enhancement",
-        "suite"
-      ],
-      "stars": 1,
-      "install": "dkyazzentwatwa/chatgpt-skills/image-enhancement-suite",
-      "source": "local"
-    },
-    {
       "name": "imagen",
       "description": "Generate images using Google Gemini's image generation capabilities.Use this skill when the user needs to create, generate, or produce imagesfor any purpose including UI mockups, icons, illustrations,",
       "repo": "sanjay3290/ai-skills",
@@ -13028,21 +12961,6 @@
       ],
       "stars": 1,
       "install": "troykelly/claude-skills/skills/issue-prerequisite",
-      "source": "local"
-    },
-    {
-      "name": "iterate-plan",
-      "description": "Update existing implementation plans through user feedback with thorough research and validation. This skill should be used when iterating on implementation plans, updating plans based on new requirem",
-      "repo": "mhylle/claude-skills-collection",
-      "path": "data/iterate-plan",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "iterate",
-        "plan"
-      ],
-      "stars": 1,
-      "install": "mhylle/claude-skills-collection/data/iterate-plan",
       "source": "local"
     },
     {
@@ -14472,20 +14390,6 @@
       ],
       "stars": 1,
       "install": "Reodor-Studios/create-reodor-app/.claude/skills/ui-patterns",
-      "source": "local"
-    },
-    {
-      "name": "ui-ux-audit",
-      "description": "Mandatory audit workflow for UI/UX changes that reads current state FIRST, checks for redundancy, respects clean design philosophy, and identifies genuine gaps before implementation. Auto-invoked when",
-      "repo": "WomenDefiningAI/claude-code-skills",
-      "path": "data/ui-ux-audit",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "audit"
-      ],
-      "stars": 1,
-      "install": "WomenDefiningAI/claude-code-skills/data/ui-ux-audit",
       "source": "local"
     },
     {
@@ -18444,20 +18348,6 @@
       "name": "animejs-v4",
       "description": "Anime.js 4.0 animations for Web Components — drag-drop, click feedback, swaps, cancelable motion. Use when adding animations, drag interactions, visual feedback, or motion to custom elements. Combines",
       "repo": "matthewharwood/fantasy-phonics",
-      "path": "data/animejs-v4",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "animejs"
-      ],
-      "stars": 0,
-      "install": "matthewharwood/fantasy-phonics/data/animejs-v4",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "animejs-v4",
-      "description": "Anime.js 4.0 animations for Web Components — drag-drop, click feedback, swaps, cancelable motion. Use when adding animations, drag interactions, visual feedback, or motion to custom elements. Combines",
-      "repo": "matthewharwood/fantasy-phonics",
       "path": ".claude/skills/animejs-v4",
       "branch": "main",
       "category": "design",
@@ -19049,18 +18939,6 @@
       "tags": [],
       "stars": 0,
       "install": "TheBushidoCollective/han/jutsu/jutsu-apollo-graphql/skills/apollo-caching-strategies",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "apollo-client-patterns",
-      "description": "Use when implementing Apollo Client patterns for queries, mutations, cache management, and local state in React applications.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/apollo-client-patterns",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/apollo-client-patterns",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -20483,21 +20361,6 @@
       ],
       "stars": 0,
       "install": "nmarchand73/new_tempsx/.claude/skills/audience",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "audio-design",
-      "description": "Game audio design patterns for creating sound effects and UI audio. Use when designing sounds for games, writing AI audio prompts (ElevenLabs, etc.), creating feedback sounds, or specifying audio for",
-      "repo": "matthewharwood/fantasy-phonics",
-      "path": "data/audio-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "audio",
-        "design"
-      ],
-      "stars": 0,
-      "install": "matthewharwood/fantasy-phonics/data/audio-design",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -23515,18 +23378,6 @@
       "name": "checkstyle-rules",
       "description": "Use when applying Checkstyle built-in checks for Java code including naming conventions, code metrics, and suppressions.",
       "repo": "TheBushidoCollective/han",
-      "path": "data/checkstyle-rules",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/checkstyle-rules",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "checkstyle-rules",
-      "description": "Use when applying Checkstyle built-in checks for Java code including naming conventions, code metrics, and suppressions.",
-      "repo": "TheBushidoCollective/han",
       "path": "jutsu/jutsu-checkstyle/skills/checkstyle-rules",
       "branch": "main",
       "category": "design",
@@ -24271,18 +24122,6 @@
       "stars": 0,
       "install": "andronics/claude-plugin-css-pro/skills/color-tools",
       "source": "local"
-    },
-    {
-      "name": "colors",
-      "description": "Reference guide for portfolio color palettes. Includes quick vibe lookup, full palettes, and application guidelines using the 60-30-10 rule.",
-      "repo": "JacbK/persona",
-      "path": "data/colors",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "JacbK/persona/data/colors",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "colors",
@@ -26003,21 +25842,6 @@
       "name": "create-component",
       "description": "Creates React components for SideDish. Use when adding new UI components, modals, forms, or interactive elements. Includes TypeScript interfaces, styling patterns, and security considerations.",
       "repo": "jhlee0409/sidedish",
-      "path": "data/create-component",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "create",
-        "component"
-      ],
-      "stars": 0,
-      "install": "jhlee0409/sidedish/data/create-component",
-      "source": "local"
-    },
-    {
-      "name": "create-component",
-      "description": "Creates React components for SideDish. Use when adding new UI components, modals, forms, or interactive elements. Includes TypeScript interfaces, styling patterns, and security considerations.",
-      "repo": "jhlee0409/sidedish",
       "path": ".claude/skills/create-component",
       "branch": "main",
       "category": "design",
@@ -27366,18 +27190,6 @@
       "stars": 0,
       "install": "taskcrew/cua-mcp-server/.claude/skills/cua-cloud",
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "cui-css",
-      "description": "Modern CSS standards covering essentials, responsive design, quality practices, and tooling for CUI projects",
-      "repo": "cuioss/cui-llm-rules",
-      "path": "data/cui-css",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "cuioss/cui-llm-rules/data/cui-css",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "cui-css",
@@ -36704,18 +36516,6 @@
       "name": "frontend-reviewer",
       "description": "Senior Frontend Code Reviewer with 12+ years JavaScript/TypeScript experience. Use when reviewing React/TypeScript code, checking code quality and style, verifying accessibility compliance, ensuring t",
       "repo": "olehsvyrydov/AI-development-team",
-      "path": "data/frontend-reviewer",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "olehsvyrydov/AI-development-team/data/frontend-reviewer",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "frontend-reviewer",
-      "description": "Senior Frontend Code Reviewer with 12+ years JavaScript/TypeScript experience. Use when reviewing React/TypeScript code, checking code quality and style, verifying accessibility compliance, ensuring t",
-      "repo": "olehsvyrydov/AI-development-team",
       "path": "claude/skills/quality/review/frontend-reviewer",
       "branch": "main",
       "category": "design",
@@ -40070,18 +39870,6 @@
       "name": "idb-state-persistence",
       "description": "IndexedDB patterns for local-first state persistence using the idb library. Use when implementing features that require persistent state across navigation and sessions. Covers data modeling, defaults,",
       "repo": "matthewharwood/fantasy-phonics",
-      "path": "data/idb-state-persistence",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "matthewharwood/fantasy-phonics/data/idb-state-persistence",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "idb-state-persistence",
-      "description": "IndexedDB patterns for local-first state persistence using the idb library. Use when implementing features that require persistent state across navigation and sessions. Covers data modeling, defaults,",
-      "repo": "matthewharwood/fantasy-phonics",
       "path": ".claude/skills/idb-state-persistence",
       "branch": "main",
       "category": "design",
@@ -41539,18 +41327,6 @@
       "name": "ipad-pro-design",
       "description": "CSS and UX patterns for iPad Pro 12.9\" development. Covers viewport configuration, touch optimization, safe areas, ProMotion animations, and child-friendly design patterns. Use when building education",
       "repo": "matthewharwood/fantasy-phonics",
-      "path": "data/ipad-pro-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "matthewharwood/fantasy-phonics/data/ipad-pro-design",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ipad-pro-design",
-      "description": "CSS and UX patterns for iPad Pro 12.9\" development. Covers viewport configuration, touch optimization, safe areas, ProMotion animations, and child-friendly design patterns. Use when building education",
-      "repo": "matthewharwood/fantasy-phonics",
       "path": ".claude/skills/ipad-pro-design",
       "branch": "main",
       "category": "design",
@@ -41678,20 +41454,6 @@
       "stars": 0,
       "install": "TheBushidoCollective/han/jutsu/jutsu-java/skills/java-streams-api",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "javascript",
-      "description": "Use when writing JavaScript for Discourse core, themes, or plugins - covers jQuery phaseout, Ember patterns, singleton imports, lifecycle hooks, and cleanup requirements",
-      "repo": "discourse/skills",
-      "path": "data/javascript",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "javascript"
-      ],
-      "stars": 0,
-      "install": "discourse/skills/data/javascript",
-      "source": "local"
     },
     {
       "name": "javascript",
@@ -42872,18 +42634,6 @@
       "tags": [],
       "stars": 0,
       "install": "hopperlabsxyz/lagoon-mcp/skills/lagoon-portfolio-review",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "landing-page-architect",
-      "description": "Generate content strategy and component recommendations for landing pages. Analyzes implementations to create StoryBrand-structured pages with brand-aligned Shadcn component queries.",
-      "repo": "letsgomaslow/think",
-      "path": "data/landing-page-architect",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "letsgomaslow/think/data/landing-page-architect",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -44967,30 +44717,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "malware-dynamic-analysis",
-      "description": "Execute and monitor malware in controlled sandbox environments. Use when you need to observe runtime behavior, capture network traffic, monitor process activity, analyze file/registry changes, or unde",
-      "repo": "gl0bal01/malware-analysis-claude-skills",
-      "path": "malware-dynamic-analysis",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "gl0bal01/malware-analysis-claude-skills/malware-dynamic-analysis",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "malware-triage",
-      "description": "Systematic malware triage and initial assessment workflow for professional malware analysis. Use when the user needs to perform initial malware assessment, classify samples, determine analysis priorit",
-      "repo": "gl0bal01/malware-analysis-claude-skills",
-      "path": "malware-triage",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "gl0bal01/malware-analysis-claude-skills/malware-triage",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "manage-architecture",
       "description": "Create and maintain architecture documentation following Lucid Composite Architecture (LCA) principles.INVOKE THIS SKILL when user:- Asks an \"architect\" to review or analyze anything- Mentions \"archit",
       "repo": "rayk/lucid-toolkit",
@@ -45674,18 +45400,6 @@
       "stars": 0,
       "install": "nekorush14/nekorush14.dev/.claude/skills/material-design-3-expressive",
       "source": "local"
-    },
-    {
-      "name": "material-symbols-v3",
-      "description": "Material Symbols v3 variable icon font system. Use when adding icons to buttons, navigation, status indicators, or any UI element. Provides 2,500+ icons with fill, weight, grade, and optical size axes",
-      "repo": "matthewharwood/fantasy-phonics",
-      "path": "data/material-symbols-v3",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "matthewharwood/fantasy-phonics/data/material-symbols-v3",
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "material-symbols-v3",
@@ -48482,18 +48196,6 @@
       "name": "never-guess",
       "description": "Behavioral principle ensuring Claude never guesses when uncertain. Use when Claude's response involves facts it cannot verify, technical claims, or any statement where accuracy matters. Complements re",
       "repo": "rayk/lucid-toolkit",
-      "path": "data/never-guess",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "rayk/lucid-toolkit/data/never-guess",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "never-guess",
-      "description": "Behavioral principle ensuring Claude never guesses when uncertain. Use when Claude's response involves facts it cannot verify, technical claims, or any statement where accuracy matters. Complements re",
-      "repo": "rayk/lucid-toolkit",
       "path": "plugins/luc/skills/never-guess",
       "branch": "main",
       "category": "design",
@@ -49308,18 +49010,6 @@
       "tags": [],
       "stars": 0,
       "install": "pianzhu/my-claude-skills/data/nexus-prompt-engineer",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "nexus-prompt-engineer",
-      "description": "4-D prompt engineering assistant that transforms vague requirements into high-precision prompts through guided interaction. Trigger when users need to: (1) craft high-quality system prompts, (2) optim",
-      "repo": "pianzhu/my-claude-skills",
-      "path": "nexus-prompt-engineer-en",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "pianzhu/my-claude-skills/nexus-prompt-engineer-en",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -52001,18 +51691,6 @@
       "name": "performance-patterns",
       "description": "Use when user asks about N+1 queries, performance optimization, query optimization, reduce API calls, improve render performance, fix slow code, optimize database, or reduce bundle size. Provides guid",
       "repo": "hculap/better-code",
-      "path": "data/performance-patterns",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "hculap/better-code/data/performance-patterns",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "performance-patterns",
-      "description": "Use when user asks about N+1 queries, performance optimization, query optimization, reduce API calls, improve render performance, fix slow code, optimize database, or reduce bundle size. Provides guid",
-      "repo": "hculap/better-code",
       "path": "plugins/n1-optimizer/skills/performance-patterns",
       "branch": "main",
       "category": "design",
@@ -52261,18 +51939,6 @@
       "tags": [],
       "stars": 0,
       "install": "TheBushidoCollective/han/jutsu/jutsu-phoenix/skills/phoenix-patterns",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "phoenix-views-templates",
-      "description": "Render views and templates in Phoenix using HEEx templates, function components, slots, and assigns",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/phoenix-views-templates",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/phoenix-views-templates",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -54902,18 +54568,6 @@
       "name": "python-optimization",
       "description": "Expert guidance for mathematical optimization in Python - systematic problem classification, library selection (scipy, pyomo, cvxpy, GEKKO), solver configuration, and implementation patterns for LP, Q",
       "repo": "jkitchin/skillz",
-      "path": "data/python-optimization",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "jkitchin/skillz/data/python-optimization",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "python-optimization",
-      "description": "Expert guidance for mathematical optimization in Python - systematic problem classification, library selection (scipy, pyomo, cvxpy, GEKKO), solver configuration, and implementation patterns for LP, Q",
-      "repo": "jkitchin/skillz",
       "path": "skills/programming/python-optimization",
       "branch": "main",
       "category": "design",
@@ -56113,18 +55767,6 @@
       "name": "react-context-patterns",
       "description": "Use when React Context patterns for state management. Use when sharing state across component trees without prop drilling.",
       "repo": "TheBushidoCollective/han",
-      "path": "data/react-context-patterns",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/react-context-patterns",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "react-context-patterns",
-      "description": "Use when React Context patterns for state management. Use when sharing state across component trees without prop drilling.",
-      "repo": "TheBushidoCollective/han",
       "path": "jutsu/jutsu-react/skills/react-context-patterns",
       "branch": "main",
       "category": "design",
@@ -56496,18 +56138,6 @@
       "name": "react-native-web-core",
       "description": "Use when working with React Native Web projects. Provides core concepts, components, and cross-platform patterns for building web applications with React Native.",
       "repo": "TheBushidoCollective/han",
-      "path": "data/react-native-web-core",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/react-native-web-core",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "react-native-web-core",
-      "description": "Use when working with React Native Web projects. Provides core concepts, components, and cross-platform patterns for building web applications with React Native.",
-      "repo": "TheBushidoCollective/han",
       "path": "jutsu/jutsu-react-native-web/skills/react-native-web-core",
       "branch": "main",
       "category": "design",
@@ -56733,18 +56363,6 @@
       "tags": [],
       "stars": 0,
       "install": "SHAJAR5110/Hackathon-II-phase2/design/react-tailwind-expert",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "react-ui",
-      "description": "Apply React patterns and conventions when working on UI components. Use when editing files in src/ui/, creating React components, or discussing state management. Auto-apply for JSX files.",
-      "repo": "surfdeeper/surfing-game",
-      "path": "data/react-ui",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "surfdeeper/surfing-game/data/react-ui",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -61506,15 +61124,15 @@
     },
     {
       "name": "SKILL.md",
-      "description": "Design system architecture, API contracts, and data flows. Use when translating analyzed requirements into technical design for feature implementation.",
-      "repo": "matteocervelli/llms",
-      "path": ".claude/skills/design",
+      "description": "Auto-activates when user mentions UI design, design systems, or component design. Expert in design principles, accessibility, and component architecture.",
+      "repo": "pascallammers/mylo-travel-concierge-v2",
+      "path": "design",
       "branch": "main",
       "category": "design",
       "tags": [],
       "stars": 0,
-      "install": "matteocervelli/llms/.claude/skills/design",
-      "source": "github.com/matteocervelli/llms"
+      "install": "pascallammers/mylo-travel-concierge-v2/design",
+      "source": "github.com/pascallammers/mylo-travel-concierge-v2"
     },
     {
       "name": "sla-tracking",
@@ -62097,18 +61715,6 @@
       "tags": [],
       "stars": 0,
       "install": "dylantarre/design-system-skills/skills/tokens/spacing-scale",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "sparc-architecture",
-      "description": "SPARC Architecture phase specialist for system design, component architecture, interface design, scalability planning, and technology selection",
-      "repo": "vamseeachanta/workspace-hub",
-      "path": "data/sparc-architecture",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "vamseeachanta/workspace-hub/data/sparc-architecture",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -64007,18 +63613,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "svg-precision",
-      "description": "Deterministic SVG generation, validation, and rendering. Use for icons, diagrams, charts, UI mockups, or technical drawings requiring structural correctness and cross-viewer compatibility.",
-      "repo": "dkyazzentwatwa/chatgpt-skills",
-      "path": "svg-precision-skill",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "dkyazzentwatwa/chatgpt-skills/svg-precision-skill",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "svg-theme-system",
       "description": "Use when you need SVGs with selectable/customisable appearance: multiple palettes (WLILO / Obsidian / light), consistent typography, and repeatable agent-friendly pipelines. Triggers: svg theme, token",
       "repo": "metabench/copilot-dl-news",
@@ -64998,18 +64592,6 @@
       "name": "tailwind-components",
       "description": "Use when building reusable component patterns with Tailwind CSS. Covers component extraction, @apply directive, and composable design patterns.",
       "repo": "TheBushidoCollective/han",
-      "path": "data/tailwind-components",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/tailwind-components",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "tailwind-components",
-      "description": "Use when building reusable component patterns with Tailwind CSS. Covers component extraction, @apply directive, and composable design patterns.",
-      "repo": "TheBushidoCollective/han",
       "path": "jutsu/jutsu-tailwind/skills/tailwind-components",
       "branch": "main",
       "category": "design",
@@ -65300,18 +64882,6 @@
       "tags": [],
       "stars": 0,
       "install": "autohandai/community-skills/tailwind-ui-patterns",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "tailwind-utility-classes",
-      "description": "Use when working with Tailwind CSS utility classes for layout, spacing, typography, colors, and visual effects. Covers utility-first CSS patterns and class composition.",
-      "repo": "TheBushidoCollective/han",
-      "path": "data/tailwind-utility-classes",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "TheBushidoCollective/han/data/tailwind-utility-classes",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -66967,20 +66537,6 @@
       "stars": 0,
       "install": "LuluFur/p5-web-games/.claude/skills/tower-visuals",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "traceability",
-      "description": "Manage requirement traceability - generate matrix, check coverage, find orphans, trace requirements",
-      "repo": "Smith-Happens/xlightsfpptester",
-      "path": "data/traceability",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "traceability"
-      ],
-      "stars": 0,
-      "install": "Smith-Happens/xlightsfpptester/data/traceability",
-      "source": "local"
     },
     {
       "name": "traceability",
@@ -69732,36 +69288,12 @@
       "name": "ux-accessibility",
       "description": "WCAG 2.2 accessibility patterns for web components. Use when implementing focus management, keyboard navigation, screen reader support, reduced motion, high contrast mode, or touch targets. Integrates",
       "repo": "matthewharwood/fantasy-phonics",
-      "path": "data/ux-accessibility",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "matthewharwood/fantasy-phonics/data/ux-accessibility",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ux-accessibility",
-      "description": "WCAG 2.2 accessibility patterns for web components. Use when implementing focus management, keyboard navigation, screen reader support, reduced motion, high contrast mode, or touch targets. Integrates",
-      "repo": "matthewharwood/fantasy-phonics",
       "path": ".claude/skills/ux-accessibility",
       "branch": "main",
       "category": "design",
       "tags": [],
       "stars": 0,
       "install": "matthewharwood/fantasy-phonics/.claude/skills/ux-accessibility",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ux-animation-motion",
-      "description": "Animation patterns using Anime.js v4 for UI feedback, transitions, and celebrations. Use when implementing hover effects, transitions, loading animations, or gamification feedback. Includes reduced mo",
-      "repo": "matthewharwood/fantasy-phonics",
-      "path": "data/ux-animation-motion",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "matthewharwood/fantasy-phonics/data/ux-animation-motion",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -69840,18 +69372,6 @@
       "name": "ux-color-system",
       "description": "Fantasy-themed color tokens and semantic color usage. Use when applying colors, creating themes, or ensuring color accessibility. Covers surface/text relationships, state colors, and dark theme patter",
       "repo": "matthewharwood/fantasy-phonics",
-      "path": "data/ux-color-system",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "matthewharwood/fantasy-phonics/data/ux-color-system",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ux-color-system",
-      "description": "Fantasy-themed color tokens and semantic color usage. Use when applying colors, creating themes, or ensuring color accessibility. Covers surface/text relationships, state colors, and dark theme patter",
-      "repo": "matthewharwood/fantasy-phonics",
       "path": ".claude/skills/ux-color-system",
       "branch": "main",
       "category": "design",
@@ -69859,21 +69379,6 @@
       "stars": 0,
       "install": "matthewharwood/fantasy-phonics/.claude/skills/ux-color-system",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ux-component-states",
-      "description": "Interactive component state patterns including hover, focus, active, disabled, loading, and error states. Use when building buttons, inputs, cards, or any interactive elements. (project)",
-      "repo": "matthewharwood/fantasy-phonics",
-      "path": "data/ux-component-states",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "component",
-        "states"
-      ],
-      "stars": 0,
-      "install": "matthewharwood/fantasy-phonics/data/ux-component-states",
-      "source": "local"
     },
     {
       "name": "ux-component-states",
@@ -69956,21 +69461,6 @@
       ],
       "stars": 0,
       "install": "vinceh/recipe/.claude/skills/ux-creator",
-      "source": "local"
-    },
-    {
-      "name": "ux-design-principles",
-      "description": "Cognitive psychology principles for UX design decisions. Use when planning features, structuring interfaces, reducing complexity, or optimizing user journeys. Covers choice architecture, cognitive loa",
-      "repo": "matthewharwood/fantasy-phonics",
-      "path": "data/ux-design-principles",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "design",
-        "principles"
-      ],
-      "stars": 0,
-      "install": "matthewharwood/fantasy-phonics/data/ux-design-principles",
       "source": "local"
     },
     {
@@ -70065,21 +69555,6 @@
       "stars": 0,
       "install": "yurake/skills/product/ux-flow-chooser",
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ux-form-design",
-      "description": "Form and input design patterns including validation, labels, error handling, and form-associated custom elements. Use when building forms, inputs, or interactive data collection. (project)",
-      "repo": "matthewharwood/fantasy-phonics",
-      "path": "data/ux-form-design",
-      "branch": "main",
-      "category": "design",
-      "tags": [
-        "form",
-        "design"
-      ],
-      "stars": 0,
-      "install": "matthewharwood/fantasy-phonics/data/ux-form-design",
-      "source": "local"
     },
     {
       "name": "ux-form-design",
@@ -70196,18 +69671,6 @@
       "name": "ux-spacing-layout",
       "description": "Utopia fluid spacing tokens and layout patterns. Use when applying margins, padding, gaps, or creating layouts. Covers space scale, container widths, and responsive spacing. (project)",
       "repo": "matthewharwood/fantasy-phonics",
-      "path": "data/ux-spacing-layout",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "matthewharwood/fantasy-phonics/data/ux-spacing-layout",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ux-spacing-layout",
-      "description": "Utopia fluid spacing tokens and layout patterns. Use when applying margins, padding, gaps, or creating layouts. Covers space scale, container widths, and responsive spacing. (project)",
-      "repo": "matthewharwood/fantasy-phonics",
       "path": ".claude/skills/ux-spacing-layout",
       "branch": "main",
       "category": "design",
@@ -70220,36 +69683,12 @@
       "name": "ux-typography",
       "description": "Typography patterns using Utopia fluid type scale with cqi units. Use when setting font sizes, line heights, font families, or text styling. Covers display vs body fonts, hierarchy, and readability. (",
       "repo": "matthewharwood/fantasy-phonics",
-      "path": "data/ux-typography",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "matthewharwood/fantasy-phonics/data/ux-typography",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ux-typography",
-      "description": "Typography patterns using Utopia fluid type scale with cqi units. Use when setting font sizes, line heights, font families, or text styling. Covers display vs body fonts, hierarchy, and readability. (",
-      "repo": "matthewharwood/fantasy-phonics",
       "path": ".claude/skills/ux-typography",
       "branch": "main",
       "category": "design",
       "tags": [],
       "stars": 0,
       "install": "matthewharwood/fantasy-phonics/.claude/skills/ux-typography",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ux-user-flow",
-      "description": "Navigation and user flow patterns including routing, state management, progressive disclosure, and game progression. Use when designing multi-step flows, game phases, or navigation structures. (projec",
-      "repo": "matthewharwood/fantasy-phonics",
-      "path": "data/ux-user-flow",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "matthewharwood/fantasy-phonics/data/ux-user-flow",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -71600,18 +71039,6 @@
       "tags": [],
       "stars": 0,
       "install": "bwl21/bwl-flyer-generator/.ona/skills/vue-components",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "vue-composable-creator",
-      "description": "Vue Composable Creator - Auto-activating skill for Frontend Development.Triggers on: vue composable creator, vue composable creatorPart of the Frontend Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/vue-composable-creator",
-      "branch": "main",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills/data/vue-composable-creator",
       "source": "SkillsMP + GitHub Raw"
     },
     {

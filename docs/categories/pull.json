@@ -1,0 +1,20 @@
+{
+  "category": "pull",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.719384Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /pull or /pull <branch> slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "pull",
+      "branch": "main",
+      "category": "pull",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles/pull",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

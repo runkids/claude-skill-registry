@@ -1,0 +1,20 @@
+{
+  "category": "chrome-devtools",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.522664Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Browser automation via Puppeteer CLI scripts (JSON output). Capabilities: screenshots, PDF generation, web scraping, form automation, network monitoring, performance profiling, JavaScript debugging, h",
+      "repo": "brixtonpham/claude-config",
+      "path": "chrome-devtools",
+      "branch": "main",
+      "category": "chrome-devtools",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/chrome-devtools",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

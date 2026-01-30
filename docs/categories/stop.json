@@ -1,0 +1,20 @@
+{
+  "category": "stop",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.093788Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "工作流暂停逻辑设计方案",
+      "repo": "labring/FastGPT",
+      "path": "stop",
+      "branch": "main",
+      "category": "stop",
+      "tags": [],
+      "stars": 0,
+      "install": "labring/FastGPT/stop",
+      "source": "github.com/labring/FastGPT"
+    }
+  ]
+}

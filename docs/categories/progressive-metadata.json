@@ -1,0 +1,20 @@
+{
+  "category": "progressive-metadata",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.687959Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pattern for creating skills with YAML frontmatter that enables progressive disclosure and token optimization. Use when building skills, optimizing context usage, or implementing domain expertise with",
+      "repo": "dredd-us/seashells",
+      "path": "progressive-metadata",
+      "branch": "main",
+      "category": "progressive-metadata",
+      "tags": [],
+      "stars": 0,
+      "install": "dredd-us/seashells/progressive-metadata",
+      "source": "github.com/dredd-us/seashells"
+    }
+  ]
+}

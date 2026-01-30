@@ -1,0 +1,20 @@
+{
+  "category": "evernote-sdk-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.603568Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced Evernote SDK patterns and best practices. Use when implementing complex note operations, batch processing, search queries, or optimizing SDK usage. Trigger with phrases like \"evernote sdk pat",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "evernote-sdk-patterns",
+      "branch": "main",
+      "category": "evernote-sdk-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/evernote-sdk-patterns",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

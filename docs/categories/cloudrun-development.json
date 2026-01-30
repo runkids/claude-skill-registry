@@ -1,0 +1,20 @@
+{
+  "category": "cloudrun-development",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.581703Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "CloudBase Run backend development rules (Function mode/Container mode). Use this skill when deploying backend services that require long connections, multi-language support, custom environments, or AI",
+      "repo": "baiyongping/cowork-platform",
+      "path": "cloudrun-development",
+      "branch": "main",
+      "category": "cloudrun-development",
+      "tags": [],
+      "stars": 0,
+      "install": "baiyongping/cowork-platform/cloudrun-development",
+      "source": "github.com/baiyongping/cowork-platform"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "posthog-data-handling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.615960Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement PostHog PII handling, data retention, and GDPR/CCPA compliance patterns. Use when handling sensitive data, implementing data redaction, configuring retention policies, or ensuring compliance",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "posthog-data-handling",
+      "branch": "main",
+      "category": "posthog-data-handling",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/posthog-data-handling",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

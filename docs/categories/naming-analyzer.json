@@ -1,0 +1,20 @@
+{
+  "category": "naming-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.222048Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Suggest better variable, function, and class names based on context and conventions.",
+      "repo": "softaworks/agent-toolkit",
+      "path": "naming-analyzer",
+      "branch": "main",
+      "category": "naming-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "softaworks/agent-toolkit/naming-analyzer",
+      "source": "github.com/softaworks/agent-toolkit"
+    }
+  ]
+}

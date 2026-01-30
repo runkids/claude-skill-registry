@@ -1,0 +1,20 @@
+{
+  "category": "coord-frontend",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.684158Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Invoke COORD_FRONTEND for UI/UX development and frontend implementation",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": "coord-frontend",
+      "branch": "main",
+      "category": "coord-frontend",
+      "tags": [],
+      "stars": 0,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/coord-frontend",
+      "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager"
+    }
+  ]
+}

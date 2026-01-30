@@ -1,0 +1,20 @@
+{
+  "category": "nativewind-and-tailwind-css-compatibility",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.225806Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides specific version compatibility notes for NativeWind and Tailwind CSS to prevent common installation errors.",
+      "repo": "oimiragieo/agent-studio",
+      "path": "nativewind-and-tailwind-css-compatibility",
+      "branch": "main",
+      "category": "nativewind-and-tailwind-css-compatibility",
+      "tags": [],
+      "stars": 0,
+      "install": "oimiragieo/agent-studio/nativewind-and-tailwind-css-compatibility",
+      "source": "github.com/oimiragieo/agent-studio"
+    }
+  ]
+}

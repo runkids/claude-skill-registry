@@ -1,0 +1,20 @@
+{
+  "category": "form-components",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.687274Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ALWAYS use form components from @/components/ui/form-fields.",
+      "repo": "vassovass/scl-v3",
+      "path": "form-components",
+      "branch": "main",
+      "category": "form-components",
+      "tags": [],
+      "stars": 0,
+      "install": "vassovass/scl-v3/form-components",
+      "source": "github.com/vassovass/scl-v3"
+    }
+  ]
+}

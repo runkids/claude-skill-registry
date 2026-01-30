@@ -1,0 +1,20 @@
+{
+  "category": "stripe",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.103646Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive Stripe API expert with access to 3,253 official documentation files covering all payment processing, billing, subscriptions, webhooks, Connect, Terminal, Radar, Identity, Tax, Climate, a",
+      "repo": "raintree-technology/claude-starter",
+      "path": "stripe",
+      "branch": "main",
+      "category": "stripe",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/stripe",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

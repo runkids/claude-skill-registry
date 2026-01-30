@@ -1,0 +1,20 @@
+{
+  "category": "flow-nexus-neural",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.678735Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Train and deploy neural networks in distributed E2B sandboxes with Flow Nexus",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "flow-nexus-neural",
+      "branch": "main",
+      "category": "flow-nexus-neural",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension/flow-nexus-neural",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

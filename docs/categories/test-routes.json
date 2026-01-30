@@ -1,0 +1,20 @@
+{
+  "category": "test-routes",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.210966Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test route configurations with integration-style tests. Use when testing complete request/response cycles through routes. Triggers on \"test routes\", \"test note routes\", \"integration test\".",
+      "repo": "madooei/backend-template",
+      "path": "test-routes",
+      "branch": "main",
+      "category": "test-routes",
+      "tags": [],
+      "stars": 0,
+      "install": "madooei/backend-template/test-routes",
+      "source": "github.com/madooei/backend-template"
+    }
+  ]
+}

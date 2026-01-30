@@ -1,0 +1,20 @@
+{
+  "category": "helm-chart-scaffolding",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.828903Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design, organize, and manage Helm charts for templating and packaging Kubernetes applications with reusable configurations. Use when creating Helm charts, packaging Kubernetes applications, or impleme",
+      "repo": "GaitanS/AI-Mancare",
+      "path": "helm-chart-scaffolding",
+      "branch": "main",
+      "category": "helm-chart-scaffolding",
+      "tags": [],
+      "stars": 0,
+      "install": "GaitanS/AI-Mancare/helm-chart-scaffolding",
+      "source": "github.com/GaitanS/AI-Mancare"
+    }
+  ]
+}

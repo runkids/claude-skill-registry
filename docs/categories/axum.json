@@ -1,0 +1,20 @@
+{
+  "category": "axum",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.392767Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ergonomic Rust web framework built on Tower and Tokio.",
+      "repo": "ngxtm/devkit",
+      "path": "axum",
+      "branch": "main",
+      "category": "axum",
+      "tags": [],
+      "stars": 0,
+      "install": "ngxtm/devkit/axum",
+      "source": "github.com/ngxtm/devkit"
+    }
+  ]
+}

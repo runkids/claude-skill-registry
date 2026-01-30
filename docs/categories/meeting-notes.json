@@ -1,0 +1,20 @@
+{
+  "category": "meeting-notes",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.113431Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate structured meeting notes with action items, decisions, and summaries from transcripts. Use when documenting meetings or creating meeting summaries.",
+      "repo": "ntaksh42/agents",
+      "path": "meeting-notes",
+      "branch": "main",
+      "category": "meeting-notes",
+      "tags": [],
+      "stars": 0,
+      "install": "ntaksh42/agents/meeting-notes",
+      "source": "github.com/ntaksh42/agents"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "post-mortem",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.611613Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive post-implementation validation. Combines retro (learnings), vibe (code validation), security scanning (Talos), and knowledge extraction into a single unified workflow. Triggers: \"post-mo",
+      "repo": "boshu2/agentops",
+      "path": "post-mortem",
+      "branch": "main",
+      "category": "post-mortem",
+      "tags": [],
+      "stars": 0,
+      "install": "boshu2/agentops/post-mortem",
+      "source": "github.com/boshu2/agentops"
+    }
+  ]
+}

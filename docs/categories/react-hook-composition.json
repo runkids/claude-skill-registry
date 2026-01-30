@@ -1,0 +1,20 @@
+{
+  "category": "react-hook-composition",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.774040Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Custom hook patterns for TMNL. Covers hook composition, useDebugValue, atom subscriptions, and registry patterns. Use for building reusable hook APIs like useSlider, useDataManager.",
+      "repo": "creatifcoding/gbg",
+      "path": "react-hook-composition",
+      "branch": "main",
+      "category": "react-hook-composition",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/react-hook-composition",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

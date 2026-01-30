@@ -1,0 +1,20 @@
+{
+  "category": "landing-page-marketing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.967167Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automate landing page updates and marketing asset capture following established patterns",
+      "repo": "vitorsilva/saberloop",
+      "path": "landing-page-marketing",
+      "branch": "main",
+      "category": "landing-page-marketing",
+      "tags": [],
+      "stars": 0,
+      "install": "vitorsilva/saberloop/landing-page-marketing",
+      "source": "github.com/vitorsilva/saberloop"
+    }
+  ]
+}

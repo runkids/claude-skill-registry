@@ -1,0 +1,20 @@
+{
+  "category": "performance-profiling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.561540Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Performance profiling principles. Measurement, analysis, and optimization techniques.",
+      "repo": "AxelMrak/ai",
+      "path": "performance-profiling",
+      "branch": "main",
+      "category": "performance-profiling",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/performance-profiling",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

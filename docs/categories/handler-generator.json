@@ -1,0 +1,20 @@
+{
+  "category": "handler-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.819420Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates new Go HTTP handlers following Ishkul patterns. Creates handler with proper request/response types, error handling, validation, structured logging, and matching test file. Use when adding ne",
+      "repo": "mesbahtanvir/ishkul",
+      "path": "handler-generator",
+      "branch": "main",
+      "category": "handler-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "mesbahtanvir/ishkul/handler-generator",
+      "source": "github.com/mesbahtanvir/ishkul"
+    }
+  ]
+}

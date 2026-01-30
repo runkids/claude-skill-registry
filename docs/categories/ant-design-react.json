@@ -1,0 +1,20 @@
+{
+  "category": "ant-design-react",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.303764Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Ant Design React component library including components, design system, themes, and TypeScript support. Use when the user asks about Ant Design for React, needs to",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "ant-design-react",
+      "branch": "main",
+      "category": "ant-design-react",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/ant-design-react",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

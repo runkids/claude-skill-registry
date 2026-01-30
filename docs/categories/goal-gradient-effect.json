@@ -1,0 +1,20 @@
+{
+  "category": "goal-gradient-effect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.784674Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "El esfuerzo aumenta a medida que nos acercamos a una meta. Use cuando diseñe progress bars, programas de lealtad, flujos multi-paso, o gamificación.",
+      "repo": "vjrivmon/Setup-Software-IA",
+      "path": "goal-gradient-effect",
+      "branch": "main",
+      "category": "goal-gradient-effect",
+      "tags": [],
+      "stars": 0,
+      "install": "vjrivmon/Setup-Software-IA/goal-gradient-effect",
+      "source": "github.com/vjrivmon/Setup-Software-IA"
+    }
+  ]
+}

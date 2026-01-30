@@ -1,0 +1,20 @@
+{
+  "category": "redis-inspect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.793752Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Inspect Redis cache keys, values, and TTLs for debugging. Supports both main cache and system cache. Use for debugging cache issues, checking cached values, and monitoring cache state. Read-only by de",
+      "repo": "civitai/civitai",
+      "path": "redis-inspect",
+      "branch": "main",
+      "category": "redis-inspect",
+      "tags": [],
+      "stars": 0,
+      "install": "civitai/civitai/redis-inspect",
+      "source": "github.com/civitai/civitai"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "rolling-update-strategies",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.852774Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Zero-downtime deploys with health checks and rollback.",
+      "repo": "cornmanwtf/ABANG-COLEK",
+      "path": "rolling-update-strategies",
+      "branch": "main",
+      "category": "rolling-update-strategies",
+      "tags": [],
+      "stars": 0,
+      "install": "cornmanwtf/ABANG-COLEK/rolling-update-strategies",
+      "source": "github.com/cornmanwtf/ABANG-COLEK"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "bdd-specification-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.419541Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Writing Given/When/Then specifications in Behavior-Driven Development. Covers feature files, scenario outlines, data tables, and mapping specs to implementations. BDD is a discipline - specifications",
+      "repo": "creatifcoding/gbg",
+      "path": "bdd-specification-patterns",
+      "branch": "main",
+      "category": "bdd-specification-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "creatifcoding/gbg/bdd-specification-patterns",
+      "source": "github.com/creatifcoding/gbg"
+    }
+  ]
+}

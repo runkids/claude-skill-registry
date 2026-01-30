@@ -1,0 +1,20 @@
+{
+  "category": "bluesky",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.434770Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Read from and post to Bluesky social network using the AT Protocol. Use this skill when the user wants to interact with Bluesky including posting text/images/links, replying to posts, reading their ti",
+      "repo": "fpl9000/ai-skills",
+      "path": "bluesky",
+      "branch": "main",
+      "category": "bluesky",
+      "tags": [],
+      "stars": 0,
+      "install": "fpl9000/ai-skills/bluesky",
+      "source": "github.com/fpl9000/ai-skills"
+    }
+  ]
+}

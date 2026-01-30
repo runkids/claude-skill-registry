@@ -1,0 +1,20 @@
+{
+  "category": "vscode-extension",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.432146Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when developing VSCode extensions - covers language support, LSP integration, and packaging",
+      "repo": "mcclowes/lea",
+      "path": "vscode-extension",
+      "branch": "main",
+      "category": "vscode-extension",
+      "tags": [],
+      "stars": 0,
+      "install": "mcclowes/lea/vscode-extension",
+      "source": "github.com/mcclowes/lea"
+    }
+  ]
+}

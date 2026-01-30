@@ -1,0 +1,20 @@
+{
+  "category": "github-url-intercept",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.774725Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "BLOCKING INTERCEPT: When ANY github.com URL appears in user input, STOP and use this skill. Never fetch GitHub HTML pages directly - they are 5-10MB and will exhaust your context window. This skill ro",
+      "repo": "rjmurillo/ai-agents",
+      "path": "github-url-intercept",
+      "branch": "main",
+      "category": "github-url-intercept",
+      "tags": [],
+      "stars": 0,
+      "install": "rjmurillo/ai-agents/github-url-intercept",
+      "source": "github.com/rjmurillo/ai-agents"
+    }
+  ]
+}

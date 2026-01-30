@@ -1,0 +1,20 @@
+{
+  "category": "structured-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.107458Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Canonical workflow for clarifying requirements, executing work, and verifying correctness.",
+      "repo": "mattg101/SolidLink",
+      "path": "structured-workflow",
+      "branch": "main",
+      "category": "structured-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "mattg101/SolidLink/structured-workflow",
+      "source": "github.com/mattg101/SolidLink"
+    }
+  ]
+}

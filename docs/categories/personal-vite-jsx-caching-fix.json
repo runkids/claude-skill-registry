@@ -1,0 +1,20 @@
+{
+  "category": "personal-vite-jsx-caching-fix",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.567571Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Troubleshoot Vite JSX parsing errors caused by stale compiled files in src directories",
+      "repo": "orient-bot/orient",
+      "path": "personal-vite-jsx-caching-fix",
+      "branch": "main",
+      "category": "personal-vite-jsx-caching-fix",
+      "tags": [],
+      "stars": 0,
+      "install": "orient-bot/orient/personal-vite-jsx-caching-fix",
+      "source": "github.com/orient-bot/orient"
+    }
+  ]
+}

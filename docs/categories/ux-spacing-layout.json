@@ -1,0 +1,20 @@
+{
+  "category": "ux-spacing-layout",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.383765Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Utopia fluid spacing tokens and layout patterns. Use when applying margins, padding, gaps, or creating layouts. Covers space scale, container widths, and responsive spacing. (project)",
+      "repo": "matthewharwood/fantasy-phonics",
+      "path": "ux-spacing-layout",
+      "branch": "main",
+      "category": "ux-spacing-layout",
+      "tags": [],
+      "stars": 0,
+      "install": "matthewharwood/fantasy-phonics/ux-spacing-layout",
+      "source": "github.com/matthewharwood/fantasy-phonics"
+    }
+  ]
+}

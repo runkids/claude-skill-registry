@@ -1,0 +1,20 @@
+{
+  "category": "valid-unicode",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.389167Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A valid skill with Unicode and emoji content",
+      "repo": "maxvaega/skillkit",
+      "path": "valid-unicode",
+      "branch": "main",
+      "category": "valid-unicode",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit/valid-unicode",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

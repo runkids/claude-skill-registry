@@ -1,0 +1,20 @@
+{
+  "category": "pdf-tools",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.555075Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply when converting, processing, or analyzing PDF files",
+      "repo": "karstenheld3/OpenAI-BackendTools",
+      "path": "pdf-tools",
+      "branch": "main",
+      "category": "pdf-tools",
+      "tags": [],
+      "stars": 0,
+      "install": "karstenheld3/OpenAI-BackendTools/pdf-tools",
+      "source": "github.com/karstenheld3/OpenAI-BackendTools"
+    }
+  ]
+}

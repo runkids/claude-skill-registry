@@ -1,0 +1,20 @@
+{
+  "category": "scientific-db-pubmed-database",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.898921Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Direct REST API access to PubMed. Advanced Boolean/MeSH queries, E-utilities API, batch processing, citation management. For Python workflows, prefer biopython (Bio.Entrez). Use this for direct HTTP/R",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-db-pubmed-database",
+      "branch": "main",
+      "category": "scientific-db-pubmed-database",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/scientific-db-pubmed-database",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

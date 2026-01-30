@@ -1,0 +1,20 @@
+{
+  "category": "rollup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.853068Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Rollup bundler including configuration, plugins, code splitting, tree shaking, and library bundling. Use when the user asks about Rollup, needs to bundle libraries,",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "rollup",
+      "branch": "main",
+      "category": "rollup",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/rollup",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

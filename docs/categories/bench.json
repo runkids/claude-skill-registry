@@ -1,0 +1,20 @@
+{
+  "category": "bench",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.425418Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate mitata benchmark files following project conventions",
+      "repo": "c4736/centimal",
+      "path": "bench",
+      "branch": "main",
+      "category": "bench",
+      "tags": [],
+      "stars": 0,
+      "install": "c4736/centimal/bench",
+      "source": "github.com/c4736/centimal"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "llm-security-redteaming",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.033942Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive guide to securing LLM applications including prompt injection prevention, jailbreak detection, guardrails, and red teaming methodologies",
+      "repo": "AmnadTaowsoam/CerebraSkills",
+      "path": "llm-security-redteaming",
+      "branch": "main",
+      "category": "llm-security-redteaming",
+      "tags": [],
+      "stars": 0,
+      "install": "AmnadTaowsoam/CerebraSkills/llm-security-redteaming",
+      "source": "github.com/AmnadTaowsoam/CerebraSkills"
+    }
+  ]
+}

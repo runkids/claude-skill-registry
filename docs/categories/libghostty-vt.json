@@ -1,0 +1,20 @@
+{
+  "category": "libghostty-vt",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.011443Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "libghostty-vt",
+      "repo": "plurigrid/asi",
+      "path": "libghostty-vt",
+      "branch": "main",
+      "category": "libghostty-vt",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/libghostty-vt",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "integration-spec",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.888071Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Эксперт по интеграционным спецификациям. Используй для документирования интеграций, webhooks, event schemas и data flows.",
+      "repo": "dengineproblem/agents-monorepo",
+      "path": "integration-spec",
+      "branch": "main",
+      "category": "integration-spec",
+      "tags": [],
+      "stars": 0,
+      "install": "dengineproblem/agents-monorepo/integration-spec",
+      "source": "github.com/dengineproblem/agents-monorepo"
+    }
+  ]
+}

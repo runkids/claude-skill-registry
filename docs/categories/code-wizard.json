@@ -1,0 +1,20 @@
+{
+  "category": "code-wizard",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.600237Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Codebase exploration and location finder for the Raamattu Nyt monorepo. Use when finding where specific functionality is implemented, locating constants/tokens/config values, discovering file patterns",
+      "repo": "Spectaculous-Code/raamattu-nyt",
+      "path": "code-wizard",
+      "branch": "main",
+      "category": "code-wizard",
+      "tags": [],
+      "stars": 0,
+      "install": "Spectaculous-Code/raamattu-nyt/code-wizard",
+      "source": "github.com/Spectaculous-Code/raamattu-nyt"
+    }
+  ]
+}

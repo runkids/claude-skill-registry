@@ -1,0 +1,20 @@
+{
+  "category": "feishu-docx",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.650772Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Export Feishu/Lark cloud documents to Markdown. Supports docx, sheets, bitable, and wiki. Use this skill when you need to read, analyze, or reference content from Feishu knowledge base.",
+      "repo": "leemysw/feishu-docx",
+      "path": "feishu-docx",
+      "branch": "main",
+      "category": "feishu-docx",
+      "tags": [],
+      "stars": 0,
+      "install": "leemysw/feishu-docx/feishu-docx",
+      "source": "github.com/leemysw/feishu-docx"
+    }
+  ]
+}

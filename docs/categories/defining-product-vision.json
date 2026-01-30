@@ -1,0 +1,20 @@
+{
+  "category": "defining-product-vision",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.066996Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define or refresh a product vision and produce a shareable Product Vision Pack (vision statement, narrative, pillars, strategic choices, rollout). Use for product vision, vision statement, product dir",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "defining-product-vision",
+      "branch": "main",
+      "category": "defining-product-vision",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus/defining-product-vision",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

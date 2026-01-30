@@ -1,0 +1,20 @@
+{
+  "category": "prd-template",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.629480Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PRD structure and patterns for SpecFlux. Use when creating or refining product requirement documents. PRDs should be concise for humans but detailed enough for AI agents to implement.",
+      "repo": "cliangdev/specflux",
+      "path": "prd-template",
+      "branch": "main",
+      "category": "prd-template",
+      "tags": [],
+      "stars": 0,
+      "install": "cliangdev/specflux/prd-template",
+      "source": "github.com/cliangdev/specflux"
+    }
+  ]
+}

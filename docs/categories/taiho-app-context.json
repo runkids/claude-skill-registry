@@ -1,0 +1,20 @@
+{
+  "category": "taiho-app-context",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.148989Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "泰鵬支店アプリケーションのプロジェクト文脈を理解するためのスキルです。",
+      "repo": "LlechiKaito/taiho-app",
+      "path": "taiho-app-context",
+      "branch": "main",
+      "category": "taiho-app-context",
+      "tags": [],
+      "stars": 0,
+      "install": "LlechiKaito/taiho-app/taiho-app-context",
+      "source": "github.com/LlechiKaito/taiho-app"
+    }
+  ]
+}

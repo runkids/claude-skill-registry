@@ -1,0 +1,20 @@
+{
+  "category": "video-transcribe",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.418704Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "動画・音声の文字起こし。ローカルWhisper（無料）とOpenAI API（高速）の2モード対応。",
+      "repo": "taiyousan15/taisun_agent",
+      "path": "video-transcribe",
+      "branch": "main",
+      "category": "video-transcribe",
+      "tags": [],
+      "stars": 0,
+      "install": "taiyousan15/taisun_agent/video-transcribe",
+      "source": "github.com/taiyousan15/taisun_agent"
+    }
+  ]
+}

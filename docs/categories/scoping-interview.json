@@ -1,0 +1,20 @@
+{
+  "category": "scoping-interview",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.920030Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Capture your job search preferences through a conversational interview. Creates constraints.yaml with salary, location, role preferences, and dealbreakers.",
+      "repo": "shindo107/job-coach-and-scout",
+      "path": "scoping-interview",
+      "branch": "main",
+      "category": "scoping-interview",
+      "tags": [],
+      "stars": 0,
+      "install": "shindo107/job-coach-and-scout/scoping-interview",
+      "source": "github.com/shindo107/job-coach-and-scout"
+    }
+  ]
+}

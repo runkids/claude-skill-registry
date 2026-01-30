@@ -1,0 +1,20 @@
+{
+  "category": "format",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.689005Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Auto-detect and apply code formatting using project's configured formatter",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "format",
+      "branch": "main",
+      "category": "format",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/format",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "domain-web",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.522680Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when building web services. Keywords: web server, HTTP, REST API, GraphQL, WebSocket, axum, actix, warp, rocket, tower, hyper, reqwest, middleware, router, handler, extractor, state management, au",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "domain-web",
+      "branch": "main",
+      "category": "domain-web",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/domain-web",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

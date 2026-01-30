@@ -1,0 +1,20 @@
+{
+  "category": "spring-boot-test-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.065987Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive testing patterns for Spring Boot applications including unit, integration, slice, and container-based testing with JUnit 5, Mockito, Testcontainers, and performance optimization. Use whe",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "spring-boot-test-patterns",
+      "branch": "main",
+      "category": "spring-boot-test-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/spring-boot-test-patterns",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    }
+  ]
+}

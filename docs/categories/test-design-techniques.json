@@ -1,0 +1,20 @@
+{
+  "category": "test-design-techniques",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.200461Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Systematic test design with boundary value analysis, equivalence partitioning, decision tables, state transition testing, and combinatorial testing. Use when designing comprehensive test cases, reduci",
+      "repo": "proffesor-for-testing/sentinel-api-testing",
+      "path": "test-design-techniques",
+      "branch": "main",
+      "category": "test-design-techniques",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/sentinel-api-testing/test-design-techniques",
+      "source": "github.com/proffesor-for-testing/sentinel-api-testing"
+    }
+  ]
+}

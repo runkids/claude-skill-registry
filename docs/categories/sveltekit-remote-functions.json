@@ -1,0 +1,20 @@
+{
+  "category": "sveltekit-remote-functions",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.127337Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SvelteKit remote functions guidance. Use for command(), query(), form() patterns in .remote.ts files.",
+      "repo": "dandedotdev/dotfiles",
+      "path": "sveltekit-remote-functions",
+      "branch": "main",
+      "category": "sveltekit-remote-functions",
+      "tags": [],
+      "stars": 0,
+      "install": "dandedotdev/dotfiles/sveltekit-remote-functions",
+      "source": "github.com/dandedotdev/dotfiles"
+    }
+  ]
+}

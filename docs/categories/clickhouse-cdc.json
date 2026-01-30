@@ -1,0 +1,20 @@
+{
+  "category": "clickhouse-cdc",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.559084Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when syncing data FROM relational databases (PostgreSQL, MySQL, MongoDB) TO ClickHouse. Covers change data capture using Debezium, Airbyte, or custom triggers. Includes handling schema evolution,",
+      "repo": "dandedotdev/dotfiles",
+      "path": "clickhouse-cdc",
+      "branch": "main",
+      "category": "clickhouse-cdc",
+      "tags": [],
+      "stars": 0,
+      "install": "dandedotdev/dotfiles/clickhouse-cdc",
+      "source": "github.com/dandedotdev/dotfiles"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "adaptyv",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.201047Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Cloud laboratory platform for automated protein testing and validation. Use when designing proteins and needing experimental validation including binding assays, expression testing, thermostability me",
+      "repo": "majiayu000/claude-skill-registry",
+      "path": "adaptyv",
+      "branch": "main",
+      "category": "adaptyv",
+      "tags": [],
+      "stars": 0,
+      "install": "majiayu000/claude-skill-registry/adaptyv",
+      "source": "github.com/majiayu000/claude-skill-registry"
+    }
+  ]
+}

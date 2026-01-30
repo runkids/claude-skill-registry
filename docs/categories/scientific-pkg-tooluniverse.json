@@ -1,0 +1,20 @@
+{
+  "category": "scientific-pkg-tooluniverse",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.910231Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill when working with scientific research tools and workflows across bioinformatics, cheminformatics, genomics, structural biology, proteomics, and drug discovery. This skill provides acces",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "scientific-pkg-tooluniverse",
+      "branch": "main",
+      "category": "scientific-pkg-tooluniverse",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/scientific-pkg-tooluniverse",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

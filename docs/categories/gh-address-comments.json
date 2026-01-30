@@ -1,0 +1,20 @@
+{
+  "category": "gh-address-comments",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.750554Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Help address review/issue comments on the open GitHub PR for the current branch using gh CLI; verify gh auth first and prompt the user to authenticate if not logged in.",
+      "repo": "ComposioHQ/awesome-codex-skills",
+      "path": "gh-address-comments",
+      "branch": "main",
+      "category": "gh-address-comments",
+      "tags": [],
+      "stars": 0,
+      "install": "ComposioHQ/awesome-codex-skills/gh-address-comments",
+      "source": "github.com/ComposioHQ/awesome-codex-skills"
+    }
+  ]
+}

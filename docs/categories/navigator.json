@@ -1,0 +1,20 @@
+{
+  "category": "navigator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.226757Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Codebase orientation. Use FIRST when exploring code, finding files, or understanding project structure.",
+      "repo": "srbhr/Resume-Matcher",
+      "path": "navigator",
+      "branch": "main",
+      "category": "navigator",
+      "tags": [],
+      "stars": 0,
+      "install": "srbhr/Resume-Matcher/navigator",
+      "source": "github.com/srbhr/Resume-Matcher"
+    }
+  ]
+}

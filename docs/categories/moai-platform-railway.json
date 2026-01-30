@@ -1,0 +1,20 @@
+{
+  "category": "moai-platform-railway",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.171681Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Railway container deployment specialist covering Docker, multi-service architectures, persistent volumes, and auto-scaling. Use when deploying containerized full-stack applications, configuring multi-",
+      "repo": "modu-ai/moai-adk",
+      "path": "moai-platform-railway",
+      "branch": "main",
+      "category": "moai-platform-railway",
+      "tags": [],
+      "stars": 0,
+      "install": "modu-ai/moai-adk/moai-platform-railway",
+      "source": "github.com/modu-ai/moai-adk"
+    }
+  ]
+}

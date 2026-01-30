@@ -1,0 +1,20 @@
+{
+  "category": "compact-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.625702Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Execute /compact-docs <file-path> slash command.",
+      "repo": "sasamuku/dotfiles",
+      "path": "compact-docs",
+      "branch": "main",
+      "category": "compact-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "sasamuku/dotfiles/compact-docs",
+      "source": "github.com/sasamuku/dotfiles"
+    }
+  ]
+}

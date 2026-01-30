@@ -1,0 +1,20 @@
+{
+  "category": "dspy-bootstrap-fewshot",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.540140Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"bootstrap few-shot examples\", \"generate demonstrations\", \"use BootstrapFewShot\", \"optimize with limited data\", \"create training demos automatically\", m",
+      "repo": "OmidZamani/dspy-skills",
+      "path": "dspy-bootstrap-fewshot",
+      "branch": "main",
+      "category": "dspy-bootstrap-fewshot",
+      "tags": [],
+      "stars": 0,
+      "install": "OmidZamani/dspy-skills/dspy-bootstrap-fewshot",
+      "source": "github.com/OmidZamani/dspy-skills"
+    }
+  ]
+}

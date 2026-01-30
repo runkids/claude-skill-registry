@@ -1,0 +1,20 @@
+{
+  "category": "qa-reporting-bug-reporting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.741991Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Bug report format and documentation for failed validations. Use when validation fails and status must be set to needs_fixes.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "qa-reporting-bug-reporting",
+      "branch": "main",
+      "category": "qa-reporting-bug-reporting",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/qa-reporting-bug-reporting",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "readme-standards",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.784499Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "README template structure and required sections",
+      "repo": "zerobias-org/module",
+      "path": "readme-standards",
+      "branch": "main",
+      "category": "readme-standards",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/readme-standards",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

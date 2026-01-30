@@ -1,0 +1,20 @@
+{
+  "category": "api-contracts-and-validation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.319587Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Define and validate API contracts using Zod",
+      "repo": "EtroxTaran/conductor",
+      "path": "api-contracts-and-validation",
+      "branch": "main",
+      "category": "api-contracts-and-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor/api-contracts-and-validation",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

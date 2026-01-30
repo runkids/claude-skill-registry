@@ -1,0 +1,20 @@
+{
+  "category": "multiplayer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.215255Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multiplayer game development principles. Architecture, networking, synchronization.",
+      "repo": "AxelMrak/ai",
+      "path": "multiplayer",
+      "branch": "main",
+      "category": "multiplayer",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/multiplayer",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

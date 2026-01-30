@@ -1,0 +1,20 @@
+{
+  "category": "swift-package-demo",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.132122Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating demo GIFs for Swift package READMEs, recording iOS simulator videos, or setting up demo apps for SwiftUI libraries",
+      "repo": "ivan-magda/claude-superpowers",
+      "path": "swift-package-demo",
+      "branch": "main",
+      "category": "swift-package-demo",
+      "tags": [],
+      "stars": 0,
+      "install": "ivan-magda/claude-superpowers/swift-package-demo",
+      "source": "github.com/ivan-magda/claude-superpowers"
+    }
+  ]
+}

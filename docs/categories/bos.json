@@ -1,0 +1,20 @@
+{
+  "category": "bos",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.438026Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write Rust code in the style of Mara Bos, Rust library team lead and author of \"Rust Atomics and Locks.\" Emphasizes low-level concurrency, atomics, and understanding the memory model. Use when writing",
+      "repo": "copyleftdev/blsmesh",
+      "path": "bos",
+      "branch": "main",
+      "category": "bos",
+      "tags": [],
+      "stars": 0,
+      "install": "copyleftdev/blsmesh/bos",
+      "source": "github.com/copyleftdev/blsmesh"
+    }
+  ]
+}

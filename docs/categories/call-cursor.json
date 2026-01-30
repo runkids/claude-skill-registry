@@ -1,0 +1,20 @@
+{
+  "category": "call-cursor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.481296Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Invoke the Cursor CLI for security-focused plan validation and code review.",
+      "repo": "EtroxTaran/conductor",
+      "path": "call-cursor",
+      "branch": "main",
+      "category": "call-cursor",
+      "tags": [],
+      "stars": 0,
+      "install": "EtroxTaran/conductor/call-cursor",
+      "source": "github.com/EtroxTaran/conductor"
+    }
+  ]
+}

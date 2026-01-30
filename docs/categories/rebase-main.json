@@ -1,0 +1,20 @@
+{
+  "category": "rebase-main",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.787590Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Rebase the current branch onto an updated main branch. Use when main has been updated and you need to incorporate those changes into your feature branch.",
+      "repo": "flurdy/agent-skills",
+      "path": "rebase-main",
+      "branch": "main",
+      "category": "rebase-main",
+      "tags": [],
+      "stars": 0,
+      "install": "flurdy/agent-skills/rebase-main",
+      "source": "github.com/flurdy/agent-skills"
+    }
+  ]
+}

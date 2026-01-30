@@ -1,0 +1,20 @@
+{
+  "category": "Authentication",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.163227Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Production-grade authentication & authorization covering JWT, cookies, sessions, hashing, MFA, OAuth2, RBAC, and permissions across all frameworks (Next.js, Express.js, FastAPI, Django, Spring, etc.).",
+      "repo": "SHAJAR5110/Hackathon-II-phase2",
+      "path": "Authentication",
+      "branch": "main",
+      "category": "Authentication",
+      "tags": [],
+      "stars": 0,
+      "install": "SHAJAR5110/Hackathon-II-phase2/Authentication",
+      "source": "github.com/SHAJAR5110/Hackathon-II-phase2"
+    }
+  ]
+}

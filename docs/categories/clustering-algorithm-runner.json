@@ -1,0 +1,20 @@
+{
+  "category": "clustering-algorithm-runner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.582415Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill enables Claude to execute clustering algorithms on datasets. It is used when the user requests to perform clustering, identify groups within data, or analyze data structure. The skill suppo",
+      "repo": "intent-solutions-io/plugins-nixtla",
+      "path": "clustering-algorithm-runner",
+      "branch": "main",
+      "category": "clustering-algorithm-runner",
+      "tags": [],
+      "stars": 0,
+      "install": "intent-solutions-io/plugins-nixtla/clustering-algorithm-runner",
+      "source": "github.com/intent-solutions-io/plugins-nixtla"
+    }
+  ]
+}

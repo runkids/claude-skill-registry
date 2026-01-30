@@ -1,0 +1,20 @@
+{
+  "category": "local-service-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.048694Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when code changes touch database, cache, queue, or other service-dependent components - enforces testing against real local services instead of mocks",
+      "repo": "troykelly/claude-skills",
+      "path": "local-service-testing",
+      "branch": "main",
+      "category": "local-service-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/local-service-testing",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

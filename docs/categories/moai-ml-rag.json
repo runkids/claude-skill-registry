@@ -1,0 +1,20 @@
+{
+  "category": "moai-ml-rag",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.170290Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Retrieval-Augmented Generation systems, vector databases, embedding strategies, and production RAG architectures for enterprise LLM applications. Use when building RAG, semantic search, or knowledge-a",
+      "repo": "jg-chalk-io/Nora-LiveKit",
+      "path": "moai-ml-rag",
+      "branch": "main",
+      "category": "moai-ml-rag",
+      "tags": [],
+      "stars": 0,
+      "install": "jg-chalk-io/Nora-LiveKit/moai-ml-rag",
+      "source": "github.com/jg-chalk-io/Nora-LiveKit"
+    }
+  ]
+}

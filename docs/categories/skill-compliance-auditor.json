@@ -1,0 +1,20 @@
+{
+  "category": "skill-compliance-auditor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.011645Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Validates that the generated skill adheres to the Antigravity Folder Structure and Blueprint requirements.",
+      "repo": "marcelocmenezes/antigravity-agentkit",
+      "path": "skill-compliance-auditor",
+      "branch": "main",
+      "category": "skill-compliance-auditor",
+      "tags": [],
+      "stars": 0,
+      "install": "marcelocmenezes/antigravity-agentkit/skill-compliance-auditor",
+      "source": "github.com/marcelocmenezes/antigravity-agentkit"
+    }
+  ]
+}

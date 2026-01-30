@@ -1,0 +1,20 @@
+{
+  "category": "slash-command-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.027546Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating, improving, or troubleshooting Claude Code slash commands. Expert guidance on command structure, arguments, frontmatter, tool permissions, and best practices for building effective c",
+      "repo": "pr-pm/prpm",
+      "path": "slash-command-builder",
+      "branch": "main",
+      "category": "slash-command-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm/slash-command-builder",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "workflow-spec-architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.482822Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Designs the cognitive blueprint of a workflow before code generation, focusing on Steps, Triggers, and Handoffs.",
+      "repo": "marcelocmenezes/antigravity-agentkit",
+      "path": "workflow-spec-architect",
+      "branch": "main",
+      "category": "workflow-spec-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "marcelocmenezes/antigravity-agentkit/workflow-spec-architect",
+      "source": "github.com/marcelocmenezes/antigravity-agentkit"
+    }
+  ]
+}

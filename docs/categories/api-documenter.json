@@ -1,0 +1,20 @@
+{
+  "category": "api-documenter",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.322378Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master API documentation with OpenAPI 3.1, AI-powered tools, and modern developer experience practices. Create interactive docs, generate SDKs, and build comprehensive developer portals. Use PROACTIVE",
+      "repo": "sickn33/antigravity-awesome-skills",
+      "path": "api-documenter",
+      "branch": "main",
+      "category": "api-documenter",
+      "tags": [],
+      "stars": 0,
+      "install": "sickn33/antigravity-awesome-skills/api-documenter",
+      "source": "github.com/sickn33/antigravity-awesome-skills"
+    }
+  ]
+}

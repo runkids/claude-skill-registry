@@ -1,0 +1,20 @@
+{
+  "category": "cursor-keybindings",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.735424Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage master Cursor keyboard shortcuts and customize keybindings. Triggers on \"cursor shortcuts\", \"cursor keybindings\", \"cursor keyboard\", \"cursor hotkeys\", \"cursor commands\". Use when working with c",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "cursor-keybindings",
+      "branch": "main",
+      "category": "cursor-keybindings",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/cursor-keybindings",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

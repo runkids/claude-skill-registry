@@ -1,0 +1,20 @@
+{
+  "category": "goal-granularity-check",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.784853Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "确保GOAL粒度合理，不过粗或过细。当GOAL创建完成后使用，确保GOAL符合单一职责原则。",
+      "repo": "tikazyq/agentic-spec-forge",
+      "path": "goal-granularity-check",
+      "branch": "main",
+      "category": "goal-granularity-check",
+      "tags": [],
+      "stars": 0,
+      "install": "tikazyq/agentic-spec-forge/goal-granularity-check",
+      "source": "github.com/tikazyq/agentic-spec-forge"
+    }
+  ]
+}

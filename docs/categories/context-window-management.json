@@ -1,0 +1,20 @@
+{
+  "category": "context-window-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.669610Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Strategies for managing LLM context windows including summarization, trimming, routing, and avoiding context rot Use when: context window, token limit, context management, context engineering, long co",
+      "repo": "AxelMrak/ai",
+      "path": "context-window-management",
+      "branch": "main",
+      "category": "context-window-management",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/context-window-management",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

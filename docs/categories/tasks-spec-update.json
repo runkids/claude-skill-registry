@@ -1,0 +1,20 @@
+{
+  "category": "tasks-spec-update",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.170451Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when updating specifications, comparing branches, or ensuring documentation reflects current implementation.",
+      "repo": "duc01226/EasyPlatform",
+      "path": "tasks-spec-update",
+      "branch": "main",
+      "category": "tasks-spec-update",
+      "tags": [],
+      "stars": 0,
+      "install": "duc01226/EasyPlatform/tasks-spec-update",
+      "source": "github.com/duc01226/EasyPlatform"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "botanical-design",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.438335Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete design system guide for Dr. Sophia AI's botanical brand identity. Includes official typography (Livvic/Onest), color palette (#00B368 green spectrum), shadow systems, gradients, and component",
+      "repo": "adaptationio/Skrillz",
+      "path": "botanical-design",
+      "branch": "main",
+      "category": "botanical-design",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/botanical-design",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

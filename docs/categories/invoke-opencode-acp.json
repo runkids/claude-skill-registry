@@ -1,0 +1,20 @@
+{
+  "category": "invoke-opencode-acp",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.899924Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Delegate complex tasks to OpenCode subagent, use when >=2 file modifications or batch operations",
+      "repo": "phonowell/invoke-opencode-acp",
+      "path": "invoke-opencode-acp",
+      "branch": "main",
+      "category": "invoke-opencode-acp",
+      "tags": [],
+      "stars": 0,
+      "install": "phonowell/invoke-opencode-acp/invoke-opencode-acp",
+      "source": "github.com/phonowell/invoke-opencode-acp"
+    }
+  ]
+}

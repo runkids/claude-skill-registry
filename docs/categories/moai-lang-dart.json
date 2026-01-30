@@ -1,0 +1,20 @@
+{
+  "category": "moai-lang-dart",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.165528Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Dart 3.5 enterprise development with Flutter 3.24, advanced async programming, state management, and cross-platform mobile development. Enterprise patterns for scalable applications with Context7 MCP",
+      "repo": "AJBcoding/claude-skill-eval",
+      "path": "moai-lang-dart",
+      "branch": "main",
+      "category": "moai-lang-dart",
+      "tags": [],
+      "stars": 0,
+      "install": "AJBcoding/claude-skill-eval/moai-lang-dart",
+      "source": "github.com/AJBcoding/claude-skill-eval"
+    }
+  ]
+}

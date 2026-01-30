@@ -1,0 +1,20 @@
+{
+  "category": "pptx-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.619723Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create professional PowerPoint presentations from outlines, data sources, or AI-generated content. Supports custom templates, style presets, charts/tables from data, and AI-generated images. Use when",
+      "repo": "rdsthomas/mission-control",
+      "path": "pptx-creator",
+      "branch": "main",
+      "category": "pptx-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "rdsthomas/mission-control/pptx-creator",
+      "source": "github.com/rdsthomas/mission-control"
+    }
+  ]
+}

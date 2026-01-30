@@ -1,0 +1,20 @@
+{
+  "category": "skill-updater",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.022386Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply improvements to Claude Code skills systematically. Workflow for planning updates, implementing changes, validating improvements, and documenting changes. Use when applying review recommendations",
+      "repo": "adaptationio/Skrillz",
+      "path": "skill-updater",
+      "branch": "main",
+      "category": "skill-updater",
+      "tags": [],
+      "stars": 0,
+      "install": "adaptationio/Skrillz/skill-updater",
+      "source": "github.com/adaptationio/Skrillz"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "supply-chain-analytics",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.122724Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to analyze supply chain performance, build analytics dashboards, or track KPIs. Also use when the user mentions \"supply chain metrics,\" \"performance analytics,\" \"KPI tracking,\" \"da",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "supply-chain-analytics",
+      "branch": "main",
+      "category": "supply-chain-analytics",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/supply-chain-analytics",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

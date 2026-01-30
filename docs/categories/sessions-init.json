@@ -1,0 +1,20 @@
+{
+  "category": "sessions-init",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.980857Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Organize and synchronize session directory structure based on project architecture",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "sessions-init",
+      "branch": "main",
+      "category": "sessions-init",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/sessions-init",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

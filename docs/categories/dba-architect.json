@@ -1,0 +1,20 @@
+{
+  "category": "dba-architect",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.047275Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "DBA Architect Agent. 스키마 설계, 정규화, 데이터 모델링을 담당합니다.",
+      "repo": "shaul1991/shaul-agents-plugin",
+      "path": "dba-architect",
+      "branch": "main",
+      "category": "dba-architect",
+      "tags": [],
+      "stars": 0,
+      "install": "shaul1991/shaul-agents-plugin/dba-architect",
+      "source": "github.com/shaul1991/shaul-agents-plugin"
+    }
+  ]
+}

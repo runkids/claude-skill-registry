@@ -1,0 +1,20 @@
+{
+  "category": "commit-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.622701Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when user asks to \"commit these changes\", \"write commit message\", \"stage and commit\", \"create a commit\", \"commit staged files\", or runs /commit-staged or /commit-creator comm",
+      "repo": "fcakyon/claude-codex-settings",
+      "path": "commit-workflow",
+      "branch": "main",
+      "category": "commit-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "fcakyon/claude-codex-settings/commit-workflow",
+      "source": "github.com/fcakyon/claude-codex-settings"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "cli-assistant",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.555347Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert on Shelby CLI tool for command-line blob storage operations. Helps with shelby commands, uploads, downloads, account management, context configuration, faucet operations, and CLI troubleshootin",
+      "repo": "raintree-technology/claude-starter",
+      "path": "cli-assistant",
+      "branch": "main",
+      "category": "cli-assistant",
+      "tags": [],
+      "stars": 0,
+      "install": "raintree-technology/claude-starter/cli-assistant",
+      "source": "github.com/raintree-technology/claude-starter"
+    }
+  ]
+}

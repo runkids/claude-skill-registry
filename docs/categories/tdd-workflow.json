@@ -1,0 +1,20 @@
+{
+  "category": "tdd-workflow",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.177475Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Test-Driven Development workflow principles. RED-GREEN-REFACTOR cycle.",
+      "repo": "BerkantYilmaz0/MegaStore",
+      "path": "tdd-workflow",
+      "branch": "main",
+      "category": "tdd-workflow",
+      "tags": [],
+      "stars": 0,
+      "install": "BerkantYilmaz0/MegaStore/tdd-workflow",
+      "source": "github.com/BerkantYilmaz0/MegaStore"
+    }
+  ]
+}

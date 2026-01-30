@@ -1,0 +1,20 @@
+{
+  "category": "dev-research-pattern-finding",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.174269Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Find existing code patterns before implementing new features",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-research-pattern-finding",
+      "branch": "main",
+      "category": "dev-research-pattern-finding",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/dev-research-pattern-finding",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

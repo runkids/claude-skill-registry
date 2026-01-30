@@ -1,0 +1,20 @@
+{
+  "category": "swarm-advanced",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.128924Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Advanced swarm orchestration patterns for research, development, testing, and complex distributed workflows",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": "swarm-advanced",
+      "branch": "main",
+      "category": "swarm-advanced",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension/swarm-advanced",
+      "source": "github.com/DNYoussef/ai-chrome-extension"
+    }
+  ]
+}

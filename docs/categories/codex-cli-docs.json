@@ -1,0 +1,20 @@
+{
+  "category": "codex-cli-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.607109Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Single source of truth and librarian for ALL OpenAI Codex CLI documentation. Manages local documentation storage, scraping, discovery, and resolution. Use when finding, locating, searching, or resolvi",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "codex-cli-docs",
+      "branch": "main",
+      "category": "codex-cli-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/codex-cli-docs",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

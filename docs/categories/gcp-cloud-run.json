@@ -1,0 +1,20 @@
+{
+  "category": "gcp-cloud-run",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.728025Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Deploy containerized applications on Google Cloud Run with automatic scaling, traffic management, and service mesh integration. Use for container-based serverless computing.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "gcp-cloud-run",
+      "branch": "main",
+      "category": "gcp-cloud-run",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/gcp-cloud-run",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

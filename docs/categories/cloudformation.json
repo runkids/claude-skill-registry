@@ -1,0 +1,20 @@
+{
+  "category": "cloudformation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.581007Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS CloudFormation infrastructure as code for stack management. Use when writing templates, deploying stacks, managing drift, troubleshooting deployments, or organizing infrastructure with nested stac",
+      "repo": "itsmostafa/aws-agent-skills",
+      "path": "cloudformation",
+      "branch": "main",
+      "category": "cloudformation",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmostafa/aws-agent-skills/cloudformation",
+      "source": "github.com/itsmostafa/aws-agent-skills"
+    }
+  ]
+}

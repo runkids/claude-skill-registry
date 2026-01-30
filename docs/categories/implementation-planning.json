@@ -1,0 +1,20 @@
+{
+  "category": "implementation-planning",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.866256Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when you have specifications or requirements for multi-step implementation tasks requiring comprehensive documentation for handoff",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "implementation-planning",
+      "branch": "main",
+      "category": "implementation-planning",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks/implementation-planning",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

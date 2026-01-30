@@ -1,0 +1,20 @@
+{
+  "category": "event-modeling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.602146Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Adam Dymitruk's Event Modeling methodology with swimlanes",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "event-modeling",
+      "branch": "main",
+      "category": "event-modeling",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/event-modeling",
+      "source": "github.com/melodic-software/claude-code-plugins"
+    }
+  ]
+}

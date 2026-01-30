@@ -1,0 +1,20 @@
+{
+  "category": "condition-based-waiting",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.643155Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Replace arbitrary timeouts with condition polling for reliable async tests",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "condition-based-waiting",
+      "branch": "main",
+      "category": "condition-based-waiting",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/condition-based-waiting",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

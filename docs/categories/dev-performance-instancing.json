@@ -1,0 +1,20 @@
+{
+  "category": "dev-performance-instancing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.172409Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Instanced rendering for repeated objects in R3F. Use when rendering many identical objects.",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "dev-performance-instancing",
+      "branch": "main",
+      "category": "dev-performance-instancing",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/dev-performance-instancing",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

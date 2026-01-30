@@ -1,0 +1,20 @@
+{
+  "category": "tzurot-tooling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.332994Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when adding CLI commands, dev scripts, or tooling utilities. Covers the ops CLI structure, where scripts belong, and standardized commands for linting/testing.",
+      "repo": "lbds137/tzurot",
+      "path": "tzurot-tooling",
+      "branch": "main",
+      "category": "tzurot-tooling",
+      "tags": [],
+      "stars": 0,
+      "install": "lbds137/tzurot/tzurot-tooling",
+      "source": "github.com/lbds137/tzurot"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "automotive-supply-chain",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.381113Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "When the user wants to optimize automotive manufacturing supply chains, manage tier suppliers, implement JIT production, or handle automotive-specific logistics. Also use when the user mentions \"autom",
+      "repo": "kishorkukreja/awesome-supply-chain",
+      "path": "automotive-supply-chain",
+      "branch": "main",
+      "category": "automotive-supply-chain",
+      "tags": [],
+      "stars": 0,
+      "install": "kishorkukreja/awesome-supply-chain/automotive-supply-chain",
+      "source": "github.com/kishorkukreja/awesome-supply-chain"
+    }
+  ]
+}

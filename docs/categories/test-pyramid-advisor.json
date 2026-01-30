@@ -1,0 +1,20 @@
+{
+  "category": "test-pyramid-advisor",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.209667Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "分析unit/integration/e2e测试分配比例，建议60/30/10比例平衡。当AICTXT/测试策略确定后使用，优化测试执行效率和覆盖质量。",
+      "repo": "tikazyq/agentic-spec-forge",
+      "path": "test-pyramid-advisor",
+      "branch": "main",
+      "category": "test-pyramid-advisor",
+      "tags": [],
+      "stars": 0,
+      "install": "tikazyq/agentic-spec-forge/test-pyramid-advisor",
+      "source": "github.com/tikazyq/agentic-spec-forge"
+    }
+  ]
+}

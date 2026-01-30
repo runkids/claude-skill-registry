@@ -1,0 +1,20 @@
+{
+  "category": "api-documentation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.321851Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when API code changes (routes, endpoints, schemas). Enforces Swagger/OpenAPI sync. Pauses work if documentation has drifted, triggering documentation-audit skill.",
+      "repo": "troykelly/claude-skills",
+      "path": "api-documentation",
+      "branch": "main",
+      "category": "api-documentation",
+      "tags": [],
+      "stars": 0,
+      "install": "troykelly/claude-skills/api-documentation",
+      "source": "github.com/troykelly/claude-skills"
+    }
+  ]
+}

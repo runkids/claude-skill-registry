@@ -1,0 +1,20 @@
+{
+  "category": "openai-knowledge",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.290140Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when working with the OpenAI API (Responses API) or OpenAI platform features (tools, streaming, Realtime API, auth, models, rate limits, MCP) and you need authoritative, up-to-date documentation (",
+      "repo": "zaziedlm/openai-agents-python",
+      "path": "openai-knowledge",
+      "branch": "main",
+      "category": "openai-knowledge",
+      "tags": [],
+      "stars": 0,
+      "install": "zaziedlm/openai-agents-python/openai-knowledge",
+      "source": "github.com/zaziedlm/openai-agents-python"
+    }
+  ]
+}

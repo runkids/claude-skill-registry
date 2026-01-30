@@ -1,0 +1,20 @@
+{
+  "category": "in7-boundary-testing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.872288Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply IN7 Boundary Testing to explore extreme conditions to find system limits and breaking points.",
+      "repo": "hummbl-dev/hummbl-agent",
+      "path": "in7-boundary-testing",
+      "branch": "main",
+      "category": "in7-boundary-testing",
+      "tags": [],
+      "stars": 0,
+      "install": "hummbl-dev/hummbl-agent/in7-boundary-testing",
+      "source": "github.com/hummbl-dev/hummbl-agent"
+    }
+  ]
+}

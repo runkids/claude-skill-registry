@@ -1,0 +1,20 @@
+{
+  "category": "testing-skills-with-subagents_obra",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.274108Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating or editing skills, before deployment, to verify they work under pressure and resist rationalization - applies RED-GREEN-REFACTOR cycle to process documentation by running baseline wi",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "testing-skills-with-subagents_obra",
+      "branch": "main",
+      "category": "testing-skills-with-subagents_obra",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/testing-skills-with-subagents_obra",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

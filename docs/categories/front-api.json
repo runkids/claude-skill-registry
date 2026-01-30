@@ -1,0 +1,20 @@
+{
+  "category": "front-api",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.695690Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Reference for Front REST API integration. Use when working with Front API schemas, nullable fields, webhooks, or debugging Front SDK issues.",
+      "repo": "skillrecordings/support",
+      "path": "front-api",
+      "branch": "main",
+      "category": "front-api",
+      "tags": [],
+      "stars": 0,
+      "install": "skillrecordings/support/front-api",
+      "source": "github.com/skillrecordings/support"
+    }
+  ]
+}

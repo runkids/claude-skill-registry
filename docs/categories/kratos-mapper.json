@@ -1,0 +1,20 @@
+{
+  "category": "kratos-mapper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.958656Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates bidirectional mapper functions (transformers/converters/adapters) between protobuf DTOs and business domain models for go-kratos services. Creates type-safe conversions with proper field map",
+      "repo": "alecszaharia/brizy-microservices-go",
+      "path": "kratos-mapper",
+      "branch": "main",
+      "category": "kratos-mapper",
+      "tags": [],
+      "stars": 0,
+      "install": "alecszaharia/brizy-microservices-go/kratos-mapper",
+      "source": "github.com/alecszaharia/brizy-microservices-go"
+    }
+  ]
+}

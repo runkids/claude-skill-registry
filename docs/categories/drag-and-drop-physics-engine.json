@@ -1,0 +1,20 @@
+{
+  "category": "drag-and-drop-physics-engine",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.534552Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement fluid drag-and-drop interactions with physics-based animations.",
+      "repo": "harborgrid-justin/lexiflow-premium",
+      "path": "drag-and-drop-physics-engine",
+      "branch": "main",
+      "category": "drag-and-drop-physics-engine",
+      "tags": [],
+      "stars": 0,
+      "install": "harborgrid-justin/lexiflow-premium/drag-and-drop-physics-engine",
+      "source": "github.com/harborgrid-justin/lexiflow-premium"
+    }
+  ]
+}

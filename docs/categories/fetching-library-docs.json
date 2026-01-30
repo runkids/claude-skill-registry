@@ -1,0 +1,20 @@
+{
+  "category": "fetching-library-docs",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.652599Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Token-efficient library API documentation fetcher using Context7 MCP with 77% token savings. Fetches code examples, API references, and usage patterns for published libraries (React, Next.js, Prisma,",
+      "repo": "AbdullahMalik17/Hacathan-2-",
+      "path": "fetching-library-docs",
+      "branch": "main",
+      "category": "fetching-library-docs",
+      "tags": [],
+      "stars": 0,
+      "install": "AbdullahMalik17/Hacathan-2-/fetching-library-docs",
+      "source": "github.com/AbdullahMalik17/Hacathan-2-"
+    }
+  ]
+}

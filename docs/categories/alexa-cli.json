@@ -1,0 +1,20 @@
+{
+  "category": "alexa-cli",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.287673Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Control Amazon Alexa devices and smart home via the `alexacli` CLI. Use when a user asks to speak/announce on Echo devices, control lights/thermostats/locks, send voice commands, or query Alexa.",
+      "repo": "moltbot/skills",
+      "path": "alexa-cli",
+      "branch": "main",
+      "category": "alexa-cli",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/alexa-cli",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

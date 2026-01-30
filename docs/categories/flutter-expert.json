@@ -1,0 +1,20 @@
+{
+  "category": "flutter-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.681115Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master Flutter development with Dart 3, advanced widgets, and multi-platform deployment. Handles state management, animations, testing, and performance optimization for mobile, web, desktop, and embed",
+      "repo": "rmyndharis/antigravity-skills",
+      "path": "flutter-expert",
+      "branch": "main",
+      "category": "flutter-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "rmyndharis/antigravity-skills/flutter-expert",
+      "source": "github.com/rmyndharis/antigravity-skills"
+    }
+  ]
+}

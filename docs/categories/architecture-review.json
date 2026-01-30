@@ -1,0 +1,20 @@
+{
+  "category": "architecture-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.350170Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review a system architecture for scalability, reliability, and maintainability. Use when a senior developer needs to critique a design.",
+      "repo": "proflead/codex-skills-library",
+      "path": "architecture-review",
+      "branch": "main",
+      "category": "architecture-review",
+      "tags": [],
+      "stars": 0,
+      "install": "proflead/codex-skills-library/architecture-review",
+      "source": "github.com/proflead/codex-skills-library"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "token-validation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.297816Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Token definition correctness and relationship validation. Checks token references, value formats, naming conventions, and semantic mappings. Focuses on data integrity, not visual design. Combinable wi",
+      "repo": "Higashi-Kota/react-tailwindcss-sandbox",
+      "path": "token-validation",
+      "branch": "main",
+      "category": "token-validation",
+      "tags": [],
+      "stars": 0,
+      "install": "Higashi-Kota/react-tailwindcss-sandbox/token-validation",
+      "source": "github.com/Higashi-Kota/react-tailwindcss-sandbox"
+    }
+  ]
+}

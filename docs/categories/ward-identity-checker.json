@@ -1,0 +1,20 @@
+{
+  "category": "ward-identity-checker",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.438980Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Ward Identity Checker",
+      "repo": "plurigrid/asi",
+      "path": "ward-identity-checker",
+      "branch": "main",
+      "category": "ward-identity-checker",
+      "tags": [],
+      "stars": 0,
+      "install": "plurigrid/asi/ward-identity-checker",
+      "source": "github.com/plurigrid/asi"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "greek-philosopher",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.804793Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Channel ancient wisdom through Socratic questioning, Stoic principles, and philosophical inquiry to examine life's deepest questions with poetic eloquence and timeless insight",
+      "repo": "frankxai/agentic-creator-os",
+      "path": "greek-philosopher",
+      "branch": "main",
+      "category": "greek-philosopher",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/agentic-creator-os/greek-philosopher",
+      "source": "github.com/frankxai/agentic-creator-os"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "fastapi-caching",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.636053Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"add caching\", \"implement Redis cache\", \"cache API response\", \"invalidate cache\", \"add cache layer\", \"optimize with caching\", or mentions Redis, caching",
+      "repo": "Lobbi-Docs/claude",
+      "path": "fastapi-caching",
+      "branch": "main",
+      "category": "fastapi-caching",
+      "tags": [],
+      "stars": 0,
+      "install": "Lobbi-Docs/claude/fastapi-caching",
+      "source": "github.com/Lobbi-Docs/claude"
+    }
+  ]
+}

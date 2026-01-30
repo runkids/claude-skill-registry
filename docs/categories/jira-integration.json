@@ -1,0 +1,20 @@
+{
+  "category": "jira-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.922470Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and manage Jira tickets with severity-based processing. Includes project discovery, ticket search, and branch naming.",
+      "repo": "bitsoex/bitso-java",
+      "path": "jira-integration",
+      "branch": "main",
+      "category": "jira-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "bitsoex/bitso-java/jira-integration",
+      "source": "github.com/bitsoex/bitso-java"
+    }
+  ]
+}

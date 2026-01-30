@@ -1,0 +1,20 @@
+{
+  "category": "integrating-payment-gateways",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.886529Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Patterns for connecting payment providers (Stripe, etc.) with Appwrite. Use for handling secure transactions and updating booking status.",
+      "repo": "itsmeAlee/Tourly2",
+      "path": "integrating-payment-gateways",
+      "branch": "main",
+      "category": "integrating-payment-gateways",
+      "tags": [],
+      "stars": 0,
+      "install": "itsmeAlee/Tourly2/integrating-payment-gateways",
+      "source": "github.com/itsmeAlee/Tourly2"
+    }
+  ]
+}

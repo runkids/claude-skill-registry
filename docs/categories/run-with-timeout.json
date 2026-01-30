@@ -1,0 +1,20 @@
+{
+  "category": "run-with-timeout",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.861870Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run commands with timeout protection to prevent hanging. Use for potentially long-running tests or operations.",
+      "repo": "ManuelKugelmann/BitBot",
+      "path": "run-with-timeout",
+      "branch": "main",
+      "category": "run-with-timeout",
+      "tags": [],
+      "stars": 0,
+      "install": "ManuelKugelmann/BitBot/run-with-timeout",
+      "source": "github.com/ManuelKugelmann/BitBot"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "webhook-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.452075Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement secure webhook systems for event-driven integrations, including signature verification, retry logic, and delivery guarantees. Use when building third-party integrations, event notifications,",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "webhook-integration",
+      "branch": "main",
+      "category": "webhook-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/webhook-integration",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

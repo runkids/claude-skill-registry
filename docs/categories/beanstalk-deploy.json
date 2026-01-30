@@ -1,0 +1,20 @@
+{
+  "category": "beanstalk-deploy",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.421159Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Robust deployment patterns for Elastic Beanstalk with GitHub Actions, Pulumi, and edge case handling",
+      "repo": "pr-pm/prpm",
+      "path": "beanstalk-deploy",
+      "branch": "main",
+      "category": "beanstalk-deploy",
+      "tags": [],
+      "stars": 0,
+      "install": "pr-pm/prpm/beanstalk-deploy",
+      "source": "github.com/pr-pm/prpm"
+    }
+  ]
+}

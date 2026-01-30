@@ -1,8 +1,8 @@
 {
   "category": "quality",
   "code": "oth",
-  "count": 4,
-  "updated_at": "2026-01-29T04:50:39.201863Z",
+  "count": 5,
+  "updated_at": "2026-01-30T04:55:07.746353Z",
   "skills": [
     {
       "name": "quality-gate",
@@ -51,6 +51,18 @@
       "stars": 0,
       "install": "Masked-Kunsiquat/crm-orbit2/quality/code-reviewer",
       "source": "github.com/Masked-Kunsiquat/crm-orbit2"
+    },
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive code quality assessment in spaces/[project]/. Use before commits, merges, or releases to ensure consistent quality.",
+      "repo": "TaylorHuston/local-life-manager",
+      "path": "quality",
+      "branch": "main",
+      "category": "quality",
+      "tags": [],
+      "stars": 0,
+      "install": "TaylorHuston/local-life-manager/quality",
+      "source": "github.com/TaylorHuston/local-life-manager"
     }
   ]
 }

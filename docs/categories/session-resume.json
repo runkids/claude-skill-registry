@@ -1,0 +1,20 @@
+{
+  "category": "session-resume",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.979434Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Resume previous work from archived session with full context restoration",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "session-resume",
+      "branch": "main",
+      "category": "session-resume",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/session-resume",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

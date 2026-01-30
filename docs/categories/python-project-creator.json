@@ -1,0 +1,20 @@
+{
+  "category": "python-project-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.734996Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates Python projects with proper structure, virtual environments, and dependency management. Use when users request to create a new Python project, set up a Python development environment, or initi",
+      "repo": "haddock-development/claude-reflect-system",
+      "path": "python-project-creator",
+      "branch": "main",
+      "category": "python-project-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "haddock-development/claude-reflect-system/python-project-creator",
+      "source": "github.com/haddock-development/claude-reflect-system"
+    }
+  ]
+}

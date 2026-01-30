@@ -1,0 +1,20 @@
+{
+  "category": "the-migrator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.279672Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates and runs data migrations for schema changes, ensuring data integrity.",
+      "repo": "dupipcom/morpheus",
+      "path": "the-migrator",
+      "branch": "main",
+      "category": "the-migrator",
+      "tags": [],
+      "stars": 0,
+      "install": "dupipcom/morpheus/the-migrator",
+      "source": "github.com/dupipcom/morpheus"
+    }
+  ]
+}

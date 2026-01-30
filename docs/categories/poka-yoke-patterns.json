@@ -1,0 +1,20 @@
+{
+  "category": "poka-yoke-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.602373Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Master Poka-Yoke error-proofing from Toyota Production System. Design systems that prevent mistakes through structure, not vigilance. Covers: path protection, FMEA analysis, quality gates, andon signa",
+      "repo": "seanchatmangpt/ggen",
+      "path": "poka-yoke-patterns",
+      "branch": "main",
+      "category": "poka-yoke-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "seanchatmangpt/ggen/poka-yoke-patterns",
+      "source": "github.com/seanchatmangpt/ggen"
+    }
+  ]
+}

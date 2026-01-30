@@ -1,0 +1,20 @@
+{
+  "category": "mission-airlock",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.141180Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Run test and lint validation gate. Use after implementation to verify code quality.",
+      "repo": "thebrownproject/space-agents",
+      "path": "mission-airlock",
+      "branch": "main",
+      "category": "mission-airlock",
+      "tags": [],
+      "stars": 0,
+      "install": "thebrownproject/space-agents/mission-airlock",
+      "source": "github.com/thebrownproject/space-agents"
+    }
+  ]
+}

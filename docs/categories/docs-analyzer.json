@@ -1,0 +1,20 @@
+{
+  "category": "docs-analyzer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.471542Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyzes code changes and identifies documentation gaps. Scans git history, catalogs existing docs, and generates comprehensive analysis reports.",
+      "repo": "datamaker-kr/synapse-claude-marketplace",
+      "path": "docs-analyzer",
+      "branch": "main",
+      "category": "docs-analyzer",
+      "tags": [],
+      "stars": 0,
+      "install": "datamaker-kr/synapse-claude-marketplace/docs-analyzer",
+      "source": "github.com/datamaker-kr/synapse-claude-marketplace"
+    }
+  ]
+}

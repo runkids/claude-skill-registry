@@ -1,0 +1,20 @@
+{
+  "category": "pytest-microservices-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.728145Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Pytest test development for Python microservices. Use when writing unit tests, integration tests, fixtures, mocking external services, or setting up test infrastructure. Triggers on requests to create",
+      "repo": "cdragos/agentarium",
+      "path": "pytest-microservices-skill",
+      "branch": "main",
+      "category": "pytest-microservices-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "cdragos/agentarium/pytest-microservices-skill",
+      "source": "github.com/cdragos/agentarium"
+    }
+  ]
+}

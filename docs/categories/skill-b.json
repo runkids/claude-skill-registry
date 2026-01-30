@@ -1,0 +1,20 @@
+{
+  "category": "skill-b",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.010364Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Skill B from experimental directory",
+      "repo": "maxvaega/skillkit",
+      "path": "skill-b",
+      "branch": "main",
+      "category": "skill-b",
+      "tags": [],
+      "stars": 0,
+      "install": "maxvaega/skillkit/skill-b",
+      "source": "github.com/maxvaega/skillkit"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "essays",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.596723Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "<img width=\"200px\" class=\"rounded float-start pe-4\" src=\"../img/Learning.jpg\">",
+      "repo": "JaaronBC/JaaronBC.github.io",
+      "path": "essays",
+      "branch": "main",
+      "category": "essays",
+      "tags": [],
+      "stars": 0,
+      "install": "JaaronBC/JaaronBC.github.io/essays",
+      "source": "github.com/JaaronBC/JaaronBC.github.io"
+    }
+  ]
+}

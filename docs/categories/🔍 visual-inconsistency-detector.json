@@ -1,0 +1,20 @@
+{
+  "category": "🔍 visual-inconsistency-detector",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.524729Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Comprehensive visual UI/UX inconsistency detector for design system validation, accessibility compliance, and cross-view consistency analysis",
+      "repo": "endlessblink/flow-state",
+      "path": "🔍 visual-inconsistency-detector",
+      "branch": "main",
+      "category": "🔍 visual-inconsistency-detector",
+      "tags": [],
+      "stars": 0,
+      "install": "endlessblink/flow-state/🔍 visual-inconsistency-detector",
+      "source": "github.com/endlessblink/flow-state"
+    }
+  ]
+}

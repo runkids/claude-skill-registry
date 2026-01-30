@@ -1,0 +1,20 @@
+{
+  "category": "link-deps",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.025476Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Discover and link related issues as dependencies. Searches for issues that should be connected and recommends dependency relationships to establish proper work order.",
+      "repo": "joa23/linear-cli",
+      "path": "link-deps",
+      "branch": "main",
+      "category": "link-deps",
+      "tags": [],
+      "stars": 0,
+      "install": "joa23/linear-cli/link-deps",
+      "source": "github.com/joa23/linear-cli"
+    }
+  ]
+}

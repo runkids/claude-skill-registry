@@ -1,0 +1,20 @@
+{
+  "category": "ux-creator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.381166Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when creating user experiences from requirements or evaluating and improving existing UX designs. Covers translating requirements into effective UX flows, user journey mappin",
+      "repo": "vinceh/recipe",
+      "path": "ux-creator",
+      "branch": "main",
+      "category": "ux-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "vinceh/recipe/ux-creator",
+      "source": "github.com/vinceh/recipe"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "geocoder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.747904Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Convert addresses to coordinates (geocoding) and coordinates to addresses (reverse geocoding). Use for location data enrichment or address validation.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "geocoder",
+      "branch": "main",
+      "category": "geocoder",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/geocoder",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

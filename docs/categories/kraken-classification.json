@@ -1,0 +1,20 @@
+{
+  "category": "kraken-classification",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.955551Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Taxonomic classification of metagenomic reads using Kraken2. Fast k-mer based classification against RefSeq database. Use when performing initial taxonomic classification of shotgun metagenomic reads",
+      "repo": "GPTomics/bioSkills",
+      "path": "kraken-classification",
+      "branch": "main",
+      "category": "kraken-classification",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/kraken-classification",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

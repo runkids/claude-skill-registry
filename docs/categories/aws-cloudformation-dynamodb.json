@@ -1,0 +1,20 @@
+{
+  "category": "aws-cloudformation-dynamodb",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.386088Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AWS CloudFormation patterns for DynamoDB tables, GSIs, LSIs, auto-scaling, and streams. Use when creating DynamoDB tables with CloudFormation, configuring primary keys, local/global secondary indexes,",
+      "repo": "giuseppe-trisciuoglio/developer-kit",
+      "path": "aws-cloudformation-dynamodb",
+      "branch": "main",
+      "category": "aws-cloudformation-dynamodb",
+      "tags": [],
+      "stars": 0,
+      "install": "giuseppe-trisciuoglio/developer-kit/aws-cloudformation-dynamodb",
+      "source": "github.com/giuseppe-trisciuoglio/developer-kit"
+    }
+  ]
+}

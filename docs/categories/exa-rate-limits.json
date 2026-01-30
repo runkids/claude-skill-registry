@@ -1,0 +1,20 @@
+{
+  "category": "exa-rate-limits",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.607611Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Implement Exa rate limiting, backoff, and idempotency patterns. Use when handling rate limit errors, implementing retry logic, or optimizing API request throughput for Exa. Trigger with phrases like \"",
+      "repo": "HelixDevelopment/HelixAgent",
+      "path": "exa-rate-limits",
+      "branch": "main",
+      "category": "exa-rate-limits",
+      "tags": [],
+      "stars": 0,
+      "install": "HelixDevelopment/HelixAgent/exa-rate-limits",
+      "source": "github.com/HelixDevelopment/HelixAgent"
+    }
+  ]
+}

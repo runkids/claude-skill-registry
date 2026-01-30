@@ -1,0 +1,20 @@
+{
+  "category": "documentation-best-practices",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.478109Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides templates, standards, and best practices for writing clear, comprehensive technical documentation",
+      "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+      "path": "documentation-best-practices",
+      "branch": "main",
+      "category": "documentation-best-practices",
+      "tags": [],
+      "stars": 0,
+      "install": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude/documentation-best-practices",
+      "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude"
+    }
+  ]
+}

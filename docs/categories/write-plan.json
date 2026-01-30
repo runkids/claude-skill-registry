@@ -1,0 +1,20 @@
+{
+  "category": "write-plan",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.492332Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create detailed implementation plans with task breakdown",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "write-plan",
+      "branch": "main",
+      "category": "write-plan",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/write-plan",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

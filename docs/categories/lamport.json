@@ -1,0 +1,20 @@
+{
+  "category": "lamport",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.965505Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Design distributed systems using Leslie Lamport's rigorous approach. Emphasizes formal reasoning, logical time, consensus protocols, and state machine replication. Use when building systems where corr",
+      "repo": "copyleftdev/blsmesh",
+      "path": "lamport",
+      "branch": "main",
+      "category": "lamport",
+      "tags": [],
+      "stars": 0,
+      "install": "copyleftdev/blsmesh/lamport",
+      "source": "github.com/copyleftdev/blsmesh"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "gate-4a-unit-tests",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.725493Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Purpose: Validate unit test quality, mocking strategy, and coverage",
+      "repo": "zerobias-org/module",
+      "path": "gate-4a-unit-tests",
+      "branch": "main",
+      "category": "gate-4a-unit-tests",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/gate-4a-unit-tests",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

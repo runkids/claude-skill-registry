@@ -1,0 +1,20 @@
+{
+  "category": "building-native-ui",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.461896Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Complete guide for building beautiful apps with Expo Router. Covers fundamentals, styling, components, navigation, animations, patterns, and native tabs.",
+      "repo": "luthebao/expo-template",
+      "path": "building-native-ui",
+      "branch": "main",
+      "category": "building-native-ui",
+      "tags": [],
+      "stars": 0,
+      "install": "luthebao/expo-template/building-native-ui",
+      "source": "github.com/luthebao/expo-template"
+    }
+  ]
+}

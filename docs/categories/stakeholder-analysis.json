@@ -1,0 +1,20 @@
+{
+  "category": "stakeholder-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.077804Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Stakeholder identification, analysis, and management using BABOK techniques. Creates Power/Interest matrices, RACI charts, and communication plans.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "stakeholder-analysis",
+      "branch": "main",
+      "category": "stakeholder-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent/stakeholder-analysis",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

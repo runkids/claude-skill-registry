@@ -1,0 +1,20 @@
+{
+  "category": "receipt-scanner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.788333Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Extract vendor, date, items, amounts, and total from receipt images using OCR and pattern matching with structured JSON output.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "receipt-scanner",
+      "branch": "main",
+      "category": "receipt-scanner",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills/receipt-scanner",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

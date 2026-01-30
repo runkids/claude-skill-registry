@@ -1,0 +1,20 @@
+{
+  "category": "concordance",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.641305Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use this skill when the user asks about biblical Greek or Hebrew words, Strong's numbers, original language meanings, word etymology in Scripture, or concordance lookups",
+      "repo": "pwarnock/kjbc-mcp",
+      "path": "concordance",
+      "branch": "main",
+      "category": "concordance",
+      "tags": [],
+      "stars": 0,
+      "install": "pwarnock/kjbc-mcp/concordance",
+      "source": "github.com/pwarnock/kjbc-mcp"
+    }
+  ]
+}

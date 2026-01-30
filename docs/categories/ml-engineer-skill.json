@@ -1,0 +1,20 @@
+{
+  "category": "ml-engineer-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.144352Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in building scalable ML systems, from data pipelines and model training to production deployment and monitoring.",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "ml-engineer-skill",
+      "branch": "main",
+      "category": "ml-engineer-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills/ml-engineer-skill",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "linear-claude-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.023909Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Managing Linear issues, projects, and teams. Use when working with Linear tasks, creating issues, updating status, querying projects, or managing team workflows.",
+      "repo": "wrsmith108/linear-claude-skill",
+      "path": "linear-claude-skill",
+      "branch": "main",
+      "category": "linear-claude-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "wrsmith108/linear-claude-skill/linear-claude-skill",
+      "source": "github.com/wrsmith108/linear-claude-skill"
+    }
+  ]
+}

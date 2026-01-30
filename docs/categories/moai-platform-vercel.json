@@ -1,0 +1,20 @@
+{
+  "category": "moai-platform-vercel",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.172217Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Vercel edge deployment specialist covering Edge Functions, Next.js optimization, preview deployments, ISR, and storage solutions. Use when deploying Next.js applications, implementing edge computing,",
+      "repo": "modu-ai/moai-adk",
+      "path": "moai-platform-vercel",
+      "branch": "main",
+      "category": "moai-platform-vercel",
+      "tags": [],
+      "stars": 0,
+      "install": "modu-ai/moai-adk/moai-platform-vercel",
+      "source": "github.com/modu-ai/moai-adk"
+    }
+  ]
+}

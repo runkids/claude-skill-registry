@@ -1,0 +1,20 @@
+{
+  "category": "test-workflow-multi",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.216013Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Tests workflow continuation with MULTIPLE sequential child skill calls",
+      "repo": "faisalanjum/EventTrader",
+      "path": "test-workflow-multi",
+      "branch": "main",
+      "category": "test-workflow-multi",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/test-workflow-multi",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

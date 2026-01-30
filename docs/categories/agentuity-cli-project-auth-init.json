@@ -1,0 +1,20 @@
+{
+  "category": "agentuity-cli-project-auth-init",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.267698Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up Agentuity Auth for your project. Requires authentication. Use for managing authentication credentials",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-project-auth-init",
+      "branch": "main",
+      "category": "agentuity-cli-project-auth-init",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer/agentuity-cli-project-auth-init",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

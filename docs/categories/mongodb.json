@@ -1,0 +1,20 @@
+{
+  "category": "mongodb",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.195216Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide for implementing MongoDB - a document database platform with CRUD operations, aggregation pipelines, indexing, replication, sharding, search capabilities, and comprehensive security. Use when wo",
+      "repo": "alex-tgk/saasquatch",
+      "path": "mongodb",
+      "branch": "main",
+      "category": "mongodb",
+      "tags": [],
+      "stars": 0,
+      "install": "alex-tgk/saasquatch/mongodb",
+      "source": "github.com/alex-tgk/saasquatch"
+    }
+  ]
+}

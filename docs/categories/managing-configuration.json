@@ -1,0 +1,20 @@
+{
+  "category": "managing-configuration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.072236Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide users through creating, managing, and testing server configuration automation using Ansible. When automating server configurations, deploying applications with Ansible playbooks, managing dynami",
+      "repo": "ancoleman/ai-design-components",
+      "path": "managing-configuration",
+      "branch": "main",
+      "category": "managing-configuration",
+      "tags": [],
+      "stars": 0,
+      "install": "ancoleman/ai-design-components/managing-configuration",
+      "source": "github.com/ancoleman/ai-design-components"
+    }
+  ]
+}

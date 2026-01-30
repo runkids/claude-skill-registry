@@ -1,0 +1,20 @@
+{
+  "category": "fixing",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.675893Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fix bugs, errors, test failures, CI/CD issues with intelligent routing. Use when reporting bugs, type errors, log errors, UI issues, code problems. Auto-classifies complexity and activates relevant sk",
+      "repo": "NammDev/Goads-Krea",
+      "path": "fixing",
+      "branch": "main",
+      "category": "fixing",
+      "tags": [],
+      "stars": 0,
+      "install": "NammDev/Goads-Krea/fixing",
+      "source": "github.com/NammDev/Goads-Krea"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "prisma-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.641504Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Prisma ORM expert for schema design, migrations, query optimization, relations modeling, and database operations. Use PROACTIVELY for Prisma schema issues, migration problems, query performance, relat",
+      "repo": "AxelMrak/ai",
+      "path": "prisma-expert",
+      "branch": "main",
+      "category": "prisma-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "AxelMrak/ai/prisma-expert",
+      "source": "github.com/AxelMrak/ai"
+    }
+  ]
+}

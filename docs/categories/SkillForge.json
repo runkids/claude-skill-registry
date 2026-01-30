@@ -1,0 +1,20 @@
+{
+  "category": "SkillForge",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.179417Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Intelligent skill router and creator. Analyzes ANY input to recommend existing skills, improve them, or create new ones. Uses deep iterative analysis with 11 thinking models, regression questioning, e",
+      "repo": "rjmurillo/ai-agents",
+      "path": "SkillForge",
+      "branch": "main",
+      "category": "SkillForge",
+      "tags": [],
+      "stars": 0,
+      "install": "rjmurillo/ai-agents/SkillForge",
+      "source": "github.com/rjmurillo/ai-agents"
+    }
+  ]
+}

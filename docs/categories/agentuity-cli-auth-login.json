@@ -1,0 +1,20 @@
+{
+  "category": "agentuity-cli-auth-login",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.251016Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Login to the Agentuity Platform using a browser-based authentication flow. Use for managing authentication credentials",
+      "repo": "agentuity/sdk-explorer",
+      "path": "agentuity-cli-auth-login",
+      "branch": "main",
+      "category": "agentuity-cli-auth-login",
+      "tags": [],
+      "stars": 0,
+      "install": "agentuity/sdk-explorer/agentuity-cli-auth-login",
+      "source": "github.com/agentuity/sdk-explorer"
+    }
+  ]
+}

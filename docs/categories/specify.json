@@ -1,0 +1,20 @@
+{
+  "category": "specify",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.055039Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create feature specification from natural language description. Use when starting a new feature or creating a spec. Triggers on: create spec, specify feature, new feature spec.",
+      "repo": "ArvorCo/Relentless",
+      "path": "specify",
+      "branch": "main",
+      "category": "specify",
+      "tags": [],
+      "stars": 0,
+      "install": "ArvorCo/Relentless/specify",
+      "source": "github.com/ArvorCo/Relentless"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "holistic-testing-pact",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.835243Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Apply the Holistic Testing Model evolved with PACT (Proactive, Autonomous, Collaborative, Targeted) principles. Use when designing comprehensive test strategies for Classical, AI-assisted, Agent based",
+      "repo": "proffesor-for-testing/sentinel-api-testing",
+      "path": "holistic-testing-pact",
+      "branch": "main",
+      "category": "holistic-testing-pact",
+      "tags": [],
+      "stars": 0,
+      "install": "proffesor-for-testing/sentinel-api-testing/holistic-testing-pact",
+      "source": "github.com/proffesor-for-testing/sentinel-api-testing"
+    }
+  ]
+}

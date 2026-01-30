@@ -1,0 +1,20 @@
+{
+  "category": "portainer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.609280Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage Portainer deployments - create stacks from Git repos, check deployment status, redeploy, view logs. Use when user asks about deploying to Portainer, checking stack status, or managing Docker de",
+      "repo": "jayteealao/Aperture",
+      "path": "portainer",
+      "branch": "main",
+      "category": "portainer",
+      "tags": [],
+      "stars": 0,
+      "install": "jayteealao/Aperture/portainer",
+      "source": "github.com/jayteealao/Aperture"
+    }
+  ]
+}

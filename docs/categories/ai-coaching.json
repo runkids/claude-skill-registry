@@ -1,0 +1,20 @@
+{
+  "category": "ai-coaching",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.273978Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multi-turn conversational AI for intent extraction, clarification, and generation readiness detection. Guides users through articulating creative intent with structured parameter extraction.",
+      "repo": "dadbodgeoff/drift",
+      "path": "ai-coaching",
+      "branch": "main",
+      "category": "ai-coaching",
+      "tags": [],
+      "stars": 0,
+      "install": "dadbodgeoff/drift/ai-coaching",
+      "source": "github.com/dadbodgeoff/drift"
+    }
+  ]
+}

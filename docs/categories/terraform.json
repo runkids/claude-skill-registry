@@ -1,0 +1,20 @@
+{
+  "category": "terraform",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.192911Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Provides comprehensive guidance for Terraform infrastructure as code including resource definition, state management, modules, and cloud provider integration. Use when the user asks about Terraform, n",
+      "repo": "partme-ai/full-stack-skills",
+      "path": "terraform",
+      "branch": "main",
+      "category": "terraform",
+      "tags": [],
+      "stars": 0,
+      "install": "partme-ai/full-stack-skills/terraform",
+      "source": "github.com/partme-ai/full-stack-skills"
+    }
+  ]
+}

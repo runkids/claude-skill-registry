@@ -1,0 +1,20 @@
+{
+  "category": "risk-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.847039Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Risk analysis using risk registers, probability/impact matrices, and mitigation planning. Identifies, assesses, and manages project, business, and technical risks with structured response strategies.",
+      "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+      "path": "risk-analysis",
+      "branch": "main",
+      "category": "risk-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "Prorise-cool/Claude-Code-Multi-Agent/risk-analysis",
+      "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent"
+    }
+  ]
+}

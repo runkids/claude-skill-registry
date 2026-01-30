@@ -1,0 +1,20 @@
+{
+  "category": "fix-imports",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.673651Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Repair broken imports automatically across the project",
+      "repo": "manastalukdar/claude-devstudio",
+      "path": "fix-imports",
+      "branch": "main",
+      "category": "fix-imports",
+      "tags": [],
+      "stars": 0,
+      "install": "manastalukdar/claude-devstudio/fix-imports",
+      "source": "github.com/manastalukdar/claude-devstudio"
+    }
+  ]
+}

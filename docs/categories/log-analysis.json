@@ -1,0 +1,20 @@
+{
+  "category": "log-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.049978Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze application and system logs to identify errors, patterns, and root causes. Use log aggregation tools and structured logging for effective debugging.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "log-analysis",
+      "branch": "main",
+      "category": "log-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/log-analysis",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "demo-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.069945Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "A demo skill that helps with documentation",
+      "repo": "fwdslsh/crosstrain",
+      "path": "demo-skill",
+      "branch": "main",
+      "category": "demo-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "fwdslsh/crosstrain/demo-skill",
+      "source": "github.com/fwdslsh/crosstrain"
+    }
+  ]
+}

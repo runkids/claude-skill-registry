@@ -1,0 +1,20 @@
+{
+  "category": "scaffold-feature",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.889710Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Scaffold a new feature module with the standard directory structure and optional API, components, hooks, and context boilerplate.",
+      "repo": "mcgaryes/nextjs-template",
+      "path": "scaffold-feature",
+      "branch": "main",
+      "category": "scaffold-feature",
+      "tags": [],
+      "stars": 0,
+      "install": "mcgaryes/nextjs-template/scaffold-feature",
+      "source": "github.com/mcgaryes/nextjs-template"
+    }
+  ]
+}

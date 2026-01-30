@@ -1,0 +1,20 @@
+{
+  "category": "nginx-default-conf",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.248010Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates nginx.default.conf in project root for nginx conf.d directory configuration. Serves static files from /usr/share/nginx/html.",
+      "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+      "path": "nginx-default-conf",
+      "branch": "main",
+      "category": "nginx-default-conf",
+      "tags": [],
+      "stars": 0,
+      "install": "sayali-ingle-pdl/adusa-ai-vuejs-app-template/nginx-default-conf",
+      "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template"
+    }
+  ]
+}

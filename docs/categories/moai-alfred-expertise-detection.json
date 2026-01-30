@@ -1,0 +1,20 @@
+{
+  "category": "moai-alfred-expertise-detection",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.148290Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enterprise AI-powered user expertise detection with behavioral analysis, communication pattern recognition, code complexity assessment, Context7 integration, and adaptive response calibration; activat",
+      "repo": "dolsoon/my-awesome-project",
+      "path": "moai-alfred-expertise-detection",
+      "branch": "main",
+      "category": "moai-alfred-expertise-detection",
+      "tags": [],
+      "stars": 0,
+      "install": "dolsoon/my-awesome-project/moai-alfred-expertise-detection",
+      "source": "github.com/dolsoon/my-awesome-project"
+    }
+  ]
+}

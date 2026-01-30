@@ -1,0 +1,20 @@
+{
+  "category": "capacitor-offline-first",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.487065Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Guide to building offline-first Capacitor apps with data synchronization, caching strategies, and conflict resolution. Covers SQLite, service workers, and network detection. Use this skill when users",
+      "repo": "Cap-go/capacitor-skills",
+      "path": "capacitor-offline-first",
+      "branch": "main",
+      "category": "capacitor-offline-first",
+      "tags": [],
+      "stars": 0,
+      "install": "Cap-go/capacitor-skills/capacitor-offline-first",
+      "source": "github.com/Cap-go/capacitor-skills"
+    }
+  ]
+}

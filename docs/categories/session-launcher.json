@@ -1,0 +1,20 @@
+{
+  "category": "session-launcher",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.976844Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Restores full context when user says \"hi-ai\" or starts a new conversation. Searches project files, loads memory indexes, reads session state, and creates visual dashboard showing current project, rece",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "session-launcher",
+      "branch": "main",
+      "category": "session-launcher",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/session-launcher",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

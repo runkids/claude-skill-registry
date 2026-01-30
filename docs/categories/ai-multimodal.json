@@ -1,0 +1,20 @@
+{
+  "category": "ai-multimodal",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.279610Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Multimodal AI processing via Google Gemini API (2M tokens context). Capabilities: audio (transcription, 9.5hr max, summarization, music analysis), images (captioning, OCR, object detection, segmentati",
+      "repo": "brixtonpham/claude-config",
+      "path": "ai-multimodal",
+      "branch": "main",
+      "category": "ai-multimodal",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/ai-multimodal",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

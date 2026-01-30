@@ -1,0 +1,20 @@
+{
+  "category": "package-json",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.535085Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates package.json with all necessary dependencies, dev dependencies, and scripts. Fetches latest package versions from npm registry.",
+      "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+      "path": "package-json",
+      "branch": "main",
+      "category": "package-json",
+      "tags": [],
+      "stars": 0,
+      "install": "sayali-ingle-pdl/adusa-ai-vuejs-app-template/package-json",
+      "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template"
+    }
+  ]
+}

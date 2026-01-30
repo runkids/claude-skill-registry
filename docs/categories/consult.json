@@ -1,0 +1,20 @@
+{
+  "category": "consult",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.655742Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Technical consultation without implementation. Use when the user invokes /consult or asks questions about the code or approach.",
+      "repo": "arttttt/CMIDCABot",
+      "path": "consult",
+      "branch": "main",
+      "category": "consult",
+      "tags": [],
+      "stars": 0,
+      "install": "arttttt/CMIDCABot/consult",
+      "source": "github.com/arttttt/CMIDCABot"
+    }
+  ]
+}

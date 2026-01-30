@@ -1,0 +1,20 @@
+{
+  "category": "shader",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.989961Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Write GLSL fragment shaders for procedural graphics. Topics: shapes (SDF), patterns, noise (Perlin/simplex/cellular), fBm, colors (HSB/RGB), matrices, gradients, animations. Use for generative art, te",
+      "repo": "hoanghd218/landing-page-ai-kientruc-a-Ninh",
+      "path": "shader",
+      "branch": "main",
+      "category": "shader",
+      "tags": [],
+      "stars": 0,
+      "install": "hoanghd218/landing-page-ai-kientruc-a-Ninh/shader",
+      "source": "github.com/hoanghd218/landing-page-ai-kientruc-a-Ninh"
+    }
+  ]
+}

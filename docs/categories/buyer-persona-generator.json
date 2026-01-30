@@ -1,0 +1,20 @@
+{
+  "category": "buyer-persona-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.475470Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create detailed buyer personas and Ideal Customer Profiles (ICP) for B2B and B2C marketing. Generates comprehensive profiles with demographics, psychographics, pain points, goals, objections, and mess",
+      "repo": "nicepkg/ai-workflow",
+      "path": "buyer-persona-generator",
+      "branch": "main",
+      "category": "buyer-persona-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "nicepkg/ai-workflow/buyer-persona-generator",
+      "source": "github.com/nicepkg/ai-workflow"
+    }
+  ]
+}

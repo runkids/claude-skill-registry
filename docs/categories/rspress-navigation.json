@@ -1,0 +1,20 @@
+{
+  "category": "rspress-navigation",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.858361Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate progressive navigation structure for RSPress documentation. Use when setting up or reorganizing module documentation navigation.",
+      "repo": "spencerbeggs/claude-design-coordinator",
+      "path": "rspress-navigation",
+      "branch": "main",
+      "category": "rspress-navigation",
+      "tags": [],
+      "stars": 0,
+      "install": "spencerbeggs/claude-design-coordinator/rspress-navigation",
+      "source": "github.com/spencerbeggs/claude-design-coordinator"
+    }
+  ]
+}

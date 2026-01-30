@@ -1,0 +1,20 @@
+{
+  "category": "issue-action",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.905678Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Continue working on GitHub issue from conversation context",
+      "repo": "vm0-ai/vm0",
+      "path": "issue-action",
+      "branch": "main",
+      "category": "issue-action",
+      "tags": [],
+      "stars": 0,
+      "install": "vm0-ai/vm0/issue-action",
+      "source": "github.com/vm0-ai/vm0"
+    }
+  ]
+}

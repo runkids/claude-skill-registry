@@ -1,0 +1,20 @@
+{
+  "category": "vercel-kv",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.403264Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Integrate Redis-compatible Vercel KV for caching, session management, and rate limiting in Next.js. Powered by Upstash with strong consistency and TTL support.  Use when implementing cache strategies,",
+      "repo": "dennislee928/Smart_Zone",
+      "path": "vercel-kv",
+      "branch": "main",
+      "category": "vercel-kv",
+      "tags": [],
+      "stars": 0,
+      "install": "dennislee928/Smart_Zone/vercel-kv",
+      "source": "github.com/dennislee928/Smart_Zone"
+    }
+  ]
+}

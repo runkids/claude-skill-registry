@@ -1,0 +1,20 @@
+{
+  "category": "policyengine-aggregation-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.603051Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "PolicyEngine aggregation patterns - using adds attribute and add() function for summing variables across entities",
+      "repo": "PolicyEngine/policyengine-claude",
+      "path": "policyengine-aggregation-skill",
+      "branch": "main",
+      "category": "policyengine-aggregation-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "PolicyEngine/policyengine-claude/policyengine-aggregation-skill",
+      "source": "github.com/PolicyEngine/policyengine-claude"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "payment-integration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.550287Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Payment gateway integration. Providers: SePay (Vietnamese: VietQR, bank transfer, cards), Polar (global SaaS: subscriptions, usage-based billing). SDKs: Node.js, PHP, Python, Go, Laravel, Next.js. Cap",
+      "repo": "brixtonpham/claude-config",
+      "path": "payment-integration",
+      "branch": "main",
+      "category": "payment-integration",
+      "tags": [],
+      "stars": 0,
+      "install": "brixtonpham/claude-config/payment-integration",
+      "source": "github.com/brixtonpham/claude-config"
+    }
+  ]
+}

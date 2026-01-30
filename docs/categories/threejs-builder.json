@@ -1,0 +1,20 @@
+{
+  "category": "threejs-builder",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.284703Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates simple Three.js web apps with scene setup, lighting, geometries, materials, animations, and responsive rendering. Use for: \"Create a threejs scene/app/showcase\" or when user wants 3D web conte",
+      "repo": "feliperyba/ralph-orchestra",
+      "path": "threejs-builder",
+      "branch": "main",
+      "category": "threejs-builder",
+      "tags": [],
+      "stars": 0,
+      "install": "feliperyba/ralph-orchestra/threejs-builder",
+      "source": "github.com/feliperyba/ralph-orchestra"
+    }
+  ]
+}

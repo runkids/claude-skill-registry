@@ -1,0 +1,20 @@
+{
+  "category": "sdd-state-management",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.928139Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SDD state tracking - phases, gates, lanes, and state.md structure",
+      "repo": "shanepadgett/agent-extensions",
+      "path": "sdd-state-management",
+      "branch": "main",
+      "category": "sdd-state-management",
+      "tags": [],
+      "stars": 0,
+      "install": "shanepadgett/agent-extensions/sdd-state-management",
+      "source": "github.com/shanepadgett/agent-extensions"
+    }
+  ]
+}

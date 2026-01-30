@@ -1,0 +1,20 @@
+{
+  "category": "exploration",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.620425Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Select mode, delegate to analysis skill.",
+      "repo": "thebrownproject/space-agents",
+      "path": "exploration",
+      "branch": "main",
+      "category": "exploration",
+      "tags": [],
+      "stars": 0,
+      "install": "thebrownproject/space-agents/exploration",
+      "source": "github.com/thebrownproject/space-agents"
+    }
+  ]
+}

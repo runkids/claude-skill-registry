@@ -1,0 +1,20 @@
+{
+  "category": "react-hooks-complete",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.774783Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "| Hook | Purpose | Example |",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "react-hooks-complete",
+      "branch": "main",
+      "category": "react-hooks-complete",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace/react-hooks-complete",
+      "source": "github.com/JosiahSiegel/claude-plugin-marketplace"
+    }
+  ]
+}

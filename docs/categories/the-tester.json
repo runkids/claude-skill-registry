@@ -1,0 +1,20 @@
+{
+  "category": "the-tester",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.280015Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Runs tests, analyzes failures, and fixes test issues to ensure code quality.",
+      "repo": "dupipcom/morpheus",
+      "path": "the-tester",
+      "branch": "main",
+      "category": "the-tester",
+      "tags": [],
+      "stars": 0,
+      "install": "dupipcom/morpheus/the-tester",
+      "source": "github.com/dupipcom/morpheus"
+    }
+  ]
+}

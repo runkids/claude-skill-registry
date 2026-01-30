@@ -1,0 +1,20 @@
+{
+  "category": "using-ml-production",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.371252Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Router skill directing to deployment, optimization, MLOps, and monitoring guides.",
+      "repo": "tachyon-beep/skillpacks",
+      "path": "using-ml-production",
+      "branch": "main",
+      "category": "using-ml-production",
+      "tags": [],
+      "stars": 0,
+      "install": "tachyon-beep/skillpacks/using-ml-production",
+      "source": "github.com/tachyon-beep/skillpacks"
+    }
+  ]
+}

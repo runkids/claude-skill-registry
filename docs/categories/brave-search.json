@@ -1,0 +1,20 @@
+{
+  "category": "brave-search",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.444746Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Web search and content extraction via Brave Search API. Use for searching documentation, facts, or any web content. Lightweight, no browser required.",
+      "repo": "lancenunes/codex-skills",
+      "path": "brave-search",
+      "branch": "main",
+      "category": "brave-search",
+      "tags": [],
+      "stars": 0,
+      "install": "lancenunes/codex-skills/brave-search",
+      "source": "github.com/lancenunes/codex-skills"
+    }
+  ]
+}

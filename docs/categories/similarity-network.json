@@ -1,0 +1,20 @@
+{
+  "category": "similarity-network",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.002592Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Similarity Network Fusion (SNF) for patient stratification using multi-omics data. Integrates multiple data types into a unified patient similarity network. Use when performing patient stratification",
+      "repo": "GPTomics/bioSkills",
+      "path": "similarity-network",
+      "branch": "main",
+      "category": "similarity-network",
+      "tags": [],
+      "stars": 0,
+      "install": "GPTomics/bioSkills/similarity-network",
+      "source": "github.com/GPTomics/bioSkills"
+    }
+  ]
+}

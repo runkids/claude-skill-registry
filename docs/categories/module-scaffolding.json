@@ -1,0 +1,20 @@
+{
+  "category": "module-scaffolding",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.193487Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Module scaffolding using Yeoman generator including validation and sync-meta",
+      "repo": "zerobias-org/module",
+      "path": "module-scaffolding",
+      "branch": "main",
+      "category": "module-scaffolding",
+      "tags": [],
+      "stars": 0,
+      "install": "zerobias-org/module/module-scaffolding",
+      "source": "github.com/zerobias-org/module"
+    }
+  ]
+}

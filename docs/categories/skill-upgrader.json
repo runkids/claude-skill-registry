@@ -1,0 +1,20 @@
+{
+  "category": "skill-upgrader",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.022555Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Upgrade any skill to v5 Hybrid format using decision theory + modal logic",
+      "repo": "namesreallyblank/Clorch",
+      "path": "skill-upgrader",
+      "branch": "main",
+      "category": "skill-upgrader",
+      "tags": [],
+      "stars": 0,
+      "install": "namesreallyblank/Clorch/skill-upgrader",
+      "source": "github.com/namesreallyblank/Clorch"
+    }
+  ]
+}

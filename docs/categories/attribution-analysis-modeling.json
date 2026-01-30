@@ -1,0 +1,20 @@
+{
+  "category": "attribution-analysis-modeling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.365514Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Perform multi-touch attribution analysis using Markov chains, Shapley values, and custom attribution models. Use when you need to analyze marketing channel effectiveness, calculate conversion attribut",
+      "repo": "liangdabiao/claude-data-analysis-ultra-main",
+      "path": "attribution-analysis-modeling",
+      "branch": "main",
+      "category": "attribution-analysis-modeling",
+      "tags": [],
+      "stars": 0,
+      "install": "liangdabiao/claude-data-analysis-ultra-main/attribution-analysis-modeling",
+      "source": "github.com/liangdabiao/claude-data-analysis-ultra-main"
+    }
+  ]
+}

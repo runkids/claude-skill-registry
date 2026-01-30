@@ -1,0 +1,20 @@
+{
+  "category": "earnings-task-setup",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.548898Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Set up earnings tasks for a ticker with CSV persistence and Claude task tracking",
+      "repo": "faisalanjum/EventTrader",
+      "path": "earnings-task-setup",
+      "branch": "main",
+      "category": "earnings-task-setup",
+      "tags": [],
+      "stars": 0,
+      "install": "faisalanjum/EventTrader/earnings-task-setup",
+      "source": "github.com/faisalanjum/EventTrader"
+    }
+  ]
+}

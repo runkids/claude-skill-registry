@@ -1,0 +1,20 @@
+{
+  "category": "plan-expert",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.580120Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Planning and architecture decision domain expert.  Knows about: - Creating ADRs (Architecture Decision Records) - Creating technical specifications - Listing and discovering planning artifacts - Trans",
+      "repo": "nathanvale/vtm-cli",
+      "path": "plan-expert",
+      "branch": "main",
+      "category": "plan-expert",
+      "tags": [],
+      "stars": 0,
+      "install": "nathanvale/vtm-cli/plan-expert",
+      "source": "github.com/nathanvale/vtm-cli"
+    }
+  ]
+}

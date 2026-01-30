@@ -1,0 +1,20 @@
+{
+  "category": "uvicorn",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.379944Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ASGI server for Python web applications - Fast, production-ready server for async frameworks",
+      "repo": "SlanyCukr/riot-api-project",
+      "path": "uvicorn",
+      "branch": "main",
+      "category": "uvicorn",
+      "tags": [],
+      "stars": 0,
+      "install": "SlanyCukr/riot-api-project/uvicorn",
+      "source": "github.com/SlanyCukr/riot-api-project"
+    }
+  ]
+}

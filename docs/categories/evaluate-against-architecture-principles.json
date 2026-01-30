@@ -1,0 +1,20 @@
+{
+  "category": "evaluate-against-architecture-principles",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.599953Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when user references architecture principles, at start of fresh conversation with design work, before creating any requirements/design/implementation documents, or when reviewing for compliance -",
+      "repo": "WesleyMFrederick/cc-workflows",
+      "path": "evaluate-against-architecture-principles",
+      "branch": "main",
+      "category": "evaluate-against-architecture-principles",
+      "tags": [],
+      "stars": 0,
+      "install": "WesleyMFrederick/cc-workflows/evaluate-against-architecture-principles",
+      "source": "github.com/WesleyMFrederick/cc-workflows"
+    }
+  ]
+}

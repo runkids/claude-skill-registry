@@ -1,0 +1,20 @@
+{
+  "category": "signup-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.998936Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generate a premium, black‑background, pink glassmorphic signup‑only UI for a todo app with clear hierarchy, refined typography, and a high‑level UX workflow mindset.",
+      "repo": "Aqsagull99/hackathon-2-todo-app",
+      "path": "signup-skill",
+      "branch": "main",
+      "category": "signup-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "Aqsagull99/hackathon-2-todo-app/signup-skill",
+      "source": "github.com/Aqsagull99/hackathon-2-todo-app"
+    }
+  ]
+}

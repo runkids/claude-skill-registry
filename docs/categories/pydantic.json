@@ -1,0 +1,20 @@
+{
+  "category": "pydantic",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.723855Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Data validation and settings management using Python type annotations with Pydantic v2",
+      "repo": "SlanyCukr/riot-api-project",
+      "path": "pydantic",
+      "branch": "main",
+      "category": "pydantic",
+      "tags": [],
+      "stars": 0,
+      "install": "SlanyCukr/riot-api-project/pydantic",
+      "source": "github.com/SlanyCukr/riot-api-project"
+    }
+  ]
+}

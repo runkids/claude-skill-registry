@@ -1,0 +1,20 @@
+{
+  "category": "peloton",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.556869Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Track Peloton workouts - view class history, performance metrics, and achievement progress",
+      "repo": "Andrejones92/canifi-life-os",
+      "path": "peloton",
+      "branch": "main",
+      "category": "peloton",
+      "tags": [],
+      "stars": 0,
+      "install": "Andrejones92/canifi-life-os/peloton",
+      "source": "github.com/Andrejones92/canifi-life-os"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "brand-storytelling",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.443833Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create a Brand Storytelling Pack (brand narrative, founder/origin story, five-second moment, channel scripts, building-in-public plan, Q&A bank). Use for brand story, founder story, origin story, narr",
+      "repo": "liqiongyu/lenny_skills_plus",
+      "path": "brand-storytelling",
+      "branch": "main",
+      "category": "brand-storytelling",
+      "tags": [],
+      "stars": 0,
+      "install": "liqiongyu/lenny_skills_plus/brand-storytelling",
+      "source": "github.com/liqiongyu/lenny_skills_plus"
+    }
+  ]
+}

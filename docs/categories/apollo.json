@@ -1,0 +1,20 @@
+{
+  "category": "apollo",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.332774Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Interact with Apollo.io REST API (people/org enrichment, search, lists).",
+      "repo": "moltbot/skills",
+      "path": "apollo",
+      "branch": "main",
+      "category": "apollo",
+      "tags": [],
+      "stars": 0,
+      "install": "moltbot/skills/apollo",
+      "source": "github.com/moltbot/skills"
+    }
+  ]
+}

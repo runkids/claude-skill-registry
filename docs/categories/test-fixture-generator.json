@@ -1,0 +1,20 @@
+{
+  "category": "test-fixture-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.203469Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Automated test fixture generation for Vigil Guard's 8-file test suite. Use for TDD workflow, malicious/benign payload creation, 3-branch detection testing, bypass scenario testing, and maintaining tes",
+      "repo": "tbartel74/Vigil-Code",
+      "path": "test-fixture-generator",
+      "branch": "main",
+      "category": "test-fixture-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "tbartel74/Vigil-Code/test-fixture-generator",
+      "source": "github.com/tbartel74/Vigil-Code"
+    }
+  ]
+}

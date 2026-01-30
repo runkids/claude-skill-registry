@@ -1,0 +1,20 @@
+{
+  "category": "report-bug",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.817278Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Quickly report bugs and minor issues to GitHub Issues",
+      "repo": "tidemann/st44-home",
+      "path": "report-bug",
+      "branch": "main",
+      "category": "report-bug",
+      "tags": [],
+      "stars": 0,
+      "install": "tidemann/st44-home/report-bug",
+      "source": "github.com/tidemann/st44-home"
+    }
+  ]
+}

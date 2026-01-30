@@ -1,0 +1,20 @@
+{
+  "category": "retention-analysis",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.836223Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Analyze user retention and churn using survival analysis, cohort analysis, and machine learning. Calculate retention rates, build survival curves, predict churn risk, and generate retention optimizati",
+      "repo": "liangdabiao/claude-data-analysis-ultra-main",
+      "path": "retention-analysis",
+      "branch": "main",
+      "category": "retention-analysis",
+      "tags": [],
+      "stars": 0,
+      "install": "liangdabiao/claude-data-analysis-ultra-main/retention-analysis",
+      "source": "github.com/liangdabiao/claude-data-analysis-ultra-main"
+    }
+  ]
+}

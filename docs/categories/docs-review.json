@@ -1,0 +1,20 @@
+{
+  "category": "docs-review",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.473797Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Review documentation changes for compliance with the Metabase writing style guide. Use when reviewing pull requests, files, or diffs containing documentation markdown files.",
+      "repo": "Kidoz-SDK/metabase",
+      "path": "docs-review",
+      "branch": "main",
+      "category": "docs-review",
+      "tags": [],
+      "stars": 0,
+      "install": "Kidoz-SDK/metabase/docs-review",
+      "source": "github.com/Kidoz-SDK/metabase"
+    }
+  ]
+}

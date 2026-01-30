@@ -1,0 +1,20 @@
+{
+  "category": "dependency-conflict-resolver",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.071843Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Detect and resolve package dependency conflicts before installation across npm/yarn/pnpm, pip/poetry, cargo, and composer. Auto-trigger when installing/upgrading packages. Validates peer dependencies,",
+      "repo": "Sjdjdiejdrirhdkjej/Claude-code-conductor",
+      "path": "dependency-conflict-resolver",
+      "branch": "main",
+      "category": "dependency-conflict-resolver",
+      "tags": [],
+      "stars": 0,
+      "install": "Sjdjdiejdrirhdkjej/Claude-code-conductor/dependency-conflict-resolver",
+      "source": "github.com/Sjdjdiejdrirhdkjej/Claude-code-conductor"
+    }
+  ]
+}

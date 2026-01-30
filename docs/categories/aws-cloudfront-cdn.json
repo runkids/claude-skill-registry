@@ -1,0 +1,20 @@
+{
+  "category": "aws-cloudfront-cdn",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.387778Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Distribute content globally using CloudFront with caching, security headers, WAF integration, and origin configuration. Use for low-latency content delivery.",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "aws-cloudfront-cdn",
+      "branch": "main",
+      "category": "aws-cloudfront-cdn",
+      "tags": [],
+      "stars": 0,
+      "install": "aj-geddes/useful-ai-prompts/aws-cloudfront-cdn",
+      "source": "github.com/aj-geddes/useful-ai-prompts"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "style-learner",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.109039Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Triggers: writing style, voice, tone, style guide, exemplar, style learning Learn and extract writing style patterns from exemplar text for consistent application.  Triggers: learn style, extract sty",
+      "repo": "athola/claude-night-market",
+      "path": "style-learner",
+      "branch": "main",
+      "category": "style-learner",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/style-learner",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

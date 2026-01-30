@@ -1,0 +1,20 @@
+{
+  "category": "resume-generator",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.834555Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Generates and compiles a single-page US Letter LaTeX resume using selected experiences.",
+      "repo": "marswangyang/Roger",
+      "path": "resume-generator",
+      "branch": "main",
+      "category": "resume-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "marswangyang/Roger/resume-generator",
+      "source": "github.com/marswangyang/Roger"
+    }
+  ]
+}

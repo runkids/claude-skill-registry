@@ -1,0 +1,20 @@
+{
+  "category": "scoutqa-test",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.921286Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks to \"test this website\", \"run exploratory testing\", \"check for accessibility issues\", \"verify the login flow works\", \"find bugs on this page\", or requests a",
+      "repo": "github/awesome-copilot",
+      "path": "scoutqa-test",
+      "branch": "main",
+      "category": "scoutqa-test",
+      "tags": [],
+      "stars": 0,
+      "install": "github/awesome-copilot/scoutqa-test",
+      "source": "github.com/github/awesome-copilot"
+    }
+  ]
+}

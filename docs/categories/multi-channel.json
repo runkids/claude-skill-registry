@@ -1,0 +1,20 @@
+{
+  "category": "multi-channel",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.209613Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Unified social and advertising command center. Manages social inbox, optimizes ad performance, tracks keywords, coordinates messaging across YouTube, Instagram, TikTok, LinkedIn, Twitter, Facebook, Re",
+      "repo": "CleanExpo/Unite-Hub",
+      "path": "multi-channel",
+      "branch": "main",
+      "category": "multi-channel",
+      "tags": [],
+      "stars": 0,
+      "install": "CleanExpo/Unite-Hub/multi-channel",
+      "source": "github.com/CleanExpo/Unite-Hub"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "richtek",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.846022Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Richtek Technology MPN encoding patterns, suffix decoding, and handler guidance. Use when working with Richtek power management ICs.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "richtek",
+      "branch": "main",
+      "category": "richtek",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/richtek",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}

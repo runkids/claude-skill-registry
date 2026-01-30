@@ -1,0 +1,20 @@
+{
+  "category": "fastapi-chat-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.636257Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Production-ready FastAPI backend skill for handling chat requests, persisting conversations, invoking OpenAI Agents SDK, and managing MCP tool execution for Todo AI chatbot.",
+      "repo": "Aqsagull99/hackathon-2-todo-app",
+      "path": "fastapi-chat-skill",
+      "branch": "main",
+      "category": "fastapi-chat-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "Aqsagull99/hackathon-2-todo-app/fastapi-chat-skill",
+      "source": "github.com/Aqsagull99/hackathon-2-todo-app"
+    }
+  ]
+}

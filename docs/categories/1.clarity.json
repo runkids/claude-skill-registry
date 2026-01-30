@@ -1,0 +1,20 @@
+{
+  "category": "1.clarity",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.142490Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Establish clarity before starting work. Use when beginning any significant task, when input is vague or stream-of-consciousness, or when requirements seem unclear. Handles messy voice input efficientl",
+      "repo": "ioku24/autorankr",
+      "path": "1.clarity",
+      "branch": "main",
+      "category": "1.clarity",
+      "tags": [],
+      "stars": 0,
+      "install": "ioku24/autorankr/1.clarity",
+      "source": "github.com/ioku24/autorankr"
+    }
+  ]
+}

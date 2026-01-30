@@ -1,0 +1,20 @@
+{
+  "category": "libafl",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.008726Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "LibAFL is a modular fuzzing library for building custom fuzzers. Use for advanced fuzzing needs, custom mutators, or non-standard fuzzing targets.",
+      "repo": "pathvanasoftware/IOSStorageCleaner",
+      "path": "libafl",
+      "branch": "main",
+      "category": "libafl",
+      "tags": [],
+      "stars": 0,
+      "install": "pathvanasoftware/IOSStorageCleaner/libafl",
+      "source": "github.com/pathvanasoftware/IOSStorageCleaner"
+    }
+  ]
+}

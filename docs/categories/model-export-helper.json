@@ -1,0 +1,20 @@
+{
+  "category": "model-export-helper",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.187728Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Assist with model export helper operations. Auto-activating skill for ML Deployment. Triggers on: model export helper, model export helper Part of the ML Deployment skill category. Use when working wi",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "model-export-helper",
+      "branch": "main",
+      "category": "model-export-helper",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/model-export-helper",
+      "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+    }
+  ]
+}

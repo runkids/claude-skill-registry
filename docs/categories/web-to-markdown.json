@@ -1,0 +1,20 @@
+{
+  "category": "web-to-markdown",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.449706Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use ONLY when the user explicitly says: 'use the skill web-to-markdown ...' (or 'use a skill web-to-markdown ...'). Converts webpage URLs to clean Markdown by calling the local web2md CLI (Puppeteer +",
+      "repo": "softaworks/agent-toolkit",
+      "path": "web-to-markdown",
+      "branch": "main",
+      "category": "web-to-markdown",
+      "tags": [],
+      "stars": 0,
+      "install": "softaworks/agent-toolkit/web-to-markdown",
+      "source": "github.com/softaworks/agent-toolkit"
+    }
+  ]
+}

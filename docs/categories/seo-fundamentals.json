@@ -1,0 +1,20 @@
+{
+  "category": "seo-fundamentals",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.965940Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "SEO fundamentals, E-E-A-T, Core Web Vitals, and Google algorithm principles.",
+      "repo": "LeonMelamud/inspector-agents",
+      "path": "seo-fundamentals",
+      "branch": "main",
+      "category": "seo-fundamentals",
+      "tags": [],
+      "stars": 0,
+      "install": "LeonMelamud/inspector-agents/seo-fundamentals",
+      "source": "github.com/LeonMelamud/inspector-agents"
+    }
+  ]
+}

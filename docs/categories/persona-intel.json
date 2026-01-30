@@ -1,0 +1,20 @@
+{
+  "category": "persona-intel",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.565582Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use to summarize persona goals, pains, proof points, and questions for call prep.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "persona-intel",
+      "branch": "main",
+      "category": "persona-intel",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/persona-intel",
+      "source": "github.com/gtmagents/gtm-agents"
+    }
+  ]
+}

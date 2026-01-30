@@ -1,0 +1,20 @@
+{
+  "category": "agent-manager-skill",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.234174Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Manage multiple local CLI agents via tmux sessions (start/stop/monitor/assign) with cron-friendly scheduling.",
+      "repo": "LeonMelamud/inspector-agents",
+      "path": "agent-manager-skill",
+      "branch": "main",
+      "category": "agent-manager-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "LeonMelamud/inspector-agents/agent-manager-skill",
+      "source": "github.com/LeonMelamud/inspector-agents"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "storage-templates",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.094759Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "- Overview",
+      "repo": "athola/claude-night-market",
+      "path": "storage-templates",
+      "branch": "main",
+      "category": "storage-templates",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/storage-templates",
+      "source": "github.com/athola/claude-night-market"
+    }
+  ]
+}

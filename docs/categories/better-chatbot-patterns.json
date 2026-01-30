@@ -1,0 +1,20 @@
+{
+  "category": "better-chatbot-patterns",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:05.427663Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill provides reusable implementation patterns extracted from the better-chatbot project for custom AI chatbot deployments. Use this skill when building AI chatbots with server action validators",
+      "repo": "jackspace/ClaudeSkillz",
+      "path": "better-chatbot-patterns",
+      "branch": "main",
+      "category": "better-chatbot-patterns",
+      "tags": [],
+      "stars": 0,
+      "install": "jackspace/ClaudeSkillz/better-chatbot-patterns",
+      "source": "github.com/jackspace/ClaudeSkillz"
+    }
+  ]
+}

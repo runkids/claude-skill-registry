@@ -1,0 +1,20 @@
+{
+  "category": "rails-rails-analyst",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.760044Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Business and systems analyst for Rails projects. Use when decomposing features into tasks, estimating complexity, describing architecture, writing JTBD (Jobs To Be Done), creating use cases, identifyi",
+      "repo": "boisenoise/skills-collections",
+      "path": "rails-rails-analyst",
+      "branch": "main",
+      "category": "rails-rails-analyst",
+      "tags": [],
+      "stars": 0,
+      "install": "boisenoise/skills-collections/rails-rails-analyst",
+      "source": "github.com/boisenoise/skills-collections"
+    }
+  ]
+}

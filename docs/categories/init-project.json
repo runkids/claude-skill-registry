@@ -1,0 +1,20 @@
+{
+  "category": "init-project",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.879456Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Initialize projects with agentic coding structure. Use when setting up a new project, adding AI agent support to existing project, or when user says \"init\", \"initialize\", \"setup project\", or \"scaffold",
+      "repo": "product-on-purpose/pm-skills",
+      "path": "init-project",
+      "branch": "main",
+      "category": "init-project",
+      "tags": [],
+      "stars": 0,
+      "install": "product-on-purpose/pm-skills/init-project",
+      "source": "github.com/product-on-purpose/pm-skills"
+    }
+  ]
+}

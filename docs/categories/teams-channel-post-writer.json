@@ -1,0 +1,20 @@
+{
+  "category": "teams-channel-post-writer",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:08.179568Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates educational Teams channel posts for internal knowledge sharing about Claude Code features, tools, and best practices. Applies when writing posts, announcements, or documentation to teach colle",
+      "repo": "nguyendinhquocx/code-ai",
+      "path": "teams-channel-post-writer",
+      "branch": "main",
+      "category": "teams-channel-post-writer",
+      "tags": [],
+      "stars": 0,
+      "install": "nguyendinhquocx/code-ai/teams-channel-post-writer",
+      "source": "github.com/nguyendinhquocx/code-ai"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "category": "food-database-query",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:06.685104Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "技能名称: Food Database Query",
+      "repo": "huifer/WellAlly-health",
+      "path": "food-database-query",
+      "branch": "main",
+      "category": "food-database-query",
+      "tags": [],
+      "stars": 0,
+      "install": "huifer/WellAlly-health/food-database-query",
+      "source": "github.com/huifer/WellAlly-health"
+    }
+  ]
+}

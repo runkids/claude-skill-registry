@@ -1,0 +1,20 @@
+{
+  "category": "onsemi",
+  "code": "oth",
+  "count": 1,
+  "updated_at": "2026-01-30T04:55:07.285991Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "ON Semiconductor (onsemi) MPN encoding patterns, package codes, and handler guidance. Use when working with onsemi MOSFETs, diodes, transistors, voltage regulators, or OnSemiHandler.",
+      "repo": "Cantara/lib-electronic-components",
+      "path": "onsemi",
+      "branch": "main",
+      "category": "onsemi",
+      "tags": [],
+      "stars": 0,
+      "install": "Cantara/lib-electronic-components/onsemi",
+      "source": "github.com/Cantara/lib-electronic-components"
+    }
+  ]
+}
