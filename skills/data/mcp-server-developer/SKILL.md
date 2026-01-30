@@ -135,6 +135,8 @@ Expert implementation of Model Context Protocol (MCP) servers for Claude Desktop
    
    3. Test in Claude:
       "Use the perspective transformation on this problem: [your problem]"
+   ```text
+   (Expected: Structured analysis from multiple stakeholder perspectives)
    ```
 
 2. **Runnable Examples**
@@ -404,11 +406,11 @@ logTelemetry({
 
 ## Resources
 
-- **MCP Specification**: https://spec.modelcontextprotocol.io/
-- **MCP SDK**: https://github.com/modelcontextprotocol/typescript-sdk
-- **Claude Desktop Config**: https://docs.claude.com/en/docs/agents-and-tools/agent-skills
-- **TypeScript Best Practices**: https://typescript-lang.org/docs/handbook/intro.html
-- **NPM Publishing Guide**: https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry
+- **MCP Specification**: <https://spec.modelcontextprotocol.io/>
+- **MCP SDK**: <https://github.com/modelcontextprotocol/typescript-sdk>
+- **Claude Desktop Config**: <https://docs.claude.com/en/docs/agents-and-tools/agent-skills>
+- **TypeScript Best Practices**: <https://typescript-lang.org/docs/handbook/intro.html>
+- **NPM Publishing Guide**: <https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry>
 
 ## Success Criteria
 

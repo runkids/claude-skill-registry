@@ -1,0 +1,19 @@
+{
+  "category": "data-engineer-skill",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.692545Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when user needs scalable data pipeline development, ETL/ELT implementation, or data infrastructure design.",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "data-engineer-skill",
+      "branch": "main",
+      "category": "data-engineer-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

@@ -1,9 +1,7 @@
 {
   "name": "contract-drafter",
-  "description": "Generate legal contracts from templates with variable substitution and clause management",
   "repo": "eddiebe147/claude-settings",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/eddiebe147/claude-settings"
+  "path": "skills/contract-drafter/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-30T03:50:56.623747Z"
 }

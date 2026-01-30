@@ -1,19 +1,19 @@
 {
   "category": "LangChain",
   "count": 1,
-  "updated_at": "2026-01-29T16:04:51.937720Z",
+  "updated_at": "2026-01-30T04:53:31.273747Z",
   "skills": [
     {
       "name": "SKILL.md",
-      "description": "Framework for building LLM-powered applications with agents, chains, and RAG. Supports multiple providers (OpenAI, Anthropic, Google), 500+ integrations, ReAct agents, tool calling, memory management,",
-      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "description": "LangChain skill for building LLM orchestration, agents, RAG pipelines, tools, memory, callbacks, and deployment.",
+      "repo": "Sameeh07/AGENT-SKILLS",
       "path": "LangChain",
       "branch": "main",
       "category": "LangChain",
       "tags": [],
       "stars": 0,
-      "install": "zechenzhangAGI/AI-research-SKILLs",
-      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+      "install": "Sameeh07/AGENT-SKILLS",
+      "source": "github.com/Sameeh07/AGENT-SKILLS"
     }
   ]
 }

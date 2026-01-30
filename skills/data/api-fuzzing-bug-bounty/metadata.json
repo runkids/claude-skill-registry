@@ -1,7 +1,7 @@
 {
   "name": "api-fuzzing-bug-bounty",
-  "repo": "AxelMrak/ai",
-  "path": "skills/api-fuzzing-bug-bounty/SKILL.md",
-  "source": "github.com/AxelMrak/ai",
-  "downloaded_at": "2026-01-29T02:59:38.145819Z"
+  "repo": "chrissargent48/weekly_report",
+  "path": ".claude/skills/external-skills/skills/api-fuzzing-bug-bounty/SKILL.md",
+  "source": "github.com/chrissargent48/weekly_report",
+  "downloaded_at": "2026-01-30T04:29:41.149603Z"
 }

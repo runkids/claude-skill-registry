@@ -1,104 +1,108 @@
 ---
 name: skillshare
-description: Access Skillshare creative classes and track learning progress
-category: education
+version: 0.6.4
+description: Syncs skills across AI CLI tools from a single source of truth. Use when asked to "sync skills", "pull skills", "show status", "list skills", "install skill", "initialize skillshare", or manage skill targets.
+argument-hint: "[command] [target] [--dry-run]"
 ---
 
-# Skillshare Skill
+# Skillshare CLI
 
-## Overview
-Enables Claude to interact with Skillshare for browsing creative classes, tracking learning progress, managing saved classes, and discovering new creative skills.
+```
+Source: ~/.config/skillshare/skills  ← Edit here (single source of truth)
+         ↓ sync
+Targets: ~/.claude/skills, ~/.cursor/skills, ...  ← Symlinked from source
+```
 
-## Quick Install
+## Quick Reference
 
 ```bash
-curl -sSL https://canifi.com/skills/skillshare/install.sh | bash
+skillshare status              # Always run first
+skillshare sync                # Push to all targets
+skillshare sync --dry-run      # Preview changes
+skillshare pull claude         # Import from target → source
+skillshare list                # Show skills and tracked repos
 ```
 
-Or manually:
+## Command Patterns
+
+| Intent | Command |
+|--------|---------|
+| Sync skills | `skillshare sync` |
+| Preview first | `skillshare sync --dry-run` then `sync` |
+| Create new skill | `skillshare new <name>` then `sync` |
+| Pull from target | `skillshare pull <name>` then `sync` |
+| Install skill | `skillshare install <source>` then `sync` |
+| Install from repo (browse) | `skillshare install owner/repo` (discovery mode) |
+| Install team repo | `skillshare install <git-url> --track` then `sync` |
+| Update skill/repo | `skillshare update <name>` then `sync` |
+| Update all | `skillshare update --all` then `sync` |
+| Remove skill | `skillshare uninstall <name>` then `sync` |
+| List skills | `skillshare list` or `list --verbose` |
+| Cross-machine push | `skillshare push -m "message"` |
+| Cross-machine pull | `skillshare pull --remote` |
+| Backup/restore | `skillshare backup --list`, `restore <target>` |
+| Add custom target | `skillshare target add <name> <path>` |
+| Change sync mode | `skillshare target <name> --mode merge\|symlink` |
+| Upgrade CLI/skill | `skillshare upgrade` |
+| Diagnose issues | `skillshare doctor` |
+
+## Init (Non-Interactive)
+
+**CRITICAL:** Use flags — AI cannot respond to CLI prompts.
+
+**Source path:** Always use default `~/.config/skillshare/skills`. Only use `--source` if user explicitly requests a different location.
+
+**Step 1:** Check existing skills
 ```bash
-cp -r skills/skillshare ~/.canifi/skills/
+ls ~/.claude/skills ~/.cursor/skills 2>/dev/null | head -10
 ```
 
-## Setup
+**Step 2:** Run init based on findings
 
-Configure via [canifi-env](https://canifi.com/setup/scripts):
+| Found | Command |
+|-------|---------|
+| Skills in one target | `skillshare init --copy-from <name> --all-targets --git` |
+| Skills in multiple | Ask user which to import |
+| No existing skills | `skillshare init --no-copy --all-targets --git` |
+
+**Step 3:** `skillshare status`
+
+**Adding new agents later (AI must use --select):**
+```bash
+skillshare init --discover --select "windsurf,kilocode"   # Non-interactive (AI use this)
+# skillshare init --discover                              # Interactive only (NOT for AI)
+```
+
+See [init.md](references/init.md) for all flags.
+
+## Team Edition
 
 ```bash
-# First, ensure canifi-env is installed:
-# curl -sSL https://canifi.com/install.sh | bash
-
-canifi-env set SKILLSHARE_EMAIL "your-email@example.com"
+skillshare install github.com/team/skills --track   # Install as tracked repo
+skillshare update _team-skills                       # Update later
 ```
 
-## Privacy & Authentication
+Tracked repos: `_` prefix, nested paths use `__` (e.g., `_team__frontend__ui`).
 
-**Your credentials, your choice.** Canifi LifeOS respects your privacy.
+**Naming convention:** Use `{team}:{name}` in SKILL.md to avoid collisions.
 
-### Option 1: Manual Browser Login (Recommended)
-If you prefer not to share credentials with Claude Code:
-1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode
-2. Login to the service manually in the Playwright-controlled Chrome window
-3. Claude will use your authenticated session without ever seeing your password
+## Safety
 
-### Option 2: Environment Variables
-If you're comfortable sharing credentials, you can store them locally:
+- **NEVER** `rm -rf` on symlinked skills — deletes source
+- Use `skillshare uninstall <name>` to safely remove
+
+## Zero-Install
+
 ```bash
-canifi-env set SERVICE_EMAIL "your-email"
-canifi-env set SERVICE_PASSWORD "your-password"
+curl -fsSL https://raw.githubusercontent.com/runkids/skillshare/main/skills/skillshare/scripts/run.sh | sh -s -- status
 ```
 
-**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.
+## References
 
-## Capabilities
-- Browse creative and business classes
-- Track class completion progress
-- Manage saved classes list
-- View class projects and discussions
-- Discover trending classes
-
-## Usage Examples
-### Example 1: Find Classes
-```
-User: "Find me illustration classes on Skillshare"
-Claude: I'll search for top-rated illustration classes on Skillshare.
-```
-
-### Example 2: Class Progress
-```
-User: "What classes am I in the middle of?"
-Claude: I'll check your in-progress Skillshare classes.
-```
-
-### Example 3: Saved Classes
-```
-User: "What's in my Skillshare saved list?"
-Claude: I'll list all the classes you've saved for later.
-```
-
-## Authentication Flow
-1. Navigate to skillshare.com via Playwright MCP
-2. Click "Sign In" button
-3. Enter Skillshare credentials
-4. Handle verification if required
-5. Maintain session for subsequent requests
-
-## Error Handling
-- Login Failed: Retry authentication up to 3 times, then notify via iMessage
-- Session Expired: Re-authenticate automatically
-- Verification Required: Complete email verification
-- Rate Limited: Implement exponential backoff
-- Subscription Required: Check membership status
-
-## Self-Improvement Instructions
-When encountering new UI patterns:
-1. Document Skillshare interface changes
-2. Update selectors for new layouts
-3. Track trending class categories
-4. Monitor new teacher additions
-
-## Notes
-- Subscription-based unlimited access
-- Focus on creative and business skills
-- Project-based learning approach
-- Teacher community platform
+- [init.md](references/init.md) - Init flags
+- [sync.md](references/sync.md) - Sync, pull, push
+- [install.md](references/install.md) - Install, update, uninstall
+- [status.md](references/status.md) - Status, diff, list, doctor
+- [targets.md](references/targets.md) - Target management
+- [backup.md](references/backup.md) - Backup, restore
+- [TROUBLESHOOTING.md](references/TROUBLESHOOTING.md) - Recovery

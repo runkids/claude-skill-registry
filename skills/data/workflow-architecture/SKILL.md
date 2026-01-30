@@ -1,12 +1,13 @@
 ---
 name: workflow-architecture
 description: Centralized architecture documentation for the pm-workflow bundle with visual diagrams
+user-invocable: false
 allowed-tools: Read
 ---
 
 # PM-Workflow Architecture
 
-**Role**: Central architecture reference for the pm-workflow bundle. Provides visual documentation of the 5-phase execution model, thin agent pattern, and data layer.
+**Role**: Central architecture reference for the pm-workflow bundle. Provides visual documentation of the 7-phase execution model, thin agent pattern, and data layer.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -14,16 +15,27 @@ allowed-tools: Read
 │                         PM-WORKFLOW ARCHITECTURE                            │
 │                                                                             │
 │  ┌───────────────────────────────────────────────────────────────────────┐  │
-│  │                      5-PHASE EXECUTION MODEL                          │  │
+│  │                      7-PHASE EXECUTION MODEL                          │  │
 │  │                                                                       │  │
-│  │   ┌────────┐ ┌───────────┐ ┌────────┐ ┌───────────┐ ┌────────────┐   │  │
-│  │   │ 1-init │▶│ 2-outline │▶│ 3-plan │▶│ 4-execute │▶│ 5-finalize │   │  │
-│  │   └────────┘ └───────────┘ └────────┘ └───────────┘ └────────────┘   │  │
-│  │       │           │            │            │             │          │  │
-│  │       ▼           ▼            ▼            ▼             ▼          │  │
-│  │   config      solution      TASK-*      project       commit        │  │
-│  │   status      outline       .toon        files          PR          │  │
-│  │   request                                                            │  │
+│  │  1-init → 2-refine → 3-outline → 4-plan → 5-execute                   │  │
+│  │                                                ↓                       │  │
+│  │                                           6-verify ←────┐             │  │
+│  │                                              ↓          │             │  │
+│  │                                      [findings?]        │             │  │
+│  │                                       ↓       ↓         │             │  │
+│  │                                     yes      no         │             │  │
+│  │                                      ↓        ↓         │             │  │
+│  │                              create fix  7-finalize     │             │  │
+│  │                              tasks       (max 3x)       │             │  │
+│  │                                 ↓          ↓            │             │  │
+│  │                              5-execute  [PR issues?]    │             │  │
+│  │                              (loop)      ↓       ↓      │             │  │
+│  │                                 ↑       yes     no      │             │  │
+│  │                                 │        │      ↓       │             │  │
+│  │                                 │   fix tasks  COMPLETE │             │  │
+│  │                                 └────────┴──────────────┘             │  │
+│  │                                                                       │  │
+│  │  Iteration Limits: 6-verify (max 5x) | 7-finalize (max 3x)           │  │
 │  └───────────────────────────────────────────────────────────────────────┘  │
 │                                                                             │
 │  ┌───────────────────────────────────────────────────────────────────────┐  │
@@ -40,10 +52,10 @@ allowed-tools: Read
 │  ┌───────────────────────────────────────────────────────────────────────┐  │
 │  │                          DATA LAYER                                   │  │
 │  │                                                                       │  │
-│  │   manage-config  manage-lifecycle  manage-tasks  manage-solution     │  │
+│  │   manage-references  manage-lifecycle  manage-tasks  manage-solution  │  │
 │  │        │               │               │              │               │  │
 │  │        ▼               ▼               ▼              ▼               │  │
-│  │   config.toon    status.toon    TASK-*.toon   solution_outline.md    │  │
+│  │   references.toon status.toon    TASK-*.toon   solution_outline.md   │  │
 │  │                                                                       │  │
 │  └───────────────────────────────────────────────────────────────────────┘  │
 │                                                                             │
@@ -56,11 +68,11 @@ allowed-tools: Read
 
 | Document | Focus | Key Visuals |
 |----------|-------|-------------|
-| [standards/phases.md](standards/phases.md) | 5-phase model | Phase flow, transitions, outputs |
-| [standards/agents.md](standards/agents.md) | Thin agent pattern | Agent structure, delegation |
+| [standards/phases.md](standards/phases.md) | 7-phase model | Phase flow, transitions, outputs |
+| [standards/agents.md](standards/agents.md) | Thin agent pattern | Agent structure, skill invocation |
 | [standards/data-layer.md](standards/data-layer.md) | manage-* skills | File operations, TOON format |
 | [standards/skill-loading.md](standards/skill-loading.md) | Two-tier loading | System vs domain skills |
-| [standards/artifacts.md](standards/artifacts.md) | Plan file formats | config.toon, status.toon, TASK-*.toon |
+| [standards/artifacts.md](standards/artifacts.md) | Plan file formats | references.toon, status.toon, TASK-*.toon |
 | [standards/task-executor-routing.md](standards/task-executor-routing.md) | Task executor routing | Profile→executor mapping, extensibility |
 | `pm-workflow:workflow-extension-api` | Extension mechanism | Domain extensions for outline/triage |
 
@@ -114,23 +126,23 @@ allowed-tools: Read
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
 │  │  COMMANDS (User-facing)                                              │   │
 │  │  ══════════════════════                                              │   │
-│  │  /plan-manage  /plan-execute  /pr-doctor                             │   │
+│  │  /plan-marshall  /pr-doctor                                          │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
 │                                     │                                       │
 │                                     ▼                                       │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
 │  │  AGENTS (Single Parameterized Agent)                                 │   │
 │  │  ═══════════════════════════════════                                 │   │
-│  │  plan-phase-agent phase=1-init | 2-outline | 3-plan | 4-execute | 5-finalize │
-│  │  (One agent, 5 invocation modes)                                     │   │
+│  │  plan-phase-agent phase=1-init | 2-refine | 3-outline | 4-plan | 5-execute | 6-verify | 7-finalize │
+│  │  (One agent, 7 invocation modes)                                     │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
 │                                     │                                       │
 │                                     ▼                                       │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
 │  │  WORKFLOW SKILLS (Phase Logic)                                       │   │
 │  │  ═════════════════════════════                                       │   │
-│  │  phase-1-init         phase-2-outline        phase-3-plan            │   │
-│  │  phase-4-execute      phase-5-finalize                               │   │
+│  │  phase-1-init   phase-2-refine   phase-3-outline   phase-4-plan      │   │
+│  │  phase-5-execute   phase-6-verify    phase-7-finalize                 │   │
 │  │  task-implementation           task-module_testing                   │   │
 │  │  git-workflow         pr-workflow                                    │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
@@ -139,7 +151,7 @@ allowed-tools: Read
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
 │  │  DATA LAYER (manage-* Skills)                                        │   │
 │  │  ════════════════════════════                                        │   │
-│  │  manage-config      manage-lifecycle    manage-tasks                 │   │
+│  │  manage-references   manage-lifecycle    manage-tasks                 │   │
 │  │  manage-solution-outline                manage-plan-documents        │   │
 │  │  manage-files       manage-references                                │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
@@ -148,8 +160,8 @@ allowed-tools: Read
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
 │  │  PLAN FILES (.plan/plans/{plan_id}/)                                 │   │
 │  │  ═══════════════════════════════════                                 │   │
-│  │  config.toon  status.toon  request.md  solution_outline.md           │   │
-│  │  references.toon  TASK-001.toon  TASK-002.toon  ...                  │   │
+│  │  status.toon  request.md  references.toon  solution_outline.md        │   │
+│  │  TASK-001.toon  TASK-002.toon  ...                                   │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
 │                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -161,12 +173,15 @@ allowed-tools: Read
 
 | Skill | Purpose |
 |-------|---------|
+| `pm-workflow:plan-marshall` | Unified user-facing entry point for plan lifecycle |
 | `pm-workflow:workflow-extension-api` | Extension points for domain customization |
 | `pm-workflow:phase-1-init` | Init phase implementation |
-| `pm-workflow:phase-2-outline` | Outline phase implementation |
-| `pm-workflow:phase-3-plan` | Plan phase implementation |
-| `pm-workflow:phase-4-execute` | Execute phase implementation |
-| `pm-workflow:phase-5-finalize` | Finalize phase implementation |
+| `pm-workflow:phase-2-refine` | Refine phase implementation |
+| `pm-workflow:phase-3-outline` | Outline phase implementation |
+| `pm-workflow:phase-4-plan` | Plan phase implementation |
+| `pm-workflow:phase-5-execute` | Execute phase implementation |
+| `pm-workflow:phase-6-verify` | Verify phase implementation |
+| `pm-workflow:phase-7-finalize` | Finalize phase implementation |
 | `pm-workflow:task-implementation` | Implementation profile workflow |
 | `pm-workflow:task-module_testing` | Module testing profile workflow |
 
@@ -177,7 +192,7 @@ allowed-tools: Read
 Load on-demand based on what aspect of the architecture you need to understand:
 
 ```bash
-# Understanding the 5-phase model
+# Understanding the 7-phase model
 Read standards/phases.md
 
 # Understanding thin agent pattern

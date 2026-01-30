@@ -1,228 +1,154 @@
 ---
 name: create-pr
-allowed-tools: Task, Bash(gh:*), Bash(git:*)
-description: Create comprehensive GitHub pull requests with quality validation
-argument-hint: [optional description or issue reference]
-user-invocable: true
+description: Creates GitHub pull requests with properly formatted titles that pass the check-pr-title CI validation. Use when creating PRs, submitting changes for review, or when the user says /pr or asks to create a pull request.
+allowed-tools: Bash(git:*), Bash(gh:*), Read, Grep, Glob
 ---
 
-## Context
+# Create Pull Request
 
-- Current git status: !`git status`
-- Current branch: !`git branch --show-current`
-- Unpushed commits: !`git log @{u}..HEAD --oneline 2>/dev/null || git log --oneline -5`
-- GitHub authentication: !`gh auth status`
-- Repository changes: !`git diff --stat HEAD~1..HEAD 2>/dev/null || echo "No recent changes"`
+Creates GitHub PRs with titles that pass n8n's `check-pr-title` CI validation.
 
-## Requirements
-
-- Ensure the repository is clean, authenticated, and ready for PR submission.
-- Complete lint, test, build, and security checks before creating the PR.
-- Link related issues and apply accurate labels for traceability.
-- **Use atomic commits for logical units of work**: Each commit should represent one complete, cohesive change.
-- Title: entirely lowercase, <50 chars, imperative mood (e.g., "add", "fix", "update"), conventional commits format (feat:, fix:, docs:, refactor:, test:, chore:)
-  - Scope (optional): lowercase noun, 1-2 words. Must match existing scopes in git history.
-- Body: blank line after title, ≤72 chars per line, must start with uppercase letter, standard capitalization and punctuation. Describe what changed and why, not how.
-- Footer (optional): Must start with uppercase letter, standard capitalization. Reference issues/PRs (Closes #123, Fixes #456, Linked to PR #789). Use BREAKING CHANGE: prefix for breaking changes.
-
-### Examples
+## PR Title Format
 
 ```
-feat(auth): add google oauth login flow
-
-- Introduce Google OAuth 2.0 for user sign-in
-- Add backend callback endpoint `/auth/google/callback`
-- Update login UI with Google button and loading state
-
-Add a new authentication option improving cross-platform
-sign-in.
-
-Closes #42. Linked to #38 and PR #45
+<type>(<scope>): <summary>
 ```
 
+### Types (required)
+
+| Type       | Description                                      | Changelog |
+|------------|--------------------------------------------------|-----------|
+| `feat`     | New feature                                      | Yes       |
+| `fix`      | Bug fix                                          | Yes       |
+| `perf`     | Performance improvement                          | Yes       |
+| `test`     | Adding/correcting tests                          | No        |
+| `docs`     | Documentation only                               | No        |
+| `refactor` | Code change (no bug fix or feature)              | No        |
+| `build`    | Build system or dependencies                     | No        |
+| `ci`       | CI configuration                                 | No        |
+| `chore`    | Routine tasks, maintenance                       | No        |
+
+### Scopes (optional but recommended)
+
+- `API` - Public API changes
+- `benchmark` - Benchmark CLI changes
+- `core` - Core/backend/private API
+- `editor` - Editor UI changes
+- `* Node` - Specific node (e.g., `Slack Node`, `GitHub Node`)
+
+### Summary Rules
+
+- Use imperative present tense: "Add" not "Added"
+- Capitalize first letter
+- No period at the end
+- No ticket IDs (e.g., N8N-1234)
+- Add `(no-changelog)` suffix to exclude from changelog
+
+## Steps
+
+1. **Check current state**:
+   ```bash
+   git status
+   git diff --stat
+   git log origin/master..HEAD --oneline
+   ```
+
+2. **Analyze changes** to determine:
+   - Type: What kind of change is this?
+   - Scope: Which package/area is affected?
+   - Summary: What does the change do?
+
+3. **Push branch if needed**:
+   ```bash
+   git push -u origin HEAD
+   ```
+
+4. **Create PR** using gh CLI with the template from `.github/pull_request_template.md`:
+   ```bash
+   gh pr create --draft --title "<type>(<scope>): <summary>" --body "$(cat <<'EOF'
+   ## Summary
+
+   <Describe what the PR does and how to test. Photos and videos are recommended.>
+
+   ## Related Linear tickets, Github issues, and Community forum posts
+
+   <!-- Link to Linear ticket: https://linear.app/n8n/issue/[TICKET-ID] -->
+   <!-- Use "closes #<issue-number>", "fixes #<issue-number>", or "resolves #<issue-number>" to automatically close issues -->
+
+   ## Review / Merge checklist
+
+   - [ ] PR title and summary are descriptive. ([conventions](../blob/master/.github/pull_request_title_conventions.md))
+   - [ ] [Docs updated](https://github.com/n8n-io/n8n-docs) or follow-up ticket created.
+   - [ ] Tests included.
+   - [ ] PR Labeled with `release/backport` (if the PR is an urgent fix that needs to be backported)
+   EOF
+   )"
+   ```
+
+## PR Body Guidelines
+
+Based on `.github/pull_request_template.md`:
+
+### Summary Section
+- Describe what the PR does
+- Explain how to test the changes
+- Include screenshots/videos for UI changes
+
+### Related Links Section
+- Link to Linear ticket: `https://linear.app/n8n/issue/[TICKET-ID]`
+- Link to GitHub issues using keywords to auto-close:
+  - `closes #123` / `fixes #123` / `resolves #123`
+- Link to Community forum posts if applicable
+
+### Checklist
+All items should be addressed before merging:
+- PR title follows conventions
+- Docs updated or follow-up ticket created
+- Tests included (bugs need regression tests, features need coverage)
+- `release/backport` label added if urgent fix needs backporting
+
+## Examples
+
+### Feature in editor
 ```
-fix(api): handle null payload in session refresh
-
-- Validate payload before accessing `user.id`
-- Return proper 400 response instead of 500
-- Add regression test for null input
-
-Prevents session refresh crash when token expires.
-
-Fixes #105
-```
-
-```
-feat(auth): migrate to oauth 2.0
-
-- Replace basic auth with OAuth 2.0 flow
-- Update authentication middleware
-- Add token refresh endpoint
-
-BREAKING CHANGE: Authentication API now requires OAuth 2.0 tokens. Basic auth is no longer supported.
-
-Closes #120. Linked to #115 and PR #122
-```
-
-## Your Task
-
-**IMPORTANT: You MUST use the Task tool to complete ALL tasks.**
-
-1. Validate repository readiness, analyse change scope, and detect any blockers.
-2. Run the necessary quality and security checks; resolve failures by collaborating with specialized agents when required.
-3. Assemble the pull request with the prescribed structure, link issues, apply labels, and report the final status to the team.
-
-### Workflow Steps
-
-1. **Repository Validation** - Check authentication and branch status
-2. **Change Analysis** - Analyze commits and file changes
-3. **Quality Validation** - Run project-specific quality checks
-4. **Security Scanning** - Check for sensitive data exposure
-5. **Issue Discovery** - Find and link related issues
-6. **PR Creation** - Generate and create pull request with proper metadata
-
-### Quality Validation Process
-
-**Node.js Projects:**
-
-- Run lint, test, build, and type-check commands
-- Validate package.json changes
-- Check for security vulnerabilities
-
-**Python Projects:**
-
-- Run ruff, black, pytest, and mypy
-- Validate requirements and dependencies
-- Check for security issues
-
-### Security Validation
-
-- Scan for sensitive files (.env, .key, .pem)
-- Check for hardcoded secrets, passwords, tokens
-- Validate input sanitization in changed files
-- Ensure no credentials in commit history
-
-### Pre-Creation Requirements
-
-- Repository state validated and clean
-- All quality checks passed (lint, test, build)
-- Security scan completed without issues
-- Related issues identified and linked
-- Proper branch naming and commit messages following standards
-
-### Failure Resolution Process
-
-When quality checks fail:
-
-1. Use TodoWrite to create specific task list for failures
-2. Use Task tool with specialized agents:
-   - **@code-reviewer** — logic correctness, tests, error handling.
-   - **@security-reviewer** — authentication, data protection, validation.
-3. Fix issues systematically with validation after each fix
-4. Mark tasks completed immediately after resolution
-5. Re-run quality checks until all pass
-
-### PR Structure Requirements
-
-**Title Guidelines:**
-
-- Maximum 70 characters
-- Use imperative mood
-- No emojis
-- Clear and descriptive
-
-**Body Template:**
-
-```markdown
-## Summary
-Brief description of changes and business impact
-
-## Changes
-- List of key modifications
-- Technical details and rationale
-
-## Related Issues
-Fixes #123, Closes #456
-
-## Testing
-- [ ] Unit tests added/updated
-- [ ] All tests pass
-- [ ] Manual testing completed
-- [ ] Edge cases covered
-
-## Security & Quality
-- [ ] No sensitive data exposed
-- [ ] Input validation implemented
-- [ ] Linting and type checking passed
-- [ ] Build successful
-
-## Type of Change
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Breaking change
-- [ ] Documentation update
+feat(editor): Add workflow performance metrics display
 ```
 
-### Automated Labeling
-
-- `testing` - Test file modifications
-- `documentation` - Documentation updates
-- `dependencies` - Package file changes
-- `security` - Security-related modifications
-
-### Commit Message Validation
-
-- **Use atomic commits for logical units of work**: Each commit should represent one complete, cohesive change.
-- Title: entirely lowercase, <50 chars, imperative mood (e.g., "add", "fix", "update"), conventional commits format (feat:, fix:, docs:, refactor:, test:, chore:)
-  - Scope (optional): lowercase noun, 1-2 words. Must match existing scopes in git history.
-- Body: blank line after title, ≤72 chars per line, must start with uppercase letter, standard capitalization and punctuation. Describe what changed and why, not how.
-- Footer (optional): Must start with uppercase letter, standard capitalization. Reference issues/PRs (Closes #123, Fixes #456, Linked to PR #789). Use BREAKING CHANGE: prefix for breaking changes.
-
-### Examples
-
+### Bug fix in core
 ```
-feat(auth): add google oauth login flow
-
-- Introduce Google OAuth 2.0 for user sign-in
-- Add backend callback endpoint `/auth/google/callback`
-- Update login UI with Google button and loading state
-
-Add a new authentication option improving cross-platform
-sign-in.
-
-Closes #42. Linked to #38 and PR #45
+fix(core): Resolve memory leak in execution engine
 ```
 
+### Node-specific change
 ```
-fix(api): handle null payload in session refresh
-
-- Validate payload before accessing `user.id`
-- Return proper 400 response instead of 500
-- Add regression test for null input
-
-Prevents session refresh crash when token expires.
-
-Fixes #105
+fix(Slack Node): Handle rate limiting in message send
 ```
 
+### Breaking change (add exclamation mark before colon)
 ```
-feat(auth): migrate to oauth 2.0
-
-- Replace basic auth with OAuth 2.0 flow
-- Update authentication middleware
-- Add token refresh endpoint
-
-BREAKING CHANGE: Authentication API now requires OAuth 2.0 tokens. Basic auth is no longer supported.
-
-Closes #120. Linked to #115 and PR #122
+feat(API)!: Remove deprecated v1 endpoints
 ```
 
-- Review all commits in branch for compliance
-- Handle non-standard commits by documenting in PR description or interactive rebase if safe
+### No changelog entry
+```
+refactor(core): Simplify error handling (no-changelog)
+```
 
-### Best Practices
+### No scope (affects multiple areas)
+```
+chore: Update dependencies to latest versions
+```
 
-- **Quality-first**: All checks must pass before PR creation
-- **Security validation**: Comprehensive scanning for vulnerabilities
-- **Issue linking**: Connect PRs to related issues with auto-closing keywords
-- **Small, focused changes**: Easier to review and merge
+## Validation
+
+The PR title must match this pattern:
+```
+^(feat|fix|perf|test|docs|refactor|build|ci|chore|revert)(\([a-zA-Z0-9 ]+( Node)?\))?!?: [A-Z].+[^.]$
+```
+
+Key validation rules:
+- Type must be one of the allowed types
+- Scope is optional but must be in parentheses if present
+- Exclamation mark for breaking changes goes before the colon
+- Summary must start with capital letter
+- Summary must not end with a period

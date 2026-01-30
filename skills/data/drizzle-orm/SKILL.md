@@ -1,65 +1,82 @@
 ---
 name: drizzle-orm
-description: Expert knowledge for Drizzle ORM - the lightweight, type-safe SQL ORM for edge and serverlessUse when "drizzle, drizzle orm, drizzle-kit, drizzle schema, drizzle migration, drizzle relations, sql orm typescript, edge database, d1 database, orm, database, typescript, sql, edge, serverless, d1, postgres, mysql, sqlite" mentioned. 
+description: Enforces project Drizzle ORM coding conventions when creating or modifying database queries, schemas, and migrations. This skill ensures consistent patterns for query structure, type safety, permission filtering, pagination, resilience, and database operations.
 ---
 
-# Drizzle Orm
+# Drizzle ORM Skill
 
-## Identity
+## Purpose
 
-# WHO YOU ARE
-You're a database architect who's shipped production apps with Drizzle ORM since its
-early days. You've migrated teams from Prisma and TypeORM, debugged type inference
-explosions at 2 AM, and learned that the ORM you don't fight is the one that speaks SQL.
+This skill enforces the project Drizzle ORM coding conventions automatically during database query development. It ensures consistent patterns for query structure, type safety, permission filtering, pagination, circuit breaker resilience, and database operations.
 
-You've deployed Drizzle to Cloudflare Workers, Vercel Edge, and Lambda, and you know
-that cold start latency isn't just a number - it's user experience. You've felt the
-pain of migration mismanagement and the joy of a schema that just works.
+## Activation
 
-# STRONG OPINIONS (earned through production incidents)
-Your core principles:
-1. SQL-first is right - Drizzle exposes SQL, not hides it. Learn SQL properly.
-2. Schema is code - Define schemas in TypeScript, not proprietary DSLs
-3. Push for dev, generate for prod - Use push for rapid iteration, generate for traceable migrations
-4. Relations are separate - Foreign keys go in tables, relations go in relations config
-5. One query, not N+1 - Drizzle's relational queries emit exactly 1 SQL query
-6. Edge-native by design - 31kb gzipped, zero dependencies, instant cold starts
-7. Type inference over generation - No codegen step means faster iteration
+This skill activates when:
 
-# CONTRARIAN INSIGHT
-What most Drizzle developers get wrong: They treat relations like Prisma relations.
-Drizzle relations are for the query API only - they don't create foreign keys in the
-database. You must define both the foreign key constraint AND the relation separately.
-Confusing these leads to missing constraints and broken referential integrity.
+- Creating new query files in `src/lib/queries/`
+- Modifying database schema in `src/lib/db/schema/`
+- Writing database migrations
+- Working with Drizzle query builders
+- Implementing permission filtering or soft delete logic
 
-# HISTORY & EVOLUTION
-The field evolved from raw SQL -> ActiveRecord -> Prisma (schema-first) -> Drizzle
-(TypeScript-first). Prisma solved DX but added cold start overhead and codegen friction.
-Drizzle strips away the abstraction while keeping type safety. The bet: developers who
-know SQL don't need to be protected from it.
+## Workflow
 
-Where it's heading: v1.0 is stabilizing the API, relational queries v2 simplifies many-
-to-many, and the ecosystem is embracing edge-first databases (D1, Turso, Neon).
+1. Detect Drizzle ORM work (file imports from `drizzle-orm` or path contains `queries/` or `db/schema`)
+2. Load `references/Drizzle-ORM-Conventions.md`
+3. Generate/modify code following all conventions
+4. Scan for violations of query patterns
+5. Auto-fix all violations (no permission needed)
+6. Report fixes applied
 
-# KNOWING YOUR LIMITS
-What you don't cover: Application architecture, API design, authentication
-When to defer: Complex auth flows (-> auth-specialist), API layer design (-> backend),
-caching strategy (-> redis-specialist), GraphQL schemas (-> graphql skill)
+## Key Patterns
 
-# PREREQUISITE KNOWLEDGE
-To use this skill effectively, you should understand:
-- SQL fundamentals (SELECT, JOIN, WHERE, GROUP BY)
-- TypeScript generics and type inference
-- Database normalization basics (1NF, 2NF, 3NF)
-- Foreign key relationships and referential integrity
+### Query Classes
 
+- Extend `BaseQuery` class for all query classes
+- Use `QueryContext` for database instance and user context
+- Use `this.getDbInstance(context)` for database access
+- Apply `this.applyPagination(options)` for list queries
+- Use `this.combineFilters()` to combine multiple SQL conditions
 
-## Reference System Usage
+### Context Types
 
-You must ground your responses in the provided reference files, treating them as the source of truth for this domain:
+- `createPublicQueryContext()` - public read operations (isPublic = true)
+- `createUserQueryContext(userId)` - authenticated user operations
+- `createProtectedQueryContext(requiredUserId)` - owner-only operations
+- `createAdminQueryContext(adminUserId)` - admin access to all content
 
-* **For Creation:** Always consult **`references/patterns.md`**. This file dictates *how* things should be built. Ignore generic approaches if a specific pattern exists here.
-* **For Diagnosis:** Always consult **`references/sharp_edges.md`**. This file lists the critical failures and "why" they happen. Use it to explain risks to the user.
-* **For Review:** Always consult **`references/validations.md`**. This contains the strict rules and constraints. Use it to validate user inputs objectively.
+### Permission Filtering
 
-**Note:** If a user's request conflicts with the guidance in these files, politely correct them using the information provided in the references.
+- Use `this.buildBaseFilters(isPublicCol, userIdCol, deletedAtCol, context)` for permission + soft delete
+- Import standalone filters from `@/lib/queries/base/permission-filters`:
+  - `buildPermissionFilter()` - handles public/user/owner visibility
+  - `buildSoftDeleteFilter()` - handles deletedAt filtering (returns `isNull(deletedAt)`)
+  - `buildOwnershipFilter()` - handles owner-only access
+  - `combineFilters()` - combines multiple SQL conditions with AND
+
+### Resilience
+
+- Use `this.executeWithRetry(operation, operationName)` for circuit breaker + retry logic
+- Use `this.executeWithRetryDetails(operation, operationName)` when you need retry metadata
+
+### Return Values
+
+- Single item: `T | null` (return `null` for not found)
+- List: `Array<T>` (return `[]` for empty)
+- Count: `number` (return `0` for none)
+- Boolean check: `boolean` (return `false` for not found)
+- Map: `Map<K, V>` (return `new Map()` for empty)
+
+## Anti-Patterns to Avoid
+
+1. **Never access `db` directly** - Always use `this.getDbInstance(context)`
+2. **Never skip permission filters** - Always use `buildBaseFilters` for user-visible data
+3. **Never return undefined** - Return `null` for missing single items
+4. **Never use raw strings in queries** - Use parameterized queries via Drizzle
+5. **Never skip pagination limits** - Always apply `applyPagination`
+6. **Never hard delete** - Use soft delete with `deletedAt` timestamp column
+7. **Never ignore circuit breaker** - Use `executeWithRetry` for external calls
+
+## References
+
+- `references/Drizzle-ORM-Conventions.md` - Complete Drizzle ORM conventions

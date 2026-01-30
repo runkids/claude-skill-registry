@@ -1,146 +1,80 @@
 ---
-name: plaid-auth-expert
-description: Expert on Plaid Auth product for bank account authentication and verification. Covers account and routing number retrieval, account ownership verification, balance checks, and integration patterns. Invoke when user mentions Plaid Auth, ACH verification, bank account verification, or routing numbers.
-allowed-tools: Read, Grep, Glob
-model: sonnet
+name: auth
+description: "Implements authentication and payment features using Clerk, Supabase Auth, or Stripe. Use when user mentions login, authentication, payments, subscriptions, or Stripe. Do NOT load for: general UI work, database design, or non-auth features."
+allowed-tools: ["Read", "Write", "Edit", "Bash"]
 ---
 
-# Plaid Auth Expert
+# Auth Skills
 
-## Purpose
+認証と決済機能の実装を担当するスキル群です。
 
-Provide expert guidance on Plaid Auth, the product for retrieving bank account and routing numbers for ACH transfers and account verification.
+## 機能詳細
 
-## When to Use
+| 機能 | 詳細 |
+|------|------|
+| **認証機能** | See [references/authentication.md](references/authentication.md) |
+| **決済機能** | See [references/payments.md](references/payments.md) |
 
-Auto-invoke when users mention:
-- Plaid Auth product
-- Bank account verification
-- Account and routing numbers
-- ACH payment setup
-- Account ownership verification
-- Balance verification
-- Instant account verification
+## 実行手順
 
-## Knowledge Base
+1. **品質判定ゲート**（Step 0）
+2. ユーザーのリクエストを分類(認証 or 決済)
+3. 上記の「機能詳細」から適切な参照ファイルを読む
+4. その内容に従って実装
 
-Plaid Auth documentation in `.claude/skills/api/plaid/docs/`
+### Step 0: 品質判定ゲート（セキュリティチェックリスト）
 
-Search patterns:
-- `Grep "auth|account.*routing|ach" .claude/skills/api/plaid/docs/ -i`
-- `Grep "account.*verification|ownership" .claude/skills/api/plaid/docs/ -i`
-- `Grep "balance.*check|instant.*verification" .claude/skills/api/plaid/docs/ -i`
-
-## Coverage Areas
-
-**Auth Product Features**
-- Account and routing number retrieval
-- Account ownership verification
-- Real-time balance checks
-- Account type identification
-- Multiple account support
-
-**Integration Patterns**
-- Link initialization for Auth
-- Token exchange
-- Auth endpoint usage
-- Error handling
-- Webhook notifications
-
-**Verification Methods**
-- Instant verification (preferred)
-- Micro-deposit verification (fallback)
-- Same-day micro-deposits
-- Manual verification
-
-**Use Cases**
-- ACH payment setup
-- Payment method verification
-- Direct deposit enrollment
-- Account linking
-- Payout verification
-
-**Security & Compliance**
-- PCI compliance considerations
-- Data encryption
-- Token management
-- NACHA guidelines
-- Account validation
-
-## Response Format
+認証・決済機能は常にセキュリティリスクが高いため、作業開始前に必ず以下を表示:
 
 ```markdown
-## [Auth Topic]
+🔐 セキュリティチェックリスト
 
-[Overview of Auth feature]
+この作業はセキュリティ上重要です。以下を確認してください：
 
-### API Request
+### 認証関連
+- [ ] パスワードはハッシュ化（bcrypt/argon2）
+- [ ] セッション管理は安全か（HTTPOnly Cookie）
+- [ ] CSRF 対策は実装されているか
+- [ ] レート制限（ブルートフォース対策）
 
-```javascript
-const response = await client.authGet({
-  access_token: accessToken,
-});
+### 決済関連
+- [ ] 機密情報（カード番号等）をサーバーに保存しない
+- [ ] Stripe/決済プロバイダの SDK を正しく使用
+- [ ] Webhook の署名検証
+- [ ] 金額改ざん防止（サーバー側で金額を確定）
 
-const { accounts, numbers } = response.data;
-// accounts: Array of account objects
-// numbers.ach: ACH routing numbers
+### 共通
+- [ ] エラーメッセージが詳細すぎないか（情報漏洩防止）
+- [ ] ログに機密情報を出力していないか
 ```
 
-### Response Structure
+### セキュリティ重要度表示
 
-```json
-{
-  "accounts": [{
-    "account_id": "...",
-    "name": "Checking",
-    "type": "depository",
-    "subtype": "checking"
-  }],
-  "numbers": {
-    "ach": [{
-      "account": "0000123456789",
-      "routing": "011401533",
-      "account_id": "..."
-    }]
-  }
-}
+```markdown
+⚠️ 注意レベル: 🔴 高
+
+この機能は以下のリスクがあります：
+- 認証情報の漏洩
+- 不正アクセス
+- 決済の不正操作
+
+専門家によるレビューを推奨します。
 ```
 
-### Integration Steps
+### VibeCoder 向け
 
-1. Initialize Link with Auth product
-2. Receive public_token from Link success
-3. Exchange for access_token
-4. Call /auth/get endpoint
-5. Store account/routing securely
+```markdown
+🔐 安全にログイン・決済機能を作るために
 
-### Best Practices
+1. **パスワードは「ハッシュ化」する**
+   - 元のパスワードを復元できない形で保存
+   - 万が一データが漏れても安全
 
-- Never log or store account/routing in plaintext
-- Use access_token, not account numbers in your DB
-- Implement webhook handlers for updates
-- Handle institution errors gracefully
+2. **カード情報はサーバーに保存しない**
+   - Stripe などの専用サービスに任せる
+   - 自分のサーバーには一切保存しない
 
-### Common Issues
-
-- Issue: Empty numbers object
-- Solution: Check institution supports Auth
-
-**Source:** `.claude/skills/api/plaid/docs/[filename].md`
+3. **エラーメッセージは曖昧に**
+   - 「パスワードが違います」ではなく「認証に失敗しました」
+   - 悪意ある人にヒントを与えない
 ```
-
-## Key Endpoints
-
-- `/link/token/create` - Initialize Link
-- `/item/public_token/exchange` - Get access token
-- `/auth/get` - Retrieve account numbers
-- `/accounts/balance/get` - Check balances
-
-## Always
-
-- Reference Plaid documentation
-- Emphasize security best practices
-- Include error handling
-- Mention webhook integration
-- Explain verification methods
-- Consider institution compatibility

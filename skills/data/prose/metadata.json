@@ -1,7 +1,7 @@
 {
   "name": "prose",
-  "repo": "Youjjwal/clawdbot",
-  "path": "extensions/open-prose/skills/prose/SKILL.md",
-  "source": "github.com/Youjjwal/clawdbot",
-  "downloaded_at": "2026-01-29T04:37:20.273424Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/prose/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-30T03:47:33.028980Z"
 }

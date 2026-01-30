@@ -1,12 +1,7 @@
 {
   "name": "skyrim-nif",
-  "description": "Read and manipulate NIF 3D mesh files. Use when the user wants to inspect meshes, find texture paths, scale models, or troubleshoot invisible items.",
   "repo": "SpookyPirate/spookys-automod-toolkit",
-  "category": "development",
-  "tags": [
-    "skyrim",
-    "nif"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/skyrim-nif/SKILL.md",
+  "source": "github.com/SpookyPirate/spookys-automod-toolkit",
+  "downloaded_at": "2026-01-30T03:13:50.544984Z"
 }

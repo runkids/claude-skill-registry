@@ -1,145 +1,188 @@
 ---
-name: refactoring
-description: 执行代码重构（识别坏味道→选择手法→小步修改→运行测试），在保持外部行为不变前提下改进内部结构。当TDD进入REFACTOR阶段、发现代码坏味道、需要消除重复代码、优化代码结构时使用。支持提取方法、类、参数对象等重构手法。
-stage: EXECSPEC_FULFILL
-level_supported: [L1-STREAMLINED, L2-BALANCED, L3-RIGOROUS]
+name: Refactoring
+description: ปรับปรุงโค้ดให้ดีขึ้นโดยไม่เปลี่ยน behavior
 ---
 
 # Refactoring Skill
 
-> **Scope**: EXECSPEC_FULFILL — Fulfill ExecSpec（落实 ExecSpec）
->
-> **版本**: 0.1.0（占位）| **创建日期**: 2025-11-27
+## Overview
+
+Skill สำหรับปรับปรุงคุณภาพโค้ด ทำให้อ่านง่าย maintain ง่าย และมีประสิทธิภาพมากขึ้น
+
+## Refactoring Principles
+
+### SOLID Principles
+
+1. **Single Responsibility** - แต่ละ class/function ทำหน้าที่เดียว
+2. **Open/Closed** - เปิดสำหรับ extension, ปิดสำหรับ modification
+3. **Liskov Substitution** - Subclass ใช้แทน parent ได้
+4. **Interface Segregation** - Interface เล็กๆ เฉพาะทาง
+5. **Dependency Inversion** - Depend on abstractions, not concretions
+
+### Other Principles
+
+- **DRY** - Don't Repeat Yourself
+- **KISS** - Keep It Simple, Stupid
+- **YAGNI** - You Aren't Gonna Need It
 
 ---
 
-## 概述
+## Code Smells & Solutions
 
-Refactoring 是在不改变外部行为的前提下改进代码内部结构：
+### Bloaters
 
-```
-┌─────────────────────────────────────────────────────┐
-│              🔧 Refactoring Cycle                   │
-├─────────────────────────────────────────────────────┤
-│  识别坏味道 → 选择手法 → 小步修改 → 运行测试       │
-│  (Smell)     (Technique) (Small Step) (Verify)    │
-│       ↑                                   │        │
-│       └───────────────────────────────────┘        │
-└─────────────────────────────────────────────────────┘
-```
+| Smell                   | Solution                                           |
+| ----------------------- | -------------------------------------------------- |
+| **Long Method**         | Extract Method - แยกเป็น functions เล็กๆ           |
+| **Large Class**         | Extract Class - แยกเป็น classes                    |
+| **Long Parameter List** | Parameter Object - รวมเป็น object                  |
+| **Data Clumps**         | Extract Class - สร้าง class รวม data ที่ใช้ด้วยกัน |
 
-**核心原则**：
-- 小步前进，每步都可验证
-- 测试必须始终通过
-- 行为不变，结构改进
+### Object-Orientation Abusers
 
----
+| Smell                    | Solution                            |
+| ------------------------ | ----------------------------------- |
+| **Switch Statements**    | Replace with Polymorphism           |
+| **Parallel Inheritance** | Merge hierarchies                   |
+| **Refused Bequest**      | Replace Inheritance with Delegation |
 
-## 代码坏味道
+### Change Preventers
 
-### 常见坏味道
+| Smell                | Solution                             |
+| -------------------- | ------------------------------------ |
+| **Divergent Change** | Extract Class - แยก concerns         |
+| **Shotgun Surgery**  | Move Method/Field - รวม related code |
 
-| 坏味道 | 信号 | 重构方向 |
-|--------|------|----------|
-| **重复代码** | 相似代码块 > 2 处 | Extract Method |
-| **过长函数** | > 20 行 | Extract Method |
-| **过大类** | > 300 行 | Extract Class |
-| **过长参数** | > 4 个参数 | Introduce Parameter Object |
-| **特性依恋** | 方法更多使用其他类数据 | Move Method |
-| **数据泥团** | 相同数据组合多处出现 | Extract Class |
-| **基本类型偏执** | 过度使用基本类型 | Replace with Object |
-| **Switch 语句** | 多处相同 switch | Replace with Polymorphism |
+### Dispensables
 
----
+| Smell                    | Solution                                   |
+| ------------------------ | ------------------------------------------ |
+| **Dead Code**            | ลบทิ้ง                                     |
+| **Duplicate Code**       | Extract Method/Class                       |
+| **Lazy Class**           | Inline Class - รวมกับ class อื่น           |
+| **Comments (excessive)** | Rename/Extract - ให้ code self-documenting |
 
-## 重构手法
+### Couplers
 
-### 提取类手法
-
-```
-Extract Method      → 提取函数
-Extract Class       → 提取类
-Extract Interface   → 提取接口
-Extract Variable    → 提取变量
-```
-
-### 移动类手法
-
-```
-Move Method         → 移动方法
-Move Field          → 移动字段
-Move Class          → 移动类
-```
-
-### 简化类手法
-
-```
-Inline Method       → 内联方法
-Inline Class        → 内联类
-Remove Parameter    → 移除参数
-Rename              → 重命名
-```
+| Smell              | Solution                                  |
+| ------------------ | ----------------------------------------- |
+| **Feature Envy**   | Move Method - ย้ายไปที่ class ที่ใช้ data |
+| **Message Chains** | Hide Delegate - สร้าง wrapper method      |
+| **Middle Man**     | Remove Middle Man - เรียกตรง              |
 
 ---
 
-## L1-STREAMLINED 检查清单
+## Common Refactoring Techniques
 
-- [ ] 重构前测试全绿
-- [ ] 每步修改后运行测试
-- [ ] 无新功能添加
-- [ ] 代码可读性提升
+### Extract Method
 
-### 通过标准
+```javascript
+// Before
+function printUserInfo(user) {
+  console.log("---USER INFO---");
+  console.log(`Name: ${user.name}`);
+  console.log(`Email: ${user.email}`);
+  console.log(`Age: ${user.age}`);
+  console.log("---------------");
+}
 
-- 4 项全部通过（100%）
+// After
+function printUserInfo(user) {
+  printHeader();
+  printDetails(user);
+  printFooter();
+}
+
+function printHeader() {
+  console.log("---USER INFO---");
+}
+
+function printDetails(user) {
+  console.log(`Name: ${user.name}`);
+  console.log(`Email: ${user.email}`);
+  console.log(`Age: ${user.age}`);
+}
+
+function printFooter() {
+  console.log("---------------");
+}
+```
+
+### Replace Conditional with Polymorphism
+
+```typescript
+// Before
+function calculateArea(shape: Shape): number {
+  switch (shape.type) {
+    case "circle":
+      return Math.PI * shape.radius ** 2;
+    case "rectangle":
+      return shape.width * shape.height;
+    case "triangle":
+      return (shape.base * shape.height) / 2;
+  }
+}
+
+// After
+interface Shape {
+  calculateArea(): number;
+}
+
+class Circle implements Shape {
+  constructor(private radius: number) {}
+  calculateArea(): number {
+    return Math.PI * this.radius ** 2;
+  }
+}
+
+class Rectangle implements Shape {
+  constructor(
+    private width: number,
+    private height: number,
+  ) {}
+  calculateArea(): number {
+    return this.width * this.height;
+  }
+}
+```
+
+### Introduce Parameter Object
+
+```typescript
+// Before
+function createUser(name: string, email: string, age: number,
+                    address: string, phone: string) { ... }
+
+// After
+interface UserData {
+  name: string;
+  email: string;
+  age: number;
+  address: string;
+  phone: string;
+}
+
+function createUser(data: UserData) { ... }
+```
 
 ---
 
-## 重构流程
+## Refactoring Process
 
-### 1. 准备阶段
-
-```
-□ 确保测试覆盖充分
-□ 理解现有代码行为
-□ 识别要重构的坏味道
-```
-
-### 2. 执行阶段
-
-```
-□ 选择合适的重构手法
-□ 小步修改（每步 < 5 分钟）
-□ 每步后运行测试
-□ 提交小步变更
-```
-
-### 3. 验证阶段
-
-```
-□ 所有测试通过
-□ 代码结构改善
-□ 无行为变化
-```
+1. **Ensure Tests Exist** - มี tests ก่อน refactor
+2. **Make Small Changes** - เปลี่ยนทีละน้อย
+3. **Run Tests Often** - ทดสอบหลังทุกการเปลี่ยน
+4. **Commit Frequently** - commit ทีละ refactoring
+5. **Review** - ตรวจสอบผลลัพธ์
 
 ---
 
-## >> 命令
+## Refactoring Checklist
 
-```
->>smell_detect       # 检测代码坏味道
->>refactor_suggest   # 建议重构手法
->>refactor_verify    # 验证重构结果
-```
-
----
-
-## 相关 Skills
-
-- **前置**: tdd-cycle（GREEN 后进入 REFACTOR）
-- **并行**: code-quality（质量检查）
-- **原则**: principle-dry, principle-kiss, principle-solid
-
----
-
-**TODO**: 待细化各重构手法的详细步骤和示例
+- [ ] มี tests ครอบคลุมก่อน refactor
+- [ ] ระบุ code smells ที่ต้องการแก้
+- [ ] วางแผนการ refactor
+- [ ] ทำทีละ step เล็กๆ
+- [ ] Run tests หลังทุก step
+- [ ] Review ว่า code ดีขึ้นจริง
+- [ ] Update documentation ถ้าจำเป็น

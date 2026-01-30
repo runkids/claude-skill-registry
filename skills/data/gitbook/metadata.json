@@ -1,7 +1,7 @@
 {
   "name": "gitbook",
-  "repo": "enuno/claude-command-and-control",
-  "path": "skills/gitbook/SKILL.md",
-  "source": "github.com/enuno/claude-command-and-control",
-  "downloaded_at": "2026-01-29T03:18:09.422871Z"
+  "repo": "vamseeachanta/digitalmodel",
+  "path": ".claude/skills/documentation/gitbook/SKILL.md",
+  "source": "github.com/vamseeachanta/digitalmodel",
+  "downloaded_at": "2026-01-30T03:56:00.720502Z"
 }

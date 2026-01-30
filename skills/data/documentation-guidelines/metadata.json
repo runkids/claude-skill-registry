@@ -1,12 +1,7 @@
 {
   "name": "documentation-guidelines",
-  "description": "Write or update backend feature documentation that follows a repo's DOCUMENTATION_GUIDELINES.md (or equivalent) across any project. Use when asked to create/update module docs, API contracts, or backe",
-  "repo": "thienanblog/awesome-ai-agent-skills",
-  "category": "documents",
-  "tags": [
-    "documentation",
-    "guidelines"
-  ],
-  "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Fredoid/claude-app-builder-template",
+  "path": ".claude/skills/documentation-guidelines/SKILL.md",
+  "source": "github.com/Fredoid/claude-app-builder-template",
+  "downloaded_at": "2026-01-30T02:37:21.120298Z"
 }

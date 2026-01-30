@@ -1,7 +1,7 @@
 {
   "name": "template",
-  "repo": "GaoZimeng0425/nemo-cli",
-  "path": ".claude/skills/template/SKILL.md",
-  "source": "github.com/GaoZimeng0425/nemo-cli",
-  "downloaded_at": "2026-01-29T04:01:42.674473Z"
+  "repo": "anthropics/skills",
+  "path": "template/SKILL.md",
+  "source": "github.com/anthropics/skills",
+  "downloaded_at": "2026-01-30T04:04:38.459673Z"
 }

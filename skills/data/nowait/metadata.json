@@ -1,7 +1,7 @@
 {
   "name": "nowait",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/productivity/nowait/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-01-28T02:44:11.071567Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/nowait/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-30T03:47:39.858585Z"
 }

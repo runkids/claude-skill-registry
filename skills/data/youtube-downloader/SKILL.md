@@ -1,348 +1,514 @@
 ---
 name: youtube-downloader
-description: Download YouTube video transcripts when user provides a YouTube URL or asks to download/get/fetch a transcript from YouTube. Also use when user wants to transcribe or get captions/subtitles from a YouTube video.
+description: Download videos, audio, playlists, and channels from YouTube and 1000+ websites using yt-dlp. Supports quality selection, format conversion, subtitle download, playlist filtering, metadata extraction, thumbnail download, and batch operations. Use when downloading YouTube videos in any quality (4K, 8K, HDR), extracting audio as MP3/M4A/FLAC, downloading entire playlists/channels, getting subtitles in multiple languages, converting to specific formats, downloading live streams, archiving content, or batch processing multiple URLs. Optimized for reliability with automatic retries, rate limiting, and error handling.
+license: MIT
 ---
 
-# YouTube Transcript Downloader
+# YouTube & Video Downloader Skill
 
-This skill helps download transcripts (subtitles/captions) from YouTube videos using yt-dlp.
+Download videos and audio from YouTube and 1000+ other websites using yt-dlp, the most powerful and actively maintained YouTube downloader.
 
 ## When to Use This Skill
 
-Activate this skill when the user:
-- Provides a YouTube URL and wants the transcript
-- Asks to "download transcript from YouTube"
-- Wants to "get captions" or "get subtitles" from a video
-- Asks to "transcribe a YouTube video"
-- Needs text content from a YouTube video
+Use when you need to:
+- Download YouTube videos in any quality (144p to 8K, HDR, 60fps)
+- Extract audio from videos (MP3, M4A, FLAC, WAV, Opus)
+- Download entire playlists or channels
+- Get video subtitles/captions in multiple languages
+- Download live streams or premieres
+- Archive content before it's deleted
+- Download from 1000+ websites (not just YouTube)
+- Batch download multiple videos
+- Download with custom naming and organization
+- Extract video metadata and thumbnails
 
-## How It Works
+## Supported Websites (1000+)
 
-### Default Workflow:
-1. **Check if yt-dlp is installed** - install if needed
-2. **Try manual subtitles first** (`--write-sub`) - highest quality, human-created
-3. **Fallback to auto-generated** (`--write-auto-sub`) - usually available
-4. **Convert to plain text** - deduplicate and clean up VTT format
-5. **Save to output directory** as a markdown file with filename based on video title
-6. **Automatically polish** - remove filler words, fix grammar, add section headers, maintain 100% fidelity
-7. **Confirm the download** and show the user where the file is saved
+### Video Platforms
+- YouTube (videos, playlists, channels, shorts, live streams)
+- Vimeo, Dailymotion, Twitter/X, Facebook
+- TikTok, Instagram (videos, reels, stories)
+- Twitch (VODs, clips, live streams)
+- Reddit (v.redd.it videos)
+- Pornhub (videos)
+- Youporn (videos)
 
-## Installation Check
+### Educational
+- Coursera, Udemy, Khan Academy
+- edX, Pluralsight, LinkedIn Learning
 
-**IMPORTANT**: Always check if yt-dlp is installed first:
+### News & Media
+- CNN, BBC, NBC, CBS
+- ESPN, Sky Sports
 
-```bash
-which yt-dlp || command -v yt-dlp
-```
+### And 1000+ more...
 
-### If Not Installed
+## Installation
 
-Attempt automatic installation based on the system:
-
-**macOS (Homebrew)**:
-```bash
-brew install yt-dlp
-```
-
-**Linux (apt/Debian/Ubuntu)**:
-```bash
-sudo apt update && sudo apt install -y yt-dlp
-```
-
-**Alternative (pip - works on all systems)**:
-```bash
-pip3 install yt-dlp
-# or
-python3 -m pip install yt-dlp
-```
-
-**If installation fails**: Inform the user they need to install yt-dlp manually and provide them with installation instructions from https://github.com/yt-dlp/yt-dlp#installation
-
-## Check Available Subtitles
-
-**ALWAYS do this first** before attempting to download:
+yt-dlp requires Python 3.7+ and ffmpeg for format conversion:
 
 ```bash
-yt-dlp --list-subs "YOUTUBE_URL"
+# Install yt-dlp (if not already installed)
+pip install -U yt-dlp
+
+# Install ffmpeg (required for format conversion)
+# Ubuntu/Debian:
+sudo apt install ffmpeg
+
+# macOS:
+brew install ffmpeg
+
+# Verify installation
+yt-dlp --version
+ffmpeg -version
 ```
 
-This shows what subtitle types are available without downloading anything. Look for:
-- Manual subtitles (better quality)
-- Auto-generated subtitles (usually available)
-- Available languages
+## Basic Usage
 
-## Download Strategy
+### Download Best Quality Video
+```bash
+yt-dlp "https://www.youtube.com/watch?v=VIDEO_ID"
+```
 
-### Option 1: Manual Subtitles (Preferred)
+### Download Best Quality Audio (as M4A)
+```bash
+yt-dlp -f "bestaudio" "https://www.youtube.com/watch?v=VIDEO_ID"
+```
 
-Try this first - highest quality, human-created:
+### Download and Convert to MP3
+```bash
+yt-dlp -x --audio-format mp3 --audio-quality 0 "https://www.youtube.com/watch?v=VIDEO_ID"
+```
+
+### Download Specific Quality
+```bash
+# 1080p video with best audio
+yt-dlp -f "bestvideo[height<=1080]+bestaudio/best[height<=1080]" "URL"
+
+# 4K video
+yt-dlp -f "bestvideo[height<=2160]+bestaudio/best" "URL"
+
+# 720p video
+yt-dlp -f "bestvideo[height<=720]+bestaudio/best[height<=720]" "URL"
+```
+
+## Advanced Features
+
+### Download Entire Playlist
+```bash
+yt-dlp "https://www.youtube.com/playlist?list=PLAYLIST_ID"
+```
+
+### Download Playlist Range
+```bash
+# Videos 1-10
+yt-dlp --playlist-start 1 --playlist-end 10 "PLAYLIST_URL"
+
+# Videos from #5 onwards
+yt-dlp --playlist-start 5 "PLAYLIST_URL"
+```
+
+### Download All Videos from Channel
+```bash
+yt-dlp "https://www.youtube.com/@ChannelName/videos"
+```
+
+### Download with Subtitles
+```bash
+# Download all available subtitles
+yt-dlp --write-subs --write-auto-subs --sub-langs "en,es,fr" "URL"
+
+# Download and embed subtitles
+yt-dlp --write-subs --embed-subs --sub-langs "en.*" "URL"
+
+# Download only subtitles (no video)
+yt-dlp --skip-download --write-subs --write-auto-subs "URL"
+```
+
+### Custom Naming and Organization
+```bash
+# Custom filename template
+yt-dlp -o "%(uploader)s/%(playlist)s/%(title)s.%(ext)s" "PLAYLIST_URL"
+
+# By date uploaded
+yt-dlp -o "%(upload_date)s - %(title)s.%(ext)s" "URL"
+
+# With video ID
+yt-dlp -o "%(title)s [%(id)s].%(ext)s" "URL"
+```
+
+### Download Thumbnails
+```bash
+# Download and embed thumbnail
+yt-dlp --write-thumbnail --embed-thumbnail "URL"
+
+# Download thumbnail only
+yt-dlp --write-thumbnail --skip-download "URL"
+```
+
+### Download Metadata
+```bash
+# Write metadata to JSON file
+yt-dlp --write-info-json "URL"
+
+# Write metadata to description file
+yt-dlp --write-description "URL"
+```
+
+## Quality Selection Guide
+
+### Video Quality Formats
+```bash
+# Best overall quality (may be WebM)
+yt-dlp -f "bestvideo+bestaudio/best" "URL"
+
+# Best MP4 format (most compatible)
+yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]" "URL"
+
+# 4K (2160p) maximum
+yt-dlp -f "bestvideo[height<=2160]+bestaudio" "URL"
+
+# 1080p maximum
+yt-dlp -f "bestvideo[height<=1080]+bestaudio" "URL"
+
+# 720p maximum
+yt-dlp -f "bestvideo[height<=720]+bestaudio" "URL"
+
+# 60fps preferred
+yt-dlp -f "bestvideo[fps>30]+bestaudio/best" "URL"
+```
+
+### Audio Quality Formats
+```bash
+# Best audio quality (extract as M4A)
+yt-dlp -f "bestaudio" "URL"
+
+# Extract as MP3 (best quality)
+yt-dlp -x --audio-format mp3 --audio-quality 0 "URL"
+
+# Extract as FLAC (lossless)
+yt-dlp -x --audio-format flac "URL"
+
+# Extract as Opus (efficient)
+yt-dlp -x --audio-format opus "URL"
+
+# Extract as WAV (uncompressed)
+yt-dlp -x --audio-format wav "URL"
+```
+
+## List Available Formats
+
+Before downloading, check what formats are available:
 
 ```bash
-yt-dlp --write-sub --skip-download --output "OUTPUT_NAME" "YOUTUBE_URL"
+yt-dlp -F "URL"
 ```
 
-### Option 2: Auto-Generated Subtitles (Fallback)
+This shows all available video and audio streams with:
+- Format ID
+- Extension
+- Resolution
+- FPS
+- Codec
+- File size
+- Bitrate
 
-If manual subtitles aren't available:
+Then download specific format:
+```bash
+yt-dlp -f FORMAT_ID "URL"
+```
+
+## Batch Download
+
+### From File
+Create a text file with URLs (one per line):
+```
+https://www.youtube.com/watch?v=VIDEO1
+https://www.youtube.com/watch?v=VIDEO2
+https://www.youtube.com/watch?v=VIDEO3
+```
+
+Download all:
+```bash
+yt-dlp -a urls.txt
+```
+
+### With Archive
+Track downloaded videos to avoid re-downloading:
+```bash
+yt-dlp --download-archive archive.txt "PLAYLIST_URL"
+```
+
+This creates `archive.txt` with IDs of downloaded videos. On subsequent runs, yt-dlp skips already downloaded videos.
+
+## Filtering and Selection
+
+### Date Filters
+```bash
+# Videos from 2024
+yt-dlp --dateafter 20240101 "CHANNEL_URL"
+
+# Videos before 2023
+yt-dlp --datebefore 20230101 "CHANNEL_URL"
+
+# Videos between dates
+yt-dlp --dateafter 20230101 --datebefore 20231231 "CHANNEL_URL"
+```
+
+### View Count Filters
+```bash
+# Videos with 1M+ views
+yt-dlp --match-filter "view_count > 1000000" "CHANNEL_URL"
+
+# Videos with less than 10K views
+yt-dlp --match-filter "view_count < 10000" "CHANNEL_URL"
+```
+
+### Duration Filters
+```bash
+# Videos longer than 10 minutes
+yt-dlp --match-filter "duration > 600" "PLAYLIST_URL"
+
+# Videos shorter than 5 minutes
+yt-dlp --match-filter "duration < 300" "PLAYLIST_URL"
+```
+
+## Live Streams
+
+### Download Live Stream
+```bash
+# Wait for stream to start and download
+yt-dlp --wait-for-video 60 "LIVE_STREAM_URL"
+
+# Download stream as it's happening (may be incomplete if interrupted)
+yt-dlp "LIVE_STREAM_URL"
+```
+
+## Rate Limiting and Network Options
 
 ```bash
-yt-dlp --write-auto-sub --skip-download --output "OUTPUT_NAME" "YOUTUBE_URL"
+# Limit download speed (e.g., 1MB/s)
+yt-dlp --limit-rate 1M "URL"
+
+# Set number of retries
+yt-dlp --retries 10 "URL"
+
+# Wait between downloads (in seconds)
+yt-dlp --sleep-interval 5 "PLAYLIST_URL"
+
+# Use specific proxy
+yt-dlp --proxy "http://proxy.server:port" "URL"
+
+# Use cookies from browser (bypass age restrictions)
+yt-dlp --cookies-from-browser chrome "URL"
 ```
 
-Both commands create a `.vtt` file (WebVTT subtitle format).
-
-## Getting Video Information
-
-### Extract Video Title (for filename)
+## Geo-Restriction Bypass
 
 ```bash
-yt-dlp --print "%(title)s" "YOUTUBE_URL"
-```
+# Use proxy
+yt-dlp --proxy "socks5://proxy.server:1080" "URL"
 
-Use this to create meaningful filenames based on the video title. Clean the title for filesystem compatibility:
-- Replace `/` with `-`
-- Replace special characters that might cause issues
-- Consider using sanitized version: `$(yt-dlp --print "%(title)s" "URL" | tr '/' '-' | tr ':' '-')`
+# Use specific geo-bypass country
+yt-dlp --geo-bypass-country US "URL"
+```
 
 ## Post-Processing
 
-### Convert to Plain Text (Recommended)
-
-YouTube's auto-generated VTT files contain **duplicate lines** because captions are shown progressively with overlapping timestamps. Always deduplicate when converting to plain text while preserving the original speaking order.
-
+### Video Post-Processing
 ```bash
-python3 -c "
-import sys, re
-seen = set()
-with open('transcript.en.vtt', 'r') as f:
-    for line in f:
-        line = line.strip()
-        if line and not line.startswith('WEBVTT') and not line.startswith('Kind:') and not line.startswith('Language:') and '-->' not in line:
-            clean = re.sub('<[^>]*>', '', line)
-            clean = clean.replace('&amp;', '&').replace('&gt;', '>').replace('&lt;', '<')
-            if clean and clean not in seen:
-                print(clean)
-                seen.add(clean)
-" > transcript.txt
+# Merge video and audio to MP4
+yt-dlp --merge-output-format mp4 "URL"
+
+# Re-encode to H.264
+yt-dlp --recode-video mp4 "URL"
+
+# Add metadata
+yt-dlp --add-metadata "URL"
+
+# Embed thumbnail
+yt-dlp --embed-thumbnail "URL"
 ```
 
-### Complete Post-Processing with Video Title
-
+### Audio Post-Processing
 ```bash
-# Get video title
-VIDEO_TITLE=$(yt-dlp --print "%(title)s" "YOUTUBE_URL" | tr '/' '_' | tr ':' '-' | tr '?' '' | tr '"' '')
+# Extract audio and convert to MP3
+yt-dlp -x --audio-format mp3 --audio-quality 0 "URL"
 
-# Find the VTT file
-VTT_FILE=$(ls *.vtt | head -n 1)
-
-# Convert with deduplication
-python3 -c "
-import sys, re
-seen = set()
-with open('$VTT_FILE', 'r') as f:
-    for line in f:
-        line = line.strip()
-        if line and not line.startswith('WEBVTT') and not line.startswith('Kind:') and not line.startswith('Language:') and '-->' not in line:
-            clean = re.sub('<[^>]*>', '', line)
-            clean = clean.replace('&amp;', '&').replace('&gt;', '>').replace('&lt;', '<')
-            if clean and clean not in seen:
-                print(clean)
-                seen.add(clean)
-" > "${VIDEO_TITLE}.txt"
-
-echo "Saved to: ${VIDEO_TITLE}.txt"
-
-# Clean up VTT file
-rm "$VTT_FILE"
-echo "Cleaned up temporary VTT file"
+# Add metadata to audio file
+yt-dlp -x --audio-format mp3 --add-metadata "URL"
 ```
 
-## Output Formats
+## Common Use Cases
 
-- **VTT format** (`.vtt`): Includes timestamps and formatting, good for video players
-- **Plain text** (`.txt`): Just the text content, good for reading or analysis
-
-## Tips
-
-- The filename will be `{output_name}.{language_code}.vtt` (e.g., `transcript.en.vtt`)
-- Most YouTube videos have auto-generated English subtitles
-- Some videos may have multiple language options
-- If auto-subtitles aren't available, try `--write-sub` instead for manual subtitles
-
-## Complete Workflow Example
-
+### 1. Download Music from YouTube
 ```bash
-VIDEO_URL="https://www.youtube.com/watch?v=VIDEO_ID"
-OUTPUT_DIR="transcripts"
-
-# Create output directory if it doesn't exist
-mkdir -p "$OUTPUT_DIR"
-
-# Get video title for filename
-VIDEO_TITLE=$(yt-dlp --print "%(title)s" "$VIDEO_URL" | tr '/' '_' | tr ':' '-' | tr '?' '' | tr '"' '')
-OUTPUT_NAME="$OUTPUT_DIR/transcript_temp"
-
-# ============================================
-# STEP 1: Check if yt-dlp is installed
-# ============================================
-if ! command -v yt-dlp &> /dev/null; then
-    echo "yt-dlp not found, attempting to install..."
-    if command -v brew &> /dev/null; then
-        brew install yt-dlp
-    elif command -v apt &> /dev/null; then
-        sudo apt update && sudo apt install -y yt-dlp
-    else
-        pip3 install yt-dlp
-    fi
-fi
-
-# ============================================
-# STEP 2: Try manual subtitles first
-# ============================================
-echo "Downloading subtitles for: $VIDEO_TITLE"
-if yt-dlp --write-sub --skip-download --output "$OUTPUT_NAME" "$VIDEO_URL" 2>/dev/null; then
-    echo "Manual subtitles downloaded!"
-else
-    # ============================================
-    # STEP 3: Fallback to auto-generated
-    # ============================================
-    echo "Trying auto-generated subtitles..."
-    if yt-dlp --write-auto-sub --skip-download --output "$OUTPUT_NAME" "$VIDEO_URL" 2>/dev/null; then
-        echo "Auto-generated subtitles downloaded!"
-    else
-        echo "No subtitles available for this video."
-        exit 1
-    fi
-fi
-
-# ============================================
-# STEP 4: Convert to readable markdown with deduplication
-# ============================================
-VTT_FILE=$(ls ${OUTPUT_NAME}*.vtt 2>/dev/null | head -n 1)
-if [ -f "$VTT_FILE" ]; then
-    echo "Converting to markdown format..."
-    python3 -c "
-import sys, re
-seen = set()
-with open('$VTT_FILE', 'r') as f:
-    for line in f:
-        line = line.strip()
-        if line and not line.startswith('WEBVTT') and not line.startswith('Kind:') and not line.startswith('Language:') and '-->' not in line:
-            clean = re.sub('<[^>]*>', '', line)
-            clean = clean.replace('&amp;', '&').replace('&gt;', '>').replace('&lt;', '<')
-            if clean and clean not in seen:
-                print(clean)
-                seen.add(clean)
-" > "$OUTPUT_DIR/${VIDEO_TITLE}.md"
-    echo "Saved raw transcript to: $OUTPUT_DIR/${VIDEO_TITLE}.md"
-
-    # Clean up temporary VTT file
-    rm "$VTT_FILE"
-else
-    echo "No VTT file found to convert"
-    exit 1
-fi
-
-# ============================================
-# STEP 5: Automatically polish the transcript
-# ============================================
-echo "Polishing transcript (removing filler, fixing grammar, adding structure)..."
-python3 << 'POLISH_EOF'
-import re
-
-with open('$OUTPUT_DIR/${VIDEO_TITLE}.md', 'r') as f:
-    content = f.read()
-
-# Preserve metadata and header
-lines = content.split('\n')
-metadata = []
-content_start = 0
-for i, line in enumerate(lines):
-    if line.startswith('#') or line.startswith('**Source:**') or line.startswith('---'):
-        metadata.append(line)
-        content_start = i + 1
-    else:
-        break
-
-transcript_text = '\n'.join(lines[content_start:]).strip()
-
-# Remove filler words and phrases aggressively (maintain 100% meaning)
-filler_patterns = [
-    (r'\b(um|uh|ah|er|hmm)\b', ''),
-    (r'\byou\s+know\b', ''),
-    (r',\s+(so|basically|actually)\s+', ', '),
-    (r'\b(basically|actually|really)\s+', ''),
-    (r'\b(kind|sort)\s+of\s+', ''),
-    (r'\bi\s+(think|mean)\s+', ''),
-]
-
-polished = transcript_text
-for pattern, replacement in filler_patterns:
-    polished = re.sub(pattern, replacement, polished, flags=re.IGNORECASE)
-
-# Join broken lines while preserving sentence structure
-polished = re.sub(r'(?<=[a-z]),\n(?=[a-z])', ', ', polished)
-polished = re.sub(r'(?<=[a-z])\n(?![\n#])', ' ', polished)
-
-# Clean up spacing and punctuation
-polished = re.sub(r' +', ' ', polished)
-polished = re.sub(r'\s+([.!?,;:])', r'\1', polished)
-
-# Reconstruct with metadata
-final = '\n'.join(metadata) + '\n\n' + polished.strip()
-
-with open('$OUTPUT_DIR/${VIDEO_TITLE}.md', 'w') as f:
-    f.write(final)
-
-print("Transcript polished")
-POLISH_EOF
-
-echo "Complete!"
+yt-dlp -x --audio-format mp3 --audio-quality 0 \
+  -o "%(artist)s - %(title)s.%(ext)s" \
+  --add-metadata \
+  --embed-thumbnail \
+  "MUSIC_VIDEO_URL"
 ```
 
-**Notes**:
-- Output directory can be customized (default: `transcripts/`)
-- Files are named based on the video title with special characters sanitized
-- Transcripts are automatically deduplicated to remove caption overlaps
-- Polishing step removes filler words/phrases while maintaining 100% meaning fidelity
-- Grammar and run-on sentences are automatically fixed
-- Paragraph breaks consolidate content into logical sections
-- The temporary VTT file is cleaned up after conversion
+### 2. Download Educational Course
+```bash
+yt-dlp -o "%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" \
+  --write-subs --embed-subs \
+  --write-info-json \
+  "COURSE_PLAYLIST_URL"
+```
 
-## Error Handling
+### 3. Archive Channel (New Videos Only)
+```bash
+yt-dlp --download-archive downloaded.txt \
+  -o "%(uploader)s/%(upload_date)s - %(title)s.%(ext)s" \
+  -f "bestvideo[height<=1080]+bestaudio/best" \
+  "https://www.youtube.com/@ChannelName/videos"
+```
 
-### Common Issues and Solutions:
+### 4. Download Podcast as Audio
+```bash
+yt-dlp -x --audio-format mp3 --audio-quality 0 \
+  -o "%(playlist)s/%(playlist_index)s. %(title)s.%(ext)s" \
+  --add-metadata \
+  "PODCAST_PLAYLIST_URL"
+```
 
-**1. yt-dlp not installed**
-- Attempt automatic installation based on system (Homebrew/apt/pip)
-- If installation fails, provide manual installation link
-- Verify installation before proceeding
+### 5. Download Conference Talks
+```bash
+yt-dlp -f "bestvideo[height<=720]+bestaudio" \
+  -o "Conference/%(title)s.%(ext)s" \
+  --write-subs --embed-subs --sub-langs en \
+  "CONFERENCE_PLAYLIST_URL"
+```
 
-**2. No subtitles available**
-- List available subtitles first to confirm
-- Try both `--write-sub` (manual) and `--write-auto-sub` (auto-generated)
-- If neither are available, inform the user that the video has no available subtitles
+### 6. Batch Download from Multiple Sites
+```bash
+# Create urls.txt with mixed URLs (YouTube, Vimeo, etc.)
+yt-dlp -a urls.txt \
+  -f "bestvideo+bestaudio/best" \
+  -o "%(extractor)s/%(uploader)s/%(title)s.%(ext)s"
+```
 
-**3. Invalid or private video**
-- Check if URL is correct format: `https://www.youtube.com/watch?v=VIDEO_ID`
-- Some videos may be private, age-restricted, or geo-blocked
-- Inform user of the specific error from yt-dlp
+## Configuration File
 
-**4. Download interrupted or failed**
-- Check internet connection
-- Verify sufficient disk space
-- Try again with `--no-check-certificate` if SSL issues occur
+Create `~/.config/yt-dlp/config` for default options:
 
-**5. Multiple subtitle languages**
-- By default, yt-dlp downloads all available languages
-- Can specify with `--sub-langs en` for English only
-- List available with `--list-subs` first
+```
+# Default format
+-f bestvideo[height<=1080]+bestaudio/best
 
-### Best Practices:
+# Output template
+-o ~/Downloads/%(uploader)s/%(title)s.%(ext)s
 
-- Always check what's available before attempting download (`--list-subs`)
-- Try manual subtitles first (`--write-sub`), then fall back to auto-generated
-- Convert VTT to plain text format for easy reading
-- Deduplicate text content to remove caption overlaps
-- Provide clear feedback about what's happening at each stage
-- Handle errors gracefully with helpful messages
+# Embed metadata
+--add-metadata
+--embed-thumbnail
+
+# Write subtitles
+--write-subs
+--sub-langs en
+
+# Continue on errors
+--ignore-errors
+
+# Rate limit
+--limit-rate 5M
+```
+
+## Troubleshooting
+
+### Video Unavailable
+```bash
+# Try with cookies from browser
+yt-dlp --cookies-from-browser chrome "URL"
+
+# Update yt-dlp
+pip install -U yt-dlp
+```
+
+### Age-Restricted Content
+```bash
+# Use browser cookies
+yt-dlp --cookies-from-browser firefox "URL"
+
+# Or login with credentials
+yt-dlp --username YOUR_USERNAME --password YOUR_PASSWORD "URL"
+```
+
+### Format Not Available
+```bash
+# List all formats first
+yt-dlp -F "URL"
+
+# Then select specific format
+yt-dlp -f FORMAT_ID "URL"
+```
+
+### Slow Downloads
+```bash
+# Use multiple connections
+yt-dlp --concurrent-fragments 4 "URL"
+
+# Or use external downloader
+yt-dlp --external-downloader aria2c "URL"
+```
+
+## Integration with Other Tools
+
+### FFmpeg Integration
+yt-dlp automatically uses ffmpeg when installed for:
+- Merging video and audio streams
+- Converting formats
+- Embedding thumbnails and metadata
+- Post-processing
+
+### Aria2c for Faster Downloads
+```bash
+yt-dlp --external-downloader aria2c \
+  --external-downloader-args "-x 16 -s 16 -k 1M" \
+  "URL"
+```
+
+## Legal and Ethical Considerations
+
+⚠️ **Important**:
+- Only download content you have rights to
+- Respect copyright and Terms of Service
+- Don't distribute copyrighted content
+- YouTube's ToS prohibits downloading most content
+- Use for personal archival and educational purposes
+- Many creators offer official download options
+- Consider supporting creators through official channels
+
+## Performance Tips
+
+1. **Use Archive Files**: Track downloads to avoid re-downloading
+2. **Limit Rate**: Prevent network congestion with `--limit-rate`
+3. **Concurrent Fragments**: Speed up with `--concurrent-fragments 4`
+4. **Choose Format Wisely**: Lower quality = faster download
+5. **Use External Downloader**: aria2c can be faster than built-in
+6. **Batch Smartly**: Process in chunks, not all at once
+
+## Updates
+
+Keep yt-dlp updated for best compatibility:
+```bash
+# Update via pip
+pip install -U yt-dlp
+
+# Check version
+yt-dlp --version
+```
+
+## Resources
+
+- **yt-dlp GitHub**: https://github.com/yt-dlp/yt-dlp
+- **Supported Sites**: https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md
+- **Format Selection**: https://github.com/yt-dlp/yt-dlp#format-selection
+
+---
+
+**Version**: 1.0.0
+**Last Updated**: 2025-11-07
+**Maintained by**: Claude Code Skills Collection

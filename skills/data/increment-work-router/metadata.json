@@ -1,9 +1,7 @@
 {
   "name": "increment-work-router",
-  "description": "Smart work continuation system that detects implementation intent and routes to active increment or creates new one. Activates for implement, complete, build, add, develop, work on, continue, resume, ",
   "repo": "anton-abyzov/specweave",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/specweave/skills/increment-work-router/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-30T01:38:31.950640Z"
 }

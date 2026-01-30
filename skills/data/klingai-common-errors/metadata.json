@@ -1,11 +1,7 @@
 {
   "name": "klingai-common-errors",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Diagnose and fix common Kling AI API errors. Use when troubleshooting failed video generationor API issues. Trigger with phrases like 'kling ai error', 'klingai not working', 'fix klingai','klingai fa",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:08.525901Z",
-  "dir_name": "klingai-common-errors",
-  "github_path": "plugins/saas-packs/klingai-pack/skills/klingai-common-errors",
-  "github_branch": "main"
+  "path": "plugins/saas-packs/klingai-pack/skills/klingai-common-errors/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-30T01:00:44.409608Z"
 }

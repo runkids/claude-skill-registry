@@ -1,403 +1,251 @@
 ---
 name: reverse-engineer
-scope: partial
-description: |
-  Reverse engineer existing code into SDD specification documents.
-  Use when: analyzing legacy code, documenting undocumented systems, creating specs from existing implementations.
-  Keywords: reverse engineering, legacy code, documentation, spec extraction, code archaeology, 反向工程, 舊有程式碼, 規格提取.
+description: 既存コードを分析して詳細設計書を自動生成
 ---
 
-# Reverse Engineering to SDD Specification Guide
+# リバースエンジニアリング・ワークフロー (v1.3)
 
-> **Language**: English | [繁體中文](../../../locales/zh-TW/skills/claude-code/reverse-engineer/SKILL.md)
+既存のソースコードを分析し、詳細設計書を自動生成するワークフロー。
+設計書のないプロジェクトの追加開発や、レガシーコード理解に活用する。
 
-**Version**: 1.2.0
-**Last Updated**: 2026-01-25
-**Applicability**: Claude Code Skills
+## 入力
 
-> **Core Standard**: This skill implements [Reverse Engineering Standards](../../../core/reverse-engineering-standards.md). For comprehensive methodology documentation accessible by any AI tool, refer to the core standard.
+$ARGUMENTS（対象モジュール/ディレクトリのパス）
+
+## 出力言語
+
+**設計書は必ず日本語で記述すること。**
+コード内のシンボル名（struct, enum, fn等）は原文のまま、説明は日本語で記載。
+
+## 前提条件
+
+| 項目 | 要件 |
+|------|------|
+| Serena | プロジェクト設定済み（`serena_activate_project()`） |
+| 対象コード | コンパイル/構文エラーなし |
+| 権限 | `docs/designs/reverse/` への書き込み権限 |
 
 ---
 
-## Purpose
+## 全体フロー
 
-This skill guides you through reverse engineering existing code into SDD (Spec-Driven Development) specification documents, with strict adherence to Anti-Hallucination standards.
+| Phase | 名称 | 内容 |
+|-------|------|------|
+| 0 | スコープ確認 | 言語検出、対象ファイル一覧、ユーザー確認 |
+| 1 | コード分析 | シンボル抽出、依存関係、テスト、コメント |
+| 2 | 設計書生成 | テンプレートに従い設計書作成 |
+| 3 | 品質検証 | 整合性・網羅性チェック |
+| 3.5 | AIレビュー | `detailed-design-reviewer` skill（8点以上、オプション） |
+| 3.8 | ユーザー承認 | 生成前の最終確認（`approval-gate` skill） |
+| 4 | 出力 | ファイル生成 |
 
-## Quick Reference
+> **Phase規約**: `workflow-phase-convention` skill を参照
 
-### Reverse Engineering Workflow
+---
+
+## Phase 0: スコープ確認
+
+### 言語検出
+
+| ファイル | 言語 |
+|---------|------|
+| `Cargo.toml` | Rust |
+| `package.json` | JavaScript/TypeScript |
+| `pyproject.toml` | Python |
+| `go.mod` | Go |
+
+### Serena ツール
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│              Reverse Engineering Workflow                        │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  1️⃣  Code Analysis (AI Automated)                              │
-│      ├─ Scan code structure, APIs, data models                 │
-│      ├─ Parse existing tests for acceptance criteria           │
-│      └─ Generate draft spec (with uncertainty labels)          │
-│                                                                 │
-│  2️⃣  Human Input (Required)                                    │
-│      ├─ Write Motivation (why this feature exists)             │
-│      ├─ Add Risk Assessment                                    │
-│      └─ Verify dependencies and business context               │
-│                                                                 │
-│  3️⃣  Review & Confirm                                          │
-│      ├─ Discuss with stakeholders                              │
-│      └─ Confirm [Confirmed] / [Inferred] / [Unknown] labels    │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+serena_list_dir(relative_path="$TARGET_PATH", recursive=True, skip_ignored_files=True)
+serena_find_file(file_mask="Cargo.toml", relative_path=".")
 ```
 
-### What Can vs Cannot Be Extracted
+### ユーザー確認
 
-| Aspect | Extractable | Certainty | Notes |
-|--------|-------------|-----------|-------|
-| **API Endpoints** | ✅ Yes | [Confirmed] | Route definitions, HTTP methods |
-| **Data Models** | ✅ Yes | [Confirmed] | Types, interfaces, schemas |
-| **Function Signatures** | ✅ Yes | [Confirmed] | Parameters, return types |
-| **Test Cases** | ✅ Yes | [Confirmed] | → Acceptance Criteria |
-| **Dependencies** | ✅ Yes | [Confirmed] | Package references |
-| **Behavior Patterns** | ⚠️ Partial | [Inferred] | From code analysis |
-| **Motivation/Why** | ❌ No | [Unknown] | Needs human input |
-| **Business Context** | ❌ No | [Unknown] | Needs human input |
-| **Risk Assessment** | ❌ No | [Unknown] | Needs domain expertise |
-| **Trade-off Decisions** | ❌ No | [Unknown] | Historical context missing |
+対象パス、言語、ファイル数を提示し `1. 続行` / `2. 修正` / `3. 中断` を選択（番号選択）。
 
-## Core Principles
+---
 
-### 1. Anti-Hallucination Compliance
+## Phase 1: コード分析
 
-**CRITICAL**: This skill MUST strictly follow [Anti-Hallucination Standards](../../../core/anti-hallucination.md).
-
-#### Certainty Labels (from Unified Tag System)
-
-This skill uses **Certainty Tags** for analyzing existing code. See [Anti-Hallucination Standards](../../../core/anti-hallucination.md#unified-tag-system) for the complete tag reference.
-
-| Tag | Use When | Example |
-|-----|----------|---------|
-| `[Confirmed]` | Direct evidence from code/tests | API endpoint at `src/api/users.ts:15` |
-| `[Inferred]` | Logical deduction from patterns | "Likely uses dependency injection based on constructor pattern" |
-| `[Unknown]` | Cannot determine from code | Motivation, business requirements |
-| `[Need Confirmation]` | Requires human verification | Design intent, edge case handling |
-
-#### Source Attribution
-
-Every extracted item MUST include source attribution:
-
-```markdown
-## API Design
-
-### User Authentication
-[Confirmed] POST /api/auth/login endpoint accepts email and password
-- [Source: Code] src/controllers/AuthController.ts:25-45
-- [Source: Code] src/routes/auth.ts:8
-
-### Session Management
-[Inferred] Sessions expire after 24 hours based on JWT expiry configuration
-- [Source: Code] src/config/auth.ts:12 - TOKEN_EXPIRY=86400
-- [Source: Knowledge] Standard JWT expiry interpretation (⚠️ Verify intent)
-```
-
-### 2. Progressive Disclosure
-
-Start with high-level architecture, then drill down:
-
-1. **System Overview**: Entry points, main components
-2. **Component Details**: Individual modules, their responsibilities
-3. **Implementation Specifics**: Algorithms, data flows
-
-### 3. Test-to-Requirement Mapping
-
-Extract acceptance criteria from tests:
-
-```javascript
-// Test file: src/tests/auth.test.ts
-describe('Authentication', () => {
-  it('should return 401 for invalid credentials', () => {...});
-  it('should issue JWT token on successful login', () => {...});
-  it('should refresh token before expiry', () => {...});
-});
-```
-
-Becomes:
-
-```markdown
-## Acceptance Criteria
-[Inferred] From test analysis (src/tests/auth.test.ts):
-- [ ] Return 401 status code for invalid credentials
-- [ ] Issue JWT token on successful login
-- [ ] Support token refresh before expiry
-```
-
-## Workflow Stages
-
-### Stage 1: Code Scanning
-
-**Input**: File path or directory
-**Output**: Code structure analysis
-
-**Actions**:
-1. Identify entry points (main functions, API routes, event handlers)
-2. Map module dependencies
-3. Extract type definitions and interfaces
-4. List configuration sources
-
-### Stage 2: Test Analysis
-
-**Input**: Test files
-**Output**: Acceptance criteria candidates
-
-**Actions**:
-1. Parse test case names
-2. Extract Given-When-Then patterns (if BDD-style)
-3. Identify boundary conditions
-4. Note coverage gaps
-
-### Stage 3: Gap Identification
-
-**Input**: Code + test analysis
-**Output**: List of unknowns requiring human input
-
-**Required Human Input**:
-- [ ] Motivation: Why was this feature built?
-- [ ] User Story: Who uses this and for what purpose?
-- [ ] Risks: What could go wrong?
-- [ ] Trade-offs: Why this approach over alternatives?
-- [ ] Out of Scope: What was explicitly excluded?
-
-### Stage 4: Spec Generation
-
-**Input**: All analysis results
-**Output**: Draft specification document
-
-**Template**: Use [reverse-spec-template.md](../../../templates/reverse-spec-template.md)
-
-### Stage 5: Human Review
-
-**Input**: Draft specification
-**Output**: Validated specification
-
-**Review Checklist**:
-- [ ] All `[Confirmed]` items verified accurate
-- [ ] All `[Inferred]` items validated or corrected
-- [ ] All `[Unknown]` items filled in by human
-- [ ] Source citations checked
-- [ ] Business context added
-
-## Examples
-
-### Example 1: API Endpoint Extraction
-
-**Input Code** (`src/controllers/UserController.ts`):
-```typescript
-export class UserController {
-  @Get('/users/:id')
-  @Authorize('admin', 'user')
-  async getUser(@Param('id') id: string): Promise<User> {
-    return this.userService.findById(id);
-  }
-}
-```
-
-**Extracted Specification**:
-```markdown
-## API Endpoints
-
-### GET /users/:id
-[Confirmed] Retrieves a user by ID
-- [Source: Code] src/controllers/UserController.ts:3-7
-
-**Authorization**: [Confirmed] Requires 'admin' or 'user' role
-- [Source: Code] @Authorize decorator at line 4
-
-**Parameters**:
-- `id` (path, required): User identifier [Confirmed]
-
-**Response**: [Confirmed] Returns User object
-- [Source: Code] Return type at line 5
-
-**Error Handling**: [Unknown] Error responses not evident from code
-```
-
-### Example 2: Test-to-Criteria Extraction
-
-**Input Test** (`src/tests/cart.test.ts`):
-```typescript
-describe('Shopping Cart', () => {
-  it('should add item to empty cart', () => {...});
-  it('should increment quantity for duplicate items', () => {...});
-  it('should not exceed maximum quantity of 99', () => {...});
-  it('should calculate total with tax', () => {...});
-});
-```
-
-**Extracted Acceptance Criteria**:
-```markdown
-## Acceptance Criteria
-
-[Inferred] From test analysis (src/tests/cart.test.ts):
-- [ ] Can add item to empty cart (line 2)
-- [ ] Increments quantity for duplicate items (line 3)
-- [ ] Maximum quantity limit: 99 items (line 4)
-- [ ] Total calculation includes tax (line 5)
-
-[Unknown] Tax calculation rules not specified in tests
-[Need Confirmation] What happens when cart exceeds 99 items? (reject or cap?)
-```
-
-## Integration with Other Skills
-
-### With /spec (Spec-Driven Development)
-
-1. Generate reverse-engineered spec using `/reverse-spec`
-2. Review and fill in `[Unknown]` sections
-3. Use `/spec review` to validate completeness
-4. Proceed with normal SDD workflow for enhancements
-
-### With /tdd (Test-Driven Development)
-
-1. Extract existing test patterns
-2. Identify test coverage gaps
-3. Use `/tdd` to add missing tests
-4. Update spec with new acceptance criteria
-
-### With /bdd (Behavior-Driven Development)
-
-1. Convert extracted acceptance criteria to Gherkin format
-2. Use `/bdd` to formalize scenarios
-3. Validate scenarios with stakeholders
-
-## Complete Reverse Engineering Pipeline
-
-The reverse engineering skill supports a complete SDD → BDD → TDD pipeline:
+### 1.1 シンボル抽出
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                   Complete Reverse Engineering Pipeline                   │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│   Code + Tests                                                          │
-│        │                                                                │
-│        ▼                                                                │
-│   /reverse-spec                                                         │
-│        │                                                                │
-│        └─→ Generate SPEC-XXX with Acceptance Criteria                   │
-│                │                                                        │
-│                ▼                                                        │
-│   /reverse-bdd                                                          │
-│        │                                                                │
-│        ├─→ AC → Gherkin scenario conversion                             │
-│        ├─→ Auto-transform bullet points to Given-When-Then              │
-│        └─→ Generate .feature files                                      │
-│                │                                                        │
-│                ▼                                                        │
-│   /reverse-tdd                                                          │
-│        │                                                                │
-│        ├─→ Analyze existing unit tests                                  │
-│        └─→ Generate coverage report with gaps                           │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
+serena_get_symbols_overview(relative_path="src/xxx/mod.rs", depth=2)
+serena_find_symbol(name_path_pattern="MainStruct", include_body=True)
 ```
 
-### Pipeline Commands
+### 1.2 依存関係解析
 
-| Command | Input | Output | Purpose |
-|---------|-------|--------|---------|
-| `/reverse-spec` | Code directory | SPEC-XXX.md | Extract requirements from code |
-| `/reverse-bdd` | SPEC file | .feature files | Convert AC to Gherkin scenarios |
-| `/reverse-tdd` | .feature files | Coverage report | Map scenarios to unit tests |
+```
+# Rust
+serena_search_for_pattern(substring_pattern="^use\\s+", relative_path="src/xxx/")
 
-### Usage Example
+# TypeScript
+serena_search_for_pattern(substring_pattern="^import\\s+", relative_path="src/xxx/")
+```
+
+### 1.3 テストケース分析
+
+```
+serena_find_file(file_mask="*test*.rs", relative_path=".")
+serena_get_symbols_overview(relative_path="tests/xxx_test.rs", depth=1)
+```
+
+### 1.4 コメント抽出
+
+```
+# Rust: ///
+serena_search_for_pattern(substring_pattern="^\\s*///", relative_path="src/xxx/")
+
+# Python: docstring
+serena_search_for_pattern(substring_pattern='"""', relative_path="src/xxx/")
+```
+
+---
+
+## Phase 2: 設計書生成
+
+> **テンプレート**: `detailed-design-templates` skill の「リバースエンジニアリング設計書テンプレート」を使用
+
+### 必須セクション
+
+1. 概要（目的、スコープ）
+2. モジュール設計（構成、依存関係図）
+3. データ型定義（enum、struct、trait）
+4. コアロジック（主要関数）
+5. エラーハンドリング
+6. テスト方針
+7. 未解決事項・推測
+
+---
+
+## Phase 3: 品質検証
+
+### 整合性チェック
+
+| チェック項目 | 確認方法 |
+|-------------|---------|
+| 全公開struct/enum記載 | シンボル比較 |
+| 全公開関数記載 | シンボル比較 |
+| モジュール依存関係 | import解析 |
+| エラー型記載 | Error enum検索 |
+
+---
+
+## Phase 3.5: AIレビュー（オプション）
+
+```
+task(subagent_type="detailed-design-reviewer", prompt="設計書をレビュー...")
+```
+
+| スコア | アクション |
+|--------|----------|
+| 8点以上 | Phase 3.8へ |
+| 6-7点 | 修正して再レビュー（最大3回） |
+| 5点以下 | Phase 1からやり直し |
+
+> `--skip-review` フラグで省略可能
+
+---
+
+## Phase 3.8: ユーザー承認【必須】
+
+> **共通仕様**: `approval-gate` skill を参照
+
+生成結果サマリー（抽出シンボル数、未解決事項数）を表示し確認。
+
+| 選択肢 | アクション |
+|--------|----------|
+| `1` | Phase 4へ |
+| `2` | Phase 2に戻る |
+| `3` | キャンセル |
+
+> 番号を選択してください（1-3）:
+
+---
+
+## Phase 4: 出力
+
+### 出力先
+
+| 条件 | 出力先 |
+|------|--------|
+| 既存設計書なし | `docs/designs/reverse/{module-name}.md` |
+| 既存設計書あり | `docs/designs/reverse/{module-name}_v{N}.md` |
+
+---
+
+## サーキットブレーカー
+
+| 条件 | アクション |
+|------|----------|
+| 対象ファイル100件超 | サブモジュール単位での分割を提案 |
+| 解析エラー | スキップして未解決事項に記録 |
+| 非対応言語 | エラー終了 |
+| レビュー3回失敗 | 警告マーク付与して続行 |
+
+---
+
+## エラーハンドリング
+
+| Phase | エラー | 対処 |
+|-------|--------|------|
+| 0 | パス不存在 | 正しいパスを再指定 |
+| 0 | 言語検出失敗 | 手動で言語指定 |
+| 1 | LSP未起動 | `serena_activate_project()` 実行 |
+| 2 | テンプレート適用エラー | Phase 1結果を確認 |
+| 4 | 書き込み失敗 | 権限・容量確認 |
+
+---
+
+## 対応言語
+
+| 言語 | サポート |
+|------|:--------:|
+| Rust | O |
+| TypeScript | O |
+| Python | O |
+| Go | △ |
+| Java | △ |
+
+---
+
+## 使用例
 
 ```bash
-# Step 1: Reverse engineer code to SDD specification
-/reverse-spec src/auth/
-
-# Step 2: Transform acceptance criteria to BDD scenarios
-/reverse-bdd specs/SPEC-AUTH.md
-
-# Step 3: Analyze test coverage against BDD scenarios
-/reverse-tdd features/auth.feature
+/reverse-engineer src/notification/
+/reverse-engineer src/ --skip-review
 ```
 
-### Detailed Guides
+---
 
-- [BDD Extraction Workflow](./bdd-extraction.md) - Detailed guide for AC → Gherkin transformation
-- [TDD Analysis Workflow](./tdd-analysis.md) - Detailed guide for BDD → TDD coverage analysis
+## 制限事項
 
-## Anti-Patterns to Avoid
-
-### ❌ Don't Do This
-
-1. **Fabricating Motivation**
-   - Wrong: "This feature was built to improve user experience"
-   - Right: "[Unknown] Motivation requires human input"
-
-2. **Assuming Requirements**
-   - Wrong: "The system requires SSO support"
-   - Right: "[Need Confirmation] SSO configuration found in code - is this a requirement?"
-
-3. **Speculating About Unread Code**
-   - Wrong: "The PaymentService handles Stripe integration"
-   - Right: "[Unknown] PaymentService functionality - need to read src/services/PaymentService.ts"
-
-4. **Presenting Options Without Uncertainty**
-   - Wrong: "The code uses Redis for caching"
-   - Right: "[Confirmed] Redis client configured in src/config/cache.ts:5"
-
-## Best Practices
-
-### Do's
-
-- ✅ Read all relevant files before making claims
-- ✅ Tag every statement with certainty level
-- ✅ Include source citations with file:line
-- ✅ Clearly list what needs human input
-- ✅ Preserve original code comments as context
-
-### Don'ts
-
-- ❌ Assume motivation or business context
-- ❌ Present inferences as confirmed facts
-- ❌ Skip source attribution
-- ❌ Generate specs for unread code
-- ❌ Fill in `[Unknown]` sections without human input
+1. 設計意図の推測限界（「なぜそう実装したか」は不明）
+2. 非公開シンボルは詳細度が低い
+3. 動的言語の型推論は不完全な場合あり
+4. 外部ライブラリの詳細は含まれない
 
 ---
 
-## Configuration Detection
+## 参考
 
-This skill auto-detects project configuration:
-
-1. Check for existing `specs/` directory
-2. Check for SDD tooling (OpenSpec, Spec Kit)
-3. Detect test framework for acceptance criteria extraction
-4. Identify code patterns (MVC, DDD, etc.)
-
----
-
-## Related Standards
-
-- [Reverse Engineering Standards](../../../core/reverse-engineering-standards.md) - **Core methodology standard (primary reference)**
-- [Spec-Driven Development](../../../core/spec-driven-development.md) - Output format and review process
-- [Anti-Hallucination Guidelines](../../../core/anti-hallucination.md) - Evidence-based analysis requirements
-- [Code Review Checklist](../../../core/code-review-checklist.md) - Review guidelines
+| スキル/ドキュメント | 用途 |
+|-------------------|------|
+| `detailed-design-templates` skill | 設計書テンプレート |
+| `workflow-phase-convention` skill | Phase命名規約 |
+| `approval-gate` skill | ユーザー承認ゲート |
+| [詳細設計ワークフロー](./detailed-design-workflow.md) | 新規設計時 |
 
 ---
 
-## Version History
+## 変更履歴
 
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.2.0 | 2026-01-25 | Added: Reference to Unified Tag System |
-| 1.1.0 | 2026-01-19 | Add BDD/TDD pipeline integration; Add core standard reference |
-| 1.0.0 | 2026-01-19 | Initial release |
-
----
-
-## License
-
-This skill is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-
-**Source**: [universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)
+| バージョン | 変更内容 |
+|-----------|---------|
+| 1.3.0 | 出力言語セクション追加、日本語記述を明示化 |
+| 1.2.0 | 前提条件追加、TypeScript/Python例追加 |
+| 1.1.0 | Phase番号修正、`--skip-review`追加 |
+| 1.0.0 | 初版作成 |

@@ -1,7 +1,7 @@
 {
   "name": "github",
-  "repo": "OpenSourceSam/v2_heras_garden",
-  "path": ".github/skills/github/SKILL.md",
-  "source": "github.com/OpenSourceSam/v2_heras_garden",
-  "downloaded_at": "2026-01-29T04:42:11.746577Z"
+  "repo": "rjmurillo/ai-agents",
+  "path": ".claude/skills/github/SKILL.md",
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-01-30T04:48:34.237677Z"
 }

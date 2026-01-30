@@ -1,7 +1,7 @@
 {
   "name": "bash",
-  "repo": "joaquimscosta/arkhe-claude-plugins",
-  "path": "plugins/lang/skills/bash/SKILL.md",
-  "source": "github.com/joaquimscosta/arkhe-claude-plugins",
-  "downloaded_at": "2026-01-29T04:09:42.568837Z"
+  "repo": "dralgorhythm/claude-agentic-framework",
+  "path": ".claude/skills/languages/bash/SKILL.md",
+  "source": "github.com/dralgorhythm/claude-agentic-framework",
+  "downloaded_at": "2026-01-30T04:17:20.472705Z"
 }

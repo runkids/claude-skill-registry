@@ -1,7 +1,7 @@
 {
   "name": "pytorch-lightning",
-  "repo": "jimmc414/Kosmos",
-  "path": "kosmos-claude-scientific-skills/scientific-skills/pytorch-lightning/SKILL.md",
-  "source": "github.com/jimmc414/Kosmos",
-  "downloaded_at": "2026-01-29T04:45:49.928530Z"
+  "repo": "Orchestra-Research/AI-research-SKILLs",
+  "path": "08-distributed-training/pytorch-lightning/SKILL.md",
+  "source": "github.com/Orchestra-Research/AI-research-SKILLs",
+  "downloaded_at": "2026-01-30T04:33:14.514635Z"
 }

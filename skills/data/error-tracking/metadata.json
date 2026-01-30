@@ -1,7 +1,7 @@
 {
   "name": "error-tracking",
-  "repo": "fghaffar/claude-cursor-setup",
-  "path": "skills/error-tracking/SKILL.md",
-  "source": "github.com/fghaffar/claude-cursor-setup",
-  "downloaded_at": "2026-01-29T03:10:02.579568Z"
+  "repo": "NmBoyd/claude_setup",
+  "path": ".claude/skills/error-tracking/SKILL.md",
+  "source": "github.com/NmBoyd/claude_setup",
+  "downloaded_at": "2026-01-30T02:48:53.114136Z"
 }

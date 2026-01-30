@@ -1,7 +1,7 @@
 {
   "name": "nx-plugins",
-  "repo": "nrwl/nx",
-  "path": ".github/skills/nx-plugins/SKILL.md",
-  "source": "github.com/nrwl/nx",
-  "downloaded_at": "2026-01-28T01:21:42.533452Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/nx-plugins/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-30T03:47:37.944290Z"
 }

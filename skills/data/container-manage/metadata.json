@@ -1,12 +1,7 @@
 {
   "name": "container-manage",
-  "description": "Container management skill for development and operations containers. Use this when managing system resources, processes, services, environment configuration, Docker containers, logs, or performing sy",
   "repo": "hsudatalks/univers-container",
-  "category": "development",
-  "tags": [
-    "container",
-    "manage"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/container-manage/SKILL.md",
+  "source": "github.com/hsudatalks/univers-container",
+  "downloaded_at": "2026-01-30T04:22:12.383639Z"
 }

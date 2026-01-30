@@ -1,434 +1,388 @@
 ---
 name: data-visualization
-description: Create effective data visualizations with React charting libraries. Covers chart selection, Recharts, Chart.js, D3.js basics, real-time data, accessible charts, and color palettes. Use for charts, graphs, dashboards, and data-driven displays.
+description: Build mathematically correct, visually prominent data visualizations for time-series charts. Use this skill when creating charts with mathematical overlays (trendlines, patterns, indicators), fixing visual artifacts (wavy lines, domain mismatches), or validating chart correctness. Focuses on technical correctness and progressive validation, not aesthetic design.
+license: Project-specific skill
 ---
 
-# Data Visualization
+# Data Visualization Skill
 
-Create clear, informative, and accessible data visualizations.
+**Focus**: Mathematical correctness and visual prominence for time-series charts with overlays (trendlines, patterns, indicators).
 
-## Instructions
+**When to use this skill**:
+- Building charts with mathematical overlays (trendlines, moving averages, regressions)
+- Fixing visual artifacts (wavy lines at gaps, domain mismatches)
+- Validating chart correctness (progressive evidence)
+- Implementing pattern overlays (flags, wedges, triangles, H&S)
+- Working with Chart.js, D3.js, Recharts, or similar frameworks
 
-1. **Choose the right chart type** - Match visualization to data story
-2. **Keep it simple** - Remove chartjunk, focus on data
-3. **Use color meaningfully** - Semantic colors, accessible palettes
-4. **Provide context** - Labels, legends, tooltips, annotations
-5. **Make it accessible** - Alt text, patterns, screen reader support
+**When NOT to use this skill**:
+- Aesthetic UI design (use `frontend-design` skill)
+- Telegram-specific UI patterns (use `telegram-uiux` skill)
+- General React/TypeScript patterns (use `telegram-uiux` skill)
 
-## Chart Selection Guide
+---
 
-| Data Type | Best Charts |
-|-----------|-------------|
-| Trends over time | Line, Area |
-| Comparisons | Bar, Column |
-| Parts of whole | Pie, Donut (max 5-7 segments) |
-| Distribution | Histogram, Box plot |
-| Correlation | Scatter, Bubble |
-| Hierarchies | Treemap, Sunburst |
-| Geographic | Choropleth, Pin map |
+## Quick Reference
 
-## Recharts (Recommended for React)
+**Problem**: Trendlines appear wavy at weekend gaps
+**Solution**: Use timestamp-based regression (not index-based) → [MATHEMATICAL-CORRECTNESS.md](MATHEMATICAL-CORRECTNESS.md#domain-compatibility)
 
-### Line Chart
+**Problem**: Pattern overlays hard to see on chart
+**Solution**: Use shaded regions + bold lines + layer ordering → [VISUAL-HIERARCHY.md](VISUAL-HIERARCHY.md#visual-prominence-through-layering)
 
-```tsx
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
+**Problem**: Custom polygon fill doesn't render in Chart.js
+**Solution**: Use framework's dataset-to-dataset fill feature → [FRAMEWORK-PATTERNS.md](FRAMEWORK-PATTERNS.md#framework-native-over-custom)
 
-const data = [
-  { month: 'Jan', revenue: 4000, users: 2400 },
-  { month: 'Feb', revenue: 3000, users: 1398 },
-  { month: 'Mar', revenue: 5000, users: 3800 },
-  { month: 'Apr', revenue: 4500, users: 3908 },
-  { month: 'May', revenue: 6000, users: 4800 },
-  { month: 'Jun', revenue: 5500, users: 3800 },
+**Problem**: Chart works with perfect data but crashes on real data
+**Solution**: Test with edge cases (gaps, nulls, holidays) → [VALIDATION.md](VALIDATION.md#edge-cases-reveal-bugs)
+
+---
+
+## Decision Tree
+
+```
+User request involves data visualization?
+├─ YES → Continue
+└─ NO → Use different skill
+
+Mathematical overlays (trendlines, patterns)?
+├─ YES → Use this skill
+└─ NO → Consider frontend-design (if aesthetic focus)
+
+Problem type?
+├─ Visual artifacts (wavy lines, curvature)
+│  └─ Check: Domain compatibility [MATHEMATICAL-CORRECTNESS.md]
+├─ Low visibility (patterns hard to see)
+│  └─ Check: Visual hierarchy [VISUAL-HIERARCHY.md]
+├─ Framework issues (custom code not working)
+│  └─ Check: Framework patterns [FRAMEWORK-PATTERNS.md]
+├─ Correctness validation (how to verify?)
+│  └─ Check: Progressive validation [VALIDATION.md]
+└─ General implementation
+   └─ Read all sections for comprehensive approach
+```
+
+---
+
+## Core Principles
+
+### 1. Visual Prominence Through Layering
+**Pattern**: Shaded regions (fills) + bold trendlines + layer ordering
+
+**Why**: Simple lines blend into busy charts; shaded areas create immediate recognition
+
+**See**: [VISUAL-HIERARCHY.md](VISUAL-HIERARCHY.md) for opacity guidelines, layering strategy, Chart.js implementation
+
+---
+
+### 2. Domain Compatibility for Mathematical Correctness
+**Pattern**: Regression domain must match visualization axis domain
+
+**Why**: Domain mismatch creates visual artifacts (wavy lines at irregular spacing)
+
+**See**: [MATHEMATICAL-CORRECTNESS.md](MATHEMATICAL-CORRECTNESS.md) for timestamp vs index, testing strategy, common mismatches
+
+---
+
+### 3. Framework-Native Over Custom Solutions
+**Pattern**: Use framework's built-in features instead of custom implementations
+
+**Why**: Native features are tested, documented, maintained; custom solutions fragile
+
+**See**: [FRAMEWORK-PATTERNS.md](FRAMEWORK-PATTERNS.md) for Chart.js patterns, research workflow, when custom is acceptable
+
+---
+
+### 4. Edge Cases Reveal Mathematical Bugs
+**Pattern**: Test with irregular data (weekend gaps, holidays, nulls)
+
+**Why**: Regular spacing hides domain mismatches; irregular spacing reveals bugs
+
+**See**: [VALIDATION.md](VALIDATION.md#edge-cases-reveal-bugs) for edge case examples, testing checklist, validation workflow
+
+---
+
+### 5. Progressive Evidence for UI Validation
+**Pattern**: Validate through layers: visual → code → edge cases → mathematical
+
+**Why**: Visual appearance alone doesn't prove correctness; need multiple validation levels
+
+**See**: [VALIDATION.md](VALIDATION.md#progressive-evidence) for 4-layer validation, evidence hierarchy, validation matrix
+
+---
+
+## Workflow
+
+### Phase 1: Plan Implementation
+1. **Understand requirements**: What visualization? What overlays?
+2. **Research framework**: Does Chart.js/D3 have built-in feature?
+3. **Choose approach**: Native feature vs custom (prefer native)
+4. **Identify domain**: What's the X-axis? (time, categories, continuous)
+
+### Phase 2: Implement Visualization
+1. **Start with data layer**: Render base chart (candlesticks, line, etc.)
+2. **Add mathematical overlays**: Trendlines, patterns, indicators
+3. **Apply visual hierarchy**: Layer ordering (fills behind, lines front)
+4. **Tune prominence**: Adjust opacity (25-30% for web), line width (3px)
+
+### Phase 3: Validate Correctness
+1. **Layer 1 (Visual)**: Does it look right? Take screenshots
+2. **Layer 2 (Code)**: Using framework correctly? Review patterns
+3. **Layer 3 (Edge)**: Test with weekend gaps, holidays, nulls
+4. **Layer 4 (Math)**: Verify algorithm correctness (domain match?)
+
+### Phase 4: Debug Issues
+**If wavy lines**:
+- Check domain compatibility (timestamp vs index regression)
+- Test with weekend gap data
+- Verify Chart.js axis type (`type: 'time'`)
+
+**If low visibility**:
+- Add shaded fill regions (25-30% opacity)
+- Increase line width (3px)
+- Apply layer ordering (order: 1,2,3)
+
+**If framework issues**:
+- Research native features (dataset-to-dataset fill)
+- Check documentation examples
+- Prefer configuration over code
+
+---
+
+## Common Patterns
+
+### Pattern: Timestamp-Based Regression
+**Use when**: Continuous time axis (Chart.js `type: 'time'`)
+
+```javascript
+function fitLinearTrendline(points) {
+    const n = points.length;
+
+    // Use timestamps (p.x), not indices (i)
+    const sumX = points.reduce((sum, p) => sum + p.x, 0);
+    const sumXY = points.reduce((sum, p) => sum + p.x * p.y, 0);
+    const sumX2 = points.reduce((sum, p) => sum + p.x * p.x, 0);
+
+    const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+    const intercept = (sumY - slope * sumX) / n;
+
+    return points.map(p => ({
+        x: p.x,
+        y: slope * p.x + intercept  // Timestamp-based
+    }));
+}
+```
+
+**See**: [MATHEMATICAL-CORRECTNESS.md](MATHEMATICAL-CORRECTNESS.md#timestamp-based-regression)
+
+---
+
+### Pattern: Shaded Region with Layering
+**Use when**: Overlaying patterns on busy charts
+
+```javascript
+const datasets = [];
+
+// Layer 3: Fill area (behind)
+datasets.push({
+    label: 'Pattern Area',
+    data: polygonPoints,
+    backgroundColor: 'rgba(38, 166, 154, 0.25)',  // 25% opacity
+    fill: true,
+    borderColor: 'transparent',
+    order: 3,  // Behind
+    pointRadius: 0
+});
+
+// Layer 2: Trendline (front)
+datasets.push({
+    label: 'Trendline',
+    data: trendlinePoints,
+    borderColor: '#26A69A',
+    borderWidth: 3,  // Bold
+    fill: false,
+    order: 2,  // Front
+    pointRadius: 0
+});
+
+// Layer 1: Data (highest priority)
+datasets.push({
+    type: 'candlestick',
+    data: ohlcData,
+    order: 1  // Front-most
+});
+```
+
+**See**: [VISUAL-HIERARCHY.md](VISUAL-HIERARCHY.md#shaded-regions)
+
+---
+
+### Pattern: Dataset-to-Dataset Fill (Chart.js)
+**Use when**: Filling area between two lines
+
+```javascript
+const datasets = [];
+
+// Draw lower boundary first
+const lowerIndex = datasets.length;
+datasets.push({
+    label: 'Support',
+    data: lowerLine,
+    borderColor: '#26A69A',
+    fill: false,
+    order: 2
+});
+
+// Draw upper boundary with fill TO lower
+datasets.push({
+    label: 'Resistance',
+    data: upperLine,
+    borderColor: '#26A69A',
+    backgroundColor: 'rgba(38, 166, 154, 0.25)',
+    fill: lowerIndex,  // Fill to support dataset (Chart.js native)
+    order: 2
+});
+```
+
+**See**: [FRAMEWORK-PATTERNS.md](FRAMEWORK-PATTERNS.md#dataset-to-dataset-fill)
+
+---
+
+### Pattern: Edge Case Testing
+**Use when**: Validating mathematical correctness
+
+```javascript
+// Test data with weekend gap
+const testData = [
+    { x: Date.parse('2024-01-01'), y: 100 },  // Mon
+    { x: Date.parse('2024-01-02'), y: 102 },  // Tue
+    { x: Date.parse('2024-01-03'), y: 104 },  // Wed
+    // Weekend gap (Thu-Sun missing)
+    { x: Date.parse('2024-01-08'), y: 106 },  // Mon (5 days later!)
+    { x: Date.parse('2024-01-09'), y: 108 },  // Tue
 ];
 
-function RevenueChart() {
-  return (
-    <ResponsiveContainer width="100%" height={400}>
-      <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-        <XAxis
-          dataKey="month"
-          tick={{ fill: '#6b7280' }}
-          axisLine={{ stroke: '#e5e7eb' }}
-        />
-        <YAxis
-          tick={{ fill: '#6b7280' }}
-          axisLine={{ stroke: '#e5e7eb' }}
-          tickFormatter={(value) => `$${value / 1000}k`}
-        />
-        <Tooltip
-          contentStyle={{
-            backgroundColor: '#fff',
-            border: '1px solid #e5e7eb',
-            borderRadius: '8px',
-          }}
-          formatter={(value: number) => [`$${value.toLocaleString()}`, 'Revenue']}
-        />
-        <Legend />
-        <Line
-          type="monotone"
-          dataKey="revenue"
-          stroke="#2563eb"
-          strokeWidth={2}
-          dot={{ fill: '#2563eb', strokeWidth: 2 }}
-          activeDot={{ r: 6, fill: '#2563eb' }}
-        />
-        <Line
-          type="monotone"
-          dataKey="users"
-          stroke="#10b981"
-          strokeWidth={2}
-          dot={{ fill: '#10b981', strokeWidth: 2 }}
-        />
-      </LineChart>
-    </ResponsiveContainer>
-  );
-}
+const trendline = fitLinearTrendline(testData);
+
+// Validation: Line should stay straight
+// If wavy → domain mismatch bug
 ```
 
-### Bar Chart
+**See**: [VALIDATION.md](VALIDATION.md#edge-case-testing)
 
-```tsx
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Cell,
-} from 'recharts';
+---
 
-const data = [
-  { name: 'Electronics', value: 4000 },
-  { name: 'Clothing', value: 3000 },
-  { name: 'Food', value: 2000 },
-  { name: 'Books', value: 2780 },
-  { name: 'Home', value: 1890 },
-];
+## Anti-Patterns
 
-const COLORS = ['#2563eb', '#7c3aed', '#db2777', '#ea580c', '#16a34a'];
-
-function CategoryChart() {
-  return (
-    <ResponsiveContainer width="100%" height={300}>
-      <BarChart data={data} layout="vertical" margin={{ left: 80 }}>
-        <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
-        <XAxis type="number" tickFormatter={(v) => `$${v / 1000}k`} />
-        <YAxis type="category" dataKey="name" />
-        <Tooltip
-          formatter={(value: number) => [`$${value.toLocaleString()}`, 'Sales']}
-        />
-        <Bar dataKey="value" radius={[0, 4, 4, 0]}>
-          {data.map((entry, index) => (
-            <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Bar>
-      </BarChart>
-    </ResponsiveContainer>
-  );
-}
+### ❌ Index-Based Regression on Time Axis
+```javascript
+// BAD: Using array indices on continuous time axis
+const sumX = points.reduce((sum, p, i) => sum + i, 0);
+return { x: p.x, y: slope * i + intercept };
+// Result: Wavy lines at weekend gaps
 ```
 
-### Donut Chart
+**Fix**: Use timestamp-based regression → [MATHEMATICAL-CORRECTNESS.md](MATHEMATICAL-CORRECTNESS.md#domain-mismatch)
 
-```tsx
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+---
 
-const data = [
-  { name: 'Direct', value: 400 },
-  { name: 'Organic', value: 300 },
-  { name: 'Referral', value: 200 },
-  { name: 'Social', value: 100 },
-];
-
-const COLORS = ['#2563eb', '#10b981', '#f59e0b', '#ef4444'];
-
-function TrafficDonut() {
-  return (
-    <ResponsiveContainer width="100%" height={300}>
-      <PieChart>
-        <Pie
-          data={data}
-          cx="50%"
-          cy="50%"
-          innerRadius={60}
-          outerRadius={100}
-          paddingAngle={2}
-          dataKey="value"
-          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-        >
-          {data.map((entry, index) => (
-            <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Tooltip formatter={(value: number) => [value.toLocaleString(), 'Visitors']} />
-        <Legend />
-      </PieChart>
-    </ResponsiveContainer>
-  );
-}
+### ❌ Custom Polygon Fill (Chart.js)
+```javascript
+// BAD: Concatenating reversed arrays
+const polygon = [...upperLine, ...lowerLine.reverse()];
+datasets.push({ data: polygon, fill: true });
+// Result: Doesn't render correctly in Chart.js
 ```
 
-### Area Chart with Gradient
+**Fix**: Use dataset-to-dataset fill → [FRAMEWORK-PATTERNS.md](FRAMEWORK-PATTERNS.md#polygon-vs-dataset-fill)
 
-```tsx
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+---
 
-function GradientAreaChart({ data }: { data: DataPoint[] }) {
-  return (
-    <ResponsiveContainer width="100%" height={200}>
-      <AreaChart data={data}>
-        <defs>
-          <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#2563eb" stopOpacity={0.3} />
-            <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
-          </linearGradient>
-        </defs>
-        <XAxis dataKey="date" hide />
-        <YAxis hide />
-        <Tooltip />
-        <Area
-          type="monotone"
-          dataKey="value"
-          stroke="#2563eb"
-          strokeWidth={2}
-          fill="url(#colorValue)"
-        />
-      </AreaChart>
-    </ResponsiveContainer>
-  );
-}
+### ❌ Visual-Only Validation
+```javascript
+// BAD: Stopping at "looks good"
+console.log('Screenshot looks good! Ship it!');
+// Missing: Code review, edge cases, math verification
 ```
 
-## Sparklines
+**Fix**: Progressive validation (4 layers) → [VALIDATION.md](VALIDATION.md#progressive-evidence)
 
-```tsx
-// Mini inline charts for KPI cards
-function Sparkline({ data, color = '#2563eb', height = 40 }: {
-  data: number[];
-  color?: string;
-  height?: number;
-}) {
-  const max = Math.max(...data);
-  const min = Math.min(...data);
-  const range = max - min || 1;
+---
 
-  const points = data
-    .map((value, i) => {
-      const x = (i / (data.length - 1)) * 100;
-      const y = 100 - ((value - min) / range) * 100;
-      return `${x},${y}`;
-    })
-    .join(' ');
-
-  return (
-    <svg width="100%" height={height} viewBox="0 0 100 100" preserveAspectRatio="none">
-      <polyline
-        points={points}
-        fill="none"
-        stroke={color}
-        strokeWidth="2"
-        vectorEffect="non-scaling-stroke"
-      />
-    </svg>
-  );
-}
-
-// Usage in KPI card
-<div className="flex items-end gap-4">
-  <div>
-    <p className="text-3xl font-bold">$45,231</p>
-    <p className="text-sm text-green-600">+12.5%</p>
-  </div>
-  <div className="w-24 h-12">
-    <Sparkline data={[10, 15, 12, 20, 18, 25, 30, 28, 35]} color="#10b981" />
-  </div>
-</div>
+### ❌ Same Layer Order for All Elements
+```javascript
+// BAD: Random rendering order
+datasets.push({ order: 1 });  // Fill
+datasets.push({ order: 1 });  // Line
+datasets.push({ order: 1 });  // Data
+// Result: Unpredictable z-index
 ```
 
-## Accessible Charts
+**Fix**: Explicit layering (1=data, 2=lines, 3=fills) → [VISUAL-HIERARCHY.md](VISUAL-HIERARCHY.md#layer-ordering)
 
-### Providing Alternatives
+---
 
-```tsx
-function AccessibleChart({ data, title }: { data: ChartData[]; title: string }) {
-  return (
-    <figure>
-      <figcaption className="font-semibold mb-4">{title}</figcaption>
+## Integration with Other Skills
 
-      {/* Visual chart */}
-      <div aria-hidden="true">
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={data}>
-            {/* ... chart config ... */}
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+**Complements**:
+- `frontend-design`: Aesthetic UI design (this skill: technical correctness)
+- `telegram-uiux`: Telegram-specific patterns (this skill: general data viz)
+- `testing-workflow`: General testing (this skill: visualization-specific validation)
 
-      {/* Accessible data table (can be visually hidden) */}
-      <table className="sr-only">
-        <caption>{title} Data Table</caption>
-        <thead>
-          <tr>
-            <th scope="col">Category</th>
-            <th scope="col">Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map(item => (
-            <tr key={item.name}>
-              <td>{item.name}</td>
-              <td>{item.value}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </figure>
-  );
-}
-```
+**References**:
+- See `docs/frontend/UI_PRINCIPLES.md` for comprehensive principles
+- See `.claude/implementations/2026-01-05-shaded-pattern-visualization.md` for implementation case study
+- See `.claude/implementations/2026-01-05-proper-pattern-trendlines-all-types.md` for pattern-specific details
 
-### Colorblind-Safe Palettes
+---
 
-```tsx
-// Okabe-Ito colorblind-safe palette
-const COLORBLIND_SAFE = [
-  '#0077BB', // Blue
-  '#33BBEE', // Cyan
-  '#009988', // Teal
-  '#EE7733', // Orange
-  '#CC3311', // Red
-  '#EE3377', // Magenta
-  '#BBBBBB', // Grey
-];
+## Real-World Example
 
-// Use patterns in addition to colors
-const PATTERNS = [
-  'url(#pattern-dots)',
-  'url(#pattern-lines)',
-  'url(#pattern-crosses)',
-  'url(#pattern-squares)',
-];
-```
+**Problem**: Chart pattern trendlines appeared wavy at weekends, user feedback "I don't like the look"
 
-## Real-Time Charts
+**Root causes**:
+1. Visual: Simple thin lines blended into chart (low contrast)
+2. Mathematical: Index-based regression on continuous time axis (domain mismatch)
 
-```tsx
-import { useState, useEffect, useRef } from 'react';
+**Solutions applied**:
+1. Visual: Shaded regions (25% opacity) + bold lines (3px) + layer ordering
+2. Mathematical: Timestamp-based regression (domain match)
+3. Validation: Tested with weekend gap data (edge cases)
 
-function RealTimeChart() {
-  const [data, setData] = useState<DataPoint[]>([]);
-  const maxPoints = 30;
+**Outcome**: ✅ Patterns 3-5x more visible, ✅ Straight lines across gaps, ✅ Professional appearance
 
-  useEffect(() => {
-    const ws = new WebSocket('wss://api.example.com/metrics');
+**See**: `.claude/evolution/2026-01-05-data-visualization-principles.md` for full case study
 
-    ws.onmessage = (event) => {
-      const newPoint = JSON.parse(event.data);
-      setData(prev => {
-        const updated = [...prev, newPoint];
-        // Keep only last N points for performance
-        return updated.slice(-maxPoints);
-      });
-    };
+---
 
-    return () => ws.close();
-  }, []);
+## Quick Checklist
 
-  return (
-    <ResponsiveContainer width="100%" height={200}>
-      <LineChart data={data}>
-        <Line
-          type="monotone"
-          dataKey="value"
-          stroke="#2563eb"
-          strokeWidth={2}
-          dot={false}
-          isAnimationActive={false} // Disable animation for real-time
-        />
-        <YAxis domain={['dataMin - 10', 'dataMax + 10']} />
-        <XAxis dataKey="timestamp" hide />
-      </LineChart>
-    </ResponsiveContainer>
-  );
-}
-```
+**Before implementation**:
+- [ ] Research framework features (Chart.js docs, examples)
+- [ ] Identify axis domain (time, categories, continuous)
+- [ ] Plan layer ordering (data=1, lines=2, fills=3)
 
-## Chart.js Alternative
+**During implementation**:
+- [ ] Use framework-native features (dataset-to-dataset fill)
+- [ ] Match regression domain to axis domain (timestamps for time axis)
+- [ ] Apply visual hierarchy (shaded regions, bold lines)
 
-```tsx
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+**After implementation**:
+- [ ] Visual validation (screenshot, looks right?)
+- [ ] Code review (framework patterns correct?)
+- [ ] Edge case testing (weekend gaps, nulls, holidays)
+- [ ] Mathematical verification (domain match, formula correct?)
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+---
 
-function ChartJSExample() {
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { position: 'top' as const },
-      title: { display: true, text: 'Monthly Revenue' },
-    },
-    scales: {
-      y: { beginAtZero: true },
-    },
-  };
+**See detailed documentation**:
+- [VISUAL-HIERARCHY.md](VISUAL-HIERARCHY.md) - Layering, prominence, opacity
+- [MATHEMATICAL-CORRECTNESS.md](MATHEMATICAL-CORRECTNESS.md) - Domain compatibility, regression, edge cases
+- [FRAMEWORK-PATTERNS.md](FRAMEWORK-PATTERNS.md) - Chart.js patterns, native features
+- [VALIDATION.md](VALIDATION.md) - Progressive validation, 4-layer evidence
 
-  const data = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    datasets: [
-      {
-        label: 'Revenue',
-        data: [4000, 3000, 5000, 4500, 6000, 5500],
-        borderColor: 'rgb(37, 99, 235)',
-        backgroundColor: 'rgba(37, 99, 235, 0.5)',
-        tension: 0.3,
-      },
-    ],
-  };
+---
 
-  return (
-    <div style={{ height: '400px' }}>
-      <Line options={options} data={data} />
-    </div>
-  );
-}
-```
-
-## Best Practices
-
-1. **Start Y-axis at zero** for bar charts (context matters for line charts)
-2. **Limit pie segments** - Max 5-7 slices, group small values into "Other"
-3. **Use consistent colors** - Same color = same metric across charts
-4. **Add context** - Show comparison periods, targets, benchmarks
-5. **Responsive design** - Charts should resize gracefully
-6. **Performance** - Virtualize large datasets, debounce updates
-
-## When to Use
-
-- Building analytics dashboards
-- Creating reports and data presentations
-- Displaying KPIs and metrics
-- Monitoring real-time data
-- Making data-driven applications
-
-## Notes
-
-- Recharts is best for React (declarative, composable)
-- Chart.js offers more chart types out of the box
-- D3.js for custom/complex visualizations
-- Always provide data table alternative for accessibility
+**Last Updated**: 2026-01-05
+**Version**: 1.0.0
+**Source**: Distilled from candlestick chart pattern visualization work

@@ -1,7 +1,7 @@
 {
   "name": "clerk-sdk-patterns",
-  "repo": "HelixDevelopment/HelixAgent",
-  "path": "skills/plugins/saas-packs/clerk-pack/clerk-sdk-patterns/SKILL.md",
-  "source": "github.com/HelixDevelopment/HelixAgent",
-  "downloaded_at": "2026-01-29T04:14:13.869525Z"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/clerk-sdk-patterns/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-30T04:24:25.315980Z"
 }

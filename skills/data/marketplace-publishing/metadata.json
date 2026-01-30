@@ -1,9 +1,7 @@
 {
   "name": "marketplace-publishing",
-  "description": "Expert Claude Code marketplace publishing covering npm publishing, GitHub releases, semantic versioning, plugin packaging, README documentation, CHANGELOG management, marketplace submission, and plugi",
   "repo": "anton-abyzov/specweave",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/specweave-plugin-dev/skills/marketplace-publishing/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-30T01:38:39.846663Z"
 }

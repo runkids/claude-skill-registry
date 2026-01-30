@@ -1,7 +1,7 @@
 {
   "name": "agent-orchestration",
-  "repo": "scooter-lacroix/Maestro",
-  "path": "maestro/skills/agent-orchestration/SKILL.md",
-  "source": "github.com/scooter-lacroix/Maestro",
-  "downloaded_at": "2026-01-29T03:43:44.028337Z"
+  "repo": "frankxai/arcanea",
+  "path": ".claude/skills/community/agent-orchestration/SKILL.md",
+  "source": "github.com/frankxai/arcanea",
+  "downloaded_at": "2026-01-30T04:44:27.565894Z"
 }

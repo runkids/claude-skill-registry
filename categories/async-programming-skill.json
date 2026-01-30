@@ -1,0 +1,19 @@
+{
+  "category": "async-programming-skill",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.554792Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill provides async/await patterns and best practices for concurrent programming",
+      "repo": "ingpoc/SKILLS",
+      "path": "async-programming-skill",
+      "branch": "main",
+      "category": "async-programming-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "ingpoc/SKILLS",
+      "source": "github.com/ingpoc/SKILLS"
+    }
+  ]
+}

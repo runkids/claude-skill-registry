@@ -1,9 +1,7 @@
 {
   "name": "ux-animation-motion",
-  "description": "Animation patterns using Anime.js v4 for UI feedback, transitions, and celebrations. Use when implementing hover effects, transitions, loading animations, or gamification feedback. Includes reduced mo",
   "repo": "matthewharwood/fantasy-phonics",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/ux-animation-motion/SKILL.md",
+  "source": "github.com/matthewharwood/fantasy-phonics",
+  "downloaded_at": "2026-01-30T01:44:52.666692Z"
 }

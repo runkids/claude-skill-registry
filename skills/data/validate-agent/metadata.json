@@ -1,7 +1,7 @@
 {
   "name": "validate-agent",
-  "repo": "namesreallyblank/Clorch",
-  "path": "skills/validate-agent/SKILL.md",
-  "source": "github.com/namesreallyblank/Clorch",
-  "downloaded_at": "2026-01-29T04:11:02.194717Z"
+  "repo": "carmandale/agent-config",
+  "path": "skills/cc3/validate-agent/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-30T04:46:43.534159Z"
 }

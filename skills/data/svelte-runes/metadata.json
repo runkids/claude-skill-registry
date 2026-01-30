@@ -1,12 +1,7 @@
 {
   "name": "svelte-runes",
-  "description": "Svelte runes guidance. Use for reactive state, props, effects, attachments, or migration. Covers $state, $derived, $effect, @attach. Prevents reactivity mistakes.",
-  "repo": "spences10/svelte-claude-skills",
-  "category": "design",
-  "tags": [
-    "svelte",
-    "runes"
-  ],
-  "stars": 107,
-  "source": "SkillsMP Synced Skills"
+  "repo": "dandedotdev/dotfiles",
+  "path": ".claude/skills/svelte-runes/SKILL.md",
+  "source": "github.com/dandedotdev/dotfiles",
+  "downloaded_at": "2026-01-30T02:47:38.943594Z"
 }

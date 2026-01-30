@@ -1,15 +1,6 @@
 ---
-name: PRPM JSON Best Practices
-description: Best practices for structuring prpm.json package manifests with required fields, tags, organization, and multi-package management
-author: PRPM Team
-version: 1.0.0
-tags:
-  - prpm
-  - package-management
-  - json
-  - manifest
-  - best-practices
-  - publishing
+name: prpm-json-best-practices
+description: Best practices for structuring prpm.json package manifests with required fields, tags, organization, multi-package management, enhanced file format, eager/lazy activation, and conversion hints
 ---
 
 # PRPM JSON Best Practices
@@ -44,62 +35,36 @@ Use `prpm.json` when you're:
 ## File Structure
 
 ### Single Package
+See `examples/single-package.json` for complete structure.
 
-For repositories with one package:
-
-```json
-{
-  "name": "my-awesome-skill",
-  "version": "1.0.0",
-  "description": "Clear, concise description of what this package does",
-  "author": "Your Name <you@example.com>",
-  "license": "MIT",
-  "repository": "https://github.com/username/repo",
-  "organization": "your-org",
-  "format": "claude",
-  "subtype": "skill",
-  "tags": ["typescript", "best-practices", "code-quality"],
-  "files": [
-    ".claude/skills/my-awesome-skill/SKILL.md"
-  ]
-}
-```
+**Key fields:** `name`, `version`, `description`, `author`, `license`, `format`, `subtype`, `files`
 
 ### Multi-Package Repository
+See `examples/multi-package.json` for complete structure.
 
-For repositories with multiple packages (like this one):
+**Use when:** Publishing multiple related packages from one repo
+**Key difference:** Top-level `packages` array with individual package definitions
 
-```json
-{
-  "name": "prpm-packages",
-  "version": "1.0.0",
-  "author": "Your Name",
-  "license": "MIT",
-  "repository": "https://github.com/username/repo",
-  "organization": "your-org",
-  "packages": [
-    {
-      "name": "package-one",
-      "version": "1.0.0",
-      "description": "Description of package one",
-      "private": true,
-      "format": "claude",
-      "subtype": "agent",
-      "tags": ["tag1", "tag2"],
-      "files": [".claude/agents/package-one.md"]
-    },
-    {
-      "name": "package-two",
-      "version": "1.0.0",
-      "description": "Description of package two",
-      "format": "cursor",
-      "subtype": "rule",
-      "tags": ["tag1", "tag3"],
-      "files": [".cursor/rules/package-two.mdc"]
-    }
-  ]
-}
-```
+### Collections Repository
+See `examples/collections-repository.json` for complete structure.
+
+**Use when:** Bundling existing published packages into curated collections
+**Key points:**
+- `collections` array references packages by `packageId` (not files)
+- Each collection has `id`, `name`, `description`, `packages`
+- Packages can be `required: true` (default) or `false` (optional)
+- Use version ranges (`^1.0.0`) or `latest`
+- Add `reason` to explain why package is included
+
+### Packages + Collections (Combined)
+See `examples/packages-with-collections.json` for complete structure.
+
+**Use when:** Publishing packages AND creating collections that bundle them
+**Key points:**
+- Define packages in `packages` array with files
+- Define collections in `collections` array referencing those packages
+- Collections can reference both local packages and external ones
+- Publish both individual packages and collection bundles from same repo
 
 ## Required Fields
 
@@ -124,11 +89,15 @@ For repositories with multiple packages (like this one):
 | `organization` | string | Organization name (for scoped packages) |
 | `homepage` | string | Package homepage URL |
 | `documentation` | string | Documentation URL |
+| `license_text` | string | Full text of the license file for proper attribution |
+| `license_url` | string | URL to the license file in the repository |
 | `tags` | string[] | Searchable tags (kebab-case) |
 | `keywords` | string[] | Additional keywords for search |
 | `category` | string | Package category |
 | `private` | boolean | If `true`, won't be published to public registry |
 | `dependencies` | object | Package dependencies (name: semver) |
+| `scripts` | object | Lifecycle scripts (multi-package only) |
+| `eager` | boolean | If `true`, skill/agent loads at session start (not on-demand) |
 
 ### Multi-Package Fields
 
@@ -144,6 +113,38 @@ When using `packages` array:
 | `tags` | string[] | Recommended | Searchable tags |
 | `files` | string[] | **Yes** | Files to include |
 | `private` | boolean | No | Mark as private |
+| `eager` | boolean | No | Load at session start (skills/agents only) |
+
+### Collection Fields
+
+When using `collections` array:
+
+**Top-level (repository with collections):**
+- `name`, `version`, `description`, `author`, `license` - **Required**
+- `repository`, `organization` - Recommended
+- Note: No `format`, `subtype`, or `files` required at top level
+
+**Each collection object:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | **Yes** | Unique collection identifier (kebab-case, 3-100 chars) |
+| `name` | string | **Yes** | Display name (3-100 chars) |
+| `description` | string | **Yes** | What the collection provides (10-500 chars) |
+| `packages` | array | **Yes** | Array of packages to include (minimum 1) |
+| `version` | string | Recommended | Semantic version of collection |
+| `category` | string | Recommended | Collection category (development, testing, etc.) |
+| `tags` | string[] | Recommended | Searchable tags (kebab-case, 1-10 items) |
+| `icon` | string | Optional | Emoji or icon (max 10 chars) |
+
+**Each package within collection:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `packageId` | string | **Yes** | Package to include |
+| `version` | string | Optional | Version range (^1.0.0, ~2.1.0, 1.0.0, latest) |
+| `required` | boolean | Optional | Whether package is required (default: true) |
+| `reason` | string | Optional | Why package is included (max 200 chars) |
 
 ## Format and Subtype Values
 
@@ -173,6 +174,76 @@ When using `packages` array:
 | `collection` | Package collections | Any |
 | `chatmode` | Chat modes | `kiro` |
 | `tool` | MCP tools | `mcp` |
+
+## Eager vs Lazy Activation
+
+Skills and agents can be configured to load eagerly (at session start) or lazily (on-demand when relevant).
+
+### When to Use Eager
+
+**Use `eager: true` when:**
+- The skill should ALWAYS be active (coding standards, style guides)
+- Critical behavior that must never be skipped
+- Small, foundational skills with minimal token cost
+
+**Keep lazy (default) when:**
+- Specialized skills for specific contexts
+- Large skills with significant token overhead
+- Skills that only apply to certain file types
+
+### Setting Eager in prpm.json
+
+**Package-level:**
+```json
+{
+  "name": "code-style-enforcer",
+  "version": "1.0.0",
+  "format": "claude",
+  "subtype": "skill",
+  "eager": true,
+  "files": [".claude/skills/code-style/SKILL.md"]
+}
+```
+
+**File-level (enhanced files format):**
+```json
+{
+  "files": [
+    {
+      "path": ".claude/skills/critical-skill/SKILL.md",
+      "format": "claude",
+      "subtype": "skill",
+      "eager": true
+    },
+    {
+      "path": ".claude/skills/optional-skill/SKILL.md",
+      "format": "claude",
+      "subtype": "skill",
+      "eager": false
+    }
+  ]
+}
+```
+
+### Precedence
+
+When installing, the final eager setting is determined by:
+1. CLI flag (`--eager`/`--lazy`) - highest priority
+2. File-level `eager` setting (enhanced files)
+3. Package-level `eager` setting
+4. Default: lazy (false)
+
+### Applicable Subtypes
+
+| Subtype | Supports Eager |
+|---------|----------------|
+| `skill` | Yes |
+| `agent` | Yes |
+| `rule` | No |
+| `slash-command` | No |
+| `hook` | No |
+
+Eager loading only affects progressive disclosure formats (agents.md, gemini.md, claude.md, aider).
 
 ## Tags Best Practices
 
@@ -370,6 +441,53 @@ Slash command:
 }
 ```
 
+### Enhanced File Format
+
+**Advanced:** Files can be objects with metadata instead of simple strings. Useful for packages with multiple files targeting different formats or needing per-file metadata.
+
+**Enhanced file object structure:**
+```json
+{
+  "files": [
+    {
+      "path": ".cursor/rules/typescript.mdc",
+      "format": "cursor",
+      "subtype": "rule",
+      "name": "TypeScript Rules",
+      "description": "TypeScript coding standards and best practices",
+      "tags": ["typescript", "frontend"]
+    },
+    {
+      "path": ".cursor/rules/python.mdc",
+      "format": "cursor",
+      "subtype": "rule",
+      "name": "Python Rules",
+      "description": "Python best practices for backend development",
+      "tags": ["python", "backend"]
+    }
+  ]
+}
+```
+
+**When to use enhanced format:**
+- Multi-file packages with different formats/subtypes per file
+- Need per-file descriptions or tags
+- Want to provide display names for individual files
+- Building collection packages with mixed content types
+
+**Enhanced file fields:**
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `path` | **Yes** | Relative path to file from project root |
+| `format` | **Yes** | File's target format (`cursor`, `claude`, etc.) |
+| `subtype` | No | File's subtype (`rule`, `skill`, `agent`, etc.) |
+| `name` | No | Display name for this file |
+| `description` | No | Description of what this file does |
+| `tags` | No | File-specific tags (array of strings) |
+
+**Note:** Cannot mix simple strings and objects in the same `files` array. Use all strings OR all objects, not both.
+
 **Common Mistake:**
 ```json
 {
@@ -428,6 +546,151 @@ If output is empty, no duplicates exist. If names appear, you have duplicates to
 }
 ```
 
+## Conversion Hints (Advanced)
+
+**Purpose:** Help improve quality when converting packages to other formats. The `conversion` field provides format-specific hints for cross-format transformations.
+
+**Note:** This is an advanced feature primarily used by format conversion tools. Most packages don't need this.
+
+**Structure:**
+
+```json
+{
+  "name": "my-package",
+  "version": "1.0.0",
+  "format": "claude",
+  "conversion": {
+    "cursor": {
+      "alwaysApply": false,
+      "priority": "high",
+      "globs": ["**/*.ts", "**/*.tsx"]
+    },
+    "kiro": {
+      "inclusion": "fileMatch",
+      "fileMatchPattern": "**/*.ts",
+      "domain": "typescript",
+      "tools": ["fs_read", "fs_write"],
+      "mcpServers": {
+        "database": {
+          "command": "mcp-server-postgres",
+          "args": [],
+          "env": {
+            "DATABASE_URL": "${DATABASE_URL}"
+          }
+        }
+      }
+    },
+    "copilot": {
+      "applyTo": ["src/**", "lib/**"],
+      "excludeAgent": "code-review"
+    }
+  }
+}
+```
+
+**Supported conversion hints:**
+
+### Cursor Hints
+```json
+{
+  "conversion": {
+    "cursor": {
+      "alwaysApply": boolean,      // Whether rule should always apply
+      "priority": "high|medium|low", // Rule priority level
+      "globs": ["**/*.ts"]         // File patterns to auto-attach
+    }
+  }
+}
+```
+
+### Claude Hints
+```json
+{
+  "conversion": {
+    "claude": {
+      "model": "sonnet|opus|haiku|inherit", // Preferred model
+      "tools": ["Read", "Write"],          // Allowed tools
+      "subagentType": "format-conversion"  // Subagent type if agent
+    }
+  }
+}
+```
+
+### Kiro Hints
+```json
+{
+  "conversion": {
+    "kiro": {
+      "inclusion": "always|fileMatch|manual", // When to include
+      "fileMatchPattern": "**/*.ts",         // Pattern for fileMatch mode
+      "domain": "typescript",                // Domain category
+      "tools": ["fs_read", "fs_write"],     // Available tools
+      "mcpServers": {                        // MCP server configs
+        "database": {
+          "command": "mcp-server-postgres",
+          "args": [],
+          "env": { "DATABASE_URL": "${DATABASE_URL}" }
+        }
+      }
+    }
+  }
+}
+```
+
+### Copilot Hints
+```json
+{
+  "conversion": {
+    "copilot": {
+      "applyTo": "src/**",                         // Path patterns
+      "excludeAgent": "code-review|coding-agent"  // Agent to exclude
+    }
+  }
+}
+```
+
+### Continue Hints
+```json
+{
+  "conversion": {
+    "continue": {
+      "alwaysApply": boolean,           // Always apply rule
+      "globs": ["**/*.ts"],             // File patterns
+      "regex": ["import.*from"]         // Regex patterns
+    }
+  }
+}
+```
+
+### Windsurf Hints
+```json
+{
+  "conversion": {
+    "windsurf": {
+      "characterLimit": 12000  // Warn if exceeding limit
+    }
+  }
+}
+```
+
+### Agents.md Hints
+```json
+{
+  "conversion": {
+    "agentsMd": {
+      "project": "my-project",  // Project name
+      "scope": "backend"        // Scope/domain
+    }
+  }
+}
+```
+
+**When to use conversion hints:**
+- Publishing cross-format packages that need specific settings per format
+- Format conversion tools need guidance on how to transform content
+- Package behavior should change based on target format
+- Want to preserve format-specific metadata during conversions
+
 ## Common Patterns
 
 ### Private Internal Packages
@@ -483,6 +746,224 @@ When you have the same content for multiple formats:
   ]
 }
 ```
+
+### Collections in prpm.json
+
+Collections CAN be defined in prpm.json alongside packages using the `collections` array. Collections bundle multiple packages together for easier installation.
+
+**Example with both packages and collections:**
+
+```json
+{
+  "name": "my-prompts-repo",
+  "author": "Your Name",
+  "license": "MIT",
+  "packages": [
+    {
+      "name": "typescript-rules",
+      "version": "1.0.0",
+      "description": "TypeScript best practices",
+      "format": "cursor",
+      "subtype": "rule",
+      "tags": ["typescript"],
+      "files": [".cursor/rules/typescript.mdc"]
+    }
+  ],
+  "collections": [
+    {
+      "id": "my-dev-setup",
+      "name": "My Development Setup",
+      "description": "Complete development setup with TypeScript and React",
+      "version": "1.0.0",
+      "category": "development",
+      "tags": ["typescript", "react"],
+      "packages": [
+        {
+          "packageId": "typescript-strict",
+          "version": "^1.0.0",
+          "required": true,
+          "reason": "Enforces strict TypeScript type safety"
+        },
+        {
+          "packageId": "react-best-practices",
+          "version": "^2.0.0",
+          "required": true
+        }
+      ]
+    }
+  ]
+}
+```
+
+For more details on creating collections, see the PRPM documentation at https://docs.prpm.dev or run `prpm help collections`.
+
+**Summary:** `prpm.json` can contain both packages (skills, agents, rules, slash-commands, etc.) and collections.
+
+## Lifecycle Scripts
+
+**IMPORTANT:** The `scripts` field only applies to **multi-package manifests** (prpm.json with a `packages` array). It does NOT work in single-package manifests.
+
+Use the `scripts` field to run commands automatically during package operations, particularly for building TypeScript hooks before publishing.
+
+### When to Use Scripts
+
+**Primary use case: Building TypeScript Hooks**
+
+If your packages include Claude Code hooks written in TypeScript, you MUST build them to JavaScript before publishing:
+
+```json
+{
+  "name": "my-packages",
+  "license": "MIT",
+  "scripts": {
+    "prepublishOnly": "cd packages/hooks && npm run build"
+  },
+  "packages": [
+    {
+      "name": "my-hook",
+      "version": "1.0.0",
+      "format": "claude",
+      "subtype": "hook",
+      "files": [
+        ".claude/hooks/my-hook/hook.ts",
+        ".claude/hooks/my-hook/hook.json",
+        ".claude/hooks/my-hook/dist/hook.js"
+      ]
+    }
+  ]
+}
+```
+
+### Available Script Types
+
+| Script | When it Runs | Use Case |
+|--------|--------------|----------|
+| `prepublishOnly` | Before `prpm publish` only | **Recommended** - Build hooks, compile assets |
+| `prepublish` | Before publish AND on npm install | **Not recommended** - causes unexpected builds |
+
+**Always use `prepublishOnly` instead of `prepublish`** to avoid running builds when users install your packages.
+
+### prepublishOnly Examples
+
+**Single hook:**
+```json
+{
+  "scripts": {
+    "prepublishOnly": "cd .claude/hooks/my-hook && npm run build"
+  }
+}
+```
+
+**Multiple hooks:**
+```json
+{
+  "scripts": {
+    "prepublishOnly": "cd .claude/hooks/hook-one && npm run build && cd ../hook-two && npm run build"
+  }
+}
+```
+
+**With tests:**
+```json
+{
+  "scripts": {
+    "prepublishOnly": "npm test && cd packages/hooks && npm run build"
+  }
+}
+```
+
+### What Happens During Publishing
+
+When you run `prpm publish`:
+
+1. PRPM checks for `scripts.prepublishOnly` in your prpm.json
+2. If found, runs the script from the directory containing prpm.json
+3. If script succeeds (exit code 0), publishing continues
+4. If script fails (non-zero exit code), publishing is aborted
+
+**Script execution details:**
+- Working directory: Same directory as prpm.json
+- Timeout: 5 minutes (300,000ms) default
+- Environment: Inherits your shell's environment variables
+- Output: Shown in real-time
+
+### Best Practices for Scripts
+
+**DO:**
+- ✅ Use `prepublishOnly` for building hooks
+- ✅ Chain commands with `&&` for dependencies: `npm test && npm run build`
+- ✅ Keep scripts fast (under 1 minute if possible)
+- ✅ Test scripts locally before publishing
+
+**DON'T:**
+- ❌ Use `prepublish` (runs on install too)
+- ❌ Forget to build hooks before publishing
+- ❌ Use scripts in single-package manifests (not supported)
+- ❌ Put long-running operations in scripts
+
+### Common Patterns
+
+**Hooks in packages/ directory:**
+```json
+{
+  "scripts": {
+    "prepublishOnly": "cd packages/hooks && npm run build"
+  }
+}
+```
+
+**Hooks in .claude/ directory:**
+```json
+{
+  "scripts": {
+    "prepublishOnly": "cd .claude/hooks/my-hook && npm run build"
+  }
+}
+```
+
+**Build multiple components:**
+```json
+{
+  "scripts": {
+    "prepublishOnly": "npm run build:hooks && npm run build:assets"
+  }
+}
+```
+
+### Debugging Script Failures
+
+If your prepublishOnly script fails:
+
+1. **Check the output** - Error messages show what went wrong
+2. **Run manually** - Test the exact command in your terminal
+3. **Verify working directory** - Scripts run from prpm.json location
+4. **Check dependencies** - Ensure npm packages are installed
+
+**Example debugging:**
+```bash
+# Test your prepublishOnly script manually
+cd /path/to/prpm.json/directory
+cd packages/hooks && npm run build
+
+# If it works manually but fails in PRPM, check:
+# - Working directory assumptions
+# - Environment variables
+# - Installed dependencies
+```
+
+### Why This Matters
+
+**Without prepublishOnly:**
+- You might forget to build hooks before publishing
+- Published packages contain stale/outdated JavaScript
+- Users install broken hooks
+- Manual builds are error-prone
+
+**With prepublishOnly:**
+- Hooks automatically build before every publish
+- JavaScript always matches TypeScript source
+- Prevents publishing broken code
+- Consistent, reliable publishing workflow
 
 ## Validation Checklist
 
@@ -720,15 +1201,17 @@ prpm publish --package my-skill
 
 ## Remember
 
-- `prpm.json` is **only for publishing YOUR packages**, not for installed dependencies
+- `prpm.json` is **only for publishing YOUR packages/collections**, not for installed dependencies
 - **Never add packages from `prpm.lock` to `prpm.json`** - they serve different purposes
 - `prpm.lock` tracks what you INSTALL, `prpm.json` defines what you PUBLISH
+- Use `collections` array to bundle existing packages (references by packageId)
+- Use `packages` array to define packages with files
+- Can combine both `packages` and `collections` in same repo
 - Always validate before committing
 - Keep versions in sync for related packages
 - Use consistent, searchable tags
-- Organize packages logically (private > format > subtype)
 - Verify all file paths exist
 - Check for duplicate names
 - Follow semver for version management
 
-**Goal:** Create maintainable, well-organized package manifests that are easy to publish and discover in the PRPM registry, while keeping installed dependencies separate in `prpm.lock`.
+**Goal:** Create maintainable, well-organized package manifests and curated collections that are easy to publish and discover in the PRPM registry.

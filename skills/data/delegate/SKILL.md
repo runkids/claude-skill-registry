@@ -1,74 +1,137 @@
 ---
 name: delegate
-description: 'Quick delegation template for sub-agent prompts. Use when assigning work to a sub-agent, before invoking the Task tool, or when preparing prompts for specialized agents. Provides the WHERE-WHAT-WHY framework. For comprehensive delegation guidance, see /how-to-delegate.'
-user-invocable: true
+description: |
+  Multi-AI orchestration primitive. Delegate to specialized AI tools, collect outputs, synthesize.
+  Use when: analysis, review, audit, investigation tasks need multiple expert perspectives.
+  Keywords: orchestrate, delegate, multi-ai, parallel, synthesis, consensus
 ---
 
-# Delegation Template
+# /delegate
 
-**Workflow Reference**: See [Multi-Agent Orchestration](./../knowledge/workflow-diagrams/multi-agent-orchestration.md) for complete delegation flow with DONE/BLOCKED signaling.
+> You orchestrate. Specialists do the work.
 
-**Step 1:** Analyze the task. Do you have the "WHERE, WHAT, WHY"?
+Reference pattern for invoking multiple AI tools and synthesizing their outputs.
 
-**Step 2:** Construct the prompt using the template below.
+## Your Role
 
----
+You don't analyze/review/audit yourself. You:
+1. **Route** — Send work to appropriate specialists
+2. **Collect** — Gather their outputs
+3. **Curate** — Validate, filter, resolve conflicts
+4. **Synthesize** — Produce unified output
 
-## Template
+## Your Team
 
-```text
-Your ROLE_TYPE is sub-agent.
+### Agentic Tools (Can Take Action)
 
-[Task Identification - one sentence]
+**Codex MCP** — Senior engineer, security specialist
+- Long-context understanding, reliable tool calling
+- Best at: refactors, migrations, debugging, security review
+- Invocation: `mcp__codex__spawn_agent({"prompt": "..."})`
+- Parallel: `mcp__codex__spawn_agents_parallel({"agents": [...]})`
 
-OBSERVATIONS (Factual only):
-- [Verbatim error messages]
-- [Exact file:line references]
-- [Environment state]
-- [NO interpretations or "I think"]
+**Kimi MCP** — Visual/frontend specialist
+- Native multimodal (vision + text), agent swarm architecture
+- Best at: UI from designs, visual debugging, frontend patterns
+- Invocation: `mcp__moonbridge__spawn_agent({"prompt": "...", "thinking": true})`
+- Parallel: `mcp__moonbridge__spawn_agents_parallel({"agents": [...]})`
 
-DEFINITION OF SUCCESS (The "WHAT"):
-- [Specific measurable outcome]
-- [Acceptance criteria]
-- [Verification method]
+**Gemini CLI** — Researcher, deep reasoner
+- Web grounding, thinking_level control, agentic vision
+- Best at: current best practices, pattern validation, design research
+- Invocation: `gemini "..."` (bash)
 
-CONTEXT (The "WHERE" & "WHY"):
-- Location: [Where to look]
-- Scope: [Boundaries]
-- Constraints: [Hard requirements vs Preferences]
+### Non-Agentic (Opinions Only)
 
-AVAILABLE RESOURCES:
-- [List available MCP tools]
-- [Reference docs with @filepath]
+**Thinktank CLI** — Expert council
+- Multiple models respond in parallel, synthesis mode
+- Best at: consensus, architecture validation, second opinions
+- Invocation: `thinktank instructions.md ./files --synthesis` (bash)
+- **Note**: Cannot take action. Use for validation, not investigation.
 
-YOUR TASK:
-1. Run /verify (as completion criteria guide)
-2. Perform comprehensive context gathering
-3. Form hypothesis → Experiment → Verify
-4. Implement solution
-5. Only report completion after /verify criteria are met
+### Internal Agents (Task tool)
+
+Domain specialists for focused review:
+- `go-concurrency-reviewer`, `react-pitfalls`, `security-sentinel`
+- `data-integrity-guardian`, `architecture-guardian`, `config-auditor`
+
+## How to Delegate
+
+Apply `/llm-communication` principles — state goals, not steps:
+
+### To Agentic Tools (Codex, Kimi, Gemini)
+
+Give them latitude to investigate:
+```
+"Investigate this stack trace. Find root cause. Propose fix with file:line."
 ```
 
----
+NOT:
+```
+"Step 1: Read file X. Step 2: Check line Y. Step 3: ..."
+```
 
-## Delegation Rules
+### To Thinktank (Non-Agentic)
 
-Check before sending:
+Provide context, ask for judgment:
+```
+"Here's the code and proposed fix. Is this approach sound?
+What are we missing? Consensus and dissent."
+```
 
-| Rule               | Check                                                                                    |
-| ------------------ | ---------------------------------------------------------------------------------------- |
-| **Formula**        | Delegation = Observations + Success Criteria + Resources - Assumptions - Micromanagement |
-| **No HOW**         | Do NOT tell agent _how_ to implement (e.g., "Change line 42 to X")                       |
-| **Constraints OK** | DO tell agent _constraints_ (e.g., "Must use the 'requests' library")                    |
-| **No Assumptions** | Do NOT say "The issue is probably..."                                                    |
-| **Full Scope**     | If code smell found, instruct agent to audit _entire pattern_, not single instance       |
+### Parallel Execution
 
----
+Run independent reviews in parallel:
+- Multiple MCP calls in same message
+- Multiple Task tool calls in same message
+- Gemini + Thinktank can run concurrently (both bash)
 
-## Quick Checklist
+## Curation (Your Core Job)
 
-- [ ] Starts with `Your ROLE_TYPE is sub-agent.`
-- [ ] Contains only factual observations
-- [ ] No assumptions stated as facts
-- [ ] Defines WHAT and WHY, not HOW
-- [ ] Lists resources without prescribing tools
+For each finding:
+
+**Validate**: Real issue or false positive? Applies to our context?
+**Filter**: Generic advice, style preferences contradicting conventions
+**Resolve Conflicts**: When tools disagree, explain tradeoff, make recommendation
+
+## Output Template
+
+```markdown
+## [Task]: [subject]
+
+### Action Plan
+
+#### Critical
+- [ ] `file:line` — Issue — Fix: [action] (Source: [tool])
+
+#### Important
+- [ ] `file:line` — Issue — Fix: [action] (Source: [tool])
+
+#### Suggestions
+- [ ] [improvement] (Source: [tool])
+
+### Synthesis
+
+**Agreements** — Multiple tools flagged:
+- [issue]
+
+**Conflicts** — Differing opinions:
+- [Tool A] vs [Tool B]: [your recommendation]
+
+**Research** — From Gemini:
+- [finding with citation]
+```
+
+## When to Use
+
+- **Code review** — Multiple perspectives on changes
+- **Incident investigation** — Agentic tools investigate, Thinktank validates fix
+- **Architecture decisions** — Thinktank for consensus
+- **Audit/check tasks** — Parallel investigation across domains
+
+## Related
+
+- `/llm-communication` — Prompt writing principles
+- `/review-branch` — Example implementation
+- `/thinktank` — Multi-model synthesis
+- `/codex-coworker` — Codex delegation patterns

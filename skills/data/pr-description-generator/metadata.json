@@ -1,7 +1,7 @@
 {
   "name": "pr-description-generator",
-  "repo": "pascallammers/mylo-travel-concierge-v2",
-  "path": ".factory/skills/pr-description-generator/SKILL.md",
-  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
-  "downloaded_at": "2026-01-29T03:58:10.122795Z"
+  "repo": "ntaksh42/agents",
+  "path": ".claude/skills/pr-description-generator/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-30T01:01:56.605333Z"
 }

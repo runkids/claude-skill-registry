@@ -1,13 +1,7 @@
 {
   "name": "building-ai-agent-on-cloudflare",
-  "description": "Builds AI agents on Cloudflare using the Agents SDK with state management,real-time WebSockets, scheduled tasks, tool integration, and chat capabilities.Generates production-ready agent code deployed ",
-  "repo": "cloudflare/skills",
-  "category": "development",
-  "tags": [
-    "building",
-    "agent",
-    "cloudflare"
-  ],
-  "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "repo": "CommandCodeAI/agent-skills",
+  "path": "skills/building-ai-agent-on-cloudflare/SKILL.md",
+  "source": "github.com/CommandCodeAI/agent-skills",
+  "downloaded_at": "2026-01-30T04:14:01.077858Z"
 }

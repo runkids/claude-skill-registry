@@ -1,7 +1,7 @@
 {
   "name": "documentation-standards",
-  "repo": "amattas/retail-demo",
-  "path": ".claude/skills/documentation-standards/SKILL.md",
-  "source": "github.com/amattas/retail-demo",
-  "downloaded_at": "2026-01-29T04:14:04.247189Z"
+  "repo": "phrazzld/claude-config",
+  "path": "skills/documentation-standards/SKILL.md",
+  "source": "github.com/phrazzld/claude-config",
+  "downloaded_at": "2026-01-30T04:28:45.348894Z"
 }

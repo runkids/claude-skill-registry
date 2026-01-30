@@ -6,6 +6,23 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 # Roblox Animation Systems
 
+## Quick Reference Links
+
+**Official Documentation:**
+- [Animation Overview](https://create.roblox.com/docs/animation) - Complete animation guide
+- [Animation Editor](https://create.roblox.com/docs/animation/animation-editor) - Creating animations
+- [Inverse Kinematics](https://create.roblox.com/docs/animation/inverse-kinematics) - IK systems
+- [Animator API](https://create.roblox.com/docs/reference/engine/classes/Animator)
+- [AnimationTrack API](https://create.roblox.com/docs/reference/engine/classes/AnimationTrack)
+- [Animation API](https://create.roblox.com/docs/reference/engine/classes/Animation)
+- [Motor6D API](https://create.roblox.com/docs/reference/engine/classes/Motor6D) - Joint connections
+
+**Wiki References:**
+- [Animation (Wiki)](https://roblox.fandom.com/wiki/Animation)
+- [Animator (Wiki)](https://roblox.fandom.com/wiki/Animator)
+
+---
+
 When implementing animations, follow these patterns for smooth, performant character and object animations.
 
 ## Animation Basics
@@ -573,6 +590,215 @@ local function createCustomRig(model)
 
         motor.Parent = parentPart
         motors[part.Name] = motor
+    end
+
+    return motors
+end
+```
+
+### Motor6D C0/C1 Joint Positioning (CRITICAL)
+
+**Key insight**: C0 and C1 define where the joint is relative to each part. For parts to TOUCH (no gap), place the joint at the EDGE of each part, not the center.
+
+```lua
+-- WRONG: Parts will have gap (joint at centers)
+motor.C0 = CFrame.new()  -- Center of Part0
+motor.C1 = CFrame.new()  -- Center of Part1
+
+-- CORRECT: Parts touch (joint at edges)
+-- If Part0 is in front, Part1 behind (along Z axis):
+motor.C0 = CFrame.new(0, 0, part0Size.Z/2)   -- Back edge of Part0
+motor.C1 = CFrame.new(0, 0, -part1Size.Z/2)  -- Front edge of Part1
+
+-- Example: Dragon spine chain
+local chestSize = Vector3.new(5, 4, 6)
+local midSize = Vector3.new(4.5, 3.5, 5)
+
+-- Chest to MidBody (MidBody is behind Chest)
+motors.Spine1 = createMotor(chest, midBody,
+    CFrame.new(0, 0, chestSize.Z/2),   -- Back of chest
+    CFrame.new(0, 0, -midSize.Z/2),    -- Front of midBody
+    "Spine1")
+```
+
+### Creature Rigging Pattern
+
+Build creatures with a clear hierarchy from root outward:
+
+```lua
+--[[
+Creature Hierarchy:
+    HumanoidRootPart (invisible, anchored for physics)
+        └── Chest (body center)
+            ├── Neck1 → Neck2 → Neck3 → Skull → Snout → Jaw
+            ├── LShoulder → LUpperArm → LForearm → LWrist → Fingers
+            ├── RShoulder → RUpperArm → RForearm → RWrist → Fingers
+            ├── MidBody → Hips
+            │       ├── LUpperLeg → LLowerLeg → LFoot
+            │       ├── RUpperLeg → RLowerLeg → RFoot
+            │       └── Tail1 → Tail2 → Tail3 → ...
+]]
+
+local function createCreatureMotor(part0, part1, c0, c1, name)
+    local motor = Instance.new("Motor6D")
+    motor.Part0 = part0
+    motor.Part1 = part1
+    motor.C0 = c0
+    motor.C1 = c1 or CFrame.new()
+    motor.Name = name
+    motor.Parent = part0
+    return motor
+end
+
+-- Store motors in a table for animation access
+local motors = {}
+motors.Spine1 = createCreatureMotor(chest, midBody, ...)
+motors.Neck1 = createCreatureMotor(chest, neck1, ...)
+motors.LWingFlap = createCreatureMotor(lShoulder, lUpperArm, ...)
+```
+
+### Creature Animation Patterns
+
+```lua
+local function setupCreatureAnimation(creature, motors)
+    local RunService = game:GetService("RunService")
+
+    -- Store original C0 values (CRITICAL for animation)
+    local baseC0 = {}
+    for name, motor in pairs(motors) do
+        baseC0[name] = motor.C0
+    end
+
+    -- Animation state
+    local wingAngle = 0
+    local tailAngle = 0
+    local breathAngle = 0
+
+    RunService.Heartbeat:Connect(function(dt)
+        -- Wing flapping (rotation around Z axis)
+        wingAngle = wingAngle + dt * 6
+        local flap = math.sin(wingAngle) * 0.5  -- 0.5 radians amplitude
+
+        if motors.LWingFlap then
+            -- Animate ON TOP of base C0, don't replace it!
+            motors.LWingFlap.C0 = baseC0.LWingFlap * CFrame.Angles(0, 0, -flap)
+        end
+        if motors.RWingFlap then
+            motors.RWingFlap.C0 = baseC0.RWingFlap * CFrame.Angles(0, 0, flap)
+        end
+
+        -- Tail sway (Y rotation for side-to-side)
+        tailAngle = tailAngle + dt * 2
+        local sway = math.sin(tailAngle) * 0.15
+
+        for i = 1, 8 do
+            local motor = motors["Tail" .. i]
+            local base = baseC0["Tail" .. i]
+            if motor and base then
+                -- Each segment sways more than the previous
+                motor.C0 = base * CFrame.Angles(0, sway * i * 0.3, 0)
+            end
+        end
+
+        -- Breathing (subtle Y movement on chest)
+        breathAngle = breathAngle + dt * 1.5
+        local breathOffset = math.sin(breathAngle) * 0.1
+        -- Apply to body motors...
+    end)
+end
+```
+
+### Multi-Segment Neck Animation (Fire Breathing)
+
+```lua
+local function animateFireBreath(motors, baseC0, isBreathing, progress)
+    if not isBreathing then return end
+
+    -- progress: 0 to 1 over the breath duration
+    local neckAngle
+
+    if progress < 0.2 then
+        -- Phase 1: Rear head back (windup)
+        neckAngle = progress * 5 * math.rad(-20)
+    else
+        -- Phase 2: Thrust forward with shake
+        neckAngle = math.rad(15) + math.sin(progress * 10) * math.rad(5)
+    end
+
+    -- Each neck segment gets progressively more rotation
+    if motors.Neck1 then
+        motors.Neck1.C0 = baseC0.Neck1 * CFrame.Angles(neckAngle * 0.5, 0, 0)
+    end
+    if motors.Neck2 then
+        motors.Neck2.C0 = baseC0.Neck2 * CFrame.Angles(neckAngle * 0.7, 0, 0)
+    end
+    if motors.Neck3 then
+        motors.Neck3.C0 = baseC0.Neck3 * CFrame.Angles(neckAngle, 0, 0)
+    end
+    if motors.Head then
+        motors.Head.C0 = baseC0.Head * CFrame.Angles(neckAngle * 1.2, 0, 0)
+    end
+
+    -- Open jaw wide
+    if motors.Jaw then
+        motors.Jaw.C0 = baseC0.Jaw * CFrame.Angles(math.rad(35), 0, 0)
+    end
+end
+```
+
+### Wing Structure (Bat-Style)
+
+```lua
+-- Detailed wing with multiple finger bones
+local function createWing(side, shoulder, colors, scale)
+    local sideName = side == 1 and "R" or "L"
+    local motors = {}
+
+    -- Upper arm
+    local upperArmSize = Vector3.new(5, 1.2, 1.5) * scale
+    local upperArm = createPart(upperArmSize, colors.secondary)
+    motors.WingFlap = createMotor(shoulder, upperArm,
+        CFrame.new(side * shoulder.Size.X/2, 0, 0) * CFrame.Angles(0, 0, math.rad(side * 10)),
+        CFrame.new(-side * upperArmSize.X/2, 0, 0))
+
+    -- Forearm
+    local forearmSize = Vector3.new(4, 1, 1.2) * scale
+    local forearm = createPart(forearmSize, colors.secondary)
+    motors.Elbow = createMotor(upperArm, forearm,
+        CFrame.new(side * upperArmSize.X/2, 0, 0),
+        CFrame.new(-side * forearmSize.X/2, 0, 0))
+
+    -- Wrist with 4 finger bones radiating out
+    local wristSize = Vector3.new(1.5, 1.5, 1.5) * scale
+    local wrist = createPart(wristSize, colors.primary)
+    createMotor(forearm, wrist, ...)
+
+    local fingerAngles = {-25, -8, 8, 25}  -- Spread angles in degrees
+    local fingerLengths = {6, 7, 6, 4}
+
+    for f = 1, 4 do
+        local angle = math.rad(fingerAngles[f])
+
+        -- First finger segment
+        local finger1Size = Vector3.new(fingerLengths[f] * 0.6, 0.6, 0.5) * scale
+        local finger1 = createPart(finger1Size, colors.secondary)
+        createMotor(wrist, finger1,
+            CFrame.new(side * wristSize.X/2, 0, 0) * CFrame.Angles(0, angle, 0),
+            CFrame.new(-side * finger1Size.X/2, 0, 0))
+
+        -- Second finger segment (tip)
+        local finger2Size = Vector3.new(fingerLengths[f] * 0.5, 0.4, 0.4) * scale
+        local finger2 = createPart(finger2Size, colors.secondary)
+        createMotor(finger1, finger2,
+            CFrame.new(side * finger1Size.X/2, 0, 0),
+            CFrame.new(-side * finger2Size.X/2, 0, 0))
+    end
+
+    -- Membrane between fingers (semi-transparent)
+    for m = 1, 3 do
+        local membrane = createPart(Vector3.new(5, 0.15, 4) * scale, colors.secondary)
+        membrane.Transparency = 0.2
+        -- Position between finger angles...
     end
 
     return motors

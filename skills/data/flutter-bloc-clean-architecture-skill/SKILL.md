@@ -13,19 +13,22 @@ This skill enforces BLoC state management, strict layer separation, and mandator
 ```
 User task → What are they building?
     │
-    ├─ New screen/feature → Full stack implementation:
-    │   1. Define BLoC (events, states, bloc)
-    │   2. Create/update data layer (repository, datasource)
-    │   3. Build UI with design system
+    ├─ New screen/feature → Full feature implementation:
+    │   1. Create feature folder (lib/[feature]/)
+    │   2. Define BLoC (bloc/[feature]_event.dart, _state.dart, _bloc.dart)
+    │   3. Create data layer (data/datasources/, data/repositories/, data/models/)
+    │   4. Build UI (view/[feature]_page.dart, view/widgets/)
+    │   5. Create barrel files ([feature].dart, data/data.dart, view/view.dart)
     │
     ├─ New widget only → Presentation layer:
-    │   1. Create in widgets/ (reusable) or screens/ (feature-specific)
-    │   2. Use design system constants (NO hardcoded values)
-    │   3. Connect to existing BLoC if needed
+    │   1. Feature-specific: feature/view/widgets/
+    │   2. Shared/reusable: shared/widgets/
+    │   3. Use design system constants (NO hardcoded values)
+    │   4. Connect to existing BLoC if needed
     │
     ├─ Data integration → Data layer only:
-    │   1. Create datasource (Supabase/Firebase SDK calls)
-    │   2. Create repository (maps to domain entities)
+    │   1. Create datasource (feature/data/datasources/)
+    │   2. Create repository (feature/data/repositories/)
     │   3. Wire up in existing or new BLoC
     │
     └─ Refactoring → Identify violations:
@@ -39,16 +42,62 @@ User task → What are they building?
 
 ## Architecture at a Glance
 
+**Feature-first structure** (official BLoC recommendation):
+
 ```
 lib/
-├── bloc/[feature]/          # Events, States, BLoC
-├── data/datasources/        # Backend SDK calls (Supabase, Firebase)
-├── data/repositories/       # Data orchestration, maps to entities
-├── data/models/             # DTOs, JSON serialization
-├── domain/entities/         # Pure Dart business objects
-├── screens/                 # Feature screens
-├── widgets/                 # Reusable components
-└── utils/                   # Design system (colors, spacing, typography)
+├── [feature]/                    # Feature folder (e.g., earnings/, auth/, trips/)
+│   ├── bloc/
+│   │   ├── [feature]_bloc.dart
+│   │   ├── [feature]_event.dart
+│   │   └── [feature]_state.dart
+│   ├── data/
+│   │   ├── datasources/          # Feature-specific API calls
+│   │   ├── repositories/         # Data orchestration
+│   │   ├── models/               # Feature-specific DTOs
+│   │   └── data.dart             # Data layer barrel file
+│   ├── view/
+│   │   ├── [feature]_page.dart   # Main screen
+│   │   ├── widgets/              # Feature-specific widgets
+│   │   └── view.dart             # View barrel file
+│   └── [feature].dart            # Feature barrel file
+├── shared/                       # Cross-feature code
+│   ├── data/
+│   │   ├── datasources/          # Shared API clients (ApiClient, UserDataSource)
+│   │   ├── models/               # Shared models (User, ApiResponse)
+│   │   └── data.dart             # Shared data barrel file
+│   ├── widgets/                  # Reusable UI components
+│   └── utils/                    # Design system (colors, spacing, typography)
+└── app.dart                      # App entry point
+```
+
+### When to Use Feature vs Shared Data
+
+| Scenario | Location | Example |
+|----------|----------|---------|
+| API endpoints used by ONE feature | `feature/data/` | `EarningsDataSource` → `/api/earnings/...` |
+| API client/service used by MANY features | `shared/data/` | `ApiClient`, `UserDataSource` |
+| Models used by ONE feature | `feature/data/models/` | `EarningsSummary` |
+| Models used by MANY features | `shared/data/models/` | `User`, `ApiResponse` |
+
+**Barrel Files** — Single import per layer:
+```dart
+// Feature barrel: earnings/earnings.dart
+export 'bloc/earnings_bloc.dart';
+export 'bloc/earnings_event.dart';
+export 'bloc/earnings_state.dart';
+export 'data/data.dart';
+export 'view/view.dart';
+
+// Data layer barrel: earnings/data/data.dart
+export 'datasources/earnings_datasource.dart';
+export 'repositories/earnings_repository.dart';
+export 'models/earnings_summary.dart';
+
+// Shared data barrel: shared/data/data.dart
+export 'datasources/api_client.dart';
+export 'datasources/user_datasource.dart';
+export 'models/user.dart';
 ```
 
 **Key Rules:**
@@ -56,6 +105,8 @@ lib/
 - No direct backend SDK calls outside datasources
 - Zero hardcoded values (colors, spacing, typography)
 - Repository pattern for all data access
+- Feature-specific code stays in feature folder
+- Shared code (used by 2+ features) goes in `shared/`
 
 ---
 

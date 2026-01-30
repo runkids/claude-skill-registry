@@ -1,7 +1,7 @@
 {
   "name": "architecture-review",
-  "repo": "codenamev/ai-software-architect",
-  "path": ".claude/skills/architecture-review/SKILL.md",
-  "source": "github.com/codenamev/ai-software-architect",
-  "downloaded_at": "2026-01-29T03:08:59.419825Z"
+  "repo": "athola/claude-night-market",
+  "path": "plugins/pensive/skills/architecture-review/SKILL.md",
+  "source": "github.com/athola/claude-night-market",
+  "downloaded_at": "2026-01-30T04:03:26.596899Z"
 }

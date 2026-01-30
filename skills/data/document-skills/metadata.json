@@ -1,9 +1,7 @@
 {
   "name": "document-skills",
-  "description": "Professional document creation, editing, and analysis for Office formats (docx, pdf, pptx, xlsx). Use when working with Word documents, PDFs, PowerPoint presentations, or Excel spreadsheets.",
-  "repo": "travisjneuman/.claude",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/travisjneuman/.claude"
+  "repo": "wollfoo/codex-setup",
+  "path": "skills/document-skills/SKILL.md",
+  "source": "github.com/wollfoo/codex-setup",
+  "downloaded_at": "2026-01-30T03:22:36.948746Z"
 }

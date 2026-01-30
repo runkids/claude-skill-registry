@@ -1,340 +1,146 @@
 ---
 name: postgres-patterns
-description: PostgreSQL patterns for reviewing migrations and writing efficient queries. Use when reviewing Alembic migrations, optimizing queries, or debugging database issues.
+description: PostgreSQL database patterns for query optimization, schema design, indexing, and security. Based on Supabase best practices.
 ---
 
-# PostgreSQL Patterns
+# PostgreSQL 模式
 
-## Problem Statement
+PostgreSQL 最佳實務快速參考。詳細指南請使用 `database-reviewer` agent。
 
-Alembic generates migrations but doesn't understand PostgreSQL performance implications. This skill covers reviewing migrations for PostgreSQL-specific issues and writing efficient queries.
+## 何時啟用
 
----
+- 撰寫 SQL 查詢或 migrations
+- 設計資料庫 schema
+- 疑難排解慢查詢
+- 實作 Row Level Security
+- 設定連線池
 
-## Pattern: Index Review
+## 快速參考
 
-### When to Add Indexes
+### 索引速查表
+
+| 查詢模式 | 索引類型 | 範例 |
+|---------|---------|------|
+| `WHERE col = value` | B-tree（預設） | `CREATE INDEX idx ON t (col)` |
+| `WHERE col > value` | B-tree | `CREATE INDEX idx ON t (col)` |
+| `WHERE a = x AND b > y` | 複合 | `CREATE INDEX idx ON t (a, b)` |
+| `WHERE jsonb @> '{}'` | GIN | `CREATE INDEX idx ON t USING gin (col)` |
+| `WHERE tsv @@ query` | GIN | `CREATE INDEX idx ON t USING gin (col)` |
+| 時間序列範圍 | BRIN | `CREATE INDEX idx ON t USING brin (col)` |
+
+### 資料類型快速參考
+
+| 使用情況 | 正確類型 | 避免 |
+|---------|---------|------|
+| IDs | `bigint` | `int`、隨機 UUID |
+| 字串 | `text` | `varchar(255)` |
+| 時間戳 | `timestamptz` | `timestamp` |
+| 金額 | `numeric(10,2)` | `float` |
+| 旗標 | `boolean` | `varchar`、`int` |
+
+### 常見模式
+
+**複合索引順序：**
+```sql
+-- 等值欄位優先，然後是範圍欄位
+CREATE INDEX idx ON orders (status, created_at);
+-- 適用於：WHERE status = 'pending' AND created_at > '2024-01-01'
+```
+
+**覆蓋索引：**
+```sql
+CREATE INDEX idx ON users (email) INCLUDE (name, created_at);
+-- 避免 SELECT email, name, created_at 時的表格查詢
+```
+
+**部分索引：**
+```sql
+CREATE INDEX idx ON users (email) WHERE deleted_at IS NULL;
+-- 更小的索引，只包含活躍使用者
+```
+
+**RLS 政策（優化）：**
+```sql
+CREATE POLICY policy ON orders
+  USING ((SELECT auth.uid()) = user_id);  -- 用 SELECT 包裝！
+```
+
+**UPSERT：**
+```sql
+INSERT INTO settings (user_id, key, value)
+VALUES (123, 'theme', 'dark')
+ON CONFLICT (user_id, key)
+DO UPDATE SET value = EXCLUDED.value;
+```
+
+**游標分頁：**
+```sql
+SELECT * FROM products WHERE id > $last_id ORDER BY id LIMIT 20;
+-- O(1) vs OFFSET 是 O(n)
+```
+
+**佇列處理：**
+```sql
+UPDATE jobs SET status = 'processing'
+WHERE id = (
+  SELECT id FROM jobs WHERE status = 'pending'
+  ORDER BY created_at LIMIT 1
+  FOR UPDATE SKIP LOCKED
+) RETURNING *;
+```
+
+### 反模式偵測
 
 ```sql
--- ✅ ADD INDEX: Foreign keys (almost always)
-CREATE INDEX ix_assessments_user_id ON assessments (user_id);
-
--- ✅ ADD INDEX: Frequently filtered columns
-CREATE INDEX ix_assessments_status ON assessments (status);
-
--- ✅ ADD INDEX: Columns in WHERE + ORDER BY together
-CREATE INDEX ix_assessments_user_status ON assessments (user_id, status);
-
--- ✅ ADD INDEX: Columns used in JOIN conditions
-CREATE INDEX ix_answers_question_id ON answers (question_id);
-```
-
-### When NOT to Add Indexes
-
-```sql
--- ❌ SKIP: Small tables (< 1000 rows)
--- ❌ SKIP: Write-heavy tables with rare reads
--- ❌ SKIP: Low cardinality columns alone (boolean, status with 3 values)
--- ❌ SKIP: Columns rarely used in WHERE/JOIN/ORDER BY
-```
-
-### Index Column Order Matters
-
-```sql
--- For query: WHERE user_id = ? AND status = ? ORDER BY created_at
--- ✅ CORRECT: Most selective first, ORDER BY column last
-CREATE INDEX ix_assessments_user_status_created 
-ON assessments (user_id, status, created_at);
-
--- ❌ WRONG: Order doesn't match query pattern
-CREATE INDEX ix_assessments_created_status_user 
-ON assessments (created_at, status, user_id);
-```
-
----
-
-## Pattern: Partial Indexes
-
-**Problem:** Full index on column where you only query subset of values.
-
-```sql
--- Full index (indexes all rows)
-CREATE INDEX ix_assessments_status ON assessments (status);
-
--- ✅ BETTER: Partial index (only active assessments)
-CREATE INDEX ix_assessments_active 
-ON assessments (user_id, created_at) 
-WHERE status = 'active';
-
--- Use case: "Get user's active assessments sorted by date"
--- The partial index is smaller and faster
-
--- Common patterns:
--- WHERE deleted_at IS NULL (soft deletes)
--- WHERE status != 'archived'
--- WHERE is_active = true
-```
-
-**In Alembic:**
-```python
-op.execute("""
-    CREATE INDEX ix_assessments_active 
-    ON assessments (user_id, created_at) 
-    WHERE status = 'active'
-""")
-```
-
----
-
-## Pattern: JSONB Indexes
-
-```sql
--- GIN index for @> (contains) queries
-CREATE INDEX ix_settings_data ON user_settings USING GIN (data);
-
--- Query: Find users with specific setting
-SELECT * FROM user_settings WHERE data @> '{"theme": "dark"}';
-
--- Expression index for specific JSON path
-CREATE INDEX ix_settings_theme ON user_settings ((data->>'theme'));
-
--- Query: Find by specific key
-SELECT * FROM user_settings WHERE data->>'theme' = 'dark';
-```
-
----
-
-## Pattern: Concurrent Index Creation
-
-**Problem:** CREATE INDEX locks the table. On large tables, this blocks writes.
-
-```sql
--- ❌ BLOCKS WRITES during creation
-CREATE INDEX ix_events_user_id ON events (user_id);
-
--- ✅ DOESN'T BLOCK (but slower to create)
-CREATE INDEX CONCURRENTLY ix_events_user_id ON events (user_id);
-```
-
-**In Alembic:**
-```python
-# Must disable transaction for CONCURRENTLY
-def upgrade():
-    op.execute("COMMIT")  # End current transaction
-    op.execute(
-        "CREATE INDEX CONCURRENTLY ix_events_user_id ON events (user_id)"
-    )
-```
-
----
-
-## Pattern: Query Performance Analysis
-
-```sql
--- EXPLAIN ANALYZE shows actual execution
-EXPLAIN ANALYZE 
-SELECT * FROM assessments 
-WHERE user_id = 'abc-123' AND status = 'active';
-
--- What to look for:
--- ✅ "Index Scan" or "Index Only Scan" - good
--- ❌ "Seq Scan" on large table - needs index
--- ❌ "Sort" with high cost - consider index on ORDER BY column
--- ❌ "Nested Loop" with many rows - might need different join strategy
-```
-
-**Key metrics:**
-- `cost`: Estimated units (lower is better)
-- `rows`: Estimated row count
-- `actual time`: Real milliseconds
-- `loops`: How many times executed
-
----
-
-## Pattern: UUID Performance
-
-```sql
--- UUIDs as primary keys have tradeoffs
--- ❌ Random UUIDs (uuid4) cause index fragmentation
--- ✅ Time-ordered UUIDs (uuid7) maintain insertion order
-
--- If using uuid4, consider:
--- 1. BRIN index for time-ordered queries (if you have created_at)
--- 2. Covering indexes to avoid heap fetches
--- 3. Accept some fragmentation (usually fine under 10M rows)
-```
-
----
-
-## Pattern: Constraint Review
-
-```sql
--- ✅ GOOD: Named constraints (can be dropped/modified)
-ALTER TABLE assessments 
-ADD CONSTRAINT fk_assessments_user_id 
-FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
-
--- ❌ BAD: Unnamed constraints (auto-generated names are ugly)
-ALTER TABLE assessments 
-ADD FOREIGN KEY (user_id) REFERENCES users(id);
-
--- ✅ GOOD: CHECK constraints for data integrity
-ALTER TABLE assessments 
-ADD CONSTRAINT chk_assessments_rating 
-CHECK (rating >= 1.0 AND rating <= 5.5);
-
--- ✅ GOOD: Unique constraints with meaningful names
-ALTER TABLE users 
-ADD CONSTRAINT uq_users_email UNIQUE (email);
-```
-
----
-
-## Pattern: Bulk Operations
-
-```sql
--- ❌ SLOW: Row-by-row updates
-UPDATE users SET role = 'member' WHERE id = 'id1';
-UPDATE users SET role = 'member' WHERE id = 'id2';
--- ... thousands more
-
--- ✅ FAST: Batch update
-UPDATE users SET role = 'member' 
-WHERE id IN ('id1', 'id2', 'id3', ...);
-
--- ✅ FAST: Update with subquery
-UPDATE users SET role = 'member'
-WHERE id IN (
-    SELECT user_id FROM legacy_members WHERE migrated = false
-);
-
--- For very large updates, batch to avoid long locks:
-UPDATE users SET role = 'member'
-WHERE id IN (
-    SELECT id FROM users 
-    WHERE role IS NULL 
-    LIMIT 10000
-);
--- Run in loop until no rows affected
-```
-
----
-
-## Pattern: Table Locking Awareness
-
-**Know what locks what:**
-
-| Operation | Lock Type | Blocks |
-|-----------|-----------|--------|
-| SELECT | AccessShare | Nothing |
-| INSERT/UPDATE/DELETE | RowExclusive | Nothing (row-level) |
-| CREATE INDEX | ShareLock | INSERT/UPDATE/DELETE |
-| CREATE INDEX CONCURRENTLY | ShareUpdateExclusive | Other schema changes |
-| ALTER TABLE (most) | AccessExclusive | Everything |
-| DROP TABLE | AccessExclusive | Everything |
-
-**Danger zone:**
-```sql
--- ❌ LOCKS ENTIRE TABLE
-ALTER TABLE users ADD COLUMN bio TEXT NOT NULL DEFAULT '';
-
--- ✅ MINIMAL LOCKING (PostgreSQL 11+)
-ALTER TABLE users ADD COLUMN bio TEXT;  -- Fast, nullable
--- Then backfill with UPDATE in batches
--- Then: ALTER TABLE users ALTER COLUMN bio SET NOT NULL;
-```
-
----
-
-## Pattern: Connection Management
-
-```sql
--- Check active connections
-SELECT 
-    datname,
-    usename,
-    application_name,
-    state,
-    query_start,
-    query
-FROM pg_stat_activity
-WHERE datname = 'your_db';
-
--- Kill long-running query
-SELECT pg_cancel_backend(pid);  -- Graceful
-SELECT pg_terminate_backend(pid);  -- Force
-
--- Check for locks
-SELECT 
-    l.locktype,
-    l.relation::regclass,
-    l.mode,
-    l.granted,
-    a.usename,
-    a.query
-FROM pg_locks l
-JOIN pg_stat_activity a ON l.pid = a.pid
-WHERE NOT l.granted;
-```
-
----
-
-## Pattern: Data Type Choices
-
-| Use Case | Type | Notes |
-|----------|------|-------|
-| Primary key | `UUID` | Use uuid7 for ordering if possible |
-| Foreign key | Match parent type | |
-| Timestamps | `TIMESTAMPTZ` | Always with timezone |
-| Money | `NUMERIC(12,2)` | Never FLOAT |
-| JSON data | `JSONB` | Not JSON (JSONB is faster) |
-| Short strings | `VARCHAR(n)` | With reasonable limit |
-| Long text | `TEXT` | No length limit |
-| Boolean | `BOOLEAN` | Not integer |
-| Enum-like | `VARCHAR` or native ENUM | VARCHAR is more flexible |
-
----
-
-## Migration Review Checklist (PostgreSQL-Specific)
-
-- [ ] Large table indexes use CONCURRENTLY
-- [ ] Foreign keys have ON DELETE behavior specified
-- [ ] Constraints have explicit names
-- [ ] Non-nullable columns on existing tables use 3-step process
-- [ ] Indexes match actual query patterns
-- [ ] Partial indexes considered for filtered queries
-- [ ] No unnecessary indexes on small tables
-- [ ] JSONB columns have appropriate GIN indexes if queried
-- [ ] UUIDs: aware of fragmentation implications
-- [ ] TIMESTAMPTZ used for all timestamps (not TIMESTAMP)
-
----
-
-## Useful Diagnostic Queries
-
-```sql
--- Table sizes
-SELECT 
-    relname as table,
-    pg_size_pretty(pg_total_relation_size(relid)) as total_size
-FROM pg_catalog.pg_statio_user_tables
-ORDER BY pg_total_relation_size(relid) DESC;
-
--- Index usage
-SELECT 
-    indexrelname as index,
-    idx_scan as times_used,
-    pg_size_pretty(pg_relation_size(indexrelid)) as size
-FROM pg_stat_user_indexes
-ORDER BY idx_scan ASC;  -- Unused indexes at top
-
--- Slow queries (if pg_stat_statements enabled)
-SELECT 
-    query,
-    calls,
-    mean_exec_time,
-    total_exec_time
+-- 找出未建索引的外鍵
+SELECT conrelid::regclass, a.attname
+FROM pg_constraint c
+JOIN pg_attribute a ON a.attrelid = c.conrelid AND a.attnum = ANY(c.conkey)
+WHERE c.contype = 'f'
+  AND NOT EXISTS (
+    SELECT 1 FROM pg_index i
+    WHERE i.indrelid = c.conrelid AND a.attnum = ANY(i.indkey)
+  );
+
+-- 找出慢查詢
+SELECT query, mean_exec_time, calls
 FROM pg_stat_statements
-ORDER BY mean_exec_time DESC
-LIMIT 20;
+WHERE mean_exec_time > 100
+ORDER BY mean_exec_time DESC;
+
+-- 檢查表格膨脹
+SELECT relname, n_dead_tup, last_vacuum
+FROM pg_stat_user_tables
+WHERE n_dead_tup > 1000
+ORDER BY n_dead_tup DESC;
 ```
+
+### 設定範本
+
+```sql
+-- 連線限制（依 RAM 調整）
+ALTER SYSTEM SET max_connections = 100;
+ALTER SYSTEM SET work_mem = '8MB';
+
+-- 逾時
+ALTER SYSTEM SET idle_in_transaction_session_timeout = '30s';
+ALTER SYSTEM SET statement_timeout = '30s';
+
+-- 監控
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
+
+-- 安全預設值
+REVOKE ALL ON SCHEMA public FROM public;
+
+SELECT pg_reload_conf();
+```
+
+## 相關
+
+- Agent：`database-reviewer` - 完整資料庫審查工作流程
+- Skill：`clickhouse-io` - ClickHouse 分析模式
+- Skill：`backend-patterns` - API 和後端模式
+
+---
+
+*基於 [Supabase Agent Skills](https://github.com/supabase/agent-skills)（MIT 授權）*

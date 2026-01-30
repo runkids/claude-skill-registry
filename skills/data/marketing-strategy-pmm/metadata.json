@@ -1,7 +1,7 @@
 {
   "name": "marketing-strategy-pmm",
-  "repo": "NoCodeCZ/personal-office",
-  "path": ".claude/skills/marketing-strategy-pmm/SKILL.md",
-  "source": "github.com/NoCodeCZ/personal-office",
-  "downloaded_at": "2026-01-29T04:05:32.633950Z"
+  "repo": "nicepkg/ai-workflow",
+  "path": "workflows/marketing-pro-workflow/.claude/skills/marketing-strategy-pmm/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-30T04:18:23.409772Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "testing",
-  "repo": "ZhiruiFeng/LocalAgentCrew",
-  "path": ".claude/skills/testing/SKILL.md",
-  "source": "github.com/ZhiruiFeng/LocalAgentCrew",
-  "downloaded_at": "2026-01-29T04:36:05.719502Z"
+  "repo": "shinpr/agentic-code",
+  "path": ".agents/skills/testing/SKILL.md",
+  "source": "github.com/shinpr/agentic-code",
+  "downloaded_at": "2026-01-30T04:49:27.797645Z"
 }

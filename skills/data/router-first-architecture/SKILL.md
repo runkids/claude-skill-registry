@@ -1,6 +1,7 @@
 ---
 name: router-first-architecture
 description: Router-First Architecture
+user-invocable: false
 ---
 
 # Router-First Architecture

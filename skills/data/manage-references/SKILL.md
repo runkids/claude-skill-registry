@@ -1,6 +1,7 @@
 ---
 name: manage-references
 description: Manage references.toon files with field-level access and list management
+user-invocable: false
 allowed-tools: Read, Glob, Bash
 ---
 
@@ -59,12 +60,15 @@ JWT Guide,https://jwt.io/introduction
 | Field | Type | Description |
 |-------|------|-------------|
 | `branch` | string | Git branch name |
+| `base_branch` | string | Base branch for PR (e.g., main) |
 | `issue_url` | string | GitHub issue URL |
 | `build_system` | string | Build system (maven, gradle, npm, none) |
 | `modified_files` | list | Files modified during implementation |
 | `config_files` | list | Configuration files changed |
 | `test_files` | list | Test files created/modified |
+| `domains` | list | Plan domains (e.g., java, documentation) |
 | `external_docs` | table | External documentation references |
+| `affected_files` | list | Files affected during outline phase (for execution tracking) |
 
 ---
 
@@ -81,7 +85,8 @@ python3 .plan/execute-script.py pm-workflow:manage-references:manage-references 
   --plan-id {plan_id} \
   --branch {branch_name} \
   [--issue-url {url}] \
-  [--build-system {maven|gradle|npm}]
+  [--build-system {maven|gradle|npm}] \
+  [--domains {java,documentation}]
 ```
 
 **Parameters**:
@@ -89,6 +94,7 @@ python3 .plan/execute-script.py pm-workflow:manage-references:manage-references 
 - `--branch` (required): Git branch name
 - `--issue-url`: GitHub issue URL
 - `--build-system`: Build system (`maven`, `gradle`, `npm`)
+- `--domains`: Comma-separated domain list (e.g., `java,documentation`)
 
 **Output** (TOON):
 ```toon
@@ -202,6 +208,70 @@ removed: src/main/java/OldClass.java
 total: 2
 ```
 
+### add-list
+
+Add multiple values to a list field.
+
+```bash
+python3 .plan/execute-script.py pm-workflow:manage-references:manage-references add-list \
+  --plan-id {plan_id} \
+  --field affected_files \
+  --values "path/to/file1.md,path/to/file2.md,path/to/file3.md"
+```
+
+**Parameters**:
+- `--plan-id` (required): Plan identifier
+- `--field` (required): List field name (e.g., `affected_files`, `modified_files`)
+- `--values` (required): Comma-separated values to add
+
+**Output** (TOON):
+```toon
+status: success
+plan_id: my-feature
+field: affected_files
+added_count: 3
+total: 3
+```
+
+**Notes**:
+- Creates the field as an empty list if it doesn't exist
+- Skips values that already exist in the list (no duplicates)
+- Returns error if the field exists but is not a list
+
+### set-list
+
+Set a list field to new values, replacing any existing content.
+
+```bash
+python3 .plan/execute-script.py pm-workflow:manage-references:manage-references set-list \
+  --plan-id {plan_id} \
+  --field affected_files \
+  --values "path/to/file1.md,path/to/file2.md"
+```
+
+**Parameters**:
+- `--plan-id` (required): Plan identifier
+- `--field` (required): List field name (e.g., `affected_files`, `modified_files`)
+- `--values` (required): Comma-separated values
+
+**Output** (TOON):
+```toon
+status: success
+plan_id: my-feature
+field: affected_files
+previous_count: 5
+count: 2
+```
+
+**Notes**:
+- Replaces the entire list (does not append like `add-list`)
+- Empty `--values ""` clears the list
+- Returns `previous_count` showing how many items were replaced
+
+**When to use `set-list` vs `add-list`**:
+- Use `set-list` when you have the complete list of values to store
+- Use `add-list` when appending to an existing list without knowing its contents
+
 ### get-context
 
 Get all references context in one call. Useful for getting comprehensive plan context.
@@ -257,12 +327,14 @@ test_files:
 
 | Command | Parameters | Description |
 |---------|------------|-------------|
-| `create` | `--plan-id --branch [--issue-url] [--build-system]` | Create references.toon |
+| `create` | `--plan-id --branch [--issue-url] [--build-system] [--domains]` | Create references.toon |
 | `read` | `--plan-id` | Read entire references |
 | `get` | `--plan-id --field` | Get specific field value |
 | `set` | `--plan-id --field --value` | Set specific field value |
 | `add-file` | `--plan-id --file` | Add file to modified_files |
 | `remove-file` | `--plan-id --file` | Remove file from modified_files |
+| `add-list` | `--plan-id --field --values` | Add multiple values to a list field |
+| `set-list` | `--plan-id --field --values` | Set a list field (replaces existing) |
 | `get-context` | `--plan-id [--include-files]` | Get all references context |
 
 ---

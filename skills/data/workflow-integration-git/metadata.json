@@ -1,9 +1,7 @@
 {
   "name": "workflow-integration-git",
-  "description": "Git commit workflow with conventional commits, artifact cleanup, and optional push/PR creation",
   "repo": "cuioss/plan-marshall",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/cuioss/plan-marshall"
+  "path": "marketplace/bundles/pm-workflow/skills/workflow-integration-git/SKILL.md",
+  "source": "github.com/cuioss/plan-marshall",
+  "downloaded_at": "2026-01-30T03:21:19.933474Z"
 }

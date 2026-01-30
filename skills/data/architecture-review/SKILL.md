@@ -1,132 +1,186 @@
 ---
 name: architecture-review
-description: Conducts a comprehensive multi-perspective architecture review using ALL architecture team members. Use when the user requests "Start architecture review", "Full architecture review", "Review architecture for version X.Y.Z", "Conduct comprehensive review", or when they want assessment from multiple perspectives. Do NOT use for single-specialist reviews (use specialist-review instead) or for status checks (use architecture-status instead).
-allowed-tools: Read,Write,Glob,Grep,Bash(git:*)
+description: |
+
+Triggers: adr, architecture, patterns, design, review
+  Evaluate codebase architecture against ADRs, coupling rules, and team guardrails.
+
+  Triggers: architecture review, ADR audit, coupling analysis, design review,
+  principle checks, Law of Demeter, architecture assessment
+
+  Use when: reviewing architecture decisions, auditing ADR compliance, analyzing
+  coupling, validating design principles
+
+  DO NOT use when: selecting architecture paradigms - use archetypes skills.
+  DO NOT use when: API surface review - use api-review.
+
+  Use this skill for architecture assessment and compliance.
+category: architecture
+tags: [architecture, design, adr, coupling, patterns, principles]
+tools: [adr-auditor, coupling-analyzer, principle-checker]
+usage_patterns:
+  - architecture-assessment
+  - adr-audit
+  - refactor-review
+  - design-validation
+complexity: advanced
+estimated_tokens: 300
+progressive_loading: true
+dependencies:
+  - pensive:shared
+  - imbue:evidence-logging
+  - imbue:diff-analysis/modules/risk-assessment-framework
+modules:
+  - modules/adr-audit.md
+  - modules/coupling-analysis.md
+  - modules/principle-checks.md
+version: 1.3.5
 ---
+## Table of Contents
 
-# Architecture Review
+- [Quick Start](#quick-start)
+- [When to Use](#when-to-use)
+- [Progressive Loading](#progressive-loading)
+- [Required TodoWrite Items](#required-todowrite-items)
+- [Workflow](#workflow)
+- [Step 1: Establish Context (`arch-review:context-established`)](#step-1:-establish-context-(arch-review:context-established))
+- [Step 2: ADR Audit (`arch-review:adr-audit`)](#step-2:-adr-audit-(arch-review:adr-audit))
+- [Step 3: Interaction Mapping (`arch-review:interaction-mapping`)](#step-3:-interaction-mapping-(arch-review:interaction-mapping))
+- [Step 4: Principle Checks (`arch-review:principle-checks`)](#step-4:-principle-checks-(arch-review:principle-checks))
+- [Step 5: Risks and Actions (`arch-review:risks-actions`)](#step-5:-risks-and-actions-(arch-review:risks-actions))
+- [Architecture Principles Checklist](#architecture-principles-checklist)
+- [Coupling](#coupling)
+- [Cohesion](#cohesion)
+- [Layering](#layering)
+- [Evolution](#evolution)
 
-Conducts comprehensive multi-perspective architecture reviews with all team members.
 
-## Process Overview
+# Architecture Review Workflow
 
-1. **Determine Scope** - Identify what to review (version, feature, or component)
-2. **Load Team** - Read members from `.architecture/members.yml` and check pragmatic mode
-3. **Analyze System** - Examine architecture using Read, Glob, Grep, and git tools
-4. **Individual Reviews** - Each member reviews from their specialized perspective
-5. **Collaborative Discussion** - Synthesize findings and establish priorities
-6. **Create Document** - Generate comprehensive review using template
-7. **Report Results** - Summarize findings and next steps for user
+Architecture assessment against ADRs and design principles.
 
-**Detailed guidance**: [references/review-process.md](references/review-process.md)
-
-## Workflow Steps
-
-### 1. Determine Scope
-
-Identify review target and create filename:
-- **Version**: "version X.Y.Z" → `X-Y-Z.md`
-- **Feature**: "feature name" → `feature-kebab-case.md`
-- **Component**: "component name" → `component-kebab-case.md`
-
-Apply input validation (see `_patterns.md` § Filename Sanitization).
-
-### 2. Load Configuration and Team
+## Quick Start
 
 ```bash
-cat .architecture/config.yml     # Check pragmatic_mode.enabled
-cat .architecture/members.yml    # Load all members
+/architecture-review
 ```
 
-Include Pragmatic Enforcer if pragmatic mode enabled for reviews.
+## When to Use
 
-### 3. Analyze the Target
+- Approving reimplementations.
+- Large-scale refactoring reviews.
+- System design changes.
+- New module/service introduction.
+- Dependency restructuring.
 
-Use available tools to examine the system:
-- `Read` - Code, configs, documentation
-- `Glob` - Find files by pattern
-- `Grep` - Search for specific patterns
-- `Bash(git:*)` - Git history and status
+## Progressive Loading
 
-Focus based on review type:
-- **Version**: Overall architecture, components, patterns, technical debt
-- **Feature**: Implementation, integration, security, performance
-- **Component**: Structure, dependencies, boundaries, interfaces
+Load modules based on review scope:
 
-### 4. Conduct Individual Member Reviews
+- **`modules/adr-audit.md`** (~400 tokens): ADR verification and documentation.
+- **`modules/coupling-analysis.md`** (~450 tokens): Dependency analysis and boundary violations.
+- **`modules/principle-checks.md`** (~500 tokens): Code quality, security, and performance.
 
-For each member in `members.yml`, write a review including:
-- Perspective statement
-- Key observations (3-5)
-- Strengths (3-5)
-- Concerns with impact and recommendations (3-7)
-- Prioritized recommendations with effort estimates (3-7)
+Load all modules for full reviews. For focused reviews, load only relevant modules.
 
-**Format details**: [references/review-process.md § Individual Member Review Format](references/review-process.md#individual-member-review-format)
+## Required TodoWrite Items
 
-**Pragmatic integration**: If enabled, add pragmatic analysis after each member. See [references/pragmatic-integration.md](references/pragmatic-integration.md)
+1. `arch-review:context-established`: Repository, branch, motivation.
+2. `arch-review:adr-audit`: ADR verification and new ADR needs.
+3. `arch-review:interaction-mapping`: Module coupling analysis.
+4. `arch-review:principle-checks`: LoD, security, performance.
+5. `arch-review:risks-actions`: Recommendation and follow-ups.
 
-### 5. Facilitate Collaborative Discussion
+## Workflow
 
-Synthesize findings:
-- Identify common concerns
-- Discuss disagreements
-- Establish consensus
-- Prioritize: Critical (0-2 weeks) | Important (2-8 weeks) | Nice-to-Have (2-6 months)
+### Step 1: Establish Context (`arch-review:context-established`)
 
-**Discussion format**: [references/review-process.md § Collaborative Discussion](references/review-process.md#collaborative-discussion-process)
-
-### 6. Create Review Document
-
-Load template and fill in all sections:
+Confirm repository and branch:
 ```bash
-cat .claude/skills/architecture-review/assets/review-template.md
+pwd
+git status -sb
 ```
 
-Include:
-- Executive summary and overall assessment
-- Individual member reviews
-- Collaborative discussion
-- Consolidated findings (strengths, improvements, debt, risks)
-- Recommendations (immediate, short-term, long-term)
-- Success metrics and follow-up plan
+Document:
+- Feature/bug/epic motivating review.
+- Affected subsystems.
+- Architectural intent from README/docs.
+- Design trade-off assumptions.
 
-Save to `.architecture/reviews/[filename].md`
+### Step 2: ADR Audit (`arch-review:adr-audit`)
 
-**Template**: [assets/review-template.md](assets/review-template.md)
+**Load: `modules/adr-audit.md`**
 
-### 7. Report to User
+- Locate ADRs in project.
+- Verify required sections.
+- Check status flow.
+- Confirm immutability compliance.
+- Flag need for new ADRs.
 
-```
-Architecture Review Complete: [Target]
+### Step 3: Interaction Mapping (`arch-review:interaction-mapping`)
 
-Location: .architecture/reviews/[filename].md
-Overall Assessment: [Strong | Adequate | Needs Improvement]
+**Load: `modules/coupling-analysis.md`**
 
-Top 3 Priorities:
-1. [Priority 1]
-2. [Priority 2]
-3. [Priority 3]
+- Diagram before/after module interactions.
+- Verify composition boundaries.
+- Check data ownership clarity.
+- Validate dependency flow direction.
+- Identify coupling violations.
 
-Immediate Actions:
-- [Action 1]
-- [Action 2]
+### Step 4: Principle Checks (`arch-review:principle-checks`)
 
-Next Steps:
-- Review with team
-- "Start architecture recalibration for [target]"
-- Create ADRs for key decisions
-```
+**Load: `modules/principle-checks.md`**
 
-## Related Skills
+- Law of Demeter.
+- Anti-slop patterns.
+- Security (input validation, least privilege).
+- Performance (N+1 queries, caching).
 
-**Before**: `architecture-status`, `list-members`
-**During**: `specialist-review`, `create-adr`
-**After**: `architecture-recalibration`, `create-adr`
+### Step 5: Risks and Actions (`arch-review:risks-actions`)
 
-## Documentation
+Summarize using `imbue:diff-analysis/modules/risk-assessment-framework`:
+- Current vs proposed architecture.
+- Business impact.
+- Technical debt implications.
 
-- **Process guide**: [references/review-process.md](references/review-process.md)
-- **Pragmatic mode**: [references/pragmatic-integration.md](references/pragmatic-integration.md)
-- **Template**: [assets/review-template.md](assets/review-template.md)
-- **Patterns**: [../_patterns.md](../_patterns.md)
+List follow-ups with owners and dates.
+
+Provide recommendation:
+- **Approve**: Architecture sound.
+- **Approve with actions**: Minor issues to address.
+- **Block**: Fundamental problems requiring redesign.
+
+## Architecture Principles Checklist
+
+### Coupling
+- [ ] Dependencies follow defined boundaries.
+- [ ] No circular dependencies.
+- [ ] Extension points used properly.
+- [ ] Abstractions don't leak.
+
+### Cohesion
+- [ ] Related functionality grouped.
+- [ ] Single responsibility per module.
+- [ ] Clear module purposes.
+
+### Layering
+- [ ] Layers have clear responsibilities.
+- [ ] Dependencies flow downward.
+- [ ] No layer bypassing.
+
+### Evolution
+- [ ] Changes are reversible.
+- [ ] Migration paths are clear.
+- [ ] ADRs document decisions.
+## Troubleshooting
+
+### Common Issues
+
+**Command not found**
+Ensure all dependencies are installed and in PATH
+
+**Permission errors**
+Check file permissions and run with appropriate privileges
+
+**Unexpected behavior**
+Enable verbose logging with `--verbose` flag

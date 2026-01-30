@@ -1,7 +1,7 @@
 {
   "name": "gcp",
-  "repo": "Lobbi-Docs/claude",
-  "path": ".claude/skills/gcp/SKILL.md",
-  "source": "github.com/Lobbi-Docs/claude",
-  "downloaded_at": "2026-01-29T01:23:14.395489Z"
+  "repo": "liauw-media/CodeAssist",
+  "path": "skills/cloud-providers/gcp/SKILL.md",
+  "source": "github.com/liauw-media/CodeAssist",
+  "downloaded_at": "2026-01-30T04:19:04.906261Z"
 }

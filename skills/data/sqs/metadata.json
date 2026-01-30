@@ -1,7 +1,7 @@
 {
   "name": "sqs",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/devops/sqs/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-29T04:03:50.699792Z"
+  "repo": "itsmostafa/aws-agent-skills",
+  "path": "skills/sqs/SKILL.md",
+  "source": "github.com/itsmostafa/aws-agent-skills",
+  "downloaded_at": "2026-01-30T01:58:14.539362Z"
 }

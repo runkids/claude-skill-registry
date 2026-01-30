@@ -1,12 +1,7 @@
 {
   "name": "architecture-guidelines",
-  "description": "System architecture: modules, project structure, ADRs, and testing. Use when designing or reviewing systems.",
-  "repo": "eser/stack",
-  "category": "testing",
-  "tags": [
-    "architecture",
-    "guidelines"
-  ],
-  "stars": 83,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Fredoid/claude-app-builder-template",
+  "path": ".claude/skills/architecture-guidelines/SKILL.md",
+  "source": "github.com/Fredoid/claude-app-builder-template",
+  "downloaded_at": "2026-01-30T02:37:21.362899Z"
 }

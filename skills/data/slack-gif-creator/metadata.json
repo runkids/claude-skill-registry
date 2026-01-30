@@ -1,7 +1,7 @@
 {
   "name": "slack-gif-creator",
-  "repo": "AJBcoding/claude-skill-eval",
-  "path": "skills/slack-gif-creator/SKILL.md",
-  "source": "github.com/AJBcoding/claude-skill-eval",
-  "downloaded_at": "2026-01-29T04:39:12.780723Z"
+  "repo": "huydepzai121/skill",
+  "path": ".claude/skills/slack-gif-creator/SKILL.md",
+  "source": "github.com/huydepzai121/skill",
+  "downloaded_at": "2026-01-30T04:33:03.144905Z"
 }

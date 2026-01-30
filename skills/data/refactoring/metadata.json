@@ -1,7 +1,7 @@
 {
   "name": "refactoring",
-  "repo": "tikazyq/agentic-spec-forge",
-  "path": "AGENTIC_SPEC_FORGE/spec_stage_skill/execspec_fulfill/refactoring/SKILL.md",
-  "source": "github.com/tikazyq/agentic-spec-forge",
-  "downloaded_at": "2026-01-29T04:12:10.983503Z"
+  "repo": "saknarinZ/agent_skills_gemini",
+  "path": ".agent/skills/refactoring/SKILL.md",
+  "source": "github.com/saknarinZ/agent_skills_gemini",
+  "downloaded_at": "2026-01-30T04:46:35.213644Z"
 }

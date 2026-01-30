@@ -1,121 +1,72 @@
 ---
 name: tmux
-description: Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.
-metadata: {"moltbot":{"emoji":"🧵","os":["darwin","linux"],"requires":{"bins":["tmux"]}}}
+description: Use tmux for orchestrating agents and running commands. Use when Claude needs to (1) spawn Claude subagents in background windows, (2) run long-running commands, (3) orchestrate parallel agents, (4) capture window output. Triggers on "tmux", "new tmux window", "run claude", "spawn agent", "parallel agents".
 ---
 
-# tmux Skill (Moltbot)
+# TMUX Orchestration
 
-Use tmux only when you need an interactive TTY. Prefer exec background mode for long-running, non-interactive tasks.
+## Setup
 
-## Quickstart (isolated socket, exec tool)
+Before any tmux operation:
+1. Get binary path: `which tmux` → store as `{{TMUX}}`
+2. Get session: `{{TMUX}} display-message -p '#S'` → store as `{{SESSION}}`
 
-```bash
-SOCKET_DIR="${CLAWDBOT_TMUX_SOCKET_DIR:-${TMPDIR:-/tmp}/moltbot-tmux-sockets}"
-mkdir -p "$SOCKET_DIR"
-SOCKET="$SOCKET_DIR/moltbot.sock"
-SESSION=moltbot-python
+## Helper Scripts
 
-tmux -S "$SOCKET" new -d -s "$SESSION" -n shell
-tmux -S "$SOCKET" send-keys -t "$SESSION":0.0 -- 'PYTHON_BASIC_REPL=1 python3 -q' Enter
-tmux -S "$SOCKET" capture-pane -p -J -t "$SESSION":0.0 -S -200
-```
+Primary method for tmux operations. Located in `scripts/` directory.
 
-After starting a session, always print monitor commands:
+| Script | Usage | Description |
+|--------|-------|-------------|
+| `spawn_subagent.sh` | `<window-name> [command]` | Spawn a subagent in a new window. Default: `claude --dangerously-skip-permissions` |
+| `send_command.sh` | `<window-name> <command>` | Send text to window, wait 1s, execute with Enter |
+| `exit_subagent.sh` | `<window-name>` | Send /exit, wait 1s, kill window if still present |
 
-```
-To monitor:
-  tmux -S "$SOCKET" attach -t "$SESSION"
-  tmux -S "$SOCKET" capture-pane -p -J -t "$SESSION":0.0 -S -200
-```
+Run from skill directory: `./scripts/<script-name>.sh`
 
-## Socket convention
+All scripts output "Done" on success or an error message on failure.
 
-- Use `CLAWDBOT_TMUX_SOCKET_DIR` (default `${TMPDIR:-/tmp}/moltbot-tmux-sockets`).
-- Default socket path: `"$CLAWDBOT_TMUX_SOCKET_DIR/moltbot.sock"`.
+## Subagent Workflow
 
-## Targeting panes and naming
+1. `.claude/skills/tmux/scripts/spawn_subagent.sh agent-task-1 "claude --agent researcher --dangerously-skip-permissions"`
+2. `.claude/skills/tmux/scripts/send_command.sh agent-task-1 "Research X and write to /tmp/output.md"`
+3. Await notification via agentmail or display-message (do not poll)
+4. Read output file
+5. `.claude/skills/tmux/scripts/exit_subagent.sh agent-task-1`
 
-- Target format: `session:window.pane` (defaults to `:0.0`).
-- Keep names short; avoid spaces.
-- Inspect: `tmux -S "$SOCKET" list-sessions`, `tmux -S "$SOCKET" list-panes -a`.
+When subagent completes: `{{TMUX}} display-message -d 5000 "{{WINDOW}}: {{MESSAGE}}"`
 
-## Finding sessions
+## Mandatory Requirements
 
-- List sessions on your socket: `{baseDir}/scripts/find-sessions.sh -S "$SOCKET"`.
-- Scan all sockets: `{baseDir}/scripts/find-sessions.sh --all` (uses `CLAWDBOT_TMUX_SOCKET_DIR`).
+- The agent shall use tmux windows exclusively (not panes).
+- The agent shall use unique window names following `agent-{task}-{number}` pattern.
+- The agent shall await subagent notifications via agentmail or display-message (no polling).
+- When spawning a subagent, the agent shall use `spawn_subagent.sh`.
+- When sending commands to a window, the agent shall use `send_command.sh`.
+- When stopping a subagent, the agent shall use `exit_subagent.sh`.
 
-## Sending input safely
+## Commands Reference
 
-- Prefer literal sends: `tmux -S "$SOCKET" send-keys -t target -l -- "$cmd"`.
-- Control keys: `tmux -S "$SOCKET" send-keys -t target C-c`.
+Raw tmux commands for debugging or edge cases. Use Helper Scripts for standard operations.
 
-## Watching output
+| Action | Command |
+|--------|---------|
+| List windows | `{{TMUX}} list-windows -t "{{SESSION}}" -F "#{window_name}"` |
+| New window | `{{TMUX}} new-window -d -t "{{SESSION}}" -n "{{NAME}}" "{{COMMAND}}"` |
+| Send text | `{{TMUX}} send-keys -t "{{SESSION}}:{{NAME}}" -l "{{TEXT}}"` |
+| Send enter | `{{TMUX}} send-keys -t "{{SESSION}}:{{NAME}}" Enter` |
+| Stop command | `{{TMUX}} send-keys -t "{{SESSION}}:{{NAME}}" C-c` |
+| Close window | `{{TMUX}} kill-window -t "{{SESSION}}:{{NAME}}"` |
+| Get content | `{{TMUX}} capture-pane -t "{{SESSION}}:{{NAME}}" -p \| tail -100` |
+| Show message | `{{TMUX}} display-message -d 2000 "{{MESSAGE}}"` |
 
-- Capture recent history: `tmux -S "$SOCKET" capture-pane -p -J -t target -S -200`.
-- Wait for prompts: `{baseDir}/scripts/wait-for-text.sh -t session:0.0 -p 'pattern'`.
-- Attaching is OK; detach with `Ctrl+b d`.
+## Common Agent Commands
 
-## Spawning processes
+Commands to send to Claude subagents:
 
-- For python REPLs, set `PYTHON_BASIC_REPL=1` (non-basic REPL breaks send-keys flows).
+| Command | Description |
+|---------|-------------|
+| `/exit` | Exit the agent gracefully |
+| `/clear` | Clear the agent's context window |
+| `/compact handoff:<info>` | Compact context, preserving specified handoff info |
 
-## Windows / WSL
-
-- tmux is supported on macOS/Linux. On Windows, use WSL and install tmux inside WSL.
-- This skill is gated to `darwin`/`linux` and requires `tmux` on PATH.
-
-## Orchestrating Coding Agents (Codex, Claude Code)
-
-tmux excels at running multiple coding agents in parallel:
-
-```bash
-SOCKET="${TMPDIR:-/tmp}/codex-army.sock"
-
-# Create multiple sessions
-for i in 1 2 3 4 5; do
-  tmux -S "$SOCKET" new-session -d -s "agent-$i"
-done
-
-# Launch agents in different workdirs
-tmux -S "$SOCKET" send-keys -t agent-1 "cd /tmp/project1 && codex --yolo 'Fix bug X'" Enter
-tmux -S "$SOCKET" send-keys -t agent-2 "cd /tmp/project2 && codex --yolo 'Fix bug Y'" Enter
-
-# Poll for completion (check if prompt returned)
-for sess in agent-1 agent-2; do
-  if tmux -S "$SOCKET" capture-pane -p -t "$sess" -S -3 | grep -q "❯"; then
-    echo "$sess: DONE"
-  else
-    echo "$sess: Running..."
-  fi
-done
-
-# Get full output from completed session
-tmux -S "$SOCKET" capture-pane -p -t agent-1 -S -500
-```
-
-**Tips:**
-- Use separate git worktrees for parallel fixes (no branch conflicts)
-- `pnpm install` first before running codex in fresh clones
-- Check for shell prompt (`❯` or `$`) to detect completion
-- Codex needs `--yolo` or `--full-auto` for non-interactive fixes
-
-## Cleanup
-
-- Kill a session: `tmux -S "$SOCKET" kill-session -t "$SESSION"`.
-- Kill all sessions on a socket: `tmux -S "$SOCKET" list-sessions -F '#{session_name}' | xargs -r -n1 tmux -S "$SOCKET" kill-session -t`.
-- Remove everything on the private socket: `tmux -S "$SOCKET" kill-server`.
-
-## Helper: wait-for-text.sh
-
-`{baseDir}/scripts/wait-for-text.sh` polls a pane for a regex (or fixed string) with a timeout.
-
-```bash
-{baseDir}/scripts/wait-for-text.sh -t session:0.0 -p 'pattern' [-F] [-T 20] [-i 0.5] [-l 2000]
-```
-
-- `-t`/`--target` pane target (required)
-- `-p`/`--pattern` regex to match (required); add `-F` for fixed string
-- `-T` timeout seconds (integer, default 15)
-- `-i` poll interval seconds (default 0.5)
-- `-l` history lines to search (integer, default 1000)
+Example handoff: `/compact handoff:Focus on task-XXX and task-YYY`

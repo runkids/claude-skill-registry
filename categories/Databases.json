@@ -1,19 +1,19 @@
 {
   "category": "Databases",
   "count": 1,
-  "updated_at": "2026-01-29T16:04:50.456047Z",
+  "updated_at": "2026-01-30T04:53:31.282898Z",
   "skills": [
     {
       "name": "SKILL.md",
-      "description": "MongoDB and PostgreSQL database administration. Databases: MongoDB (document store, aggregation, Atlas), PostgreSQL (relational, SQL, psql). Capabilities: schema design, query optimization, indexing, ",
-      "repo": "brixtonpham/claude-config",
+      "description": "RDBMS access patterns for DuckDB, MySQL (keycloak), PostgreSQL (dw, x3rocs), SQL Server (sage1000, x3), and DBISAM (Exportmaster) using ODBC and native drivers",
+      "repo": "lawless-m/Earwig",
       "path": "Databases",
       "branch": "main",
       "category": "Databases",
       "tags": [],
       "stars": 0,
-      "install": "brixtonpham/claude-config",
-      "source": "github.com/brixtonpham/claude-config"
+      "install": "lawless-m/Earwig",
+      "source": "github.com/lawless-m/Earwig"
     }
   ]
 }

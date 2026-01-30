@@ -1,11 +1,7 @@
 {
   "name": "traceability",
-  "description": "Manage requirement traceability - generate matrix, check coverage, find orphans, trace requirements",
-  "repo": "Smith-Happens/xlightsfpptester",
-  "category": "design",
-  "tags": [
-    "traceability"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "cuioss/plan-marshall",
+  "path": "marketplace/bundles/pm-requirements/skills/traceability/SKILL.md",
+  "source": "github.com/cuioss/plan-marshall",
+  "downloaded_at": "2026-01-30T03:21:19.423463Z"
 }

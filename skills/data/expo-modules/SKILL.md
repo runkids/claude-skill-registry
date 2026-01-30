@@ -1,277 +1,304 @@
 ---
-name: expo-modules
-description: Building great Expo native modules for iOS and Android. Views, APIs, Marshalling, Shared Objects, Expo Documentation, Verifying Expo modules.
+name: jutsu-expo:expo-modules
+description: Use when working with Expo SDK modules for camera, location, notifications, file system, and other device APIs. Covers permissions, configurations, and best practices.
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Grep
+  - Glob
 ---
 
-## Great module standards
+# Expo Modules
 
-- Design native APIs as if you contributing W3C specs for the browser, take inspiration from modern web modules. eg `std:kv-storage`, `clipboard`.
-- Aim for 100% backwards compatibility like the web.
-- Create escape hatches for single-platform functionality.
-- Avoid extraneous abstractions. Directly expose native functionality.
-- Avoid unnecessary async methods. Use sync methods when possible.
-- Prefer string union types for API options instead of boolean flags, enums, or multiple parameters. eg instead of `capture(options: { isHighQuality: boolean })`, use `capture(options: { quality: 'high' | 'medium' | 'low' })`.
-- Marshalling is awesome for platform-specific APIs.
-- New Architecture only. NEVER support legacy React Native architecture.
-- ALWAYS use only Expo modules API.
-- Prefer Swift and Kotlin.
-- Use optionality for availability checks as opposed to extraneous `isAvailable` functions or constants. eg `snapshot.capture?.()` instead of `snapshot.isAvailable && snapshot.capture()`.
-- ALWAYS support the latest and greatest API features.
+Use this skill when working with Expo's extensive SDK modules for accessing device features and native functionality.
 
-Example of a GREAT Expo module:
+## Key Concepts
 
-```ts
-import { NativeModule } from "expo";
+### Camera
 
-declare class AppClipModule extends NativeModule<{}> {
-  prompt(): void;
-  isAppClip?: boolean;
-}
+```tsx
+import { Camera, CameraType } from 'expo-camera';
+import { useState } from 'react';
+import { Button, View } from 'react-native';
 
-// This call loads the native module object from the JSI.
-const AppClipNative =
-  typeof expo !== "undefined"
-    ? (expo.modules.AppClip as AppClipModule) ?? {}
-    : {};
+export default function CameraScreen() {
+  const [permission, requestPermission] = Camera.useCameraPermissions();
+  const [type, setType] = useState(CameraType.back);
 
-if (AppClipNative?.isAppClip) {
-  navigator.appClip = {
-    prompt: AppClipNative.prompt,
-  };
-}
-
-// Add types for the global `navigator.appClip` object.
-declare global {
-  interface Navigator {
-    /**
-     * Only available in an App Clip context.
-     * @expo
-     */
-    appClip?: {
-      /** Open the SKOverlay */
-      prompt: () => void;
-    };
+  if (!permission?.granted) {
+    return (
+      <View>
+        <Button title="Grant Permission" onPress={requestPermission} />
+      </View>
+    );
   }
-}
 
-export {};
+  return (
+    <Camera style={{ flex: 1 }} type={type}>
+      <Button
+        title="Flip Camera"
+        onPress={() =>
+          setType(type === CameraType.back ? CameraType.front : CameraType.back)
+        }
+      />
+    </Camera>
+  );
+}
 ```
 
-- Simple web-style interface.
-- Global type augmentation for easy access.
-- Docs in the type definitions.
-- Optional availability checks instead of extraneous `isAvailable` methods.
+### Location
 
-Example of a POOR Expo module:
+```tsx
+import * as Location from 'expo-location';
+import { useEffect, useState } from 'react';
 
-```ts
-import { NativeModulesProxy } from "expo-modules-core";
-const { ExpoAppClip } = NativeModulesProxy;
-export default {
-  promptAppClip() {
-    return ExpoAppClip.promptAppClip();
+export function useLocation() {
+  const [location, setLocation] = useState<Location.LocationObject | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') return;
+
+      const loc = await Location.getCurrentPositionAsync({});
+      setLocation(loc);
+    })();
+  }, []);
+
+  return location;
+}
+```
+
+### Notifications
+
+```tsx
+import * as Notifications from 'expo-notifications';
+import { useEffect } from 'react';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
+
+export function useNotifications() {
+  useEffect(() => {
+    const subscription = Notifications.addNotificationReceivedListener(
+      (notification) => {
+        console.log(notification);
+      }
+    );
+
+    return () => subscription.remove();
+  }, []);
+
+  const sendNotification = async () => {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Hello!',
+        body: 'This is a notification',
+      },
+      trigger: { seconds: 2 },
+    });
+  };
+
+  return { sendNotification };
+}
+```
+
+### File System
+
+```tsx
+import * as FileSystem from 'expo-file-system';
+
+export async function saveFile(data: string, filename: string) {
+  const uri = `${FileSystem.documentDirectory}${filename}`;
+  await FileSystem.writeAsStringAsync(uri, data);
+  return uri;
+}
+
+export async function readFile(filename: string) {
+  const uri = `${FileSystem.documentDirectory}${filename}`;
+  const content = await FileSystem.readAsStringAsync(uri);
+  return content;
+}
+
+export async function downloadFile(url: string, filename: string) {
+  const uri = `${FileSystem.documentDirectory}${filename}`;
+  const download = await FileSystem.downloadAsync(url, uri);
+  return download.uri;
+}
+```
+
+### Image Picker
+
+```tsx
+import * as ImagePicker from 'expo-image-picker';
+import { useState } from 'react';
+import { Button, Image, View } from 'react-native';
+
+export default function ImagePickerScreen() {
+  const [image, setImage] = useState<string | null>(null);
+
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
+  return (
+    <View>
+      <Button title="Pick Image" onPress={pickImage} />
+      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+    </View>
+  );
+}
+```
+
+## Best Practices
+
+### Permission Handling
+
+```tsx
+import * as Location from 'expo-location';
+
+async function requestLocationPermission() {
+  const { status: foregroundStatus } =
+    await Location.requestForegroundPermissionsAsync();
+
+  if (foregroundStatus !== 'granted') {
+    console.log('Permission denied');
+    return false;
+  }
+
+  // Request background permission only if needed
+  const { status: backgroundStatus } =
+    await Location.requestBackgroundPermissionsAsync();
+
+  return backgroundStatus === 'granted';
+}
+```
+
+### Secure Storage
+
+```tsx
+import * as SecureStore from 'expo-secure-store';
+
+export async function saveToken(key: string, value: string) {
+  await SecureStore.setItemAsync(key, value);
+}
+
+export async function getToken(key: string) {
+  return await SecureStore.getItemAsync(key);
+}
+
+export async function deleteToken(key: string) {
+  await SecureStore.deleteItemAsync(key);
+}
+```
+
+### Device Info
+
+```tsx
+import * as Device from 'expo-device';
+import * as Application from 'expo-application';
+import Constants from 'expo-constants';
+
+export function getDeviceInfo() {
+  return {
+    deviceName: Device.deviceName,
+    deviceType: Device.deviceType,
+    osName: Device.osName,
+    osVersion: Device.osVersion,
+    appVersion: Application.nativeApplicationVersion,
+    buildVersion: Application.nativeBuildVersion,
+    expoVersion: Constants.expoVersion,
+  };
+}
+```
+
+## Common Patterns
+
+### Persistent Storage
+
+```tsx
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export const storage = {
+  async set(key: string, value: any) {
+    await AsyncStorage.setItem(key, JSON.stringify(value));
   },
-  isAppClipAvailable() {
-    return ExpoAppClip.isAppClipAvailable();
+
+  async get<T>(key: string): Promise<T | null> {
+    const item = await AsyncStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
+  },
+
+  async remove(key: string) {
+    await AsyncStorage.removeItem(key);
+  },
+
+  async clear() {
+    await AsyncStorage.clear();
   },
 };
 ```
 
-## Great documentation
+### Background Tasks
 
-- If you have a function like `isAvailable()`, explain why it exists in the docs. Research cases where it may return false such as in a simulator or particular OS version.
-- Document OS version availability for functions and constants in the type definitions.
+```tsx
+import * as BackgroundFetch from 'expo-background-fetch';
+import * as TaskManager from 'expo-task-manager';
 
-## BAD module standards
+const BACKGROUND_FETCH_TASK = 'background-fetch';
 
-- APIs that are hard to import, e.g. `import * as MediaLibrary from 'expo-media-library';` instead of `import { MediaLibrary } from 'expo/media';`
-- Extraneous abstractions over native functionality. The native module is installing on the global, do not wrap it in another layer for no reason.
-- Extraneous async methods when sync methods are possible.
-- Boolean flags instead of string union types for options.
-- Supporting legacy React Native architecture.
+TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
+  // Do work here
+  console.log('Background task running');
+  return BackgroundFetch.BackgroundFetchResult.NewData;
+});
 
-## Views
-
-Take API inspiration from great web component libraries like BaseUI and Radix.
-
-- https://base-ui.com/react/components/progress
-- https://www.radix-ui.com/primitives/docs/components/progress
-
-Consider if you're building a control or a display component. Controls should have more interactive APIs, while display components should be more declarative.
-
-Prefer functions on views instead of `useImperativeHandle` + `findNodeHandle`.
-
-```swift
-AsyncFunction("capture") { (view, options: Options) -> Ref in
-  return try capture(self.appContext, view)
+export async function registerBackgroundTask() {
+  return BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
+    minimumInterval: 60 * 15, // 15 minutes
+    stopOnTerminate: false,
+    startOnBoot: true,
+  });
 }
 ```
 
-Remember to export views in the module:
+### Sharing Content
 
-```swift
-import ExpoModulesCore
+```tsx
+import * as Sharing from 'expo-sharing';
 
-public class ExpoWebViewModule: Module {
-  public func definition() -> ModuleDefinition {
-    Name("ExpoWebView")
+export async function shareContent(uri: string) {
+  const isAvailable = await Sharing.isAvailableAsync();
 
-    View(ExpoWebView.self) {}
+  if (!isAvailable) {
+    console.log('Sharing is not available');
+    return;
   }
+
+  await Sharing.shareAsync(uri, {
+    mimeType: 'image/jpeg',
+    dialogTitle: 'Share this image',
+  });
 }
 ```
 
-## Marshalling-style API
+## Related Skills
 
-Consider this example https://github.com/EvanBacon/expo-shared-objects-haptics-example/blob/be90e92f8dba9b0807009502ab25c423c57e640d/modules/my-module/ios/MyModule.swift#L1C1-L178C2
-
-Using `@retroactive Convertible` and `AnyArgument` to convert between Swift types and dictionaries enables passing complex data structures across the boundary without writing custom serialization code for each type.
-
-```swift
-extension CHHapticEventParameter: @retroactive Convertible, AnyArgument {
-    public static func convert(from value: Any?, appContext: AppContext) throws -> Self {
-        guard let dict = value as? [String: Any],
-              let parameterIDRaw = dict["parameterID"] as? String,
-              let value = dict["value"] as? Double else {
-            throw NotADictionaryException()
-        }
-        return Self(parameterID: CHHapticEvent.ParameterID(rawValue: parameterIDRaw), value: Float(value))
-    }
-}
-
-extension CHHapticEvent: @retroactive Convertible, AnyArgument {
-    public static func convert(from value: Any?, appContext: AppContext) throws -> Self {
-        guard let dict = value as? [String: Any],
-              let eventTypeRaw = dict["eventType"] as? String,
-              let relativeTime = dict["relativeTime"] as? Double else {
-            throw NotADictionaryException()
-        }
-        let eventType = CHHapticEvent.EventType(rawValue: eventTypeRaw)
-        let parameters = (dict["parameters"] as? [[String: Any]])?.compactMap { paramDict -> CHHapticEventParameter? in
-            try? CHHapticEventParameter.convert(from: paramDict, appContext: appContext)
-        } ?? []
-        return Self(eventType: eventType, parameters: parameters, relativeTime: relativeTime)
-    }
-}
-
-extension CHHapticDynamicParameter: @retroactive Convertible, AnyArgument {
-    public static func convert(from value: Any?, appContext: AppContext) throws -> Self {
-        guard let dict = value as? [String: Any],
-              let parameterIDRaw = dict["parameterID"] as? String,
-              let value = dict["value"] as? Double,
-              let relativeTime = dict["relativeTime"] as? Double else {
-            throw NotADictionaryException()
-        }
-
-        return Self(parameterID: CHHapticDynamicParameter.ID(rawValue: parameterIDRaw), value: Float(value), relativeTime: relativeTime)
-    }
-}
-
-extension CHHapticPattern: @retroactive Convertible, AnyArgument {
-    public static func convert(from value: Any?, appContext: AppContext) throws -> Self {
-        guard let dict = value as? [String: Any],
-              let eventsArray = dict["events"] as? [[String: Any]] else {
-            throw NotADictionaryException()
-        }
-        let events = try eventsArray.map { eventDict -> CHHapticEvent in
-            try CHHapticEvent.convert(from: eventDict, appContext: appContext)
-        }
-        let parameters = (dict["parameters"] as? [[String: Any]])?.compactMap { paramDict -> CHHapticDynamicParameter? in
-            return try? CHHapticDynamicParameter.convert(from: paramDict, appContext: appContext)
-        } ?? []
-        return try Self(events: events, parameters: parameters)
-    }
-}
-
-internal final class NotAnArrayException: Exception {
-    override var reason: String {
-        "Given value is not an array"
-    }
-}
-
-internal final class IncorrectArraySizeException: GenericException<(expected: Int, actual: Int)> {
-    override var reason: String {
-        "Given array has unexpected number of elements: \(param.actual), expected: \(param.expected)"
-    }
-}
-
-internal final class NotADictionaryException: Exception {
-    override var reason: String {
-        "Given value is not a dictionary"
-    }
-}
-
-```
-
-Later this can be used to implement methods that accept complex data structures as arguments.
-
-```swift
-Function("playPattern") { (pattern: CHHapticPattern) in
-    let player = try hapticEngine.makePlayer(with: pattern)
-    try player.start(atTime: 0)
-}
-```
-
-Use shorthand where possible, especially when the JS value matches the Swift value:
-
-```swift
-Property("__typename") { $0.__typename }
-```
-
-## Shared objects
-
-Shared objects are long-lived native instances that are shared to JS. They can be used to keep heavy state objects, such as a decoded bitmap, alive across React components, rather than spinning up a new native instance every time a component mounts.
-
-- https://docs.expo.dev/modules/shared-objects/
-- https://expo.dev/blog/the-real-world-impact-of-shared-objects
-
-## Interacting with AppDelegate
-
-To interact with HealthKit, the module may need to respond to app lifecycle events. This can be done by implementing the `ExpoAppDelegateSubscriber` protocol.
-
-```swift
-import ExpoModulesCore
-
-public class ExpoHeadAppDelegateSubscriber: ExpoAppDelegateSubscriber {
-
-// Any AppDelegate methods you want to implement
-  public func application(
-    _ application: UIApplication,
-    continue userActivity: NSUserActivity,
-    restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void
-  ) -> Bool {
-    launchedActivity = userActivity
-
-   // ...
-
-    return false
-  }
-}
-```
-
-Then add the subscriber to the `expo-module.config.json`:
-
-```json
-{
-  "platforms": ["apple", "android", "web"],
-  "apple": {
-    "modules": ["ExpoHeadModule", ...],
-    "appDelegateSubscribers": ["ExpoHeadAppDelegateSubscriber"]
-  }
-}
-```
-
-## Expo ecosystem integration
-
-- Create a Config Plugin for setting up all permissions and entitlements.
-- Permissions APIs should follow Expo's permission model and implement hooks.
-  - Ref: https://github.com/expo/expo/blob/843d5e108ff70539ac353721d3a7765a5d08d502/packages/expo-media-library/src/MediaLibrary.ts#L502-L519
-- Document when things don't work in Expo Go and link to dev client instructions.
-- Consider creating Expo devtools plugins for interacting with native APIs. Optimize for Claude Code usage, e.g. a Bun CLI before a UI.
-  - Ref: https://docs.expo.dev/debugging/devtools-plugins
-- If any feature launches the app or could benefit from deep linking, add an Expo Router integration. A good example is `expo-quick-actions` which has a `expo-quick-actions/router` import for automatic deep linking. Other good examples are Expo notifications (open settings, redirect notifications), widgets, siri shortcuts.
-  - Ref: https://github.com/EvanBacon/expo-quick-actions
-
-## Verification
-
-- Run `yarn expo run:ios --no-bundler` in an Expo app to headlessly compile the module and verify there are no compilation errors.
+- **expo-config**: Configuring module permissions
+- **expo-build**: Including modules in builds

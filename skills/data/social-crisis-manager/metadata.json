@@ -1,9 +1,7 @@
 {
   "name": "social-crisis-manager",
-  "description": "Handle social media crises with strategic response and reputation management",
   "repo": "eddiebe147/claude-settings",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/eddiebe147/claude-settings"
+  "path": "skills/social-crisis-manager/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-30T03:50:59.790148Z"
 }

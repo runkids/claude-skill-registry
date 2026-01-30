@@ -1,9 +1,7 @@
 {
   "name": "react-ui",
-  "description": "Apply React patterns and conventions when working on UI components. Use when editing files in src/ui/, creating React components, or discussing state management. Auto-apply for JSX files.",
-  "repo": "surfdeeper/surfing-game",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "joshribakoff/surfsim",
+  "path": ".claude/skills/react-ui/SKILL.md",
+  "source": "github.com/joshribakoff/surfsim",
+  "downloaded_at": "2026-01-30T02:28:02.284362Z"
 }

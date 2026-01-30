@@ -1,7 +1,7 @@
 {
   "name": "workflow-creator",
-  "repo": "oimiragieo/agent-studio",
+  "repo": "nicepkg/ai-workflow",
   "path": ".claude/skills/workflow-creator/SKILL.md",
-  "source": "github.com/oimiragieo/agent-studio",
-  "downloaded_at": "2026-01-29T01:54:41.838725Z"
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-30T04:18:17.709115Z"
 }

@@ -1,7 +1,7 @@
 {
   "category": "security",
-  "count": 777,
-  "updated_at": "2026-01-29T16:04:49.309673Z",
+  "count": 770,
+  "updated_at": "2026-01-30T04:53:29.802457Z",
   "skills": [
     {
       "name": "git-workflow",
@@ -2325,20 +2325,6 @@
       "source": "local"
     },
     {
-      "name": "Authentication",
-      "description": "Authentication and authorization including JWT, OAuth2, sessions, and RBAC. Activate for login, auth flows, security, access control, and identity management.",
-      "repo": "markus41/lobbi-design-system",
-      "path": "data/Authentication",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "authentication"
-      ],
-      "stars": 0,
-      "install": "markus41/lobbi-design-system",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "SKILL.md",
       "description": "Auto-activates when user mentions security, vulnerabilities, OWASP, or secure coding. Expert in web security including OWASP Top 10, authentication, authorization, and secure coding practices.",
       "repo": "pascallammers/mylo-travel-concierge-v2",
@@ -3235,6 +3221,20 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "authentication",
+      "description": "Authentication and authorization including JWT, OAuth2, sessions, and RBAC. Activate for login, auth flows, security, access control, and identity management.",
+      "repo": "markus41/lobbi-design-system",
+      "path": "data/authentication",
+      "branch": "main",
+      "category": "security",
+      "tags": [
+        "authentication"
+      ],
+      "stars": 0,
+      "install": "markus41/lobbi-design-system",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "authentication-authorization",
       "description": "ログイン、セッション、JWT、OAuth、アクセス制御を実装する際に使用。",
       "repo": "TakumiOkayasu/dotfile-work",
@@ -3556,18 +3556,6 @@
       "tags": [],
       "stars": 0,
       "install": "ckorhonen/claude-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "break-filter-js-from-html",
-      "description": "Guidance for bypassing HTML/JavaScript sanitization filters in security testing contexts. This skill should be used when tasked with finding XSS filter bypasses, testing HTML sanitizers, or exploiting",
-      "repo": "letta-ai/skills",
-      "path": "letta/benchmarks/trajectory-only/break-filter-js-from-html",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "letta-ai/skills/letta/benchmarks/trajectory-only/break-filter-js-from-html",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4555,21 +4543,6 @@
       "name": "django-reviewer",
       "description": "WHEN: Django project review, ORM queries, views/templates, admin customizationWHAT: ORM optimization + View patterns + Template security + Admin config + Migration safetyWHEN NOT: FastAPI → fastapi-re",
       "repo": "physics91/claude-vibe",
-      "path": "skills/django-reviewer",
-      "branch": "main",
-      "category": "security",
-      "tags": [
-        "django",
-        "reviewer"
-      ],
-      "stars": 0,
-      "install": "physics91/claude-vibe/skills/django-reviewer",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "django-reviewer",
-      "description": "WHEN: Django project review, ORM queries, views/templates, admin customizationWHAT: ORM optimization + View patterns + Template security + Admin config + Migration safetyWHEN NOT: FastAPI → fastapi-re",
-      "repo": "physics91/claude-vibe",
       "path": "data/django-reviewer",
       "branch": "main",
       "category": "security",
@@ -5362,18 +5335,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "https-certificate-checker",
-      "description": "Https Certificate Checker - Auto-activating skill for Security Fundamentals.Triggers on: https certificate checker, https certificate checkerPart of the Security Fundamentals skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/https-certificate-checker",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "iam-policy-reviewer",
       "description": "Iam Policy Reviewer - Auto-activating skill for Security Advanced.Triggers on: iam policy reviewer, iam policy reviewerPart of the Security Advanced skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -5833,18 +5794,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "key-rotation-manager",
-      "description": "Key Rotation Manager - Auto-activating skill for Security Advanced.Triggers on: key rotation manager, key rotation managerPart of the Security Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/key-rotation-manager",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "keycloak-admin",
       "description": "Keycloak administration including realm management, client configuration, OAuth 2.0 setup, user management with custom attributes, role and group management, theme deployment, and token configuration.",
       "repo": "Lobbi-Docs/claude",
@@ -5938,18 +5887,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/03-security-fundamentals/license-compliance-scanner",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "license-compliance-scanner",
-      "description": "License Compliance Scanner - Auto-activating skill for Security Fundamentals.Triggers on: license compliance scanner, license compliance scannerPart of the Security Fundamentals skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/license-compliance-scanner",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -6261,18 +6198,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "network-security-scanner",
-      "description": "Network Security Scanner - Auto-activating skill for Security Advanced.Triggers on: network security scanner, network security scannerPart of the Security Advanced skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/network-security-scanner",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "nextauth",
       "description": "Implements authentication with Auth.js/NextAuth.js v5 including OAuth providers, credentials, sessions, and route protection. Use when adding authentication to Next.js, configuring OAuth providers, or",
       "repo": "mgd34msu/goodvibes-plugin",
@@ -6540,24 +6465,24 @@
       "name": "openwebf-security",
       "description": "DEPRECATED umbrella Skill (backward compatibility). Use only for cross-cutting security reviews spanning remote content + XSS/sanitization + store compliance. Prefer focused openwebf-security-* Skills",
       "repo": "archview-ai/webf-plugin",
-      "path": "data/openwebf-security",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "archview-ai/webf-plugin",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "openwebf-security-remote-content",
-      "description": "Review security risks and mitigations for remote WebF content (untrusted bundles, URL allowlists, HTTPS, trust boundaries, clickjacking). Use when the user mentions untrusted remote bundles, bundle UR",
-      "repo": "archview-ai/webf-plugin",
       "path": "webf-plugin/skills/openwebf-security-remote-content",
       "branch": "main",
       "category": "security",
       "tags": [],
       "stars": 0,
       "install": "archview-ai/webf-plugin/webf-plugin/skills/openwebf-security-remote-content",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "openwebf-security",
+      "description": "DEPRECATED umbrella Skill (backward compatibility). Use only for cross-cutting security reviews spanning remote content + XSS/sanitization + store compliance. Prefer focused openwebf-security-* Skills",
+      "repo": "archview-ai/webf-plugin",
+      "path": "data/openwebf-security",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "archview-ai/webf-plugin",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -7496,6 +7421,18 @@
       "name": "sandbox-configuration",
       "description": "Central authority for Claude Code sandboxing and isolation. Covers sandboxed bash tool, /sandbox command, filesystem isolation (blocked access, custom paths), network isolation (domain restrictions, p",
       "repo": "melodic-software/claude-code-plugins",
+      "path": "plugins/claude-ecosystem/skills/sandbox-configuration",
+      "branch": "main",
+      "category": "security",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/plugins/claude-ecosystem/skills/sandbox-configuration",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "sandbox-configuration",
+      "description": "Central authority for Claude Code sandboxing and isolation. Covers sandboxed bash tool, /sandbox command, filesystem isolation (blocked access, custom paths), network isolation (domain restrictions, p",
+      "repo": "melodic-software/claude-code-plugins",
       "path": "data/sandbox-configuration",
       "branch": "main",
       "category": "security",
@@ -8186,18 +8123,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/03-security-fundamentals/security-headers-generator",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "security-headers-generator",
-      "description": "Security Headers Generator - Auto-activating skill for Security Fundamentals.Triggers on: security headers generator, security headers generatorPart of the Security Fundamentals skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/security-headers-generator",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -9472,18 +9397,6 @@
       "tags": [],
       "stars": 0,
       "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/saas-packs/vercel-pack/skills/vercel-security-basics",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "violetconnect-bigcommerce",
-      "description": "BigCommerce OAuth, embedded app JWT validation, and pre-registration patterns for VioletConnect",
-      "repo": "violetio/violet-ai-plugins",
-      "path": "archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-bigcommerce",
-      "branch": "main",
-      "category": "security",
-      "tags": [],
-      "stars": 0,
-      "install": "violetio/violet-ai-plugins/archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-bigcommerce",
       "source": "SkillsMP + GitHub Raw"
     },
     {

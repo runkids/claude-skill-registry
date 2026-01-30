@@ -1,672 +1,950 @@
 ---
 name: documentation-generation
-description: Create comprehensive technical documentation including API docs, component libraries, README files, architecture diagrams, and developer guides using tools like JSDoc, Storybook, or Docusaurus. Use when documenting APIs, creating component documentation, writing README files, generating API references, documenting architecture decisions, creating onboarding guides, maintaining changelogs, documenting configuration options, or building developer documentation sites.
+description: Generate comprehensive documentation including learning notes, architecture diagrams, and API references
+version: 1.0.0
+author: Saberloop Project
+usage: |
+  Use this skill for documentation tasks:
+  - Creating new epic/phase documentation templates
+  - Generating learning notes from development sessions
+  - Creating architecture diagrams and dependency graphs
+  - Maintaining cross-references between documents
+  - Generating API documentation from code comments
+  
+  Examples:
+  "Create epic documentation using the documentation-generation skill"
+  "Generate learning notes using the documentation-generation skill"
+  "Create API docs using the documentation-generation skill"
+
+# Documentation Generation Skill
+
+## Overview
+
+This skill automates the generation and maintenance of comprehensive documentation for Saberloop, including learning notes, epic/phase documentation, architecture diagrams, and API references, ensuring knowledge capture and project continuity.
+
+## Documentation Structure
+
+### Documentation Hierarchy
+
+```
+docs/
+├── learning/                    # Learning and process documentation
+│   ├── epic01_infrastructure/   # Infrastructure setup
+│   ├── epic02_quizmaster_v1/  # Core quiz functionality
+│   ├── epic06_sharing/         # Social/sharing features
+│   ├── epic07_monetization/     # Monetization features
+│   ├── epic10_hygiene/         # Code quality processes
+│   └── parking_lot/            # Deferred features
+├── api/                        # API documentation
+├── architecture/                 # Architecture diagrams and decisions
+└── product-info/               # Product screenshots and materials
+```
+
+### Document Types
+
+| Type | Purpose | Template | Location |
+|-------|---------|----------|----------|
+| Epic Plan | Major feature planning | `EPIC*_PLAN.md` |
+| Phase Plan | Specific implementation steps | `PHASE*_PLAN.md` |
+| Learning Notes | Session learnings and metrics | `PHASE*_LEARNING_NOTES.md` |
+| Feature Flags | Flag lifecycle documentation | `FLAG_*.md` |
+| API Reference | Function documentation | `api/README.md` |
+| Architecture | System design decisions | `architecture/README.md` |
+
+## When to Use This Skill
+
+Use this skill when ANY of these are true:
+- [ ] Starting new epic or phase development
+- [ ] Completing development sessions with learnings
+- [ ] Creating new features requiring documentation
+- [ ] Updating project knowledge base
+- [ ] Onboarding new team members
+- [ ] Preparing project handoffs
+
+## Epic Documentation Templates
+
+### Step 1: Epic Creation Template
+
+**File:** `docs/learning/epicXX_epic-name/EPIC_XX_EPIC_NAME_PLAN.md`
+
+```markdown
+# Epic XX: Epic Name
+
+**Status:** Planning/Active/Complete
+**Created:** YYYY-MM-DD
+**Parent:** [Link to parent epic or exploration document]
+
 ---
 
-# Documentation Generation - Creating Clear, Maintainable Docs
+## Executive Summary
 
-## When to use this skill
+Brief (2-3 sentences) description of what this epic accomplishes and why it matters.
 
-- Documenting REST or GraphQL APIs
-- Creating component libraries with Storybook
-- Writing comprehensive README files
-- Generating API reference documentation
-- Documenting architecture decisions (ADRs)
-- Creating developer onboarding guides
-- Maintaining changelogs and release notes
-- Documenting configuration and environment variables
-- Building documentation sites with Docusaurus
-- Writing inline code documentation (JSDoc, TSDoc)
-- Creating visual architecture diagrams
-- Documenting deployment and operational procedures
+**Core insight**: Key technical insight that drives the epic approach.
 
-## When to use this skill
+---
 
-- Creating API documentation, writing technical guides, generating code documentation, or maintaining project wikis.
-- When working on related tasks or features
-- During development that requires this expertise
+## Scope
 
-**Use when**: Creating API documentation, writing technical guides, generating code documentation, or maintaining project wikis.
+### What's IN
 
-## Core Principles
+| Phase | Feature | Priority | Document |
+|-------|---------|----------|
+| **1** | Feature A description | P0 - Critical | [PHASE1_FEATURE_A.md](./PHASE1_FEATURE_A.md) |
+| **2** | Feature B description | P1 - Important | [PHASE2_FEATURE_B.md](./PHASE2_FEATURE_B.md) |
+| **3** | Feature C description | P2 - Nice to have | [PHASE3_FEATURE_C.md](./PHASE3_FEATURE_C.md) |
 
-1. **Docs as Code** - Version control, review process, automated generation
-2. **Single Source of Truth** - Generate from code when possible
-3. **Keep It Fresh** - Automated checks for outdated docs
-4. **Examples Over Explanations** - Show, don't just tell
-5. **Audience-Specific** - Different docs for different users
+### What's OUT (Post-MVP)
 
-## API Documentation
+- Feature D - Reason for exclusion
+- Feature E - Technical complexity
+- Feature F - Timeline constraints
 
-### 1. **OpenAPI/Swagger (REST APIs)**
+---
 
-```typescript
-// ✅ JSDoc comments for automatic documentation
-/**
- * @swagger
- * /users:
- *   get:
- *     summary: List all users
- *     description: Returns a paginated list of users
- *     tags:
- *       - Users
- *     parameters:
- *       - in: query
- *         name: page
- *         schema:
- *           type: integer
- *           default: 1
- *         description: Page number
- *       - in: query
- *         name: limit
- *         schema:
- *           type: integer
- *           default: 20
- *         description: Items per page
- *     responses:
- *       200:
- *         description: Success
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 data:
- *                   type: array
- *                   items:
- *                     $ref: '#/components/schemas/User'
- *                 meta:
- *                   type: object
- *                   properties:
- *                     page:
- *                       type: integer
- *                     total:
- *                       type: integer
- */
-app.get('/users', async (req, res) => {
-  // Implementation
-});
+## Technical Decisions Summary
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     User:
- *       type: object
- *       required:
- *         - id
- *         - email
- *       properties:
- *         id:
- *           type: string
- *           example: "123"
- *         email:
- *           type: string
- *           format: email
- *           example: "user@example.com"
- *         name:
- *           type: string
- *           example: "John Doe"
- *         createdAt:
- *           type: string
- *           format: date-time
- */
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| Architecture pattern | Choice | Why this approach |
+| Technology stack | Choice | Benefits and tradeoffs |
+| Data model | Choice | Scalability considerations |
+
+---
+
+## Success Metrics
+
+| Metric | Target | How to Measure |
+|--------|--------|-----------------|
+| User adoption | X users | Telemetry: `feature_used` |
+| Performance | <3s load time | Performance monitoring |
+| Error rate | <1% | Error tracking |
+| Test coverage | >90% | Coverage reports |
+
+---
+
+## Timeline Philosophy
+
+- No time estimates provided. Work in phases:
+  1. Complete Phase 1, ship, measure
+  2. If successful, proceed to Phase 2
+  3. If successful, proceed to Phase 3
+
+Each phase is independently valuable. Stop if metrics don't justify continuation.
+
+---
+
+## Development Standards
+
+### Testing Requirements
+
+| Requirement | Phase 1 | Phase 2 | Phase 3 |
+|-------------|---------|---------|---------|
+| Unit tests | ✅ | ✅ | ✅ |
+| E2E tests | ✅ | ✅ | ✅ |
+| Performance tests | - | ✅ | ✅ |
+| Security tests | - | - | ✅ |
+
+### Code Quality Requirements
+
+| Requirement | Target |
+|-------------|--------|
+| Architecture compliance | Zero violations |
+| Type checking | No errors |
+| Test coverage | >90% |
+| Bundle size | <5MB |
+
+### Documentation Requirements
+
+| Requirement | Frequency |
+|-------------|----------|
+| Learning notes | After each session |
+| Phase documentation | At phase completion |
+| Epic updates | Major milestones |
+| API updates | Public API changes |
+
+---
+
+## Risk Management
+
+| Risk | Probability | Impact | Mitigation |
+|------|-------------|---------|------------|
+| Technical complexity | Medium | Timeline | Proof of concept first |
+| User adoption | Low | Success | Beta testing with feedback |
+| Performance | Low | Experience | Performance monitoring |
+| Security | Low | Data | Security audit |
+
+---
+
+## Related Documentation
+
+- [Parent Exploration](./EXPLORATION.md)
+- [Architecture Overview](../../../architecture/README.md)
+- [API Reference](../../../api/README.md)
+- [Previous Epic](../epicXX_PREVIOUS/EPIC_XX_PLAN.md)
+
+---
+
+**Last Updated:** YYYY-MM-DD
+**Next Review:** YYYY-MM-DD
 ```
 
-```typescript
-// Setup Swagger UI
-import swaggerJsdoc from 'swagger-jsdoc';
-import swaggerUi from 'swagger-ui-express';
+### Step 2: Phase Documentation Template
 
-const options = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'My API',
-      version: '1.0.0',
-      description: 'API documentation',
-    },
-    servers: [
-      {
-        url: 'http://localhost:3000',
-        description: 'Development server',
-      },
-    ],
-  },
-  apis: ['./routes/*.ts'], // Files with @swagger comments
-};
+**File:** `docs/learning/epicXX_epic-name/PHASE*_PHASE_NAME.md`
 
-const specs = swaggerJsdoc(options);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+```markdown
+# Phase X: Phase Name
+
+**Status:** Ready/In Progress/Complete
+**Priority:** High/Medium/Low (Area)
+**Estimated Effort:** X-Y sessions
+**Created:** YYYY-MM-DD
+**Updated:** YYYY-MM-DD
+
+---
+
+## Session Log
+
+| Date | Status | Notes |
+|------|--------|-------|
+| YYYY-MM-DD | **Started** | Initial planning and setup |
+| YYYY-MM-DD | **Progress** | Implemented core functionality |
+| YYYY-MM-DD | **Complete** | Testing and documentation |
+
+---
+
+## Overview
+
+Brief description of what this phase accomplishes and how it fits into the epic.
+
+**Key Goal:** What success looks like for this phase.
+
+---
+
+## What You'll Learn
+
+### New Technologies & Concepts
+
+1. **Technology Name** - Brief description and why important
+2. **Pattern Name** - Development pattern and benefits
+3. **Tool Name** - New tool and learning objectives
+
+---
+
+## Prerequisites
+
+Before starting this phase, you should have:
+
+- ✅ **Previous Phase Complete** - What was delivered
+- ✅ Required tools installed - Development environment
+- ✅ Knowledge of dependencies - APIs, libraries
+- ✅ Understanding of patterns - Established approaches
+
+---
+
+## Branching Strategy
+
+### Branch Naming
+```
+feature/phaseX-phase-name
 ```
 
-### 2. **TypeDoc (TypeScript)**
+### Workflow
+1. Create branch from `main`
+2. Make small, focused commits
+3. Push regularly to remote
+4. Create PR when phase complete
+5. Merge to `main` after review
 
-```typescript
-// ✅ JSDoc comments for TypeDoc
-/**
- * Represents a user in the system
- */
-export interface User {
-  /** Unique identifier */
-  id: string;
-  /** User's email address */
-  email: string;
-  /** User's display name */
-  name: string;
-  /** Account creation timestamp */
-  createdAt: Date;
-}
-
-/**
- * Service for managing users
- * @example
- * ```typescript
- * const userService = new UserService();
- * const user = await userService.createUser({
- *   email: 'user@example.com',
- *   name: 'John Doe'
- * });
- * ```
- */
-export class UserService {
-  /**
-   * Creates a new user
-   * @param data - User creation data
-   * @returns The created user
-   * @throws {ValidationError} If email is invalid
-   * @throws {ConflictError} If email already exists
-   */
-  async createUser(data: CreateUserData): Promise<User> {
-    // Implementation
-  }
-
-  /**
-   * Finds a user by ID
-   * @param id - User ID
-   * @returns User object or null if not found
-   */
-  async findById(id: string): Promise<User | null> {
-    // Implementation
-  }
-}
-```
-
-```json
-// typedoc.json
-{
-  "entryPoints": ["src/index.ts"],
-  "out": "docs",
-  "plugin": ["typedoc-plugin-markdown"],
-  "excludePrivate": true,
-  "includeVersion": true
-}
-```
-
+### Commands
 ```bash
-# Generate documentation
-npx typedoc
+# Start phase
+git checkout main
+git pull origin main
+git checkout -b feature/phaseX-phase-name
+
+# During work
+git add <files>
+git commit -m "type(scope): description"
+
+# Push regularly
+git push -u origin feature/phaseX-phase-name
+
+# When complete
+gh pr create --title "Phase X: Phase Name" --body "..."
 ```
 
-### 3. **GraphQL Documentation (Auto-generated)**
-
-```typescript
-// GraphQL schema with descriptions
-const typeDefs = gql`
-  """
-  Represents a user in the system
-  """
-  type User {
-    """Unique identifier"""
-    id: ID!
-    
-    """User's email address"""
-    email: String!
-    
-    """User's display name"""
-    name: String!
-    
-    """Posts authored by this user"""
-    posts: [Post!]!
-  }
-
-  """
-  Input for creating a new user
-  """
-  input CreateUserInput {
-    """Valid email address"""
-    email: String!
-    
-    """Display name (3-50 characters)"""
-    name: String!
-    
-    """Password (minimum 8 characters)"""
-    password: String!
-  }
-
-  type Query {
-    """
-    Get a single user by ID
-    @example
-    query {
-      user(id: "123") {
-        id
-        email
-        name
-      }
-    }
-    """
-    user(id: ID!): User
-    
-    """
-    List all users with pagination
-    """
-    users(limit: Int = 20, offset: Int = 0): [User!]!
-  }
-`;
-
-// GraphQL Playground provides interactive docs automatically
-```
-
-## Code Documentation
-
-### 1. **README.md Template**
-
-```markdown
-# Project Name
-
-Brief description of what this project does.
-
-## Features
-
-- 🚀 Feature 1
-- 📦 Feature 2
-- ⚡ Feature 3
-
-## Quick Start
-
-\`\`\`bash
-# Install dependencies
-npm install
-
-# Run development server
-npm run dev
-
-# Run tests
-npm test
-\`\`\`
-
-## Installation
-
-Detailed installation instructions...
-
-## Usage
-
-Basic usage examples:
-
-\`\`\`typescript
-import { MyLibrary } from 'my-library';
-
-const instance = new MyLibrary({
-  apiKey: 'your-key'
-});
-
-const result = await instance.doSomething();
-\`\`\`
-
-## API Reference
-
-See [API Documentation](./docs/api.md)
-
-## Configuration
-
-Environment variables:
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `DATABASE_URL` | PostgreSQL connection string | - |
-| `PORT` | Server port | `3000` |
-| `NODE_ENV` | Environment | `development` |
-
-## Contributing
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md)
-
-## License
-
-MIT
-```
-
-### 2. **CHANGELOG.md**
-
-```markdown
-# Changelog
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [Unreleased]
-
-### Added
-- New feature X
-- Support for Y
-
-### Changed
-- Improved performance of Z
-
-### Deprecated
-- Old API endpoint /v1/users (use /v2/users instead)
-
-### Removed
-- Unused dependency foo
-
-### Fixed
-- Bug in authentication flow
-- Memory leak in WebSocket handler
-
-### Security
-- Updated dependencies with security vulnerabilities
-
-## [2.1.0] - 2024-01-15
-
-### Added
-- User profile customization
-- Dark mode support
-
-### Fixed
-- Login redirect issue
-
-## [2.0.0] - 2024-01-01
-
-### Changed
-- **BREAKING**: Renamed `getUser()` to `fetchUser()`
-- **BREAKING**: Changed response format for `/api/users`
-
-### Migration Guide
-
-\`\`\`typescript
-// Before
-const user = await api.getUser(id);
-
-// After
-const user = await api.fetchUser(id);
-\`\`\`
-```
-
-### 3. **JSDoc for Functions**
-
-```typescript
-/**
- * Calculates the total price including tax and shipping
- * 
- * @param items - Array of cart items
- * @param options - Calculation options
- * @param options.taxRate - Tax rate as decimal (e.g., 0.08 for 8%)
- * @param options.shippingCost - Flat shipping cost
- * @returns Total price object
- * 
- * @example
- * ```typescript
- * const total = calculateTotal(
- *   [{ price: 10, quantity: 2 }],
- *   { taxRate: 0.08, shippingCost: 5 }
- * );
- * // Returns: { subtotal: 20, tax: 1.6, shipping: 5, total: 26.6 }
- * ```
- * 
- * @throws {ValidationError} If items array is empty
- * @throws {ValidationError} If taxRate is negative
- */
-export function calculateTotal(
-  items: CartItem[],
-  options: {
-    taxRate: number;
-    shippingCost: number;
-  }
-): TotalPrice {
-  // Implementation
-}
-```
-
-## Documentation Sites
-
-### 1. **VitePress (Modern Static Site)**
-
-```markdown
-<!-- docs/index.md -->
----
-layout: home
-hero:
-  name: My Library
-  text: A modern TypeScript library
-  tagline: Fast, type-safe, and easy to use
-  actions:
-    - theme: brand
-      text: Get Started
-      link: /guide/
-    - theme: alt
-      text: View on GitHub
-      link: https://github.com/user/repo
-features:
-  - title: Fast
-    details: Built with performance in mind
-  - title: Type-safe
-    details: Full TypeScript support
-  - title: Simple
-    details: Easy to learn and use
 ---
 
-<!-- docs/guide/index.md -->
-# Getting Started
+## Objective
 
-## Installation
+Clear statement of what this phase aims to achieve.
 
-::: code-group
-\`\`\`bash [npm]
-npm install my-library
-\`\`\`
+---
 
-\`\`\`bash [yarn]
-yarn add my-library
-\`\`\`
+## Scope Overview
 
-\`\`\`bash [pnpm]
-pnpm add my-library
-\`\`\`
-:::
+### Implementation Areas
 
-## Quick Example
+| Component | Files | Complexity | Focus Areas |
+|-----------|-------|------------|-------------|
+| Service Layer | `src/services/*.js` | Medium | Business logic |
+| UI Components | `src/components/*.js` | Low | User interface |
+| API Integration | `src/api/*.js` | High | External communication |
+| Testing | `*.test.js` | Medium | Test coverage |
 
-\`\`\`typescript
-import { createClient } from 'my-library';
+---
 
-const client = createClient({
-  apiKey: process.env.API_KEY
-});
+## Implementation Plan
 
-const data = await client.fetch('/users');
-\`\`\`
+> **Important Reminders:**
+> - 📝 Update `PHASE*_LEARNING_NOTES.md` after each session
+> - ✅ Update step status (change `[ ]` to `[x]`)
+> - 💾 Commit after logical changes
+> - 🔄 Push to remote regularly
+
+### Step 1: Setup and Foundation
+**Status:** [ ] Not Started
+
+1. Create feature branch
+2. Update dependencies
+3. Setup development environment
+4. Initial project structure
+
+**After completing:**
+- [ ] Commit: "chore(setup): initial phase setup"
+- [ ] Update learning notes with foundation details
+- [ ] Mark this step complete
+
+---
+
+### Step 2: Core Implementation
+**Status:** [ ] Not Started
+
+[Detailed implementation steps with checklists]
+
+---
+
+### Step 3: Testing and Validation
+**Status:** [ ] Not Started
+
+1. Unit tests for new code
+2. Integration tests
+3. E2E test coverage
+4. Performance validation
+5. Security considerations
+
+---
+
+### Step 4: Documentation and Cleanup
+**Status:** [ ] Not Started
+
+1. Update API documentation
+2. Create user guide
+3. Update project README
+4. Archive temporary files
+5. Prepare for review
+
+---
+
+## Deliverables
+
+### Initial Setup
+- [ ] Feature branch created
+- [ ] Development environment ready
+- [ ] Phase documentation template
+
+### Implementation
+- [ ] Core functionality implemented
+- [ ] Tests passing
+- [ ] Code quality checks passing
+
+### Documentation
+- [ ] Phase documentation complete
+- [ ] Learning notes updated
+- [ ] Cross-references updated
+- [ ] API documentation updated
+
+### Final
+- [ ] PR created and reviewed
+- [ ] Epic documentation updated
+- [ ] Integration testing passed
+- [ ] Ready for deployment
+
+---
+
+## Success Criteria
+
+| Metric | Target |
+|--------|--------|
+| Core functionality | ✅ Working |
+| Test coverage | >90% |
+| Performance | <3s load time |
+| Code quality | Zero violations |
+| Documentation | 100% complete |
+
+---
+
+## Acceptance Criteria
+
+- [ ] All functionality works as specified
+- [ ] Tests pass in all environments
+- [ ] Performance meets targets
+- [ ] Documentation is comprehensive
+- [ ] No regression in existing features
+- [ ] Ready for production deployment
+
+---
+
+## Learning Objectives
+
+1. **Technical Learning**
+   - What technology or pattern will be learned
+   - Why this is valuable for the project
+
+2. **Process Learning**
+   - What development process will be improved
+   - How this can be applied to future phases
+
+3. **Quality Learning**
+   - What quality measures will be improved
+   - How to maintain high standards
+
+---
+
+## Dependencies
+
+- Previous phase completion
+- External API availability
+- Tool dependencies
+- Environment setup requirements
+
+---
+
+## Notes
+
+- Record important decisions and rationales
+- Capture problems and solutions
+- Document time estimates vs actual
+- Note process improvements
+
+---
+
+**Last Updated:** YYYY-MM-DD
+```
+
+## Learning Notes Generation
+
+### Step 1: Session Learning Notes Template
+
+**File:** `docs/learning/epicXX_epic-name/PHASE*_LEARNING_NOTES.md`
+
+```markdown
+# Phase X: Session Learning Notes
+
+**Date:** YYYY-MM-DD
+**Type:** [development|testing|debugging|planning]
+**Session:** X of Y
+**Duration:** Z hours
+**Participants:** [List if pair programming]
+
+---
+
+## Session Objective
+
+What was planned to accomplish in this session.
+
+---
+
+## What Was Accomplished
+
+### Completed Tasks
+- [ ] Task 1 description
+- [ ] Task 2 description
+- [ ] Task 3 description
+
+### Code Changes
+- **Files Modified:** [List of files]
+- **Lines Added:** [Number]
+- **Lines Removed:** [Number]
+- **Tests Added:** [Number]
+
+---
+
+## Problems Encountered
+
+### Technical Issues
+1. **Problem:** Clear description
+   **Solution:** How it was resolved
+   **Time Lost:** Estimate of time spent
+   **Learning:** What to avoid in future
+
+### Process Issues
+1. **Problem:** Development process issue
+   **Solution:** Process improvement
+   **Root Cause:** Why it happened
+   **Prevention:** How to prevent recurrence
+
+---
+
+## Key Learnings
+
+### Technical Learnings
+1. **Pattern Discovered:** New development pattern
+   **Application:** Where and how to use it
+   **Benefits:** Why this is valuable
+
+2. **Tool Mastery:** New tool or feature
+   **Usage:** How it was used effectively
+   **Tips:** Best practices discovered
+
+### Process Learnings
+1. **Workflow Improvement:** Better way to work
+   **Old Way:** Previous approach
+   **New Way:** Improved approach
+   **Efficiency Gain:** Time or effort saved
+
+---
+
+## Metrics and Results
+
+### Performance Metrics
+| Metric | Before | After | Improvement |
+|--------|--------|--------|-------------|
+| Test coverage | X% | Y% | +Z% |
+| Build time | Xs | Ys | -Zs |
+| Bundle size | Xkb | Ykb | +/-Zkb |
+
+### Quality Metrics
+| Metric | Before | After | Status |
+|--------|--------|--------|-------|
+| Architecture violations | X | Y | ✅ Improved |
+| TypeScript errors | X | Y | ✅ Fixed |
+| Linting issues | X | Y | ✅ Reduced |
+
+---
 
 ## Next Steps
 
-- [Configuration](/guide/configuration)
-- [API Reference](/api/)
-- [Examples](/examples/)
-```
+### Immediate (Next Session)
+1. [ ] Task to continue
+2. [ ] Issue to investigate
+3. [ ] Test to write
 
-```typescript
-// docs/.vitepress/config.ts
-import { defineConfig } from 'vitepress';
+### Upcoming (This Phase)
+1. [ ] Remaining implementation tasks
+2. [ ] Documentation to complete
+3. [ ] Testing to perform
 
-export default defineConfig({
-  title: 'My Library',
-  description: 'Documentation for My Library',
-  
-  themeConfig: {
-    nav: [
-      { text: 'Guide', link: '/guide/' },
-      { text: 'API', link: '/api/' },
-      { text: 'Examples', link: '/examples/' }
-    ],
-    
-    sidebar: {
-      '/guide/': [
-        {
-          text: 'Introduction',
-          items: [
-            { text: 'Getting Started', link: '/guide/' },
-            { text: 'Installation', link: '/guide/installation' },
-            { text: 'Configuration', link: '/guide/configuration' }
-          ]
-        },
-        {
-          text: 'Core Concepts',
-          items: [
-            { text: 'Authentication', link: '/guide/auth' },
-            { text: 'Data Fetching', link: '/guide/fetching' }
-          ]
-        }
-      ]
-    },
-    
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/user/repo' }
-    ]
-  }
-});
-```
-
-### 2. **Docusaurus (React-based)**
-
-```jsx
-// docusaurus.config.js
-module.exports = {
-  title: 'My Library',
-  tagline: 'A modern TypeScript library',
-  url: 'https://mylib.dev',
-  baseUrl: '/',
-  
-  presets: [
-    [
-      '@docusaurus/preset-classic',
-      {
-        docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/user/repo/edit/main/',
-        },
-        blog: {
-          showReadingTime: true,
-        },
-        theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        },
-      },
-    ],
-  ],
-  
-  themeConfig: {
-    navbar: {
-      title: 'My Library',
-      items: [
-        { to: '/docs/intro', label: 'Docs', position: 'left' },
-        { to: '/blog', label: 'Blog', position: 'left' },
-        {
-          href: 'https://github.com/user/repo',
-          label: 'GitHub',
-          position: 'right',
-        },
-      ],
-    },
-  },
-};
-```
-
-## Automated Checks
-
-### 1. **Link Checking**
-
-```yaml
-# .github/workflows/docs.yml
-name: Check Docs
-
-on: [push, pull_request]
-
-jobs:
-  check-links:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Check broken links
-        uses: gaurav-nelson/github-action-markdown-link-check@v1
-        with:
-          folder-path: 'docs/'
-          config-file: '.markdown-link-check.json'
-```
-
-### 2. **Code Examples Testing**
-
-```typescript
-// Extract and test code examples from markdown
-import { readFileSync } from 'fs';
-
-describe('Documentation Examples', () => {
-  it('README example works', () => {
-    const readme = readFileSync('README.md', 'utf-8');
-    const codeBlocks = readme.match(/```typescript\n([\s\S]*?)```/g);
-    
-    // Test each code block
-    for (const block of codeBlocks) {
-      const code = block.replace(/```typescript\n/, '').replace(/```$/, '');
-      expect(() => eval(code)).not.toThrow();
-    }
-  });
-});
-```
-
-## Documentation Checklist
-
-```
-Essential Documentation:
-□ README.md with quick start
-□ CHANGELOG.md with versions
-□ LICENSE file
-□ CONTRIBUTING.md for contributors
-□ API reference documentation
-□ Configuration guide
-
-Code Documentation:
-□ JSDoc comments on public APIs
-□ Type definitions exported
-□ Examples for complex functions
-□ Error conditions documented
-□ Breaking changes noted
-
-Quality:
-□ No broken links
-□ Code examples tested
-□ Screenshots up to date
-□ Search functionality
-□ Mobile-responsive
-□ Accessible (WCAG)
-
-Maintenance:
-□ Automated generation from code
-□ Versioned documentation
-□ CI/CD checks for docs
-□ Deprecation warnings visible
-□ Migration guides for breaking changes
-```
-
-## Resources
-
-- [Write the Docs](https://www.writethedocs.org/)
-- [The Good Docs Project](https://thegooddocsproject.dev/)
-- [VitePress](https://vitepress.dev/)
-- [Docusaurus](https://docusaurus.io/)
+### Future (Next Phases)
+1. [ ] Knowledge to apply to phase X+1
+2. [ ] Process improvements to implement
+3. [ ] Tools to master
 
 ---
 
-**Remember**: Documentation is part of your product. Keep it accurate, accessible, and up-to-date.
+## Screenshots and Evidence
+
+[Attach screenshots of progress, test results, or important milestones]
+
+---
+
+## Session Reflection
+
+### What Went Well
+- Clear description of successful aspects
+- Why it worked well
+- How to replicate success
+
+### What Could Be Improved
+- Areas for improvement
+- Specific suggestions
+- Action items for improvement
+
+### Unexpected Discoveries
+- Surprising findings
+- New opportunities identified
+- Risks or concerns discovered
+
+---
+
+## Process Documentation Updates
+
+### Templates Updated
+- [ ] Phase template with new learnings
+- [ ] Checklists with additional items
+- [ ] Time estimates refined
+
+### Cross-References Added
+- [ ] Links to related documentation
+- [ ] Updated architecture diagrams
+- [ ] Added to project knowledge base
+
+---
+
+**Session Summary:**
+**Duration:** X hours
+**Tasks Completed:** Y of Z planned
+**Progress:** Phase X is [percentage]% complete
+**Next Session:** Focus on [priority items]
+
+---
+
+**Last Updated:** YYYY-MM-DD
+```
+
+## API Documentation Generation
+
+### Step 1: JSDoc Configuration
+
+**File:** `jsdoc.config.json`
+
+```json
+{
+  "source": {
+    "include": ["src/**/*.js"],
+    "exclude": ["src/**/*.test.js", "src/version.js"],
+    "includePattern": ".+\\.js(doc)?$"
+  },
+  "opts": {
+    "destination": "./docs/api/",
+    "recurse": true
+  },
+  "plugins": [
+    "plugins/markdown",
+    "plugins/summarize"
+  ],
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": true,
+      "includeDate": true
+    }
+  },
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": true,
+    "idInHeadings": true
+  }
+}
+```
+
+### Step 2: API Documentation Template
+
+**File:** `docs/api/README.md`
+
+```markdown
+# Saberloop API Documentation
+
+## Overview
+
+This document describes the internal API used by Saberloop views, services, and components.
+
+## Architecture
+
+The API is organized into logical modules:
+
+| Module | Purpose | Key Functions |
+|--------|---------|---------------|
+| Core | State management and database | `initDatabase()`, `state` |
+| Services | Business logic layer | `quizService`, `partyService` |
+| API | External communication | `generateQuiz()`, `saveQuiz()` |
+| Utils | Helper functions | `shuffle()`, `formatScore()` |
+
+## Module Documentation
+
+### Core Module (`src/core/`)
+
+#### Database (`db.js`)
+```javascript
+/**
+ * Initialize the IndexedDB database and create object stores
+ * @returns {Promise<IDBDatabase>} Database instance
+ */
+export async function initDatabase() {
+  // Implementation
+}
+
+/**
+ * Save a quiz to the database
+ * @param {Quiz} quiz - Quiz object to save
+ * @returns {Promise<string>} Quiz ID
+ */
+export async function saveQuiz(quiz) {
+  // Implementation
+}
+```
+
+#### State Management (`state.js`)
+```javascript
+/**
+ * Get current value from global state
+ * @param {string} key - State key to retrieve
+ * @returns {any} Current value
+ */
+export function get(key) {
+  // Implementation
+}
+
+/**
+ * Subscribe to state changes
+ * @param {Function} callback - Callback function
+ * @returns {Function} Unsubscribe function
+ */
+export function subscribe(callback) {
+  // Implementation
+}
+```
+
+### Services Module (`src/services/`)
+
+#### Quiz Service (`quiz-service.js`)
+```javascript
+/**
+ * Create a new quiz with AI-generated questions
+ * @param {string} topic - Quiz topic
+ * @param {Object} options - Quiz options
+ * @returns {Promise<Quiz>} Generated quiz
+ */
+export async function createQuiz(topic, options = {}) {
+  // Implementation
+}
+
+/**
+ * Validate quiz answers and calculate score
+ * @param {Quiz} quiz - Quiz object
+ * @param {Array} answers - User answers
+ * @returns {QuizResult} Score and results
+ */
+export function calculateScore(quiz, answers) {
+  // Implementation
+}
+```
+
+### API Module (`src/api/`)
+
+#### Quiz Generation (`api.real.js`)
+```javascript
+/**
+ * Generate quiz questions using AI
+ * @param {string} topic - Topic for questions
+ * @param {number} questionCount - Number of questions to generate
+ * @param {string} language - Language for questions
+ * @returns {Promise<Object>} Generated questions and metadata
+ */
+export async function generateQuiz(topic, questionCount, language = 'en') {
+  // Implementation
+}
+```
+
+## Usage Examples
+
+### Basic Quiz Creation
+```javascript
+import { quizService } from '@/services/quiz-service.js';
+
+// Create a science quiz with 10 questions
+const quiz = await quizService.createQuiz('Science', {
+  questionCount: 10,
+  difficulty: 'medium',
+  language: 'en'
+});
+
+console.log('Quiz created:', quiz.id);
+```
+
+### State Management
+```javascript
+import { state, subscribe } from '@/core/state.js';
+
+// Get current user settings
+const settings = state.get('userSettings');
+
+// Subscribe to changes
+const unsubscribe = subscribe((newState) => {
+  console.log('State changed:', newState);
+});
+
+// Later: stop listening
+unsubscribe();
+```
+
+### Database Operations
+```javascript
+import { saveQuiz, loadQuiz } from '@/core/db.js';
+
+// Save a quiz
+await saveQuiz({
+  id: 'quiz-123',
+  topic: 'History',
+  questions: [...]
+});
+
+// Load a quiz
+const quiz = await loadQuiz('quiz-123');
+```
+
+## Error Handling
+
+### Common Error Types
+
+| Error Type | Description | Solution |
+|------------|-------------|----------|
+| `DatabaseError` | IndexedDB operation failed | Check browser compatibility |
+| `NetworkError` | API request failed | Check network connectivity |
+| `ValidationError` | Invalid input data | Validate inputs before API calls |
+
+### Error Handling Pattern
+
+```javascript
+try {
+  const result = await apiCall(data);
+  return result;
+} catch (error) {
+  logger.error('API call failed', { error: error.message });
+  throw new Error(handleApiError(error));
+}
+```
+
+## Version History
+
+| Version | Date | Changes |
+|---------|-------|---------|
+| 1.0.0 | 2026-01-15 | Initial documentation |
+| 1.1.0 | TBD | Next release changes |
+
+---
+
+**Generated:** YYYY-MM-DD  
+**Last Updated:** YYYY-MM-DD
+```
+
+## Automation Scripts
+
+### Step 1: Documentation Generation Scripts
+
+**File:** `scripts/generate-docs.cjs`
+
+```javascript
+const fs = require('fs');
+const path = require('path');
+
+/**
+ * Generate API documentation from JSDoc comments
+ */
+function generateApiDocs() {
+  console.log('📚 Generating API documentation...');
+  
+  const { execSync } = require('child_process');
+  
+  try {
+    execSync('npm run docs', { stdio: 'inherit' });
+    console.log('✅ API documentation generated');
+  } catch (error) {
+    console.error('❌ Failed to generate API docs:', error.message);
+    process.exit(1);
+  }
+}
+
+/**
+ * Generate learning notes template
+ */
+function generateLearningNotes(phaseName) {
+  const template = `
+# Phase: ${phaseName} Learning Notes
+
+**Date:** ${new Date().toISOString().split('T')[0]}
+**Status:** In Progress
+
+## Session Objectives
+[Add objectives here]
+
+## What Was Accomplished
+[Track progress here]
+
+## Problems Encountered
+[Document issues here]
+
+## Key Learnings
+[Capture learnings here]
+`;
+
+  const filename = `docs/learning/epicXX_epic-name/PHASE*_LEARNING_NOTES.md`;
+  fs.writeFileSync(filename, template);
+  console.log(`✅ Learning notes template created: ${filename}`);
+}
+
+// CLI interface
+const command = process.argv[2];
+const phaseName = process.argv[3];
+
+switch (command) {
+  case 'api':
+    generateApiDocs();
+    break;
+  case 'notes':
+    generateLearningNotes(phaseName);
+    break;
+  default:
+    console.log('Usage: node scripts/generate-docs.cjs [api|notes] [phase-name]');
+    process.exit(1);
+}
+```
+
+### Step 2: Package.json Scripts
+
+```json
+{
+  "scripts": {
+    "docs": "jsdoc -c jsdoc.config.json",
+    "docs:open": "jsdoc -c jsdoc.config.json && start docs/api/index.html",
+    "docs:generate": "node scripts/generate-docs.cjs",
+    "docs:notes": "node scripts/generate-docs.cjs notes"
+  }
+}
+```
+
+## Quality Assurance
+
+### Documentation Quality Checklist
+
+| Requirement | Status | Notes |
+|-------------|--------|-------|
+| All public APIs documented | ✅ | Complete coverage |
+| Examples provided | ✅ | Usage patterns included |
+| Cross-references working | ✅ | Links validated |
+| Consistent formatting | ✅ | Markdown linting passed |
+| Search-friendly | ✅ | Structure optimized |
+
+### Review Process
+
+1. **Content Review**
+   - Technical accuracy
+   - Completeness of examples
+   - Clarity of explanations
+
+2. **Format Review**
+   - Markdown syntax
+   - Link validation
+   - Consistency checks
+
+3. **Usability Review**
+   - Navigation ease
+   - Search effectiveness
+   - Mobile compatibility
+
+## Integration with Other Skills
+
+This skill integrates with:
+- **epic-hygiene-process** - For documenting hygiene learnings
+- **pwa-feature-development** - For documenting PWA features
+- **testing-suite-management** - For documenting test strategies
+- **architecture-compliance** - For documenting architectural decisions
+
+---
+
+**Version:** 1.0.0  
+**Last Updated:** 2026-01-15  
+**Compatible with:** Saberloop v2.0.0+

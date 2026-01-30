@@ -1,7 +1,7 @@
 {
   "name": "release-notes",
-  "repo": "i-am-bee/agentstack",
-  "path": ".claude/skills/release-notes/SKILL.md",
-  "source": "github.com/i-am-bee/agentstack",
-  "downloaded_at": "2026-01-29T03:19:17.642164Z"
+  "repo": "kangminhyuk1111/agents",
+  "path": "skills/release-notes/SKILL.md",
+  "source": "github.com/kangminhyuk1111/agents",
+  "downloaded_at": "2026-01-30T03:53:49.617936Z"
 }

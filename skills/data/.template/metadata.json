@@ -1,7 +1,7 @@
 {
   "name": ".template",
-  "repo": "pproenca/dot-skills",
-  "path": "skills/.template/SKILL.md.template",
-  "source": "github.com/pproenca/dot-skills",
-  "downloaded_at": "2026-01-29T02:19:40.438569Z"
+  "repo": "NickCrew/claude-cortex",
+  "path": "skills/community/.template/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-30T02:17:29.795095Z"
 }

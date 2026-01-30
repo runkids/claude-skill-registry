@@ -1,7 +1,7 @@
 {
   "name": "openapi-to-typescript",
-  "repo": "Dknight203/AesopIDE",
-  "path": ".agent/skills/openapi-to-typescript/SKILL.md",
-  "source": "github.com/Dknight203/AesopIDE",
-  "downloaded_at": "2026-01-29T04:04:30.731740Z"
+  "repo": "albertms22/agent-toolkit",
+  "path": "skills/openapi-to-typescript/SKILL.md",
+  "source": "github.com/albertms22/agent-toolkit",
+  "downloaded_at": "2026-01-30T04:14:51.676176Z"
 }

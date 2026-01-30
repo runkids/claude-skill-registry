@@ -1,9 +1,7 @@
 {
   "name": "budget-planner",
-  "description": "Create, manage, and optimize budgets for projects, departments, and organizations with variance tracking and scenario planning",
   "repo": "eddiebe147/claude-settings",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/eddiebe147/claude-settings"
+  "path": "skills/budget-planner/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-30T03:50:58.277253Z"
 }

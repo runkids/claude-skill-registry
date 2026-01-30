@@ -1,7 +1,7 @@
 {
   "name": "clipboard",
-  "repo": "bitwikiorg/skills.md",
-  "path": "sources/langchain/clipboard/SKILL.md",
-  "source": "github.com/bitwikiorg/skills.md",
-  "downloaded_at": "2026-01-27T01:51:46.314804Z"
+  "repo": "bitwize-music-studio/claude-ai-music-skills",
+  "path": "skills/clipboard/SKILL.md",
+  "source": "github.com/bitwize-music-studio/claude-ai-music-skills",
+  "downloaded_at": "2026-01-30T03:46:25.773686Z"
 }

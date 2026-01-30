@@ -1,885 +1,629 @@
 ---
 name: cli-config
-description: Manage CLI application configuration with Cobra and Viper. Use when implementing config files, environment variables, flags binding, or when user mentions Viper, configuration management, config files, or CLI settings.
+description: Configuration patterns for Effect CLI using Context.Tag and Config. Covers environment variables, config files, command-line overrides, and layered configuration.
+model_invoked: true
+triggers:
+  - "CLI config"
+  - "configuration"
+  - "environment variables"
+  - "Config.Provider"
+  - "config file"
+  - "settings"
 ---
 
-# CLI Configuration with Cobra & Viper
+# CLI Configuration Patterns
 
-Build flexible, hierarchical configuration systems for CLI applications using Cobra (commands/flags) and Viper (config management).
+Configuration patterns for Effect CLI using Context.Tag, Config, and layered configuration sources.
 
-## Your Role: Configuration Architect
+## Quick Start
 
-You design configuration systems with proper precedence and flexibility. You:
+```typescript
+import { Config, Context, Effect, Layer } from "effect"
 
-✅ **Implement config hierarchy** - Flags > Env > Config > Defaults
-✅ **Bind flags to Viper** - Seamless integration
-✅ **Support multiple formats** - YAML, JSON, TOML
-✅ **Handle environment variables** - With prefixes
-✅ **Provide config commands** - init, show, validate
-✅ **Follow CLY patterns** - Use project structure
+// Define config schema
+interface AppConfig {
+  readonly dbPath: string
+  readonly logLevel: "debug" | "info" | "warn" | "error"
+  readonly prettyPrint: boolean
+}
 
-❌ **Do NOT hardcode paths** - Use conventions
-❌ **Do NOT skip validation** - Validate config
-❌ **Do NOT ignore precedence** - Follow hierarchy
+// Create config tag
+class AppConfig extends Context.Tag("AppConfig")<AppConfig, AppConfig>() {}
 
-## Configuration Precedence
-
-Viper uses this precedence order (highest to lowest):
-
-1. Explicit `viper.Set()` calls
-2. Command-line flags
-3. Environment variables
-4. Config file values
-5. Defaults
-
-```go
-viper.SetDefault("port", 8080)              // 5. Default
-// config.yaml: port: 8081                  // 4. Config file
-os.Setenv("APP_PORT", "8082")              // 3. Environment
-cobra.Flags().Int("port", 0, "Port")       // 2. Flag
-viper.Set("port", 8083)                     // 1. Explicit set
-```
-
-## Basic Setup
-
-### Initialize Viper
-
-```go
-package config
-
-import (
-    "fmt"
-    "os"
-
-    "github.com/spf13/viper"
+// Load from environment
+const AppConfigLive = Layer.effect(
+  AppConfig,
+  Effect.gen(function* () {
+    return {
+      dbPath: yield* Config.string("DB_PATH").pipe(
+        Config.withDefault(`${process.env.HOME}/.myapp/data.db`)
+      ),
+      logLevel: yield* Config.literal("debug", "info", "warn", "error")("LOG_LEVEL").pipe(
+        Config.withDefault("info")
+      ),
+      prettyPrint: yield* Config.boolean("PRETTY_PRINT").pipe(
+        Config.withDefault(true)
+      ),
+    }
+  })
 )
 
-func Init() error {
-    // Set config name (no extension)
-    viper.SetConfigName("config")
-
-    // Set config type
-    viper.SetConfigType("yaml")
-
-    // Add search paths
-    viper.AddConfigPath(".")
-    viper.AddConfigPath("$HOME/.myapp")
-    viper.AddConfigPath("/etc/myapp")
-
-    // Read config
-    if err := viper.ReadInConfig(); err != nil {
-        if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-            // Config file not found; use defaults
-            return nil
-        }
-        return fmt.Errorf("error reading config: %w", err)
-    }
-
-    return nil
-}
-```
-
-### With Cobra Integration
-
-```go
-package cmd
-
-import (
-    "fmt"
-    "os"
-
-    "github.com/spf13/cobra"
-    "github.com/spf13/viper"
+// Use in commands
+const myCommand = Command.make("cmd", {}, () =>
+  Effect.gen(function* () {
+    const config = yield* AppConfig
+    yield* Console.log(`DB: ${config.dbPath}`)
+  })
 )
-
-var cfgFile string
-
-var rootCmd = &cobra.Command{
-    Use:   "myapp",
-    Short: "My application",
-}
-
-func Execute() {
-    if err := rootCmd.Execute(); err != nil {
-        os.Exit(1)
-    }
-}
-
-func init() {
-    cobra.OnInitialize(initConfig)
-
-    // Global flags
-    rootCmd.PersistentFlags().StringVar(
-        &cfgFile,
-        "config",
-        "",
-        "config file (default is $HOME/.myapp/config.yaml)",
-    )
-}
-
-func initConfig() {
-    if cfgFile != "" {
-        // Use explicit config file
-        viper.SetConfigFile(cfgFile)
-    } else {
-        // Find home directory
-        home, err := os.UserHomeDir()
-        if err != nil {
-            fmt.Println(err)
-            os.Exit(1)
-        }
-
-        // Search config in home directory and current directory
-        viper.AddConfigPath(home + "/.myapp")
-        viper.AddConfigPath(".")
-        viper.SetConfigType("yaml")
-        viper.SetConfigName("config")
-    }
-
-    // Read environment variables
-    viper.AutomaticEnv()
-    viper.SetEnvPrefix("MYAPP")
-
-    // Read config file
-    if err := viper.ReadInConfig(); err == nil {
-        fmt.Println("Using config file:", viper.ConfigFileUsed())
-    }
-}
 ```
 
-## Configuration Patterns
+---
 
-### Set Defaults
-
-```go
-func setDefaults() {
-    // Server
-    viper.SetDefault("server.port", 8080)
-    viper.SetDefault("server.host", "localhost")
-    viper.SetDefault("server.timeout", "30s")
-
-    // Database
-    viper.SetDefault("database.host", "localhost")
-    viper.SetDefault("database.port", 5432)
-    viper.SetDefault("database.name", "myapp")
-
-    // Logging
-    viper.SetDefault("log.level", "info")
-    viper.SetDefault("log.format", "json")
-}
-```
-
-### Bind Flags
-
-**Single flag:**
-```go
-cmd.Flags().IntP("port", "p", 8080, "Port to run on")
-viper.BindPFlag("server.port", cmd.Flags().Lookup("port"))
-```
-
-**All flags:**
-```go
-cmd.Flags().Int("port", 8080, "Port")
-cmd.Flags().String("host", "localhost", "Host")
-
-viper.BindPFlags(cmd.Flags())
-```
-
-**Persistent flags:**
-```go
-rootCmd.PersistentFlags().String("log-level", "info", "Log level")
-viper.BindPFlag("log.level", rootCmd.PersistentFlags().Lookup("log-level"))
-```
+## Config Sources
 
 ### Environment Variables
 
-**Auto-map all env vars:**
-```go
-viper.AutomaticEnv()
-viper.SetEnvPrefix("MYAPP")
+```typescript
+// Simple string
+const apiKey = yield* Config.string("API_KEY")
 
-// MYAPP_SERVER_PORT → server.port
-// MYAPP_DATABASE_NAME → database.name
-```
-
-**Custom env key replacer:**
-```go
-import "strings"
-
-viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
-viper.AutomaticEnv()
-viper.SetEnvPrefix("MYAPP")
-
-// MYAPP_SERVER_PORT → server.port (. → _)
-```
-
-**Bind specific env var:**
-```go
-viper.BindEnv("database.password", "DB_PASSWORD")
-
-// DB_PASSWORD → database.password
-```
-
-### Read Config Values
-
-**Get typed values:**
-```go
-port := viper.GetInt("server.port")
-host := viper.GetString("server.host")
-enabled := viper.GetBool("feature.enabled")
-timeout := viper.GetDuration("server.timeout")
-tags := viper.GetStringSlice("tags")
-```
-
-**Check if set:**
-```go
-if viper.IsSet("server.port") {
-    port := viper.GetInt("server.port")
-}
-```
-
-**Get with default:**
-```go
-port := viper.GetInt("server.port")
-if port == 0 {
-    port = 8080
-}
-```
-
-### Unmarshal to Struct
-
-**Full config:**
-```go
-type Config struct {
-    Server   ServerConfig   `mapstructure:"server"`
-    Database DatabaseConfig `mapstructure:"database"`
-    Log      LogConfig      `mapstructure:"log"`
-}
-
-type ServerConfig struct {
-    Port    int    `mapstructure:"port"`
-    Host    string `mapstructure:"host"`
-    Timeout string `mapstructure:"timeout"`
-}
-
-var config Config
-
-if err := viper.Unmarshal(&config); err != nil {
-    return fmt.Errorf("unable to decode config: %w", err)
-}
-```
-
-**Subsection:**
-```go
-var serverConfig ServerConfig
-
-if err := viper.UnmarshalKey("server", &serverConfig); err != nil {
-    return fmt.Errorf("unable to decode server config: %w", err)
-}
-```
-
-### Write Config
-
-**Create default config:**
-```go
-func createDefaultConfig(path string) error {
-    viper.SetDefault("server.port", 8080)
-    viper.SetDefault("server.host", "localhost")
-
-    return viper.WriteConfigAs(path)
-}
-```
-
-**Save current config:**
-```go
-viper.Set("server.port", 9090)
-
-// Write to current config file
-viper.WriteConfig()
-
-// Write to specific file
-viper.WriteConfigAs("/path/to/config.yaml")
-
-// Safe write (won't overwrite)
-viper.SafeWriteConfig()
-```
-
-## CLY Project Pattern
-
-### Config Package
-
-**pkg/config/config.go:**
-```go
-package config
-
-import (
-    "fmt"
-    "os"
-    "path/filepath"
-
-    "github.com/spf13/viper"
+// With default
+const host = yield* Config.string("HOST").pipe(
+  Config.withDefault("localhost")
 )
 
-type Config struct {
-    Server ServerConfig `mapstructure:"server"`
-    Log    LogConfig    `mapstructure:"log"`
-}
-
-type ServerConfig struct {
-    Port int    `mapstructure:"port"`
-    Host string `mapstructure:"host"`
-}
-
-type LogConfig struct {
-    Level  string `mapstructure:"level"`
-    Format string `mapstructure:"format"`
-}
-
-var cfg *Config
-
-// Init initializes the configuration
-func Init(cfgFile string) error {
-    if cfgFile != "" {
-        viper.SetConfigFile(cfgFile)
-    } else {
-        home, err := os.UserHomeDir()
-        if err != nil {
-            return err
-        }
-
-        viper.AddConfigPath(filepath.Join(home, ".cly"))
-        viper.AddConfigPath(".")
-        viper.SetConfigType("yaml")
-        viper.SetConfigName("config")
-    }
-
-    setDefaults()
-
-    viper.AutomaticEnv()
-    viper.SetEnvPrefix("CLY")
-
-    if err := viper.ReadInConfig(); err != nil {
-        if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
-            return err
-        }
-    }
-
-    cfg = &Config{}
-    if err := viper.Unmarshal(cfg); err != nil {
-        return fmt.Errorf("unable to decode config: %w", err)
-    }
-
-    return nil
-}
-
-func setDefaults() {
-    viper.SetDefault("server.port", 8080)
-    viper.SetDefault("server.host", "localhost")
-    viper.SetDefault("log.level", "info")
-    viper.SetDefault("log.format", "text")
-}
-
-// Get returns the current config
-func Get() *Config {
-    return cfg
-}
-
-// GetString returns a config value as string
-func GetString(key string) string {
-    return viper.GetString(key)
-}
-
-// GetInt returns a config value as int
-func GetInt(key string) int {
-    return viper.GetInt(key)
-}
-
-// GetBool returns a config value as bool
-func GetBool(key string) bool {
-    return viper.GetBool(key)
-}
-```
-
-### Root Command Integration
-
-**cmd/root.go:**
-```go
-package cmd
-
-import (
-    "fmt"
-    "os"
-
-    "github.com/spf13/cobra"
-    "github.com/yurifrl/cly/pkg/config"
+// Optional (returns Option)
+const debugMode = yield* Config.string("DEBUG").pipe(
+  Config.option
 )
 
-var cfgFile string
-
-var RootCmd = &cobra.Command{
-    Use:   "cly",
-    Short: "CLY - Command Line Yuri",
-    PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
-        return config.Init(cfgFile)
-    },
-}
-
-func Execute() {
-    if err := RootCmd.Execute(); err != nil {
-        fmt.Fprintln(os.Stderr, err)
-        os.Exit(1)
-    }
-}
-
-func init() {
-    RootCmd.PersistentFlags().StringVar(
-        &cfgFile,
-        "config",
-        "",
-        "config file (default is $HOME/.cly/config.yaml)",
-    )
-}
+// Required with custom error
+const secret = yield* Config.string("SECRET").pipe(
+  Config.mapError(() => new ConfigError({ key: "SECRET", message: "Required for auth" }))
+)
 ```
 
-### Config Command
+### Typed Config Values
 
-**modules/config/cmd.go:**
-```go
-package configcmd
-
-import (
-    "fmt"
-
-    "github.com/spf13/cobra"
-    "github.com/spf13/viper"
+```typescript
+// Boolean
+const verbose = yield* Config.boolean("VERBOSE").pipe(
+  Config.withDefault(false)
 )
 
-func Register(parent *cobra.Command) {
-    cmd := &cobra.Command{
-        Use:   "config",
-        Short: "Manage configuration",
-    }
+// Integer
+const port = yield* Config.integer("PORT").pipe(
+  Config.withDefault(3000)
+)
 
-    cmd.AddCommand(
-        initCmd(),
-        showCmd(),
-        validateCmd(),
-    )
+// Number (float)
+const timeout = yield* Config.number("TIMEOUT_SECONDS").pipe(
+  Config.withDefault(30.0)
+)
 
-    parent.AddCommand(cmd)
-}
+// Literal union (enum)
+const env = yield* Config.literal("dev", "staging", "prod")("ENV").pipe(
+  Config.withDefault("dev")
+)
 
-func initCmd() *cobra.Command {
-    return &cobra.Command{
-        Use:   "init",
-        Short: "Initialize config file",
-        RunE: func(cmd *cobra.Command, args []string) error {
-            path, _ := cmd.Flags().GetString("path")
-            if path == "" {
-                path = "$HOME/.cly/config.yaml"
-            }
-
-            if err := viper.SafeWriteConfigAs(path); err != nil {
-                return fmt.Errorf("failed to create config: %w", err)
-            }
-
-            fmt.Printf("Config created at: %s\n", path)
-            return nil
-        },
-    }
-}
-
-func showCmd() *cobra.Command {
-    return &cobra.Command{
-        Use:   "show",
-        Short: "Show current configuration",
-        RunE: func(cmd *cobra.Command, args []string) error {
-            fmt.Println("Current configuration:")
-            fmt.Println("Config file:", viper.ConfigFileUsed())
-            fmt.Println()
-
-            for _, key := range viper.AllKeys() {
-                fmt.Printf("%s: %v\n", key, viper.Get(key))
-            }
-
-            return nil
-        },
-    }
-}
-
-func validateCmd() *cobra.Command {
-    return &cobra.Command{
-        Use:   "validate",
-        Short: "Validate configuration",
-        RunE: func(cmd *cobra.Command, args []string) error {
-            // Add validation logic
-            fmt.Println("Configuration is valid")
-            return nil
-        },
-    }
-}
+// URL
+const apiUrl = yield* Config.url("API_URL").pipe(
+  Config.withDefault(new URL("http://localhost:8080"))
+)
 ```
 
-## Advanced Patterns
+### Config File Loading
 
-### Remote Config (etcd, Consul)
+```typescript
+import { FileSystem } from "@effect/platform"
+import * as path from "node:path"
 
-```go
-import _ "github.com/spf13/viper/remote"
-
-func initRemoteConfig() error {
-    viper.AddRemoteProvider("etcd", "http://127.0.0.1:4001", "/config/myapp.json")
-    viper.SetConfigType("json")
-
-    if err := viper.ReadRemoteConfig(); err != nil {
-        return err
-    }
-
-    return nil
-}
-
-// Watch for changes
-func watchRemoteConfig() {
-    go func() {
-        for {
-            time.Sleep(time.Second * 5)
-            err := viper.WatchRemoteConfig()
-            if err != nil {
-                log.Printf("unable to read remote config: %v", err)
-                continue
-            }
-        }
-    }()
-}
-```
-
-### Watch Config File
-
-```go
-viper.WatchConfig()
-viper.OnConfigChange(func(e fsnotify.Event) {
-    fmt.Println("Config file changed:", e.Name)
-
-    // Reload config
-    var newConfig Config
-    if err := viper.Unmarshal(&newConfig); err != nil {
-        log.Printf("error reloading config: %v", err)
-        return
-    }
-
-    // Update application state
-    updateAppConfig(newConfig)
-})
-```
-
-### Multiple Config Instances
-
-```go
-// Default instance
-viper.SetConfigName("config")
-viper.ReadInConfig()
-
-// Custom instance
-v := viper.New()
-v.SetConfigName("other-config")
-v.AddConfigPath(".")
-v.ReadInConfig()
-
-port := v.GetInt("port")
-```
-
-### Config with Validation
-
-```go
-type Config struct {
-    Server ServerConfig `mapstructure:"server" validate:"required"`
-    DB     DBConfig     `mapstructure:"database" validate:"required"`
-}
-
-type ServerConfig struct {
-    Port int    `mapstructure:"port" validate:"required,min=1,max=65535"`
-    Host string `mapstructure:"host" validate:"required,hostname"`
-}
-
-func Load() (*Config, error) {
-    var cfg Config
-
-    if err := viper.Unmarshal(&cfg); err != nil {
-        return nil, err
-    }
-
-    // Validate
-    validate := validator.New()
-    if err := validate.Struct(cfg); err != nil {
-        return nil, fmt.Errorf("invalid config: %w", err)
-    }
-
-    return &cfg, nil
-}
-```
-
-### Nested Config Keys
-
-```go
-// Dot notation
-viper.Set("server.database.host", "localhost")
-
-// Nested maps
-viper.Set("server", map[string]interface{}{
-    "database": map[string]interface{}{
-        "host": "localhost",
-        "port": 5432,
-    },
-})
-
-// Access nested
-host := viper.GetString("server.database.host")
-
-// Get sub-tree
-dbConfig := viper.Sub("server.database")
-if dbConfig != nil {
-    host := dbConfig.GetString("host")
-}
-```
-
-## Config File Formats
-
-### YAML
-
-**config.yaml:**
-```yaml
-server:
-  port: 8080
-  host: localhost
-  timeout: 30s
-
-database:
-  host: localhost
-  port: 5432
-  name: myapp
-  user: postgres
-  password: secret
-
-log:
-  level: info
-  format: json
-  output: stdout
-
-features:
-  enabled:
-    - feature1
-    - feature2
-```
-
-### JSON
-
-**config.json:**
-```json
-{
-  "server": {
-    "port": 8080,
-    "host": "localhost"
-  },
-  "database": {
-    "host": "localhost",
-    "port": 5432
+interface ConfigFile {
+  dbPath?: string
+  logLevel?: string
+  features?: {
+    cache?: boolean
+    metrics?: boolean
   }
 }
-```
 
-### TOML
+const loadConfigFile = Effect.gen(function* () {
+  const fs = yield* FileSystem.FileSystem
+  const configPath = path.join(process.env.HOME!, ".myapp", "config.json")
 
-**config.toml:**
-```toml
-[server]
-port = 8080
-host = "localhost"
+  const exists = yield* fs.exists(configPath)
+  if (!exists) {
+    return {} as ConfigFile
+  }
 
-[database]
-host = "localhost"
-port = 5432
-name = "myapp"
-```
+  const content = yield* fs.readFileString(configPath)
+  return JSON.parse(content) as ConfigFile
+})
 
-## Best Practices
+const AppConfigLive = Layer.effect(
+  AppConfig,
+  Effect.gen(function* () {
+    // Load file first
+    const file = yield* loadConfigFile
 
-### 1. Always Set Defaults
-
-```go
-func init() {
-    viper.SetDefault("server.port", 8080)
-    viper.SetDefault("log.level", "info")
-}
-```
-
-### 2. Use Environment Variables
-
-```go
-viper.AutomaticEnv()
-viper.SetEnvPrefix("MYAPP")
-
-// Now MYAPP_SERVER_PORT overrides config
-```
-
-### 3. Validate Config
-
-```go
-type Config struct {
-    Port int `validate:"required,min=1,max=65535"`
-}
-
-if err := validate.Struct(cfg); err != nil {
-    return err
-}
-```
-
-### 4. Provide Config Commands
-
-```
-myapp config init      # Create default config
-myapp config show      # Show current config
-myapp config validate  # Validate config
-```
-
-### 5. Handle Missing Config Gracefully
-
-```go
-if err := viper.ReadInConfig(); err != nil {
-    if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-        // Config not found, use defaults
-        log.Println("No config file found, using defaults")
-    } else {
-        return err
+    // Environment overrides file
+    return {
+      dbPath: yield* Config.string("DB_PATH").pipe(
+        Config.withDefault(file.dbPath ?? `${process.env.HOME}/.myapp/data.db`)
+      ),
+      logLevel: yield* Config.literal("debug", "info", "warn", "error")("LOG_LEVEL").pipe(
+        Config.withDefault((file.logLevel as any) ?? "info")
+      ),
+      cacheEnabled: yield* Config.boolean("CACHE_ENABLED").pipe(
+        Config.withDefault(file.features?.cache ?? true)
+      ),
     }
+  })
+)
+```
+
+---
+
+## Layered Configuration
+
+### Pattern: Priority Order
+
+```
+CLI args > Environment > Config file > Defaults
+```
+
+```typescript
+// Define option that can override config
+const verboseOption = Options.boolean("verbose").pipe(
+  Options.withAlias("v"),
+  Options.optional
+)
+
+const myCommand = Command.make(
+  "cmd",
+  { verbose: verboseOption },
+  ({ verbose }) =>
+    Effect.gen(function* () {
+      const config = yield* AppConfig
+
+      // CLI option overrides config
+      const isVerbose = Option.getOrElse(verbose, () => config.verbose)
+
+      if (isVerbose) {
+        yield* Console.log("Verbose mode enabled")
+      }
+    })
+)
+```
+
+### Pattern: Config Service with Overrides
+
+```typescript
+interface AppConfig {
+  readonly dbPath: string
+  readonly logLevel: string
+  readonly verbose: boolean
+}
+
+class AppConfig extends Context.Tag("AppConfig")<AppConfig, AppConfig>() {}
+
+// Base config from env/file
+const baseConfig = Effect.gen(function* () {
+  const file = yield* loadConfigFile
+  return {
+    dbPath: yield* Config.string("DB_PATH").pipe(
+      Config.withDefault(file.dbPath ?? DEFAULT_DB_PATH)
+    ),
+    logLevel: yield* Config.string("LOG_LEVEL").pipe(
+      Config.withDefault(file.logLevel ?? "info")
+    ),
+    verbose: yield* Config.boolean("VERBOSE").pipe(
+      Config.withDefault(file.verbose ?? false)
+    ),
+  }
+})
+
+// Factory that accepts CLI overrides
+const makeAppConfigLayer = (overrides: Partial<AppConfig>) =>
+  Layer.effect(
+    AppConfig,
+    Effect.gen(function* () {
+      const base = yield* baseConfig
+      return { ...base, ...overrides }
+    })
+  )
+
+// In main command, capture options and create layer
+const mainCommand = Command.make(
+  "app",
+  {
+    verbose: Options.boolean("verbose").pipe(Options.optional),
+    logLevel: Options.text("log-level").pipe(Options.optional),
+  },
+  ({ verbose, logLevel }) =>
+    Effect.gen(function* () {
+      // Build overrides from CLI options
+      const overrides: Partial<AppConfig> = {}
+      if (Option.isSome(verbose)) overrides.verbose = verbose.value
+      if (Option.isSome(logLevel)) overrides.logLevel = logLevel.value
+
+      // Create config layer with overrides
+      const configLayer = makeAppConfigLayer(overrides)
+
+      // Run subcommand with this config
+      yield* subcommandProgram.pipe(Effect.provide(configLayer))
+    })
+)
+```
+
+---
+
+## Config Schemas with Effect Schema
+
+### Pattern: Validated Config
+
+```typescript
+import { Schema } from "effect"
+
+// Define config schema
+const AppConfigSchema = Schema.Struct({
+  database: Schema.Struct({
+    path: Schema.String.pipe(Schema.nonEmptyString()),
+    poolSize: Schema.Number.pipe(Schema.int(), Schema.positive()),
+  }),
+  logging: Schema.Struct({
+    level: Schema.Literal("debug", "info", "warn", "error"),
+    format: Schema.Literal("json", "text"),
+  }),
+  features: Schema.Struct({
+    cache: Schema.Boolean,
+    metrics: Schema.Boolean,
+  }),
+})
+
+type AppConfig = Schema.Schema.Type<typeof AppConfigSchema>
+
+// Parse and validate
+const loadConfig = Effect.gen(function* () {
+  const fs = yield* FileSystem.FileSystem
+  const configPath = `${process.env.HOME}/.myapp/config.json`
+
+  const content = yield* fs.readFileString(configPath).pipe(
+    Effect.mapError(() => new ConfigFileNotFoundError({ path: configPath }))
+  )
+
+  const json = yield* Effect.try({
+    try: () => JSON.parse(content),
+    catch: () => new ConfigParseError({ path: configPath }),
+  })
+
+  return yield* Schema.decodeUnknown(AppConfigSchema)(json).pipe(
+    Effect.mapError((e) => new ConfigValidationError({ errors: e.errors }))
+  )
+})
+```
+
+### Pattern: Config with Defaults via Schema
+
+```typescript
+const AppConfigSchema = Schema.Struct({
+  dbPath: Schema.optionalWith(Schema.String, {
+    default: () => `${process.env.HOME}/.myapp/data.db`,
+  }),
+  logLevel: Schema.optionalWith(
+    Schema.Literal("debug", "info", "warn", "error"),
+    { default: () => "info" as const }
+  ),
+  maxRetries: Schema.optionalWith(Schema.Number, { default: () => 3 }),
+})
+```
+
+---
+
+## XDG Base Directory Support
+
+### Pattern: Standard Paths
+
+```typescript
+const XDG = {
+  config: process.env.XDG_CONFIG_HOME ?? `${process.env.HOME}/.config`,
+  data: process.env.XDG_DATA_HOME ?? `${process.env.HOME}/.local/share`,
+  cache: process.env.XDG_CACHE_HOME ?? `${process.env.HOME}/.cache`,
+}
+
+const APP_PATHS = {
+  config: `${XDG.config}/myapp/config.json`,
+  db: `${XDG.data}/myapp/data.db`,
+  cache: `${XDG.cache}/myapp/`,
+  logs: `${XDG.data}/myapp/logs/`,
 }
 ```
 
-### 6. Don't Store Secrets in Config
+### Pattern: Path Service
 
-```go
-// ❌ BAD
-database:
-  password: "mysecret"
-
-// ✅ GOOD - Use env vars
-database:
-  password: ${DB_PASSWORD}
-
-// Or
-viper.BindEnv("database.password", "DB_PASSWORD")
-```
-
-### 7. Use Struct Tags
-
-```go
-type ServerConfig struct {
-    Port    int    `mapstructure:"port" json:"port" yaml:"port"`
-    Host    string `mapstructure:"host" json:"host" yaml:"host"`
-    Timeout string `mapstructure:"timeout" json:"timeout" yaml:"timeout"`
+```typescript
+interface PathService {
+  readonly config: string
+  readonly data: string
+  readonly cache: string
+  readonly logs: string
+  readonly db: string
 }
+
+class PathService extends Context.Tag("PathService")<PathService, PathService>() {}
+
+const PathServiceLive = Layer.succeed(
+  PathService,
+  PathService.of({
+    config: process.env.MYAPP_CONFIG ?? `${XDG.config}/myapp/config.json`,
+    data: process.env.MYAPP_DATA ?? `${XDG.data}/myapp/`,
+    cache: process.env.MYAPP_CACHE ?? `${XDG.cache}/myapp/`,
+    logs: process.env.MYAPP_LOGS ?? `${XDG.data}/myapp/logs/`,
+    db: process.env.MYAPP_DB ?? `${XDG.data}/myapp/data.db`,
+  })
+)
 ```
 
-## Common Patterns
+---
 
-### Config Init Command
+## Init Command Pattern
 
-```go
-func initConfigCmd() *cobra.Command {
-    var force bool
+### Pattern: Config Initialization
 
-    cmd := &cobra.Command{
-        Use:   "init",
-        Short: "Initialize configuration",
-        RunE: func(cmd *cobra.Command, args []string) error {
-            configPath := viper.ConfigFileUsed()
-            if configPath == "" {
-                configPath = filepath.Join(os.Getenv("HOME"), ".myapp", "config.yaml")
-            }
+```typescript
+const initCommand = Command.make(
+  "init",
+  {
+    force: Options.boolean("force").pipe(
+      Options.withAlias("f"),
+      Options.withDefault(false)
+    ),
+  },
+  ({ force }) =>
+    Effect.gen(function* () {
+      const fs = yield* FileSystem.FileSystem
+      const paths = yield* PathService
 
-            // Check if exists
-            if _, err := os.Stat(configPath); err == nil && !force {
-                return fmt.Errorf("config already exists: %s (use --force to overwrite)", configPath)
-            }
+      // Check if already initialized
+      const configExists = yield* fs.exists(paths.config)
+      if (configExists && !force) {
+        yield* Console.log(`
+[ALREADY_INITIALIZED] Config exists at ${paths.config}
 
-            // Create directory
-            if err := os.MkdirAll(filepath.Dir(configPath), 0755); err != nil {
-                return err
-            }
-
-            // Write config
-            if err := viper.WriteConfigAs(configPath); err != nil {
-                return err
-            }
-
-            fmt.Printf("Config initialized: %s\n", configPath)
-            return nil
-        },
-    }
-
-    cmd.Flags().BoolVar(&force, "force", false, "Overwrite existing config")
-    return cmd
-}
-```
-
-### Config Migration
-
-```go
-func migrateConfig() error {
-    version := viper.GetInt("version")
-
-    switch version {
-    case 0:
-        // Migrate from v0 to v1
-        viper.Set("new_field", "default")
-        viper.Set("version", 1)
-        fallthrough
-    case 1:
-        // Migrate from v1 to v2
-        viper.Set("another_field", true)
-        viper.Set("version", 2)
-    }
-
-    return viper.WriteConfig()
-}
-```
-
-## Testing
-
-```go
-func TestConfig(t *testing.T) {
-    // Use separate viper instance
-    v := viper.New()
-    v.SetConfigType("yaml")
-
-    var yamlConfig = []byte(`
-server:
-  port: 8080
-  host: localhost
+Use --force to overwrite existing configuration.
 `)
+        return
+      }
 
-    v.ReadConfig(bytes.NewBuffer(yamlConfig))
+      // Create directories
+      yield* fs.makeDirectory(path.dirname(paths.config), { recursive: true })
+      yield* fs.makeDirectory(path.dirname(paths.db), { recursive: true })
 
-    assert.Equal(t, 8080, v.GetInt("server.port"))
-    assert.Equal(t, "localhost", v.GetString("server.host"))
-}
+      // Write default config
+      const defaultConfig = {
+        database: {
+          path: paths.db,
+          poolSize: 5,
+        },
+        logging: {
+          level: "info",
+          format: "text",
+        },
+        features: {
+          cache: true,
+          metrics: false,
+        },
+      }
+
+      yield* fs.writeFileString(
+        paths.config,
+        JSON.stringify(defaultConfig, null, 2)
+      )
+
+      yield* Console.log(`
+[SUCCESS] Initialized myapp configuration.
+
+  Config: ${paths.config}
+  Database: ${paths.db}
+
+Edit ${paths.config} to customize settings.
+`)
+    })
+)
 ```
 
-## Checklist
+---
 
-- [ ] Defaults set for all config values
-- [ ] Config file search paths defined
-- [ ] Environment variable support
-- [ ] Flags bound to config
-- [ ] Config struct with mapstructure tags
-- [ ] Config validation
-- [ ] Config commands (init, show, validate)
-- [ ] Error handling for missing config
-- [ ] Secrets via env vars only
-- [ ] Config file format documented
+## Runtime Config Updates
 
-## Resources
+### Pattern: Reloadable Config
 
-- [Viper Documentation](https://github.com/spf13/viper)
-- [Cobra User Guide](https://github.com/spf13/cobra/blob/main/user_guide.md)
-- [12-Factor Config](https://12factor.net/config)
-- CLY config: `pkg/config/`, `modules/config/`
+```typescript
+import { Ref, Schedule } from "effect"
+
+interface ConfigService {
+  readonly get: Effect.Effect<AppConfig>
+  readonly reload: Effect.Effect<void>
+}
+
+class ConfigService extends Context.Tag("ConfigService")<
+  ConfigService,
+  ConfigService
+>() {}
+
+const ConfigServiceLive = Layer.effect(
+  ConfigService,
+  Effect.gen(function* () {
+    const initial = yield* loadConfig
+    const ref = yield* Ref.make(initial)
+
+    return ConfigService.of({
+      get: Ref.get(ref),
+
+      reload: Effect.gen(function* () {
+        const newConfig = yield* loadConfig
+        yield* Ref.set(ref, newConfig)
+        yield* Console.log("[CONFIG] Reloaded configuration")
+      }),
+    })
+  })
+)
+
+// Auto-reload on SIGHUP
+const withConfigReload = <A, E>(program: Effect.Effect<A, E>) =>
+  Effect.gen(function* () {
+    const config = yield* ConfigService
+
+    // Watch for reload signal
+    yield* Effect.async<void>((resume) => {
+      process.on("SIGHUP", () => {
+        Effect.runPromise(config.reload)
+      })
+    }).pipe(Effect.fork)
+
+    return yield* program
+  })
+```
+
+---
+
+## Config Command
+
+### Pattern: View/Edit Config
+
+```typescript
+const configCommand = Command.make("config", {}, () =>
+  Console.log("Usage: myapp config <get|set|path>")
+).pipe(
+  Command.withSubcommands([
+    // Get config value
+    Command.make(
+      "get",
+      { key: Args.text({ name: "key" }).pipe(Args.optional) },
+      ({ key }) =>
+        Effect.gen(function* () {
+          const config = yield* AppConfig
+
+          if (Option.isNone(key)) {
+            yield* Console.log(JSON.stringify(config, null, 2))
+            return
+          }
+
+          const value = (config as any)[key.value]
+          if (value === undefined) {
+            yield* Console.error(`Unknown config key: ${key.value}`)
+            return
+          }
+
+          yield* Console.log(String(value))
+        })
+    ),
+
+    // Set config value
+    Command.make(
+      "set",
+      {
+        key: Args.text({ name: "key" }),
+        value: Args.text({ name: "value" }),
+      },
+      ({ key, value }) =>
+        Effect.gen(function* () {
+          const fs = yield* FileSystem.FileSystem
+          const paths = yield* PathService
+
+          const content = yield* fs.readFileString(paths.config)
+          const config = JSON.parse(content)
+
+          config[key] = value
+          yield* fs.writeFileString(paths.config, JSON.stringify(config, null, 2))
+          yield* Console.log(`Set ${key} = ${value}`)
+        })
+    ),
+
+    // Show config path
+    Command.make("path", {}, () =>
+      Effect.gen(function* () {
+        const paths = yield* PathService
+        yield* Console.log(paths.config)
+      })
+    ),
+  ])
+)
+```
+
+---
+
+## Anti-Patterns
+
+### DON'T: Hardcode paths
+
+```typescript
+// WRONG
+const DB_PATH = "/home/user/.myapp/data.db"
+
+// CORRECT - Use environment with fallback
+const DB_PATH = process.env.MYAPP_DB ?? `${process.env.HOME}/.myapp/data.db`
+```
+
+### DON'T: Fail silently on missing config
+
+```typescript
+// WRONG
+const config = JSON.parse(fs.readFileSync(path) || "{}")
+
+// CORRECT - Clear error with guidance
+const config = yield* loadConfig.pipe(
+  Effect.catchTag("ConfigNotFound", () =>
+    Effect.fail(new Error(`
+[CONFIG_NOT_FOUND] No configuration file found.
+
+Run 'myapp init' to create default configuration.
+`))
+  )
+)
+```
+
+### DON'T: Mix config sources inconsistently
+
+```typescript
+// WRONG - Some from env, some from file, confusing
+const dbPath = process.env.DB_PATH
+const logLevel = config.logging.level
+const port = 3000  // Hardcoded!
+
+// CORRECT - Consistent layered approach
+const config = yield* AppConfig  // All config in one place
+```
+
+---
+
+## Related Skills
+
+| Skill | Purpose |
+|-------|---------|
+| `cli/core` | Command definition |
+| `cli/persistence` | Storage patterns |
+| `cli/messaging` | Error formatting |
+| `cli/services` | Service composition |
+
+---
+
+## Quick Reference
+
+| Config Type | Code |
+|-------------|------|
+| String | `Config.string("KEY")` |
+| Boolean | `Config.boolean("KEY")` |
+| Integer | `Config.integer("KEY")` |
+| Number | `Config.number("KEY")` |
+| Literal | `Config.literal("a", "b")("KEY")` |
+| Optional | `Config.option(Config.string("KEY"))` |
+| Default | `Config.withDefault(config, "default")` |
+| Nested | `Config.nested(config, "PREFIX")` |
+
+| Path Pattern | Value |
+|--------------|-------|
+| Config file | `~/.config/app/config.json` |
+| Database | `~/.local/share/app/data.db` |
+| Cache | `~/.cache/app/` |
+| Logs | `~/.local/share/app/logs/` |

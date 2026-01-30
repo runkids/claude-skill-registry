@@ -1,7 +1,7 @@
 {
   "name": "supabase",
-  "repo": "raintree-technology/claude-starter",
-  "path": "templates/.claude/skills/supabase/skill.md",
-  "source": "github.com/raintree-technology/claude-starter",
-  "downloaded_at": "2026-01-29T04:44:21.078811Z"
+  "repo": "carmandale/agent-config",
+  "path": "skills/tools/supabase/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-30T04:46:41.186955Z"
 }

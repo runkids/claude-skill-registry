@@ -1,7 +1,7 @@
 {
   "name": "estimation",
-  "repo": "Prorise-cool/Claude-Code-Multi-Agent",
-  "path": ".claude/skills/business-analysis/estimation/SKILL.md",
-  "source": "github.com/Prorise-cool/Claude-Code-Multi-Agent",
-  "downloaded_at": "2026-01-29T02:55:20.224221Z"
+  "repo": "melodic-software/claude-code-plugins",
+  "path": "plugins/business-analysis/skills/estimation/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-30T02:03:41.241207Z"
 }

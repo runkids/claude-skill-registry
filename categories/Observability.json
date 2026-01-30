@@ -1,19 +1,19 @@
 {
   "category": "Observability",
   "count": 1,
-  "updated_at": "2026-01-29T16:04:53.702276Z",
+  "updated_at": "2026-01-30T04:53:30.197840Z",
   "skills": [
     {
       "name": "SKILL.md",
-      "description": "This skill should be used when the user asks about \"Effect logging\", \"Effect.log\", \"Effect metrics\", \"Effect tracing\", \"spans\", \"telemetry\", \"Metric.counter\", \"Metric.gauge\", \"Metric.histogram\", \"Open",
-      "repo": "andrueandersoncs/claude-skill-effect-ts",
+      "description": "Real-time monitoring dashboard for PAI multi-agent activity. USE WHEN user says 'start observability', 'stop dashboard', 'restart observability', 'monitor agents', 'show agent activity', or needs to d",
+      "repo": "blackpwnguin/Personal-AI",
       "path": "Observability",
       "branch": "main",
       "category": "Observability",
       "tags": [],
       "stars": 0,
-      "install": "andrueandersoncs/claude-skill-effect-ts",
-      "source": "github.com/andrueandersoncs/claude-skill-effect-ts"
+      "install": "blackpwnguin/Personal-AI",
+      "source": "github.com/blackpwnguin/Personal-AI"
     }
   ]
 }

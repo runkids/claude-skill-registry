@@ -1,12 +1,7 @@
 {
   "name": "create-table",
-  "description": "数据库建表规范。创建新表时必须遵循。",
-  "repo": "sail-sail/nest",
-  "category": "development",
-  "tags": [
-    "create",
-    "table"
-  ],
-  "stars": 11,
-  "source": "SkillsMP Synced Skills"
+  "repo": "grahama1970/agent-skills",
+  "path": "skills/create-table/SKILL.md",
+  "source": "github.com/grahama1970/agent-skills",
+  "downloaded_at": "2026-01-30T01:36:49.524682Z"
 }

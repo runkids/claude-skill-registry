@@ -1,9 +1,7 @@
 {
   "name": "go-concurrency",
-  "description": "Use when Go concurrency with goroutines, channels, and sync patterns. Use when writing concurrent Go code.",
   "repo": "TheBushidoCollective/han",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/TheBushidoCollective/han"
+  "path": "jutsu/jutsu-go/skills/go-concurrency/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-30T03:33:58.383942Z"
 }

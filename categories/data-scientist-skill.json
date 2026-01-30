@@ -1,0 +1,19 @@
+{
+  "category": "data-scientist-skill",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.106313Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in statistical analysis, predictive modeling, machine learning, and data storytelling to drive business insights.",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "data-scientist-skill",
+      "branch": "main",
+      "category": "data-scientist-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

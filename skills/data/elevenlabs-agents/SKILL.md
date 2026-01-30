@@ -1,10 +1,36 @@
 ---
 name: elevenlabs-agents
 description: |
-  Build conversational AI voice agents with ElevenLabs Platform. Configure agents, tools, RAG knowledge bases, multi-voice, and Scribe STT across React, React Native, or Swift. Prevents 34 documented errors.
+  Build conversational AI voice agents with ElevenLabs Platform using React, JavaScript, React Native, or Swift SDKs.
+  Configure agents, tools (client/server/MCP), RAG knowledge bases, multi-voice, and Scribe real-time STT.
 
-  Use when: building voice agents, AI phone systems, or troubleshooting @11labs deprecated, webhook errors, CSP violations, localhost allowlist, tool parsing errors.
-user-invocable: true
+  Use when: building voice chat interfaces, implementing AI phone agents with Twilio, configuring agent workflows
+  or tools, adding RAG knowledge bases, testing with CLI "agents as code", or troubleshooting deprecated @11labs
+  packages, Android audio cutoff, CSP violations, dynamic variables, or WebRTC config.
+
+  Keywords: ElevenLabs Agents, ElevenLabs voice agents, AI voice agents, conversational AI, @elevenlabs/react, @elevenlabs/client, @elevenlabs/react-native, @elevenlabs/elevenlabs-js, @elevenlabs/agents-cli, elevenlabs SDK, voice AI, TTS, text-to-speech, ASR, speech recognition, turn-taking model, WebRTC voice, WebSocket voice, ElevenLabs conversation, agent system prompt, agent tools, agent knowledge base, RAG voice agents, multi-voice agents, pronunciation dictionary, voice speed control, elevenlabs scribe, @11labs deprecated, Android audio cutoff, CSP violation elevenlabs, dynamic variables elevenlabs, case-sensitive tool names, webhook authentication
+license: MIT
+metadata:
+  version: 1.1.0
+  last_updated: 2025-11-03
+  production_tested: true
+  packages:
+    - name: "@elevenlabs/elevenlabs-js"
+      version: 2.21.0
+    - name: "@elevenlabs/agents-cli"
+      version: 0.2.0
+    - name: "@elevenlabs/react"
+      version: 0.9.1
+    - name: "@elevenlabs/client"
+      version: 0.9.1
+    - name: "@elevenlabs/react-native"
+      version: 0.5.2
+  documentation:
+    - https://elevenlabs.io/docs/agents-platform/overview
+    - https://elevenlabs.io/docs/api-reference
+    - https://github.com/elevenlabs/elevenlabs-examples
+  errors_prevented: 17+
+  token_savings: ~73%
 ---
 
 # ElevenLabs Agents Platform
@@ -18,1111 +44,2413 @@ ElevenLabs Agents Platform is a comprehensive solution for building production-r
 3. **TTS (Text-to-Speech)** - Converts text to speech (5000+ voices, 31 languages, low latency)
 4. **Turn-Taking Model** - Proprietary model that handles conversation timing and interruptions
 
-### 🚨 Package Updates (January 2026)
+### 🚨 Package Updates (November 2025)
 
-ElevenLabs migrated to new scoped packages in August 2025. **Current packages:**
+ElevenLabs migrated to new scoped packages in August 2025:
 
+**DEPRECATED (Do not use):**
+- `@11labs/react` → **DEPRECATED**
+- `@11labs/client` → **DEPRECATED**
+
+**Current packages:**
 ```bash
-npm install @elevenlabs/react@0.12.3           # React SDK (Dec 2025: localization, Scribe fixes)
-npm install @elevenlabs/client@0.12.2          # JavaScript SDK (Dec 2025: localization)
-npm install @elevenlabs/react-native@0.5.7     # React Native SDK (Dec 2025: mic fixes, speed param)
-npm install @elevenlabs/elevenlabs-js@2.30.0   # Base SDK (Jan 2026: latest)
-npm install -g @elevenlabs/agents-cli@0.6.1    # CLI
+npm install @elevenlabs/react@0.9.1        # React SDK
+npm install @elevenlabs/client@0.9.1       # JavaScript SDK
+npm install @elevenlabs/react-native@0.5.2 # React Native SDK
+npm install @elevenlabs/elevenlabs-js@2.21.0 # Base SDK
+npm install -g @elevenlabs/agents-cli@0.2.0  # CLI
 ```
 
-**DEPRECATED:** `@11labs/react`, `@11labs/client` (uninstall if present)
+If you have old packages installed, uninstall them first:
+```bash
+npm uninstall @11labs/react @11labs/client
+```
 
-**⚠️ CRITICAL:** v1 TTS models were removed on 2025-12-15. Use Turbo v2/v2.5 only.
+### When to Use This Skill
 
-### December 2025 Updates
+Use this skill when:
+- Building voice-enabled customer support agents
+- Creating interactive voice response (IVR) systems
+- Developing conversational AI applications
+- Integrating telephony (Twilio, SIP trunking)
+- Implementing voice chat in web/mobile apps
+- Configuring agents via CLI ("agents as code")
+- Setting up RAG/knowledge bases for agents
+- Integrating MCP (Model Context Protocol) servers
+- Building HIPAA/GDPR-compliant voice systems
+- Optimizing LLM costs with caching strategies
 
-**Widget Improvements (v0.5.5)**:
-- Microphone permission handling improvements (better UX for permission requests)
-- Text-only mode (`chat_mode: true`) no longer requires microphone access
-- `end_call` system tool fix (no longer omits last message)
+### Platform Capabilities
 
-**SDK Fixes**:
-- Scribe audio format parameter now correctly transmitted (v2.32.0, Jan 2026)
-- React Native infinite loop fix in useEffect dependencies (v0.5.6)
-- Speed parameter support in TTS overrides (v0.5.7)
-- Localization support for chat UI terms (v0.12.3)
+**Design & Configure**:
+- Multi-step workflows with visual builder
+- System prompt engineering (6-component framework)
+- 5000+ voices across 31 languages
+- Pronunciation dictionaries (IPA/CMU formats)
+- Speed control (0.7x-1.2x)
+- RAG-powered knowledge bases
+- Dynamic variables and personalization
+
+**Connect & Deploy**:
+- React SDK (`@elevenlabs/react`)
+- JavaScript SDK (`@elevenlabs/client`)
+- React Native SDK (`@elevenlabs/react-native`)
+- Swift SDK (iOS/macOS)
+- Embeddable widget
+- Telephony integration (Twilio, SIP)
+- Scribe (Real-Time Speech-to-Text) - Beta
+
+**Operate & Optimize**:
+- Automated testing (scenario, tool call, load)
+- Conversation analysis and evaluation
+- Analytics dashboard (resolution rates, sentiment, compliance)
+- Privacy controls (GDPR, HIPAA, SOC 2)
+- Cost optimization (LLM caching, model swapping, burst pricing)
+- CLI for "agents as code" workflow
 
 ---
 
-## Package Selection Guide
+## 1. Quick Start (3 Integration Paths)
 
-**Which ElevenLabs package should I use?**
+### Path A: React SDK (Embedded Voice Chat)
 
-| Package | Environment | Use Case |
-|---------|-------------|----------|
-| `@elevenlabs/elevenlabs-js` | **Server only** (Node.js) | Full API access, TTS, voices, models |
-| `@elevenlabs/client` | **Browser + Server** | Agents SDK, WebSocket, lightweight |
-| `@elevenlabs/react` | **React apps** | Conversational AI hooks |
-| `@elevenlabs/react-native` | **Mobile** | iOS/Android agents |
+For building voice chat interfaces in React applications.
 
-**⚠️ Why elevenlabs-js doesn't work in browser:**
-- Depends on Node.js `child_process` module (by design)
-- **Error**: `Module not found: Can't resolve 'child_process'`
-- **Workaround for browser API access**: Create proxy server endpoint using `elevenlabs-js`, call proxy from browser
-
-**Affected Frameworks:**
-- Next.js client components
-- Vite browser builds
-- Electron renderer process
-- Tauri webview
-
-**Source**: [GitHub Issue #293](https://github.com/elevenlabs/elevenlabs-js/issues/293)
-
----
-
-## 1. Quick Start
-
-### React SDK
+**Installation**:
 ```bash
 npm install @elevenlabs/react zod
 ```
 
+**Basic Example**:
 ```typescript
 import { useConversation } from '@elevenlabs/react';
+import { z } from 'zod';
 
-const { startConversation, stopConversation, status } = useConversation({
-  agentId: 'your-agent-id',
-  signedUrl: '/api/elevenlabs/auth', // Recommended (secure)
-  // OR apiKey: process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY,
+export default function VoiceChat() {
+  const { startConversation, stopConversation, status } = useConversation({
+    // Public agent (no API key needed)
+    agentId: 'your-agent-id',
 
-  clientTools: { /* browser-side tools */ },
-  onEvent: (event) => { /* transcript, agent_response, tool_call */ },
-  serverLocation: 'us' // 'eu-residency' | 'in-residency' | 'global'
-});
+    // OR private agent (requires API key)
+    apiKey: process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY,
+
+    // OR signed URL (server-generated, most secure)
+    signedUrl: '/api/elevenlabs/auth',
+
+    // Client-side tools (browser functions)
+    clientTools: {
+      updateCart: {
+        description: "Update the shopping cart",
+        parameters: z.object({
+          item: z.string(),
+          quantity: z.number()
+        }),
+        handler: async ({ item, quantity }) => {
+          console.log('Updating cart:', item, quantity);
+          return { success: true };
+        }
+      }
+    },
+
+    // Event handlers
+    onConnect: () => console.log('Connected'),
+    onDisconnect: () => console.log('Disconnected'),
+    onEvent: (event) => {
+      switch (event.type) {
+        case 'transcript':
+          console.log('User said:', event.data.text);
+          break;
+        case 'agent_response':
+          console.log('Agent replied:', event.data.text);
+          break;
+      }
+    },
+
+    // Regional compliance (GDPR, data residency)
+    serverLocation: 'us' // 'us' | 'global' | 'eu-residency' | 'in-residency'
+  });
+
+  return (
+    <div>
+      <button onClick={startConversation}>Start Conversation</button>
+      <button onClick={stopConversation}>Stop</button>
+      <p>Status: {status}</p>
+    </div>
+  );
+}
 ```
 
-### CLI ("Agents as Code")
+### Path B: CLI ("Agents as Code")
+
+For managing agents via code with version control and CI/CD.
+
+**Installation**:
 ```bash
 npm install -g @elevenlabs/agents-cli
-elevenlabs auth login
-elevenlabs agents init                              # Creates agents.json, tools.json, tests.json
-elevenlabs agents add "Bot" --template customer-service
-elevenlabs agents push --env dev                    # Deploy
-elevenlabs agents test "Bot"                        # Test
+# or
+pnpm install -g @elevenlabs/agents-cli
 ```
 
-### API (Programmatic)
+**Workflow**:
+```bash
+# 1. Authenticate
+elevenlabs auth login
+
+# 2. Initialize project (creates agents.json, tools.json, tests.json)
+elevenlabs agents init
+
+# 3. Create agent from template
+elevenlabs agents add "Support Agent" --template customer-service
+
+# 4. Configure in agent_configs/support-agent.json
+
+# 5. Push to platform
+elevenlabs agents push --env dev
+
+# 6. Test
+elevenlabs agents test "Support Agent"
+
+# 7. Deploy to production
+elevenlabs agents push --env prod
+```
+
+**Project Structure Created**:
+```
+your_project/
+├── agents.json              # Agent registry
+├── tools.json               # Tool configurations
+├── tests.json               # Test configurations
+├── agent_configs/           # Individual agent files
+├── tool_configs/            # Tool configuration files
+└── test_configs/            # Test configuration files
+```
+
+### Path C: API (Programmatic Agent Management)
+
+For creating agents dynamically (multi-tenant, SaaS platforms).
+
+**Installation**:
+```bash
+npm install elevenlabs
+```
+
+**Example**:
 ```typescript
 import { ElevenLabsClient } from 'elevenlabs';
-const client = new ElevenLabsClient({ apiKey: process.env.ELEVENLABS_API_KEY });
 
+const client = new ElevenLabsClient({
+  apiKey: process.env.ELEVENLABS_API_KEY
+});
+
+// Create agent
 const agent = await client.agents.create({
   name: 'Support Bot',
   conversation_config: {
-    agent: { prompt: { prompt: "...", llm: "gpt-4o" }, language: "en" },
-    tts: { model_id: "eleven_turbo_v2_5", voice_id: "your-voice-id" }
+    agent: {
+      prompt: {
+        prompt: "You are a helpful customer support agent.",
+        llm: "gpt-4o",
+        temperature: 0.7
+      },
+      first_message: "Hello! How can I help you today?",
+      language: "en"
+    },
+    tts: {
+      model_id: "eleven_turbo_v2_5",
+      voice_id: "your-voice-id"
+    }
   }
 });
+
+console.log('Agent created:', agent.agent_id);
 ```
 
 ---
 
-## 2. SDK Parameter Naming (camelCase vs snake_case)
-
-**CRITICAL**: The JS SDK uses **camelCase** for parameters while the Python SDK and API use **snake_case**. Using snake_case in JS causes silent failures where parameters are ignored.
-
-**Common Parameters:**
-
-| API/Python (snake_case) | JS SDK (camelCase) |
-|-------------------------|-------------------|
-| `model_id` | `modelId` |
-| `voice_id` | `voiceId` |
-| `output_format` | `outputFormat` |
-| `voice_settings` | `voiceSettings` |
-
-**Example:**
-```typescript
-// ❌ WRONG - parameter ignored (snake_case):
-const stream = await elevenlabs.textToSpeech.convert(voiceId, {
-  model_id: "eleven_v3",  // Silently ignored!
-  text: "Hello"
-});
-
-// ✅ CORRECT - use camelCase:
-const stream = await elevenlabs.textToSpeech.convert(voiceId, {
-  modelId: "eleven_v3",   // Works!
-  text: "Hello"
-});
-```
-
-**Tip**: Always check TypeScript types for correct parameter names. This is the most common error when migrating from Python SDK.
-
-**Source**: [GitHub Issue #300](https://github.com/elevenlabs/elevenlabs-js/issues/300)
-
----
-
-## 3. Agent Configuration
+## 2. Agent Configuration
 
 ### System Prompt Architecture (6 Components)
 
-**1. Personality** - Identity, role, character traits
-**2. Environment** - Communication context (phone, web, video)
-**3. Tone** - Formality, speech patterns, verbosity
-**4. Goal** - Objectives and success criteria
-**5. Guardrails** - Boundaries, prohibited topics, ethical constraints
-**6. Tools** - Available capabilities and when to use them
+ElevenLabs recommends structuring agent prompts using 6 components:
 
-**Template:**
+#### 1. Personality
+Define the agent's identity, role, and character traits.
+
+**Example**:
+```
+You are Alex, a friendly and knowledgeable customer support specialist at TechCorp.
+You have 5 years of experience helping customers solve technical issues.
+You're patient, empathetic, and always maintain a positive attitude.
+```
+
+#### 2. Environment
+Describe the communication context (phone, web chat, video call).
+
+**Example**:
+```
+You're speaking with customers over the phone. Communication is voice-only.
+Customers may have background noise or poor connection quality.
+Speak clearly and occasionally use thoughtful pauses for emphasis.
+```
+
+#### 3. Tone
+Specify formality, speech patterns, humor, and verbosity.
+
+**Example**:
+```
+Tone: Professional yet warm. Use contractions ("I'm" instead of "I am") to sound natural.
+Avoid jargon unless the customer uses it first. Keep responses concise (2-3 sentences max).
+Use encouraging phrases like "I'll be happy to help with that" and "Let's get this sorted for you."
+```
+
+#### 4. Goal
+Define objectives and success criteria.
+
+**Example**:
+```
+Primary Goal: Resolve customer technical issues on the first call.
+Secondary Goals:
+- Verify customer identity securely
+- Document issue details accurately
+- Offer proactive solutions
+- End calls with confirmation that the issue is resolved
+
+Success Criteria: Customer verbally confirms their issue is resolved.
+```
+
+#### 5. Guardrails
+Set boundaries, prohibited topics, and ethical constraints.
+
+**Example**:
+```
+Guardrails:
+- Never provide medical, legal, or financial advice
+- Do not share confidential company information
+- If asked about competitors, politely redirect to TechCorp's offerings
+- Escalate to a human supervisor if customer becomes abusive
+- Never make promises about refunds or credits without verification
+```
+
+#### 6. Tools
+Describe available external capabilities and when to use them.
+
+**Example**:
+```
+Available Tools:
+1. lookup_order(order_id) - Fetch order details from database. Use when customer mentions an order number.
+2. transfer_to_supervisor() - Escalate to human agent. Use when issue requires manager approval.
+3. send_password_reset(email) - Trigger password reset email. Use when customer can't access account.
+
+Always explain to the customer what you're doing before calling a tool.
+```
+
+**Complete Template**:
 ```json
 {
   "agent": {
     "prompt": {
-      "prompt": "Personality:\n[Agent identity and role]\n\nEnvironment:\n[Communication context]\n\nTone:\n[Speech style]\n\nGoal:\n[Primary objectives]\n\nGuardrails:\n[Boundaries and constraints]\n\nTools:\n[Available tools and usage]",
-      "llm": "gpt-4o", // gpt-5.1, claude-sonnet-4-5, gemini-3-pro-preview
-      "temperature": 0.7
+      "prompt": "Personality:\nYou are Alex, a friendly customer support specialist.\n\nEnvironment:\nYou're speaking with customers over the phone.\n\nTone:\nProfessional yet warm. Keep responses concise.\n\nGoal:\nResolve technical issues on the first call.\n\nGuardrails:\n- Never provide medical/legal/financial advice\n- Escalate abusive customers\n\nTools:\n- lookup_order(order_id) - Fetch order details\n- transfer_to_supervisor() - Escalate to human",
+      "llm": "gpt-4o",
+      "temperature": 0.7,
+      "max_tokens": 500
     }
   }
 }
 ```
 
-**2025 LLM Models:**
-- `gpt-5.1`, `gpt-5.1-2025-11-13` (Oct 2025)
-- `claude-sonnet-4-5`, `claude-sonnet-4-5@20250929` (Oct 2025)
-- `gemini-3-pro-preview` (2025)
-- `gemini-2.5-flash-preview-09-2025` (Oct 2025)
-
 ### Turn-Taking Modes
+
+Controls when the agent interrupts or waits for the user to finish speaking.
+
+**3 Modes**:
 
 | Mode | Behavior | Best For |
 |------|----------|----------|
-| **Eager** | Responds quickly | Fast-paced support, quick orders |
-| **Normal** | Balanced (default) | General customer service |
-| **Patient** | Waits longer | Information collection, therapy |
+| **Eager** | Responds quickly, jumps in at earliest opportunity | Fast-paced support, quick orders |
+| **Normal** | Balanced, waits for natural conversation breaks | General customer service (default) |
+| **Patient** | Waits longer, allows detailed user responses | Information collection, therapy, tutoring |
 
-```json
-{ "conversation_config": { "turn": { "mode": "patient" } } }
-```
-
-### Workflows & Agent Management (2025)
-
-**Workflow Features:**
-- **Subagent Nodes** - Override prompt, voice, turn-taking per node
-- **Tool Nodes** - Guarantee tool execution
-- **Edges** - Conditional routing with `edge_order` (determinism, Oct 2025)
-
+**Configuration**:
 ```json
 {
-  "workflow": {
-    "nodes": [
-      { "id": "node_1", "type": "subagent", "config": { "system_prompt": "...", "turn_eagerness": "patient" } },
-      { "id": "node_2", "type": "tool", "tool_name": "transfer_to_human" }
-    ],
-    "edges": [{ "from": "node_1", "to": "node_2", "condition": "escalation", "edge_order": 1 }]
+  "conversation_config": {
+    "turn": {
+      "mode": "patient" // "eager" | "normal" | "patient"
+    }
   }
 }
 ```
 
-**Agent Management (2025):**
-- **Agent Archiving** - `archived: true` field (Oct 2025)
-- **Agent Duplication** - Clone existing agents
-- **Service Account API Keys** - Management endpoints (Jul 2025)
+**Use Cases**:
+- **Eager**: Fast food ordering, quick FAQs, urgent notifications
+- **Normal**: General support, product inquiries, appointment booking
+- **Patient**: Detailed form filling, emotional support, educational tutoring
 
-### Dynamic Variables
+**Gotchas**:
+- Eager mode can feel interruptive to some users
+- Patient mode may feel slow in fast-paced contexts
+- Can be dynamically adjusted in workflows for context-aware behavior
 
-Use `{{var_name}}` syntax in prompts, messages, and tool parameters.
+### Workflows (Visual Builder)
 
-**System Variables:**
-- `{{system__agent_id}}`, `{{system__conversation_id}}`
-- `{{system__caller_id}}`, `{{system__called_number}}` (telephony)
-- `{{system__call_duration_secs}}`, `{{system__time_utc}}`
-- `{{system__call_sid}}` (Twilio only)
+Create branching conversation flows with subagent nodes and conditional routing.
 
-**Custom Variables:**
+**Node Types**:
+1. **Subagent Nodes** - Override base agent config (change prompt, voice, turn-taking)
+2. **Tool Nodes** - Guarantee tool execution (unlike tools in subagents)
+
+**Configuration**:
+```json
+{
+  "workflow": {
+    "nodes": [
+      {
+        "id": "node_1",
+        "type": "subagent",
+        "config": {
+          "system_prompt": "You are now a technical support specialist. Ask detailed diagnostic questions.",
+          "turn_eagerness": "patient",
+          "voice_id": "tech_support_voice_id"
+        }
+      },
+      {
+        "id": "node_2",
+        "type": "tool",
+        "tool_name": "transfer_to_human"
+      }
+    ],
+    "edges": [
+      {
+        "from": "node_1",
+        "to": "node_2",
+        "condition": "user_requests_escalation"
+      }
+    ]
+  }
+}
+```
+
+**Use Cases**:
+- Multi-department routing (sales → support → billing)
+- Decision trees ("press 1 for sales, 2 for support")
+- Role-playing scenarios (customer vs agent voices)
+- Escalation paths (bot → human transfer)
+
+**Gotchas**:
+- Workflows add ~100-200ms latency per node transition
+- Tool nodes guarantee execution (subagents may skip tools)
+- Edges can create infinite loops if not tested properly
+
+### Dynamic Variables & Personalization
+
+Inject runtime data into prompts, first messages, and tool parameters using `{{var_name}}` syntax.
+
+**System Variables (Auto-Available)**:
 ```typescript
-await client.conversations.create({
+{{system__agent_id}}         // Current agent ID
+{{system__conversation_id}}  // Conversation ID
+{{system__caller_id}}        // Phone number (telephony only)
+{{system__called_number}}    // Called number (telephony only)
+{{system__call_duration_secs}} // Call duration
+{{system__time_utc}}         // Current UTC time
+{{system__call_sid}}         // Twilio call SID (Twilio only)
+```
+
+**Custom Variables**:
+```typescript
+// Provide when starting conversation
+const conversation = await client.conversations.create({
   agent_id: "agent_123",
-  dynamic_variables: { user_name: "John", account_tier: "premium" }
+  dynamic_variables: {
+    user_name: "John",
+    account_tier: "premium",
+    order_id: "ORD-12345"
+  }
 });
 ```
 
-**Secret Variables:** `{{secret__api_key}}` (headers only, never sent to LLM)
+**Secret Variables** (For API Keys):
+```
+{{secret__stripe_api_key}}
+{{secret__database_password}}
+```
 
-**⚠️ Error:** Missing variables cause "Missing required dynamic variables" - always provide all referenced variables.
+**Important**: Secret variables only used in headers, never sent to LLM providers.
+
+**Usage in Prompts**:
+```json
+{
+  "agent": {
+    "prompt": {
+      "prompt": "You are helping {{user_name}}, a {{account_tier}} customer."
+    },
+    "first_message": "Hello {{user_name}}! I see you're calling about order {{order_id}}."
+  }
+}
+```
+
+**Gotcha**: Missing variables cause "Missing required dynamic variables" error. Always provide all referenced variables when starting conversation.
+
+### Authentication Patterns
+
+**Option 1: Public Agents** (No API Key)
+```typescript
+const { startConversation } = useConversation({
+  agentId: 'your-public-agent-id' // Anyone can use
+});
+```
+
+**Option 2: Private Agents with API Key**
+```typescript
+const { startConversation } = useConversation({
+  agentId: 'your-private-agent-id',
+  apiKey: process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY
+});
+```
+
+**⚠️ Warning**: Never expose API keys in client-side code. Use signed URLs instead.
+
+**Option 3: Signed URLs (Recommended for Production)**
+```typescript
+// Server-side (Next.js API route)
+import { ElevenLabsClient } from 'elevenlabs';
+
+export async function POST(req: Request) {
+  const client = new ElevenLabsClient({
+    apiKey: process.env.ELEVENLABS_API_KEY // Server-side only
+  });
+
+  const signedUrl = await client.convai.getSignedUrl({
+    agent_id: 'your-agent-id'
+  });
+
+  return Response.json({ signedUrl });
+}
+
+// Client-side
+const { startConversation } = useConversation({
+  agentId: 'your-agent-id',
+  signedUrl: await fetch('/api/elevenlabs/auth').then(r => r.json()).then(d => d.signedUrl)
+});
+```
 
 ---
 
 ## 3. Voice & Language Features
 
-### Multi-Voice, Pronunciation & Speed
+### Multi-Voice Support
 
-**Multi-Voice** - Switch voices dynamically (adds ~200ms latency per switch):
+Dynamically switch between different voices during a single conversation.
+
+**Use Cases**:
+- Multi-character storytelling (different voice per character)
+- Language tutoring (native speaker voices for each language)
+- Role-playing scenarios (customer vs agent)
+- Emotional agents (different voices for different moods)
+
+**Configuration**:
 ```json
-{ "prompt": "When speaking as customer, use voice_id 'voice_abc'. As agent, use 'voice_def'." }
+{
+  "agent": {
+    "prompt": {
+      "prompt": "When speaking as the customer, use voice_id 'customer_voice_abc123'. When speaking as the agent, use voice_id 'agent_voice_def456'."
+    }
+  }
+}
 ```
 
-**Pronunciation Dictionary** - IPA, CMU, word substitutions (Turbo v2/v2.5 only):
+**Gotchas**:
+- Voice switching adds ~200ms latency per switch
+- Requires careful prompt engineering to trigger switches correctly
+- Not all voices work equally well for all characters
+
+### Pronunciation Dictionary
+
+Customize how the agent pronounces specific words or phrases.
+
+**Supported Formats**:
+- **IPA** (International Phonetic Alphabet)
+- **CMU** (Carnegie Mellon University Pronouncing Dictionary)
+- **Word Substitutions** (replace words before TTS)
+
+**Configuration**:
 ```json
 {
   "pronunciation_dictionary": [
-    { "word": "API", "pronunciation": "ey-pee-ay", "format": "cmu" },
-    { "word": "AI", "substitution": "artificial intelligence" }
+    {
+      "word": "ElevenLabs",
+      "pronunciation": "ɪˈlɛvənlæbz",
+      "format": "ipa"
+    },
+    {
+      "word": "API",
+      "pronunciation": "ey-pee-ay",
+      "format": "cmu"
+    },
+    {
+      "word": "AI",
+      "substitution": "artificial intelligence"
+    }
   ]
 }
 ```
 
-**PATCH Support (Aug 2025)** - Update dictionaries without replacement
+**Use Cases**:
+- Brand names (e.g., "IKEA" → "ee-KAY-uh")
+- Acronyms (e.g., "API" → "A-P-I" or "ay-pee-eye")
+- Technical terms
+- Character names in storytelling
 
-**Speed Control** - 0.7x-1.2x (use 0.9x-1.1x for natural sound):
+**Gotcha**: Only Turbo v2/v2.5 models support phoneme-based pronunciation. Other models silently skip phoneme entries but still process word substitutions.
+
+### Speed Control
+
+Adjust speaking speed dynamically (0.7x - 1.2x).
+
+**Configuration**:
 ```json
-{ "voice_settings": { "speed": 1.0 } }
+{
+  "voice_settings": {
+    "speed": 1.0 // 0.7 = slow, 1.0 = normal, 1.2 = fast
+  }
+}
 ```
 
-**Voice Cloning Best Practices:**
-- Clean audio (no noise, music, pops)
-- Consistent microphone distance
-- 1-2 minutes of audio
-- Use language-matched voices (English voices fail on non-English)
+**Use Cases**:
+- **Slow (0.7x-0.9x)**: Accessibility, children, non-native speakers
+- **Normal (1.0x)**: Default for most use cases
+- **Fast (1.1x-1.2x)**: Urgent notifications, power users
+
+**Best Practices**:
+- Use 0.9x-1.1x for natural-sounding adjustments
+- Extreme values (below 0.7 or above 1.2) degrade quality
+- Speed can be adjusted per agent, not per utterance
+
+### Voice Design
+
+Create custom voices using ElevenLabs Voice Design tool.
+
+**Workflow**:
+1. Navigate to Voice Library → Create Voice
+2. Use Voice Design (text-to-voice) or Voice Cloning (sample audio)
+3. Test voice with sample text
+4. Save voice to library
+5. Use `voice_id` in agent configuration
+
+**Voice Cloning Best Practices**:
+- Use clean audio samples (no background noise, music, or pops)
+- Maintain consistent microphone distance
+- Avoid extreme volumes (whispering or shouting)
+- 1-2 minutes of audio recommended
+
+**Gotcha**: Using English-trained voices for non-English languages causes pronunciation issues. Always use language-matched voices.
 
 ### Language Configuration
 
-**32+ Languages** with automatic detection and in-conversation switching.
+Support for 32+ languages with automatic detection and in-conversation switching.
 
-**Multi-Language Presets:**
+**Configuration**:
 ```json
 {
-  "language_presets": [
-    { "language": "en", "voice_id": "en_voice", "first_message": "Hello!" },
-    { "language": "es", "voice_id": "es_voice", "first_message": "¡Hola!" }
-  ]
+  "agent": {
+    "language": "en" // ISO 639-1 code
+  }
 }
 ```
+
+**Multi-Language Presets** (Different Voice Per Language):
+```json
+{
+  "conversation_config": {
+    "language_presets": [
+      {
+        "language": "en",
+        "voice_id": "en_voice_id",
+        "first_message": "Hello! How can I help you today?"
+      },
+      {
+        "language": "es",
+        "voice_id": "es_voice_id",
+        "first_message": "¡Hola! ¿Cómo puedo ayudarte hoy?"
+      },
+      {
+        "language": "fr",
+        "voice_id": "fr_voice_id",
+        "first_message": "Bonjour! Comment puis-je vous aider aujourd'hui?"
+      }
+    ]
+  }
+}
+```
+
+**Automatic Language Detection**: Agent detects user's language and switches automatically.
+
+**Supported Languages**: English, Spanish, French, German, Italian, Portuguese, Dutch, Polish, Arabic, Chinese, Japanese, Korean, Hindi, and 18+ more.
 
 ---
 
 ## 4. Knowledge Base & RAG
 
+### RAG (Retrieval-Augmented Generation)
+
 Enable agents to access large knowledge bases without loading entire documents into context.
 
-**Workflow:**
-1. Upload documents (PDF, TXT, DOCX)
-2. Compute RAG index (vector embeddings)
-3. Agent retrieves relevant chunks during conversation
+**How It Works**:
+1. Upload documents (PDF, TXT, DOCX) to knowledge base
+2. ElevenLabs automatically computes vector embeddings
+3. During conversation, relevant chunks retrieved based on semantic similarity
+4. LLM uses retrieved context to generate responses
 
-**Configuration:**
+**Configuration**:
 ```json
 {
-  "agent": { "prompt": { "knowledge_base": ["doc_id_1", "doc_id_2"] } },
-  "knowledge_base_config": {
-    "max_chunks": 5,
-    "vector_distance_threshold": 0.8
+  "agent": {
+    "prompt": {
+      "knowledge_base": ["doc_id_1", "doc_id_2"]
+    }
   }
 }
 ```
 
-**API Upload:**
+**Upload Documents via API**:
 ```typescript
-const doc = await client.knowledgeBase.upload({ file: fs.createReadStream('docs.pdf'), name: 'Docs' });
-await client.knowledgeBase.computeRagIndex({ document_id: doc.id, embedding_model: 'e5_mistral_7b' });
+import { ElevenLabsClient } from 'elevenlabs';
+
+const client = new ElevenLabsClient({ apiKey: process.env.ELEVENLABS_API_KEY });
+
+// Upload document
+const doc = await client.knowledgeBase.upload({
+  file: fs.createReadStream('support_docs.pdf'),
+  name: 'Support Documentation'
+});
+
+// Compute RAG index
+await client.knowledgeBase.computeRagIndex({
+  document_id: doc.id,
+  embedding_model: 'e5_mistral_7b' // or 'multilingual_e5_large'
+});
 ```
 
-**⚠️ Gotchas:** RAG adds ~500ms latency. Check index status before use - indexing can take minutes.
+**Retrieval Configuration**:
+```json
+{
+  "knowledge_base_config": {
+    "max_chunks": 5,              // Number of chunks to retrieve
+    "vector_distance_threshold": 0.8  // Similarity threshold
+  }
+}
+```
+
+**Use Cases**:
+- Product documentation agents
+- Customer support (FAQ, help center)
+- Educational tutors (textbooks, lecture notes)
+- Healthcare assistants (medical guidelines)
+
+**Gotchas**:
+- RAG adds ~500ms latency per query
+- More chunks = higher cost but better context
+- Higher vector distance = more context but potentially less relevant
+- Documents must be indexed before use (can take minutes for large docs)
 
 ---
 
 ## 5. Tools (4 Types)
 
-### ⚠️ BREAKING CHANGE: prompt.tools Deprecated (July 2025)
+ElevenLabs supports 4 distinct tool types, each with different execution patterns.
 
-The legacy `prompt.tools` array was **removed on July 23, 2025**. All agent configurations must use the new format.
+### A. Client Tools
 
-**Migration Timeline:**
-- July 14, 2025: Legacy format still accepted
-- July 15, 2025: GET responses stop including `tools` field
-- **July 23, 2025**: POST/PATCH reject `prompt.tools` (active now)
+Execute operations on the client side (browser or mobile app).
 
-**Old Format** (no longer works):
+**Use Cases**:
+- Update UI elements (shopping cart, notifications)
+- Trigger navigation (redirect user to page)
+- Access local storage
+- Control media playback
+
+**React Example**:
 ```typescript
-{
-  agent: {
-    prompt: {
-      tools: [{ name: "get_weather", url: "...", method: "GET" }]
+import { useConversation } from '@elevenlabs/react';
+import { z } from 'zod';
+
+const { startConversation } = useConversation({
+  clientTools: {
+    updateCart: {
+      description: "Update the shopping cart with new items",
+      parameters: z.object({
+        item: z.string().describe("The item name"),
+        quantity: z.number().describe("Quantity to add")
+      }),
+      handler: async ({ item, quantity }) => {
+        // Client-side logic
+        const cart = getCart();
+        cart.add(item, quantity);
+        updateUI(cart);
+        return { success: true, total: cart.total };
+      }
+    },
+    navigate: {
+      description: "Navigate to a different page",
+      parameters: z.object({
+        url: z.string().describe("The URL to navigate to")
+      }),
+      handler: async ({ url }) => {
+        window.location.href = url;
+        return { success: true };
+      }
     }
   }
-}
+});
 ```
 
-**New Format** (required):
-```typescript
-{
-  agent: {
-    prompt: {
-      tool_ids: ["tool_abc123"],         // Client/server tools
-      built_in_tools: ["end_call"]       // System tools (new field)
-    }
-  }
-}
-```
-
-**Error if both used**: "A request must include either prompt.tool_ids or the legacy prompt.tools array — never both"
-
-**Note**: All tools from legacy format were auto-migrated to standalone tool records.
-
-**Source**: [Official Migration Guide](https://elevenlabs.io/docs/agents-platform/customization/tools/agent-tools-deprecation)
-
----
-
-### A. Client Tools (Browser/Mobile)
-
-Execute in browser or mobile app. **Tool names case-sensitive.**
-
-```typescript
-clientTools: {
-  updateCart: {
-    description: "Update shopping cart",
-    parameters: z.object({ item: z.string(), quantity: z.number() }),
-    handler: async ({ item, quantity }) => {
-      // Client-side logic
-      return { success: true };
-    }
-  }
-}
-```
+**Gotchas**:
+- Tool names are **case-sensitive**
+- Must return a value (agent reads the return value)
+- Handler can be async
 
 ### B. Server Tools (Webhooks)
 
-HTTP requests to external APIs. **PUT support added Apr 2025.**
+Make HTTP requests to external APIs from ElevenLabs servers.
 
+**Use Cases**:
+- Fetch real-time data (weather, stock prices)
+- Update CRM systems (Salesforce, HubSpot)
+- Process payments (Stripe, PayPal)
+- Send emails/SMS (SendGrid, Twilio)
+
+**Configuration via CLI**:
+```bash
+elevenlabs tools add-webhook "Get Weather" --config-path tool_configs/get-weather.json
+```
+
+**tool_configs/get-weather.json**:
 ```json
 {
   "name": "get_weather",
-  "url": "https://api.weather.com/{{user_id}}",
+  "description": "Fetch current weather for a city",
+  "url": "https://api.weather.com/v1/current",
   "method": "GET",
-  "headers": { "Authorization": "Bearer {{secret__api_key}}" },
-  "parameters": { "type": "object", "properties": { "city": { "type": "string" } } }
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "city": {
+        "type": "string",
+        "description": "The city name (e.g., 'London', 'New York')"
+      }
+    },
+    "required": ["city"]
+  },
+  "headers": {
+    "Authorization": "Bearer {{secret__weather_api_key}}"
+  }
 }
 ```
 
-**⚠️ Secret variables** only in headers (not URL/body)
+**Dynamic Variables in Tools**:
+```json
+{
+  "url": "https://api.crm.com/customers/{{user_id}}",
+  "headers": {
+    "X-API-Key": "{{secret__crm_api_key}}"
+  }
+}
+```
 
-**2025 Features:**
-- **transfer-to-human** system tool (Apr 2025)
-- **tool_latency_secs** tracking (Apr 2025)
-
-**⚠️ Historical Issue (Fixed Feb 2025):**
-Tool calling was broken with `gpt-4o-mini` due to an OpenAI API change. This was fixed in SDK v2.25.0+ (Feb 17, 2025). If using older SDK versions, upgrade to avoid silent tool execution failures on that model.
-
-**Source**: [Changelog Feb 17, 2025](https://elevenlabs.io/docs/changelog/2025/2/17)
+**Gotchas**:
+- Secret variables only work in headers (not URL or body)
+- Schema description guides LLM on when to use tool
 
 ### C. MCP Tools (Model Context Protocol)
 
-Connect to MCP servers for databases, IDEs, data sources.
+Connect to external MCP servers for standardized tool access.
 
-**Configuration:** Dashboard → Add Custom MCP Server → Configure SSE/HTTP endpoint
+**Use Cases**:
+- Access databases (PostgreSQL, MongoDB)
+- Query knowledge bases (Pinecone, Weaviate)
+- Integrate with IDEs (VS Code, Cursor)
+- Connect to data sources (Google Drive, Notion)
 
-**Approval Modes:** Always Ask | Fine-Grained | No Approval
+**Configuration**:
+1. Navigate to MCP server integrations in dashboard
+2. Click "Add Custom MCP Server"
+3. Configure:
+   - **Name**: Server identifier
+   - **Server URL**: SSE or HTTP endpoint
+   - **Secret Token**: Optional auth header
+4. Test connectivity and discover tools
+5. Add to agents (public or private)
 
-**2025 Updates:**
-- **disable_interruptions** flag (Oct 2025) - Prevents interruption during tool execution
-- **Tools Management Interface** (Jun 2025)
+**Approval Modes**:
+- **Always Ask**: Maximum security, requires permission per tool call
+- **Fine-Grained**: Per-tool approval settings
+- **No Approval**: Auto-execute all tools
 
-**⚠️ Limitations:** SSE/HTTP only. Not available for Zero Retention or HIPAA.
+**Gotchas**:
+- Only SSE and HTTP streamable transport supported
+- MCP servers must be publicly accessible or behind auth
+- Not available for Zero Retention Mode
+- Not compatible with HIPAA compliance
+
+**Example: Using ElevenLabs MCP Server in Claude Desktop**:
+```json
+{
+  "mcpServers": {
+    "ElevenLabs": {
+      "command": "uvx",
+      "args": ["elevenlabs-mcp"],
+      "env": {
+        "ELEVENLABS_API_KEY": "<your-key>",
+        "ELEVENLABS_MCP_OUTPUT_MODE": "files"
+      }
+    }
+  }
+}
+```
 
 ### D. System Tools
 
-Built-in conversation control (no external APIs):
-- `end_call`, `detect_language`, `transfer_agent`
-- `transfer_to_number` (telephony)
-- `dtmf_playpad`, `voicemail_detection` (telephony)
+Modify the internal state of the conversation without external calls.
 
-**2025:** `use_out_of_band_dtmf` flag for telephony integration
+**Use Cases**:
+- Update conversation context
+- Switch between workflow nodes
+- Modify agent behavior mid-conversation
+- Track conversation state
+
+**Built-in System Tools**:
+- `end_call` - End the conversation
+- `detect_language` - Detect user's language
+- `transfer_agent` - Switch to different agent/workflow node
+- `transfer_to_number` - Transfer to external phone number (telephony only)
+- `dtmf_playpad` - Display DTMF keypad (telephony only)
+- `voicemail_detection` - Detect voicemail (telephony only)
+
+**Configuration**:
+```json
+{
+  "system_tools": [
+    {
+      "name": "update_conversation_state",
+      "description": "Update the conversation context with new information",
+      "parameters": {
+        "key": { "type": "string" },
+        "value": { "type": "string" }
+      }
+    }
+  ]
+}
+```
+
+**Gotchas**:
+- System tools don't trigger external APIs
+- Changes are ephemeral (lost after conversation ends)
+- Useful for workflows and state management
 
 ---
 
 ## 6. SDK Integration
 
-### useConversation Hook (React/React Native)
+### React SDK (`@elevenlabs/react`)
 
-```typescript
-const { startConversation, stopConversation, status, isSpeaking } = useConversation({
-  agentId: 'your-agent-id',
-  signedUrl: '/api/auth', // OR apiKey: process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY
-  clientTools: { /* ... */ },
-  onEvent: (event) => { /* transcript, agent_response, tool_call, agent_tool_request (Oct 2025) */ },
-  onConnect/onDisconnect/onError,
-  serverLocation: 'us' // 'eu-residency' | 'in-residency' | 'global'
-});
+**Installation**:
+```bash
+npm install @elevenlabs/react zod
 ```
 
-**2025 Events:**
-- `agent_chat_response_part` - Streaming responses (Oct 2025)
-- `agent_tool_request` - Tool interaction tracking (Oct 2025)
+**Complete Example**:
+```typescript
+import { useConversation } from '@elevenlabs/react';
+import { z } from 'zod';
+import { useState } from 'react';
+
+export default function VoiceAgent() {
+  const [transcript, setTranscript] = useState<string[]>([]);
+
+  const {
+    startConversation,
+    stopConversation,
+    status,
+    isSpeaking
+  } = useConversation({
+    agentId: 'your-agent-id',
+
+    // Authentication (choose one)
+    apiKey: process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY,
+
+    // Client tools
+    clientTools: {
+      updateCart: {
+        description: "Update shopping cart",
+        parameters: z.object({
+          item: z.string(),
+          quantity: z.number()
+        }),
+        handler: async ({ item, quantity }) => {
+          console.log('Cart updated:', item, quantity);
+          return { success: true };
+        }
+      }
+    },
+
+    // Events
+    onConnect: () => {
+      console.log('Connected to agent');
+      setTranscript([]);
+    },
+    onDisconnect: () => console.log('Disconnected'),
+    onEvent: (event) => {
+      if (event.type === 'transcript') {
+        setTranscript(prev => [...prev, `User: ${event.data.text}`]);
+      } else if (event.type === 'agent_response') {
+        setTranscript(prev => [...prev, `Agent: ${event.data.text}`]);
+      }
+    },
+    onError: (error) => console.error('Error:', error),
+
+    // Regional compliance
+    serverLocation: 'us'
+  });
+
+  return (
+    <div>
+      <div>
+        <button onClick={startConversation} disabled={status === 'connected'}>
+          Start Conversation
+        </button>
+        <button onClick={stopConversation} disabled={status !== 'connected'}>
+          Stop
+        </button>
+      </div>
+
+      <div>Status: {status}</div>
+      <div>{isSpeaking && 'Agent is speaking...'}</div>
+
+      <div>
+        <h3>Transcript</h3>
+        {transcript.map((line, i) => (
+          <p key={i}>{line}</p>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+### JavaScript SDK (`@elevenlabs/client`)
+
+For vanilla JavaScript projects (no React).
+
+**Installation**:
+```bash
+npm install @elevenlabs/client
+```
+
+**Example**:
+```javascript
+import { Conversation } from '@elevenlabs/client';
+
+const conversation = new Conversation({
+  agentId: 'your-agent-id',
+  apiKey: process.env.ELEVENLABS_API_KEY,
+
+  onConnect: () => console.log('Connected'),
+  onDisconnect: () => console.log('Disconnected'),
+
+  onEvent: (event) => {
+    switch (event.type) {
+      case 'transcript':
+        document.getElementById('user-text').textContent = event.data.text;
+        break;
+      case 'agent_response':
+        document.getElementById('agent-text').textContent = event.data.text;
+        break;
+    }
+  }
+});
+
+// Start conversation
+document.getElementById('start-btn').addEventListener('click', async () => {
+  await conversation.start();
+});
+
+// Stop conversation
+document.getElementById('stop-btn').addEventListener('click', async () => {
+  await conversation.stop();
+});
+```
 
 ### Connection Types: WebRTC vs WebSocket
 
-| Feature | WebSocket | WebRTC (Jul 2025 rollout) |
-|---------|-----------|---------------------------|
-| **Auth** | `signedUrl` | `conversationToken` |
-| **Audio** | Configurable (16k/24k/48k) | PCM_48000 (hardcoded) |
+ElevenLabs SDKs support two connection types with different characteristics.
+
+**Comparison Table**:
+
+| Feature | WebSocket | WebRTC |
+|---------|-----------|--------|
+| **Authentication** | `signedUrl` | `conversationToken` |
+| **Audio Format** | Configurable | PCM_48000 (hardcoded) |
+| **Sample Rate** | Configurable (16k, 24k, 48k) | 48000 (hardcoded) |
 | **Latency** | Standard | Lower |
-| **Best For** | Flexibility | Low-latency |
+| **Device Switching** | Flexible | Limited (format locked) |
+| **Best For** | General use, flexibility | Low-latency requirements |
 
-**⚠️ WebRTC:** Hardcoded PCM_48000, limited device switching
-
-### Platforms
-
-- **React**: `@elevenlabs/react@0.12.3`
-- **JavaScript**: `@elevenlabs/client@0.12.2` - `new Conversation({...})`
-- **React Native**: `@elevenlabs/react-native@0.5.7` - Expo SDK 47+, iOS/macOS (custom build required, no Expo Go)
-- **Swift**: iOS 14.0+, macOS 11.0+, Swift 5.9+
-- **Embeddable Widget**: `<script src="https://elevenlabs.io/convai-widget/index.js"></script>`
-- **Widget Packages** (Dec 2025):
-  - `@elevenlabs/convai-widget-embed@0.5.5` - For embedding in existing apps
-  - `@elevenlabs/convai-widget-core@0.5.5` - Core widget functionality
-
-### Scribe (Real-Time Speech-to-Text - Beta 2025)
-
-Real-time transcription with word-level timestamps. **Single-use tokens**, not API keys.
+**WebSocket Configuration** (default):
 
 ```typescript
-const { connect, startRecording, stopRecording, transcript, partialTranscript } = useScribe({
-  token: async () => (await fetch('/api/scribe/token')).json().then(d => d.token),
-  commitStrategy: 'vad', // 'vad' (auto on silence) | 'manual' (explicit .commit())
-  sampleRate: 16000, // 16000 or 24000
-  onPartialTranscript/onFinalTranscript/onError
+import { useConversation } from '@elevenlabs/react';
+
+const { startConversation } = useConversation({
+  agentId: 'your-agent-id',
+
+  // WebSocket uses signed URL
+  signedUrl: async () => {
+    const response = await fetch('/api/elevenlabs/auth');
+    const { signedUrl } = await response.json();
+    return signedUrl;
+  },
+
+  // Connection type (optional, defaults to 'websocket')
+  connectionType: 'websocket',
+
+  // Audio config (flexible)
+  audioConfig: {
+    sampleRate: 24000, // 16000, 24000, or 48000
+    format: 'PCM_24000'
+  }
 });
 ```
 
-**Events:** PARTIAL_TRANSCRIPT, FINAL_TRANSCRIPT_WITH_TIMESTAMPS, SESSION_STARTED, ERROR
+**WebRTC Configuration**:
 
-**⚠️ Closed Beta** - requires sales contact. For agents, use Agents Platform instead (LLM + TTS + two-way interaction).
-
-**⚠️ Webhook Mode Issue:**
-Using `speechToText.convert()` with `webhook: true` causes SDK parsing errors. The API returns only `{ request_id }` for webhook mode, but the SDK expects the full transcription schema.
-
-**Error Message:**
-```
-ParseError: response: Missing required key "language_code"; Missing required key "text"; ...
-```
-
-**Workaround** - Use direct fetch API instead of SDK:
 ```typescript
-const formData = new FormData();
-formData.append('file', audioFile);
-formData.append('model_id', 'scribe_v1');
-formData.append('webhook', 'true');
-formData.append('webhook_id', webhookId);
+const { startConversation } = useConversation({
+  agentId: 'your-agent-id',
 
-const response = await fetch('https://api.elevenlabs.io/v1/speech-to-text', {
-  method: 'POST',
-  headers: { 'xi-api-key': apiKey },
-  body: formData,
+  // WebRTC uses conversation token (different auth flow)
+  conversationToken: async () => {
+    const response = await fetch('/api/elevenlabs/token');
+    const { token } = await response.json();
+    return token;
+  },
+
+  // Connection type
+  connectionType: 'webrtc',
+
+  // Audio format is HARDCODED to PCM_48000 (not configurable)
+  // audioConfig ignored for WebRTC
+});
+```
+
+**Backend Token Endpoints**:
+
+```typescript
+// WebSocket signed URL (GET /v1/convai/conversation/get-signed-url)
+app.get('/api/elevenlabs/auth', async (req, res) => {
+  const response = await fetch(
+    `https://api.elevenlabs.io/v1/convai/conversation/get-signed-url?agent_id=${AGENT_ID}`,
+    { headers: { 'xi-api-key': ELEVENLABS_API_KEY } }
+  );
+  const { signed_url } = await response.json();
+  res.json({ signedUrl: signed_url });
 });
 
-const result = await response.json(); // { request_id: 'xxx' }
-// Actual transcription delivered to webhook endpoint
+// WebRTC conversation token (GET /v1/convai/conversation/token)
+app.get('/api/elevenlabs/token', async (req, res) => {
+  const response = await fetch(
+    `https://api.elevenlabs.io/v1/convai/conversation/token?agent_id=${AGENT_ID}`,
+    { headers: { 'xi-api-key': ELEVENLABS_API_KEY } }
+  );
+  const { conversation_token } = await response.json();
+  res.json({ token: conversation_token });
+});
 ```
 
-**Source**: [GitHub Issue #232](https://github.com/elevenlabs/elevenlabs-js/issues/232) (confirmed by maintainer)
+**When to Use Each**:
+
+| Use WebSocket When | Use WebRTC When |
+|--------------------|-----------------|
+| Need flexible audio formats | Need lowest possible latency |
+| Switching between audio devices frequently | Audio format can be locked to 48kHz |
+| Standard latency is acceptable | Building real-time applications |
+| Need maximum configuration control | Performance is critical |
+
+**Gotchas**:
+- WebRTC hardcodes PCM_48000 - no way to change format
+- Device switching in WebRTC limited by fixed format
+- Different authentication methods (signedUrl vs conversationToken)
+- WebRTC may have better performance but less flexibility
+
+### React Native SDK (Expo)
+
+**Installation**:
+```bash
+npx expo install @elevenlabs/react-native @livekit/react-native @livekit/react-native-webrtc livekit-client
+```
+
+**Requirements**:
+- Expo SDK 47+
+- iOS 14.0+ / macOS 11.0+
+- **Custom dev build required** (Expo Go not supported)
+
+**Example**:
+```typescript
+import { useConversation } from '@elevenlabs/react-native';
+import { View, Button, Text } from 'react-native';
+import { z } from 'zod';
+
+export default function App() {
+  const { startConversation, stopConversation, status } = useConversation({
+    agentId: 'your-agent-id',
+    signedUrl: 'https://api.elevenlabs.io/v1/convai/auth/...',
+
+    clientTools: {
+      updateProfile: {
+        description: "Update user profile",
+        parameters: z.object({
+          name: z.string()
+        }),
+        handler: async ({ name }) => {
+          console.log('Updating profile:', name);
+          return { success: true };
+        }
+      }
+    }
+  });
+
+  return (
+    <View style={{ padding: 20 }}>
+      <Button title="Start" onPress={startConversation} />
+      <Button title="Stop" onPress={stopConversation} />
+      <Text>Status: {status}</Text>
+    </View>
+  );
+}
+```
+
+**Gotchas**:
+- Requires custom dev build (not Expo Go)
+- iOS/macOS only (Android support via Kotlin SDK, not yet officially released)
+
+### Swift SDK (iOS/macOS)
+
+**Installation** (Swift Package Manager):
+```swift
+dependencies: [
+  .package(url: "https://github.com/elevenlabs/elevenlabs-swift-sdk", from: "1.0.0")
+]
+```
+
+**Requirements**:
+- iOS 14.0+ / macOS 11.0+
+- Swift 5.9+
+
+**Use Cases**:
+- Native iOS apps
+- macOS applications
+- watchOS (with limitations)
+
+### Widget (Embeddable Web Component)
+
+**Installation**:
+Copy-paste embed code from dashboard or use this template:
+
+```html
+<script src="https://elevenlabs.io/convai-widget/index.js"></script>
+<script>
+  ElevenLabsWidget.init({
+    agentId: 'your-agent-id',
+
+    // Theming
+    theme: {
+      primaryColor: '#3B82F6',
+      backgroundColor: '#1F2937',
+      textColor: '#F9FAFB'
+    },
+
+    // Position
+    position: 'bottom-right', // 'bottom-left' | 'bottom-right'
+
+    // Custom branding
+    branding: {
+      logo: 'https://example.com/logo.png',
+      name: 'Support Agent'
+    }
+  });
+</script>
+```
+
+**Use Cases**:
+- Customer support chat bubbles
+- Website assistants
+- Lead capture forms
+
+### Scribe (Real-Time Speech-to-Text)
+
+**Status**: Closed Beta (requires sales contact)
+**Release**: 2025
+
+Scribe is ElevenLabs' real-time speech-to-text service for low-latency transcription.
+
+**Capabilities**:
+- Microphone streaming (real-time transcription)
+- Pre-recorded audio file transcription
+- Partial (interim) and final transcripts
+- Word-level timestamps
+- Voice Activity Detection (VAD)
+- Manual and automatic commit strategies
+- Language detection
+- PCM_16000 and PCM_24000 audio formats
+
+**Authentication**:
+Uses single-use tokens (not API keys):
+
+```typescript
+// Fetch token from backend
+const response = await fetch('/api/scribe/token');
+const { token } = await response.json();
+
+// Backend endpoint
+const token = await client.scribe.getToken();
+return { token };
+```
+
+**React Hook (`useScribe`)**:
+
+```typescript
+import { useScribe } from '@elevenlabs/react';
+
+export default function Transcription() {
+  const {
+    connect,
+    disconnect,
+    startRecording,
+    stopRecording,
+    status,
+    transcript,
+    partialTranscript
+  } = useScribe({
+    token: async () => {
+      const response = await fetch('/api/scribe/token');
+      const { token } = await response.json();
+      return token;
+    },
+
+    // Commit strategy
+    commitStrategy: 'vad', // 'vad' (automatic) or 'manual'
+
+    // Audio format
+    sampleRate: 16000, // 16000 or 24000
+
+    // Events
+    onConnect: () => console.log('Connected to Scribe'),
+    onDisconnect: () => console.log('Disconnected'),
+
+    onPartialTranscript: (text) => {
+      console.log('Interim:', text);
+    },
+
+    onFinalTranscript: (text, timestamps) => {
+      console.log('Final:', text);
+      console.log('Timestamps:', timestamps); // Word-level timing
+    },
+
+    onError: (error) => console.error('Error:', error)
+  });
+
+  return (
+    <div>
+      <button onClick={connect}>Connect</button>
+      <button onClick={startRecording}>Start Recording</button>
+      <button onClick={stopRecording}>Stop Recording</button>
+      <button onClick={disconnect}>Disconnect</button>
+
+      <p>Status: {status}</p>
+      <p>Partial: {partialTranscript}</p>
+      <p>Final: {transcript}</p>
+    </div>
+  );
+}
+```
+
+**JavaScript SDK (`Scribe.connect`)**:
+
+```javascript
+import { Scribe } from '@elevenlabs/client';
+
+const connection = await Scribe.connect({
+  token: 'your-single-use-token',
+
+  sampleRate: 16000,
+  commitStrategy: 'vad',
+
+  onPartialTranscript: (text) => {
+    document.getElementById('interim').textContent = text;
+  },
+
+  onFinalTranscript: (text, timestamps) => {
+    const finalDiv = document.getElementById('final');
+    finalDiv.textContent += text + ' ';
+
+    // timestamps: [{ word: 'hello', start: 0.5, end: 0.8 }, ...]
+  },
+
+  onError: (error) => {
+    console.error('Scribe error:', error);
+  }
+});
+
+// Start recording from microphone
+await connection.startRecording();
+
+// Stop recording
+await connection.stopRecording();
+
+// Manual commit (if commitStrategy: 'manual')
+await connection.commit();
+
+// Disconnect
+await connection.disconnect();
+```
+
+**Transcribing Pre-Recorded Files**:
+
+```typescript
+import { Scribe } from '@elevenlabs/client';
+
+const connection = await Scribe.connect({ token });
+
+// Send audio buffer
+const audioBuffer = fs.readFileSync('recording.pcm');
+await connection.sendAudioData(audioBuffer);
+
+// Manually commit to get final transcript
+await connection.commit();
+
+// Wait for final transcript event
+```
+
+**Event Types**:
+- `SESSION_STARTED`: Connection established
+- `PARTIAL_TRANSCRIPT`: Interim transcription (unbuffered)
+- `FINAL_TRANSCRIPT`: Complete sentence/phrase
+- `FINAL_TRANSCRIPT_WITH_TIMESTAMPS`: Final + word timing
+- `ERROR`: Transcription error
+- `AUTH_ERROR`: Authentication failed
+- `OPEN`: WebSocket opened
+- `CLOSE`: WebSocket closed
+
+**Commit Strategies**:
+
+| Strategy | Description | Use When |
+|----------|-------------|----------|
+| `vad` (automatic) | Voice Activity Detection auto-commits on silence | Real-time transcription |
+| `manual` | Call `connection.commit()` explicitly | Pre-recorded files, controlled commits |
+
+**Audio Formats**:
+- `PCM_16000` (16kHz, 16-bit PCM)
+- `PCM_24000` (24kHz, 16-bit PCM)
+
+**Gotchas**:
+- Token is **single-use** (expires after one connection)
+- Closed beta - requires sales contact
+- Language detection automatic (no manual override)
+- No speaker diarization yet
+
+**When to Use Scribe**:
+- Building custom transcription UI
+- Real-time captions/subtitles
+- Voice note apps
+- Meeting transcription
+- Accessibility features
+
+**When NOT to Use**:
+Use **Agents Platform** instead if you need:
+- Conversational AI (LLM + TTS)
+- Two-way voice interaction
+- Agent responses
 
 ---
 
 ## 7. Testing & Evaluation
 
-### 🆕 Agent Testing Framework (Aug 2025)
+### Scenario Testing (LLM-Based Evaluation)
 
-Comprehensive automated testing with **9 new API endpoints** for creating, managing, and executing tests.
+Simulate full conversations and evaluate against success criteria.
 
-**Test Types:**
-- **Scenario Testing** - LLM-based evaluation against success criteria
-- **Tool Call Testing** - Verify correct tool usage and parameters
-- **Load Testing** - High-concurrency capacity testing
-
-**CLI Workflow:**
+**Configuration via CLI**:
 ```bash
-# Create test
-elevenlabs tests add "Refund Test" --template basic-llm
+elevenlabs tests add "Refund Request Test" --template basic-llm
+```
 
-# Configure in test_configs/refund-test.json
+**test_configs/refund-request-test.json**:
+```json
 {
-  "name": "Refund Test",
-  "scenario": "Customer requests refund",
-  "success_criteria": ["Agent acknowledges empathetically", "Verifies order details"],
-  "expected_tool_call": { "tool_name": "lookup_order", "parameters": { "order_id": "..." } }
+  "name": "Refund Request Test",
+  "scenario": "Customer requests refund for defective product",
+  "user_input": "I want a refund for order #12345. The product was broken when it arrived.",
+  "success_criteria": [
+    "Agent acknowledges the request empathetically",
+    "Agent asks for order number (which was already provided)",
+    "Agent verifies order details",
+    "Agent provides refund timeline or next steps"
+  ],
+  "evaluation_type": "llm"
 }
+```
 
-# Deploy and execute
-elevenlabs tests push
+**Run Test**:
+```bash
 elevenlabs agents test "Support Agent"
 ```
 
-**9 New API Endpoints (Aug 2025):**
-1. `POST /v1/convai/tests` - Create test
-2. `GET /v1/convai/tests/:id` - Retrieve test
-3. `PATCH /v1/convai/tests/:id` - Update test
-4. `DELETE /v1/convai/tests/:id` - Delete test
-5. `POST /v1/convai/tests/:id/execute` - Execute test
-6. `GET /v1/convai/test-invocations` - List invocations (pagination, agent filtering)
-7. `POST /v1/convai/test-invocations/:id/resubmit` - Resubmit failed test
-8. `GET /v1/convai/test-results/:id` - Get results
-9. `GET /v1/convai/test-results/:id/debug` - Detailed debugging info
+### Tool Call Testing
 
-**Test Invocation Listing (Oct 2025):**
-```typescript
-const invocations = await client.convai.testInvocations.list({
-  agent_id: 'agent_123',      // Filter by agent
-  page_size: 30,              // Default 30, max 100
-  cursor: 'next_page_cursor'  // Pagination
-});
-// Returns: test run counts, pass/fail stats, titles
+Verify that agents correctly use tools with the right parameters.
+
+**Configuration**:
+```json
+{
+  "name": "Account Balance Test",
+  "scenario": "Customer requests account balance",
+  "expected_tool_call": {
+    "tool_name": "get_account_balance",
+    "parameters": {
+      "account_id": "ACC-12345"
+    }
+  }
+}
 ```
 
-**Programmatic Testing:**
+### Load Testing
+
+Test agent capacity under high concurrency.
+
+**Configuration**:
+```bash
+# Spawn 100 users, 1 per second, test for 10 minutes
+elevenlabs test load \
+  --users 100 \
+  --spawn-rate 1 \
+  --duration 600
+```
+
+**Gotchas**:
+- Load testing consumes real API credits
+- Use burst pricing for expected traffic spikes
+- Requires careful planning to avoid hitting rate limits
+
+### Simulation API (Programmatic Testing)
+
+**API Endpoint**:
+```bash
+POST /v1/convai/agents/:agent_id/simulate
+```
+
+**Example**:
 ```typescript
 const simulation = await client.agents.simulate({
   agent_id: 'agent_123',
-  scenario: 'Refund request',
-  user_messages: ["I want a refund", "Order #12345"],
-  success_criteria: ["Acknowledges request", "Verifies order"]
+  scenario: 'Customer requests refund',
+  user_messages: [
+    "I want a refund for order #12345",
+    "I ordered it last week",
+    "Yes, please process it"
+  ],
+  success_criteria: [
+    "Agent acknowledges request",
+    "Agent asks for order details",
+    "Agent provides refund timeline"
+  ]
 });
-console.log('Passed:', simulation.passed);
+
+console.log('Test passed:', simulation.passed);
+console.log('Criteria met:', simulation.evaluation.criteria_met);
 ```
 
-**Agent Tracking (Oct 2025):** Tests now include `agent_id` association for better organization
+**Use Cases**:
+- CI/CD integration (test before deploy)
+- Regression testing
+- Load testing preparation
 
 ---
 
 ## 8. Analytics & Monitoring
 
-**2025 Features:**
-- **Custom Dashboard Charts** (Apr 2025) - Display evaluation criteria metrics over time
-- **Call History Filtering** (Apr 2025) - `call_start_before_unix` parameter
-- **Multi-Voice History** - Separate conversation history by voice
-- **LLM Cost Tracking** - Per agent/conversation costs with `aggregation_interval` (hour/day/week/month)
-- **Tool Latency** (Apr 2025) - `tool_latency_secs` tracking
-- **Usage Metrics** - minutes_used, request_count, ttfb_avg, ttfb_p95
+### Conversation Analysis
 
-**Conversation Analysis:** Success evaluation (LLM-based), data collection fields, post-call webhooks
+Extract structured data from conversation transcripts.
 
-**Access:** Dashboard → Analytics | Post-call Webhooks | API
+**Features**:
+
+#### Success Evaluation (LLM-Based)
+```json
+{
+  "evaluation_criteria": {
+    "resolution": "Was the customer's issue resolved?",
+    "sentiment": "Was the conversation tone positive?",
+    "compliance": "Did the agent follow company policies?"
+  }
+}
+```
+
+#### Data Collection
+```json
+{
+  "data_collection": {
+    "fields": [
+      { "name": "customer_name", "type": "string" },
+      { "name": "issue_type", "type": "enum", "values": ["billing", "technical", "other"] },
+      { "name": "satisfaction", "type": "number", "range": [1, 5] }
+    ]
+  }
+}
+```
+
+**Access**:
+- Via Post-call Webhooks (real-time)
+- Via Analytics Dashboard (batch)
+- Via API (on-demand)
+
+### Analytics Dashboard
+
+**Metrics**:
+- **Resolution Rates**: % of issues resolved
+- **CX Metrics**: Sentiment, satisfaction, CSAT
+- **Compliance**: Policy adherence, guardrail violations
+- **Performance**: Response time, call duration, concurrency
+- **Tool Usage**: Tool call frequency, success rates
+- **LLM Costs**: Track costs per agent/conversation
+
+**Access**: Dashboard → Analytics tab
 
 ---
 
 ## 9. Privacy & Compliance
 
-**Data Retention:** 2 years default (GDPR). Configure: `{ "transcripts": { "retention_days": 730 }, "audio": { "retention_days": 2190 } }`
+### Data Retention
 
-**Encryption:** TLS 1.3 (transit), AES-256 (rest)
+**Default**: 2 years (GDPR-compliant)
 
-**Regional:** `serverLocation: 'eu-residency' | 'us' | 'global' | 'in-residency'`
+**Configuration**:
+```json
+{
+  "privacy": {
+    "transcripts": {
+      "retention_days": 730  // 2 years (GDPR)
+    },
+    "audio": {
+      "retention_days": 2190  // 6 years (HIPAA)
+    }
+  }
+}
+```
 
-**Zero Retention Mode:** Immediate deletion (no history, analytics, webhooks, or MCP)
+**Compliance Recommendations**:
+- **GDPR**: Align with data processing purposes (typically 1-2 years)
+- **HIPAA**: Minimum 6 years for medical records
+- **SOC 2**: Encryption in transit and at rest (automatic)
 
-**Compliance:** GDPR (1-2 years), HIPAA (6 years), SOC 2 (automatic encryption)
+### Encryption
+
+- **In Transit**: TLS 1.3
+- **At Rest**: AES-256
+- **Regional Compliance**: Data residency (US, EU, India)
+
+**Regional Configuration**:
+```typescript
+const { startConversation } = useConversation({
+  serverLocation: 'eu-residency' // 'us' | 'global' | 'eu-residency' | 'in-residency'
+});
+```
+
+### Zero Retention Mode
+
+For maximum privacy, enable zero retention to immediately delete all conversation data.
+
+**Limitations**:
+- No conversation history
+- No analytics
+- No post-call webhooks
+- No MCP tool integrations
 
 ---
 
 ## 10. Cost Optimization
 
-**LLM Caching:** Up to 90% savings on repeated inputs. `{ "caching": { "enabled": true, "ttl_seconds": 3600 } }`
+### LLM Caching
 
-**Model Swapping:** GPT-5.1, GPT-4o/mini, Claude Sonnet 4.5, Gemini 3 Pro/2.5 Flash (2025 models)
+Reduce costs by caching repeated inputs.
 
-**Burst Pricing:** 3x concurrency limit at 2x cost. `{ "burst_pricing_enabled": true }`
+**How It Works**:
+- **First request**: Full cost (`input_cache_write`)
+- **Subsequent requests**: Reduced cost (`input_cache_read`)
+- **Automatic cache invalidation** after TTL
+
+**Configuration**:
+```json
+{
+  "llm_config": {
+    "caching": {
+      "enabled": true,
+      "ttl_seconds": 3600  // 1 hour
+    }
+  }
+}
+```
+
+**Use Cases**:
+- Repeated system prompts
+- Large knowledge bases
+- Frequent tool definitions
+
+**Savings**: Up to 90% on cached inputs
+
+### Model Swapping
+
+Switch between models based on cost/performance needs.
+
+**Available Models**:
+- **GPT-4o** (high cost, high quality)
+- **GPT-4o-mini** (medium cost, good quality)
+- **Claude Sonnet 4.5** (high cost, best reasoning)
+- **Gemini 2.5 Flash** (low cost, fast)
+
+**Configuration**:
+```json
+{
+  "llm_config": {
+    "model": "gpt-4o-mini"  // Swap anytime via dashboard or API
+  }
+}
+```
+
+### Burst Pricing
+
+Temporarily exceed concurrency limits during high-demand periods.
+
+**How It Works**:
+- **Normal**: Your subscription concurrency limit (e.g., 10 simultaneous calls)
+- **Burst**: Up to 3x your limit (e.g., 30 simultaneous calls)
+- **Cost**: 2x the standard rate for burst calls
+
+**Configuration**:
+```json
+{
+  "call_limits": {
+    "burst_pricing_enabled": true
+  }
+}
+```
+
+**Use Cases**:
+- Black Friday traffic spikes
+- Product launches
+- Seasonal demand (holidays)
+
+**Gotchas**:
+- Burst calls cost 2x (plan accordingly)
+- Not unlimited (3x cap)
 
 ---
 
 ## 11. Advanced Features
 
-**2025 Platform Updates:**
-- **Azure OpenAI** (Jul 2025) - Custom LLM with Azure-hosted models (requires API version field)
-- **Genesys Output Variables** (Jul 2025) - Enhanced call analytics
-- **LLMReasoningEffort "none"** (Oct 2025) - Control model reasoning behavior
-- **Streaming Voice Previews** (Jul 2025) - Real-time voice generation
-- **pcm_48000** audio format (Apr 2025) - New output format support
+### Events (WebSocket/SSE)
 
-**Events:** `audio`, `transcript`, `agent_response`, `tool_call`, `agent_chat_response_part` (streaming, Oct 2025), `agent_tool_request` (Oct 2025), `conversation_state`
+Real-time event streaming for live transcription, agent responses, and tool calls.
 
-**Custom Models:** Bring your own LLM (OpenAI-compatible endpoints). `{ "llm_config": { "custom": { "endpoint": "...", "api_key": "{{secret__key}}" } } }`
+**Event Types**:
+- `audio` - Audio stream chunks
+- `transcript` - Real-time transcription
+- `agent_response` - Agent's text response
+- `tool_call` - Tool execution status
+- `conversation_state` - State updates
 
-**Post-Call Webhooks:** HMAC verification required. Return 200 or auto-disable after 10 failures. Payload includes conversation_id, transcript, analysis.
+**Example**:
+```typescript
+const { startConversation } = useConversation({
+  onEvent: (event) => {
+    switch (event.type) {
+      case 'transcript':
+        console.log('User said:', event.data.text);
+        break;
+      case 'agent_response':
+        console.log('Agent replied:', event.data.text);
+        break;
+      case 'tool_call':
+        console.log('Tool called:', event.data.tool_name);
+        break;
+    }
+  }
+});
+```
 
-**Chat Mode:** Text-only (no ASR/TTS). `{ "chat_mode": true }`. Saves ~200ms + costs.
+### Custom Models (Bring Your Own LLM)
 
-**Telephony:** SIP (sip-static.rtc.elevenlabs.io), Twilio native, Vonage, RingCentral. **2025:** Twilio keypad fix (Jul), SIP TLS remote_domains validation (Oct)
+Use your own OpenAI API key or custom LLM server.
+
+**Configuration**:
+```json
+{
+  "llm_config": {
+    "custom": {
+      "endpoint": "https://api.openai.com/v1/chat/completions",
+      "api_key": "{{secret__openai_api_key}}",
+      "model": "gpt-4"
+    }
+  }
+}
+```
+
+**Use Cases**:
+- Custom fine-tuned models
+- Private LLM deployments (Ollama, LocalAI)
+- Cost control (use your own credits)
+- Compliance (on-premise models)
+
+**Gotchas**:
+- Endpoint must be OpenAI-compatible
+- No official support for non-OpenAI-compatible models
+
+### Post-Call Webhooks
+
+Receive notifications when a call ends and analysis completes.
+
+**Configuration**:
+```json
+{
+  "webhooks": {
+    "post_call": {
+      "url": "https://api.example.com/webhook",
+      "headers": {
+        "Authorization": "Bearer {{secret__webhook_auth_token}}"
+      }
+    }
+  }
+}
+```
+
+**Payload**:
+```json
+{
+  "conversation_id": "conv_123",
+  "agent_id": "agent_456",
+  "transcript": "...",
+  "duration_seconds": 120,
+  "analysis": {
+    "sentiment": "positive",
+    "resolution": true,
+    "extracted_data": {
+      "customer_name": "John Doe",
+      "issue_type": "billing"
+    }
+  }
+}
+```
+
+**Security (HMAC Verification)**:
+```typescript
+import crypto from 'crypto';
+
+export async function POST(req: Request) {
+  const signature = req.headers.get('elevenlabs-signature');
+  const payload = await req.text();
+
+  const hmac = crypto
+    .createHmac('sha256', process.env.WEBHOOK_SECRET!)
+    .update(payload)
+    .digest('hex');
+
+  if (signature !== hmac) {
+    return new Response('Invalid signature', { status: 401 });
+  }
+
+  // Process webhook
+  const data = JSON.parse(payload);
+  console.log('Conversation ended:', data.conversation_id);
+
+  // MUST return 200
+  return new Response('OK', { status: 200 });
+}
+```
+
+**Gotchas**:
+- Must return 200 status code
+- Auto-disabled after 10 consecutive failures (7+ days since last success)
+- Retry logic: 3 attempts with exponential backoff
+
+### Chat Mode (Text-Only)
+
+Disable voice, use text-only conversations.
+
+**Configuration**:
+```json
+{
+  "conversation_config": {
+    "chat_mode": true  // Disables audio input/output
+  }
+}
+```
+
+**Benefits**:
+- Faster response times (~200ms saved)
+- Lower costs (no ASR/TTS charges)
+- Easier testing (no microphone required)
+
+**Use Cases**:
+- Testing agents without audio
+- Building text chat interfaces
+- Accessibility (text-only users)
+
+### Telephony Integration
+
+**SIP Trunking**:
+```
+SIP Endpoint: sip-static.rtc.elevenlabs.io
+TLS Transport: Recommended for production
+SRTP Encryption: Supported
+```
+
+**Supported Providers**: Twilio, Vonage, RingCentral, Sinch, Infobip, Telnyx, Exotel, Plivo, Bandwidth
+
+**Native Twilio Integration**:
+```json
+{
+  "telephony": {
+    "provider": "twilio",
+    "phone_number": "+1234567890",
+    "account_sid": "{{secret__twilio_account_sid}}",
+    "auth_token": "{{secret__twilio_auth_token}}"
+  }
+}
+```
+
+**Use Cases**:
+- Customer support hotlines
+- Appointment scheduling
+- Order status inquiries
+- IVR systems
 
 ---
 
 ## 12. CLI & DevOps ("Agents as Code")
 
-**Installation & Auth:**
+### Installation & Authentication
+
 ```bash
-npm install -g @elevenlabs/agents-cli@0.6.1
+# Install globally
+npm install -g @elevenlabs/cli
+
+# Authenticate
 elevenlabs auth login
-elevenlabs auth residency eu-residency  # 'in-residency' | 'global'
-export ELEVENLABS_API_KEY=your-api-key  # For CI/CD
+
+# Set residency (for GDPR compliance)
+elevenlabs auth residency eu-residency  # or 'in-residency' | 'global'
+
+# Check current user
+elevenlabs auth whoami
 ```
 
-**Project Structure:** `agents.json`, `tools.json`, `tests.json` + `agent_configs/`, `tool_configs/`, `test_configs/`
+**Environment Variables** (For CI/CD):
+```bash
+export ELEVENLABS_API_KEY=your-api-key
+```
 
-**Key Commands:**
+### Project Structure
+
+**Initialize Project**:
 ```bash
 elevenlabs agents init
-elevenlabs agents add "Bot" --template customer-service
-elevenlabs agents push --env prod --dry-run  # Preview
-elevenlabs agents push --env prod            # Deploy
-elevenlabs agents pull                       # Import existing
-elevenlabs agents test "Bot"                 # 2025: Enhanced testing
-
-elevenlabs tools add-webhook "Weather" --config-path tool_configs/weather.json
-elevenlabs tools push
-
-elevenlabs tests add "Test" --template basic-llm
-elevenlabs tests push
 ```
 
-**Multi-Environment:** Create `agent.dev.json`, `agent.staging.json`, `agent.prod.json` for overrides
+**Directory Structure Created**:
+```
+your_project/
+├── agents.json              # Agent registry
+├── tools.json               # Tool configurations
+├── tests.json               # Test configurations
+├── agent_configs/           # Individual agent files (.json)
+├── tool_configs/            # Tool configuration files
+└── test_configs/            # Test configuration files
+```
 
-**CI/CD:** GitHub Actions with `--dry-run` validation before deploy
+### Agent Management Commands
 
-**.gitignore:** `.env`, `.elevenlabs/`, `*.secret.json`
+```bash
+# Create agent
+elevenlabs agents add "Support Agent" --template customer-service
+
+# Deploy to platform
+elevenlabs agents push
+elevenlabs agents push --agent "Support Agent"
+elevenlabs agents push --env prod
+elevenlabs agents push --dry-run  # Preview changes
+
+# Import existing agents
+elevenlabs agents pull
+
+# List agents
+elevenlabs agents list
+
+# Check sync status
+elevenlabs agents status
+
+# Delete agent
+elevenlabs agents delete <agent_id>
+```
+
+### Tool Management Commands
+
+```bash
+# Create webhook tool
+elevenlabs tools add-webhook "Get Weather" --config-path tool_configs/get-weather.json
+
+# Create client tool
+elevenlabs tools add-client "Update Cart" --config-path tool_configs/update-cart.json
+
+# Deploy tools
+elevenlabs tools push
+
+# Import existing tools
+elevenlabs tools pull
+
+# Delete tools
+elevenlabs tools delete <tool_id>
+elevenlabs tools delete --all
+```
+
+### Testing Commands
+
+```bash
+# Create test
+elevenlabs tests add "Refund Test" --template basic-llm
+
+# Deploy tests
+elevenlabs tests push
+
+# Import tests
+elevenlabs tests pull
+
+# Run test
+elevenlabs agents test "Support Agent"
+```
+
+### Multi-Environment Deployment
+
+**Pattern**:
+```bash
+# Development
+elevenlabs agents push --env dev
+
+# Staging
+elevenlabs agents push --env staging
+
+# Production (with confirmation)
+elevenlabs agents push --env prod --dry-run
+# Review changes...
+elevenlabs agents push --env prod
+```
+
+**Environment-Specific Configs**:
+```
+agent_configs/
+├── support-bot.json          # Base config
+├── support-bot.dev.json      # Dev overrides
+├── support-bot.staging.json  # Staging overrides
+└── support-bot.prod.json     # Prod overrides
+```
+
+### CI/CD Integration
+
+**GitHub Actions Example**:
+```yaml
+name: Deploy Agent
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'agent_configs/**'
+      - 'tool_configs/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install CLI
+        run: npm install -g @elevenlabs/cli
+
+      - name: Test Configs
+        run: elevenlabs agents push --dry-run --env prod
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY_PROD }}
+
+      - name: Deploy
+        run: elevenlabs agents push --env prod
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY_PROD }}
+```
+
+### Version Control Best Practices
+
+**Commit**:
+- `agent_configs/*.json`
+- `tool_configs/*.json`
+- `test_configs/*.json`
+- `agents.json`, `tools.json`, `tests.json`
+
+**Ignore**:
+```
+# .gitignore
+.env
+.elevenlabs/
+*.secret.json
+```
 
 ---
 
-## 13. Common Errors & Solutions (27 Documented)
+## 13. Common Errors & Solutions
 
 ### Error 1: Missing Required Dynamic Variables
-**Cause:** Variables referenced in prompts not provided at conversation start
-**Solution:** Provide all variables in `dynamic_variables: { user_name: "John", ... }`
+
+**Symptom**: "Missing required dynamic variables" error, no transcript generated
+
+**Cause**: Dynamic variables referenced in prompts/messages but not provided at conversation start
+
+**Solution**:
+```typescript
+const conversation = await client.conversations.create({
+  agent_id: "agent_123",
+  dynamic_variables: {
+    user_name: "John",
+    account_tier: "premium",
+    // Provide ALL variables referenced in prompts
+  }
+});
+```
 
 ### Error 2: Case-Sensitive Tool Names
-**Cause:** Tool name mismatch (case-sensitive)
-**Solution:** Ensure `tool_ids: ["orderLookup"]` matches `name: "orderLookup"` exactly
+
+**Symptom**: Tool not executing, agent says "tool not found"
+
+**Cause**: Tool name in config doesn't match registered name (case-sensitive)
+
+**Solution**:
+```json
+// agent_configs/bot.json
+{
+  "agent": {
+    "prompt": {
+      "tool_ids": ["orderLookup"]  // Must match exactly
+    }
+  }
+}
+
+// tool_configs/order-lookup.json
+{
+  "name": "orderLookup"  // Match case exactly
+}
+```
 
 ### Error 3: Webhook Authentication Failures
-**Cause:** Incorrect HMAC signature, not returning 200, or 10+ failures
-**Solution:** Verify `hmac = crypto.createHmac('sha256', SECRET).update(payload).digest('hex')` and return 200
-**⚠️ Header Name:** Use `ElevenLabs-Signature` (NOT `X-ElevenLabs-Signature` - no X- prefix!)
+
+**Symptom**: Webhook auto-disabled after failures
+
+**Cause**:
+- Incorrect HMAC signature verification
+- Not returning 200 status code
+- 10+ consecutive failures
+
+**Solution**:
+```typescript
+// Always verify HMAC signature
+import crypto from 'crypto';
+
+const signature = req.headers['elevenlabs-signature'];
+const payload = JSON.stringify(req.body);
+
+const hmac = crypto
+  .createHmac('sha256', process.env.WEBHOOK_SECRET)
+  .update(payload)
+  .digest('hex');
+
+if (signature !== hmac) {
+  return res.status(401).json({ error: 'Invalid signature' });
+}
+
+// Process webhook
+// ...
+
+// MUST return 200
+res.status(200).json({ success: true });
+```
 
 ### Error 4: Voice Consistency Issues
-**Cause:** Background noise, inconsistent mic distance, extreme volumes in training
-**Solution:** Use clean audio, consistent distance, avoid extremes
+
+**Symptom**: Generated audio varies in volume/tone
+
+**Cause**:
+- Background noise in voice clone training data
+- Inconsistent microphone distance
+- Whispering or shouting in samples
+
+**Solution**:
+- Use clean audio samples (no music, noise, pops)
+- Maintain consistent microphone distance
+- Avoid extreme volumes
+- Test voice settings before deployment
 
 ### Error 5: Wrong Language Voice
-**Cause:** English-trained voice for non-English language
-**Solution:** Use language-matched voices: `{ "language": "es", "voice_id": "spanish_voice" }`
+
+**Symptom**: Unpredictable pronunciation, accent issues
+
+**Cause**: Using English-trained voice for non-English language
+
+**Solution**:
+```json
+{
+  "language_presets": [
+    {
+      "language": "es",
+      "voice_id": "spanish_trained_voice_id"  // Must be Spanish-trained
+    }
+  ]
+}
+```
 
 ### Error 6: Restricted API Keys Not Supported (CLI)
-**Cause:** CLI doesn't support restricted API keys
-**Solution:** Use unrestricted API key for CLI
+
+**Symptom**: CLI authentication fails
+
+**Cause**: Using restricted API key (not currently supported)
+
+**Solution**: Use unrestricted API key for CLI operations
 
 ### Error 7: Agent Configuration Push Conflicts
-**Cause:** Hash-based change detection missed modification
-**Solution:** `elevenlabs agents init --override` + `elevenlabs agents pull` + push
+
+**Symptom**: Changes not reflected after push
+
+**Cause**: Hash-based change detection missed modification
+
+**Solution**:
+```bash
+# Force re-sync
+elevenlabs agents init --override
+elevenlabs agents pull  # Re-import from platform
+# Make changes
+elevenlabs agents push
+```
 
 ### Error 8: Tool Parameter Schema Mismatch
-**Cause:** Schema doesn't match usage
-**Solution:** Add clear descriptions: `"description": "Order ID (format: ORD-12345)"`
+
+**Symptom**: Tool called but parameters empty or incorrect
+
+**Cause**: Schema definition doesn't match actual usage
+
+**Solution**:
+```json
+// tool_configs/order-lookup.json
+{
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "order_id": {
+        "type": "string",
+        "description": "The order ID to look up (format: ORD-12345)"  // Clear description
+      }
+    },
+    "required": ["order_id"]
+  }
+}
+```
 
 ### Error 9: RAG Index Not Ready
-**Cause:** Index still computing (takes minutes)
-**Solution:** Check `index.status === 'ready'` before using
 
-### Error 10: WebSocket Protocol Error (1002)
-**Cause:** Network instability, incompatible browser, or firewall issues
-**Symptoms:**
-```
-Error receiving message: received 1002 (protocol error)
-Error sending user audio chunk: received 1002 (protocol error)
-WebSocket is already in CLOSING or CLOSED state
-```
-Connection cycles: Disconnected → Connected → Disconnected rapidly
+**Symptom**: Agent doesn't use knowledge base
 
-**Solution:**
-1. **Use WebRTC instead of WebSocket** for better stability: `connectionType: 'webrtc'`
-2. **Implement reconnection logic** with exponential backoff
-3. **Check network stability** and firewall rules (port restrictions)
-4. **Test on different networks/browsers** to isolate the issue
+**Cause**: RAG index still computing (can take minutes for large documents)
 
-**Source**: [GitHub Issue #134](https://github.com/elevenlabs/elevenlabs-examples/issues/134)
-
-### Error 11: 401 Unauthorized in Production
-**Cause:** Agent visibility or API key config
-**Solution:** Check visibility (public/private), verify API key in prod, check allowlist
-
-### Error 12: Allowlist Connection Errors
-**Cause:** Allowlist enabled but using shared link, OR localhost validation bug
-**Symptoms:**
-```
-Host is not supported
-Host is not valid or supported
-Host is not in insights whitelist
-WebSocket is already in CLOSING or CLOSED state
-```
-
-**Solution:**
-1. Configure allowlist domains in dashboard or disable for testing
-2. **Localhost workaround**: Use `127.0.0.1:3000` instead of `localhost:3000`
-
-**⚠️ Localhost Validation Bug:**
-The dashboard has inconsistent validation for localhost URLs:
-- ❌ `localhost:3000` → Rejected (should be valid)
-- ❌ `http://localhost:3000` → Rejected (protocol not allowed)
-- ❌ `localhost:3000/voice-chat` → Rejected (paths not allowed)
-- ✅ `www.localhost:3000` → Accepted (invalid but accepted!)
-- ✅ `127.0.0.1:3000` → Accepted (use this for local dev)
-
-**Source**: [GitHub Issue #320](https://github.com/elevenlabs/elevenlabs-js/issues/320)
-
-### Error 13: Workflow Infinite Loops
-**Cause:** Edge conditions creating loops
-**Solution:** Add max iteration limits, test all paths, explicit exit conditions
-
-### Error 14: Burst Pricing Not Enabled
-**Cause:** Burst not enabled in settings
-**Solution:** `{ "call_limits": { "burst_pricing_enabled": true } }`
-
-### Error 15: MCP Server Timeout
-**Cause:** MCP server slow/unreachable
-**Solution:** Check URL accessible, verify transport (SSE/HTTP), check auth, monitor logs
-
-### Error 16: First Message Cutoff on Android
-**Cause:** Android needs time to switch audio mode
-**Solution:** `connectionDelay: { android: 3_000, ios: 0 }` (3s for audio routing)
-
-### Error 17: CSP (Content Security Policy) Violations
-**Cause:** Strict CSP blocks `blob:` URLs. SDK uses Audio Worklets loaded as blobs
-**Solution:** Self-host worklets:
-1. `cp node_modules/@elevenlabs/client/dist/worklets/*.js public/elevenlabs/`
-2. Configure: `workletPaths: { 'rawAudioProcessor': '/elevenlabs/rawAudioProcessor.worklet.js', 'audioConcatProcessor': '/elevenlabs/audioConcatProcessor.worklet.js' }`
-3. Update CSP: `script-src 'self' https://elevenlabs.io; worker-src 'self';`
-**Gotcha:** Update worklets when upgrading `@elevenlabs/client`
-
-### Error 18: Webhook Payload - Null Message on Tool Calls
-**Cause:** Schema expects `message: string` but ElevenLabs sends `null` when agent makes tool calls
-**Solution:** Use `z.string().nullable()` for message field in Zod schemas
+**Solution**:
 ```typescript
-// ❌ Fails on tool call turns:
-message: z.string()
-
-// ✅ Correct:
-message: z.string().nullable()
-```
-**Real payload example:**
-```json
-{ "role": "agent", "message": null, "tool_calls": [{ "tool_name": "my_tool", ... }] }
-```
-
-### Error 19: Webhook Payload - call_successful is String, Not Boolean
-**Cause:** Schema expects `call_successful: boolean` but ElevenLabs sends `"success"` or `"failure"` strings
-**Solution:** Accept both types and convert for database storage
-```typescript
-// Schema:
-call_successful: z.union([z.boolean(), z.string()]).optional()
-
-// Conversion helper:
-function parseCallSuccessful(value: unknown): boolean | undefined {
-  if (value === undefined || value === null) return undefined
-  if (typeof value === 'boolean') return value
-  if (typeof value === 'string') return value.toLowerCase() === 'success'
-  return undefined
-}
-```
-
-### Error 20: Webhook Schema Validation Fails Silently
-**Cause:** Real ElevenLabs payloads have many undocumented fields that strict schemas reject
-**Undocumented fields in transcript turns:**
-- `agent_metadata`, `multivoice_message`, `llm_override`, `rag_retrieval_info`
-- `llm_usage`, `interrupted`, `original_message`, `source_medium`
-**Solution:** Add all as `.optional()` with `z.any()` for fields you don't process
-**Debugging tip:** Use https://webhook.site to capture real payloads, then test schema locally
-
-### Error 21: Webhook Cost Field is Credits, NOT USD
-**Cause:** `metadata.cost` contains **ElevenLabs credits**, not USD dollars. Displaying this directly shows wildly wrong values (e.g., "$78.0000" when actual cost is ~$0.003)
-**Solution:** Extract actual USD from `metadata.charging.llm_price` instead
-```typescript
-// ❌ Wrong - displays credits as dollars:
-cost: metadata?.cost  // Returns 78 (credits)
-
-// ✅ Correct - actual USD cost:
-const charging = metadata?.charging as any
-cost: charging?.llm_price ?? null  // Returns 0.0036 (USD)
-```
-**Real payload structure:**
-```json
-{
-  "metadata": {
-    "cost": 78,  // ← CREDITS, not dollars!
-    "charging": {
-      "llm_price": 0.0036188999999999995,  // ← Actual USD cost
-      "llm_charge": 18,   // LLM credits
-      "call_charge": 60,  // Audio credits
-      "tier": "pro"
-    }
-  }
-}
-```
-**Note:** `llm_price` only covers LLM costs. Audio costs may require separate calculation based on your plan.
-
-### Error 22: User Context Available But Not Extracted
-**Cause:** Webhook contains authenticated user info from widget but code doesn't extract it
-**Solution:** Extract `dynamic_variables` from `conversation_initiation_client_data`
-```typescript
-const dynamicVars = data.conversation_initiation_client_data?.dynamic_variables
-const callerName = dynamicVars?.user_name || null
-const callerEmail = dynamicVars?.user_email || null
-const currentPage = dynamicVars?.current_page || null
-```
-**Payload example:**
-```json
-{
-  "conversation_initiation_client_data": {
-    "dynamic_variables": {
-      "user_name": "Jeremy Dawes",
-      "user_email": "jeremy@jezweb.net",
-      "current_page": "/dashboard/calls"
-    }
-  }
-}
-```
-
-### Error 23: Data Collection Results Available But Not Displayed
-**Cause:** ElevenLabs agents can collect structured data during calls (configured in agent settings). This data is stored in `analysis.data_collection_results` but often not parsed/displayed in UI.
-**Solution:** Parse the JSON and display collected fields with their values and rationales
-```typescript
-const dataCollectionResults = analysis?.dataCollectionResults
-  ? JSON.parse(analysis.dataCollectionResults)
-  : null
-
-// Display each collected field:
-Object.entries(dataCollectionResults).forEach(([key, data]) => {
-  console.log(`${key}: ${data.value} (${data.rationale})`)
-})
-```
-**Payload example:**
-```json
-{
-  "data_collection_results": {
-    "customer_name": { "value": "John Smith", "rationale": "Customer stated their name" },
-    "intent": { "value": "billing_inquiry", "rationale": "Asking about invoice" },
-    "callback_number": { "value": "+61400123456", "rationale": "Provided for callback" }
-  }
-}
-```
-
-### Error 24: Evaluation Criteria Results Available But Not Displayed
-**Cause:** Custom success criteria (configured in agent) produce results in `analysis.evaluation_criteria_results` but often not parsed/displayed
-**Solution:** Parse and show pass/fail status with rationales
-```typescript
-const evaluationResults = analysis?.evaluationCriteriaResults
-  ? JSON.parse(analysis.evaluationCriteriaResults)
-  : null
-
-Object.entries(evaluationResults).forEach(([key, data]) => {
-  const passed = data.result === 'success' || data.result === true
-  console.log(`${key}: ${passed ? 'PASS' : 'FAIL'} - ${data.rationale}`)
-})
-```
-**Payload example:**
-```json
-{
-  "evaluation_criteria_results": {
-    "verified_identity": { "result": "success", "rationale": "Customer verified DOB" },
-    "resolved_issue": { "result": "failure", "rationale": "Escalated to human" }
-  }
-}
-```
-
-### Error 25: Feedback Rating Available But Not Extracted
-**Cause:** User can provide thumbs up/down feedback. Stored in `metadata.feedback.thumb_rating` but not extracted
-**Solution:** Extract and store the rating (1 = thumbs up, -1 = thumbs down)
-```typescript
-const feedback = metadata?.feedback as any
-const feedbackRating = feedback?.thumb_rating ?? null  // 1, -1, or null
-
-// Also available:
-const likes = feedback?.likes    // Array of things user liked
-const dislikes = feedback?.dislikes  // Array of things user disliked
-```
-**Payload example:**
-```json
-{
-  "metadata": {
-    "feedback": {
-      "thumb_rating": 1,
-      "likes": ["helpful", "natural"],
-      "dislikes": []
-    }
-  }
-}
-```
-
-### Error 26: Per-Turn Metadata Not Extracted (interrupted, source_medium, rag_retrieval_info)
-**Cause:** Each transcript turn has valuable metadata that's often ignored
-**Solution:** Store these fields per message for analytics and debugging
-```typescript
-const turnAny = turn as any
-const messageData = {
-  // ... existing fields
-  interrupted: turnAny.interrupted ?? null,          // Was turn cut off by user?
-  sourceMedium: turnAny.source_medium ?? null,       // Channel: web, phone, etc.
-  originalMessage: turnAny.original_message ?? null, // Pre-processed message
-  ragRetrievalInfo: turnAny.rag_retrieval_info       // What knowledge was retrieved
-    ? JSON.stringify(turnAny.rag_retrieval_info)
-    : null,
-}
-```
-**Use cases:**
-- `interrupted: true` → User spoke over agent (UX insight)
-- `source_medium` → Analytics by channel
-- `rag_retrieval_info` → Debug/improve knowledge base retrieval
-
-### Error 27: Upcoming Audio Flags (August 2025)
-**Cause:** Three new boolean fields coming in August 2025 webhooks that may break schemas
-**Solution:** Add these fields to schemas now (as optional) to be ready
-```typescript
-// In webhook payload (coming August 15, 2025):
-has_audio: boolean        // Was full audio recorded?
-has_user_audio: boolean   // Was user audio captured?
-has_response_audio: boolean // Was agent audio captured?
-
-// Schema (future-proof):
-const schema = z.object({
-  // ... existing fields
-  has_audio: z.boolean().optional(),
-  has_user_audio: z.boolean().optional(),
-  has_response_audio: z.boolean().optional(),
-})
-```
-**Note:** These match the existing fields in the GET Conversation API response
-
-### Error 28: Tool Parsing Fails When Tool Not Found
-**Cause:** Calling `conversations.get(id)` when conversation contains tool_results where the tool was deleted/not found
-**Error Message:**
-```
-Error: response -> transcript -> [11] -> tool_results -> [0] -> type:
-Expected string. Received null.;
-response -> transcript -> [11] -> tool_results -> [0] -> type:
-[Variant 1] Expected "system". Received null.;
-response -> transcript -> [11] -> tool_results -> [0] -> type:
-[Variant 2] Expected "workflow". Received null.
-```
-
-**Solution:**
-1. **SDK fix needed** - SDK should handle null tool_results.type gracefully
-2. **Workaround for users:**
-   - Ensure all referenced tools exist before deleting them
-   - Wrap `conversation.get()` in try-catch until SDK is fixed
-   ```typescript
-   try {
-     const conversation = await client.conversationalAi.conversations.get(id);
-   } catch (error) {
-     console.error('Tool parsing error - conversation may reference deleted tools');
-   }
-   ```
-
-**Source**: [GitHub Issue #268](https://github.com/elevenlabs/elevenlabs-js/issues/268)
-
-### Error 29: SDK Parameter Naming Confusion (snake_case vs camelCase)
-**Cause:** Using snake_case parameters (from API/Python SDK docs) in JS SDK, which expects camelCase
-**Symptoms:** Parameters silently ignored, wrong model/voice used, no error messages
-
-**Common Mistakes:**
-```typescript
-// ❌ WRONG - parameter ignored:
-convert(voiceId, { model_id: "eleven_v3" })
-
-// ✅ CORRECT:
-convert(voiceId, { modelId: "eleven_v3" })
-```
-
-**Solution:** Always use camelCase for JS SDK parameters. Check TypeScript types if unsure.
-
-**Affected Parameters:** `model_id`, `voice_id`, `output_format`, `voice_settings`, and all API parameters
-
-**Source**: [GitHub Issue #300](https://github.com/elevenlabs/elevenlabs-js/issues/300)
-
-### Error 30: Webhook Mode ParseError with speechToText.convert()
-**Cause:** SDK expects full transcription response but webhook mode returns only `{ request_id }`
-**Error Message:**
-```
-ParseError: Missing required key "language_code"; Missing required key "text"; ...
-```
-
-**Solution:** Use direct fetch API instead of SDK for webhook mode:
-```typescript
-const formData = new FormData();
-formData.append('file', audioFile);
-formData.append('model_id', 'scribe_v1');
-formData.append('webhook', 'true');
-formData.append('webhook_id', webhookId);
-
-const response = await fetch('https://api.elevenlabs.io/v1/speech-to-text', {
-  method: 'POST',
-  headers: { 'xi-api-key': apiKey },
-  body: formData,
+// Check index status before using
+const index = await client.knowledgeBase.getRagIndex({
+  document_id: 'doc_123'
 });
 
-const result = await response.json(); // { request_id: 'xxx' }
+if (index.status !== 'ready') {
+  console.log('Index still computing...');
+}
 ```
 
-**Source**: [GitHub Issue #232](https://github.com/elevenlabs/elevenlabs-js/issues/232)
+### Error 10: WebSocket Protocol Error (1002)
 
-### Error 31: Package Not Compatible with Browser/Web
-**Cause:** Using `@elevenlabs/elevenlabs-js` in browser/client environments (depends on Node.js `child_process`)
-**Error Message:**
-```
-Module not found: Can't resolve 'child_process'
-```
+**Symptom**: Intermittent "protocol error" when using WebSocket connections
 
-**Affected Frameworks:**
-- Next.js client components
-- Vite browser builds
-- Electron renderer process
-- Tauri webview
+**Cause**: Network instability or incompatible browser
 
-**Solution:**
-1. **For browser/web**: Use `@elevenlabs/client` or `@elevenlabs/react` instead
-2. **For full API access in browser**: Create proxy server endpoint using `elevenlabs-js`, call from browser
-3. **For Electron/Tauri**: Use `elevenlabs-js` in main process only, not renderer
+**Solution**:
+- Use WebRTC instead of WebSocket (more resilient)
+- Implement reconnection logic
+- Check browser compatibility
 
-**Note:** This is by design - `elevenlabs-js` is server-only
+### Error 11: 401 Unauthorized in Production
 
-**Source**: [GitHub Issue #293](https://github.com/elevenlabs/elevenlabs-js/issues/293)
+**Symptom**: Works locally but fails in production
 
-### Error 32: prompt.tools Deprecated - POST/PATCH Rejected
-**Cause:** Using legacy `prompt.tools` array field after July 23, 2025 cutoff
-**Error Message:**
-```
-A request must include either prompt.tool_ids or the legacy prompt.tools array — never both
-```
+**Cause**: Agent visibility settings or API key configuration
 
-**Solution:** Migrate to new format:
-```typescript
-// ❌ Old (rejected):
-{ agent: { prompt: { tools: [...] } } }
+**Solution**:
+- Check agent visibility (public vs private)
+- Verify API key is set in production environment
+- Check allowlist configuration if enabled
 
-// ✅ New (required):
+### Error 12: Allowlist Connection Errors
+
+**Symptom**: "Host elevenlabs.io is not allowed to connect to this agent"
+
+**Cause**: Agent has allowlist enabled but using shared link
+
+**Solution**:
+- Configure agent allowlist with correct domains
+- Or disable allowlist for testing
+
+### Error 13: Workflow Infinite Loops
+
+**Symptom**: Agent gets stuck in workflow, never completes
+
+**Cause**: Edge conditions creating loops
+
+**Solution**:
+- Add max iteration limits
+- Test all edge paths
+- Add explicit exit conditions
+
+### Error 14: Burst Pricing Not Enabled
+
+**Symptom**: Calls rejected during traffic spikes
+
+**Cause**: Burst pricing not enabled in agent settings
+
+**Solution**:
+```json
 {
-  agent: {
-    prompt: {
-      tool_ids: ["tool_abc123"],         // Client/server tools
-      built_in_tools: ["end_call"]       // System tools
-    }
+  "call_limits": {
+    "burst_pricing_enabled": true
   }
 }
 ```
 
-**Note:** All legacy tools were auto-migrated to standalone records. Just update your configuration references.
+### Error 15: MCP Server Timeout
 
-**Source**: [Official Migration Guide](https://elevenlabs.io/docs/agents-platform/customization/tools/agent-tools-deprecation)
+**Symptom**: MCP tools not responding
 
-### Error 33: GPT-4o Mini Tool Calling Broken (Fixed Feb 2025)
-**Cause:** OpenAI API breaking change affected `gpt-4o-mini` tool execution (historical issue)
-**Symptoms:** Tools silently fail to execute, no error messages
-**Solution:** Upgrade to SDK v2.25.0+ (released Feb 17, 2025). If using older SDK versions, upgrade or avoid `gpt-4o-mini` for tool-based workflows.
+**Cause**: MCP server slow or unreachable
 
-**Source**: [Changelog Feb 17, 2025](https://elevenlabs.io/docs/changelog/2025/2/17)
+**Solution**:
+- Check MCP server URL is accessible
+- Verify transport type (SSE vs HTTP)
+- Check authentication token
+- Monitor MCP server logs
 
-### Error 34: Scribe Audio Format Parameter Not Transmitted (Fixed v2.32.0)
-**Cause:** WebSocket URI wasn't including `audio_format` parameter even when specified (historical issue)
-**Solution:** Upgrade to `@elevenlabs/elevenlabs-js@2.32.0` or later (released Jan 19, 2026)
+### Error 16: First Message Cutoff on Android
 
-**Source**: [GitHub PR #319](https://github.com/elevenlabs/elevenlabs-js/pull/319)
+**Symptom**: First message from agent gets cut off on Android devices (works fine on iOS/web)
+
+**Cause**: Android devices need time to switch to correct audio mode after connection
+
+**Solution**:
+```typescript
+import { useConversation } from '@elevenlabs/react';
+
+const { startConversation } = useConversation({
+  agentId: 'your-agent-id',
+
+  // Add connection delay for Android
+  connectionDelay: {
+    android: 3_000,  // 3 seconds (default)
+    ios: 0,          // No delay needed
+    default: 0       // Other platforms
+  },
+
+  // Rest of config...
+});
+```
+
+**Explanation**:
+- Android needs 3 seconds to switch audio routing mode
+- Without delay, first audio chunk is lost
+- iOS and web don't have this issue
+- Adjust delay if 3 seconds isn't sufficient
+
+**Testing**:
+```bash
+# Test on Android device
+npm run android
+
+# First message should now be complete
+```
+
+### Error 17: CSP (Content Security Policy) Violations
+
+**Symptom**: "Refused to load the script because it violates the following Content Security Policy directive" errors in browser console
+
+**Cause**: Applications with strict Content Security Policy don't allow `data:` or `blob:` URLs in `script-src` directive. ElevenLabs SDK uses Audio Worklets that are loaded as blobs by default.
+
+**Solution - Self-Host Worklet Files**:
+
+**Step 1**: Copy worklet files to your public directory:
+```bash
+# Copy from node_modules
+cp node_modules/@elevenlabs/client/dist/worklets/*.js public/elevenlabs/
+```
+
+**Step 2**: Configure SDK to use self-hosted worklets:
+```typescript
+import { useConversation } from '@elevenlabs/react';
+
+const { startConversation } = useConversation({
+  agentId: 'your-agent-id',
+
+  // Point to self-hosted worklet files
+  workletPaths: {
+    'rawAudioProcessor': '/elevenlabs/rawAudioProcessor.worklet.js',
+    'audioConcatProcessor': '/elevenlabs/audioConcatProcessor.worklet.js',
+  },
+
+  // Rest of config...
+});
+```
+
+**Step 3**: Update CSP headers to allow self-hosted scripts:
+```nginx
+# nginx example
+add_header Content-Security-Policy "
+  default-src 'self';
+  script-src 'self' https://elevenlabs.io;
+  connect-src 'self' https://api.elevenlabs.io wss://api.elevenlabs.io;
+  worker-src 'self';
+" always;
+```
+
+**Worklet Files Location**:
+```
+node_modules/@elevenlabs/client/dist/worklets/
+├── rawAudioProcessor.worklet.js
+└── audioConcatProcessor.worklet.js
+```
+
+**Gotchas**:
+- Worklet files must be served from same origin (CORS restriction)
+- Update worklet files when upgrading `@elevenlabs/client`
+- Paths must match exactly (case-sensitive)
+
+**When You Need This**:
+- Enterprise applications with strict CSP
+- Government/financial apps
+- Apps with security audits
+- Any app blocking `blob:` URLs
 
 ---
 
@@ -1158,7 +2486,6 @@ This skill composes well with:
 
 ---
 
-**Production Tested**: WordPress Auditor, Customer Support Agents, AgentFlow (webhook integration)
-**Last Updated**: 2026-01-21
-**Package Versions**: elevenlabs@1.59.0, @elevenlabs/elevenlabs-js@2.32.0, @elevenlabs/agents-cli@0.6.1, @elevenlabs/react@0.12.3, @elevenlabs/client@0.12.2, @elevenlabs/react-native@0.5.7
-**Changes**: Added 7 new errors (tool parsing, parameter naming, webhook mode, prompt.tools deprecation, localhost allowlist bug, package compatibility, historical fixes). Expanded WebSocket 1002 and allowlist errors with troubleshooting. Added package selection guide and SDK parameter naming guide. Updated Scribe audio format fix to v2.32.0.
+**Production Tested**: WordPress Auditor, Customer Support Agents
+**Last Updated**: 2025-11-03
+**Package Versions**: elevenlabs@1.59.0, @elevenlabs/cli@0.2.0

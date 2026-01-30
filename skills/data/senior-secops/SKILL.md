@@ -15,13 +15,13 @@ This skill provides three core capabilities through automated scripts:
 
 ```bash
 # Script 1: Security Scanner
-python3 ~/.{TOOL}/skills/senior-secops/scripts/security_scanner.py [options]
+python scripts/security_scanner.py [options]
 
 # Script 2: Vulnerability Assessor
-python3 ~/.{TOOL}/skills/senior-secops/scripts/vulnerability_assessor.py [options]
+python scripts/vulnerability_assessor.py [options]
 
 # Script 3: Compliance Checker
-python3 ~/.{TOOL}/skills/senior-secops/scripts/compliance_checker.py [options]
+python scripts/compliance_checker.py [options]
 ```
 
 ## Core Capabilities
@@ -38,7 +38,7 @@ Automated tool for security scanner tasks.
 
 **Usage:**
 ```bash
-python3 ~/.{TOOL}/skills/senior-secops/scripts/security_scanner.py <project-path> [options]
+python scripts/security_scanner.py <project-path> [options]
 ```
 
 ### 2. Vulnerability Assessor
@@ -53,7 +53,7 @@ Comprehensive analysis and optimization tool.
 
 **Usage:**
 ```bash
-python3 ~/.{TOOL}/skills/senior-secops/scripts/vulnerability_assessor.py <target-path> [--verbose]
+python scripts/vulnerability_assessor.py <target-path> [--verbose]
 ```
 
 ### 3. Compliance Checker
@@ -68,7 +68,7 @@ Advanced tooling for specialized tasks.
 
 **Usage:**
 ```bash
-python3 ~/.{TOOL}/skills/senior-secops/scripts/compliance_checker.py [arguments] [options]
+python scripts/compliance_checker.py [arguments] [options]
 ```
 
 ## Reference Documentation
@@ -130,7 +130,7 @@ cp .env.example .env
 
 ```bash
 # Use the analyzer script
-python3 ~/.{TOOL}/skills/senior-secops/scripts/vulnerability_assessor.py .
+python scripts/vulnerability_assessor.py .
 
 # Review recommendations
 # Apply fixes
@@ -179,8 +179,8 @@ npm run test
 npm run lint
 
 # Analysis
-python3 ~/.{TOOL}/skills/senior-secops/scripts/vulnerability_assessor.py .
-python3 ~/.{TOOL}/skills/senior-secops/scripts/compliance_checker.py --analyze
+python scripts/vulnerability_assessor.py .
+python scripts/compliance_checker.py --analyze
 
 # Deployment
 docker build -t app:latest .

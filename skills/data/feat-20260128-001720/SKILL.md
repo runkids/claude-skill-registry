@@ -1,81 +1,47 @@
 ---
-created_at: 2026-01-28T00:25:36+09:00
+created_at: 2026-01-28T00:32:39+09:00
 author: a@qmu.jp
-type: refactoring
+type: housekeeping
 layer: [Config]
-effort: S
-commit_hash: f43fe43
-category: Added
+effort: XS
+commit_hash: 16b0e61
+category: Removed
 ---
 
-# Extract create-branch skill from branch command
+# Remove block-commands skill
 
 ## Overview
 
-The `/branch` command currently contains inline instructions for creating a timestamped branch. Extract this into a `create-branch` skill with a bundled shell script, following the established pattern used by other skills like `archive-ticket` and `create-pr`.
+The `block-commands` skill documents how to use `.claude/settings.json` deny rules to block dangerous commands. However, `.claude/settings.json` is a repository-local file that is not distributed with plugins. Users installing the plugin would not get these deny rules, making this approach ineffective for a marketplace plugin.
 
-This enables permission-free execution (bundled scripts don't require user approval) and makes the branch creation logic reusable by other commands or agents.
+The skill should be removed since it documents a pattern we no longer recommend for plugin distribution.
 
 ## Key Files
 
-- `plugins/core/commands/branch.md` - Command to simplify by referencing skill
-- `plugins/core/skills/create-branch/SKILL.md` - New skill definition (create)
-- `plugins/core/skills/create-branch/sh/create.sh` - New shell script (create)
+- `plugins/core/skills/block-commands/SKILL.md` - Skill to delete
 
 ## Related History
 
-The pattern of bundling shell scripts into skills for permission-free execution was established to avoid user prompts.
+The block-commands skill was created alongside moving git prohibitions to settings.json, but this approach has proven unsuitable for distributed plugins.
 
 Past tickets that touched similar areas:
 
-- `20260127193706-bundle-shell-scripts-for-permission-free-skills.md` - Established bundled script pattern (same layer: Config)
+- `20260127094857-use-deny-for-git-prohibition.md` - Created block-commands skill and moved git -C prohibition to settings.json (same file)
 
 ## Implementation Steps
 
-1. **Create skill directory and SKILL.md**:
-   - Create `plugins/core/skills/create-branch/SKILL.md`
-   - Add frontmatter: `name: create-branch`, `description: Create timestamped topic branch`, `allowed-tools: Bash`, `user-invocable: false`
-   - Document the script usage and output format
+1. **Delete block-commands skill directory**:
+   - Remove `plugins/core/skills/block-commands/` entirely
 
-2. **Create shell script** at `plugins/core/skills/create-branch/sh/create.sh`:
-   ```bash
-   #!/bin/sh -eu
-   # Create timestamped topic branch
-   # Usage: create.sh <prefix>
-   # Example: create.sh feat
-
-   set -eu
-
-   PREFIX="$1"
-
-   if [ -z "$PREFIX" ]; then
-       echo "Usage: create.sh <prefix>"
-       echo "Prefixes: feat, fix, refact"
-       exit 1
-   fi
-
-   TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-   BRANCH="${PREFIX}-${TIMESTAMP}"
-
-   git checkout -b "$BRANCH"
-   echo "$BRANCH"
-   ```
-
-3. **Update branch command** to reference the skill:
-   - Keep the user interaction (prefix selection via AskUserQuestion)
-   - Replace inline bash with reference to skill script:
-     ```bash
-     bash .claude/skills/create-branch/sh/create.sh <prefix>
-     ```
-   - The command handles the UX, the skill handles the execution
+2. **Verify no references exist**:
+   - Confirm no other files reference `block-commands` skill
 
 ## Considerations
 
-- The command still owns the user interaction (asking for prefix)
-- The skill handles the git operation (creating the branch)
-- Script outputs the created branch name for confirmation
-- Follow the same pattern as other skills with bundled scripts
+- This removes documentation only, not actual functionality
+- The `.claude/settings.json` deny rules remain in local repositories but are not part of plugin distribution
+- For plugin-based command blocking, bundled shell scripts that refuse to execute are more appropriate (as done with archive-ticket)
 
 ## Final Report
 
-Created the create-branch skill with SKILL.md and sh/create.sh. The skill takes a prefix argument, generates a timestamp, creates and checks out the branch, then outputs the branch name. Updated the branch command to reference the skill script instead of inline bash commands. The command still handles user interaction (prefix selection) while the skill handles execution.
+Deleted the block-commands skill directory. Verified that no other plugin files reference this skill. Documentation in .workaholic/specs/ and .workaholic/terms/ will be updated automatically by the documentation agents when /report runs.

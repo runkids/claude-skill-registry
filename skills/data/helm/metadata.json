@@ -1,7 +1,7 @@
 {
   "name": "helm",
-  "repo": "jyasuu/cheat-sheet",
-  "path": "skills/helm/SKILL.md",
-  "source": "github.com/jyasuu/cheat-sheet",
-  "downloaded_at": "2026-01-29T03:31:11.196417Z"
+  "repo": "kettleofketchup/dotfiles",
+  "path": ".claude/skills/helm/SKILL.md",
+  "source": "github.com/kettleofketchup/dotfiles",
+  "downloaded_at": "2026-01-30T04:06:25.533414Z"
 }

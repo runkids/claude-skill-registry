@@ -1,7 +1,7 @@
 {
   "name": "domain-ml",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/other/domain-ml/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-29T04:03:54.327171Z"
+  "repo": "actionbook/rust-skills",
+  "path": "skills/domain-ml/SKILL.md",
+  "source": "github.com/actionbook/rust-skills",
+  "downloaded_at": "2026-01-30T02:32:56.249572Z"
 }

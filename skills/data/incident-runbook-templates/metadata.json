@@ -1,7 +1,7 @@
 {
   "name": "incident-runbook-templates",
-  "repo": "as4584/antigravity-skills",
-  "path": "agents-wshobson/plugins/incident-response/skills/incident-runbook-templates/SKILL.md",
-  "source": "github.com/as4584/antigravity-skills",
-  "downloaded_at": "2026-01-29T04:29:51.023944Z"
+  "repo": "GaitanS/AI-Mancare",
+  "path": ".claude/skills/plugins/incident-response/skills/incident-runbook-templates/SKILL.md",
+  "source": "github.com/GaitanS/AI-Mancare",
+  "downloaded_at": "2026-01-30T04:16:13.908373Z"
 }

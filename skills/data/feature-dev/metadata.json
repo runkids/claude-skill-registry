@@ -1,7 +1,7 @@
 {
   "name": "feature-dev",
-  "repo": "techops-services/vibecode-template",
-  "path": ".claude/skills/feature-dev/SKILL.md",
-  "source": "github.com/techops-services/vibecode-template",
-  "downloaded_at": "2026-01-29T01:23:44.471954Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/feature-dev/skills/feature-dev/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-30T03:41:13.362785Z"
 }

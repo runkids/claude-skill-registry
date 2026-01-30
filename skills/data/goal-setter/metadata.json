@@ -1,12 +1,7 @@
 {
   "name": "goal-setter",
-  "description": "Transform objectives into structured goals with plans. Use when user declares intent (\"I want to...\", \"Goal is to...\", \"Achieve X by Y\"). Decomposes into subgoals, milestones, success criteria.",
-  "repo": "BellaBe/lean-os",
-  "category": "development",
-  "tags": [
-    "goal",
-    "setter"
-  ],
-  "stars": 12,
-  "source": "local"
+  "repo": "eddiebe147/claude-settings",
+  "path": "skills/goal-setter/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-30T03:51:00.547553Z"
 }

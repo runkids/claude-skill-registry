@@ -1,9 +1,7 @@
 {
   "name": "websocket-client-creator",
-  "description": "Websocket Client Creator - Auto-activating skill for API Integration.Triggers on: websocket client creator, websocket client creatorPart of the API Integration skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/websocket-client-creator/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-30T04:24:29.359410Z"
 }

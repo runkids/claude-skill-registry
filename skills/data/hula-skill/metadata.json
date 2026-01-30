@@ -1,7 +1,7 @@
 {
   "name": "hula-skill",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/hula-skill/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-29T04:03:56.240070Z"
+  "repo": "HuLaSpark/HuLa",
+  "path": "skills/hula-skill/SKILL.md",
+  "source": "github.com/HuLaSpark/HuLa",
+  "downloaded_at": "2026-01-30T03:31:49.722619Z"
 }

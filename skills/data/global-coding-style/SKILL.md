@@ -1,22 +1,25 @@
 ---
 name: Global Coding Style
-description: Write clean, readable code with consistent naming conventions, proper formatting, small focused functions, and DRY principles. Use this skill when writing ANY code in the project regardless of language or framework. When naming variables, functions, classes, or files. When structuring functions and deciding on their size and scope. When removing dead code, unused imports, or commented-out blocks. When applying the DRY principle to extract common logic. When ensuring consistent indentation and formatting across the codebase.
+description: Write reality-first code with intentional naming, small focused functions, automated formatting, and no speculative features. Use this skill when writing any code that needs clear structure, guard clauses, documented trade-offs, and deterministic side effects. Applies across all file types when making design decisions about code organization, naming conventions, removing dead code, or ensuring every line serves a proven need verified by tests or runtime execution.
 ---
 
-## When to use this skill:
+# Global Coding Style
 
-- When writing any new code in the project
-- When modifying existing code files
-- When naming variables, functions, classes, constants, or files
-- When deciding how to structure a function or method
-- When a function is getting too long and needs to be split
-- When removing dead code, unused variables, or imports
-- When deleting commented-out code blocks
-- When extracting duplicate logic into reusable functions
-- When applying consistent indentation (spaces or tabs)
-- When formatting code for readability
-- When reviewing code for style consistency
-- When choosing descriptive names that reveal intent
+## When to use this skill
+
+- When writing any code in any language or framework that needs clear, maintainable structure
+- When naming variables, functions, classes, or modules to communicate purpose and constraints
+- When creating functions and ensuring they have single, clearly-defined responsibilities
+- When setting up or configuring automated formatting tools like Prettier, ESLint, Black, or Ruff
+- When writing guard clauses to surface invalid states early in functions
+- When documenting non-obvious trade-offs or design decisions in code comments
+- When identifying and removing dead code, commented-out experiments, or unused imports
+- When deciding whether to add backwards compatibility versus deleting legacy code
+- When making functions with side effects (I/O, mutations) explicit rather than hidden
+- When avoiding speculative abstractions or "future features" without proven need
+- When applying linters/formatters before committing code to maintain consistency
+- When refactoring code to eliminate single-letter variables outside tight algorithmic loops
+- When reviewing code for formatting drift, unnecessary complexity, or unclear naming
 
 # Global Coding Style
 

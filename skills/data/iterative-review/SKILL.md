@@ -307,4 +307,4 @@ def opencode_self_improvement(request):
 ## 関連ドキュメント
 
 - [README](./../README.md) - OpenCode全体概要
-- [container-use-guide](./container-use-guide.md) - コンテナ環境ガイド
+

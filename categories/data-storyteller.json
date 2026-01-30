@@ -1,0 +1,19 @@
+{
+  "category": "data-storyteller",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:31.210462Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Transform CSV/Excel data into narrative reports with auto-generated insights, visualizations, and PDF export. Auto-detects patterns and creates plain-English summaries.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "data-storyteller",
+      "branch": "main",
+      "category": "data-storyteller",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

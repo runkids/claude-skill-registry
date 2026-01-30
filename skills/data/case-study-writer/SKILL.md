@@ -1,185 +1,110 @@
 ---
-name: case-study-writer
-description: Create compelling customer case studies for marketing. Guides through information gathering and produces polished case study documents.
+name: Case Study Writer
+slug: case-study-writer
+description: Create compelling business case studies that showcase results and build credibility
+category: writing
+complexity: simple
+version: "1.0.0"
+author: "ID8Labs"
 triggers:
-  - case study
-  - write case study
-  - customer story
-  - success story
-  - customer case study
-allowed-tools: Read, Write, Edit, Grep, Glob, AskUserQuestion
+  - "write case study"
+  - "create case study"
+  - "customer success story"
+  - "client story"
+tags:
+  - case-studies
+  - content-marketing
+  - social-proof
+  - b2b-marketing
 ---
 
-# Customer Case Study Writer
+# Case Study Writer
 
-Create compelling case studies that showcase customer success stories for marketing and sales enablement.
+Transform customer success stories into powerful case studies that demonstrate value and build credibility. This skill helps you create compelling narratives that showcase real results, overcome objections, and prove your solution works.
 
-## Information Gathering
+Whether you're documenting client wins, showcasing product effectiveness, or building social proof for sales teams, this skill ensures your case studies follow proven frameworks that resonate with prospects. They balance storytelling with data to create credible, persuasive content.
 
-Use `AskUserQuestion` to collect the following from the user:
+Perfect for B2B marketers, sales teams, agencies, SaaS companies, and service providers who need case studies that convert prospects into customers by showing—not just telling—what success looks like.
 
-### Customer Details
-1. **Company name** and permission to use it (or anonymize?)
-2. **Industry** and company size
-3. **Role of the person you worked with** (decision maker, user, champion)
+## Core Workflows
 
-### The Story
-4. **What problem were they trying to solve?** (Be specific - pain points, failed alternatives)
-5. **Why did they choose your solution?** (What made you stand out?)
-6. **How did implementation go?** (Timeline, challenges, support needed)
-7. **What results did they achieve?** (Metrics, quotes, before/after)
+### Workflow 1: Full Case Study Development
+1. **Client Selection** - Identify customer with compelling story and strong results
+2. **Interview Execution** - Gather details through structured questions
+3. **Story Framework** - Structure using Problem-Solution-Results format
+4. **Headline Creation** - Write attention-grabbing title featuring key metric
+5. **Executive Summary** - Create scannable overview with highlights
+6. **Challenge Description** - Paint picture of situation before your solution
+7. **Solution Narrative** - Explain what you did and why you did it
+8. **Results Quantification** - Showcase metrics, ROI, impact with specifics
+9. **Quote Integration** - Include powerful client testimonials throughout
+10. **Visual Elements** - Suggest charts, screenshots, before/after comparisons
+11. **Call-to-Action** - End with clear next step for readers
 
-### Supporting Evidence
-8. **Do you have a customer quote?** (Direct testimonial is gold)
-9. **What metrics can you share?** (%, $, time saved, etc.)
-10. **Any surprising or unexpected benefits?**
+### Workflow 2: Problem-Solution-Results Framework
+1. **Problem** - Document specific challenges client faced
+   - Business impact of the problem
+   - Why previous solutions failed
+   - Urgency or trigger for seeking new solution
+2. **Solution** - Detail your approach and implementation
+   - Why client chose you over alternatives
+   - Implementation process and timeline
+   - Unique aspects of your methodology
+3. **Results** - Quantify outcomes and ongoing impact
+   - Specific metrics and percentage improvements
+   - Time to value and ROI
+   - Qualitative benefits and unexpected wins
 
-## Case Study Structure
+### Workflow 3: Interview Question Framework
+1. **Background Questions** - Company, industry, role, team size
+2. **Challenge Questions** - What problem were you trying to solve? What had you tried before?
+3. **Selection Questions** - Why did you choose us? What alternatives did you consider?
+4. **Implementation Questions** - How did the process go? Any surprises?
+5. **Results Questions** - What changed? Specific numbers? Time to results?
+6. **Testimonial Questions** - How would you describe working with us? Would you recommend us?
+7. **Future Questions** - What's next? How will you continue using our solution?
 
-### 1. Headline + Executive Summary
-Lead with the most impressive result:
-```
-[Company] Achieved [Result] with [Your Product]
-```
+### Workflow 4: Format Variations
+1. **Long-Form PDF** - Comprehensive 2-4 page deep dive
+2. **One-Pager** - Quick-read summary for sales handouts
+3. **Video Case Study** - Script for customer interview video
+4. **Slide Deck** - Visual presentation for sales meetings
+5. **Social Media Snippets** - Bite-sized highlights for LinkedIn, Twitter
+6. **Web Page** - SEO-optimized landing page version
+7. **Email Campaign** - Multi-part story across drip sequence
 
-Example: "Acme Corp Reduced Support Tickets by 73% with HelpDesk Pro"
+## Quick Reference
 
-### 2. Customer Background (2-3 sentences)
-- Who they are
-- What they do
-- Why they matter (size, reputation, relevance to reader)
+| Action | Command/Trigger |
+|--------|-----------------|
+| Full case study | "Write case study for [client]" |
+| Interview questions | "Create interview questions for case study" |
+| Executive summary | "Write case study summary for [client]" |
+| Results section | "Write results section showing [metrics]" |
+| Problem statement | "Describe client challenge for case study" |
+| One-pager | "Create one-page case study for [client]" |
+| Social snippets | "Extract social media quotes from case study" |
+| Video script | "Write video script for case study" |
 
-### 3. The Challenge
-- What problem they faced
-- What they tried before (and why it didn't work)
-- What was at stake if they didn't solve it
+## Best Practices
 
-### 4. The Solution
-- Why they chose you
-- How implementation worked
-- Key features/capabilities that made the difference
-
-### 5. The Results
-Present with specificity:
-- **Primary metric** (the headline number)
-- **Secondary benefits** (unexpected wins)
-- **Timeline** (how quickly they saw results)
-
-### 6. Customer Quote
-A direct quote that captures the transformation. Aim for emotional + factual:
-> "We went from drowning in support tickets to actually having time to build new features. Our team morale completely changed." - Jane Smith, VP Engineering
-
-### 7. Call to Action
-What should the reader do next?
-
-## Writing Guidelines
-
-### Lead with Results
-- Bad: "Company X implemented our solution..."
-- Good: "Company X cut costs by 40% in 3 months..."
-
-### Use Specific Numbers
-- Bad: "significantly improved"
-- Good: "improved by 73%"
-- Better: "improved from 2 hours to 32 minutes"
-
-### Include the Before/After
-Paint the contrast between their old painful state and new better state.
-
-### Let the Customer Speak
-Use their words where possible. Direct quotes are more credible than your paraphrase.
-
-### Keep It Scannable
-- Subheadings every 2-3 paragraphs
-- Bullet points for lists
-- Bold key metrics
-- Pull quotes for emphasis
-
-### Match Your Audience
-- For technical buyers: Include implementation details
-- For executives: Focus on ROI and strategic impact
-- For users: Emphasize day-to-day improvements
-
-## Output Formats
-
-### Full Case Study (1-2 pages)
-Complete narrative with all sections. Good for website, PDF downloads, sales collateral.
-
-### One-Page Summary
-Condensed version with:
-- Headline result
-- 3-bullet challenge
-- 3-bullet solution
-- Key metric + quote
-
-Good for sales decks, email attachments.
-
-### Social Proof Snippet (2-3 sentences)
-For landing pages and marketing materials:
-```
-"[Company] achieved [result] using [Product]. '[Quote]' - [Name, Title]"
-```
-
-### LinkedIn/Social Post
-Conversational version for social sharing:
-```
-[Company] was struggling with [problem].
-After implementing [solution], they saw [result].
-Here's what [Name] had to say: "[Quote]"
-```
-
-## Example Output
-
-```markdown
-# TechStart Reduced Customer Churn by 47% with RetainPro
-
-## Executive Summary
-TechStart, a B2B SaaS company with 500+ customers, was losing 8% of customers monthly due to poor onboarding. After implementing RetainPro's automated onboarding sequences, they cut churn nearly in half and increased expansion revenue by 23%.
-
-## Customer Background
-TechStart provides inventory management software to mid-market retailers. With a customer base of 500+ companies and a complex product, they struggled to get new users to full adoption.
-
-## The Challenge
-- 8% monthly churn rate (industry average: 5%)
-- New users took 45+ days to reach "aha moment"
-- Support team overwhelmed with basic "how do I..." questions
-- Expansion revenue flat because users never discovered advanced features
-
-## The Solution
-TechStart implemented RetainPro to:
-- Automate personalized onboarding sequences
-- Trigger in-app guidance based on user behavior
-- Identify at-risk accounts before they churned
-
-Implementation took 2 weeks with dedicated support from the RetainPro team.
-
-## The Results
-After 90 days:
-- **47% reduction in churn** (8% to 4.2% monthly)
-- **Time to value cut from 45 days to 12 days**
-- **23% increase in expansion revenue**
-- Support ticket volume down 35%
-
-## Customer Quote
-> "RetainPro paid for itself in the first month. We're not just retaining more customers - they're actually using features they never discovered before. Our expansion revenue tells the story."
->
-> — Sarah Chen, VP of Customer Success, TechStart
-
-## Ready to reduce your churn?
-[CTA button or link]
-```
-
-## What This Skill Does NOT Do
-
-- Interview your customers (you need to gather the raw information)
-- Verify metrics or claims
-- Get customer approval for publication
-- Create visual designs or layouts
-
-## When to Use This vs. Other Skills
-
-| Use `case-study-writer` when... | Use other skills when... |
-|---------------------------------|--------------------------|
-| Showcasing customer success | Writing landing page copy (`landing-page-builder`) |
-| Building social proof | Creating sales page (`sales-page`) |
-| Sales enablement content | General marketing copy (`copy-editor`) |
+- **Lead with results** - Put biggest wins in headline and first paragraph
+- **Use specific numbers** - "247% ROI" beats "significant improvement"
+- **Tell a story** - Make it narrative, not just a bulleted list of features
+- **Feature the customer** - Their voice and perspective, not your sales pitch
+- **Show before/after** - Help prospect see themselves in the "before" state
+- **Include obstacles** - Real stories have challenges, showing how you solved them builds credibility
+- **Get approval** - Ensure client signs off on all claims and quotes
+- **Use client's words** - Direct quotes are more credible than paraphrasing
+- **Make it scannable** - Subheadings, pull quotes, bullet points, bold numbers
+- **Industry relevance** - Create case studies for each target vertical
+- **SEO optimization** - Include industry keywords, client industry, solution type
+- **Visual hierarchy** - Use formatting to highlight key takeaways
+- **Credibility markers** - Include client logo, job title, company size
+- **Address objections** - If prospects worry about X, show how client overcame X
+- **Keep it current** - Update annually or when results improve
+- **Multiple CTAs** - Give readers various ways to engage (demo, download, contact)
+- **Quantify time savings** - Hours saved, faster time-to-market, efficiency gains
+- **Highlight unexpected benefits** - Bonus wins beyond primary goal
+- **Use active voice** - "Client achieved X" not "X was achieved"
+- **Link to resources** - Connect to related content, product pages, demos

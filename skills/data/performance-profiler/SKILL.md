@@ -1,311 +1,355 @@
 ---
-name: performance-profiler
-description: Auto-activates when user mentions performance, profiling, optimization, slow code, or bottlenecks. Profiles and optimizes code performance.
-category: performance
+name: profiling-performance
+description: Runs performance audits and suggests optimizations using Lighthouse and Web Vitals. Use when the user asks about performance, page speed, Core Web Vitals, Lighthouse scores, or wants to optimize rendering and execution.
 ---
 
-# Performance Profiler
+# Performance Profiler Assistant
 
-Analyzes and optimizes code performance with actionable recommendations.
+## When to use this skill
 
-## When This Activates
+- User asks to run a performance audit
+- User mentions Lighthouse or Web Vitals
+- User wants to improve page load speed
+- User asks about LCP, FID, CLS, or INP
+- User wants to profile CPU or memory usage
+- User asks to optimize rendering performance
 
-- User says: "profile this", "performance", "optimize", "why is this slow?"
-- Code is running slowly
-- Before production deployment (performance audit)
+## Workflow
 
-## Performance Analysis Checklist
+- [ ] Identify target URL or build to audit
+- [ ] Run Lighthouse audit
+- [ ] Collect Core Web Vitals metrics
+- [ ] Analyze bundle size
+- [ ] Profile runtime performance if needed
+- [ ] Generate optimization recommendations
+- [ ] Prioritize fixes by impact
 
-### 1. Time Complexity Analysis
-- [ ] Identify algorithm complexity (Big O notation)
-- [ ] Find nested loops (O(n²) or worse)
-- [ ] Check recursion depth
-- [ ] Analyze sort/search operations
+## Instructions
 
-### 2. Database Performance
-- [ ] Check for N+1 query problems
-- [ ] Verify indexes exist on queried columns
-- [ ] Analyze query execution plans
-- [ ] Check for missing pagination
+### Step 1: Identify Audit Target
 
-### 3. Memory Usage
-- [ ] Check for memory leaks
-- [ ] Analyze object retention
-- [ ] Verify proper cleanup (event listeners, timers)
-- [ ] Check for large data structures
+For deployed site:
 
-### 4. Network Performance
-- [ ] Check API request count
-- [ ] Verify response caching
-- [ ] Check for sequential requests (should be parallel)
-- [ ] Analyze payload sizes
-
-### 5. Frontend Performance
-- [ ] Check bundle size
-- [ ] Analyze render performance
-- [ ] Verify lazy loading
-- [ ] Check for unnecessary re-renders
-
-## Profiling Tools
-
-### JavaScript/TypeScript
 ```bash
-# Node.js profiling
-node --prof app.js
-node --prof-process isolate-*-v8.log > processed.txt
+# URL to audit
+TARGET_URL="https://example.com"
+```
 
-# Chrome DevTools
-# Open DevTools → Performance → Record
+For local development:
 
-# Lighthouse
-npx lighthouse https://yoursite.com --view
+```bash
+# Ensure dev server is running
+npm run dev
+TARGET_URL="http://localhost:3000"
+```
 
-# Bundle analysis
+For static build analysis:
+
+```bash
+npm run build
+npx serve dist  # or out, build folder
+```
+
+### Step 2: Run Lighthouse Audit
+
+**CLI audit:**
+
+```bash
+npx lighthouse $TARGET_URL --output=json --output=html --output-path=./lighthouse-report
+```
+
+**With specific categories:**
+
+```bash
+npx lighthouse $TARGET_URL --only-categories=performance,accessibility,best-practices,seo --output=json
+```
+
+**Mobile emulation (default):**
+
+```bash
+npx lighthouse $TARGET_URL --preset=desktop  # For desktop metrics
+```
+
+**Programmatic in Node.js:**
+
+```javascript
+import lighthouse from "lighthouse";
+import * as chromeLauncher from "chrome-launcher";
+
+const chrome = await chromeLauncher.launch({ chromeFlags: ["--headless"] });
+const result = await lighthouse(url, { port: chrome.port });
+console.log(result.lhr.categories.performance.score * 100);
+await chrome.kill();
+```
+
+### Step 3: Interpret Core Web Vitals
+
+| Metric                          | Good   | Needs Improvement | Poor   |
+| ------------------------------- | ------ | ----------------- | ------ |
+| LCP (Largest Contentful Paint)  | ≤2.5s  | 2.5s–4s           | >4s    |
+| INP (Interaction to Next Paint) | ≤200ms | 200ms–500ms       | >500ms |
+| CLS (Cumulative Layout Shift)   | ≤0.1   | 0.1–0.25          | >0.25  |
+| FCP (First Contentful Paint)    | ≤1.8s  | 1.8s–3s           | >3s    |
+| TTFB (Time to First Byte)       | ≤800ms | 800ms–1.8s        | >1.8s  |
+
+### Step 4: Analyze Bundle Size
+
+**Next.js:**
+
+```bash
+ANALYZE=true npm run build
+# Or add to next.config.js:
+# const withBundleAnalyzer = require('@next/bundle-analyzer')({ enabled: process.env.ANALYZE === 'true' });
+```
+
+**Vite/Nuxt:**
+
+```bash
+npx vite-bundle-visualizer
+# Or
+npx nuxi analyze
+```
+
+**Generic webpack:**
+
+```bash
 npx webpack-bundle-analyzer stats.json
 ```
 
-### Python
-```python
-# cProfile
-python -m cProfile -s cumtime script.py
+**Source map explorer:**
 
-# line_profiler
-@profile
-def slow_function():
-    # Code to profile
-    pass
-```
-
-## Common Performance Issues
-
-### Issue 1: N+1 Query Problem
-
-**Bad:**
-```javascript
-// 1 query to get users + N queries to get posts
-const users = await db.query('SELECT * FROM users');
-for (const user of users) {
-  user.posts = await db.query('SELECT * FROM posts WHERE user_id = $1', [user.id]);
-}
-```
-
-**Good:**
-```javascript
-// 1 query with JOIN
-const users = await db.query(`
-  SELECT u.*, json_agg(p.*) as posts
-  FROM users u
-  LEFT JOIN posts p ON p.user_id = u.id
-  GROUP BY u.id
-`);
-```
-
-### Issue 2: Missing Indexes
-
-**Diagnosis:**
-```sql
--- Check query performance
-EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'user@example.com';
--- If "Seq Scan", missing index!
-```
-
-**Fix:**
-```sql
-CREATE INDEX idx_users_email ON users(email);
-```
-
-### Issue 3: Memory Leak
-
-**Bad:**
-```javascript
-// Event listener never removed
-element.addEventListener('click', handler);
-// Memory leak if element is removed from DOM
-```
-
-**Good:**
-```javascript
-const controller = new AbortController();
-element.addEventListener('click', handler, {
-  signal: controller.signal
-});
-// Cleanup
-controller.abort();
-```
-
-### Issue 4: Unnecessary Re-renders (React)
-
-**Bad:**
-```javascript
-function Component() {
-  // Creates new array on every render
-  const items = users.map(u => transform(u));
-  return <List items={items} />;
-}
-```
-
-**Good:**
-```javascript
-function Component() {
-  // Memoize expensive computation
-  const items = useMemo(
-    () => users.map(u => transform(u)),
-    [users]
-  );
-  return <List items={items} />;
-}
-```
-
-### Issue 5: Large Bundle Size
-
-**Diagnosis:**
 ```bash
-npx webpack-bundle-analyzer dist/stats.json
+npx source-map-explorer dist/**/*.js
 ```
 
-**Fixes:**
-```javascript
-// Lazy load routes
-const Dashboard = lazy(() => import('./Dashboard'));
+### Step 5: Profile Runtime Performance
 
-// Tree-shake unused code
-import { specific } from 'library';  // not: import * as lib
+**Chrome DevTools Performance tab:**
 
-// Use lighter alternatives
-// lodash (full): 71KB → lodash-es (single function): 1KB
-import debounce from 'lodash-es/debounce';
+1. Open DevTools → Performance
+2. Click Record
+3. Perform user actions
+4. Stop recording
+5. Analyze flame chart for long tasks
+
+**Measure in code:**
+
+```typescript
+// Performance marks
+performance.mark("start-operation");
+await heavyOperation();
+performance.mark("end-operation");
+performance.measure("operation", "start-operation", "end-operation");
+
+const measures = performance.getEntriesByName("operation");
+console.log(`Operation took ${measures[0].duration}ms`);
 ```
 
-## Performance Report
+**React Profiler:**
+
+```tsx
+import { Profiler } from "react";
+
+<Profiler
+  id="Component"
+  onRender={(id, phase, actualDuration) => {
+    console.log(`${id} ${phase} render: ${actualDuration}ms`);
+  }}
+>
+  <Component />
+</Profiler>;
+```
+
+### Step 6: Generate Recommendations
+
+**Report template:**
 
 ```markdown
-## ⚡ Performance Analysis Report
+## Performance Audit Report
 
-### 📊 Metrics
+**URL**: https://example.com
+**Date**: 2026-01-18
+**Device**: Mobile (Moto G Power)
 
-**Before:**
-- Page load: 4.2s
-- Time to Interactive (TTI): 5.8s
-- First Contentful Paint: 2.1s
-- Bundle size: 850KB
-- API calls: 15 requests
+### Scores
 
-**After:**
-- Page load: 1.8s ✅ (57% faster)
-- TTI: 2.3s ✅ (60% faster)
-- FCP: 0.9s ✅ (57% faster)
-- Bundle size: 320KB ✅ (62% reduction)
-- API calls: 3 requests ✅ (80% reduction)
+| Category       | Score |
+| -------------- | ----- |
+| Performance    | 72    |
+| Accessibility  | 95    |
+| Best Practices | 92    |
+| SEO            | 100   |
 
-### 🐌 Bottlenecks Found
+### Core Web Vitals
 
-1. **N+1 Query Problem** (src/api/users.ts:45)
-   - Impact: 2.5s added to response time
-   - Fix: Use JOIN query instead of loop
-   - Priority: HIGH
+| Metric | Value | Status               |
+| ------ | ----- | -------------------- |
+| LCP    | 3.2s  | ⚠️ Needs Improvement |
+| INP    | 150ms | ✅ Good              |
+| CLS    | 0.05  | ✅ Good              |
 
-2. **Missing Index** (users.email)
-   - Impact: 800ms per query
-   - Fix: `CREATE INDEX idx_users_email ON users(email)`
-   - Priority: HIGH
+### Top Issues
 
-3. **Large Bundle** (moment.js: 280KB)
-   - Impact: 1.2s additional load time
-   - Fix: Replace with date-fns (11KB)
-   - Priority: MEDIUM
+#### 1. Large Contentful Paint (3.2s)
 
-4. **Unnecessary Re-renders** (Dashboard component)
-   - Impact: Laggy UI, CPU usage
-   - Fix: Add React.memo() and useMemo()
-   - Priority: MEDIUM
+**Impact**: High
+**Cause**: Hero image not optimized
+**Fix**:
 
-### ✅ Optimizations Applied
+- Add `priority` to Next.js Image
+- Use responsive srcset
+- Preload LCP image
 
-1. Implemented query batching → **2.5s saved**
-2. Added database indexes → **800ms saved per query**
-3. Replaced heavy libraries → **530KB bundle reduction**
-4. Memoized React components → **60% fewer renders**
-5. Enabled response caching → **70% fewer API calls**
+#### 2. Render-blocking resources
 
-### 📈 Performance Score
+**Impact**: Medium
+**Cause**: 3 CSS files blocking render
+**Fix**:
 
-- **Before:** 45/100 (Poor)
-- **After:** 92/100 (Excellent) ✅
+- Inline critical CSS
+- Defer non-critical styles
+- Use `media` attribute for print styles
 
-### 💡 Next Steps
+#### 3. Unused JavaScript (245KB)
 
-1. Implement lazy loading for dashboard routes
-2. Add CDN for static assets
-3. Enable HTTP/2 server push
-4. Consider service worker for offline support
+**Impact**: Medium
+**Cause**: Large vendor bundle
+**Fix**:
+
+- Enable tree shaking
+- Dynamic import heavy components
+- Remove unused dependencies
 ```
 
-## Benchmarking
+## Common Optimizations
+
+### Images
+
+```tsx
+// Next.js - Use Image component with priority for LCP
+import Image from "next/image";
+
+<Image
+  src="/hero.jpg"
+  alt="Hero"
+  width={1200}
+  height={600}
+  priority // Preloads LCP image
+  sizes="(max-width: 768px) 100vw, 1200px"
+/>;
+```
+
+### Code Splitting
+
+```tsx
+// React - Lazy load heavy components
+import { lazy, Suspense } from "react";
+
+const HeavyChart = lazy(() => import("./HeavyChart"));
+
+<Suspense fallback={<Loading />}>
+  <HeavyChart />
+</Suspense>;
+```
+
+```typescript
+// Dynamic import for conditional features
+const module = await import("./heavy-module");
+```
+
+### Font Optimization
+
+```tsx
+// Next.js - Use next/font
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"], display: "swap" });
+```
+
+```css
+/* Self-hosted with font-display */
+@font-face {
+  font-family: "Custom";
+  src: url("/fonts/custom.woff2") format("woff2");
+  font-display: swap;
+}
+```
+
+### Preloading Critical Resources
+
+```html
+<!-- Preload LCP image -->
+<link rel="preload" as="image" href="/hero.webp" />
+
+<!-- Preconnect to CDN -->
+<link rel="preconnect" href="https://cdn.example.com" />
+
+<!-- DNS prefetch for third parties -->
+<link rel="dns-prefetch" href="https://analytics.example.com" />
+```
+
+### Reducing Layout Shift
+
+```css
+/* Reserve space for images */
+img {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+}
+
+/* Reserve space for ads/embeds */
+.ad-slot {
+  min-height: 250px;
+}
+```
+
+```tsx
+// Always provide width/height
+<Image width={800} height={450} ... />
+```
+
+### Caching
 
 ```javascript
-// Measure execution time
-console.time('operation');
-expensiveOperation();
-console.timeEnd('operation');
-
-// More precise
-const start = performance.now();
-expensiveOperation();
-const end = performance.now();
-console.log(`Took ${end - start}ms`);
-
-// Benchmark multiple runs
-function benchmark(fn, runs = 100) {
-  const times = [];
-  for (let i = 0; i < runs; i++) {
-    const start = performance.now();
-    fn();
-    times.push(performance.now() - start);
-  }
-  const avg = times.reduce((a, b) => a + b) / times.length;
-  console.log(`Average: ${avg}ms`);
-  console.log(`Min: ${Math.min(...times)}ms`);
-  console.log(`Max: ${Math.max(...times)}ms`);
-}
+// next.config.js - Cache static assets
+module.exports = {
+  async headers() {
+    return [
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
+  },
+};
 ```
 
-## Performance Budget
+## Validation
 
-Set performance budgets:
+Before completing:
 
-```json
-{
-  "budgets": [
-    {
-      "resourceSizes": [
-        { "resourceType": "script", "budget": 300 },
-        { "resourceType": "total", "budget": 500 }
-      ]
-    },
-    {
-      "timings": [
-        { "metric": "interactive", "budget": 3000 },
-        { "metric": "first-contentful-paint", "budget": 1000 }
-      ]
-    }
-  ]
-}
-```
+- [ ] Lighthouse performance score ≥90
+- [ ] All Core Web Vitals in "Good" range
+- [ ] No render-blocking resources
+- [ ] Bundle size within budget
+- [ ] No layout shifts from loading content
 
-## Best Practices
+## Error Handling
 
-✅ **DO:**
-- Profile before optimizing (measure first!)
-- Focus on bottlenecks (80/20 rule)
-- Use production mode for realistic metrics
-- Test with realistic data sizes
-- Measure impact of optimizations
+- **Lighthouse fails to run**: Ensure Chrome is installed and no conflicting flags.
+- **Metrics vary wildly**: Run multiple times and average; use `--throttling.cpuSlowdownMultiplier`.
+- **Can't reproduce field data**: Lab data differs from real users; use CrUX for field data.
+- **Build analysis fails**: Ensure source maps are generated (`devtool: 'source-map'`).
 
-❌ **DON'T:**
-- Premature optimization
-- Optimize without profiling
-- Sacrifice readability for micro-optimizations
-- Forget to test after optimizations
-- Optimize everything at once
+## Resources
 
-**Profile code, identify bottlenecks, suggest optimizations, measure improvements.**
+- [web.dev Performance](https://web.dev/performance/)
+- [Lighthouse Documentation](https://developer.chrome.com/docs/lighthouse/)
+- [Core Web Vitals](https://web.dev/vitals/)
+- [Chrome UX Report](https://developer.chrome.com/docs/crux/)

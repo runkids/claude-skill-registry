@@ -1819,3 +1819,165 @@ vega device is-app-running --appName com.example.app
 vega run-app <vpkg-path> <package-id>
 # Check the virtual device window
 ```
+
+
+---
+
+# Monorepo React Version Conflict Resolution
+
+## Problem: Expo + Vega in Same Monorepo
+
+When running Expo (React 19) and Vega (React 18) apps in the same Yarn workspace, Metro bundles the wrong React version causing runtime crashes:
+
+```
+TypeError: Cannot read property 'ReactCurrentOwner' of undefined
+TypeError: Cannot read property 'render' of undefined
+```
+
+### Root Cause
+
+Yarn hoists dependencies to the workspace root. When Metro bundles the Vega app, it finds React 19 in the root `node_modules/` before finding React 18 in `apps/vega/node_modules/`.
+
+### Solution: Move Root React Packages
+
+Before running the Vega app, move the root React packages out of the way:
+
+```bash
+cd <workspace-root>
+mv node_modules/react node_modules/react.bak
+mv node_modules/react-native node_modules/react-native.bak
+```
+
+This forces Metro to use Vega's local React 18.2.0.
+
+**Note:** After running `yarn install`, you'll need to move these packages again.
+
+### Alternative Solutions
+
+1. **Separate repositories** - Keep Expo and Vega apps in different repos
+2. **Publish shared-ui** - Publish as npm package instead of workspace dependency
+3. **Use consistent React versions** - Not always possible due to SDK requirements
+
+---
+
+# Node.js 23 Compatibility Issues
+
+## Problem: Metro Package Exports
+
+Node.js 23 enforces strict package exports. Metro packages don't export internal paths, causing errors:
+
+```
+Package subpath './src/Consumer/search' is not defined by "exports"
+Package subpath './src/DeltaBundler/Worker' is not defined by "exports"
+```
+
+### Solution: Remove Exports Field
+
+Create a script to remove the `exports` field from metro packages:
+
+```javascript
+// fix-metro-exports.js
+const fs = require('fs');
+const path = require('path');
+
+const packages = [
+  'node_modules/metro',
+  'node_modules/metro-source-map',
+  'node_modules/metro-transform-worker',
+  'node_modules/metro-runtime',
+];
+
+packages.forEach(pkgPath => {
+  const packageJsonPath = path.join(pkgPath, 'package.json');
+  if (!fs.existsSync(packageJsonPath)) return;
+  
+  const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+  delete pkg.exports;
+  fs.writeFileSync(packageJsonPath, JSON.stringify(pkg, null, 2));
+  console.log(`✓ Removed exports from ${path.basename(pkgPath)}`);
+});
+```
+
+Run after `yarn install`:
+```bash
+node fix-metro-exports.js
+```
+
+### Best Practice
+
+Add to `package.json` scripts:
+```json
+{
+  "scripts": {
+    "postinstall": "node fix-metro-exports.js"
+  }
+}
+```
+
+---
+
+# Vega Development Workflow (Complete)
+
+## Prerequisites
+
+1. Vega SDK installed
+2. Vega virtual device running: `vega virtual-device start`
+3. Metro packages patched for Node 23 (if using Node 23)
+4. Root React moved (if in Expo+Vega monorepo)
+
+## Step-by-Step
+
+### 1. Patch Metro (Node 23 only)
+```bash
+node fix-metro-exports.js
+```
+
+### 2. Move Root React (Monorepo only)
+```bash
+mv node_modules/react node_modules/react.bak
+mv node_modules/react-native node_modules/react-native.bak
+```
+
+### 3. Start Metro
+```bash
+cd apps/vega
+npm start
+```
+
+### 4. Set Up Port Forwarding
+```bash
+vega device start-port-forwarding --port 8081 --forward false
+```
+
+### 5. Launch App
+```bash
+vega device launch-app --appName <package-id>
+```
+
+### 6. Verify
+```bash
+vega device running-apps | grep <app-name>
+```
+
+## Troubleshooting Checklist
+
+| Issue | Check | Fix |
+|-------|-------|-----|
+| Black screen | Metro running? | `npm start` in apps/vega |
+| Black screen | Port forwarding? | `vega device start-port-forwarding --port 8081 --forward false` |
+| ReactCurrentOwner error | Root React moved? | `mv node_modules/react node_modules/react.bak` |
+| Package exports error | Metro patched? | Run `fix-metro-exports.js` |
+| App not in running-apps | May be false negative | Visually verify in virtual device |
+
+---
+
+# Required Dependencies for Vega in Monorepo
+
+When using Vega in a Yarn workspace, ensure these dependencies are installed locally in the Vega app:
+
+```bash
+cd apps/vega
+npm install @babel/runtime --save
+```
+
+The `@babel/runtime` package is required for Babel transforms but may not be hoisted correctly in monorepos.

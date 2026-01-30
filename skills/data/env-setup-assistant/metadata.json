@@ -1,9 +1,7 @@
 {
   "name": "env-setup-assistant",
-  "description": "Expert guide for setting up development environments including IDE configuration, tooling, dependencies, and developer onboarding. Use when bootstrapping new projects or standardizing team environment",
   "repo": "eddiebe147/claude-settings",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/eddiebe147/claude-settings"
+  "path": "skills/env-setup-assistant/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-30T03:51:00.293884Z"
 }

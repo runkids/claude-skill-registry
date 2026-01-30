@@ -1,9 +1,7 @@
 {
   "name": "cdk-stack-generator",
-  "description": "Cdk Stack Generator - Auto-activating skill for AWS Skills.Triggers on: cdk stack generator, cdk stack generatorPart of the AWS Skills skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/cdk-stack-generator/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-30T04:24:25.919266Z"
 }

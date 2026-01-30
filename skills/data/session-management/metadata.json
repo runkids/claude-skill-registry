@@ -1,7 +1,7 @@
 {
   "name": "session-management",
-  "repo": "karstenheld3/SharePoint-GPT-Middleware",
-  "path": ".windsurf/skills/session-management/SKILL.md",
-  "source": "github.com/karstenheld3/SharePoint-GPT-Middleware",
-  "downloaded_at": "2026-01-29T03:37:24.966945Z"
+  "repo": "athola/claude-night-market",
+  "path": "plugins/sanctum/skills/session-management/SKILL.md",
+  "source": "github.com/athola/claude-night-market",
+  "downloaded_at": "2026-01-30T04:03:29.821167Z"
 }

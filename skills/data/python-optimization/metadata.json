@@ -1,9 +1,7 @@
 {
   "name": "python-optimization",
-  "description": "Expert guidance for mathematical optimization in Python - systematic problem classification, library selection (scipy, pyomo, cvxpy, GEKKO), solver configuration, and implementation patterns for LP, Q",
-  "repo": "jkitchin/skillz",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Ven0m0/claude-config",
+  "path": "claude/skills/python-optimization/SKILL.md",
+  "source": "github.com/Ven0m0/claude-config",
+  "downloaded_at": "2026-01-30T04:01:32.509195Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "disaster-recovery-planner",
-  "repo": "Dexploarer/hyper-forge",
-  "path": ".claude/skills/disaster-recovery-planner/SKILL.md",
-  "source": "github.com/Dexploarer/hyper-forge",
-  "downloaded_at": "2026-01-29T03:36:13.733816Z"
+  "repo": "cornmanwtf/ABANG-COLEK",
+  "path": "skills/devops-infra/disaster-recovery-planner/SKILL.md",
+  "source": "github.com/cornmanwtf/ABANG-COLEK",
+  "downloaded_at": "2026-01-30T02:34:29.286175Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "aws-serverless-eda",
-  "repo": "zxkane/aws-skills",
-  "path": "plugins/serverless-eda/skills/aws-serverless-eda/SKILL.md",
-  "source": "github.com/zxkane/aws-skills",
-  "downloaded_at": "2026-01-29T02:27:05.061885Z"
+  "repo": "CommandCodeAI/agent-skills",
+  "path": "skills/aws-serverless-eda/SKILL.md",
+  "source": "github.com/CommandCodeAI/agent-skills",
+  "downloaded_at": "2026-01-30T04:14:01.614718Z"
 }

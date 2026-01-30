@@ -1,21 +1,24 @@
 ---
 name: Backend Queries
-description: Write secure, performant database queries using parameterized queries, proper eager loading, and transaction management. Use this skill when writing database queries, ORM operations, raw SQL statements, or repository methods. When working on files in repositories/, queries/, services/, or any code that interacts with the database. When optimizing query performance, preventing N+1 queries, implementing transactions, adding query timeouts, or caching expensive queries. When reviewing code for SQL injection vulnerabilities.
+description: Write secure, performant database queries using parameterized statements, proper indexing, eager loading, and transaction management to prevent SQL injection and N+1 query problems. Use this skill when writing database queries, constructing SQL statements, using ORM query builders, optimizing database performance, or working with repositories, services, or DAO files that interact with databases. Applies to SELECT, INSERT, UPDATE, DELETE operations, joins, aggregations, and any code that retrieves or manipulates data from databases.
 ---
 
-## When to use this skill:
+# Backend Queries
 
-- When writing database queries (ORM or raw SQL)
-- When creating repository or data access layer methods
-- When working on files in repositories/, queries/, services/, or dal/ directories
-- When using SELECT statements and choosing which columns to fetch
-- When implementing eager loading or joins to prevent N+1 queries
-- When wrapping related operations in database transactions
-- When adding indexes to optimize WHERE, JOIN, or ORDER BY clauses
-- When implementing query timeouts for long-running queries
-- When caching results of expensive or frequently-run queries
-- When reviewing code for SQL injection vulnerabilities
-- When using parameterized queries to prevent injection attacks
+## When to use this skill
+
+- When writing database queries in repository files like `repositories/`, `dao/`, `services/`, or `queries/`
+- When constructing SQL statements or using query builders in any backend service or controller
+- When using ORM methods to fetch data (SQLAlchemy, TypeORM, Prisma, Django ORM, Sequelize, etc.)
+- When implementing SELECT queries with WHERE clauses, JOINs, ORDER BY, or GROUP BY statements
+- When writing INSERT, UPDATE, or DELETE operations that modify database records
+- When preventing SQL injection by using parameterized queries or prepared statements
+- When optimizing queries to avoid N+1 problems through eager loading or `select_related`/`prefetch_related`
+- When selecting specific columns instead of using SELECT * for performance optimization
+- When wrapping multiple related database operations in transactions for data consistency
+- When adding database indexes to columns used in WHERE, JOIN, or ORDER BY clauses
+- When implementing query timeouts to prevent runaway queries from impacting performance
+- When caching results of expensive or frequently-run queries using Redis or similar
 
 # Backend Queries
 

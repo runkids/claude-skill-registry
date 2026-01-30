@@ -1,9 +1,7 @@
 {
   "name": "building-neural-networks",
-  "description": "This skill allows AI assistant to construct and configure neural network architectures using the neural-network-builder plugin. it should be used when the user requests the creation of a new neural ne",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/building-neural-networks/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-30T04:24:30.027261Z"
 }

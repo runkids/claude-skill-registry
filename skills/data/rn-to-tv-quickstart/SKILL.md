@@ -1093,3 +1093,71 @@ npx expo run:android
 # or
 npx expo start --dev-client
 ```
+
+
+---
+
+# Vega in Monorepo - Critical Setup
+
+## Port Forwarding Required
+
+Vega virtual devices need reverse port forwarding to connect to Metro:
+
+```bash
+# REQUIRED before launching app
+vega device start-port-forwarding --port 8081 --forward false
+```
+
+Without this, the app shows a black screen because it can't fetch the JS bundle.
+
+## React Version Conflicts (Expo + Vega)
+
+If your monorepo has both Expo (React 19) and Vega (React 18), you'll get:
+```
+TypeError: Cannot read property 'ReactCurrentOwner' of undefined
+```
+
+**Fix:** Move root React packages before running Vega:
+```bash
+mv node_modules/react node_modules/react.bak
+mv node_modules/react-native node_modules/react-native.bak
+```
+
+## Node.js 23 Compatibility
+
+Node 23 breaks Metro's package exports. Fix by removing `exports` field:
+
+```javascript
+// Run this after yarn install
+const fs = require('fs');
+['metro', 'metro-source-map', 'metro-transform-worker', 'metro-runtime'].forEach(pkg => {
+  const p = `node_modules/${pkg}/package.json`;
+  if (fs.existsSync(p)) {
+    const json = JSON.parse(fs.readFileSync(p));
+    delete json.exports;
+    fs.writeFileSync(p, JSON.stringify(json, null, 2));
+  }
+});
+```
+
+## Complete Vega Launch Sequence
+
+```bash
+# 1. Fix Metro (Node 23 only)
+node fix-metro-exports.js
+
+# 2. Move root React (monorepo only)
+mv node_modules/react node_modules/react.bak
+
+# 3. Start Metro
+cd apps/vega && npm start
+
+# 4. Port forwarding (new terminal)
+vega device start-port-forwarding --port 8081 --forward false
+
+# 5. Launch
+vega device launch-app --appName com.yourcompany.app
+
+# 6. Verify
+vega device running-apps | grep yourapp
+```

@@ -1,7 +1,7 @@
 {
   "name": "report-generator",
-  "repo": "dkyazzentwatwa/chatgpt-skills",
-  "path": "report-generator/SKILL.md",
-  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
-  "downloaded_at": "2026-01-29T03:45:37.226531Z"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/report-generator/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-30T04:24:24.891089Z"
 }

@@ -1,0 +1,19 @@
+{
+  "category": "Productivity",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.213917Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Task management, planning, and accountability. USE WHEN user mentions tasks, planning, schedule, productivity, overwhelmed, scattered, what should I do, or asks for help prioritizing.",
+      "repo": "Geralt1983/Thanos",
+      "path": "Productivity",
+      "branch": "main",
+      "category": "Productivity",
+      "tags": [],
+      "stars": 0,
+      "install": "Geralt1983/Thanos",
+      "source": "github.com/Geralt1983/Thanos"
+    }
+  ]
+}

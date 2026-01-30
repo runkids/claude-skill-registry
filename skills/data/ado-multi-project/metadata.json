@@ -1,9 +1,7 @@
 {
   "name": "ado-multi-project",
-  "description": "Expert at organizing specs and splitting tasks across multiple Azure DevOps projects. Handles project-per-team, area-path-based, and team-based architectures. Intelligently maps increments and specs t",
   "repo": "anton-abyzov/specweave",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/specweave-ado/skills/ado-multi-project/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-30T01:38:37.414420Z"
 }

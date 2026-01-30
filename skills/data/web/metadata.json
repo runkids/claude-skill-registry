@@ -1,9 +1,7 @@
 {
   "name": "web",
-  "description": "Use to browse or verify external info—run web searches, open pages, drive Chrome via CDP tools, and cite sources when facts may be outdated, niche, or user-requested.",
-  "repo": "gakonst/dotfiles",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "yugasun/skills",
+  "path": "skills/web/SKILL.md",
+  "source": "github.com/yugasun/skills",
+  "downloaded_at": "2026-01-30T03:12:06.445618Z"
 }

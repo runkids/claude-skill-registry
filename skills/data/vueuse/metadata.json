@@ -1,7 +1,7 @@
 {
   "name": "vueuse",
-  "repo": "Dknight203/AesopIDE",
-  "path": ".agent/skills/vueuse/SKILL.md",
-  "source": "github.com/Dknight203/AesopIDE",
-  "downloaded_at": "2026-01-29T04:04:25.951202Z"
+  "repo": "onmax/claude-config",
+  "path": "skills/vueuse/SKILL.md",
+  "source": "github.com/onmax/claude-config",
+  "downloaded_at": "2026-01-30T03:44:40.347271Z"
 }

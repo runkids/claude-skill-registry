@@ -1,7 +1,7 @@
 {
   "name": "nuxt-seo",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/nuxt-seo/skills/nuxt-seo/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-29T03:11:01.923148Z"
+  "repo": "onmax/claude-config",
+  "path": "skills/nuxt-seo/SKILL.md",
+  "source": "github.com/onmax/claude-config",
+  "downloaded_at": "2026-01-30T03:44:39.490230Z"
 }

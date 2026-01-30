@@ -1,7 +1,7 @@
 {
   "name": "google-gemini-api",
-  "repo": "dennislee928/Smart_Zone",
-  "path": ".claude/skills/google-gemini-api/SKILL.md",
-  "source": "github.com/dennislee928/Smart_Zone",
-  "downloaded_at": "2026-01-29T04:26:52.730086Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/google-gemini-api/skills/google-gemini-api/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-30T03:41:12.661115Z"
 }

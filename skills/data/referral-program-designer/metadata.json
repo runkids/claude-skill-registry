@@ -1,9 +1,7 @@
 {
   "name": "referral-program-designer",
-  "description": "Design referral programs for newsletter growth. Use when: (1) Creating a newreferral program, (2) Choosing referral rewards, (3) Writing referral copy inSpanish, (4) Planning referral program launch. ",
-  "repo": "chekos/bns-marketplace",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "eddiebe147/claude-settings",
+  "path": "skills/referral-program-designer/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-30T03:50:57.405193Z"
 }

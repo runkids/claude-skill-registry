@@ -1,7 +1,7 @@
 {
   "name": "docs-sync",
-  "repo": "zaziedlm/openai-agents-python",
-  "path": ".codex/skills/docs-sync/SKILL.md",
-  "source": "github.com/zaziedlm/openai-agents-python",
-  "downloaded_at": "2026-01-29T04:40:24.530696Z"
+  "repo": "savvy-web/pnpm-monorepo-template",
+  "path": ".claude/skills/docs-sync/SKILL.md",
+  "source": "github.com/savvy-web/pnpm-monorepo-template",
+  "downloaded_at": "2026-01-30T04:43:25.130706Z"
 }

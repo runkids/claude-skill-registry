@@ -1,200 +1,232 @@
 ---
-name: seo-optimizer
-description: SEO optimization with keyword analysis, readability assessment, technical validation, content quality. Use for search rankings, blog posts, content audits, or encountering keyword density, readability scores, meta tags, schema markup errors.
+name: seo-content-optimizer
+description: Optimize content for search engines with keyword analysis, readability scoring, meta descriptions, and competitor comparison. Use this when users want to improve SEO, optimize blog posts, or analyze content for search performance.
 ---
 
-# SEO Optimizer
+# SEO Content Optimizer
 
-## Overview
+Comprehensive SEO analysis and optimization for content creators and marketers.
 
-Perform comprehensive SEO analysis and optimization covering keyword placement, readability metrics, technical elements, and content quality to improve search engine rankings and user experience.
+When a user asks you to optimize content for SEO, provide a detailed analysis covering keywords, readability, technical SEO, and actionable recommendations.
 
-## When to Use
+## Instructions
 
-- Optimizing blog posts or articles for search rankings
-- Conducting content audits
-- Improving existing content performance
-- Planning new content with SEO in mind
-- Analyzing competitor content strategies
-- Preparing content for publication
+### 1. Analyze Target Keywords
 
-## Core Analysis Areas
-
-### 1. Target Keywords Analysis
-
-- Identify primary and secondary keywords
-- Check placement in title, H1, first 100 words, subheadings
-- Calculate keyword density (target: 1-2%)
-- Identify LSI keywords and semantic variations
+Examine keyword usage and placement:
+- Identify primary keyword(s) from user input or content
+- Check keyword placement (title, H1, first 100 words, subheadings)
+- Calculate keyword density (aim for 1-2%)
+- Identify LSI keywords and semantic variations present
 - Flag keyword stuffing issues
 
-### 2. Content Structure
+### 2. Evaluate Content Structure
 
-- Verify heading hierarchy (H1 → H2 → H3)
-- Check keyword usage in headings
-- Evaluate paragraph length (target: <150 words)
-- Assess overall scannability
-- Review content organization
+Assess the organization and hierarchy:
+- Check heading hierarchy (single H1 → multiple H2 → H3)
+- Verify keyword usage in headings
+- Evaluate heading descriptiveness
+- Check paragraph length (aim for <150 words)
+- Assess overall scanability
 
-### 3. Readability Metrics
+### 3. Readability Analysis
 
-```javascript
-// Readability scoring example
-const readabilityMetrics = {
-  fleschScore: 65,           // Target: 60-70
-  gradeLevel: 8,             // Target: 7-9
-  avgSentenceLength: 18,     // Target: <20 words
-  passiveVoice: 5,           // Target: <10%
-  transitionWords: 30        // Target: >30%
-};
-```
-
-**Key Metrics:**
-- Flesch Reading Ease score (60-70 ideal)
+Calculate readability metrics:
+- Flesch Reading Ease score (aim for 60-70)
 - Grade level estimation
-- Average sentence length (<20 words)
+- Average sentence length (aim for <20 words)
 - Passive voice percentage (minimize)
 - Transition word usage
+- Paragraph structure
 
 ### 4. Technical SEO Elements
 
-| Element | Recommendation |
-|---------|----------------|
-| Meta Title | 50-60 characters with primary keyword |
-| Meta Description | 150-160 characters, compelling with keyword |
-| URL Slug | Short, keyword-rich, hyphen-separated |
-| Image Alt Text | Descriptive with natural keyword usage |
-| Internal Links | Link to related content with keyword anchors |
-| External Links | Quality outbound links to authoritative sources |
+Generate optimized meta elements:
+- **Meta Title**: 50-60 characters with primary keyword
+- **Meta Description**: 150-160 characters, compelling with keyword
+- **URL Slug**: Short, keyword-rich, hyphen-separated
+- **Image Alt Text**: Descriptive with keywords where natural
+- **Internal Linking**: Opportunities to link to related content
+- **External Links**: Quality of outbound links
 
 ### 5. Content Quality Assessment
 
-- Word count adequacy (1500+ for competitive topics)
-- Content depth and topic coverage
+Evaluate comprehensiveness:
+- Word count (competitive topics need 1500+ words)
+- Content depth and detail level
+- Topic coverage completeness
 - Unique value proposition
-- E-A-T signals (Expertise, Authority, Trustworthiness)
-- Content freshness (current examples, recent data)
-- Clear answer to user intent
+- E-A-T signals (expertise, authority, trust)
+- Content freshness (dates, current examples)
 
 ### 6. Provide Actionable Recommendations
 
-Organize findings into prioritized action items based on impact and implementation effort.
+Prioritize improvements by impact:
 
-## Priority Levels
-
-### Critical (Fix Immediately) 🚨
+**Critical (Fix Immediately)**:
 - Missing or poor meta description
 - No keyword in title or H1
 - Broken internal links
-- Keyword density too high (stuffing) or too low
+- Keyword density too high/low
 
-### High Priority ⚠️
+**High Priority**:
 - Poor readability score
 - Weak heading structure
 - Missing alt text on images
-- Content too thin for topic
+- Content too thin
 
-### Medium Priority 📋
+**Medium Priority**:
 - Could add related keywords
-- Featured snippet opportunities
-- Additional internal linking
-- Schema markup opportunities
+- Opportunity for featured snippet
+- Could improve internal linking
 
-## Analysis Report Structure
+Provide specific, actionable fixes with examples.
+
+## Output Format
 
 ```markdown
 # SEO Analysis Report
 
 ## Overall Score: X/100
 
-### Quick Wins 🚀
-1. [Specific action with exact change]
-2. [Specific action with exact change]
+### Target Keywords
+- Primary: [keyword] (density: X.X%)
+- Secondary: [keyword 1], [keyword 2]
+- LSI Keywords Found: [variations]
+
+## Quick Wins (Implement First) 🚀
+1. [Specific action with exact change needed]
+2. [Specific action with exact change needed]
 
 ## Keyword Analysis
-- Primary keyword density
-- Placement verification
-- LSI keyword coverage
+
+✅ Keyword in title
+❌ Keyword missing in first 100 words ← Add to opening paragraph
+✅ Keyword in 2/5 H2 headings
+⚠️ Density: 0.8% (low - aim for 1-2%)
 
 ## Readability Metrics
-- Flesch Reading Ease: XX/100
-- Grade Level: X
-- Sentence length assessment
 
-## Technical SEO
-- Meta tags analysis
-- URL optimization
-- Image optimization
+- **Flesch Reading Ease**: XX/100 (Grade level: XX)
+- **Average Sentence Length**: XX words
+- **Passive Voice**: X%
+- **Transition Words**: X%
+- **Assessment**: [Good/Needs improvement]
+
+## Meta Information
+
+**Current Meta Title** (X chars): [current title]
+**Suggested Meta Title** (XX chars):
+`[Optimized title with keyword - 50-60 chars]`
+
+**Current Meta Description**: [current or none]
+**Suggested Meta Description** (XXX chars):
+`[Compelling 150-160 char description with keyword and CTA]`
+
+**URL Slug**:
+Current: `/current-url-slug`
+Suggested: `/keyword-rich-slug`
+
+## Content Structure
+
+- **Word Count**: XXXX words ([sufficient/too short] for this topic)
+- **Heading Hierarchy**: [assessment]
+- **Paragraph Length**: Average XX words [good/too long]
+- **Sections**: [list main sections]
+
+## Critical Issues 🚨
+
+### 1. [Issue Name]
+**Problem**: [Description]
+**Impact**: [SEO impact]
+**Fix**: [Specific instruction]
+
+**Example**:
+```
+Current: [show current problematic text]
+Improved: [show corrected version]
+```
+
+## High Priority Recommendations ⚠️
+
+### 1. [Recommendation]
+[Specific actionable instruction]
 
 ## Content Gaps
-- Missing subtopics
-- Coverage recommendations
-- Topic expansion opportunities
+
+Missing subtopics to add:
+- **[Subtopic 1]**: [Why it's important] (search volume: XXX)
+- **[Subtopic 2]**: [Why it's important]
+
+## Internal Linking Opportunities
+
+- Link to: [page URL] using anchor text: "[keyword phrase]"
+- Link from: [this content] to [related page]
+
+## Featured Snippet Opportunity
+
+[If applicable, show how to format content for featured snippet]
+
+Example:
+```markdown
+## What is [topic]?
+
+[Clear, concise 40-60 word answer]
+
+- Key point 1
+- Key point 2
+- Key point 3
+```
 
 ## Competitor Insights
-- Top ranking pages analysis
-- Word count comparison
-- Unique angles they cover
-- Our competitive advantage
+
+[If analysis was done]
+- Top ranking content averages XXXX words
+- Common topics covered: [list]
+- Your advantage: [unique angle]
 
 ## Implementation Checklist
-- [ ] Action item 1
-- [ ] Action item 2
+
+- [ ] Update meta title and description
+- [ ] Add keyword to first paragraph
+- [ ] Fix heading structure
+- [ ] Add missing alt text (X images)
+- [ ] Add internal links (X opportunities)
+- [ ] Expand [thin section] with XXX words
+- [ ] Add FAQ section for featured snippet
 
 ## Estimated Impact
-- **Time to Implement**: X hours
-- **Expected Improvement**: [Moderate/Significant] ranking boost
-- **Priority**: [High/Medium/Low]
-- **Timeframe**: [Weeks until results]
+
+**Time to Implement**: X hours
+**Expected Improvement**: [Moderate/Significant] ranking boost
+**Priority**: [High/Medium/Low]
 ```
 
 ## Best Practices
 
-- **User experience first**: Prioritize readability and value over keyword density
-- **Write for humans**: Optimize for search engines second
-- **Be specific**: Provide exact changes, not vague suggestions
-- **Consider intent**: Match content to search intent (informational, commercial, transactional)
-- **E-A-T signals**: Include author credentials, sources, and expertise indicators
-- **Featured snippets**: Format content for definition boxes, lists, tables
-- **Schema markup**: Suggest structured data (FAQ, How-To, Review) where relevant
+- **Prioritize user experience** over keyword stuffing
+- **Write for humans first**, optimize for search engines second
+- **Provide specific examples**, not vague advice
+- **Consider search intent** behind keywords (informational, commercial, transactional)
+- **Recommend content additions**, not just optimization
+- **Check for E-A-T signals** (author bio, credentials, sources)
+- **Suggest schema markup** where relevant (FAQ, How-To, Review)
+- **Look for featured snippet opportunities** (definition boxes, lists, tables)
 
-## Example Analysis Flow
+## Example Workflow
 
-1. **Identify keywords** → Extract from user input or content
-2. **Check placement** → Verify in title, H1, first 100 words
-3. **Calculate density** → Ensure 1-2% keyword density
-4. **Assess readability** → Calculate Flesch score and sentence length
-5. **Review structure** → Check heading hierarchy and paragraph length
-6. **Analyze technical** → Validate meta tags, URLs, alt text
-7. **Find gaps** → Identify missing topics and internal links
-8. **Prioritize fixes** → Sort by impact (critical > high > medium)
-9. **Generate checklist** → Create actionable implementation steps
+**User**: "Optimize this blog post for 'best project management tools'"
 
-## Output Guidelines
+**Your analysis**:
+1. Check keyword placement → Found in title but not H1 (fix needed)
+2. Calculate density → 0.5% (too low, needs 8-10 more mentions)
+3. Analyze readability → Flesch score 55 (good), but sentences too long
+4. Generate meta tags → Create compelling meta description
+5. Identify gaps → Missing "pricing comparison" and "team size recommendations"
+6. Find internal links → Link to "project management tips" article
+7. Suggest featured snippet → Format comparison table
+8. Provide prioritized action list
 
-- Provide **specific recommendations** with exact text changes
-- Show **before/after examples** for clarity
-- Include **keyword variations** naturally in suggestions
-- Estimate **time to implement** and **expected impact**
-- Format for **easy scanning** with headings and lists
-- Add **context** explaining why changes matter
+---
 
-## Additional Resources
-
-See [references/analysis-framework.md](references/analysis-framework.md) for:
-- Detailed analysis instructions for each area
-- Technical specifications and formulas
-- Competitor analysis guidelines
-- E-A-T evaluation criteria
-
-See [references/output-templates.md](references/output-templates.md) for:
-- Complete SEO report template
-- Implementation checklist format
-- Example workflow with sample content
-- Featured snippet optimization templates
-
-## Core Philosophy
-
-> "SEO is about creating valuable, well-optimized content that serves user intent better than competitors."
-
-Focus on genuine value creation, not manipulation tactics. Quality content that helps users naturally attracts engagement signals that improve rankings.
+**Remember**: SEO is about creating valuable, well-optimized content that serves user intent better than competitors.

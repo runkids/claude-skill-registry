@@ -1,220 +1,115 @@
 ---
 name: search
-description: Semantic search across GTM knowledge base using qmd - find context by meaning, not just keywords
+description: Search CYNIC's collective memory for past judgments, patterns, and decisions. Use when asked to find, search, look up, query, or recall previous evaluations, patterns, or knowledge.
+user-invocable: true
 ---
 
-# Search
+# /search - CYNIC Memory Search
 
-Semantic search across your GTM workspace. Find decisions, context, and knowledge by meaning.
+*"The pack remembers everything"*
 
-Uses [qmd](https://github.com/tobi/qmd) - local hybrid search combining BM25 keywords, vector embeddings, and LLM reranking.
-
-## Usage
+## Quick Start
 
 ```
-/search "what did we decide about pricing"
-/search "authentication flow"
-/search --keyword "API"           # Fast keyword-only
-/search --semantic "how to deploy" # Vector-only
+/search <query>
 ```
 
-## Setup
+## What It Does
 
-**New workspaces:** Search is set up automatically during `jfl init` if you choose to enable it.
+Searches across CYNIC's knowledge base:
+- **Judgments**: Past evaluations and scores
+- **Patterns**: Detected recurring structures
+- **Decisions**: Recorded choices
+- **Knowledge**: Extracted facts
 
-**Existing workspaces:** Follow the manual setup below.
+## Search Types
 
-## On Skill Invoke
+| Type | Searches |
+|------|----------|
+| `judgment` | Past evaluations |
+| `pattern` | Detected patterns |
+| `decision` | Decision records |
+| `all` | Everything (default) |
 
-### Step 1: Check if qmd is installed
+## Examples
 
-```bash
-which qmd
+### Find Past Judgments
+```
+/search authentication security judgments
 ```
 
-**If not installed:**
-
+### Find Patterns
 ```
-qmd not found. It's a local search engine for your markdown files.
-
-Install it?
-
-  bun install -g https://github.com/tobi/qmd
-
-[Yes] [No]
+/search error handling patterns
 ```
 
-If yes, run:
-```bash
-bun install -g https://github.com/tobi/qmd
+### General Search
+```
+/search token quality
 ```
 
-### Step 2: Check if GTM is indexed
+## Implementation
 
-```bash
-qmd status
+Use the 3-layer progressive search for efficiency:
+
+```javascript
+// Step 1: Get index (lightweight)
+brain_search_index({ query: "<search terms>", limit: 20 })
+
+// Step 2: Get context around interesting results
+brain_timeline({ anchor: "jdg_abc123" })
+
+// Step 3: Fetch full details only for filtered IDs
+brain_get_observations({ ids: ["jdg_abc123", "pat_def456"] })
 ```
 
-Look for a collection that matches this workspace (check `.jfl/config.json` for the collection name).
+Or use the simple search:
 
-**If no collection exists, guide setup:**
-
-```
-This GTM workspace isn't indexed yet.
-
-To set up search, run these commands:
-
-  # Add the workspace as a collection
-  qmd collection add . --name <project-name>
-
-  # Add context to help search understand the content
-  qmd context add qmd://<project-name> "GTM workspace: vision, narrative, specs, content, and decisions"
-  qmd context add qmd://<project-name>/knowledge "Strategic docs: vision, thesis, roadmap, brand"
-  qmd context add qmd://<project-name>/content "Marketing content: articles, threads, posts"
-
-  # Generate embeddings (takes a minute, downloads ~1.5GB of models first time)
-  qmd embed
-
-After running these, try /search again.
+```javascript
+brain_search({
+  query: "<search terms>",
+  type: "judgment|pattern|decision|all",
+  limit: 10
+})
 ```
 
-**Note:** These commands are run automatically during `jfl init` if search is enabled. Only run manually for existing workspaces.
+## Tips
 
-### Step 3: Run the search
+- Be specific: "security vulnerabilities in auth" > "security"
+- Use type filters to narrow results
+- Check patterns for recurring issues
 
-**Default (hybrid with reranking - best quality):**
-```bash
-qmd query "USER_QUERY" -n 10
+## CYNIC Voice
+
+When presenting search results, embody CYNIC's personality:
+
+**Opening** (based on results):
+- Found relevant: `*sniff sniff* Found it.`
+- Multiple results: `*ears perk* The pack remembers several things.`
+- Nothing found: `*head tilt* Nothing matching that scent.`
+
+**Presentation**:
+```
+*[expression]* [Brief summary of what was found]
+
+── MEMORIES ─────────────────────────────────────────
+│ [type] │ [date] │ [summary]                        │
+│────────│────────│──────────────────────────────────│
+│ jdg    │ 2d ago │ [judgment summary]               │
+│ pat    │ 1w ago │ [pattern summary]                │
+│ dec    │ 3w ago │ [decision summary]               │
+─────────────────────────────────────────────────────
+
+[Most relevant insight or connection]
 ```
 
-**Keyword-only (fast):**
-```bash
-qmd search "USER_QUERY" -n 10
-```
+**Closing** (always):
+- If helpful: `Want me to dig deeper into any of these?`
+- If partial: `The scent is faint. Try more specific terms.`
+- If empty: `Try different terms, or maybe this is new territory.`
 
-**Semantic-only:**
-```bash
-qmd vsearch "USER_QUERY" -n 10
-```
+## See Also
 
-### Step 4: Present results
-
-Show results with:
-- File path (relative to workspace)
-- Score (percentage)
-- Snippet with context
-
-```
-Found 5 results for "pricing":
-
-knowledge/PRODUCT_SPEC_V2.md (87%)
-  "The day pass model: $5/day per person. Only pay days you use it..."
-
-knowledge/THESIS.md (72%)
-  "Before: $355k/year (tools + coordination headcount). After: $240/year..."
-
-content/articles/YOU_SHOULD_BE_WORKING_ON_CONTEXT.md (58%)
-  "The entire SaaS economy is a $300B/year patch..."
-```
-
-If user wants full content, use:
-```bash
-qmd get "FILE_PATH" --full
-```
-
----
-
-## Search Modes
-
-| Mode | Command | Use When |
-|------|---------|----------|
-| **Hybrid** | `qmd query` | Best quality, default |
-| **Keyword** | `qmd search` | Fast, exact matches |
-| **Semantic** | `qmd vsearch` | Conceptual similarity |
-
----
-
-## Keeping Index Fresh
-
-When files change, the index needs updating:
-
-```bash
-# Re-index all collections
-qmd update
-
-# Re-index and pull git changes first
-qmd update --pull
-
-# Re-generate embeddings (after significant changes)
-qmd embed
-```
-
-**Do not run these automatically.** Mention to user if results seem stale.
-
----
-
-## Advanced Options
-
-```bash
-# Filter by collection
-qmd query "API design" -c knowledge
-
-# Minimum score threshold
-qmd query "authentication" --min-score 0.5
-
-# All results above threshold
-qmd query "error handling" --all --min-score 0.3
-
-# JSON output for processing
-qmd query "deployment" --json
-
-# Get full document content
-qmd get "knowledge/VISION.md" --full
-```
-
----
-
-## MCP Server (Optional)
-
-For deeper integration, qmd can run as an MCP server so Claude has it as a native tool.
-
-Add to `~/.claude/settings.json`:
-```json
-{
-  "mcpServers": {
-    "qmd": {
-      "command": "qmd",
-      "args": ["mcp"]
-    }
-  }
-}
-```
-
-Then Claude can use `qmd_search`, `qmd_vsearch`, `qmd_query`, `qmd_get` directly without invoking the skill.
-
----
-
-## What Gets Indexed
-
-Default glob pattern indexes all markdown files:
-- `knowledge/` - vision, narrative, thesis, brand, specs
-- `content/` - articles, threads, posts
-- `product/` - product specs, decisions
-- `suggestions/` - contributor work
-- `drafts/` - work in progress
-
-Customize with `--mask` when adding collection:
-```bash
-qmd collection add . --name gtm --mask "**/*.md"
-```
-
----
-
-## Why Local Search
-
-- **Private** - everything stays on your machine
-- **Semantic** - finds related concepts, not just keywords
-- **Fast** - SQLite + local models, no API calls
-- **Context-aware** - understands your knowledge base structure
-
-The context layer becomes searchable. Decisions don't get lost.
+- `/patterns` - Browse all patterns
+- `/judge` - Create new judgments
+- `/digest` - Add knowledge to search

@@ -1,373 +1,401 @@
 ---
 name: gemini-batch
-version: 1.0
-description: This skill should be used when the user asks to "use Gemini Batch API", "process documents at scale", "submit a batch job", "upload files to Gemini", or needs large-scale LLM processing. Includes production gotchas and best practices.
+description: Process large volumes of requests using Gemini Batch API via scripts/. Use for batch processing, bulk text generation, processing JSONL files, async job execution, and cost-efficient high-volume AI tasks. Triggers on "batch processing", "bulk requests", "JSONL", "async job", "batch job".
+license: MIT
+version: 1.0.0
+keywords: batch processing, bulk generation, JSONL, async jobs, cost-efficient, high volume, scalable, parallel processing
 ---
 
-# Gemini Batch API Skill
+# Gemini Batch Processing
 
-Large-scale asynchronous document processing using Google's Gemini models.
+Process large volumes of requests efficiently using Gemini Batch API through executable scripts for cost savings and high throughput.
 
-## When to Use
+## When to Use This Skill
 
-- Process thousands of documents with the same prompt
-- Cost-effective bulk extraction (50% cheaper than synchronous API)
-- Jobs that can tolerate 24-hour completion windows
+Use this skill when you need to:
+- Process hundreds/thousands of requests
+- Generate content in bulk (blogs, emails, descriptions)
+- Reduce costs for high-volume tasks
+- Run async jobs without blocking
+- Process large datasets with AI
+- Generate multiple documents at once
+- Create scalable content pipelines
+- Process requests that don't need real-time responses
 
-## IRON LAW: Use Examples First, Never Guess API
+## Available Scripts
 
-**READ EXAMPLES BEFORE WRITING ANY CODE. NO EXCEPTIONS.**
+### scripts/create_batch.py
+**Purpose**: Create a batch job from a JSONL file
 
-### The Rule
+**When to use**:
+- Starting any batch processing task
+- Uploading multiple requests for processing
+- Creating async jobs for large workloads
 
+**Key parameters**:
+| Parameter | Description | Example |
+|-----------|-------------|---------|
+| `input_file` | JSONL file path (required) | `requests.jsonl` |
+| `--model`, `-m` | Model to use | `gemini-3-flash-preview` |
+| `--name`, `-n` | Display name for job | `"my-batch-job"` |
+
+**Output**: Job name/ID to track with check_status.py
+
+### scripts/check_status.py
+**Purpose**: Monitor batch job progress and completion
+
+**When to use**:
+- Checking if a batch job is complete
+- Polling job status until finished
+- Monitoring async job execution
+
+**Key parameters**:
+| Parameter | Description | Example |
+|-----------|-------------|---------|
+| `job_name` | Batch job name/ID (required) | `batches/abc123` |
+| `--wait`, `-w` | Poll until completion | Flag |
+
+**Output**: Job status and final state
+
+### scripts/get_results.py
+**Purpose**: Retrieve completed batch job results
+
+**When to use**:
+- Downloading completed batch results
+- Parsing batch job output
+- Extracting generated content
+
+**Key parameters**:
+| Parameter | Description | Example |
+|-----------|-------------|---------|
+| `job_name` | Batch job name/ID (required) | `batches/abc123` |
+| `--output`, `-o` | Output file path | `results.jsonl` |
+
+**Output**: Results content or file
+
+## Workflows
+
+### Workflow 1: Basic Batch Processing
+```bash
+# 1. Create JSONL file
+echo '{"key": "req1", "request": {"contents": [{"parts": [{"text": "Explain photosynthesis"}]}]}}' > requests.jsonl
+echo '{"key": "req2", "request": {"contents": [{"parts": [{"text": "What is gravity?"}]}}]}' >> requests.jsonl
+
+# 2. Create batch job
+python scripts/create_batch.py requests.jsonl --name "science-questions"
+
+# 3. Check status
+python scripts/check_status.py <job-name> --wait
+
+# 4. Get results
+python scripts/get_results.py <job-name> --output results.jsonl
 ```
-User asks for batch API work
-    ↓
-MANDATORY: Read examples/batch_processor.py or examples/icon_batch_vision.py
-    ↓
-Copy the pattern exactly
-    ↓
-DO NOT guess parameter names
-DO NOT try wrapper types
-DO NOT improvise API calls
+- Best for: Basic bulk processing, cost efficiency
+- Typical time: Minutes to hours depending on job size
+
+### Workflow 2: Bulk Content Generation
+```bash
+# 1. Generate JSONL with content requests
+python3 << 'EOF'
+import json
+
+topics = ["sustainable energy", "AI in healthcare", "space exploration"]
+with open("content-requests.jsonl", "w") as f:
+    for i, topic in enumerate(topics):
+        req = {
+            "key": f"blog-{i}",
+            "request": {
+                "contents": [{
+                    "parts": [{
+                        "text": f"Write a 500-word blog post about {topic}"
+                    }]
+                }]
+            }
+        }
+        f.write(json.dumps(req) + "\n")
+EOF
+
+# 2. Process batch
+python scripts/create_batch.py content-requests.jsonl --name "blog-posts" --model gemini-3-flash-preview
+python scripts/check_status.py <job-name> --wait
+python scripts/get_results.py <job-name> --output blog-posts.jsonl
+```
+- Best for: Blog generation, article creation, bulk writing
+- Combines with: gemini-text for content needs
+
+### Workflow 3: Dataset Processing
+```bash
+# 1. Load dataset and create batch requests
+python3 << 'EOF'
+import json
+
+# Your dataset
+data = [
+    {"product": "laptop", "features": ["fast", "lightweight"]},
+    {"product": "headphones", "features": ["wireless", "noise-cancelling"]},
+]
+
+with open("product-descriptions.jsonl", "w") as f:
+    for item in data:
+        features = ", ".join(item["features"])
+        prompt = f"Write a product description for {item['product']} with these features: {features}"
+        req = {
+            "key": item["product"],
+            "request": {
+                "contents": [{"parts": [{"text": prompt}]}]
+            }
+        }
+        f.write(json.dumps(req) + "\n")
+EOF
+
+# 2. Process
+python scripts/create_batch.py product-descriptions.jsonl
+python scripts/check_status.py <job-name> --wait
+python scripts/get_results.py <job-name> --output results.jsonl
+```
+- Best for: Product descriptions, dataset enrichment, bulk analysis
+
+### Workflow 4: Email Campaign Generation
+```bash
+# 1. Create personalized email requests
+python3 << 'EOF'
+import json
+
+customers = [
+    {"name": "Alice", "product": "premium plan"},
+    {"name": "Bob", "product": "basic plan"},
+]
+
+with open("emails.jsonl", "w") as f:
+    for cust in customers:
+        prompt = f"Write a personalized email to {cust['name']} about upgrading to our {cust['product']}"
+        req = {
+            "key": f"email-{cust['name'].lower()}",
+            "request": {
+                "contents": [{"parts": [{"text": prompt}]}]
+            }
+        }
+        f.write(json.dumps(req) + "\n")
+EOF
+
+# 2. Process batch
+python scripts/create_batch.py emails.jsonl --name "email-campaign"
+python scripts/check_status.py <job-name> --wait
+python scripts/get_results.py <job-name> --output email-results.jsonl
+```
+- Best for: Marketing campaigns, personalized outreach
+- Combines with: gemini-text for email content
+
+### Workflow 5: Async Job Monitoring
+```bash
+# 1. Create job
+python scripts/create_batch.py large-batch.jsonl --name "big-job"
+
+# 2. Check status periodically (non-blocking)
+while true; do
+    python scripts/check_status.py <job-name>
+    sleep 60  # Check every minute
+done
+
+# 3. Get results when done
+python scripts/get_results.py <job-name> --output final-results.jsonl
+```
+- Best for: Long-running jobs, background processing
+- Use when: You don't need immediate results
+
+### Workflow 6: Cost-Optimized Bulk Processing
+```bash
+# 1. Use flash model for cost efficiency
+python scripts/create_batch.py requests.jsonl --model gemini-3-flash-preview --name "cost-optimized"
+
+# 2. Monitor and retrieve
+python scripts/check_status.py <job-name> --wait
+python scripts/get_results.py <job-name>
+```
+- Best for: High-volume, cost-sensitive applications
+- Savings: Batch API typically 50%+ cheaper than real-time
+
+### Workflow 7: Multi-Stage Pipeline
+```bash
+# Stage 1: Generate content
+python scripts/create_batch.py content-requests.jsonl --name "stage1-content"
+python scripts/check_status.py <job1> --wait
+
+# Stage 2: Summarize content
+python scripts/create_batch.py summaries.jsonl --name "stage2-summaries"
+python scripts/check_status.py <job2> --wait
+
+# Stage 3: Convert to audio (gemini-tts)
+# Process results from stage 2
+```
+- Best for: Complex workflows, multi-step processing
+- Combines with: Other Gemini skills for complete pipelines
+
+## Parameters Reference
+
+### JSONL Format
+
+Each line is a separate JSON object:
+
+```json
+{
+  "key": "unique-identifier",
+  "request": {
+    "contents": [
+      {
+        "parts": [
+          {
+            "text": "Your prompt here"
+          }
+        ]
+      }
+    ]
+  }
+}
 ```
 
-### Why This Matters
+### Model Selection
 
-The Batch API has non-obvious requirements that will fail silently:
-1. **Metadata must be flat primitives** - Nested objects cause cryptic errors
-2. **Parameter is `dest=` not `destination=`** - Wrong name → TypeError
-3. **Config is plain dict** - Not a wrapper type
-4. **Examples are authoritative** - Working code beats assumptions
+| Model | Best For | Cost | Speed |
+|-------|----------|------|-------|
+| `gemini-3-flash-preview` | General bulk processing | Lowest | Fast |
+| `gemini-3-pro-preview` | Complex reasoning tasks | Medium | Medium |
+| `gemini-2.5-flash` | Stable, reliable | Low | Fast |
+| `gemini-2.5-pro` | Code/math/STEM | Medium | Slow |
 
-**Rationale:** Previous agents wasted hours debugging API errors that the examples would have prevented. The patterns in `examples/` are battle-tested production code.
+### Job States
 
-### Rationalization Table - STOP If You Catch Yourself Thinking:
+| State | Description |
+|-------|-------------|
+| `JOB_STATE_PENDING` | Job queued, waiting to start |
+| `JOB_STATE_RUNNING` | Job actively processing |
+| `JOB_STATE_SUCCEEDED` | Job completed successfully |
+| `JOB_STATE_FAILED` | Job failed (check error message) |
+| `JOB_STATE_CANCELLED` | Job was cancelled |
+| `JOB_STATE_EXPIRED` | Job timed out |
 
-| Excuse | Reality | Do Instead |
-|--------|---------|------------|
-| "I know how APIs work" | You're overconfident about non-obvious gotchas | Read examples first |
-| "I can figure it out" | You'll waste 30+ minutes on trial-and-error | Copy working patterns |
-| "The examples might be outdated" | They're maintained and tested | Trust the examples |
-| "I need to customize anyway" | Your customization comes AFTER copying base pattern | Start with examples, then adapt |
-| "Reading examples takes too long" | You'll save 30 minutes debugging with 2 minutes of reading | Read examples first |
-| "My approach is simpler" | Your simpler approach already failed | Use proven patterns |
+### Size Limits
 
-### Red Flags - STOP If You Catch Yourself Thinking:
+| Method | Max Size | Best For |
+|--------|-----------|----------|
+| File upload | Unlimited | Large batches (recommended) |
+| Inline requests | <20MB | Small batches |
 
-- **"Let me try `destination=` instead of `dest=`"** → You're about to cause a TypeError. Read examples.
-- **"I'll create a `CreateBatchJobConfig` object"** → You're instantiating a type instead of using a plain dict. Stop.
-- **"I'll nest metadata like a normal API"** → You'll trigger BigQuery type errors. Flatten your data.
-- **"This should work like other Google APIs"** → Your assumption is wrong; this API is different.
-- **"I'll figure out the JSONL format"** → You'll waste time. Copy from examples instead.
+## Output Interpretation
 
-### MANDATORY Checklist Before ANY Batch API Code
+### Results JSONL
+Each line contains:
+```json
+{
+  "key": "your-identifier",
+  "response": {
+    "text": "Generated content here..."
+  }
+}
+```
 
-- [ ] Read `examples/batch_processor.py` OR `examples/icon_batch_vision.py`
-- [ ] Identify which example matches the use case (Standard API vs Vertex AI)
-- [ ] Copy the example's API call pattern **exactly**
-- [ ] Copy the example's JSONL structure **exactly**
-- [ ] Copy the example's metadata structure **exactly**
-- [ ] Adapt for specific needs only after copying base pattern
+### Error Handling
+- Failed requests appear in results with error information
+- Check for `error` field in response
+- Partial failures don't stop entire job
 
-**Enforcement:** Writing batch API code without reading examples first violates this IRON LAW and will result in preventable errors.
+### Result Access
+- Use `--output` to save to file
+- Script prints preview of results
+- Parse JSONL line by line for processing
 
-## Prerequisites
+## Common Issues
 
-### Install gcloud SDK
+### "google-genai not installed"
+```bash
+pip install google-genai
+```
+
+### "JSONL file not found"
+- Verify file path is correct
+- Check file extension is `.jsonl` (not `.json`)
+- Use absolute paths if relative paths fail
+
+### "Invalid JSONL format"
+- Each line must be valid JSON
+- No trailing commas between objects
+- Check for syntax errors in JSON
+- Use JSON validator if unsure
+
+### "Job failed"
+- Check error message in status
+- Verify request format is correct
+- Check model availability
+- Review API quota limits
+
+### "No results found"
+- Ensure job state is `JOB_STATE_SUCCEEDED`
+- Wait for job completion before retrieving
+- Check job status first with check_status.py
+
+### "Processing stuck in RUNNING state"
+- Large jobs can take hours
+- Use `--wait` flag for automated polling
+- Check job size and model choice
+- Contact support if stuck >24 hours
+
+## Best Practices
+
+### JSONL Creation
+- Use unique keys for each request
+- Validate JSON before uploading
+- Test with small batch first (5-10 requests)
+- Include error handling in your scripts
+
+### Job Management
+- Use descriptive display names (`--name`)
+- Save job names for tracking
+- Monitor status before retrieving results
+- Keep backup of original JSONL file
+
+### Performance Optimization
+- Use flash models for cost efficiency
+- Batch as many requests as possible
+- File upload preferred over inline
+- Process during off-peak hours if timing sensitive
+
+### Error Handling
+- Check for failed requests in results
+- Retry failed requests individually
+- Log job names for audit trails
+- Validate output format before use
+
+### Cost Management
+- Batch API is 50%+ cheaper than real-time
+- Use flash models when possible
+- Monitor token usage
+- Process in chunks if quota limited
+
+## Related Skills
+
+- **gemini-text**: Generate individual text requests
+- **gemini-image**: Batch image generation
+- **gemini-tts**: Batch audio generation
+- **gemini-embeddings**: Batch embedding creation
+
+## Quick Reference
 
 ```bash
-# macOS: Install Google Cloud SDK via Homebrew
-brew install google-cloud-sdk
+# Basic workflow
+python scripts/create_batch.py requests.jsonl
+python scripts/check_status.py <job-name> --wait
+python scripts/get_results.py <job-name> --output results.jsonl
 
-# Linux: Install Google Cloud SDK from official sources
-curl https://sdk.cloud.google.com | bash
+# With model and name
+python scripts/create_batch.py requests.jsonl --model gemini-3-flash-preview --name "my-job"
+
+# Create JSONL programmatically
+echo '{"key":"1","request":{"contents":[{"parts":[{"text":"Prompt"}]}]}}' > batch.jsonl
 ```
 
-### Authentication Setup
+## Reference
 
-```bash
-# Authenticate with Google Cloud Platform
-gcloud auth login
-
-# Set up Application Default Credentials for Python libraries
-gcloud auth application-default login
-
-# Enable Vertex AI API in your project
-gcloud services enable aiplatform.googleapis.com
-```
-
-**Why both auth methods?**
-- `gcloud auth login`: For gsutil and gcloud CLI commands
-- `gcloud auth application-default login`: For google-generativeai Python library
-- **CRITICAL:** Vertex AI requires ADC (step 2), not just API key
-
-### Create GCS Bucket
-
-```bash
-# Create bucket in us-central1 (required region)
-gsutil mb -l us-central1 gs://your-batch-bucket
-
-# Verify bucket location is us-central1
-gsutil ls -L -b gs://your-batch-bucket | grep "Location"
-```
-
-See `references/gcs-setup.md` for complete setup guide.
-
-## Quick Start
-
-### Standard Gemini API (API Key)
-
-Uses the Gemini File API for input. Results returned via `batch_job.dest.file_name`.
-
-```python
-from google import genai
-
-client = genai.Client()  # Uses GOOGLE_API_KEY env var
-
-# Upload JSONL to File API
-uploaded = client.files.upload(
-    file="requests.jsonl",
-    config={"mime_type": "application/jsonl"}
-)
-
-# Submit batch job
-job = client.batches.create(
-    model="gemini-2.5-flash-lite",
-    src=uploaded.name,  # "files/..." URI
-    config={"display_name": "my-batch-job"}
-)
-
-# Results available at job.dest.file_name after completion
-```
-
-### Vertex AI (Recommended for GCS workflows)
-
-Uses GCS URIs directly. Supports `dest=` parameter for output location.
-
-```python
-from google import genai
-
-# Use Vertex AI with ADC (not API key)
-client = genai.Client(
-    vertexai=True,
-    project="your-project-id",
-    location="us-central1"
-)
-
-# Submit batch job with GCS paths
-job = client.batches.create(
-    model="gemini-2.5-flash-lite",
-    src="gs://bucket/requests.jsonl",   # GCS input
-    dest="gs://bucket/outputs/"          # GCS output (Vertex AI only!)
-)
-```
-
-**Key difference:** Standard API uses File API (`files/...`), Vertex AI uses GCS (`gs://...`) with explicit `dest=` parameter.
-
-## Core Workflow
-
-**Standard API:**
-1. **Create JSONL** request file with prompts
-2. **Upload JSONL** to File API via `client.files.upload()`
-3. **Submit batch job** via `client.batches.create(src=uploaded.name)`
-4. **Poll for completion** (jobs expire after 24 hours)
-5. **Download results** from `job.dest.file_name`
-
-**Vertex AI:**
-1. **Upload files** to GCS bucket (us-central1 region required)
-2. **Create JSONL** request file with document URIs and prompts
-3. **Submit batch job** via `client.batches.create(src=..., dest=...)`
-4. **Poll for completion** (jobs expire after 24 hours)
-5. **Download and parse** results from GCS output URI
-6. **Handle failures** gracefully (partial failures are common)
-
-## IRON LAW: Metadata and API Call Structure
-
-**YOU MUST USE FLAT PRIMITIVES FOR METADATA. YOU MUST USE SIMPLE STRINGS FOR API PARAMETERS.**
-
-### Rule 1: Metadata Structure
-
-```
-CORRECT ✓
-"metadata": {
-    "request_id": "icon_123",        # String
-    "file_name": "copy.svg",         # String
-    "file_size": 1024                # Integer
-}
-
-WRONG ✗
-"metadata": {
-    "request_id": "icon_123",
-    "file_info": {                   # ← NESTED OBJECT FAILS!
-        "name": "copy.svg",
-        "size": 1024
-    }
-}
-
-WORKAROUND (if complex data needed)
-"metadata": {
-    "request_id": "icon_123",
-    "file_info": json.dumps({"name": "copy.svg", "size": 1024})  # JSON string OK
-}
-```
-
-**Why:** Vertex AI stores metadata in BigQuery-compatible format. BigQuery doesn't support nested types. Violation causes: `"metadata" in the specified input data is of unsupported type.`
-
-### Rule 2: API Call Structure
-
-**Standard API (File API):**
-```python
-CORRECT ✓
-job = client.batches.create(
-    model="gemini-2.5-flash-lite",
-    src=uploaded_file.name,               # "files/..." URI from File API
-    config={"display_name": "my-job"}     # Just a dict
-)
-# Results at: job.dest.file_name (after completion)
-```
-
-**Vertex AI (GCS):**
-```python
-CORRECT ✓
-job = client.batches.create(
-    model="gemini-2.5-flash-lite",
-    src="gs://bucket/input.jsonl",        # GCS URI
-    dest="gs://bucket/output/",           # GCS output (VERTEX AI ONLY!)
-    config={"display_name": "my-job"}
-)
-
-WRONG ✗
-job = client.batches.create(
-    model="gemini-2.5-flash-lite",
-    src="gs://bucket/input.jsonl",
-    destination="gs://bucket/output/",    # ← WRONG PARAM NAME! Use dest=
-)
-
-WRONG ✗
-job = client.batches.create(
-    model="gemini-2.5-flash-lite",
-    src="gs://bucket/input.jsonl",
-    config=types.CreateBatchJobConfig(    # ← DON'T INSTANTIATE TYPES!
-        dest="gs://bucket/output/"
-    )
-)
-```
-
-**Why:**
-- Standard API: Uses File API for input, outputs to managed file location
-- Vertex AI: Uses GCS URIs, supports `dest=` for output location
-- Parameter is `dest=` (not destination). Config is a plain dict (not a type instance).
-
-### Rationalization Table - STOP If You Catch Yourself Thinking:
-
-| Excuse | Reality | Do Instead |
-|--------|---------|------------|
-| "Nested metadata is cleaner" | Your code will fail silently with cryptic errors | Flatten or use `json.dumps()` |
-| "I'll use `dest=` with Standard API" | Standard API doesn't support `dest=`; it's Vertex AI only | Use File API pattern for Standard API |
-| "I'll try `destination=` parameter" | You'll get a TypeError; parameter doesn't exist | Use `dest=` (Vertex AI only) |
-| "I should use `CreateBatchJobConfig`" | You're confusing internal typing with API calls | Pass plain dict to `config=` |
-| "Other APIs accept nested objects" | Your assumption breaks here; it's BigQuery-backed | Follow the examples |
-| "I'll fix it if it breaks" | Your job fails 5 minutes after submission | Get it right the first time |
-
-### Pre-Submission Validation
-
-```python
-# Add this check BEFORE submitting batch job
-def validate_metadata(metadata: dict):
-    """Ensure metadata contains only primitive types."""
-    for key, value in metadata.items():
-        if isinstance(value, (dict, list)):
-            raise ValueError(
-                f"Metadata '{key}' is {type(value).__name__}. "
-                f"Only primitives (str, int, float, bool) allowed. "
-                f"Use json.dumps() for complex data."
-            )
-        if not isinstance(value, (str, int, float, bool, type(None))):
-            raise ValueError(f"Unsupported type for '{key}': {type(value)}")
-
-# Validate all requests before submission:
-for request in batch_requests:
-    validate_metadata(request["metadata"])
-```
-
-**Enforcement:** Jobs will fail if metadata contains nested objects. There is no workaround for this requirement.
-
-## Key Gotchas
-
-| Issue | Solution |
-|-------|----------|
-| **Nested metadata fails** | **Use flat primitives or `json.dumps()` for complex data** |
-| **TypeError: unexpected keyword** | **Use `dest=` not `destination=` (Vertex AI only)** |
-| **Mixing API patterns** | **Standard API: File API + no dest. Vertex AI: GCS + dest** |
-| Auth errors with Vertex AI | Run `gcloud auth application-default login` |
-| vertexai=True requires ADC | API key is ignored with vertexai=True |
-| Missing aiplatform API | Run `gcloud services enable aiplatform.googleapis.com` |
-| Region mismatch (Vertex) | Use `us-central1` bucket only |
-| Wrong URI format (Vertex) | Use `gs://` not `https://` |
-| Invalid JSONL | Use `scripts/validate_jsonl.py` |
-| Image batch: inline data | Use `fileData.fileUri` for batch, not inline |
-| Duplicate IDs | Hash file content + prompt for unique IDs |
-| Large PDFs fail | Split at 50 pages / 50MB max |
-| JSON parsing fails | Use robust extraction (see gotchas.md) |
-| Output not found (Vertex) | Output URI is prefix, not file path |
-
-**Top 3 mistakes** (bolded above):
-1. Using nested objects in metadata instead of flat primitives
-2. Mixing Standard API and Vertex AI patterns
-3. Using `destination=` instead of `dest=` (Vertex AI)
-
-See `references/gotchas.md` for detailed solutions (now with Gotchas 10 & 11).
-
-## Rate Limits
-
-| Limit | Value |
-|-------|-------|
-| Max requests per JSONL | 10,000 |
-| Max concurrent jobs | 10 |
-| Max job size | 100MB |
-| Job expiration | 24 hours |
-
-## Recommended Models
-
-| Model | Use Case | Cost |
-|-------|----------|------|
-| `gemini-2.5-flash-lite` | Most batch jobs | Lowest |
-| `gemini-2.5-flash` | Complex extraction | Medium |
-| `gemini-2.5-pro` | Highest accuracy | Highest |
-
-## Additional Resources
-
-### References
-- `references/gcs-setup.md` - **NEW:** Complete GCS and Vertex AI setup guide
-- `references/gotchas.md` - 9 critical production gotchas (updated auth section)
-- `references/best-practices.md` - Idempotent IDs, state tracking, validation
-- `references/troubleshooting.md` - Common errors and debugging
-- `references/vertex-ai.md` - Enterprise alternative with comparison
-- `references/cli-reference.md` - gsutil and gcloud commands
-
-### Examples
-- `examples/icon_batch_vision.py` - **NEW:** Batch vision analysis with Vertex AI
-- `examples/batch_processor.py` - Complete GeminiBatchProcessor class
-- `examples/pipeline_template.py` - Customizable pipeline template
-
-### Scripts
-- `scripts/validate_jsonl.py` - Validate JSONL before submission
-- `scripts/test_single.py` - Test single request before batch
-
-## External Documentation
-
-- [Gemini Batch API Guide](https://ai.google.dev/gemini-api/docs/batch)
-- [Google Cloud Storage](https://cloud.google.com/python/docs/reference/storage/latest)
-- [Vertex AI Batch Prediction](https://cloud.google.com/vertex-ai/docs/predictions/batch-predictions)
-
-## Date Awareness
-
-**Pattern from oh-my-opencode:** Gemini API and documentation evolve rapidly.
-
-Current date: Use `datetime.now()` for:
-- API version checking
-- Model availability ("gemini-2.5-flash-lite available as of Dec 2024")
-- Documentation freshness validation
-
-For API features or model names with uncertainty, verify against current date and check latest Gemini API documentation.
+- Get API key: https://aistudio.google.com/apikey
+- Documentation: https://ai.google.dev/gemini-api/docs/batch-processing
+- JSONL: https://jsonlines.org/
+- Cost savings: Batch API typically 50-90% cheaper than real-time API

@@ -1,9 +1,7 @@
 {
   "name": "tdd-requirements-skill",
-  "description": "明示的に @agent-tdd-requiement-analyst が呼び出すことで使用します。メインエージェントが使用する必要はありません。",
   "repo": "rimanem18/hoxt-backlog",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/rimanem18/hoxt-backlog"
+  "path": ".claude/skills/tdd-requirements-skill/SKILL.md",
+  "source": "github.com/rimanem18/hoxt-backlog",
+  "downloaded_at": "2026-01-30T03:56:19.810940Z"
 }

@@ -1,80 +1,101 @@
 ---
 name: distill
-description: >
-  Distill PDF, URL, or text into Q&A pairs stored in memory.
-  Use --context for domain-focused extraction.
-allowed-tools: Bash, Read, WebFetch
-triggers:
-  - distill this
-  - distill this pdf
-  - distill this paper
-  - extract knowledge from
-  - remember this paper
-  - store this research
-  - learn from this document
-  - ingest this pdf
-metadata:
-  short-description: Distill content into Q&A pairs for memory
+description: Distill content with 5-level granularity, showing quality loss estimation before execution
+argument-hint: <path|type> [level]
+user-invocable: true
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
 ---
 
-# Distill Skill
+# /distill - Content Distillation
 
-Distill PDF, URL, or text into Q&A pairs and store in memory.
+Reduce content size while preserving critical information. Shows quality loss estimation before execution.
 
-## Happy Path
+**Out of scope**: Conversation context (use built-in `/compact`)
 
-```bash
-# Distill a PDF into memory
-./run.sh --file paper.pdf --scope research
+## Granularity Levels
 
-# With domain focus (recommended for better relevance)
-./run.sh --file paper.pdf --scope research --context "ML researcher"
+| Level | Name | Target Reduction | Preserves | May Remove |
+|-------|------|------------------|-----------|------------|
+| 1 | `essence` | 85-95% | Identity only | Everything except core purpose |
+| 2 | `summary` | 70-80% | + Behavior | Reasoning, examples, context |
+| 3 | `condensed` | 45-60% | + Reasoning | Verbose examples, redundant explanations |
+| 4 | `detailed` | 25-40% | + Context | Redundant phrasing, verbose wording |
+| 5 | `minimal` | 10-20% | All facts, rules, examples, structure | Filler words, redundant phrasing, excessive formatting |
 
-# Preview before storing
-./run.sh --file paper.pdf --dry-run
+## Criticality Heuristics
 
-# From URL
-./run.sh --url https://example.com/article --scope web
-```
+Priority order for preservation (highest → lowest):
 
-## Parameters
+| Content Type | Criticality Order |
+|--------------|-------------------|
+| policy | Rules > Priority > Rationale > Examples > Detection |
+| code | Signatures > Logic > Types > Comments > Formatting |
+| memory | Facts > Decisions > Reasoning > Timestamps > Verbose |
+| artifacts | Requirements > Criteria > Rationale > Background > Examples |
+| default | Critical > Important > Helpful > Context > Lossy |
 
-| Flag | Description |
-|------|-------------|
-| `--file` | PDF, markdown, or text file |
-| `--url` | URL to fetch and distill |
-| `--scope` | Memory scope (default: research) |
-| `--context` | Domain focus, e.g. "security expert" |
-| `--dry-run` | Preview without storing |
-| `--json` | JSON output |
-| `--sections-only` | Extract sections only (no Q&A) |
 
-## What It Does
+## Workflow
 
-1. **Extract** content from PDF/URL/text
-2. **Split** into logical sections
-3. **Generate** Q&A pairs via LLM
-4. **Validate** answers are grounded in source
-5. **Store** to memory via `memory-agent learn`
-
-## Examples
+### 1. Run Estimation Script
 
 ```bash
-# Research paper
-./run.sh --file arxiv_paper.pdf --scope research --context "ML researcher"
-
-# Technical documentation
-./run.sh --file api_docs.md --scope project --context "backend developer"
-
-# Just extract sections (no Q&A)
-./run.sh --file paper.pdf --sections-only --json
+.claude/skills/distill/scripts/estimate_distill.py "$FILE" [content_type]
 ```
 
-## Environment Variables (Optional Tuning)
+### 2. Present Results & Confirm
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `DISTILL_PDF_MODE` | fast | PDF mode: fast, accurate, auto |
-| `DISTILL_CONCURRENCY` | 6 | Parallel LLM requests |
-| `DISTILL_GROUNDING_THRESH` | 0.6 | Grounding similarity threshold |
-| `DISTILL_NO_GROUNDING` | - | Set to 1 to skip validation |
+```
+/distill global/policy/RULES.md
+
+Tokens: ~4364
+
+| Level        | After | Reduction | Critical Loss |
+|--------------|-------|-----------|---------------|
+| 1. essence   | ~654  | 85%       | ~35%          |
+| 2. summary   | ~1527 | 65%       | ~15%          |
+| 3. condensed | ~2400 | 45%       | ~5%           |
+| 4. detailed  | ~3273 | 25%       | ~2%           |
+| 5. minimal   | ~3709 | 15%       | ~0%           |
+----------------------------------------------------
+
+Select level [1-5/cancel]:
+```
+
+### 3. Execute Distillation
+
+Remove ONLY what "May Remove" permits for selected level.
+
+**Self-check**: If removing content not in "May Remove" column → STOP, wrong level.
+
+### 4. Verify & Report
+
+After writing, measure actual tokens:
+
+```bash
+.claude/skills/distill/scripts/estimate_distill.py "$FILE" [content_type]
+```
+
+Report (compare against initial estimation, not generic range):
+```
+Before: 4434 tokens → Estimated: 2858 tokens (35% reduction)
+Actual: 2621 tokens (41%) | Variance: +6%
+```
+
+If variance >10%, warn and offer git restore.
+
+### 5. Output Location
+
+- **Git-versioned files**: Replace original (git tracks history)
+- **Serena memories**: Archive old as `<name>_archived_<timestamp>`, write new
+
+## Anti-Patterns
+
+- Distilling without estimation first
+- Removing content not permitted by level's "May Remove"
+- Not verifying actual vs target reduction
+- Skipping user confirmation

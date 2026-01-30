@@ -1,9 +1,7 @@
 {
   "name": "ado-sync",
-  "description": "Bidirectional synchronization between SpecWeave increments and Azure DevOps work items (two-way sync by default). Activates ONLY when user asks questions about Azure DevOps integration or needs help c",
   "repo": "anton-abyzov/specweave",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/anton-abyzov/specweave"
+  "path": "plugins/specweave-ado/skills/ado-sync/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-30T01:38:29.781384Z"
 }

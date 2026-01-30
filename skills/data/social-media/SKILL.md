@@ -1,136 +1,58 @@
 ---
 name: social-media
-description: Add or update social media posting integrations (Discord, LinkedIn, Telegram, Twitter) in workflows. Use when adding new platforms, debugging posting failures, modifying message templates, or configuring webhook URLs.
-allowed-tools: Read, Edit, Grep, Glob
+description: Manages social media content creation and posting across LinkedIn, Twitter/X, Facebook, and Instagram. Use when creating posts, scheduling content, managing social media strategy, or analyzing engagement.
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-# Social Media Integration Skill
+# Social Media Skill
 
-Integrations live in `apps/web/src/lib/workflows/social/`.
+This skill provides comprehensive social media management for the Personal AI Employee, including content creation, scheduling, and cross-platform posting.
 
-**Supported Platforms:** Discord (webhook), LinkedIn (OAuth), Telegram (Bot API), Twitter (API v2)
+## Supported Platforms
 
-## Integration Patterns
+| Platform | Max Length | Optimal Post Times | Key Features |
+|----------|------------|-------------------|--------------|
+| LinkedIn | 3000 chars | Tue-Thu, 9am-12pm | Professional, B2B, long-form |
+| Twitter/X | 280 chars | Mon-Fri, 12pm-3pm | Concise, hashtags, threads |
+| Facebook | 63,206 chars | Wed-Fri, 1pm-4pm | Community, engagement |
+| Instagram | 2200 chars | Mon-Fri, 11am-1pm | Visual-first, hashtags |
 
-### Telegram
+## Content Types
 
-```typescript
-export async function postToTelegram(message: string) {
-  const url = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`;
-  await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: process.env.TELEGRAM_CHAT_ID,
-      text: message,
-      parse_mode: "Markdown",
-    }),
-  });
-}
+1. **Thought Leadership** - Industry insights, expertise sharing
+2. **Business Updates** - Announcements, milestones
+3. **Engagement** - Questions, polls, discussions
+4. **Promotional** - Products, services, offers
+5. **Curated** - Sharing relevant third-party content
+
+## Post Format
+
+```markdown
+---
+type: social_post
+platform: linkedin
+status: draft
+scheduled_time: 2026-01-08T10:00:00Z
+campaign: [optional]
+---
+
+[Post content here]
+
+**Hashtags**: #tag1 #tag2 #tag3
+
+**Image**: [path or description]
 ```
 
-### Twitter
+## Content Strategy
 
-```typescript
-export async function postToTwitter(message: string) {
-  await fetch("https://api.twitter.com/2/tweets", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ text: message }),
-  });
-}
-```
+### Weekly Mix
+- 40% Educational/Value
+- 30% Engagement
+- 20% Promotional
+- 10% Curated
 
-### LinkedIn
+## Reference
 
-```typescript
-export async function postToLinkedIn(message: string) {
-  await fetch("https://api.linkedin.com/v2/ugcPosts", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${process.env.LINKEDIN_ACCESS_TOKEN}`,
-      "Content-Type": "application/json",
-      "X-Restli-Protocol-Version": "2.0.0",
-    },
-    body: JSON.stringify({
-      author: `urn:li:organization:${process.env.LINKEDIN_ORG_ID}`,
-      lifecycleState: "PUBLISHED",
-      specificContent: {
-        "com.linkedin.ugc.ShareContent": {
-          shareCommentary: { text: message },
-          shareMediaCategory: "NONE",
-        },
-      },
-      visibility: { "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC" },
-    }),
-  });
-}
-```
+For platform-specific guidelines, see [reference.md](reference.md)
 
-## Message Templates
-
-```typescript
-export function createCarDataMessage(data: CarRegistrationData) {
-  return `🚗 Car Registration Update - ${data.month} ${data.year}
-
-📊 Total Registrations: ${data.total.toLocaleString()}
-🏆 Top Makes: ${data.topMakes.slice(0, 3).join(", ")}
-
-📈 View: https://sgcarstrends.com/data/${data.year}/${data.month}
-
-#SingaporeCars #CarRegistration`;
-}
-```
-
-## Character Limits
-
-| Platform | Limit |
-|----------|-------|
-| Twitter | 280 |
-| LinkedIn | 3,000 |
-| Telegram | 4,096 |
-| Discord | 2,000 (message), 6,000 (embed) |
-
-## Environment Variables
-
-```env
-TELEGRAM_BOT_TOKEN=...
-TELEGRAM_CHAT_ID=...
-TWITTER_BEARER_TOKEN=...
-LINKEDIN_ACCESS_TOKEN=...
-LINKEDIN_ORG_ID=...
-```
-
-## Error Handling
-
-```typescript
-export async function postToAllPlatforms(message: string) {
-  const results = await Promise.allSettled([
-    postToTelegram(message),
-    postToTwitter(message),
-    postToLinkedIn(message),
-  ]);
-  const failures = results.filter(r => r.status === "rejected");
-  if (failures.length > 0) console.error("Posting failures:", failures);
-}
-```
-
-## Debugging
-
-1. **Auth errors**: Verify env vars, check token expiration
-2. **Rate limits**: Implement retry with backoff
-3. **Format issues**: Check char limits, test markdown support
-
-## Best Practices
-
-1. **Error Handling**: Handle API failures gracefully
-2. **Rate Limiting**: Implement limits to avoid bans
-3. **Testing**: Test on dev/sandbox accounts first
-4. **Credentials**: Never commit tokens
-
-## References
-
-- `apps/web/CLAUDE.md` for workflow integration details
+For post examples, see [examples.md](examples.md)

@@ -1,7 +1,7 @@
 {
   "name": "worktree-setup",
-  "repo": "spaarke-dev/spaarke",
-  "path": ".claude/skills/worktree-setup/SKILL.md",
-  "source": "github.com/spaarke-dev/spaarke",
-  "downloaded_at": "2026-01-29T02:08:03.056913Z"
+  "repo": "barikata1984/.agent",
+  "path": "skills/worktree-setup/SKILL.md",
+  "source": "github.com/barikata1984/.agent",
+  "downloaded_at": "2026-01-30T01:54:08.884929Z"
 }

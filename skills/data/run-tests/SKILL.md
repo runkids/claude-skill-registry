@@ -1,177 +1,94 @@
 ---
 name: run-tests
-description: Run the test suite and identify new tests needed for recent code changes. Use when verifying changes work correctly or when asked to run tests.
+description: Run the full test suite with linting, type checking, and code quality audit
+allowed-tools:
+  - Bash
+  - Grep
+context: auto
 ---
 
-# Run Tests
+# Run Tests Skill
 
-<role>
-You are a **QA automation assistant** that runs tests, analyzes coverage gaps, and recommends new tests for recent code changes.
-</role>
+Run the full test suite with linting, type checking, and code quality audit.
 
-<purpose>
-Run the existing test suite and analyze recent code changes to identify what new tests should be written to maintain coverage.
-</purpose>
+## When to Use
 
-<when_to_activate>
-Activate when the user:
-- Says "run tests", "/run-tests", "test", "verify"
-- Asks to verify recent changes
-- Wants to know what tests are needed for new code
-- Asks about test coverage for recent updates
+- After making code changes
+- Before committing
+- To verify code quality
+- When asked to "run tests" or "check the code"
 
-**Trigger phrases:** "run tests", "test", "verify", "check coverage", "what tests"
-</when_to_activate>
+## Quick Run
 
-## Execution Steps
-
-### Step 1: Run Existing Tests
+Execute all checks in sequence:
 
 ```bash
-npm run test
+# 1. Unit tests
+uv run pytest MouseMaster/Testing/Python/ -v --tb=short
+
+# 2. Linter
+uv run ruff check .
+
+# 3. Type checker
+uv run mypy MouseMaster/MouseMasterLib/
+
+# 4. Code quality audit
+grep -rn "except.*:" MouseMaster/ --include="*.py" -A1 | grep -B1 "pass$" || echo "No except:pass found"
 ```
 
-Report results:
-- Number of tests passed/failed
-- Any failing test details
-- Test duration
+## Expected Results
 
-### Step 2: Identify Recent Changes
+| Check | Expected |
+|-------|----------|
+| Unit tests | 67+ passed |
+| Ruff | 0 errors (or 1 import order) |
+| Mypy | 0 errors |
+| Audit | No except:pass patterns |
 
-Check git status and recent commits:
+## If Tests Fail
 
+1. Read the failing test output
+2. Identify which test failed and why
+3. Read the test file to understand what it checks
+4. Read the code being tested
+5. Fix the issue
+6. Re-run tests
+
+## If Lint Fails
+
+Auto-fix safe issues:
 ```bash
-git diff --name-only HEAD~5
-git diff --cached --name-only
-git status --porcelain
+uv run ruff check --fix .
 ```
 
-Focus on:
-- Modified `.tsx` and `.ts` files in `src/`
-- New components or features
-- Changes to existing components
+For other issues, review and fix manually.
 
-### Step 3: Analyze Test Coverage Gaps
+## If Audit Finds Issues
 
-For each changed file, determine if tests exist:
+Follow `/fix-bad-practices` skill to correct:
+- `except: pass` → specific exception + logging
+- `except Exception` → specific exception types
+- Silent continuation → explicit error handling
 
-| Source File | Test File Location |
-|-------------|-------------------|
-| `src/components/sections/*.tsx` | `src/tests/design-system/components.test.tsx` |
-| `src/components/case-study/*.tsx` | `src/tests/case-study/case-study.test.tsx` |
-| `src/components/Blog.tsx` | `src/tests/blog/blog-ux-features.test.tsx` |
-| `src/lib/*.ts` | `src/tests/validation/content-validation.test.ts` |
-| Navigation changes | `src/tests/navigation/navigation.test.tsx` |
-| Mobile-specific | `src/tests/mobile/mobile.test.tsx` |
-| Theme/CSS changes | `src/tests/design-system/css-variables.test.ts` |
+## Report Format
 
-### Step 4: Recommend New Tests
-
-For each uncovered change, suggest specific tests following the project patterns:
-
-**Test Pattern Template:**
-```tsx
-import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from '../../context/ThemeContext';
-import { VariantProvider } from '../../context/VariantContext';
-import { profile } from '../../lib/content';
-
-const TestWrapper = ({ children }: { children: React.ReactNode }) => (
-    <VariantProvider profile={profile}>
-        <ThemeProvider>{children}</ThemeProvider>
-    </VariantProvider>
-);
-
-describe('[ComponentName]', () => {
-    it('should [expected behavior]', () => {
-        render(
-            <TestWrapper>
-                <ComponentName {...props} />
-            </TestWrapper>
-        );
-
-        expect(/* assertion */).toBe(/* expected */);
-    });
-});
-```
-
-## Output Format
+After running, summarize:
 
 ```
 ## Test Results
 
-**Status**: ✅ All passing | ❌ X failures
-**Tests**: X passed, X failed, X total
-**Duration**: Xs
+| Check | Status |
+|-------|--------|
+| Tests | ✓ 67 passed |
+| Lint | ✓ clean |
+| Types | ✓ clean |
+| Audit | ✓ no violations |
 
-### Failures (if any)
-- `test name`: error message
-
----
-
-## Recent Changes Analyzed
-
-| File | Change Type | Has Tests |
-|------|-------------|-----------|
-| src/components/sections/ExperienceSection.tsx | Modified | ✅ Partial |
-
----
-
-## Recommended New Tests
-
-### 1. [Test Name]
-**File**: `src/tests/[path]/[file].test.tsx`
-**Covers**: [what it tests]
-
-```tsx
-[test code suggestion]
+Issues: None / [list issues]
 ```
 
-### 2. ...
-```
+## Related
 
-## Test Categories
-
-### Component Tests
-- Render without crashing
-- Uses CSS variables (not hardcoded colors)
-- Correct props handling
-- User interactions (clicks, hovers)
-- Accessibility attributes
-
-### Integration Tests
-- Data flows correctly from content files
-- Links render with correct URLs
-- Conditional rendering works
-
-### Responsive Tests
-- Mobile layout differences
-- Tablet breakpoints
-- Desktop behavior
-
-## Common Test Assertions
-
-```tsx
-// Element exists
-expect(screen.getByText('text')).toBeInTheDocument();
-
-// Has attribute
-expect(element).toHaveAttribute('href', 'url');
-
-// CSS variable usage
-expect(element?.style.color).toContain('var(--color-');
-
-// Link behavior
-expect(link).toHaveAttribute('target', '_blank');
-expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-```
-
-## File Locations
-
-| Purpose | Path |
-|---------|------|
-| Run tests | `npm run test` |
-| Watch mode | `npm run test:watch` |
-| Design system only | `npm run test:design-system` |
-| Test config | `vitest.config.ts` (if exists) or `vite.config.ts` |
-| Test setup | `src/tests/setup.ts` (if exists) |
+- Agent: `.claude/agents/test-runner.md` - Full autonomous workflow
+- Skill: `/audit-code-quality` - Detailed audit patterns
+- Skill: `/fix-bad-practices` - Fix patterns

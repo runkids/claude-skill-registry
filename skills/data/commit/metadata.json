@@ -1,7 +1,7 @@
 {
   "name": "commit",
-  "repo": "ahonn/dotfiles",
-  "path": ".claude/skills/commit/SKILL.md",
-  "source": "github.com/ahonn/dotfiles",
-  "downloaded_at": "2026-01-29T04:36:13.787273Z"
+  "repo": "carmandale/agent-config",
+  "path": "skills/cc3/commit/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-30T04:46:38.814112Z"
 }

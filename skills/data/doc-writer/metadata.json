@@ -1,7 +1,7 @@
 {
   "name": "doc-writer",
-  "repo": "fwdslsh/crosstrain",
-  "path": "src/tests/fixtures/skills/doc-writer/SKILL.md",
-  "source": "github.com/fwdslsh/crosstrain",
-  "downloaded_at": "2026-01-29T04:31:48.643876Z"
+  "repo": "ks6088ts-labs/skills",
+  "path": "skills/doc-writer/SKILL.md",
+  "source": "github.com/ks6088ts-labs/skills",
+  "downloaded_at": "2026-01-30T04:43:17.125729Z"
 }

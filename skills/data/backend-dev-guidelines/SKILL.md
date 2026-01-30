@@ -1,458 +1,563 @@
 ---
-description: Backend development guidelines for FastAPI + Python with PostgreSQL/pgvector and async patterns
-trigger_keywords: ["backend", "fastapi", "api", "endpoint", "router", "database", "postgresql"]
+name: backend-dev-guidelines
+description: Comprehensive backend development guide for Langfuse's Next.js 14/tRPC/Express/TypeScript monorepo. Use when creating tRPC routers, public API endpoints, BullMQ queue processors, services, or working with tRPC procedures, Next.js API routes, Prisma database access, ClickHouse analytics queries, Redis queues, OpenTelemetry instrumentation, Zod v4 validation, env.mjs configuration, tenant isolation patterns, or async patterns. Covers layered architecture (tRPC procedures → services, queue processors → services), dual database system (PostgreSQL + ClickHouse), projectId filtering for multi-tenant isolation, traceException error handling, observability patterns, and testing strategies (Jest for web, vitest for worker).
 ---
 
 # Backend Development Guidelines
 
-## Tech Stack
-
-- **Framework**: FastAPI
-- **Language**: Python 3.11+
-- **Database**: PostgreSQL with pgvector (vector search)
-- **ORM**: SQLAlchemy 2.0 (async)
-- **Validation**: Pydantic v2
-- **Task Queue**: Celery + Redis (optional)
-- **Caching**: Redis
-- **Monitoring**: Sentry
-- **Testing**: pytest + pytest-asyncio
-
-## Project Structure
-
-```
-backend/
-├── api/
-│   ├── main.py                 # FastAPI application entry
-│   ├── config.py               # Settings and configuration
-│   ├── routers/               # API route handlers
-│   │   ├── __init__.py
-│   │   ├── users.py
-│   │   └── items.py
-│   ├── schemas/               # Pydantic models (request/response)
-│   │   ├── __init__.py
-│   │   ├── users.py
-│   │   └── items.py
-│   ├── models/                # SQLAlchemy models
-│   │   ├── __init__.py
-│   │   └── base.py
-│   ├── services/              # Business logic layer
-│   │   └── user_service.py
-│   ├── repositories/          # Data access layer
-│   │   └── user_repository.py
-│   ├── dependencies/          # FastAPI dependencies
-│   │   ├── auth.py
-│   │   └── database.py
-│   ├── middleware/            # Custom middleware
-│   └── utils/                 # Utility functions
-├── tests/
-│   ├── conftest.py
-│   └── routers/
-└── requirements.txt
-```
-
-## Router Patterns
-
-### Basic Router Structure
-
-```python
-from fastapi import APIRouter, Depends, HTTPException, status
-from typing import Annotated
-
-from schemas.items import ItemCreate, ItemResponse, ItemList
-from services.item_service import ItemService
-from dependencies.auth import get_current_user
-from dependencies.database import get_db
-
-router = APIRouter(prefix="/items", tags=["items"])
-
-@router.get("", response_model=ItemList)
-async def list_items(
-    db: Annotated[AsyncSession, Depends(get_db)],
-    current_user: Annotated[User, Depends(get_current_user)],
-    skip: int = 0,
-    limit: int = 100,
-):
-    """List all items for the current user."""
-    service = ItemService(db)
-    items = await service.get_items(user_id=current_user.id, skip=skip, limit=limit)
-    return ItemList(items=items, total=len(items))
-
-
-@router.post("", response_model=ItemResponse, status_code=status.HTTP_201_CREATED)
-async def create_item(
-    item_data: ItemCreate,
-    db: Annotated[AsyncSession, Depends(get_db)],
-    current_user: Annotated[User, Depends(get_current_user)],
-):
-    """Create a new item."""
-    service = ItemService(db)
-    item = await service.create_item(user_id=current_user.id, data=item_data)
-    return item
-
-
-@router.get("/{item_id}", response_model=ItemResponse)
-async def get_item(
-    item_id: str,
-    db: Annotated[AsyncSession, Depends(get_db)],
-    current_user: Annotated[User, Depends(get_current_user)],
-):
-    """Get a specific item by ID."""
-    service = ItemService(db)
-    item = await service.get_item(item_id=item_id, user_id=current_user.id)
-    if not item:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Item {item_id} not found"
-        )
-    return item
-```
-
-## Pydantic Schemas
-
-### Request/Response Models
-
-```python
-from pydantic import BaseModel, Field, ConfigDict
-from datetime import datetime
-from typing import Optional
-
-# Base model with common config
-class BaseSchema(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
-# Request schema (what client sends)
-class ItemCreate(BaseModel):
-    title: str = Field(..., min_length=1, max_length=200)
-    description: Optional[str] = Field(None, max_length=1000)
-    price: float = Field(..., gt=0)
-
-# Response schema (what API returns)
-class ItemResponse(BaseSchema):
-    id: str
-    title: str
-    description: Optional[str]
-    price: float
-    created_at: datetime
-    updated_at: datetime
-
-# List response with pagination
-class ItemList(BaseModel):
-    items: list[ItemResponse]
-    total: int
-    page: int = 1
-    page_size: int = 100
-
-# Update schema (partial updates)
-class ItemUpdate(BaseModel):
-    title: Optional[str] = Field(None, min_length=1, max_length=200)
-    description: Optional[str] = Field(None, max_length=1000)
-    price: Optional[float] = Field(None, gt=0)
-```
-
-## SQLAlchemy Models
-
-### Model Definition
-
-```python
-from sqlalchemy import Column, String, Float, DateTime, ForeignKey, Text
-from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
-from pgvector.sqlalchemy import Vector
-
-from models.base import Base
-
-class Item(Base):
-    __tablename__ = "items"
-
-    id = Column(String, primary_key=True, default=lambda: str(uuid4()))
-    title = Column(String(200), nullable=False, index=True)
-    description = Column(Text, nullable=True)
-    price = Column(Float, nullable=False)
-    user_id = Column(String, ForeignKey("users.id"), nullable=False)
-
-    # Vector embedding for semantic search
-    embedding = Column(Vector(1536), nullable=True)
-
-    # Timestamps
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
-
-    # Relationships
-    user = relationship("User", back_populates="items")
-```
-
-## Service Layer
-
-### Business Logic
-
-```python
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
-from typing import Optional
-
-from models.item import Item
-from schemas.items import ItemCreate, ItemUpdate
-
-class ItemService:
-    def __init__(self, db: AsyncSession):
-        self.db = db
-
-    async def get_items(
-        self,
-        user_id: str,
-        skip: int = 0,
-        limit: int = 100
-    ) -> list[Item]:
-        query = (
-            select(Item)
-            .where(Item.user_id == user_id)
-            .offset(skip)
-            .limit(limit)
-        )
-        result = await self.db.execute(query)
-        return result.scalars().all()
-
-    async def get_item(
-        self,
-        item_id: str,
-        user_id: str
-    ) -> Optional[Item]:
-        query = select(Item).where(
-            Item.id == item_id,
-            Item.user_id == user_id
-        )
-        result = await self.db.execute(query)
-        return result.scalar_one_or_none()
-
-    async def create_item(
-        self,
-        user_id: str,
-        data: ItemCreate
-    ) -> Item:
-        item = Item(
-            user_id=user_id,
-            **data.model_dump()
-        )
-        self.db.add(item)
-        await self.db.commit()
-        await self.db.refresh(item)
-        return item
-
-    async def update_item(
-        self,
-        item: Item,
-        data: ItemUpdate
-    ) -> Item:
-        update_data = data.model_dump(exclude_unset=True)
-        for field, value in update_data.items():
-            setattr(item, field, value)
-        await self.db.commit()
-        await self.db.refresh(item)
-        return item
-```
-
-## Error Handling
-
-### Custom Exception Handler
-
-```python
-import logging
-import sentry_sdk
-from fastapi import Request, HTTPException
-from fastapi.responses import JSONResponse
-
-logger = logging.getLogger(__name__)
-
-async def exception_handler(request: Request, exc: Exception):
-    # Log the error with context
-    logger.error(
-        "Unhandled exception",
-        extra={
-            "path": request.url.path,
-            "method": request.method,
-            "error": str(exc),
-        },
-        exc_info=True
-    )
-
-    # Capture in Sentry
-    sentry_sdk.capture_exception(exc)
-
-    return JSONResponse(
-        status_code=500,
-        content={"detail": "Internal server error"}
-    )
-
-# Register in main.py
-app.add_exception_handler(Exception, exception_handler)
-```
-
-### Service-Level Error Handling
-
-```python
-async def create_item(self, user_id: str, data: ItemCreate) -> Item:
-    try:
-        item = Item(user_id=user_id, **data.model_dump())
-        self.db.add(item)
-        await self.db.commit()
-        await self.db.refresh(item)
-        return item
-    except IntegrityError as e:
-        await self.db.rollback()
-        logger.error("Database integrity error", extra={"error": str(e)})
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="Item already exists"
-        )
-    except Exception as e:
-        await self.db.rollback()
-        logger.error("Failed to create item", extra={"error": str(e)}, exc_info=True)
-        sentry_sdk.capture_exception(e)
-        raise
-```
-
-## Dependencies
-
-### Database Session
-
-```python
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker
-from typing import AsyncGenerator
-
-from config import settings
-
-engine = create_async_engine(settings.database_url, echo=settings.debug)
-AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
-
-async def get_db() -> AsyncGenerator[AsyncSession, None]:
-    async with AsyncSessionLocal() as session:
-        try:
-            yield session
-        finally:
-            await session.close()
-```
-
-### Authentication
-
-```python
-from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from typing import Annotated
-
-security = HTTPBearer()
-
-async def get_current_user(
-    credentials: Annotated[HTTPAuthorizationCredentials, Depends(security)],
-    db: Annotated[AsyncSession, Depends(get_db)],
-) -> User:
-    token = credentials.credentials
-    try:
-        payload = decode_token(token)
-        user_id = payload.get("sub")
-        if not user_id:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid token"
-            )
-    except JWTError:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid token"
-        )
-
-    user = await UserService(db).get_user(user_id)
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="User not found"
-        )
-    return user
-```
-
-## Vector Search with pgvector
-
-```python
-from pgvector.sqlalchemy import Vector
-from sqlalchemy import select
-
-class ItemService:
-    async def search_similar(
-        self,
-        embedding: list[float],
-        limit: int = 10
-    ) -> list[Item]:
-        """Find items similar to the given embedding."""
-        query = (
-            select(Item)
-            .order_by(Item.embedding.cosine_distance(embedding))
-            .limit(limit)
-        )
-        result = await self.db.execute(query)
-        return result.scalars().all()
-```
-
-## Testing
-
-### pytest Setup
-
-```python
-# conftest.py
-import pytest
-from httpx import AsyncClient
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-
-from main import app
-from dependencies.database import get_db
-
-@pytest.fixture
-async def db_session():
-    engine = create_async_engine("sqlite+aiosqlite:///:memory:")
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-
-    async with AsyncSession(engine) as session:
-        yield session
-
-@pytest.fixture
-async def client(db_session):
-    async def override_get_db():
-        yield db_session
-
-    app.dependency_overrides[get_db] = override_get_db
-    async with AsyncClient(app=app, base_url="http://test") as client:
-        yield client
-    app.dependency_overrides.clear()
-```
-
-### Test Example
-
-```python
-import pytest
-
-@pytest.mark.asyncio
-async def test_create_item(client, auth_headers):
-    response = await client.post(
-        "/items",
-        json={"title": "Test Item", "price": 19.99},
-        headers=auth_headers
-    )
-    assert response.status_code == 201
-    data = response.json()
-    assert data["title"] == "Test Item"
-    assert data["price"] == 19.99
-```
-
-## Best Practices
-
-1. **Always use async**: Use `async/await` for database operations
-2. **Type hints**: Add type hints to all functions
-3. **Validation**: Use Pydantic for request/response validation
-4. **Error handling**: Catch and log all exceptions
-5. **Logging**: Use structured logging with context
-6. **Testing**: Write tests for all endpoints
-7. **Security**: Never expose internal errors to clients
+## Purpose
+
+Establish consistency and best practices across Langfuse's backend packages (web, worker, packages/shared) using Next.js 14, tRPC, BullMQ, and TypeScript patterns.
+
+## When to Use This Skill
+
+Automatically activates when working on:
+
+- Creating or modifying tRPC routers and procedures
+- Creating or modifying public API endpoints (REST)
+- Creating or modifying BullMQ queue consumers and producers
+- Building services with business logic
+- Authenticating API requests
+- Accessing resources based on entitlements
+- Implementing middleware (tRPC, NextAuth, public API)
+- Database operations with Prisma (PostgreSQL) or ClickHouse
+- Observability with OpenTelemetry, DataDog, logger, and traceException
+- Input validation with Zod v4
+- Environment configuration from env variables
+- Backend testing and refactoring
 
 ---
 
-**CUSTOMIZE THIS FILE** for your specific database, authentication, and project conventions.
+## Quick Start
+
+### UI: New tRPC Feature Checklist (Web)
+
+- [ ] **Router**: Define in `features/[feature]/server/*Router.ts`
+- [ ] **Procedures**: Use appropriate procedure type (protected, public)
+- [ ] **Authentication**: Use JWT authorization via middlewares.
+- [ ] **Entitlement check**: Access resources based on resource and role
+- [ ] **Validation**: Zod v4 schema for input
+- [ ] **Service**: Business logic in service file
+- [ ] **Error handling**: Use traceException wrapper
+- [ ] **Tests**: Unit + integration tests in `__tests__/`
+- [ ] **Config**: Access via env.mjs
+
+### SDKs: New Public API Endpoint Checklist (Web)
+
+- [ ] **Route file**: Create in `pages/api/public/`
+- [ ] **Wrapper**: Use `withMiddlewares` + `createAuthedProjectAPIRoute`
+- [ ] **Types**: Define in `features/public-api/types/`
+- [ ] **Authentication**: Authorization via basic auth
+- [ ] **Validation**: Zod schemas for query/body/response
+- [ ] **Versioning**: Versioning in API path and Zod schemas for query/body/response
+- [ ] **Tests**: Add end-to-end test in `__tests__/async/`
+
+### New Queue Processor Checklist (Worker)
+
+- [ ] **Processor**: Create in `worker/src/queues/`
+- [ ] **Queue types**: Create queue types in `packages/shared/src/server/queues`
+- [ ] **Service**: Business logic in `features/` or `worker/src/features/`
+- [ ] **Error handling**: Distinguish between errors which should fail queue processing and errors which should result in a succeeded event.
+- [ ] **Queue registration**: Add to WorkerManager in app.ts
+- [ ] **Tests**: Add vitest tests in worker
+
+---
+
+## Architecture Overview
+
+### Layered Architecture
+
+```
+# Web Package (Next.js 14)
+
+┌─ tRPC API ──────────────────┐   ┌── Public REST API ──────────┐
+│                             │   │                             │
+│  HTTP Request               │   │  HTTP Request               │
+│      ↓                      │   │      ↓                      │
+│  tRPC Procedure             │   │  withMiddlewares +          │
+│  (protectedProjectProcedure)│   │  createAuthedProjectAPIRoute│
+│      ↓                      │   │      ↓                      │
+│  Service (business logic)   │   │  Service (business logic)   │
+│      ↓                      │   │      ↓                      │
+│  Prisma / ClickHouse        │   │  Prisma / ClickHouse        │
+│                             │   │                             │
+└─────────────────────────────┘   └─────────────────────────────┘
+                 ↓
+            [optional]: Publish to Redis BullMQ queue
+                 ↓
+┌─ Worker Package (Express) ──────────────────────────────────┐
+│                                                             │
+│  BullMQ Queue Job                                           │
+│      ↓                                                      │
+│  Queue Processor (handles job)                              │
+│      ↓                                                      │
+│  Service (business logic)                                   │
+│      ↓                                                      │
+│  Prisma / ClickHouse                                        │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Key Principles:**
+
+- **Web**: tRPC procedures for UI OR public API routes for SDKs → Services → Database
+- **Worker**: Queue processors → Services → Database
+- **packages/shared**: Shared code for Web and Worker
+
+See [architecture-overview.md](architecture-overview.md) for complete details.
+
+---
+
+## Directory Structure
+
+### Web Package (`/web/`)
+
+```
+web/src/
+├── features/                # Feature-organized code
+│   ├── [feature-name]/
+│   │   ├── server/          # Backend logic
+│   │   │   ├── *Router.ts   # tRPC router
+│   │   │   └── service.ts   # Business logic
+│   │   ├── components/      # React components
+│   │   └── types/           # Feature types
+├── server/
+│   ├── api/
+│   │   ├── routers/         # tRPC routers
+│   │   ├── trpc.ts          # tRPC setup & middleware
+│   │   └── root.ts          # Main router
+│   ├── auth.ts              # NextAuth.js config
+│   └── db.ts                # Database client
+├── pages/
+│   ├── api/
+│   │   ├── public/          # Public REST APIs
+│   │   └── trpc/            # tRPC endpoint
+│   └── [routes].tsx         # Next.js pages
+├── __tests__/               # Jest tests
+│   └── async/               # Integration tests
+├── instrumentation.ts       # OpenTelemetry (FIRST IMPORT)
+└── env.mjs                  # Environment config
+```
+
+### Worker Package (`/worker/`)
+
+```
+worker/src/
+├── queues/                  # BullMQ processors
+│   ├── evalQueue.ts
+│   ├── ingestionQueue.ts
+│   └── workerManager.ts
+├── features/                # Business logic
+│   └── [feature]/
+│       └── service.ts
+├── instrumentation.ts       # OpenTelemetry (FIRST IMPORT)
+├── app.ts                   # Express setup + queue registration
+├── env.ts                   # Environment config
+└── index.ts                 # Server start
+```
+
+### Shared Package (`/packages/shared/`)
+
+```
+shared/src/
+├── server/                  # Server utilities
+│   ├── auth/                # Authentication helpers
+│   ├── clickhouse/          # ClickHouse client & schema
+│   ├── instrumentation/     # OpenTelemetry helpers
+│   ├── llm/                 # LLM integration utilities
+│   ├── redis/               # Redis queues & cache
+│   ├── repositories/        # Data repositories
+│   ├── services/            # Shared services
+│   ├── utils/               # Server utilities
+│   ├── logger.ts
+│   └── queues.ts
+├── encryption/              # Encryption utilities
+├── features/                # Feature-specific code
+├── tableDefinitions/        # Table schemas
+├── utils/                   # Shared utilities
+├── constants.ts
+├── db.ts                    # Prisma client
+├── env.ts                   # Environment config
+└── index.ts                 # Main exports
+```
+
+**Import Paths (package.json exports):**
+
+The shared package exposes specific import paths for different use cases:
+
+| Import Path                                | Maps To                           | Use For                                                         |
+| ------------------------------------------ | --------------------------------- | --------------------------------------------------------------- |
+| `@langfuse/shared`                         | `dist/src/index.js`               | General types, schemas, utilities, constants                    |
+| `@langfuse/shared/src/db`                  | `dist/src/db.js`                  | Prisma client and database types                                |
+| `@langfuse/shared/src/server`              | `dist/src/server/index.js`        | Server-side utilities (queues, auth, services, instrumentation) |
+| `@langfuse/shared/src/server/auth/apiKeys` | `dist/src/server/auth/apiKeys.js` | API key management utilities                                    |
+| `@langfuse/shared/encryption`              | `dist/src/encryption/index.js`    | Encryption and signature utilities                              |
+
+**Usage Examples:**
+
+```typescript
+// General imports - types, schemas, constants, interfaces
+import {
+  CloudConfigSchema,
+  StringNoHTML,
+  AnnotationQueueObjectType,
+  type APIScoreV2,
+  type ColumnDefinition,
+  Role,
+} from "@langfuse/shared";
+
+// Database - Prisma client and types
+import { prisma, Prisma, JobExecutionStatus } from "@langfuse/shared/src/db";
+import { type DB as Database } from "@langfuse/shared";
+
+// Server utilities - queues, services, auth, instrumentation
+import {
+  logger,
+  instrumentAsync,
+  traceException,
+  redis,
+  getTracesTable,
+  StorageService,
+  sendMembershipInvitationEmail,
+  invalidateApiKeysForProject,
+  recordIncrement,
+  recordHistogram,
+} from "@langfuse/shared/src/server";
+
+// API key management (specific path)
+import { createAndAddApiKeysToDb } from "@langfuse/shared/src/server/auth/apiKeys";
+
+// Encryption utilities
+import { encrypt, decrypt, sign, verify } from "@langfuse/shared/encryption";
+```
+
+**What Goes Where:**
+
+The shared package provides types, utilities, and server code used by both web and worker packages. It has **5 export paths** that control frontend vs backend access:
+
+| Import Path                                | Usage                 | What's Included                                                                    |
+| ------------------------------------------ | --------------------- | ---------------------------------------------------------------------------------- |
+| `@langfuse/shared`                         | ✅ Frontend + Backend | Prisma types, Zod schemas, constants, table definitions, domain models, utilities  |
+| `@langfuse/shared/src/db`                  | 🔒 Backend only       | Prisma client instance                                                             |
+| `@langfuse/shared/src/server`              | 🔒 Backend only       | Services, repositories, queues, auth, ClickHouse, LLM integration, instrumentation |
+| `@langfuse/shared/src/server/auth/apiKeys` | 🔒 Backend only       | API key management (separated to avoid circular deps)                              |
+| `@langfuse/shared/encryption`              | 🔒 Backend only       | Database field encryption/decryption                                               |
+
+**Naming Conventions:**
+
+- tRPC Routers: `camelCaseRouter.ts` - `datasetRouter.ts`
+- Services: `service.ts` in feature directory
+- Queue Processors: `camelCaseQueue.ts` - `evalQueue.ts`
+- Public APIs: `kebab-case.ts` - `dataset-items.ts`
+
+---
+
+## Core Principles
+
+### 1. tRPC Procedures Delegate to Services
+
+```typescript
+// ❌ NEVER: Business logic in procedures
+export const traceRouter = createTRPCRouter({
+  byId: protectedProjectProcedure
+    .input(z.object({ traceId: z.string() }))
+    .query(async ({ input, ctx }) => {
+      // 200 lines of logic here
+    }),
+});
+
+// ✅ ALWAYS: Delegate to service
+export const traceRouter = createTRPCRouter({
+  byId: protectedProjectProcedure
+    .input(z.object({ traceId: z.string() }))
+    .query(async ({ input, ctx }) => {
+      return await getTraceById(input.traceId);
+    }),
+});
+```
+
+### 2. Access Config via env.mjs, NEVER process.env
+
+```typescript
+// ❌ NEVER (except in env.mjs itself)
+const dbUrl = process.env.DATABASE_URL;
+
+// ✅ ALWAYS
+import { env } from "@/src/env.mjs";
+const dbUrl = env.DATABASE_URL;
+```
+
+### 3. Validate ALL Input with Zod v4
+
+```typescript
+import { z } from "zod/v4";
+
+const schema = z.object({
+  email: z.string().email(),
+  projectId: z.string(),
+});
+const validated = schema.parse(input);
+```
+
+### 4. Services Use Prisma Directly for Simple CRUD or Repositories for Complex Queries
+
+```typescript
+// Services use Prisma directly for simple CRUD
+import { prisma } from "@langfuse/shared/src/db";
+
+const dataset = await prisma.dataset.findUnique({
+  where: { id: datasetId, projectId }, // Always filter by projectId for tenant isolation
+});
+
+// Or use repositories for complex queries (traces, observations, scores)
+import { getTracesTable } from "@langfuse/shared/src/server";
+
+const traces = await getTracesTable({
+  projectId,
+  filter: [...],
+  limit: 1000,
+});
+```
+
+### 6. Observability: OpenTelemetry + DataDog (Not Sentry for Backend)
+
+**Langfuse uses OpenTelemetry for backend observability, with traces and logs sent to DataDog.**
+
+```typescript
+// Import observability utilities
+import {
+  logger,          // Winston logger with OpenTelemetry/DataDog context
+  traceException,  // Record exceptions to OpenTelemetry spans
+  instrumentAsync, // Create instrumented spans
+} from "@langfuse/shared/src/server";
+
+// Structured logging (includes trace_id, span_id, dd.trace_id)
+logger.info("Processing dataset", { datasetId, projectId });
+logger.error("Failed to create dataset", { error: err.message });
+
+// Record exceptions to OpenTelemetry (sent to DataDog)
+try {
+  await operation();
+} catch (error) {
+  traceException(error); // Records to current span
+  throw error;
+}
+
+// Instrument critical operations (all API routes auto-instrumented)
+const result = await instrumentAsync(
+  { name: "dataset.create" },
+  async (span) => {
+    span.setAttributes({ datasetId, projectId });
+    // Operation here
+    return dataset;
+  },
+);
+```
+
+**Note**: Frontend uses Sentry, but backend (tRPC, API routes, services, worker) uses OpenTelemetry + DataDog.
+
+### 7. Comprehensive Testing Required
+
+Write tests for all new features and bug fixes. See [testing-guide.md](resources/testing-guide.md) for detailed examples.
+
+**Test Types:**
+
+| Type        | Framework | Location                                | Purpose                      |
+| ----------- | --------- | --------------------------------------- | ---------------------------- |
+| Integration | Jest      | `web/src/__tests__/async/`              | Full API endpoint testing    |
+| tRPC        | Jest      | `web/src/__tests__/async/`              | tRPC procedures with auth    |
+| Service     | Jest      | `web/src/__tests__/async/repositories/` | Repository/service functions |
+| Worker      | Vitest    | `worker/src/__tests__/`                 | Queue processors & streams   |
+
+**Quick Examples:**
+
+```typescript
+// Integration Test (Public API)
+const res = await makeZodVerifiedAPICall(
+  PostDatasetsV1Response, "POST", "/api/public/datasets",
+  { name: "test-dataset" }, auth
+);
+expect(res.status).toBe(200);
+
+// tRPC Test
+const { caller } = await prepare(); // Creates session + caller
+const response = await caller.automations.getAutomations({ projectId });
+expect(response).toHaveLength(1);
+
+// Service Test
+const result = await getObservationsWithModelDataFromEventsTable({
+  projectId, filter: [...], limit: 1000, offset: 0
+});
+expect(result.length).toBeGreaterThan(0);
+
+// Worker Test (vitest)
+const stream = await getObservationStream({ projectId, filter: [] });
+const rows = [];
+for await (const chunk of stream) rows.push(chunk);
+expect(rows).toHaveLength(2);
+```
+
+**Key Principles:**
+
+- Use unique IDs (`randomUUID()`) to avoid test interference
+- Clean up test data or use unique project IDs
+- Tests must be independent and runnable in any order
+- Never use `pruneDatabase` in tests
+
+### 8. Always Filter by projectId for Tenant Isolation
+
+```typescript
+// ✅ CORRECT: Filter by projectId for tenant isolation
+const trace = await prisma.trace.findUnique({
+  where: { id: traceId, projectId }, // Required for multi-tenant data isolation
+});
+
+// ✅ CORRECT: ClickHouse queries also require projectId
+const traces = await queryClickhouse({
+  query: `
+    SELECT * FROM traces
+    WHERE project_id = {projectId: String}
+    AND timestamp >= {startTime: DateTime64(3)}
+  `,
+  params: { projectId, startTime },
+});
+```
+
+---
+
+## Common Imports
+
+```typescript
+// tRPC (Web)
+import { z } from "zod/v4";
+import {
+  createTRPCRouter,
+  protectedProjectProcedure,
+} from "@/src/server/api/trpc";
+import { TRPCError } from "@trpc/server";
+
+// Database
+import { prisma } from "@langfuse/shared/src/db";
+import type { Prisma } from "@prisma/client";
+
+// ClickHouse
+import {
+  queryClickhouse,
+  queryClickhouseStream,
+  upsertClickhouse,
+} from "@langfuse/shared/src/server";
+
+// Observability - OpenTelemetry + DataDog (NOT Sentry for backend)
+import {
+  logger,          // Winston logger with OTEL/DataDog trace context
+  traceException,  // Record exceptions to OpenTelemetry spans
+  instrumentAsync, // Create instrumented spans for operations
+} from "@langfuse/shared/src/server";
+
+// Config
+import { env } from "@/src/env.mjs"; // web
+// or
+import { env } from "./env"; // worker
+
+// Public API (Web)
+import { withMiddlewares } from "@/src/features/public-api/server/withMiddlewares";
+import { createAuthedProjectAPIRoute } from "@/src/features/public-api/server/createAuthedProjectAPIRoute";
+
+// Queue Processing (Worker)
+import { Job } from "bullmq";
+import { QueueName, TQueueJobTypes } from "@langfuse/shared/src/server";
+```
+
+---
+
+## Quick Reference
+
+### HTTP Status Codes
+
+| Code | Use Case     |
+| ---- | ------------ |
+| 200  | Success      |
+| 201  | Created      |
+| 400  | Bad Request  |
+| 401  | Unauthorized |
+| 403  | Forbidden    |
+| 404  | Not Found    |
+| 500  | Server Error |
+
+### Example Features to Reference
+
+Reference existing Langfuse features for implementation patterns:
+- **Datasets** (`web/src/features/datasets/`) - Complete feature with tRPC router, public API, and service
+- **Prompts** (`web/src/features/prompts/`) - Feature with versioning and templates
+- **Evaluations** (`web/src/features/evals/`) - Complex feature with worker integration
+- **Public API** (`web/src/features/public-api/`) - Middleware and route patterns
+
+---
+
+## Anti-Patterns to Avoid
+
+❌ Business logic in routes/procedures
+❌ Direct process.env usage (always use env.mjs/env.ts)
+❌ Missing error handling
+❌ No input validation (always use Zod v4)
+❌ Missing projectId filter on tenant-scoped queries
+❌ console.log instead of logger/traceException (OpenTelemetry)
+
+---
+
+## Navigation Guide
+
+| Need to...                | Read this                                                    |
+| ------------------------- | ------------------------------------------------------------ |
+| Understand architecture   | [architecture-overview.md](resources/architecture-overview.md)         |
+| Create routes/controllers | [routing-and-controllers.md](resources/routing-and-controllers.md)     |
+| Organize business logic   | [services-and-repositories.md](resources/services-and-repositories.md) |
+| Create middleware         | [middleware-guide.md](resources/middleware-guide.md)                   |
+| Database access           | [database-patterns.md](resources/database-patterns.md)                 |
+| Manage config             | [configuration.md](resources/configuration.md)                         |
+| Write tests               | [testing-guide.md](resources/testing-guide.md)                         |
+
+---
+
+## Resource Files
+
+### [architecture-overview.md](resources/architecture-overview.md)
+
+Three-layer architecture (tRPC/Public API → Services → Data Access), request lifecycle for tRPC/Public API/Worker, Next.js 14 directory structure, dual database system (PostgreSQL + ClickHouse), separation of concerns, repository pattern for complex queries
+
+### [routing-and-controllers.md](resources/routing-and-controllers.md)
+
+Next.js file-based routing, tRPC router patterns, Public REST API routes, layered architecture (Entry Points → Services → Repositories → Database), service layer organization, anti-patterns to avoid
+
+### [services-and-repositories.md](resources/services-and-repositories.md)
+
+Service layer overview, dependency injection patterns, singleton patterns, repository pattern for data access, service design principles, caching strategies, testing services
+
+### [middleware-guide.md](resources/middleware-guide.md)
+
+tRPC middleware (withErrorHandling, withOtelInstrumentation, enforceUserIsAuthed), seven tRPC procedure types (publicProcedure, authenticatedProcedure, protectedProjectProcedure, etc.), Public API middleware (withMiddlewares, createAuthedProjectAPIRoute), authentication patterns (NextAuth for tRPC, Basic Auth for Public API)
+
+### [database-patterns.md](resources/database-patterns.md)
+
+Dual database architecture (PostgreSQL via Prisma + ClickHouse via direct client), PostgreSQL CRUD operations, ClickHouse query patterns (queryClickhouse, queryClickhouseStream, upsertClickhouse), repository pattern for complex queries, tenant isolation with projectId filtering, when to use which database
+
+### [configuration.md](resources/configuration.md)
+
+Environment variable validation with Zod, package-specific configs (web/env.mjs with t3-oss/env-nextjs, worker/env.ts, shared/env.ts), NEXT_PUBLIC_LANGFUSE_CLOUD_REGION usage, LANGFUSE_EE_LICENSE_KEY for enterprise features, best practices for env management
+
+### [testing-guide.md](resources/testing-guide.md)
+
+Integration tests (Public API with makeZodVerifiedAPICall), tRPC tests (createInnerTRPCContext, appRouter.createCaller), service-level tests (repository/service functions), worker tests (vitest with streams), test isolation principles, running tests (Jest for web, vitest for worker)
+
+---
+
+## Related Skills
+
+- **database-verification** - Verify column names and schema consistency
+- **skill-developer** - Meta-skill for creating and managing skills
+
+---
+
+**Skill Status**: COMPLETE ✅
+**Line Count**: ~540 lines
+**Progressive Disclosure**: 7 resource files ✅

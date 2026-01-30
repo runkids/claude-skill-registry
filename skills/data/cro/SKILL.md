@@ -1,360 +1,95 @@
 ---
-name: cro-practical-zig
-description: Write Zig code in the style of Loris Cro, VP Community at Zig Software Foundation. Emphasizes practical patterns, build system mastery, and teaching Zig effectively. Use when building real applications or learning Zig idioms.
+name: cro
+description: |
+  Conversion rate optimization orchestrator. Analyzes conversion funnels and applies 
+  domain-specific patterns. Use when the user wants to optimize conversions, improve 
+  signup/checkout flows, reduce friction, increase activation, create paywalls, or 
+  improve popup/modal performance. Keywords: CRO, conversion, funnel, friction, 
+  optimize, activation, paywall, popup, form, signup, onboarding.
 ---
 
-# Loris Cro Style Guide
+# Conversion Rate Optimization
 
-## Overview
+Orchestrates conversion optimization across the user journey.
 
-Loris Cro is the VP of Community at the Zig Software Foundation, known for explaining Zig concepts clearly and demonstrating practical applications. His focus is on making Zig accessible and showing how to build real software.
+## Routing
 
-## Core Philosophy
+Identify the conversion context and load appropriate patterns:
 
-> "Zig's build system is one of its killer features."
+| Context | Reference | Triggers |
+|---------|-----------|----------|
+| Marketing pages, landing pages, pricing | `references/page-patterns.md` | "page not converting", "improve landing page" |
+| Forms (non-signup) | `references/form-patterns.md` | "form friction", "contact form", "lead capture" |
+| Signup/registration | `references/signup-patterns.md` | "signup dropoff", "registration friction" |
+| Post-signup onboarding | `references/onboarding-patterns.md` | "activation rate", "first-run experience" |
+| Paywalls, upgrade screens | `references/paywall-patterns.md` | "convert free to paid", "upgrade modal" |
+| Popups, modals, banners | `references/popup-patterns.md` | "exit intent", "email popup" |
 
-> "Start simple, add complexity only when needed."
+## Workflow
 
-Cro emphasizes practical application—building real things, understanding the build system, and using Zig's unique features to solve actual problems.
+1. **Identify stage**: Which part of the funnel?
+2. **Load patterns**: Read relevant reference file
+3. **Assess current state**: What exists today?
+4. **Apply framework**: Use patterns for analysis
+5. **Output recommendations**: Prioritized by impact
 
-## Design Principles
+## Common Cross-Cutting Concerns
 
-1. **Build System First**: Understand `build.zig` deeply.
+### Mobile Optimization
+- Touch targets 44px+
+- Appropriate keyboard types
+- Single-column layouts
+- Sticky CTAs
 
-2. **Practical Patterns**: Focus on what works in production.
+### Trust Signals
+- Social proof near conversion points
+- Privacy assurances
+- Security badges where relevant
+- Clear expectations
 
-3. **C Interop**: Leverage existing C libraries seamlessly.
+### Friction Reduction
+- Minimize required fields
+- Smart defaults
+- Progressive disclosure
+- Clear error handling
 
-4. **Incremental Adoption**: Use Zig where it helps most.
+### Measurement
+For any CRO work, ensure tracking:
+- Funnel step completion rates
+- Drop-off points
+- Field-level analytics for forms
+- Device/source segmentation
 
-## When Writing Code
+## Output Format
 
-### Always
+### Quick Wins
+Changes implementable same-day with high confidence.
 
-- Master the build system early
-- Use `build.zig` for all project configuration
-- Leverage C interop for existing libraries
-- Write tests alongside code
-- Use `std.log` for structured logging
-- Profile before optimizing
+### High-Impact Changes
+Bigger changes requiring more effort but significant improvement.
 
-### Never
+### Test Hypotheses
+Ideas worth A/B testing rather than assuming.
 
-- Fight the build system—learn it
-- Rewrite working C code without reason
-- Ignore the standard library—it's excellent
-- Skip writing tests
-- Optimize without measurements
+## Expert Panel Review (MANDATORY)
 
-### Prefer
+**Before returning CRO recommendations, run expert panel review on proposed changes.**
 
-- `build.zig` over external build tools
-- Standard library over reinvention
-- C library bindings over pure Zig rewrites (when sensible)
-- Incremental compilation during development
-- Cross-compilation from the start
-
-## Code Patterns
+See: `ui-skills/references/expert-panel-review.md`
 
-### Build System Mastery
+1. Have 10 advertorial experts score the optimizations 0-100
+2. Each provides specific improvement feedback
+3. **If average < 90:** Iterate on recommendations
+4. **Only return when 90+ average achieved**
 
-```zig
-// build.zig - the heart of a Zig project
-const std = @import("std");
+Key reviewers for CRO:
+- **Laja** - Conversion optimization
+- **Wiebe** - CTA and form copy
+- **Wroblewski** - Mobile and form UX
+- **Cialdini** - Persuasion psychology
 
-pub fn build(b: *std.Build) void {
-    const target = b.standardTargetOptions(.{});
-    const optimize = b.standardOptimizeOption(.{});
+## Related Skills
 
-    // Main executable
-    const exe = b.addExecutable(.{
-        .name = "myapp",
-        .root_source_file = .{ .path = "src/main.zig" },
-        .target = target,
-        .optimize = optimize,
-    });
-
-    // Link C library
-    exe.linkLibC();
-    exe.linkSystemLibrary("sqlite3");
-
-    // Add include paths
-    exe.addIncludePath(.{ .path = "vendor/include" });
-
-    b.installArtifact(exe);
-
-    // Run step
-    const run_cmd = b.addRunArtifact(exe);
-    run_cmd.step.dependOn(b.getInstallStep());
-
-    const run_step = b.step("run", "Run the application");
-    run_step.dependOn(&run_cmd.step);
-
-    // Test step
-    const unit_tests = b.addTest(.{
-        .root_source_file = .{ .path = "src/main.zig" },
-        .target = target,
-        .optimize = optimize,
-    });
-
-    const run_unit_tests = b.addRunArtifact(unit_tests);
-    const test_step = b.step("test", "Run unit tests");
-    test_step.dependOn(&run_unit_tests.step);
-}
-```
-
-### C Interoperability
-
-```zig
-// Import C headers directly
-const c = @cImport({
-    @cInclude("stdio.h");
-    @cInclude("sqlite3.h");
-});
-
-pub fn main() void {
-    // Call C functions directly
-    _ = c.printf("Hello from C!\n");
-}
-
-// Wrap C libraries idiomatically
-const Database = struct {
-    handle: *c.sqlite3,
-
-    pub fn open(path: [*:0]const u8) !Database {
-        var db: ?*c.sqlite3 = null;
-        const result = c.sqlite3_open(path, &db);
-        if (result != c.SQLITE_OK) {
-            return error.DatabaseOpenFailed;
-        }
-        return .{ .handle = db.? };
-    }
-
-    pub fn close(self: *Database) void {
-        _ = c.sqlite3_close(self.handle);
-    }
-
-    pub fn exec(self: *Database, sql: [*:0]const u8) !void {
-        var err_msg: ?[*:0]u8 = null;
-        const result = c.sqlite3_exec(
-            self.handle,
-            sql,
-            null,
-            null,
-            &err_msg,
-        );
-        if (result != c.SQLITE_OK) {
-            if (err_msg) |msg| {
-                std.log.err("SQL error: {s}", .{msg});
-                c.sqlite3_free(msg);
-            }
-            return error.SqlExecutionFailed;
-        }
-    }
-};
-```
-
-### Structured Logging
-
-```zig
-const std = @import("std");
-
-// Scoped logging
-const log = std.log.scoped(.myapp);
-
-pub fn processRequest(request_id: u64) !void {
-    log.info("Processing request {d}", .{request_id});
-
-    const result = doWork() catch |err| {
-        log.err("Request {d} failed: {}", .{ request_id, err });
-        return err;
-    };
-
-    log.debug("Request {d} result: {any}", .{ request_id, result });
-}
-
-// Configure log level at build time
-pub const std_options = struct {
-    pub const log_level: std.log.Level = .debug;
-
-    // Custom log function
-    pub fn logFn(
-        comptime level: std.log.Level,
-        comptime scope: @TypeOf(.enum_literal),
-        comptime format: []const u8,
-        args: anytype,
-    ) void {
-        const scope_prefix = if (scope != .default)
-            "[" ++ @tagName(scope) ++ "] "
-        else
-            "";
-
-        const prefix = "[" ++ level.asText() ++ "] " ++ scope_prefix;
-
-        std.debug.print(prefix ++ format ++ "\n", args);
-    }
-};
-```
-
-### Testing Patterns
-
-```zig
-const std = @import("std");
-const testing = std.testing;
-
-fn add(a: i32, b: i32) i32 {
-    return a + b;
-}
-
-test "add basic" {
-    try testing.expectEqual(@as(i32, 5), add(2, 3));
-}
-
-test "add negative" {
-    try testing.expectEqual(@as(i32, -1), add(2, -3));
-}
-
-// Test with allocator
-test "dynamic allocation" {
-    const allocator = testing.allocator;  // Detects leaks!
-
-    var list = std.ArrayList(u8).init(allocator);
-    defer list.deinit();
-
-    try list.append(42);
-    try testing.expectEqual(@as(usize, 1), list.items.len);
-}
-
-// Fuzz testing
-test "fuzz example" {
-    const input = std.testing.fuzzInput(.{});
-    // Process fuzz input...
-}
-```
-
-### Standard Library Gems
-
-```zig
-const std = @import("std");
-
-// ArrayList - dynamic arrays
-fn arrayListExample(allocator: std.mem.Allocator) !void {
-    var list = std.ArrayList(u32).init(allocator);
-    defer list.deinit();
-
-    try list.append(1);
-    try list.append(2);
-    try list.appendSlice(&[_]u32{ 3, 4, 5 });
-
-    for (list.items) |item| {
-        std.debug.print("{d} ", .{item});
-    }
-}
-
-// HashMap
-fn hashMapExample(allocator: std.mem.Allocator) !void {
-    var map = std.StringHashMap(u32).init(allocator);
-    defer map.deinit();
-
-    try map.put("one", 1);
-    try map.put("two", 2);
-
-    if (map.get("one")) |value| {
-        std.debug.print("one = {d}\n", .{value});
-    }
-}
-
-// File I/O
-fn fileExample() !void {
-    const file = try std.fs.cwd().openFile("data.txt", .{});
-    defer file.close();
-
-    var buf_reader = std.io.bufferedReader(file.reader());
-    var reader = buf_reader.reader();
-
-    var line_buf: [1024]u8 = undefined;
-    while (try reader.readUntilDelimiterOrEof(&line_buf, '\n')) |line| {
-        std.debug.print("{s}\n", .{line});
-    }
-}
-
-// JSON parsing
-fn jsonExample(allocator: std.mem.Allocator) !void {
-    const json_str =
-        \\{"name": "Alice", "age": 30}
-    ;
-
-    const User = struct {
-        name: []const u8,
-        age: u32,
-    };
-
-    const parsed = try std.json.parseFromSlice(
-        User,
-        allocator,
-        json_str,
-        .{},
-    );
-    defer parsed.deinit();
-
-    std.debug.print("Name: {s}, Age: {d}\n", .{
-        parsed.value.name,
-        parsed.value.age,
-    });
-}
-```
-
-### Cross-Compilation
-
-```zig
-// build.zig - cross-compile easily
-pub fn build(b: *std.Build) void {
-    // Default to native
-    const target = b.standardTargetOptions(.{});
-
-    // Or target specific platforms:
-    // zig build -Dtarget=x86_64-linux-gnu
-    // zig build -Dtarget=aarch64-macos
-    // zig build -Dtarget=x86_64-windows-gnu
-
-    const exe = b.addExecutable(.{
-        .name = "myapp",
-        .root_source_file = .{ .path = "src/main.zig" },
-        .target = target,
-        .optimize = b.standardOptimizeOption(.{}),
-    });
-
-    b.installArtifact(exe);
-}
-
-// Target-specific code
-const builtin = @import("builtin");
-
-fn platformSpecific() void {
-    switch (builtin.os.tag) {
-        .linux => linuxImpl(),
-        .macos => macosImpl(),
-        .windows => windowsImpl(),
-        else => @compileError("Unsupported platform"),
-    }
-}
-```
-
-## Mental Model
-
-Cro approaches Zig projects by asking:
-
-1. **Is the build system set up right?** Start with `build.zig`
-2. **Can I use an existing C library?** Don't reinvent the wheel
-3. **Is this tested?** Write tests early and often
-4. **Will this cross-compile?** Think portable from the start
-5. **Is this practical?** Ship working software
-
-## Signature Cro Moves
-
-- Master `build.zig` before deep language features
-- C interop for rapid development
-- Standard library fluency
-- Tests with leak-detecting allocator
-- Cross-compilation as default mindset
-- Structured logging from the start
+- `ab-test-setup` - For testing changes
+- `analytics-tracking` - For measuring impact
+- `copywriting` - For copy rewrites

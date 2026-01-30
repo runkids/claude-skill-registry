@@ -1,140 +1,206 @@
 ---
 name: youtube
-description: Enables Claude to manage YouTube subscriptions, playlists, and viewing experience through browser automation
-version: 1.0.0
-author: Canifi
-category: video
+description: Handle YouTube links and transcripts. Use when the user (1) pastes a YouTube URL that needs cleaning to short form, (2) requests transcript fetching from YouTube videos, or (3) works with YouTube video content. Automatically cleans URLs to https://youtu.be/VIDEO_ID format and saves transcripts directly to Database/Bookmarks to avoid polluting chat context.
 ---
 
-# YouTube Skill
+# YouTube
 
 ## Overview
-Automates YouTube viewer operations including managing subscriptions, playlists, watch history, and engagement through the main YouTube interface.
 
-## Quick Install
+This skill handles YouTube links and transcript operations. It automatically cleans YouTube URLs to canonical short form and fetches transcripts using the MCP YouTube transcript tool, saving them directly to the Bookmarks database to avoid filling up chat context.
+
+## Core Capabilities
+
+### 1. URL Cleaning
+
+When YouTube URLs are encountered (pasted, mentioned, or used), automatically clean them:
+
+**Always convert to short form:** `https://youtu.be/<id>`
+
+**Remove all:**
+- Query parameters (e.g., `?v=`, `?si=`, `&feature=`, etc.)
+- Tracking identifiers
+- Playlist parameters
+- Timestamp parameters
+
+**Supported input formats:**
+- `https://www.youtube.com/watch?v=VIDEO_ID` (any query params)
+- `https://youtube.com/watch?v=VIDEO_ID`
+- `https://youtu.be/VIDEO_ID` (any query params)
+- `https://m.youtube.com/watch?v=VIDEO_ID`
+- `https://www.youtube.com/embed/VIDEO_ID`
+
+**Use the utility script:**
+
+```python
+from scripts.youtube_utils import clean_youtube_url, extract_video_id
+
+# Clean any YouTube URL
+clean_url = clean_youtube_url(dirty_url)
+# Result: "https://youtu.be/eIoohUmYpGI"
+
+# Or just extract the ID
+video_id = extract_video_id(dirty_url)
+# Result: "eIoohUmYpGI"
+```
+
+### 2. Transcript Fetching and Saving to Bookmarks
+
+**Key principle:** Save transcripts directly to `Database/Bookmarks` to avoid polluting chat context with full transcript content. This allows handling multiple video links without context overflow.
+
+**Output location:** `Database/Bookmarks/youtube-{video_id}.md`
+
+**Caching:** The Database/Bookmarks directory acts as a cache. If a video already has a bookmark file with a valid transcript (not empty/failed), it won't be re-fetched unless forced.
+
+**Workflow:**
+
+1. **Clean the URL** using `clean_youtube_url(url)` to get canonical short form
+2. **Check if bookmark exists** - if valid transcript exists, skip fetching
+3. **Fetch transcript** using `mcp__youtube-transcript__get_transcript` MCP tool (only if not cached)
+4. **Save directly to Bookmarks** using the `save_transcript.py` script
+5. **Return only success message** with `cached` flag (not the full transcript)
+
+**Simplified workflow for Claude:**
+
+When a user provides a YouTube URL, use the `process_youtube_url.py` script which handles everything:
 
 ```bash
-curl -sSL https://canifi.com/skills/youtube/install.sh | bash
+echo '{"url": "URL", "lang": "en", "force": false}' | \
+  python3 .claude/skills/youtube/scripts/process_youtube_url.py
 ```
 
-Or manually:
-```bash
-cp -r skills/youtube ~/.canifi/skills/
+This single command:
+1. Checks if transcript is already cached in Bookmarks
+2. If cached, returns immediately with `cached: true`
+3. If not cached, fetches transcript directly using youtube-transcript-api (Python library)
+4. Saves to Database/Bookmarks with proper formatting
+5. Returns success status without showing full transcript content
+
+**Output:**
+```json
+{
+  "success": true,
+  "video_id": "abc123",
+  "filepath": "Database/Bookmarks/youtube-abc123.md",
+  "url": "https://youtu.be/abc123",
+  "title": "Video Title",
+  "cached": false
+}
 ```
 
-## Setup
+**Benefits:**
+- No MCP tool needed - fetches transcripts directly
+- NO context pollution - transcript never appears in chat
+- Automatic caching - same video won't be fetched twice
+- Single command - no multi-step workflow needed
 
-Configure via [canifi-env](https://canifi.com/setup/scripts):
+**Important:**
+- **Check cache first** to avoid redundant API calls
+- DO NOT return the full transcript text in chat
+- Only inform the user that the transcript was saved/cached
+- Use the `cached` flag in output to inform user if existing bookmark was used
+- This prevents context pollution when handling multiple videos
+- Users can read the transcript from the bookmark file later
+- Failed/empty transcripts are NOT cached and will be retried on next request
 
-```bash
-# First, ensure canifi-env is installed:
-# curl -sSL https://canifi.com/install.sh | bash
+### 3. Language Support
 
-canifi-env set GOOGLE_EMAIL "your-email@example.com"
-canifi-env set GOOGLE_PASSWORD "your-password"
+The MCP transcript tool supports multiple languages via the `lang` parameter:
+- Default: `"en"` (English)
+- Other examples: `"ko"` (Korean), `"es"` (Spanish), `"fr"` (French), etc.
+
+Always use `"en"` unless the user specifically requests a different language.
+
+## Resources
+
+### scripts/process_youtube_url.py
+
+**Primary entry point** - Use this script for all YouTube transcript operations.
+
+Handles the complete workflow: cache checking → fetching → saving.
+
+**Input (stdin JSON):**
+```json
+{
+  "url": "https://youtube.com/watch?v=...",
+  "lang": "en",  // Optional, defaults to "en"
+  "force": false  // Optional, force re-fetch even if cached
+}
 ```
 
-## Privacy & Authentication
-
-**Your credentials, your choice.** Canifi LifeOS respects your privacy.
-
-### Option 1: Manual Browser Login (Recommended)
-If you prefer not to share credentials with Claude Code:
-1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode
-2. Login to the service manually in the Playwright-controlled Chrome window
-3. Claude will use your authenticated session without ever seeing your password
-
-### Option 2: Environment Variables
-If you're comfortable sharing credentials, you can store them locally:
-```bash
-canifi-env set SERVICE_EMAIL "your-email"
-canifi-env set SERVICE_PASSWORD "your-password"
+**Output (stdout JSON):**
+```json
+{
+  "success": true,
+  "video_id": "abc123",
+  "filepath": "Database/Bookmarks/youtube-abc123.md",
+  "url": "https://youtu.be/abc123",
+  "title": "Video Title",
+  "cached": false
+}
 ```
 
-**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.
+### scripts/fetch_transcript.py
 
-## Capabilities
-- Search and find videos
-- Manage subscriptions
-- Create and edit playlists
-- Like and comment on videos
-- View watch history
-- Save videos to watch later
-- Access subscription feed
-- Manage video preferences
+Fetches YouTube transcripts using the `youtube-transcript-api` Python library.
 
-## Usage Examples
+Called internally by `process_youtube_url.py`. Uses YouTube's internal API to retrieve transcripts with language fallback support (requested lang → English → first available).
 
-### Example 1: Search Videos
-```
-User: "Find the latest videos about machine learning"
-Claude: I'll search for those videos.
-- Navigate to youtube.com
-- Search "machine learning"
-- Filter by upload date
-- Present top results with metadata
+### scripts/save_transcript.py
+
+Saves transcript data to Bookmarks database with proper formatting.
+
+**Purpose:** Write transcript content directly to `Database/Bookmarks/youtube-{video_id}.md` to avoid polluting chat context.
+
+**Input (stdin JSON):**
+```json
+{
+  "url": "https://youtube.com/watch?v=...",
+  "title": "Video Title",
+  "transcript": [{"text": "...", "start": 0.0, "duration": 1.5}, ...],
+  "force": false  // Optional: force re-fetch even if cached
+}
 ```
 
-### Example 2: Create Playlist
-```
-User: "Create a playlist called 'Learning Python'"
-Claude: I'll create that playlist.
-- Navigate to Library
-- Click Create playlist
-- Name it "Learning Python"
-- Set privacy to private or public
-- Confirm creation
-```
-
-### Example 3: Manage Subscriptions
-```
-User: "Subscribe to this channel"
-Claude: I'll subscribe to the channel.
-- Navigate to channel page
-- Click Subscribe button
-- Enable notifications if requested
-- Confirm subscription
+**Output (stdout JSON):**
+```json
+{
+  "success": true,
+  "video_id": "abc123",
+  "filepath": "Database/Bookmarks/youtube-abc123.md",
+  "url": "https://youtu.be/abc123",
+  "title": "Video Title",
+  "cached": false  // True if existing valid transcript was found
+}
 ```
 
-### Example 4: Check Subscription Feed
-```
-User: "Show me new videos from my subscriptions"
-Claude: I'll check your subscriptions.
-- Navigate to Subscriptions page
-- List recent uploads
-- Present videos with titles and channels
-- Note which are new since last check
-```
+**Key features:**
+- **Checks cache first** - if bookmark exists with valid transcript, returns immediately
+- Only re-fetches if bookmark doesn't exist, has empty/failed transcript, or `force: true`
+- Concatenates transcript segments into continuous text
+- Creates properly formatted bookmark markdown with frontmatter
+- Automatically creates `Database/Bookmarks` directory if needed
+- Returns only metadata (not full transcript) to avoid context pollution
+- `cached` flag indicates whether existing bookmark was used
 
-## Authentication Flow
-1. Navigate to youtube.com via Playwright MCP
-2. Sign in with Google credentials from canifi-env
-3. Handle 2FA if enabled (notify user via iMessage)
-4. Verify home page access
-5. Maintain session cookies
+### scripts/youtube_utils.py
 
-## Error Handling
-- **Login Failed**: Retry Google sign-in flow
-- **Session Expired**: Re-authenticate automatically
-- **2FA Required**: iMessage for verification code
-- **Video Unavailable**: Check region or privacy restrictions
-- **Playlist Error**: Verify ownership and permissions
-- **Rate Limited**: Implement backoff
-- **Age Restricted**: May need verification
-- **Channel Not Found**: Verify channel name
+Python utility module providing URL manipulation functions:
 
-## Self-Improvement Instructions
-When encountering new YouTube features:
-1. Document new UI elements
-2. Add support for new video types
-3. Log successful playlist patterns
-4. Update for YouTube changes
+**URL utilities:**
+- `extract_video_id(url)`: Extract video ID from any YouTube URL format
+- `clean_youtube_url(url)`: Convert any URL to clean `https://youtu.be/<id>` form
 
-## Notes
-- YouTube Studio is separate skill for creators
-- Playlists can be public, unlisted, or private
-- Subscription notifications are optional
-- Premium features require subscription
-- Some videos are region-locked
-- Comments may be disabled on videos
-- Watch history affects recommendations
+The script is self-contained and can be executed directly for testing URL cleaning functionality.
+
+## Best Practices
+
+1. **Always clean URLs** when YouTube links are pasted or referenced to canonical short form
+2. **Check cache first** before fetching transcripts to avoid redundant API calls
+3. **Save transcripts to Bookmarks** using `save_transcript.py` to avoid context pollution
+4. **DO NOT output full transcript** in chat - only inform user of saved/cached location
+5. **Use English by default** for transcripts unless user specifies otherwise
+6. **Handle multiple videos efficiently** - the Bookmarks approach allows processing many videos without context overflow
+7. **Inform user clearly** whether transcript was fetched or loaded from cache
+8. **Retry failed transcripts** - empty/failed transcripts are not cached and will be retried
+9. **Use `force: true`** only when user explicitly wants to re-fetch existing transcripts

@@ -1,7 +1,7 @@
 {
   "name": "agents",
-  "repo": "randlee/synaptic-canvas",
-  "path": ".claude/agents/marketplace-management-skill.md",
-  "source": "github.com/randlee/synaptic-canvas",
-  "downloaded_at": "2026-01-29T03:08:00.609831Z"
+  "repo": "netresearch/agents-skill",
+  "path": "skills/agents/SKILL.md",
+  "source": "github.com/netresearch/agents-skill",
+  "downloaded_at": "2026-01-30T03:41:31.404156Z"
 }

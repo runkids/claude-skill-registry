@@ -1,9 +1,7 @@
 {
   "name": "mobile-debugging",
-  "description": "Expert in debugging React Native and Expo mobile applications. Covers React DevTools, Flipper, Chrome DevTools, network debugging, crash analysis, error boundaries, debugging native modules, remote de",
   "repo": "anton-abyzov/specweave",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/specweave-mobile/skills/mobile-debugging/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-30T01:38:33.061370Z"
 }

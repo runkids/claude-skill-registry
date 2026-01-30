@@ -1,9 +1,7 @@
 {
   "name": "docker-hadolint",
-  "description": "Docker & Hadolint - Atoll Tourisme. Use when working with Docker or containers.",
   "repo": "TheBeardedBearSAS/claude-craft",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "Dev/i18n/pt/Symfony/skills/docker-hadolint/SKILL.md",
+  "source": "github.com/TheBeardedBearSAS/claude-craft",
+  "downloaded_at": "2026-01-30T03:17:21.240464Z"
 }

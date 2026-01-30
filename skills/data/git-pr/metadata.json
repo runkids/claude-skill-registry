@@ -1,7 +1,7 @@
 {
   "name": "git-pr",
-  "repo": "eleva-labs/agentic-coding-templates",
-  "path": ".claude/skills/shared/git-pr/SKILL.md",
-  "source": "github.com/eleva-labs/agentic-coding-templates",
-  "downloaded_at": "2026-01-29T04:27:29.703089Z"
+  "repo": "toilahuongg/Shopify-Agents-Kit",
+  "path": ".claude/skills/git-pr/SKILL.md",
+  "source": "github.com/toilahuongg/Shopify-Agents-Kit",
+  "downloaded_at": "2026-01-30T03:20:38.134719Z"
 }

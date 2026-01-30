@@ -1,12 +1,7 @@
 {
   "name": "debugging-patterns",
-  "description": "DO NOT invoke directly - loaded by workflow agents via cc10x-router.Always loaded by: bug-investigator, integration-verifier.Provides systematic debugging patterns: LOG FIRST approach, root cause inve",
-  "repo": "romiluz13/cc10x",
-  "category": "development",
-  "tags": [
-    "debugging",
-    "patterns"
-  ],
-  "stars": 19,
-  "source": "SkillsMP Synced Skills"
+  "repo": "LimaTechnologies/admin-telegram-bot",
+  "path": ".claude/skills/debugging-patterns/SKILL.md",
+  "source": "github.com/LimaTechnologies/admin-telegram-bot",
+  "downloaded_at": "2026-01-30T03:37:20.169092Z"
 }

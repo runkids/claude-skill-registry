@@ -1,14 +1,7 @@
 {
   "name": "building-mcp-server-on-cloudflare",
-  "description": "Builds remote MCP (Model Context Protocol) servers on Cloudflare Workerswith tools, OAuth authentication, and production deployment. Generatesserver code, configures auth providers, and deploys to Wor",
-  "repo": "cloudflare/skills",
-  "category": "development",
-  "tags": [
-    "building",
-    "mcp",
-    "server",
-    "cloudflare"
-  ],
-  "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "repo": "CommandCodeAI/agent-skills",
+  "path": "skills/building-mcp-server-on-cloudflare/SKILL.md",
+  "source": "github.com/CommandCodeAI/agent-skills",
+  "downloaded_at": "2026-01-30T04:14:02.177826Z"
 }

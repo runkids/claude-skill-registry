@@ -1,153 +1,324 @@
 ---
 name: feature-dev
-description: Implement JIRA issues with TDD workflow and multi-agent collaboration. Use when user provides a JIRA issue ID (e.g., "Implement VIBE-123", "Work on TRA-9", "Build DEV-456"). Orchestrates planner, designer, developer, tester, reviewer, and writer agents in sequence.
+description: Automate 7-phase feature development with specialized agents (code-explorer, code-architect, code-reviewer). Use for multi-file features, architectural decisions, or encountering ambiguous requirements, integration patterns, design approach errors.
+
+  Keywords: feature development, code exploration, architecture design, code review, workflow automation, slash command, agents, discovery phase, implementation planning, quality review
+license: MIT
+allowed-tools: ["Read", "Write", "Edit", "Bash", "Task"]
+metadata:
+  version: 1.0.0
+  author: Sid Bidasaria
+  agents:
+    - code-explorer
+    - code-architect
+    - code-reviewer
 ---
 
 # Feature Development Workflow
 
-Implement JIRA issues using test-driven development with specialized agents. Execute phases in strict sequential order.
+A comprehensive, structured workflow for feature development with specialized agents for codebase exploration, architecture design, and quality review.
 
-## Phase 1: Context Gathering
+## Quick Start
 
-**Step 1.1: Fetch JIRA Issue**
-```
-Use mcp__atlassian__getJiraIssue to fetch the issue details.
-Extract: summary, description, acceptance criteria, linked Confluence pages.
-```
+Launch the guided feature development workflow:
 
-**Step 1.2: Interview for Missing Context**
-```
-Use Skill tool with skill="interview" to gather additional requirements.
-Skip if acceptance criteria are comprehensive.
+```bash
+/feature-dev Add user authentication with OAuth
 ```
 
-**Step 1.3: Update JIRA Status**
-```
-Use mcp__atlassian__transitionJiraIssue to move issue to "In Progress".
-First call getTransitionsForJiraIssue to get available transition IDs.
+Or interactively:
+
+```bash
+/feature-dev
 ```
 
-## Phase 2: Planning
+The workflow will guide you through 7 distinct phases automatically.
 
-**Step 2.1: Create Implementation Plan**
-```
-Use Task tool with subagent_type="planner".
-Prompt: "Create implementation plan for [issue summary]. Requirements: [acceptance criteria]"
-```
+## Overview
 
-**Step 2.2: Save Plan to Memory**
-```
-Use mcp__memory__create_entities to store the plan.
-Entity type: "FeaturePlan", name: "[ISSUE-ID]-plan"
-```
+Building features requires more than just writing code. This skill provides a systematic approach that:
+- **Understands the codebase** before making changes
+- **Asks clarifying questions** to resolve ambiguities
+- **Designs thoughtfully** with multiple architecture options
+- **Reviews for quality** after implementation
 
-**Step 2.3: User Confirmation**
-```
-Present the plan summary to user.
-Use AskUserQuestion: "Ready to proceed with implementation?"
-STOP if user wants changes.
-```
+## The 7-Phase Workflow
 
-## Phase 3: Implementation (TDD)
+### Phase 1: Discovery
+**Goal**: Understand what needs to be built
 
-**Step 3.1: Write Tests First**
-```
-Use Task tool with subagent_type="tester".
-Prompt: "Write test cases for [feature]. Requirements: [from plan]. Write failing tests first."
-```
+- Clarifies unclear feature requests
+- Identifies problem, constraints, and requirements
+- Summarizes understanding and confirms with user
 
-**Step 3.2: UI Design (if frontend work)**
+**Example**:
 ```
-Use Task tool with subagent_type="designer".
-Prompt: "Design UI for [feature]. Use Chrome DevTools MCP for reference."
-Only run if feature has UI components.
+User: /feature-dev Add caching
+Agent: Let me understand what you need...
+       - What should be cached? (API responses, computed values, etc.)
+       - What are your performance requirements?
+       - Do you have a preferred caching solution?
 ```
 
-**Step 3.3: Implement Code**
+### Phase 2: Codebase Exploration
+**Goal**: Understand relevant existing code and patterns
+
+- Launches 2-3 `code-explorer` agents in parallel
+- Explores similar features, architecture, UI patterns
+- Reads all identified files for deep understanding
+- Presents comprehensive summary of findings
+
+**Agents launched**:
+- "Find features similar to [feature] and trace implementation"
+- "Map the architecture and abstractions for [area]"
+- "Analyze current implementation of [related feature]"
+
+**Example output**:
 ```
-Use Task tool with subagent_type="developer".
-Prompt: "Implement [feature] to pass the tests. Follow plan from Phase 2."
+Found similar features:
+- User authentication (src/auth/): Uses JWT tokens, middleware pattern
+- Session management (src/session/): Redis-backed, 24hr expiry
+
+Key files:
+- src/auth/AuthService.ts:45 - Core authentication logic
+- src/middleware/authMiddleware.ts:12 - Request authentication
 ```
 
-**Step 3.4: Verify Tests Pass**
+### Phase 3: Clarifying Questions
+**Goal**: Fill in gaps and resolve all ambiguities
+
+- Reviews codebase findings and feature request
+- Identifies underspecified aspects (edge cases, error handling, integration points)
+- Presents organized list of questions
+- **Waits for answers before proceeding**
+
+**Example**:
 ```
-Run test suite via Bash.
-If tests fail, return to Step 3.3 with failure context.
+Before designing, I need to clarify:
+
+1. OAuth provider: Which providers? (Google, GitHub, custom?)
+2. User data: Store OAuth tokens or just profile?
+3. Existing auth: Replace or add alongside current auth?
+4. Sessions: Integrate with existing session management?
+5. Error handling: How to handle OAuth failures?
 ```
 
-## Phase 4: Review
+**Critical**: Ensures nothing is ambiguous before design begins.
 
-**Step 4.1: Code Review**
-```
-Use Task tool with subagent_type="reviewer".
-Prompt: "Review implementation for [ISSUE-ID]. Check for P1/P2/P3 issues."
-```
+### Phase 4: Architecture Design
+**Goal**: Design multiple implementation approaches
 
-**Step 4.2: Address Review Feedback**
-```
-If reviewer found issues:
-  Use Task tool with subagent_type="developer".
-  Prompt: "Fix review issues: [list from reviewer]"
-Repeat Step 4.1 until no P1/P2 issues remain.
-```
+- Launches 2-3 `code-architect` agents with different focuses:
+  - **Minimal changes**: Smallest change, maximum reuse
+  - **Clean architecture**: Maintainability, elegant abstractions
+  - **Pragmatic balance**: Speed + quality
+- Presents comparison with trade-offs and recommendation
+- **Asks which approach to use**
 
-## Phase 5: Validation
+**Example output**:
+```
+Approach 1: Minimal Changes
+- Extend existing AuthService with OAuth methods
+Pros: Fast, low risk
+Cons: Couples OAuth to existing auth
 
-**Step 5.1: Run Full Validation**
-```
-Execute in sequence:
-1. Run all tests
-2. Run linter
-3. Run type checker
-4. Run build
-All must pass before proceeding.
-```
+Approach 2: Clean Architecture
+- New OAuthService with dedicated interface
+Pros: Clean separation, testable
+Cons: More files, more refactoring
 
-**Step 5.2: User Confirmation**
-```
-Use AskUserQuestion: "Validation passed. Ready to document and commit?"
-Options: "Yes, continue" / "Let me review first" / "Make changes"
+Approach 3: Pragmatic Balance
+- New OAuthProvider abstraction
+Pros: Balanced complexity and cleanliness
+Cons: Some coupling remains
+
+Recommendation: Approach 3 - clean boundaries without excessive refactoring
 ```
 
-## Phase 6: Documentation
+### Phase 5: Implementation
+**Goal**: Build the feature
 
-**Step 6.1: Update Documentation**
-```
-Use Task tool with subagent_type="writer".
-Prompt: "Document [feature] implementation. Update relevant docs."
-```
+- **Waits for explicit approval** before starting
+- Reads all relevant files from previous phases
+- Implements following chosen architecture
+- Follows codebase conventions strictly
+- Updates todos to track progress
 
-## Phase 7: Git Operations
+### Phase 6: Quality Review
+**Goal**: Ensure code is simple, DRY, elegant, and functionally correct
 
-**Step 7.1: Confirm Git Actions**
-```
-Use AskUserQuestion: "Ready for git operations?"
-Options:
-- "Create commits only"
-- "Create commits and PR"
-- "Skip git operations"
-```
+- Launches 3 `code-reviewer` agents in parallel:
+  - **Simplicity/DRY/Elegance**: Code quality
+  - **Bugs/Correctness**: Functional correctness
+  - **Conventions/Abstractions**: Project standards
+- Consolidates findings and identifies high severity issues
+- **Asks what to do**: Fix now, fix later, or proceed as-is
 
-**Step 7.2: Create Commits**
+**Example output**:
 ```
-If user approved:
-1. Stage relevant files
-2. Create logical commits with ISSUE-ID prefix
-Example: "VIBE-123: Add user authentication feature"
-```
+High Priority Issues:
+1. Missing error handling in OAuth callback (src/auth/oauth.ts:67)
+2. Memory leak: OAuth state not cleaned up (src/auth/oauth.ts:89)
 
-**Step 7.3: Create PR**
-```
-If user selected PR creation:
-Use gh pr create with:
-- Title: "[ISSUE-ID] [Summary]"
-- Body: Link to JIRA, summary of changes, test plan
+Medium Priority:
+1. Could simplify token refresh logic (src/auth/oauth.ts:120)
+
+What would you like to do?
 ```
 
-## Enforcement Rules
+### Phase 7: Summary
+**Goal**: Document what was accomplished
 
-- Execute phases 1-7 in order. Never skip phases.
-- Wait for each Task agent to complete before starting the next.
-- Stop and ask user if any phase fails.
-- Always run validation (Phase 5) before documentation (Phase 6).
-- Never auto-commit or auto-push without user confirmation.
+- Marks all todos complete
+- Summarizes what was built, key decisions, files modified
+- Suggests next steps
+
+## Specialized Agents
+
+### code-explorer
+**Purpose**: Deeply analyzes existing codebase features by tracing execution paths
+
+**Focus**:
+- Entry points and call chains
+- Data flow and transformations
+- Architecture layers and patterns
+- Implementation details
+
+**Output**:
+- Entry points with file:line references
+- Step-by-step execution flow
+- Key components and responsibilities
+- Essential files to read
+
+**Triggered**: Automatically in Phase 2, or manually
+
+### code-architect
+**Purpose**: Designs feature architectures and implementation blueprints
+
+**Focus**:
+- Codebase pattern analysis
+- Architecture decisions
+- Component design
+- Implementation roadmap
+
+**Output**:
+- Patterns and conventions found
+- Architecture decision with rationale
+- Complete component design
+- Implementation map with build sequence
+
+**Triggered**: Automatically in Phase 4, or manually
+
+### code-reviewer
+**Purpose**: Reviews code for bugs, quality issues, and project conventions
+
+**Focus**:
+- Project guideline compliance (CLAUDE.md)
+- Bug detection
+- Code quality issues
+- Confidence-based filtering (≥80% confidence only)
+
+**Output**:
+- Critical issues (confidence 75-100)
+- Important issues (confidence 50-74)
+- Specific fixes with file:line references
+
+**Triggered**: Automatically in Phase 6, or manually
+
+## Usage Patterns
+
+### Full workflow (recommended for new features)
+```bash
+/feature-dev Add rate limiting to API endpoints
+```
+
+### Manual agent invocation
+
+**Explore a feature**:
+```
+"Launch code-explorer to trace how authentication works"
+```
+
+**Design architecture**:
+```
+"Launch code-architect to design the caching layer"
+```
+
+**Review code**:
+```
+"Launch code-reviewer to check my recent changes"
+```
+
+## When to Use
+
+**Use for**:
+- New features that touch multiple files
+- Features requiring architectural decisions
+- Complex integrations with existing code
+- Features where requirements are somewhat unclear
+
+**Don't use for**:
+- Single-line bug fixes
+- Trivial changes
+- Well-defined simple tasks
+- Urgent hotfixes
+
+## Best Practices
+
+1. **Use the full workflow for complex features**: The 7 phases ensure thorough planning
+2. **Answer clarifying questions thoughtfully**: Phase 3 prevents future confusion
+3. **Choose architecture deliberately**: Phase 4 gives options for a reason
+4. **Don't skip code review**: Phase 6 catches issues before production
+5. **Read the suggested files**: Phase 2 identifies key files—read them for context
+
+## Common Issues
+
+### Agents take too long
+**Cause**: Normal for large codebases
+**Solution**: Agents run in parallel when possible. Thoroughness pays off in better understanding.
+
+### Too many clarifying questions
+**Cause**: Feature request too vague
+**Solution**: Be more specific in initial request. Provide context about constraints upfront.
+
+### Architecture options overwhelming
+**Cause**: Multiple valid approaches presented
+**Solution**: Trust the recommendation (based on codebase analysis). Pick pragmatic option when in doubt.
+
+## Requirements
+
+- Claude Code installed
+- Git repository (for code review)
+- Existing codebase (workflow learns from existing patterns)
+
+## Tips
+
+- **Be specific in feature request**: More detail = fewer clarifying questions
+- **Trust the process**: Each phase builds on the previous one
+- **Review agent outputs**: Agents provide valuable codebase insights
+- **Don't skip phases**: Each phase serves a purpose
+- **Use for learning**: Exploration phase teaches you about your own codebase
+
+## Verification Checklist
+
+After using the workflow:
+
+- [ ] All 7 phases completed successfully
+- [ ] Clarifying questions answered in Phase 3
+- [ ] Architecture approach selected in Phase 4
+- [ ] Implementation approved before Phase 5 started
+- [ ] Code review findings addressed in Phase 6
+- [ ] Summary generated with next steps in Phase 7
+- [ ] Feature works as expected
+- [ ] Code follows project conventions
+
+## References
+
+For detailed workflow documentation, see `README.md`
+
+For agent specifications, see:
+- `agents/code-explorer.md`
+- `agents/code-architect.md`
+- `agents/code-reviewer.md`
+
+For slash command implementation, see `commands/feature-dev.md`

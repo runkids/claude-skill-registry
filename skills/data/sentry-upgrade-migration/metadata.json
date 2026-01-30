@@ -1,9 +1,7 @@
 {
   "name": "sentry-upgrade-migration",
-  "description": "Upgrade Sentry SDK and migrate between versions.Use when upgrading Sentry SDK, handling breaking changes,or migrating from legacy versions.Trigger with phrases like \"upgrade sentry\", \"sentry migration",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/sentry-upgrade-migration/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-30T04:24:30.228319Z"
 }

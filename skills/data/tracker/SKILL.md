@@ -1,384 +1,340 @@
 ---
-name: Milestone Tracker
-slug: milestone-tracker
-description: Track project milestones with progress monitoring, deadline management, and stakeholder communication
-category: project
-complexity: simple
-version: "1.0.0"
-author: "ID8Labs"
-triggers:
-  - "track milestones"
-  - "milestone progress"
-  - "check milestones"
-  - "milestone status"
-  - "update milestone"
-tags:
-  - milestones
-  - tracking
-  - deadlines
-  - progress
-  - reporting
+name: tracker
+description: Portfolio-level project tracker for ID8Labs. Tracks all projects through lifecycle states, enforces stage gates, calculates decay, and coordinates review rituals. The nervous system of the ID8Labs pipeline.
+version: 1.0.0
+mcps: [Memory]
 ---
 
-# Milestone Tracker
+# ID8TRACKER - Pipeline Nervous System
 
-The Milestone Tracker skill helps teams define, track, and communicate progress on key project milestones. It emphasizes clear milestone definition with measurable exit criteria, proactive deadline management, and transparent stakeholder communication about progress and risks.
+## Purpose
 
-This skill excels at breaking projects into meaningful checkpoints, tracking progress toward milestones, identifying potential delays early, and maintaining stakeholder confidence through regular status updates and data-driven reporting.
+Track all ID8Labs projects from idea capture through exit. Enforce quality gates, calculate activity decay, trigger review rituals, and generate portfolio dashboards.
 
-Milestone Tracker follows the principle that projects need clear markers of progress. Well-defined milestones provide direction, enable course correction, and build trust through visible achievement.
+---
 
-## Core Workflows
+## Lifecycle States
 
-### Workflow 1: Define Project Milestones
+```
+CAPTURED → VALIDATING → VALIDATED → ARCHITECTING → BUILDING → LAUNCHING → GROWING → OPERATING → EXITING → EXITED
+```
 
-**Steps:**
-1. **Review Project Scope**
-   - Understand project goals and deliverables
-   - Identify key phases and decision points
-   - Map to ID8Pipeline stages if applicable
-   - Consider stakeholder expectations
+### Special States
+- **ICE** - Intentionally frozen, decay paused
+- **KILLED** - Failed/abandoned with lessons logged (terminal)
+- **ARCHIVED** - Successfully completed (terminal)
 
-2. **Identify Major Checkpoints**
-   - Critical deliverables or achievements
-   - Decision gates (go/no-go points)
-   - Integration points with other projects
-   - Release or launch events
-   - Typically 5-10 milestones per project
+---
 
-3. **Write Milestone Definitions**
-   - **Name**: Clear, descriptive title
-   - **Description**: What is accomplished
-   - **Exit Criteria**: Measurable conditions for completion
-   - **Deliverables**: Specific artifacts or outcomes
-   - **Owner**: Person responsible for driving to completion
-   - **Target Date**: When should this be achieved
-   - **Dependencies**: What must be done first
+## Commands
 
-4. **Sequence Milestones**
-   - Order by logical flow and dependencies
-   - Ensure even distribution across timeline
-   - Avoid clustering too many at end
-   - Build in review points after major work
+### `/tracker status [project-slug]`
 
-5. **Set Success Metrics**
-   - How will we measure milestone achievement?
-   - Quality gates (tests passing, reviews complete)
-   - Acceptance criteria from stakeholders
-   - Documentation or demo requirements
+**No argument:** Show portfolio dashboard
+**With argument:** Show detailed project card
 
-**Output:** Milestone roadmap with clear definitions and criteria.
+**Process:**
+1. If no argument, read all project cards from `.id8labs/projects/active/`
+2. Calculate decay for each project
+3. Generate dashboard using `templates/dashboard.md`
+4. Highlight any projects in warning (50-79%) or critical (80%+) decay
 
-### Workflow 2: Track Milestone Progress
+### `/tracker new <project-slug> <project-name>`
 
-**Weekly:**
-1. **Assess Current Milestone**
-   - Review exit criteria checklist
-   - Calculate percentage complete
-   - Identify completed deliverables
-   - Note blockers or risks
+Create a new project in CAPTURED state.
 
-2. **Update Timeline**
-   - On track, at risk, or delayed?
-   - Confidence level in target date (high/medium/low)
-   - If at risk, estimate new completion date
-   - Adjust downstream milestone dates if needed
+**Process:**
+1. Generate project card from `templates/project-card.md`
+2. Set state to CAPTURED, created/last_activity to today
+3. Save to `.id8labs/projects/active/{slug}.md`
+4. Confirm creation with summary
 
-3. **Review Next Milestone**
-   - Prep work started?
-   - Dependencies being resolved?
-   - Resources allocated?
-   - Any early concerns?
+### `/tracker update <project-slug> <new-state>`
 
-4. **Document Progress**
-   - Update milestone tracker
-   - Log key achievements
-   - Note decisions made
-   - Capture lessons learned
+Transition project to new state.
 
-**Monthly:**
-1. Full milestone roadmap review
-2. Compare actual vs. planned progress
-3. Analyze velocity and trends
-4. Communicate status to stakeholders
+**Process:**
+1. Load project card
+2. Verify transition is valid (see `frameworks/project-states.md`)
+3. Check gate requirements (see `frameworks/stage-gates.md`)
+4. If gate passed:
+   - Update state
+   - Reset decay (state_entered = today)
+   - Log transition in state history
+   - Save project card
+5. If gate blocked:
+   - List unmet requirements
+   - Suggest actions to close gaps
 
-### Workflow 3: Manage Milestone at Risk
+### `/tracker ice <project-slug> [reason]`
 
-**When milestone is in danger of missing deadline:**
+Freeze a project. Decay stops.
 
-1. **Analyze Root Cause**
-   - Scope underestimated?
-   - Resources insufficient?
-   - Dependencies delayed?
-   - Priorities shifted?
-   - Technical challenges?
+**Process:**
+1. Load project card
+2. Record previous state and freeze date
+3. Set state to ICE
+4. Log reason (required if not provided, prompt for it)
+5. Move file to `.id8labs/projects/ice/`
+6. Confirm freeze
 
-2. **Evaluate Options**
-   - **Accelerate**: Add resources, reduce distractions
-   - **Descope**: Cut non-essential deliverables
-   - **Extend**: Push deadline (impact on downstream?)
-   - **Escalate**: Get leadership help removing blockers
+### `/tracker thaw <project-slug>`
 
-3. **Make Decision**
-   - Choose approach with stakeholder input
-   - Document trade-offs and rationale
-   - Update milestone definition if scope changes
-   - Revise timeline if extending
+Revive a frozen project.
 
-4. **Communicate Proactively**
-   - Notify stakeholders immediately (no surprises)
-   - Explain situation and root cause
-   - Present options and recommendation
-   - Set new expectations clearly
+**Process:**
+1. Load project from `.id8labs/projects/ice/`
+2. Run revival questions (see `frameworks/decay-mechanics.md` REVIVAL section)
+3. Restore to previous state
+4. Reset decay timer
+5. Move file to `.id8labs/projects/active/`
+6. Confirm revival with recommitment
 
-5. **Execute Recovery Plan**
-   - Implement chosen option
-   - Monitor daily instead of weekly
-   - Remove blockers aggressively
-   - Keep stakeholders updated
+### `/tracker kill <project-slug> [reason]`
 
-**Output:** Recovery plan with revised timeline and stakeholder alignment.
+Terminate a project permanently.
 
-### Workflow 4: Milestone Completion
+**Process:**
+1. Load project card
+2. Prompt for lessons learned if not provided
+3. Set state to KILLED
+4. Log reason and lessons
+5. Move to `.id8labs/projects/archive/`
+6. Confirm kill with lessons summary
 
-**When milestone is achieved:**
+### `/tracker log <project-slug> <activity>`
 
-1. **Verify Exit Criteria**
-   - Check all criteria met
-   - Review deliverables for completeness
-   - Get stakeholder approval if needed
-   - Ensure documentation complete
+Log activity to a project. Resets decay timer.
 
-2. **Celebrate Achievement**
-   - Acknowledge team effort
-   - Share accomplishment widely
-   - Take moment to appreciate progress
-   - Recognize key contributors
+**Process:**
+1. Load project card
+2. Add activity to activity log with timestamp
+3. Update last_activity to today
+4. Save project card
+5. Confirm log entry
 
-3. **Document Completion**
-   - Mark milestone as complete
-   - Record actual completion date
-   - Note variance from plan (early/late)
-   - Capture lessons learned
+### `/tracker pulse`
 
-4. **Transition to Next**
-   - Handoff deliverables to next phase
-   - Brief team on next milestone
-   - Confirm resources and timeline
-   - Address any gaps or dependencies
+Daily 2-minute pulse check.
 
-5. **Report to Stakeholders**
-   - Send milestone completion update
-   - Share relevant artifacts or demos
-   - Highlight next milestone and timeline
-   - Build confidence and momentum
+**Process:**
+1. Load all active projects
+2. Calculate decay for each
+3. Use `rituals/daily-pulse.md` format
+4. Show:
+   - Any critical (80%+) projects
+   - Any warnings (50-79%)
+   - Recommended focus for today
+   - Quick wins available
 
-## Quick Reference
+### `/tracker review`
 
-| Action | Command/Trigger |
-|--------|-----------------|
-| Create milestones | "define milestones for [project]" |
-| Track progress | "milestone status" |
-| Update milestone | "update [milestone name]" |
-| Check timeline | "are we on track" |
-| Milestone report | "milestone progress report" |
-| Mark complete | "complete milestone [name]" |
-| At-risk milestones | "show at-risk milestones" |
-| Next milestone | "what's the next milestone" |
+Weekly 15-minute review.
 
-## Best Practices
+**Process:**
+1. Load all projects (active + ice)
+2. Calculate metrics
+3. Use `rituals/weekly-review.md` format
+4. Walk through each active project:
+   - Progress since last review
+   - Blockers
+   - Gate readiness
+5. Generate recommendations
 
-- **Make milestones meaningful**: Each should represent significant progress, not arbitrary dates
-- **Define clear exit criteria**: Vague milestones lead to endless debates about "done"
-- **Limit quantity**: 5-10 milestones per project; too many creates tracking overhead
-- **Distribute evenly**: Avoid bunching milestones; aim for regular checkpoints
-- **Name descriptively**: "API Integration Complete" not "Milestone 3"
-- **Assign single owner**: One person drives to completion (team can help)
-- **Build in validation**: Include demo, review, or test as part of exit criteria
-- **Communicate proactively**: Update stakeholders on status, don't wait for them to ask
-- **Track honestly**: Don't sugarcoat; better to surface risk early than miss deadline
-- **Celebrate completions**: Recognize progress to maintain morale and momentum
-- **Learn from variance**: If milestone late, understand why to improve future estimates
-- **Update regularly**: Stale milestone trackers are useless; review weekly minimum
+### `/tracker strategy`
 
-## Milestone Types
+Monthly 30-minute strategy session.
 
-### Delivery Milestones
-**Focus**: Shipping concrete deliverables
-**Examples**:
-- MVP Released to Beta Users
-- API V2 Launched to Production
-- Mobile App Submitted to App Store
-- Documentation Published
+**Process:**
+1. Load entire portfolio (active + ice + recent archive)
+2. Use `rituals/monthly-strategy.md` format
+3. Portfolio health analysis
+4. Stage distribution
+5. Ice box cleanup decisions
+6. Pattern recognition
+7. Next month intentions
 
-**Exit Criteria**: Deployed, tested, accessible to target audience
+### `/tracker dashboard`
 
-### Decision Milestones
-**Focus**: Key choices or approvals
-**Examples**:
-- Tech Stack Selected
-- Design Approved
-- Go/No-Go Decision Made
-- Funding Secured
+Regenerate the DASHBOARD.md file.
 
-**Exit Criteria**: Decision documented, stakeholders aligned
+**Process:**
+1. Load all projects
+2. Calculate all metrics
+3. Use `templates/dashboard.md`
+4. Write to `.id8labs/dashboard/DASHBOARD.md`
+5. Confirm generation
 
-### Integration Milestones
-**Focus**: Connecting components or systems
-**Examples**:
-- Frontend Integrated with Backend
-- Third-Party Payment Gateway Connected
-- All Services Communicating
-- Data Migration Complete
+### `/tracker gates <project-slug>`
 
-**Exit Criteria**: Integration tested, data flowing correctly
+Show gate requirements for next transition.
 
-### Quality Milestones
-**Focus**: Meeting quality or readiness standards
-**Examples**:
-- 80% Test Coverage Achieved
-- Security Audit Passed
-- Performance Targets Met
-- SOC 2 Certification Obtained
+**Process:**
+1. Load project card
+2. Identify current state and target state
+3. Load requirements from `frameworks/stage-gates.md`
+4. Show checklist with current completion status
 
-**Exit Criteria**: Metrics measured, thresholds met
+### `/tracker gate-pass <project-slug> <requirement>`
 
-### Learning Milestones
-**Focus**: Research, validation, or proof of concept
-**Examples**:
-- Technical Spike Complete
-- User Research Findings Delivered
-- Proof of Concept Validated
-- Market Analysis Finished
+Mark a gate requirement as met.
 
-**Exit Criteria**: Insights documented, recommendation made
+**Process:**
+1. Load project card
+2. Add requirement to gates_passed array
+3. Save project card
+4. Show updated gate status
 
-## Milestone Definition Template
+---
+
+## Decay Calculation
+
+```
+decay_percent = (days_since_last_activity / state_max_duration) * 100
+```
+
+### Decay Windows by State
+
+| State | Warning (50%) | Critical (80%) | Freeze (100%) |
+|-------|---------------|----------------|---------------|
+| CAPTURED | 7 days | 11 days | 14 days |
+| VALIDATING | 15 days | 24 days | 30 days |
+| VALIDATED | 10 days | 17 days | 21 days |
+| ARCHITECTING | 7 days | 11 days | 14 days |
+| BUILDING | 45 days | 72 days | 90 days |
+| LAUNCHING | 10 days | 17 days | 21 days |
+| GROWING | 90 days | 144 days | 180 days |
+| OPERATING | - | - | No decay |
+| EXITING | 30 days | 48 days | 60 days |
+
+### What Resets Decay
+- Invoking any ID8Labs skill for the project
+- Manual `/tracker log` entry
+- State transition via `/tracker update`
+- Completing a gate requirement
+
+---
+
+## Integration with Other Skills
+
+When other ID8Labs skills complete work, they MUST log to tracker:
 
 ```markdown
-## Milestone: [Descriptive Name]
+## Handoff Pattern
 
-**Description**: [1-2 sentences explaining what is accomplished]
-
-**Target Date**: [Date]
-**Owner**: [Name]
-**Status**: Not Started | In Progress | At Risk | Complete
-**Confidence**: High | Medium | Low
-
-**Exit Criteria**:
-- [ ] Criterion 1 (measurable)
-- [ ] Criterion 2 (measurable)
-- [ ] Criterion 3 (measurable)
-
-**Key Deliverables**:
-- Deliverable 1
-- Deliverable 2
-
-**Dependencies**:
-- Upstream: [What must be done first]
-- Downstream: [What depends on this]
-
-**Success Metrics**:
-- Metric 1: Target value
-- Metric 2: Target value
-
-**Risks**:
-- Risk 1: Mitigation plan
-- Risk 2: Mitigation plan
-
-**Notes**: [Any additional context]
+After skill completion:
+1. Save skill outputs
+2. Call: /tracker log {project-slug} "{skill-name}: {summary}"
+3. If state transition appropriate, suggest: /tracker update {project-slug} {new-state}
 ```
 
-## Progress Calculation Methods
+### Example Integration Points
 
-### Percentage Complete
+| Skill Completes | Log Message | Suggested Transition |
+|-----------------|-------------|---------------------|
+| scout (BUILD) | "Scout: Validation complete - BUILD verdict" | VALIDATING → VALIDATED |
+| scout (KILL) | "Scout: Validation complete - KILL verdict" | → KILLED |
+| architect | "Architect: Architecture doc complete" | VALIDATED → ARCHITECTING |
+| launch | "Launch: Product launched to {channel}" | BUILDING → LAUNCHING |
+| growth | "Growth: Experiment {name} completed" | (no transition, activity log) |
+| ops | "Ops: SOP created for {process}" | GROWING → OPERATING |
+| exit | "Exit: Exit memo drafted" | OPERATING → EXITING |
+
+---
+
+## Memory MCP Integration
+
+Use Memory MCP to store portfolio-level learnings:
+
 ```
-Method 1: Deliverables-based
-  Complete % = (Completed Deliverables / Total Deliverables) × 100
-
-Method 2: Criteria-based
-  Complete % = (Met Exit Criteria / Total Exit Criteria) × 100
-
-Method 3: Time-based (use cautiously)
-  Complete % = (Elapsed Time / Estimated Total Time) × 100
-```
-
-**Best practice**: Combine methods for holistic view.
-
-### Health Status
-
-**On Track (Green)**:
-- Exit criteria being met on schedule
-- No significant blockers
-- High confidence in target date
-
-**At Risk (Yellow)**:
-- Some criteria behind schedule
-- Blockers identified with mitigation
-- Medium confidence, may slip 1-2 weeks
-
-**Delayed (Red)**:
-- Significantly behind schedule
-- Critical blockers without clear resolution
-- Low confidence, will miss target date
-
-## Milestone Communication Cadence
-
-| Audience | Frequency | Format | Content |
-|----------|-----------|--------|---------|
-| **Executive Team** | Monthly | Dashboard + summary | High-level progress, risks, decisions needed |
-| **Stakeholders** | Bi-weekly | Email update | Current status, upcoming milestones, blockers |
-| **Product Team** | Weekly | Standup or Slack | Detailed progress, next steps, help needed |
-| **Engineering Team** | Daily | Task board | Specific deliverables, completion status |
-
-## Stakeholder Report Template
-
-```markdown
-# Milestone Progress Report - [Project Name]
-
-**Report Date**: [Date]
-**Reporting Period**: [Start] to [End]
-
-## Executive Summary
-[2-3 sentence project status overview]
-
-## Completed Milestones
-- **[Milestone Name]** - Completed [Date]
-  - Key achievements
-  - Lessons learned
-
-## Current Milestone: [Name]
-- **Target Date**: [Date]
-- **Status**: On Track | At Risk | Delayed
-- **% Complete**: [X]%
-- **Key Activities This Period**: [Bullets]
-- **Blockers/Risks**: [If any]
-
-## Upcoming Milestones
-1. **[Milestone Name]** - Target: [Date]
-   - Status: [Summary]
-
-## Decisions Needed
-- Decision 1: [Context and options]
-
-## Overall Project Health
-- **Schedule**: Green | Yellow | Red
-- **Scope**: Green | Yellow | Red
-- **Resources**: Green | Yellow | Red
-- **Quality**: Green | Yellow | Red
-
-## Next Steps
-- Action 1
-- Action 2
+Create entities for:
+- Successful patterns (what works)
+- Kill post-mortems (what failed)
+- Review insights (strategic observations)
+- Velocity benchmarks (how long things take)
 ```
 
-## Integration Points
+Query Memory when:
+- Starting a new project (recall similar patterns)
+- Hitting a blocker (check if solved before)
+- Completing a stage (log learnings)
 
-- **Project Planner**: Derives milestones from project plan
-- **Sprint Planner**: Aligns sprint goals with milestone targets
-- **Task Manager**: Breaks milestones into tasks
-- **Risk Assessor**: Flags at-risk milestones
-- **Stakeholder Communication**: Automates milestone reports
-- **GitHub**: Links milestones to issues and PRs
-- **Calendar**: Milestone deadline reminders
-- **Dashboards**: Visual milestone progress tracking
+---
+
+## Health Status Indicators
+
+| Symbol | Status | Decay Range | Action |
+|--------|--------|-------------|--------|
+| 🟢 | Healthy | 0-49% | None needed |
+| 🟡 | Warning | 50-79% | Surface in pulse |
+| 🔴 | Critical | 80-99% | Escalate in review |
+| ⛔ | Frozen | 100% | Block transitions |
+| ❄️ | Ice | N/A | Intentionally paused |
+| ⚰️ | Killed | N/A | Terminal |
+| ✅ | Archived | N/A | Complete |
+
+---
+
+## File Operations
+
+### Reading Projects
+```
+Active: .id8labs/projects/active/*.md
+Ice: .id8labs/projects/ice/*.md
+Archive: .id8labs/projects/archive/*.md
+```
+
+### Writing Projects
+- Parse YAML frontmatter for structured data
+- Preserve markdown content
+- Update timestamps on every write
+
+### Dashboard Location
+```
+.id8labs/dashboard/DASHBOARD.md
+```
+
+---
+
+## Error Handling
+
+| Error | Response |
+|-------|----------|
+| Project not found | List available projects, suggest `/tracker new` |
+| Invalid state transition | Explain valid transitions, show current state |
+| Gate blocked | List unmet requirements with suggestions |
+| Missing required field | Prompt for the field |
+| File write error | Report error, suggest manual check |
+
+---
+
+## Reminder Configuration
+
+Settings stored in `.id8labs/config/settings.yaml`:
+
+```yaml
+reminders:
+  pulse_frequency: daily    # daily, every-other-day, off
+  review_frequency: weekly  # weekly, biweekly, off
+  strategy_frequency: monthly
+
+nudge_style: direct         # gentle, direct, aggressive
+
+decay:
+  warn_threshold: 50
+  critical_threshold: 80
+  freeze_threshold: 100
+```
+
+---
+
+## Changelog
+
+### v1.0.0 (2025-12-21)
+- Initial release
+- Full lifecycle state machine
+- Decay mechanics with configurable windows
+- Gate verification system
+- Review rituals (daily/weekly/monthly)
+- Dashboard generation
+- Memory MCP integration for learnings

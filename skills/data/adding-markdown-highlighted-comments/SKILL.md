@@ -9,7 +9,7 @@ description: Use when adding responses to markdown documents with user-highlight
 
 Add AI responses to markdown documents using standardized highlighted markup that tracks authorship, timestamps, and relationships between comments.
 
-**Core principle:** Marks go INSIDE markdown formatting. Each line/paragraph gets separate marks. Code blocks get one mark wrapping the entire block including fences.
+**Core principle:** Marks go INSIDE markdown formatting. Each line/paragraph gets separate marks. Code blocks are NEVER wrapped in marks (prevents rendering issues).
 
 ## When to Use
 
@@ -114,28 +114,38 @@ Second paragraph here.</mark>**
 <mark ...>• Item title - description</mark>
 ```
 
-### Rule 3: Code Blocks - Single Mark for Entire Block
+### Rule 3: Code Blocks - NEVER Wrap in Marks
+
+**Code blocks must NEVER be wrapped in `<mark>` tags. This breaks markdown rendering.**
 
 ```markdown
-✅ CORRECT:
+✅ CORRECT - No marks on code blocks:
+```typescript
+function example() {
+  return true;
+}
+```
+
+❌ WRONG - Wrapping code block breaks rendering:
 <mark ...>```typescript
 function example() {
   return true;
 }
+
 ```</mark>
 
-❌ WRONG:
-```text
-(marks inside code block content)
+❌ WRONG - Marks inside code block:
 ```typescript
 <mark ...>function example() {
   return true;
 }</mark>
 ```
 
-```text
+**Why:** Wrapping code blocks in `<mark>` tags strips the code block presentation in Obsidian and other markdown renderers, turning formatted code into plain text.
 
-**For code blocks:** Wrap entire block including fence markers. Do NOT put marks inside the code content.
+**What to do instead:** Place code blocks in your response WITHOUT any mark tags. The code block will still be part of your response within the group delimiters.
+
+**Note about inline code:** Inline code (single backticks like `function()`) within sentences SHOULD be marked as part of the sentence: **<mark>Use the `validateEmail()` function.</mark>** This rule applies only to code blocks (triple backticks).
 
 ### Rule 4: No Spaces Between Adjacent Marks
 
@@ -171,7 +181,7 @@ Place your response:
 | `class="claude-response"` | Use `class="model-highlight"` exactly |
 | `**<mark>text</mark>**` | Put mark inside: `**<mark>text</mark>**` |
 | Multi-paragraph single mark | Create separate mark per paragraph |
-| Code mark inside fences | Wrap entire block including ``` markers |
+| Wrapping code blocks in marks | Never wrap code blocks - breaks rendering |
 | Missing group delimiters | Always add `<!-- group-id:... -->` wrapping |
 | Inventing attributes | Only use the 6 required attributes |
 
@@ -181,7 +191,7 @@ Place your response:
 1. ☐ Group delimiters with matching group-id
 2. ☐ Each line/paragraph has separate mark tags
 3. ☐ Marks INSIDE markdown formatting (bold, italic, bullets)
-4. ☐ Code blocks: single mark wrapping entire block + fences
+4. ☐ Code blocks: NEVER wrap in marks (prevents rendering issues)
 5. ☐ All 6 required attributes on every mark
 6. ☐ `class="model-highlight"` (not any other variation)
 7. ☐ No spaces between adjacent mark tags
@@ -218,14 +228,14 @@ Place your response:
 
 **<mark class="model-highlight" data-model="claude-sonnet-4-20250514" data-created="2025-01-06T10:30:05" data-modified="2025-01-06T10:30:05" data-id="mark-1736163005-def" data-group-id="response-202501061030">Answer to question 2 here.</mark>**
 
-<mark class="model-highlight" data-model="claude-sonnet-4-20250514" data-created="2025-01-06T10:30:10" data-modified="2025-01-06T10:30:10" data-id="mark-1736163010-ghi" data-group-id="response-202501061030">```typescript
+```typescript
 function handleTokenExpiration() {
   // implementation
 }
-```</mark>
+```
 
 <!-- /group-id:response-202501061030 -->
-```
+```markdown
 
 ## Red Flags - STOP and Fix
 
@@ -236,6 +246,7 @@ If you catch yourself:
 - Creating one mark for multiple paragraphs
 - Using markdown `-` instead of `•` bullet character
 - Putting marks around entire bullet including `•`
+- Wrapping code blocks in `<mark>` tags
 - Putting marks inside code block content
 - Skipping group delimiters "to save time"
 - Inventing new attributes like `data-in-reply-to`
@@ -254,5 +265,8 @@ If you catch yourself:
 | "I'll fix formatting later" | Wrong. Fix now or you'll forget. |
 | "Close enough under pressure" | Wrong. Pressure doesn't excuse violations. |
 | "The skill doesn't apply here" | Wrong. If document has highlights, skill applies. |
+| "Code blocks should be highlighted too" | Wrong. Wrapping breaks rendering. Never wrap code blocks. |
+| "Just this small code snippet" | Wrong. ALL code blocks stay unwrapped, regardless of size. |
+| "It works in my editor" | Wrong. Breaks in Obsidian and other renderers. Never wrap. |
 
 **All of these mean: You're rationalizing. Follow the rules.**

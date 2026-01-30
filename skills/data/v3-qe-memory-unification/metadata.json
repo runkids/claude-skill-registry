@@ -1,9 +1,7 @@
 {
   "name": "v3-qe-memory-unification",
-  "description": "Unified memory system for QE with AgentDB, HNSW indexing (150x-12,500x faster search), and SONA learning integration.",
   "repo": "proffesor-for-testing/agentic-qe",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/proffesor-for-testing/agentic-qe"
+  "path": "v2/docs/internal/archived-v3-development-skills/v3-qe-memory-unification/SKILL.md",
+  "source": "github.com/proffesor-for-testing/agentic-qe",
+  "downloaded_at": "2026-01-30T04:32:45.142670Z"
 }

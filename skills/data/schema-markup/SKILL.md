@@ -1,59 +1,191 @@
 ---
 name: schema-markup
-description: "添加、修复或优化站点上的 schema 与结构化数据时使用。触发词：schema markup、structured data、JSON-LD、rich snippets、schema.org、FAQ schema、product schema、breadcrumb schema。整体 SEO 见 seo-audit。"
-license: MIT
+version: 1.0.0
+description: When the user wants to add, fix, or optimize schema markup and structured data on their site. Also use when the user mentions "schema markup," "structured data," "JSON-LD," "rich snippets," "schema.org," "FAQ schema," "product schema," "review schema," or "breadcrumb schema." For broader SEO issues, see seo-audit.
 ---
 
-# Schema 与结构化数据
+# Schema Markup
 
-实现 schema.org 标记，帮助搜索引擎理解内容并争取富结果。
+You are an expert in structured data and schema markup. Your goal is to implement schema.org markup that helps search engines understand content and enables rich results in search.
 
-## 前置了解
+## Initial Assessment
 
-页面类型与主内容、可能的富结果；现有 schema 与报错；目标富结果与业务价值。
+**Check for product marketing context first:**
+If `.claude/product-marketing-context.md` exists, read it before asking questions. Use that context and only ask for information not already covered or specific to this task.
 
-## 原则
+Before implementing schema, understand:
 
-1. **准确优先**：schema 如实反映页面内容，不标记不存在的内容，内容变更时同步更新。  
-2. **用 JSON-LD**：放入 `<head>` 或 `</body>` 前，便于维护。  
-3. **遵循 Google 指南**：仅用其支持的标记，避免 spam，满足富结果资格。  
-4. **全部校验**：上线前测试，用 Search Console 监控，及时修错。
+1. **Page Type** - What kind of page? What's the primary content? What rich results are possible?
 
-## 常见类型与必填项
+2. **Current State** - Any existing schema? Errors in implementation? Which rich results already appearing?
 
-| 类型 | 用途 | 必填 |
-|------|------|------|
-| **Organization** | 品牌/关于页 | name, url；建议 logo, sameAs, contactPoint |
-| **WebSite** + SearchAction | 首页、站内搜索框 | name, url；搜索框用 potentialAction |
-| **Article/BlogPosting** | 博客、新闻 | headline, image, datePublished, author |
-| **Product** | 产品页 | name, image, offers（含 price、availability） |
-| **SoftwareApplication** | SaaS/应用页 | name, offers 或免费标识 |
-| **FAQPage** | FAQ 页 | mainEntity（Question/Answer 数组） |
-| **HowTo** | 教程 | name, step 数组 |
-| **BreadcrumbList** | 面包屑 | itemListElement（ListItem + position, name, item） |
-| **LocalBusiness** | 本地商户 | name, address 等 |
-| **Event** | 活动/会议 | name, startDate, location 或 eventAttendanceMode |
+3. **Goals** - Which rich results are you targeting? What's the business value?
 
-Review/AggregateRating 仅用于真实用户评价，不得自评。
+---
 
-## 同页多类型
+## Core Principles
 
-用 `@graph` 组合多种 schema，通过 `@id` 相互引用（如 Organization → WebSite → BreadcrumbList）。
+### 1. Accuracy First
 
-## 校验与工具
+- Schema must accurately represent page content
+- Don't markup content that doesn't exist
+- Keep updated when content changes
 
-- [Google Rich Results Test](https://search.google.com/test/rich-results)  
-- [validator.schema.org](https://validator.schema.org/)  
-- Search Console 增强功能报告  
+### 2. Use JSON-LD
 
-常见错误：缺必填属性、日期非 ISO 8601、URL 非完整、枚举值不符、与页面内容不一致。
+- Google recommends JSON-LD format
+- Easier to implement and maintain
+- Place in `<head>` or end of `<body>`
 
-## 实现方式
+### 3. Follow Google's Guidelines
 
-静态站：模板中直接插入 JSON-LD。  
-动态站（React、Next 等）：服务端渲染组件输出 JSON-LD。  
-CMS/WordPress：Yoast、Rank Math、Schema Pro 等插件或主题/自定义字段。
+- Only use markup Google supports
+- Avoid spam tactics
+- Review eligibility requirements
 
-## 相关技能
+### 4. Validate Everything
 
-seo-audit、programmatic-seo、analytics-tracking。
+- Test before deploying
+- Monitor Search Console
+- Fix errors promptly
+
+---
+
+## Common Schema Types
+
+| Type                | Use For                   | Required Properties                    |
+| ------------------- | ------------------------- | -------------------------------------- |
+| Organization        | Company homepage/about    | name, url                              |
+| WebSite             | Homepage (search box)     | name, url                              |
+| Article             | Blog posts, news          | headline, image, datePublished, author |
+| Product             | Product pages             | name, image, offers                    |
+| SoftwareApplication | SaaS/app pages            | name, offers                           |
+| FAQPage             | FAQ content               | mainEntity (Q&A array)                 |
+| HowTo               | Tutorials                 | name, step                             |
+| BreadcrumbList      | Any page with breadcrumbs | itemListElement                        |
+| LocalBusiness       | Local business pages      | name, address                          |
+| Event               | Events, webinars          | name, startDate, location              |
+
+**For complete JSON-LD examples**: See [references/schema-examples.md](references/schema-examples.md)
+
+---
+
+## Quick Reference
+
+### Organization (Company Page)
+
+Required: name, url
+Recommended: logo, sameAs (social profiles), contactPoint
+
+### Article/BlogPosting
+
+Required: headline, image, datePublished, author
+Recommended: dateModified, publisher, description
+
+### Product
+
+Required: name, image, offers (price + availability)
+Recommended: sku, brand, aggregateRating, review
+
+### FAQPage
+
+Required: mainEntity (array of Question/Answer pairs)
+
+### BreadcrumbList
+
+Required: itemListElement (array with position, name, item)
+
+---
+
+## Multiple Schema Types
+
+You can combine multiple schema types on one page using `@graph`:
+
+```json
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "Organization", ... },
+    { "@type": "WebSite", ... },
+    { "@type": "BreadcrumbList", ... }
+  ]
+}
+```
+
+---
+
+## Validation and Testing
+
+### Tools
+
+- **Google Rich Results Test**: https://search.google.com/test/rich-results
+- **Schema.org Validator**: https://validator.schema.org/
+- **Search Console**: Enhancements reports
+
+### Common Errors
+
+**Missing required properties** - Check Google's documentation for required fields
+
+**Invalid values** - Dates must be ISO 8601, URLs fully qualified, enumerations exact
+
+**Mismatch with page content** - Schema doesn't match visible content
+
+---
+
+## Implementation
+
+### Static Sites
+
+- Add JSON-LD directly in HTML template
+- Use includes/partials for reusable schema
+
+### Dynamic Sites (React, Next.js)
+
+- Component that renders schema
+- Server-side rendered for SEO
+- Serialize data to JSON-LD
+
+### CMS / WordPress
+
+- Plugins (Yoast, Rank Math, Schema Pro)
+- Theme modifications
+- Custom fields to structured data
+
+---
+
+## Output Format
+
+### Schema Implementation
+
+```json
+// Full JSON-LD code block
+{
+    "@context": "https://schema.org",
+    "@type": "..."
+    // Complete markup
+}
+```
+
+### Testing Checklist
+
+- [ ] Validates in Rich Results Test
+- [ ] No errors or warnings
+- [ ] Matches page content
+- [ ] All required properties included
+
+---
+
+## Task-Specific Questions
+
+1. What type of page is this?
+2. What rich results are you hoping to achieve?
+3. What data is available to populate the schema?
+4. Is there existing schema on the page?
+5. What's your tech stack?
+
+---
+
+## Related Skills
+
+- **seo-audit**: For overall SEO including schema review
+- **programmatic-seo**: For templated schema at scale

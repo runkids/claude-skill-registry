@@ -1,7 +1,7 @@
 {
   "name": "distill",
-  "repo": "grahama1970/agent-skills",
-  "path": "skills/distill/SKILL.md",
-  "source": "github.com/grahama1970/agent-skills",
-  "downloaded_at": "2026-01-29T04:29:38.494734Z"
+  "repo": "gudzenkov/SuperClaudeZero",
+  "path": ".claude/skills/distill/SKILL.md",
+  "source": "github.com/gudzenkov/SuperClaudeZero",
+  "downloaded_at": "2026-01-30T03:39:04.661205Z"
 }

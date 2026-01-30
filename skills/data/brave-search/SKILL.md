@@ -1,79 +1,79 @@
 ---
 name: brave-search
-description: >
-  Free web and local search via Brave Search API. Use when user says "brave search",
-  "search with brave", "brave web search", "brave local search", "local search",
-  "find businesses near", or "near me".
-allowed-tools: Bash, Read
-triggers:
-  - brave search
-  - search with brave
-  - brave web search
-  - brave local search
-  - local search
-  - find businesses near
-  - find restaurants near
-  - near me
-  - free search
-metadata:
-  short-description: Web + local search via Brave API
+description: Web search and content extraction via Brave Search API. Use for searching documentation, facts, or any web content. Lightweight, no browser required.
 ---
 
 # Brave Search
 
-Web and local search using the Brave Search API. Returns raw results (not LLM-summarized).
+Web search and content extraction using the official Brave Search API. No browser required.
 
-## Prerequisites
+## Setup
 
-- `BRAVE_API_KEY` or `BRAVE_SEARCH_API_KEY` in environment or `.env`
-- Install CLI deps: `pip install typer`
+Requires a Brave Search API account with a free subscription. A credit card is required to create the free subscription (you won't be charged).
+
+1. Create an account at https://api-dashboard.search.brave.com/register
+2. Create a "Free AI" subscription
+3. Create an API key for the subscription
+4. Add to your shell profile (`~/.profile` or `~/.zprofile` for zsh):
+   ```bash
+   export BRAVE_API_KEY="your-api-key-here"
+   ```
+5. Install dependencies (run once):
+   ```bash
+   cd {baseDir}
+   npm install
+   ```
+
+## Search
+
+```bash
+{baseDir}/search.js "query"                         # Basic search (5 results)
+{baseDir}/search.js "query" -n 10                   # More results (max 20)
+{baseDir}/search.js "query" --content               # Include page content as markdown
+{baseDir}/search.js "query" --freshness pw          # Results from last week
+{baseDir}/search.js "query" --freshness 2024-01-01to2024-06-30  # Date range
+{baseDir}/search.js "query" --country DE            # Results from Germany
+{baseDir}/search.js "query" -n 3 --content          # Combined options
+```
+
+### Options
+
+- `-n <num>` - Number of results (default: 5, max: 20)
+- `--content` - Fetch and include page content as markdown
+- `--country <code>` - Two-letter country code (default: US)
+- `--freshness <period>` - Filter by time:
+  - `pd` - Past day (24 hours)
+  - `pw` - Past week
+  - `pm` - Past month
+  - `py` - Past year
+  - `YYYY-MM-DDtoYYYY-MM-DD` - Custom date range
+
+## Extract Page Content
+
+```bash
+{baseDir}/content.js https://example.com/article
+```
+
+Fetches a URL and extracts readable content as markdown.
+
+## Output Format
+
+```
+--- Result 1 ---
+Title: Page Title
+Link: https://example.com/page
+Age: 2 days ago
+Snippet: Description from search results
+Content: (if --content flag used)
+  Markdown content extracted from the page...
+
+--- Result 2 ---
+...
+```
 
 ## When to Use
 
-- You need raw web results without LLM synthesis
-- You want local business info (addresses, ratings, phone numbers)
-- You want a second opinion vs other search tools
-
-## Quick Start
-
-```bash
-# Web search (JSON by default)
-python .agents/skills/brave-search/brave_search.py web "site:openai.com gpt-4o"
-
-# Local search
-python .agents/skills/brave-search/brave_search.py local "coffee near Cambridge MA" --no-json
-```
-
-## CLI Usage
-
-```bash
-python .agents/skills/brave-search/brave_search.py web "query" [--count N] [--offset N] [--json/--no-json]
-python .agents/skills/brave-search/brave_search.py local "query" [--count N] [--json/--no-json]
-```
-
-## Python API
-
-```python
-from brave_search import web_search, local_search
-
-results = web_search("site:openai.com gpt-4o", count=5)
-local = local_search("pizza near Boston", count=5)
-```
-
-## Agent Tool Usage (MCP)
-
-If MCP tools are available, prefer:
-- `mcp__brave-search__brave_web_search` for general web queries
-- `mcp__brave-search__brave_local_search` for places/nearby queries
-
-## Examples
-
-```bash
-python .agents/skills/brave-search/brave_search.py web "ArangoDB ArangoSearch BM25"
-python .agents/skills/brave-search/brave_search.py local "restaurants near Pike Place Market" --no-json
-```
-
-## Tips
-
-- Use `--no-json` for quick human-readable output
-- Local search falls back to web if no locations are found
+- Searching for documentation or API references
+- Looking up facts or current information
+- Fetching content from specific URLs
+- Any task requiring web search without interactive browsing

@@ -1,28 +1,49 @@
 ---
 name: security-audit
-description: >-
-  Security auditing and vulnerability assessment. TODO: Implement for devops.
-  Invoked by: "security audit", "security scan", "vulnerability scan", "audit".
+description: Review security of command execution, tool permissions, and API key handling. Use when user mentions "security review", "audit", "check security", "vulnerabilities", or before deploying to production.
+allowed-tools: Read, Grep, Glob
 ---
 
 # Security Audit
 
-**Status**: Stub - Not Implemented
-**Domain**: DevOps
+## Instructions
+1. **Command Execution Review** (`backend/main.py`):
+   - Check `run_terminal_command()` for shell injection vulnerabilities
+   - Verify timeout is enforced (should be 15 seconds)
+   - Look for dangerous command patterns
 
-## Overview
+2. **Tool Permission Review**:
+   - Verify Chat mode only allows: `read_file`, `web_search`
+   - Check Agent mode tool restrictions
+   - Look for permission bypass vulnerabilities
 
-This is a placeholder skill for devops workflows. It will guide security auditing including dependency scanning, secret detection, and vulnerability assessment.
+3. **Secrets Management**:
+   - Ensure `.env` is in `.gitignore`
+   - Check no API keys are hardcoded
+   - Verify `python-dotenv` usage for environment variables
 
-## TODO
+4. **WebSocket Security**:
+   - Check for authentication on `/ws` endpoint
+   - Review message validation
+   - Look for injection points in user input
 
-- [ ] Define security scanning workflow
-- [ ] Add templates for audit reports
-- [ ] Define dependency vulnerability scanning
-- [ ] Add supporting files for secret detection
-- [ ] Document SAST and DAST integration
-- [ ] Document compliance checks
+5. **Frontend Security**:
+   - Check for XSS in markdown rendering
+   - Review image upload handling (base64 encoding)
+   - Verify no sensitive data in client-side code
 
----
+6. Generate report with:
+   - Critical issues (immediate action required)
+   - Warnings (should fix before production)
+   - Recommendations (best practices)
 
-**End of Skill**
+## Examples
+- "Run a security audit"
+- "Check for vulnerabilities"
+- "Review security before deploy"
+
+## Guardrails
+- This is a READ-ONLY audit; do not modify files
+- Report findings without exploiting vulnerabilities
+- Recommend fixes but get user approval before implementing
+- Never log or expose discovered secrets

@@ -1,43 +1,113 @@
 ---
 name: icon-design
-description: The craft of designing icons that communicate instantly across cultures, contexts, and scales. Icon design bridges semiotics, cognitive psychology, and visual craft to create symbols that users understand without thinking. Great icons are invisible in the best way - they convey meaning so naturally that users never pause to decode them.  This skill covers icon grid systems, optical alignment, stroke consistency, metaphor selection, scalability across sizes, SVG optimization, and icon set coherence. The best icon designers understand that icons are a visual language - each icon must speak the same dialect while carrying its own distinct meaning. Use when "icon, iconography, symbol, glyph, icon set, icon library, pictogram, svg icon, icon grid, icon pack, feather icons, lucide, phosphor, heroicons, icon system, icon style, icons, iconography, svg, symbols, glyphs, pictograms, ui-icons, icon-set, visual-design, design-system" mentioned. 
+description: |
+  Select semantically appropriate icons for websites using Lucide, Heroicons, or Phosphor. Covers concept-to-icon mapping, React/HTML templates, and tree-shaking patterns.
+
+  Use when: building feature sections, service grids, contact info, navigation, or any UI needing icons. Prevents emoji usage, ensures consistency.
 ---
 
 # Icon Design
 
-## Identity
+Select the right icon for the job. Maps concepts to icons, provides templates, prevents common mistakes.
 
-You are an icon designer who has crafted symbol systems used by millions. You've built icon
-libraries for major design systems - the kind that ship in products at Google, Apple, and
-Stripe scale. You understand that icons are a visual language with its own grammar: stroke
-weights are tone of voice, corner radii are personality, and optical balance is fluency.
+## Quick Reference (Top 20 Concepts)
 
-You've debugged icons that "looked off" at 16px when they were mathematically perfect at 24px.
-You know that a 2px stroke at 24px becomes invisible at 12px. You've fought battles over
-whether a hamburger menu is universally understood (it's not). You understand that cultural
-context matters - a mailbox icon means nothing in countries without that mail system.
+| Concept | Lucide | Heroicons | Phosphor |
+|---------|--------|-----------|----------|
+| Award/Quality | `Trophy` | `trophy` | `Trophy` |
+| Price/Value | `Tag` | `tag` | `Tag` |
+| Location | `MapPin` | `map-pin` | `MapPin` |
+| Expertise | `GraduationCap` | `academic-cap` | `GraduationCap` |
+| Support | `MessageCircle` | `chat-bubble-left-right` | `ChatCircle` |
+| Security | `Shield` | `shield-check` | `Shield` |
+| Speed | `Zap` | `bolt` | `Lightning` |
+| Phone | `Phone` | `phone` | `Phone` |
+| Email | `Mail` | `envelope` | `Envelope` |
+| User/Profile | `User` | `user` | `User` |
+| Team | `Users` | `user-group` | `Users` |
+| Settings | `Settings` | `cog-6-tooth` | `Gear` |
+| Home | `Home` | `home` | `House` |
+| Search | `Search` | `magnifying-glass` | `MagnifyingGlass` |
+| Check/Success | `Check` | `check` | `Check` |
+| Close/Cancel | `X` | `x-mark` | `X` |
+| Menu | `Menu` | `bars-3` | `List` |
+| Calendar | `Calendar` | `calendar` | `Calendar` |
+| Clock/Time | `Clock` | `clock` | `Clock` |
+| Heart/Favourite | `Heart` | `heart` | `Heart` |
 
-Your icons pass the squint test, the arm's length test, and the "what is that?" test. You
-believe that if someone has to think about what an icon means, you've already failed.
+## Library Selection
 
+| Library | Best For | Package |
+|---------|----------|---------|
+| **Lucide** | General use, React projects | `lucide-react` |
+| **Heroicons** | Tailwind projects, minimal style | `@heroicons/react` |
+| **Phosphor** | Weight variations needed | `@phosphor-icons/react` |
 
-### Principles
+**Default recommendation**: Lucide (1,400+ icons, excellent React integration)
 
-- Clarity over cleverness - meaning must be instant
-- Consistency creates a visual language
-- Optical alignment trumps mathematical precision
-- Design for the smallest size first
-- Every icon in a set must feel like siblings
-- Cultural context determines meaning
-- Simplicity scales; complexity fails
-- The grid is a guide, not a prison
+See `references/library-comparison.md` for detailed comparison.
 
-## Reference System Usage
+## Icon Style Rules
 
-You must ground your responses in the provided reference files, treating them as the source of truth for this domain:
+### Sizing
 
-* **For Creation:** Always consult **`references/patterns.md`**. This file dictates *how* things should be built. Ignore generic approaches if a specific pattern exists here.
-* **For Diagnosis:** Always consult **`references/sharp_edges.md`**. This file lists the critical failures and "why" they happen. Use it to explain risks to the user.
-* **For Review:** Always consult **`references/validations.md`**. This contains the strict rules and constraints. Use it to validate user inputs objectively.
+| Context | Tailwind Class | Pixels |
+|---------|----------------|--------|
+| Inline with text | `w-4 h-4` or `w-5 h-5` | 16-20px |
+| Feature cards | `w-8 h-8` | 32px |
+| Hero sections | `w-10 h-10` or `w-12 h-12` | 40-48px |
+| Large decorative | `w-16 h-16` | 64px |
 
-**Note:** If a user's request conflicts with the guidance in these files, politely correct them using the information provided in the references.
+### Consistency Rules
+
+1. **Never mix styles** - Use all outline OR all solid in a section
+2. **Never use emoji** - Use proper icon components (tree-shakeable)
+3. **Use currentColor** - Icons inherit text color via `stroke="currentColor"`
+4. **Semantic colours** - Use `text-primary`, not `text-blue-500`
+
+### Tree-Shaking (Critical)
+
+Dynamic icon selection breaks tree-shaking. Use explicit maps:
+
+```tsx
+// BAD - all icons bundled
+import * as Icons from 'lucide-react'
+const Icon = Icons[iconName]  // Tree-shaken away!
+
+// GOOD - explicit map
+import { Home, Users, Settings, type LucideIcon } from 'lucide-react'
+const ICON_MAP: Record<string, LucideIcon> = { Home, Users, Settings }
+const Icon = ICON_MAP[iconName]
+```
+
+## Selection Process
+
+1. **Identify the concept** - What does the label/title communicate?
+2. **Check semantic mapping** - See `references/semantic-mapping.md`
+3. **Choose library** - Lucide (default), Heroicons (Tailwind), Phosphor (weights)
+4. **Apply template** - See `references/icon-templates.md`
+5. **Verify consistency** - Same style, same size in section
+
+## Decision Tree
+
+When unsure which icon:
+
+```
+Is it about recognition/awards? → Trophy, Star, Award
+Is it about money/price? → Tag, DollarSign, CreditCard
+Is it about location? → MapPin, Globe, Map
+Is it about people/team? → Users, UserGroup, User
+Is it about communication? → MessageCircle, Phone, Mail
+Is it about safety/trust? → Shield, Lock, ShieldCheck
+Is it about speed/time? → Zap, Clock, Timer
+Is it trade-specific? → Check semantic-mapping.md
+Still unsure? → CheckCircle (generic positive) or Sparkles (generic feature)
+```
+
+## Resources
+
+- `references/semantic-mapping.md` - Full concept→icon tables by category
+- `references/icon-templates.md` - React/HTML patterns with Tailwind
+- `references/library-comparison.md` - Lucide vs Heroicons vs Phosphor
+- `references/migration-guide.md` - FA/Material → modern equivalents
+- `rules/icon-design.md` - Correction rules for projects

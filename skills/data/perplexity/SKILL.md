@@ -1,132 +1,128 @@
 ---
 name: perplexity
-description: >
-  Paid research assistant with real-time web search. Use when user asks "what's the latest",
-  "current pricing for", "recent news about", "search the web for", "fact check this",
-  "what's new in", or needs up-to-date information beyond training data.
-allowed-tools: Bash, Read
-triggers:
-  - what's the latest
-  - current pricing
-  - recent news
-  - search the web
-  - fact check
-  - what's new in
-  - look up online
-  - research this topic
-  - paid search
-metadata:
-  short-description: AI research with web search
+description: Web search and research using Perplexity AI. Use when user says "search", "find", "look up", "ask", "research", or "what's the latest" for generic queries. NOT for library/framework docs (use Context7) or workspace questions.
 ---
 
-# Perplexity Skill
+# Perplexity Tools
 
-AI-powered research assistant with real-time web search capabilities.
+Use ONLY when user says "search", "find", "look up", "ask", "research", or "what's the latest" for generic queries. NOT for library/framework docs (use Context7), gt CLI (use Graphite MCP), or workspace questions (use Nx MCP).
 
-## Prerequisites
+## Quick Reference
 
-- `PERPLEXITY_API_KEY` in `.env` (get from https://www.perplexity.ai/settings/api)
+**Which Perplexity tool?**
+- Need search results/URLs? → **Perplexity Search**
+- Need conversational answer? → **Perplexity Ask**
+- Need deep research? → **Researcher agent** (`/research <topic>`)
 
-## When to Use
+**NOT Perplexity - use these instead:**
+- Library/framework docs → **Context7 MCP**
+- Graphite `gt` CLI → **Graphite MCP**
+- THIS workspace → **Nx MCP**
+- Specific URL → **URL Crawler**
 
-- Current information (news, recent releases, pricing)
-- Technical questions requiring up-to-date docs
-- Fact-checking and verification
-- Research questions needing multiple sources
-- Comparisons (libraries, tools, approaches)
+## Perplexity Search
 
-## Quick Start
+**When to use:**
+- Generic searches, finding resources
+- Current best practices, recent information
+- Tutorial/blog post discovery
+- User says "search for...", "find...", "look up..."
 
-```bash
-# Simple query (quick answer)
-python .agents/skills/perplexity/perplexity.py ask "What's new in Python 3.12?"
-
-# With citations (JSON output)
-python .agents/skills/perplexity/perplexity.py research "ArangoDB vs Neo4j for knowledge graphs"
-
-# With specific model
-python .agents/skills/perplexity/perplexity.py ask --model large "Best practices for Lean4 proofs"
+**Default parameters (ALWAYS USE):**
+```typescript
+mcp__perplexity__perplexity_search({
+  query: "your search query",
+  max_results: 3,           // Default is 10 - too many!
+  max_tokens_per_page: 512  // Reduce per-result content
+})
 ```
 
-## Commands at a Glance
+**When to increase limits:**
+Only if:
+- User explicitly needs comprehensive results
+- Initial search found nothing useful
+- Complex topic needs multiple sources
 
-| Command | What it does | Notes |
-|---------|--------------|-------|
-| `ask` | Fast answer with short citations preview | Matches the Typer command implemented in `perplexity.py ask` |
-| `research` | Full answer + citations JSON | Equivalent to calling `_research()` and prints JSON unless `--no-json` |
-| `models` | Lists available model aliases → API IDs | Useful when wiring the skill into other agents |
-
-Every CLI example **must** include the subcommand (`ask`, `research`, or `models`) because the Typer app requires it; omitting the subcommand will raise a usage error. The shipped SKILL docs now mirror the exact runner arguments, so you can copy/paste them without edits.
-
-## CLI Usage
-
-Two commands: `ask` (quick answer) and `research` (with citations):
-
-```bash
-# Quick answer
-python .agents/skills/perplexity/perplexity.py ask [OPTIONS] "your question"
-
-# Research with citations (JSON output)
-python .agents/skills/perplexity/perplexity.py research [OPTIONS] "your question"
-
-Options:
-  --model, -m     small|large|huge  (default: small, fast)
-  --system, -s    Custom system prompt
-  --json/--no-json  JSON output (research default: --json)
+```typescript
+// Increased limits (use sparingly)
+mcp__perplexity__perplexity_search({
+  query: "complex topic",
+  max_results: 5,
+  max_tokens_per_page: 1024
+})
 ```
 
-## Python API
+## Perplexity Ask
 
-```python
-# Import the internal function
-from perplexity import _research
+**When to use:**
+- Need conversational explanation, not search results
+- Synthesize information from web
+- Explain concepts with current context
 
-# Research with citations
-result = _research("What is BM25 scoring?", model="small")
-print(result["answer"])
-print(result["citations"])
+**Usage:**
+```typescript
+mcp__perplexity__perplexity_ask({
+  messages: [
+    {
+      role: "user",
+      content: "Explain how postgres advisory locks work"
+    }
+  ]
+})
 ```
 
-Note: The CLI commands `ask` and `research` are the primary interface. For Python usage, use `_research()` directly.
+**NOT for:**
+- Library documentation (use Context7)
+- Deep multi-source research (use researcher agent)
 
-## Shared Helpers
+## Prohibited Tool
 
-- `.agents/skills/dotenv_helper.py` is auto-imported so `.env` keys (e.g., `PERPLEXITY_API_KEY`) load without manual sourcing.
-- `.agents/skills/json_utils.py` is available if you need to repair downstream JSON before writing it to files; the `research` command already emits valid JSON, so most callers can stream it directly.
+**NEVER use:** `mcp__perplexity__perplexity_research`
 
-## Models
+**Use instead:** Researcher agent (`/research <topic>`)
+- Token cost: 30-50k tokens
+- Provides multi-source synthesis with citations
+- Use sparingly for complex questions only
 
-| Model | API Name | Speed | Use Case |
-|-------|----------|-------|----------|
-| `small` | sonar | Fast | Quick lookups, simple questions |
-| `large` | sonar-pro | Medium | Technical research, comparisons |
-| `huge` | sonar-reasoning | Slow | Complex analysis, reasoning |
+## Tool Selection Chain
+
+**Priority order:**
+1. **Context7 MCP** - Library/framework docs
+2. **Graphite MCP** - Any `gt` CLI mention
+3. **Nx MCP** - THIS workspace questions
+4. **Perplexity Search** - Generic searches
+5. **Perplexity Ask** - Conversational answers
+6. **Researcher agent** - Deep multi-source research
+7. **WebSearch** - Last resort (after Perplexity exhausted)
 
 ## Examples
 
-### Technical Research
-```bash
-python .agents/skills/perplexity/perplexity.py ask "How to implement hybrid search with BM25 and vector similarity?"
-```
+**✅ CORRECT - Use Perplexity Search:**
+- "Find postgres migration best practices"
+- "Search for React testing tutorials"
+- "Look up latest trends in microservices"
 
-### Current Information
-```bash
-python .agents/skills/perplexity/perplexity.py ask "Latest Anthropic Claude API changes 2024"
-```
+**✅ CORRECT - Use Perplexity Ask:**
+- "Explain how postgres advisory locks work"
+- "What are the trade-offs of microservices?"
 
-### Comparison
-```bash
-python .agents/skills/perplexity/perplexity.py ask --model large "sentence-transformers vs OpenAI embeddings for code search"
-```
+**❌ WRONG - Use Context7 instead:**
+- "Search for React hooks documentation" → Context7 MCP
+- "Find Next.js routing docs" → Context7 MCP
+- "Look up Temporal workflow API" → Context7 MCP
 
-## vs Context7
+**❌ WRONG - Use Graphite MCP instead:**
+- "Search for gt stack commands" → Graphite MCP
+- "Find gt branch workflow" → Graphite MCP
 
-| Perplexity | Context7 |
-|------------|----------|
-| General research | Library-specific docs |
-| Real-time web search | Curated documentation |
-| Any topic | Code libraries only |
-| Synthesized answers | Raw doc snippets |
+**❌ WRONG - Use Nx MCP instead:**
+- "Search for build config" (in THIS workspace) → Nx MCP
+- "Find project dependencies" (in THIS workspace) → Nx MCP
 
-Use **Context7** for: specific library API syntax, exact function signatures
-Use **Perplexity** for: research, comparisons, current information, general questions
+## Key Points
+
+- **Default to limited results** - avoid context bloat
+- **Library docs = Context7** - ALWAYS try Context7 first
+- **"gt" = Graphite MCP** - ANY "gt" mention uses Graphite
+- **Deep research = /research** - NOT perplexity_research tool
+- **Fallback chain** - Search → Ask → WebSearch (last resort)

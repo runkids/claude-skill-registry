@@ -211,7 +211,7 @@ date-released: 2025-11-01
 ### Phase 3: Issue & PR Templates (30 min)
 
 **Directory Structure:**
-```
+```text
 .github/
 ├── ISSUE_TEMPLATE/
 │   ├── bug_report.md
@@ -308,7 +308,7 @@ Closes #(issue number)
 ```
 
 **CODEOWNERS (.github/CODEOWNERS):**
-```
+```text
 # Global owners
 * @organization/maintainers
 
@@ -471,7 +471,7 @@ jobs:
 **Option 1: Docsify (Recommended for simplicity)**
 
 1. Create `docs/` directory structure:
-```
+```text
 docs/
 ├── index.html (Docsify config)
 ├── README.md (Home page)
@@ -602,7 +602,7 @@ markdown: kramdown
 ## Best Practices
 
 ### Branch Protection Rules
-```
+```text
 Settings → Branches → Add rule
 
 Branch name pattern: main
@@ -619,7 +619,7 @@ Protection settings:
 ```
 
 ### Semantic Versioning
-```
+```text
 MAJOR.MINOR.PATCH (e.g., 2.1.3)
 
 MAJOR: Breaking changes
@@ -631,7 +631,7 @@ Build metadata: 1.0.0+20130313144700
 ```
 
 ### Commit Message Convention
-```
+```text
 <type>(<scope>): <subject>
 
 <body>
@@ -700,12 +700,12 @@ gh release create v1.2.0 --title "v1.2.0" --notes-file RELEASE_NOTES.md
 
 ## Resources
 
-- **GitHub Docs**: https://docs.github.com
-- **Keep a Changelog**: https://keepachangelog.com
-- **Semantic Versioning**: https://semver.org
-- **Contributor Covenant**: https://www.contributor-covenant.org
-- **Citation File Format**: https://citation-file-format.github.io
-- **GitHub Actions Marketplace**: https://github.com/marketplace?type=actions
+- **GitHub Docs**: <https://docs.github.com>
+- **Keep a Changelog**: <https://keepachangelog.com>
+- **Semantic Versioning**: <https://semver.org>
+- **Contributor Covenant**: <https://www.contributor-covenant.org>
+- **Citation File Format**: <https://citation-file-format.github.io>
+- **GitHub Actions Marketplace**: <https://github.com/marketplace?type=actions>
 
 ## Success Criteria
 

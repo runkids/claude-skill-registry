@@ -1,7 +1,7 @@
 {
   "name": "docusaurus-deployer",
-  "repo": "panaversity/agentfactory",
-  "path": "docs/_skills_archive/cold/docusaurus-deployer/SKILL.md",
-  "source": "github.com/panaversity/agentfactory",
-  "downloaded_at": "2026-01-29T04:39:30.739724Z"
+  "repo": "mjunaidca/robolearn",
+  "path": ".claude/skills/docusaurus-deployer/SKILL.md",
+  "source": "github.com/mjunaidca/robolearn",
+  "downloaded_at": "2026-01-30T02:34:22.379276Z"
 }

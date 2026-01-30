@@ -1,9 +1,7 @@
 {
   "name": "gemini-batch",
-  "description": "This skill should be used when the user asks to \"use Gemini Batch API\", \"process documents at scale\", \"submit a batch job\", \"upload files to Gemini\", or needs large-scale LLM processing. Includes prod",
-  "repo": "edwinhu/workflows",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/edwinhu/workflows"
+  "repo": "akrindev/google-studio-skills",
+  "path": "skills/gemini-batch/SKILL.md",
+  "source": "github.com/akrindev/google-studio-skills",
+  "downloaded_at": "2026-01-30T04:23:10.797964Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "database-patterns",
-  "repo": "olivenet-iot/olivenet-social-bot",
-  "path": ".claude/skills/database-patterns/SKILL.md",
-  "source": "github.com/olivenet-iot/olivenet-social-bot",
-  "downloaded_at": "2026-01-29T03:32:03.547204Z"
+  "repo": "phrazzld/claude-config",
+  "path": "skills/database-patterns/SKILL.md",
+  "source": "github.com/phrazzld/claude-config",
+  "downloaded_at": "2026-01-30T04:28:37.771855Z"
 }

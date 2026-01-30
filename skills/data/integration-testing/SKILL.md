@@ -1,75 +1,58 @@
 ---
 name: integration-testing
-description: Designs comprehensive integration testing strategies including API testing, database testing, microservices testing, end-to-end testing, and test automation frameworks. Produces test plans, test cases, test data strategies, and CI/CD integration. Use when designing test strategies, writing integration tests, setting up test automation, testing APIs, testing microservices, or when users mention integration testing, API testing, E2E testing, test automation, or quality assurance.
+description: Enforces project integration testing conventions for facades, server actions, and database operations using Testcontainers with real PostgreSQL.
 ---
 
+# Integration Testing Skill
 
-# Integration Testing
+## Purpose
 
-## Overview
+This skill provides integration testing conventions for facades, server actions, and database operations. Integration tests use real database interactions via Testcontainers.
 
-Designs comprehensive integration testing strategies including API testing, database testing, microservices testing, end-to-end testing, and test automation frameworks
+## Activation
 
-## Core Capabilities
+This skill activates when:
 
-1. **Core Capability 1** - Description
-2. **Core Capability 2** - Description
-3. **Core Capability 3** - Description
+- Creating or modifying files in `tests/integration/`
+- Testing facades or business logic
+- Testing server actions
+- Testing database queries with real data
+- Working with Testcontainers
 
-## Quick Start
+## File Patterns
 
-**Basic Workflow:**
+- `tests/integration/**/*.test.ts`
+- `tests/integration/**/*.integration.test.ts`
 
-1. Analyze requirements and context
-2. Apply appropriate patterns
-3. Validate and test results
-4. Document findings and recommendations
+## Workflow
 
-## Detailed Topics
+1. Detect integration test work (file path contains `tests/integration/`)
+2. Load `references/Integration-Testing-Conventions.md`
+3. Also load `testing-base` skill for shared conventions
+4. Apply integration test patterns with database helpers
+5. Ensure proper database cleanup between tests
 
-Load reference files based on specific needs:
+## Key Patterns (REQUIRED)
 
-- **Activation Guidelines**: See [activation-guidelines.md](references/activation-guidelines.md) when:
-  - Working with related functionality
-  - Need specific patterns or examples
-  - Require detailed guidance
+### Database Management
 
-- **Cicd Integration**: See [cicd-integration.md](references/cicd-integration.md) when:
-  - Working with related functionality
-  - Need specific patterns or examples
-  - Require detailed guidance
+- Database auto-starts via global setup (Testcontainers)
+- Use `getTestDb()` from `tests/setup/test-db.ts`
+- Use `resetTestDatabase()` or `cleanupTable()` in `beforeEach`
+- Mock `@/lib/db` to use test database
 
-- **Core Capabilities**: See [core-capabilities.md](references/core-capabilities.md) when:
-  - Working with related functionality
-  - Need specific patterns or examples
-  - Require detailed guidance
+### Factory Usage
 
-- **Integration Testing Process**: See [integration-testing-process.md](references/integration-testing-process.md) when:
-  - Working with related functionality
-  - Need specific patterns or examples
-  - Require detailed guidance
+- Use factories from `tests/fixtures/` for test data
+- Create realistic test scenarios with proper relationships
+- Clean up created data between tests
 
-- **Test Coverage And Reporting**: See [test-coverage-and-reporting.md](references/test-coverage-and-reporting.md) when:
-  - Working with related functionality
-  - Need specific patterns or examples
-  - Require detailed guidance
+### External Service Mocking
 
-- **Test Patterns**: See [test-patterns.md](references/test-patterns.md) when:
-  - Working with related functionality
-  - Need specific patterns or examples
-  - Require detailed guidance
+- Mock Sentry for breadcrumb verification
+- Mock CacheService for cache behavior control
+- Mock Redis client to avoid connection issues
 
-- **Testing Best Practices**: See [testing-best-practices.md](references/testing-best-practices.md) when:
-  - Working with related functionality
-  - Need specific patterns or examples
-  - Require detailed guidance
+## References
 
-- **Testing Frameworks**: See [testing-frameworks.md](references/testing-frameworks.md) when:
-  - Working with related functionality
-  - Need specific patterns or examples
-  - Require detailed guidance
-
-- **Testing Frameworks And Tools**: See [testing-frameworks-and-tools.md](references/testing-frameworks-and-tools.md) when:
-  - Working with related functionality
-  - Need specific patterns or examples
-  - Require detailed guidance
+- `references/Integration-Testing-Conventions.md` - Complete integration testing conventions

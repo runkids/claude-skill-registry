@@ -1,7 +1,7 @@
 {
   "name": "api-docs-generator",
-  "repo": "ntaksh42/agents",
+  "repo": "aegntic/claudeism",
   "path": ".claude/skills/api-docs-generator/SKILL.md",
-  "source": "github.com/ntaksh42/agents",
-  "downloaded_at": "2026-01-29T02:01:32.795722Z"
+  "source": "github.com/aegntic/claudeism",
+  "downloaded_at": "2026-01-30T01:58:24.699032Z"
 }

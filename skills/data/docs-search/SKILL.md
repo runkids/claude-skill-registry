@@ -1,213 +1,225 @@
 ---
-name: Searching AEM Documentation
-description: Searches the aem.live documentation for information on AEM Edge Delivery Services features. Use this skill when you need more information about a feature, want guidance on how to implement a feature, and using existing tools you have to search the web isn't turning up relevant results.
+name: docs-search
+description: PROACTIVELY search auto-generated documentation when receiving ANY user instruction. Search for function signatures, API documentation, class definitions, and code comments BEFORE implementing anything. Your codebase documentation is valuable - use it first.
+allowed-tools: Bash
+metadata:
+  author: 23blocks
+  version: "1.0"
 ---
 
-# Searching AEM Documentation
+# AI Maestro Documentation Search
 
-## Overview
+## CRITICAL: AUTOMATIC BEHAVIOR - READ THIS FIRST
 
-This skill helps you efficiently search the complete aem.live documentation (docs and blog posts) without wasting context on irrelevant pages. Use the provided search script to find relevant documentation pages, then use WebFetch to read the full content of the most relevant results.
+**THIS IS NOT OPTIONAL. THIS IS YOUR DEFAULT BEHAVIOR.**
 
-## When to Use This Skill
+When the user gives you ANY instruction or task, you MUST FIRST search documentation for:
+- **Function signatures** - What are the parameters and return types?
+- **Class documentation** - What methods and properties exist?
+- **API documentation** - How should this endpoint work?
+- **Code comments** - What did the author intend?
 
-Use this skill when:
-- You need information about an aem.live feature or concept
-- You've already looked at the project codebase for context
-- You've tried a basic web search but didn't find relevant aem.live documentation
-- You need technical guidance on implementing aem.live features
-- You're looking for best practices or examples from the official docs
+**DO NOT:**
+- Start implementing before checking documentation
+- Assume you know the function signature without checking
+- Skip doc search because "it's a simple task"
+- Wait for the user to ask you to check docs
 
-**Do NOT use this skill when:**
-- You need reusable code snippets or block examples (use `block-collection-and-party` instead)
-- You already know the specific documentation URL
-- You're looking for general web development information (not aem.live specific)
+**ALWAYS:**
+- Search docs IMMEDIATELY when you receive a task
+- Search for terms and concepts the user mentions
+- Check documentation before calling unfamiliar functions
+- Look for patterns before creating new components
 
-## How to Use This Skill
+### The Rule: Receive Instruction → Search Docs → Then Proceed
 
-### Step 1: Identify Keywords
+```
+1. User asks you to do something
+2. IMMEDIATELY search docs for relevant context
+3. NOW you know the correct signatures and patterns
+4. NOW you can implement correctly the first time
+```
 
-Determine 1-3 specific keywords related to what you're searching for. Be specific rather than general.
+**Example - User asks to modify a service:**
+```bash
+# IMMEDIATELY run:
+docs-search.sh "PaymentService"
+docs-find-by-type.sh class
+```
 
-**Good keywords:**
-- "block decoration"
-- "metadata"
-- "universal editor"
-- "sidekick plugin"
+**Example - User mentions a function:**
+```bash
+# IMMEDIATELY run:
+docs-search.sh "validateUser"
+docs-search.sh --keyword "authenticate"
+```
 
-**Poor keywords:**
-- "aem" (too generic, filtered as stop word)
-- "how to build website" (too broad)
-- "the" (stop word)
+---
 
-### Step 2: Run the Search Script
+## Available Commands
 
-Execute the search script from the project root:
+All commands auto-detect your agent ID from the tmux session.
+
+### Search Commands
+| Command | Description |
+|---------|-------------|
+| `docs-search.sh <query>` | Semantic search through documentation |
+| `docs-search.sh --keyword <term>` | Keyword/exact match search |
+| `docs-find-by-type.sh <type>` | Find docs by type (function, class, module, etc.) |
+| `docs-get.sh <doc-id>` | Get full document with all sections |
+| `docs-list.sh` | List all indexed documents |
+| `docs-stats.sh` | Get documentation index statistics |
+
+### Indexing Commands
+| Command | Description |
+|---------|-------------|
+| `docs-index.sh [project-path]` | Index documentation from project |
+
+## What to Search Based on User Instruction
+
+| User Says | IMMEDIATELY Search |
+|-----------|-------------------|
+| "Create a service for X" | `docs-search.sh "service"`, `docs-find-by-type.sh class` |
+| "Call the Y function" | `docs-search.sh "Y"`, `docs-search.sh --keyword "Y"` |
+| "Implement authentication" | `docs-search.sh "authentication"`, `docs-search.sh "auth"` |
+| "Fix the Z method" | `docs-search.sh "Z" --keyword`, `docs-find-by-type.sh function` |
+| Any API/function name | `docs-search.sh "<name>" --keyword` |
+
+## Usage Examples
+
+### Search for Documentation
 
 ```bash
-node .claude/skills/docs-search/scripts/search.js [--all] <keyword1> [keyword2] [...]
+# Semantic search - finds conceptually related docs
+docs-search.sh "authentication flow"
+docs-search.sh "how to validate user input"
+docs-search.sh "database connection pooling"
+
+# Keyword search - exact term matching
+docs-search.sh --keyword "authenticate"
+docs-search.sh --keyword "UserController"
 ```
 
-**Options:**
-- `--all`: Return all matching results (default: limit to 10 most relevant)
-- Without `--all`: Returns top 10 results
+### Find by Document Type
 
-**Examples:**
 ```bash
-# Search for block decoration info
-node .claude/skills/docs-search/scripts/search.js block decoration
+# Find all function documentation
+docs-find-by-type.sh function
 
-# Search for metadata with all results
-node .claude/skills/docs-search/scripts/search.js --all metadata
+# Find all class documentation
+docs-find-by-type.sh class
 
-# Multi-word search
-node .claude/skills/docs-search/scripts/search.js universal editor blocks
+# Find all module/concern documentation
+docs-find-by-type.sh module
+
+# Find all interface documentation
+docs-find-by-type.sh interface
 ```
 
-### Step 3: Review Search Results
+### Get Full Document
 
-The script returns JSON with the following structure:
+```bash
+# After finding a doc ID from search results
+docs-get.sh doc-abc123
 
-```json
-[
-  {
-    "path": "/developer/markup-sections-blocks",
-    "title": "Markup, Sections, Blocks, and Auto Blocking",
-    "description": "To design websites and create functionality, developers use the markup and DOM...",
-    "snippet": "Markup, Sections, Blocks, and Auto Blocking\n\nTo design websites...",
-    "type": "doc",
-    "deprecation": null,
-    "relevanceScore": 141
-  }
-]
+# Shows full content including all sections
 ```
 
-**Field Explanations:**
-- `path`: URL path to the documentation page
-- `title`: Page title
-- `description`: Brief summary (usually ~150 chars) - **use this for quick context**
-- `snippet`: Relevant excerpt from the page content showing keyword context
-- `type`: "doc" or "blog"
-- `deprecation`: Warning message if feature is deprecated (or null)
-- `relevanceScore`: Relevance score (higher = more relevant)
+### List and Stats
 
-**Important Notes:**
-- Results are sorted by relevance (highest first)
-- Deprecated pages have reduced relevance scores but still appear in results
-- The `description` field provides the best quick summary of the page
-- The `snippet` shows keyword context but may not be comprehensive
+```bash
+# List all indexed documents
+docs-list.sh
 
-### Step 4: Use WebFetch for Full Content
-
-The search results give you an overview. To get detailed information, use WebFetch to read the full page:
-
-```
-WebFetch: https://www.aem.live{path}
+# Get index statistics
+docs-stats.sh
 ```
 
-**Best Practice:** Start with the top 2-3 most relevant results, read them fully with WebFetch, then decide if you need more.
+### Index Documentation
 
-### Step 5: Alert User to Deprecations
+```bash
+# Index current project (auto-detected from agent config)
+docs-index.sh
 
-If any results have a `deprecation` field with content, **inform the user** that the feature is deprecated and include the deprecation message. Suggest they look at higher-ranked (non-deprecated) alternatives.
-
-## Search Behavior Details
-
-### What Gets Searched
-
-1. **Primary**: Full documentation (docpages-index.json) - 150+ pages with complete content
-2. **Secondary**: Blog posts (query-index.json) - Only searched if < 5 doc results found
-
-### Stop Words (Automatically Filtered)
-
-These common words are ignored in searches:
-- Articles: the, a, an
-- Conjunctions: and, or, but
-- Prepositions: in, on, at, to, for, of, with, by
-- AEM-specific: aem, cms, edge, delivery, services
-
-### Relevance Scoring
-
-- **Title match**: 10 points per occurrence
-- **Description match**: 5 points per occurrence
-- **Content match**: 1 point per occurrence
-- **Multi-keyword bonus**: 1.5x multiplier if multiple keywords match
-- **Deprecation penalty**: 0.5x multiplier (score halved) for deprecated features
-
-### Caching
-
-Index files are cached locally for 24 hours in `.claude/skills/docs-search/.cache/`. This speeds up subsequent searches.
-
-## Examples
-
-### Example 1: Finding Block Documentation
-
-**User Request:** "How do I decorate blocks in aem.live?"
-
-**Good Approach:**
-1. Search: `node .claude/skills/docs-search/scripts/search.js block decoration`
-2. Review top 3 results
-3. WebFetch the most relevant: `https://www.aem.live/developer/markup-sections-blocks`
-4. Read full content and provide answer
-
-**Poor Approach:**
-- Using WebSearch instead (wastes time on irrelevant results)
-- Not using the search script (might miss the best documentation page)
-
-### Example 2: Learning About Metadata
-
-**User Request:** "I need to add metadata to my pages"
-
-**Good Approach:**
-1. Search: `node .claude/skills/docs-search/scripts/search.js metadata`
-2. Notice top result is "/docs/bulk-metadata" (score: 63)
-3. Also see "/docs/metadata" (score: 30)
-4. WebFetch both to understand page-level vs bulk metadata
-5. Provide comprehensive answer with both approaches
-
-**Poor Approach:**
-- Only reading the first result and missing bulk metadata option
-- Not using `--all` when you need comprehensive coverage
-
-### Example 3: Deprecated Feature Warning
-
-**User Request:** "How do I use folder mapping?"
-
-**Search Results:**
-```json
-[
-  {
-    "path": "/developer/authoring-path-mapping",
-    "title": "Path mapping for AEM authoring",
-    "relevanceScore": 51,
-    "deprecation": null
-  },
-  {
-    "path": "/developer/folder-mapping",
-    "title": "Folder Mapping",
-    "relevanceScore": 34.5,
-    "deprecation": "Please contact us if you have a use case for folder mapping..."
-  }
-]
+# Index specific project
+docs-index.sh /path/to/project
 ```
 
-**Good Response:**
-"I found information about folder mapping, but **this feature is deprecated**. The deprecation notice says: 'Please contact us if you have a use case for folder mapping...'. The current recommended approach is **Path mapping for AEM authoring** (the top result). Let me read that documentation for you instead."
+## Document Types
 
-**Poor Response:**
-- Ignoring the deprecation warning and implementing the deprecated feature
-- Not mentioning the better alternative
+The following document types are recognized:
 
-## Related Skills
+| Type | Description | Sources |
+|------|-------------|---------|
+| `function` | Function/method documentation | JSDoc, RDoc, docstrings |
+| `class` | Class documentation | Class-level comments |
+| `module` | Module/namespace documentation | Module comments |
+| `interface` | Interface/type documentation | TypeScript interfaces |
+| `component` | React/Vue component documentation | Component comments |
+| `constant` | Documented constants | Constant comments |
+| `readme` | README files | README.md, README.txt |
+| `guide` | Guide/tutorial documentation | docs/ folder |
 
-- **block-collection-and-party**: Use when you need reusable code examples or block implementations
-- **building-blocks**: Use when creating new blocks from scratch
-- **content-modeling**: Use when designing content models for blocks
+## Integration with Other Skills
 
-## Important Reminders
+Docs-search works best when combined with other skills:
 
-1. **Always check for deprecation warnings** and alert the user
-2. **Use WebFetch to read full pages** - search results are just for finding the right pages
-3. **Start with top 2-3 results** before expanding search
-4. **The description field is your friend** - it's usually well-written and concise
-5. **Don't rely solely on snippets** - they're for context, not comprehensive information
+### Combined Search Pattern (RECOMMENDED)
+
+When you receive ANY user instruction:
+
+```bash
+# 1. Search your memory first
+memory-search.sh "topic"
+
+# 2. Search documentation
+docs-search.sh "topic"
+
+# 3. Check code structure
+graph-describe.sh ComponentName
+```
+
+This gives you complete context:
+- **Memory**: What was discussed before?
+- **Docs**: What does the documentation say?
+- **Graph**: What is the code structure?
+
+## Why This Matters
+
+Without searching docs first, you will:
+- Use wrong function signatures (then get runtime errors)
+- Miss existing implementations (then duplicate code)
+- Violate documented patterns (then create inconsistency)
+- Misunderstand APIs (then build the wrong thing)
+
+**Doc search takes 1 second. Redoing work takes hours.**
+
+## Error Handling
+
+**Script not found:**
+- Check PATH: `which docs-search.sh`
+- Verify scripts installed: `ls -la ~/.local/bin/docs-*.sh`
+- Scripts are installed to `~/.local/bin/` which should be in your PATH
+- If not found, run: `./install-docs-tools.sh`
+
+**API connection fails:**
+- Ensure AI Maestro is running: `curl http://127.0.0.1:23000/api/hosts/identity`
+- Ensure documentation has been indexed: `docs-stats.sh`
+- If no docs indexed, run: `docs-index.sh`
+
+**Documentation is empty:**
+- Check project has documented code (JSDoc, docstrings, comments)
+- Verify project path is correct
+- Re-index with: `docs-index.sh /path/to/project`
+
+**No results found:**
+- Inform the user: "No documentation found for X - proceeding with code analysis, but documentation may need to be generated."
+
+## Installation
+
+If commands are not found:
+```bash
+./install-docs-tools.sh
+```
+
+This installs scripts to `~/.local/bin/`.

@@ -1,17 +1,15 @@
 ---
 name: using-superpowers
-description: Meta-skill enforcing skill discovery and invocation discipline through mandatory workflows. Use when starting any conversation to check for relevant skills before any response, ensuring skill-first workflow before proceeding.
+description: Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions
 ---
 
+<EXTREMELY-IMPORTANT>
+If you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST read the skill.
 
-> **⚠️ NON-NEGOTIABLE RULE**
->
-> If you think there is even a 1% chance a skill might apply to your task, you **MUST** read the skill.
->
-> **IF A SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.**
->
-> This is not negotiable. This is not optional. You cannot rationalize your way out of this.
+IF A SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.
 
+This is not negotiable. This is not optional. You cannot rationalize your way out of this.
+</EXTREMELY-IMPORTANT>
 
 # Using Skills
 
@@ -77,15 +75,6 @@ When multiple skills could apply, use this order:
 
 The skill itself tells you which.
 
-## User Instructions ≠ Permission to Skip Workflows
+## User Instructions
 
-Your human partner's specific instructions describe WHAT to accomplish, not HOW to accomplish it.
-
-**"Add X" or "Fix Y"** = the goal, NOT permission to skip brainstorming, TDD, debugging workflows, or other skill-defined processes.
-
-**Red flags indicating you're about to rationalize:**
-- "The instruction was specific" → Specific instructions need disciplined process, not shortcuts
-- "This seems simple" → Simple instructions trigger the most rationalizations
-- "The workflow feels overkill" → Workflows exist because simple tasks become complex
-
-**Why this matters:** Specific instructions mean clear requirements—this is exactly when structured workflows prevent mistakes and save time. Skipping process on "simple" tasks is how simple tasks become complex problems.
+Instructions say WHAT, not HOW. "Add X" or "Fix Y" doesn't mean skip workflows.

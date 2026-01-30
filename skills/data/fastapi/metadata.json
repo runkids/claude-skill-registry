@@ -1,7 +1,7 @@
 {
   "name": "fastapi",
-  "repo": "dennislee928/Smart_Zone",
-  "path": ".claude/skills/fastapi/SKILL.md",
-  "source": "github.com/dennislee928/Smart_Zone",
-  "downloaded_at": "2026-01-29T04:26:55.431832Z"
+  "repo": "duthaho/claudekit",
+  "path": ".claude/skills/frameworks/fastapi/SKILL.md",
+  "source": "github.com/duthaho/claudekit",
+  "downloaded_at": "2026-01-30T04:41:22.016946Z"
 }

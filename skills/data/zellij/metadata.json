@@ -1,11 +1,7 @@
 {
   "name": "zellij",
-  "description": "Use when editing ANY zellij configuration including layouts, swap layouts, keybindings, or zjstatus plugin. Provides rules for powerline characters, VHS testing, and verification.",
-  "repo": "jruz/dotfiles",
-  "category": "testing",
-  "tags": [
-    "zellij"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "moltbot/skills",
+  "path": "skills/jivvei/zellij/SKILL.md",
+  "source": "github.com/moltbot/skills",
+  "downloaded_at": "2026-01-30T03:36:15.029893Z"
 }

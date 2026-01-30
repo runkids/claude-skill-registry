@@ -1,7 +1,7 @@
 {
   "name": "gemini-api",
-  "repo": "jchaselubitz/drill-app",
-  "path": ".claude/skills/gemini-api/SKILL.md",
-  "source": "github.com/jchaselubitz/drill-app",
-  "downloaded_at": "2026-01-29T04:39:05.088820Z"
+  "repo": "diskd-ai/gemini-api",
+  "path": "SKILL.md",
+  "source": "github.com/diskd-ai/gemini-api",
+  "downloaded_at": "2026-01-30T04:01:19.294163Z"
 }

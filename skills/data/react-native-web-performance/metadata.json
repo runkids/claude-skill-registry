@@ -1,9 +1,7 @@
 {
   "name": "react-native-web-performance",
-  "description": "Use when optimizing React Native Web performance. Provides patterns for code splitting, bundle optimization, memoization, and web-specific performance improvements.",
   "repo": "TheBushidoCollective/han",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-react-native-web/skills/react-native-web-performance/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-30T03:33:58.072858Z"
 }

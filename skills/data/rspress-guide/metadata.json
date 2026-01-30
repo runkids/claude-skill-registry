@@ -1,7 +1,7 @@
 {
   "name": "rspress-guide",
-  "repo": "savvy-web/lint-staged",
+  "repo": "savvy-web/pnpm-monorepo-template",
   "path": ".claude/skills/rspress-guide/SKILL.md",
-  "source": "github.com/savvy-web/lint-staged",
-  "downloaded_at": "2026-01-28T04:19:51.045365Z"
+  "source": "github.com/savvy-web/pnpm-monorepo-template",
+  "downloaded_at": "2026-01-30T04:43:26.658472Z"
 }

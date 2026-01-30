@@ -1,8 +1,8 @@
 ---
 name: python3-development
-description: 'Python 3.11+ development with CLI apps (Typer/Rich), testing (pytest), linting (ruff/mypy), and TDD workflows. Use when building Python CLIs, writing tests, fixing linting errors, configuring pyproject.toml, creating portable scripts, or reviewing Python code for best practices.'
-version: "1.2.0"
-last_updated: "2026-01-14"
+description: 'The model must use this skill when : 1. working within any python project. 2. Python CLI applications with Typer and Rich are mentioned by the user. 2. tasked with Python script writing or editing. 3. building CI scripts or tools. 4. Creating portable Python scripts with stdlib only. 5. planning out a python package design. 6. running any python script or test. 7. writing tests (unit, integration, e2e, validation) for a python script, package, or application. Reviewing Python code against best practices or for code smells. 8. The python command fails to run or errors, or the python3 command shows errors. 9. pre-commit or linting errors occur in python files. 10. Writing or editing python code  in a git repository.\n<hint>This skill provides : 1. the users preferred workflow patterns for test-driven development, feature addition, refactoring, debugging, and code review using modern Python 3.11+ patterns (including PEP 723 inline metadata, native generics, and type-safe async processing). 2. References to favored modules. 3. Working pyproject.toml configurations. 4. Linting and formatting configuration and troubleshooting. 5. Resource files that provide solutions to known errors and linting issues. 6. Project layouts the user prefers.</hint>'
+version: "1.1.0"
+last_updated: "2025-11-04"
 python_compatibility: "3.11+"
 ---
 
@@ -61,12 +61,22 @@ Orchestration guide for Python development using specialized agents and modern P
 - Example scripts demonstrating patterns
 - Configuration templates and boilerplate
 
-### Bundled Components (This Plugin)
+### External Dependencies (Required - Not Bundled)
 
-This plugin bundles the core agents and workflows needed for Python 3.11+ development and SAM-style execution:
+**Agents** (install to `~/.claude/agents/`):
 
-- Agents (bundled under `./plugins/python3-development/agents/`): `python-cli-architect`, `python-pytest-architect`, `python-cli-design-spec`, `swarm-task-planner`, plus SAM workflow agents (feature research/analysis/verification).
-- Skills (bundled): `modernpython`, `shebangpython`, and the SAM workflow skills (`add-new-feature`, `implement-feature`, `start-task`, `complete-implementation`).
+- `@agent-python-cli-architect` - Python CLI development with Typer and Rich
+- `@agent-python-pytest-architect` - Test suite creation and planning
+- `@agent-python-code-reviewer` - Post-implementation code review
+- `@agent-python-portable-script` - Standalone stdlib-only script creation
+- `@agent-spec-architect` - Architecture design
+- `@agent-spec-planner` - Task breakdown and planning
+- `@agent-spec-analyst` - Requirements gathering
+
+**Slash Commands** (install to `~/.claude/commands/`):
+
+- `/modernpython` - Python 3.11+ pattern enforcement and legacy code detection
+- `/shebangpython` - PEP 723 inline script metadata validation
 
 **System Tools** (install via package manager or uv):
 
@@ -91,9 +101,11 @@ This plugin bundles the core agents and workflows needed for Python 3.11+ develo
 
 This skill provides orchestration patterns, modern Python 3.11+ standards, quality gates, and reference documentation for Python development.
 
-**Note on command templates**:
+**Commands** (external - in `~/.claude/commands/`):
 
-This plugin includes **command templates** under `./commands/` as reference material. For actual invocation, prefer **skills** (e.g., `modernpython`, `shebangpython`).
+- `/modernpython` - Validates Python 3.11+ patterns, identifies legacy code
+- `/shebangpython` - Validates correct shebang for all Python scripts
+- Note: This skill contains command templates in `commands/` directory, not the actual slash commands
 
 **Reference Documentation**:
 
@@ -177,7 +189,7 @@ def get_rendered_width(renderable: RenderableType) -> int:
     Handles color codes, Unicode, styling, padding, borders.
     Works with Panel, Table, or any Rich container.
     """
-    temp_console = Console(width=99999)
+    temp_console = Console(width=9999)
     measurement = Measurement.get(temp_console, temp_console.options, renderable)
     return int(measurement.maximum)
 
@@ -702,67 +714,6 @@ disallow_untyped_defs = false
 
 ## Agent Orchestration (Orchestrator Only)
 
-### STOP - MANDATORY PRE-DELEGATION PROTOCOL
-
-**Before using the Task tool for ANY Python development delegation, the orchestrator MUST complete this checklist. This is NOT optional. Skipping this protocol leads to agent context exhaustion, architectural mistakes, and failed delegations.**
-
-#### Pre-Delegation Checklist (Complete ALL before Task tool)
-
-| Step | Action                        | Verification                                                                                              |
-| ---- | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
-| 1    | **Read orchestration guide**  | `Read("${CLAUDE_PLUGIN_ROOT}/skills/python3-development/references/python-development-orchestration.md")` |
-| 2    | **Identify workflow pattern** | Which pattern applies? (TDD / Feature Addition / Refactoring / Debugging / Code Review)                   |
-| 3    | **Plan agent chain**          | List ALL agents needed in sequence (never single-agent for complex tasks)                                 |
-| 4    | **Define scope boundaries**   | What is IN scope? What is OUT of scope for each agent?                                                    |
-| 5    | **Set success criteria**      | What specific, measurable outcomes define completion?                                                     |
-
-**BLOCKING RULE**: If you cannot answer steps 2-5 from memory, you have NOT read the orchestration guide. Go back to step 1.
-
-#### Why This Protocol Exists
-
-**Problem observed**: Orchestrators skip reading the guide, send one massive task to a single agent, the agent runs out of context, makes architectural mistakes, and user must intervene.
-
-**Solution**: Reading the guide FIRST reveals:
-
-- Complex tasks require **multiple agents in sequence** (design → test → implement → review)
-- Each agent should receive **focused, bounded scope**
-- Quality gates between agents catch issues early
-
-#### Enforcement
-
-The orchestrator must state which workflow pattern they are using before the first Task tool invocation:
-
-```text
-"I have read the orchestration guide. Using [WORKFLOW PATTERN] with agents: [AGENT1] → [AGENT2] → [AGENT3]"
-```
-
-If you find yourself about to delegate without this statement, STOP and read the guide first.
-
-#### DO NOT Pre-Gather Data for Agents
-
-**Anti-pattern**: Reading files, running commands, or exploring the codebase to "understand the problem" before delegating, then summarizing findings for the agent.
-
-**Why this is wrong**:
-
-1. **Agents perform Chain of Verification (CoVe)**: Agents follow the Scientific Execution Protocol. They read files, form hypotheses, and verify their understanding against actual source code. Your pre-gathered summary bypasses their verification process.
-
-2. **Shallow read vs. focused discovery**: You read without knowing what the agent needs. The agent reads with focused intent—they know what they're building and what details matter.
-
-3. **Stale/incomplete data treated as fact**: Your summary may be incomplete or misunderstood. The agent may incorrectly treat your pre-gathered observations as verified facts rather than re-verifying.
-
-4. **Context waste**: Pre-gathering uses YOUR context, then the agent re-reads anyway. Double the context cost, half the accuracy.
-
-**The agent has read access to everything. Let them discover and verify.**
-
-**What TO provide**:
-
-- Outcomes: What must be true when done
-- Constraints: User requirements, compatibility needs
-- Known issues: Error messages the user reported (pass-through, not pre-gathered)
-- File paths: Where to start looking (not what you found there)
-
----
-
 ### Delegation Pattern
 
 The orchestrator delegates Python development tasks to specialized agents rather than implementing directly.
@@ -771,7 +722,7 @@ The orchestrator delegates Python development tasks to specialized agents rather
 
 **The orchestrator follows this pattern**:
 
-1. **READ the orchestration guide** (mandatory - no exceptions)
+1. Read the complete orchestration guide before delegating tasks
 2. Choose appropriate agents based on task requirements
 3. Provide clear context: file paths, success criteria, scope boundaries
 4. Chain agents for complex workflows (design → implement → test → review)
@@ -785,15 +736,15 @@ The orchestrator delegates Python development tasks to specialized agents rather
 | Test creation      | `@agent-python-pytest-architect` |
 | Code review        | `@agent-python-code-reviewer`    |
 | Stdlib-only script | `@agent-python-portable-script`  |
-| Architecture       | `@agent-python-cli-design-spec`  |
-| Task breakdown     | `@agent-swarm-task-planner`      |
+| Architecture       | `@agent-spec-architect`          |
+| Task breakdown     | `@agent-spec-planner`            |
 | Requirements       | `@agent-spec-analyst`            |
 
 **Reason for delegation table**: Clear mapping prevents orchestrator from implementing when it should coordinate.
 
-### Required Reading (MANDATORY)
+### Required Reading
 
-**The orchestrator MUST read this guide BEFORE any delegation. Not reading it is the #1 cause of failed Python development tasks.**
+**The orchestrator must read and understand the complete agent selection guide before delegating any Python development task:**
 
 [Python Development Orchestration Guide](./references/python-development-orchestration.md)
 
@@ -803,7 +754,6 @@ This guide contains:
 - Workflow patterns (TDD, feature addition, code review, refactoring, debugging)
 - Quality gates and validation requirements
 - Delegation best practices
-- **Multi-agent chaining patterns** (critical for complex tasks)
 
 ### Quick Reference Example
 
@@ -811,25 +761,16 @@ This guide contains:
 User: "Build a CLI tool to process CSV files"
 
 Orchestrator workflow:
-0. Read("${CLAUDE_PLUGIN_ROOT}/skills/python3-development/references/python-development-orchestration.md")
-   "I have read the orchestration guide. Using FEATURE ADDITION workflow with agents:
-    @agent-python-cli-architect → @agent-python-pytest-architect → @agent-python-code-reviewer"
-
-1. Delegate to @agent-python-cli-architect (FOCUSED SCOPE: implementation only)
-   "Create CSV processing CLI with Typer+Rich progress bars. Scope: src/csv_tool.py only."
-
-2. Delegate to @agent-python-pytest-architect (FOCUSED SCOPE: tests only)
-   "Create test suite for CSV processor. Scope: tests/test_csv_tool.py only."
-
-3. Instruct agent to run: /shebangpython, /modernpython
-
-4. Delegate to @agent-python-code-reviewer (FOCUSED SCOPE: review only)
-   "Review CSV processor implementation for patterns and quality."
-
-5. Validate: Code quality checks per holistic-linting skill, then uv run pytest
+1. Read orchestration guide for agent selection
+2. Delegate to @agent-python-cli-architect
+   "Create CSV processing CLI with Typer+Rich progress bars"
+3. Delegate to @agent-python-pytest-architect
+   "Create test suite for CSV processor"
+4. Instruct agent to run: /shebangpython, /modernpython
+5. Delegate to @agent-python-code-reviewer
+   "Review CSV processor implementation"
+6. Validate: Code quality checks (linting, formatting) performed and issues addressed per the holistic-linting skill, then uv run pytest
 ```
-
-**Notice**: Each delegation has FOCUSED SCOPE. The orchestrator read the guide FIRST and stated the workflow pattern BEFORE any Task tool usage.
 
 </section>
 
@@ -914,39 +855,6 @@ Research tool preference for PEP documentation:
 ## Core Workflows (Orchestrator Only)
 
 The orchestrator follows established workflow patterns for Python development tasks. See [Python Development Orchestration Guide](./references/python-development-orchestration.md) for complete details.
-
-### Task Planning Protocol (MANDATORY)
-
-**Every task MUST begin with discovery and planning before implementation.**
-
-**Why**: Skipping discovery leads to rework, missed patterns, and integration failures. The planning phase identifies context, patterns, and dependencies that inform implementation.
-
-**Phase 1: Discovery (before any implementation)**
-
-1. **Context Gathering**: Identify existing code patterns, project structure, and conventions
-2. **Dependency Analysis**: Determine what files/modules are affected
-3. **Tool Detection**: Run Linting Discovery Protocol to identify project tools
-4. **MCP Resource Check**: Identify available MCP tools for documentation and research
-
-**Phase 2: Planning (before writing code)**
-
-1. **Task Breakdown**: Use `swarm-task-planner` agent for complex tasks
-2. **Agent Selection**: Match task requirements to specialized agents
-3. **Quality Gates**: Define acceptance criteria and verification steps
-4. **Validation Strategy**: Identify tests and checks needed
-
-**Phase 3: Implementation**
-
-1. **Execute plan** using selected agents
-2. **Validate incrementally** against acceptance criteria
-3. **Run quality gates** (linting, type checking, tests)
-
-**Phase 4: Verification**
-
-1. **Run all tests**: `uv run pytest`
-2. **Check coverage**: Minimum 80% for standard code, 95%+ for critical paths
-3. **Lint validation**: Run detected git hook tool
-4. **Final review**: Use `python-code-reviewer` agent
 
 ### Workflow Overview
 
@@ -1106,48 +1014,6 @@ After local quality gates pass, verify CI will accept the changes:
 2. If `.github/workflows/*.yml` exists: Check for additional quality gates
 3. Ensure all CI-required checks are executed locally before claiming task completion
 
-### Linting Exception Conditions
-
-The model MUST NOT ignore or bypass linting errors UNLESS the code falls into one of these categories:
-
-**Acceptable Exceptions** (OK to ignore linting):
-
-1. **Vendored code** - Third-party code copied into the repository without modification
-2. **Examples of what-not-to-do** - Intentionally incorrect code for educational purposes
-3. **Code pinned to historic Python version** - Code requiring Python < 3.11 compatibility
-4. **Code for Python derivatives** - CircuitPython, MicroPython, or similar implementations
-
-**Unacceptable Exceptions** (MUST fix or escalate):
-
-If NONE of the above conditions apply, the model MUST:
-
-1. Fix the linting error at root cause
-2. If unable to fix, document the specific blocker
-3. Never add `# type: ignore`, `# noqa`, or similar suppressions without explicit user approval
-
-**Rule Codes That MUST Always Be Fixed** (never suppress):
-
-These rule codes indicate real code quality issues that must be resolved at root cause:
-
-- **BLE001** (blind-except): Replace generic `except Exception` with specific exception types
-- **D103** (missing-docstring-in-public-function): Add docstrings to public functions
-- **TRY300** (try-consider-else): Restructure try/except/else blocks properly
-
-**Per-File Exceptions in pyproject.toml** (acceptable):
-
-The following rules may be configured as per-file ignores in `pyproject.toml` `[tool.ruff.lint.per-file-ignores]`:
-
-- `**/scripts/**`: T201 (print), S (security), DOC, ANN401, PLR0911, PLR0917, PLC0415
-- `**/tests/**`: S, D, E501, ANN, DOC, PLC, SLF, PLR, EXE, N, T
-- `**/assets/**`: PLC0415, DOC
-- `typings/**`: N, ANN, A
-
-These configurations allow relaxed checking in appropriate contexts without inline suppressions.
-
-**Touched Files Must Be Clean**:
-
-When files are modified, moved, or renamed, all linting issues in those files MUST be resolved before committing. Touching a file means taking responsibility for its quality.
-
 ## Standard Project Structure
 
 All Python projects use this directory layout:
@@ -1184,9 +1050,9 @@ This structure is consistent across all projects and enables clear separation of
 
 ## Integration
 
-### Reference Example (Bundled)
+### External Reference Example
 
-**Complete working example** (bundled): [python-cli-demo.py](./assets/python-cli-demo.py)
+**Complete working example** (external): `~/.claude/agents/python-cli-demo.py`
 
 This reference implementation demonstrates all recommended patterns:
 
@@ -1197,7 +1063,7 @@ This reference implementation demonstrates all recommended patterns:
 - Async processing
 - Comprehensive docstrings
 
-This file is bundled with this plugin to keep the workflow self-contained. Use it as reference when creating CLI tools.
+This file is not bundled with this skill and must be available in `~/.claude/agents/` separately. Use as reference when creating CLI tools.
 
 ### Using Asset Templates
 
@@ -1205,33 +1071,33 @@ When creating new Python projects, copy standard configuration files from the sk
 
 **Reason**: Templates implement proven patterns and save setup time.
 
-**Asset Directory Location (in plugin)**: `./assets/`
+**Asset Directory Location**: `~/.claude/skills/python3-development/assets/`
 
 **Available Templates**:
 
 1. **version.py** - Dual-mode version management (hatch-vcs + importlib.metadata fallback)
 
    ```bash
-   cp "${CLAUDE_PLUGIN_ROOT}/skills/python3-development/assets/version.py" "packages/{package_name}/version.py"
+   cp ~/.claude/skills/python3-development/assets/version.py packages/{package_name}/version.py
    ```
 
 2. **hatch_build.py** - Build hook for binary/asset handling (only if needed)
 
    ```bash
    mkdir -p scripts/
-   cp "${CLAUDE_PLUGIN_ROOT}/skills/python3-development/assets/hatch_build.py" "scripts/hatch_build.py"
+   cp ~/.claude/skills/python3-development/assets/hatch_build.py scripts/hatch_build.py
    ```
 
 3. **.markdownlint.json** - Markdown linting configuration
 
    ```bash
-   cp "${CLAUDE_PLUGIN_ROOT}/skills/python3-development/assets/.markdownlint.json" "."
+   cp ~/.claude/skills/python3-development/assets/.markdownlint.json .
    ```
 
 4. **.pre-commit-config.yaml** - Standard git hooks configuration
 
    ```bash
-   cp "${CLAUDE_PLUGIN_ROOT}/skills/python3-development/assets/example.pre-commit-config.yaml" ".pre-commit-config.yaml"
+   cp ~/.claude/skills/python3-development/assets/.pre-commit-config.yaml .
 
    # Install hooks using pre-commit or prek (whichever is available)
    # Both tools use the same configuration file and have identical interfaces
@@ -1240,7 +1106,7 @@ When creating new Python projects, copy standard configuration files from the sk
 
 5. **.editorconfig** - Editor formatting settings
    ```bash
-   cp "${CLAUDE_PLUGIN_ROOT}/skills/python3-development/assets/.editorconfig" "."
+   cp ~/.claude/skills/python3-development/assets/.editorconfig .
    ```
 
 These templates implement the patterns documented in [User Project Conventions](./references/user-project-conventions.md) and ensure all projects follow the same standards for version management, linting, formatting, and build configuration.
@@ -1253,8 +1119,6 @@ These templates implement the patterns documented in [User Project Conventions](
 
 | Instead of                             | Use this pattern                                                               |
 | -------------------------------------- | ------------------------------------------------------------------------------ |
-| **Delegating without reading guide**   | **ALWAYS read orchestration guide first, state workflow pattern**              |
-| Sending one massive task to agent      | Break into focused delegations with bounded scope                              |
 | Writing Python code directly           | Delegate to `@agent-python-cli-architect` with clear requirements              |
 | Skipping validation steps              | Complete workflow: implement → test → review → validate                        |
 | Pre-deciding technical implementations | Let agents determine HOW based on requirements                                 |
@@ -1306,10 +1170,10 @@ grep -i "^## " references/python-development-orchestration.md
 
 ### External Commands
 
-These skills are bundled with this plugin and available as slash commands:
+These slash commands are external dependencies installed in `~/.claude/commands/`:
 
-- [/modernpython](../modernpython/SKILL.md) - Python 3.11+ patterns and PEP references
-- [/shebangpython](../shebangpython/SKILL.md) - PEP 723 validation and shebang standards
+- [/modernpython](~/.claude/commands/modernpython.md) - Python 3.11+ patterns and PEP references
+- [/shebangpython](~/.claude/commands/shebangpython.md) - PEP 723 validation and shebang standards
 
 ## Summary
 

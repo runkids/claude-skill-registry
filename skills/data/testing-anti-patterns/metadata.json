@@ -1,7 +1,7 @@
 {
   "name": "testing-anti-patterns",
-  "repo": "alfredolopez80/multi-agent-ralph-loop",
-  "path": ".claude/skills/testing-anti-patterns/SKILL.md",
-  "source": "github.com/alfredolopez80/multi-agent-ralph-loop",
-  "downloaded_at": "2026-01-29T04:40:07.887548Z"
+  "repo": "liauw-media/CodeAssist",
+  "path": "skills/testing/testing-anti-patterns/SKILL.md",
+  "source": "github.com/liauw-media/CodeAssist",
+  "downloaded_at": "2026-01-30T04:19:06.940610Z"
 }

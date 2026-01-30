@@ -1,7 +1,7 @@
 {
   "name": "dev-server",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/dev-server/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-29T04:03:54.835557Z"
+  "repo": "vm0-ai/vm0",
+  "path": ".claude/skills/dev-server/SKILL.md",
+  "source": "github.com/vm0-ai/vm0",
+  "downloaded_at": "2026-01-30T04:06:32.924214Z"
 }

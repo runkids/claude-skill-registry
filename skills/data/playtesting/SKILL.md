@@ -132,7 +132,7 @@ npx -y godot-mcp-cli@latest run_project --headed
 npx -y godot-mcp-cli@latest get_runtime_scene_structure
 ```
 
-### For Claude Desktop Agents
+### For Desktop Agents
 Use **native MCP tools** (`mcp__godot__*`) directly.
 
 **DO NOT use PowerShell wrapper** (you have native access).

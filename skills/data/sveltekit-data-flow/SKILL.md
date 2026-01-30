@@ -1,10 +1,10 @@
 ---
 name: sveltekit-data-flow
+# IMPORTANT: Keep description on ONE line for Claude Code compatibility
+# prettier-ignore
 description: SvelteKit data flow guidance. Use for load functions, form actions, and server/client data. Covers +page.server.ts vs +page.ts, serialization, fail(), redirect(), error().
 ---
 
-# IMPORTANT: Keep description on ONE line for Claude Code compatibility
-# prettier-ignore
 # SvelteKit Data Flow
 
 ## Quick Start

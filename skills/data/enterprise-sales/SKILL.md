@@ -1,119 +1,386 @@
 ---
-name: "enterprise-sales"
-description: "Create an Enterprise Deal Execution Pack (buying committee map + champion enablement, “no decision” prevention plan + mutual action plan, procurement/security packet, and POC-as-business-case plan + ROI model). Use for enterprise sales, procurement, security reviews, and enterprise pilots/POCs. Category: Sales & GTM."
+name: enterprise-sales
+description: Эксперт по enterprise продажам. Используй для сложных B2B сделок, buying committee и strategic accounts.
 ---
 
-# Enterprise Sales
+# Enterprise Sales Expert
 
-## Scope
+Strategic expertise in navigating complex enterprise sales cycles.
 
-**Covers**
-- Running a single enterprise deal (mid-market → enterprise) from qualification to signature
-- Mapping the buying committee and empowering a champion
-- Preventing “no decision” outcomes (status quo / ghosting) with decision enablement + MAP
-- Procurement + contracting workflows (forms, vendor onboarding, preferred-vendor objections)
-- Security reviews + security questionnaires (packaging answers, coordinating stakeholders)
-- POCs/pilots framed as a business case + ROI model (not just technical fit)
-- Product-led sales escalation (self-serve usage → enterprise expansion narrative)
+## Core Competencies
 
-**When to use**
-- “Build a mutual action plan for an enterprise deal.”
-- “My deal is stuck in procurement/security—help me run it.”
-- “We need a champion kit for IT/legal/economic buyer.”
-- “They want a POC—help me scope it and build the ROI case.”
-- “We have usage but can’t convert to enterprise—build an escalation story.”
+### Strategic Selling
+- Executive engagement
+- Political navigation
+- Complex deal orchestration
+- Value selling
+- Strategic account planning
 
-**When NOT to use**
-- You’re still validating ICP / first customers (use `founder-sales`)
-- This is a transactional SMB sale without buying committee / procurement / security
-- You need legal advice or final contract language (coordinate with counsel)
-- You’re building a full sales org / forecasting system (use `building-sales-team`)
+### Stakeholder Management
+- Buying committee mapping
+- Champion development
+- Executive sponsor alignment
+- Blocker neutralization
+- Influencer engagement
 
-## Inputs
+### Deal Execution
+- Procurement navigation
+- Legal negotiation
+- Security reviews
+- Integration planning
+- Implementation scoping
 
-**Minimum required**
-- Product + value: what it does, for whom, and the measurable outcome
-- Account: company, segment, current state (existing tools/workflows), urgency/trigger
-- Deal context: target package/ACV range, desired timeline, stage, and what “closed-won” means
-- Stakeholders known so far: champion candidate, economic buyer, IT/security, legal/procurement, users
-- Current friction: what is blocking progress (no decision risk, procurement, security, POC request, etc.)
-- Constraints: what you can offer (pilot scope, services, security docs), internal resourcing, red lines
+## Enterprise Buying Committee
 
-**Missing-info strategy**
-- Ask up to 5 questions from [references/INTAKE.md](references/INTAKE.md).
-- If answers aren’t available, proceed with explicit assumptions and label unknowns in **Assumptions & unknowns**, plus a short **Validation plan**.
+### Key Roles
 
-## Outputs (deliverables)
+| Role | Focus | Approach |
+|------|-------|----------|
+| Economic Buyer | Budget/ROI | Business case, TCO analysis |
+| Champion | Internal advocacy | Enable with materials, coach |
+| Technical Evaluator | Fit/integration | Proof of concept, architecture |
+| User Buyer | Day-to-day use | Demo, trial, references |
+| Procurement | Terms/price | Negotiation, compliance |
+| Legal | Risk/compliance | Security review, contracts |
+| IT Security | Data protection | Security questionnaire |
 
-Produce an **Enterprise Deal Execution Pack** in Markdown (in-chat; or as files if requested):
+### Engagement Strategy
+- Map the entire committee early
+- Develop multiple champions
+- Access economic buyer early
+- Address technical concerns proactively
+- Anticipate procurement needs
+- Build consensus before final pitch
 
-1) **Deal snapshot** (account, use case, stage, timeline, success definition)
-2) **Buying committee map + champion plan** (roles, incentives, concerns, next actions)
-3) **Champion enablement kit** (internal pitch + stakeholder one-pagers + objection answers)
-4) **Decision enablement plan** (reduce “no decision”: do-nothing cost + decision guide + MAP)
-5) **POC/pilot plan + ROI business case** (30-day plan; success metrics; ROI model; decision criteria)
-6) **Procurement + security packet plan** (forms tracker, required docs, owners, timelines)
-7) **Close + implementation handoff** (commercials, signature plan, kickoff + first value milestones)
-8) **Risks / Open questions / Next steps** (always included)
+## Enterprise Sales Process
 
-Templates: [references/TEMPLATES.md](references/TEMPLATES.md)
+### Extended Timeline
 
-## Workflow (7 steps)
+| Phase | Duration | Activities |
+|-------|----------|------------|
+| Discovery | 2-4 weeks | Stakeholder meetings, needs analysis |
+| Qualification | 1-2 weeks | MEDDPICC evaluation, budget confirmation |
+| Evaluation | 4-8 weeks | POC, technical review, demos |
+| Business Case | 2-4 weeks | ROI analysis, internal selling |
+| Procurement | 4-12 weeks | Legal, security, negotiation |
+| Close | 2-4 weeks | Final approvals, signature |
+| Onboarding | 4-12 weeks | Implementation, adoption |
 
-### 1) Intake + enterprise qualification (what “enterprise” means here)
-- **Inputs:** User context; [references/INTAKE.md](references/INTAKE.md).
-- **Actions:** Confirm deal type (buying committee, procurement/security, ACV, timeline). Capture the core use case and desired business outcome. Identify the #1 stall risk (no decision vs procurement vs security vs POC).
-- **Outputs:** Deal snapshot + assumptions/unknowns + validation plan.
-- **Checks:** There is a clear outcome, buyer, and timeline (even if assumed).
+### Key Milestones
+- Champion identified and engaged
+- Executive sponsor committed
+- Technical win achieved
+- Business case approved internally
+- Budget confirmed and allocated
+- Legal/security approved
+- MSA/contract signed
 
-### 2) Map the buying committee + pick the champion
-- **Inputs:** Account org context; known stakeholders.
-- **Actions:** Build a buying-committee map (5–7 common roles) and identify a champion (the person who can drive internal consensus). Define each stakeholder’s goals, risks, and required evidence.
-- **Outputs:** Buying committee map + champion plan (what the champion needs next).
-- **Checks:** A single “primary champion” is named (or a plan to find one within 1–2 calls).
+## MEDDPICC Qualification
 
-### 3) Arm the champion (enable internal selling)
-- **Inputs:** Use case, value narrative, stakeholder concerns.
-- **Actions:** Produce a champion enablement kit: internal pitch memo, stakeholder one-pagers (IT/security, procurement, legal, economic buyer), and objection/FAQ answers. Include proof artifacts (case studies, security docs list, ROI assumptions).
-- **Outputs:** Champion enablement kit.
-- **Checks:** The champion can forward/share these materials without editing (copy/paste ready).
+```yaml
+Metrics:
+  questions:
+    - What quantifiable business outcomes are you seeking?
+    - How will success be measured?
+    - What's the cost of inaction?
 
-### 4) Beat “no decision” with decision enablement + MAP
-- **Inputs:** Current stage; risks; target decision date.
-- **Actions:** Make “do nothing” concrete (cost, risk, missed goals). Define the decision to be made, options, and decision criteria. Build a Mutual Action Plan (MAP) with dates, owners, and required outputs (incl. procurement/security milestones).
-- **Outputs:** Decision enablement plan + MAP.
-- **Checks:** MAP includes a decision meeting date and explicit buyer commitments (not just seller tasks).
+Economic Buyer:
+  questions:
+    - Who controls the budget?
+    - What's their decision process?
+    - Have we engaged them directly?
 
-### 5) Design the POC/pilot as a business case (not a feature test)
-- **Inputs:** POC request; success criteria; data available; integration constraints.
-- **Actions:** Reframe the POC as a 30-day pilot to co-create a business case/ROI model. Define measurable success metrics, required data, responsibilities, and decision criteria. If appropriate, propose a **paid** pilot/POC as a seriousness filter.
-- **Outputs:** POC/pilot plan + ROI model + decision criteria.
-- **Checks:** The pilot produces a decision-ready business case, not just “it works.”
+Decision Criteria:
+  questions:
+    - What are the must-have requirements?
+    - How will you evaluate solutions?
+    - What differentiates winning vendors?
 
-### 6) Run procurement + security like a project (do the paperwork)
-- **Inputs:** Procurement process; security requirements; contract constraints.
-- **Actions:** Create a tracker for forms, security questionnaires, and vendor onboarding steps. Offer to pre-fill buyer forms to reduce their load. Prepare a minimal security packet checklist and coordinate internal SMEs. Consider contract structuring options (e.g., separate services vs software agreements) where appropriate—without giving legal advice.
-- **Outputs:** Procurement/security tracker + packet checklist + comms plan.
-- **Checks:** Owners and dates exist for every procurement/security task; blockers are explicit.
+Decision Process:
+  questions:
+    - What are the steps to final approval?
+    - Who needs to sign off?
+    - What's the expected timeline?
 
-### 7) Quality gate + finalize (close-to-implementation)
-- **Inputs:** Draft pack.
-- **Actions:** Run [references/CHECKLISTS.md](references/CHECKLISTS.md) and score with [references/RUBRIC.md](references/RUBRIC.md). Add a signature plan (who signs, when) and an implementation handoff (kickoff, first value milestone). Always include **Risks / Open questions / Next steps**.
-- **Outputs:** Final Enterprise Deal Execution Pack.
-- **Checks:** Next steps are executable this week; assumptions are explicit; “no decision” risk is actively managed.
+Paper Process:
+  questions:
+    - What procurement process applies?
+    - Are there preferred vendor requirements?
+    - What legal/security reviews are needed?
 
-## Quality gate (required)
-- Use [references/CHECKLISTS.md](references/CHECKLISTS.md) and [references/RUBRIC.md](references/RUBRIC.md).
-- Always include: **Risks**, **Open questions**, **Next steps**.
+Implicate Pain:
+  questions:
+    - What happens if this problem isn't solved?
+    - Who is most affected by current state?
+    - What business initiatives are at risk?
 
-## Examples
+Champion:
+  questions:
+    - Who is our internal advocate?
+    - What's their influence level?
+    - What do they personally gain from success?
 
-**Example 1 (procurement + security stall):**  
-“Use `enterprise-sales`. We’re selling a workflow automation tool to a 5k-employee fintech. We have a champion in Ops, but procurement sent vendor onboarding forms and security wants a questionnaire + SOC 2. Output: an Enterprise Deal Execution Pack with a MAP, procurement/security tracker, and champion enablement one-pagers.”
+Competition:
+  questions:
+    - Who else are you evaluating?
+    - What's the incumbent solution?
+    - What would cause you to stay with status quo?
+```
 
-**Example 2 (POC request, ROI focus):**  
-“Use `enterprise-sales`. A healthcare enterprise wants a POC. ACV target $120k. They’re asking for a technical test, but we want to make it a business-case pilot. Output: a 30-day pilot plan with success metrics, ROI model, and a decision-ready business case.”
+## Strategic Account Planning
 
-**Boundary example:**  
-“Just write a generic enterprise sales script that closes anyone.”  
-Response: explain this skill is deal-specific and evidence-driven; request account context + stakeholders and produce a tailored MAP, champion kit, and pilot/business-case plan instead.
+### Account Plan Components
+
+```yaml
+Account Overview:
+  - Company profile and strategy
+  - Key business initiatives
+  - Technology landscape
+  - Financial health
+  - Industry trends affecting them
+
+Relationship Map:
+  - Organization chart
+  - Key stakeholders and roles
+  - Relationship strength (1-5)
+  - Influence level
+  - Sentiment toward us
+  - Communication preferences
+
+Opportunity Assessment:
+  - Current contracts/spend
+  - Whitespace opportunities
+  - Expansion potential
+  - Risk factors
+  - Competition position
+
+Growth Strategy:
+  - Land strategy (initial foothold)
+  - Expand playbook (cross-sell/upsell)
+  - Defend tactics (retention)
+  - 12-month revenue targets
+
+Action Plan:
+  - Quarterly objectives
+  - Key activities and owners
+  - Success metrics
+  - Review cadence
+```
+
+### Expansion Playbook
+
+```yaml
+Land and Expand:
+  phase_1_land:
+    - Start with single use case
+    - Prove value quickly
+    - Build reference champion
+    - Document ROI metrics
+
+  phase_2_expand:
+    - Identify adjacent use cases
+    - Map additional stakeholders
+    - Create expansion business case
+    - Negotiate enterprise agreement
+
+Cross-sell Triggers:
+  - New executive hire
+  - Strategic initiative announcement
+  - M&A activity
+  - Budget cycle timing
+  - Competitor displacement opportunity
+
+Upsell Triggers:
+  - Usage approaching limits
+  - New feature release alignment
+  - Business growth indicators
+  - Contract renewal approaching
+```
+
+## Executive Engagement
+
+### C-Level Meeting Framework
+
+```yaml
+Preparation:
+  - Research executive's priorities (10-K, earnings calls)
+  - Identify business pain points
+  - Prepare industry benchmarks
+  - Bring relevant customer stories
+  - Have clear ask and next steps
+
+Meeting Structure:
+  - 5 min: Rapport and context
+  - 10 min: Validate business priorities
+  - 15 min: Solution alignment to priorities
+  - 10 min: ROI and outcomes discussion
+  - 5 min: Next steps and commitments
+
+Follow-up:
+  - Same-day thank you with summary
+  - Executive briefing document
+  - Relevant case study
+  - Clear next action with timeline
+```
+
+### Executive Business Review (EBR)
+
+```yaml
+Quarterly EBR Agenda:
+  1. Partnership recap (5 min)
+  2. Value delivered - metrics (15 min)
+  3. Adoption and usage trends (10 min)
+  4. Roadmap alignment (10 min)
+  5. Strategic initiatives discussion (15 min)
+  6. Success planning next quarter (10 min)
+  7. Executive feedback (5 min)
+
+Preparation Checklist:
+  - [ ] ROI analysis updated
+  - [ ] Usage metrics compiled
+  - [ ] Success stories documented
+  - [ ] Roadmap slides prepared
+  - [ ] Expansion opportunities identified
+  - [ ] Risk factors addressed
+```
+
+## Negotiation Strategies
+
+### Enterprise Deal Structure
+
+```yaml
+Pricing Models:
+  - Per seat/user licensing
+  - Usage-based pricing
+  - Platform fee + consumption
+  - Enterprise license agreement (ELA)
+  - Custom hybrid models
+
+Deal Components:
+  - Software/subscription fees
+  - Implementation services
+  - Training and enablement
+  - Premium support tiers
+  - Professional services credits
+  - Success management
+
+Negotiation Levers:
+  - Contract term length
+  - Payment terms
+  - Volume commitments
+  - Multi-year discount
+  - Bundled services
+  - Reference/case study rights
+```
+
+### Procurement Navigation
+
+```yaml
+Common Procurement Tactics:
+  tactic: "We need 30% discount to proceed"
+  response: "Help me understand your budget constraints.
+             Let's explore what value trade-offs work."
+
+  tactic: "Your competitor is cheaper"
+  response: "Let's compare total cost of ownership and
+             expected outcomes, not just license cost."
+
+  tactic: "We need to extend evaluation period"
+  response: "What additional information would help
+             you make a confident decision?"
+
+Security Review Tips:
+  - Proactively share SOC 2/ISO certifications
+  - Complete security questionnaire before requested
+  - Offer customer reference for security discussion
+  - Have data processing agreement ready
+  - Address data residency requirements upfront
+```
+
+## Deal Orchestration
+
+### Multi-threaded Engagement
+
+```yaml
+Minimum Viable Coverage:
+  - Economic buyer: Monthly touchpoint
+  - Champion: Weekly alignment
+  - Technical lead: As needed for POC
+  - Procurement: Early relationship
+  - End users: Demo and feedback sessions
+
+Risk Mitigation:
+  - Single-threaded: Add 2+ contacts
+  - Champion leaves: Have backup
+  - Budget freeze: Executive escalation plan
+  - Competitor threat: Differentiation session
+  - Timeline slip: Mutual action plan
+```
+
+### Mutual Action Plan
+
+```yaml
+Sample Structure:
+  Week 1-2:
+    - Discovery sessions complete
+    - Requirements documented
+    - Success criteria defined
+    - Owner: AE + Champion
+
+  Week 3-4:
+    - Technical evaluation
+    - POC environment setup
+    - Integration assessment
+    - Owner: SE + IT Lead
+
+  Week 5-6:
+    - Business case development
+    - ROI analysis
+    - Executive presentation
+    - Owner: AE + Champion
+
+  Week 7-8:
+    - Procurement engagement
+    - Contract review
+    - Security review
+    - Owner: AE + Procurement
+
+  Week 9-10:
+    - Final negotiations
+    - Legal redlines
+    - Approval routing
+    - Owner: AE + Legal
+```
+
+## Win/Loss Analysis
+
+### Post-Deal Review
+
+```yaml
+Win Analysis:
+  - What was the deciding factor?
+  - Who were the key influencers?
+  - What objections did we overcome?
+  - What can we replicate?
+
+Loss Analysis:
+  - At what stage did we lose?
+  - Was it price, product, or process?
+  - Who influenced the decision?
+  - What would we do differently?
+
+Documentation:
+  - CRM opportunity notes
+  - Key stakeholder feedback
+  - Competitive intelligence
+  - Process improvement actions
+```
+
+## Лучшие практики
+
+1. **Multi-thread** — минимум 3-5 контактов в аккаунте
+2. **Champion first** — найдите и развивайте внутреннего адвоката
+3. **Prove value early** — быстрые wins во время evaluation
+4. **Executive access** — регулярный доступ к C-level
+5. **Mutual commitment** — двусторонний action plan
+6. **Document everything** — CRM дисциплина критична

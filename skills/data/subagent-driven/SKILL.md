@@ -1,96 +1,273 @@
 ---
-name: aico-subagent-driven
-description: |
-  Execute implementation plan by dispatching fresh subagent per task. Each task gets: Implementer → Spec Review → Quality Review. Two-stage review ensures both correctness and quality.
-
-  Use this skill when:
-  - Have implementation plan with multiple independent tasks
-  - Want automated execution with quality gates after each task
-  - Tasks are mostly independent (not tightly coupled)
-  - User asks to "execute the plan", "run the tasks", "auto implement"
-
-  Prerequisites: Must have plan from aico-*-plan or aico-*-task-breakdown skill.
-  Process: For each task: Dispatch Implementer → Spec Review (passes?) → Quality Review (passes?) → Next task
-  Review order: ALWAYS spec compliance first, THEN code quality.
+name: subagent-driven
+description: Execute implementation plans with structured subagent dispatch and two-stage review (spec compliance, then code quality). Based on obra/superpowers.
+version: 1.0.0
+category: development
+last_updated: 2026-01-19
+source: https://github.com/obra/superpowers
+related_skills:
+  - writing-plans
+  - tdd-obra
+  - code-reviewer
+  - parallel-dispatch
 ---
 
-# Subagent-Driven Development
+# Subagent-Driven Development Skill
 
-## Process
+## Overview
+
+This skill implements structured plan execution by dispatching independent subagents for each task, followed by mandatory two-stage reviews: specification compliance first, then code quality. Ensures systematic progress with quality gates.
+
+## Quick Start
+
+1. **Prepare plan** - Extract tasks to TodoWrite tracker
+2. **For each task:**
+   - Dispatch implementer subagent
+   - Answer clarification questions
+   - Run spec compliance review
+   - Run code quality review
+3. **Final review** - Comprehensive code review
+4. **Complete** - Use finishing-a-development-branch
+
+## When to Use
+
+- Executing implementation plans with mostly independent tasks
+- Need to remain in current session
+- Quality gates required between tasks
+- Context preservation across multiple steps
+
+**Don't use when:**
+- Tasks are tightly coupled
+- Parallel execution preferred
+- Simple, single-file changes
+
+## Process Flow
 
 ```
-1. Read plan, extract all tasks
-      ↓
-2. Create TodoWrite with all tasks
-      ↓
-3. For each task:
-   a. Dispatch Implementer Subagent
-   b. Implementer: implement, test, commit
-   c. Dispatch Spec Reviewer (matches spec?)
-   d. Spec issues? → Implementer fixes → re-review
-   e. Dispatch Quality Reviewer (code quality?)
-   f. Quality issues? → Implementer fixes → re-review
-   g. Mark task complete
-      ↓
-4. All tasks complete → Final review → Done
+Plan → [Task 1] → Implement → Spec Review → Quality Review → ✓
+                                  ↓              ↓
+                               Fix & Re-review if needed
+       [Task 2] → Implement → Spec Review → Quality Review → ✓
+       ...
+       Final Review → Complete
 ```
 
-## Review Order is Critical
+## Detailed Process
+
+### Step 1: Plan Preparation
+
+Extract all tasks with full context:
+
+```markdown
+## Task Extraction
+
+From plan, create TodoWrite entries:
+- [ ] Task 1: [Description with full context]
+- [ ] Task 2: [Description with full context]
+- [ ] Task 3: [Description with full context]
+```
+
+**Important:** Provide extracted text to subagents, don't make them read plan files.
+
+### Step 2: Per-Task Execution
+
+For each task:
+
+#### 2a. Dispatch Implementer
+
+```markdown
+**Implementer Subagent Prompt:**
+
+Implement the following task:
+
+[Complete task text from plan]
+
+Requirements:
+- Follow TDD: write test first, verify failure, implement, verify pass
+- Make atomic commits
+- Self-review before signaling completion
+- Ask clarifying questions if needed
+
+Signal completion with summary of:
+- Files changed
+- Tests added/modified
+- Any deviations from plan
+```
+
+#### 2b. Handle Clarifications
+
+If implementer asks questions:
+- Answer before implementation begins
+- Don't let implementer proceed with assumptions
+- Document answers for future reference
+
+#### 2c. Spec Compliance Review
+
+```markdown
+**Spec Reviewer Subagent Prompt:**
+
+Review the implementation for specification compliance:
+
+**Original task spec:**
+[Task text from plan]
+
+**Changes made:**
+[Summary from implementer]
+
+Verify:
+- [ ] All requirements from spec implemented
+- [ ] No requirements missed
+- [ ] No extra features added (YAGNI)
+- [ ] Implementation matches described approach
+
+Report: PASS or FAIL with specific issues
+```
+
+If FAIL: Fix issues, re-run spec review.
+
+#### 2d. Code Quality Review
+
+Only after spec review passes:
+
+```markdown
+**Quality Reviewer Subagent Prompt:**
+
+Review the implementation for code quality:
+
+**Files changed:**
+[List of files]
+
+Review for:
+- [ ] Code clarity and readability
+- [ ] Error handling
+- [ ] Test coverage and quality
+- [ ] Performance considerations
+- [ ] Security implications
+- [ ] Adherence to project conventions
+
+Report: PASS or FAIL with specific issues
+```
+
+If FAIL: Fix issues, re-run quality review.
+
+#### 2e. Mark Complete
+
+After both reviews pass:
+- Mark task as complete in TodoWrite
+- Move to next task
+
+### Step 3: Final Review
+
+After all tasks complete:
+
+```markdown
+**Final Reviewer Subagent Prompt:**
+
+Conduct comprehensive code review of all changes:
+
+**Tasks completed:**
+[List of all tasks]
+
+**Files modified:**
+[Complete file list]
+
+Review for:
+- [ ] Overall architectural coherence
+- [ ] Cross-task consistency
+- [ ] Integration correctness
+- [ ] Complete test coverage
+- [ ] Documentation completeness
+
+Report: PASS or specific issues to address
+```
+
+### Step 4: Completion
+
+Use finishing-a-development-branch skill:
+- Decide: merge to main or create PR
+- Handle cleanup
+- Update tracking
+
+## Critical Rules
+
+### Never
+
+- Skip reviews (spec compliance OR code quality)
+- Start code quality review before spec compliance passes
+- Dispatch multiple implementation subagents in parallel
+- Make subagents read plan files directly
+- Accept reviews with unresolved issues
+- Continue to next task before current passes both reviews
+
+### Always
+
+- Provide extracted text to subagents
+- Answer clarifications before implementation
+- Fix issues before re-review
+- Document deviations from plan
+- Run both review stages in order
+
+## Review Order Rationale
 
 ```
-Spec Compliance Review FIRST
-        ↓
-    ✅ Passes
-        ↓
-Code Quality Review SECOND
+1. Spec Compliance (Does it do the right thing?)
+   ↓
+2. Code Quality (Does it do it well?)
 ```
 
-**Why:** No point reviewing code quality if it doesn't meet spec.
+Spec first because:
+- No point polishing wrong code
+- Requirements drive design decisions
+- Quality review assumes correct functionality
 
-## Subagent Prompts
+## Best Practices
 
-### Implementer
+### Do
 
-- Provide FULL task text (don't make subagent read file)
-- Provide context (where task fits in plan)
-- Require TDD and self-review
+1. Extract complete task context
+2. Include expected outcomes in implementer prompt
+3. Be specific in review criteria
+4. Fix issues immediately when found
+5. Keep TodoWrite updated
+6. Document any plan deviations
 
-### Spec Reviewer
+### Don't
 
-- Check: Does implementation match spec exactly?
-- Missing anything? Added anything extra?
+1. Rush through reviews
+2. Batch multiple tasks before review
+3. Skip re-review after fixes
+4. Let implementer guess at requirements
+5. Accept "mostly passing" reviews
+6. Proceed with unresolved questions
 
-### Quality Reviewer
+## Error Handling
 
-- Check: Tests, readability, error handling, performance, security
-- Rate issues as Critical/Important/Minor
+| Situation | Action |
+|-----------|--------|
+| Implementer asks question | Answer fully, then proceed |
+| Spec review fails | Fix specific issues, re-review |
+| Quality review fails | Fix specific issues, re-review |
+| Task blocked by dependency | Complete dependency first |
+| Plan needs revision | Update plan, re-extract tasks |
 
-## Key Rules
+## Metrics
 
-- ALWAYS run both reviews (spec AND quality)
-- MUST fix issues before proceeding to next task
-- NEVER dispatch multiple implementers in parallel
-- ALWAYS provide full task text to subagent
-- Spec review FIRST, then quality review
+| Metric | Target | Description |
+|--------|--------|-------------|
+| First-pass spec compliance | >80% | Tasks passing spec review first time |
+| First-pass quality | >70% | Tasks passing quality review first time |
+| Re-review cycles | <2 | Average re-reviews per task |
+| Task completion rate | 100% | Tasks completed as planned |
 
-## Red Flags
+## Related Skills
 
-**Never:**
+- [writing-plans](../planning/writing-plans/SKILL.md) - Create implementation plans
+- [tdd-obra](../tdd-obra/SKILL.md) - Test-first development
+- [code-reviewer](../code-reviewer/SKILL.md) - Code quality review
+- [parallel-dispatch](../../agents/parallel-dispatch/SKILL.md) - Parallel execution
 
-- Skip any review
-- Proceed with unfixed issues
-- Start quality review before spec passes
-- Move to next task with open issues
+---
 
-**If issues found:**
+## Version History
 
-- Same implementer fixes them
-- Reviewer reviews again
-- Repeat until approved
-
-## Common Mistakes
-
-- ❌ Skip spec review → ✅ Always verify spec first
-- ❌ Skip quality review → ✅ Always check quality
-- ❌ Wrong review order → ✅ Spec first, then quality
-- ❌ Provide partial task text → ✅ Give full text
+- **1.0.0** (2026-01-19): Initial release adapted from obra/superpowers

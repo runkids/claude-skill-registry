@@ -1,7 +1,7 @@
 {
   "name": "cartographer",
-  "repo": "olegakbarov/ispo-code",
-  "path": ".claude/skills/cartographer/SKILL.md",
-  "source": "github.com/olegakbarov/ispo-code",
-  "downloaded_at": "2026-01-29T02:06:08.373490Z"
+  "repo": "phrazzld/claude-config",
+  "path": "skills/cartographer/SKILL.md",
+  "source": "github.com/phrazzld/claude-config",
+  "downloaded_at": "2026-01-30T04:28:42.135911Z"
 }

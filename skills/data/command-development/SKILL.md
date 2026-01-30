@@ -1,14 +1,9 @@
 ---
 name: command-development
-description: This skill should be used when the user asks to "create a slash command", "add a command", "write a custom command", "define command arguments", "use command frontmatter", "organize commands", "create command with file references", "interactive command", "use AskUserQuestion in command", or needs guidance on slash command structure, YAML frontmatter fields, dynamic arguments, bash execution in commands, user interaction patterns, or command development best practices for OpenCode.
-license: MIT
-compatibility: opencode
-metadata:
-  version: 0.3.0
-  category: development
+description: This skill should be used when the user asks to "create a slash command", "add a command", "write a custom command", "define command arguments", "use command frontmatter", "organize commands", "create command with file references", "interactive command", "use AskUserQuestion in command", or needs guidance on slash command structure, YAML frontmatter fields, dynamic arguments, bash execution in commands, user interaction patterns, or command development best practices for Claude Code.
 ---
 
-# Command Development for OpenCode
+# Command Development for Claude Code
 
 ## Overview
 
@@ -58,33 +53,31 @@ The first example tells Claude what to do. The second tells the user what will h
 ### Command Locations
 
 **Project commands** (shared with team):
-- Location: `.opencode/command/`
+- Location: `.claude/commands/`
 - Scope: Available in specific project
 - Label: Shown as "(project)" in `/help`
 - Use for: Team workflows, project-specific tasks
 
 **Personal commands** (available everywhere):
-- Location: `~/.config/opencode/command/`
+- Location: `~/.claude/commands/`
 - Scope: Available in all projects
 - Label: Shown as "(user)" in `/help`
 - Use for: Personal workflows, cross-project utilities
 
 **Plugin commands** (bundled with plugins):
-- Location: `plugin-name/command/`
+- Location: `plugin-name/commands/`
 - Scope: Available when plugin installed
 - Label: Shown as "(plugin-name)" in `/help`
 - Use for: Plugin-specific functionality
 
 ## File Format
 
-Commands can be defined in two ways: as Markdown files or via JSON configuration.
-
-### Markdown Files (Recommended)
+### Basic Structure
 
 Commands are Markdown files with `.md` extension:
 
 ```
-.opencode/command/
+.claude/commands/
 ├── review.md           # /review command
 ├── test.md             # /test command
 └── deploy.md           # /deploy command
@@ -101,7 +94,7 @@ Review this code for security vulnerabilities including:
 
 No frontmatter needed for basic commands.
 
-**With YAML Frontmatter:**
+### With YAML Frontmatter
 
 Add configuration using YAML frontmatter:
 
@@ -109,36 +102,11 @@ Add configuration using YAML frontmatter:
 ---
 description: Review code for security issues
 allowed-tools: Read, Grep, Bash(git:*)
-model: anthropic/claude-3-5-sonnet-20241022
+model: sonnet
 ---
 
 Review this code for security vulnerabilities...
 ```
-
-### JSON Configuration
-
-Alternatively, define commands in `opencode.jsonc`:
-
-```jsonc
-{
-  "$schema": "https://opencode.ai/config.json",
-  "command": {
-    "test": {
-      "template": "Run the full test suite with coverage report and show any failures.\nFocus on the failing tests and suggest fixes.",
-      "description": "Run tests with coverage",
-      "agent": "build",
-      "model": "anthropic/claude-3-5-sonnet-20241022"
-    }
-  }
-}
-```
-
-**When to use JSON vs Markdown:**
-- **Use Markdown:** For commands with complex prompts, multiple sections, or file references
-- **Use JSON:** For simple, short commands or when consolidating configuration
-- **Mix both:** JSON for simple commands, Markdown for complex ones
-
-**Note:** Markdown files take precedence over JSON configuration for same command name.
 
 ## YAML Frontmatter Fields
 
@@ -178,19 +146,19 @@ allowed-tools: Read, Write, Edit, Bash(git:*)
 ### model
 
 **Purpose:** Specify model for command execution
-**Type:** String (full model identifier)
+**Type:** String (sonnet, opus, haiku)
 **Default:** Inherits from conversation
 
 ```yaml
 ---
-model: anthropic/claude-3-5-sonnet-20241022
+model: haiku
 ---
 ```
 
 **Use cases:**
-- `anthropic/claude-3-5-haiku-20241022` - Fast, simple commands
-- `anthropic/claude-3-5-sonnet-20241022` - Standard workflows  
-- `anthropic/claude-opus-4-20250514` - Complex analysis
+- `haiku` - Fast, simple commands
+- `sonnet` - Standard workflows
+- `opus` - Complex analysis
 
 ### argument-hint
 
@@ -363,7 +331,7 @@ For complete syntax, examples, and best practices, see `references/plugin-featur
 Simple organization for small command sets:
 
 ```
-.opencode/command/
+.claude/commands/
 ├── build.md
 ├── test.md
 ├── deploy.md
@@ -378,7 +346,7 @@ Simple organization for small command sets:
 Organize commands in subdirectories:
 
 ```
-.opencode/command/
+.claude/commands/
 ├── ci/
 │   ├── build.md        # /build (project:ci)
 │   ├── test.md         # /test (project:ci)
@@ -472,7 +440,7 @@ description: Review code changes
 allowed-tools: Read, Bash(git:*)
 ---
 
-Files changed: *!`git diff --name-only`*
+Files changed: !`git diff --name-only`
 
 Review each file for:
 1. Code quality and style
@@ -492,7 +460,7 @@ argument-hint: [test-file]
 allowed-tools: Bash(npm:*)
 ---
 
-Run tests: *!`npm test $1`*
+Run tests: !`npm test $1`
 
 Analyze results and suggest fixes for failures.
 ```
@@ -524,7 +492,7 @@ allowed-tools: Bash(gh:*), Read
 
 PR #$1 Workflow:
 
-1. Fetch PR: *!`gh pr view $1`*
+1. Fetch PR: !`gh pr view $1`
 2. Review changes
 3. Run checks
 4. Approve or request changes
@@ -536,7 +504,7 @@ PR #$1 Workflow:
 - Check file is in correct directory
 - Verify `.md` extension present
 - Ensure valid Markdown format
-- Restart OpenCode
+- Restart Claude Code
 
 **Arguments not working:**
 - Verify `$1`, `$2` syntax correct
@@ -575,7 +543,7 @@ description: Analyze using plugin script
 allowed-tools: Bash(node:*)
 ---
 
-Run analysis: *!`node ${CLAUDE_PLUGIN_ROOT}/scripts/analyze.js $1`*
+Run analysis: !`node ${CLAUDE_PLUGIN_ROOT}/scripts/analyze.js $1`
 
 Review results and report findings.
 ```
@@ -584,7 +552,7 @@ Review results and report findings.
 
 ```markdown
 # Execute plugin script
-*!`bash ${CLAUDE_PLUGIN_ROOT}/scripts/script.sh`*
+!`bash ${CLAUDE_PLUGIN_ROOT}/scripts/script.sh`
 
 # Load plugin configuration
 @${CLAUDE_PLUGIN_ROOT}/config/settings.json
@@ -604,11 +572,11 @@ Review results and report findings.
 
 ### Plugin Command Organization
 
-Plugin commands discovered automatically from `command/` directory:
+Plugin commands discovered automatically from `commands/` directory:
 
 ```
 plugin-name/
-├── command/
+├── commands/
 │   ├── foo.md              # /foo (plugin:plugin-name)
 │   ├── bar.md              # /bar (plugin:plugin-name)
 │   └── utils/
@@ -666,9 +634,9 @@ description: Complete build workflow
 allowed-tools: Bash(*)
 ---
 
-Build: *!`bash ${CLAUDE_PLUGIN_ROOT}/scripts/build.sh`*
-Test: *!`bash ${CLAUDE_PLUGIN_ROOT}/scripts/test.sh`*
-Package: *!`bash ${CLAUDE_PLUGIN_ROOT}/scripts/package.sh`*
+Build: !`bash ${CLAUDE_PLUGIN_ROOT}/scripts/build.sh`
+Test: !`bash ${CLAUDE_PLUGIN_ROOT}/scripts/test.sh`
+Package: !`bash ${CLAUDE_PLUGIN_ROOT}/scripts/package.sh`
 
 Review outputs and report workflow status.
 ```
@@ -759,7 +727,7 @@ allowed-tools: Bash(node:*), Read
 Target: @$1
 
 Phase 1 - Static Analysis:
-*!`node ${CLAUDE_PLUGIN_ROOT}/scripts/lint.js $1`*
+!`node ${CLAUDE_PLUGIN_ROOT}/scripts/lint.js $1`
 
 Phase 2 - Deep Review:
 Launch code-reviewer agent for detailed analysis.
@@ -791,7 +759,7 @@ description: Deploy with validation
 argument-hint: [environment]
 ---
 
-Validate environment: *!`echo "$1" | grep -E "^(dev|staging|prod)$" || echo "INVALID"`*
+Validate environment: !`echo "$1" | grep -E "^(dev|staging|prod)$" || echo "INVALID"`
 
 If $1 is valid environment:
   Deploy to $1
@@ -808,7 +776,7 @@ description: Process configuration
 argument-hint: [config-file]
 ---
 
-Check file exists: *!`test -f $1 && echo "EXISTS" || echo "MISSING"`*
+Check file exists: !`test -f $1 && echo "EXISTS" || echo "MISSING"`
 
 If file exists:
   Process configuration: @$1
@@ -827,8 +795,8 @@ allowed-tools: Bash(test:*)
 ---
 
 Validate plugin setup:
-- Script: *!`test -x ${CLAUDE_PLUGIN_ROOT}/bin/analyze && echo "✓" || echo "✗"`*
-- Config: *!`test -f ${CLAUDE_PLUGIN_ROOT}/config.json && echo "✓" || echo "✗"`*
+- Script: !`test -x ${CLAUDE_PLUGIN_ROOT}/bin/analyze && echo "✓" || echo "✗"`
+- Config: !`test -f ${CLAUDE_PLUGIN_ROOT}/config.json && echo "✓" || echo "✗"`
 
 If all checks pass, run analysis.
 Otherwise, report missing components.
@@ -842,7 +810,7 @@ description: Build with error handling
 allowed-tools: Bash(*)
 ---
 
-Execute build: *!`bash ${CLAUDE_PLUGIN_ROOT}/scripts/build.sh 2>&1 || echo "BUILD_FAILED"`*
+Execute build: !`bash ${CLAUDE_PLUGIN_ROOT}/scripts/build.sh 2>&1 || echo "BUILD_FAILED"`
 
 If build succeeded:
   Report success and output location

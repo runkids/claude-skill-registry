@@ -1,9 +1,7 @@
 {
   "name": "cli-builder",
-  "description": "Guide for building TypeScript CLIs with Bun. Use when creating command-line tools, adding subcommands to existing CLIs, or building developer tooling. Covers argument parsing, subcommand patterns, out",
-  "repo": "joelhooks/swarm-tools",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "eddiebe147/claude-settings",
+  "path": "skills/cli-builder/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-30T03:50:56.369825Z"
 }

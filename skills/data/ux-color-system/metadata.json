@@ -1,9 +1,7 @@
 {
   "name": "ux-color-system",
-  "description": "Fantasy-themed color tokens and semantic color usage. Use when applying colors, creating themes, or ensuring color accessibility. Covers surface/text relationships, state colors, and dark theme patter",
   "repo": "matthewharwood/fantasy-phonics",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/ux-color-system/SKILL.md",
+  "source": "github.com/matthewharwood/fantasy-phonics",
+  "downloaded_at": "2026-01-30T01:44:52.117243Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "governance-checklist-generator",
-  "description": "Governance Checklist Generator - Auto-activating skill for Enterprise Workflows.Triggers on: governance checklist generator, governance checklist generatorPart of the Enterprise Workflows skill catego",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/20-enterprise-workflows/governance-checklist-generator/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-30T01:00:46.134103Z"
 }

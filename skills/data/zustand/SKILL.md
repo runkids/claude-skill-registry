@@ -1,171 +1,556 @@
 ---
 name: zustand
-description: |
-  Zustand lightweight state management with persistence and middleware.
-  Use when: managing client-side state (cart, auth, UI preferences), replacing React Context with simpler API, accessing state outside React components, implementing localStorage persistence
-allowed-tools: Read, Edit, Write, Glob, Grep, Bash
+description: Manages application state with Zustand including stores, selectors, actions, and middleware. Use when managing client-side state, creating global stores, persisting state, or replacing Redux/Context.
 ---
 
-# Zustand Skill
+# Zustand
 
-Lightweight state management that replaces verbose Context + useReducer patterns with minimal boilerplate. Zustand stores are plain objects with actions - no providers, reducers, or action types needed.
-
-## WARNING: Missing Professional State Management
-
-**Detected:** No zustand in frontend/package.json - currently using React Context
-**Impact:** Verbose boilerplate, provider hell, can't access state outside React
-
-### Install
-
-```bash
-cd frontend && npm install zustand
-```
+Small, fast, and scalable state management using simplified flux principles.
 
 ## Quick Start
 
-### Basic Store
+**Install:**
+```bash
+npm install zustand
+```
+
+**Create a store:**
+```typescript
+import { create } from 'zustand';
+
+interface BearStore {
+  bears: number;
+  increase: () => void;
+  decrease: () => void;
+  reset: () => void;
+}
+
+const useBearStore = create<BearStore>((set) => ({
+  bears: 0,
+  increase: () => set((state) => ({ bears: state.bears + 1 })),
+  decrease: () => set((state) => ({ bears: state.bears - 1 })),
+  reset: () => set({ bears: 0 }),
+}));
+```
+
+**Use in component:**
+```tsx
+function BearCounter() {
+  const bears = useBearStore((state) => state.bears);
+  const increase = useBearStore((state) => state.increase);
+
+  return (
+    <div>
+      <h1>{bears} bears</h1>
+      <button onClick={increase}>Add bear</button>
+    </div>
+  );
+}
+```
+
+## Core Concepts
+
+### Creating Stores
 
 ```typescript
-// src/stores/cartStore.ts
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import type { Product, ProductVariant, PromoCode } from '../types/product';
 
-interface CartItem {
-  product: Product;
-  variant?: ProductVariant;
-  quantity: number;
+// Simple store
+const useCountStore = create<{ count: number; inc: () => void }>((set) => ({
+  count: 0,
+  inc: () => set((state) => ({ count: state.count + 1 })),
+}));
+
+// With get for accessing current state
+const useStore = create<Store>((set, get) => ({
+  count: 0,
+  doubleCount: () => get().count * 2,
+  increment: () => set((state) => ({ count: state.count + 1 })),
+}));
+```
+
+### Selectors
+
+```typescript
+// Select single value - re-renders only when bears changes
+const bears = useBearStore((state) => state.bears);
+
+// Select action - stable reference, no re-renders
+const increase = useBearStore((state) => state.increase);
+
+// Select multiple values with shallow compare
+import { shallow } from 'zustand/shallow';
+
+const { bears, fish } = useBearStore(
+  (state) => ({ bears: state.bears, fish: state.fish }),
+  shallow
+);
+
+// Or use useShallow hook
+import { useShallow } from 'zustand/react/shallow';
+
+const { bears, fish } = useBearStore(
+  useShallow((state) => ({ bears: state.bears, fish: state.fish }))
+);
+
+// Select array of values
+const [bears, fish] = useBearStore(
+  useShallow((state) => [state.bears, state.fish])
+);
+```
+
+### Actions
+
+```typescript
+interface TodoStore {
+  todos: Todo[];
+  addTodo: (text: string) => void;
+  removeTodo: (id: string) => void;
+  toggleTodo: (id: string) => void;
+  clearCompleted: () => void;
 }
 
-interface CartState {
-  items: CartItem[];
-  promoCode: PromoCode | null;
-  discount: number;
-  addItem: (product: Product, quantity?: number, variant?: ProductVariant) => void;
-  removeItem: (productId: number, variantId?: number) => void;
-  updateQuantity: (productId: number, quantity: number, variantId?: number) => void;
-  applyPromoCode: (promoCode: PromoCode, discount: number) => void;
-  clear: () => void;
+const useTodoStore = create<TodoStore>((set) => ({
+  todos: [],
+
+  addTodo: (text) =>
+    set((state) => ({
+      todos: [
+        ...state.todos,
+        { id: crypto.randomUUID(), text, completed: false },
+      ],
+    })),
+
+  removeTodo: (id) =>
+    set((state) => ({
+      todos: state.todos.filter((todo) => todo.id !== id),
+    })),
+
+  toggleTodo: (id) =>
+    set((state) => ({
+      todos: state.todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      ),
+    })),
+
+  clearCompleted: () =>
+    set((state) => ({
+      todos: state.todos.filter((todo) => !todo.completed),
+    })),
+}));
+```
+
+### Async Actions
+
+```typescript
+interface UserStore {
+  users: User[];
+  loading: boolean;
+  error: string | null;
+  fetchUsers: () => Promise<void>;
 }
 
-export const useCartStore = create<CartState>()(
+const useUserStore = create<UserStore>((set) => ({
+  users: [],
+  loading: false,
+  error: null,
+
+  fetchUsers: async () => {
+    set({ loading: true, error: null });
+
+    try {
+      const response = await fetch('/api/users');
+      const users = await response.json();
+      set({ users, loading: false });
+    } catch (error) {
+      set({ error: 'Failed to fetch users', loading: false });
+    }
+  },
+}));
+```
+
+## Middleware
+
+### Persist
+
+```typescript
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+
+interface SettingsStore {
+  theme: 'light' | 'dark';
+  language: string;
+  setTheme: (theme: 'light' | 'dark') => void;
+  setLanguage: (language: string) => void;
+}
+
+const useSettingsStore = create<SettingsStore>()(
   persist(
-    (set, get) => ({
-      items: [],
-      promoCode: null,
-      discount: 0,
-
-      addItem: (product, quantity = 1, variant) => set((state) => {
-        const existing = state.items.find(
-          (item) => item.product.id === product.id && item.variant?.id === variant?.id
-        );
-        if (existing) {
-          return {
-            items: state.items.map((item) =>
-              item.product.id === product.id && item.variant?.id === variant?.id
-                ? { ...item, quantity: item.quantity + quantity }
-                : item
-            ),
-          };
-        }
-        return { items: [...state.items, { product, variant, quantity }] };
-      }),
-
-      removeItem: (productId, variantId) => set((state) => ({
-        items: state.items.filter(
-          (item) => !(item.product.id === productId && item.variant?.id === variantId)
-        ),
-      })),
-
-      updateQuantity: (productId, quantity, variantId) => set((state) => ({
-        items: state.items.map((item) =>
-          item.product.id === productId && item.variant?.id === variantId
-            ? { ...item, quantity: Math.max(quantity, 1) }
-            : item
-        ),
-      })),
-
-      applyPromoCode: (promoCode, discount) => set({ promoCode, discount }),
-
-      clear: () => set({ items: [], promoCode: null, discount: 0 }),
+    (set) => ({
+      theme: 'light',
+      language: 'en',
+      setTheme: (theme) => set({ theme }),
+      setLanguage: (language) => set({ language }),
     }),
-    { name: 'luxia-cart' }
+    {
+      name: 'settings-storage',
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({
+        theme: state.theme,
+        language: state.language,
+      }),
+    }
   )
 );
 ```
 
-### Using in Components
+### Persist with Async Storage
 
 ```typescript
-// Direct selector - only re-renders when items change
-const items = useCartStore((state) => state.items);
-const addItem = useCartStore((state) => state.addItem);
+import { persist, createJSONStorage } from 'zustand/middleware';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Multiple selectors with shallow equality
-import { useShallow } from 'zustand/react/shallow';
-const { items, total } = useCartStore(
-  useShallow((state) => ({ items: state.items, total: state.total }))
+const useStore = create(
+  persist(
+    (set) => ({
+      // ...state
+    }),
+    {
+      name: 'app-storage',
+      storage: createJSONStorage(() => AsyncStorage),
+    }
+  )
 );
 ```
 
-## Key Concepts
-
-| Concept | Usage | Example |
-|---------|-------|---------|
-| Store creation | `create<Type>()((set, get) => ({}))` | State + actions in one object |
-| Selectors | `useStore(state => state.field)` | Prevents unnecessary re-renders |
-| Persistence | `persist(store, { name: 'key' })` | Auto localStorage sync |
-| Outside React | `useStore.getState()` | Access in API clients, utils |
-| Computed values | Derive in selector or store | `get().items.reduce(...)` |
-
-## Common Patterns
-
-### Computed Values (Derived State)
+### DevTools
 
 ```typescript
-// Option 1: Compute in selector (recommended for simple derivations)
-const subtotal = useCartStore((state) =>
-  state.items.reduce((sum, item) => {
-    const price = item.variant?.price ?? item.product.price;
-    return sum + price * item.quantity;
-  }, 0)
-);
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
-// Option 2: Add getter to store (for complex/reused derivations)
-export const useCartStore = create<CartState>()((set, get) => ({
+const useStore = create<Store>()(
+  devtools(
+    (set) => ({
+      count: 0,
+      increment: () =>
+        set(
+          (state) => ({ count: state.count + 1 }),
+          false,
+          'increment' // Action name for DevTools
+        ),
+    }),
+    { name: 'CountStore' }
+  )
+);
+```
+
+### Immer
+
+```typescript
+import { create } from 'zustand';
+import { immer } from 'zustand/middleware/immer';
+
+interface Store {
+  users: User[];
+  addUser: (user: User) => void;
+  updateUser: (id: string, updates: Partial<User>) => void;
+}
+
+const useStore = create<Store>()(
+  immer((set) => ({
+    users: [],
+
+    addUser: (user) =>
+      set((state) => {
+        state.users.push(user);
+      }),
+
+    updateUser: (id, updates) =>
+      set((state) => {
+        const user = state.users.find((u) => u.id === id);
+        if (user) {
+          Object.assign(user, updates);
+        }
+      }),
+  }))
+);
+```
+
+### Combine Middleware
+
+```typescript
+import { create } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
+import { immer } from 'zustand/middleware/immer';
+
+const useStore = create<Store>()(
+  devtools(
+    persist(
+      immer((set) => ({
+        // ...state and actions
+      })),
+      { name: 'store' }
+    ),
+    { name: 'Store' }
+  )
+);
+```
+
+## Patterns
+
+### Slices Pattern
+
+```typescript
+// stores/userSlice.ts
+export interface UserSlice {
+  user: User | null;
+  setUser: (user: User) => void;
+  clearUser: () => void;
+}
+
+export const createUserSlice: StateCreator<
+  UserSlice & CartSlice,
+  [],
+  [],
+  UserSlice
+> = (set) => ({
+  user: null,
+  setUser: (user) => set({ user }),
+  clearUser: () => set({ user: null }),
+});
+
+// stores/cartSlice.ts
+export interface CartSlice {
+  items: CartItem[];
+  addItem: (item: CartItem) => void;
+  removeItem: (id: string) => void;
+}
+
+export const createCartSlice: StateCreator<
+  UserSlice & CartSlice,
+  [],
+  [],
+  CartSlice
+> = (set) => ({
   items: [],
-  getSubtotal: () => get().items.reduce((sum, item) => {
-    const price = item.variant?.price ?? item.product.price;
-    return sum + price * item.quantity;
-  }, 0),
+  addItem: (item) =>
+    set((state) => ({ items: [...state.items, item] })),
+  removeItem: (id) =>
+    set((state) => ({ items: state.items.filter((i) => i.id !== id) })),
+});
+
+// stores/index.ts
+import { create } from 'zustand';
+import { createUserSlice, UserSlice } from './userSlice';
+import { createCartSlice, CartSlice } from './cartSlice';
+
+export const useStore = create<UserSlice & CartSlice>()((...a) => ({
+  ...createUserSlice(...a),
+  ...createCartSlice(...a),
 }));
 ```
 
-### Access Outside React
+### Computed Values
 
 ```typescript
-// src/api/client.ts - Attach auth token to requests
-import { useAuthStore } from '../stores/authStore';
+interface Store {
+  items: CartItem[];
+  getTotal: () => number;
+  getItemCount: () => number;
+}
 
-export const apiClient = axios.create({ baseURL: '/api' });
+const useCartStore = create<Store>((set, get) => ({
+  items: [],
 
-apiClient.interceptors.request.use((config) => {
-  const token = useAuthStore.getState().token;
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+  getTotal: () => {
+    return get().items.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+  },
+
+  getItemCount: () => {
+    return get().items.reduce((count, item) => count + item.quantity, 0);
+  },
+}));
+
+// Usage
+function CartSummary() {
+  const items = useCartStore((state) => state.items);
+  const getTotal = useCartStore((state) => state.getTotal);
+
+  return (
+    <div>
+      <p>Total: ${getTotal()}</p>
+    </div>
+  );
+}
 ```
 
-## See Also
+### Subscribe to Changes
 
-- [patterns](references/patterns.md)
-- [workflows](references/workflows.md)
+```typescript
+// Subscribe outside React
+const unsub = useStore.subscribe(
+  (state) => console.log('State changed:', state)
+);
 
-## Related Skills
+// Subscribe with selector
+const unsub = useStore.subscribe(
+  (state) => state.count,
+  (count, prevCount) => {
+    console.log('Count changed from', prevCount, 'to', count);
+  }
+);
 
-For server state (API data), see the **tanstack-query** skill - NEVER use Zustand for server state.
-For form state, see the **react-hook-form** skill.
-For component patterns, see the **react** skill.
-For type definitions, see the **typescript** skill.
+// Cleanup
+unsub();
+```
+
+### Access State Outside React
+
+```typescript
+// Get current state
+const state = useStore.getState();
+console.log(state.count);
+
+// Update state
+useStore.setState({ count: 10 });
+
+// Call actions
+useStore.getState().increment();
+```
+
+### Reset Store
+
+```typescript
+interface Store {
+  count: number;
+  name: string;
+  increment: () => void;
+  reset: () => void;
+}
+
+const initialState = {
+  count: 0,
+  name: '',
+};
+
+const useStore = create<Store>((set) => ({
+  ...initialState,
+  increment: () => set((state) => ({ count: state.count + 1 })),
+  reset: () => set(initialState),
+}));
+```
+
+## React Patterns
+
+### Context for SSR
+
+```tsx
+// For Next.js App Router with SSR
+import { createContext, useContext, useRef } from 'react';
+import { createStore, StoreApi } from 'zustand';
+
+const StoreContext = createContext<StoreApi<Store> | null>(null);
+
+export function StoreProvider({
+  children,
+  initialState,
+}: {
+  children: React.ReactNode;
+  initialState?: Partial<Store>;
+}) {
+  const storeRef = useRef<StoreApi<Store>>();
+
+  if (!storeRef.current) {
+    storeRef.current = createStore<Store>((set) => ({
+      ...defaultState,
+      ...initialState,
+    }));
+  }
+
+  return (
+    <StoreContext.Provider value={storeRef.current}>
+      {children}
+    </StoreContext.Provider>
+  );
+}
+
+export function useAppStore<T>(selector: (state: Store) => T): T {
+  const store = useContext(StoreContext);
+  if (!store) throw new Error('Missing StoreProvider');
+  return useStore(store, selector);
+}
+```
+
+### Hydration
+
+```typescript
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+const useStore = create(
+  persist(
+    (set) => ({
+      // state
+    }),
+    { name: 'store' }
+  )
+);
+
+// Check hydration status
+function Component() {
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  if (!hydrated) {
+    return <Skeleton />;
+  }
+
+  return <ActualContent />;
+}
+
+// Or use onRehydrateStorage
+persist(
+  (set) => ({
+    // state
+  }),
+  {
+    name: 'store',
+    onRehydrateStorage: () => (state, error) => {
+      if (error) {
+        console.error('Hydration error:', error);
+      }
+    },
+  }
+);
+```
+
+## Best Practices
+
+1. **Use selectors** - Only subscribe to needed state
+2. **Shallow compare for objects** - Prevent unnecessary re-renders
+3. **Actions in store** - Keep logic centralized
+4. **Persist selectively** - Use partialize for sensitive data
+5. **DevTools in dev** - Enable for debugging
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Selecting entire state | Use specific selectors |
+| Missing shallow compare | Add shallow for objects |
+| Mutating state directly | Use immer or spread |
+| Actions outside store | Define actions in create() |
+| No TypeScript types | Define interface for store |
+
+## Reference Files
+
+- [references/patterns.md](references/patterns.md) - Advanced patterns
+- [references/middleware.md](references/middleware.md) - Middleware guide
+- [references/testing.md](references/testing.md) - Testing stores

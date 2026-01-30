@@ -1,223 +1,646 @@
 ---
 name: web-performance-optimization
-description: Optimizes web application performance through code splitting, lazy loading, caching strategies, and Core Web Vitals monitoring. Use when improving page load times, implementing service workers, or reducing bundle sizes.
-license: MIT
+description: "Optimize website and web application performance including loading speed, Core Web Vitals, bundle size, caching strategies, and runtime performance"
 ---
 
 # Web Performance Optimization
 
 ## Overview
 
-Implement performance optimization strategies including lazy loading, code splitting, caching, compression, and monitoring to improve Core Web Vitals and user experience.
+Help developers optimize website and web application performance to improve user experience, SEO rankings, and conversion rates. This skill provides systematic approaches to measure, analyze, and improve loading speed, runtime performance, and Core Web Vitals metrics.
 
-## When to Use
+## When to Use This Skill
 
-- Slow page load times
-- High Largest Contentful Paint (LCP)
-- Large bundle sizes
-- Frequent Cumulative Layout Shift (CLS)
-- Mobile performance issues
+- Use when website or app is loading slowly
+- Use when optimizing for Core Web Vitals (LCP, FID, CLS)
+- Use when reducing JavaScript bundle size
+- Use when improving Time to Interactive (TTI)
+- Use when optimizing images and assets
+- Use when implementing caching strategies
+- Use when debugging performance bottlenecks
+- Use when preparing for performance audits
 
-## Code Splitting (React)
+## How It Works
 
-```javascript
-import { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+### Step 1: Measure Current Performance
 
-const Home = lazy(() => import('./pages/Home'));
-const Dashboard = lazy(() => import('./pages/Dashboard'));
-const Settings = lazy(() => import('./pages/Settings'));
+I'll help you establish baseline metrics:
+- Run Lighthouse audits
+- Measure Core Web Vitals (LCP, FID, CLS)
+- Check bundle sizes
+- Analyze network waterfall
+- Identify performance bottlenecks
 
-function App() {
-  return (
-    <Suspense fallback={<Loading />}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
-    </Suspense>
-  );
-}
-```
+### Step 2: Identify Issues
 
-## Webpack Bundle Optimization
+Analyze performance problems:
+- Large JavaScript bundles
+- Unoptimized images
+- Render-blocking resources
+- Slow server response times
+- Missing caching headers
+- Layout shifts
+- Long tasks blocking main thread
 
-```javascript
-// webpack.config.js
-module.exports = {
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
-        }
-      }
-    }
-  }
-};
-```
+### Step 3: Prioritize Optimizations
 
-## Image Optimization
+Focus on high-impact improvements:
+- Critical rendering path optimization
+- Code splitting and lazy loading
+- Image optimization
+- Caching strategies
+- Third-party script optimization
 
-```html
+### Step 4: Implement Optimizations
+
+Apply performance improvements:
+- Optimize assets (images, fonts, CSS, JS)
+- Implement code splitting
+- Add caching headers
+- Lazy load non-critical resources
+- Optimize critical rendering path
+
+### Step 5: Verify Improvements
+
+Measure impact of changes:
+- Re-run Lighthouse audits
+- Compare before/after metrics
+- Monitor real user metrics (RUM)
+- Test on different devices and networks
+
+## Examples
+
+### Example 1: Optimizing Core Web Vitals
+
+```markdown
+## Performance Audit Results
+
+### Current Metrics (Before Optimization)
+- **LCP (Largest Contentful Paint):** 4.2s ❌ (should be < 2.5s)
+- **FID (First Input Delay):** 180ms ❌ (should be < 100ms)
+- **CLS (Cumulative Layout Shift):** 0.25 ❌ (should be < 0.1)
+- **Lighthouse Score:** 62/100
+
+### Issues Identified
+
+1. **LCP Issue:** Hero image (2.5MB) loads slowly
+2. **FID Issue:** Large JavaScript bundle (850KB) blocks main thread
+3. **CLS Issue:** Images without dimensions cause layout shifts
+
+### Optimization Plan
+
+#### Fix LCP (Largest Contentful Paint)
+
+**Problem:** Hero image is 2.5MB and loads slowly
+
+**Solutions:**
+\`\`\`html
+<!-- Before: Unoptimized image -->
+<img src="/hero.jpg" alt="Hero">
+
+<!-- After: Optimized with modern formats -->
 <picture>
-  <source srcset="image.webp" type="image/webp">
-  <source srcset="image.jpg" type="image/jpeg">
-  <img
-    src="image.jpg"
-    srcset="image-400.jpg 400w, image-800.jpg 800w, image-1200.jpg 1200w"
-    sizes="(max-width: 600px) 100vw, 50vw"
-    loading="lazy"
-    decoding="async"
-    alt="Description"
+  <source srcset="/hero.avif" type="image/avif">
+  <source srcset="/hero.webp" type="image/webp">
+  <img 
+    src="/hero.jpg" 
+    alt="Hero"
+    width="1200" 
+    height="600"
+    loading="eager"
+    fetchpriority="high"
   >
 </picture>
-```
+\`\`\`
 
-## Service Worker Caching
+**Additional optimizations:**
+- Compress image to < 200KB
+- Use CDN for faster delivery
+- Preload hero image: `<link rel="preload" as="image" href="/hero.avif">`
 
-```javascript
-// sw.js
-const CACHE_NAME = 'app-v1';
-const ASSETS = ['/', '/index.html', '/main.js', '/styles.css'];
+#### Fix FID (First Input Delay)
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
-  );
-});
+**Problem:** 850KB JavaScript bundle blocks main thread
 
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then(cached => {
-      return cached || fetch(event.request).then(response => {
-        return caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, response.clone());
-          return response;
-        });
-      });
-    })
-  );
-});
-```
+**Solutions:**
 
-## Core Web Vitals Monitoring
+1. **Code Splitting:**
+\`\`\`javascript
+// Before: Everything in one bundle
+import { HeavyComponent } from './HeavyComponent';
+import { Analytics } from './analytics';
+import { ChatWidget } from './chat';
 
-```javascript
-// Track LCP, CLS, INP (Note: INP replaced FID as of March 2024)
-// sendToAnalytics is a placeholder function that sends metrics to your analytics endpoint
-// Expected signature: sendToAnalytics({ metric: string, value: number }) => void
-// Example implementation:
-function sendToAnalytics({ metric, value }) {
-  // Replace with your analytics implementation (e.g., Google Analytics, Segment)
-  fetch('/api/analytics', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ metric, value, timestamp: Date.now() })
+// After: Lazy load non-critical code
+const HeavyComponent = lazy(() => import('./HeavyComponent'));
+const ChatWidget = lazy(() => import('./chat'));
+
+// Load analytics after page interactive
+if (typeof window !== 'undefined') {
+  window.addEventListener('load', () => {
+    import('./analytics').then(({ Analytics }) => {
+      Analytics.init();
+    });
   });
 }
+\`\`\`
 
-// Largest Contentful Paint (LCP)
-new PerformanceObserver((list) => {
-  for (const entry of list.getEntries()) {
-    console.log(`LCP: ${entry.startTime}ms`);
-    sendToAnalytics({ metric: 'LCP', value: entry.startTime });
-  }
-}).observe({ type: 'largest-contentful-paint', buffered: true });
+2. **Remove Unused Dependencies:**
+\`\`\`bash
+# Analyze bundle
+npx webpack-bundle-analyzer
 
-// Cumulative Layout Shift (CLS)
-new PerformanceObserver((list) => {
-  let cls = 0;
-  for (const entry of list.getEntries()) {
-    if (!entry.hadRecentInput) cls += entry.value;
-  }
-  sendToAnalytics({ metric: 'CLS', value: cls });
-}).observe({ type: 'layout-shift', buffered: true });
+# Remove unused packages
+npm uninstall moment  # Use date-fns instead (smaller)
+npm install date-fns
+\`\`\`
 
-// Interaction to Next Paint (INP) - replaces FID
-new PerformanceObserver((list) => {
-  for (const entry of list.getEntries()) {
-    // INP measures responsiveness - duration of slowest interaction
-    const inp = entry.processingEnd - entry.processingStart;
-    console.log(`INP: ${inp}ms`);
-    sendToAnalytics({ metric: 'INP', value: inp });
-  }
-}).observe({ type: 'event', buffered: true }); // 'event' captures interaction events
+3. **Defer Non-Critical Scripts:**
+\`\`\`html
+<!-- Before: Blocks rendering -->
+<script src="/analytics.js"></script>
+
+<!-- After: Deferred -->
+<script src="/analytics.js" defer></script>
+\`\`\`
+
+#### Fix CLS (Cumulative Layout Shift)
+
+**Problem:** Images without dimensions cause layout shifts
+
+**Solutions:**
+\`\`\`html
+<!-- Before: No dimensions -->
+<img src="/product.jpg" alt="Product">
+
+<!-- After: With dimensions -->
+<img 
+  src="/product.jpg" 
+  alt="Product"
+  width="400" 
+  height="300"
+  style="aspect-ratio: 4/3;"
+>
+\`\`\`
+
+**For dynamic content:**
+\`\`\`css
+/* Reserve space for content that loads later */
+.skeleton-loader {
+  min-height: 200px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+\`\`\`
+
+### Results After Optimization
+
+- **LCP:** 1.8s ✅ (improved by 57%)
+- **FID:** 45ms ✅ (improved by 75%)
+- **CLS:** 0.05 ✅ (improved by 80%)
+- **Lighthouse Score:** 94/100 ✅
 ```
 
-## Performance Targets
+### Example 2: Reducing JavaScript Bundle Size
 
-| Metric | Good | Needs Improvement |
-|--------|------|-------------------|
-| LCP | <2.5s | 2.5-4s |
-| INP | <200ms | 200-500ms |
-| CLS | <0.1 | 0.1-0.25 |
-| TTI | <3.8s | 3.8-7.3s |
+```markdown
+## Bundle Size Optimization
 
-**Note:** INP (Interaction to Next Paint) replaced FID (First Input Delay) as a Core Web Vital in March 2024. INP provides a more comprehensive measure of page responsiveness by capturing the full duration of interactions, not just the input delay.
+### Current State
+- **Total Bundle:** 850KB (gzipped: 280KB)
+- **Main Bundle:** 650KB
+- **Vendor Bundle:** 200KB
+- **Load Time (3G):** 8.2s
 
-## Compression (Nginx)
+### Analysis
 
-```nginx
-gzip on;
-gzip_types text/plain text/css application/json application/javascript;
-gzip_min_length 1000;
-gzip_comp_level 6;
+\`\`\`bash
+# Analyze bundle composition
+npx webpack-bundle-analyzer dist/stats.json
+\`\`\`
+
+**Findings:**
+1. Moment.js: 67KB (can replace with date-fns: 12KB)
+2. Lodash: 72KB (using entire library, only need 5 functions)
+3. Unused code: ~150KB of dead code
+4. No code splitting: Everything in one bundle
+
+### Optimization Steps
+
+#### 1. Replace Heavy Dependencies
+
+\`\`\`bash
+# Remove moment.js (67KB) → Use date-fns (12KB)
+npm uninstall moment
+npm install date-fns
+
+# Before
+import moment from 'moment';
+const formatted = moment(date).format('YYYY-MM-DD');
+
+# After
+import { format } from 'date-fns';
+const formatted = format(date, 'yyyy-MM-dd');
+\`\`\`
+
+**Savings:** 55KB
+
+#### 2. Use Lodash Selectively
+
+\`\`\`javascript
+// Before: Import entire library (72KB)
+import _ from 'lodash';
+const unique = _.uniq(array);
+
+// After: Import only what you need (5KB)
+import uniq from 'lodash/uniq';
+const unique = uniq(array);
+
+// Or use native methods
+const unique = [...new Set(array)];
+\`\`\`
+
+**Savings:** 67KB
+
+#### 3. Implement Code Splitting
+
+\`\`\`javascript
+// Next.js example
+import dynamic from 'next/dynamic';
+
+// Lazy load heavy components
+const Chart = dynamic(() => import('./Chart'), {
+  loading: () => <div>Loading chart...</div>,
+  ssr: false
+});
+
+const AdminPanel = dynamic(() => import('./AdminPanel'), {
+  loading: () => <div>Loading...</div>
+});
+
+// Route-based code splitting (automatic in Next.js)
+// pages/admin.js - Only loaded when visiting /admin
+// pages/dashboard.js - Only loaded when visiting /dashboard
+\`\`\`
+
+#### 4. Remove Dead Code
+
+\`\`\`javascript
+// Enable tree shaking in webpack.config.js
+module.exports = {
+  mode: 'production',
+  optimization: {
+    usedExports: true,
+    sideEffects: false
+  }
+};
+
+// In package.json
+{
+  "sideEffects": false
+}
+\`\`\`
+
+#### 5. Optimize Third-Party Scripts
+
+\`\`\`html
+<!-- Before: Loads immediately -->
+<script src="https://analytics.com/script.js"></script>
+
+<!-- After: Load after page interactive -->
+<script>
+  window.addEventListener('load', () => {
+    const script = document.createElement('script');
+    script.src = 'https://analytics.com/script.js';
+    script.async = true;
+    document.body.appendChild(script);
+  });
+</script>
+\`\`\`
+
+### Results
+
+- **Total Bundle:** 380KB ✅ (reduced by 55%)
+- **Main Bundle:** 180KB ✅
+- **Vendor Bundle:** 80KB ✅
+- **Load Time (3G):** 3.1s ✅ (improved by 62%)
+```
+
+### Example 3: Image Optimization Strategy
+
+```markdown
+## Image Optimization
+
+### Current Issues
+- 15 images totaling 12MB
+- No modern formats (WebP, AVIF)
+- No responsive images
+- No lazy loading
+
+### Optimization Strategy
+
+#### 1. Convert to Modern Formats
+
+\`\`\`bash
+# Install image optimization tools
+npm install sharp
+
+# Conversion script (optimize-images.js)
+const sharp = require('sharp');
+const fs = require('fs');
+const path = require('path');
+
+async function optimizeImage(inputPath, outputDir) {
+  const filename = path.basename(inputPath, path.extname(inputPath));
+  
+  // Generate WebP
+  await sharp(inputPath)
+    .webp({ quality: 80 })
+    .toFile(path.join(outputDir, \`\${filename}.webp\`));
+  
+  // Generate AVIF (best compression)
+  await sharp(inputPath)
+    .avif({ quality: 70 })
+    .toFile(path.join(outputDir, \`\${filename}.avif\`));
+  
+  // Generate optimized JPEG fallback
+  await sharp(inputPath)
+    .jpeg({ quality: 80, progressive: true })
+    .toFile(path.join(outputDir, \`\${filename}.jpg\`));
+}
+
+// Process all images
+const images = fs.readdirSync('./images');
+images.forEach(img => {
+  optimizeImage(\`./images/\${img}\`, './images/optimized');
+});
+\`\`\`
+
+#### 2. Implement Responsive Images
+
+\`\`\`html
+<!-- Responsive images with modern formats -->
+<picture>
+  <!-- AVIF for browsers that support it (best compression) -->
+  <source 
+    srcset="
+      /images/hero-400.avif 400w,
+      /images/hero-800.avif 800w,
+      /images/hero-1200.avif 1200w
+    "
+    type="image/avif"
+    sizes="(max-width: 768px) 100vw, 50vw"
+  >
+  
+  <!-- WebP for browsers that support it -->
+  <source 
+    srcset="
+      /images/hero-400.webp 400w,
+      /images/hero-800.webp 800w,
+      /images/hero-1200.webp 1200w
+    "
+    type="image/webp"
+    sizes="(max-width: 768px) 100vw, 50vw"
+  >
+  
+  <!-- JPEG fallback -->
+  <img 
+    src="/images/hero-800.jpg"
+    srcset="
+      /images/hero-400.jpg 400w,
+      /images/hero-800.jpg 800w,
+      /images/hero-1200.jpg 1200w
+    "
+    sizes="(max-width: 768px) 100vw, 50vw"
+    alt="Hero image"
+    width="1200"
+    height="600"
+    loading="lazy"
+  >
+</picture>
+\`\`\`
+
+#### 3. Lazy Loading
+
+\`\`\`html
+<!-- Native lazy loading -->
+<img 
+  src="/image.jpg" 
+  alt="Description"
+  loading="lazy"
+  width="800"
+  height="600"
+>
+
+<!-- Eager loading for above-the-fold images -->
+<img 
+  src="/hero.jpg" 
+  alt="Hero"
+  loading="eager"
+  fetchpriority="high"
+>
+\`\`\`
+
+#### 4. Next.js Image Component
+
+\`\`\`javascript
+import Image from 'next/image';
+
+// Automatic optimization
+<Image
+  src="/hero.jpg"
+  alt="Hero"
+  width={1200}
+  height={600}
+  priority  // For above-the-fold images
+  quality={80}
+/>
+
+// Lazy loaded
+<Image
+  src="/product.jpg"
+  alt="Product"
+  width={400}
+  height={300}
+  loading="lazy"
+/>
+\`\`\`
+
+### Results
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| Total Image Size | 12MB | 1.8MB | 85% reduction |
+| LCP | 4.5s | 1.6s | 64% faster |
+| Page Load (3G) | 18s | 4.2s | 77% faster |
 ```
 
 ## Best Practices
 
-- Minimize bundle size with code splitting
-- Optimize images with appropriate formats
-- Implement lazy loading strategically
-- Use HTTP caching headers
-- Enable gzip/brotli compression
-- Monitor Core Web Vitals continuously
-- Implement service workers
-- Defer non-critical JavaScript
-- Optimize critical rendering path
-- Test on real devices and networks
+### ✅ Do This
 
-## Optimization Checklist
+- **Measure First** - Always establish baseline metrics before optimizing
+- **Use Lighthouse** - Run audits regularly to track progress
+- **Optimize Images** - Use modern formats (WebP, AVIF) and responsive images
+- **Code Split** - Break large bundles into smaller chunks
+- **Lazy Load** - Defer non-critical resources
+- **Cache Aggressively** - Set proper cache headers for static assets
+- **Minimize Main Thread Work** - Keep JavaScript execution under 50ms chunks
+- **Preload Critical Resources** - Use `<link rel="preload">` for critical assets
+- **Use CDN** - Serve static assets from CDN for faster delivery
+- **Monitor Real Users** - Track Core Web Vitals from real users
 
-- [ ] Enable code splitting for routes
-- [ ] Lazy load below-fold components
-- [ ] Optimize and compress images
-- [ ] Implement service worker caching
-- [ ] Enable gzip/brotli compression
-- [ ] Monitor Core Web Vitals
-- [ ] Minimize render-blocking resources
+### ❌ Don't Do This
 
-## Additional Configuration
+- **Don't Optimize Blindly** - Measure first, then optimize
+- **Don't Ignore Mobile** - Test on real mobile devices and slow networks
+- **Don't Block Rendering** - Avoid render-blocking CSS and JavaScript
+- **Don't Load Everything Upfront** - Lazy load non-critical resources
+- **Don't Forget Dimensions** - Always specify image width/height
+- **Don't Use Synchronous Scripts** - Use async or defer attributes
+- **Don't Ignore Third-Party Scripts** - They often cause performance issues
+- **Don't Skip Compression** - Always compress and minify assets
 
-See [references/compression-monitoring.md](references/compression-monitoring.md) for:
-- Webpack compression plugin setup
-- Apache .htaccess compression config
-- TTFB monitoring implementation
-- Puppeteer automation for measurement
+## Common Pitfalls
 
-See [references/typescript-advanced.md](references/typescript-advanced.md) for:
-- TypeScript lazyLoad utility
-- TypeScript image component
-- Advanced service worker with offline fallback
-- TerserPlugin configuration
-- Complete PerformanceMetrics interface
+### Problem: Optimized for Desktop but Slow on Mobile
+**Symptoms:** Good Lighthouse score on desktop, poor on mobile
+**Solution:**
+- Test on real mobile devices
+- Use Chrome DevTools mobile throttling
+- Optimize for 3G/4G networks
+- Reduce JavaScript execution time
+```bash
+# Test with throttling
+lighthouse https://yoursite.com --throttling.cpuSlowdownMultiplier=4
+```
 
-## Tools
+### Problem: Large JavaScript Bundle
+**Symptoms:** Long Time to Interactive (TTI), high FID
+**Solution:**
+- Analyze bundle with webpack-bundle-analyzer
+- Remove unused dependencies
+- Implement code splitting
+- Lazy load non-critical code
+```bash
+# Analyze bundle
+npx webpack-bundle-analyzer dist/stats.json
+```
 
-- Lighthouse / PageSpeed Insights
-- WebPageTest
-- Chrome DevTools Performance tab
-- web-vitals npm package
+### Problem: Images Causing Layout Shifts
+**Symptoms:** High CLS score, content jumping
+**Solution:**
+- Always specify width and height
+- Use aspect-ratio CSS property
+- Reserve space with skeleton loaders
+```css
+img {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+}
+```
 
-## Resources
+### Problem: Slow Server Response Time
+**Symptoms:** High TTFB (Time to First Byte)
+**Solution:**
+- Implement server-side caching
+- Use CDN for static assets
+- Optimize database queries
+- Consider static site generation (SSG)
+```javascript
+// Next.js: Static generation
+export async function getStaticProps() {
+  const data = await fetchData();
+  return {
+    props: { data },
+    revalidate: 60 // Regenerate every 60 seconds
+  };
+}
+```
 
-- [Web Vitals](https://web.dev/vitals/)
-- [Google PageSpeed Insights](https://pagespeed.web.dev/)
-- [Lighthouse](https://developers.google.com/web/tools/lighthouse)
-- [WebPageTest](https://www.webpagetest.org/)
-- [Performance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance)
+## Performance Checklist
+
+### Images
+- [ ] Convert to modern formats (WebP, AVIF)
+- [ ] Implement responsive images
+- [ ] Add lazy loading
+- [ ] Specify dimensions (width/height)
+- [ ] Compress images (< 200KB each)
+- [ ] Use CDN for delivery
+
+### JavaScript
+- [ ] Bundle size < 200KB (gzipped)
+- [ ] Implement code splitting
+- [ ] Lazy load non-critical code
+- [ ] Remove unused dependencies
+- [ ] Minify and compress
+- [ ] Use async/defer for scripts
+
+### CSS
+- [ ] Inline critical CSS
+- [ ] Defer non-critical CSS
+- [ ] Remove unused CSS
+- [ ] Minify CSS files
+- [ ] Use CSS containment
+
+### Caching
+- [ ] Set cache headers for static assets
+- [ ] Implement service worker
+- [ ] Use CDN caching
+- [ ] Cache API responses
+- [ ] Version static assets
+
+### Core Web Vitals
+- [ ] LCP < 2.5s
+- [ ] FID < 100ms
+- [ ] CLS < 0.1
+- [ ] TTFB < 600ms
+- [ ] TTI < 3.8s
+
+## Performance Tools
+
+### Measurement Tools
+- **Lighthouse** - Comprehensive performance audit
+- **WebPageTest** - Detailed waterfall analysis
+- **Chrome DevTools** - Performance profiling
+- **PageSpeed Insights** - Real user metrics
+- **Web Vitals Extension** - Monitor Core Web Vitals
+
+### Analysis Tools
+- **webpack-bundle-analyzer** - Visualize bundle composition
+- **source-map-explorer** - Analyze bundle size
+- **Bundlephobia** - Check package sizes before installing
+- **ImageOptim** - Image compression tool
+
+### Monitoring Tools
+- **Google Analytics** - Track Core Web Vitals
+- **Sentry** - Performance monitoring
+- **New Relic** - Application performance monitoring
+- **Datadog** - Real user monitoring
+
+## Related Skills
+
+- `@react-best-practices` - React performance patterns
+- `@frontend-dev-guidelines` - Frontend development standards
+- `@systematic-debugging` - Debug performance issues
+- `@senior-architect` - Architecture for performance
+
+## Additional Resources
+
+- [Web.dev Performance](https://web.dev/performance/)
+- [Core Web Vitals](https://web.dev/vitals/)
+- [Lighthouse Documentation](https://developers.google.com/web/tools/lighthouse)
+- [MDN Performance Guide](https://developer.mozilla.org/en-US/docs/Web/Performance)
+- [Next.js Performance](https://nextjs.org/docs/advanced-features/measuring-performance)
+- [Image Optimization Guide](https://web.dev/fast/#optimize-your-images)
+
+---
+
+**Pro Tip:** Focus on Core Web Vitals (LCP, FID, CLS) first - they have the biggest impact on user experience and SEO rankings!

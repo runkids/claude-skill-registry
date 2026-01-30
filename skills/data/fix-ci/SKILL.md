@@ -1,294 +1,243 @@
 ---
 name: fix-ci
-description: Fetch GitHub CI failure information, analyze root causes, reproduce locally, and propose a fix plan. Use `/fix-ci` for current branch or `/fix-ci <run-id>` for a specific run.
-allowed-tools: Bash, Read, Grep, Glob, Task, AskUserQuestion, EnterPlanMode
+description: |
+  CI
 ---
 
-# Fix CI Skill
-
-Automates CI troubleshooting by fetching GitHub Actions failures, analyzing logs, reproducing issues locally, and creating a fix plan for user approval.
-
+---
+description: Analyze CI failure logs, classify failure type, identify root cause
 ---
 
-## Execution Workflow
+# CI
 
-### Step 1: Prerequisites Check
+> **THE CI/CD MASTERS**
+>
+> **Jez Humble**: "If it hurts, do it more frequently, and bring the pain forward."
+>
+> **Martin Fowler**: "Continuous Integration is a software development practice where members of a team integrate their work frequently."
+>
+> **Nicole Forsgren**: "Lead time for changes is a key metric for software delivery performance."
 
-Verify the GitHub CLI is installed and authenticated:
+You're the CI Specialist who's debugged 500+ pipeline failures. CI failures are not random—they're signals. Your job: classify the failure type, identify root cause, and provide a specific resolution.
 
-```bash
-gh --version && gh auth status
-```
+## Your Mission
 
-**If gh is not installed:**
-- Inform user: "GitHub CLI is required. Install with: `brew install gh`"
-- Exit gracefully
+Analyze CI failure logs, classify the failure type, identify root cause, and generate a resolution plan.
 
-**If not authenticated:**
-- Inform user: "Please authenticate with: `gh auth login`"
-- Exit gracefully
+**The CI Question**: Is this a code issue, infrastructure issue, or flaky test?
 
-### Step 2: Parse Arguments
+## The CI Philosophy
 
-Determine the mode based on arguments:
+### Humble's Wisdom: Bring Pain Forward
+If CI hurts, the pain is teaching you something. Don't ignore it—lean into it. Frequent small fixes beat infrequent major failures.
 
-- **No arguments** (`/fix-ci`): Fetch failures for the current branch only
-- **With run-id** (`/fix-ci <run-id>`): Fetch specific run (bypasses branch scoping)
+### Fowler's Practice: Integrate Frequently
+CI exists to catch integration issues early. A failing CI is doing its job. The question is: what did it catch?
 
-### Step 3: Fetch Failed Run
+### Forsgren's Metric: Lead Time Matters
+Every minute CI is red is a minute the team is blocked. Fast diagnosis = fast flow.
 
-**Default mode (current branch):**
+## Phase 1: Check CI Status
 
-```bash
-BRANCH=$(git branch --show-current)
-gh run list --branch "$BRANCH" --status failure --limit 1 --json databaseId,name,headBranch,workflowName,createdAt
-```
-
-**Specific run mode:**
-
-```bash
-gh run view <run-id> --json databaseId,name,headBranch,workflowName,jobs,conclusion
-```
-
-**If no failures found:**
-- Report: "No failed runs found for branch `$BRANCH`. CI is green!"
-- Optionally show recent successful runs:
-```bash
-gh run list --branch "$BRANCH" --limit 3 --json databaseId,conclusion,workflowName,createdAt
-```
-- Exit gracefully
-
-### Step 4: Get Failure Details
-
-Once a failed run is identified, gather comprehensive details:
+Use `gh` to check CI status for the current PR:
+- If successful, celebrate and stop
+- If in progress, wait and check again
+- If failed, proceed to analyze
 
 ```bash
-RUN_ID=<the-run-id>
+# Recent workflow runs
+gh run list --limit 5
 
-# Get failed jobs with their steps
-gh run view $RUN_ID --json jobs --jq '.jobs[] | select(.conclusion == "failure") | {name, conclusion, steps: [.steps[] | select(.conclusion == "failure")]}'
+# Specific run details
+gh run view <run-id> --log
 
-# Get failed step logs (critical for debugging)
-gh run view $RUN_ID --log-failed 2>&1 | head -500
-
-# Get verbose run info
-gh run view $RUN_ID --verbose
+# PR checks
+gh pr checks
 ```
 
-**Log handling:**
-- Truncate logs to 500 lines to avoid context overflow
-- Note to user: "Showing first 500 lines of failed logs. Full logs available on GitHub."
+## Phase 2: Classify Failure Type
 
-### Step 5: Download Artifacts (if available)
+### Type 1: Code Issue
+**Symptoms**: Test assertion failed, type error, lint error, missing import
+**Cause**: Your code has a bug or doesn't meet standards
+**Fix**: Fix the code
+**Evidence**: Error points to specific file/line in your branch
 
-Attempt to download any debug artifacts:
+### Type 2: Infrastructure Issue
+**Symptoms**: Timeout, network error, dependency download failed, OOM
+**Cause**: CI environment or external service problem
+**Fix**: Retry, fix config, add caching, increase resources
+**Evidence**: Error mentions network, timeout, resource limits
 
-```bash
-# Try common artifact names - failures are OK (not all runs have artifacts)
-gh run download $RUN_ID -n "coverage" -D /tmp/ci-debug/ 2>/dev/null || true
-gh run download $RUN_ID -n "test-results" -D /tmp/ci-debug/ 2>/dev/null || true
-gh run download $RUN_ID -n "logs" -D /tmp/ci-debug/ 2>/dev/null || true
-```
+### Type 3: Flaky Test
+**Symptoms**: Fails intermittently, passes on retry, works locally
+**Cause**: Non-deterministic test (timing, order, external dependency)
+**Fix**: Fix or quarantine the test
+**Evidence**: Historical runs show same test passing/failing randomly
 
-If artifacts downloaded, read them for additional context.
+### Type 4: Configuration Issue
+**Symptoms**: Command not found, wrong version, missing env var
+**Cause**: CI config doesn't match local environment
+**Fix**: Update workflow YAML, sync versions
+**Evidence**: Works locally, fails in CI consistently
 
-### Step 6: Analyze Failure Type
+## Phase 3: Analyze Failure
 
-Categorize the failure based on log patterns:
+**Make the invisible visible**—don't guess at CI failures. Add logging, capture state, trace the failure path.
 
-| Pattern | Failure Type | Root Cause Area |
-|---------|--------------|-----------------|
-| `FAIL:`, `--- FAIL`, `FAILED` | Test Failure | Specific test case |
-| `ruff check`, `ruff format` | Lint Error | Code style/formatting |
-| `ModuleNotFoundError`, `ImportError` | Import Error | Missing dependency |
-| `TypeError`, `AttributeError` | Runtime Error | Type mismatch |
-| `SyntaxError` | Syntax Error | Invalid code |
-| `AssertionError` | Assertion Failure | Test expectation mismatch |
-| `TimeoutError`, `timed out` | Timeout | Performance/hang |
-| `PermissionError`, `EACCES` | Permission Error | File/resource access |
-| `ConnectionError`, `ECONNREFUSED` | Network Error | External service |
+Create `CI-FAILURE-SUMMARY.md` with:
+- **Workflow**: Name, job, step
+- **Command**: Exact command that failed
+- **Exit code**: What the system reported
+- **Error messages**: Full text (no paraphrasing)
+- **Stack trace**: If available
+- **Environment**: OS, Node/Python version, relevant env vars
 
-Extract key information:
-- Failed test name/file (if applicable)
-- Error message
-- Stack trace location (file:line)
-- Environment variables or config issues
+### Root Cause Analysis
 
-### Step 7: Map to Local Test Commands
+**For Code Issues**:
+- Which test/check failed?
+- What's the exact error?
+- Which commit introduced it?
+- What changed recently?
 
-Determine the appropriate local command based on the CI job:
+**For Infrastructure Issues**:
+- Which step timed out/failed?
+- What external service is involved?
+- Is caching working?
+- Are resources sufficient?
 
-| CI Workflow/Job | Local Command |
-|-----------------|---------------|
-| `test-cli` | `cd cli && go test ./...` |
-| `test-python` (server) | `cd server && uv run pytest -v` |
-| `test-python` (rag) | `cd rag && uv run pytest -v` |
-| `test-python` (config) | `cd config && uv run pytest -v` |
-| `test-python` (runtime) | `cd runtimes/universal && uv run pytest -v` |
-| `lint` (python) | `uv run ruff check .` |
-| `lint` (go) | `cd cli && golangci-lint run` |
-| `type-check` | `uv run mypy .` |
-| `build-cli` | `nx build cli` |
-| `build-designer` | `cd designer && npm run build` |
+**For Flaky Tests**:
+- Is there timing/sleep involved?
+- Database state assumptions?
+- External API calls without mocking?
+- Test order dependency?
 
-**For specific test failures**, narrow down the command:
-- Python: `cd <dir> && uv run pytest -v <test_file>::<test_name>`
-- Go: `cd cli && go test -v -run <TestName> ./...`
+## Phase 4: Generate Resolution Plan
 
-### Step 8: Reproduce Locally
+Create `CI-RESOLUTION-PLAN.md` with your analysis and approach.
 
-Run the mapped local command to confirm the failure reproduces:
-
-```bash
-# Example for Python test
-cd server && uv run pytest -v tests/test_api.py::test_health_check
-```
-
-**Outcome A - Failure reproduces locally:**
-- Good! Continue to fix plan
-- Report: "Successfully reproduced failure locally"
-
-**Outcome B - Failure does NOT reproduce locally:**
-- Note: "Could not reproduce locally. Possible causes:"
-  - Flaky test (timing-dependent)
-  - Environment difference (CI has different deps/config)
-  - Race condition
-- Suggest: "Consider re-running CI with `gh run rerun $RUN_ID`"
-- Ask user how to proceed (investigate further or skip)
-
-### Step 9: Analyze Root Cause
-
-Based on the failure type and logs, identify:
-
-1. **What failed**: Specific test, lint rule, or build step
-2. **Why it failed**: The actual error condition
-3. **Where to fix**: File(s) and line(s) that need changes
-4. **How to fix**: Proposed changes
-
-Use available tools to explore:
-- Read the failing test file
-- Read the code being tested
-- Search for related patterns in the codebase
-- Check recent changes that might have caused the failure
-
-### Step 10: Enter Plan Mode
-
-Use `EnterPlanMode` to create a formal fix plan. The plan should include:
+### TODO Entry Format
 
 ```markdown
-# CI Fix Plan
+- [ ] [CODE FIX] Fix failing assertion in auth.test.ts
+  ```
+  Files: src/auth/__tests__/auth.test.ts:45
+  Issue: Expected token to be valid, got undefined
+  Cause: Missing await on async call
+  Fix: Add await to line 45
+  Verify: Run test locally, push, confirm CI passes
+  Estimate: 15m
+  ```
 
-## Problem Statement
-[Summary of the CI failure from logs]
-
-## Failure Details
-- **Run ID**: <run-id>
-- **Workflow**: <workflow-name>
-- **Job**: <job-name>
-- **Error Type**: <categorized-type>
-
-## Root Cause Analysis
-[Explanation of why the failure occurred]
-
-## Affected Files
-- `path/to/file1.py` (line X)
-- `path/to/file2.py` (line Y)
-
-## Proposed Changes
-
-### Change 1: [Brief description]
-[Specific edit to make]
-
-### Change 2: [Brief description]
-[Specific edit to make]
-
-## Verification Steps
-1. Run: `<local-test-command>`
-2. Expected: All tests pass
-3. Optional: Run full test suite with `<full-suite-command>`
-
-## Notes
-- [Any caveats or considerations]
+- [ ] [CI FIX] Increase timeout for integration tests
+  ```
+  Files: .github/workflows/ci.yml
+  Issue: Integration tests timing out at 5m
+  Cause: Added new tests, total time exceeds limit
+  Fix: Increase timeout-minutes to 10
+  Verify: Rerun workflow, confirm completion
+  Estimate: 10m
+  ```
 ```
 
-### Step 11: User Approval Gate
+### Labels
+- **[CODE FIX]**: Changes to application code or tests
+- **[CI FIX]**: Changes to pipeline or environment
+- **[FLAKY]**: Test needs quarantine or fix
+- **[RETRY]**: Safe to retry without changes
 
-Present the plan and wait for explicit user approval:
-- User approves: Proceed to execute fixes
-- User modifies: Incorporate feedback, update plan
-- User rejects: Exit gracefully without changes
+## Phase 5: Communicate
 
-**CRITICAL**: Never make code changes without user approval.
+Update PR or create summary with:
+- Classification of failure
+- Root cause analysis
+- Resolution plan
+- Verification steps
+- Prevention measures
 
-### Step 12: Execute Fix (after approval only)
+## Common CI Issues
 
-1. Make the proposed code changes using Edit tool
-2. Run local tests to verify the fix:
-```bash
-<local-test-command>
-```
-3. Report results:
-   - Success: "Fix verified locally. Tests pass."
-   - Failure: "Fix did not resolve the issue. [details]"
+### Tests Pass Locally, Fail in CI
+- Node/npm version mismatch
+- Missing environment variables
+- Different timezone
+- Database state assumptions
 
-**IMPORTANT**: Do NOT auto-commit changes. Leave committing to the user or `/commit-push-pr` skill.
+### Timeout Failures
+- Test too slow → optimize or increase timeout
+- Network issue → add retry logic
+- Deadlock → fix async code
+- Resource contention → run tests serially
 
----
-
-## Error Handling
-
-| Scenario | Action |
-|----------|--------|
-| gh CLI not installed | Direct user to install: `brew install gh` |
-| gh not authenticated | Direct user to: `gh auth login` |
-| No failures found | Report CI is green, exit gracefully |
-| Rate limit exceeded | Suggest waiting or using `gh auth refresh` |
-| Run not found | Verify run ID, suggest `gh run list` to find valid IDs |
-| Large logs (>500 lines) | Truncate, note full logs on GitHub |
-| Local reproduction fails | Note as flaky/env issue, offer re-run option |
-| Network errors | Suggest retry, check connection |
-
----
+### Dependency Failures
+- npm registry down → retry
+- Private package auth → fix NPM_TOKEN
+- Version conflict → update lockfile
+- Cache corruption → clear cache
 
 ## Output Format
 
-**On finding a failure:**
-```
-CI Failure Found
-Run: #12345 (workflow-name)
-Branch: feature-branch
-Failed Job: test-python
-Error Type: Test Failure
+```markdown
+## CI Failure Analysis
 
-Analyzing logs...
-[Summary of failure]
-
-Reproducing locally...
-[Result]
-
-Entering plan mode to propose fix...
-```
-
-**On success (after fix):**
-```
-Fix Applied
-- Modified: path/to/file.py
-- Verification: Tests pass locally
-
-Next steps:
-- Review the changes
-- Run `/commit-push-pr` to commit and push
-- CI will re-run automatically on push
-```
+**Workflow**: [Name]
+**Run**: [ID/URL]
+**Classification**: [Code Issue / Infrastructure / Flaky / Config]
 
 ---
 
-## Notes for the Agent
+### Error Summary
 
-1. **Always scope to current branch by default** - Users expect `/fix-ci` to fix their current work, not random failures
-2. **Truncate logs wisely** - CI logs can be huge; extract the relevant error sections
-3. **Reproduce before fixing** - Don't propose fixes for issues that can't be reproduced
-4. **Plan mode is mandatory** - Always use EnterPlanMode before making changes
-5. **Never auto-commit** - The user controls when changes are committed
-6. **Be specific in analysis** - Generic advice isn't helpful; identify exact files and lines
-7. **Handle flaky tests** - If reproduction fails, acknowledge it might be flaky
+```
+[Key error lines - exact text]
+```
+
+### Root Cause
+
+**Type**: [Classification]
+**Location**: [File/step]
+**Cause**: [Specific explanation]
+
+---
+
+### Resolution Plan
+
+**Action**: [Fix / Retry / Quarantine / Config Change]
+
+[Specific fix with code/config]
+
+### Verification
+
+- [ ] [Step to verify fix]
+
+---
+
+### Prevention
+
+[How to prevent this class of failure]
+```
+
+## Red Flags
+
+- [ ] Same test fails randomly (flaky—fix or quarantine)
+- [ ] CI takes >15 minutes (optimize pipeline)
+- [ ] No local reproduction (environment drift)
+- [ ] Retrying without understanding (hiding the problem)
+- [ ] Multiple unrelated failures (systemic issue)
+
+## Philosophy
+
+> **"CI failures are features, not bugs. They caught an issue before users did."**
+
+**Humble's wisdom**: Bring pain forward. The earlier you find issues, the cheaper they are to fix.
+
+**Fowler's practice**: Integrate frequently. CI failures from small changes are easy to fix; CI failures from big changes are nightmares.
+
+**Forsgren's metric**: Lead time matters. Fast CI resolution = fast delivery.
+
+**Your goal**: Classify, fix, and prevent. Don't just make CI green—understand why it was red.
+
+---
+
+*Run this command when CI fails. Insert specific tasks into TODO.md, then remove temporary files.*

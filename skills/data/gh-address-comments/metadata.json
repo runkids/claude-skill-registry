@@ -1,7 +1,7 @@
 {
   "name": "gh-address-comments",
-  "repo": "OpenSourceSam/v2_heras_garden",
-  "path": ".claude/skills/gh-address-comments/SKILL.md",
-  "source": "github.com/OpenSourceSam/v2_heras_garden",
-  "downloaded_at": "2026-01-29T04:42:10.887056Z"
+  "repo": "OutlineDriven/odin-claude-plugin",
+  "path": "skills/gh-address-comments/SKILL.md",
+  "source": "github.com/OutlineDriven/odin-claude-plugin",
+  "downloaded_at": "2026-01-30T04:36:03.409325Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "changelog",
-  "repo": "masharratt/claude-flow-novice",
-  "path": ".claude/skills/cfn-project-management/lib/changelog/SKILL.md",
-  "source": "github.com/masharratt/claude-flow-novice",
-  "downloaded_at": "2026-01-29T04:28:01.057481Z"
+  "repo": "phrazzld/claude-config",
+  "path": "skills/changelog/SKILL.md",
+  "source": "github.com/phrazzld/claude-config",
+  "downloaded_at": "2026-01-30T04:28:46.933904Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "command-creator",
-  "repo": "maxlogvn/AiCMR",
-  "path": ".agents/skills/command-creator/SKILL.md",
-  "source": "github.com/maxlogvn/AiCMR",
-  "downloaded_at": "2026-01-29T03:04:32.740284Z"
+  "repo": "dagster-io/erk",
+  "path": ".claude/skills/command-creator/SKILL.md",
+  "source": "github.com/dagster-io/erk",
+  "downloaded_at": "2026-01-30T04:41:04.790907Z"
 }

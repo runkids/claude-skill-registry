@@ -1,22 +1,24 @@
 ---
 name: Frontend Components
-description: Design and build reusable, composable UI components with clear interfaces, proper state management, and single responsibility. Use this skill when creating or modifying React components, Vue components, Svelte components, or any UI component library files. When working on files in components/, ui/, widgets/, or src/components/ directories. When designing component props and APIs, managing component state, composing smaller components into larger ones, refactoring monolithic components, or documenting component usage.
+description: Build reusable, composable UI components with single responsibilities, clear prop interfaces, proper state management, and minimal coupling. Use this skill when creating React, Vue, Angular, or web components with well-defined APIs, sensible defaults, and documentation. Applies to component files, component libraries, design systems, or any modular UI code that should be maintainable, testable, and reusable across different contexts in the application.
 ---
 
-## When to use this skill:
+# Frontend Components
 
-- When creating new UI components (React, Vue, Svelte, etc.)
-- When modifying existing component files
-- When working on files in components/, ui/, widgets/, or src/components/ directories
-- When designing component props and their default values
-- When deciding where to manage state (local vs. lifted)
-- When composing smaller components into larger UI structures
-- When refactoring large, monolithic components into smaller pieces
-- When naming components and their props descriptively
-- When encapsulating implementation details within components
-- When documenting component usage and prop interfaces
-- When deciding if a component should be split or combined
-- When ensuring components are reusable across different contexts
+## When to use this skill
+
+- When creating component files like `Button.tsx`, `Card.jsx`, `Modal.vue`, or any UI component in `components/`
+- When building a component library or design system with reusable components like `ui/`, `design-system/`, or `shared/`
+- When defining component props/interfaces with TypeScript types or PropTypes for API clarity
+- When implementing single-purpose components that do one thing well (button, input, card, modal)
+- When composing complex UIs by combining smaller, simpler components rather than building monolithic structures
+- When managing component state and deciding whether state should be local or lifted to parent components
+- When creating configurable components with props that have sensible default values
+- When encapsulating implementation details while exposing only necessary public APIs
+- When naming components descriptively to indicate their purpose (`SubmitButton`, `UserProfileCard`, `ErrorBoundary`)
+- When documenting component usage, required/optional props, and providing code examples
+- When keeping the number of props manageable and considering composition patterns when props grow excessive
+- When building components in React (functional components, hooks), Vue (SFC), Angular, or native web components
 
 # Frontend Components
 

@@ -1,404 +1,503 @@
 ---
-name: youtube-transcripts
-description: >
-  Extract transcripts from YouTube videos. Use when user says "get transcript",
-  "transcribe this video", "what does this YouTube video say", "extract captions",
-  "youtube transcript", or provides a YouTube URL and wants the text content.
-allowed-tools: Bash, Read
-triggers:
-  - get transcript
-  - transcribe video
-  - youtube transcript
-  - extract captions
-  - what does this video say
-  - get subtitles from
-  - youtube url text
-metadata:
-  short-description: YouTube transcript extraction
+name: NestJS Framework
+version: 1.0.0
+framework_versions:
+  min: 8.0.0
+  max: 11.x
+  recommended: 10.4.0
+compatible_agents:
+  backend-developer: ">=3.0.0"
+  tech-lead-orchestrator: ">=2.5.0"
+description: Node.js/TypeScript backend framework with dependency injection and modular architecture
+frameworks:
+  - nestjs
+languages:
+  - typescript
+  - javascript
+category: backend
+updated: 2025-10-22
 ---
 
-# YouTube Transcripts Skill
+# NestJS Framework Skill
 
-Extract transcripts from YouTube videos with **three-tier fallback**:
+## Quick Reference
 
-1. **Direct** - youtube-transcript-api (fastest)
-2. **Proxy** - IPRoyal residential proxy rotation (handles rate limits)
-3. **Whisper** - yt-dlp audio download → faster-whisper local transcription (free, GPU-accelerated)
+**When to Use**: Building scalable Node.js/TypeScript backend applications with modular architecture
 
-## Quick Start
+**Core Strengths**: Dependency injection, modular design, enterprise patterns, comprehensive testing
 
-```bash
-cd .pi/skills/youtube-transcripts
+**Target Coverage**: Services ≥80%, Controllers ≥70%, E2E ≥60%, Overall ≥75%
 
-# Get transcript (auto-fallback through all tiers)
-uv run python youtube_transcript.py get -i dQw4w9WgXcQ
+## Essential Patterns
 
-# Skip proxy tier
-uv run python youtube_transcript.py get -i VIDEO_ID --no-proxy
+### Module Architecture
 
-# Skip whisper tier
-uv run python youtube_transcript.py get -i VIDEO_ID --no-whisper
-
-# List available transcript languages
-uv run python youtube_transcript.py list-languages -i VIDEO_ID
-
-# Check proxy configuration
-uv run python youtube_transcript.py check-proxy
-```
-
-## Commands
-
-### Get Transcript
-```bash
-uv run python youtube_transcript.py get \
-  --url "https://youtube.com/watch?v=dQw4w9WgXcQ" \
-  --lang en
-```
-
-**Options:**
-| Option | Short | Description |
-|--------|-------|-------------|
-| `--url` | `-u` | YouTube video URL |
-| `--video-id` | `-i` | Video ID directly |
-| `--lang` | `-l` | Language code (default: en) |
-| `--no-proxy` | | Skip proxy tier |
-| `--no-whisper` | | Skip Whisper fallback tier |
-| `--retries` | `-r` | Max retries per tier (default: 3) |
-
-**Output:** JSON with transcript segments (text, start time, duration)
-
-### List Available Languages
-```bash
-uv run python youtube_transcript.py list-languages -i VIDEO_ID
-```
-
-**Output:** JSON with available transcript languages
-
-### Check Proxy
-```bash
-uv run python youtube_transcript.py check-proxy
-uv run python youtube_transcript.py check-proxy --test-rotation
-```
-
-Tests IPRoyal proxy connectivity and IP rotation.
-
-## Output Format
-
-```json
-{
-  "meta": {
-    "video_id": "dQw4w9WgXcQ",
-    "language": "en",
-    "took_ms": 3029,
-    "method": "direct"
-  },
-  "transcript": [
-    {"text": "Hello world", "start": 0.0, "duration": 2.5},
-    {"text": "This is a test", "start": 2.5, "duration": 3.0}
+```typescript
+// users/users.module.ts
+@Module({
+  imports: [TypeOrmModule.forFeature([User]), AuthModule],
+  controllers: [UserController],
+  providers: [
+    UserService,
+    UserRepository,
+    { provide: 'USER_REPOSITORY', useClass: UserRepository },
   ],
-  "full_text": "Hello world This is a test...",
-  "errors": []
+  exports: [UserService],
+})
+export class UsersModule {}
+```
+
+**Key Principles**:
+- Clear module boundaries and responsibilities
+- Export only what other modules need
+- Import shared modules (AuthModule, DatabaseModule)
+- Use token-based providers for abstraction
+
+### Dependency Injection
+
+```typescript
+// users/services/user.service.ts
+@Injectable()
+export class UserService {
+  constructor(
+    @Inject('USER_REPOSITORY') private readonly userRepository: UserRepository,
+    private readonly hashingService: HashingService,
+    private readonly eventEmitter: EventEmitter2,
+  ) {}
+
+  async createUser(dto: CreateUserDto): Promise<User> {
+    const hashedPassword = await this.hashingService.hash(dto.password);
+    const user = await this.userRepository.create({
+      ...dto,
+      password: hashedPassword,
+    });
+    this.eventEmitter.emit('user.created', user);
+    return user;
+  }
 }
 ```
 
-**Method values:** `direct`, `proxy`, `whisper-local`, `whisper-api`, or `null` (if all failed)
+**Best Practices**:
+- Use constructor injection for all dependencies
+- Inject interfaces/tokens, not concrete implementations
+- Keep services focused on single responsibility
+- Emit events for cross-cutting concerns
 
-## Three-Tier Fallback
+### DTO Validation
 
-### Tier 1: Direct
-- Uses youtube-transcript-api without proxy
-- Fastest, no additional cost
-- May fail with rate limits on repeated requests
+```typescript
+// users/dto/create-user.dto.ts
+export class CreateUserDto {
+  @ApiProperty({ example: 'john@example.com' })
+  @IsEmail({}, { message: 'Invalid email format' })
+  email: string;
 
-### Tier 2: IPRoyal Proxy
-- Uses IPRoyal residential proxy (auto-rotates IPs)
-- Handles rate limiting (429) and blocking (403)
-- Requires proxy credentials in `.env` file
+  @ApiProperty({ example: 'StrongP@ss123', minLength: 8 })
+  @IsString()
+  @MinLength(8)
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/, {
+    message: 'Password must contain uppercase, lowercase, number, symbol'
+  })
+  password: string;
 
-**Environment variables (in .env):**
-| Variable | Description |
-|----------|-------------|
-| `IPROYAL_HOST` | Proxy host (e.g., geo.iproyal.com) |
-| `IPROYAL_PORT` | Proxy port (e.g., 12321) |
-| `IPROYAL_USER` | Proxy username |
-| `IPROYAL_PASSWORD` | Proxy password |
-
-### Tier 3: Whisper Fallback
-- Downloads audio with yt-dlp
-- Transcribes with **faster-whisper** (local, free, GPU-accelerated)
-- Falls back to OpenAI Whisper API if local fails
-- Works for videos with disabled/unavailable captions
-
-**Note:** Some channels (like TheRemembrancer) have NO native captions, so 100% of videos require Whisper fallback. This is significantly slower but fully automatic.
-
-## Dependencies
-
-```bash
-pip install youtube-transcript-api requests yt-dlp openai faster-whisper rich
+  @ApiProperty({ example: 'John Doe', required: false })
+  @IsOptional()
+  @MaxLength(100)
+  name?: string;
+}
 ```
 
-- `youtube-transcript-api` - Tier 1 & 2
-- `requests` - Proxy support
-- `yt-dlp` - Tier 3 audio download
-- `faster-whisper` - Tier 3 local transcription (CTranslate2, 4-8x faster than openai-whisper)
-- `openai` - Tier 3 API transcription (fallback if local fails)
-- `rich` - Progress display
+**Validation Rules**:
+- All inputs validated with class-validator decorators
+- API documentation via @ApiProperty
+- Custom error messages for user clarity
+- Optional fields with @IsOptional()
 
-## Batch Processing
+### Repository Pattern
 
-Download transcripts from entire channels with intelligent rate limiting:
+```typescript
+// users/repositories/user.repository.ts
+@Injectable()
+export class UserRepository {
+  constructor(
+    @InjectRepository(User) private readonly repository: Repository<User>
+  ) {}
 
-### Get Video IDs from Channel
+  async findByEmail(email: string): Promise<User | null> {
+    return this.repository.findOne({ where: { email } });
+  }
 
-```bash
-# Get all video IDs from a YouTube channel
-yt-dlp --flat-playlist --print id "https://www.youtube.com/@ChannelName/videos" > videos.txt
+  async findById(id: number): Promise<User> {
+    const user = await this.repository.findOne({ where: { id } });
+    if (!user) throw new NotFoundException('User not found');
+    return user;
+  }
+
+  async create(data: Partial<User>): Promise<User> {
+    const user = this.repository.create(data);
+    return this.repository.save(user);
+  }
+}
 ```
 
-### Batch Command
+**Repository Guidelines**:
+- Encapsulate all database operations
+- Throw domain-specific exceptions
+- Use TypeORM query builder for complex queries
+- Keep repositories focused on data access only
 
-```bash
-uv run python youtube_transcript.py batch \
-    --input videos.txt \
-    --output ./transcripts \
-    --delay-min 5 --delay-max 15 \
-    --whisper \
-    --resume
+### Controller Best Practices
+
+```typescript
+// users/controllers/user.controller.ts
+@ApiTags('users')
+@Controller('users')
+@UseInterceptors(ClassSerializerInterceptor)
+export class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  @Post()
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({ summary: 'Create new user' })
+  @ApiResponse({ status: 201, type: UserResponseDto })
+  @ApiResponse({ status: 400, description: 'Validation failed' })
+  async create(
+    @Body(ValidationPipe) dto: CreateUserDto
+  ): Promise<UserResponseDto> {
+    const user = await this.userService.create(dto);
+    return plainToInstance(UserResponseDto, user);
+  }
+
+  @Get(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiParam({ name: 'id', type: 'number' })
+  async findOne(
+    @Param('id', ParseIntPipe) id: number
+  ): Promise<UserResponseDto> {
+    const user = await this.userService.findById(id);
+    return plainToInstance(UserResponseDto, user);
+  }
+}
 ```
 
-**Options:**
-| Option | Short | Description |
-|--------|-------|-------------|
-| `--input` | `-f` | File with video IDs (one per line) |
-| `--output` | `-o` | Output directory for transcripts |
-| `--delay-min` | | Minimum delay between requests (default: 30) |
-| `--delay-max` | | Maximum delay between requests (default: 60) |
-| `--lang` | `-l` | Language code (default: en) |
-| `--no-proxy` | | Skip proxy tier |
-| `--whisper/--no-whisper` | | Enable/disable Whisper fallback |
-| `--resume/--no-resume` | | Resume from last position (default: True) |
-| `--max` | `-n` | Max videos to process (0 = all) |
+**Controller Checklist**:
+- [ ] @ApiTags for logical grouping
+- [ ] @ApiOperation for endpoint description
+- [ ] @ApiResponse for status codes + types
+- [ ] ValidationPipe for DTO validation
+- [ ] Guards for authentication/authorization
+- [ ] Transform responses with DTOs
 
-### Smart Delay Logic
+### Authentication & Authorization
 
-The batch processor uses **adaptive delays** based on fetch method:
-- **Direct fetch success:** 2-5 seconds (low risk with rotating IPs)
-- **Proxy fetch success:** 5-15 seconds
-- **Whisper/failed:** Uses configured delay-min/delay-max
+```typescript
+// auth/guards/jwt-auth.guard.ts
+@Injectable()
+export class JwtAuthGuard extends AuthGuard('jwt') {
+  handleRequest(err, user, info) {
+    if (err || !user) {
+      throw new UnauthorizedException('Invalid or expired token');
+    }
+    return user;
+  }
+}
 
-This dramatically speeds up channels with native captions while remaining cautious after failures.
+// auth/guards/roles.guard.ts
+@Injectable()
+export class RolesGuard implements CanActivate {
+  constructor(private reflector: Reflector) {}
 
-### Resume Support
+  canActivate(context: ExecutionContext): boolean {
+    const requiredRoles = this.reflector.get<Role[]>('roles', context.getHandler());
+    if (!requiredRoles) return true;
 
-Batch processing saves state after each video to `.batch_state.json` in the output directory. State includes:
-- Completed video IDs
-- Stats (success, failed, skipped, rate_limited, whisper)
-- Current video being processed
-- Current method (fetching, whisper)
+    const request = context.switchToHttp().getRequest();
+    const user = request.user;
+    return requiredRoles.some(role => user.roles?.includes(role));
+  }
+}
 
-If interrupted, simply re-run the same command to resume from where it left off.
-
-## Supervisor (Auto-Restart, Hung Detection & Rich Progress)
-
-The supervisor provides:
-- **nvtop-style progress display** with GPU monitoring
-- **Auto-restart** if batch processes crash
-- **Hung detection** - automatically restarts stalled processes
-- **Multi-job management** for parallel batch processing
-- **JSON status** for agent integration
-
-### Run with Supervisor
-
-```bash
-cd .pi/skills/youtube-transcripts
-
-# Single batch with supervisor
-uv run python supervisor.py run \
-    --input videos.txt \
-    --output ./transcripts \
-    --delay-min 5 --delay-max 15
-
-# Multiple batches from config
-uv run python supervisor.py multi --config batches.json
+// Usage in controller
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(Role.ADMIN)
+@Delete(':id')
+async delete(@Param('id') id: number): Promise<void> {
+  await this.userService.delete(id);
+}
 ```
 
-### Config File Format (batches.json)
+**Auth Patterns**:
+- JWT strategy with Passport.js
+- Role-based access control with custom decorators
+- Guard composition for complex rules
+- Secure password hashing (bcrypt, argon2)
 
-```json
-{
-    "jobs": [
+### Exception Handling
+
+```typescript
+// common/filters/http-exception.filter.ts
+@Catch(HttpException)
+export class HttpExceptionFilter implements ExceptionFilter {
+  catch(exception: HttpException, host: ArgumentsHost) {
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse<Response>();
+    const status = exception.getStatus();
+    const exceptionResponse = exception.getResponse();
+
+    response.status(status).json({
+      statusCode: status,
+      timestamp: new Date().toISOString(),
+      path: ctx.getRequest().url,
+      message: typeof exceptionResponse === 'string'
+        ? exceptionResponse
+        : (exceptionResponse as any).message,
+    });
+  }
+}
+
+// Usage in main.ts
+app.useGlobalFilters(new HttpExceptionFilter());
+```
+
+**Error Strategy**:
+- Global exception filter for consistency
+- Domain-specific exceptions (UserNotFoundException)
+- Include correlation IDs for debugging
+- Log errors with appropriate severity
+
+### Testing
+
+```typescript
+// users/services/user.service.spec.ts
+describe('UserService', () => {
+  let service: UserService;
+  let repository: MockType<UserRepository>;
+  let hashingService: MockType<HashingService>;
+
+  beforeEach(async () => {
+    const module = await Test.createTestingModule({
+      providers: [
+        UserService,
         {
-            "name": "Luetin09",
-            "input": "/path/to/luetin09_videos.txt",
-            "output": "/path/to/luetin09",
-            "delay_min": 5,
-            "delay_max": 15,
-            "max_restarts": 20,
-            "hung_timeout": 600
+          provide: 'USER_REPOSITORY',
+          useFactory: mockRepository,
         },
         {
-            "name": "Remembrancer",
-            "input": "/path/to/remembrancer_videos.txt",
-            "output": "/path/to/remembrancer",
-            "delay_min": 5,
-            "delay_max": 15,
-            "max_restarts": 20,
-            "hung_timeout": 2700
-        }
-    ]
+          provide: HashingService,
+          useFactory: mockHashingService,
+        },
+      ],
+    }).compile();
+
+    service = module.get<UserService>(UserService);
+    repository = module.get('USER_REPOSITORY');
+    hashingService = module.get(HashingService);
+  });
+
+  describe('createUser', () => {
+    it('should hash password and create user', async () => {
+      const dto = { email: 'test@test.com', password: 'Pass123!' };
+      const hashedPassword = 'hashed_password';
+
+      hashingService.hash.mockResolvedValue(hashedPassword);
+      repository.findByEmail.mockResolvedValue(null);
+      repository.create.mockResolvedValue({ id: 1, ...dto, password: hashedPassword });
+
+      const result = await service.createUser(dto);
+
+      expect(hashingService.hash).toHaveBeenCalledWith(dto.password);
+      expect(repository.create).toHaveBeenCalledWith({
+        ...dto,
+        password: hashedPassword,
+      });
+      expect(result.id).toBe(1);
+    });
+
+    it('should throw ConflictException if user exists', async () => {
+      const dto = { email: 'test@test.com', password: 'Pass123!' };
+      repository.findByEmail.mockResolvedValue({ id: 1 });
+
+      await expect(service.createUser(dto)).rejects.toThrow(ConflictException);
+    });
+  });
+});
+```
+
+**Test Strategy**:
+- Unit tests for services (≥80% coverage)
+- Integration tests for repositories
+- E2E tests for critical workflows (≥60% coverage)
+- Mock external dependencies
+- Test error paths and edge cases
+
+## Common Anti-Patterns
+
+### ❌ Don't: Tight Coupling
+
+```typescript
+// Bad: Direct dependency on implementation
+@Injectable()
+export class UserService {
+  async createUser(email: string, password: string) {
+    const hashed = await bcrypt.hash(password, 10); // Tight coupling!
+    // ...
+  }
 }
 ```
 
-**Config options:**
-| Option | Description | Default |
-|--------|-------------|---------|
-| `name` | Job display name | filename |
-| `input` | Path to video IDs file | required |
-| `output` | Output directory | required |
-| `delay_min` | Min delay seconds | 30 |
-| `delay_max` | Max delay seconds | 60 |
-| `max_restarts` | Max automatic restarts | 10 |
-| `hung_timeout` | Seconds without progress before restart | 1800 |
+### ✅ Do: Abstraction
 
-**Hung timeout recommendations:**
-- Channels with native captions: 600 seconds (10 min)
-- Channels requiring Whisper (no captions): 2700 seconds (45 min) - allows time for long video transcription
+```typescript
+// Good: Depend on abstraction
+@Injectable()
+export class UserService {
+  constructor(private readonly hashingService: HashingService) {}
 
-### Check Status (Agent-Friendly)
-
-```bash
-# Human-readable output
-uv run python supervisor.py status --output ./transcripts
-
-# JSON output for agents
-uv run python supervisor.py status --output ./transcripts --json
-```
-
-**JSON output:**
-```json
-{
-  "output_dir": "./transcripts",
-  "completed": 150,
-  "stats": {"success": 145, "failed": 3, "skipped": 2, "rate_limited": 0, "whisper": 50},
-  "current_video": "dQw4w9WgXcQ",
-  "current_method": "whisper",
-  "last_updated": "2026-01-21 15:30:00",
-  "consecutive_failures": 0
+  async createUser(dto: CreateUserDto) {
+    const hashed = await this.hashingService.hash(dto.password);
+    // ...
+  }
 }
 ```
 
-## Local Whisper (Free & Fast)
+### ❌ Don't: No Input Validation
 
-Tier 3 uses **faster-whisper** (CTranslate2 optimized) by default:
-- **Free** - no API key or costs
-- **4-8x faster** than openai-whisper
-- **GPU accelerated** - uses CUDA float16 when available
-- **VAD filtering** - skips silence for additional speed
-- **Automatic fallback** - falls back to OpenAI API if local fails
-
-Model size: `base` (good balance of speed/quality)
-
-**Performance benchmarks:**
-| Video Length | GPU Time | CPU Time |
-|--------------|----------|----------|
-| 10 min | ~30 sec | ~2 min |
-| 1 hour | ~3 min | ~15 min |
-| 10 hours | ~15 min | ~90 min |
-
-## Rate Estimates
-
-| Channel Type | Native Captions | Rate | ETA (1000 videos) |
-|--------------|-----------------|------|-------------------|
-| Most channels | Yes | ~200-400/hr | 3-5 hours |
-| No captions (e.g., Remembrancer) | No (100% Whisper) | ~4-12/hr | 80-250 hours |
-
-## Cross-Agent Monitoring
-
-### Option 1: HTTP API (Recommended)
-
-Start the status API server:
-```bash
-cd .pi/skills/youtube-transcripts
-uv run python status_api.py --port 8765
-```
-
-Then from any project/agent:
-```bash
-# List all jobs
-curl http://localhost:8765/
-
-# Get all job status (aggregated)
-curl http://localhost:8765/all
-
-# Get specific job status
-curl http://localhost:8765/status/luetin09
-curl http://localhost:8765/status/remembrancer
-```
-
-**Response format:**
-```json
-{
-  "jobs": {
-    "luetin09": {"completed": 535, "stats": {...}, "current_video": "..."},
-    "remembrancer": {"completed": 183, "stats": {...}, "current_video": "..."}
-  },
-  "totals": {"completed": 718, "success": 88, "failed": 2, "whisper": 24}
+```typescript
+// Bad: No validation, any type
+@Post()
+async create(@Body() body: any) {
+  return this.service.create(body);
 }
 ```
 
-### Option 2: CLI Script
+### ✅ Do: DTO Validation
 
-```bash
-# Simple status check
-python .pi/skills/youtube-transcripts/status.py /path/to/transcripts
-
-# Watch mode (updates every 5s)
-python .pi/skills/youtube-transcripts/status.py /path/to/transcripts --watch
+```typescript
+// Good: Strong typing + validation
+@Post()
+async create(@Body(ValidationPipe) dto: CreateUserDto): Promise<UserResponseDto> {
+  return this.service.create(dto);
+}
 ```
 
-### Option 3: Direct File Read
+### ❌ Don't: Expose Sensitive Data
 
-```bash
-# Read state file directly (no dependencies)
-cat /path/to/transcripts/.batch_state.json | jq '{completed: .completed | length, stats, current_video, last_updated}'
+```typescript
+// Bad: Returns password field!
+@Get(':id')
+async findOne(@Param('id') id: string) {
+  return this.userService.findOne(id); // Contains password
+}
 ```
 
-**Active batch locations:**
-- Luetin09: `/home/graham/workspace/experiments/pi-mono/run/youtube-transcripts/luetin09`
-- Remembrancer: `/home/graham/workspace/experiments/pi-mono/run/youtube-transcripts/remembrancer`
+### ✅ Do: Transform Responses
 
-## Troubleshooting
-
-### Process appears hung
-The supervisor monitors progress and auto-restarts hung processes. If a process shows no progress for `hung_timeout` seconds, it will be killed and restarted.
-
-**Symptoms:**
-- `current_method: "fetching"` for >10 minutes → likely hung
-- `current_method: "whisper"` for >45 minutes on non-huge video → may be hung
-
-**Manual restart:**
-```bash
-# Kill specific batch process
-kill -9 <PID>
-# Supervisor will auto-restart it
+```typescript
+// Good: Use response DTO with @Exclude()
+@Get(':id')
+@UseInterceptors(ClassSerializerInterceptor)
+async findOne(@Param('id', ParseIntPipe) id: number): Promise<UserResponseDto> {
+  const user = await this.userService.findById(id);
+  return plainToInstance(UserResponseDto, user); // Excludes password
+}
 ```
 
-### All videos using Whisper fallback
-Some channels have NO native captions. Check:
-```bash
-uv run python youtube_transcript.py list-languages -i VIDEO_ID
+## Performance Patterns
+
+### Caching
+
+```typescript
+@Injectable()
+export class UserService {
+  constructor(
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    private userRepository: UserRepository,
+  ) {}
+
+  async findById(id: number): Promise<User> {
+    const cacheKey = `user:${id}`;
+    const cached = await this.cacheManager.get<User>(cacheKey);
+    if (cached) return cached;
+
+    const user = await this.userRepository.findById(id);
+    await this.cacheManager.set(cacheKey, user, 3600); // 1 hour TTL
+    return user;
+  }
+}
 ```
-If empty, the video has no captions and requires Whisper.
 
-### Rate limiting despite proxy
-- Check proxy is configured: `uv run python youtube_transcript.py check-proxy`
-- Verify .env file has correct credentials
-- Try `--test-rotation` to verify IP rotation
+### Background Jobs
 
-## Limitations
+```typescript
+// users/processors/email.processor.ts
+@Processor('email')
+export class EmailProcessor {
+  @Process('welcome')
+  async sendWelcomeEmail(job: Job<{ email: string; name: string }>) {
+    const { email, name } = job.data;
+    await this.emailService.sendWelcome(email, name);
+  }
+}
 
-- Tier 1-2 require captions (auto-generated or manual)
-- Tier 3 (Whisper) works for any video but takes longer
-- Private/unlisted videos may not be accessible
-- Very long videos (>10 hours) may take 15-45 minutes with Whisper
-- Some videos may fail due to regional restrictions or removal
+// In service
+await this.emailQueue.add('welcome', { email: user.email, name: user.name });
+```
+
+### Query Optimization
+
+```typescript
+// Bad: N+1 query problem
+const users = await this.repository.find();
+for (const user of users) {
+  user.orders = await this.orderRepository.findByUserId(user.id);
+}
+
+// Good: Use relations
+const users = await this.repository.find({
+  relations: ['orders'],
+});
+```
+
+## Integration Checklist
+
+- [ ] Module properly structured with clear boundaries
+- [ ] All dependencies injected via constructor
+- [ ] DTOs with class-validator decorators
+- [ ] Repository pattern for data access
+- [ ] Guards for authentication/authorization
+- [ ] Exception filters for consistent errors
+- [ ] OpenAPI/Swagger documentation
+- [ ] Unit tests ≥80% coverage
+- [ ] Integration tests for API endpoints
+- [ ] E2E tests for critical paths
+- [ ] Caching for frequently accessed data
+- [ ] Background jobs for async operations
+- [ ] Health check endpoint
+
+## Quick Commands
+
+```bash
+# Generate resources
+nest g module users
+nest g controller users
+nest g service users
+
+# Generate complete CRUD
+nest g resource users
+
+# Run tests
+npm run test           # Unit tests
+npm run test:e2e       # E2E tests
+npm run test:cov       # Coverage report
+
+# Build and run
+npm run build
+npm run start:dev      # Watch mode
+npm run start:prod     # Production
+```
+
+## See Also
+
+- [REFERENCE.md](./REFERENCE.md) - Comprehensive guide with microservices, GraphQL, advanced patterns
+- [templates/](./templates/) - Code generation templates
+- [examples/](./examples/) - Real-world implementation examples

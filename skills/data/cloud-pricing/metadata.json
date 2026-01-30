@@ -1,9 +1,7 @@
 {
   "name": "cloud-pricing",
-  "description": "Expert knowledge of cloud provider pricing models for AWS, Azure, GCP covering compute, storage, database, networking, and serverless services. Includes 2025 pricing data, regional differences, free t",
   "repo": "anton-abyzov/specweave",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/specweave-cost-optimizer/skills/cloud-pricing/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-30T01:38:34.183204Z"
 }

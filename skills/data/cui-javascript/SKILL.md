@@ -1,13 +1,13 @@
 ---
 name: cui-javascript
 description: Core JavaScript development standards covering ES modules, modern patterns, code quality, async programming, and tooling
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
+user-invocable: false
+allowed-tools: Read, Grep, Glob
 ---
 
 # JavaScript Development Standards
+
+**REFERENCE MODE**: This skill provides reference material. Load specific standards on-demand based on current task.
 
 ## Overview
 

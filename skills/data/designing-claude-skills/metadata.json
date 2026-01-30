@@ -1,9 +1,7 @@
 {
   "name": "designing-claude-skills",
-  "description": "Comprehensive guide for creating, reviewing, and improving skills that extend Claude's capabilities with specialized knowledge, workflows, and tool integrations. Use this skill when: (1) Creating a ne",
-  "repo": "wombat9000/claude-plugins",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Ven0m0/claude-config",
+  "path": "plugins/config-wizard/skills/designing-claude-skills/SKILL.md",
+  "source": "github.com/Ven0m0/claude-config",
+  "downloaded_at": "2026-01-30T04:01:32.157345Z"
 }

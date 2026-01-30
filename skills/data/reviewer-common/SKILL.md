@@ -137,7 +137,7 @@ PASSED: [true/false]
 
 ## 4. スコアリング基準
 
-> **参照**: 合格閾値の正式定義は {{skill:workflow-phase-convention}} §レビュースコア閾値を参照
+> **参照**: 合格閾値の正式定義は @.claude/skills/workflow-phase-convention/SKILL.md §レビュースコア閾値を参照
 
 ### 4.1 合格閾値
 

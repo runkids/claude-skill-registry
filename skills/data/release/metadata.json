@@ -1,7 +1,7 @@
 {
   "name": "release",
-  "repo": "dropseed/plain",
-  "path": ".claude/skills/release/SKILL.md",
-  "source": "github.com/dropseed/plain",
-  "downloaded_at": "2026-01-29T04:23:35.633279Z"
+  "repo": "takemo101/compose-workflow",
+  "path": ".pi/skills/release/SKILL.md",
+  "source": "github.com/takemo101/compose-workflow",
+  "downloaded_at": "2026-01-30T04:47:24.175785Z"
 }

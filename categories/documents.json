@@ -1,7 +1,7 @@
 {
   "category": "documents",
-  "count": 2642,
-  "updated_at": "2026-01-29T16:04:49.257341Z",
+  "count": 2738,
+  "updated_at": "2026-01-30T04:53:29.767929Z",
   "skills": [
     {
       "name": "docs-review",
@@ -677,21 +677,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "write-documentation",
-      "description": "Write and format Rust documentation correctly. Apply proactively when writing code with rustdoc comments (//! or ///). Covers structure (inverted pyramid), intra-doc links (crate:: paths, reference-st",
-      "repo": "r3bl-org/r3bl-open-core",
-      "path": "data/write-documentation",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "write",
-        "documentation"
-      ],
-      "stars": 433,
-      "install": "r3bl-org/r3bl-open-core",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "nano-pdf",
       "description": "Edit PDFs with natural-language instructions using the nano-pdf CLI.",
       "repo": "steipete/clawdis",
@@ -1175,6 +1160,34 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "tinacms",
+      "description": "Build content-heavy sites with Git-backed TinaCMS. Provides visual editing and content management for blogs, documentation, and marketing sites with non-technical editors.Use when implementing Next.js",
+      "repo": "jezweb/claude-skills",
+      "path": "skills/tinacms",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "tinacms"
+      ],
+      "stars": 109,
+      "install": "jezweb/claude-skills/skills/tinacms",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "tiptap",
+      "description": "Build rich text editors with Tiptap - headless editor framework with React, shadcn/ui, and Tailwind v4 integration. Includes SSR-safe setup, image uploads to R2, prose styling, collaborative editing, ",
+      "repo": "jezweb/claude-skills",
+      "path": "skills/tiptap",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "tiptap"
+      ],
+      "stars": 109,
+      "install": "jezweb/claude-skills/skills/tiptap",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "deep-gemini",
       "description": "Deep technical documentation generation workflow using zen mcp's clink and docgen tools. First uses clink to launch gemini CLI in WSL for code analysis, then uses docgen for structured document genera",
       "repo": "VCnoC/Claude-Code-Zen-mcp-Skill-Work",
@@ -1652,6 +1665,21 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "doc-scraper",
+      "description": "Scrape documentation websites into organized reference files. Use when converting docs sites to searchable references or building Claude skills.",
+      "repo": "jmagly/ai-writing-guide",
+      "path": "agentic/code/addons/doc-intelligence/skills/doc-scraper",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "doc",
+        "scraper"
+      ],
+      "stars": 49,
+      "install": "jmagly/ai-writing-guide/agentic/code/addons/doc-intelligence/skills/doc-scraper",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "12-skill",
       "description": "Skill: 12-skill",
       "repo": "majiayu000/claude-skill-registry",
@@ -1976,6 +2004,20 @@
       "source": "local"
     },
     {
+      "name": "documentation",
+      "description": "Use when creating or updating documentation including READMEs, API docs, inline comments, or technical guides. Focuses on clarity and usefulness for the intended audience.",
+      "repo": "TheBushidoCollective/han",
+      "path": "jutsu/jutsu-notetaker/skills/documentation-linking",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "documentation"
+      ],
+      "stars": 45,
+      "install": "TheBushidoCollective/han/jutsu/jutsu-notetaker/skills/documentation-linking",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "documentation-guide",
       "description": "Guide documentation structure, README content, and project documentation best practices.Use when: creating README, documentation, docs folder, project setup.Keywords: README, docs, documentation, CONT",
       "repo": "AsiaOstrich/universal-dev-skills",
@@ -2018,6 +2060,38 @@
       "stars": 38,
       "install": "giuseppe-trisciuoglio/developer-kit/skills/typescript-docs",
       "source": "local"
+    },
+    {
+      "name": "document-quality-standards",
+      "description": "Use when creating or editing documents (DOCX, PDF, XLSX, PPTX) that need professional output. Adds visual verification, typography hygiene, and formula patterns.",
+      "repo": "belumume/claude-skills",
+      "path": "document-quality-standards",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "document",
+        "quality",
+        "standards"
+      ],
+      "stars": 33,
+      "install": "belumume/claude-skills/document-quality-standards",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "docx-advanced-patterns",
+      "description": "Advanced python-docx patterns for handling nested tables, complex cell structures, and content extraction beyond basic .text property. Complements the official docx skill with specialized techniques f",
+      "repo": "belumume/claude-skills",
+      "path": "docx-advanced-patterns",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "docx",
+        "advanced",
+        "patterns"
+      ],
+      "stars": 33,
+      "install": "belumume/claude-skills/docx-advanced-patterns",
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "broadcast-api",
@@ -2673,21 +2747,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "documentation-guidelines",
-      "description": "Write or update backend feature documentation that follows a repo's DOCUMENTATION_GUIDELINES.md (or equivalent) across any project. Use when asked to create/update module docs, API contracts, or backe",
-      "repo": "thienanblog/awesome-ai-agent-skills",
-      "path": "data/documentation-guidelines",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "documentation",
-        "guidelines"
-      ],
-      "stars": 16,
-      "install": "thienanblog/awesome-ai-agent-skills",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "docusaurus",
       "description": "Docusaurus documentation expert. Specializes in creating, configuring, and deploying Docusaurus documentation sites, MDX authoring, plugin development, theming, versioning, and i18n. Activates for Doc",
       "repo": "anton-abyzov/specweave",
@@ -2876,6 +2935,21 @@
       ],
       "stars": 13,
       "install": "CuriousLearner/devkit",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "docs-sync",
+      "description": "Sync AILANG documentation website with codebase reality. Use after releases, when features are implemented, or when website accuracy is questioned. Checks design docs vs website, validates examples, u",
+      "repo": "sunholo-data/ailang",
+      "path": ".claude/skills/docs-sync",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "docs",
+        "sync"
+      ],
+      "stars": 13,
+      "install": "sunholo-data/ailang/.claude/skills/docs-sync",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -3086,6 +3160,21 @@
       "source": "local"
     },
     {
+      "name": "spec-miner",
+      "description": "Use when understanding legacy or undocumented systems, creating documentation for existing code, or extracting specifications from implementations. Invoke for legacy analysis, code archaeology, undocu",
+      "repo": "Jeffallan/claude-skills",
+      "path": "skills/spec-miner",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "spec",
+        "miner"
+      ],
+      "stars": 12,
+      "install": "Jeffallan/claude-skills/skills/spec-miner",
+      "source": "local"
+    },
+    {
       "name": "tech-doc",
       "description": "技术协作场景下撰写与维护高质量技术文档的统一写作指南。",
       "repo": "DCjanus/prompts",
@@ -3099,21 +3188,6 @@
       "stars": 12,
       "install": "DCjanus/prompts/skills/tech-doc",
       "source": "local"
-    },
-    {
-      "name": "brand-yml",
-      "description": "Create and use brand.yml files for consistent branding across Shiny apps and Quarto documents. Use when working with brand styling, colors, fonts, logos, or corporate identity in Shiny or Quarto proje",
-      "repo": "posit-dev/skills",
-      "path": "brand-yml",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "brand",
-        "yml"
-      ],
-      "stars": 11,
-      "install": "posit-dev/skills/brand-yml",
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "confluence-docs",
@@ -3390,6 +3464,20 @@
       ],
       "stars": 10,
       "install": "vinnie357/claudio/skills/research-methodology",
+      "source": "local"
+    },
+    {
+      "name": "sc-document",
+      "description": "Generate focused documentation for components, functions, APIs, and features. Use when creating inline docs, API references, user guides, or technical documentation.",
+      "repo": "Tony363/SuperClaude",
+      "path": ".claude/skills/sc-document",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "document"
+      ],
+      "stars": 10,
+      "install": "Tony363/SuperClaude/.claude/skills/sc-document",
       "source": "local"
     },
     {
@@ -3804,6 +3892,54 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "doc-generate-adr",
+      "description": "Generate Architecture Decision Records (ADRs) to document significant architectural decisions. Use when making important technical decisions that need documentation.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/doc-generate-adr",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "doc",
+        "generate",
+        "adr"
+      ],
+      "stars": 8,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/doc-generate-adr",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "doc-issue-readme",
+      "description": "Post structured documentation to GitHub issue as a comment. Use when starting work on an issue to document approach and track progress.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/doc-issue-readme",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "doc",
+        "issue",
+        "readme"
+      ],
+      "stars": 8,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/doc-issue-readme",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "doc-validate-markdown",
+      "description": "Validate markdown files for formatting, links, and style compliance using markdownlint. Use before committing documentation changes.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/doc-validate-markdown",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "doc",
+        "validate",
+        "markdown"
+      ],
+      "stars": 8,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/doc-validate-markdown",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "documentation-best-practices",
       "description": "Provides templates, standards, and best practices for writing clear, comprehensive technical documentation",
       "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
@@ -3874,6 +4010,21 @@
       "source": "github.com/danbiilee/react-miniportfoly"
     },
     {
+      "name": "looking-up-docs",
+      "description": "Library documentation via Context7. Use for API references, code examples, framework docs.",
+      "repo": "alexei-led/claude-code-config",
+      "path": "skills/looking-up-docs",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "looking",
+        "docs"
+      ],
+      "stars": 8,
+      "install": "alexei-led/claude-code-config/skills/looking-up-docs",
+      "source": "local"
+    },
+    {
       "name": "pdf4me",
       "description": "Comprehensive PDF processing API for conversion, merge, split, compress, OCR, and more",
       "repo": "vm0-ai/vm0-skills",
@@ -3927,6 +4078,22 @@
       ],
       "stars": 8,
       "install": "vm0-ai/vm0-skills",
+      "source": "local"
+    },
+    {
+      "name": "phase-plan-generate",
+      "description": "Generate comprehensive plan documentation following Template 1 format. Use when creating plan.md files for new components or subsections.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/phase-plan-generate",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "phase",
+        "plan",
+        "generate"
+      ],
+      "stars": 8,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/phase-plan-generate",
       "source": "local"
     },
     {
@@ -4388,6 +4555,22 @@
       ],
       "stars": 6,
       "install": "Wizard1209/letta-client-bot/.claude/skills/update-docs",
+      "source": "local"
+    },
+    {
+      "name": "youtube-comment-analysis",
+      "description": "Use when user requests YouTube comments. Run standalone for comment analysis or sequential with youtube-to-markdown for cross-analysis with video summary.",
+      "repo": "vre/flow-state",
+      "path": "youtube-comment-analysis",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "youtube",
+        "comment",
+        "analysis"
+      ],
+      "stars": 6,
+      "install": "vre/flow-state/youtube-comment-analysis",
       "source": "local"
     },
     {
@@ -5468,6 +5651,21 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "api-endpoint",
+      "description": "Create REST or GraphQL API endpoints with proper validation, error handling, authentication, and documentation. Use when building backend APIs or serverless functions.",
+      "repo": "vapvarun/claude-backup",
+      "path": "skills/api-endpoint",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "api",
+        "endpoint"
+      ],
+      "stars": 3,
+      "install": "vapvarun/claude-backup/skills/api-endpoint",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "aps-documentation",
       "description": "Comprehensive skill for working with Agile Protocol Specification documentation.Automatically activates when creating, editing, or reviewing APS content.Provides templates, naming conventions, and doc",
       "repo": "seanchatmangpt/agile-protocol-specification",
@@ -5528,20 +5726,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "braiins-os",
-      "description": "Comprehensive Braiins OS skill covering API, feeds, and documentation",
-      "repo": "enuno/claude-command-and-control",
-      "path": "data/braiins-os",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "braiins"
-      ],
-      "stars": 3,
-      "install": "enuno/claude-command-and-control",
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "codebase-context",
       "description": "Generates and maintains codebase context documentation (.context.md files).Implements the Codebase Context Specification for AI-friendly projectdocumentation. Activates when documenting architecture o",
       "repo": "seanchatmangpt/agile-protocol-specification",
@@ -5555,6 +5739,22 @@
       "stars": 3,
       "install": "seanchatmangpt/agile-protocol-specification/.claude/skills/codebase-context",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "daily-summary-base",
+      "description": "Framework for creating end-of-day summary documents. Use when user says \"daily summary\", \"generate summary\", or similar at end of day. Provides structured markdown template with date verification, fil",
+      "repo": "ZachBeta/claude-as-coach",
+      "path": "skills/daily-summary-base",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "daily",
+        "summary",
+        "base"
+      ],
+      "stars": 3,
+      "install": "ZachBeta/claude-as-coach/skills/daily-summary-base",
+      "source": "local"
     },
     {
       "name": "doc-organizer",
@@ -5688,6 +5888,21 @@
       ],
       "stars": 3,
       "install": "enuno/claude-command-and-control/.claude/skills/documentation-update",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "documenting-apis",
+      "description": "Generate API specification documentation from codebase analysis. Detects REST endpoints, function signatures, type definitions, and schemas. Triggers: API specification, endpoints, REST API, type defi",
+      "repo": "thkt/claude-config",
+      "path": ".ja/skills/documenting-apis",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "documenting",
+        "apis"
+      ],
+      "stars": 3,
+      "install": "thkt/claude-config/.ja/skills/documenting-apis",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -7047,6 +7262,20 @@
       "source": "local"
     },
     {
+      "name": "startup",
+      "description": "Review essential documentation and context at session start. Use when beginning a new session to load AI rules, git state, and pending tasks.",
+      "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+      "path": ".claude/skills/startup",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "startup"
+      ],
+      "stars": 2,
+      "install": "Euda1mon1a/Autonomous-Assignment-Program-Manager/.claude/skills/startup",
+      "source": "local"
+    },
+    {
       "name": "task-create",
       "description": "Create structured task files for planning dev work. Use when user asks to \"create a task\", \"add a task\", \"plan a task\", or needs to document work items. Creates numbered markdown files in docs/plannin",
       "repo": "otrebu/all-agents",
@@ -7395,6 +7624,37 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "browser-content-capture",
+      "description": "Capture content from JavaScript-rendered pages, login-protected sites, and multi-page documentation using Playwright MCP tools or Claude Chrome extension. Use when WebFetch fails on SPAs, dynamic cont",
+      "repo": "yonatangross/skillforge-claude-plugin",
+      "path": "skills/browser-content-capture",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "browser",
+        "content",
+        "capture"
+      ],
+      "stars": 1,
+      "install": "yonatangross/skillforge-claude-plugin/skills/browser-content-capture",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "certificate-generator",
+      "description": "Batch create professional certificates with customizable templates for courses, achievements, and awards. Supports CSV input and PDF export.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "certificate-generator",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "certificate",
+        "generator"
+      ],
+      "stars": 1,
+      "install": "dkyazzentwatwa/chatgpt-skills/certificate-generator",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "changelog-tracker",
       "description": "Analyzes uncommitted git changes and updates CHANGELOG.md and CLAUDE.md. Executes git commands, reads diffs, categorizes changes, and stages updated documentation automatically.",
       "repo": "EugeneMsv/claude-global-settings",
@@ -7479,21 +7739,6 @@
       ],
       "stars": 1,
       "install": "mhylle/claude-skills-collection/skills/codebase-research",
-      "source": "local"
-    },
-    {
-      "name": "codebase-research",
-      "description": "Orchestrates comprehensive codebase research by decomposing user queries into parallel sub-agent tasks and synthesizing findings. This skill should be used when users ask questions about how code work",
-      "repo": "mhylle/claude-skills-collection",
-      "path": "data/codebase-research",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "codebase",
-        "research"
-      ],
-      "stars": 1,
-      "install": "mhylle/claude-skills-collection",
       "source": "local"
     },
     {
@@ -7644,6 +7889,22 @@
       "source": "local"
     },
     {
+      "name": "content-similarity-checker",
+      "description": "Compare document similarity using TF-IDF, cosine similarity, and Jaccard index. Use for plagiarism detection, duplicate finding, or content matching.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "content-similarity-checker",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "content",
+        "similarity",
+        "checker"
+      ],
+      "stars": 1,
+      "install": "dkyazzentwatwa/chatgpt-skills/content-similarity-checker",
+      "source": "local"
+    },
+    {
       "name": "context-analyzer",
       "description": "Project context analysis engine that scans project structure and surfaces relevant information for documentation creation",
       "repo": "vladm3105/aidoc-flow-framework",
@@ -7686,6 +7947,21 @@
       ],
       "stars": 1,
       "install": "ramhaidar/Code-Executor-MCP/skills/context7-usage",
+      "source": "local"
+    },
+    {
+      "name": "contract-generator",
+      "description": "Use when asked to generate legal contracts, agreements, or documents from templates with variable substitution and formatting.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "contract-generator",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "contract",
+        "generator"
+      ],
+      "stars": 1,
+      "install": "dkyazzentwatwa/chatgpt-skills/contract-generator",
       "source": "local"
     },
     {
@@ -8645,6 +8921,21 @@
       "source": "local"
     },
     {
+      "name": "invoice-generator",
+      "description": "Generate professional PDF invoices from line items with customizable templates, tax calculations, and branding. Supports batch generation from CSV.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "invoice-generator",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "invoice",
+        "generator"
+      ],
+      "stars": 1,
+      "install": "dkyazzentwatwa/chatgpt-skills/invoice-generator",
+      "source": "local"
+    },
+    {
       "name": "ipv6-first",
       "description": "IPv6 is THE first-class citizen. All code, tests, documentation, and configurations MUST be IPv6-first. IPv4 MAY be added only for legacy support as a second-class citizen.",
       "repo": "troykelly/claude-skills",
@@ -8730,6 +9021,37 @@
       ],
       "stars": 1,
       "install": "RedondoK/claude-md-skill/markdown",
+      "source": "local"
+    },
+    {
+      "name": "markdown-content-formatter",
+      "description": "Format and validate markdown documents with auto-generated TOC, frontmatter, structure validation, and cross-reference linking. Export to GitHub/CommonMark/Jekyll/Hugo.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "markdown-content-formatter",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "markdown",
+        "content",
+        "formatter"
+      ],
+      "stars": 1,
+      "install": "dkyazzentwatwa/chatgpt-skills/markdown-content-formatter",
+      "source": "local"
+    },
+    {
+      "name": "markdown-pro",
+      "description": "\"Professional Markdown documentation skill for creating polished README files, changelogs, contribution guides, and technical documentation. Use for: (1) README generation with badges and sections, (2",
+      "repo": "AutumnsGrove/ClaudeSkills",
+      "path": "markdown-pro",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "markdown",
+        "pro"
+      ],
+      "stars": 1,
+      "install": "AutumnsGrove/ClaudeSkills/markdown-pro",
       "source": "local"
     },
     {
@@ -9510,6 +9832,21 @@
       "source": "local"
     },
     {
+      "name": "smart-rules",
+      "description": "[Utility] Analyzes user prompts and efficiently loads only relevant rule documents. Auto-generates category-document mapping config file on first invocation by scanning project documents. Supports bot",
+      "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
+      "path": ".claude/skills/smart-rules",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "smart",
+        "rules"
+      ],
+      "stars": 1,
+      "install": "CANTAGESTUDIO/CosmicAtlasPacker/.claude/skills/smart-rules",
+      "source": "local"
+    },
+    {
       "name": "taurinext-shadcn",
       "description": "taurinext-shadcn template reference doc. Use this when to find in-depth information about this template.",
       "repo": "Lightbridge-KS/taurinext-shadcn",
@@ -9567,6 +9904,21 @@
       ],
       "stars": 1,
       "install": "atilladeniz/next-go-pg",
+      "source": "local"
+    },
+    {
+      "name": "text-summarizer",
+      "description": "Generate extractive summaries from long text documents. Control summary length, extract key sentences, and process multiple documents.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "text-summarizer",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "text",
+        "summarizer"
+      ],
+      "stars": 1,
+      "install": "dkyazzentwatwa/chatgpt-skills/text-summarizer",
       "source": "local"
     },
     {
@@ -9655,6 +10007,21 @@
       ],
       "stars": 1,
       "install": "samjhecht/wrangler",
+      "source": "local"
+    },
+    {
+      "name": "video-to-gif",
+      "description": "Convert video clips to optimized GIFs with speed control, cropping, text overlays, and file size optimization. Create perfect GIFs for social media, documentation, and presentations.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "video-to-gif",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "video",
+        "gif"
+      ],
+      "stars": 1,
+      "install": "dkyazzentwatwa/chatgpt-skills/video-to-gif",
       "source": "local"
     },
     {
@@ -10407,6 +10774,18 @@
       "tags": [],
       "stars": 0,
       "install": "lambdalisue/dotfiles",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "ai-pattern-detection",
+      "description": "Detects AI-generated writing patterns and suggests authentic alternatives. Auto-applies when reviewing content, editing documents, generating text, or when user mentions writing quality, AI detection,",
+      "repo": "jmagly/ai-writing-guide",
+      "path": "plugins/writing/skills/ai-pattern-detection",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jmagly/ai-writing-guide/plugins/writing/skills/ai-pattern-detection",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -11648,6 +12027,18 @@
       "stars": 0,
       "install": "James1218/claude-code-configurations",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "auto-docs",
+      "description": "Generate comprehensive documentation from codebase analysis - creates README sections, API docs, migration guides, and examples from code",
+      "repo": "jrc1883/popkit-claude",
+      "path": "packages/popkit-core/skills/pop-auto-docs",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jrc1883/popkit-claude/packages/popkit-core/skills/pop-auto-docs",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "auto-docs",
@@ -13029,6 +13420,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "claude-extensibility",
+      "description": "Claude Code extensibility: agents, skills, output styles. Capabilities: create/update/delete agents and skills, YAML frontmatter, system prompts, tool/model selection, resumable agents, CLI-defined ag",
+      "repo": "samhvw8/dotfiles",
+      "path": "dot_claude/skills/claude-extensibility",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "samhvw8/dotfiles/dot_claude/skills/claude-extensibility",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "claude-md-auto-updater",
       "description": "This skill automatically detects when CLAUDE.md files need updates based on codebase analysis. It identifies new patterns, code violations, stale documentation, and anti-patterns, then proposes specif",
       "repo": "ingpoc/robo-trader",
@@ -13453,6 +13856,21 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "command-audit",
+      "description": "Validates command delegation patterns, simplicity, and documentation proportionality. Use when reviewing, auditing, improving, or fixing commands, checking delegation clarity, enforcing simplicity (6-",
+      "repo": "philoserf/claude-code-setup",
+      "path": "skills/command-audit",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "command",
+        "audit"
+      ],
+      "stars": 0,
+      "install": "philoserf/claude-code-setup/skills/command-audit",
+      "source": "local"
+    },
+    {
       "name": "command-writer",
       "description": "Expert assistant for creating Claude Code custom slash commands. Guides command file structure, YAML frontmatter configuration, variable syntax, and best practices. Triggers on keywords: writing comma",
       "repo": "MatiasComercio/agentic-config",
@@ -13795,6 +14213,18 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "configuration-reference-generator",
+      "description": "Configuration Reference Generator - Auto-activating skill for Technical Documentation.Triggers on: configuration reference generator, configuration reference generatorPart of the Technical Documentati",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/17-technical-docs/configuration-reference-generator",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/17-technical-docs/configuration-reference-generator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "configuration-validator",
       "description": "Validates environment variables, config files, and ensures all required settings are documented. Use when working with .env files, configs, or deployment settings.",
       "repo": "CrazyDubya/claude-skills",
@@ -14133,6 +14563,18 @@
       "tags": [],
       "stars": 0,
       "install": "BinkyTwin/ReviewXiv",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "contributing-guide-creator",
+      "description": "Contributing Guide Creator - Auto-activating skill for Technical Documentation.Triggers on: contributing guide creator, contributing guide creatorPart of the Technical Documentation skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/17-technical-docs/contributing-guide-creator",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/17-technical-docs/contributing-guide-creator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -15074,6 +15516,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "decision-tracking",
+      "description": "ADR management and decision logging. Use when documenting architectural decisions, tracking technical choices, or creating decision records.",
+      "repo": "vanman2024/dev-lifecycle-marketplace",
+      "path": ".archive/old-numbered-plugins/03-planning/skills/decision-tracking",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "vanman2024/dev-lifecycle-marketplace/.archive/old-numbered-plugins/03-planning/skills/decision-tracking",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "deep-reading-framework",
       "description": "Three-pass critical reading framework for systematic document analysis. Supports tech blogs, retrospectives, technical documentation, personal writing, and academic papers. Primary focus on Third Pass",
       "repo": "devkade/collaborator",
@@ -15204,6 +15658,20 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "delphi",
+      "description": "This skill should be used when the user asks to \"use delphi\", \"ask delphi\", or wants multiple parallel oracle investigations of the same question to discover divergent insights. Delphi launches multip",
+      "repo": "Cygnusfear/claude-stuff",
+      "path": "skills/delphi",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "delphi"
+      ],
+      "stars": 0,
+      "install": "Cygnusfear/claude-stuff/skills/delphi",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "dependency-tracker",
       "description": "Tracks package.json dependencies and identifies undocumented, outdated, or misaligned tools. Compares installed packages against documented versions in docs/infrastructure/, detects unused dependencie",
       "repo": "sovrium/sovrium",
@@ -15213,6 +15681,18 @@
       "tags": [],
       "stars": 0,
       "install": "sovrium/sovrium",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "deprecation-notice-generator",
+      "description": "Deprecation Notice Generator - Auto-activating skill for Technical Documentation.Triggers on: deprecation notice generator, deprecation notice generatorPart of the Technical Documentation skill catego",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/17-technical-docs/deprecation-notice-generator",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/17-technical-docs/deprecation-notice-generator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -15261,6 +15741,30 @@
       "tags": [],
       "stars": 0,
       "install": "CloudAI-X/claude-workflow-v2/skills/designing-apis",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "detector",
+      "description": "Detects SpecWeave context (.specweave/ directory exists) and provides workflow documentation. Explains available slash commands and workflow. Keywords slash commands, /sw:increment, /increment, /sw:do",
+      "repo": "anton-abyzov/specweave",
+      "path": "plugins/specweave-ml/skills/anomaly-detector",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "anton-abyzov/specweave/plugins/specweave-ml/skills/anomaly-detector",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "dev-api-design",
+      "description": "Production-grade API design patterns for REST, GraphQL, and gRPC. Covers API architecture, OpenAPI/Swagger specs, versioning strategies, authentication flows, rate limiting, pagination, error handling",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/dev-api-design",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/dev-api-design",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -15447,6 +15951,18 @@
       "tags": [],
       "stars": 0,
       "install": "skilzy-ai/official-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "disciplined-research",
+      "description": "Phase 1 of disciplined development. Deep problem understanding before design.Maps existing systems, identifies constraints, surfaces risks, and producesa research document for human approval before pr",
+      "repo": "terraphim/codex-skills",
+      "path": "skills/disciplined-research",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "terraphim/codex-skills/skills/disciplined-research",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -16188,6 +16704,42 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "docs-applying-content-quality",
+      "description": "Universal markdown content quality standards for active voice, heading hierarchy, accessibility compliance (alt text, WCAG AA contrast, screen reader support), and professional formatting. Essential f",
+      "repo": "wahidyankf/open-sharia-enterprise",
+      "path": ".claude/skills/docs-applying-content-quality",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "wahidyankf/open-sharia-enterprise/.claude/skills/docs-applying-content-quality",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "docs-applying-diataxis-framework",
+      "description": "Diátaxis documentation framework for organizing content into four categories - tutorials (learning-oriented), how-to guides (problem-solving), reference (technical specifications), and explanation (co",
+      "repo": "wahidyankf/open-sharia-enterprise",
+      "path": ".claude/skills/docs-applying-diataxis-framework",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "wahidyankf/open-sharia-enterprise/.claude/skills/docs-applying-diataxis-framework",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "docs-codebase",
+      "description": "Technical writing patterns for README files, API documentation, architecture decision records (ADRs), changelogs, contributing guides, code comments, and docs-as-code workflows. Covers documentation s",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/docs-codebase",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/docs-codebase",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "docs-director-skill",
       "description": "Handles multi-document operations with pattern matching and parallel execution, delegating to docs-manager-skill for each matched document",
       "repo": "fractary/claude-plugins",
@@ -16431,6 +16983,30 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "docs-validating-factual-accuracy",
+      "description": "Universal methodology for verifying factual correctness in documentation using WebSearch and WebFetch tools. Covers command syntax verification, version checking, code example validation, API correctn",
+      "repo": "wahidyankf/open-sharia-enterprise",
+      "path": ".claude/skills/docs-validating-factual-accuracy",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "wahidyankf/open-sharia-enterprise/.claude/skills/docs-validating-factual-accuracy",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "docs-validating-links",
+      "description": "Link validation standards for markdown links including format requirements, path validation, broken link detection, and external link verification",
+      "repo": "wahidyankf/open-sharia-enterprise",
+      "path": ".claude/skills/docs-validating-links",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "wahidyankf/open-sharia-enterprise/.claude/skills/docs-validating-links",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "docstring-formatter",
       "description": "Convert docstrings to NumPy/Sphinx style with proper Parameters, Returns, and Examples sections. This skill should be used when improving documentation quality across Python modules.",
       "repo": "omriwen/PRISM",
@@ -16513,6 +17089,18 @@
       "stars": 0,
       "install": "campbellmcgregor/claude-skills-repo",
       "source": "local"
+    },
+    {
+      "name": "document-docx",
+      "description": "Create, edit, and analyze Microsoft Word documents with tracked changes, formatting, styles, tables, headers/footers, and template-based generation. Supports .docx format using python-docx, mammoth.js",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/document-docx",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/document-docx",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "document-extraction",
@@ -16761,6 +17349,30 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "document-pdf",
+      "description": "Extract text and tables from PDFs, create formatted PDFs, merge/split documents, handle forms and annotations. Supports pdf-lib, pdfkit, PyPDF2, pdfplumber, and ReportLab for comprehensive PDF workflo",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/document-pdf",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/document-pdf",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "document-pptx",
+      "description": "Create, edit, and analyze PowerPoint presentations with slides, layouts, charts, images, animations, and speaker notes. Supports python-pptx and pptxgenjs for automated presentation generation in Pyth",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/document-pptx",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/document-pptx",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "document-processing",
       "description": "PDF parsing, text extraction, document analysis",
       "repo": "gitbasheer/workspace",
@@ -16935,6 +17547,18 @@
       "tags": [],
       "stars": 0,
       "install": "huGgW/dotfiles",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "document-xlsx",
+      "description": "Create, edit, and analyze Excel spreadsheets with formulas, formatting, charts, pivot tables, and data validation. Supports xlsx, exceljs, openpyxl, and pandas for comprehensive spreadsheet workflows ",
+      "repo": "vasilyu1983/AI-Agents-public",
+      "path": "frameworks/shared-skills/skills/document-xlsx",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "vasilyu1983/AI-Agents-public/frameworks/shared-skills/skills/document-xlsx",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -17399,18 +18023,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "docusaurus-config-setup",
-      "description": "Docusaurus Config Setup - Auto-activating skill for Technical Documentation.Triggers on: docusaurus config setup, docusaurus config setupPart of the Technical Documentation skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "data/docusaurus-config-setup",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "jeremylongshore/claude-code-plugins-plus-skills",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "docusaurus-initializer",
       "description": "This skill should be used when initializing a new Docusaurus documentation site with TypeScript and custom dark mode theme. Provides basic setup with pnpm, theme installation, and configuration templa",
       "repo": "DevHammad0/physical-ai-robotics-textbook",
@@ -17754,6 +18366,21 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "editing-assistant",
+      "description": "Comprehensive text editing and improvement assistant with multiple specialized modes. Use when editing, improving, proofreading, polishing, reviewing, rewriting, or cleaning up written content. Suppor",
+      "repo": "philoserf/claude-code-setup",
+      "path": "skills/editing-assistant",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "editing",
+        "assistant"
+      ],
+      "stars": 0,
+      "install": "philoserf/claude-code-setup/skills/editing-assistant",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "elastic-claude",
       "description": "Index and search project knowledge. Use when starting a new task to find related prior work, when ingesting documents or chats, or when searching project history for context.",
       "repo": "Kirill-Babkin/elastic-claude",
@@ -17847,6 +18474,18 @@
       "name": "embed-project",
       "description": "Embed project-local skills, agents, and commands for semantic search. Use after creating items manually or to update embeddings. Works with both keyword and semantic search modes.",
       "repo": "jrc1883/popkit-claude",
+      "path": "packages/popkit-core/skills/pop-embed-project",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jrc1883/popkit-claude/packages/popkit-core/skills/pop-embed-project",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "embed-project",
+      "description": "Embed project-local skills, agents, and commands for semantic search. Use after creating items manually or to update embeddings. Works with both keyword and semantic search modes.",
+      "repo": "jrc1883/popkit-claude",
       "path": "data/embed-project",
       "branch": "main",
       "category": "documents",
@@ -17865,6 +18504,18 @@
       "tags": [],
       "stars": 0,
       "install": "ranjanpoudel1234/ai-tools",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "enablement-kit",
+      "description": "Use to plan trainings, office hours, and adoption programs for new creative or brand initiatives.",
+      "repo": "gtmagents/gtm-agents",
+      "path": "plugins/sales-handoff-orchestration/skills/enablement-kit",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/plugins/sales-handoff-orchestration/skills/enablement-kit",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -17937,6 +18588,18 @@
       "tags": [],
       "stars": 0,
       "install": "MacHu-GWU/sanhe-claude-code-plugins",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "enterprise-ai-patterns",
+      "description": "Production-grade AI architecture patterns for enterprise - security, governance, scalability, and operational excellence",
+      "repo": "frankxai/ai-architect",
+      "path": "skills/enterprise-ai-patterns",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/ai-architect/skills/enterprise-ai-patterns",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -18032,6 +18695,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "epub-creator",
+      "description": "Create production-quality EPUB 3 ebooks from markdown and images with automated QA, formatting fixes, and validation. Use when creating ebooks, converting markdown to EPUB, or compiling chapters into ",
+      "repo": "bluewaves-creations/bluewaves-skills",
+      "path": "plugins/epub-generator/skills/epub-creator",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "bluewaves-creations/bluewaves-skills/plugins/epub-generator/skills/epub-creator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "esc-guidelines-query",
       "description": "Query ESC (European Society of Cardiology) Guidelines by automatically locating the relevant PDF from the TOC and extracting cited answers. Use when answering clinical questions about cardiovascular d",
       "repo": "bdeornelas/bdeornelas.github.io",
@@ -18080,6 +18755,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "evidence-logging",
+      "description": "Workflow for capturing evidence and citations to create reproducible analysesand audit trails.Triggers: evidence capture, citations, reproducible analysis, audit trail,documentation, evidence logging,",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/imbue/skills/evidence-logging",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/imbue/skills/evidence-logging",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "exa-search",
       "description": "Real-time web search using Exa AI. Use when you need current information, fact-checking, researching unfamiliar topics, or finding documentation. Triggers on requests mentioning search, lookup, find o",
       "repo": "estiens/metacognitive_chat",
@@ -18093,6 +18780,18 @@
       "stars": 0,
       "install": "estiens/metacognitive_chat/.claude/skills/exa-search",
       "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "excel-auditor",
+      "description": "Analyze unknown or inherited Excel files to understand what they do, document their purpose, audit formulas for errors, and assess maintainability risk. Use when: (1) User uploads an Excel file asking",
+      "repo": "leegonzales/AISkills",
+      "path": "ExcelAuditor/excel-auditor",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "leegonzales/AISkills/ExcelAuditor/excel-auditor",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "excel-dcf-modeler",
@@ -18391,6 +19090,20 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "export",
+      "description": "이력서/경력기술서를 PDF로 내보냅니다. 현재 날짜 기준 YYYY-MM 형식으로 파일명 생성, 페이지 끊김 방지 최적화.",
+      "repo": "younwony/younwony.github.io",
+      "path": ".claude/skills/export",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "export"
+      ],
+      "stars": 0,
+      "install": "younwony/younwony.github.io/.claude/skills/export",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "extended",
       "description": "Create and manage Linear documents and project milestones",
       "repo": "jongwony/cc-plugin",
@@ -18412,6 +19125,18 @@
       "tags": [],
       "stars": 0,
       "install": "jongwony/cc-plugin",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "extract-algorithm",
+      "description": "Parse and document algorithm pseudocode from research papers. Use when preparing for implementation.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/tier-2/extract-algorithm",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/extract-algorithm",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -18448,6 +19173,18 @@
       "tags": [],
       "stars": 0,
       "install": "carrickcheah/agentic-document-extraction",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "extract-hyperparameters",
+      "description": "Identify and document model hyperparameters from papers. Use when setting up training configurations.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/tier-2/extract-hyperparameters",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/extract-hyperparameters",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -18890,6 +19627,18 @@
       "name": "filter-js-from-html",
       "description": "Guidance for filtering JavaScript and XSS attack vectors from HTML while preserving original formatting. This skill should be used when tasks involve removing script content, sanitizing HTML, filterin",
       "repo": "letta-ai/skills",
+      "path": "letta/benchmarks/trajectory-only/break-filter-js-from-html",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "letta-ai/skills/letta/benchmarks/trajectory-only/break-filter-js-from-html",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "filter-js-from-html",
+      "description": "Guidance for filtering JavaScript and XSS attack vectors from HTML while preserving original formatting. This skill should be used when tasks involve removing script content, sanitizing HTML, filterin",
+      "repo": "letta-ai/skills",
       "path": "data/filter-js-from-html",
       "branch": "main",
       "category": "documents",
@@ -19178,6 +19927,18 @@
       "tags": [],
       "stars": 0,
       "install": "mberg/claude-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "fix-blog-images",
+      "description": "Fix and optimize images in uncommitted blog posts. Use when preparing blog posts for publication, fixing broken image paths, renaming generic image names (image.png), moving images to proper /images/b",
+      "repo": "ChrisTowles/blog",
+      "path": ".claude/skills/fix-blog-images",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "ChrisTowles/blog/.claude/skills/fix-blog-images",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -19583,6 +20344,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "game-design",
+      "description": "Game design fundamentals, GDD templates, player psychology, game balancing, and progression systems. Use when designing game mechanics, writing design documents, or balancing gameplay.",
+      "repo": "xenitV1/claude-code-maestro",
+      "path": "skills/game-development/game-design",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "xenitV1/claude-code-maestro/skills/game-development/game-design",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "gathering-skills-examples",
       "description": "Real-time collection and analysis of Claude Skills examples from multiple sources including GitHub repositories, blog posts, documentation, and community discussions. Use this skill when the user requ",
       "repo": "suzukalight/test-claude-skills",
@@ -19676,6 +20449,30 @@
       "tags": [],
       "stars": 0,
       "install": "rajshah4/my-agent-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "gemini-codebase-onboard",
+      "description": "Use Gemini CLI's 1M token context to understand entire codebases in one pass. Full architecture mapping, pattern discovery, and onboarding documentation.",
+      "repo": "DNYoussef/context-cascade",
+      "path": "skills/platforms/gemini-codebase-onboard",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/context-cascade/skills/platforms/gemini-codebase-onboard",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "gemini-delegation",
+      "description": "Gemini CLI delegation workflow implementing delegation-core for Google's Gemini models.Triggers: gemini cli, gemini delegation, google gemini, 1M context, large file analysis,gemini batch, gemini summ",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/conjure/skills/gemini-delegation",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/conjure/skills/gemini-delegation",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -19817,6 +20614,18 @@
       "tags": [],
       "stars": 0,
       "install": "cadrianmae/claude-marketplace",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "generate-api-docs",
+      "description": "Create API reference documentation from docstrings. Use when documenting public module interfaces.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/tier-2/generate-api-docs",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/generate-api-docs",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -20168,6 +20977,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "github-initiative-pulse",
+      "description": "Generate program dashboards, GitHub-ready comment digests, and CSV summariessourced from Minister's tracker data.Triggers: initiative pulse, status report, weekly update, stakeholder briefing,github d",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/minister/skills/github-initiative-pulse",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/minister/skills/github-initiative-pulse",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "gitlab-stack-creator",
       "description": "Create new GitLab stack projects from templates with proper directory structure, git configuration, validation hooks, and documentation. Use when initializing new Docker stack projects that follow Git",
       "repo": "rknall/claude-skills",
@@ -20291,6 +21112,18 @@
       "stars": 0,
       "install": "sdotyxz/vr-planner-2/.claude/skills/godot",
       "source": "local"
+    },
+    {
+      "name": "google-ads-strategy",
+      "description": "Create comprehensive Google Ads strategies with campaign structure, keyword research, ad copy, audience targeting, and budget allocation for B2B and B2C advertisers.",
+      "repo": "majesticlabs-dev/majestic-marketplace",
+      "path": "plugins/majestic-marketing/skills/google-ads-strategy",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "majesticlabs-dev/majestic-marketplace/plugins/majestic-marketing/skills/google-ads-strategy",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "google-apps-script",
@@ -21049,6 +21882,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "hook-management",
+      "description": "Central authority for Claude Code hooks management in this repository. Automates enforcement of critical repository rules through hooks. Use when adding hooks, managing hooks, configuring hooks, troub",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "plugins/claude-ecosystem/skills/hook-management",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/plugins/claude-ecosystem/skills/hook-management",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "html-to-pdf",
       "description": "Converts HTML files to PDF or PNG format. Use this skill when the user asks to convert, export, or generate PDF/PNG from HTML files, or when they want to create printable documents, presentations, or ",
       "repo": "yonggao/claude-plugins",
@@ -21409,6 +22254,18 @@
       "tags": [],
       "stars": 0,
       "install": "nathanvale/side-quest-marketplace",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "incident-postmortem-template",
+      "description": "Incident Postmortem Template - Auto-activating skill for Technical Documentation.Triggers on: incident postmortem template, incident postmortem templatePart of the Technical Documentation skill catego",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/17-technical-docs/incident-postmortem-template",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/17-technical-docs/incident-postmortem-template",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -23157,6 +24014,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "llms-txt-support",
+      "description": "Detect and use llms.txt files for LLM-optimized documentation. Use when checking if a site has LLM-ready docs before scraping.",
+      "repo": "jmagly/ai-writing-guide",
+      "path": "agentic/code/addons/doc-intelligence/skills/llms-txt-support",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jmagly/ai-writing-guide/agentic/code/addons/doc-intelligence/skills/llms-txt-support",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "log-searcher",
       "description": "Searches logs by content keywords, patterns, and filters with context extraction",
       "repo": "fractary/claude-plugins",
@@ -23372,21 +24241,6 @@
       "source": "local"
     },
     {
-      "name": "manage-adr",
-      "description": "Architecture Decision Records (ADRs)をdocs/adr/ディレクトリで管理します。新しいADRの作成、既存ADRの編集、ADR索引の確認を行います。ユーザーがアーキテクチャ決定の記録、ADRの作成・更新・検索を依頼したときに使用してください。番号の自動採番、プロジェクト固有のフォーマット（日本語、メタデータ構造）を遵守します。",
-      "repo": "yattom/timtam",
-      "path": "data/manage-adr",
-      "branch": "main",
-      "category": "documents",
-      "tags": [
-        "manage",
-        "adr"
-      ],
-      "stars": 0,
-      "install": "yattom/timtam",
-      "source": "local"
-    },
-    {
       "name": "manage-markdown-docs",
       "description": "Standardize markdown document creation and updates with proper headers and footers. Use when creating OR updating any markdown file that is NOT a subagent, command, or skill definition. Ensures consis",
       "repo": "rayk/lucid-toolkit",
@@ -23396,18 +24250,6 @@
       "tags": [],
       "stars": 0,
       "install": "rayk/lucid-toolkit/plugins/luc/skills/manage-markdown-docs",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "manage-markdown-docs",
-      "description": "Standardize markdown document creation and updates with proper headers and footers. Use when creating OR updating any markdown file that is NOT a subagent, command, or skill definition. Ensures consis",
-      "repo": "rayk/lucid-toolkit",
-      "path": "data/manage-markdown-docs",
-      "branch": "main",
-      "category": "documents",
-      "tags": [],
-      "stars": 0,
-      "install": "rayk/lucid-toolkit",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -24242,6 +25084,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "md-docs",
+      "description": "This skill should be used when the user asks to \"update README\", \"update context files\", \"init context\", \"create CLAUDE.md\", \"update CLAUDE.md\", \"update AGENTS.md\", \"update DOCS.md\", \"generate documen",
+      "repo": "PaulRBerg/dot-claude",
+      "path": "skills/md-docs",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "PaulRBerg/dot-claude/skills/md-docs",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "md2ipynb",
       "description": "\"Convert markdown files to Jupyter notebooks (.ipynb). Splits markdown by `---` delimiters into cells, extracts code blocks (```python```, ```sql```) as code cells, and handles YAML front matter remov",
       "repo": "haggler09/claude-haggler-skills",
@@ -24488,6 +25342,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "meta-configuracao-evolucao",
+      "description": "Automatiza processo de pesquisa de documentação oficial, extração de melhores práticas e aplicação no projeto Plataforma B2B de treinamento técnico corporativo através de skills/agents/hooks",
+      "repo": "joaopelegrino/app-controle",
+      "path": ".claude/skills/meta-configuracao-evolucao",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "joaopelegrino/app-controle/.claude/skills/meta-configuracao-evolucao",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "meta-searching",
       "description": "Extracts web content and performs reliable searches when standard tools fail due to access restrictions, rate limiting, or validation errors. Use when encountering 403/429/422 errors, blocked document",
       "repo": "shrwnsan/vibekit-claude-plugins",
@@ -24569,6 +25435,18 @@
       "tags": [],
       "stars": 0,
       "install": "BLTGV/agent-skills",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "migration-guide-creator",
+      "description": "Migration Guide Creator - Auto-activating skill for Technical Documentation.Triggers on: migration guide creator, migration guide creatorPart of the Technical Documentation skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/17-technical-docs/migration-guide-creator",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/17-technical-docs/migration-guide-creator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -25247,6 +26125,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "new-skill",
+      "description": "Creates a new Claude Code Skill following best practices. Use when the user wants to create a new skill, add a skill, or asks about writing skills for Claude Code. Fetches latest documentation before ",
+      "repo": "OneKeyHQ/app-monorepo",
+      "path": ".claude/skills/new-skill",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "OneKeyHQ/app-monorepo/.claude/skills/new-skill",
+      "source": "GitHub Search API"
+    },
+    {
       "name": "nlp-pipeline-builder",
       "description": "Natural language processing ML pipelines for text classification, NER, sentiment analysis, text generation, and embeddings. Activates for \"nlp\", \"text classification\", \"sentiment analysis\", \"named ent",
       "repo": "anton-abyzov/specweave",
@@ -25293,6 +26183,21 @@
       "stars": 0,
       "install": "vm0-ai/vm0-cookbooks/211-daily-data-report/daily-report-volume/skills/notion-changes",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "nvidia-api",
+      "description": "NVIDIA API documentation for integrating NVIDIA services. Use for NVIDIA NIM (NVIDIA Inference Microservices), LLM APIs, visual models, multimodal APIs, retrieval APIs, healthcare APIs, and CUDA-X mic",
+      "repo": "rish2jain/paperresearchagent",
+      "path": ".claude/skills/nvidia-api",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "nvidia",
+        "api"
+      ],
+      "stars": 0,
+      "install": "rish2jain/paperresearchagent/.claude/skills/nvidia-api",
+      "source": "local"
     },
     {
       "name": "nxs-gh-create-epic",
@@ -25489,6 +26394,18 @@
       "tags": [],
       "stars": 0,
       "install": "gajewsky/dotfiles",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "obsidian-plan-wiki",
+      "description": "This skill should be used when creating or working with modular project plans stored as Obsidian-compatible markdown wikis. Use when the user asks to create a plan, roadmap, or documentation system th",
+      "repo": "Cygnusfear/claude-stuff",
+      "path": "skills/obsidian-plan-wiki",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "Cygnusfear/claude-stuff/skills/obsidian-plan-wiki",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -25811,6 +26728,18 @@
       "tags": [],
       "stars": 0,
       "install": "harperreed/office-admin-claude",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "on-call-handoff-patterns",
+      "description": "Master on-call shift handoffs with context transfer, escalation procedures, and documentation. Use when transitioning on-call responsibilities, documenting shift summaries, or improving on-call proces",
+      "repo": "wshobson/agents",
+      "path": "plugins/incident-response/skills/on-call-handoff-patterns",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "wshobson/agents/plugins/incident-response/skills/on-call-handoff-patterns",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -26414,6 +27343,30 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "password-hash-generator",
+      "description": "Password Hash Generator - Auto-activating skill for Security Fundamentals.Triggers on: password hash generator, password hash generatorPart of the Security Fundamentals skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/03-security-fundamentals/password-hash-generator",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/03-security-fundamentals/password-hash-generator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "password-recovery",
+      "description": "Digital forensic skill for recovering passwords and sensitive data from disk images, deleted files, and binary data. This skill should be used when tasks involve extracting passwords from disk images,",
+      "repo": "letta-ai/skills",
+      "path": "letta/benchmarks/trajectory-only/password-recovery",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "letta-ai/skills/letta/benchmarks/trajectory-only/password-recovery",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "password-strength-analyzer",
       "description": "Password Strength Analyzer - Auto-activating skill for Security Fundamentals.Triggers on: password strength analyzer, password strength analyzerPart of the Security Fundamentals skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -26971,6 +27924,18 @@
       "tags": [],
       "stars": 0,
       "install": "russellgoldstein/project-analysis-organization",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "permission-management",
+      "description": "Central authority for Claude Code permissions. Covers permission system (tiered model, read-only, bash, file modification), permission rules (allow, ask, deny), rule precedence, permission modes (defa",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "plugins/claude-ecosystem/skills/permission-management",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/plugins/claude-ecosystem/skills/permission-management",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -28172,6 +29137,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "prompt-improvement",
+      "description": "Meta-skill for improving and optimizing prompts using Anthropic's prompt engineering best practices. Provides the 4-step improvement workflow (example identification, initial draft, chain of thought r",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "plugins/claude-ecosystem/skills/prompt-improvement",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/plugins/claude-ecosystem/skills/prompt-improvement",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "proposal-contract-generator",
       "description": "Generate professional project proposals, scope of work documents, payment terms, timelines, and simple contract templates that make software tailors look established even on their first client.",
       "repo": "zanecole10/software-tailor-skills",
@@ -28440,6 +29417,18 @@
       "source": "local"
     },
     {
+      "name": "quickstart-guide-generator",
+      "description": "Quickstart Guide Generator - Auto-activating skill for Technical Documentation.Triggers on: quickstart guide generator, quickstart guide generatorPart of the Technical Documentation skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/17-technical-docs/quickstart-guide-generator",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/17-technical-docs/quickstart-guide-generator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "r2",
       "description": "Manage Cloudflare R2 object storage buckets and objects using Wrangler CLI. Use when working with R2 buckets, uploading/downloading files, configuring custom domains, CORS, lifecycle policies, or mana",
       "repo": "sapoepsilon/dotfiles",
@@ -28461,6 +29450,18 @@
       "tags": [],
       "stars": 0,
       "install": "sapoepsilon/dotfiles",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "rag-retrieval",
+      "description": "Retrieval-Augmented Generation patterns for grounded LLM responses. Use when building RAG pipelines, constructing context from retrieved documents, adding citations, or implementing hybrid search.",
+      "repo": "yonatangross/skillforge-claude-plugin",
+      "path": "skills/rag-retrieval",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "yonatangross/skillforge-claude-plugin/skills/rag-retrieval",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -29039,6 +30040,18 @@
       "stars": 0,
       "install": "silvainfm/claude-skills/reportlab",
       "source": "local"
+    },
+    {
+      "name": "reproducibility-audit",
+      "description": "Verify that results, builds, and experiments can be reproduced consistently with documented steps and deterministic inputs.",
+      "repo": "DNYoussef/context-cascade",
+      "path": "skills/research/reproducibility-audit",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/context-cascade/skills/research/reproducibility-audit",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "request-response-examples",
@@ -29888,6 +30901,23 @@
       "name": "scvitools-docs-truly-complete",
       "description": "scvi-tools 深度学习单细胞分析工具包 - 100%覆盖文档（321个文件：完整API+用户指南+教程+开发者文档）",
       "repo": "Ketomihine/my_skills",
+      "path": "scvitools-docs-truly-complete",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "scvitools",
+        "docs",
+        "truly",
+        "complete"
+      ],
+      "stars": 0,
+      "install": "Ketomihine/my_skills/scvitools-docs-truly-complete",
+      "source": "local"
+    },
+    {
+      "name": "scvitools-docs-truly-complete",
+      "description": "scvi-tools 深度学习单细胞分析工具包 - 100%覆盖文档（321个文件：完整API+用户指南+教程+开发者文档）",
+      "repo": "Ketomihine/my_skills",
       "path": "data/scvitools-docs-truly-complete",
       "branch": "main",
       "category": "documents",
@@ -29900,6 +30930,18 @@
       "stars": 0,
       "install": "Ketomihine/my_skills",
       "source": "local"
+    },
+    {
+      "name": "sdk-documentation-generator",
+      "description": "Sdk Documentation Generator - Auto-activating skill for Technical Documentation.Triggers on: sdk documentation generator, sdk documentation generatorPart of the Technical Documentation skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/17-technical-docs/sdk-documentation-generator",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/17-technical-docs/sdk-documentation-generator",
+      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "sdlc-repository-templates",
@@ -31344,6 +32386,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "storage-templates",
+      "description": "Generic template patterns and lifecycle stages for knowledge storage,configuration management, and structured documentation.Triggers: storage templates, lifecycle stages, maturity progression, namingc",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/leyline/skills/storage-templates",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/leyline/skills/storage-templates",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "storybook",
       "description": "Storybook CSF3 story authoring methodology for UI component catalogs.Prioritizes visual showcase patterns over exhaustive argTypes enumeration.Reference for creating scannable, maintainable component ",
       "repo": "Higashi-Kota/drawing-explorer",
@@ -31463,6 +32517,18 @@
       "tags": [],
       "stars": 0,
       "install": "xbklairith/kisune",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "stride-analysis-patterns",
+      "description": "Apply STRIDE methodology to systematically identify threats. Use when analyzing system security, conducting threat modeling sessions, or creating security documentation.",
+      "repo": "wshobson/agents",
+      "path": "plugins/security-scanning/skills/stride-analysis-patterns",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "wshobson/agents/plugins/security-scanning/skills/stride-analysis-patterns",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -32077,6 +33143,18 @@
       "stars": 0,
       "install": "gosu-code/claude-plugin",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "tasks-documentation",
+      "description": "Use for WRITING documentation with ready-to-use code templates (C# XML docs, TypeScript JSDoc, API docs, README patterns). Best for implementing actual documentation, adding code comments, and creatin",
+      "repo": "CongDon1207/AGENTS.md",
+      "path": ".claude/skills/tasks-documentation",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "CongDon1207/AGENTS.md/.claude/skills/tasks-documentation",
+      "source": "GitHub Search API"
     },
     {
       "name": "td-tfidf",
@@ -32995,6 +34073,45 @@
       "source": "local"
     },
     {
+      "name": "tutorial-outline-creator",
+      "description": "Tutorial Outline Creator - Auto-activating skill for Technical Documentation.Triggers on: tutorial outline creator, tutorial outline creatorPart of the Technical Documentation skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/17-technical-docs/tutorial-outline-creator",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/17-technical-docs/tutorial-outline-creator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "tutorial-updates",
+      "description": "Orchestrate tutorial generation from VHS tapes and Playwright specs to dual-tone markdown with GIF recording.Triggers: tutorial update, gif generation, tape recording, update tutorial, regenerate gifs",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/sanctum/skills/tutorial-updates",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/sanctum/skills/tutorial-updates",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "typo3-docs",
+      "description": "Create and maintain TYPO3 extension documentation following official TYPO3 13.x standards. Use when creating/editing Documentation/*.rst files or README.md, using TYPO3 directives (confval, versionadd",
+      "repo": "netresearch/typo3-docs-skill",
+      "path": "skills/typo3-docs",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "typo3",
+        "docs"
+      ],
+      "stars": 0,
+      "install": "netresearch/typo3-docs-skill/skills/typo3-docs",
+      "source": "local"
+    },
+    {
       "name": "typst-dual-format",
       "description": "Expert in Typst dual-format content system for FINMA project. Use when creating or modifying .typ files, working with dual-format templates, presentation functions, document functions, or troubleshoot",
       "repo": "jasonyan-s/FINMA_Content_Management_System_Template",
@@ -33299,6 +34416,18 @@
       "tags": [],
       "stars": 0,
       "install": "opendatahub-io/ai-helpers/claude-plugins/jira/skills/upload-chat-log",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "user-config-management",
+      "description": "Central authority for managing Claude Code user configuration directories (~/.claude/ and ~/.claude.json). Covers storage cleanup, backup/restore, reset workflows, MCP server preservation, history man",
+      "repo": "melodic-software/claude-code-plugins",
+      "path": "plugins/claude-ecosystem/skills/user-config-management",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "melodic-software/claude-code-plugins/plugins/claude-ecosystem/skills/user-config-management",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -33645,6 +34774,30 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "version-updates",
+      "description": "Bump project versions across configs, docs, and changelog usinggit-workspace-review context.Triggers: version bump, semver, release version, changelog update, versionupdate, package version, release p",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/sanctum/skills/version-updates",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/sanctum/skills/version-updates",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "vhs-recording",
+      "description": "Generate terminal recordings using VHS (Charmbracelet) tape files.Executes tape files to produce GIF outputs of terminal sessions.Triggers: terminal recording, vhs tape, terminal demo, cli demoUse whe",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/scry/skills/vhs-recording",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/scry/skills/vhs-recording",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "viewing-files",
       "description": "Enhanced cat clone with syntax highlighting, Git integration, and automatic paging for efficient file content viewing. Use this skill when viewing source files, documentation, or when syntax highlight",
       "repo": "iota9star/my-skills",
@@ -33716,6 +34869,18 @@
       "tags": [],
       "stars": 0,
       "install": "EsyResearch/home.esy.com",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "vitepress-config-creator",
+      "description": "Vitepress Config Creator - Auto-activating skill for Technical Documentation.Triggers on: vitepress config creator, vitepress config creatorPart of the Technical Documentation skill category.",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "planned-skills/generated/17-technical-docs/vitepress-config-creator",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/planned-skills/generated/17-technical-docs/vitepress-config-creator",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -34017,6 +35182,42 @@
       "source": "local"
     },
     {
+      "name": "wheels-auth-generator",
+      "description": "Generate authentication system with user model, sessions controller, and password hashing. Use when implementing user authentication, login/logout, or session management. Provides secure authenticatio",
+      "repo": "wheels-dev/wheels",
+      "path": ".claude/skills/wheels-auth-generator",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "wheels-dev/wheels/.claude/skills/wheels-auth-generator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "wheels-documentation-generator",
+      "description": "Generate documentation comments, README files, and API documentation for Wheels applications. Use when documenting code, creating project READMEs, or generating API docs.",
+      "repo": "wheels-dev/wheels",
+      "path": ".claude/skills/wheels-documentation-generator",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "wheels-dev/wheels/.claude/skills/wheels-documentation-generator",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "when-creating-presentations-use-pptx-generation",
+      "description": "Enterprise-grade PowerPoint deck generation using evidence-based prompting, workflow enforcement, constraint-based design",
+      "repo": "DNYoussef/ai-chrome-extension",
+      "path": ".claude/skills/utilities/when-creating-presentations-use-pptx-generation",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/ai-chrome-extension/.claude/skills/utilities/when-creating-presentations-use-pptx-generation",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "wiki-generator-lsp",
       "description": "Generate comprehensive WIKI.md documentation for any codebase using LSP for precise code analysis. Use when user asks to document a codebase, generate technical documentation, create architecture diag",
       "repo": "s-celles/ai-config",
@@ -34303,6 +35504,21 @@
       "stars": 0,
       "install": "emdashcodes/wp-ability-toolkit",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "work-documentation",
+      "description": "Company-specific procedures, standards, templates, and best practices for engineering documentation, project management, and professional communication in building energy consulting",
+      "repo": "mbcoalson/skills",
+      "path": ".claude/skills/work-documentation",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "work",
+        "documentation"
+      ],
+      "stars": 0,
+      "install": "mbcoalson/skills/.claude/skills/work-documentation",
+      "source": "local"
     },
     {
       "name": "work-log",
@@ -34817,6 +36033,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "writing-econ",
+      "description": "This skill should be used when the user asks to \"write an economics paper\", \"draft a working paper\", \"edit finance writing\", \"review my econ paper\", \"write for a journal\", or needs guidance on economi",
+      "repo": "edwinhu/workflows",
+      "path": "skills/writing-econ",
+      "branch": "main",
+      "category": "documents",
+      "tags": [],
+      "stars": 0,
+      "install": "edwinhu/workflows/skills/writing-econ",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "writing-flashcards-from-docs",
       "description": "Use when turning a documentation link or article into spaced-repetition flashcards - fetches and extracts core ideas, compares against existing cards/notes, right-sizes output by source density and ex",
       "repo": "borisnaydis/skillkit",
@@ -34904,6 +36132,38 @@
       "stars": 0,
       "install": "moseoh/mst",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "writing-openstudio-model-measures",
+      "description": "Write OpenStudio ModelMeasures (Ruby scripts that modify .osm files) for building energy models. Use when creating measures, writing measure.rb files, or modifying OpenStudio models programmatically. ",
+      "repo": "mbcoalson/skills",
+      "path": ".claude/skills/writing-openstudio-model-measures",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "writing",
+        "openstudio",
+        "model",
+        "measures"
+      ],
+      "stars": 0,
+      "install": "mbcoalson/skills/.claude/skills/writing-openstudio-model-measures",
+      "source": "local"
+    },
+    {
+      "name": "writing-oprs",
+      "description": "Creating Owner Project Requirements (OPR) documents for building commissioning projects following ASHRAE Standard 202 and Guideline 0. Use when the user needs to write, draft, update, or review OPR do",
+      "repo": "mbcoalson/skills",
+      "path": ".claude/skills/writing-oprs",
+      "branch": "main",
+      "category": "documents",
+      "tags": [
+        "writing",
+        "oprs"
+      ],
+      "stars": 0,
+      "install": "mbcoalson/skills/.claude/skills/writing-oprs",
+      "source": "local"
     },
     {
       "name": "writing-release-notes",

@@ -1,19 +1,19 @@
 {
   "category": "Research",
   "count": 1,
-  "updated_at": "2026-01-29T16:04:49.737363Z",
+  "updated_at": "2026-01-30T04:53:31.096986Z",
   "skills": [
     {
       "name": "SKILL.md",
-      "description": "Use when current web info needed, verifying APIs still work, checking latest versions, or avoiding outdated implementations",
-      "repo": "TechNickAI/ai-coding-config",
+      "description": "Multi-source parallel research using Perplexity, Gemini, and Claude. Three modes - Quick (1 query), Standard (3 queries), Extensive (8 queries). USE WHEN user says 'research', 'investigate', 'find out",
+      "repo": "robdtaylor/personal-ai-infrastructure",
       "path": "Research",
       "branch": "main",
       "category": "Research",
       "tags": [],
       "stars": 0,
-      "install": "TechNickAI/ai-coding-config",
-      "source": "github.com/TechNickAI/ai-coding-config"
+      "install": "robdtaylor/personal-ai-infrastructure",
+      "source": "github.com/robdtaylor/personal-ai-infrastructure"
     }
   ]
 }

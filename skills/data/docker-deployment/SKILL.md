@@ -1,391 +1,351 @@
 ---
 name: docker-deployment
-description: Containerize and deploy Node.js applications with Docker including multi-stage builds, Docker Compose, and production optimization
-sasmp_version: "1.3.0"
-bonded_agent: 01-nodejs-fundamentals
-bond_type: PRIMARY_BOND
+description: Comprehensive Docker containerization for Python/FastAPI applications, from simple hello-world apps to production-ready deployments with security best practices, multi-stage builds, and optimized configurations. Use when containerizing Python/FastAPI applications for development, testing, or production environments, including Dockerfile creation, Docker Compose setup, security hardening, and production optimization.
 ---
 
-# Docker Deployment Skill
+# Docker Deployment for Python/FastAPI Applications
 
-Master containerizing and deploying Node.js applications with Docker for consistent, portable deployments.
+This skill provides comprehensive support for containerizing Python/FastAPI applications, from simple hello-world apps to production-ready deployments with security best practices, including prerequisite verification and resource configuration for AI services.
+
+## Prerequisites Validation
+
+Before using this skill, verify your Docker installation and system resources:
+
+### Docker Installation Verification
+```bash
+# Check Docker version
+docker --version
+
+# Check Docker Compose version
+docker compose version
+
+# Test Docker functionality
+docker run hello-world
+
+# Check Docker system info
+docker info
+```
+
+### System Resource Requirements
+For AI services and production deployments:
+- Minimum 4GB RAM allocated to Docker
+- Recommended 8GB+ RAM for AI workloads
+- At least 2 CPU cores allocated
+- Sufficient disk space for container images
+
+### Docker Desktop Setup (Recommended)
+```bash
+# For Linux
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+# For AI services with GPU support (Linux)
+sudo apt install nvidia-container-toolkit
+sudo systemctl restart docker
+```
+
+## When to Use This Skill
+
+Use this skill when you need to:
+1. Containerize Python/FastAPI applications with optimized Dockerfiles
+2. Create multi-stage builds for security and efficiency
+3. Generate Docker Compose files for multi-service applications
+4. Apply security best practices to Docker configurations
+5. Optimize applications for production deployment
+6. Set up proper environment variables and secrets management
+7. Configure resource allocation for AI services and heavy workloads
+8. Validate Docker installation and system prerequisites
+
+## Resource Configuration for AI Services
+
+When deploying AI services or resource-intensive applications, configure Docker resources appropriately:
+
+### Docker Run Resource Constraints
+```bash
+# Memory and CPU limits
+docker run -m 4g --cpus=2.0 my-ai-service
+
+# With GPU support (NVIDIA)
+docker run --gpus all -m 8g --cpus=4.0 my-ai-service
+
+# PID limits for container isolation
+docker run --pids-limit 100 my-ai-service
+```
+
+### Docker Compose Resource Configuration
+```yaml
+version: "3.8"
+
+services:
+  ai-service:
+    image: my-ai-service:latest
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 8G
+          pids: 200
+        reservations:
+          cpus: '2.0'
+          memory: 4G
+    # For GPU support
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+```
+
+### Docker Desktop Resource Allocation
+For Docker Desktop:
+1. Go to Settings > Resources
+2. Allocate sufficient memory (recommended 8GB+ for AI workloads)
+3. Set CPU cores (at least 4 for AI services)
+4. Configure Swap space if needed
 
 ## Quick Start
 
-Dockerize Node.js app in 3 steps:
-1. **Create Dockerfile** - Define container image
-2. **Build Image** - `docker build -t myapp .`
-3. **Run Container** - `docker run -p 3000:3000 myapp`
+### Basic Dockerfile Generation
+For a simple Python/FastAPI application:
 
-## Core Concepts
-
-### Basic Dockerfile
 ```dockerfile
-FROM node:18-alpine
+# syntax=docker/dockerfile:1
+
+# === Build stage: Install dependencies and create virtual environment ===
+FROM python:3.11-slim AS builder
+
+ENV LANG=C.UTF-8
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PIP_NO_CACHE_DIR=1
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci --only=production
+# Install system dependencies if needed
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
 
-COPY . .
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --user --no-cache-dir -r requirements.txt
 
-EXPOSE 3000
+# === Final stage: Create minimal runtime image ===
+FROM python:3.11-slim
 
-CMD ["node", "src/index.js"]
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+WORKDIR /app
+
+# Create non-root user for security
+RUN useradd --create-home --shell /bin/bash appuser
+
+# Copy Python dependencies from builder stage
+COPY --from=builder --chown=appuser:appuser /root/.local /home/appuser/.local
+
+# Copy application code
+COPY --chown=appuser:appuser . .
+
+# Switch to non-root user
+USER appuser
+
+# Make sure scripts in .local are usable
+ENV PATH=/home/appuser/.local/bin:$PATH
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8000/health || exit 1
+
+CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-### Multi-Stage Build (Optimized)
+### Production Dockerfile with Security Hardened Images (DHI)
+For enhanced security in production:
+
 ```dockerfile
-# Build stage
-FROM node:18-alpine AS builder
+# syntax=docker/dockerfile:1
+
+# === Build stage: Install dependencies and create virtual environment ===
+FROM dhi.io/python:3.11-alpine3.18-dev AS builder
+
+ENV LANG=C.UTF-8
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PATH="/app/venv/bin:$PATH"
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci --only=production
+RUN python -m venv /app/venv
+COPY requirements.txt .
 
-COPY . .
+# Install any additional packages if needed using apk
+RUN apk add --no-cache gcc musl-dev && \
+    pip install --no-cache-dir -r requirements.txt
 
-# Production stage
-FROM node:18-alpine
+# === Final stage: Create minimal runtime image ===
+FROM dhi.io/python:3.11-alpine3.18
 
 WORKDIR /app
 
-# Copy from builder
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app .
+ENV PYTHONUNBUFFERED=1
+ENV PATH="/app/venv/bin:$PATH"
 
-# Create non-root user
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001
+# Create non-root user for security
+RUN addgroup -g 1001 -S appgroup && \
+    adduser -S appuser -u 1001 -G appgroup
 
-USER nodejs
+COPY app.py ./
+COPY --from=builder /app/venv /app/venv
 
-EXPOSE 3000
+# Switch to non-root user
+USER appuser
 
-HEALTHCHECK --interval=30s --timeout=3s \
-  CMD node healthcheck.js || exit 1
+EXPOSE 8000
 
-CMD ["node", "src/index.js"]
+CMD ["python", "-m", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-## Learning Path
+## Multi-Service Docker Compose Setup
 
-### Beginner (1-2 weeks)
-- ✅ Understand Docker basics
-- ✅ Create simple Dockerfile
-- ✅ Build and run containers
-- ✅ Manage volumes and networks
+For applications requiring databases and other services:
 
-### Intermediate (3-4 weeks)
-- ✅ Multi-stage builds
-- ✅ Docker Compose
-- ✅ Environment variables
-- ✅ Health checks
-
-### Advanced (5-6 weeks)
-- ✅ Image optimization
-- ✅ Production best practices
-- ✅ Container orchestration
-- ✅ CI/CD integration
-
-## Docker Compose
 ```yaml
-# docker-compose.yml
-version: '3.8'
+version: "3.8"
 
 services:
-  app:
-    build: .
+  web:
+    build:
+      context: .
+      target: final
     ports:
-      - "3000:3000"
+      - "8000:8000"
     environment:
-      - NODE_ENV=production
-      - DATABASE_URL=postgresql://db:5432/myapp
+      - DATABASE_URL=postgresql://user:password@db:5432/myapp
       - REDIS_URL=redis://redis:6379
+    env_file:
+      - .env
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     restart: unless-stopped
 
   db:
-    image: postgres:15-alpine
-    environment:
-      - POSTGRES_USER=myapp
-      - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=myapp
+    image: postgres:15
+    restart: unless-stopped
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=myapp
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d myapp"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: redis:7-alpine
-    volumes:
-      - redis-data:/data
-
-  nginx:
-    image: nginx:alpine
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
-      - app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
-  postgres-data:
-  redis-data:
+  postgres_data:
 ```
 
-### Docker Compose Commands
-```bash
-# Start services
-docker-compose up -d
+## Advanced Security Configuration
 
-# View logs
-docker-compose logs -f app
+For production environments with secrets management:
 
-# Stop services
-docker-compose down
-
-# Rebuild images
-docker-compose up -d --build
-
-# Scale services
-docker-compose up -d --scale app=3
-```
-
-## .dockerignore
-```
-node_modules
-npm-debug.log
-.git
-.gitignore
-.env
-.env.local
-.vscode
-*.md
-tests
-coverage
-.github
-Dockerfile
-docker-compose.yml
-```
-
-## Docker Commands
-```bash
-# Build image
-docker build -t myapp:latest .
-
-# Run container
-docker run -d -p 3000:3000 --name myapp myapp:latest
-
-# View logs
-docker logs -f myapp
-
-# Enter container
-docker exec -it myapp sh
-
-# Stop container
-docker stop myapp
-
-# Remove container
-docker rm myapp
-
-# List images
-docker images
-
-# Remove image
-docker rmi myapp:latest
-
-# Prune unused resources
-docker system prune -a
-```
-
-## Environment Variables
-```dockerfile
-# In Dockerfile
-ENV NODE_ENV=production
-ENV PORT=3000
-
-# Or in docker-compose.yml
-environment:
-  - NODE_ENV=production
-  - PORT=3000
-
-# Or from .env file
-env_file:
-  - .env.production
-```
-
-## Volumes for Persistence
 ```yaml
+version: "3.8"
+
 services:
-  app:
+  web:
+    build:
+      context: .
+      target: final
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/myapp
+    env_file:
+      - .env
+    secrets:
+      - db_password
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    # Additional security settings
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /run
+    cap_drop:
+      - ALL
+
+  db:
+    image: postgres:15
+    restart: unless-stopped
     volumes:
-      - ./logs:/app/logs              # Bind mount
-      - node_modules:/app/node_modules # Named volume
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=myapp
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db_password
+    secrets:
+      - db_password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d myapp"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    cap_drop:
+      - ALL
+
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
 
 volumes:
-  node_modules:
+  postgres_data:
 ```
 
-## Health Checks
-```dockerfile
-# In Dockerfile
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s \
-  CMD node healthcheck.js || exit 1
-```
+## Key Docker Best Practices Applied
 
-```javascript
-// healthcheck.js
-const http = require('http');
+1. **Multi-stage builds**: Separate build and runtime environments to reduce attack surface
+2. **Non-root users**: Run containers as non-root users for security
+3. **Minimal base images**: Use slim/alpine images to reduce vulnerabilities
+4. **Health checks**: Built-in application health monitoring
+5. **Environment variables**: Proper configuration management
+6. **Secrets management**: Secure handling of sensitive data
+7. **Resource limits**: Optional CPU and memory constraints for stability
+8. **Production optimizations**: Optimized pip installs, bytecode caching disabled
 
-const options = {
-  host: 'localhost',
-  port: 3000,
-  path: '/health',
-  timeout: 2000
-};
+## Scripts Available
 
-const request = http.request(options, (res) => {
-  console.log(`STATUS: ${res.statusCode}`);
-  process.exit(res.statusCode === 200 ? 0 : 1);
-});
+See [DOCKER-SCRIPTS.md](references/DOCKER-SCRIPTS.md) for automated Dockerfile generation scripts.
 
-request.on('error', (err) => {
-  console.log('ERROR:', err);
-  process.exit(1);
-});
+## Security Considerations
 
-request.end();
-```
+See [SECURITY.md](references/SECURITY.md) for detailed security best practices and production hardening techniques.
 
-## Image Optimization
-```dockerfile
-# Use Alpine (smaller base image)
-FROM node:18-alpine  # 180MB vs node:18 (1GB)
+## Optimization Techniques
 
-# Multi-stage build (remove build dependencies)
-# Use .dockerignore (exclude unnecessary files)
-# npm ci instead of npm install (faster, deterministic)
-# Only production dependencies
-RUN npm ci --only=production
+See [OPTIMIZATION.md](references/OPTIMIZATION.md) for performance tuning and optimization strategies.
 
-# Combine RUN commands (fewer layers)
-RUN apk add --no-cache git && \
-    npm ci && \
-    apk del git
-```
+## Prerequisites and Validation
 
-## Production Best Practices
-```dockerfile
-FROM node:18-alpine
-
-# Don't run as root
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001
-
-WORKDIR /app
-
-COPY --chown=nodejs:nodejs package*.json ./
-RUN npm ci --only=production
-
-COPY --chown=nodejs:nodejs . .
-
-USER nodejs
-
-# Health check
-HEALTHCHECK CMD node healthcheck.js || exit 1
-
-# Use node instead of npm start (better signal handling)
-CMD ["node", "src/index.js"]
-```
-
-## Docker Hub Deployment
-```bash
-# Login
-docker login
-
-# Tag image
-docker tag myapp:latest username/myapp:1.0.0
-docker tag myapp:latest username/myapp:latest
-
-# Push to Docker Hub
-docker push username/myapp:1.0.0
-docker push username/myapp:latest
-
-# Pull from Docker Hub
-docker pull username/myapp:latest
-```
-
-## CI/CD with GitHub Actions
-```yaml
-name: Docker Build & Deploy
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: docker/setup-buildx-action@v2
-
-      - uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - uses: docker/build-push-action@v4
-        with:
-          push: true
-          tags: username/myapp:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-```
-
-## Common Issues & Solutions
-
-### Node modules caching
-```dockerfile
-# Cache node_modules layer
-COPY package*.json ./
-RUN npm ci
-COPY . .  # This doesn't rebuild node_modules
-```
-
-### Signal handling
-```dockerfile
-# Use node directly (not npm)
-CMD ["node", "src/index.js"]
-
-# In app: Handle SIGTERM
-process.on('SIGTERM', () => {
-  server.close(() => process.exit(0));
-});
-```
-
-## When to Use
-
-Use Docker deployment when:
-- Need consistent environments (dev, staging, prod)
-- Deploying microservices
-- Want easy scaling and orchestration
-- Using cloud platforms (AWS, GCP, Azure)
-- Implementing CI/CD pipelines
-
-## Related Skills
-- Express REST API (containerize APIs)
-- Database Integration (multi-container setup)
-- Testing & Debugging (test in containers)
-- Performance Optimization (optimize images)
-
-## Resources
-- [Docker Documentation](https://docs.docker.com)
-- [Docker Compose](https://docs.docker.com/compose/)
-- [Node.js Docker Best Practices](https://github.com/nodejs/docker-node/blob/main/docs/BestPractices.md)
+See [PREREQUISITES.md](references/PREREQUISITES.md) for system requirements, Docker installation validation, and resource allocation guidelines for AI services.

@@ -1,0 +1,19 @@
+{
+  "category": "batch-qr-generator",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.357724Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when asked to generate multiple QR codes from CSV data, create bulk QR codes with tracking, or generate QR codes for events/products.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "batch-qr-generator",
+      "branch": "main",
+      "category": "batch-qr-generator",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

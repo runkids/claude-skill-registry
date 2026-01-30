@@ -1,9 +1,7 @@
 {
   "name": "react-native-web-navigation",
-  "description": "Use when implementing navigation in React Native Web projects. Provides patterns for React Navigation, deep linking, and web-specific routing.",
   "repo": "TheBushidoCollective/han",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-react-native-web/skills/react-native-web-navigation/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-30T03:33:57.993550Z"
 }

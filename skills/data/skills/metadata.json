@@ -1,7 +1,7 @@
 {
   "name": "skills",
-  "repo": "grahama1970/agent-skills",
-  "path": "skills/SKILL.md",
-  "source": "github.com/grahama1970/agent-skills",
-  "downloaded_at": "2026-01-29T04:29:35.965652Z"
+  "repo": "FortiumPartners/ensemble",
+  "path": "packages/nestjs/skills/SKILL.md",
+  "source": "github.com/FortiumPartners/ensemble",
+  "downloaded_at": "2026-01-30T04:51:35.419076Z"
 }

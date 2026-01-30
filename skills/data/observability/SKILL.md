@@ -1,255 +1,301 @@
 ---
 name: observability
-description: Use when diagnosing operation failures, stuck or slow operations, querying Jaeger traces, working with Grafana dashboards, debugging distributed system issues, or investigating worker selection and service communication problems.
+description: |
+  Complete observability infrastructure. Error tracking, alerting, logging, health checks.
+  Optimized for indie dev: minimal services, CLI-manageable, AI agent integration.
+argument-hint: "[focus area, e.g. 'alerts' or 'health checks']"
 ---
 
-# Observability & Debugging
+# /observability
 
-Load this skill when:
-- Diagnosing operation failures, stuck operations, or slow operations
-- Working with Jaeger traces or Grafana dashboards
-- Debugging distributed system issues
-- Investigating worker selection or service communication problems
+Production observability with one service. Audit, fix, verify—every time.
 
----
+## Philosophy
 
-## First Rule: Check Observability Before Logs
+**Two services, not twenty.** Sentry handles errors. PostHog handles product analytics. That's it. Vercel captures stdout automatically (no setup needed).
 
-When users report issues with operations, use Jaeger first — not logs. KTRDR has comprehensive OpenTelemetry instrumentation that provides complete visibility into distributed operations.
+**CLI-first.** Everything manageable from command line. No dashboard clicking.
 
-This enables **first-response diagnosis** instead of iterative detective work.
+**AI-agent ready.** Errors should trigger automated analysis and fixes.
 
----
+## What This Does
 
-## When to Query Jaeger
+Examines project observability, identifies gaps, implements fixes, and verifies alerting works. Every run does the full cycle.
 
-Query Jaeger when user reports:
+## Branching
 
-| Symptom | What Jaeger Shows |
-|---------|-------------------|
-| "Operation stuck" | Which phase is stuck and why |
-| "Operation failed" | Exact error with full context |
-| "Operation slow" | Bottleneck span immediately |
-| "No workers selected" | Worker selection decision |
-| "Missing data" | Data flow from IB to cache |
-| "Service not responding" | HTTP call attempt and result |
-
----
-
-## Quick Start Workflow
-
-### Step 1: Get operation ID
-From CLI output or API response (e.g., `op_training_20251113_123456_abc123`)
-
-### Step 2: Query Jaeger API
+Assumes you start on `master`/`main`. Before making code changes:
 
 ```bash
-OPERATION_ID="op_training_20251113_123456_abc123"
-curl -s "http://localhost:16686/api/traces?tag=operation.id:$OPERATION_ID&limit=1" | jq
+git checkout -b infra/observability-$(date +%Y%m%d)
 ```
 
-### Step 3: Analyze trace structure
+## Architecture
+
+```
+App → Sentry (errors, performance)
+    → PostHog (product analytics, feature flags)
+    → stdout (Vercel captures automatically)
+    → /api/health (uptime monitoring)
+
+AI Integration:
+    Sentry MCP → Claude (query errors, analyze, fix)
+    PostHog MCP → Claude (query funnels, cohorts, events)
+    Sentry webhook → GitHub Action → agent (auto-triage)
+    CLI scripts → manual triage and resolution
+```
+
+**Services:** 2 (Sentry + PostHog)
+**Built-in free:** Vercel logs
+**CLI-manageable:** 100% (both have MCP servers)
+
+## Process
+
+### 1. Audit
+
+**Check what exists:**
+```bash
+# Sentry configured?
+~/.claude/skills/sentry-observability/scripts/detect_sentry.sh
+
+# Health endpoint?
+[ -f "app/api/health/route.ts" ] || [ -f "src/app/api/health/route.ts" ] && echo "✓ Health endpoint" || echo "✗ Health endpoint"
+
+# Structured logging?
+grep -r "console.log\|console.error" --include="*.ts" --include="*.tsx" src/ app/ 2>/dev/null | head -5
+
+# PostHog analytics?
+grep -q "posthog" package.json && echo "✓ PostHog" || echo "✗ PostHog not installed (P1)"
+```
+
+**Spawn agent for deep review:**
+Spawn `observability-advocate` agent to audit logging coverage, error handling, and silent failure risks.
+
+### 2. Plan
+
+Every project needs:
+
+**Essential (every production app):**
+- Sentry error tracking with source maps
+- Health check endpoint (`/api/health`)
+- Structured logging (JSON to stdout)
+- At least one alert rule (new errors)
+
+**Required (user-facing apps):**
+- PostHog product analytics (funnels, cohorts, session replay)
+- PostHog feature flags (replaces LaunchDarkly)
+
+**Recommended:**
+- Webhook for AI agent integration
+- Triage scripts for CLI management
+
+**Only if needed:**
+- Custom uptime monitoring
+
+### 3. Execute
+
+**Install Sentry:**
+```bash
+pnpm add @sentry/nextjs
+npx @sentry/wizard@latest -i nextjs
+```
+
+Or use init script:
+```bash
+~/.claude/skills/sentry-observability/scripts/init_sentry.sh
+```
+
+**Configure PII redaction:**
+```typescript
+// sentry.client.config.ts
+Sentry.init({
+  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  beforeSend(event) {
+    // Scrub PII
+    if (event.extra) delete event.extra.password;
+    if (event.user) delete event.user.email;
+    return event;
+  },
+});
+```
+
+**Create health endpoint:**
+```typescript
+// app/api/health/route.ts
+export async function GET() {
+  const checks = {
+    app: 'ok',
+    timestamp: new Date().toISOString(),
+  };
+
+  // Add service checks as needed
+  // checks.database = await checkDb();
+  // checks.stripe = await checkStripe();
+
+  return Response.json(checks);
+}
+```
+
+**Set up structured logging:**
+Use JSON logs that Vercel can parse:
+```typescript
+// lib/logger.ts
+export function log(level: 'info' | 'warn' | 'error', message: string, data?: Record<string, unknown>) {
+  const entry = {
+    level,
+    message,
+    timestamp: new Date().toISOString(),
+    ...data,
+  };
+  console[level === 'error' ? 'error' : 'log'](JSON.stringify(entry));
+}
+```
+
+**Create alert rule:**
+```bash
+~/.claude/skills/sentry-observability/scripts/create_alert.sh --name "New Errors" --type issue
+```
+
+**Set up webhook for AI integration (optional):**
+In Sentry Dashboard → Settings → Integrations → Internal Integrations:
+1. Create integration with webhook URL
+2. Subscribe to issue events
+3. Point to GitHub Action or custom endpoint
+
+### 4. Verify
+
+**Verify Sentry setup:**
+```bash
+~/.claude/skills/sentry-observability/scripts/verify_setup.sh
+```
+
+**Test error tracking:**
+```typescript
+// Trigger test error
+throw new Error('Test error for Sentry verification');
+```
+
+Then check Sentry dashboard or:
+```bash
+~/.claude/skills/sentry-observability/scripts/list_issues.sh --limit 1
+```
+
+**Test health endpoint:**
+```bash
+curl -s http://localhost:3000/api/health | jq
+```
+
+**Test alerting:**
+- Trigger an error
+- Verify alert fires (check email/Slack/webhook)
+
+If any verification fails, go back and fix it.
+
+## AI Agent Integration
+
+### Option A: Sentry MCP Server
+
+For direct Claude integration, use the Sentry MCP server:
+```json
+// claude_desktop_config.json
+{
+  "mcpServers": {
+    "sentry": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/sentry-mcp"],
+      "env": {
+        "SENTRY_AUTH_TOKEN": "your-token",
+        "SENTRY_ORG": "your-org"
+      }
+    }
+  }
+}
+```
+
+Claude can then:
+- Query recent errors
+- Get full error context
+- Analyze root causes
+- Propose fixes
+
+### Option B: Webhook → GitHub Action → Agent
+
+For automated triage:
+```yaml
+# .github/workflows/sentry-triage.yml
+name: Sentry Auto-Triage
+
+on:
+  repository_dispatch:
+    types: [sentry-issue]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Analyze with Claude
+        run: |
+          # Query issue details and spawn analysis agent
+          claude --print "Analyze Sentry issue ${{ github.event.client_payload.issue_id }}"
+```
+
+### Option C: CLI Scripts (Already Exist)
 
 ```bash
-# Get span summary with durations
-curl -s "http://localhost:16686/api/traces?tag=operation.id:$OPERATION_ID" | jq '
-  .data[0].spans[] |
-  {
-    span: .operationName,
-    service: .process.serviceName,
-    duration_ms: (.duration / 1000),
-    error: ([.tags[] | select(.key == "error" and .value == "true")] | length > 0)
-  }' | jq -s 'sort_by(.duration_ms) | reverse'
+# List and triage issues
+~/.claude/skills/sentry-observability/scripts/list_issues.sh --env production
+~/.claude/skills/sentry-observability/scripts/triage_score.sh --json
+
+# Get issue details for analysis
+~/.claude/skills/sentry-observability/scripts/issue_detail.sh PROJ-123
+
+# Resolve after fixing
+~/.claude/skills/sentry-observability/scripts/resolve_issue.sh PROJ-123
 ```
 
-### Step 4: Extract relevant attributes
+## Tool Choices
+
+**Sentry over alternatives.** Best error tracking, mature CLI, AI-first roadmap (Seer webhooks, auto-fix features), excellent free tier.
+
+**Vercel logs over log services.** stdout is captured automatically. No additional service needed. Query with `vercel logs`.
+
+**PostHog for ALL analytics.** Official MCP server, Terraform provider, all-in-one platform. 1M events/month free.
+
+**NOT Vercel Analytics.** It has no API, no CLI, no MCP server. Completely unusable for AI-assisted workflows. Do not install it.
+
+## Environment Variables
 
 ```bash
-curl -s "http://localhost:16686/api/traces?tag=operation.id:$OPERATION_ID" | jq '
-  .data[0].spans[] |
-  {
-    span: .operationName,
-    attributes: (.tags | map({key: .key, value: .value}) | from_entries)
-  }'
+# .env.example
+
+# Sentry (required for error tracking)
+NEXT_PUBLIC_SENTRY_DSN=
+SENTRY_AUTH_TOKEN=
+SENTRY_ORG=
+SENTRY_PROJECT=
 ```
 
----
+## What You Get
 
-## Common Diagnostic Patterns
+When complete:
+- Sentry capturing all errors with source maps
+- Health check endpoint at `/api/health`
+- Structured JSON logging (captured by Vercel)
+- At least one alert rule configured
+- PostHog for product analytics (user-facing apps)
+- AI agent integration ready (MCP or webhooks)
 
-### Pattern 1: Operation Stuck
+User can:
+- See errors in Sentry immediately when they occur
+- Get alerted on new/critical errors
+- Query errors via CLI (`list_issues.sh`, `triage_score.sh`)
+- Trigger AI analysis of errors
+- Monitor app health via `/api/health`
+- View logs via `vercel logs`
 
-```bash
-# Check for worker selection and dispatch
-curl -s "http://localhost:16686/api/traces?tag=operation.id:$OP_ID" | jq '
-  .data[0].spans[] |
-  select(.operationName == "worker_registry.select_worker") |
-  .tags[] |
-  select(.key | startswith("worker_registry.")) |
-  {key: .key, value: .value}'
-```
+## Related Skills
 
-Look for:
-- `worker_registry.total_workers: 0` → No workers started
-- `worker_registry.capable_workers: 0` → No capable workers
-- `worker_registry.selection_status: NO_WORKERS_AVAILABLE` → All busy
-
-### Pattern 2: Operation Failed
-
-```bash
-# Extract error details
-curl -s "http://localhost:16686/api/traces?tag=operation.id:$OP_ID" | jq '
-  .data[0].spans[] |
-  select(.tags[] | select(.key == "error" and .value == "true")) |
-  {
-    span: .operationName,
-    service: .process.serviceName,
-    exception_type: (.tags[] | select(.key == "exception.type") | .value),
-    exception_message: (.tags[] | select(.key == "exception.message") | .value)
-  }'
-```
-
-Common errors:
-- `ConnectionRefusedError` → Service not running (check `http.url`)
-- `ValueError` → Invalid input parameters
-- `DataNotFoundError` → Data not loaded (check `data.symbol`, `data.timeframe`)
-
-### Pattern 3: Operation Slow
-
-```bash
-# Find bottleneck span (longest duration)
-curl -s "http://localhost:16686/api/traces?tag=operation.id:$OP_ID" | jq '
-  .data[0].spans[] |
-  {
-    span: .operationName,
-    duration_ms: (.duration / 1000)
-  }' | jq -s 'sort_by(.duration_ms) | reverse | .[0]'
-```
-
-Common bottlenecks:
-- `training.training_loop` → Check `training.device` (GPU vs CPU)
-- `data.fetch` → Check `ib.latency_ms`
-- `ib.fetch_historical` → Check `data.bars_requested`
-
-### Pattern 4: Service Communication Failure
-
-```bash
-# Check HTTP calls between services
-curl -s "http://localhost:16686/api/traces?tag=operation.id:$OP_ID" | jq '
-  .data[0].spans[] |
-  select(.operationName | startswith("POST") or startswith("GET")) |
-  {
-    http_call: .operationName,
-    url: (.tags[] | select(.key == "http.url") | .value),
-    status: (.tags[] | select(.key == "http.status_code") | .value),
-    error: (.tags[] | select(.key == "error.type") | .value)
-  }'
-```
-
-Look for:
-- `http.status_code: null` → Connection failed
-- `error.type: ConnectionRefusedError` → Target service not running
-- `http.url` → Shows which service was being called
-
----
-
-## Key Span Attributes Reference
-
-### Operation Attributes
-- `operation.id` — Operation identifier
-- `operation.type` — TRAINING, BACKTESTING, DATA_DOWNLOAD
-- `operation.status` — PENDING, RUNNING, COMPLETED, FAILED
-
-### Worker Selection
-- `worker_registry.total_workers` — Total registered workers
-- `worker_registry.available_workers` — Available workers
-- `worker_registry.capable_workers` — Capable workers for this operation
-- `worker_registry.selected_worker_id` — Which worker was chosen
-- `worker_registry.selection_status` — SUCCESS, NO_WORKERS_AVAILABLE, NO_CAPABLE_WORKERS
-
-### Progress Tracking
-- `progress.percentage` — Current progress (0-100)
-- `progress.phase` — Current execution phase
-- `operations_service.instance_id` — OperationsService instance (check for mismatches)
-
-### Error Context
-- `exception.type` — Python exception class
-- `exception.message` — Error message
-- `exception.stacktrace` — Full stack trace
-- `error.symbol`, `error.strategy` — Business context
-
-### Performance
-- `http.status_code` — HTTP response status
-- `http.url` — Target URL for HTTP calls
-- `ib.latency_ms` — IB Gateway latency
-- `training.device` — cuda:0 or cpu
-- `gpu.utilization_percent` — GPU usage
-
----
-
-## Response Template
-
-When diagnosing with observability, use this structure:
-
-```
-🔍 **Trace Analysis for operation_id: {operation_id}**
-
-**Trace Summary**:
-- Trace ID: {trace_id}
-- Total Duration: {duration_ms}ms
-- Services: {list of services}
-- Status: {OK/ERROR}
-
-**Execution Flow**:
-1. {span_name} ({service}) - {duration_ms}ms
-2. {span_name} ({service}) - {duration_ms}ms
-...
-
-**Diagnosis**:
-{identified_issue_with_evidence_from_spans}
-
-**Root Cause**:
-{root_cause_explanation_with_span_attributes}
-
-**Solution**:
-{recommended_fix_with_commands}
-```
-
----
-
-## Grafana Dashboards
-
-Check Grafana for quick diagnostics before diving into traces.
-
-**URL**: http://localhost:3000
-
-| Dashboard | Path | Use Case |
-|-----------|------|----------|
-| System Overview | `/d/ktrdr-system-overview` | Service health, error rates, latency |
-| Worker Status | `/d/ktrdr-worker-status` | Worker capacity, resource usage |
-| Operations | `/d/ktrdr-operations` | Operation counts, success rates |
-
-### Quick Workflows
-
-- **"Is it working?"** → System Overview: Healthy Services count
-- **"Why is it slow?"** → System Overview: P95 Latency panel
-- **"Workers missing?"** → Worker Status: Healthy Workers and Health Matrix
-- **"Operations failing?"** → Operations: Success Rate and Status Distribution
-
----
-
-## Benefits of Observability-First Debugging
-
-- **Diagnosis in FIRST response** (not 10+ messages later)
-- **Complete context** (all services, all phases, all attributes)
-- **Objective evidence** (no guessing or assumptions)
-- **Distributed visibility** (Backend → Worker → Host Service)
-- **Performance insights** (identify bottlenecks immediately)
-- **Root cause analysis** (trace error from source to root)
-
----
-
-## Full Documentation
-
-For comprehensive workflows and scenarios:
-[docs/debugging/observability-debugging-workflows.md](docs/debugging/observability-debugging-workflows.md)
+- `sentry-observability` — Detailed Sentry setup and scripts
+- `observability-stack` — PostHog/analytics integration patterns
+- `observability-advocate` — Agent for auditing observability coverage

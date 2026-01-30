@@ -1,279 +1,240 @@
 ---
 name: astro
-version: 1.0.0
-description: Astro web framework for content-focused websites with Islands architecture, partial hydration, content collections, and multi-framework support
+description: Builds content-focused websites with Astro using islands architecture, content collections, and multi-framework support. Use when creating static sites, blogs, documentation, marketing pages, or content-heavy applications with minimal JavaScript.
 ---
 
-# Astro Skill
+# Astro
 
-Comprehensive assistance with Astro web framework development, including components, Islands architecture, content collections, routing, SSR/SSG, and deployment.
-
-## When to Use This Skill
-
-This skill should be triggered when:
-- Creating new Astro projects or components
-- Working with Islands architecture and partial hydration
-- Managing content collections and Markdown/MDX
-- Implementing file-based routing and dynamic routes
-- Configuring SSR adapters and deployment
-- Adding integrations (React, Vue, Svelte, Tailwind)
-- Optimizing images and assets
-- Setting up view transitions
+Content-focused web framework with islands architecture for building fast static and server-rendered websites with minimal JavaScript.
 
 ## Quick Start
 
-### Create a New Project
-
+**Create new project:**
 ```bash
-# Interactive project creation
-npm create astro@latest
-
-# Create with template
-npm create astro@latest my-project -- --template blog
-npm create astro@latest my-project -- --template portfolio
-
-# Skip prompts with defaults
-npm create astro@latest my-project -- --yes
-```
-
-### CLI Commands
-
-```bash
-# Development server (hot reload)
+npm create astro@latest my-site
+cd my-site
 npm run dev
-# or: astro dev --port 3000 --open
-
-# Build for production
-npm run build
-# or: astro build
-
-# Preview production build
-npm run preview
-# or: astro preview
-
-# Add integrations
-npx astro add react
-npx astro add tailwind
-npx astro add netlify
-
-# Type checking
-astro check
-
-# Generate TypeScript types
-astro sync
-
-# Environment info
-astro info
 ```
 
-### CLI Hotkeys
-
-During development:
-- `s + enter` - Sync content collections
-- `o + enter` - Open in browser
-- `q + enter` - Quit server
-
----
-
-## Project Structure
-
+**Essential file structure:**
 ```
-my-astro-project/
-├── src/
-│   ├── pages/           # File-based routing (required)
-│   │   ├── index.astro
-│   │   ├── about.astro
-│   │   └── blog/
-│   │       ├── [slug].astro
-│   │       └── index.astro
-│   ├── components/      # Reusable UI components
-│   │   ├── Header.astro
-│   │   └── Card.astro
-│   ├── layouts/         # Page templates
-│   │   ├── BaseLayout.astro
-│   │   └── BlogLayout.astro
-│   ├── content/         # Content collections
-│   │   └── blog/
-│   │       └── post-1.md
-│   ├── styles/          # Global styles
-│   │   └── global.css
-│   └── content.config.ts # Collection schemas
-├── public/              # Static assets (unprocessed)
-│   ├── favicon.ico
-│   └── robots.txt
-├── astro.config.mjs     # Astro configuration
-├── tsconfig.json        # TypeScript config
-└── package.json
+src/
+  pages/              # File-based routing
+    index.astro       # Home page (/)
+    about.astro       # /about
+    blog/
+      [slug].astro    # /blog/:slug
+  components/         # Reusable components
+  layouts/            # Page layouts
+  content/            # Content collections
+    blog/             # Blog posts collection
+  styles/             # Global styles
+public/               # Static assets
+astro.config.mjs      # Astro configuration
 ```
-
-**Key Directories:**
-- `src/pages/` - **Required**. Each file becomes a route
-- `src/components/` - Reusable Astro and framework components
-- `src/layouts/` - Shared page templates with slots
-- `src/content/` - Type-safe content collections
-- `public/` - Static files copied as-is (no optimization)
-
----
 
 ## Astro Components
 
-### Basic Component Structure
+### Basic Syntax
 
 ```astro
 ---
-// Component Script (runs on server)
-import Header from './Header.astro';
-import { getCollection } from 'astro:content';
+// Component Script (runs at build time)
+import Header from '../components/Header.astro';
+import Button from '../components/Button.tsx';
 
-// Props with TypeScript
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = "Default description" } = Astro.props;
+const { title, description = 'Default description' } = Astro.props;
 
-// Fetch data
-const posts = await getCollection('blog');
+// Fetch data at build time
+const response = await fetch('https://api.example.com/data');
+const data = await response.json();
 ---
 
-<!-- Component Template (HTML output) -->
-<Header />
-
-<main>
-  <h1>{title}</h1>
-  <p>{description}</p>
-
-  <ul>
-    {posts.map(post => (
-      <li>
-        <a href={`/blog/${post.slug}`}>{post.data.title}</a>
-      </li>
-    ))}
-  </ul>
-</main>
+<!-- Component Template -->
+<html lang="en">
+  <head>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1>{title}</h1>
+      <ul>
+        {data.items.map((item) => (
+          <li>{item.name}</li>
+        ))}
+      </ul>
+      <!-- Interactive island -->
+      <Button client:load>Click me</Button>
+    </main>
+  </body>
+</html>
 
 <style>
-  /* Scoped by default */
+  /* Scoped CSS by default */
   h1 {
     color: navy;
+    font-size: 2rem;
   }
 </style>
 ```
 
-### Props and Slots
+### Props and Types
+
+```astro
+---
+interface Props {
+  title: string;
+  tags: string[];
+  publishDate: Date;
+  featured?: boolean;
+}
+
+const { title, tags, publishDate, featured = false } = Astro.props;
+---
+
+<article class:list={['post', { featured }]}>
+  <h2>{title}</h2>
+  <time datetime={publishDate.toISOString()}>
+    {publishDate.toLocaleDateString()}
+  </time>
+  <ul>
+    {tags.map((tag) => <li>{tag}</li>)}
+  </ul>
+</article>
+```
+
+### Slots
 
 ```astro
 ---
 // Card.astro
 interface Props {
   title: string;
-  variant?: 'default' | 'featured';
 }
-
-const { title, variant = 'default' } = Astro.props;
+const { title } = Astro.props;
 ---
 
-<article class:list={['card', variant]}>
-  <h2>{title}</h2>
-
-  <!-- Default slot -->
-  <div class="content">
-    <slot />
-  </div>
-
-  <!-- Named slots -->
+<div class="card">
+  <header>
+    <slot name="header">{title}</slot>
+  </header>
+  <main>
+    <slot />  <!-- Default slot -->
+  </main>
   <footer>
-    <slot name="footer">
-      <p>Default footer content</p>
-    </slot>
+    <slot name="footer">Default footer</slot>
   </footer>
-</article>
+</div>
+```
 
-<!-- Usage -->
-<Card title="My Card" variant="featured">
-  <p>Card content goes here</p>
-  <div slot="footer">
-    <button>Learn More</button>
-  </div>
+**Using slots:**
+```astro
+<Card title="My Card">
+  <h3 slot="header">Custom Header</h3>
+  <p>Main content goes here</p>
+  <button slot="footer">Action</button>
 </Card>
 ```
 
-### Dynamic Classes and Styles
+## Islands Architecture
+
+### Client Directives
+
+Components are static by default. Add `client:*` directives for interactivity:
+
+| Directive | When JavaScript Loads |
+|-----------|----------------------|
+| `client:load` | Immediately on page load |
+| `client:idle` | When browser becomes idle |
+| `client:visible` | When component enters viewport |
+| `client:media` | When media query matches |
+| `client:only` | Skip SSR, client render only |
 
 ```astro
 ---
-const isActive = true;
-const theme = 'dark';
-const accentColor = '#ff6600';
+import Counter from '../components/Counter.tsx';
+import Newsletter from '../components/Newsletter.vue';
+import Comments from '../components/Comments.svelte';
 ---
 
-<!-- class:list for conditional classes -->
-<div class:list={[
-  'base-class',
-  { 'is-active': isActive },
-  theme === 'dark' && 'dark-mode'
-]}>
-  Content
-</div>
+<!-- Load immediately (above fold, critical) -->
+<Counter client:load />
 
-<!-- CSS variables from props -->
-<div class="themed">
-  <slot />
-</div>
+<!-- Load when idle (non-critical) -->
+<Newsletter client:idle />
 
-<style define:vars={{ accentColor }}>
-  .themed {
-    border-color: var(--accentColor);
-  }
-</style>
+<!-- Load when visible (below fold) -->
+<Comments client:visible />
+
+<!-- Load on mobile only -->
+<MobileMenu client:media="(max-width: 768px)" />
+
+<!-- React-only, no SSR -->
+<ReactChart client:only="react" />
 ```
 
+### Framework Integrations
+
+```bash
+# Add React
+npx astro add react
+
+# Add Vue
+npx astro add vue
+
+# Add Svelte
+npx astro add svelte
+
+# Add SolidJS
+npx astro add solid
+```
+
+**Using multiple frameworks:**
+```astro
+---
+import ReactComponent from '../components/ReactComponent.tsx';
+import VueComponent from '../components/VueComponent.vue';
+import SvelteComponent from '../components/SvelteComponent.svelte';
 ---
 
-## Pages and Routing
+<ReactComponent client:load />
+<VueComponent client:visible />
+<SvelteComponent client:idle />
+```
 
-### File-Based Routing
+## File-Based Routing
+
+### Static Routes
 
 ```
 src/pages/
-├── index.astro          → /
-├── about.astro          → /about
-├── blog/
-│   ├── index.astro      → /blog
-│   └── [slug].astro     → /blog/:slug
-├── [category]/
-│   └── [id].astro       → /:category/:id
-└── [...path].astro      → /* (catch-all)
+  index.astro          # /
+  about.astro          # /about
+  contact.astro        # /contact
+  blog/
+    index.astro        # /blog
+    first-post.astro   # /blog/first-post
 ```
 
-### Static Pages
-
-```astro
----
-// src/pages/about.astro
-import Layout from '../layouts/Layout.astro';
----
-
-<Layout title="About Us">
-  <h1>About Us</h1>
-  <p>Welcome to our site.</p>
-</Layout>
-```
-
-### Dynamic Routes (Static Generation)
+### Dynamic Routes
 
 ```astro
 ---
 // src/pages/blog/[slug].astro
 import { getCollection } from 'astro:content';
-import BlogLayout from '../../layouts/BlogLayout.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
-  return posts.map(post => ({
+  return posts.map((post) => ({
     params: { slug: post.slug },
-    props: { post }
+    props: { post },
   }));
 }
 
@@ -281,187 +242,30 @@ const { post } = Astro.props;
 const { Content } = await post.render();
 ---
 
-<BlogLayout title={post.data.title}>
+<article>
+  <h1>{post.data.title}</h1>
   <Content />
-</BlogLayout>
+</article>
 ```
 
-### Dynamic Routes (SSR)
+### Rest Parameters
 
 ```astro
 ---
-// src/pages/api/user/[id].ts (API endpoint)
-export const prerender = false; // Enable SSR for this route
+// src/pages/docs/[...slug].astro
+// Matches /docs, /docs/intro, /docs/guides/getting-started
 
-import type { APIRoute } from 'astro';
-
-export const GET: APIRoute = async ({ params }) => {
-  const { id } = params;
-  const user = await fetchUser(id);
-
-  return new Response(JSON.stringify(user), {
-    headers: { 'Content-Type': 'application/json' }
-  });
-};
-```
-
-### Rest Parameters (Catch-All)
-
-```astro
----
-// src/pages/docs/[...path].astro
-export async function getStaticPaths() {
+export function getStaticPaths() {
   return [
-    { params: { path: 'intro' } },           // /docs/intro
-    { params: { path: 'guides/setup' } },    // /docs/guides/setup
-    { params: { path: undefined } }          // /docs
+    { params: { slug: undefined } },  // /docs
+    { params: { slug: 'intro' } },     // /docs/intro
+    { params: { slug: 'guides/start' } }, // /docs/guides/start
   ];
 }
 
-const { path } = Astro.params;
+const { slug } = Astro.params;
 ---
-
-<h1>Docs: {path || 'Home'}</h1>
 ```
-
-### Pagination
-
-```astro
----
-// src/pages/blog/[page].astro
-import { getCollection } from 'astro:content';
-
-export async function getStaticPaths({ paginate }) {
-  const posts = await getCollection('blog');
-  return paginate(posts, { pageSize: 10 });
-}
-
-const { page } = Astro.props;
----
-
-<ul>
-  {page.data.map(post => (
-    <li><a href={`/blog/${post.slug}`}>{post.data.title}</a></li>
-  ))}
-</ul>
-
-<nav>
-  {page.url.prev && <a href={page.url.prev}>Previous</a>}
-  <span>Page {page.currentPage} of {page.lastPage}</span>
-  {page.url.next && <a href={page.url.next}>Next</a>}
-</nav>
-```
-
----
-
-## Layouts
-
-### Base Layout
-
-```astro
----
-// src/layouts/BaseLayout.astro
-interface Props {
-  title: string;
-  description?: string;
-}
-
-const { title, description = "My Astro Site" } = Astro.props;
----
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content={description}>
-  <title>{title}</title>
-</head>
-<body>
-  <header>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/blog">Blog</a>
-    </nav>
-  </header>
-
-  <main>
-    <slot />
-  </main>
-
-  <footer>
-    <p>&copy; 2024 My Site</p>
-  </footer>
-</body>
-</html>
-```
-
-### Markdown Layout
-
-```astro
----
-// src/layouts/BlogLayout.astro
-import type { MarkdownLayoutProps } from 'astro';
-import BaseLayout from './BaseLayout.astro';
-
-type Props = MarkdownLayoutProps<{
-  title: string;
-  date: string;
-  author: string;
-}>;
-
-const { frontmatter, headings } = Astro.props;
----
-
-<BaseLayout title={frontmatter.title}>
-  <article>
-    <h1>{frontmatter.title}</h1>
-    <p class="meta">
-      By {frontmatter.author} on {frontmatter.date}
-    </p>
-
-    <!-- Table of Contents -->
-    <nav class="toc">
-      <h2>Contents</h2>
-      <ul>
-        {headings.map(h => (
-          <li style={`margin-left: ${(h.depth - 2) * 1}rem`}>
-            <a href={`#${h.slug}`}>{h.text}</a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-
-    <!-- Rendered Markdown content -->
-    <slot />
-  </article>
-</BaseLayout>
-```
-
-### Nested Layouts
-
-```astro
----
-// src/layouts/DocsLayout.astro
-import BaseLayout from './BaseLayout.astro';
-
-const { title } = Astro.props;
----
-
-<BaseLayout title={`${title} | Docs`}>
-  <div class="docs-container">
-    <aside class="sidebar">
-      <slot name="sidebar" />
-    </aside>
-    <article class="content">
-      <slot />
-    </article>
-  </div>
-</BaseLayout>
-```
-
----
 
 ## Content Collections
 
@@ -477,11 +281,11 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    date: z.coerce.date(),
-    author: z.string().default('Anonymous'),
-    tags: z.array(z.string()).optional(),
+    pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    heroImage: z.string().optional(),
+    tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
-    image: z.string().optional(),
   }),
 });
 
@@ -491,31 +295,14 @@ const authors = defineCollection({
     name: z.string(),
     bio: z.string(),
     avatar: z.string(),
+    social: z.object({
+      twitter: z.string().optional(),
+      github: z.string().optional(),
+    }),
   }),
 });
 
 export const collections = { blog, authors };
-```
-
-### Content Files
-
-```markdown
----
-# src/content/blog/my-first-post.md
-title: My First Post
-description: Getting started with Astro
-date: 2024-01-15
-author: John Doe
-tags: ["astro", "web"]
----
-
-# Introduction
-
-Welcome to my blog post about Astro!
-
-## Why Astro?
-
-Astro is great for content-focused websites...
 ```
 
 ### Query Collections
@@ -524,467 +311,168 @@ Astro is great for content-focused websites...
 ---
 import { getCollection, getEntry } from 'astro:content';
 
-// Get all posts
-const allPosts = await getCollection('blog');
-
-// Filter posts
-const publishedPosts = await getCollection('blog', ({ data }) => {
-  return !data.draft && data.date < new Date();
+// Get all published posts
+const allPosts = await getCollection('blog', ({ data }) => {
+  return data.draft !== true;
 });
 
 // Sort by date
-const sortedPosts = publishedPosts.sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
 // Get single entry
-const post = await getEntry('blog', 'my-first-post');
-
-// Render content
-const { Content, headings } = await post.render();
+const featuredPost = await getEntry('blog', 'featured-post');
 ---
 
 <ul>
-  {sortedPosts.map(post => (
+  {sortedPosts.map((post) => (
     <li>
-      <a href={`/blog/${post.id}`}>
-        {post.data.title}
-      </a>
-      <time>{post.data.date.toLocaleDateString()}</time>
+      <a href={`/blog/${post.slug}`}>{post.data.title}</a>
     </li>
   ))}
 </ul>
 ```
 
----
-
-## Islands Architecture
-
-### Client Directives
+### Render Content
 
 ```astro
 ---
-import ReactCounter from './Counter.jsx';
-import VueSlider from './Slider.vue';
-import SvelteModal from './Modal.svelte';
+import { getEntry } from 'astro:content';
+
+const post = await getEntry('blog', 'my-post');
+const { Content, headings } = await post.render();
 ---
 
-<!-- Load immediately on page load -->
-<ReactCounter client:load />
-
-<!-- Load when browser is idle -->
-<VueSlider client:idle />
-
-<!-- Load when visible in viewport -->
-<SvelteModal client:visible />
-
-<!-- Load only on specific media query -->
-<ReactCounter client:media="(max-width: 768px)" />
-
-<!-- Load only (never hydrate) - useful for SSR-only -->
-<ReactCounter client:only="react" />
+<article>
+  <h1>{post.data.title}</h1>
+  <nav>
+    <h2>Table of Contents</h2>
+    <ul>
+      {headings.map((h) => (
+        <li>
+          <a href={`#${h.slug}`}>{h.text}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+  <Content />
+</article>
 ```
 
-### Directive Comparison
+## Layouts
 
-| Directive | Loads When | Use Case |
-|-----------|------------|----------|
-| `client:load` | Immediately | Critical interactivity |
-| `client:idle` | Browser idle | Non-critical components |
-| `client:visible` | In viewport | Below-the-fold content |
-| `client:media` | Media matches | Responsive components |
-| `client:only` | Client only | Skip SSR entirely |
-
-### Framework Components
-
-```astro
----
-// Mix multiple frameworks
-import ReactHeader from './Header.jsx';
-import VueCard from './Card.vue';
-import SvelteButton from './Button.svelte';
-import SolidCounter from './Counter.tsx'; // Solid
----
-
-<ReactHeader client:load />
-
-<main>
-  <VueCard client:visible>
-    <p>Static content from Astro</p>
-  </VueCard>
-
-  <SvelteButton client:idle />
-  <SolidCounter client:load initialCount={5} />
-</main>
-```
-
----
-
-## View Transitions
-
-### Enable View Transitions
+### Basic Layout
 
 ```astro
 ---
 // src/layouts/BaseLayout.astro
-import { ClientRouter } from 'astro:transitions';
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'My Astro site' } = Astro.props;
 ---
 
-<html>
-<head>
-  <ClientRouter />
-</head>
-<body>
-  <slot />
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header>
+      <nav><!-- Navigation --></nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer><!-- Footer --></footer>
+  </body>
 </html>
 ```
 
-### Transition Directives
+**Using layouts:**
+```astro
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Home">
+  <h1>Welcome!</h1>
+  <p>This is the home page.</p>
+</BaseLayout>
+```
+
+### Markdown Layout
 
 ```astro
 ---
-import { ClientRouter } from 'astro:transitions';
+// src/layouts/BlogPost.astro
+import BaseLayout from './BaseLayout.astro';
+import { type CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, pubDate, heroImage } = post.data;
 ---
 
-<!-- Named transitions for matching elements -->
-<header transition:name="header" transition:animate="none">
-  <h1 transition:name="site-title">My Site</h1>
-</header>
-
-<!-- Animation types -->
-<main transition:animate="slide">
-  <slot />
-</main>
-
-<!-- Persist state across navigation -->
-<video transition:persist autoplay></video>
+<BaseLayout title={title}>
+  <article>
+    {heroImage && <img src={heroImage} alt="" />}
+    <h1>{title}</h1>
+    <time datetime={pubDate.toISOString()}>
+      {pubDate.toLocaleDateString()}
+    </time>
+    <slot />
+  </article>
+</BaseLayout>
 ```
 
-### Animation Options
-
-```astro
-<!-- Built-in animations -->
-<div transition:animate="fade">Fade in/out</div>
-<div transition:animate="slide">Slide left/right</div>
-<div transition:animate="initial">Browser default</div>
-<div transition:animate="none">No animation</div>
-
-<!-- Custom animation -->
-<div transition:animate={{
-  old: {
-    name: 'fadeOut',
-    duration: '0.2s',
-    easing: 'ease-out',
-    fillMode: 'forwards'
-  },
-  new: {
-    name: 'fadeIn',
-    duration: '0.3s',
-    easing: 'ease-in',
-    fillMode: 'backwards'
-  }
-}}>
-  Custom transition
-</div>
-```
-
-### Programmatic Navigation
-
-```astro
-<script>
-  import { navigate } from 'astro:transitions/client';
-
-  document.querySelector('#my-button').addEventListener('click', () => {
-    navigate('/new-page');
-  });
-</script>
-```
-
-### Lifecycle Events
-
-```astro
-<script>
-  document.addEventListener('astro:page-load', () => {
-    console.log('Page loaded');
-  });
-
-  document.addEventListener('astro:before-swap', () => {
-    console.log('About to swap content');
-  });
-
-  document.addEventListener('astro:after-swap', () => {
-    console.log('Content swapped');
-  });
-</script>
-```
-
----
-
-## Styling
-
-### Scoped Styles (Default)
-
-```astro
-<h1>Hello World</h1>
-
-<style>
-  /* Automatically scoped to this component */
-  h1 {
-    color: blue;
-    font-size: 2rem;
-  }
-</style>
-```
-
-### Global Styles
-
-```astro
-<!-- Opt out of scoping -->
-<style is:global>
-  body {
-    font-family: system-ui;
-  }
-</style>
-
-<!-- Or use :global() for specific rules -->
-<style>
-  :global(body) {
-    margin: 0;
-  }
-
-  .container :global(p) {
-    line-height: 1.6;
-  }
-</style>
-```
-
-### Import Stylesheets
-
-```astro
----
-// Import local CSS
-import '../styles/global.css';
-
-// Import from node_modules
-import 'open-props/style.css';
----
-```
-
-### Tailwind CSS
-
-```bash
-# Add Tailwind integration
-npx astro add tailwind
-```
-
-```astro
----
-// Works out of the box after integration
----
-
-<div class="container mx-auto p-4">
-  <h1 class="text-3xl font-bold text-blue-600">
-    Hello Tailwind!
-  </h1>
-</div>
-```
-
-### CSS Modules
-
-```astro
----
-import styles from './Component.module.css';
----
-
-<div class={styles.container}>
-  <h1 class={styles.title}>Hello</h1>
-</div>
-```
-
----
-
-## Images
-
-### Image Component
-
-```astro
----
-import { Image } from 'astro:assets';
-import heroImage from '../assets/hero.jpg';
----
-
-<!-- Local images (optimized) -->
-<Image
-  src={heroImage}
-  alt="Hero image"
-  width={800}
-  height={600}
-/>
-
-<!-- Remote images (need authorization) -->
-<Image
-  src="https://example.com/image.jpg"
-  alt="Remote image"
-  width={400}
-  height={300}
-  inferSize
-/>
-
-<!-- Responsive images -->
-<Image
-  src={heroImage}
-  alt="Responsive hero"
-  widths={[320, 640, 1280]}
-  sizes="(max-width: 768px) 100vw, 50vw"
-/>
-```
-
-### Picture Component
-
-```astro
----
-import { Picture } from 'astro:assets';
-import myImage from '../assets/photo.jpg';
----
-
-<Picture
-  src={myImage}
-  formats={['avif', 'webp']}
-  alt="Multi-format image"
-  width={800}
-  height={600}
-/>
-```
-
-### Image Configuration
-
-```javascript
-// astro.config.mjs
-export default defineConfig({
-  image: {
-    domains: ['example.com', 'images.unsplash.com'],
-    remotePatterns: [{ protocol: 'https' }],
-    service: {
-      entrypoint: 'astro/assets/services/sharp'
-    }
-  }
-});
-```
-
----
-
-## Data Fetching
-
-### In Components
-
-```astro
----
-// Top-level await in component script
-const response = await fetch('https://api.example.com/data');
-const data = await response.json();
-
-// GraphQL
-const gqlResponse = await fetch('https://api.example.com/graphql', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    query: `
-      query {
-        posts {
-          title
-          slug
-        }
-      }
-    `
-  })
-});
-const { data: gqlData } = await gqlResponse.json();
----
-
-<ul>
-  {data.items.map(item => (
-    <li>{item.name}</li>
-  ))}
-</ul>
-```
-
-### Pass to Framework Components
-
-```astro
----
-const posts = await fetch('https://api.example.com/posts')
-  .then(res => res.json());
----
-
-<ReactPostList posts={posts} client:load />
-```
-
----
-
-## Integrations
-
-### Adding Integrations
-
-```bash
-# UI Frameworks
-npx astro add react
-npx astro add vue
-npx astro add svelte
-npx astro add solid
-npx astro add preact
-
-# Styling
-npx astro add tailwind
-
-# SSR Adapters
-npx astro add netlify
-npx astro add vercel
-npx astro add cloudflare
-npx astro add node
-
-# Other
-npx astro add mdx
-npx astro add sitemap
-npx astro add partytown
-```
-
-### Manual Configuration
-
-```javascript
-// astro.config.mjs
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
-import tailwind from '@astrojs/tailwind';
-import sitemap from '@astrojs/sitemap';
-
-export default defineConfig({
-  site: 'https://example.com',
-  integrations: [
-    react(),
-    tailwind({
-      applyBaseStyles: false
-    }),
-    sitemap()
-  ]
-});
-```
-
----
-
-## SSR and Deployment
+## Server-Side Rendering
 
 ### Enable SSR
 
 ```javascript
 // astro.config.mjs
 import { defineConfig } from 'astro/config';
-import netlify from '@astrojs/netlify';
+import node from '@astrojs/node';
 
 export default defineConfig({
-  output: 'server', // Enable SSR for all pages
-  adapter: netlify()
+  output: 'server', // or 'hybrid'
+  adapter: node({
+    mode: 'standalone',
+  }),
 });
+```
+
+### Server Endpoints
+
+```typescript
+// src/pages/api/posts.json.ts
+import type { APIRoute } from 'astro';
+
+export const GET: APIRoute = async ({ request }) => {
+  const posts = await getPosts();
+  return new Response(JSON.stringify(posts), {
+    headers: { 'Content-Type': 'application/json' },
+  });
+};
+
+export const POST: APIRoute = async ({ request }) => {
+  const data = await request.json();
+  const post = await createPost(data);
+  return new Response(JSON.stringify(post), {
+    status: 201,
+    headers: { 'Content-Type': 'application/json' },
+  });
+};
 ```
 
 ### Hybrid Rendering
@@ -992,239 +480,166 @@ export default defineConfig({
 ```javascript
 // astro.config.mjs
 export default defineConfig({
-  output: 'hybrid', // SSG by default, opt-in SSR
-  adapter: netlify()
+  output: 'hybrid', // Static by default, opt-in to SSR
 });
 ```
 
 ```astro
 ---
-// src/pages/dynamic.astro
-export const prerender = false; // This page uses SSR
+// This page renders on each request
+export const prerender = false;
+
+const user = await getUser(Astro.cookies.get('session'));
 ---
 ```
 
-### Server Features
+## Styling
+
+### Scoped Styles
+
+```astro
+<style>
+  /* Scoped to this component only */
+  h1 {
+    color: red;
+  }
+</style>
+```
+
+### Global Styles
+
+```astro
+<style is:global>
+  /* Applies globally */
+  body {
+    font-family: sans-serif;
+  }
+</style>
+```
+
+### CSS Variables
 
 ```astro
 ---
-// Access request data
-const { headers, method, url } = Astro.request;
-
-// Access cookies
-const sessionId = Astro.cookies.get('session');
-Astro.cookies.set('visited', 'true', {
-  httpOnly: true,
-  secure: true
-});
-
-// Redirect
-if (!sessionId) {
-  return Astro.redirect('/login', 302);
-}
-
-// Custom response
-Astro.response.headers.set('Cache-Control', 'max-age=3600');
+const { color = 'blue' } = Astro.props;
 ---
+
+<div class="box">Content</div>
+
+<style define:vars={{ color }}>
+  .box {
+    background-color: var(--color);
+  }
+</style>
 ```
 
-### API Endpoints
-
-```typescript
-// src/pages/api/hello.ts
-import type { APIRoute } from 'astro';
-
-export const GET: APIRoute = async ({ request }) => {
-  return new Response(JSON.stringify({ message: 'Hello!' }), {
-    headers: { 'Content-Type': 'application/json' }
-  });
-};
-
-export const POST: APIRoute = async ({ request }) => {
-  const body = await request.json();
-  return new Response(JSON.stringify({ received: body }), {
-    status: 201,
-    headers: { 'Content-Type': 'application/json' }
-  });
-};
-```
-
-### Deployment
+### Tailwind CSS
 
 ```bash
-# Build for production
-npm run build
-
-# Deploy to various platforms
-# Netlify
-netlify deploy --prod --dir=dist
-
-# Vercel
-vercel --prod
-
-# Cloudflare Pages
-wrangler pages deploy dist
-```
-
----
-
-## Configuration
-
-### astro.config.mjs
-
-```javascript
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
-import tailwind from '@astrojs/tailwind';
-import netlify from '@astrojs/netlify';
-
-export default defineConfig({
-  // Site URL for sitemap, canonical URLs
-  site: 'https://example.com',
-
-  // Base path for subdirectory hosting
-  base: '/my-app',
-
-  // Output mode
-  output: 'hybrid', // 'static' | 'server' | 'hybrid'
-
-  // SSR adapter
-  adapter: netlify(),
-
-  // Integrations
-  integrations: [react(), tailwind()],
-
-  // Build options
-  build: {
-    inlineStylesheets: 'auto'
-  },
-
-  // Dev server
-  server: {
-    port: 3000,
-    host: true
-  },
-
-  // Vite options
-  vite: {
-    plugins: []
-  },
-
-  // Markdown options
-  markdown: {
-    shikiConfig: {
-      theme: 'github-dark'
-    }
-  },
-
-  // Image service
-  image: {
-    domains: ['images.unsplash.com']
-  },
-
-  // Redirects
-  redirects: {
-    '/old-page': '/new-page',
-    '/blog/[...slug]': '/articles/[...slug]'
-  }
-});
-```
-
----
-
-## Common Patterns
-
-### Error Pages
-
-```astro
----
-// src/pages/404.astro
-import Layout from '../layouts/Layout.astro';
----
-
-<Layout title="Page Not Found">
-  <h1>404 - Page Not Found</h1>
-  <p>The page you're looking for doesn't exist.</p>
-  <a href="/">Go Home</a>
-</Layout>
+npx astro add tailwind
 ```
 
 ```astro
----
-// src/pages/500.astro (SSR only)
-import Layout from '../layouts/Layout.astro';
-
-const error = Astro.props.error;
----
-
-<Layout title="Server Error">
-  <h1>500 - Server Error</h1>
-  <p>Something went wrong.</p>
-  {import.meta.env.DEV && <pre>{error.message}</pre>}
-</Layout>
+<div class="flex items-center justify-between p-4 bg-blue-500">
+  <h1 class="text-2xl font-bold text-white">Hello</h1>
+</div>
 ```
 
-### Environment Variables
+## View Transitions
+
+```astro
+---
+import { ViewTransitions } from 'astro:transitions';
+---
+
+<html>
+  <head>
+    <ViewTransitions />
+  </head>
+  <body>
+    <header transition:persist>
+      <!-- Persists across page navigations -->
+    </header>
+    <main transition:animate="slide">
+      <slot />
+    </main>
+  </body>
+</html>
+```
+
+**Custom transitions:**
+```astro
+<div transition:name="hero" transition:animate="fade">
+  <img src={heroImage} alt="" />
+</div>
+```
+
+## Image Optimization
+
+```astro
+---
+import { Image } from 'astro:assets';
+import heroImage from '../assets/hero.png';
+---
+
+<!-- Optimized image -->
+<Image src={heroImage} alt="Hero" />
+
+<!-- With dimensions -->
+<Image src={heroImage} alt="Hero" width={800} height={600} />
+
+<!-- Remote image -->
+<Image
+  src="https://example.com/image.jpg"
+  alt="Remote"
+  width={400}
+  height={300}
+/>
+```
+
+## Environment Variables
 
 ```bash
 # .env
 PUBLIC_API_URL=https://api.example.com
-SECRET_KEY=private_value
+SECRET_KEY=abc123
 ```
 
 ```astro
 ---
-// Access in component script
+// Server-side (secret)
+const secret = import.meta.env.SECRET_KEY;
+
+// Client-side (public)
 const apiUrl = import.meta.env.PUBLIC_API_URL;
-const secret = import.meta.env.SECRET_KEY; // Server-only
 ---
-
-<!-- Only PUBLIC_ prefixed vars available in templates -->
-<p>API: {import.meta.env.PUBLIC_API_URL}</p>
 ```
 
-### RSS Feed
+## Best Practices
 
-```typescript
-// src/pages/rss.xml.ts
-import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
+1. **Default to static** - Only add interactivity where needed
+2. **Use content collections** - For any structured content
+3. **Lazy load islands** - Use `client:visible` for below-fold content
+4. **Colocate styles** - Use scoped styles in components
+5. **Optimize images** - Use `astro:assets` for automatic optimization
 
-export async function GET(context) {
-  const posts = await getCollection('blog');
+## Common Mistakes
 
-  return rss({
-    title: 'My Blog',
-    description: 'A blog about stuff',
-    site: context.site,
-    items: posts.map(post => ({
-      title: post.data.title,
-      pubDate: post.data.date,
-      description: post.data.description,
-      link: `/blog/${post.slug}/`
-    }))
-  });
-}
-```
+| Mistake | Fix |
+|---------|-----|
+| Adding `client:*` everywhere | Only for truly interactive components |
+| Large client bundles | Split into smaller islands |
+| Not using content collections | For blogs, docs, use collections |
+| Fetching in client components | Fetch in Astro component script |
+| Ignoring `getStaticPaths` | Required for dynamic routes |
 
----
+## Reference Files
 
-## Resources
+- [references/content-collections.md](references/content-collections.md) - Advanced collection patterns
+- [references/islands.md](references/islands.md) - Islands architecture deep dive
+- [references/deployment.md](references/deployment.md) - Deployment options
 
-- [Astro Documentation](https://docs.astro.build/)
-- [Astro Integrations](https://astro.build/integrations/)
-- [Astro Themes](https://astro.build/themes/)
-- [Astro GitHub](https://github.com/withastro/astro)
-- [Astro Discord](https://astro.build/chat)
+## Templates
 
----
-
-## Notes
-
-- Components render to static HTML by default (zero JS)
-- Use `client:*` directives for interactive components
-- Content collections provide type-safe Markdown/MDX
-- View transitions enable SPA-like navigation
-- Supports React, Vue, Svelte, Solid, Preact simultaneously
-- File-based routing with dynamic route support
-- Built-in image optimization for `src/` assets
+- [templates/page.astro](templates/page.astro) - Page component template
+- [templates/layout.astro](templates/layout.astro) - Layout component template

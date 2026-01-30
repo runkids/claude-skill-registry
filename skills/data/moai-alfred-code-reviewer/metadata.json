@@ -1,7 +1,7 @@
 {
   "name": "moai-alfred-code-reviewer",
-  "repo": "kivo360/quickhooks",
-  "path": ".claude/skills/moai-alfred-code-reviewer/SKILL.md",
-  "source": "github.com/kivo360/quickhooks",
-  "downloaded_at": "2026-01-29T04:26:35.727691Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-alfred-code-reviewer/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-30T03:23:29.647474Z"
 }

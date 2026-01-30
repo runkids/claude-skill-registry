@@ -1,243 +1,235 @@
 ---
 name: pr-description-generator
-description: Auto-activates when user mentions creating pull request, PR description, or merge request. Generates comprehensive PR descriptions from git diff and commit history.
-category: workflow
+description: Generate comprehensive pull request descriptions with summaries and test plans. Use when creating PR descriptions or documenting code changes.
 ---
 
-# Pull Request Description Generator
+# PR Description Generator Skill
 
-Generates comprehensive, professional PR descriptions that make reviews faster and easier.
+包括的なプルリクエスト説明を生成するスキルです。
 
-## When This Activates
+## 概要
 
-- User says: "create PR", "write PR description", "open pull request"
-- User runs: `gh pr create`
-- User asks: "what should my PR description say?"
+変更内容から、レビュアーに分かりやすいPR説明を自動生成します。
 
-## PR Description Template
+## 主な機能
+
+- **変更サマリー**: 何を変更したか
+- **変更理由**: なぜ変更したか
+- **テスト計画**: どうテストするか
+- **スクリーンショット**: UI変更の場合
+- **チェックリスト**: 確認事項
+- **Breaking Changes**: 互換性情報
+
+## 生成テンプレート
 
 ```markdown
-## 🎯 What
+## 📝 概要
 
-[One sentence summary of changes]
+[変更の簡潔な説明]
 
-## 🔨 Changes
+## 🎯 変更の目的
 
-- [Bullet points of key changes]
-- [Focus on user-visible changes]
-- [Mention refactoring/technical changes]
+[なぜこの変更が必要か]
 
-## 🤔 Why
+Fixes #[Issue番号]
 
-[Explanation of why this change is needed]
-[Link to issue/ticket if applicable]
+## 🔧 変更内容
 
-## 🧪 Testing
+- [ ] 機能A を追加
+- [ ] バグB を修正
+- [ ] パフォーマンス改善C
 
-- [ ] Unit tests pass
-- [ ] Integration tests pass
-- [ ] Manual testing completed
-- [ ] Edge cases verified
+## 📸 スクリーンショット（該当する場合）
 
-**Testing steps:**
-1. [How to test this locally]
-2. [What to look for]
-3. [Edge cases to verify]
+### Before
+[変更前のスクリーンショット]
 
-## 📸 Screenshots/Videos
+### After
+[変更後のスクリーンショット]
 
-[If UI changes: add before/after screenshots]
-[If workflow changes: add demo GIF/video]
+## 🧪 テスト計画
 
-## ⚠️ Breaking Changes
+- [ ] ユニットテスト追加/更新
+- [ ] 統合テスト実施
+- [ ] 手動テスト完了
+- [ ] E2Eテスト通過
 
-[If breaking: list what breaks and migration guide]
-[If not breaking: remove this section]
+**テスト手順:**
+1. ...
+2. ...
 
-## 📝 Checklist
+## 📋 チェックリスト
 
-- [ ] Tests added/updated
-- [ ] Documentation updated
-- [ ] Changelog updated (if applicable)
-- [ ] No hardcoded secrets
-- [ ] Follows code style guidelines
-- [ ] Reviewed own code first
+- [ ] コードレビュー済み
+- [ ] テスト追加済み
+- [ ] ドキュメント更新済み
+- [ ] Breaking Changesの場合、マイグレーションガイド作成
+- [ ] セキュリティ影響を確認
 
-## 🔗 Related
+## 🚨 Breaking Changes
 
-Closes #[issue number]
-Related: #[related PR/issue]
-Depends on: #[dependency PR]
+[該当する場合のみ]
+
+**変更内容:**
+...
+
+**マイグレーション方法:**
+...
+
+## 📚 関連リンク
+
+- [関連Issue](...)
+- [デザインドック](...)
+- [技術仕様書](...)
+
+## 💬 レビュー観点
+
+以下の点を特に確認してください：
+- ...
+- ...
 ```
 
-## Process
+## 生成例
 
-1. **Gather context:**
-   ```bash
-   git log origin/main..HEAD --oneline
-   git diff origin/main..HEAD --stat
-   ```
-
-2. **Analyze changes:**
-   - What's the main feature/fix?
-   - What files were touched?
-   - Any breaking changes?
-   - UI changes?
-
-3. **Generate description:**
-   - Clear "What" summary
-   - Detailed "Changes" list
-   - Explain "Why" this matters
-   - Testing instructions
-   - Screenshots if UI changed
-
-4. **Present to user** for review/edit
-
-## Examples
-
-### Feature PR
+### 新機能追加
 
 ```markdown
-## 🎯 What
+## 📝 概要
 
-Add user authentication with JWT tokens
+ユーザーダッシュボードにリアルタイム通知機能を追加しました。
 
-## 🔨 Changes
+## 🎯 変更の目的
 
-- Implemented JWT-based authentication system
-- Added login and register endpoints
-- Created auth middleware for protected routes
-- Added password hashing with bcrypt
-- Implemented token refresh mechanism
-
-## 🤔 Why
-
-Users need secure authentication to access protected features.
-Current system uses session cookies which don't work well with our mobile app.
-
-Closes #123
-
-## 🧪 Testing
-
-- [x] Unit tests pass (18 new tests added)
-- [x] Integration tests pass
-- [x] Manual testing completed
-- [x] Tested token expiration and refresh
-
-**Testing steps:**
-1. Run `npm test`
-2. Start server: `npm run dev`
-3. Register new user: POST `/api/auth/register`
-4. Login: POST `/api/auth/login`
-5. Access protected route with token in Authorization header
-6. Verify token expires after 15 minutes
-
-## 📸 Screenshots
-
-![Login flow](./screenshots/login-flow.gif)
-
-## 📝 Checklist
-
-- [x] Tests added (18 new tests)
-- [x] Documentation updated (API.md)
-- [x] Changelog updated
-- [x] No hardcoded secrets (all in .env.example)
-- [x] Follows ESLint rules
-- [x] Reviewed own code
-
-## 🔗 Related
-
-Closes #123
-Depends on: #120 (database schema)
-```
-
-### Bug Fix PR
-
-```markdown
-## 🎯 What
-
-Fix null pointer exception in user profile page
-
-## 🔨 Changes
-
-- Added null check for user.avatar before rendering
-- Added default avatar fallback
-- Updated ProfileCard component tests
-
-## 🤔 Why
-
-Users without avatars were seeing blank profile pages.
-This happened when users registered via OAuth (no avatar uploaded).
+ユーザーが重要なイベントをすぐに確認できるようにするため。
+これにより、ユーザーエンゲージメントが向上することが期待されます。
 
 Fixes #234
 
-## 🧪 Testing
+## 🔧 変更内容
 
-- [x] Unit tests pass (2 new tests)
-- [x] Manual testing: Created user without avatar, profile renders correctly
+- [x] WebSocket接続の実装
+- [x] 通知コンポーネントの作成
+- [x] 通知設定画面の追加
+- [x] バックエンドAPI の実装
+- [x] Redis Pub/Subの統合
 
-**Test cases:**
-1. User with avatar → renders avatar ✅
-2. User without avatar → renders default avatar ✅
-3. User with null avatar property → renders default avatar ✅
+**主要な変更ファイル:**
+- `src/components/Notification.tsx` (新規)
+- `src/services/websocket.ts` (新規)
+- `backend/api/notifications.py` (新規)
+- `backend/websocket/server.py` (変更)
 
-## 📝 Checklist
+## 📸 スクリーンショット
 
-- [x] Tests added for null case
-- [x] No breaking changes
-- [x] Verified in staging environment
+### 通知ポップアップ
+![Notification](https://example.com/notification.png)
+
+### 設定画面
+![Settings](https://example.com/settings.png)
+
+## 🧪 テスト計画
+
+- [x] ユニットテスト追加（カバレッジ: 92%）
+- [x] WebSocket接続テスト
+- [x] 複数ブラウザでの動作確認
+- [x] 負荷テスト（1000同時接続）
+
+**手動テスト手順:**
+1. ログイン
+2. ダッシュボードを開く
+3. 別のユーザーから通知をトリガー
+4. リアルタイムで通知が表示されることを確認
+5. 通知設定でオン/オフを切り替え
+6. 設定が保存されることを確認
+
+## 📋 チェックリスト
+
+- [x] ESLint/Prettier でフォーマット
+- [x] TypeScript型エラーなし
+- [x] テストカバレッジ 90%以上
+- [x] ドキュメント更新（README、API仕様）
+- [x] セキュリティレビュー完了
+- [x] パフォーマンステスト通過
+- [ ] デザインレビュー待ち
+
+## 🚨 Breaking Changes
+
+なし
+
+## 📚 関連リンク
+
+- [デザイン仕様](https://figma.com/...)
+- [技術設計書](https://docs.google.com/...)
+- [WebSocket仕様](https://github.com/...)
+
+## 💬 レビュー観点
+
+以下の点を特に確認してください：
+- WebSocket接続の安定性
+- 通知の表示タイミング
+- エラーハンドリング
+- メモリリーク の有無
+- モバイル表示の確認
+
+## 📊 パフォーマンス影響
+
+- 初回ロード時間: +50ms（許容範囲内）
+- メモリ使用量: +2MB（WebSocket接続時）
+- CPU使用率: 変化なし
 ```
 
-## Smart Features
+### バグ修正
 
-### Auto-Detect Breaking Changes
+```markdown
+## 📝 概要
 
-```javascript
-// If code diff shows:
-// - Removed exports
-// - Changed function signatures
-// - Renamed database columns
-// → Automatically mark as BREAKING CHANGE
+決済フローで発生していたタイムアウトエラーを修正しました。
+
+## 🎯 変更の目的
+
+本番環境で断続的に発生していた決済失敗（約5%）を解消します。
+
+Fixes #789
+
+## 🔧 変更内容
+
+**根本原因:**
+外部決済APIへのリクエストタイムアウトが3秒と短すぎた。
+ネットワーク遅延により、タイムアウトが頻発していた。
+
+**修正内容:**
+- [x] タイムアウトを3秒→10秒に延長
+- [x] リトライロジックの追加（最大3回）
+- [x] エラーログの改善
+- [x] ユーザーへのフィードバック改善
+
+## 🧪 テスト計画
+
+- [x] ユニットテスト更新
+- [x] ネットワーク遅延シミュレーション
+- [x] ステージング環境で100回の決済テスト（成功率100%）
+- [x] エラーケースのテスト
+
+## 📋 チェックリスト
+
+- [x] コードレビュー済み
+- [x] 本番ログで原因確認
+- [x] ステージングで検証完了
+- [x] ホットフィックスとして即デプロイ可能
+
+## 🚨 影響範囲
+
+**本番環境への影響:**
+- ダウンタイムなし
+- 既存の決済処理に影響なし
+- 後方互換性あり
+
+**期待される効果:**
+- 決済成功率: 95% → 99.5%
+- ユーザー満足度向上
 ```
 
-### Auto-Generate Testing Steps
+## バージョン情報
 
-```javascript
-// If PR adds new API endpoint:
-// → Auto-generate curl commands for testing
-
-// If PR adds UI component:
-// → Auto-generate component usage example
-```
-
-### Auto-Link Issues
-
-```javascript
-// Scan commit messages for: "fixes #123", "closes #456"
-// → Automatically add to PR description footer
-```
-
-## Rules
-
-✅ **DO:**
-- Write for reviewers (assume they're busy)
-- Include "why" not just "what"
-- Add testing instructions
-- Show UI changes with screenshots
-- List breaking changes prominently
-
-❌ **DON'T:**
-- Be vague ("fixed some bugs")
-- Assume reviewers know context
-- Skip testing section
-- Forget to link related issues
-- Submit without self-review
-
-## Automation
-
-```bash
-# Generate and create PR in one command
-gh pr create --title "feat: add authentication" --body "$(droid generate-pr-description)"
-```
-
-**Always show description to user before creating PR.**
+- スキルバージョン: 1.0.0
+- 最終更新: 2025-01-22

@@ -1,9 +1,7 @@
 {
   "name": "absinthe-resolvers",
-  "description": "Use when implementing GraphQL resolvers with Absinthe. Covers resolver patterns, dataloader integration, batching, and error handling.",
   "repo": "TheBushidoCollective/han",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/TheBushidoCollective/han"
+  "path": "jutsu/jutsu-absinthe-graphql/skills/absinthe-resolvers/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-30T03:33:57.345731Z"
 }

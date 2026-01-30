@@ -1,12 +1,7 @@
 {
   "name": "skyrim-audio",
-  "description": "Handle Skyrim audio files including FUZ, XWM, and WAV formats. Use when the user wants to inspect audio, extract voice files, create FUZ files, or convert audio formats.",
   "repo": "SpookyPirate/spookys-automod-toolkit",
-  "category": "development",
-  "tags": [
-    "skyrim",
-    "audio"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/skyrim-audio/SKILL.md",
+  "source": "github.com/SpookyPirate/spookys-automod-toolkit",
+  "downloaded_at": "2026-01-30T03:13:50.751747Z"
 }

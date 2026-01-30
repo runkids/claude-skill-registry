@@ -1,293 +1,340 @@
 ---
-name: cfn-deployment
-version: 1.0.0
-description: Automated skill deployment pipeline for CFN Loop integration
-author: Task 1.1 Implementation Team
-dependencies: []
-tags: [deployment, automation, skills, pipeline]
+name: Deployment
+description: Deploy applications ไปยังทุก platform อย่างมืออาชีพ
 ---
 
-# CFN Deployment Skill
+# Deployment Skill
 
-Automated skill deployment pipeline that transitions approved skills from APPROVED → DEPLOYED state with atomic cross-database transactions, validation, and rollback capability.
+## Overview
 
-## Purpose
+Skill สำหรับ deploy applications ตั้งแต่ containerization จนถึง production deployment
 
-This skill enables CFN Loop agents to deploy skills to production through a fully automated pipeline that ensures:
-- Validation before deployment
-- Atomic transactions across databases
-- Automatic version management
-- Comprehensive audit trail
-- Rollback capability on failure
+## Docker Containerization
 
-## Usage
+### Frontend Dockerfile (Next.js/React/Vue)
 
-### Basic Deployment
+```dockerfile
+# Build stage
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
 
-```bash
-# Deploy a skill from approved directory
-./scripts/deploy-approved-skills.sh .claude/skills/authentication
+# Production stage
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules ./node_modules
+
+EXPOSE 3000
+CMD ["npm", "start"]
 ```
 
-### Advanced Deployment
+### Angular Dockerfile
 
-```bash
-# Deploy with explicit version
-./scripts/deploy-approved-skills.sh .claude/skills/authentication --version=2.0.0
+```dockerfile
+# Build stage
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build -- --configuration=production
 
-# Deploy with user attribution
-./scripts/deploy-approved-skills.sh .claude/skills/authentication --deployed-by=admin@example.com
-
-# Skip validation (admin only, dangerous)
-./scripts/deploy-approved-skills.sh .claude/skills/authentication --skip-validation
+# Production stage
+FROM nginx:alpine
+COPY --from=builder /app/dist/*/browser /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
 ```
 
-## Integration with TypeScript
+### Spring Boot Dockerfile
 
-```typescript
-import { DatabaseService } from './src/lib/database-service';
-import { SkillDeploymentPipeline } from './src/services/skill-deployment';
+```dockerfile
+# Build stage
+FROM eclipse-temurin:21-jdk-alpine AS builder
+WORKDIR /app
+COPY mvnw pom.xml ./
+COPY .mvn .mvn
+RUN ./mvnw dependency:go-offline
+COPY src ./src
+RUN ./mvnw package -DskipTests
 
-const dbService = new DatabaseService({
-  sqlite: {
-    type: 'sqlite',
-    database: './data/cfn-loop.db',
-  },
-});
-
-await dbService.connect();
-
-const pipeline = new SkillDeploymentPipeline(dbService);
-
-const result = await pipeline.deploySkill({
-  skillPath: '.claude/skills/authentication',
-  deployedBy: 'system',
-});
-
-if (result.success) {
-  console.log(`Deployed: ${result.skillName} v${result.version}`);
-} else {
-  console.error(`Deployment failed: ${result.error}`);
-}
-
-await dbService.disconnect();
+# Production stage
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
 ```
 
-## Validation Checks
+### Node.js Dockerfile
 
-Before deployment, the pipeline validates:
-
-1. **Content Path**: Skill directory exists with required files
-2. **Schema Compliance**: SKILL.md frontmatter is valid
-3. **Name Uniqueness**: No existing skill with same name
-4. **Version Conflict**: Version doesn't already exist
-5. **Execute Script**: execute.sh is executable
-6. **Tests**: test.sh exists and is executable (warning only)
-
-## Deployment Workflow
-
-```
-APPROVED → DEPLOYING → DEPLOYED (success)
-                     → FAILED (validation/error)
-                     → ROLLED_BACK (rollback triggered)
+```dockerfile
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY dist ./dist
+EXPOSE 3000
+CMD ["node", "dist/index.js"]
 ```
 
-### Atomic Deployment
+### Python FastAPI Dockerfile
 
-Deployment is atomic across:
-- SQLite Skills DB (skills table)
-- SQLite Audit Trail (deployment_audit table)
-
-All operations succeed or all are rolled back.
-
-## Rollback
-
-```typescript
-// Rollback a deployment
-const success = await pipeline.rollbackDeployment(deploymentId);
-
-if (success) {
-  console.log('Deployment rolled back successfully');
-}
+```dockerfile
+FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app ./app
+EXPOSE 8000
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-## Deployment History
+---
 
-```typescript
-// Get deployment history for a skill
-const history = await pipeline.getDeploymentHistory('authentication', 10);
+## Docker Compose
 
-history.forEach(audit => {
-  console.log(`${audit.deployed_at}: ${audit.from_status} → ${audit.to_status}`);
-});
+### Development Environment
+
+```yaml
+version: "3.8"
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8080
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/mydb
+      - JWT_SECRET=dev-secret
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=mydb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
 ```
 
-## Error Handling
+---
 
-The pipeline provides detailed error messages:
+## Kubernetes Deployment
 
-```typescript
-const result = await pipeline.deploySkill({ skillPath: '/invalid/path' });
+### Namespace
 
-if (!result.success) {
-  console.error('Error:', result.error);
-
-  if (result.validationResult) {
-    result.validationResult.errors.forEach(err => {
-      console.error(`- ${err.code}: ${err.message}`);
-    });
-  }
-}
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: myapp
 ```
 
-## Audit Trail
+### Deployment
 
-All deployment operations are recorded in the `deployment_audit` table:
-
-```sql
-SELECT
-  skill_id,
-  from_status,
-  to_status,
-  version,
-  success,
-  deployed_by,
-  deployed_at,
-  error_message
-FROM deployment_audit
-WHERE skill_id = 'skill-authentication-1.0.0-1234567890'
-ORDER BY deployed_at DESC;
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: myapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: myregistry/backend:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: url
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
 ```
 
-## Security Considerations
+### Service
 
-- **Validation Required**: Always validate skills before deployment (use `--skip-validation` sparingly)
-- **User Attribution**: Track who deployed each skill via `--deployed-by` parameter
-- **Version Control**: Prevent version conflicts through automatic checking
-- **Rollback Capability**: Recover from failed deployments quickly
-
-## Performance
-
-- Deployment completes in <1 second for typical skills
-- Validation adds ~200ms overhead
-- Database transaction commits are atomic and fast
-
-## Integration Points
-
-### Phase 4 Workflow Patterns
-
-The deployment pipeline integrates with Phase 4 workflow patterns (future enhancement):
-
-```typescript
-// Future: Deploy to PostgreSQL workflow_patterns table
-const tx = await dbService.executeTransaction([
-  {
-    database: 'sqlite',
-    operation: async (adapter) => {
-      return adapter.insert('skills', { ... });
-    },
-  },
-  {
-    database: 'postgres',
-    operation: async (adapter) => {
-      return adapter.insert('workflow_patterns', {
-        skill_id: skillId,
-        version: version,
-        status: 'DEPLOYED',
-      });
-    },
-  },
-]);
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: myapp
+spec:
+  selector:
+    app: backend
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: ClusterIP
 ```
 
-### CFN Loop Integration
+### Ingress
 
-CFN coordinators can use this skill to automate skill deployment:
-
-```bash
-# In CFN Loop coordinator agent
-SKILL_PATH=".claude/skills/new-skill"
-
-if [[ -f "$SKILL_PATH/SKILL.md" ]]; then
-  ./scripts/deploy-approved-skills.sh "$SKILL_PATH" --deployed-by="cfn-coordinator"
-  echo "Skill deployed successfully"
-fi
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress
+  namespace: myapp
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+    - hosts:
+        - api.myapp.com
+      secretName: myapp-tls
+  rules:
+    - host: api.myapp.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: backend
+                port:
+                  number: 80
 ```
 
-## Monitoring Dashboard (Future)
+---
 
-Planned dashboard features:
-- Recent deployments
-- Success/failure rate
-- Deployment timeline
-- Version history
-- Failed deployment analysis
+## CI/CD Pipeline
 
-## Testing
+### GitHub Actions
 
-Comprehensive test coverage (95%+) ensures:
-- Validation logic correctness
-- Atomic transaction behavior
-- Rollback functionality
-- Error handling
-- Edge case coverage
+```yaml
+name: CI/CD
 
-Run tests:
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
-```bash
-npm test -- tests/skill-deployment.test.ts
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      - run: npm test
+      - run: npm run lint
+
+  build-and-push:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: myregistry/myapp:${{ github.sha }}
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl set image deployment/backend \
+            backend=myregistry/myapp:${{ github.sha }}
 ```
 
-## Troubleshooting
+---
 
-### Deployment Fails with "Name Not Unique"
+## Deployment Checklist
 
-**Problem**: Skill with same name already exists
+### Pre-deployment
 
-**Solution**: Either:
-- Choose a different skill name
-- Archive the existing skill
-- Update the existing skill instead of creating new one
+- [ ] Tests ผ่านหมด
+- [ ] Build สำเร็จ
+- [ ] Environment variables ถูกต้อง
+- [ ] Database migrations พร้อม
+- [ ] Secrets ถูก configure
 
-### Deployment Fails with "Version Conflict"
+### Deployment
 
-**Problem**: Version already exists for this skill
+- [ ] Create/Update Docker images
+- [ ] Push to container registry
+- [ ] Update Kubernetes manifests
+- [ ] Apply to cluster
+- [ ] Verify pods running
 
-**Solution**: Either:
-- Use auto-versioning (don't specify `--version`)
-- Specify a different explicit version
-- Increment version in SKILL.md frontmatter
+### Post-deployment
 
-### Validation Fails with "Execute Script Not Executable"
-
-**Problem**: execute.sh doesn't have execute permissions
-
-**Solution**:
-```bash
-chmod +x .claude/skills/your-skill/execute.sh
-```
-
-### Database Connection Error
-
-**Problem**: SQLite database not accessible
-
-**Solution**:
-- Check database path exists
-- Verify file permissions
-- Ensure database is not locked
-
-## Related Documentation
-
-- [Skill Validator](../../src/services/skill-validator.ts) - Validation logic
-- [Skill Versioning](../../src/services/skill-versioning.ts) - Version management
-- [Database Service](../../src/lib/database-service/) - Database abstraction
-- [Integration Plan](../../docs/DATABASE_QUERY_ABSTRACTION.md) - Overall architecture
-
-## Future Enhancements
-
-- PostgreSQL workflow_patterns integration
-- Deployment webhooks/notifications
-- Automated rollback on health check failures
-- A/B deployment testing
-- Deployment dashboard UI
-- Git integration for deployment commits
+- [ ] Smoke test endpoints
+- [ ] ตรวจสอบ logs
+- [ ] Monitor metrics
+- [ ] Verify health checks
+- [ ] Rollback plan พร้อม

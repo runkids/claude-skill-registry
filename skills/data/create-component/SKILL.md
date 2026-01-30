@@ -1,54 +1,30 @@
 ---
 name: create-component
-description: Creates React components for SideDish. Use when adding new UI components, modals, forms, or interactive elements. Includes TypeScript interfaces, styling patterns, and security considerations.
+description: Add a new component to the design system
 ---
 
-# Create Component Skill
+# Create Component
 
-## Instructions
+When creating Equality components,
 
-1. Create in `src/components/ComponentName.tsx`
-2. Add `'use client'` for interactive components
-3. Define props interface above component
-4. Use `React.FC<Props>` pattern
-5. Export as default
+## Common Patterns
 
-## Component Template
+### States
 
-```tsx
-'use client'
+We commonly use the following states for components:
 
-import { useState } from 'react'
+- Neutral (Default)
+- Primary (A hierarchical increase, uses the primary brand color)
+- Success (Something has worked correctly)
+- Warning (The user should be informed that something may not be working as intended or requires attention)
+- Danger (Destructive actions or serious errors)
 
-interface ComponentNameProps {
-  title: string
-  onClick?: () => void
-  children?: React.ReactNode
-}
+### Prefix and Suffix Slots
 
-const ComponentName: React.FC<ComponentNameProps> = ({ title, onClick, children }) => {
-  const [isLoading, setIsLoading] = useState(false)
+Components like "Button" and "Input" have `prefix` and `suffix` slots to place icons or buttons before, or after the primary component content.
 
-  return (
-    <div className="bg-white rounded-xl p-6 shadow-lg">
-      <h2 className="text-lg font-bold text-slate-900">{title}</h2>
-      {children}
-    </div>
-  )
-}
+## Documentation
 
-export default ComponentName
-```
+After creating the component in the "ui" package, always create a corresponding docs MDX under `packages/demo/src/content/components`.
 
-## Korean Text
-- Buttons: 등록하기, 저장하기, 취소, 삭제
-- Labels: 제목, 설명, 태그
-- Errors: 오류가 발생했습니다
-
-## Security
-```tsx
-import SafeMarkdown from '@/components/SafeMarkdown'
-<SafeMarkdown>{userContent}</SafeMarkdown>
-```
-
-For form components, modal template, and complete patterns, see [reference.md](reference.md).
+Review the `create-documentation` skill for instructions on how to format the docs.

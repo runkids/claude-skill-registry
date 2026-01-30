@@ -1,317 +1,208 @@
 ---
 name: api-documentation-generator
-description: Auto-activates when user mentions API documentation, endpoint docs, API reference, or OpenAPI spec. Generates comprehensive API documentation from code.
-category: documentation
+description: Automated API documentation generation with support for OpenAPI/Swagger specifications, endpoint analysis, request/response examples, authentication methods, rate limiting, and integration guides. Use when Claude needs to generate API documentation, analyze existing APIs, create specification files, or produce developer-friendly documentation.
 ---
 
 # API Documentation Generator
 
-Automatically generates professional API documentation from your code, including OpenAPI/Swagger specs.
+## Overview
+This skill automates the creation and maintenance of comprehensive API documentation with support for industry-standard formats and developer-friendly presentation. It intelligently analyzes source code to extract API contracts and generates complete, accurate documentation.
 
-## When This Activates
+## When to Use This Skill
+- Generating OpenAPI/Swagger specifications from code
+- Creating API documentation from existing endpoints
+- Updating documentation to match API changes
+- Producing developer guides and integration tutorials
+- Analyzing API contracts and dependencies
+- Converting API specifications between formats
+- Reverse-engineering undocumented APIs
+- Generating client SDK documentation
+- Creating interactive API explorers
 
-- User says: "generate API docs", "document this API", "create API reference"
-- User mentions: "OpenAPI spec", "Swagger docs", "API documentation"
-- Files being worked on: API routes, controllers, endpoints
+## Supported Languages & Frameworks
+### REST APIs
+- Express.js / Fastify (Node.js)
+- Flask / Django (Python)
+- Spring Boot (Java)
+- ASP.NET Core (C#)
+- Ruby on Rails
+- Laravel (PHP)
 
-## Documentation Formats
+### GraphQL APIs
+- Schema introspection
+- Query/mutation/subscription documentation
+- Type definitions and relationships
 
-### 1. OpenAPI 3.0 Spec (Recommended)
+### Other API Types
+- gRPC services and protobuf definitions
+- SOAP web services
+- Webhook documentation
 
-```yaml
-openapi: 3.0.0
-info:
-  title: Your API Name
-  version: 1.0.0
-  description: API for [purpose]
-  contact:
-    name: API Support
-    email: api@example.com
+## Supported Formats
+- OpenAPI 3.0/3.1 (formerly Swagger)
+- Swagger 2.0
+- AsyncAPI 2.x (for event-driven APIs)
+- RAML 1.0
+- API Blueprint
+- Postman Collections
+- GraphQL Schema Definition Language (SDL)
+- JSON Schema
+- HAR (HTTP Archive format)
 
-servers:
-  - url: https://api.example.com/v1
-    description: Production
-  - url: https://api-staging.example.com/v1
-    description: Staging
+## Documentation Components
 
-paths:
-  /users:
-    get:
-      summary: List all users
-      description: Returns a paginated list of users
-      tags:
-        - Users
-      parameters:
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 1
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            default: 20
-            maximum: 100
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/User'
-                  pagination:
-                    $ref: '#/components/schemas/Pagination'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
+### API Information
+- Title, description, and version
+- Contact details and support information
+- License information and terms of service
+- External documentation links
+- API lifecycle stage (development, beta, stable, deprecated)
 
-components:
-  schemas:
-    User:
-      type: object
-      required:
-        - id
-        - email
-        - name
-      properties:
-        id:
-          type: string
-          format: uuid
-          example: "123e4567-e89b-12d3-a456-426614174000"
-        email:
-          type: string
-          format: email
-          example: "user@example.com"
-        name:
-          type: string
-          example: "John Doe"
-        createdAt:
-          type: string
-          format: date-time
-          example: "2025-01-01T00:00:00Z"
-```
+### Endpoints & Operations
+- HTTP methods and paths
+- Path, query, header, and cookie parameters
+- Request body schemas with validation rules
+- Response schemas for all status codes
+- Example requests and responses
+- Deprecation notices and migration guidance
 
-### 2. Markdown API Reference
+### Security Definitions
+- API key authentication
+- OAuth 2.0 flows (Authorization Code, Client Credentials, etc.)
+- JWT/Token authentication
+- Basic/Digest authentication
+- Mutual TLS
+- Custom authentication schemes
+- Security requirement mappings per endpoint
 
-```markdown
-# API Reference
+### Advanced Features
+- Server definitions with variables
+- Tags for logical grouping
+- External documentation
+- Callback definitions
+- Link relations
+- Webhooks and event documentation
+- Discriminator objects for polymorphism
 
-## Authentication
+## Analysis Capabilities
 
-All API requests require authentication via Bearer token:
+### Code Analysis
+- Framework-specific route detection
+- Parameter and schema inference
+- Authentication method identification
+- Error response pattern recognition
+- Validation rule extraction
 
-\`\`\`bash
-Authorization: Bearer YOUR_API_KEY
-\`\`\`
+### Schema Detection
+- Request/response schema analysis
+- Type inference from code
+- Validation constraints mapping
+- Default value extraction
+- Enum value detection
 
-## Base URL
-
-- Production: `https://api.example.com/v1`
-- Staging: `https://api-staging.example.com/v1`
-
-## Endpoints
-
-### List Users
-
-`GET /users`
-
-Returns a paginated list of users.
-
-**Query Parameters:**
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `page` | integer | 1 | Page number |
-| `limit` | integer | 20 | Items per page (max 100) |
-| `sort` | string | `createdAt` | Sort field |
-| `order` | string | `desc` | Sort order (`asc` or `desc`) |
-
-**Response:**
-
-\`\`\`json
-{
-  "data": [
-    {
-      "id": "123e4567-e89b-12d3-a456-426614174000",
-      "email": "user@example.com",
-      "name": "John Doe",
-      "createdAt": "2025-01-01T00:00:00Z"
-    }
-  ],
-  "pagination": {
-    "page": 1,
-    "limit": 20,
-    "total": 100,
-    "totalPages": 5
-  }
-}
-\`\`\`
-
-**Error Responses:**
-
-| Status | Description |
-|--------|-------------|
-| 400 | Invalid query parameters |
-| 401 | Unauthorized (missing or invalid token) |
-| 429 | Rate limit exceeded |
-| 500 | Internal server error |
-
-**Example:**
-
-\`\`\`bash
-curl -H "Authorization: Bearer YOUR_API_KEY" \\
-  "https://api.example.com/v1/users?page=1&limit=20"
-\`\`\`
-```
-
-## Process
-
-1. **Scan API files:**
-   - Read route definitions
-   - Extract controllers/handlers
-   - Find validation schemas
-   - Identify auth requirements
-
-2. **Extract metadata:**
-   - HTTP methods
-   - URL paths
-   - Query/body parameters
-   - Response types
-   - Error codes
-
-3. **Generate documentation:**
-   - OpenAPI spec OR Markdown
-   - Include examples for every endpoint
-   - Document authentication
-   - Add rate limiting info
-   - Include error responses
-
-4. **Validate:**
-   - Check OpenAPI spec validity
-   - Ensure all endpoints documented
-   - Verify example requests work
-
-## Auto-Detection
-
-### Express.js
-
-```javascript
-// Detected pattern:
-app.get('/api/users', authMiddleware, async (req, res) => {
-  // Auto-document: GET /api/users, requires auth
-});
-```
-
-### Next.js API Routes
-
-```typescript
-// Detected pattern:
-export async function GET(request: Request) {
-  // Auto-document: GET endpoint in Next.js
-}
-```
-
-### FastAPI
-
-```python
-# Detected pattern:
-@app.get("/users", response_model=List[User])
-async def list_users(page: int = 1, limit: int = 20):
-    # Auto-generate from FastAPI annotations
-```
-
-## Code Examples
-
-Generate working examples for every endpoint:
-
-```bash
-# cURL
-curl -X GET "https://api.example.com/v1/users?page=1" \\
-  -H "Authorization: Bearer YOUR_TOKEN"
-
-# JavaScript/Fetch
-fetch('https://api.example.com/v1/users?page=1', {
-  headers: { 'Authorization': 'Bearer YOUR_TOKEN' }
-})
-  .then(res => res.json())
-  .then(data => console.log(data));
-
-# Python/Requests
-import requests
-response = requests.get(
-  'https://api.example.com/v1/users',
-  params={'page': 1},
-  headers={'Authorization': 'Bearer YOUR_TOKEN'}
-)
-print(response.json())
-```
-
-## Interactive Docs
-
-If using OpenAPI spec, recommend tools:
-
-```bash
-# Generate interactive docs with Swagger UI
-npx swagger-ui-watcher openapi.yaml
-
-# Or Redoc
-npx redoc-cli serve openapi.yaml
-
-# Or Stoplight Elements
-npx @stoplight/elements-dev-portal openapi.yaml
-```
+### Security Analysis
+- Authentication scheme identification
+- Permission/role mapping
+- Security requirement inference
+- Credential location detection
 
 ## Best Practices
 
-✅ **DO:**
-- Include working examples for every endpoint
-- Document error responses with examples
-- Show authentication requirements
-- Explain rate limiting
-- Include pagination details
-- Add timestamps to examples
-- Show both success and error responses
+### Writing Effective Descriptions
+- Use clear, concise language
+- Explain purpose and behavior
+- Document side effects
+- Specify business context
+- Include usage examples
+- Define business terminology
 
-❌ **DON'T:**
-- Document without testing endpoints
-- Use vague parameter descriptions
-- Skip error response documentation
-- Forget to document authentication
-- Use outdated examples
-- Miss query parameters
+### Parameter Documentation
+- Specify data types and constraints
+- Indicate required vs optional
+- Document default values
+- Explain validation rules
+- Include example values
+- Describe inter-parameter relationships
 
-## Output Files
+### Response Documentation
+- Detail all possible status codes
+- Document error response formats
+- Specify success and failure cases
+- Include example payloads
+- Explain response headers
+- Describe pagination patterns
 
-```
-docs/
-├── api/
-│   ├── openapi.yaml          # OpenAPI 3.0 spec
-│   ├── reference.md          # Markdown reference
-│   └── examples/
-│       ├── authentication.md
-│       ├── users.md
-│       └── pagination.md
-```
+### Security Documentation
+- Document authentication requirements
+- Explain authorization scopes
+- Specify rate limiting policies
+- Detail security headers
+- Provide security best practices
 
-## Maintenance
+## Generation Process
 
-```markdown
-## 📌 API Documentation Checklist
+### 1. API Discovery
+- Scan source code for API endpoints
+- Extract route definitions and HTTP methods
+- Identify API framework and patterns
+- Map endpoint relationships
 
-When adding new endpoints:
-- [ ] Update openapi.yaml
-- [ ] Add to reference.md
-- [ ] Include curl example
-- [ ] Document error responses
-- [ ] Test example requests
-- [ ] Update changelog
-```
+### 2. Schema Analysis
+- Analyze request/response structures
+- Infer data types and validation rules
+- Extract example values
+- Map relationships between entities
 
-**Auto-update docs when API changes detected.**
+### 3. Security Mapping
+- Identify authentication methods
+- Map authorization requirements
+- Document security schemes
+- Extract API key locations
+
+### 4. Specification Creation
+- Generate OpenAPI specification
+- Validate against standards
+- Add descriptions and examples
+- Organize endpoints by tags
+- Include server definitions
+
+### 5. Documentation Generation
+- Create human-readable documentation
+- Generate interactive API explorer
+- Produce client SDK documentation
+- Build integration guides
+- Export in multiple formats
+
+## Quality Assurance
+- Verify all endpoints are documented
+- Check for consistent naming
+- Validate example requests/responses
+- Ensure security schemes are clear
+- Confirm all parameters are documented
+- Test generated documentation usability
+- Validate against OpenAPI specification
+
+## Integration Guides
+- Authentication setup
+- Error handling patterns
+- Rate limiting considerations
+- Common use case examples
+- Troubleshooting tips
+- Migration guides for version changes
+- Performance optimization recommendations
+
+## Scripts Available
+- `scripts/generate-openapi.js` - Generate OpenAPI spec from code
+- `scripts/validate-spec.js` - Validate API specification
+- `scripts/export-docs.js` - Export documentation in various formats
+- `scripts/check-completeness.js` - Verify documentation completeness
+- `scripts/analyze-endpoints.js` - Deep endpoint analysis
+- `scripts/extract-schemas.js` - Extract and document data schemas
+- `scripts/generate-sdk-docs.js` - Generate client SDK documentation
+
+## References
+- `references/openapi-specification.md` - Complete OpenAPI specification guidelines and best practices
+- `references/documentation-best-practices.md` - API documentation best practices and writing guidelines
+- `references/framework-patterns.md` - Framework-specific API patterns and conventions
+- `references/security-schemes.md` - Comprehensive security scheme documentation
+- `references/error-handling.md` - API error handling patterns and documentation

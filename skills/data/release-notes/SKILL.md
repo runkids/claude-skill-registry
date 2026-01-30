@@ -1,93 +1,138 @@
 ---
 name: release-notes
-description: Helps generate release notes to be published on GitHub as well as in a Slack community channel
+description: Analyzes git commit and PR history to generate structured release notes (RELEASE_NOTES.md). Automatically categorizes changes, identifies contributors, and produces a polished release document through a brief confirmation interview.
 ---
 
-When tasked to generate release notes for a given version, your goal is to produce good-quality release notes focused on the user of Agent Stack. You don't need to provide a list of changed tickets or merged PRs; your goal is to provide human-readable release notes focused on the impact on the user.
+# Release Notes
 
-## Scope of the release
+## Overview
+This skill generates structured release notes by analyzing git history. It determines the version range from git tags, categorizes commits by type, identifies contributors, and produces a comprehensive `RELEASE_NOTES.md`. A brief interview confirms version number, highlights, and breaking changes before final output.
 
-The user generally provides a version tag for which they want to generate release notes. For example, they might tell you something like "Generate release notes for release-v0.5.0". Your first task is to figure out what the scope of the release is. The scope is basically a list of all merged PRs; once you have this list, you can proceed to the next steps.
+## Instructions
 
-### How to figure out the scope of the release
+### Phase 1: Discovery & Analysis
+1. Determine the version range to document:
+   - Run `git tag --sort=-version:refname` to find existing tags.
+   - If tags exist, use the range from the most recent tag to HEAD.
+   - If no tags exist, use `AskUserQuestion` to ask the user for the range (e.g., a specific commit SHA, "last 20 commits", or "all history").
+   - The user may also specify a custom range as an argument (e.g., `/release-notes v1.0.0..v1.1.0`).
 
-The user tells you for which version they want to generate the release notes, e.g., `release-v0.5.0`. Your next step is to figure out what the start commit in the git history is, and then you compare that with the head of the given release, e.g., `release-v0.5.0`.
+2. Collect commit history for the determined range:
+   - Run `git log <range> --pretty=format:"%H|%an|%ae|%s|%b" --no-merges` to get commit details.
+   - Run `git log <range> --pretty=format:"%H|%an|%ae|%s|%b" --merges` to identify PR merges.
+   - Run `git shortlog -sne <range>` to gather contributor information.
 
-The start commit is the latest stable version of the Agent Stack.
+3. Categorize each commit based on its message prefix or content:
+   - **Features**: Messages starting with `feat`, `add`, `new`, or containing "added", "implement"
+   - **Bug Fixes**: Messages starting with `fix`, `bugfix`, or containing "fixed", "resolve"
+   - **Breaking Changes**: Messages containing `BREAKING CHANGE`, `BREAKING:`, or using `!` after type (e.g., `feat!:`)
+   - **Improvements**: Messages starting with `refactor`, `improve`, `update`, `perf`, `enhance`
+   - **Documentation**: Messages starting with `docs`, `doc`
+   - **Other**: Messages starting with `chore`, `ci`, `build`, `test`, `style`, or anything else
 
-You can easily find the last release commit by looking at the `install` branch in `i-am-bee/agentstack` and checking the `install.sh` script in the root of the repo, which contains the `LATEST_STABLE_AGENTSTACK_VERSION` variable.
+4. For each category, extract a clean one-line summary from the commit message subject line. Strip conventional commit prefixes (e.g., `feat: add login` becomes `Add login`).
 
-For example, you can do something like this:
-```bash
-curl -s https://raw.githubusercontent.com/i-am-bee/agentstack/install/install.sh | grep 'LATEST_STABLE_AGENTSTACK_VERSION=' | cut -d'=' -f2
+5. Identify potential highlights by looking for:
+   - Commits with long bodies (detailed explanations suggest significance)
+   - Breaking changes
+   - Features with multiple related commits
+   - Merge commits from PRs (often represent larger changes)
+
+### Phase 2: Brief Interview
+6. Present the analysis summary to the user via `AskUserQuestion` and confirm:
+
+   **Round 1 - Version & Highlights:**
+   - "What version number should this release be?" (suggest based on changes: major if breaking, minor if features, patch if fixes only)
+   - "Here are the auto-detected highlights: [list]. Would you like to adjust, add, or remove any?" (provide options: "Looks good", "I'll adjust", with space for custom input)
+
+   **Round 2 - Breaking Changes & Extras (only if applicable):**
+   - If breaking changes were detected: "The following breaking changes were found: [list]. Do any of these need a migration guide?"
+   - "Any additional notes to include in the release? (e.g., deprecation notices, known issues, acknowledgments)"
+
+### Phase 3: Output
+7. Read the template file at `skills/release-notes/output-template.md` and use it as the structure for generating `RELEASE_NOTES.md` in the project root.
+   - Replace `vX.Y.Z` with the confirmed version number.
+   - Replace `YYYY-MM-DD` with today's date.
+   - Fill each section with the categorized commit data from Phase 1 and interview answers from Phase 2.
+8. Omit sections that have no entries (e.g., if there are no breaking changes, skip that section entirely).
+9. Write the file and inform the user of the output location.
+
+## Examples
+
+### Input
+```
+/release-notes
+```
+(In a project with git tag `v1.2.0` and 15 commits since that tag)
+
+### Phase 1 Output (internal analysis)
+```
+Range: v1.2.0..HEAD (15 commits)
+
+Categorized:
+- Features (3): Add OAuth login, Add user avatar upload, Add dark mode toggle
+- Bug Fixes (5): Fix session timeout, Fix mobile nav overlap, ...
+- Improvements (4): Refactor auth middleware, Improve query performance, ...
+- Other (3): Update CI config, Add unit tests for auth, ...
+
+Contributors: alice (7), bob (5), charlie (3)
+Suggested version: v1.3.0 (minor - new features, no breaking changes)
 ```
 
-This gives you a version number (e.g., `0.5.0`). The corresponding git tag for the latest stable Agent Stack version is formed by prepending `release-v` to this number (e.g., `release-v0.5.0`).
+### Interview Round 1
+```
+Questions:
+1. "Based on the changes (3 new features, no breaking changes), the suggested
+    version is v1.3.0. What version should this release be?"
+    Options: ["v1.3.0 (Recommended)", "v1.2.1 (patch)", "v2.0.0 (major)"]
 
-Now, knowing the start and end of the scope, you can figure out what the merged PRs are by calling the attached utility script:
-```bash
-./.claude/skills/release-notes/scripts/find-merged-prs.sh release-v0.5.2 release-v0.5.3
+2. "Auto-detected highlights: OAuth login support, dark mode toggle, and
+    significant auth middleware refactoring. Would you like to adjust these?"
+    Options: ["Looks good", "I'll provide my own"]
 ```
 
-## Identify high-impact features and changes
-
-Knowing the list of all merged PRs, you need to go through all of them and fetch their comments via the `gh` command.
-
-E.g.:
-```bash
-gh pr view PR_NUMBER --comments
-```
-
-This will give you a brief idea of what the feature is about. Look for comments from the `gemini-code-assist` user. These usually contain a comprehensive description of the PR, which should help you understand what has changed. If it's still unclear, you can look into the codebase to see more context.
-
-Based on the description of the PR, your goal is then to identify high-impact PRs that we want to surface in the release notes.
-
-### Rules for high-impact PRs
-
-- You can ignore PRs without description, you need factual data to present to user.
-- Breaking changes in the SDK are very important and should be mentioned
-- New features in the SDK that extend the agent-building capabilities
-- Any feature changes in the SDK, both client and server, both TypeScript and Python
-- New features in the UI
-- New features in the CLI
-- Changes in the Helm chart for deployments
-
-## Assemble the release notes
-
-With all the prior knowledge, you are capable of drafting the release notes. They should be in the form of markdown that you present to the user and let them iterate on if needed.
-
-Instead of PRs focus on factual changes, described with couple paragraphs. The goal is to keep the release notes short, on point and providing reader a good idea what the new release means to them.
-
-Keep in mind that user of Agent Stack is either of these personas:
-
-- A system administrator who is using the to manage agents and system via CLI
-- A system administrator who is deploying production using kubernetes or openshift
-- A developer who is building agent via Agent Stack SDK (Python/TypeScript)
-- A developer who is integrating the Agent Stack in their custom GUI and using Agent Stack as backend for agents (TypeScript)
-- An end user who is running agents via GUI
-
-Then at the end, provide list of all merged PRs (links + titles)
-
-### Example of great release notes
-
+### Output
 ```markdown
-# 🚀 Agent Stack version 0.5.3 has been released 
+# Release Notes - v1.3.0
 
-This release brings a major TypeScript SDK restructuring, a new Canvas agent, comprehensive UI redesign, and significant improvements to authentication and CLI experience.
+> Released: 2025-01-15
 
-## Major Changes
+## Highlights
+- OAuth login support enabling Google and GitHub authentication
+- Dark mode toggle with system preference detection
+- Significant performance improvements in authentication flow
 
-### Breaking: TypeScript SDK Restructuring
-The `agentstack-sdk-ts` has been completely refactored with a new modular architecture. The API client is now organized into dedicated subdirectories (`auth`, `services`, `ui`, `configuration`, `connectors`, etc.) with proper `schemas.ts` and `types.ts` files. A new `buildApiClient` core function with `unwrapResult` utility provides standardized response handling. Error handling is now structured with `ApiErrorException` and specific error types (Http, Network, Parse, Validation). All consumers of the TS SDK need to update imports and usage patterns.
+## Features
+- Add OAuth login with Google and GitHub providers
+- Add user avatar upload with image cropping
+- Add dark mode toggle with system preference detection
 
-### New Canvas Agent
-A new agent for multi-turn artifact editing is now available. Users can select and modify specific sections of text content, enabling precise iterative refinement of generated artifacts.
+## Bug Fixes
+- Fix session timeout not redirecting to login page
+- Fix mobile navigation menu overlapping content
+- Fix password reset email not sending in production
+- Fix race condition in concurrent API requests
+- Fix incorrect timezone display in user profile
 
-### SDK: User Approval Extension
-New `ApprovalExtensionServer` and `ApprovalExtensionClient` enable explicit human-in-the-loop workflows. Agents can request user approval for critical actions using structured `ApprovalRequest`/`ApprovalResponse` models. The older `ToolCallRequest` and `ToolCallExtensionServer` are now deprecated.
+## Improvements
+- Refactor auth middleware for better extensibility
+- Improve database query performance for user listings
+- Update error messages to be more descriptive
+- Enhance logging format for production debugging
 
-## What's changed
-- [#1737 feat(ui): add agent management under Providers feature flag](https://github.com/i-am-bee/agentstack/pull/1737)
-- [#1737 feat(ui): add agent management under Providers feature flag](https://github.com/i-am-bee/agentstack/pull/1737)
-...
+## Contributors
+- @alice (7 commits)
+- @bob (5 commits)
+- @charlie (3 commits)
 ```
+
+## Guidelines
+- Commit messages are the primary data source. If they are poor quality (e.g., "fix", "wip", "update"), do your best to infer meaning from the diff summary or group them under "Other".
+- Never fabricate changes. Every item in the release notes must correspond to an actual commit.
+- Keep descriptions concise but informative. Transform terse commit messages into readable sentences where possible (e.g., `fix: nav overlap on mobile` becomes "Fix mobile navigation menu overlapping content").
+- If the project uses GitHub PRs, prefer PR titles over individual commit messages when available, as they tend to be more descriptive.
+- The interview should be brief (1-2 rounds maximum). The value is in automation, not interrogation.
+- If the user passes a file path argument, write the output to that path instead of the project root.
+- Respect existing `RELEASE_NOTES.md` or `CHANGELOG.md` files. If one exists, ask whether to append, prepend, or create a new file.
+- Use the contributor's git name as-is. Don't attempt to resolve GitHub usernames unless the information is available in the commit metadata.
+- Date in the release notes should be the date of generation (today), not the date of the last commit.

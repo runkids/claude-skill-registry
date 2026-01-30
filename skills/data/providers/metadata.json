@@ -1,13 +1,7 @@
 {
   "name": "providers",
-  "description": "Use when switching between LLM providers, accessing provider-specific features (Anthropic caching, OpenAI logprobs), or using raw SDK clients - covers multi-provider patterns and direct SDK access for",
-  "repo": "juanre/llmring",
-  "category": "data",
-  "tags": [
-    "providers"
-  ],
-  "stars": 3,
-  "dir_name": "providers",
-  "github_path": "skills/providers",
-  "github_branch": "main"
+  "repo": "TheBushidoCollective/han",
+  "path": "jutsu/jutsu-fnox/skills/providers/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-30T03:33:58.155197Z"
 }

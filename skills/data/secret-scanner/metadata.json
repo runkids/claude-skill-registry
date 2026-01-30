@@ -1,7 +1,7 @@
 {
   "name": "secret-scanner",
-  "repo": "intent-solutions-io/plugins-nixtla",
-  "path": "010-archive/backups-20251108/skill-structure-cleanup-20251108-073936/plugins/security/secret-scanner/skills/secret-scanner/SKILL.md",
-  "source": "github.com/intent-solutions-io/plugins-nixtla",
-  "downloaded_at": "2026-01-29T01:23:22.138225Z"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/secret-scanner/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-30T04:24:24.746443Z"
 }

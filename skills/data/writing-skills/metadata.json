@@ -1,7 +1,7 @@
 {
   "name": "writing-skills",
-  "repo": "CodingCossack/agent-skills-library",
-  "path": "skills/writing-skills/SKILL.md",
-  "source": "github.com/CodingCossack/agent-skills-library",
-  "downloaded_at": "2026-01-29T04:47:34.118096Z"
+  "repo": "unclecatvn/agent-skills",
+  "path": ".claude/skills/writing-skills/SKILL.md",
+  "source": "github.com/unclecatvn/agent-skills",
+  "downloaded_at": "2026-01-30T04:38:03.171346Z"
 }

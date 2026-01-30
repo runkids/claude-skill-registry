@@ -1,12 +1,7 @@
 {
   "name": "write-tests",
-  "description": "Generates comprehensive unit tests and integration tests for code with test coverage analysis and edge cases",
-  "repo": "ltoscano/mossab",
-  "category": "testing",
-  "tags": [
-    "write",
-    "tests"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "Bambibanners/master_of_puppets",
+  "path": ".agent/skills/write-tests/SKILL.md",
+  "source": "github.com/Bambibanners/master_of_puppets",
+  "downloaded_at": "2026-01-30T03:11:01.774565Z"
 }

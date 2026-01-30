@@ -1,9 +1,7 @@
 {
   "name": "manage-solution-outline",
-  "description": "Manage solution outline documents - standards, examples, validation, and deliverable extraction",
   "repo": "cuioss/plan-marshall",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/cuioss/plan-marshall"
+  "path": "marketplace/bundles/pm-workflow/skills/manage-solution-outline/SKILL.md",
+  "source": "github.com/cuioss/plan-marshall",
+  "downloaded_at": "2026-01-30T03:21:19.870928Z"
 }

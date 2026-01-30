@@ -1,11 +1,7 @@
 {
   "name": "incremental-load-setup",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Incremental Load Setup - Auto-activating skill for Data Pipelines.Triggers on: incremental load setup, incremental load setupPart of the Data Pipelines skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:14.633067Z",
-  "dir_name": "incremental-load-setup",
-  "github_path": "planned-skills/generated/11-data-pipelines/incremental-load-setup",
-  "github_branch": "main"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/incremental-load-setup/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-30T04:24:27.390676Z"
 }

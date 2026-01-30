@@ -1,7 +1,7 @@
 {
   "name": "confidence-check",
-  "repo": "miethe/skillmeat",
-  "path": ".claude/skills/confidence-check/SKILL.md",
-  "source": "github.com/miethe/skillmeat",
-  "downloaded_at": "2026-01-29T04:43:20.043983Z"
+  "repo": "gudzenkov/SuperClaude",
+  "path": "plugins/superclaude/skills/confidence-check/SKILL.md",
+  "source": "github.com/gudzenkov/SuperClaude",
+  "downloaded_at": "2026-01-30T04:48:45.120138Z"
 }

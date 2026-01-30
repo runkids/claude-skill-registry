@@ -1,7 +1,7 @@
 {
   "name": "ghostty-config",
-  "repo": "sammcj/agentic-coding",
-  "path": "Claude/skills/ghostty-config/SKILL.md",
-  "source": "github.com/sammcj/agentic-coding",
-  "downloaded_at": "2026-01-29T04:01:37.112930Z"
+  "repo": "wcygan/dotfiles",
+  "path": ".claude/skills/ghostty-config/SKILL.md",
+  "source": "github.com/wcygan/dotfiles",
+  "downloaded_at": "2026-01-30T03:13:09.212598Z"
 }

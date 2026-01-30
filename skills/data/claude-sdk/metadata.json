@@ -1,7 +1,7 @@
 {
   "name": "claude-sdk",
-  "repo": "frankxai/agentic-creator-os",
-  "path": ".claude/skills/claude-sdk/SKILL.md",
-  "source": "github.com/frankxai/agentic-creator-os",
-  "downloaded_at": "2026-01-29T03:39:27.323016Z"
+  "repo": "anton-abyzov/specweave",
+  "path": "plugins/specweave-plugin-dev/skills/claude-sdk/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-30T01:38:42.248631Z"
 }

@@ -1,80 +1,110 @@
 ---
-name: migration
-description: Create reversible database migrations with rollback scripts.
-  Use when modifying database schemas.
+name: crowi-migration
+description: |
+  Crowi 2.0 移行ワークフロー。Express/Swig から Next.js + ts-rest への移行時に自動適用。
+  キーワード: migrate, 移行, Express, Swig, legacy, 旧実装
+globs:
+  - "lib/routes/**"
+  - "lib/views/**"
+  - "client/components/**"
 ---
 
-# Migration Skill
+# Crowi 2.0 Migration Skill
 
-## Purpose
-Create safe, reversible database migrations.
+## アーキテクチャ
 
-## Migration Template
-Use: [templates/migration-template.sql](templates/migration-template.sql)
-
-```sql
--- Migration: [description]
--- Created: [date]
--- Author: [name]
-
--- ==================== UP ====================
-BEGIN;
-
--- Your migration here
-CREATE TABLE users (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  email VARCHAR(255) NOT NULL UNIQUE,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
-COMMIT;
-
--- ==================== DOWN ====================
-BEGIN;
-
-DROP TABLE IF EXISTS users;
-
-COMMIT;
+```
+crowi/
+├── apps/
+│   ├── crowi-api/          # Fastify + ts-rest (port 3300)
+│   └── crowi-web/          # Next.js 16 (port 3301)
+├── packages/
+│   ├── api-contract/       # ts-rest 契約定義
+│   └── shared/             # 共有型
+└── lib/                    # 旧実装（参照元）
+    ├── routes/             # Express ルート
+    ├── views/              # Swig テンプレート
+    └── models/             # Mongoose モデル
 ```
 
-## Pre-Migration Checklist
-Use: [checklists/pre-migration.md](checklists/pre-migration.md)
+## 移行パターン
 
-- [ ] Down migration works
-- [ ] Tested on production-like data
-- [ ] Performance impact assessed
-- [ ] Backup plan documented
-- [ ] Deployment timing considered
+### Express Route → Fastify + ts-rest
 
-## Migration Types
+```typescript
+// Before: lib/routes/page.js
+router.get('/pages', async (req, res) => {
+  const pages = await Page.find();
+  res.render('page/list', { pages });
+});
 
-### Safe Migrations
-- Add table
-- Add nullable column
-- Add index (CONCURRENTLY)
-- Add foreign key (without validation)
+// After: packages/api-contract/src/page.ts
+export const pageContract = c.router({
+  listPages: {
+    method: 'GET',
+    path: '/pages',
+    responses: { 200: z.object({ pages: z.array(PageSchema) }) },
+  },
+});
 
-### Risky Migrations
-- Drop table (verify no references)
-- Drop column (verify no usage)
-- Rename column (may break app)
-- Change column type (may lose data)
+// After: apps/crowi-api/src/routes/page.ts
+listPages: async () => {
+  const pages = await Page.find();
+  return { status: 200, body: { pages } };
+},
+```
 
-### Dangerous Migrations
-- Truncate table
-- Drop database
-- Remove constraints
+### Swig Template → Next.js Page
 
-## Large Table Migrations
-For tables with >1M rows:
-1. Create new structure
-2. Backfill in batches
-3. Add constraints
-4. Switch over
-5. Clean up old structure
+```typescript
+// Before: lib/views/page/list.html
+{% for page in pages %}
+  <div>{{ page.path }}</div>
+{% endfor %}
 
-## Rollback Strategy
-- Test down migration before running up
-- Document manual rollback steps
-- Have production backup
-- Consider feature flags for code changes
+// After: apps/crowi-web/app/(main)/pages/page.tsx
+'use client';
+export default function PagesPage() {
+  const { data } = useQuery(['pages'], () => client.page.listPages());
+  return data?.body.pages.map(page => <div key={page._id}>{page.path}</div>);
+}
+```
+
+## サブエージェント
+
+| Agent | 役割 | ツール |
+|-------|------|--------|
+| migration-planner | 計画立案 | Read, Grep, Glob |
+| migration-implementer | 実装 | Read, Write, Edit, Bash |
+| migration-reviewer | レビュー | Read, Grep, Bash |
+| migration-committer | コミット・PR | Read, Bash |
+
+## ワークフロー
+
+```
+/migrate {task-name}
+
+planner → implementer → reviewer ─┬→ committer
+                          ↑       │
+                          └───────┘ (NEEDS_WORK)
+```
+
+## タスク管理
+
+- キュー: `.claude/migration-state/queue.json`
+- タスク: `.claude/migration-state/tasks/{task-id}.json`
+- ステータス: `PLANNED` → `REVIEW` → `APPROVED` → `COMMITTED`
+
+## 技術スタック
+
+- **API**: Fastify v5, ts-rest, MongoDB/Mongoose, JWT
+- **Web**: Next.js 16, React 19, Tailwind v4, shadcn/ui
+- **共通**: TypeScript 5.x strict, pnpm, Turborepo
+
+## Crowi テーマ
+
+```css
+--crowi-primary: #43676b;
+--crowi-header: #263a3c;
+--crowi-sidebar: #f8f9fa;
+```

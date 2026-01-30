@@ -1,16 +1,7 @@
 {
   "name": "ios-app-store-submission",
-  "description": "Generate all copywriting and asset specifications needed for iOS App Store submissions. Use when preparing an app for App Store Connect, creating app descriptions, keywords, screenshots specs, promoti",
-  "repo": "cktc/tonic-sound",
-  "category": "data",
-  "tags": [
-    "ios",
-    "app",
-    "store",
-    "submission"
-  ],
-  "stars": 0,
-  "dir_name": "ios-app-store-submission",
-  "github_path": ".claude/skills/ios-app-store-submission",
-  "github_branch": "main"
+  "repo": "kimny1143/claude-code-template",
+  "path": ".claude/skills/ios-app-store-submission/SKILL.md",
+  "source": "github.com/kimny1143/claude-code-template",
+  "downloaded_at": "2026-01-30T01:08:03.414591Z"
 }

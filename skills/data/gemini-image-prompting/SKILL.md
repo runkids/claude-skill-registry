@@ -947,3 +947,209 @@ Colors: Reddish brown wood, dark stone grey metal, warm orange flames
 - [ ] Added color palette guidance?
 - [ ] Mentioned what to avoid (negative guidance)?
 - [ ] Requested multiple views if needed?
+
+---
+
+## UI Icon Grid Generation
+
+Generate multiple icons in a single image for efficient asset creation. Icons can then be cropped programmatically.
+
+### Icon Grid Template (4x4 = 16 icons)
+
+```
+Create a precise 4x4 grid of 16 [THEME]-THEMED game UI icons on a SOLID BLACK (#000000) background.
+
+CRITICAL LAYOUT REQUIREMENTS:
+- EXACT 4 columns x 4 rows grid layout
+- Each icon must be PERFECTLY CENTERED in its cell
+- All 16 cells must be EXACTLY the same size
+- The entire image should be SQUARE (1024x1024 pixels)
+- SOLID BLACK background for easy extraction
+
+ICON STYLE:
+- [THEME DESCRIPTION] cartoon style for Roblox games
+- Colors: [COLOR PALETTE]
+- Glossy with sparkles and effects
+- Each icon fills approximately 70-80% of its cell
+
+THE 16 ICONS (row by row, left to right):
+Row 1: [Icon 1] | [Icon 2] | [Icon 3] | [Icon 4]
+Row 2: [Icon 5] | [Icon 6] | [Icon 7] | [Icon 8]
+Row 3: [Icon 9] | [Icon 10] | [Icon 11] | [Icon 12]
+Row 4: [Icon 13] | [Icon 14] | [Icon 15] | [Icon 16]
+
+IMPORTANT: Use SOLID BLACK background for easy programmatic cropping.
+```
+
+### Example: Christmas Icon Grid
+
+```
+Create a precise 4x4 grid of 16 CHRISTMAS-THEMED game UI icons on a SOLID BLACK (#000000) background.
+
+CRITICAL LAYOUT REQUIREMENTS:
+- EXACT 4 columns x 4 rows grid layout
+- Each icon must be PERFECTLY CENTERED in its cell
+- All 16 cells must be EXACTLY the same size
+- The entire image should be SQUARE (1024x1024 pixels)
+- SOLID BLACK background for easy extraction
+
+ICON STYLE:
+- FESTIVE CHRISTMAS cartoon style for Roblox games
+- Colors: Red, green, gold, white snow, candy cane stripes
+- Glossy with sparkles, snow effects, and holiday cheer
+- Each icon fills approximately 70-80% of its cell
+
+THE 16 CHRISTMAS ICONS (row by row, left to right):
+Row 1: Red sleigh shopping cart with presents | Snowman person/user | Christmas gift box with red bow and holly | Gold star tree topper with glow
+Row 2: Candy cane gear/settings cog | Yellow star lightning bolt | Gold coin with snowflake | Red/green Christmas gem crystal
+Row 3: Red ornament X close button | Golden jingle bell padlock | White/blue snowflake | Angel wings (white/gold feathers)
+Row 4: Red heart with snow | Mittened thumbs up (red/green) | Golden crown with holly | Golden trophy with Christmas wreath
+
+IMPORTANT: Festive Christmas theme! Use SOLID BLACK background. Add sparkles, snow particles, and warm holiday glow effects.
+```
+
+### Example: Halloween Icon Grid
+
+```
+Create a precise 4x4 grid of 16 HALLOWEEN-THEMED game UI icons on a SOLID BLACK (#000000) background.
+
+CRITICAL LAYOUT REQUIREMENTS:
+- EXACT 4 columns x 4 rows grid layout
+- Each icon must be PERFECTLY CENTERED in its cell
+- All 16 cells must be EXACTLY the same size
+- The entire image should be SQUARE (1024x1024 pixels)
+- SOLID BLACK background for easy extraction
+
+ICON STYLE:
+- SPOOKY HALLOWEEN cartoon style for Roblox games
+- Colors: Orange, purple, green slime, black, ghostly white
+- Glossy with eerie glow effects and spooky particles
+- Each icon fills approximately 70-80% of its cell
+
+THE 16 HALLOWEEN ICONS (row by row, left to right):
+Row 1: Cauldron shopping cart with potions | Ghost person/user | Coffin gift box with cobwebs | Purple magic star with bats
+Row 2: Skull gear/settings cog | Green lightning bolt | Orange pumpkin coin | Purple crystal with spider
+Row 3: Red X with dripping blood | Padlock with chains and eyeball | Spider web snowflake | Bat wings (purple/black)
+Row 4: Stitched heart | Zombie thumbs up (green) | Crown with pumpkins | Trophy with skeleton hand
+
+IMPORTANT: Spooky Halloween theme! Use SOLID BLACK background. Add eerie glows, cobwebs, and supernatural effects.
+```
+
+### Example: Standard/Default Icon Grid
+
+```
+Create a precise 4x4 grid of 16 game UI icons on a SOLID BLACK (#000000) background.
+
+CRITICAL LAYOUT REQUIREMENTS:
+- EXACT 4 columns x 4 rows grid layout
+- Each icon must be PERFECTLY CENTERED in its cell
+- All 16 cells must be EXACTLY the same size
+- The entire image should be SQUARE (1024x1024 pixels)
+- SOLID BLACK background for easy extraction
+
+ICON STYLE:
+- Clean, vibrant cartoon style for Roblox games
+- Colors: Bright primary colors, gold accents, white highlights
+- Glossy with subtle sparkles
+- Each icon fills approximately 70-80% of its cell
+
+THE 16 ICONS (row by row, left to right):
+Row 1: Shopping cart | Person/user silhouette | Gift box with ribbon | Gold star
+Row 2: Gear/settings cog | Lightning bolt | Gold coin | Purple gem
+Row 3: Red X close button | Padlock | Snowflake/cooldown | Angel wings
+Row 4: Heart | Thumbs up | Crown | Trophy
+
+IMPORTANT: Use SOLID BLACK background for easy programmatic extraction.
+```
+
+### Icon Cropping Script (Python)
+
+After generating the icon grid, use this pattern to crop individual icons:
+
+```python
+from PIL import Image
+import numpy as np
+
+def find_content_bbox(img, threshold=30):
+    """Find bounding box of non-black content"""
+    arr = np.array(img.convert('RGB'))
+    non_black = np.any(arr > threshold, axis=2)
+    rows = np.any(non_black, axis=1)
+    cols = np.any(non_black, axis=0)
+    if not rows.any() or not cols.any():
+        return None
+    rmin, rmax = np.where(rows)[0][[0, -1]]
+    cmin, cmax = np.where(cols)[0][[0, -1]]
+    return (cmin, rmin, cmax + 1, rmax + 1)
+
+def remove_black_background(img, threshold=30):
+    """Replace black pixels with transparency"""
+    arr = np.array(img.convert('RGBA'))
+    black_mask = np.all(arr[:, :, :3] < threshold, axis=2)
+    arr[black_mask, 3] = 0
+    return Image.fromarray(arr)
+
+def crop_icons(grid_path, rows=4, cols=4, icon_names=None):
+    """Crop individual icons from grid"""
+    img = Image.open(grid_path)
+    cell_width = img.width // cols
+    cell_height = img.height // rows
+
+    for row in range(rows):
+        for col in range(cols):
+            idx = row * cols + col
+            # Extract cell
+            left = col * cell_width
+            top = row * cell_height
+            cell = img.crop((left, top, left + cell_width, top + cell_height))
+
+            # Find content and crop with padding
+            bbox = find_content_bbox(cell)
+            if bbox:
+                padding = 8
+                icon = cell.crop((
+                    max(0, bbox[0] - padding),
+                    max(0, bbox[1] - padding),
+                    min(cell.width, bbox[2] + padding),
+                    min(cell.height, bbox[3] + padding)
+                ))
+                icon = remove_black_background(icon)
+
+                # Make square
+                max_dim = max(icon.width, icon.height)
+                square = Image.new('RGBA', (max_dim, max_dim), (0, 0, 0, 0))
+                square.paste(icon, ((max_dim - icon.width) // 2, (max_dim - icon.height) // 2), icon)
+
+                name = icon_names[idx] if icon_names else f"icon_{idx}"
+                square.save(f"icons/{name}.png", 'PNG')
+```
+
+### Standard Icon Names (16 icons)
+
+```python
+ICON_NAMES = [
+    "cart", "user", "gift", "star",
+    "settings", "lightning", "coin", "gem",
+    "close", "lock", "snowflake", "wings",
+    "heart", "thumbsup", "crown", "trophy"
+]
+```
+
+### Why Solid Black Background?
+
+1. **Easy extraction** - Non-black pixels are easy to detect programmatically
+2. **Clean transparency** - Black removal creates clean alpha channel
+3. **Consistent cropping** - Content detection works reliably
+4. **No color bleeding** - Black doesn't interfere with icon colors
+
+### Icon Grid Best Practices
+
+| Aspect | Recommendation |
+|--------|----------------|
+| Grid size | 4x4 (16 icons) or 3x3 (9 icons) |
+| Image size | 1024x1024 for 4x4, 768x768 for 3x3 |
+| Background | SOLID BLACK (#000000) |
+| Icon fill | 70-80% of cell |
+| Centering | PERFECT center in each cell |
+| Style | Consistent across all icons |
+| Theme | Match game aesthetic |

@@ -186,4 +186,4 @@ Analysis is effective when:
 - `assets/sprites/PLACEHOLDER_ASSET_SPEC.txt` (asset specifications)
 - `.claude/roles/image-analysis-subagent.md` (full subagent docs)
 
-[Claude Sonnet 4.5 - 2026-01-26]
+[Kimi Code CLI - 2026-01-26]

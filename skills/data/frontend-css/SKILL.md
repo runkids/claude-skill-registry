@@ -1,22 +1,24 @@
 ---
 name: Frontend CSS
-description: Write consistent, maintainable CSS using the project's methodology (Tailwind, BEM, CSS Modules) with proper design tokens and performance optimization. Use this skill when writing or modifying styles, CSS classes, Tailwind utilities, or styling-related code. When working on files like *.css, *.scss, *.module.css, tailwind.config.js, or components with inline/utility styles. When applying design system tokens (colors, spacing, typography), avoiding framework style overrides, or optimizing CSS for production with purging/tree-shaking.
+description: Apply consistent CSS styling following project methodology (Tailwind, BEM, CSS Modules, utility classes) with minimal custom CSS, design system tokens, and performance optimization. Use this skill when writing styles in .css, .scss, .module.css files, applying Tailwind classes, maintaining design tokens, or working with any styling approach. Applies when styling components, creating layouts, implementing responsive designs, or ensuring visual consistency through established patterns and avoiding framework overrides.
 ---
 
-## When to use this skill:
+# Frontend CSS
 
-- When writing new CSS or styling code
-- When modifying existing stylesheets or style definitions
-- When working on files like *.css, *.scss, *.module.css, or tailwind.config.js
-- When applying Tailwind utility classes to components
-- When using BEM naming conventions for CSS classes
-- When working with CSS Modules or scoped styles
-- When applying design tokens (colors, spacing, typography)
-- When tempted to override framework default styles
-- When deciding between custom CSS and framework utilities
-- When configuring CSS purging or tree-shaking for production
-- When maintaining consistency with the project's CSS methodology
-- When reviewing styles for design system compliance
+## When to use this skill
+
+- When creating or modifying CSS files like `styles.css`, `App.module.css`, `components.scss`, or `tailwind.css`
+- When applying CSS classes in JSX/HTML templates using Tailwind utility classes or BEM methodology
+- When working in style directories like `styles/`, `css/`, `scss/`, or `theme/`
+- When defining design system tokens for colors, spacing, typography, shadows, or other visual properties
+- When choosing between Tailwind utility classes and custom CSS for component styling
+- When avoiding excessive framework overrides that fight against library defaults
+- When implementing responsive designs using CSS media queries or Tailwind responsive modifiers
+- When optimizing CSS for production through purging/tree-shaking unused styles
+- When maintaining consistent spacing, colors, and typography across the application
+- When deciding on CSS methodology (CSS Modules for scoping, BEM for naming, utility-first with Tailwind)
+- When creating theme configurations or customizing framework defaults in `tailwind.config.js` or similar
+- When ensuring CSS performance by minimizing custom styles and leveraging framework utilities
 
 # Frontend CSS
 

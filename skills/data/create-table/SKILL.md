@@ -1,161 +1,150 @@
 ---
 name: create-table
-description: 数据库建表规范。创建新表时必须遵循
+description: >
+  Create PDF tables using ReportLab Table class for proper structure detection.
+  Creates tables that Marker and other extractors can parse. Use when you need
+  detectable tables in PDFs.
+allowed-tools: Bash, Read, Write
+triggers:
+  - create table
+  - create pdf table
+  - generate table
+  - make table
+  - reportlab table
+  - detectable table
+  - table for extraction
+metadata:
+  short-description: "Create detectable PDF tables (ReportLab)"
 ---
 
-# 建表规范
+# create-table
 
-## 表路径
-`codegen/src/tables/{mod}/{mod}.sql`
+Create PDF tables using ReportLab's `Table` class that extractors (Marker, Camelot) can detect.
 
-## 表名格式
+## Why This Exists
 
-`{mod}_{table}` 小写下划线，如 `base_usr`
+PyMuPDF raw drawing commands (`draw_line`, `insert_text`) create visual tables but **not** proper PDF table structures. Marker and other extractors cannot detect these as tables.
 
-## 必须字段
+ReportLab's `Table` class creates proper PDF table structures with cell boundaries that extraction tools recognize.
 
-```sql
--- 主键
-`id` varchar(22) NOT NULL COMMENT 'ID',
+## Quick Start
 
--- 显示标签
-`lbl` varchar(45) NOT NULL DEFAULT '' COMMENT '名称',
+```bash
+cd .pi/skills/create-table
 
--- 审计字段
-`create_usr_id` varchar(22) NOT NULL DEFAULT '' COMMENT '创建人',
-`create_usr_id_lbl` varchar(45) NOT NULL DEFAULT '' COMMENT '创建人',
-`create_time` datetime DEFAULT NULL COMMENT '创建时间',
-`update_usr_id` varchar(22) NOT NULL DEFAULT '' COMMENT '更新人',
-`update_usr_id_lbl` varchar(45) NOT NULL DEFAULT '' COMMENT '更新人',
-`update_time` datetime DEFAULT NULL COMMENT '更新时间',
+# Generate from preset (simple, medium, complex)
+uv run generate.py preset simple
+uv run generate.py preset complex --output my_table.pdf
 
--- 软删除
-`is_deleted` tinyint unsigned NOT NULL DEFAULT 0 COMMENT '删除,dict:is_deleted',
-`delete_usr_id` varchar(22) NOT NULL DEFAULT '' COMMENT '删除人',
-`delete_usr_id_lbl` varchar(45) NOT NULL DEFAULT '' COMMENT '删除人',
-`delete_time` datetime DEFAULT NULL COMMENT '删除时间',
+# Generate with custom data
+uv run generate.py generate --output custom.pdf \
+  --columns "ID,Name,Status" \
+  --rows '[["1","Alice","Active"],["2","Bob","Pending"]]'
+
+# Borderless table
+uv run generate.py generate --no-border --output borderless.pdf
+
+# Thick borders (3pt)
+uv run generate.py generate --line-width 3 --output thick.pdf
+
+# Render as image (for scanned document testing)
+uv run generate.py preset medium --as-image --dpi 200
+
+# Generate all examples
+uv run generate.py example
 ```
 
-## 业务字典 dictbiz
-```sql
-`type` varchar(20) NOT NULL DEFAULT '' COMMENT '类型,dictbiz:{mod}_{table}_type',
+## Commands
+
+### `preset` - Generate from preset complexity
+
+```bash
+uv run generate.py preset <name> [options]
 ```
 
-## 系统字典 dict
+| Preset | Description |
+|--------|-------------|
+| `simple` | 3x3 basic table |
+| `medium` | 8-row requirements matrix with 6 columns |
+| `complex` | Multi-index headers with column spans |
 
-```sql
-`type` varchar(20) NOT NULL DEFAULT '' COMMENT '类型,dict:{mod}_{table}_type',
+### `generate` - Create custom table
+
+```bash
+uv run generate.py generate [options]
 ```
 
-## 业务字典 跟 系统字典 dict + dictbiz 的 Skills
-- [dict/SKILL.md](../dict/SKILL.md)
+**Options:**
+| Option | Short | Description | Default |
+|--------|-------|-------------|---------|
+| `--output` | `-o` | Output PDF/PNG path | `table_fixture.pdf` |
+| `--columns` | `-c` | Comma-separated column headers | `ID,Name,Value` |
+| `--rows` | `-r` | JSON array of row data | 3 sample rows |
+| `--spec` | `-s` | JSON spec file path | - |
+| `--title` | `-t` | Table title text | - |
+| `--style` | | `grid`, `plain`, `colored` | `grid` |
+| `--border/--no-border` | | Enable or disable borders | `--border` |
+| `--line-width` | `-w` | Border thickness in points | `1.0` |
+| `--multi-index` | `-m` | JSON multi-index headers | - |
+| `--as-image` | `-i` | Render as PNG image | `False` |
+| `--dpi` | | Image resolution | `150` |
 
-## 可选系统字段
+### `example` - Generate all examples
 
-| 字段 | 用途 |
-|------|------|
-| `tenant_id` | 租户隔离 |
-| `org_id` + `org_id_lbl` | 组织隔离 |
-| `is_locked` | 锁定功能 |
-| `is_enabled` | 启用/禁用 |
-| `order_by` | 手动排序(当聚合表子表时必须要order_by字段,否则子表无法排序)|
-| `rem` | 备注 |
-| `is_hidden` | 隐藏记录 |
-| `parent_id` | 树形结构 |
-
-## 排序字段
-```sql
-`order_by` int unsigned NOT NULL DEFAULT 1 COMMENT '排序',
+```bash
+uv run generate.py example
 ```
 
-## 启用字段
-```sql
-`is_enabled` tinyint unsigned NOT NULL DEFAULT 1 COMMENT '启用,dict:is_enabled',
+Creates `examples/` directory with all presets, styles, and border variations.
+
+## Multi-Index Tables
+
+For hierarchical headers that span columns:
+
+```bash
+uv run generate.py generate \
+  --columns "ID,Q1,Q2,Q3,Q4,Total" \
+  --rows '[["A","10","20","30","40","100"]]' \
+  --multi-index '[[{"text":"","span":1},{"text":"2024 Quarters","span":4},{"text":"","span":1}]]'
 ```
 
-- 布尔值字段名 `is_xxx` `is_` 开头, 且 字段类型为 `tinyint unsigned`, 默认值为 `0` 或 `1`
+## Scanned Document Simulation
 
-## 特殊字段命名
+Generate table as a rasterized PNG image (for testing OCR/VLM extraction):
 
-| 后缀 | 用途 | 长度规则 |
-|------|------|----------|
-| `img`/`_img` | 图片 | 22*N |
-| `att`/`_att` | 附件 | 22*N |
-| `icon`/`_icon` | 图标 | - |
+```bash
+# 150 DPI (default)
+uv run generate.py preset medium --as-image
 
-## 自动编码字段, 如订单编号, 如果表中已经有 `lbl` 字段, 则自动编码字段命名为 `code_seq` `code`，否则为 `lbl_seq` `lbl`
-
-```sql
-`code_seq` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '编码-序列号',
-`code` varchar(45) NOT NULL DEFAULT '' COMMENT '编码',
+# Higher quality (300 DPI)
+uv run generate.py preset complex --as-image --dpi 300 --output scanned_table.png
 ```
 
-## 外键
+## Verification
 
-```sql
-`usr_id` varchar(22) NOT NULL DEFAULT '' COMMENT '用户',
-`usr_id_lbl` varchar(45) NOT NULL DEFAULT '' COMMENT '用户',
+Test that Camelot detects the table:
+
+```bash
+uv run generate.py preset simple --output test.pdf
+
+python -c "
+import camelot
+tables = camelot.read_pdf('test.pdf', pages='1', flavor='lattice')
+print(f'Tables found: {len(tables)}')
+if tables:
+    print(tables[0].df)
+"
 ```
 
-## 多对多中间表
+## Dependencies
 
-```sql
--- 表名: {mod}_{table1}_{table2}
-CREATE TABLE `base_usr_role` (
-  `id` varchar(22) NOT NULL COMMENT 'ID',
-  `usr_id` varchar(22) NOT NULL DEFAULT '' COMMENT '用户',
-  `role_id` varchar(22) NOT NULL DEFAULT '' COMMENT '角色',
-  -- ... 审计字段
-);
-```
+Self-contained via `uv run` - no pre-installation needed.
 
-## 自动编码
-
-```sql
-`code_seq` int unsigned NOT NULL DEFAULT 0 COMMENT '编码-序列号',
-`code` varchar(20) NOT NULL DEFAULT '' COMMENT '编码',
--- 日期序列（可选）
-`date_seq` date NOT NULL DEFAULT (CURRENT_DATE) COMMENT '日期-序列号',
-```
-
-## 字典引用
-
-```sql
--- 系统字典
-`is_locked` tinyint unsigned NOT NULL DEFAULT 0 COMMENT '锁定,dict:is_locked',
--- 业务字典
-`type` varchar(20) NOT NULL DEFAULT '' COMMENT '类型,dictbiz:example_type',
-```
-
-## 表索引
-```sql
-INDEX (`lbl`, `tenant_id`, `is_deleted`),
-```
-- 注意通常有唯一性的字段才需要加索引, 但不能是唯一索引
-
-## 完整示例
-
-```sql
-DROP TABLE IF EXISTS `base_example`;
-CREATE TABLE `base_example` (
-  `id` varchar(22) NOT NULL COMMENT 'ID',
-  `lbl` varchar(45) NOT NULL DEFAULT '' COMMENT '名称',
-  `usr_id` varchar(22) NOT NULL DEFAULT '' COMMENT '用户',
-  `usr_id_lbl` varchar(45) NOT NULL DEFAULT '' COMMENT '用户',
-  `is_enabled` tinyint unsigned NOT NULL DEFAULT 1 COMMENT '启用,dict:is_enabled',
-  `order_by` int unsigned NOT NULL DEFAULT 1 COMMENT '排序',
-  `tenant_id` varchar(22) NOT NULL DEFAULT '' COMMENT '租户',
-  `create_usr_id` varchar(22) NOT NULL DEFAULT '' COMMENT '创建人',
-  `create_usr_id_lbl` varchar(45) NOT NULL DEFAULT '' COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_usr_id` varchar(22) NOT NULL DEFAULT '' COMMENT '更新人',
-  `update_usr_id_lbl` varchar(45) NOT NULL DEFAULT '' COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_deleted` tinyint unsigned NOT NULL DEFAULT 0 COMMENT '删除,dict:is_deleted',
-  `delete_usr_id` varchar(22) NOT NULL DEFAULT '' COMMENT '删除人',
-  `delete_usr_id_lbl` varchar(45) NOT NULL DEFAULT '' COMMENT '删除人',
-  `delete_time` datetime DEFAULT NULL COMMENT '删除时间',
-  INDEX (`lbl`, `tenant_id`, `is_deleted`),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='示例';
+```toml
+[project]
+dependencies = [
+    "reportlab>=4.0.0",
+    "typer>=0.9.0",
+    "pymupdf>=1.23.0",
+]
 ```

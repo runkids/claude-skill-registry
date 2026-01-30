@@ -1,21 +1,22 @@
 ---
 name: Backend API
-description: Design and implement RESTful API endpoints following best practices for URL structure, HTTP methods, status codes, versioning, and rate limiting. Use this skill when creating or modifying API routes, controllers, endpoint handlers, or route files. When working on files like routes.ts, api/*.ts, controllers/*.ts, endpoints/*.py, views.py, or any server-side request handlers. When designing resource URLs, implementing CRUD operations, adding query parameters for filtering/sorting/pagination, or setting up API versioning. When reviewing or refactoring existing API code for REST compliance.
+description: Design and implement RESTful API endpoints following REST principles with resource-based URLs, appropriate HTTP methods, and consistent naming conventions. Use this skill when creating or modifying API route handlers, endpoint definitions, or REST controllers in files like routes.py, api.ts, controllers/, handlers/, or when implementing HTTP methods (GET, POST, PUT, PATCH, DELETE). Also applies when working on API versioning, request/response validation, status code handling, rate limiting, or any backend endpoint logic that serves HTTP requests to frontend clients or external systems.
 ---
 
-## When to use this skill:
+# Backend API
 
-- When creating new API endpoints or routes
-- When modifying existing endpoint handlers or controllers
-- When working on files in api/, routes/, controllers/, or endpoints/ directories
-- When implementing CRUD operations (Create, Read, Update, Delete)
-- When adding filtering, sorting, or pagination to endpoints
-- When setting up API versioning (URL path or header-based)
-- When choosing HTTP methods (GET, POST, PUT, PATCH, DELETE)
-- When determining appropriate HTTP status codes for responses
-- When designing resource-based URL structures
-- When implementing rate limiting headers
-- When reviewing API code for RESTful best practices
+## When to use this skill
+
+- When creating or modifying route handlers in files like `routes.py`, `api.ts`, `routes.js`, `app.py`, or `server.ts`
+- When working in controller or handler directories like `controllers/`, `handlers/`, `routes/`, or `api/`
+- When implementing HTTP method handlers (GET, POST, PUT, PATCH, DELETE) for any resource
+- When defining RESTful resource endpoints like `/users`, `/products`, `/orders` or nested resources like `/users/:id/posts`
+- When adding API versioning strategies (URL-based like `/v1/users` or header-based)
+- When implementing query parameter handling for filtering, sorting, pagination, or search functionality
+- When setting up rate limiting, request validation, or response formatting middleware
+- When working on files that return HTTP status codes (200, 201, 400, 404, 500, etc.) to clients
+- When creating backend services that serve JSON responses to frontend applications or mobile apps
+- When building public or internal APIs consumed by external systems or microservices
 
 # Backend API
 

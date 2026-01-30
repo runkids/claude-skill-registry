@@ -1,7 +1,7 @@
 {
   "name": "codex-skill",
-  "repo": "Activer007/ordinary-claude-skills",
-  "path": "skills_all/codex-skill/SKILL.md",
-  "source": "github.com/Activer007/ordinary-claude-skills",
-  "downloaded_at": "2026-01-29T04:28:45.056083Z"
+  "repo": "feiskyer/claude-code-settings",
+  "path": "plugins/codex-skill/skills/codex-skill/SKILL.md",
+  "source": "github.com/feiskyer/claude-code-settings",
+  "downloaded_at": "2026-01-30T04:28:26.530045Z"
 }

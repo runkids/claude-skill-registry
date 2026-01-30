@@ -1,0 +1,19 @@
+{
+  "category": "date-normalizer",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:31.284362Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when asked to parse, normalize, standardize, or convert dates from various formats to consistent ISO 8601 or custom formats.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "date-normalizer",
+      "branch": "main",
+      "category": "date-normalizer",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "validation",
-  "repo": "masharratt/claude-flow-novice",
-  "path": ".claude/skills/cfn-loop-orchestration-v2/lib/validation/SKILL.md",
-  "source": "github.com/masharratt/claude-flow-novice",
-  "downloaded_at": "2026-01-29T04:28:01.670613Z"
+  "repo": "HR-AR/Project-Conductor",
+  "path": ".claude/skills/validation/SKILL.md",
+  "source": "github.com/HR-AR/Project-Conductor",
+  "downloaded_at": "2026-01-30T03:32:03.946463Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "documentation-templates",
-  "repo": "GrupoUS/gpus",
-  "path": ".agent/skills/documentation-templates/SKILL.md",
-  "source": "github.com/GrupoUS/gpus",
-  "downloaded_at": "2026-01-29T04:37:59.547904Z"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/documentation-templates/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-30T04:24:28.876910Z"
 }

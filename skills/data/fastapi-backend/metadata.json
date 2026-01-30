@@ -1,7 +1,7 @@
 {
   "name": "fastapi-backend",
-  "repo": "mjunaidca/mjs-agent-skills",
-  "path": "docs/taskflow-vault/skills/engineering/fastapi-backend/SKILL.md",
-  "source": "github.com/mjunaidca/mjs-agent-skills",
-  "downloaded_at": "2026-01-29T02:36:12.159226Z"
+  "repo": "boreal42/CEI-001-guide-erp",
+  "path": ".claude/skills/fastapi-backend/SKILL.md",
+  "source": "github.com/boreal42/CEI-001-guide-erp",
+  "downloaded_at": "2026-01-30T03:25:34.341343Z"
 }

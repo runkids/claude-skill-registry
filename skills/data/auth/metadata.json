@@ -1,7 +1,7 @@
 {
   "name": "auth",
-  "repo": "raintree-technology/claude-starter",
-  "path": "templates/.claude/skills/plaid/auth/skill.md",
-  "source": "github.com/raintree-technology/claude-starter",
-  "downloaded_at": "2026-01-29T04:44:20.018508Z"
+  "repo": "Chachamaru127/claude-code-harness",
+  "path": "opencode/skills/auth/SKILL.md",
+  "source": "github.com/Chachamaru127/claude-code-harness",
+  "downloaded_at": "2026-01-30T04:37:10.390361Z"
 }

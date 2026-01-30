@@ -1,7 +1,7 @@
 {
   "name": "debugger",
-  "repo": "RomualdP/hoki",
-  "path": ".claude/skills/debugger/SKILL.md",
-  "source": "github.com/RomualdP/hoki",
-  "downloaded_at": "2026-01-29T04:05:34.910703Z"
+  "repo": "yunaamelia/vps-rdp-workstation",
+  "path": ".agent/skills/debugger/SKILL.md",
+  "source": "github.com/yunaamelia/vps-rdp-workstation",
+  "downloaded_at": "2026-01-30T04:17:02.307081Z"
 }

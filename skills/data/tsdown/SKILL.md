@@ -1,59 +1,66 @@
 ---
 name: tsdown
-description: tsdown fast TypeScript library bundler powered by Rolldown and Oxc. Use when bundling TypeScript libraries, configuring entry points, or generating .d.ts declaration files.
-metadata:
-  author: Anthony Fu
-  version: "2026.1.28"
-  source: Generated from https://github.com/rolldown/tsdown, scripts located at https://github.com/antfu/skills
+description: tsdown is a fast and elegant TypeScript library bundler powered by Rolldown and Oxc
+license: MIT
 ---
 
-tsdown is a next-generation TypeScript library bundler built on Rolldown and Oxc. It provides blazing-fast builds, automatic `.d.ts` generation, and seamless migration from tsup. Supports Rolldown/Rollup/Unplugin plugins and features smart dependency handling.
+# tsdown
 
-> The skill is based on tsdown v0.20.1, generated at 2026-01-28.
+Rolldown + Oxc powered TypeScript bundler. Drop-in tsup replacement.
 
-**Anthony's Preferences:**
-- Build pure-ESM packages, avoid CJS
-- Always enable `dts` option for type declarations
-- Enable `exports` option for auto-generated package exports
+## When to Use
 
-## Core
+- Building TypeScript libraries
+- Generating .d.ts declarations
+- Publishing npm packages
+- Dual ESM/CJS output
+- Vue/React component libraries
 
-| Topic | Description | Reference |
-|-------|-------------|-----------|
-| Configuration | Config file setup, defineConfig, multiple configs | [core-config](references/core-config.md) |
-| CLI | Command-line interface and options | [core-cli](references/core-cli.md) |
-| Entry Points | Entry files, aliases, glob patterns | [core-entry](references/core-entry.md) |
+## Quick Start
 
-## Build Options
+```bash
+npm i -D tsdown typescript
+```
 
-| Topic | Description | Reference |
-|-------|-------------|-----------|
-| Output | Format (ESM/CJS/IIFE/UMD), directory, target, platform | [options-output](references/options-output.md) |
-| Declaration Files | .d.ts generation, isolatedDeclarations, sourcemaps | [options-dts](references/options-dts.md) |
-| Dependencies | External, noExternal, dependency bundling | [options-dependencies](references/options-dependencies.md) |
-| Package Exports | Auto-generating exports, main, module fields | [options-package-exports](references/options-package-exports.md) |
+```ts
+// tsdown.config.ts
+import { defineConfig } from 'tsdown'
 
-## Features
+export default defineConfig({
+  entry: 'src/index.ts',
+  format: 'esm',
+  dts: true,
+  exports: true,
+})
+```
 
-| Topic | Description | Reference |
-|-------|-------------|-----------|
-| Optimization | Tree shaking, minification, sourcemaps | [features-optimization](references/features-optimization.md) |
-| Shims | CJS/ESM compatibility shims | [features-shims](references/features-shims.md) |
-| Unbundle Mode | Bundleless transpile-only builds | [features-unbundle](references/features-unbundle.md) |
-| Watch Mode | Auto-rebuild on file changes | [features-watch](references/features-watch.md) |
+```bash
+tsdown           # Build
+tsdown --watch   # Watch mode
+```
 
-## Advanced
+## Reference Files
 
-| Topic | Description | Reference |
-|-------|-------------|-----------|
-| Plugins | Rolldown, Unplugin, Rollup, Vite plugins | [advanced-plugins](references/advanced-plugins.md) |
-| Hooks | Build lifecycle hooks | [advanced-hooks](references/advanced-hooks.md) |
-| Programmatic API | Using tsdown from code | [advanced-programmatic](references/advanced-programmatic.md) |
-| Rolldown Options | Customizing inputOptions and outputOptions | [advanced-rolldown-options](references/advanced-rolldown-options.md) |
+| Task                                    | File                                  |
+| --------------------------------------- | ------------------------------------- |
+| Config file, CLI, entry points          | [config.md](references/config.md)     |
+| Format, target, dts, exports            | [output.md](references/output.md)     |
+| Shims, unbundle, watch, frameworks      | [features.md](references/features.md) |
+| Plugins, hooks, programmatic, migration | [advanced.md](references/advanced.md) |
 
-## Recipes
+## Loading Files
 
-| Topic | Description | Reference |
-|-------|-------------|-----------|
-| Framework Support | Vue and React library bundling | [recipes-frameworks](references/recipes-frameworks.md) |
-| Migration | Migrating from tsup | [recipes-migration](references/recipes-migration.md) |
+**Consider loading these reference files based on your task:**
+
+- [ ] [references/config.md](references/config.md) - if setting up tsdown.config.ts, CLI, or entry points
+- [ ] [references/output.md](references/output.md) - if configuring output format, target, .d.ts, or exports
+- [ ] [references/features.md](references/features.md) - if using shims, unbundle, watch mode, or framework integrations
+- [ ] [references/advanced.md](references/advanced.md) - if writing plugins, using programmatic API, or migrating from tsup
+
+**DO NOT load all files at once.** Load only what's relevant to your current task.
+
+## Cross-Skill References
+
+- **Library patterns** → Use `ts-library` skill
+- **Vue component libs** → Use `vue` skill
+- **Package management** → Use `pnpm` skill

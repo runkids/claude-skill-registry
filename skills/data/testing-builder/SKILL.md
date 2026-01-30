@@ -572,8 +572,8 @@ After generating tests:
 
 ### File Locations
 
-- **Test patterns**: `~/.claude-memories/ (Linux/macOS) or %USERPROFILE%\.claude-memories\ (Windows)procedures/` (tagged "testing")
-- **Test preferences**: `~/.claude-memories/ (Linux/macOS) or %USERPROFILE%\.claude-memories\ (Windows)preferences/` (tagged "testing")
+- **Test patterns**: `/home/toowired/.claude-memories/procedures/` (tagged "testing")
+- **Test preferences**: `/home/toowired/.claude-memories/preferences/` (tagged "testing")
 - **Generated tests**: `{filename}.test.{ext}` or `tests/{filename}.test.{ext}`
 
 ### Success Criteria

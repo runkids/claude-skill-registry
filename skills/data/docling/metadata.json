@@ -1,7 +1,7 @@
 {
   "name": "docling",
-  "repo": "djimontyp/task-tracker",
-  "path": ".claude/skills/docling/SKILL.md",
-  "source": "github.com/djimontyp/task-tracker",
-  "downloaded_at": "2026-01-29T01:19:30.546761Z"
+  "repo": "enuno/claude-command-and-control",
+  "path": "skills-templates/document-processing/docling/SKILL.md",
+  "source": "github.com/enuno/claude-command-and-control",
+  "downloaded_at": "2026-01-30T01:41:43.680679Z"
 }

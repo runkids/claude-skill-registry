@@ -7,37 +7,111 @@ description: Auto-injects subagent delegation best practices when agents, subage
 
 Auto-inject when: User mentions "subagent", "Task tool", "spawn agent", "parallel"
 
-## Core Principle: Main Agent = Orchestrator ONLY
+## ⛔ HARD STOP: No Claude Subagents
 
-Main agents should NOT:
-- Run Grep/Glob/Bash (delegate to subagents)
-- Read files directly (ask subagents to extract info)
+**NEVER use Claude models (Haiku, Sonnet, Opus) as subagents.**
 
-Main agents SHOULD:
-- Decompose task into independent subtasks
-- Spawn subagents with specific prompts
-- Aggregate and synthesize results
+| ❌ FORBIDDEN | ✅ ALLOWED |
+|--------------|-----------|
+| `model="haiku"` | `model` omitted (default) |
+| `model="sonnet"` | general-purpose agent |
+| `model="opus"` | MiniMax, GLM, Kimi K2.5 |
 
-## Task Decomposition Pattern
+**Preferred subagents:** Kimi K2.5 (complex), GLM (creative), MiniMax (fast)
+**Enforced:** `.claude/settings.local.json` deny rules
 
-Step 1: Break task into independent chunks
-Step 2: Ensure parallel independence
-Step 3: Define clear deliverables
+---
+
+## Two-Tier Model
+
+| Tier | Role | Does | Doesn't |
+|------|------|------|---------|
+| **Claude** | Orchestrator | Reason, decide, write code | Explore, bulk read |
+| **Subagent** | Worker | Explore, research, batch ops | Make final decisions |
+
+See `.claude/roles/ROLES.md` for full details.
+
+---
+
+## Provider Selection
+
+| Task | Provider |
+|------|----------|
+| Complex reasoning | Kimi K2.5 |
+| Vision (batch) | Kimi K2.5 |
+| Creative | GLM-4.7 |
+| Fast/simple | MiniMax |
+
+See `/skill delegation` for full matrix.
+
+---
 
 ## Subagent Prompt Template
 
 ```
-You are Subagent {N} tasked with:
+You are tasked with:
 {Specific subtask description}
+
 Search scope: {directories/files}
 Output format: {table/list/JSON}
-Return ONLY specified output format.
+
+Return ONLY the requested output, nothing else.
 ```
 
-## Quick Reference
+---
 
-Before spawning: Can I decompose? Clear deliverables? Parallel independence?
-When spawning: Specific prompts, defined scope, single message (parallel)
-After spawning: Aggregate WITHOUT re-running, make decisions from reports
+## Parallel Execution
 
-[Codex - 2026-01-24]
+Launch independent tasks in single message:
+```
+Task(prompt="Research X")  ←─┐
+Task(prompt="Research Y")  ←─┼─ Same message = parallel
+Task(prompt="Research Z")  ←─┘
+```
+
+**Don't** chain sequentially when parallel is possible.
+
+---
+
+## Background Execution (Token Suspension)
+
+**For tasks >30 seconds:** Use `run_in_background=true` + end turn.
+
+| Execution Mode | Token Cost | UX |
+|----------------|-----------|-----|
+| Blocking | High (Claude waits) | Seamless |
+| Background + continue | Medium | Seamless |
+| Background + end turn | **Low** | Requires re-prompt |
+
+### Fire-and-Retrieve Pattern
+```
+1. Task(prompt="...", run_in_background=true) → gets task_id
+2. Claude ends turn: "Dispatched. Say 'continue' for results."
+3. User prompts → TaskOutput(task_id="...", block=true)
+4. Claude synthesizes
+```
+
+**Why it saves tokens:** Ending Claude's turn stops the token meter.
+Subagent tokens are 50x cheaper than Claude tokens.
+
+---
+
+## Quick Checklist
+
+Before spawning:
+- [ ] Can I decompose into independent chunks?
+- [ ] Clear deliverables defined?
+- [ ] Right provider for task type?
+
+When spawning:
+- [ ] Specific prompt with scope
+- [ ] Single message for parallel tasks
+- [ ] No Claude models
+
+After results:
+- [ ] Aggregate without re-running
+- [ ] Claude makes final decision
+
+---
+
+[Opus 4.5 - 2026-01-29]

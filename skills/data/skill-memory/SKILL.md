@@ -1,11 +1,11 @@
 ---
 name: skill-memory
-description: Use skill-memory to download, view and edit agent skills in your memory. TRIGGER by (download skill to memory, find skills in memory, list skills in memory, view skill in memory, edit skill in memory)
+description: Use skill-memory to download, view and edit agent skills in memory. TRIGGER by 'skill', 'memory', 'learn'.
 ---
 
 ## Setup
-- assuem you have `skill-memory` cli, if not, run `npm install -g skill-memory`
+- assume you have `skill-memory` cli, if not, run `npm install -g skill-memory`
 
 ## Navigation
-- [Available Commands](./available-commands.md)
-- [Best Practices](./best-practice.md)
+- View all [available commands](./available-commands.md) and learn how to use `skill-memory`.
+- If user asks you to learn experiences/skills, read [How to learn skills](./learn-skills.md) of the correct way to create or update skills in memory.

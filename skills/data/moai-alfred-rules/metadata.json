@@ -1,7 +1,7 @@
 {
   "name": "moai-alfred-rules",
-  "repo": "kivo360/quickhooks",
-  "path": ".claude/skills/moai-alfred-rules/SKILL.md",
-  "source": "github.com/kivo360/quickhooks",
-  "downloaded_at": "2026-01-29T04:26:38.925621Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-alfred-rules/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-30T03:23:33.340894Z"
 }

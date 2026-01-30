@@ -1,0 +1,19 @@
+{
+  "category": "task-distributor-skill",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.484039Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in load balancing and dynamic task allocation for multi-agent systems. Specializes in optimal routing based on agent capability, availability, and cost (Token Economics).",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "task-distributor-skill",
+      "branch": "main",
+      "category": "task-distributor-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

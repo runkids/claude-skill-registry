@@ -64,14 +64,6 @@ Call this through the MCP tool instead of embedding SQL in code.
   - Fixing or seeding data
   - Schema changes
 
-**Important:** When creating a new table, you **must** include the `_openid` column for per-user access control:
-
-```sql
-_openid VARCHAR(64) DEFAULT '' NOT NULL
-```
-
-> 💡 **Note about `_openid`**: When a user is logged in, the `_openid` field is **automatically populated by the server** with the current user's identity. You do NOT need to manually set this field in INSERT operations - the server will fill it automatically based on the authenticated user's session.
-
 Before calling this tool, **confirm**:
 
 - The target tables and conditions are correct.

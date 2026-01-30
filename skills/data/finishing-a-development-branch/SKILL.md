@@ -1,42 +1,50 @@
 ---
 name: finishing-a-development-branch
-description: Git branch completion workflow. Use when implementation is complete, tests pass, and a feature branch needs to be integrated via merge, pull request, or cleanup.
+description: Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup
 ---
 
 # Finishing a Development Branch
+
+## Overview
+
+Guide completion of development work by presenting clear options and handling chosen workflow.
+
+**Core principle:** Verify tests → Present options → Execute choice → Clean up.
+
+**Announce at start:** "I'm using the finishing-a-development-branch skill to complete this work."
 
 ## The Process
 
 ### Step 1: Verify Tests
 
-Determine test runner from project structure:
-- `package.json` → `npm test` or `yarn test`
-- `Cargo.toml` → `cargo test`
-- `pyproject.toml` / `setup.py` → `pytest`
-- `go.mod` → `go test ./...`
-- `Makefile` with `test` target → `make test`
+**Before presenting options, verify tests pass:**
 
-Run tests. If any fail, report `⊘ BLOCKED:TESTS` with failure count and stop. Do not proceed to Step 2.
+```bash
+# Run project's test suite
+npm test / cargo test / pytest / go test ./...
+```
+
+**If tests fail:**
+```
+Tests failing (<N> failures). Must fix before completing:
+
+[Show failures]
+
+Cannot proceed with merge/PR until tests pass.
+```
+
+Stop. Don't proceed to Step 2.
+
+**If tests pass:** Continue to Step 2.
 
 ### Step 2: Determine Base Branch
 
-Find the branch this feature diverged from:
-
 ```bash
-# Check which branch has the closest merge-base
-for candidate in main master develop; do
-  if git rev-parse --verify "$candidate" >/dev/null 2>&1; then
-    MERGE_BASE=$(git merge-base HEAD "$candidate" 2>/dev/null)
-    if [ -n "$MERGE_BASE" ]; then
-      echo "Candidate: $candidate (merge-base: $MERGE_BASE)"
-    fi
-  fi
-done
+# Try common base branches
+git merge-base HEAD main 2>/dev/null || git merge-base HEAD master 2>/dev/null
 ```
 
-Select the candidate with the most recent merge-base (closest ancestor). If multiple branches share the same merge-base or detection is ambiguous, ask: "This branch could target `main` or `develop`. Which should it merge into?"
-
-**Store the result** - subsequent steps reference `<base-branch>` meaning this determined value.
+Or ask: "This branch split from main - is that correct?"
 
 ### Step 3: Present Options
 
@@ -53,59 +61,39 @@ Implementation complete. What would you like to do?
 Which option?
 ```
 
+**Don't add explanation** - keep options concise.
+
 ### Step 4: Execute Choice
 
 #### Option 1: Merge Locally
 
 ```bash
+# Switch to base branch
 git checkout <base-branch>
+
+# Pull latest
 git pull
+
+# Merge feature branch
 git merge <feature-branch>
-```
 
-**If merge conflicts:**
-```
-⊘ BLOCKED:CONFLICTS
-
-Merge conflicts in:
-- <conflicted files>
-
-Cannot auto-resolve. User must:
-1. Resolve conflicts manually
-2. Run tests
-3. Re-run this workflow
-```
-Stop. Do not proceed.
-
-**If merge succeeds:**
-```bash
 # Verify tests on merged result
 <test command>
 
-# If tests pass, delete feature branch
+# If tests pass
 git branch -d <feature-branch>
 ```
 
-Then: Cleanup worktree (Step 5). Report `✓ MERGED`.
+Then: Cleanup worktree (Step 5)
 
 #### Option 2: Push and Create PR
 
-**Verify `gh` CLI is available:**
 ```bash
-if ! command -v gh &>/dev/null; then
-  echo "gh CLI not installed. Install from https://cli.github.com/ or push manually and create PR via web."
-  exit 1
-fi
-gh auth status || echo "gh not authenticated. Run: gh auth login"
-```
-
-Extract title from first commit on branch (original intent):
-
-```bash
-MERGE_BASE=$(git merge-base HEAD <base-branch>)
-TITLE=$(git log --reverse --format=%s "$MERGE_BASE"..HEAD | head -1)
+# Push branch
 git push -u origin <feature-branch>
-gh pr create --title "$TITLE" --body "$(cat <<'EOF'
+
+# Create PR
+gh pr create --title "<title>" --body "$(cat <<'EOF'
 ## Summary
 <2-3 bullets of what changed>
 
@@ -115,13 +103,13 @@ EOF
 )"
 ```
 
-Report `✓ PR_CREATED` with PR URL. **Keep worktree intact** for continued work during review.
+Then: Cleanup worktree (Step 5)
 
 #### Option 3: Keep As-Is
 
-Report `✓ PRESERVED` with branch name and worktree path.
+Report: "Keeping branch <name>. Worktree preserved at <path>."
 
-**Do not cleanup worktree.**
+**Don't cleanup worktree.**
 
 #### Option 4: Discard
 
@@ -135,7 +123,7 @@ This will permanently delete:
 Type 'discard' to confirm.
 ```
 
-Wait for exact confirmation. If not received, abort.
+Wait for exact confirmation.
 
 If confirmed:
 ```bash
@@ -143,23 +131,23 @@ git checkout <base-branch>
 git branch -D <feature-branch>
 ```
 
-Then: Cleanup worktree (Step 5). Report `✓ DISCARDED`.
+Then: Cleanup worktree (Step 5)
 
 ### Step 5: Cleanup Worktree
 
-**For Options 1 and 4 only:**
+**For Options 1, 2, 4:**
 
+Check if in worktree:
 ```bash
-# Check if currently in a worktree (not main repo)
-if [ "$(git rev-parse --git-common-dir)" != "$(git rev-parse --git-dir)" ]; then
-  # Get worktree root (handles invocation from subdirectory)
-  WORKTREE_ROOT=$(git rev-parse --show-toplevel)
-  cd "$(git rev-parse --git-common-dir)/.."
-  git worktree remove "$WORKTREE_ROOT"
-fi
+git worktree list | grep $(git branch --show-current)
 ```
 
-**For Options 2 and 3:** Keep worktree intact.
+If yes:
+```bash
+git worktree remove <worktree-path>
+```
+
+**For Option 3:** Keep worktree.
 
 ## Quick Reference
 
@@ -170,37 +158,37 @@ fi
 | 3. Keep as-is | - | - | ✓ | - |
 | 4. Discard | - | - | - | ✓ (force) |
 
-## Terminal States
+## Common Mistakes
 
-On completion, report exactly one:
+**Skipping test verification**
+- **Problem:** Merge broken code, create failing PR
+- **Fix:** Always verify tests before offering options
 
-| State | Output | Meaning |
-|-------|--------|---------|
-| `✓ MERGED` | Branch merged to `<base>`, worktree cleaned | Option 1 success |
-| `✓ PR_CREATED` | PR #N at URL | Option 2 success |
-| `✓ PRESERVED` | Branch kept at path | Option 3 success |
-| `✓ DISCARDED` | Branch deleted, worktree cleaned | Option 4 success |
-| `⊘ BLOCKED:TESTS` | N test failures | Cannot proceed |
-| `⊘ BLOCKED:CONFLICTS` | Merge conflict in files | Cannot proceed |
+**Open-ended questions**
+- **Problem:** "What should I do next?" → ambiguous
+- **Fix:** Present exactly 4 structured options
 
-## Guardrails
+**Automatic worktree cleanup**
+- **Problem:** Remove worktree when might need it (Option 2, 3)
+- **Fix:** Only cleanup for Options 1 and 4
 
-**Blocking conditions (stop immediately):**
-- Tests failing → `⊘ BLOCKED:TESTS`
-- Merge conflicts → `⊘ BLOCKED:CONFLICTS`
+**No confirmation for discard**
+- **Problem:** Accidentally delete work
+- **Fix:** Require typed "discard" confirmation
 
-**Mandatory confirmations:**
-- Option 4 (Discard): Require typed "discard" confirmation
-
-**Cleanup rules:**
-- Options 1, 4: Clean up worktree and branch
-- Options 2, 3: Preserve worktree
+## Red Flags
 
 **Never:**
 - Proceed with failing tests
 - Merge without verifying tests on result
-- Delete work without typed confirmation
+- Delete work without confirmation
 - Force-push without explicit request
+
+**Always:**
+- Verify tests before offering options
+- Present exactly 4 options
+- Get typed confirmation for Option 4
+- Clean up worktree for Options 1 & 4 only
 
 ## Integration
 

@@ -31,7 +31,7 @@ Advisory file locking for shared state access.
 
 **Solution:** Use `.lock` file pattern with timeout and stale lock detection.
 
-**Load when:** Implementing file-based state accessed by multiple hooks/processes
+**⚠️ MUST READ when:** Implementing file-based state accessed by multiple hooks/processes
 
 ### 2. Atomic Writes (`references/data-persistence.md`)
 
@@ -41,7 +41,7 @@ Safe file persistence that survives crashes.
 
 **Solution:** Write to `.tmp`, rename to final path (atomic on POSIX), handle Windows with backup pattern.
 
-**Load when:** Persisting any JSON/data file that must survive unexpected termination
+**⚠️ MUST READ when:** Persisting any JSON/data file that must survive unexpected termination
 
 ### 3. Schema Validation (`references/data-validation.md`)
 
@@ -51,7 +51,7 @@ Validate before every persist operation.
 
 **Solution:** Validate at creation AND before every write. Never trust "it was validated earlier."
 
-**Load when:** Creating factory functions, implementing create/update operations, building data pipelines
+**⚠️ MUST READ when:** Creating factory functions, implementing create/update operations, building data pipelines
 
 ## Quick Reference
 
@@ -64,6 +64,7 @@ Factory function → data-validation.md (validate output)
 ## Prevention Checklist
 
 Before implementing file I/O:
+
 - [ ] Will multiple processes access this file?
 - [ ] What happens if write crashes mid-operation?
 - [ ] Is data validated before every write?
@@ -72,6 +73,12 @@ Before implementing file I/O:
 ## Origin
 
 These patterns were extracted from ACE (Agentic Context Engineering) implementation review:
+
 - Race condition in concurrent delta writes → file-io.md
 - File corruption risk on crash → data-persistence.md
 - Invalid deltas persisting → data-validation.md
+
+## IMPORTANT Task Planning Notes
+
+- Always plan and break many small todo tasks
+- Always add a final review todo task to review the works done at the end to find any fix or enhancement needed

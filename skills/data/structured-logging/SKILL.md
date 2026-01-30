@@ -1,451 +1,597 @@
 ---
 name: structured-logging
-description: Implement JSON-based structured logging for observability. Use when setting up logging, debugging production issues, or preparing for log aggregation (ELK, Datadog). Covers log levels, context, and best practices.
-allowed-tools: Read, Glob, Grep, Edit, Write, Bash
-license: MIT
-metadata:
-  author: antigravity-team
-  version: "1.0"
+description: "Apply structured logging best practices using Pino for Node.js applications: JSON output, log levels, context, redaction, correlation IDs, and centralization. Use when implementing logging, reviewing log statements, or discussing observability."
 ---
 
 # Structured Logging
 
-JSON 포맷의 구조화된 로깅을 구현하는 스킬입니다.
+Best practices for production-ready logging in Node.js applications using Pino and structured JSON output.
 
-## Core Principle
+## Philosophy
 
-> **"print문 대신 구조화된 로그를 남겨라."**
-> **"로그는 검색 가능하고, 집계 가능해야 한다."**
+**Logs are data, not text.** Structured logging treats every log entry as a queryable data point, enabling powerful analysis, alerting, and debugging in production.
 
-## 왜 Structured Logging인가?
+**Three core principles:**
+1. **Machine-readable first**: JSON structure enables programmatic querying
+2. **Context-rich**: Include all relevant metadata (correlation IDs, user IDs, request info)
+3. **Security-conscious**: Never log sensitive data (passwords, tokens, PII)
 
-### ❌ 일반 텍스트 로그
+## Why Pino
 
-```
-[2024-01-15 10:30:45] ERROR User login failed for user123
-[2024-01-15 10:30:46] INFO Processing request
-```
+**Pino is the recommended logging library for Node.js (2025):**
+- **5x faster than Winston**: Minimal CPU overhead, async by default
+- **Structured JSON**: Every log is a JSON object, no string templates
+- **Low latency**: Critical for high-throughput applications
+- **Async transports**: Heavy operations (file writes, network calls) happen in worker threads
+- **Child loggers**: Easy context propagation
+- **Redaction built-in**: Automatic sensitive data removal
 
-- 파싱 어려움
-- 필터링/검색 제한
-- 컨텍스트 손실
+### Performance Comparison
 
-### ✅ 구조화된 로그 (JSON)
+| Library | Logs/Second | CPU Usage | Memory |
+|---------|-------------|-----------|---------|
+| **Pino** | 50,000+ | 2-4% | ~45MB |
+| Winston | ~10,000 | 10-15% | ~180MB |
+| Bunyan | ~15,000 | 8-12% | ~150MB |
 
-```json
-{
-  "timestamp": "2024-01-15T10:30:45.123Z",
-  "level": "error",
-  "message": "User login failed",
-  "userId": "user123",
-  "errorCode": "AUTH_INVALID_PASSWORD",
-  "requestId": "req-abc-123",
-  "duration": 45
-}
-```
-
-- 쉬운 파싱/검색
-- 필드별 필터링
-- 풍부한 컨텍스트
-
-## Log Levels
-
-| Level | 용도 | 예시 |
-|-------|------|------|
-| `fatal` | 시스템 종료 필요 | DB 연결 완전 실패 |
-| `error` | 에러 발생, 복구 가능 | API 호출 실패 |
-| `warn` | 잠재적 문제 | 지연된 응답 |
-| `info` | 주요 이벤트 | 사용자 로그인 성공 |
-| `debug` | 디버깅 정보 | 함수 파라미터 |
-| `trace` | 상세 추적 | 실행 흐름 |
-
-### 프로덕션 로그 레벨
-
-```
-프로덕션: info 이상만
-개발: debug 이상
-디버깅 시: trace까지
-```
-
-## 필수 로그 필드
-
-```typescript
-interface LogEntry {
-  // 필수
-  timestamp: string;    // ISO 8601
-  level: string;        // error, warn, info, debug
-  message: string;      // 사람이 읽을 수 있는 메시지
-
-  // 권장
-  requestId?: string;   // 요청 추적
-  userId?: string;      // 사용자 식별
-  service?: string;     // 서비스명
-  environment?: string; // prod, staging, dev
-
-  // 상황별
-  error?: {
-    name: string;
-    message: string;
-    stack?: string;
-  };
-  duration?: number;    // ms
-  metadata?: Record<string, unknown>;
-}
-```
-
-## Node.js 구현
-
-### Pino (권장 - 고성능)
+## Installation & Setup
 
 ```bash
-npm install pino pino-pretty
+# Install Pino and pretty-printing for development
+pnpm add pino
+pnpm add -D pino-pretty
 ```
+
+## Basic Configuration
 
 ```typescript
 // lib/logger.ts
-import pino from 'pino';
+import pino from 'pino'
+
+const isDevelopment = process.env.NODE_ENV === 'development'
 
 export const logger = pino({
   level: process.env.LOG_LEVEL || 'info',
 
-  // 기본 필드
+  // Use pretty printing in development, JSON in production
+  transport: isDevelopment
+    ? {
+        target: 'pino-pretty',
+        options: {
+          colorize: true,
+          translateTime: 'SYS:standard',
+          ignore: 'pid,hostname',
+        },
+      }
+    : undefined,
+
+  // Base context included in every log
   base: {
-    service: 'my-app',
-    environment: process.env.NODE_ENV,
+    env: process.env.NODE_ENV || 'development',
+    revision: process.env.VERCEL_GIT_COMMIT_SHA || 'local',
   },
 
-  // 타임스탬프 포맷
+  // Format timestamps as ISO 8601
   timestamp: pino.stdTimeFunctions.isoTime,
 
-  // 개발 환경: pretty print
-  transport: process.env.NODE_ENV === 'development'
-    ? { target: 'pino-pretty' }
-    : undefined,
-});
-
-// 사용
-logger.info({ userId: '123' }, 'User logged in');
-logger.error({ error, requestId }, 'Request failed');
-```
-
-### Winston
-
-```bash
-npm install winston
-```
-
-```typescript
-// lib/logger.ts
-import winston from 'winston';
-
-export const logger = winston.createLogger({
-  level: process.env.LOG_LEVEL || 'info',
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.errors({ stack: true }),
-    winston.format.json()
-  ),
-  defaultMeta: {
-    service: 'my-app',
-    environment: process.env.NODE_ENV,
+  // Redact sensitive fields automatically
+  redact: {
+    paths: [
+      'password',
+      'passwordHash',
+      'secret',
+      'apiKey',
+      'token',
+      'accessToken',
+      'refreshToken',
+      'authorization',
+      'cookie',
+      'req.headers.authorization',
+      'req.headers.cookie',
+      '*.password',
+      '*.passwordHash',
+      '*.secret',
+      '*.apiKey',
+      '*.token',
+    ],
+    censor: '[REDACTED]',
   },
-  transports: [
-    new winston.transports.Console({
-      format: process.env.NODE_ENV === 'development'
-        ? winston.format.combine(
-            winston.format.colorize(),
-            winston.format.simple()
-          )
-        : winston.format.json(),
-    }),
-  ],
-});
+})
+
+// Export type for use in application
+export type Logger = typeof logger
 ```
 
-## Request Context
+## Log Levels
 
-### Request ID 전파
+Pino supports six log levels (from lowest to highest):
 
 ```typescript
-// middleware/requestId.ts
-import { randomUUID } from 'crypto';
-import { NextRequest, NextResponse } from 'next/server';
-
-export function middleware(request: NextRequest) {
-  const requestId = request.headers.get('x-request-id') || randomUUID();
-
-  const response = NextResponse.next();
-  response.headers.set('x-request-id', requestId);
-
-  return response;
-}
+logger.trace('Extremely detailed debugging')  // Level 10
+logger.debug('Detailed debugging')            // Level 20
+logger.info('General information')            // Level 30
+logger.warn('Warning, non-critical issue')    // Level 40
+logger.error('Error, requires attention')     // Level 50
+logger.fatal('Fatal error, app cannot continue') // Level 60
 ```
 
-### AsyncLocalStorage (권장)
+**When to use each level:**
+
+- **trace**: Function entry/exit, loop iterations (extremely verbose)
+- **debug**: Variable values, conditional branches, algorithm steps
+- **info**: HTTP requests, user actions, state changes, startup/shutdown
+- **warn**: Deprecated API usage, retry attempts, degraded performance
+- **error**: Exceptions caught, failed operations, data validation errors
+- **fatal**: Database connection lost, critical service unavailable, unrecoverable errors
+
+**Production recommendation**: Set `LOG_LEVEL=info` by default, use `debug` or `trace` only when debugging specific issues.
+
+## Child Loggers (Context Propagation)
+
+Create child loggers to add context that persists across multiple log statements:
 
 ```typescript
-// lib/context.ts
-import { AsyncLocalStorage } from 'async_hooks';
+// Without child logger (repetitive)
+logger.info({ userId: '123', requestId: 'abc' }, 'User logged in')
+logger.info({ userId: '123', requestId: 'abc' }, 'Profile fetched')
+logger.info({ userId: '123', requestId: 'abc' }, 'Settings updated')
 
-interface RequestContext {
-  requestId: string;
-  userId?: string;
-  startTime: number;
-}
-
-export const asyncLocalStorage = new AsyncLocalStorage<RequestContext>();
-
-// 미들웨어에서 설정
-export function withContext<T>(context: RequestContext, fn: () => T): T {
-  return asyncLocalStorage.run(context, fn);
-}
-
-// 로거에서 사용
-export function getContext(): RequestContext | undefined {
-  return asyncLocalStorage.getStore();
-}
+// With child logger (clean)
+const requestLogger = logger.child({ userId: '123', requestId: 'abc' })
+requestLogger.info('User logged in')
+requestLogger.info('Profile fetched')
+requestLogger.info('Settings updated')
 ```
 
-### Context-aware Logger
-
-```typescript
-// lib/logger.ts
-import pino from 'pino';
-import { getContext } from './context';
-
-const baseLogger = pino({ /* config */ });
-
-export const logger = {
-  info: (obj: object, msg?: string) => {
-    const ctx = getContext();
-    baseLogger.info({ ...obj, ...ctx }, msg);
-  },
-  error: (obj: object, msg?: string) => {
-    const ctx = getContext();
-    baseLogger.error({ ...obj, ...ctx }, msg);
-  },
-  // ... other levels
-};
-```
-
-## 로깅 패턴
-
-### API 요청 로깅
+### Middleware Pattern (Express/Next.js)
 
 ```typescript
 // middleware/logging.ts
-export async function loggingMiddleware(req: Request, handler: Function) {
-  const startTime = Date.now();
-  const requestId = randomUUID();
+import { v4 as uuidv4 } from 'uuid'
+import { logger } from '@/lib/logger'
+import type { NextRequest } from 'next/server'
+
+export function createRequestLogger(req: NextRequest) {
+  // Generate correlation ID for request tracing
+  const correlationId = req.headers.get('x-correlation-id') || uuidv4()
+
+  // Create child logger with request context
+  return logger.child({
+    correlationId,
+    method: req.method,
+    path: req.nextUrl.pathname,
+    userAgent: req.headers.get('user-agent'),
+    ip: req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip'),
+  })
+}
+
+// Usage in API route
+export async function GET(req: NextRequest) {
+  const log = createRequestLogger(req)
+
+  log.info('Processing request')
+
+  try {
+    const data = await fetchData()
+    log.info({ dataCount: data.length }, 'Data fetched successfully')
+    return Response.json(data)
+  } catch (error) {
+    log.error({ error }, 'Failed to fetch data')
+    return Response.json({ error: 'Internal error' }, { status: 500 })
+  }
+}
+```
+
+## Structured Logging Patterns
+
+### ✅ Good: Structured Fields
+
+```typescript
+// Queryable, analyzable
+logger.info({
+  event: 'user_login',
+  userId: user.id,
+  email: user.email,
+  provider: 'google',
+  duration: 150,
+}, 'User authenticated')
+
+// Easy queries:
+// - All Google logins: event='user_login' AND provider='google'
+// - Slow logins: event='user_login' AND duration > 1000
+// - Specific user: event='user_login' AND userId='123'
+```
+
+### ❌ Bad: String Templates
+
+```typescript
+// Not queryable, hard to parse
+logger.info(`User ${user.email} logged in via ${provider} in ${duration}ms`)
+
+// Cannot easily query by provider or filter by duration
+```
+
+### Error Logging
+
+```typescript
+// ✅ Good: Include error object with structured context
+try {
+  await riskyOperation()
+} catch (error) {
+  logger.error({
+    error,
+    operation: 'riskyOperation',
+    userId: user.id,
+    retryCount: 3,
+  }, 'Operation failed after retries')
+}
+
+// ❌ Bad: Lose stack trace and context
+try {
+  await riskyOperation()
+} catch (error) {
+  logger.error(`Operation failed: ${error.message}`)
+}
+```
+
+**Note on Error serialization:** Pino handles Error objects natively, but `JSON.stringify(new Error("msg"))` returns `{}` because `message`, `name`, `stack` are non-enumerable. For custom loggers, manually extract:
+
+```typescript
+function serializeError(err: unknown): Record<string, unknown> {
+  if (err instanceof Error) {
+    return { name: err.name, message: err.message, stack: err.stack };
+  }
+  return { value: String(err) };
+}
+```
+
+### Performance Logging
+
+```typescript
+// Track operation duration
+const startTime = Date.now()
+
+try {
+  const result = await fetchFromDatabase(query)
+  const duration = Date.now() - startTime
 
   logger.info({
-    requestId,
-    method: req.method,
-    url: req.url,
-    userAgent: req.headers.get('user-agent'),
-  }, 'Request started');
+    event: 'database_query',
+    query: query.type,
+    duration,
+    resultCount: result.length,
+  }, 'Query completed')
 
-  try {
-    const response = await handler(req);
-
-    logger.info({
-      requestId,
-      statusCode: response.status,
-      duration: Date.now() - startTime,
-    }, 'Request completed');
-
-    return response;
-  } catch (error) {
-    logger.error({
-      requestId,
-      error: {
-        name: error.name,
-        message: error.message,
-        stack: error.stack,
-      },
-      duration: Date.now() - startTime,
-    }, 'Request failed');
-
-    throw error;
+  // Alert if slow
+  if (duration > 1000) {
+    logger.warn({
+      event: 'slow_query',
+      query: query.type,
+      duration,
+    }, 'Database query exceeded threshold')
   }
+
+  return result
+} catch (error) {
+  logger.error({
+    error,
+    event: 'database_error',
+    query: query.type,
+    duration: Date.now() - startTime,
+  }, 'Query failed')
+  throw error
 }
 ```
 
-### 비즈니스 이벤트 로깅
+## Correlation IDs (Request Tracing)
+
+Correlation IDs enable tracing a single request through multiple services and log statements.
 
 ```typescript
-// 사용자 활동
+// middleware/correlation.ts
+import { v4 as uuidv4 } from 'uuid'
+
+export function correlationMiddleware(req: Request, res: Response, next: NextFunction) {
+  // Extract or generate correlation ID
+  const correlationId = req.headers['x-correlation-id'] || uuidv4()
+
+  // Add to response headers for client
+  res.setHeader('x-correlation-id', correlationId)
+
+  // Attach logger with correlation ID to request
+  req.log = logger.child({ correlationId })
+
+  next()
+}
+
+// Usage in route
+app.get('/api/users', async (req, res) => {
+  req.log.info('Fetching users')
+
+  const users = await fetchUsers()
+  req.log.info({ count: users.length }, 'Users fetched')
+
+  res.json(users)
+})
+
+// All logs will include the same correlationId:
+// {"level":"info","correlationId":"abc-123","msg":"Fetching users"}
+// {"level":"info","correlationId":"abc-123","count":42,"msg":"Users fetched"}
+```
+
+## Sensitive Data Redaction
+
+**Critical security practice**: Never log sensitive information.
+
+### Automatic Redaction (configured in setup)
+
+```typescript
+// Pino automatically redacts these fields (from setup above)
 logger.info({
-  event: 'user.login',
-  userId,
-  method: 'google_oauth',
-  ip: request.ip,
-}, 'User logged in');
+  user: {
+    email: 'user@example.com',
+    password: 'secret123',  // Will be [REDACTED]
+  },
+  apiKey: 'sk_live_123',    // Will be [REDACTED]
+}, 'User data processed')
 
-// 결제
-logger.info({
-  event: 'payment.success',
-  userId,
-  amount: 9900,
-  currency: 'KRW',
-  paymentId,
-}, 'Payment completed');
-
-// 에러
-logger.error({
-  event: 'payment.failed',
-  userId,
-  amount: 9900,
-  errorCode: 'CARD_DECLINED',
-  paymentId,
-}, 'Payment failed');
+// Output:
+// {
+//   "user": {
+//     "email": "user@example.com",
+//     "password": "[REDACTED]"
+//   },
+//   "apiKey": "[REDACTED]",
+//   "msg": "User data processed"
+// }
 ```
 
-### 성능 로깅
+### Manual Redaction for Dynamic Fields
 
 ```typescript
-async function fetchData() {
-  const startTime = Date.now();
+// Utility function for safe logging
+function sanitizeForLogging<T extends Record<string, any>>(obj: T): T {
+  const sensitivePatterns = [
+    /password/i,
+    /secret/i,
+    /token/i,
+    /key/i,
+    /authorization/i,
+  ]
 
-  try {
-    const result = await db.query(/* ... */);
+  const sanitized = { ...obj }
 
-    logger.info({
-      operation: 'db.query',
-      table: 'users',
-      duration: Date.now() - startTime,
-      rowCount: result.length,
-    }, 'Database query completed');
-
-    return result;
-  } catch (error) {
-    logger.error({
-      operation: 'db.query',
-      table: 'users',
-      duration: Date.now() - startTime,
-      error: error.message,
-    }, 'Database query failed');
-
-    throw error;
-  }
-}
-```
-
-## 금지 패턴
-
-```typescript
-// ❌ BAD: 민감 정보 로깅
-logger.info({ password, creditCard, ssn }, 'User data');
-
-// ❌ BAD: 과도한 로깅 (성능 저하)
-for (const item of items) {
-  logger.debug({ item }, 'Processing item');  // 수천 번 호출
-}
-
-// ❌ BAD: 구조화되지 않은 로그
-logger.info(`User ${userId} logged in at ${timestamp}`);
-
-// ✅ GOOD: 구조화된 로그
-logger.info({ userId, timestamp }, 'User logged in');
-```
-
-## 민감 정보 제거
-
-```typescript
-// lib/logger.ts
-const sensitiveFields = ['password', 'token', 'apiKey', 'creditCard'];
-
-function redactSensitiveData(obj: object): object {
-  const redacted = { ...obj };
-
-  for (const key of Object.keys(redacted)) {
-    if (sensitiveFields.some(f => key.toLowerCase().includes(f))) {
-      redacted[key] = '[REDACTED]';
+  for (const key in sanitized) {
+    if (sensitivePatterns.some(pattern => pattern.test(key))) {
+      sanitized[key] = '[REDACTED]'
     }
   }
 
-  return redacted;
+  return sanitized
 }
 
-// Pino redact 옵션
-const logger = pino({
-  redact: ['password', 'creditCard', '*.token', 'headers.authorization'],
-});
+// Usage
+logger.info(sanitizeForLogging(userData), 'User updated')
 ```
 
-## Log Aggregation 연동
+## Convex-Specific Logging
 
-### ELK Stack (Elasticsearch)
+Convex functions run in a managed environment with built-in logging, but structured logging still applies:
 
 ```typescript
-// filebeat.yml에서 JSON 파싱
-// 또는 직접 Elasticsearch로 전송
-import { Client } from '@elastic/elasticsearch';
+// convex/users.ts
+import { query } from './_generated/server'
+import { v } from 'convex/values'
 
-const esClient = new Client({ node: 'http://localhost:9200' });
+export const getUser = query({
+  args: { userId: v.id('users') },
+  handler: async (ctx, args) => {
+    // Use console with structured data
+    console.info({
+      operation: 'getUser',
+      userId: args.userId,
+      timestamp: Date.now(),
+    })
 
-const esTransport = new winston.transports.Stream({
-  stream: {
-    write: async (log: string) => {
-      await esClient.index({
-        index: 'app-logs',
-        document: JSON.parse(log),
-      });
+    try {
+      const user = await ctx.db.get(args.userId)
+
+      if (!user) {
+        console.warn({
+          operation: 'getUser',
+          userId: args.userId,
+          result: 'not_found',
+        })
+        return null
+      }
+
+      console.info({
+        operation: 'getUser',
+        userId: args.userId,
+        result: 'success',
+      })
+
+      return user
+    } catch (error) {
+      console.error({
+        operation: 'getUser',
+        userId: args.userId,
+        error: error.message,
+      })
+      throw error
+    }
+  },
+})
+```
+
+**Note**: Convex console.log/info/error are automatically structured in the dashboard. Use objects instead of strings for better filtering.
+
+## Centralization & Observability
+
+In production, centralize logs to a log aggregation service:
+
+### Option 1: Datadog (Recommended for Enterprise)
+
+```typescript
+// lib/logger.ts
+import pino from 'pino'
+
+const logger = pino({
+  // ... base config
+
+  transport: {
+    target: 'pino-datadog-transport',
+    options: {
+      apiKey: process.env.DATADOG_API_KEY,
+      service: 'my-app',
+      env: process.env.NODE_ENV,
+      tags: ['team:engineering', 'project:webapp'],
     },
   },
-});
+})
 ```
 
-### Datadog
-
-```bash
-npm install dd-trace
-```
+### Option 2: Graylog (Self-Hosted)
 
 ```typescript
-// tracer.ts
-import tracer from 'dd-trace';
+import pino from 'pino'
 
-tracer.init({
-  service: 'my-app',
-  env: process.env.NODE_ENV,
-});
-
-// 로그에 trace ID 포함
-logger.info({
-  dd: {
-    trace_id: tracer.scope().active()?.context().toTraceId(),
-    span_id: tracer.scope().active()?.context().toSpanId(),
+const logger = pino({
+  transport: {
+    target: 'pino-socket',
+    options: {
+      address: process.env.GRAYLOG_HOST,
+      port: 12201,
+      mode: 'udp',
+    },
   },
-}, 'Event with trace');
+})
 ```
 
-## Checklist
+### Option 3: Vercel Log Drains (for Next.js on Vercel)
 
-### 설정
+Vercel automatically collects logs and can forward to:
+- Datadog
+- LogDNA
+- Logtail
+- New Relic
+- Sentry
+- Custom HTTPS endpoints
 
-- [ ] 구조화된 로깅 라이브러리 설치 (Pino/Winston)
-- [ ] 로그 레벨 환경변수 설정
-- [ ] 기본 필드 (service, environment) 설정
-- [ ] Request ID 미들웨어 적용
-- [ ] 민감 정보 redaction 설정
+Configure in Vercel Dashboard → Project → Settings → Log Drains
 
-### 로깅 표준
+### Querying Logs
 
-- [ ] JSON 포맷 사용
-- [ ] 적절한 로그 레벨 사용
-- [ ] 비즈니스 이벤트 로깅
-- [ ] 에러에 스택 트레이스 포함
-- [ ] 성능 측정 로깅
+With centralized structured logs, you can query efficiently:
 
-### 운영
+```
+# Datadog query
+service:my-app AND env:production AND level:error AND @userId:123
 
-- [ ] 로그 집계 시스템 연동
-- [ ] 로그 기반 알림 설정
-- [ ] 로그 보관 정책 수립
+# Find slow database queries
+service:my-app AND event:database_query AND duration > 1000
 
-## References
+# Track user journey
+service:my-app AND @correlationId:abc-123-def
+```
 
-- [Pino](https://getpino.io/)
-- [Winston](https://github.com/winstonjs/winston)
-- [12-Factor App Logs](https://12factor.net/logs)
+## Testing & Development
+
+### Development: Pretty Printing
+
+```bash
+# Pretty output for development
+NODE_ENV=development pnpm dev
+
+# Raw JSON for testing centralization
+NODE_ENV=production pnpm dev
+```
+
+### Testing: Log Capture
+
+```typescript
+// test/logger.test.ts
+import { describe, it, expect, vi } from 'vitest'
+import { logger } from '@/lib/logger'
+
+describe('Logger', () => {
+  it('redacts sensitive fields', () => {
+    const logSpy = vi.spyOn(logger, 'info')
+
+    logger.info({
+      email: 'user@example.com',
+      password: 'secret',
+    }, 'User data')
+
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        email: 'user@example.com',
+        password: '[REDACTED]',
+      }),
+      'User data'
+    )
+  })
+})
+```
+
+## Best Practices Summary
+
+### Do ✅
+
+- **Use structured JSON**: `{ userId: '123', action: 'login' }` not `"User 123 logged in"`
+- **Include context**: Add all relevant fields (IDs, timestamps, metadata)
+- **Use correlation IDs**: Track requests across services
+- **Redact sensitive data**: Passwords, tokens, PII automatically filtered
+- **Log at appropriate levels**: info for normal flow, error for failures
+- **Use child loggers**: Add context once, reuse across log statements
+- **Centralize in production**: Send logs to Datadog/Graylog/ELK
+- **Query your logs**: Use structured fields for powerful analysis
+
+### Don't ❌
+
+- **Don't use string templates**: Breaks queryability
+- **Don't log sensitive data**: Passwords, tokens, credit cards, SSNs
+- **Don't log in tight loops**: Excessive logs hurt performance
+- **Don't ignore log levels**: Trace/debug should be off in production
+- **Don't concatenate error messages**: Log full error object with stack
+- **Don't use console.log in production**: Use proper logging library
+- **Don't skip correlation IDs**: Makes debugging multi-service flows impossible
+
+## Quick Setup Checklist
+
+For a new Node.js/Next.js project:
+
+- [ ] Install Pino: `pnpm add pino pino-pretty`
+- [ ] Create logger singleton in `lib/logger.ts`
+- [ ] Configure redaction for sensitive fields
+- [ ] Set up correlation ID middleware
+- [ ] Create child logger pattern for requests
+- [ ] Configure pretty printing for development
+- [ ] Set up log transport for production (Datadog/Graylog)
+- [ ] Add environment variable: `LOG_LEVEL`
+- [ ] Test redaction with unit tests
+- [ ] Document logging patterns in project README
+
+## Philosophy
+
+**"Logs are the voice of your production application."**
+
+Structured logging transforms logs from debug statements into queryable data. In production, logs enable:
+- **Debugging**: Trace requests, find errors, understand behavior
+- **Monitoring**: Track metrics, detect anomalies, set alerts
+- **Analytics**: Understand user behavior, measure performance
+- **Security**: Detect attacks, audit access, investigate incidents
+
+Invest in logging infrastructure early. The cost is minimal; the value is immense.
+
+---
+
+When agents implement logging, they should:
+- Default to Pino for Node.js applications (5x faster than Winston)
+- Use structured JSON fields, not string templates
+- Include correlation IDs for request tracing
+- Redact sensitive fields automatically
+- Use child loggers for context propagation
+- Log at appropriate levels (info for normal, error for failures)
+- Centralize logs in production (Datadog, Graylog, or Vercel Log Drains)
+- Never log passwords, tokens, API keys, or PII

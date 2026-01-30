@@ -1,135 +1,52 @@
 ---
 name: critique
-description: "Challenge idea assumptions with skeptical VC-style evaluation. Use when user requests critique, validation, or 'is this a good idea' assessment."
-model: claude-opus-4-5-20251101
-allowed-tools: Read, Write, Edit, Glob, Grep
+description: |
+  CRITIQUE
 ---
 
-# /critique
-
-Skeptical, VC-style evaluation of a project idea.
-
-## Usage
-
-```bash
-/critique                        # Critique current project
-/critique --project coordinatr   # Specific project
-/critique --focus market         # Market validation focus
-/critique --focus technical      # Technical feasibility focus
-/critique --focus business       # Business model focus
-```
-
-## Output Location
-
-```
-ideas/[project]/critiques/YYYY-MM-DD.md
-```
-
-## Prerequisites
-
-**REQUIRED**: `project-brief.md` must exist
-
-```bash
-ls ideas/{project}/project-brief.md
-# If missing: "Run /brief first"
-```
-
-## Execution Flow
-
-### 1. Load Project Context
-
-```bash
-Read: ideas/{project}/project-brief.md
-Read: ideas/{project}/competitive-analysis.md (if exists)
-Read: ideas/{project}/README.md
-Glob: resources/research/*.md
-```
-
-### 2. Invoke idea-critic Agent
-
-Analysis areas:
-1. **Problem Validity** - Is this a real problem? Evidence?
-2. **Market Opportunity** - Size? Timing? Competition?
-3. **Solution Fit** - Does solution address root cause?
-4. **Differentiation** - Why will this win?
-5. **Business Model** - Revenue? Unit economics?
-6. **Execution Risk** - Team? Timeline? Resources?
-7. **Technical Feasibility** - Can this be built?
-
-### 3. Generate Critique Document
-
-```markdown
 ---
-created: YYYY-MM-DD
-verdict: strong | promising | needs_work | reconsider
-confidence: high | medium | low
+description: Adversarial expert review from a specific persona
+argument-hint: <persona> [context]
 ---
 
-# Critique: [Project Name]
+# CRITIQUE
 
-## Executive Summary
-[Honest 1-2 paragraph assessment]
+Channel a specific expert for adversarial feedback.
 
-## Critical Concerns
+## Argument
 
-### High Priority
-1. **[Concern]**: [Why concerning]
-   - Evidence needed: [What would resolve]
+- `persona` — One of: grug, carmack, ousterhout, fowler, beck, jobs, torvalds
 
-### Medium Priority
-1. **[Concern]**: [Why matters]
-   - Suggestion: [How to address]
+## Personas
 
-### Strengths
-1. **[Strength]**: [Why valuable]
+| Persona | Lens | Challenges |
+|---------|------|------------|
+| **grug** | Complexity demon | Over-abstraction, unnecessary layers, big-brain patterns |
+| **carmack** | Shippability | Scope creep, premature optimization, not focusing |
+| **ousterhout** | Module depth | Shallow modules, pass-through layers, interface complexity |
+| **fowler** | Code smells | Duplication, long methods, feature envy, inappropriate intimacy |
+| **beck** | Test design | Untestable code, missing TDD, over-mocking |
+| **jobs** | Simplicity | Feature bloat, unclear value, lack of craft |
+| **torvalds** | Pragmatism | Over-engineering, not shipping, design astronauts |
 
-## Analysis by Area
-[Problem Validity, Market, Solution Fit, etc.]
+## What This Does
 
-## Hard Questions to Answer
-1. [Tough question]
-2. [Another challenge]
+1. **Load persona** — Channel the expert's perspective and values
+2. **Analyze target** — Review code, design, or plan through their lens
+3. **Challenge ruthlessly** — Find flaws the persona would hate
+4. **Recommend** — What would they demand you change?
 
-## Recommendations
+## Execution
 
-### If You Proceed
-- [De-risk action]
-- [Research needed]
+Launch Task agent with persona instructions:
+- Read the relevant code/design
+- Apply persona's specific lens
+- Produce adversarial critique
+- Suggest concrete fixes
 
-### If You Pivot
-- [Alternative direction]
-```
+## Output
 
-## Focus Modes
-
-### `--focus market`
-- Market size/dynamics
-- Competition landscape
-- Customer validation
-- Timing and trends
-
-### `--focus technical`
-- Technical feasibility
-- Architecture complexity
-- Skill requirements
-
-### `--focus business`
-- Revenue model
-- Pricing strategy
-- Unit economics
-- Go-to-market
-
-## When to Use
-
-- After completing project brief
-- Before significant time investment
-- When seeking honest feedback
-- Before presenting to others
-
-**Not for**: Ideas still forming (use /brief), when needing encouragement
-
-## Workflow
-
-```
-/brief -> /critique -> /research -> /spec
-```
+Structured critique:
+- **This {persona} hates:** Specific issues found
+- **{Persona} demands:** Required changes
+- **{Persona} would approve if:** Conditions for acceptance

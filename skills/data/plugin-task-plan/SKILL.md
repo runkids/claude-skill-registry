@@ -1,6 +1,7 @@
 ---
 name: plugin-task-plan
 description: Create implementation tasks from deliverables using skill delegation
+user-invocable: false
 allowed-tools: Read, Bash
 ---
 
@@ -118,7 +119,7 @@ python3 .plan/execute-script.py pm-workflow:manage-tasks:manage-tasks add \
 title: {Action Verb} {Target}: {Scope}
 deliverables: [{n1}, {n2}, {n3}]
 domain: plan-marshall-plugin-dev
-phase: execute
+phase: 5-execute
 description: |
   {combined description from deliverables}
 
@@ -163,7 +164,7 @@ python3 .plan/execute-script.py pm-workflow:manage-tasks:manage-tasks add \
 title: Migrate pm-workflow Agents to TOON Format
 deliverables: [2]
 domain: plan-marshall-plugin-dev
-phase: execute
+phase: 5-execute
 description: |
   Convert all JSON output blocks to TOON format in pm-workflow agents.
 
@@ -193,12 +194,13 @@ On ambiguous deliverable or planning issues:
 
 ```bash
 python3 .plan/execute-script.py plan-marshall:manage-lessons:manage-lesson add \
-  --component-type skill \
-  --component-name plugin-task-plan \
-  --category observation \
+  --component "pm-plugin-development:plugin-task-plan" \
+  --category improvement \
   --title "{issue summary}" \
   --detail "{context and resolution approach}"
 ```
+
+**Valid categories**: `bug`, `improvement`, `anti-pattern`
 
 ### Step 7: Return Results
 
@@ -309,10 +311,10 @@ delegation:
 Scripts are created within skills. The `steps` lists the script file AND its test:
 
 ```yaml
-title: Create script: manage-config
+title: Create script: manage-references
 steps:
-  - marketplace/bundles/pm-workflow/skills/manage-config/scripts/manage-config.py
-  - test/pm-workflow/manage-config/test_manage_config.py
+  - marketplace/bundles/pm-workflow/skills/manage-references/scripts/manage-references.py
+  - test/pm-workflow/manage-references/test_manage_references.py
 delegation:
   skill: pm-plugin-development:plugin-create
   workflow: create-skill

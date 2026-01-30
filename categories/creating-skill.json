@@ -1,0 +1,19 @@
+{
+  "category": "creating-skill",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.532312Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Creates Skills for Claude. Use when users request creating/updating skills, need skill structure guidance, or mention extending Claude's capabilities through custom skills.",
+      "repo": "oaustegard/claude-skills",
+      "path": "creating-skill",
+      "branch": "main",
+      "category": "creating-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "oaustegard/claude-skills",
+      "source": "github.com/oaustegard/claude-skills"
+    }
+  ]
+}

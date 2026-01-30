@@ -1,146 +1,129 @@
 ---
 name: release
-description: Releases Plain packages with intelligent version suggestions and parallel release notes generation. Use when releasing packages to PyPI.
+description: バージョン提案からGitHub Release作成までの完全ワークフロー
 ---
 
-# Release Packages
+# リリースワークフロー
 
-Release Plain packages with version bumping, changelog generation, and git tagging.
+> **スキル参照**: `release-workflow` skill
 
-## Arguments
+---
 
-```
-/release [packages...] [--minor|--patch] [--force]
-```
+## 全体フロー
 
-- No args: discover all packages with changes, prompt for each
-- Package names: only release specified packages
-- `--minor`: auto-select minor release for all packages with changes
-- `--patch`: auto-select patch release for all packages with changes
-- `--force`: ignore dirty git status
+| Phase | 名称 | 内容 |
+|-------|------|------|
+| 0 | 入力解析 | バージョン引数の解析（省略時は自動提案） |
+| 1 | 状態確認 | 現在バージョン取得、前回リリースからの変更取得 |
+| 2 | バージョン提案 | セマンティックバージョニングに基づく提案 |
+| 2.5 | ユーザー承認 | バージョン確認（`approval-gate` skill） |
+| 3 | リリース実行 | Cargo.toml更新、CHANGELOG更新、タグ作成、Push、Release作成 |
+| 4 | 完了報告 | リリース結果の報告 |
 
-## Workflow
+> **Phase規約**: `workflow-phase-convention` skill を参照
 
-### Phase 1: Check Preconditions
+---
 
-1. Check git status is clean (unless `--force`):
+## 実装環境
 
-    ```
-    git status --porcelain
-    ```
+**container-use不要**: リリース作業はホスト環境で直接実行します。
 
-    If not clean, stop and ask user to commit or stash changes.
+| 理由 | 説明 |
+|------|------|
+| コード変更なし | バージョンファイルとCHANGELOGのみ更新 |
+| ドキュメント操作のみ | 実行可能コードの変更を伴わない |
 
-### Phase 2: Discover Packages with Changes
+---
 
-Run the discover-changes script to find packages with unreleased changes:
+## 実行フロー
 
-```
-./.claude/skills/release/discover-changes
-```
+### Phase 1: 状態確認
 
-This outputs JSON with each package's name, current version, and commits since last release.
-If specific packages were requested, filter the results to only those packages.
+```bash
+# 現在のバージョンを取得
+current_version=$(grep '^version = ' Cargo.toml | head -1 | sed 's/version = "\(.*\)"/\1/')
+last_tag=$(git tag --sort=-version:refname | head -1)
 
-### Phase 3: Collect Release Decisions
-
-For each package with changes:
-
-1. Display the commits since last version change
-2. **Analyze commits and suggest release type**:
-    - **Minor**: new features, breaking changes, significant additions, new APIs
-    - **Patch**: small bugfixes, minor tweaks, documentation updates, refactors
-3. Ask user to confirm or adjust (minor/patch/skip)
-    - If `--minor` or `--patch` was passed, auto-select that type
-    - Default to skip if user just presses Enter
-
-### Phase 4: Bump Versions
-
-Run all version bumps in a single bash command to minimize context usage:
-
-```
-cd <path1> && uv version --bump <minor|patch> && cd <path2> && uv version --bump <minor|patch> && ...
+# 前回リリースからの変更を取得
+git log ${last_tag}..HEAD --oneline
 ```
 
-Display the version changes (e.g., "plain-code: 0.19.0 → 0.20.0").
+### Phase 2: バージョン提案
 
-### Phase 5: Generate Release Notes
+前回リリースからの変更を分析し、セマンティックバージョニングに基づいてバージョンを提案する。
 
-For each package to release, sequentially:
+**提案ロジック**:
+1. `feat:` または `feature/` → MINOR
+2. `fix:` または `fix/` のみ → PATCH
+3. `BREAKING CHANGE` または `!:` → MAJOR
 
-1. Get the file changes since the last release:
+**ユーザーに提案を提示**:
+- 現在のバージョン
+- 変更内容のサマリー
+- 提案バージョン
+- 変更種別の内訳
 
-    ```
-    git diff <last_tag>..HEAD -- <name> ":(exclude)<name>/tests"
-    ```
+### Phase 2.5: ユーザー承認
 
-2. Read the existing `<changelog_path>` file.
+> **共通仕様**: `approval-gate` skill を参照
 
-3. Prepend a new release entry to the changelog with this format:
+**ユーザーの選択を待つ**:
 
-```
-## [<new_version>](https://github.com/dropseed/plain/releases/<name>@<new_version>) (<today's date>)
+1. 続行 → 提案バージョンで続行
+2. 修正 → 別のバージョンを指定
+3. 中断 → キャンセル
 
-### What's changed
+> 番号を選択してください（1-3）:
 
-- Summarize user-facing changes based on the actual diff (not just commit messages)
-- Include commit hash links: ([abc1234](https://github.com/dropseed/plain/commit/abc1234))
-- Skip test changes, internal refactors that don't affect public API
+### Phase 3: リリース実行
 
-### Upgrade instructions
+ユーザー承認後、以下を自動実行：
 
-- Specific steps if any API changed
-- If no changes required: "- No changes required."
-```
+1. **Cargo.toml更新**: `version = "<new-version>"`
+2. **CHANGELOG.md更新**: 変更内容を追記
+3. **コミット**: `chore: bump version to <new-version>`
+4. **タグ作成**: `v<new-version>`
+5. **Push**: `git push origin master --tags`
+6. **GitHub Release作成**: `gh release create`
+7. **Release Workflow監視**: 完了まで待機
+8. **アセット確認**: ダウンロード可能なファイルを確認
 
-### Phase 6: Format and Sync
+---
 
-Run once after all changes:
+## 引数
 
-```
-uv sync
-./scripts/fix
-```
+| 引数 | 説明 | 例 |
+|------|------|-----|
+| `[version]` | リリースバージョン（省略時は自動提案） | `0.5.0`, `1.0.0` |
 
-### Phase 7: Commit Each Package
+---
 
-Commit sub-packages first (plain-admin, plain-dev, etc.), then the core `plain` package last.
+## 使用例
 
-For each sub-package:
+```bash
+# バージョン自動提案
+/release
 
-```
-git add <package>/pyproject.toml <package>/**/CHANGELOG.md
-git add-hunks uv.lock --grep "<package-with-dot>" --context
-git commit -m "Release <package> <version>" -n
-git tag -a "<package>@<version>" -m "Release <package> <version>"
-```
-
-Note: `<package-with-dot>` uses dot notation (e.g., "plain.dev" for plain-dev).
-
-For the core `plain` package (last), `git add uv.lock` directly since the grep pattern can't uniquely match it:
-
-```
-git add plain/pyproject.toml plain/**/CHANGELOG.md uv.lock
-git commit -m "Release plain <version>" -n
-git tag -a "plain@<version>" -m "Release plain <version>"
+# バージョン指定
+/release 1.0.0
 ```
 
-### Phase 8: Push
+---
 
-Push all commits and tags:
+## 出力
 
+リリース完了後、以下を報告：
+
+```markdown
+## ✅ リリース完了
+
+| 項目 | 内容 |
+|------|------|
+| バージョン | v<version> |
+| リリースURL | https://github.com/<owner>/<repo>/releases/tag/v<version> |
+| アセット | <asset-list> |
+
+### 変更内容サマリー
+- ✨ 新機能: N件
+- 🐛 バグ修正: N件
 ```
-git push --follow-tags
-```
-
-## Release Type Guidelines
-
-Since all packages are pre-1.0, use:
-
-- **Minor (0.x.0)**: New features, breaking changes, new APIs, significant additions
-- **Patch (0.0.x)**: Bugfixes, minor tweaks, documentation, refactors
-
-Analyze commit messages for keywords:
-
-- Minor indicators: "add", "new", "feature", "breaking", "remove", "rename API"
-- Patch indicators: "fix", "bugfix", "typo", "docs", "refactor", "update"

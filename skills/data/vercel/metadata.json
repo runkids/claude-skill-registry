@@ -1,7 +1,7 @@
 {
   "name": "vercel",
-  "repo": "pascallammers/mylo-travel-concierge-v2",
-  "path": ".factory/skills/vercel/SKILL.md",
-  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
-  "downloaded_at": "2026-01-29T03:58:04.125094Z"
+  "repo": "carmandale/agent-config",
+  "path": "skills/tools/vercel/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-30T04:46:40.302337Z"
 }

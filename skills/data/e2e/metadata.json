@@ -1,7 +1,7 @@
 {
   "name": "e2e",
-  "repo": "tidemann/st44-home",
-  "path": ".claude/skills/e2e/SKILL.md",
-  "source": "github.com/tidemann/st44-home",
-  "downloaded_at": "2026-01-29T04:45:22.424311Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/e2e/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-30T03:47:32.225841Z"
 }

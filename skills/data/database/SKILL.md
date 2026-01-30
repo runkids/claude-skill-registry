@@ -1,316 +1,328 @@
 ---
-name: agent-database
-description: PostgreSQL expert for .sql migration files, CREATE TABLE, ALTER TABLE, indexes, constraints, foreign keys, schema changes, docker/postgres/migrations/, init.sql, idempotent SQL, transactions, BEGIN/COMMIT, psql, database testing, schema_migrations
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash
+name: Database
+description: ทำงานกับ PostgreSQL และ MongoDB อย่างมีประสิทธิภาพ
 ---
 
-# Database Migration Skill
+# Database Skill
 
-Expert in PostgreSQL schema management and migrations following project conventions.
+## Overview
 
-## When to Use This Skill
+Skill สำหรับออกแบบ จัดการ และ optimize databases ทั้ง SQL และ NoSQL
 
-Use this skill when:
+---
 
-- Creating new tables
-- Adding or modifying columns
-- Creating indexes or constraints
-- Any database schema change
-- Migration-related tasks
+## PostgreSQL
 
-## CRITICAL: Migration-First Workflow (MANDATORY)
+### Setup with Docker
 
-**ALL database changes MUST have a migration file.**
+```yaml
+# docker-compose.yml
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
-**Without a migration, changes will NOT deploy to production.**
+volumes:
+  postgres_data:
+```
 
-### Migration Workflow
+### Schema Design Best Practices
 
-1. **Create Migration File**
-
-   ```bash
-   # In docker/postgres/migrations/
-   # Name: NNN_description.sql (e.g., 003_add_user_roles.sql)
-   ```
-
-2. **Write Idempotent Migration**
-
-   ```sql
-   BEGIN;
-
-   -- Create table only if it doesn't exist
-   CREATE TABLE IF NOT EXISTS users (
-     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-     "firstName" TEXT NOT NULL,
-     "lastName" TEXT NOT NULL,
-     email TEXT UNIQUE NOT NULL,
-     "createdAt" TIMESTAMP DEFAULT NOW()
-   );
-
-   -- Add column only if it doesn't exist
-   DO $$
-   BEGIN
-     IF NOT EXISTS (
-       SELECT 1 FROM information_schema.columns
-       WHERE table_name = 'users' AND column_name = 'role'
-     ) THEN
-       ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'user';
-     END IF;
-   END $$;
-
-   -- Record migration
-   INSERT INTO schema_migrations (version, description)
-   VALUES ('003', 'Add user roles')
-   ON CONFLICT (version) DO NOTHING;
-
-   COMMIT;
-   ```
-
-3. **Update init.sql**
-
-   ```bash
-   # Add the same schema to docker/postgres/init.sql
-   # For fresh database installations
-   ```
-
-4. **Test Migration Locally**
-
-   ```bash
-   # Apply migration to test database
-   docker exec -i st44-db-test psql -U postgres -d st44_test < docker/postgres/migrations/003_add_user_roles.sql
-
-   # Verify it worked
-   docker exec -it st44-db-test psql -U postgres -d st44_test -c "\d users"
-   ```
-
-5. **Test Idempotency**
-   ```bash
-   # Run migration again - should not error
-   docker exec -i st44-db-test psql -U postgres -d st44_test < docker/postgres/migrations/003_add_user_roles.sql
-   ```
-
-## CRITICAL: camelCase Column Names
-
-**ALL columns MUST use camelCase with double quotes.**
-
-### ✅ CORRECT
+#### Naming Conventions
 
 ```sql
+-- Tables: plural, snake_case
 CREATE TABLE users (
-  id UUID PRIMARY KEY,
-  "firstName" TEXT NOT NULL,
-  "lastName" TEXT NOT NULL,
-  "createdAt" TIMESTAMP DEFAULT NOW()
+    id BIGSERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Foreign keys: singular_table_id
+CREATE TABLE orders (
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(50) DEFAULT 'pending'
+);
+
+-- Junction tables: table1_table2
+CREATE TABLE user_roles (
+    user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
+    role_id BIGINT REFERENCES roles(id) ON DELETE CASCADE,
+    PRIMARY KEY (user_id, role_id)
 );
 ```
 
-### ❌ FORBIDDEN
+#### Indexes
 
 ```sql
+-- Single column index
+CREATE INDEX idx_users_email ON users(email);
+
+-- Composite index
+CREATE INDEX idx_orders_user_status ON orders(user_id, status);
+
+-- Partial index
+CREATE INDEX idx_orders_pending ON orders(created_at)
+    WHERE status = 'pending';
+
+-- GIN index for JSONB
+CREATE INDEX idx_products_metadata ON products USING GIN(metadata);
+```
+
+### Common Queries
+
+#### Pagination
+
+```sql
+-- Offset pagination (simple but slow for large offsets)
+SELECT * FROM users
+ORDER BY id
+LIMIT 20 OFFSET 40;
+
+-- Cursor/Keyset pagination (better performance)
+SELECT * FROM users
+WHERE id > :last_id
+ORDER BY id
+LIMIT 20;
+```
+
+#### Full-text Search
+
+```sql
+-- Create search vector
+ALTER TABLE products ADD COLUMN search_vector tsvector;
+
+UPDATE products SET search_vector =
+    to_tsvector('english', name || ' ' || description);
+
+CREATE INDEX idx_products_search ON products USING GIN(search_vector);
+
+-- Search query
+SELECT * FROM products
+WHERE search_vector @@ to_tsquery('english', 'laptop & gaming');
+```
+
+### Performance Optimization
+
+#### EXPLAIN ANALYZE
+
+```sql
+EXPLAIN ANALYZE
+SELECT u.*, COUNT(o.id) as order_count
+FROM users u
+LEFT JOIN orders o ON o.user_id = u.id
+WHERE u.created_at > '2024-01-01'
+GROUP BY u.id;
+```
+
+#### Tips
+
+1. **ใช้ Index อย่างเหมาะสม** - ไม่มากไม่น้อย
+2. **Avoid SELECT \*** - เลือกเฉพาะ columns ที่ต้องการ
+3. **Use Connection Pooling** - PgBouncer หรือ built-in pools
+4. **Partition large tables** - โดยเฉพาะ time-series data
+5. **Vacuum regularly** - ป้องกัน bloat
+
+---
+
+## MongoDB
+
+### Setup with Docker
+
+```yaml
+# docker-compose.yml
+services:
+  mongodb:
+    image: mongo:7
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
+```
+
+### Schema Design Best Practices
+
+#### Embedding vs Referencing
+
+```javascript
+// Embedding - When data is accessed together
+{
+  _id: ObjectId("..."),
+  name: "John Doe",
+  email: "john@example.com",
+  addresses: [
+    { street: "123 Main St", city: "Bangkok", country: "Thailand" },
+    { street: "456 Oak Ave", city: "Chiang Mai", country: "Thailand" }
+  ]
+}
+
+// Referencing - When data is accessed separately or grows unbounded
+// Users collection
+{
+  _id: ObjectId("user123"),
+  name: "John Doe",
+  email: "john@example.com"
+}
+
+// Orders collection
+{
+  _id: ObjectId("order456"),
+  userId: ObjectId("user123"),
+  items: [...],
+  total: 1500
+}
+```
+
+#### Indexes
+
+```javascript
+// Single field index
+db.users.createIndex({ email: 1 }, { unique: true });
+
+// Compound index
+db.orders.createIndex({ userId: 1, createdAt: -1 });
+
+// Text index
+db.products.createIndex({ name: "text", description: "text" });
+
+// TTL index (auto-delete after time)
+db.sessions.createIndex({ createdAt: 1 }, { expireAfterSeconds: 3600 });
+```
+
+### Common Operations
+
+#### Aggregation Pipeline
+
+```javascript
+// Sales summary by category
+db.orders.aggregate([
+  { $match: { status: "completed" } },
+  { $unwind: "$items" },
+  {
+    $group: {
+      _id: "$items.category",
+      totalSales: { $sum: "$items.price" },
+      count: { $sum: 1 },
+    },
+  },
+  { $sort: { totalSales: -1 } },
+  { $limit: 10 },
+]);
+
+// Join collections
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "users",
+      localField: "userId",
+      foreignField: "_id",
+      as: "user",
+    },
+  },
+  { $unwind: "$user" },
+  {
+    $project: {
+      _id: 1,
+      total: 1,
+      "user.name": 1,
+      "user.email": 1,
+    },
+  },
+]);
+```
+
+#### Transactions
+
+```javascript
+const session = client.startSession();
+
+try {
+  session.startTransaction();
+
+  await users.updateOne(
+    { _id: userId },
+    { $inc: { balance: -amount } },
+    { session },
+  );
+
+  await transactions.insertOne(
+    { userId, amount, type: "debit", createdAt: new Date() },
+    { session },
+  );
+
+  await session.commitTransaction();
+} catch (error) {
+  await session.abortTransaction();
+  throw error;
+} finally {
+  session.endSession();
+}
+```
+
+### Performance Optimization
+
+1. **Use projections** - Return only needed fields
+2. **Create appropriate indexes** - Check with `explain()`
+3. **Use aggregation** - Let DB do the work
+4. **Shard for scale** - Distribute data across servers
+5. **Use connection pooling** - Reuse connections
+
+---
+
+## Migrations
+
+### PostgreSQL (with Prisma)
+
+```bash
+# Create migration
+npx prisma migrate dev --name add_users_table
+
+# Apply to production
+npx prisma migrate deploy
+```
+
+### PostgreSQL (with Flyway)
+
+```sql
+-- V1__create_users_table.sql
 CREATE TABLE users (
-  id UUID PRIMARY KEY,
-  first_name TEXT NOT NULL,  -- NO snake_case!
-  last_name TEXT NOT NULL,   -- NO snake_case!
+    id BIGSERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
 );
+
+-- V2__add_role_to_users.sql
+ALTER TABLE users ADD COLUMN role VARCHAR(50) DEFAULT 'user';
 ```
 
-**Why:** Consistency across entire stack (TypeScript, API, database).
+---
 
-## Migration File Requirements
+## Database Checklist
 
-### File Naming
-
-```
-docker/postgres/migrations/
-├── 001_initial_schema.sql
-├── 002_add_households.sql
-├── 003_add_user_roles.sql
-└── 004_add_tasks_table.sql
-```
-
-- **Format:** `NNN_description.sql`
-- **Number:** Sequential (001, 002, 003...)
-- **Description:** Lowercase with underscores
-
-### File Structure
-
-```sql
-BEGIN;
-
--- Your schema changes here
--- Use IF NOT EXISTS for idempotency
-
--- Always record the migration
-INSERT INTO schema_migrations (version, description)
-VALUES ('NNN', 'Description of changes')
-ON CONFLICT (version) DO NOTHING;
-
-COMMIT;
-```
-
-## Idempotency Patterns
-
-### Creating Tables
-
-```sql
-CREATE TABLE IF NOT EXISTS table_name (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  "columnName" TEXT NOT NULL
-);
-```
-
-### Adding Columns
-
-```sql
-DO $$
-BEGIN
-  IF NOT EXISTS (
-    SELECT 1 FROM information_schema.columns
-    WHERE table_name = 'users' AND column_name = 'role'
-  ) THEN
-    ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'user';
-  END IF;
-END $$;
-```
-
-### Creating Indexes
-
-```sql
-CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
-```
-
-### Adding Constraints
-
-```sql
-DO $$
-BEGIN
-  IF NOT EXISTS (
-    SELECT 1 FROM pg_constraint
-    WHERE conname = 'users_email_unique'
-  ) THEN
-    ALTER TABLE users ADD CONSTRAINT users_email_unique UNIQUE (email);
-  END IF;
-END $$;
-```
-
-## Testing Checklist
-
-Before marking migration complete:
-
-- [ ] Migration file created in `docker/postgres/migrations/NNN_description.sql`
-- [ ] init.sql updated with same schema
-- [ ] Migration uses BEGIN/COMMIT transaction
-- [ ] All operations are idempotent (IF NOT EXISTS)
-- [ ] camelCase column names with double quotes
-- [ ] schema_migrations table updated
-- [ ] Tested on local database
-- [ ] Tested idempotency (ran twice without errors)
-- [ ] Verified with `\d table_name` in psql
-
-## Common Database Operations
-
-### UUID Primary Keys
-
-```sql
-CREATE TABLE table_name (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid()
-);
-```
-
-### Timestamps
-
-```sql
-"createdAt" TIMESTAMP DEFAULT NOW(),
-"updatedAt" TIMESTAMP DEFAULT NOW()
-```
-
-### Foreign Keys
-
-```sql
-"userId" UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE
-```
-
-### Enums (Use TEXT with CHECK)
-
-```sql
-role TEXT CHECK (role IN ('admin', 'parent', 'child'))
-```
-
-## Testing Migrations
-
-### Start Test Database
-
-```bash
-npm run db:test:up
-```
-
-### Apply Migration
-
-```bash
-docker exec -i st44-db-test psql -U postgres -d st44_test < docker/postgres/migrations/003_add_user_roles.sql
-```
-
-### Verify Schema
-
-```bash
-docker exec -it st44-db-test psql -U postgres -d st44_test -c "\d users"
-```
-
-### Test Idempotency
-
-```bash
-# Run same migration again - should not error
-docker exec -i st44-db-test psql -U postgres -d st44_test < docker/postgres/migrations/003_add_user_roles.sql
-```
-
-### Stop Test Database
-
-```bash
-npm run db:test:down
-```
-
-## Workflow
-
-1. **Read** the optimized agent spec: `.claude/agents/agent-database.md`
-2. **Understand** what schema changes are needed
-3. **Create** migration file with next sequential number
-4. **Write** idempotent SQL with camelCase columns
-5. **Update** init.sql with same schema
-6. **Test** locally on test database
-7. **Verify** idempotency (run twice)
-8. **Only then** commit and push
-
-## Reference Files
-
-For detailed patterns and examples:
-
-- `.claude/agents/agent-database.md` - Complete agent specification
-- `docker/postgres/init.sql` - Current database schema
-- `docker/postgres/migrations/` - Existing migration examples
-- `CLAUDE.md` - Project-wide conventions
-
-## Deployment Guarantee
-
-**If you create a migration file and it passes testing:**
-✅ It WILL deploy to production
-✅ It WILL run automatically
-✅ Schema changes are guaranteed
-
-**If you DON'T create a migration file:**
-❌ Changes will NOT deploy
-❌ Production will be out of sync
-❌ Backend will fail with schema errors
-
-**This is why migration-first is mandatory.**
-
-## Success Criteria
-
-Before marking work complete:
-
-- [ ] Migration file exists and is numbered correctly
-- [ ] init.sql updated
-- [ ] All columns use camelCase
-- [ ] Migration is idempotent
-- [ ] Tested locally and verified
-- [ ] Idempotency tested (ran twice)
-- [ ] No errors when applying migration
+- [ ] ออกแบบ schema ที่เหมาะสม
+- [ ] สร้าง indexes ที่จำเป็น
+- [ ] Setup connection pooling
+- [ ] Configure backups
+- [ ] Setup migrations
+- [ ] Monitor performance
+- [ ] Plan for scaling
+- [ ] Implement soft deletes (optional)
+- [ ] Add audit columns (created_at, updated_at)

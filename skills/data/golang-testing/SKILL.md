@@ -3,41 +3,41 @@ name: golang-testing
 description: Go testing patterns including table-driven tests, subtests, benchmarks, fuzzing, and test coverage. Follows TDD methodology with idiomatic Go practices.
 ---
 
-# Go Testing Patterns
+# Go 測試模式
 
-Comprehensive Go testing patterns for writing reliable, maintainable tests following TDD methodology.
+用於撰寫可靠、可維護測試的完整 Go 測試模式，遵循 TDD 方法論。
 
-## When to Activate
+## 何時啟用
 
-- Writing new Go functions or methods
-- Adding test coverage to existing code
-- Creating benchmarks for performance-critical code
-- Implementing fuzz tests for input validation
-- Following TDD workflow in Go projects
+- 撰寫新的 Go 函式或方法
+- 為現有程式碼增加測試覆蓋率
+- 為效能關鍵程式碼建立基準測試
+- 實作輸入驗證的模糊測試
+- 在 Go 專案中遵循 TDD 工作流程
 
-## TDD Workflow for Go
+## Go 的 TDD 工作流程
 
-### The RED-GREEN-REFACTOR Cycle
+### RED-GREEN-REFACTOR 循環
 
 ```
-RED     → Write a failing test first
-GREEN   → Write minimal code to pass the test
-REFACTOR → Improve code while keeping tests green
-REPEAT  → Continue with next requirement
+RED     → 先寫失敗的測試
+GREEN   → 撰寫最少程式碼使測試通過
+REFACTOR → 在保持測試綠色的同時改善程式碼
+REPEAT  → 繼續下一個需求
 ```
 
-### Step-by-Step TDD in Go
+### Go 中的逐步 TDD
 
 ```go
-// Step 1: Define the interface/signature
+// 步驟 1：定義介面/簽章
 // calculator.go
 package calculator
 
 func Add(a, b int) int {
-    panic("not implemented") // Placeholder
+    panic("not implemented") // 佔位符
 }
 
-// Step 2: Write failing test (RED)
+// 步驟 2：撰寫失敗測試（RED）
 // calculator_test.go
 package calculator
 
@@ -51,26 +51,26 @@ func TestAdd(t *testing.T) {
     }
 }
 
-// Step 3: Run test - verify FAIL
+// 步驟 3：執行測試 - 驗證失敗
 // $ go test
 // --- FAIL: TestAdd (0.00s)
 // panic: not implemented
 
-// Step 4: Implement minimal code (GREEN)
+// 步驟 4：實作最少程式碼（GREEN）
 func Add(a, b int) int {
     return a + b
 }
 
-// Step 5: Run test - verify PASS
+// 步驟 5：執行測試 - 驗證通過
 // $ go test
 // PASS
 
-// Step 6: Refactor if needed, verify tests still pass
+// 步驟 6：如需要則重構，驗證測試仍然通過
 ```
 
-## Table-Driven Tests
+## 表格驅動測試
 
-The standard pattern for Go tests. Enables comprehensive coverage with minimal code.
+Go 測試的標準模式。以最少程式碼達到完整覆蓋。
 
 ```go
 func TestAdd(t *testing.T) {
@@ -98,7 +98,7 @@ func TestAdd(t *testing.T) {
 }
 ```
 
-### Table-Driven Tests with Error Cases
+### 帶錯誤案例的表格驅動測試
 
 ```go
 func TestParseConfig(t *testing.T) {
@@ -126,7 +126,7 @@ func TestParseConfig(t *testing.T) {
         {
             name:  "minimal config",
             input: `{}`,
-            want:  &Config{}, // Zero value config
+            want:  &Config{}, // 零值 config
         },
     }
 
@@ -153,13 +153,13 @@ func TestParseConfig(t *testing.T) {
 }
 ```
 
-## Subtests and Sub-benchmarks
+## 子測試
 
-### Organizing Related Tests
+### 組織相關測試
 
 ```go
 func TestUser(t *testing.T) {
-    // Setup shared by all subtests
+    // 所有子測試共享的設置
     db := setupTestDB(t)
 
     t.Run("Create", func(t *testing.T) {
@@ -193,7 +193,7 @@ func TestUser(t *testing.T) {
 }
 ```
 
-### Parallel Subtests
+### 並行子測試
 
 ```go
 func TestParallel(t *testing.T) {
@@ -207,36 +207,36 @@ func TestParallel(t *testing.T) {
     }
 
     for _, tt := range tests {
-        tt := tt // Capture range variable
+        tt := tt // 捕獲範圍變數
         t.Run(tt.name, func(t *testing.T) {
-            t.Parallel() // Run subtests in parallel
+            t.Parallel() // 並行執行子測試
             result := Process(tt.input)
-            // assertions...
+            // 斷言...
             _ = result
         })
     }
 }
 ```
 
-## Test Helpers
+## 測試輔助函式
 
-### Helper Functions
+### 輔助函式
 
 ```go
 func setupTestDB(t *testing.T) *sql.DB {
-    t.Helper() // Marks this as a helper function
+    t.Helper() // 標記為輔助函式
 
     db, err := sql.Open("sqlite3", ":memory:")
     if err != nil {
         t.Fatalf("failed to open database: %v", err)
     }
 
-    // Cleanup when test finishes
+    // 測試結束時清理
     t.Cleanup(func() {
         db.Close()
     })
 
-    // Run migrations
+    // 執行 migrations
     if _, err := db.Exec(schema); err != nil {
         t.Fatalf("failed to create schema: %v", err)
     }
@@ -259,34 +259,34 @@ func assertEqual[T comparable](t *testing.T, got, want T) {
 }
 ```
 
-### Temporary Files and Directories
+### 臨時檔案和目錄
 
 ```go
 func TestFileProcessing(t *testing.T) {
-    // Create temp directory - automatically cleaned up
+    // 建立臨時目錄 - 自動清理
     tmpDir := t.TempDir()
 
-    // Create test file
+    // 建立測試檔案
     testFile := filepath.Join(tmpDir, "test.txt")
     err := os.WriteFile(testFile, []byte("test content"), 0644)
     if err != nil {
         t.Fatalf("failed to create test file: %v", err)
     }
 
-    // Run test
+    // 執行測試
     result, err := ProcessFile(testFile)
     if err != nil {
         t.Fatalf("ProcessFile failed: %v", err)
     }
 
-    // Assert...
+    // 斷言...
     _ = result
 }
 ```
 
-## Golden Files
+## Golden 檔案
 
-Testing against expected output files stored in `testdata/`.
+使用儲存在 `testdata/` 中的預期輸出檔案進行測試。
 
 ```go
 var update = flag.Bool("update", false, "update golden files")
@@ -307,7 +307,7 @@ func TestRender(t *testing.T) {
             golden := filepath.Join("testdata", tt.name+".golden")
 
             if *update {
-                // Update golden file: go test -update
+                // 更新 golden 檔案：go test -update
                 err := os.WriteFile(golden, got, 0644)
                 if err != nil {
                     t.Fatalf("failed to update golden file: %v", err)
@@ -327,27 +327,27 @@ func TestRender(t *testing.T) {
 }
 ```
 
-## Mocking with Interfaces
+## 使用介面 Mock
 
-### Interface-Based Mocking
+### 基於介面的 Mock
 
 ```go
-// Define interface for dependencies
+// 定義依賴的介面
 type UserRepository interface {
     GetUser(id string) (*User, error)
     SaveUser(user *User) error
 }
 
-// Production implementation
+// 生產實作
 type PostgresUserRepository struct {
     db *sql.DB
 }
 
 func (r *PostgresUserRepository) GetUser(id string) (*User, error) {
-    // Real database query
+    // 實際資料庫查詢
 }
 
-// Mock implementation for tests
+// 測試用 Mock 實作
 type MockUserRepository struct {
     GetUserFunc  func(id string) (*User, error)
     SaveUserFunc func(user *User) error
@@ -361,7 +361,7 @@ func (m *MockUserRepository) SaveUser(user *User) error {
     return m.SaveUserFunc(user)
 }
 
-// Test using mock
+// 使用 mock 的測試
 func TestUserService(t *testing.T) {
     mock := &MockUserRepository{
         GetUserFunc: func(id string) (*User, error) {
@@ -384,25 +384,25 @@ func TestUserService(t *testing.T) {
 }
 ```
 
-## Benchmarks
+## 基準測試
 
-### Basic Benchmarks
+### 基本基準測試
 
 ```go
 func BenchmarkProcess(b *testing.B) {
     data := generateTestData(1000)
-    b.ResetTimer() // Don't count setup time
+    b.ResetTimer() // 不計算設置時間
 
     for i := 0; i < b.N; i++ {
         Process(data)
     }
 }
 
-// Run: go test -bench=BenchmarkProcess -benchmem
-// Output: BenchmarkProcess-8   10000   105234 ns/op   4096 B/op   10 allocs/op
+// 執行：go test -bench=BenchmarkProcess -benchmem
+// 輸出：BenchmarkProcess-8   10000   105234 ns/op   4096 B/op   10 allocs/op
 ```
 
-### Benchmark with Different Sizes
+### 不同大小的基準測試
 
 ```go
 func BenchmarkSort(b *testing.B) {
@@ -414,7 +414,7 @@ func BenchmarkSort(b *testing.B) {
             b.ResetTimer()
 
             for i := 0; i < b.N; i++ {
-                // Make a copy to avoid sorting already sorted data
+                // 複製以避免排序已排序的資料
                 tmp := make([]int, len(data))
                 copy(tmp, data)
                 sort.Ints(tmp)
@@ -424,7 +424,7 @@ func BenchmarkSort(b *testing.B) {
 }
 ```
 
-### Memory Allocation Benchmarks
+### 記憶體分配基準測試
 
 ```go
 func BenchmarkStringConcat(b *testing.B) {
@@ -458,13 +458,13 @@ func BenchmarkStringConcat(b *testing.B) {
 }
 ```
 
-## Fuzzing (Go 1.18+)
+## 模糊測試（Go 1.18+）
 
-### Basic Fuzz Test
+### 基本模糊測試
 
 ```go
 func FuzzParseJSON(f *testing.F) {
-    // Add seed corpus
+    // 新增種子語料庫
     f.Add(`{"name": "test"}`)
     f.Add(`{"count": 123}`)
     f.Add(`[]`)
@@ -475,11 +475,11 @@ func FuzzParseJSON(f *testing.F) {
         err := json.Unmarshal([]byte(input), &result)
 
         if err != nil {
-            // Invalid JSON is expected for random input
+            // 隨機輸入預期會有無效 JSON
             return
         }
 
-        // If parsing succeeded, re-encoding should work
+        // 如果解析成功，重新編碼應該可行
         _, err = json.Marshal(result)
         if err != nil {
             t.Errorf("Marshal failed after successful Unmarshal: %v", err)
@@ -487,10 +487,10 @@ func FuzzParseJSON(f *testing.F) {
     })
 }
 
-// Run: go test -fuzz=FuzzParseJSON -fuzztime=30s
+// 執行：go test -fuzz=FuzzParseJSON -fuzztime=30s
 ```
 
-### Fuzz Test with Multiple Inputs
+### 多輸入模糊測試
 
 ```go
 func FuzzCompare(f *testing.F) {
@@ -501,12 +501,12 @@ func FuzzCompare(f *testing.F) {
     f.Fuzz(func(t *testing.T, a, b string) {
         result := Compare(a, b)
 
-        // Property: Compare(a, a) should always equal 0
+        // 屬性：Compare(a, a) 應該總是等於 0
         if a == b && result != 0 {
             t.Errorf("Compare(%q, %q) = %d; want 0", a, b, result)
         }
 
-        // Property: Compare(a, b) and Compare(b, a) should have opposite signs
+        // 屬性：Compare(a, b) 和 Compare(b, a) 應該有相反符號
         reverse := Compare(b, a)
         if (result > 0 && reverse >= 0) || (result < 0 && reverse <= 0) {
             if result != 0 || reverse != 0 {
@@ -518,57 +518,48 @@ func FuzzCompare(f *testing.F) {
 }
 ```
 
-## Test Coverage
+## 測試覆蓋率
 
-### Running Coverage
+### 執行覆蓋率
 
 ```bash
-# Basic coverage
+# 基本覆蓋率
 go test -cover ./...
 
-# Generate coverage profile
+# 產生覆蓋率 profile
 go test -coverprofile=coverage.out ./...
 
-# View coverage in browser
+# 在瀏覽器查看覆蓋率
 go tool cover -html=coverage.out
 
-# View coverage by function
+# 按函式查看覆蓋率
 go tool cover -func=coverage.out
 
-# Coverage with race detection
+# 含競態偵測的覆蓋率
 go test -race -coverprofile=coverage.out ./...
 ```
 
-### Coverage Targets
+### 覆蓋率目標
 
-| Code Type | Target |
-|-----------|--------|
-| Critical business logic | 100% |
-| Public APIs | 90%+ |
-| General code | 80%+ |
-| Generated code | Exclude |
+| 程式碼類型 | 目標 |
+|-----------|------|
+| 關鍵業務邏輯 | 100% |
+| 公開 API | 90%+ |
+| 一般程式碼 | 80%+ |
+| 產生的程式碼 | 排除 |
 
-### Excluding Generated Code from Coverage
-
-```go
-//go:generate mockgen -source=interface.go -destination=mock_interface.go
-
-// In coverage profile, exclude with build tags:
-// go test -cover -tags=!generate ./...
-```
-
-## HTTP Handler Testing
+## HTTP Handler 測試
 
 ```go
 func TestHealthHandler(t *testing.T) {
-    // Create request
+    // 建立請求
     req := httptest.NewRequest(http.MethodGet, "/health", nil)
     w := httptest.NewRecorder()
 
-    // Call handler
+    // 呼叫 handler
     HealthHandler(w, req)
 
-    // Check response
+    // 檢查回應
     resp := w.Result()
     defer resp.Body.Close()
 
@@ -640,65 +631,65 @@ func TestAPIHandler(t *testing.T) {
 }
 ```
 
-## Testing Commands
+## 測試指令
 
 ```bash
-# Run all tests
+# 執行所有測試
 go test ./...
 
-# Run tests with verbose output
+# 執行詳細輸出的測試
 go test -v ./...
 
-# Run specific test
+# 執行特定測試
 go test -run TestAdd ./...
 
-# Run tests matching pattern
+# 執行匹配模式的測試
 go test -run "TestUser/Create" ./...
 
-# Run tests with race detector
+# 執行帶競態偵測器的測試
 go test -race ./...
 
-# Run tests with coverage
+# 執行帶覆蓋率的測試
 go test -cover -coverprofile=coverage.out ./...
 
-# Run short tests only
+# 只執行短測試
 go test -short ./...
 
-# Run tests with timeout
+# 執行帶逾時的測試
 go test -timeout 30s ./...
 
-# Run benchmarks
+# 執行基準測試
 go test -bench=. -benchmem ./...
 
-# Run fuzzing
+# 執行模糊測試
 go test -fuzz=FuzzParse -fuzztime=30s ./...
 
-# Count test runs (for flaky test detection)
+# 計算測試執行次數（用於偵測不穩定測試）
 go test -count=10 ./...
 ```
 
-## Best Practices
+## 最佳實務
 
-**DO:**
-- Write tests FIRST (TDD)
-- Use table-driven tests for comprehensive coverage
-- Test behavior, not implementation
-- Use `t.Helper()` in helper functions
-- Use `t.Parallel()` for independent tests
-- Clean up resources with `t.Cleanup()`
-- Use meaningful test names that describe the scenario
+**應該做的：**
+- 先寫測試（TDD）
+- 使用表格驅動測試以獲得完整覆蓋
+- 測試行為，而非實作
+- 在輔助函式中使用 `t.Helper()`
+- 對獨立測試使用 `t.Parallel()`
+- 用 `t.Cleanup()` 清理資源
+- 使用描述情境的有意義測試名稱
 
-**DON'T:**
-- Test private functions directly (test through public API)
-- Use `time.Sleep()` in tests (use channels or conditions)
-- Ignore flaky tests (fix or remove them)
-- Mock everything (prefer integration tests when possible)
-- Skip error path testing
+**不應該做的：**
+- 不要直接測試私有函式（透過公開 API 測試）
+- 不要在測試中使用 `time.Sleep()`（使用 channels 或條件）
+- 不要忽略不穩定測試（修復或移除它們）
+- 不要 mock 所有東西（可能時偏好整合測試）
+- 不要跳過錯誤路徑測試
 
-## Integration with CI/CD
+## CI/CD 整合
 
 ```yaml
-# GitHub Actions example
+# GitHub Actions 範例
 test:
   runs-on: ubuntu-latest
   steps:
@@ -716,4 +707,4 @@ test:
         awk -F'%' '{if ($1 < 80) exit 1}'
 ```
 
-**Remember**: Tests are documentation. They show how your code is meant to be used. Write them clearly and keep them up to date.
+**記住**：測試是文件。它們展示你的程式碼應該如何使用。清楚地撰寫並保持更新。

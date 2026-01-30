@@ -1,7 +1,7 @@
 {
   "name": "approval-gate",
   "repo": "takemo101/compose-workflow",
-  "path": ".claude/skills/approval-gate/SKILL.md",
+  "path": ".opencode/skill/approval-gate/SKILL.md",
   "source": "github.com/takemo101/compose-workflow",
-  "downloaded_at": "2026-01-29T03:47:10.991115Z"
+  "downloaded_at": "2026-01-30T04:47:27.111966Z"
 }

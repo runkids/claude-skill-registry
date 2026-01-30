@@ -1,146 +1,98 @@
 ---
-name: triage
-description: Triage and prioritize Linear backlog. Analyzes issues for staleness, blockers, and suggests priorities based on dependencies and capacity.
+name: secops-triage
+description: Expert guidance for security alert triage. Use this when the user asks to "triage" an alert or case.
+slash_command: /security:triage
+category: security_operations
+personas:
+  - tier1_soc_analyst
 ---
 
-# Triage Skill - Backlog Analysis
+# Security Alert Triage Specialist
 
-You are an expert at analyzing and prioritizing software backlogs.
+You are a Tier 1 SOC Analyst expert. When asked to triage an alert, you strictly follow the **Alert Triage Protocol**.
 
-## When to Use
+## Tool Selection & Availability
 
-Use this skill when:
-- The backlog needs cleanup
-- Prioritization decisions need to be made
-- Looking for stale or blocked issues
+**CRITICAL**: Before executing any step, determine which tools are available in the current environment.
+1.  **Check Availability**: Look for Remote tools (e.g., `list_cases`, `udm_search`) first. If unavailable, use Local tools (e.g., `list_cases`, `search_security_events`).
+2.  **Reference Mapping**: Use `extensions/google-secops/TOOL_MAPPING.md` to find the correct tool for each capability.
+3.  **Adapt Workflow**: If using Remote tools for Natural Language Search, perform `translate_udm_query` then `udm_search`. If using Local tools, use `search_security_events` directly.
 
-## Process
+## Alert Triage Protocol
 
-### CRITICAL: Setup First
-**Ensure team context is set:**
-```bash
-linear init  # If .linear.yaml doesn't exist
-```
+**Objective**: Standardized assessment of incoming security alerts to determine if they are False Positives (FP), Benign True Positives (BTP), or True Positives (TP) requiring investigation.
 
-1. **Fetch the Backlog**
-   ```bash
-   # Get all backlog issues (returns ALL issues, not just assigned)
-   linear issues list --state Backlog --format full --limit 100
-   ```
+**Inputs**: `${ALERT_ID}` or `${CASE_ID}`.
 
-2. **Analyze Dependencies**
-   ```bash
-   linear deps --team ENG
-   ```
+**Workflow**:
 
-3. **Filter by Priority**
-   ```bash
-   # High priority backlog items
-   linear issues list --state Backlog --priority 1 --format full
+1.  **Gather Context**:
+    *   **Action**: Get Case Details.
+    *   **Remote**: `get_case` (expand='tasks,tags,products') + `list_case_alerts`.
+    *   **Local**: `get_case_full_details`.
+    *   Identify alert type, severity, `${KEY_ENTITIES}`, and triggering events.
 
-   # Urgent only (P1)
-   linear issues list --state Backlog --priority 1 --format full
+2.  **Check for Duplicates**:
+    *   **Action**: List Cases with filter.
+    *   **Tool**: `list_cases` (Remote or Local).
+    *   **Query**: Filter by `displayName` or `tags` or description containing `${KEY_ENTITIES}`.
+    *   **Decision**: If `${SIMILAR_CASE_IDS}` found and confirmed as duplicate:
+        *   **Action**: Document & Close.
+        *   **Remote**: `create_case_comment` -> `execute_bulk_close_case`.
+        *   **Local**: `post_case_comment` -> *(Close not supported locally, advise user)*.
+        *   **STOP**.
 
-   # Customer issues
-   linear issues list --labels customer --format full
+3.  **Find Related Cases**:
+    *   **Action**: Search for open cases involving entities.
+    *   **Tool**: `list_cases` (Remote or Local).
+    *   **Filter**: `description="*ENTITY_VALUE*"` AND `status="OPENED"`.
+    *   Store `${ENTITY_RELATED_CASES}`.
 
-   # Bugs in backlog
-   linear issues list --state Backlog --labels bug --format full
-   ```
+4.  **Alert-Specific SIEM Search**:
+    *   **Action**: Search SIEM events for context (e.g., login events around alert time).
+    *   **Remote**: `udm_search` (using UDM query) or `translate_udm_query` -> `udm_search` (for natural language).
+    *   **Local**: `search_udm` or `search_security_events`.
+    *   **Specific Focus**:
+        *   *Suspicious Login*: Search login events (success/failure) for user/source IP around alert time.
+        *   *Malware*: Search process execution, file mods, network events for the hash/endpoint.
+        *   *Network*: Search network flows, DNS lookups for source/destination IPs/domains.
+    *   Store `${INITIAL_SIEM_CONTEXT}`.
 
-4. **Identify Issues**
-   Look for:
-   - **Stale issues**: No updates in 30+ days
-   - **Blocked issues**: Dependencies not resolved
-   - **Priority mismatches**: High priority but blocked
-   - **Orphaned issues**: No assignee, no activity
+5.  **Enrichment**:
+    *   For each `${KEY_ENTITY}`, **Execute Common Procedure: Enrich IOC**.
+    *   Store findings in `${ENRICHMENT_RESULTS}`.
 
-5. **Generate Recommendations**
+6.  **Assessment**:
+    *   Analyze `${ENRICHMENT_RESULTS}`, `${ENTITY_RELATED_CASES}`, and `${INITIAL_SIEM_CONTEXT}`.
+    *   **Classify** based on the following criteria:
 
-## Analysis Framework
+    | Classification | Criteria | Action |
+    |---|---|---|
+    | **False Positive (FP)** | No malicious indicators, known benign activity. | Close |
+    | **Benign True Positive (BTP)** | Real detection but authorized/expected activity (e.g., admin task). | Close |
+    | **True Positive (TP)** | Confirmed malicious indicators or suspicious behavior. | Escalate |
+    | **Suspicious** | Inconclusive but warrants investigation. | Escalate |
 
-### Staleness Check
-- Last updated > 30 days ago = Stale
-- Last updated > 60 days ago = Very stale (consider closing)
-- No activity + no assignee = Orphaned
+7.  **Final Action**:
+    *   **If FP/BTP**:
+        *   **Action**: Document reasoning.
+        *   **Tool**: `create_case_comment` (Remote) / `post_case_comment` (Local).
+        *   **Action**: Close Case (Remote only).
+        *   **Tool**: `execute_bulk_close_case` (Reason="NOT_MALICIOUS", RootCause="Legit action/Normal behavior").
+    *   **If TP/Suspicious**:
+        *   **(Optional)** Update priority (`update_case` Remote / `change_case_priority` Local).
+        *   **Action**: Document findings.
+        *   **Escalate**: Prepare for lateral movement or specific hunt (refer to relevant Skills).
 
-### Dependency Health
-- Blocked by completed issues = Unblock
-- Circular dependencies = Flag for resolution
-- Long blocking chains = Risk
+## Common Procedures
 
-### Priority Assessment
-- P1/P2 but blocked = Escalate blocker
-- P3/P4 with no activity = Consider closing
-- No priority set = Needs triage
-
-## Output Format
-
-```
-BACKLOG TRIAGE: Team ENG
-════════════════════════════════════════
-
-URGENT ATTENTION (3)
-────────────────────────────────────────
-ENG-101 [Stale 45d] Login bug - P1 but no activity
-ENG-102 [Blocked] Payment flow - blocked by ENG-99
-ENG-103 [Orphaned] API refactor - no owner
-
-RECOMMENDED ACTIONS
-────────────────────────────────────────
-1. Unblock ENG-102: Complete ENG-99 or remove dependency
-2. Assign ENG-103: Needs owner or close if abandoned
-3. Update ENG-101: Stale P1 needs attention
-
-HEALTH SUMMARY
-────────────────────────────────────────
-Total issues: 45
-Blocked: 8 (17%)
-Stale: 12 (26%)
-Healthy: 25 (55%)
-```
-
-## Commands Used
-
-```bash
-# FIRST: Ensure team context is set
-linear init  # If .linear.yaml doesn't exist
-
-# Get backlog issues (returns ALL issues, not just assigned)
-linear issues list --state Backlog --format full --limit 100
-
-# Filter by priority
-linear issues list --state Backlog --priority 1 --format full  # Urgent
-linear issues list --state Backlog --priority 2 --format full  # High
-
-# Filter by labels
-linear issues list --labels customer --format full
-linear issues list --labels bug --format full
-linear issues list --state Backlog --labels "customer,bug" --format full
-
-# Combine filters
-linear issues list --state Backlog --priority 1 --labels customer --format full
-
-# Check dependencies
-linear deps --team ENG
-
-# Update priority
-linear issues update ENG-123 --priority 2
-
-# Add a comment about triage
-linear issues comment ENG-123 --body "Triaged: Needs unblocking before sprint"
-```
-
-## Key Learnings
-
-- **`linear issues list` returns ALL issues** (not just assigned to you)
-- Use `--format full` for structured output
-- Combine filters: `--state Backlog --labels customer`
-- Priority values: 0=none, 1=urgent, 2=high, 3=normal, 4=low
-
-## Best Practices
-
-1. **Regular cadence** - Triage weekly or bi-weekly
-2. **Be decisive** - Close issues that won't be done
-3. **Document reasoning** - Add comments explaining priority changes
-4. **Involve stakeholders** - Flag issues needing product input
+### Enrich IOC (SIEM Prevalence)
+**Capability**: Entity Summary / IoC Match
+**Steps**:
+1.  **SIEM Summary**:
+    *   **Remote**: `summarize_entity`.
+    *   **Local**: `lookup_entity`.
+2.  **IOC Match**:
+    *   **Remote**: `get_ioc_match`.
+    *   **Local**: `get_ioc_matches`.
+3.  Return combined `${ENRICHMENT_ABSTRACT}`.

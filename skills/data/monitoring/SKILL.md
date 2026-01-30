@@ -1,163 +1,311 @@
 ---
-name: monitoring
-description: Monitor AWS resources, debug production issues, check Lambda logs, and implement structured logging. Use when investigating errors, checking CloudWatch logs, debugging deployment failures, improving observability, or setting up alarms.
-allowed-tools: Bash, Read, Edit, Write, Grep
+name: cloud-monitoring
+description: "Cloud monitoring with Prometheus, Grafana, and cloud-native tools. Use when setting up metrics, alerts, dashboards, or troubleshooting performance issues."
 ---
 
-# Monitoring Skill
+# Cloud Monitoring
 
-Combines AWS monitoring, CloudWatch logs, and error tracking.
+Comprehensive observability with metrics, logs, and traces.
 
-## Viewing Logs
+## When to Use
 
-### SST Console
+- Setting up monitoring infrastructure
+- Creating dashboards and alerts
+- Troubleshooting performance issues
+- Implementing SLOs/SLIs
+- Capacity planning
 
-```bash
-npx sst console --stage production
-npx sst logs --stage production --function api --tail
-npx sst logs --stage production --function api --filter "ERROR" --since 1h
-```
+## Prometheus
 
-### AWS CLI
-
-```bash
-# Tail logs
-aws logs tail "/aws/lambda/sgcarstrends-api-production" --follow
-
-# Filter logs
-aws logs filter-log-events \
-  --log-group-name "/aws/lambda/sgcarstrends-api-production" \
-  --filter-pattern "ERROR" \
-  --start-time $(date -u -d '1 hour ago' +%s)000
-```
-
-## CloudWatch Metrics
+### Installation (Kubernetes)
 
 ```bash
-# Lambda errors
-aws cloudwatch get-metric-statistics \
-  --namespace AWS/Lambda \
-  --metric-name Errors \
-  --dimensions Name=FunctionName,Value=sgcarstrends-api-production \
-  --start-time $(date -u -d '1 hour ago' +%Y-%m-%dT%H:%M:%S) \
-  --end-time $(date -u +%Y-%m-%dT%H:%M:%S) \
-  --period 300 \
-  --statistics Sum
-
-# Lambda duration
-aws cloudwatch get-metric-statistics \
-  --namespace AWS/Lambda \
-  --metric-name Duration \
-  --dimensions Name=FunctionName,Value=sgcarstrends-api-production \
-  --start-time $(date -u -d '1 hour ago' +%Y-%m-%dT%H:%M:%S) \
-  --end-time $(date -u +%Y-%m-%dT%H:%M:%S) \
-  --period 300 \
-  --statistics Average,Maximum
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm install prometheus prometheus-community/kube-prometheus-stack \
+  --namespace monitoring --create-namespace
 ```
 
-## CloudWatch Insights Queries
+### ServiceMonitor
 
-```sql
--- Find all errors
-fields @timestamp, @message, level, error.message
-| filter level = "error"
-| sort @timestamp desc
-| limit 100
-
--- Count errors by type
-fields error.name
-| filter level = "error"
-| stats count() by error.name
-
--- Slow requests
-fields @timestamp, @duration
-| filter @duration > 1000
-| sort @duration desc
-
--- Error rate over time
-fields @timestamp
-| filter level = "error"
-| stats count() as ErrorCount by bin(5m)
+```yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: myapp
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  endpoints:
+    - port: metrics
+      interval: 30s
+      path: /metrics
 ```
 
-## Structured Logging
+### PrometheusRule (Alerts)
+
+```yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: myapp-alerts
+spec:
+  groups:
+    - name: myapp
+      rules:
+        - alert: HighErrorRate
+          expr: |
+            sum(rate(http_requests_total{status=~"5.."}[5m])) /
+            sum(rate(http_requests_total[5m])) > 0.05
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "High error rate ({{ $value | humanizePercentage }})"
+
+        - alert: HighLatency
+          expr: |
+            histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "P95 latency above 1s"
+
+        - alert: PodCrashLooping
+          expr: |
+            increase(kube_pod_container_status_restarts_total[1h]) > 5
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Pod {{ $labels.pod }} is crash looping"
+```
+
+### PromQL Queries
+
+```promql
+# Request rate
+rate(http_requests_total[5m])
+
+# Error rate percentage
+sum(rate(http_requests_total{status=~"5.."}[5m])) / sum(rate(http_requests_total[5m])) * 100
+
+# P95 latency
+histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
+
+# CPU usage by container
+sum(rate(container_cpu_usage_seconds_total[5m])) by (container)
+
+# Memory usage
+container_memory_working_set_bytes / container_spec_memory_limit_bytes * 100
+
+# Saturation - CPU throttling
+rate(container_cpu_cfs_throttled_periods_total[5m]) / rate(container_cpu_cfs_periods_total[5m]) * 100
+```
+
+## Grafana Dashboards
+
+### Dashboard JSON
+
+```json
+{
+  "title": "Application Overview",
+  "panels": [
+    {
+      "title": "Request Rate",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "sum(rate(http_requests_total[5m]))",
+          "legendFormat": "req/s"
+        }
+      ]
+    },
+    {
+      "title": "Error Rate",
+      "type": "gauge",
+      "targets": [
+        {
+          "expr": "sum(rate(http_requests_total{status=~\"5..\"}[5m])) / sum(rate(http_requests_total[5m])) * 100"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "steps": [
+              {"color": "green", "value": null},
+              {"color": "yellow", "value": 1},
+              {"color": "red", "value": 5}
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+## Application Metrics
+
+### Node.js (prom-client)
 
 ```typescript
-// packages/utils/src/logger.ts
-import pino from "pino";
+import { Registry, Counter, Histogram, collectDefaultMetrics } from 'prom-client';
 
-export const log = {
-  info: (message: string, data?: Record<string, unknown>) => logger.info(data, message),
-  error: (message: string, error: Error, data?: Record<string, unknown>) => {
-    logger.error({ ...data, error: { message: error.message, stack: error.stack } }, message);
-  },
-  warn: (message: string, data?: Record<string, unknown>) => logger.warn(data, message),
-};
+const register = new Registry();
+collectDefaultMetrics({ register });
 
-// Usage
-log.info("Fetching cars", { month: "2024-01" });
-log.error("Failed to fetch cars", error, { month: "2024-01" });
+// Custom metrics
+const httpRequestsTotal = new Counter({
+  name: 'http_requests_total',
+  help: 'Total HTTP requests',
+  labelNames: ['method', 'path', 'status'],
+  registers: [register],
+});
+
+const httpRequestDuration = new Histogram({
+  name: 'http_request_duration_seconds',
+  help: 'HTTP request duration in seconds',
+  labelNames: ['method', 'path'],
+  buckets: [0.01, 0.05, 0.1, 0.5, 1, 2, 5],
+  registers: [register],
+});
+
+// Middleware
+app.use((req, res, next) => {
+  const end = httpRequestDuration.startTimer({ method: req.method, path: req.path });
+  res.on('finish', () => {
+    httpRequestsTotal.inc({ method: req.method, path: req.path, status: res.statusCode });
+    end();
+  });
+  next();
+});
+
+// Metrics endpoint
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', register.contentType);
+  res.end(await register.metrics());
+});
 ```
 
-## CloudWatch Alarms
+### Python (prometheus_client)
 
-```typescript
-// infra/alarms.ts
-new cloudwatch.Alarm(stack, "ApiHighErrorRate", {
-  metric: api.metricErrors(),
-  threshold: 10,
-  evaluationPeriods: 2,
-  alarmDescription: "API has high error rate",
-}).addAlarmAction(new cloudwatch.SnsAction(alarmTopic));
+```python
+from prometheus_client import Counter, Histogram, generate_latest, REGISTRY
+from functools import wraps
+import time
+
+REQUEST_COUNT = Counter(
+    'http_requests_total',
+    'Total HTTP requests',
+    ['method', 'endpoint', 'status']
+)
+
+REQUEST_LATENCY = Histogram(
+    'http_request_duration_seconds',
+    'HTTP request duration',
+    ['method', 'endpoint'],
+    buckets=[.01, .05, .1, .5, 1, 2, 5]
+)
+
+def track_requests(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        response = func(*args, **kwargs)
+        REQUEST_LATENCY.labels(
+            method=request.method,
+            endpoint=request.endpoint
+        ).observe(time.time() - start)
+        REQUEST_COUNT.labels(
+            method=request.method,
+            endpoint=request.endpoint,
+            status=response.status_code
+        ).inc()
+        return response
+    return wrapper
+
+@app.route('/metrics')
+def metrics():
+    return generate_latest(REGISTRY), 200, {'Content-Type': 'text/plain'}
 ```
 
-## Health Checks
+## SLOs/SLIs
 
-```bash
-# Test API
-curl -f https://api.sgcarstrends.com/health || echo "API unhealthy"
+### SLI Definitions
 
-# Test web
-curl -f https://sgcarstrends.com || echo "Web unhealthy"
+| SLI | Definition | Target |
+|-----|------------|--------|
+| Availability | Successful requests / Total requests | 99.9% |
+| Latency | P95 response time | < 200ms |
+| Error Rate | 5xx errors / Total requests | < 0.1% |
 
-# Database connectivity
-psql $DATABASE_URL -c "SELECT 1" || echo "Database unreachable"
+### Error Budget
+
+```promql
+# Error budget remaining
+1 - (
+  sum(rate(http_requests_total{status=~"5.."}[30d])) /
+  sum(rate(http_requests_total[30d]))
+) / (1 - 0.999)  # 99.9% SLO
 ```
 
-## Debugging Production Issues
+## Alert Thresholds
 
-```bash
-# 1. Check recent errors
-npx sst logs --stage production --function api --filter "ERROR" --since 1h
+| Metric | Warning | Critical |
+|--------|---------|----------|
+| Error Rate | > 1% | > 5% |
+| P95 Latency | > 500ms | > 2s |
+| CPU Usage | > 70% | > 90% |
+| Memory Usage | > 80% | > 95% |
+| Disk Usage | > 80% | > 90% |
 
-# 2. Get Lambda metrics
-aws cloudwatch get-metric-statistics --namespace AWS/Lambda --metric-name Errors ...
+## Cloud-Native Monitoring
 
-# 3. Test endpoint directly
-curl -v https://api.sgcarstrends.com/health
+### AWS CloudWatch
 
-# 4. Check stack events
-aws cloudformation describe-stack-events --stack-name sgcarstrends-api-production --max-items 50
+```hcl
+resource "aws_cloudwatch_metric_alarm" "cpu_high" {
+  alarm_name          = "${var.project}-cpu-high"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 2
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/ECS"
+  period              = 300
+  statistic           = "Average"
+  threshold           = 80
+  alarm_actions       = [aws_sns_topic.alerts.arn]
+}
 ```
 
-## Common Issues
+### GCP Cloud Monitoring
 
-| Issue | Investigation | Solution |
-|-------|--------------|----------|
-| High latency | Check duration metrics, slow queries | Increase memory, optimize queries, add caching |
-| High error rate | Check error logs, external services | Fix bugs, add error handling, check rate limits |
-| Cold starts | Check init duration, package size | Provisioned concurrency, reduce bundle, ARM |
+```hcl
+resource "google_monitoring_alert_policy" "cpu_high" {
+  display_name = "${var.project}-cpu-high"
+  combiner     = "OR"
 
-## Best Practices
+  conditions {
+    display_name = "CPU utilization"
+    condition_threshold {
+      filter          = "resource.type=\"gce_instance\" AND metric.type=\"compute.googleapis.com/instance/cpu/utilization\""
+      comparison      = "COMPARISON_GT"
+      threshold_value = 0.8
+      duration        = "300s"
+    }
+  }
 
-1. **Structured Logging**: Use JSON format with context
-2. **Log Levels**: DEBUG for dev, INFO+ for prod
-3. **Don't Log Secrets**: Never log passwords, tokens, keys
-4. **Set Alarms**: Monitor error rate and latency
-5. **Log Retention**: 7-30 days to balance cost/debugging
+  notification_channels = [google_monitoring_notification_channel.email.id]
+}
+```
 
-## References
+## Integration
 
-- CloudWatch: https://docs.aws.amazon.com/cloudwatch
-- Lambda Monitoring: https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions.html
-- Pino Logger: https://getpino.io
+Works with:
+- `/devops` - Deployment monitoring
+- `/k8s` - Kubernetes observability
+- `/aws`, `/gcp`, `/azure` - Cloud monitoring
+- `/security` - Security monitoring

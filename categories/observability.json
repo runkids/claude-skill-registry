@@ -1,0 +1,19 @@
+{
+  "category": "observability",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:31.163679Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill should be used when the user asks about \"Effect logging\", \"Effect.log\", \"Effect metrics\", \"Effect tracing\", \"spans\", \"telemetry\", \"Metric.counter\", \"Metric.gauge\", \"Metric.histogram\", \"Open",
+      "repo": "andrueandersoncs/claude-skill-effect-ts",
+      "path": "observability",
+      "branch": "main",
+      "category": "observability",
+      "tags": [],
+      "stars": 0,
+      "install": "andrueandersoncs/claude-skill-effect-ts",
+      "source": "github.com/andrueandersoncs/claude-skill-effect-ts"
+    }
+  ]
+}

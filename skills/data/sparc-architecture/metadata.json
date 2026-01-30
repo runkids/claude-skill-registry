@@ -1,9 +1,7 @@
 {
   "name": "sparc-architecture",
-  "description": "SPARC Architecture phase specialist for system design, component architecture, interface design, scalability planning, and technology selection",
   "repo": "vamseeachanta/workspace-hub",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/development/sparc/sparc-architecture/SKILL.md",
+  "source": "github.com/vamseeachanta/workspace-hub",
+  "downloaded_at": "2026-01-30T04:11:45.783653Z"
 }

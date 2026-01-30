@@ -1,7 +1,7 @@
 {
   "name": "create-agent",
-  "repo": "cedricfressin/claude-config",
-  "path": "skills/create-agent/SKILL.md",
-  "source": "github.com/cedricfressin/claude-config",
-  "downloaded_at": "2026-01-29T03:38:13.240725Z"
+  "repo": "StefanMaksimek/dev-challenge-2026",
+  "path": ".claude/skills/create-agent/SKILL.md",
+  "source": "github.com/StefanMaksimek/dev-challenge-2026",
+  "downloaded_at": "2026-01-30T03:33:52.380088Z"
 }

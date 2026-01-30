@@ -1,9 +1,7 @@
 {
   "name": "bun-drizzle-integration",
-  "description": "Use when integrating Drizzle ORM with Bun's SQLite driver for type-safe schema definitions and migrations.",
   "repo": "secondsky/claude-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/secondsky/claude-skills"
+  "path": "plugins/bun/skills/bun-drizzle-integration/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-30T03:41:14.489435Z"
 }

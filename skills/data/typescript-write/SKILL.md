@@ -4,4 +4,6 @@ description: Write TypeScript and JavaScript code following Metabase coding stan
 ---
 
 # TypeScript/JavaScript Development Skill
-`@references/development-workflow.md`
+
+@./../_shared/development-workflow.md
+@./../_shared/typescript-commands.md

@@ -1,650 +1,704 @@
 ---
 name: mlflow
-description: "ML lifecycle management with MLflow. Track experiments, package models, manage registries, and deploy models. Use for ML operations, experiment tracking, and model deployment."
+description: Track ML experiments, manage model registry with versioning, deploy models to production, and reproduce experiments with MLflow - framework-agnostic ML lifecycle platform
+version: 1.0.0
+author: Orchestra Research
+license: MIT
+tags: [MLOps, MLflow, Experiment Tracking, Model Registry, ML Lifecycle, Deployment, Model Versioning, PyTorch, TensorFlow, Scikit-Learn, HuggingFace]
+dependencies: [mlflow, sqlalchemy, boto3]
 ---
 
-# MLflow Skill
+# MLflow: ML Lifecycle Management Platform
 
-Complete guide for MLflow - ML lifecycle platform.
+## When to Use This Skill
 
-## Quick Reference
+Use MLflow when you need to:
+- **Track ML experiments** with parameters, metrics, and artifacts
+- **Manage model registry** with versioning and stage transitions
+- **Deploy models** to various platforms (local, cloud, serving)
+- **Reproduce experiments** with project configurations
+- **Compare model versions** and performance metrics
+- **Collaborate** on ML projects with team workflows
+- **Integrate** with any ML framework (framework-agnostic)
 
-### Components
-| Component | Description |
-|-----------|-------------|
-| **Tracking** | Log experiments |
-| **Projects** | Package ML code |
-| **Models** | Model packaging |
-| **Registry** | Model versioning |
-| **Serving** | Model deployment |
+**Users**: 20,000+ organizations | **GitHub Stars**: 23k+ | **License**: Apache 2.0
 
-### CLI Commands
-```bash
-mlflow run .                    # Run project
-mlflow ui                       # Start UI
-mlflow models serve -m model    # Serve model
-mlflow server                   # Start tracking server
-```
-
----
-
-## 1. Installation
+## Installation
 
 ```bash
-# Core
+# Install MLflow
 pip install mlflow
 
-# With extras
-pip install mlflow[extras]
+# Install with extras
+pip install mlflow[extras]  # Includes SQLAlchemy, boto3, etc.
 
-# Specific integrations
-pip install mlflow[gateway]     # AI Gateway
-pip install mlflow[genai]       # GenAI tracking
+# Start MLflow UI
+mlflow ui
+
+# Access at http://localhost:5000
 ```
 
----
+## Quick Start
 
-## 2. Experiment Tracking
+### Basic Tracking
 
-### Basic Logging
 ```python
 import mlflow
 
-# Set experiment
-mlflow.set_experiment("my-experiment")
-
-# Start run
+# Start a run
 with mlflow.start_run():
     # Log parameters
-    mlflow.log_param("learning_rate", 0.01)
-    mlflow.log_param("epochs", 100)
+    mlflow.log_param("learning_rate", 0.001)
+    mlflow.log_param("batch_size", 32)
+
+    # Your training code
+    model = train_model()
+
+    # Log metrics
+    mlflow.log_metric("train_loss", 0.15)
+    mlflow.log_metric("val_accuracy", 0.92)
+
+    # Log model
+    mlflow.sklearn.log_model(model, "model")
+```
+
+### Autologging (Automatic Tracking)
+
+```python
+import mlflow
+from sklearn.ensemble import RandomForestClassifier
+
+# Enable autologging
+mlflow.autolog()
+
+# Train (automatically logged)
+model = RandomForestClassifier(n_estimators=100, max_depth=5)
+model.fit(X_train, y_train)
+
+# Metrics, parameters, and model logged automatically!
+```
+
+## Core Concepts
+
+### 1. Experiments and Runs
+
+**Experiment**: Logical container for related runs
+**Run**: Single execution of ML code (parameters, metrics, artifacts)
+
+```python
+import mlflow
+
+# Create/set experiment
+mlflow.set_experiment("my-experiment")
+
+# Start a run
+with mlflow.start_run(run_name="baseline-model"):
+    # Log params
+    mlflow.log_param("model", "ResNet50")
+    mlflow.log_param("epochs", 10)
+
+    # Train
+    model = train()
 
     # Log metrics
     mlflow.log_metric("accuracy", 0.95)
-    mlflow.log_metric("loss", 0.05)
 
-    # Log multiple metrics over time
-    for epoch in range(10):
-        mlflow.log_metric("train_loss", 0.1 - epoch * 0.01, step=epoch)
-
-    # Log artifacts
-    mlflow.log_artifact("model.pkl")
-    mlflow.log_artifacts("./outputs")
-
-    # Log tags
-    mlflow.set_tag("model_type", "neural_network")
-```
-
-### Auto-Logging
-```python
-import mlflow
-
-# Scikit-learn
-mlflow.sklearn.autolog()
-from sklearn.ensemble import RandomForestClassifier
-model = RandomForestClassifier()
-model.fit(X_train, y_train)
-
-# PyTorch
-mlflow.pytorch.autolog()
-
-# TensorFlow/Keras
-mlflow.tensorflow.autolog()
-
-# XGBoost
-mlflow.xgboost.autolog()
-
-# LightGBM
-mlflow.lightgbm.autolog()
-```
-
-### Manual Run Management
-```python
-# Create run manually
-run = mlflow.start_run(run_name="my-run")
-try:
-    mlflow.log_param("param1", "value1")
-    mlflow.log_metric("metric1", 0.9)
-finally:
-    mlflow.end_run()
-
-# Get run info
-run_id = run.info.run_id
-print(f"Run ID: {run_id}")
-
-# Resume run
-with mlflow.start_run(run_id=run_id):
-    mlflow.log_metric("additional_metric", 0.95)
-```
-
-### Nested Runs
-```python
-with mlflow.start_run(run_name="parent"):
-    mlflow.log_param("parent_param", "value")
-
-    for i in range(3):
-        with mlflow.start_run(run_name=f"child_{i}", nested=True):
-            mlflow.log_param("child_param", i)
-            mlflow.log_metric("child_metric", i * 0.1)
-```
-
----
-
-## 3. Tracking Server
-
-### Start Server
-```bash
-# Local file store
-mlflow server --host 0.0.0.0 --port 5000
-
-# With database backend
-mlflow server \
-    --backend-store-uri postgresql://user:pass@localhost/mlflow \
-    --default-artifact-root s3://mlflow-artifacts/ \
-    --host 0.0.0.0 \
-    --port 5000
-
-# With SQLite
-mlflow server \
-    --backend-store-uri sqlite:///mlflow.db \
-    --default-artifact-root ./mlruns \
-    --host 0.0.0.0
-```
-
-### Connect to Server
-```python
-import mlflow
-
-mlflow.set_tracking_uri("http://localhost:5000")
-
-# Or via environment
-# export MLFLOW_TRACKING_URI=http://localhost:5000
-```
-
-### Docker Compose
-```yaml
-services:
-  mlflow:
-    image: ghcr.io/mlflow/mlflow:latest
-    ports:
-      - "5000:5000"
-    environment:
-      - MLFLOW_BACKEND_STORE_URI=postgresql://mlflow:mlflow@postgres/mlflow
-      - MLFLOW_DEFAULT_ARTIFACT_ROOT=s3://mlflow-artifacts/
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-    command: >
-      mlflow server
-      --host 0.0.0.0
-      --port 5000
-    depends_on:
-      - postgres
-
-  postgres:
-    image: postgres:15
-    environment:
-      - POSTGRES_USER=mlflow
-      - POSTGRES_PASSWORD=mlflow
-      - POSTGRES_DB=mlflow
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data:
-```
-
----
-
-## 4. Model Logging
-
-### Log Scikit-learn Model
-```python
-from sklearn.ensemble import RandomForestClassifier
-import mlflow.sklearn
-
-model = RandomForestClassifier()
-model.fit(X_train, y_train)
-
-with mlflow.start_run():
     # Log model
-    mlflow.sklearn.log_model(
-        model,
-        artifact_path="model",
-        registered_model_name="my-rf-model"
-    )
+    mlflow.pytorch.log_model(model, "model")
 
-    # With signature
-    from mlflow.models import infer_signature
-    signature = infer_signature(X_train, model.predict(X_train))
-    mlflow.sklearn.log_model(model, "model", signature=signature)
+# Run ID is automatically generated
+print(f"Run ID: {mlflow.active_run().info.run_id}")
 ```
 
-### Log PyTorch Model
+### 2. Logging Parameters
+
 ```python
+with mlflow.start_run():
+    # Single parameter
+    mlflow.log_param("learning_rate", 0.001)
+
+    # Multiple parameters
+    mlflow.log_params({
+        "batch_size": 32,
+        "epochs": 50,
+        "optimizer": "Adam",
+        "dropout": 0.2
+    })
+
+    # Nested parameters (as dict)
+    config = {
+        "model": {
+            "architecture": "ResNet50",
+            "pretrained": True
+        },
+        "training": {
+            "lr": 0.001,
+            "weight_decay": 1e-4
+        }
+    }
+
+    # Log as JSON string or individual params
+    for key, value in config.items():
+        mlflow.log_param(key, str(value))
+```
+
+### 3. Logging Metrics
+
+```python
+with mlflow.start_run():
+    # Training loop
+    for epoch in range(NUM_EPOCHS):
+        train_loss = train_epoch()
+        val_loss = validate()
+
+        # Log metrics at each step
+        mlflow.log_metric("train_loss", train_loss, step=epoch)
+        mlflow.log_metric("val_loss", val_loss, step=epoch)
+
+        # Log multiple metrics
+        mlflow.log_metrics({
+            "train_accuracy": train_acc,
+            "val_accuracy": val_acc
+        }, step=epoch)
+
+    # Log final metrics (no step)
+    mlflow.log_metric("final_accuracy", final_acc)
+```
+
+### 4. Logging Artifacts
+
+```python
+with mlflow.start_run():
+    # Log file
+    model.save('model.pkl')
+    mlflow.log_artifact('model.pkl')
+
+    # Log directory
+    os.makedirs('plots', exist_ok=True)
+    plt.savefig('plots/loss_curve.png')
+    mlflow.log_artifacts('plots')
+
+    # Log text
+    with open('config.txt', 'w') as f:
+        f.write(str(config))
+    mlflow.log_artifact('config.txt')
+
+    # Log dict as JSON
+    mlflow.log_dict({'config': config}, 'config.json')
+```
+
+### 5. Logging Models
+
+```python
+# PyTorch
 import mlflow.pytorch
 
 with mlflow.start_run():
-    mlflow.pytorch.log_model(
-        pytorch_model=model,
-        artifact_path="model",
-        conda_env="conda.yaml",
-        code_paths=["./src"]
-    )
-```
+    model = train_pytorch_model()
+    mlflow.pytorch.log_model(model, "model")
 
-### Log Custom Model (PyFunc)
-```python
-import mlflow.pyfunc
+# Scikit-learn
+import mlflow.sklearn
 
-class MyModel(mlflow.pyfunc.PythonModel):
-    def load_context(self, context):
-        # Load any artifacts
-        import pickle
-        with open(context.artifacts["model_path"], "rb") as f:
-            self.model = pickle.load(f)
-
-    def predict(self, context, model_input):
-        return self.model.predict(model_input)
-
-# Log custom model
 with mlflow.start_run():
-    mlflow.pyfunc.log_model(
-        artifact_path="model",
-        python_model=MyModel(),
-        artifacts={"model_path": "model.pkl"},
-        conda_env={
-            "dependencies": ["scikit-learn==1.0.0", "pandas"]
-        }
+    model = train_sklearn_model()
+    mlflow.sklearn.log_model(model, "model")
+
+# Keras/TensorFlow
+import mlflow.keras
+
+with mlflow.start_run():
+    model = train_keras_model()
+    mlflow.keras.log_model(model, "model")
+
+# HuggingFace Transformers
+import mlflow.transformers
+
+with mlflow.start_run():
+    mlflow.transformers.log_model(
+        transformers_model={
+            "model": model,
+            "tokenizer": tokenizer
+        },
+        artifact_path="model"
     )
 ```
 
-### Load Model
+## Autologging
+
+Automatically log metrics, parameters, and models for popular frameworks.
+
+### Enable Autologging
+
 ```python
-# From run
-model = mlflow.sklearn.load_model(f"runs:/{run_id}/model")
+import mlflow
 
-# From registry
-model = mlflow.sklearn.load_model("models:/my-model/1")
-model = mlflow.sklearn.load_model("models:/my-model/Production")
+# Enable for all supported frameworks
+mlflow.autolog()
 
-# As PyFunc
-model = mlflow.pyfunc.load_model(f"runs:/{run_id}/model")
-predictions = model.predict(X_test)
+# Or enable for specific framework
+mlflow.sklearn.autolog()
+mlflow.pytorch.autolog()
+mlflow.keras.autolog()
+mlflow.xgboost.autolog()
 ```
 
----
+### Autologging with Scikit-learn
 
-## 5. Model Registry
+```python
+import mlflow
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+
+# Enable autologging
+mlflow.sklearn.autolog()
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Train (automatically logs params, metrics, model)
+with mlflow.start_run():
+    model = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=42)
+    model.fit(X_train, y_train)
+
+    # Metrics like accuracy, f1_score logged automatically
+    # Model logged automatically
+    # Training duration logged
+```
+
+### Autologging with PyTorch Lightning
+
+```python
+import mlflow
+import pytorch_lightning as pl
+
+# Enable autologging
+mlflow.pytorch.autolog()
+
+# Train
+with mlflow.start_run():
+    trainer = pl.Trainer(max_epochs=10)
+    trainer.fit(model, datamodule=dm)
+
+    # Hyperparameters logged
+    # Training metrics logged
+    # Best model checkpoint logged
+```
+
+## Model Registry
+
+Manage model lifecycle with versioning and stage transitions.
 
 ### Register Model
-```python
-# During logging
-mlflow.sklearn.log_model(
-    model,
-    "model",
-    registered_model_name="my-model"
-)
 
-# After logging
-result = mlflow.register_model(
-    model_uri=f"runs:/{run_id}/model",
-    name="my-model"
-)
+```python
+import mlflow
+
+# Log and register model
+with mlflow.start_run():
+    model = train_model()
+
+    # Log model
+    mlflow.sklearn.log_model(
+        model,
+        "model",
+        registered_model_name="my-classifier"  # Register immediately
+    )
+
+# Or register later
+run_id = "abc123"
+model_uri = f"runs:/{run_id}/model"
+mlflow.register_model(model_uri, "my-classifier")
 ```
 
-### Manage Versions
+### Model Stages
+
+Transition models between stages: **None** → **Staging** → **Production** → **Archived**
+
 ```python
-from mlflow import MlflowClient
+from mlflow.tracking import MlflowClient
 
 client = MlflowClient()
 
-# Get model versions
-versions = client.search_model_versions("name='my-model'")
-
-# Transition stage
+# Promote to staging
 client.transition_model_version_stage(
-    name="my-model",
-    version=1,
-    stage="Production"  # None, Staging, Production, Archived
+    name="my-classifier",
+    version=3,
+    stage="Staging"
 )
+
+# Promote to production
+client.transition_model_version_stage(
+    name="my-classifier",
+    version=3,
+    stage="Production",
+    archive_existing_versions=True  # Archive old production versions
+)
+
+# Archive model
+client.transition_model_version_stage(
+    name="my-classifier",
+    version=2,
+    stage="Archived"
+)
+```
+
+### Load Model from Registry
+
+```python
+import mlflow.pyfunc
+
+# Load latest production model
+model = mlflow.pyfunc.load_model("models:/my-classifier/Production")
+
+# Load specific version
+model = mlflow.pyfunc.load_model("models:/my-classifier/3")
+
+# Load from staging
+model = mlflow.pyfunc.load_model("models:/my-classifier/Staging")
+
+# Use model
+predictions = model.predict(X_test)
+```
+
+### Model Versioning
+
+```python
+client = MlflowClient()
+
+# List all versions
+versions = client.search_model_versions("name='my-classifier'")
+
+for v in versions:
+    print(f"Version {v.version}: {v.current_stage}")
+
+# Get latest version by stage
+latest_prod = client.get_latest_versions("my-classifier", stages=["Production"])
+latest_staging = client.get_latest_versions("my-classifier", stages=["Staging"])
+
+# Get model version details
+version_info = client.get_model_version(name="my-classifier", version="3")
+print(f"Run ID: {version_info.run_id}")
+print(f"Stage: {version_info.current_stage}")
+print(f"Tags: {version_info.tags}")
+```
+
+### Model Annotations
+
+```python
+client = MlflowClient()
 
 # Add description
 client.update_model_version(
-    name="my-model",
-    version=1,
-    description="Production model v1"
+    name="my-classifier",
+    version="3",
+    description="ResNet50 classifier trained on 1M images with 95% accuracy"
 )
 
 # Add tags
 client.set_model_version_tag(
-    name="my-model",
-    version=1,
+    name="my-classifier",
+    version="3",
     key="validation_status",
     value="approved"
 )
-```
 
-### Model Aliases
-```python
-# Set alias (MLflow 2.0+)
-client.set_registered_model_alias(
-    name="my-model",
-    alias="champion",
-    version=1
-)
-
-# Load by alias
-model = mlflow.pyfunc.load_model("models:/my-model@champion")
-
-# Delete alias
-client.delete_registered_model_alias(
-    name="my-model",
-    alias="champion"
+client.set_model_version_tag(
+    name="my-classifier",
+    version="3",
+    key="deployed_date",
+    value="2025-01-15"
 )
 ```
 
----
+## Searching Runs
 
-## 6. Model Serving
+Find runs programmatically.
 
-### Local Serving
-```bash
-# Serve from run
-mlflow models serve -m runs:/<run_id>/model -p 5001
-
-# Serve from registry
-mlflow models serve -m models:/my-model/Production -p 5001
-
-# With environment
-mlflow models serve -m models:/my-model/1 -p 5001 --env-manager=conda
-```
-
-### Make Predictions
-```bash
-curl -X POST http://localhost:5001/invocations \
-  -H "Content-Type: application/json" \
-  -d '{"dataframe_split": {"columns": ["a", "b"], "data": [[1, 2]]}}'
-```
-
-### Docker Deployment
-```bash
-# Build Docker image
-mlflow models build-docker -m models:/my-model/1 -n my-model-image
-
-# Run container
-docker run -p 5001:8080 my-model-image
-```
-
-### Kubernetes Deployment
-```yaml
-apikind: Deployment
-metadata:
-  name: mlflow-model
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: mlflow-model
-  template:
-    metadata:
-      labels:
-        app: mlflow-model
-    spec:
-      containers:
-      - name: model
-        image: my-model-image:latest
-        ports:
-        - containerPort: 8080
-        resources:
-          requests:
-            memory: "512Mi"
-            cpu: "500m"
----
-apikind: Service
-metadata:
-  name: mlflow-model-service
-spec:
-  selector:
-    app: mlflow-model
-  ports:
-  - port: 80
-    targetPort: 8080
-```
-
----
-
-## 7. MLflow Projects
-
-### MLproject File
-```yaml
-# MLproject
-name: my-project
-
-conda_env: conda.yaml
-
-entry_points:
-  main:
-    parameters:
-      learning_rate: {type: float, default: 0.01}
-      epochs: {type: int, default: 100}
-    command: "python train.py --lr {learning_rate} --epochs {epochs}"
-
-  validate:
-    parameters:
-      model_path: {type: string}
-    command: "python validate.py --model {model_path}"
-```
-
-### conda.yaml
-```yaml
-name: my-project-env
-channels:
-  - conda-forge
-dependencies:
-  - python=3.10
-  - pip
-  - pip:
-    - mlflow
-    - scikit-learn
-    - pandas
-```
-
-### Run Project
-```bash
-# Local
-mlflow run . -P learning_rate=0.001 -P epochs=50
-
-# From Git
-mlflow run https://github.com/user/repo -P param=value
-
-# Specific entry point
-mlflow run . -e validate -P model_path=./model
-
-# With environment
-mlflow run . --env-manager=conda
-```
-
----
-
-## 8. GenAI Tracking
-
-### Track LLM Calls
 ```python
-import mlflow
-
-mlflow.set_experiment("llm-experiment")
-
-with mlflow.start_run():
-    # Log LLM params
-    mlflow.log_params({
-        "model": "gpt-4",
-        "temperature": 0.7,
-        "max_tokens": 1000
-    })
-
-    # Make LLM call
-    response = openai_client.chat.completions.create(...)
-
-    # Log input/output
-    mlflow.log_text(prompt, "input.txt")
-    mlflow.log_text(response.choices[0].message.content, "output.txt")
-
-    # Log usage
-    mlflow.log_metrics({
-        "prompt_tokens": response.usage.prompt_tokens,
-        "completion_tokens": response.usage.completion_tokens
-    })
-```
-
-### Auto-log LangChain
-```python
-import mlflow
-
-mlflow.langchain.autolog()
-
-from langchain_openai import ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate
-
-llm = ChatOpenAI(model="gpt-4o")
-prompt = ChatPromptTemplate.from_template("Tell me about {topic}")
-chain = prompt | llm
-
-# Automatically logged
-result = chain.invoke({"topic": "MLflow"})
-```
-
-### Evaluate LLM
-```python
-import mlflow
-
-# Evaluation dataset
-eval_data = pd.DataFrame({
-    "inputs": ["Question 1", "Question 2"],
-    "ground_truth": ["Answer 1", "Answer 2"]
-})
-
-with mlflow.start_run():
-    results = mlflow.evaluate(
-        model="runs:/{run_id}/model",
-        data=eval_data,
-        targets="ground_truth",
-        model_type="question-answering",
-        evaluators="default"
-    )
-
-    print(results.metrics)
-```
-
----
-
-## 9. Querying Runs
-
-### Search Runs
-```python
-from mlflow import MlflowClient
+from mlflow.tracking import MlflowClient
 
 client = MlflowClient()
 
-# Search runs
+# Search all runs in experiment
+experiment_id = client.get_experiment_by_name("my-experiment").experiment_id
 runs = client.search_runs(
-    experiment_ids=["1"],
-    filter_string="metrics.accuracy > 0.9 AND params.model_type = 'rf'",
+    experiment_ids=[experiment_id],
+    filter_string="metrics.accuracy > 0.9",
     order_by=["metrics.accuracy DESC"],
     max_results=10
 )
 
 for run in runs:
-    print(f"Run: {run.info.run_id}")
-    print(f"  Accuracy: {run.data.metrics.get('accuracy')}")
-    print(f"  Params: {run.data.params}")
+    print(f"Run ID: {run.info.run_id}")
+    print(f"Accuracy: {run.data.metrics['accuracy']}")
+    print(f"Params: {run.data.params}")
 
-# Get best run
-best_run = runs[0]
-```
-
-### Compare Runs
-```python
-import mlflow
-
-# Get runs
-runs = mlflow.search_runs(
-    experiment_names=["my-experiment"],
-    filter_string="status = 'FINISHED'"
+# Search with complex filters
+runs = client.search_runs(
+    experiment_ids=[experiment_id],
+    filter_string="""
+        metrics.accuracy > 0.9 AND
+        params.model = 'ResNet50' AND
+        tags.dataset = 'ImageNet'
+    """,
+    order_by=["metrics.f1_score DESC"]
 )
-
-# Compare as DataFrame
-print(runs[["run_id", "params.learning_rate", "metrics.accuracy"]])
-
-# Get artifacts
-client = MlflowClient()
-artifacts = client.list_artifacts(run_id)
 ```
 
----
+## Integration Examples
 
-## 10. Best Practices
+### PyTorch
 
-### Project Structure
-```
-ml-project/
-├── MLproject
-├── conda.yaml
-├── src/
-│   ├── train.py
-│   ├── evaluate.py
-│   └── utils.py
-├── data/
-├── notebooks/
-└── tests/
-```
-
-### Training Script
 ```python
-import argparse
 import mlflow
+import torch
+import torch.nn as nn
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--lr", type=float, default=0.01)
-    parser.add_argument("--epochs", type=int, default=100)
-    args = parser.parse_args()
+# Enable autologging
+mlflow.pytorch.autolog()
 
-    mlflow.set_experiment("my-experiment")
+with mlflow.start_run():
+    # Log config
+    config = {
+        "lr": 0.001,
+        "epochs": 10,
+        "batch_size": 32
+    }
+    mlflow.log_params(config)
 
-    with mlflow.start_run():
-        # Log parameters
-        mlflow.log_params(vars(args))
+    # Train
+    model = create_model()
+    optimizer = torch.optim.Adam(model.parameters(), lr=config["lr"])
 
-        # Train model
-        model = train(args.lr, args.epochs)
+    for epoch in range(config["epochs"]):
+        train_loss = train_epoch(model, optimizer, train_loader)
+        val_loss, val_acc = validate(model, val_loader)
 
         # Log metrics
-        metrics = evaluate(model)
-        mlflow.log_metrics(metrics)
+        mlflow.log_metrics({
+            "train_loss": train_loss,
+            "val_loss": val_loss,
+            "val_accuracy": val_acc
+        }, step=epoch)
 
-        # Log model
-        mlflow.sklearn.log_model(
-            model,
-            "model",
-            signature=infer_signature(X, y),
-            registered_model_name="my-model"
-        )
-
-if __name__ == "__main__":
-    main()
+    # Log model
+    mlflow.pytorch.log_model(model, "model")
 ```
 
----
+### HuggingFace Transformers
+
+```python
+import mlflow
+from transformers import Trainer, TrainingArguments
+
+# Enable autologging
+mlflow.transformers.autolog()
+
+training_args = TrainingArguments(
+    output_dir="./results",
+    num_train_epochs=3,
+    per_device_train_batch_size=16,
+    evaluation_strategy="epoch",
+    save_strategy="epoch",
+    load_best_model_at_end=True
+)
+
+# Start MLflow run
+with mlflow.start_run():
+    trainer = Trainer(
+        model=model,
+        args=training_args,
+        train_dataset=train_dataset,
+        eval_dataset=eval_dataset
+    )
+
+    # Train (automatically logged)
+    trainer.train()
+
+    # Log final model to registry
+    mlflow.transformers.log_model(
+        transformers_model={
+            "model": trainer.model,
+            "tokenizer": tokenizer
+        },
+        artifact_path="model",
+        registered_model_name="hf-classifier"
+    )
+```
+
+### XGBoost
+
+```python
+import mlflow
+import xgboost as xgb
+
+# Enable autologging
+mlflow.xgboost.autolog()
+
+with mlflow.start_run():
+    dtrain = xgb.DMatrix(X_train, label=y_train)
+    dval = xgb.DMatrix(X_val, label=y_val)
+
+    params = {
+        'max_depth': 6,
+        'learning_rate': 0.1,
+        'objective': 'binary:logistic',
+        'eval_metric': ['logloss', 'auc']
+    }
+
+    # Train (automatically logged)
+    model = xgb.train(
+        params,
+        dtrain,
+        num_boost_round=100,
+        evals=[(dtrain, 'train'), (dval, 'val')],
+        early_stopping_rounds=10
+    )
+
+    # Model and metrics logged automatically
+```
 
 ## Best Practices
 
-1. **Always set experiment** - Organize runs
-2. **Log signatures** - Model input/output schemas
-3. **Use auto-logging** - Reduce boilerplate
-4. **Version models** - Track production models
-5. **Use artifacts** - Store plots, configs
-6. **Tag runs** - Searchable metadata
-7. **Nested runs** - Hyperparameter tuning
-8. **Remote tracking** - Collaborate with team
-9. **CI/CD integration** - Automated training
-10. **Monitor serving** - Track predictions
+### 1. Organize with Experiments
+
+```python
+# ✅ Good: Separate experiments for different tasks
+mlflow.set_experiment("sentiment-analysis")
+mlflow.set_experiment("image-classification")
+mlflow.set_experiment("recommendation-system")
+
+# ❌ Bad: Everything in one experiment
+mlflow.set_experiment("all-models")
+```
+
+### 2. Use Descriptive Run Names
+
+```python
+# ✅ Good: Descriptive names
+with mlflow.start_run(run_name="resnet50-imagenet-lr0.001-bs32"):
+    train()
+
+# ❌ Bad: No name (auto-generated UUID)
+with mlflow.start_run():
+    train()
+```
+
+### 3. Log Comprehensive Metadata
+
+```python
+with mlflow.start_run():
+    # Log hyperparameters
+    mlflow.log_params({
+        "learning_rate": 0.001,
+        "batch_size": 32,
+        "epochs": 50
+    })
+
+    # Log system info
+    mlflow.set_tags({
+        "dataset": "ImageNet",
+        "framework": "PyTorch 2.0",
+        "gpu": "A100",
+        "git_commit": get_git_commit()
+    })
+
+    # Log data info
+    mlflow.log_param("train_samples", len(train_dataset))
+    mlflow.log_param("val_samples", len(val_dataset))
+```
+
+### 4. Track Model Lineage
+
+```python
+# Link runs to understand lineage
+with mlflow.start_run(run_name="preprocessing"):
+    data = preprocess()
+    mlflow.log_artifact("data.csv")
+    preprocessing_run_id = mlflow.active_run().info.run_id
+
+with mlflow.start_run(run_name="training"):
+    # Reference parent run
+    mlflow.set_tag("preprocessing_run_id", preprocessing_run_id)
+    model = train(data)
+```
+
+### 5. Use Model Registry for Deployment
+
+```python
+# ✅ Good: Use registry for production
+model_uri = "models:/my-classifier/Production"
+model = mlflow.pyfunc.load_model(model_uri)
+
+# ❌ Bad: Hard-code run IDs
+model_uri = "runs:/abc123/model"
+model = mlflow.pyfunc.load_model(model_uri)
+```
+
+## Deployment
+
+### Serve Model Locally
+
+```bash
+# Serve registered model
+mlflow models serve -m "models:/my-classifier/Production" -p 5001
+
+# Serve from run
+mlflow models serve -m "runs:/<RUN_ID>/model" -p 5001
+
+# Test endpoint
+curl http://127.0.0.1:5001/invocations -H 'Content-Type: application/json' -d '{
+  "inputs": [[1.0, 2.0, 3.0, 4.0]]
+}'
+```
+
+### Deploy to Cloud
+
+```bash
+# Deploy to AWS SageMaker
+mlflow sagemaker deploy -m "models:/my-classifier/Production" --region-name us-west-2
+
+# Deploy to Azure ML
+mlflow azureml deploy -m "models:/my-classifier/Production"
+```
+
+## Configuration
+
+### Tracking Server
+
+```bash
+# Start tracking server with backend store
+mlflow server \
+  --backend-store-uri postgresql://user:password@localhost/mlflow \
+  --default-artifact-root s3://my-bucket/mlflow \
+  --host 0.0.0.0 \
+  --port 5000
+```
+
+### Client Configuration
+
+```python
+import mlflow
+
+# Set tracking URI
+mlflow.set_tracking_uri("http://localhost:5000")
+
+# Or use environment variable
+# export MLFLOW_TRACKING_URI=http://localhost:5000
+```
+
+## Resources
+
+- **Documentation**: https://mlflow.org/docs/latest
+- **GitHub**: https://github.com/mlflow/mlflow (23k+ stars)
+- **Examples**: https://github.com/mlflow/mlflow/tree/master/examples
+- **Community**: https://mlflow.org/community
+
+## See Also
+
+- `references/tracking.md` - Comprehensive tracking guide
+- `references/model-registry.md` - Model lifecycle management
+- `references/deployment.md` - Production deployment patterns
+
+

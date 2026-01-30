@@ -1,7 +1,7 @@
 {
   "name": "implementation",
-  "repo": "ZhiruiFeng/LocalAgentCrew",
-  "path": ".claude/skills/implementation/SKILL.md",
-  "source": "github.com/ZhiruiFeng/LocalAgentCrew",
-  "downloaded_at": "2026-01-29T04:36:06.251562Z"
+  "repo": "ingpoc/SKILLS",
+  "path": "implementation/SKILL.md",
+  "source": "github.com/ingpoc/SKILLS",
+  "downloaded_at": "2026-01-30T04:30:35.998079Z"
 }

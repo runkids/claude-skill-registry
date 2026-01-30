@@ -1,333 +1,124 @@
 ---
-name: SEO Optimization
-description: Optimize content for search engines to increase organic traffic and rankings
-version: 1.0.0
-triggers:
-  - "seo"
-  - "seo optimization"
-  - "search optimization"
-  - "keyword research"
-  - "rank higher"
-  - "skill:seo-optimization"
+name: seo-optimization
+description: SEO audits, keyword research with ReviewWeb.site API (keyword ideas, difficulty, traffic, backlinks), on-page optimization, technical SEO, programmatic SEO (pSEO), JSON+LD schema, Google Search Console API integration. Activate for search optimization, meta tags, sitemap, Core Web Vitals. Used by seo-specialist, attraction-specialist, content-creator agents.
+license: MIT
 ---
 
 # SEO Optimization
 
-## Purpose
+Technical SEO, keyword research (ReviewWeb.site API), Google Search Console API, and programmatic SEO.
 
-Optimize content to rank higher in search engines and drive organic traffic:
-- Research and target the right keywords
-- Structure content for search intent
-- Build technical SEO foundations
-- Earn quality backlinks
+## When to Use
 
-## When to Use This Skill
+- Keyword research with real data (volume, difficulty, CPC)
+- Competitor domain analysis (traffic, top keywords, backlinks)
+- Google Search Console data (queries, pages, clicks, impressions, CTR, position)
+- SEO audit or technical analysis
+- JSON+LD schema generation
+- Programmatic SEO (pSEO) templates
+- Core Web Vitals measurement (browser-based or API)
 
-- Optimizing existing blog posts
-- Planning new content around keywords
-- Technical SEO audits
-- Competitor keyword analysis
-- Local SEO optimization
-- E-commerce product pages
+## Quick Start: Google Search Console
 
-## Core Concepts
+**Prerequisites:**
+- Node.js 18+ with `googleapis` package (`npm install googleapis`)
+- [Enable Search Console API](https://console.cloud.google.com/apis/library/searchconsole.googleapis.com) in your Google Cloud project
 
-### The SEO Pyramid
+**Setup (one-time):**
 
-```
-                    ┌─────────────┐
-                    │  BACKLINKS  │ ← Authority building
-                    └──────┬──────┘
-               ┌───────────┼───────────┐
-          ┌────┴────┐ ┌────┴────┐ ┌────┴────┐
-          │Content  │ │On-Page  │ │Technical│
-          │Quality  │ │Elements │ │ SEO     │
-          └─────────┘ └─────────┘ └─────────┘
-                    ┌───────────┐
-                    │ KEYWORDS  │ ← Foundation
-                    └───────────┘
+1. Create OAuth credentials at [Google Cloud Console](https://console.cloud.google.com/apis/credentials) (Desktop app type)
+2. Download JSON → save as `.claude/secrets/google_client_secret.json` (project) or `~/.claude/secrets/` (global)
+3. Authenticate:
+```bash
+node scripts/gsc-auth.cjs --auth
 ```
 
-### Search Intent Types
-
-```typescript
-type SearchIntent =
-  | 'informational'    // "What is..." - Answer questions
-  | 'navigational'     // "Netflix login" - Brand queries
-  | 'transactional'    // "Buy iPhone" - Purchase intent
-  | 'commercial'       // "Best laptop 2024" - Research before buy
-
-function matchIntent(keyword: string, content: Content): boolean {
-  // Informational: How-to guides, explanations
-  // Navigational: Brand pages, login
-  // Transactional: Pricing, demo, buy
-  // Commercial: Comparisons, reviews
-}
+**Query data:**
+```bash
+node scripts/gsc-query.cjs --sites                                    # List sites
+node scripts/gsc-query.cjs --top-queries -s https://example.com       # Top queries
+node scripts/gsc-query.cjs --low-ctr -s https://example.com -o low-ctr.csv -f csv
 ```
 
-## Patterns
+See `google-search-console-api-guide.md` for full API reference.
 
-### Pattern 1: On-Page SEO Checklist
+## Scripts
 
-```markdown
-## Title Tag (50-60 characters)
-<title>[Primary Keyword] - [Benefit] | [Brand]</title>
+### Google Search Console (OAuth2)
 
-## Meta Description (150-160 characters)
-<meta name="description" content="[Compelling description with keywords and CTA]">
+Config: `google_client_secret.json` in `.claude/secrets/` (project or `~/.claude/secrets/` global)
 
-## Heading Structure
-<H1>[Title matching title tag]</H1>
-<H2>[Major section - includes secondary keywords]</H2>
-<H3>[Sub-section - includes related keywords]</H3>
-<H2>[Another major section]</H2>
-...
-
-## Content Optimization
-✓ Primary keyword in first paragraph
-✓ Secondary keywords in 2-3 paragraphs each
-✓ Keywords in bold/strong (2-3 occurrences)
-✓ Related keywords naturally throughout
-✓ LSI keywords for context
-
-## Image Optimization
-✓ Alt text with keywords
-✓ Compressed file sizes
-✓ Descriptive filenames
-✓ Lazy loading for below-fold images
-
-## Internal Linking
-✓ 2-4 internal links to related content
-✓ Anchor text varies naturally
-✓ Links to pillar/cluster content
-
-## Technical Elements
-✓ Fast loading (<3 seconds)
-✓ Mobile responsive
-✓ SSL certificate (HTTPS)
-✓ XML sitemap submitted
-✓ Robots.txt configured
-✓ Canonical tags for duplicates
-```
-
-### Pattern 2: Keyword Research Framework
-
-```typescript
-interface KeywordData {
-  keyword: string;           // Target keyword
-  volume: number;            // Monthly searches
-  difficulty: number;        // 0-100 scale
-  cpc: number;               // Cost per click
-  intent: SearchIntent;      // Type of search
-  serpFeatures: string[];    // Featured snippets, etc.
-}
-
-const researchKeywords = (topic: string): KeywordData[] => {
-  return [
-    // Primary keyword (high volume, high difficulty)
-    { keyword: `${topic}`, volume: 10000, difficulty: 70, intent: 'informational' },
-    // Long-tail keyword (low volume, low difficulty)
-    { keyword: `how to ${topic} for beginners`, volume: 1000, difficulty: 30, intent: 'informational' },
-    // Commercial intent
-    { keyword: `best ${topic} tools`, volume: 5000, difficulty: 60, intent: 'commercial' },
-    // Question keyword (featured snippet)
-    { keyword: `what is ${topic}`, volume: 3000, difficulty: 40, intent: 'informational' },
-  ];
-}
-```
-
-### Pattern 3: Content Brief Template
-
-```markdown
-# Content Brief: [Target Keyword]
-
-## Basic Info
-- Primary Keyword: [keyword]
-- Target Search Intent: [informational/navigational/transactional/commercial]
-- Target Word Count: [1,500-2,500 words]
-- Suggested Title: "[title with keyword]"
-- Target Ranking: [Position 1-3]
-
-## Keyword Strategy
-**Primary Keyword:** [keyword]
-**Secondary Keywords:**
-- [keyword 1]
-- [keyword 2]
-- [keyword 3]
-
-**Related Terms to Include:**
-- [term 1]
-- [term 2]
-- [term 3]
-
-**Questions to Answer:**
-- [Question 1]
-- [Question 2]
-- [Question 3]
-
-## Content Structure
-**H2 Outline:**
-1. [Section about X]
-2. [Section about Y]
-3. [Section about Z]
-
-**Featured Snippet Target:**
-Question: "[Question to answer]"
-Answer: "[50-word answer - direct, concise]"
-
-## Competitor Analysis
-**Top 3 Ranking Pages:**
-1. [URL 1] - Strengths, weaknesses
-2. [URL 2] - Strengths, weaknesses
-3. [URL 3] - Strengths, weaknesses
-
-**Content Gaps to Exploit:**
-- [Gap 1]
-- [Gap 2]
-
-## Links to Include
-**Internal Links (2-4):**
-- [Link 1 to pillar/cluster content]
-- [Link 2 to related content]
-
-**External Links (2-4):**
-- [Link to authoritative source 1]
-- [Link to authoritative source 2]
-
-## Success Metrics
-- Target word count: [number]
-- Readability grade: [6-8]
-- Keyword density: [1-2%]
-- Images: [3-5 with optimized alt text]
-```
-
-## Step-by-Step Process
-
-1. **Keyword Research**
-   - Use Ahrefs/Semrush/Moz for data
-   - Find keywords with right volume/difficulty balance
-   - Analyze search intent
-   - Identify content gaps
-
-2. **Competitive Analysis**
-   - Analyze top-ranking pages
-   - Identify what makes them rank
-   - Find gaps to outrank them
-   - Note their word count and structure
-
-3. **Content Planning**
-   - Create detailed content briefs
-   - Define target word count
-   - Plan headings and structure
-   - Specify internal/external links
-
-4. **On-Page Optimization**
-   - Include keywords in title/meta
-   - Structure with H2s/H3s
-   - Optimize images
-   - Add internal links
-
-5. **Technical SEO**
-   - Fix crawl errors
-   - Improve page speed
-   - Ensure mobile-friendliness
-   - Submit sitemap
-
-6. **Link Building**
-   - Create link-worthy content
-   - Reach out for backlinks
-   - Build internal links
-   - Monitor backlink profile
-
-## FrankX Application
-
-```markdown
-# SEO Strategy: [TOPIC] for [AUDIENCE]
-
-## The FrankX SEO Philosophy
-
-Most SEO is playing defense.
-
-FrankX plays offense.
-
-**Our approach:**
-
-1. Own the narrative, not just the keywords
-2. Create content so good they have to link
-3. Build topical authority, not just page authority
-
-## Target Keyword Clusters
-
-**Pillar Page:** "[Ultimate Guide to TOPIC]"
-- 10,000+ words
-- Comprehensive coverage
-- Links to all cluster content
-
-**Cluster Content:**
-- "How to [TOPIC] for Beginners" (1,500 words)
-- "[TOPIC] Mistakes to Avoid" (1,200 words)
-- "The Science Behind [TOPIC]" (1,800 words)
-- "[TOPIC] Case Studies" (2,000 words)
-
-## Link Building Strategy
-
-**Resource Page Outreach:**
-- Create ultimate resource pages
-- Pitch to relevant resource pages
-- Track responses and follow up
-
-**HARO/Connectively:**
-- Position as expert source
-- Provide valuable insights
-- Earn backlinks from journalists
-
-**Broken Link Building:**
-- Find broken links in niche
-- Offer content as replacement
-- Easy wins for backlinks
-```
-
-## Anti-Patterns
-
-| Bad Practice | Why It's Bad | Better Approach |
-|--------------|--------------|-----------------|
-| Keyword stuffing | Penalized by Google | Natural keyword usage |
-| Ignoring search intent | Low engagement metrics | Match content to intent |
-| Thin content (<1,000 words) | Doesn't satisfy users | Comprehensive 1,500+ words |
-| No internal linking | Weak site structure | Connect related content |
-| Duplicate content | Confuses search engines | Use canonical tags |
-| Ignoring mobile | Poor rankings, UX | Mobile-first design |
-| Slow page speed | High bounce rate | Optimize images, minify |
-
-## Quick Commands
+| Script | Purpose |
+|--------|---------|
+| `gsc-config-loader.cjs` | Cross-platform config/token resolution |
+| `gsc-auth.cjs` | OAuth2 authentication flow |
+| `gsc-query.cjs` | Query analytics, sitemaps, URL inspection |
 
 ```bash
-# Research keywords for topic
-skill:seo-optimization, research keywords for [TOPIC]
-
-# Audit existing content
-skill:seo-optimization, audit my blog post at [URL]
-
-# Create content brief
-skill:seo-optimization, create a content brief for [KEYWORD]
-
-# Optimize existing page
-skill:seo-optimization, optimize my page [URL] for [KEYWORD]
-
-# Find link building opportunities
-skill:seo-optimization, find link building opportunities for [TOPIC]
+node scripts/gsc-auth.cjs --auth                    # Authenticate
+node scripts/gsc-auth.cjs --verify                  # Check token
+node scripts/gsc-query.cjs --top-queries -s URL     # Top queries
+node scripts/gsc-query.cjs --inspect -s URL -u /page  # Inspect URL
 ```
 
-## Related Skills
+### Keyword Research (ReviewWeb.site API)
 
-- `blog-writing` - Create SEO-optimized content
-- `content-strategy` - Plan keyword-targeted content
-- `social-media` - Promote content for backlinks
-- `video-script` - Create YouTube SEO content
+Requires: `REVIEWWEB_API_KEY` in `.env`
 
-## Resources
+```bash
+node scripts/analyze-keywords.cjs -k "react tutorial" -o report.md
+node scripts/analyze-keywords.cjs -d "competitor.com" -o analysis.md
+```
 
-- `resources/templates.md` - Content brief templates
-- `resources/checklists.md` - Pre-publication SEO checklist
-- `resources/tools.md` - SEO tool recommendations
-- `resources/competitor-analysis.md` - Competitor research framework
+### Core Web Vitals (PageSpeed API)
+
+```bash
+node scripts/audit-core-web-vitals.cjs -u https://example.com
+node scripts/audit-core-web-vitals.cjs -s sitemap.xml -f md -o report.md
+```
+
+### Other Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `generate-sitemap.cjs` | XML sitemap generation |
+| `generate-schema.cjs` | JSON+LD schema generator |
+| `validate-schema.cjs` | Validate JSON-LD |
+| `pseo-generator.cjs` | pSEO page generation |
+
+## References
+
+**Search Console:** `google-search-console-api-guide.md`, `search-console-query-patterns.md`
+
+**API:** `reviewweb-api.md`, `reviewweb-content-api.md`
+
+**Audit Workflows:** `seo-audit-workflow.md`, `browser-seo-audit-workflow.md`
+
+**Keyword Research:** `keyword-research-workflow.md`, `keyword-clustering-methodology.md`, `content-gap-analysis-framework.md`
+
+**Technical SEO:** `technical-seo-checklist.md`, `core-web-vitals-remediation.md`, `sitemap-best-practices.md`, `robots-txt-best-practices-2025.md`, `canonical-url-strategy.md`, `mobile-seo-checklist.md`
+
+**On-Page SEO:** `on-page-seo-checklist-2025.md`, `meta-tag-templates.md`, `semantic-seo-framework.md`, `readability-scoring-guide.md`, `internal-linking-automation.md`
+
+**Programmatic SEO:** `pseo-templates.md`, `pseo-best-practices.md`, `pseo-template-syntax.md`, `pseo-url-structure-guide.md`, `pseo-scale-architecture.md`
+
+**Link Building:** `backlink-analysis-framework.md`, `link-building-campaign-framework.md`, `outreach-email-templates.md`, `directory-submission-list.md`
+
+**Schema:** `schema-generation.md`, `schema-templates/` (article, product, faq, howto, organization, localbusiness)
+
+## Report Output
+
+**Activate:** `assets-organizing` skill for report file paths
+
+| Report Type | Path |
+|-------------|------|
+| SEO Audits | `assets/reports/seo/{date}-{domain}-audit.md` |
+| Keyword Research | `assets/reports/seo/{date}-{topic}-keywords.md` |
+| Ranking Reports | `assets/reports/seo/{date}-{domain}-rankings.md` |
+| CWV Reports | `assets/reports/seo/{date}-{domain}-cwv.md` |
+
+## Cross-Skill Integration
+
+**chrome-devtools:** Real browser CWV, screenshots, network analysis → `browser-seo-audit-workflow.md`
+
+**assets-organizing:** Report file organization and naming conventions

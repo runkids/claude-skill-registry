@@ -1,0 +1,19 @@
+{
+  "category": "electron-pro-skill",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.858756Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in building cross-platform desktop applications using web technologies (HTML/CSS/JS) with the Electron framework.",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "electron-pro-skill",
+      "branch": "main",
+      "category": "electron-pro-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

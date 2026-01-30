@@ -1,7 +1,7 @@
 {
   "name": "todoist",
-  "repo": "tbroadley/dotfiles",
-  "path": "claude/skills/todoist/SKILL.md",
-  "source": "github.com/tbroadley/dotfiles",
-  "downloaded_at": "2026-01-29T02:10:36.751219Z"
+  "repo": "onmax/claude-config",
+  "path": "skills/todoist/SKILL.md",
+  "source": "github.com/onmax/claude-config",
+  "downloaded_at": "2026-01-30T03:44:39.843627Z"
 }

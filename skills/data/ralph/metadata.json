@@ -1,7 +1,7 @@
 {
   "name": "ralph",
-  "repo": "ismailytics/ralph-with-claude-code-and-linear",
-  "path": ".claude/skills/ralph/SKILL.md",
-  "source": "github.com/ismailytics/ralph-with-claude-code-and-linear",
-  "downloaded_at": "2026-01-29T04:47:58.586904Z"
+  "repo": "carmandale/agent-config",
+  "path": "skills/tools/ralph/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-30T04:46:39.646390Z"
 }

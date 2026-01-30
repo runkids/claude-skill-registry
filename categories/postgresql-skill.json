@@ -1,0 +1,19 @@
+{
+  "category": "postgresql-skill",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.461923Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "This skill provides PostgreSQL-specific patterns for database design, optimization, and transaction management",
+      "repo": "ingpoc/SKILLS",
+      "path": "postgresql-skill",
+      "branch": "main",
+      "category": "postgresql-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "ingpoc/SKILLS",
+      "source": "github.com/ingpoc/SKILLS"
+    }
+  ]
+}

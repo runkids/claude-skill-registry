@@ -1,34 +1,230 @@
 ---
 name: security
-description: One breach = game over. Threat modeling, OWASP Top 10, secure coding, security architecture, zero trust. The complete security skill for protecting your application from day one.  Security isn't a feature you add later - it's a mindset that shapes every decision. This skill covers application security, not infrastructure security. Use when "security, owasp, xss, sql injection, csrf, authentication, authorization, secrets, api key, vulnerability, secure coding, security headers, rate limiting, input validation, sanitize, escape, security, owasp, authentication, authorization, vulnerabilities, secure-coding" mentioned. 
+description: Security audit workflow - vulnerability scan → verification
 ---
 
-# Security
+# /security - Security Audit Workflow
 
-## Identity
+Dedicated security analysis for sensitive code.
 
-You are a security engineer who has seen breaches destroy companies. You've
-done penetration testing, incident response, and built security programs from
-scratch. You're paranoid by design - you think about how every feature can be
-exploited. You know that security is a property, not a feature, and you push
-for it to be built in from the start.
+## When to Use
 
+- "Security audit"
+- "Check for vulnerabilities"
+- "Is this secure?"
+- "Review authentication code"
+- "Check for injection attacks"
+- Before handling auth, payments, user data
+- After adding security-sensitive features
 
-### Principles
+## Workflow Overview
 
-- Security is not a feature, it's a property
-- Defense in depth - multiple layers
-- Least privilege - minimum access needed
-- Never trust user input
-- Fail secure - errors should deny access
-- Secrets don't belong in code
+```
+┌─────────┐    ┌───────────┐
+│  aegis  │───▶│ arbiter  │
+│         │    │           │
+└─────────┘    └───────────┘
+  Security       Verify
+  audit          fixes
+```
 
-## Reference System Usage
+## Agent Sequence
 
-You must ground your responses in the provided reference files, treating them as the source of truth for this domain:
+| # | Agent | Role | Output |
+|---|-------|------|--------|
+| 1 | **aegis** | Comprehensive security scan | Vulnerability report |
+| 2 | **arbiter** | Verify fixes, run security tests | Verification report |
 
-* **For Creation:** Always consult **`references/patterns.md`**. This file dictates *how* things should be built. Ignore generic approaches if a specific pattern exists here.
-* **For Diagnosis:** Always consult **`references/sharp_edges.md`**. This file lists the critical failures and "why" they happen. Use it to explain risks to the user.
-* **For Review:** Always consult **`references/validations.md`**. This contains the strict rules and constraints. Use it to validate user inputs objectively.
+## Why Dedicated Security?
 
-**Note:** If a user's request conflicts with the guidance in these files, politely correct them using the information provided in the references.
+The `/review` workflow focuses on code quality. Security needs:
+- Specialized vulnerability patterns
+- Dependency scanning
+- Secret detection
+- OWASP Top 10 checks
+- Authentication/authorization review
+
+## Execution
+
+### Phase 1: Security Audit
+
+```
+Task(
+  subagent_type="aegis",
+  prompt="""
+  Security audit: [SCOPE]
+
+  Scan for:
+
+  **Injection Attacks:**
+  - SQL injection
+  - Command injection
+  - XSS (Cross-Site Scripting)
+  - LDAP injection
+
+  **Authentication/Authorization:**
+  - Broken authentication
+  - Session management issues
+  - Privilege escalation
+  - Insecure direct object references
+
+  **Data Protection:**
+  - Sensitive data exposure
+  - Hardcoded secrets/credentials
+  - Insecure cryptography
+  - Missing encryption
+
+  **Configuration:**
+  - Security misconfigurations
+  - Default credentials
+  - Verbose error messages
+  - Missing security headers
+
+  **Dependencies:**
+  - Known vulnerable packages
+  - Outdated dependencies
+  - Supply chain risks
+
+  Output: Detailed report with:
+  - Severity (CRITICAL/HIGH/MEDIUM/LOW)
+  - Location (file:line)
+  - Description
+  - Remediation steps
+  """
+)
+```
+
+### Phase 2: Verification (After Fixes)
+
+```
+Task(
+  subagent_type="arbiter",
+  prompt="""
+  Verify security fixes: [SCOPE]
+
+  Run:
+  - Security-focused tests
+  - Dependency audit (npm audit, pip audit)
+  - Re-check reported vulnerabilities
+  - Verify fixes don't introduce regressions
+
+  Output: Verification report
+  """
+)
+```
+
+## Security Scopes
+
+### Full Codebase
+```
+User: /security
+→ Scan entire codebase
+```
+
+### Specific Area
+```
+User: /security authentication
+→ Focus on auth-related code
+```
+
+### Single File
+```
+User: /security src/api/auth.py
+→ Deep dive on one file
+```
+
+### Dependencies Only
+```
+User: /security --deps
+→ Only dependency vulnerabilities
+```
+
+## Example
+
+```
+User: /security the payment processing code
+
+Claude: Starting /security audit for payment code...
+
+Phase 1: Security audit...
+[Spawns aegis]
+
+┌─────────────────────────────────────────────────────────────┐
+│ Security Audit Report                                       │
+├─────────────────────────────────────────────────────────────┤
+│ Scope: src/services/payment/                                │
+│ Files scanned: 12                                           │
+│ Lines analyzed: 2,847                                       │
+├─────────────────────────────────────────────────────────────┤
+│ CRITICAL (1)                                                │
+│ ──────────                                                  │
+│ [C1] SQL Injection in payment.py:89                         │
+│      query = f"SELECT * FROM orders WHERE id = {order_id}"  │
+│      Fix: Use parameterized queries                         │
+│                                                             │
+│ HIGH (2)                                                    │
+│ ────────                                                    │
+│ [H1] Hardcoded API key in stripe_client.py:12               │
+│      STRIPE_KEY = "sk_live_..."                             │
+│      Fix: Move to environment variable                      │
+│                                                             │
+│ [H2] Missing input validation in refund.py:45               │
+│      amount = request.json['amount']  # No validation       │
+│      Fix: Validate amount is positive number                │
+│                                                             │
+│ MEDIUM (1)                                                  │
+│ ──────────                                                  │
+│ [M1] Verbose error messages in error_handler.py:23          │
+│      return {"error": str(e)}  # Leaks internal details     │
+│      Fix: Return generic message, log details internally    │
+│                                                             │
+│ LOW (0)                                                     │
+│ ───────                                                     │
+│ None                                                        │
+├─────────────────────────────────────────────────────────────┤
+│ Summary: 1 critical, 2 high, 1 medium, 0 low                │
+│ Status: BLOCKING - Fix critical issues before release       │
+└─────────────────────────────────────────────────────────────┘
+
+Fix the critical and high issues, then run:
+/security --verify
+```
+
+### After Fixes
+
+```
+User: /security --verify
+
+Claude: Phase 2: Verifying fixes...
+[Spawns arbiter]
+
+✅ C1: SQL injection fixed - using parameterized queries
+✅ H1: API key moved to environment variable
+✅ H2: Input validation added
+✅ M1: Error messages sanitized
+
+All security tests passing.
+Security audit: PASSED
+```
+
+## OWASP Top 10 Coverage
+
+| Risk | Checked |
+|------|---------|
+| A01 Broken Access Control | ✅ |
+| A02 Cryptographic Failures | ✅ |
+| A03 Injection | ✅ |
+| A04 Insecure Design | ✅ |
+| A05 Security Misconfiguration | ✅ |
+| A06 Vulnerable Components | ✅ |
+| A07 Auth Failures | ✅ |
+| A08 Data Integrity Failures | ✅ |
+| A09 Logging Failures | ✅ |
+| A10 SSRF | ✅ |
+
+## Flags
+
+- `--deps`: Dependencies only
+- `--verify`: Re-run after fixes
+- `--owasp`: Explicit OWASP Top 10 report
+- `--secrets`: Focus on secret detection

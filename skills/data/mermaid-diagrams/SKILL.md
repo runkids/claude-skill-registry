@@ -1,149 +1,174 @@
 ---
 name: mermaid-diagrams
-# prettier-ignore
-description: Use when creating Mermaid diagrams - covers flowcharts, sequence diagrams, and AST visualization
+description: |
+  Generate Mermaid diagrams in markdown. Triggers on: diagrams, charts, visualizations, flowcharts,
+  sequence diagrams, architecture diagrams, ER diagrams, state machines, Gantt charts, mindmaps,
+  C4, class diagrams, git graphs.
+
+  Use when: user asks for visual representations of code, systems, processes, data structures,
+  database schemas, workflows, or API flows. Proactively suggest diagrams when explaining
+  complex systems.
 ---
 
-# Mermaid Diagram Best Practices
+# Mermaid Diagrams
+
+Generate diagrams in markdown that render in GitHub, GitLab, VS Code, Obsidian, Notion.
 
 ## Quick Start
 
+````markdown
 ```mermaid
-flowchart TD
-    A[Source Code] --> B[Lexer]
-    B --> C[Tokens]
-    C --> D[Parser]
-    D --> E[AST]
-    E --> F[Interpreter]
-    F --> G[Result]
+flowchart LR
+    A[Start] --> B{Decision}
+    B -->|Yes| C[Action]
+    B -->|No| D[End]
+```
+````
+
+## Quick Decision Tree
+
+```
+What to visualize?
+├─ Process, algorithm, decision flow    → flowchart
+├─ API calls, service interactions      → sequenceDiagram
+├─ Database tables, relationships       → erDiagram
+├─ OOP, type hierarchy, domain model    → classDiagram
+├─ State machine, lifecycle             → stateDiagram-v2
+├─ System architecture, services        → flowchart + subgraphs (or C4Context)
+├─ Project timeline, sprints            → gantt
+├─ User experience, pain points         → journey
+├─ Git branches                         → gitGraph
+├─ Data distribution                    → pie
+└─ Priority matrix                      → quadrantChart
 ```
 
 ## Diagram Types
 
-### Flowchart (AST Visualization)
+| Type | Declaration | Best For |
+|------|-------------|----------|
+| **Flowchart** | `flowchart LR/TB` | Processes, decisions, data flow |
+| **Sequence** | `sequenceDiagram` | API flows, service calls |
+| **ER** | `erDiagram` | Database schemas |
+| **Class** | `classDiagram` | Types, domain models |
+| **State** | `stateDiagram-v2` | State machines |
+| **Gantt** | `gantt` | Project timelines |
+| **Journey** | `journey` | User experience |
+| **C4** | `C4Context` | System architecture |
+| **Git** | `gitGraph` | Branch visualization |
+
+## Common Patterns
+
+### System Architecture
 
 ```mermaid
-flowchart TD
-    subgraph "BinaryExpr"
-        op["+"]
-        left[NumberLiteral: 2]
-        right[NumberLiteral: 3]
+flowchart LR
+    subgraph Client
+        Browser & Mobile
     end
-    op --> left
-    op --> right
+    subgraph Services
+        API --> Auth & Core
+    end
+    subgraph Data
+        DB[(PostgreSQL)]
+    end
+    Client --> API
+    Core --> DB
 ```
 
-### Sequence Diagram (Execution Flow)
+### API Request Flow
 
 ```mermaid
 sequenceDiagram
-    participant User
-    participant REPL
-    participant Parser
-    participant Interpreter
-
-    User->>REPL: "2 + 3"
-    REPL->>Parser: parse()
-    Parser-->>REPL: AST
-    REPL->>Interpreter: evaluate(AST)
-    Interpreter-->>REPL: 5
-    REPL-->>User: 5
+    autonumber
+    Client->>+API: POST /orders
+    API->>Auth: Validate
+    Auth-->>API: OK
+    API->>+DB: Insert
+    DB-->>-API: ID
+    API-->>-Client: 201 Created
 ```
 
-### State Diagram (Token States)
+### Database Schema
+
+```mermaid
+erDiagram
+    USER ||--o{ ORDER : places
+    ORDER ||--|{ LINE_ITEM : contains
+    USER { uuid id PK; string email UK }
+    ORDER { uuid id PK; uuid user_id FK }
+```
+
+### State Machine
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Start
-    Start --> Number: digit
-    Start --> String: quote
-    Start --> Identifier: letter
-    Number --> Number: digit
-    Number --> [*]: other
-    String --> String: char
-    String --> [*]: quote
+    [*] --> Draft
+    Draft --> Submitted : submit()
+    Submitted --> Approved : approve()
+    Submitted --> Rejected : reject()
+    Approved --> [*]
 ```
 
-### Class Diagram (AST Types)
+## Syntax Quick Reference
 
-```mermaid
-classDiagram
-    class Expr {
-        <<interface>>
-    }
-    class NumberLiteral {
-        +number value
-    }
-    class BinaryExpr {
-        +string op
-        +Expr left
-        +Expr right
-    }
-    Expr <|-- NumberLiteral
-    Expr <|-- BinaryExpr
+### Flowchart Nodes
+
+```
+[Rectangle]  (Rounded)  {Diamond}  [(Database)]  [[Subroutine]]
+((Circle))   >Asymmetric]   {{Hexagon}}
 ```
 
-## AST Node Styling
+### Flowchart Edges
 
-```mermaid
-flowchart TD
-    classDef literal fill:#e1f5fe
-    classDef expr fill:#fff3e0
-    classDef stmt fill:#e8f5e9
-
-    A[LetStmt]:::stmt --> B[Identifier: x]
-    A --> C[BinaryExpr]:::expr
-    C --> D[NumberLiteral: 2]:::literal
-    C --> E[NumberLiteral: 3]:::literal
+```
+A --> B       # Arrow
+A --- B       # Line
+A -.-> B      # Dotted arrow
+A ==> B       # Thick arrow
+A -->|text| B # Labeled
 ```
 
-## Generating from Code
+### Sequence Arrows
 
-```typescript
-function astToMermaid(node: Expr, id = "n0"): string {
-  const lines: string[] = [];
-
-  function visit(node: Expr, nodeId: string): void {
-    switch (node.type) {
-      case "NumberLiteral":
-        lines.push(`    ${nodeId}["${node.value}"]`);
-        break;
-      case "BinaryExpr":
-        lines.push(`    ${nodeId}["${node.op}"]`);
-        const leftId = `${nodeId}L`;
-        const rightId = `${nodeId}R`;
-        lines.push(`    ${nodeId} --> ${leftId}`);
-        lines.push(`    ${nodeId} --> ${rightId}`);
-        visit(node.left, leftId);
-        visit(node.right, rightId);
-        break;
-    }
-  }
-
-  visit(node, id);
-  return `flowchart TD\n${lines.join("\n")}`;
-}
+```
+->>   # Solid arrow (request)
+-->>  # Dotted arrow (response)
+-x    # X end (async)
+-)    # Open arrow
 ```
 
-## HTML Embedding
+### ER Cardinality
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-</head>
-<body>
-  <div class="mermaid">
-    flowchart TD
-      A --> B
-  </div>
-  <script>mermaid.initialize({ startOnLoad: true });</script>
-</body>
-</html>
+```
+||--||   # One to one
+||--o{   # One to many
+}o--o{   # Many to many
 ```
 
-## Reference Files
+## Best Practices
 
-- [references/syntax.md](references/syntax.md) - Complete Mermaid syntax
-- [references/theming.md](references/theming.md) - Custom themes and styles
+1. **Choose the right type** — Use decision tree above
+2. **Keep focused** — One concept per diagram
+3. **Use meaningful labels** — Not just A, B, C
+4. **Direction matters** — `LR` for flows, `TB` for hierarchies
+5. **Group with subgraphs** — Organize related nodes
+
+## Reference Documentation
+
+| File | Purpose |
+|------|---------|
+| [references/FLOWCHARTS.md](references/FLOWCHARTS.md) | Nodes, edges, subgraphs, styling |
+| [references/SEQUENCE.md](references/SEQUENCE.md) | Participants, messages, activation |
+| [references/CLASS-ER.md](references/CLASS-ER.md) | Classes, ER diagrams, relationships |
+| [references/STATE-JOURNEY.md](references/STATE-JOURNEY.md) | States, user journeys |
+| [references/DATA-CHARTS.md](references/DATA-CHARTS.md) | Gantt, Pie, Timeline, Quadrant |
+| [references/ARCHITECTURE.md](references/ARCHITECTURE.md) | C4, Block, Kanban |
+| [references/CHEATSHEET.md](references/CHEATSHEET.md) | All syntax quick reference |
+
+## Resources
+
+- **Official Documentation**: https://mermaid.js.org
+- **Live Editor**: https://mermaid.live
+- **GitHub Repository**: https://github.com/mermaid-js/mermaid
+- **GitHub Markdown Support**: https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams
+- **GitLab Markdown Support**: https://docs.gitlab.com/ee/user/markdown.html#diagrams-and-flowcharts

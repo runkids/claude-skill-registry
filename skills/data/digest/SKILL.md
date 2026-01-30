@@ -1,115 +1,77 @@
 ---
-name: pattern-radar:digest
-description: Get your personalized trend briefing based on profile domains.
+name: digest
+description: Extract patterns, insights, and knowledge from text content. Use when asked to digest, extract, summarize, analyze patterns in code, conversations, documents, or decisions. Stores extracted knowledge for future retrieval.
+user-invocable: true
 ---
 
-# Personalized Trend Digest (Subagent-Driven)
+# /digest - CYNIC Knowledge Extraction
 
-This skill dispatches a Haiku subagent to generate your personalized trend briefing. Main context receives a curated narrative; subagent does the analysis.
+*"Transform chaos into structured knowledge"*
 
-## Architecture
-
-```
-You (Opus) → Dispatch Haiku subagent → Subagent calls radar tools → Returns narrative
-           ← Personalized briefing   ← Raw signals processed
-```
-
-## How to Use
-
-When user asks for trends, digest, or wants to know what's happening:
-
-**Step 1: Dispatch Digest Subagent**
+## Quick Start
 
 ```
-Use Task tool:
-- subagent_type: "general-purpose"
-- model: "haiku"
-- prompt: "You are a personalized trend analyst. Generate a trend briefing for the user.
-
-STEPS:
-1. Call get_radar_digest() to fetch signals from HN and GitHub
-2. Call get_intersections() to find domain overlaps
-3. Call suggest_actions(focus: 'all') for actionable recommendations
-
-OUTPUT FORMAT:
-Return a 300-400 word personalized briefing with these sections:
-
-## 🎯 Relevant to You
-[2-3 patterns directly matching user's domains, with why they matter]
-
-## 🌟 Wildcards (Serendipity)
-[1-2 interesting signals OUTSIDE user's usual domains - unexpected discoveries]
-
-## 💡 Suggested Actions
-[2-3 specific actions: something to learn, something to build, something to explore]
-
-Keep it conversational and actionable. Include specific links where helpful."
+/digest <content to analyze>
 ```
 
-**Step 2: Present the Briefing**
+## What It Does
 
-Tell the user the subagent's narrative. Don't dump raw signal lists.
+Analyzes content and extracts:
+- **Patterns**: Recurring structures and behaviors
+- **Insights**: Key learnings and observations
+- **Decisions**: Choices made and their rationale
+- **Knowledge**: Facts and relationships
 
-## Serendipity Mode (Default)
+Extracted knowledge is stored in CYNIC's memory for future queries.
 
-**IMPORTANT:** Always include the Wildcards section. The whole point of pattern-radar is surfacing unexpected connections.
+## Content Types
 
-If user explicitly asks for "focused mode" or "only my domains":
-- Skip the Wildcards section
-- Mention: "I've filtered to just your domains. Say 'full digest' to include wildcards."
+| Type | Best For |
+|------|----------|
+| `code` | Source code analysis |
+| `conversation` | Chat/discussion extraction |
+| `document` | Documentation, articles |
+| `decision` | Decision records |
 
-## Quick Scan (Direct)
+## Examples
 
-For quick topic scans, use tools directly (no subagent needed):
-
+### Digest Code
 ```
-scan_trends(topic: "WebAssembly")
-```
-
-This returns raw signals - useful when user wants to explore a specific topic themselves.
-
-## Configuration
-
-Help users configure their radar:
-
-```
-configure_sources(domains: ["TypeScript", "AI", "distributed-systems"])
+/digest this module for patterns
 ```
 
-Or for source weights:
+### Digest a Conversation
 ```
-configure_sources(hackernews_weight: 1.5, github_weight: 1.0)
+/digest our discussion about authentication
 ```
 
-## Example Flow
-
+### Digest a Document
 ```
-User: What's trending that I should know about?
-
-You: Let me generate your personalized trend digest...
-[Dispatch Haiku subagent]
-
-Subagent returns:
-## 🎯 Relevant to You
-**Edge Runtime Performance** is heating up - 3 HN discussions and 2 trending repos
-about V8 isolates and cold start optimization. Given your TypeScript + serverless
-background, this could affect your Lambda work.
-
-**AI Code Review Tools** are seeing a surge. GitHub Copilot competitors like
-Cursor and Continue are trending. Worth watching for your code-review plugin work.
-
-## 🌟 Wildcards
-**Game Engine Renaissance** - Godot 4.3 just dropped and HN is buzzing. Not your
-usual domain, but the architectural patterns (ECS, hot-reload) might inspire
-plugin design.
-
-## 💡 Suggested Actions
-- **Learn:** Read the Cloudflare Workers V8 isolate blog post (linked in signals)
-- **Build:** Try adding AI-assisted review to your code-review plugin
-- **Explore:** Check out Godot's plugin architecture for inspiration
-
-User: Just show me AI stuff, skip the wildcards
-
-You: [Call scan_trends directly]
-Here are the AI-specific signals...
+/digest the API documentation
 ```
+
+## Implementation
+
+Use the `brain_cynic_digest` MCP tool:
+
+```javascript
+brain_cynic_digest({
+  content: "<text to digest>",
+  type: "code|conversation|document|decision",
+  source: "<origin identifier>"
+})
+```
+
+## Output
+
+Returns:
+- **Patterns detected**: Recurring structures
+- **Key insights**: Main takeaways
+- **Knowledge stored**: What was saved
+- **Connections**: Links to existing knowledge
+
+## See Also
+
+- `/search` - Find digested knowledge
+- `/patterns` - View detected patterns
+- `/judge` - Evaluate extracted patterns

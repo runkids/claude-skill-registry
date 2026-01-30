@@ -16,7 +16,7 @@ Transcript behavior:
 ## Setup
 
 ```bash
-cd ~/Projects/agent-scripts/skills/video-transcript-downloader && npm ci
+cd "${CODEX_HOME:-~/.codex}/skills/video-transcript-downloader" && npm ci
 ```
 
 ## Transcript (default: clean paragraph)
@@ -80,3 +80,9 @@ brew install yt-dlp ffmpeg
 yt-dlp --version
 ffmpeg -version | head -n 1
 ```
+
+## Attribution
+
+This skill was copied from steipete/agent-scripts.
+Upstream: https://github.com/steipete/agent-scripts
+License: MIT (see LICENSE)

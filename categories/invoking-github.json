@@ -1,0 +1,19 @@
+{
+  "category": "invoking-github",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.916124Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Enables GitHub repository operations (read/write/commit/PR) for Claude.ai chat environments. Use when users request GitHub commits, repository updates, DEVLOG persistence, or cross-session state manag",
+      "repo": "oaustegard/claude-skills",
+      "path": "invoking-github",
+      "branch": "main",
+      "category": "invoking-github",
+      "tags": [],
+      "stars": 0,
+      "install": "oaustegard/claude-skills",
+      "source": "github.com/oaustegard/claude-skills"
+    }
+  ]
+}

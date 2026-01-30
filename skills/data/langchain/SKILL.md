@@ -1,349 +1,172 @@
 ---
 name: langchain
-description: "Build LLM applications with LangChain. Create chains, agents, memory systems, and tool integrations. Use for conversational AI, document QA, and complex LLM orchestration."
+description: Framework for building LLM-powered applications with agents, chains, and RAG. Supports multiple providers (OpenAI, Anthropic, Google), 500+ integrations, ReAct agents, tool calling, memory management, and vector store retrieval. Use for building chatbots, question-answering systems, autonomous agents, or RAG applications. Best for rapid prototyping and production deployments.
+version: 1.0.0
+author: Orchestra Research
+license: MIT
+tags: [Agents, LangChain, RAG, Tool Calling, ReAct, Memory Management, Vector Stores, LLM Applications, Chatbots, Production]
+dependencies: [langchain, langchain-core, langchain-openai, langchain-anthropic]
 ---
 
-# LangChain Skill
+# LangChain - Build LLM Applications with Agents & RAG
 
-Complete guide for LangChain - framework for LLM applications.
+The most popular framework for building LLM-powered applications.
 
-## Quick Reference
+## When to use LangChain
 
-### Core Components
-| Component | Description |
-|-----------|-------------|
-| **LLMs/Chat Models** | Language model interfaces |
-| **Prompts** | Template management |
-| **Chains** | Composable pipelines |
-| **Agents** | Autonomous reasoning |
-| **Memory** | Conversation state |
-| **Retrievers** | Document retrieval |
+**Use LangChain when:**
+- Building agents with tool calling and reasoning (ReAct pattern)
+- Implementing RAG (retrieval-augmented generation) pipelines
+- Need to swap LLM providers easily (OpenAI, Anthropic, Google)
+- Creating chatbots with conversation memory
+- Rapid prototyping of LLM applications
+- Production deployments with LangSmith observability
 
----
+**Metrics**:
+- **119,000+ GitHub stars**
+- **272,000+ repositories** use LangChain
+- **500+ integrations** (models, vector stores, tools)
+- **3,800+ contributors**
 
-## 1. Installation
+**Use alternatives instead**:
+- **LlamaIndex**: RAG-focused, better for document Q&A
+- **LangGraph**: Complex stateful workflows, more control
+- **Haystack**: Production search pipelines
+- **Semantic Kernel**: Microsoft ecosystem
+
+## Quick start
+
+### Installation
 
 ```bash
-# Core
-pip install langchain langchain-core langchain-community
+# Core library (Python 3.10+)
+pip install -U langchain
 
-# LLM providers
+# With OpenAI
 pip install langchain-openai
+
+# With Anthropic
 pip install langchain-anthropic
-pip install langchain-google-genai
 
-# Vector stores
-pip install langchain-chroma
-pip install langchain-pinecone
-
-# All common dependencies
-pip install langchain[all]
+# Common extras
+pip install langchain-community  # 500+ integrations
+pip install langchain-chroma     # Vector store
 ```
 
----
+### Basic LLM usage
 
-## 2. Chat Models
-
-### OpenAI
-```python
-from langchain_openai import ChatOpenAI
-
-llm = ChatOpenAI(
-    model="gpt-4o",
-    temperature=0.7,
-    api_key="your-key"  # or OPENAI_API_KEY env
-)
-
-response = llm.invoke("What is LangChain?")
-print(response.content)
-```
-
-### Anthropic
 ```python
 from langchain_anthropic import ChatAnthropic
 
-llm = ChatAnthropic(
-    model="claude-3-5-sonnet-20241022",
-    temperature=0.7
-)
+# Initialize model
+llm = ChatAnthropic(model="claude-sonnet-4-5-20250929")
 
-response = llm.invoke("Explain RAG in simple terms")
+# Simple completion
+response = llm.invoke("Explain quantum computing in 2 sentences")
 print(response.content)
 ```
 
-### Streaming
+### Create an agent (ReAct pattern)
+
 ```python
-for chunk in llm.stream("Write a poem about coding"):
+from langchain.agents import create_agent
+from langchain_anthropic import ChatAnthropic
+
+# Define tools
+def get_weather(city: str) -> str:
+    """Get current weather for a city."""
+    return f"It's sunny in {city}, 72°F"
+
+def search_web(query: str) -> str:
+    """Search the web for information."""
+    return f"Search results for: {query}"
+
+# Create agent (<10 lines!)
+agent = create_agent(
+    model=ChatAnthropic(model="claude-sonnet-4-5-20250929"),
+    tools=[get_weather, search_web],
+    system_prompt="You are a helpful assistant. Use tools when needed."
+)
+
+# Run agent
+result = agent.invoke({"messages": [{"role": "user", "content": "What's the weather in Paris?"}]})
+print(result["messages"][-1].content)
+```
+
+## Core concepts
+
+### 1. Models - LLM abstraction
+
+```python
+from langchain_openai import ChatOpenAI
+from langchain_anthropic import ChatAnthropic
+from langchain_google_genai import ChatGoogleGenerativeAI
+
+# Swap providers easily
+llm = ChatOpenAI(model="gpt-4o")
+llm = ChatAnthropic(model="claude-sonnet-4-5-20250929")
+llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash-exp")
+
+# Streaming
+for chunk in llm.stream("Write a poem"):
     print(chunk.content, end="", flush=True)
 ```
 
-### Async
+### 2. Chains - Sequential operations
+
 ```python
-import asyncio
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
 
-async def main():
-    response = await llm.ainvoke("Hello!")
-    print(response.content)
-
-asyncio.run(main())
-```
-
----
-
-## 3. Prompts
-
-### Basic Templates
-```python
-from langchain_core.prompts import ChatPromptTemplate
-
-# Simple template
-prompt = ChatPromptTemplate.from_template(
-    "You are a helpful assistant. Answer this question: {question}"
+# Define prompt template
+prompt = PromptTemplate(
+    input_variables=["topic"],
+    template="Write a 3-sentence summary about {topic}"
 )
 
-# With messages
-prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are a {role} expert."),
-    ("human", "{question}")
-])
+# Create chain
+chain = LLMChain(llm=llm, prompt=prompt)
 
-# Format and invoke
-messages = prompt.format_messages(role="Python", question="What is a decorator?")
-response = llm.invoke(messages)
+# Run chain
+result = chain.run(topic="machine learning")
 ```
 
-### Few-Shot Prompts
+### 3. Agents - Tool-using reasoning
+
+**ReAct (Reasoning + Acting) pattern:**
+
 ```python
-from langchain_core.prompts import FewShotChatMessagePromptTemplate
+from langchain.agents import create_tool_calling_agent, AgentExecutor
+from langchain.tools import Tool
 
-examples = [
-    {"input": "2+2", "output": "4"},
-    {"input": "3*4", "output": "12"},
-]
-
-example_prompt = ChatPromptTemplate.from_messages([
-    ("human", "{input}"),
-    ("ai", "{output}")
-])
-
-few_shot = FewShotChatMessagePromptTemplate(
-    example_prompt=example_prompt,
-    examples=examples
+# Define custom tool
+calculator = Tool(
+    name="Calculator",
+    func=lambda x: eval(x),
+    description="Useful for math calculations. Input: valid Python expression."
 )
 
-final_prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are a calculator."),
-    few_shot,
-    ("human", "{input}")
-])
-```
-
----
-
-## 4. Chains (LCEL)
-
-### Basic Chain
-```python
-from langchain_core.output_parsers import StrOutputParser
-
-# Chain with pipe operator
-chain = prompt | llm | StrOutputParser()
-
-result = chain.invoke({"question": "What is Python?"})
-print(result)
-```
-
-### Runnable Sequences
-```python
-from langchain_core.runnables import RunnablePassthrough, RunnableLambda
-
-def format_docs(docs):
-    return "\n\n".join(doc.page_content for doc in docs)
-
-chain = (
-    {"context": retriever | format_docs, "question": RunnablePassthrough()}
-    | prompt
-    | llm
-    | StrOutputParser()
+# Create agent with tools
+agent = create_tool_calling_agent(
+    llm=llm,
+    tools=[calculator, search_web],
+    prompt="Answer questions using available tools"
 )
 
-result = chain.invoke("What is RAG?")
+# Create executor
+agent_executor = AgentExecutor(agent=agent, tools=[calculator], verbose=True)
+
+# Run with reasoning
+result = agent_executor.invoke({"input": "What is 25 * 17 + 142?"})
 ```
 
-### Parallel Execution
-```python
-from langchain_core.runnables import RunnableParallel
+### 4. Memory - Conversation history
 
-parallel_chain = RunnableParallel(
-    summary=prompt1 | llm | StrOutputParser(),
-    translation=prompt2 | llm | StrOutputParser()
-)
-
-results = parallel_chain.invoke({"text": "Hello world"})
-# {'summary': '...', 'translation': '...'}
-```
-
-### Branching
-```python
-from langchain_core.runnables import RunnableBranch
-
-branch = RunnableBranch(
-    (lambda x: "code" in x["topic"], code_chain),
-    (lambda x: "math" in x["topic"], math_chain),
-    default_chain
-)
-```
-
----
-
-## 5. Output Parsers
-
-### String Parser
-```python
-from langchain_core.output_parsers import StrOutputParser
-
-chain = prompt | llm | StrOutputParser()
-result = chain.invoke({"question": "Hi"})  # Returns string
-```
-
-### JSON Parser
-```python
-from langchain_core.output_parsers import JsonOutputParser
-from pydantic import BaseModel
-
-class Answer(BaseModel):
-    answer: str
-    confidence: float
-
-parser = JsonOutputParser(pydantic_object=Answer)
-
-prompt = ChatPromptTemplate.from_messages([
-    ("system", "Answer in JSON format: {format_instructions}"),
-    ("human", "{question}")
-]).partial(format_instructions=parser.get_format_instructions())
-
-chain = prompt | llm | parser
-result = chain.invoke({"question": "What is 2+2?"})
-# {'answer': '4', 'confidence': 1.0}
-```
-
-### Structured Output
-```python
-from langchain_core.pydantic_v1 import BaseModel, Field
-
-class MovieReview(BaseModel):
-    title: str = Field(description="Movie title")
-    rating: int = Field(description="Rating 1-10")
-    summary: str = Field(description="Brief summary")
-
-structured_llm = llm.with_structured_output(MovieReview)
-result = structured_llm.invoke("Review the movie Inception")
-# MovieReview(title='Inception', rating=9, summary='...')
-```
-
----
-
-## 6. RAG (Retrieval-Augmented Generation)
-
-### Document Loading
-```python
-from langchain_community.document_loaders import (
-    PyPDFLoader,
-    TextLoader,
-    WebBaseLoader,
-    DirectoryLoader
-)
-
-# PDF
-loader = PyPDFLoader("document.pdf")
-docs = loader.load()
-
-# Web page
-loader = WebBaseLoader("https://example.com")
-docs = loader.load()
-
-# Directory
-loader = DirectoryLoader("./docs", glob="**/*.md")
-docs = loader.load()
-```
-
-### Text Splitting
-```python
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-
-splitter = RecursiveCharacterTextSplitter(
-    chunk_size=1000,
-    chunk_overlap=200,
-    separators=["\n\n", "\n", " ", ""]
-)
-
-chunks = splitter.split_documents(docs)
-```
-
-### Vector Store
-```python
-from langchain_openai import OpenAIEmbeddings
-from langchain_chroma import Chroma
-
-embeddings = OpenAIEmbeddings()
-
-# Create from documents
-vectorstore = Chroma.from_documents(
-    documents=chunks,
-    embedding=embeddings,
-    persist_directory="./chroma_db"
-)
-
-# Load existing
-vectorstore = Chroma(
-    persist_directory="./chroma_db",
-    embedding_function=embeddings
-)
-
-# Create retriever
-retriever = vectorstore.as_retriever(
-    search_type="similarity",
-    search_kwargs={"k": 4}
-)
-```
-
-### RAG Chain
-```python
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables import RunnablePassthrough
-
-template = """Answer based on the context:
-
-Context: {context}
-
-Question: {question}
-
-Answer:"""
-
-prompt = ChatPromptTemplate.from_template(template)
-
-def format_docs(docs):
-    return "\n\n".join(doc.page_content for doc in docs)
-
-rag_chain = (
-    {"context": retriever | format_docs, "question": RunnablePassthrough()}
-    | prompt
-    | llm
-    | StrOutputParser()
-)
-
-answer = rag_chain.invoke("What is the main topic?")
-```
-
----
-
-## 7. Memory
-
-### Conversation Buffer
 ```python
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
 
+# Add memory to track conversation
 memory = ConversationBufferMemory()
 
 conversation = ConversationChain(
@@ -352,257 +175,306 @@ conversation = ConversationChain(
     verbose=True
 )
 
-response1 = conversation.predict(input="Hi, I'm Alice")
-response2 = conversation.predict(input="What's my name?")
+# Multi-turn conversation
+conversation.predict(input="Hi, I'm Alice")
+conversation.predict(input="What's my name?")  # Remembers "Alice"
 ```
 
-### Message History (LCEL)
+## RAG (Retrieval-Augmented Generation)
+
+### Basic RAG pipeline
+
 ```python
-from langchain_core.chat_history import InMemoryChatMessageHistory
-from langchain_core.runnables.history import RunnableWithMessageHistory
+from langchain_community.document_loaders import WebBaseLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_openai import OpenAIEmbeddings
+from langchain_chroma import Chroma
+from langchain.chains import RetrievalQA
 
-store = {}
+# 1. Load documents
+loader = WebBaseLoader("https://docs.python.org/3/tutorial/")
+docs = loader.load()
 
-def get_session_history(session_id: str):
-    if session_id not in store:
-        store[session_id] = InMemoryChatMessageHistory()
-    return store[session_id]
+# 2. Split into chunks
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=200
+)
+splits = text_splitter.split_documents(docs)
 
-prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are a helpful assistant."),
-    ("placeholder", "{history}"),
-    ("human", "{input}")
-])
-
-chain = prompt | llm
-
-with_history = RunnableWithMessageHistory(
-    chain,
-    get_session_history,
-    input_messages_key="input",
-    history_messages_key="history"
+# 3. Create embeddings and vector store
+vectorstore = Chroma.from_documents(
+    documents=splits,
+    embedding=OpenAIEmbeddings()
 )
 
-# Use with session
-config = {"configurable": {"session_id": "user123"}}
-response = with_history.invoke({"input": "Hi, I'm Bob"}, config=config)
-response = with_history.invoke({"input": "What's my name?"}, config=config)
-```
+# 4. Create retriever
+retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
 
----
-
-## 8. Agents
-
-### Tool Definition
-```python
-from langchain_core.tools import tool
-
-@tool
-def search_web(query: str) -> str:
-    """Search the web for information."""
-    # Implementation
-    return f"Results for: {query}"
-
-@tool
-def calculator(expression: str) -> str:
-    """Calculate mathematical expressions."""
-    return str(eval(expression))
-
-tools = [search_web, calculator]
-```
-
-### Create Agent
-```python
-from langchain.agents import create_react_agent, AgentExecutor
-from langchain import hub
-
-# Get ReAct prompt
-prompt = hub.pull("hwchase17/react")
-
-# Create agent
-agent = create_react_agent(llm, tools, prompt)
-
-# Create executor
-agent_executor = AgentExecutor(
-    agent=agent,
-    tools=tools,
-    verbose=True,
-    max_iterations=5
+# 5. Create QA chain
+qa_chain = RetrievalQA.from_chain_type(
+    llm=llm,
+    retriever=retriever,
+    return_source_documents=True
 )
 
-# Run
-result = agent_executor.invoke({"input": "What is 25 * 4?"})
+# 6. Query
+result = qa_chain({"query": "What are Python decorators?"})
+print(result["result"])
+print(f"Sources: {result['source_documents']}")
 ```
 
-### Tool Calling Agent
+### Conversational RAG with memory
+
+```python
+from langchain.chains import ConversationalRetrievalChain
+
+# RAG with conversation memory
+qa = ConversationalRetrievalChain.from_llm(
+    llm=llm,
+    retriever=retriever,
+    memory=ConversationBufferMemory(
+        memory_key="chat_history",
+        return_messages=True
+    )
+)
+
+# Multi-turn RAG
+qa({"question": "What is Python used for?"})
+qa({"question": "Can you elaborate on web development?"})  # Remembers context
+```
+
+## Advanced agent patterns
+
+### Structured output
+
+```python
+from langchain_core.pydantic_v1 import BaseModel, Field
+
+# Define schema
+class WeatherReport(BaseModel):
+    city: str = Field(description="City name")
+    temperature: float = Field(description="Temperature in Fahrenheit")
+    condition: str = Field(description="Weather condition")
+
+# Get structured response
+structured_llm = llm.with_structured_output(WeatherReport)
+result = structured_llm.invoke("What's the weather in SF? It's 65F and sunny")
+print(result.city, result.temperature, result.condition)
+```
+
+### Parallel tool execution
+
 ```python
 from langchain.agents import create_tool_calling_agent
 
-prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are a helpful assistant."),
-    ("placeholder", "{chat_history}"),
-    ("human", "{input}"),
-    ("placeholder", "{agent_scratchpad}")
-])
-
-agent = create_tool_calling_agent(llm, tools, prompt)
-executor = AgentExecutor(agent=agent, tools=tools)
-
-result = executor.invoke({"input": "Search for LangChain tutorials"})
-```
-
----
-
-## 9. LangGraph
-
-### Basic Graph
-```python
-from langgraph.graph import StateGraph, END
-from typing import TypedDict, Annotated
-import operator
-
-class State(TypedDict):
-    messages: Annotated[list, operator.add]
-    next: str
-
-def chatbot(state: State):
-    response = llm.invoke(state["messages"])
-    return {"messages": [response]}
-
-def should_continue(state: State):
-    if "DONE" in state["messages"][-1].content:
-        return "end"
-    return "continue"
-
-# Build graph
-workflow = StateGraph(State)
-workflow.add_node("chatbot", chatbot)
-workflow.set_entry_point("chatbot")
-workflow.add_conditional_edges(
-    "chatbot",
-    should_continue,
-    {"continue": "chatbot", "end": END}
-)
-
-app = workflow.compile()
-result = app.invoke({"messages": [HumanMessage(content="Hello")]})
-```
-
----
-
-## 10. Callbacks & Tracing
-
-### Custom Callbacks
-```python
-from langchain_core.callbacks import BaseCallbackHandler
-
-class MyHandler(BaseCallbackHandler):
-    def on_llm_start(self, serialized, prompts, **kwargs):
-        print(f"LLM started with: {prompts}")
-
-    def on_llm_end(self, response, **kwargs):
-        print(f"LLM ended with: {response}")
-
-    def on_chain_start(self, serialized, inputs, **kwargs):
-        print(f"Chain started")
-
-# Use handler
-result = chain.invoke({"question": "Hi"}, config={"callbacks": [MyHandler()]})
-```
-
-### LangSmith Tracing
-```python
-import os
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_API_KEY"] = "your-langsmith-key"
-os.environ["LANGCHAIN_PROJECT"] = "my-project"
-
-# All chains now traced automatically
-result = chain.invoke({"question": "Hello"})
-```
-
----
-
-## 11. Common Patterns
-
-### Self-Query Retriever
-```python
-from langchain.retrievers.self_query.base import SelfQueryRetriever
-from langchain.chains.query_constructor.base import AttributeInfo
-
-metadata_field_info = [
-    AttributeInfo(name="author", description="Author name", type="string"),
-    AttributeInfo(name="year", description="Publication year", type="integer"),
-]
-
-retriever = SelfQueryRetriever.from_llm(
+# Agent automatically parallelizes independent tool calls
+agent = create_tool_calling_agent(
     llm=llm,
-    vectorstore=vectorstore,
-    document_contents="Research papers",
-    metadata_field_info=metadata_field_info
+    tools=[get_weather, search_web, calculator]
 )
 
-# Natural language query with filtering
-docs = retriever.invoke("Papers by Smith from 2023")
-```
-
-### Multi-Query Retriever
-```python
-from langchain.retrievers.multi_query import MultiQueryRetriever
-
-retriever = MultiQueryRetriever.from_llm(
-    retriever=vectorstore.as_retriever(),
-    llm=llm
-)
-
-# Generates multiple query variations
-docs = retriever.invoke("What is machine learning?")
-```
-
-### Conversational RAG
-```python
-from langchain.chains import create_history_aware_retriever, create_retrieval_chain
-from langchain.chains.combine_documents import create_stuff_documents_chain
-
-# Contextualize question
-contextualize_prompt = ChatPromptTemplate.from_messages([
-    ("system", "Reformulate the question given chat history."),
-    ("placeholder", "{chat_history}"),
-    ("human", "{input}")
-])
-
-history_aware_retriever = create_history_aware_retriever(
-    llm, retriever, contextualize_prompt
-)
-
-# Answer with context
-qa_prompt = ChatPromptTemplate.from_messages([
-    ("system", "Answer using context:\n\n{context}"),
-    ("placeholder", "{chat_history}"),
-    ("human", "{input}")
-])
-
-qa_chain = create_stuff_documents_chain(llm, qa_prompt)
-rag_chain = create_retrieval_chain(history_aware_retriever, qa_chain)
-
-# Use
-result = rag_chain.invoke({
-    "input": "What is RAG?",
-    "chat_history": []
+# This will call get_weather("Paris") and get_weather("London") in parallel
+result = agent.invoke({
+    "messages": [{"role": "user", "content": "Compare weather in Paris and London"}]
 })
 ```
 
----
+### Streaming agent execution
 
-## Best Practices
+```python
+# Stream agent steps
+for step in agent_executor.stream({"input": "Research AI trends"}):
+    if "actions" in step:
+        print(f"Tool: {step['actions'][0].tool}")
+    if "output" in step:
+        print(f"Output: {step['output']}")
+```
 
-1. **Use LCEL** - Modern chain composition
-2. **Structured output** - Pydantic for reliability
-3. **Chunk wisely** - Overlap for context
-4. **Test prompts** - Iterate on templates
-5. **Handle errors** - Graceful fallbacks
-6. **Monitor costs** - Track token usage
-7. **Cache embeddings** - Avoid recomputation
-8. **Use streaming** - Better UX
-9. **Trace with LangSmith** - Debug effectively
-10. **Version prompts** - Track changes
+## Common patterns
+
+### Multi-document QA
+
+```python
+from langchain.chains.qa_with_sources import load_qa_with_sources_chain
+
+# Load multiple documents
+docs = [
+    loader.load("https://docs.python.org"),
+    loader.load("https://docs.numpy.org")
+]
+
+# QA with source citations
+chain = load_qa_with_sources_chain(llm, chain_type="stuff")
+result = chain({"input_documents": docs, "question": "How to use numpy arrays?"})
+print(result["output_text"])  # Includes source citations
+```
+
+### Custom tools with error handling
+
+```python
+from langchain.tools import tool
+
+@tool
+def risky_operation(query: str) -> str:
+    """Perform a risky operation that might fail."""
+    try:
+        # Your operation here
+        result = perform_operation(query)
+        return f"Success: {result}"
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+# Agent handles errors gracefully
+agent = create_agent(model=llm, tools=[risky_operation])
+```
+
+### LangSmith observability
+
+```python
+import os
+
+# Enable tracing
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+os.environ["LANGCHAIN_API_KEY"] = "your-api-key"
+os.environ["LANGCHAIN_PROJECT"] = "my-project"
+
+# All chains/agents automatically traced
+agent = create_agent(model=llm, tools=[calculator])
+result = agent.invoke({"input": "Calculate 123 * 456"})
+
+# View traces at smith.langchain.com
+```
+
+## Vector stores
+
+### Chroma (local)
+
+```python
+from langchain_chroma import Chroma
+
+vectorstore = Chroma.from_documents(
+    documents=docs,
+    embedding=OpenAIEmbeddings(),
+    persist_directory="./chroma_db"
+)
+```
+
+### Pinecone (cloud)
+
+```python
+from langchain_pinecone import PineconeVectorStore
+
+vectorstore = PineconeVectorStore.from_documents(
+    documents=docs,
+    embedding=OpenAIEmbeddings(),
+    index_name="my-index"
+)
+```
+
+### FAISS (similarity search)
+
+```python
+from langchain_community.vectorstores import FAISS
+
+vectorstore = FAISS.from_documents(docs, OpenAIEmbeddings())
+vectorstore.save_local("faiss_index")
+
+# Load later
+vectorstore = FAISS.load_local("faiss_index", OpenAIEmbeddings())
+```
+
+## Document loaders
+
+```python
+# Web pages
+from langchain_community.document_loaders import WebBaseLoader
+loader = WebBaseLoader("https://example.com")
+
+# PDFs
+from langchain_community.document_loaders import PyPDFLoader
+loader = PyPDFLoader("paper.pdf")
+
+# GitHub
+from langchain_community.document_loaders import GithubFileLoader
+loader = GithubFileLoader(repo="user/repo", file_filter=lambda x: x.endswith(".py"))
+
+# CSV
+from langchain_community.document_loaders import CSVLoader
+loader = CSVLoader("data.csv")
+```
+
+## Text splitters
+
+```python
+# Recursive (recommended for general text)
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=200,
+    separators=["\n\n", "\n", " ", ""]
+)
+
+# Code-aware
+from langchain.text_splitter import PythonCodeTextSplitter
+splitter = PythonCodeTextSplitter(chunk_size=500)
+
+# Semantic (by meaning)
+from langchain_experimental.text_splitter import SemanticChunker
+splitter = SemanticChunker(OpenAIEmbeddings())
+```
+
+## Best practices
+
+1. **Start simple** - Use `create_agent()` for most cases
+2. **Enable streaming** - Better UX for long responses
+3. **Add error handling** - Tools can fail, handle gracefully
+4. **Use LangSmith** - Essential for debugging agents
+5. **Optimize chunk size** - 500-1000 chars for RAG
+6. **Version prompts** - Track changes in production
+7. **Cache embeddings** - Expensive, cache when possible
+8. **Monitor costs** - Track token usage with LangSmith
+
+## Performance benchmarks
+
+| Operation | Latency | Notes |
+|-----------|---------|-------|
+| Simple LLM call | ~1-2s | Depends on provider |
+| Agent with 1 tool | ~3-5s | ReAct reasoning overhead |
+| RAG retrieval | ~0.5-1s | Vector search + LLM |
+| Embedding 1000 docs | ~10-30s | Depends on model |
+
+## LangChain vs LangGraph
+
+| Feature | LangChain | LangGraph |
+|---------|-----------|-----------|
+| **Best for** | Quick agents, RAG | Complex workflows |
+| **Abstraction level** | High | Low |
+| **Code to start** | <10 lines | ~30 lines |
+| **Control** | Simple | Full control |
+| **Stateful workflows** | Limited | Native |
+| **Cyclic graphs** | No | Yes |
+| **Human-in-loop** | Basic | Advanced |
+
+**Use LangGraph when:**
+- Need stateful workflows with cycles
+- Require fine-grained control
+- Building multi-agent systems
+- Production apps with complex logic
+
+## References
+
+- **[Agents Guide](references/agents.md)** - ReAct, tool calling, streaming
+- **[RAG Guide](references/rag.md)** - Document loaders, retrievers, QA chains
+- **[Integration Guide](references/integration.md)** - Vector stores, LangSmith, deployment
+
+## Resources
+
+- **GitHub**: https://github.com/langchain-ai/langchain ⭐ 119,000+
+- **Docs**: https://docs.langchain.com
+- **API Reference**: https://reference.langchain.com/python
+- **LangSmith**: https://smith.langchain.com (observability)
+- **Version**: 0.3+ (stable)
+- **License**: MIT
+
+

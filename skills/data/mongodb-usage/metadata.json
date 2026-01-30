@@ -1,7 +1,7 @@
 {
   "name": "mongodb-usage",
-  "repo": "Activer007/ordinary-claude-skills",
-  "path": "skills_all/mongodb-usage/SKILL.md",
-  "source": "github.com/Activer007/ordinary-claude-skills",
-  "downloaded_at": "2026-01-29T04:28:46.762493Z"
+  "repo": "fcakyon/claude-codex-settings",
+  "path": "plugins/mongodb-tools/skills/mongodb-usage/SKILL.md",
+  "source": "github.com/fcakyon/claude-codex-settings",
+  "downloaded_at": "2026-01-30T04:42:13.279291Z"
 }

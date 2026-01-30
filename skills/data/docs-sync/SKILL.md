@@ -1,76 +1,115 @@
 ---
 name: docs-sync
-description: Analyze main branch implementation and configuration to find missing, incorrect, or outdated documentation in docs/. Use when asked to audit doc coverage, sync docs with code, or propose doc updates/structure changes. Only update English docs under docs/** and never touch translated docs under docs/ja, docs/ko, or docs/zh. Provide a report and ask for approval before editing docs.
+description: Sync user documentation with design doc changes. Use when design docs
+  have been updated and user docs need to reflect the changes.
+allowed-tools: Read, Glob, Edit, Write
+context: fork
+agent: docs-gen-agent
 ---
 
-# Docs Sync
+# Sync User Documentation
+
+Syncs user documentation with changes in design docs to keep them current.
 
 ## Overview
 
-Identify doc coverage gaps and inaccuracies by comparing main branch features and configuration options against the current docs structure, then propose targeted improvements.
+This skill detects changes in design docs and updates corresponding
+user documentation by:
 
-## Workflow
+1. Comparing design doc timestamps with user doc timestamps
+2. Identifying which user docs are affected
+3. Regenerating or updating affected sections
+4. Preserving custom user-added content
+5. Updating sync timestamps
 
-1. Confirm scope and base branch
-   - Identify the current branch and default branch (usually `main`).
-   - Prefer analyzing the current branch to keep work aligned with in-flight changes.
-   - If the current branch is not `main`, analyze only the diff vs `main` to scope doc updates.
-   - Avoid switching branches if it would disrupt local changes; use `git show main:<path>` or `git worktree add` when needed.
+## Quick Start
 
-2. Build a feature inventory from the selected scope
-   - If on `main`: inventory the full surface area and review docs comprehensively.
-   - If not on `main`: inventory only changes vs `main` (feature additions/changes/removals).
-   - Focus on user-facing behavior: public exports, configuration options, environment variables, CLI commands, default values, and documented runtime behaviors.
-   - Capture evidence for each item (file path + symbol/setting).
-   - Use targeted search to find option types and feature flags (for example: `rg "Settings"`, `rg "Config"`, `rg "os.environ"`, `rg "OPENAI_"`).
-   - When the topic involves OpenAI platform features, invoke `$openai-knowledge` to pull current details from the OpenAI Developer Docs MCP server instead of guessing, while treating the SDK source code as the source of truth when discrepancies appear.
+**Sync all levels for a module:**
 
-3. Doc-first pass: review existing pages
-   - Walk each relevant page under `docs/` (excluding `docs/ja`, `docs/ko`, and `docs/zh`).
-   - Identify missing mentions of important, supported options (opt-in flags, env vars), customization points, or new features from `src/agents/` and `examples/`.
-   - Propose additions where users would reasonably expect to find them on that page.
+```bash
+/docs-sync effect-type-registry
+```
 
-4. Code-first pass: map features to docs
-   - Review the current docs information architecture under `docs/` and `mkdocs.yml`.
-   - Determine the best page/section for each feature based on existing patterns and the API reference structure under `docs/ref`.
-   - Identify features that lack any doc page or have a page but no corresponding content.
-   - Note when a structural adjustment would improve discoverability.
-   - When improving `docs/ref/*` pages, treat the corresponding docstrings/comments in `src/` as the source of truth. Prefer updating those code comments so regenerated reference docs stay correct, instead of hand-editing the generated pages.
+**Sync specific level only:**
 
-5. Detect gaps and inaccuracies
-   - **Missing**: features/configs present in main but absent in docs.
-   - **Incorrect/outdated**: names, defaults, or behaviors that diverge from main.
-   - **Structural issues** (optional): pages overloaded, missing overviews, or mis-grouped topics.
+```bash
+/docs-sync rspress-plugin-api-extractor --level=1
+```
 
-6. Produce a Docs Sync Report and ask for approval
-   - Provide a clear report with evidence, suggested doc locations, and proposed edits.
-   - Ask the user whether to proceed with doc updates.
+**Preview changes without writing:**
 
-7. If approved, apply changes (English only)
-   - Edit only English docs in `docs/**`.
-   - Do **not** edit `docs/ja`, `docs/ko`, or `docs/zh`.
-   - Keep changes aligned with the existing docs style and navigation.
-   - Update `mkdocs.yml` when adding or renaming pages.
-   - Build docs with `make build-docs` after edits to verify the docs site still builds.
+```bash
+/docs-sync website --dry-run
+```
 
-## Output format
+## How It Works
 
-Use this template when reporting findings:
+### 1. Parse Parameters
 
-Docs Sync Report
+- `module`: Module to sync [REQUIRED]
+- `--level`: Sync specific level (1=README, 2=repo, 3=site)
+- `--dry-run`: Preview changes without writing
 
-- Doc-first findings
-  - Page + missing content -> evidence + suggested insertion point
-- Code-first gaps
-  - Feature + evidence -> suggested doc page/section (or missing page)
-- Incorrect or outdated docs
-  - Doc file + issue + correct info + evidence
-- Structural suggestions (optional)
-  - Proposed change + rationale
-- Proposed edits
-  - Doc file -> concise change summary
-- Questions for the user
+### 2. Detect Changes
 
-## References
+Compare timestamps:
 
-- `references/doc-coverage-checklist.md`
+- Design doc `updated` field
+- User doc last modification time
+- Identify stale user docs (design newer than user docs)
+
+### 3. Analyze Impact
+
+For each changed design doc:
+
+- Determine which user docs it affects
+- Identify sections that need updates
+- Check for breaking changes
+
+### 4. Update User Documentation
+
+Update strategies:
+
+- **README** - Regenerate features, quick start, API overview
+- **Repository Docs** - Update affected topic guides
+- **Site Docs** - Refresh concept docs and guides
+
+### 5. Preserve Custom Content
+
+Protect user additions:
+
+- Custom examples
+- Additional sections
+- Badges and shields
+- Screenshots and GIFs
+
+### 6. Update Timestamps
+
+Mark synced docs with current timestamp.
+
+## Supporting Documentation
+
+- `instructions.md` - Detailed sync process
+- `examples.md` - Sync scenarios and outputs
+
+## Success Criteria
+
+- ✅ Stale docs identified correctly
+- ✅ Affected sections updated
+- ✅ Custom content preserved
+- ✅ Timestamps updated
+- ✅ No broken links introduced
+
+## Integration Points
+
+- Uses `.claude/design/design.config.json`
+- Reads design docs from `designDocsPath`
+- Updates files in `userDocs` paths
+- Respects quality standards
+
+## Related Skills
+
+- `/docs-generate-readme` - Regenerate README
+- `/docs-generate-repo` - Regenerate repo docs
+- `/docs-generate-site` - Regenerate site docs
+- `/docs-review` - Review sync quality

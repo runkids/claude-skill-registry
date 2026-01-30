@@ -1,208 +1,407 @@
 ---
 name: sendgrid
-slug: sendgrid-integration
-version: 1.0.0
-category: integration
-description: SendGrid email integration with templates and transactional email support
-triggers:
-  - pattern: "sendgrid|email|send email|transactional|notification"
-    confidence: 0.8
-    examples:
-      - "send email with SendGrid"
-      - "setup email notifications"
-      - "create email templates"
-      - "integrate transactional emails"
-      - "send welcome email"
-mcp_dependencies:
-  - server: sendgrid
-    required: false
-    capabilities:
-      - "send"
-      - "templates"
+description: Sends transactional and marketing emails with SendGrid API. Use when integrating email delivery in Node.js applications with templates, analytics, and high deliverability.
 ---
 
-# SendGrid Integration Skill
+# SendGrid Email API
 
-Complete SendGrid email integration template with email client setup, reusable templates, and transactional email functionality.
-
-## Overview
-
-This template includes:
-- **SendGrid Client Setup** - Server-side SendGrid SDK configuration
-- **Email Templates** - Pre-built welcome and notification templates
-- **Type Safety** - Full TypeScript support
-- **Error Handling** - Comprehensive email delivery tracking
-- **Template System** - Reusable HTML email templates
-
-## When to Use This Template
-
-Use this template when you need:
-- Transactional email sending
-- Welcome email flows
-- Notification emails
-- Password reset emails
-- Email verification
-- Custom email templates
-
-## What's Included
-
-### Code Files
-
-- `code/client.ts` - SendGrid SDK setup and email utilities
-- `code/templates/welcome.ts` - Welcome email template
-- `code/templates/notification.ts` - Notification email template
-
-### Configuration
-
-- `mcp/config.json` - MCP server configuration for SendGrid
-- `env/.env.template` - Required environment variables
-
-### Documentation
-
-- `docs/README.md` - Complete setup and usage guide
+Email delivery platform with high deliverability, templates, and analytics. Part of Twilio.
 
 ## Quick Start
 
-1. **Install Dependencies**
-   ```bash
-   npm install @sendgrid/mail
-   ```
-
-2. **Configure Environment Variables**
-   ```bash
-   cp templates/sendgrid/env/.env.template .env.local
-   # Add your SendGrid API key
-   ```
-
-3. **Copy Template Files**
-   ```bash
-   npx tsx scripts/load-template.ts sendgrid
-   ```
-
-4. **Verify Sender Email**
-   - Go to SendGrid Dashboard
-   - Add and verify sender email address
-
-## Key Features
-
-### 1. Send Transactional Emails
-
-```typescript
-import { sendEmail } from '@/lib/sendgrid/client'
-
-await sendEmail({
-  to: 'user@example.com',
-  subject: 'Welcome to our app!',
-  text: 'Thanks for signing up.',
-  html: '<strong>Thanks for signing up!</strong>',
-})
+```bash
+npm install @sendgrid/mail
 ```
 
-### 2. Use Email Templates
+### Setup
 
-```typescript
-import { sendWelcomeEmail } from '@/lib/sendgrid/templates/welcome'
+```javascript
+import sgMail from '@sendgrid/mail';
 
-await sendWelcomeEmail({
-  to: 'user@example.com',
-  name: 'John Doe',
-  loginUrl: 'https://app.example.com/login',
-})
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 ```
 
-### 3. Send Notifications
+### Send Basic Email
 
-```typescript
-import { sendNotificationEmail } from '@/lib/sendgrid/templates/notification'
+```javascript
+const msg = {
+  to: 'recipient@example.com',
+  from: 'sender@example.com',  // Must be verified sender
+  subject: 'Hello from SendGrid',
+  text: 'Plain text content',
+  html: '<strong>HTML content</strong>',
+};
 
-await sendNotificationEmail({
-  to: 'user@example.com',
-  title: 'New Message',
-  message: 'You have received a new message.',
-  actionUrl: 'https://app.example.com/messages',
-  actionText: 'View Message',
-})
+await sgMail.send(msg);
 ```
 
-### 4. Batch Email Sending
+## Email Options
 
-```typescript
-import { sendBulkEmail } from '@/lib/sendgrid/client'
+### Full Message Object
 
-await sendBulkEmail({
+```javascript
+const msg = {
+  // Recipients
+  to: 'single@example.com',
+  // Or multiple
+  to: ['one@example.com', 'two@example.com'],
+  // Or with names
+  to: [
+    { email: 'one@example.com', name: 'User One' },
+    { email: 'two@example.com', name: 'User Two' },
+  ],
+
+  // Sender
+  from: {
+    email: 'sender@example.com',
+    name: 'My App',
+  },
+
+  // Reply-to (optional)
+  replyTo: 'support@example.com',
+
+  // Subject
+  subject: 'Your order has shipped',
+
+  // Content
+  text: 'Plain text version',
+  html: '<h1>HTML version</h1>',
+
+  // CC and BCC
+  cc: 'cc@example.com',
+  bcc: 'bcc@example.com',
+
+  // Categories for analytics
+  categories: ['transactional', 'order-confirmation'],
+
+  // Custom headers
+  headers: {
+    'X-Custom-Header': 'value',
+  },
+
+  // Send at specific time
+  sendAt: Math.floor(Date.now() / 1000) + 3600,  // 1 hour from now
+
+  // Attachments
+  attachments: [
+    {
+      content: base64EncodedContent,
+      filename: 'invoice.pdf',
+      type: 'application/pdf',
+      disposition: 'attachment',
+    },
+  ],
+};
+
+await sgMail.send(msg);
+```
+
+## Dynamic Templates
+
+Create templates in SendGrid dashboard with handlebars syntax.
+
+```javascript
+const msg = {
+  to: 'recipient@example.com',
+  from: 'sender@example.com',
+  templateId: 'd-xxxxxxxxxxxxxxxxxxxxxxxx',
+  dynamicTemplateData: {
+    name: 'John',
+    orderNumber: '12345',
+    items: [
+      { name: 'Product 1', price: 29.99 },
+      { name: 'Product 2', price: 49.99 },
+    ],
+    total: 79.98,
+  },
+};
+
+await sgMail.send(msg);
+```
+
+### Template Variables
+
+In your SendGrid template:
+
+```handlebars
+<h1>Hello {{name}}!</h1>
+
+<p>Your order #{{orderNumber}} has shipped.</p>
+
+<table>
+  {{#each items}}
+  <tr>
+    <td>{{this.name}}</td>
+    <td>${{this.price}}</td>
+  </tr>
+  {{/each}}
+  <tr>
+    <td><strong>Total</strong></td>
+    <td><strong>${{total}}</strong></td>
+  </tr>
+</table>
+```
+
+## Multiple Recipients
+
+### Same Email to Multiple
+
+```javascript
+const msg = {
   to: ['user1@example.com', 'user2@example.com'],
+  from: 'sender@example.com',
   subject: 'Newsletter',
-  html: '<p>Monthly newsletter content</p>',
-})
+  html: '<p>Content for all</p>',
+};
+
+await sgMail.send(msg);
 ```
 
-## Email Templates
+### Personalized Emails (sendMultiple)
 
-### Welcome Email
+```javascript
+const msgs = [
+  {
+    to: 'user1@example.com',
+    from: 'sender@example.com',
+    subject: 'Hello User 1',
+    html: '<p>Content for User 1</p>',
+  },
+  {
+    to: 'user2@example.com',
+    from: 'sender@example.com',
+    subject: 'Hello User 2',
+    html: '<p>Content for User 2</p>',
+  },
+];
 
-Professional welcome email with call-to-action button.
+await sgMail.send(msgs);  // Sends in batch
+```
 
-### Notification Email
+### Personalizations (Most Efficient)
 
-Generic notification template for alerts and updates.
+```javascript
+const msg = {
+  from: 'sender@example.com',
+  subject: 'Order Update',
+  templateId: 'd-xxxxxx',
+  personalizations: [
+    {
+      to: 'user1@example.com',
+      dynamicTemplateData: {
+        name: 'Alice',
+        orderNumber: '001',
+      },
+    },
+    {
+      to: 'user2@example.com',
+      dynamicTemplateData: {
+        name: 'Bob',
+        orderNumber: '002',
+      },
+    },
+  ],
+};
 
-### Custom Templates
+await sgMail.send(msg);
+```
 
-Create custom templates following the same pattern:
+## Attachments
 
-```typescript
-export async function sendCustomEmail(params: {
-  to: string
-  // ... custom params
-}) {
-  return sendEmail({
-    to: params.to,
-    subject: 'Custom Subject',
-    html: generateHtmlTemplate(params),
-  })
+```javascript
+import fs from 'fs';
+
+const msg = {
+  to: 'recipient@example.com',
+  from: 'sender@example.com',
+  subject: 'Your invoice',
+  html: '<p>Please find your invoice attached.</p>',
+  attachments: [
+    {
+      content: fs.readFileSync('./invoice.pdf').toString('base64'),
+      filename: 'invoice.pdf',
+      type: 'application/pdf',
+      disposition: 'attachment',
+    },
+    {
+      content: fs.readFileSync('./logo.png').toString('base64'),
+      filename: 'logo.png',
+      type: 'image/png',
+      disposition: 'inline',
+      contentId: 'logo',  // Reference in HTML as <img src="cid:logo">
+    },
+  ],
+};
+
+await sgMail.send(msg);
+```
+
+## Error Handling
+
+```javascript
+try {
+  await sgMail.send(msg);
+  console.log('Email sent successfully');
+} catch (error) {
+  console.error('Error sending email:', error);
+
+  if (error.response) {
+    console.error('Status code:', error.code);
+    console.error('Body:', error.response.body);
+    console.error('Headers:', error.response.headers);
+  }
 }
 ```
 
-## Security Best Practices
+### Common Errors
 
-- Never expose API keys client-side
-- Validate recipient email addresses
-- Implement rate limiting
-- Use unsubscribe links
-- Handle bounces and spam reports
+| Code | Description |
+|------|-------------|
+| 400 | Bad request (check payload) |
+| 401 | Unauthorized (check API key) |
+| 403 | Forbidden (sender not verified) |
+| 429 | Rate limit exceeded |
+| 500 | SendGrid server error |
 
-## Testing
+## Webhooks (Event Tracking)
 
-### Test Mode
+Configure in SendGrid dashboard to receive events.
 
-SendGrid provides a sandbox mode for testing:
+```javascript
+// API route to receive webhooks
+export async function POST(request) {
+  const events = await request.json();
 
-```typescript
-const client = sendgrid()
-client.setApiKey(process.env.SENDGRID_API_KEY!)
-client.setSandboxMode(true) // Enable sandbox
-```
+  for (const event of events) {
+    switch (event.event) {
+      case 'delivered':
+        console.log('Email delivered to:', event.email);
+        break;
+      case 'open':
+        console.log('Email opened by:', event.email);
+        break;
+      case 'click':
+        console.log('Link clicked:', event.url);
+        break;
+      case 'bounce':
+        console.log('Bounced:', event.email, event.reason);
+        // Remove from mailing list
+        break;
+      case 'spam_report':
+        console.log('Spam report from:', event.email);
+        // Unsubscribe user
+        break;
+    }
+  }
 
-### Email Validation
-
-Always validate emails before sending:
-
-```typescript
-import { isValidEmail } from '@/lib/sendgrid/utils'
-
-if (!isValidEmail(email)) {
-  throw new Error('Invalid email address')
+  return new Response('OK');
 }
 ```
 
-## Resources
+## Full API Client
 
-- [SendGrid Documentation](https://docs.sendgrid.com)
-- [SendGrid Dashboard](https://app.sendgrid.com)
-- [Email Best Practices](https://sendgrid.com/resource/email-marketing-best-practices/)
+For advanced operations beyond sending.
 
----
+```bash
+npm install @sendgrid/client
+```
 
-**Template Version:** 1.0.0
-**Last Updated:** 2026-01-04
-**Maintainer:** Turbocat Agent System
+```javascript
+import Client from '@sendgrid/client';
+
+const client = new Client();
+client.setApiKey(process.env.SENDGRID_API_KEY);
+
+// Get email statistics
+const [response, body] = await client.request({
+  method: 'GET',
+  url: '/v3/stats',
+  qs: {
+    start_date: '2024-01-01',
+    end_date: '2024-01-31',
+  },
+});
+
+console.log(body);
+```
+
+## Next.js API Route
+
+```typescript
+// app/api/send-email/route.ts
+import { NextResponse } from 'next/server';
+import sgMail from '@sendgrid/mail';
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+
+export async function POST(request: Request) {
+  const { to, subject, html } = await request.json();
+
+  try {
+    await sgMail.send({
+      to,
+      from: process.env.SENDGRID_FROM_EMAIL!,
+      subject,
+      html,
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('SendGrid error:', error);
+    return NextResponse.json(
+      { error: 'Failed to send email' },
+      { status: 500 }
+    );
+  }
+}
+```
+
+## With React Email
+
+```typescript
+import sgMail from '@sendgrid/mail';
+import { render } from '@react-email/components';
+import WelcomeEmail from './emails/welcome';
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+async function sendWelcomeEmail(user) {
+  const html = await render(WelcomeEmail({
+    name: user.name,
+    actionUrl: `https://myapp.com/onboarding`,
+  }));
+
+  await sgMail.send({
+    to: user.email,
+    from: 'welcome@myapp.com',
+    subject: `Welcome to MyApp, ${user.name}!`,
+    html,
+  });
+}
+```
+
+## Environment Variables
+
+```bash
+SENDGRID_API_KEY=SG.xxxxxxxxxxxxxxxxxxxxx
+SENDGRID_FROM_EMAIL=noreply@yourdomain.com
+```
+
+## Sender Verification
+
+Before sending, verify your sender identity:
+
+1. **Single Sender Verification** - Verify individual email addresses
+2. **Domain Authentication** - Verify entire domain (recommended for production)
+
+Configure in SendGrid Dashboard > Settings > Sender Authentication.
+
+## Best Practices
+
+1. **Verify your domain** - Improves deliverability
+2. **Use templates** - Easier to maintain and update
+3. **Handle bounces** - Remove invalid addresses
+4. **Monitor events** - Track delivery and engagement
+5. **Rate limit** - Don't exceed plan limits
+6. **Use categories** - For analytics segmentation
+7. **Include unsubscribe** - Required for marketing emails

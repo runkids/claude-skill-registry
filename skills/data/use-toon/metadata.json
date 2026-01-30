@@ -1,9 +1,7 @@
 {
   "name": "use-toon",
-  "description": "Use TOON (Token-Oriented Object Notation) with schema.org vocabulary for prompting and instructing subagents and builtin agents. Use when delegating tasks to agents, structuring agent prompts, or spec",
-  "repo": "rayk/lucid-toolkit",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Ven0m0/claude-config",
+  "path": "claude/skills/use-toon/SKILL.md",
+  "source": "github.com/Ven0m0/claude-config",
+  "downloaded_at": "2026-01-30T04:01:30.696703Z"
 }

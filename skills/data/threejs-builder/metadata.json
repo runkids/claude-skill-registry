@@ -1,9 +1,7 @@
 {
   "name": "threejs-builder",
-  "description": "Design and implement lightweight Three.js (r150+) ES-module scenes—hero sections, interactive product viewers, particle backdrops, GLTF showcases, or quick prototypes—whenever prompts mention 'three.j",
-  "repo": "chongdashu/threejs-forest-census",
-  "category": "development",
-  "tags": [],
-  "stars": 17,
-  "source": "github.com/chongdashu/threejs-forest-census"
+  "repo": "feliperyba/ralph-orchestra",
+  "path": ".claude/skills/threejs-builder/SKILL.md",
+  "source": "github.com/feliperyba/ralph-orchestra",
+  "downloaded_at": "2026-01-30T02:40:15.629847Z"
 }

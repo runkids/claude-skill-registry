@@ -1,7 +1,7 @@
 {
   "name": "observability",
-  "repo": "kpiteira/ktrdr",
-  "path": ".claude/skills/observability/SKILL.md",
-  "source": "github.com/kpiteira/ktrdr",
-  "downloaded_at": "2026-01-29T02:02:39.179531Z"
+  "repo": "phrazzld/claude-config",
+  "path": "skills/observability/SKILL.md",
+  "source": "github.com/phrazzld/claude-config",
+  "downloaded_at": "2026-01-30T04:28:41.180338Z"
 }

@@ -1,380 +1,623 @@
 ---
-name: [PROJECT]-deployment-patterns
-description: [PROJECT] CI/CD pipeline and deployment automation patterns
-globs: [".github/workflows/**/*.yml", ".gitlab-ci.yml", "Jenkinsfile", "**/Dockerfile", "docker-compose.yml"]
+name: deployment-automation
+description: Expert guide for deploying Next.js apps to Vercel, managing environments, CI/CD pipelines, and production best practices. Use when deploying, setting up automation, or managing production.
 ---
 
-# Deployment Automation Patterns
+# Deployment Automation Skill
 
-> **Template for project-specific deployment patterns skill**
-> Fill in [CUSTOMIZE] sections with your project's deployment infrastructure
+## Overview
 
-**Project**: [PROJECT NAME]
-**Platform**: [CUSTOMIZE: GitHub Actions / GitLab CI / Jenkins / CircleCI]
-**Last Updated**: [DATE]
+This skill helps you deploy and manage your Next.js application in production. From Vercel deployments to CI/CD pipelines, this covers everything you need for smooth, automated deployments.
 
----
+## Vercel Deployment
 
-## CI/CD Platform
-
-### Configuration Files
-
-**Location**: [CUSTOMIZE: .github/workflows/ / .gitlab-ci.yml / Jenkinsfile / .circleci/]
-
-**File Structure**:
-```
-[CUSTOMIZE: Show your pipeline file organization]
-
-Examples:
-- GitHub Actions: .github/workflows/ci.yml, deploy-staging.yml, deploy-production.yml
-- GitLab CI: .gitlab-ci.yml (single file with stages)
-- Jenkins: Jenkinsfile (declarative or scripted)
+### Install Vercel CLI
+```bash
+npm i -g vercel
+vercel login
 ```
 
----
+### Deploy to Production
+```bash
+# Deploy to production
+vercel --prod
 
-## CI Pipeline (Test + Build)
-
-### Trigger
-
-**Events**: [CUSTOMIZE: push to main/develop / pull requests / merge requests]
-
-**Branches**: [CUSTOMIZE: main, develop, feature/* / all branches]
-
-### Stages
-
-**[CUSTOMIZE WITH YOUR PIPELINE STAGES]**
-
-**Your Pipeline Flow**:
-```
-[CUSTOMIZE: Describe your stages]
-
-Examples:
-1. Checkout code
-2. Install dependencies (with caching)
-3. Lint code
-4. Run unit tests (backend)
-5. Run unit tests (frontend)
-6. Run integration tests
-7. Run E2E tests
-8. Build artifacts
-9. Upload artifacts
+# Deploy with specific environment
+vercel --prod --env production
 ```
 
-### Parallelization
+### Deploy from Git
+```bash
+# Link project
+vercel link
 
-**Jobs Running in Parallel**:
+# Auto-deploy on git push (configured in Vercel dashboard)
+git push origin main  # Auto-deploys to production
+git push origin develop  # Auto-deploys to preview
+```
+
+### Project Configuration
+```json
+// vercel.json
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["iad1"],  // AWS us-east-1
+  "env": {
+    "NEXT_PUBLIC_APP_URL": "https://myapp.com"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_VERCEL_ENV": "@vercel-env"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/old-page",
+      "destination": "/new-page",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://api.backend.com/:path*"
+    }
+  ]
+}
+```
+
+### Environment Variables
+
+**Using Vercel CLI:**
+```bash
+# Add production env var
+vercel env add SUPABASE_URL production
+
+# Add to all environments
+vercel env add DATABASE_URL
+
+# Pull env vars locally
+vercel env pull .env.local
+```
+
+**Using Vercel Dashboard:**
+1. Go to Project Settings → Environment Variables
+2. Add variables for each environment:
+   - Production
+   - Preview
+   - Development
+
+**Encrypted Secrets:**
+```bash
+# Add sensitive data
+vercel secrets add database-url "postgresql://..."
+
+# Reference in vercel.json
+{
+  "env": {
+    "DATABASE_URL": "@database-url"
+  }
+}
+```
+
+### Environment-Specific Config
+```typescript
+// lib/config.ts
+const config = {
+  development: {
+    apiUrl: 'http://localhost:3000/api',
+    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  },
+  preview: {
+    apiUrl: process.env.NEXT_PUBLIC_API_URL!,
+    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  },
+  production: {
+    apiUrl: 'https://api.myapp.com',
+    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  },
+}
+
+const env = (process.env.NEXT_PUBLIC_VERCEL_ENV || 'development') as keyof typeof config
+
+export const appConfig = config[env]
+```
+
+## GitHub Actions CI/CD
+
+### Basic Workflow
 ```yaml
-[CUSTOMIZE: Show parallel jobs]
+# .github/workflows/ci.yml
+name: CI
 
-Example (GitHub Actions):
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
 jobs:
-  backend-tests:
+  test:
     runs-on: ubuntu-latest
-  frontend-tests:
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run type check
+        run: npm run type-check
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+```
+
+### Deploy to Vercel from GitHub Actions
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
     runs-on: ubuntu-latest
-  # Both run simultaneously
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
 ```
 
-### Caching Strategy
-
-**Dependencies**:
+### Run Tests on PR
 ```yaml
-[CUSTOMIZE: Show dependency caching]
+# .github/workflows/pr-checks.yml
+name: PR Checks
 
-Examples:
-- Maven: cache: 'maven'
-- npm: cache: 'npm'
-- pip: cache: 'pip'
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run type-check
+
+      - name: Unit tests
+        run: npm test
+
+      - name: E2E tests
+        run: npx playwright test
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
 ```
 
-**Build Artifacts**:
-```yaml
-[CUSTOMIZE: Show build artifact caching]
+## Pre-deployment Checks
+
+### Custom Pre-deploy Script
+```json
+// package.json
+{
+  "scripts": {
+    "predeploy": "npm run check:all",
+    "check:all": "npm run lint && npm run type-check && npm test",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "test": "jest"
+  }
+}
 ```
 
----
+### Health Check Endpoint
+```typescript
+// app/api/health/route.ts
+import { NextResponse } from 'next/server'
 
-## CD Pipeline (Deployment)
+export async function GET() {
+  try {
+    // Check database connection
+    await db.$queryRaw`SELECT 1`
 
-### Environments
+    // Check external services
+    const services = await Promise.allSettled([
+      fetch(process.env.API_URL!),
+      fetch(process.env.SUPABASE_URL!),
+    ])
 
-**Environment Matrix**:
+    const allHealthy = services.every(s => s.status === 'fulfilled')
 
-| Environment | Trigger | Approval | URL |
-|-------------|---------|----------|-----|
-| [Dev/Staging] | [Auto on push] | [No] | [URL] |
-| [Production] | [Manual/Tag] | [Yes] | [URL] |
-
-### Deployment Strategy
-
-**Approach**: [CUSTOMIZE: Rolling / Blue-Green / Canary / Recreate]
-
-**Why This Strategy**: [CUSTOMIZE: Reasoning]
-
-**Rollback Plan**:
-```bash
-[CUSTOMIZE: How to rollback]
-
-Examples:
-- Kubernetes: kubectl rollout undo
-- Docker: docker-compose pull <previous-tag>
-- Cloud: Revert to previous deployment
+    return NextResponse.json({
+      status: allHealthy ? 'healthy' : 'degraded',
+      timestamp: new Date().toISOString(),
+      version: process.env.NEXT_PUBLIC_APP_VERSION,
+      services: {
+        database: 'healthy',
+        api: services[0].status === 'fulfilled' ? 'healthy' : 'unhealthy',
+        supabase: services[1].status === 'fulfilled' ? 'healthy' : 'unhealthy',
+      }
+    })
+  } catch (error) {
+    return NextResponse.json(
+      { status: 'unhealthy', error: error.message },
+      { status: 503 }
+    )
+  }
+}
 ```
-
----
-
-## Containerization
-
-### Docker Setup
-
-**Dockerfile Location**: [CUSTOMIZE: ./Dockerfile / backend/Dockerfile / Dockerfile.production]
-
-**Base Images**:
-- Backend: [CUSTOMIZE: eclipse-temurin:17-jre-alpine / node:22-alpine / python:3.11-slim]
-- Frontend: [CUSTOMIZE: node:22-alpine + nginx:alpine / Static hosting]
-
-### Multi-Stage Build Pattern
-
-**[CUSTOMIZE WITH YOUR DOCKERFILE PATTERN]**
-
-**Backend Example**:
-```dockerfile
-[CUSTOMIZE: Show your multi-stage Dockerfile]
-
-Example pattern:
-# Stage 1: Build
-FROM [build-image] AS builder
-WORKDIR /app
-COPY [dependency-files]
-RUN [install-deps]
-COPY [source]
-RUN [build-command]
-
-# Stage 2: Runtime
-FROM [runtime-image]
-COPY --from=builder /app/[artifact] /app/
-CMD [start-command]
-```
-
-### Docker Compose
-
-**Services**: [CUSTOMIZE: backend, frontend, database, redis, etc.]
-
-**Local Development Setup**:
-```yaml
-[CUSTOMIZE: Show docker-compose.yml structure]
-```
-
----
-
-## Secrets Management
-
-### Where Secrets Are Stored
-
-**Platform**: [CUSTOMIZE: GitHub Secrets / GitLab Variables / Jenkins Credentials / Vault]
-
-**Required Secrets**:
-```
-[CUSTOMIZE: List all secrets needed]
-
-Examples:
-- DOCKER_USERNAME
-- DOCKER_PASSWORD
-- DATABASE_URL_STAGING
-- DATABASE_URL_PRODUCTION
-- API_KEY
-- JWT_SECRET
-```
-
-### How Secrets Are Used
-
-**In Pipeline**:
-```yaml
-[CUSTOMIZE: Show secret usage pattern]
-
-Example (GitHub Actions):
-env:
-  DATABASE_URL: ${{ secrets.DATABASE_URL }}
-```
-
----
-
-## Deployment Commands
-
-### Staging Deployment
-
-**Trigger**: [CUSTOMIZE: Auto on push to main / Manual]
-
-**Commands**:
-```bash
-[CUSTOMIZE: Show deployment commands]
-
-Examples:
-- Docker: docker-compose pull && docker-compose up -d
-- Kubernetes: kubectl apply -f k8s/
-- Cloud: eb deploy staging
-- SSH: ssh user@staging 'cd app && git pull && restart'
-```
-
-### Production Deployment
-
-**Trigger**: [CUSTOMIZE: Manual workflow / Git tag / Release]
-
-**Approval**: [CUSTOMIZE: Required reviewers / Manual gate]
-
-**Commands**:
-```bash
-[CUSTOMIZE: Show production deployment]
-```
-
----
-
-## Health Checks & Smoke Tests
-
-### Health Endpoints
-
-**Backend**: [CUSTOMIZE: /health / /actuator/health / /api/health]
-
-**Frontend**: [CUSTOMIZE: /health / / (root) / /api/health]
-
-**Database**: [CUSTOMIZE: /health/db / Connection check]
-
-### Smoke Tests
-
-**Post-Deployment Verification**:
-```bash
-[CUSTOMIZE: Show smoke test commands]
-
-Examples:
-sleep 10  # Wait for startup
-curl -f https://api.myapp.com/health || exit 1
-curl -f https://myapp.com/ || exit 1
-```
-
----
 
 ## Database Migrations
 
-### Migration Tool
-
-**Tool**: [CUSTOMIZE: Flyway / Liquibase / Prisma Migrate / Django migrations / Rails migrations]
-
-**When Migrations Run**: [CUSTOMIZE: Before deployment / After deployment / Separate job]
-
-**Example**:
-```bash
-[CUSTOMIZE: Show migration command]
-
-Examples:
-- Flyway: mvn flyway:migrate
-- Prisma: npx prisma migrate deploy
-- Django: python manage.py migrate
+### Run Migrations on Deploy
+```json
+// package.json
+{
+  "scripts": {
+    "build": "npm run db:migrate && next build",
+    "db:migrate": "npx supabase db push"
+  }
+}
 ```
 
-### Rollback Strategy
-
-**Migration Rollback**:
+### Safe Migration Strategy
 ```bash
-[CUSTOMIZE: How to rollback migrations]
+# 1. Test migration locally
+npx supabase db reset
+npx supabase db push
+
+# 2. Create backup
+npx supabase db dump > backup.sql
+
+# 3. Apply to production
+npx supabase db push --linked
+
+# 4. Verify
+curl https://myapp.com/api/health
 ```
 
----
+## Monitoring & Alerts
 
-## Monitoring & Logging
+### Vercel Speed Insights
+```typescript
+// app/layout.tsx
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
-### Monitoring Tools
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <SpeedInsights />
+      </body>
+    </html>
+  )
+}
+```
 
-**Uptime**: [CUSTOMIZE: UptimeRobot / Pingdom / DataDog]
+### Vercel Analytics
+```typescript
+import { Analytics } from '@vercel/analytics/react'
 
-**Error Tracking**: [CUSTOMIZE: Sentry / Rollbar / Bugsnag]
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <Analytics />
+      </body>
+    </html>
+  )
+}
+```
 
-**Logs**: [CUSTOMIZE: Papertrail / CloudWatch / Loggly]
+### Custom Monitoring
+```typescript
+// lib/monitoring.ts
+export async function reportDeployment() {
+  if (process.env.NODE_ENV === 'production') {
+    await fetch('https://monitoring.example.com/deployments', {
+      method: 'POST',
+      body: JSON.stringify({
+        version: process.env.NEXT_PUBLIC_APP_VERSION,
+        timestamp: new Date().toISOString(),
+        environment: process.env.NEXT_PUBLIC_VERCEL_ENV,
+      }),
+    })
+  }
+}
 
-**Metrics**: [CUSTOMIZE: Prometheus / New Relic / DataDog]
+// Call in app initialization
+reportDeployment()
+```
 
-### Log Aggregation
+## Feature Flags
 
-**Where Logs Go**: [CUSTOMIZE: Stdout → Cloud logging / File → Aggregator]
+### Environment-Based Flags
+```typescript
+// lib/features.ts
+export const features = {
+  newDesign: process.env.NEXT_PUBLIC_FEATURE_NEW_DESIGN === 'true',
+  betaFeatures: process.env.NEXT_PUBLIC_FEATURE_BETA === 'true',
+  analytics: process.env.NEXT_PUBLIC_FEATURE_ANALYTICS === 'true',
+}
 
-**Log Format**: [CUSTOMIZE: JSON / Plain text / Structured]
+// Usage
+import { features } from '@/lib/features'
 
----
+export function Component() {
+  if (!features.newDesign) {
+    return <OldDesign />
+  }
+  return <NewDesign />
+}
+```
 
-## Build Optimization
+### Advanced Feature Flags (Vercel Edge Config)
+```typescript
+import { get } from '@vercel/edge-config'
 
-### Build Time Targets
+export async function getFeatureFlag(key: string): Promise<boolean> {
+  try {
+    return await get<boolean>(key) ?? false
+  } catch {
+    return false
+  }
+}
 
-**CI Build**: [CUSTOMIZE: <5 minutes / <10 minutes]
+// Usage in Server Component
+export default async function Page() {
+  const showNewFeature = await getFeatureFlag('new-feature')
 
-**Local Build**: [CUSTOMIZE: <2 minutes / <3 minutes]
+  if (showNewFeature) {
+    return <NewFeature />
+  }
+  return <OldFeature />
+}
+```
 
-### Optimization Techniques
+## Rollback Strategy
 
-**[CUSTOMIZE WITH USED TECHNIQUES]**
+### Instant Rollback
+```bash
+# List deployments
+vercel ls
 
-- [ ] Dependency caching (Maven, npm, pip)
-- [ ] Build artifact caching
-- [ ] Docker layer caching
-- [ ] Parallel job execution
-- [ ] [PROJECT-SPECIFIC OPTIMIZATION]
+# Promote previous deployment to production
+vercel promote <deployment-url>
+```
 
----
+### Automated Rollback on Error
+```yaml
+# .github/workflows/deploy-with-rollback.yml
+name: Deploy with Rollback
 
-## Security Scanning
+on:
+  push:
+    branches: [main]
 
-### Tools
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-**Dependency Scanning**: [CUSTOMIZE: Dependabot / Snyk / OWASP Dependency Check]
+    steps:
+      - uses: actions/checkout@v4
 
-**Container Scanning**: [CUSTOMIZE: Trivy / Snyk / Clair]
+      - name: Get previous deployment
+        id: prev-deploy
+        run: |
+          PREV_URL=$(vercel ls --token=${{ secrets.VERCEL_TOKEN }} | grep production | head -n 2 | tail -n 1 | awk '{print $2}')
+          echo "prev_url=$PREV_URL" >> $GITHUB_OUTPUT
 
-**SAST**: [CUSTOMIZE: SonarQube / CodeQL / Semgrep]
+      - name: Deploy to Vercel
+        id: deploy
+        run: |
+          URL=$(vercel --prod --token=${{ secrets.VERCEL_TOKEN }})
+          echo "deploy_url=$URL" >> $GITHUB_OUTPUT
 
-### Scan Timing
+      - name: Health check
+        id: health
+        run: |
+          sleep 10
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" ${{ steps.deploy.outputs.deploy_url }}/api/health)
+          if [ $STATUS -ne 200 ]; then
+            echo "Health check failed"
+            exit 1
+          fi
 
-**When**: [CUSTOMIZE: Every PR / Nightly / Weekly]
+      - name: Rollback on failure
+        if: failure()
+        run: |
+          vercel promote ${{ steps.prev-deploy.outputs.prev_url }} --token=${{ secrets.VERCEL_TOKEN }}
+```
 
-**Failure Threshold**: [CUSTOMIZE: Critical vulnerabilities / High+ / All]
+## Preview Deployments
 
----
+### Automatic Preview URLs
+Every branch push gets a unique URL:
+```
+https://myapp-git-feature-branch-username.vercel.app
+```
 
-## Deployment Checklist
+### Preview Comments on PR
+```yaml
+# .github/workflows/preview-comment.yml
+name: Preview Deployment Comment
 
-**[CUSTOMIZE WITH PROJECT REQUIREMENTS]**
+on:
+  deployment_status:
 
-Before deploying:
-- [ ] All tests passing (unit, integration, E2E)
-- [ ] Code coverage ≥ [80]%
-- [ ] Build successful
-- [ ] No critical security vulnerabilities
-- [ ] Database migrations reviewed
-- [ ] Secrets configured in environment
-- [ ] Health checks implemented
-- [ ] Smoke tests defined
-- [ ] Rollback plan documented
-- [ ] [PROJECT-SPECIFIC REQUIREMENT]
+jobs:
+  comment:
+    if: github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
 
----
+    steps:
+      - name: Comment PR
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `✅ Preview deployed to ${process.env.DEPLOYMENT_URL}`
+            })
+```
 
-## Project-Specific Patterns
+## Performance Budgets
 
-**[CUSTOMIZE - ADD DEPLOYMENT CONTEXT]**
+### Lighthouse CI
+```yaml
+# .github/workflows/lighthouse.yml
+name: Lighthouse CI
 
-### Deployment Windows
-- [When deployments are allowed]
+on:
+  pull_request:
+    branches: [main]
 
-### Approval Process
-- [Who must approve]
-- [What must be verified]
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
 
-### Post-Deployment Steps
-- [Smoke tests]
-- [Monitoring checks]
-- [Team notifications]
+    steps:
+      - uses: actions/checkout@v4
 
----
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          urls: |
+            https://preview-url.vercel.app
+            https://preview-url.vercel.app/dashboard
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+```
 
-**Customization Complete**: Replace all [CUSTOMIZE] sections with project-detected or chosen patterns.
+### Bundle Size Check
+```yaml
+# .github/workflows/bundle-size.yml
+name: Bundle Size Check
 
-**Auto-generated by**: `/add-skill deployment-automation` command
+on: [pull_request]
+
+jobs:
+  size:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Check bundle size
+        uses: andresz1/size-limit-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+## Best Practices Checklist
+
+- [ ] Use environment variables for secrets
+- [ ] Set up automatic deployments from Git
+- [ ] Configure preview deployments for PRs
+- [ ] Implement health check endpoint
+- [ ] Set up monitoring and alerts
+- [ ] Run tests before deploying
+- [ ] Use feature flags for gradual rollouts
+- [ ] Have a rollback strategy
+- [ ] Monitor Core Web Vitals
+- [ ] Set performance budgets
+- [ ] Run database migrations safely
+- [ ] Use separate environments (dev/staging/prod)
+- [ ] Implement proper error tracking
+- [ ] Document deployment process
+
+## When to Use This Skill
+
+Invoke this skill when:
+- Deploying to Vercel for the first time
+- Setting up CI/CD pipelines
+- Configuring environment variables
+- Implementing feature flags
+- Setting up monitoring
+- Creating rollback strategies
+- Optimizing deployment speed
+- Debugging production issues
+- Managing preview deployments
+- Setting up automated tests

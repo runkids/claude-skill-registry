@@ -1,0 +1,7 @@
+{
+  "name": "publish-pypi",
+  "repo": "amyodov/pytest-claude-agent-sdk",
+  "path": ".claude/skills/publish-pypi/SKILL.md",
+  "source": "github.com/amyodov/pytest-claude-agent-sdk",
+  "downloaded_at": "2026-01-30T02:42:29.878598Z"
+}

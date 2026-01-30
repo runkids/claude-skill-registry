@@ -1,19 +1,19 @@
 {
   "category": "LangGraph",
   "count": 1,
-  "updated_at": "2026-01-29T16:04:50.044218Z",
+  "updated_at": "2026-01-30T04:53:31.476753Z",
   "skills": [
     {
       "name": "SKILL.md",
-      "description": "Expert in LangGraph - the production-grade framework for building stateful, multi-actor AI applications. Covers graph construction, state management, cycles and branches, persistence with checkpointer",
-      "repo": "NeverSight/skills.sh_feed",
+      "description": "LangGraph skill for building stateful agent graphs, subgraphs, checkpoints, conditional flows, parallel execution, streaming, and multi-agent orchestration.",
+      "repo": "Sameeh07/AGENT-SKILLS",
       "path": "LangGraph",
       "branch": "main",
       "category": "LangGraph",
       "tags": [],
       "stars": 0,
-      "install": "NeverSight/skills.sh_feed",
-      "source": "github.com/NeverSight/skills.sh_feed"
+      "install": "Sameeh07/AGENT-SKILLS",
+      "source": "github.com/Sameeh07/AGENT-SKILLS"
     }
   ]
 }

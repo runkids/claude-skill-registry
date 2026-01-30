@@ -1,12 +1,7 @@
 {
   "name": "sveltekit-structure",
-  "description": "SvelteKit structure guidance. Use for routing, layouts, error handling, SSR, or svelte:boundary. Covers file naming, nested layouts, error boundaries, pending UI, and hydration.",
-  "repo": "spences10/svelte-claude-skills",
-  "category": "design",
-  "tags": [
-    "sveltekit",
-    "structure"
-  ],
-  "stars": 107,
-  "source": "SkillsMP Synced Skills"
+  "repo": "dandedotdev/dotfiles",
+  "path": ".claude/skills/sveltekit-structure/SKILL.md",
+  "source": "github.com/dandedotdev/dotfiles",
+  "downloaded_at": "2026-01-30T02:47:40.080247Z"
 }

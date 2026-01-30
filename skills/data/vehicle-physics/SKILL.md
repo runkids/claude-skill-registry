@@ -6,24 +6,6 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 # Roblox Vehicle Physics Implementation
 
-## Quick Reference Links
-
-**Official Documentation:**
-- [Constraints Overview](https://create.roblox.com/docs/physics/mechanical-constraints) - All constraint types
-- [VehicleSeat API](https://create.roblox.com/docs/reference/engine/classes/VehicleSeat)
-- [HingeConstraint API](https://create.roblox.com/docs/reference/engine/classes/HingeConstraint) - Wheels/motors
-- [SpringConstraint API](https://create.roblox.com/docs/reference/engine/classes/SpringConstraint) - Suspension
-- [CylindricalConstraint API](https://create.roblox.com/docs/reference/engine/classes/CylindricalConstraint) - Steering
-- [VectorForce API](https://create.roblox.com/docs/reference/engine/classes/VectorForce) - Thrust/lift
-- [BodyGyro API](https://create.roblox.com/docs/reference/engine/classes/BodyGyro) - Orientation control
-- [AlignOrientation API](https://create.roblox.com/docs/reference/engine/classes/AlignOrientation)
-
-**Wiki References:**
-- [VehicleSeat (Wiki)](https://roblox.fandom.com/wiki/VehicleSeat)
-- [Constraints (Wiki)](https://roblox.fandom.com/wiki/Constraint)
-
----
-
 When implementing vehicle physics, follow these Roblox-specific patterns and constraints.
 
 ## Car Physics

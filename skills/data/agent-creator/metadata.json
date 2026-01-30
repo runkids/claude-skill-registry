@@ -1,7 +1,7 @@
 {
   "name": "agent-creator",
-  "repo": "toilahuongg/Shopify-Agents-Kit",
+  "repo": "erichowens/some_claude_skills",
   "path": ".claude/skills/agent-creator/SKILL.md",
-  "source": "github.com/toilahuongg/Shopify-Agents-Kit",
-  "downloaded_at": "2026-01-29T04:02:18.946470Z"
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-30T04:18:12.210655Z"
 }

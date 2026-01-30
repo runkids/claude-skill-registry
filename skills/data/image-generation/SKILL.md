@@ -1,211 +1,156 @@
 ---
 name: image-generation
-description: |
-  Create diagrams, charts, and visual assets for security documentation.
-  Generate network diagrams, architecture visuals, and data visualizations.
-  Use when creating visual content for reports or presentations.
-license: Apache-2.0
-compatibility: |
-  - Python 3.9+
-  - Required packages: pillow, matplotlib, graphviz
-metadata:
-  author: SherifEldeeb
-  version: "1.0.0"
-  category: baseline
+description: "AI-powered image generation and editing using Gemini. Use when Claude needs to: (1) Generate images from text descriptions, (2) Edit existing images with instructions, (3) Create infographics or charts, (4) Generate visual assets for reports/presentations, (5) Work with .png, .jpg, .jpeg, .webp files for editing."
 ---
 
-# Image Generation Skill
+# Image Generation & Editing
 
-Create diagrams, charts, and visual assets for security documentation with support for network diagrams, data visualizations, and flowcharts.
-
-## Capabilities
-
-- **Diagrams**: Generate network topology and architecture diagrams
-- **Charts**: Create data visualizations (bar, pie, line, heatmaps)
-- **Flowcharts**: Build process and workflow diagrams
-- **Risk Matrices**: Generate risk assessment visualizations
-- **Timelines**: Create incident and event timelines
-- **Export**: Save to PNG, SVG, and PDF formats
+## Overview
+Generate and edit images using Gemini 2.5 Flash Image model via MCP tools.
 
 ## Quick Start
 
+### Text-to-Image Generation
 ```python
-import matplotlib.pyplot as plt
-
-# Create a simple bar chart
-severities = ['Critical', 'High', 'Medium', 'Low']
-counts = [3, 8, 15, 22]
-
-plt.figure(figsize=(10, 6))
-plt.bar(severities, counts, color=['#e74c3c', '#e67e22', '#f1c40f', '#3498db'])
-plt.title('Findings by Severity')
-plt.savefig('severity_chart.png', dpi=150)
+result = generate_image(
+    prompt="A modern infographic showing renewable energy statistics",
+    output_dir="/path/to/work_products/media"
+)
 ```
 
-## Usage
-
-### Bar Charts
-
-Create bar charts for comparisons.
-
-**Example**:
+### Image Editing
 ```python
-import matplotlib.pyplot as plt
-from typing import Dict
-
-def create_severity_chart(data: Dict[str, int], output_path: str = 'chart.png'):
-    """Create a severity distribution bar chart."""
-    colors = {
-        'Critical': '#e74c3c', 'High': '#e67e22',
-        'Medium': '#f1c40f', 'Low': '#3498db'
-    }
-
-    severities = list(data.keys())
-    counts = list(data.values())
-    bar_colors = [colors.get(s, '#333') for s in severities]
-
-    plt.figure(figsize=(10, 6))
-    plt.bar(severities, counts, color=bar_colors)
-    plt.title('Findings by Severity', fontsize=14, fontweight='bold')
-    plt.savefig(output_path, dpi=150, bbox_inches='tight')
-    plt.close()
-
-# Usage
-create_severity_chart({'Critical': 3, 'High': 8, 'Medium': 15, 'Low': 22})
+result = generate_image(
+    prompt="Change the background to a sunset over mountains",
+    input_image_path="/path/to/original.png",
+    output_dir="/path/to/work_products/media"
+)
 ```
 
-### Network Diagrams
-
-Create network topology diagrams using Graphviz.
-
-**Example**:
+### Preview Generated Image
 ```python
-from graphviz import Digraph
+# Auto-launch viewer after generation
+result = generate_image(
+    prompt="Blue square with rounded corners",
+    preview=True  # Opens Gradio viewer
+)
 
-def create_network_diagram(nodes: list, edges: list, output_path: str = 'network'):
-    """Create a network topology diagram."""
-    dot = Digraph()
-    dot.attr(rankdir='TB')
-
-    shapes = {'firewall': 'box3d', 'server': 'box', 'database': 'cylinder'}
-
-    for node in nodes:
-        dot.node(node['id'], node['label'],
-                shape=shapes.get(node.get('type', 'server'), 'box'),
-                style='filled', fillcolor=node.get('color', 'lightblue'))
-
-    for edge in edges:
-        dot.edge(edge['from'], edge['to'], label=edge.get('label', ''))
-
-    dot.render(output_path, format='png', cleanup=True)
-
-# Usage
-nodes = [
-    {'id': 'fw', 'label': 'Firewall', 'type': 'firewall', 'color': 'lightcoral'},
-    {'id': 'web', 'label': 'Web Server', 'type': 'server'},
-    {'id': 'db', 'label': 'Database', 'type': 'database'}
-]
-edges = [{'from': 'fw', 'to': 'web'}, {'from': 'web', 'to': 'db'}]
-create_network_diagram(nodes, edges)
+# Or preview any existing image
+preview_image("/path/to/image.png")
 ```
 
-### Flowcharts
+## Available Tools
 
-Create process flowcharts.
+### `generate_image`
+Primary tool for image generation and editing.
 
-**Example**:
+**Parameters**:
+- `prompt` (required): Text description or edit instruction
+- `input_image_path` (optional): Path to source image for editing
+- `output_dir` (optional): Output directory (defaults to `work_products/media/`)
+- `output_filename` (optional): Custom filename (auto-generated if not provided)
+- `preview` (optional): Launch Gradio viewer after generation
+- `model_name` (optional): Gemini model to use. Defaults to `gemini-3-pro-image-preview`.
+  - Options: `gemini-3-pro-image-preview`, `gemini-2.5-flash-image`.
+
+**Returns**: JSON with `output_path`, `description`, `size_bytes`, and optionally `viewer_url`
+
+### `describe_image`
+Get a short description of an image for generating meaningful filenames.
+
+**Parameters**:
+- `image_path` (required): Path to image file
+- `max_words` (optional): Maximum words in description (default 10)
+
+### `preview_image`
+Launch Gradio viewer to display an image.
+
+**Parameters**:
+- `image_path` (required): Path to image file
+- `port` (optional): Port for Gradio server (default 7860)
+
+## Best Practices
+
+### Prompt Crafting
+- **Be specific**: "modern, minimalist infographic with blue gradient"
+- **Include style**: "photorealistic", "illustration", "line art", "cartoon"
+- **For charts/infographics**: Include data points in the prompt
+- **For editing**: Describe what to change AND what to preserve
+
+### Examples
+
+**Infographic**:
 ```python
-from graphviz import Digraph
-
-def create_flowchart(steps: list, output_path: str = 'flowchart'):
-    """Create a process flowchart."""
-    dot = Digraph()
-    dot.attr(rankdir='TB')
-
-    shapes = {'start': 'ellipse', 'end': 'ellipse',
-              'process': 'box', 'decision': 'diamond'}
-    colors = {'start': 'lightgreen', 'end': 'lightcoral',
-              'process': 'lightblue', 'decision': 'lightyellow'}
-
-    for step in steps:
-        dot.node(step['id'], step['label'],
-                shape=shapes.get(step.get('type', 'process'), 'box'),
-                style='filled',
-                fillcolor=colors.get(step.get('type', 'process'), 'white'))
-
-        if 'next' in step:
-            for n in (step['next'] if isinstance(step['next'], list) else [step['next']]):
-                if isinstance(n, dict):
-                    dot.edge(step['id'], n['to'], label=n.get('label', ''))
-                else:
-                    dot.edge(step['id'], n)
-
-    dot.render(output_path, format='png', cleanup=True)
+generate_image(
+    prompt="Infographic showing 3 key statistics: 45% growth, $2.3B market, 120 companies. Modern flat design with blue and green color scheme."
+)
 ```
 
-### Risk Heatmaps
-
-Create risk assessment heatmaps.
-
-**Example**:
+**Chart**:
 ```python
-import matplotlib.pyplot as plt
-import numpy as np
-
-def create_risk_heatmap(data: list, x_labels: list, y_labels: list, output_path: str):
-    """Create a risk assessment heatmap."""
-    fig, ax = plt.subplots(figsize=(10, 8))
-    im = ax.imshow(data, cmap='RdYlGn_r')
-
-    ax.set_xticks(np.arange(len(x_labels)))
-    ax.set_yticks(np.arange(len(y_labels)))
-    ax.set_xticklabels(x_labels)
-    ax.set_yticklabels(y_labels)
-
-    for i in range(len(y_labels)):
-        for j in range(len(x_labels)):
-            ax.text(j, i, data[i][j], ha='center', va='center',
-                   color='white' if data[i][j] > 5 else 'black')
-
-    ax.set_title('Risk Matrix')
-    plt.colorbar(im)
-    plt.savefig(output_path, dpi=150)
-    plt.close()
+generate_image(
+    prompt="Clean bar chart comparing renewable energy adoption: Solar 35%, Wind 28%, Hydro 22%. Use professional colors, include labels."
+)
 ```
 
-## Configuration
+**Editing**:
+```python
+generate_image(
+    prompt="Add snow to the mountain peaks, keep the sunset colors",
+    input_image_path="work_products/media/sunset_mountains.png"
+)
+```
 
-### Environment Variables
+## Integration with Other Skills
 
-| Variable | Description | Required | Default |
-|----------|-------------|----------|---------|
-| `IMAGE_OUTPUT_DIR` | Output directory | No | `./output` |
-| `IMAGE_DPI` | Default DPI | No | `150` |
+### Reports (`report-creation-expert`)
+Generate custom graphics for HTML reports:
+```python
+# Generate infographic
+img_result = generate_image(
+    prompt="Infographic about AI market trends",
+    output_dir="work_products/media"
+)
 
-## Limitations
+# Embed in HTML report
+html_content = f'''
+<img src="file:///{img_result['output_path']}" alt="AI Trends" style="max-width: 100%;">
+'''
+```
 
-- **Interactive**: Static images only
-- **3D**: Limited 3D support
-- **Graphviz**: Required for diagrams
+### PowerPoint (`pptx` skill)
+Create custom slide backgrounds and visual elements:
+- Generate images first, then reference paths in PptxGenJS
+- Use `addImage()` to embed generated graphics
+- Create infographics for data-heavy slides
+
+### Documents (`docx` skill)
+Generate embedded figures and diagrams for Word documents.
 
 ## Troubleshooting
 
-### Graphviz Not Found
+### Error: "GEMINI_API_KEY not set"
+Ensure `GEMINI_API_KEY` is set in `.env` file.
 
-Install the system package:
-```bash
-apt-get install graphviz  # Ubuntu
-brew install graphviz      # macOS
-```
+### Error: "No image data in response"
+- Check your prompt is clear and specific
+- Ensure Gemini 2.0 Flash model supports the request
+- Try simplifying the prompt
 
-## Related Skills
+### Preview not working
+- Gradio viewer script must exist at `.claude/skills/image-generation/scripts/gradio_viewer.py`
+- Port 7860 must be available
+- Run manually: `python scripts/gradio_viewer.py /path/to/image.png`
 
-- [pptx](../pptx/): Embed images in presentations
-- [docx](../docx/): Include visuals in reports
-- [pdf](../pdf/): Add charts to PDF reports
+## Output Conventions
 
-## References
+- **Directory**: `{workspace}/work_products/media/`
+- **Filename pattern**: `{description}_{timestamp}.png`
+- **Format**: PNG (lossless)
+- **Description**: Auto-generated from image analysis
 
-- [Detailed API Reference](references/REFERENCE.md)
-- [Matplotlib Documentation](https://matplotlib.org/)
-- [Graphviz Documentation](https://graphviz.org/)
+## Dependencies
+
+- `google-genai>=1.56.0` - Gemini API client
+- `gradio>=6.2.0` - Optional viewer UI
+- `pillow` - Image processing

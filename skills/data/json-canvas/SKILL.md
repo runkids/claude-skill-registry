@@ -5,7 +5,7 @@ description: Create and edit JSON Canvas files (.canvas) with nodes, edges, grou
 
 # JSON Canvas Skill
 
-This skill enables skills-compatible agents to create and edit valid JSON Canvas files (`.canvas`) used in Obsidian and other applications.
+This skill enables Claude Code to create and edit valid JSON Canvas files (`.canvas`) used in Obsidian and other applications.
 
 ## Overview
 
@@ -67,20 +67,6 @@ Text nodes contain Markdown content.
   "height": 200,
   "text": "# Hello World\n\nThis is **Markdown** content."
 }
-```
-
-#### Newline Escaping (Common Pitfall)
-
-In JSON, newline characters inside strings **must** be represented as `\n`. Do **not** use the literal sequence `\\n` in a `.canvas` file—Obsidian will render it as the characters `\` and `n` instead of a line break.
-
-Examples:
-
-```json
-{ "type": "text", "text": "Line 1\nLine 2" }
-```
-
-```json
-{ "type": "text", "text": "Line 1\\nLine 2" }
 ```
 
 | Attribute | Required | Type | Description |
@@ -654,3 +640,4 @@ This format is a 16-character lowercase hex string (64-bit random value).
 
 - [JSON Canvas Spec 1.0](https://jsoncanvas.org/spec/1.0/)
 - [JSON Canvas GitHub](https://github.com/obsidianmd/jsoncanvas)
+

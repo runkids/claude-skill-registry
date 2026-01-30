@@ -1,9 +1,7 @@
 {
   "name": "plan-marshall-plugin",
-  "description": "Java domain extension with Maven/Gradle build operations and workflow integration",
   "repo": "cuioss/plan-marshall",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/cuioss/plan-marshall"
+  "path": "marketplace/bundles/pm-documents/skills/plan-marshall-plugin/SKILL.md",
+  "source": "github.com/cuioss/plan-marshall",
+  "downloaded_at": "2026-01-30T03:21:23.360239Z"
 }

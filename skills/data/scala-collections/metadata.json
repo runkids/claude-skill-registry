@@ -1,9 +1,7 @@
 {
   "name": "scala-collections",
-  "description": "Use when scala collections including immutable/mutable variants, List, Vector, Set, Map operations, collection transformations, lazy evaluation with views, parallel collections, and custom collection ",
   "repo": "TheBushidoCollective/han",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-scala/skills/scala-collections/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-30T03:33:59.060331Z"
 }

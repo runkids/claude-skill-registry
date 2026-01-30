@@ -1,14 +1,53 @@
 ---
 name: marshall-steward
 description: Project configuration wizard for planning system. Manages executor generation, health checks, build systems, and skill domains.
+user-invocable: true
 allowed-tools: Read, Write, Edit, Bash, Glob, Skill, AskUserQuestion
 ---
 
 # Marshall Steward Skill
 
-## Enforcement Rules
+Project configuration wizard for the planning system.
 
-**EXECUTION MODE**: Execute this skill immediately. Do not explain, summarize, or discuss these instructions.
+## Usage
+
+```
+/marshall-steward           # Interactive menu or first-run wizard
+/marshall-steward --wizard  # Force first-run wizard
+```
+
+## Banner
+
+Output this banner directly as text at command start (do NOT use Bash echo - output it in your response):
+
+```
+╔═══════════════════════════════════════════════════════════════════════╗
+║                                 :                                     ║
+║                               .;:;.                                   ║
+║                              :;:::;:                                  ║
+║          ...             .;:::::::::;.              ...               ║
+║          .::;:::::::::::::;:::::::::;:::::::::::::;::.                ║
+║               :;:::::::::::::::::::::::::::::::;:                     ║
+║                .;:::::::::::::::::::::::::::::;.                      ║
+║                                                                       ║
+║                        █▀█ █   █▀█ █▄ █                               ║
+║                        █▀▀ █▄▄ █▀█ █ ▀█                               ║
+║                  █▀▄▀█ █▀█ █▀█ █▀ █ █ █▀█ █   █                       ║
+║                  █ ▀ █ █▀█ █▀▄ ▄█ █▀█ █▀█ █▄▄ █▄▄                     ║
+║                                                                       ║
+║                .;:::::::::::::::::::::::::::::;.                      ║
+║               :;:::::::::::::::::::::::::::::::;:                     ║
+║          .::;:::::::::::::;:::::::::;:::::::::::::;::.                ║
+║         ...              .;:::::::::;.              ...               ║
+║                              :;:::;:                                  ║
+║                               .;:;.                                   ║
+║                                 :                                     ║
+╚═══════════════════════════════════════════════════════════════════════╝
+```
+
+---
+
+## Enforcement Rules
 
 ### Script Execution
 1. Run scripts EXACTLY as documented - no improvisation

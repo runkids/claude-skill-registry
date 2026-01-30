@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-cloud-secret-list
 description: List all secrets. Requires authentication. Use for Agentuity cloud platform operations
-version: "0.1.2"
+version: "0.0.103"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 metadata:

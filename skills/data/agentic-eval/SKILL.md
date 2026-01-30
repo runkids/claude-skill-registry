@@ -8,8 +8,6 @@ description: |
   - Designing rubric-based or LLM-as-judge evaluation systems
   - Adding iterative improvement to agent outputs (code, reports, analysis)
   - Measuring and improving agent response quality
-user-invocable: true
-allowed-tools: Bash Read Write Edit Glob Grep
 ---
 
 # Agentic Evaluation Patterns

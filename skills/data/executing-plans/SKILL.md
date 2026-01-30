@@ -1,6 +1,6 @@
 ---
 name: executing-plans
-description: Disciplined plan execution for implementation tasks. Use when executing a saved implementation plan, following step-by-step instructions from a plan document.
+description: Use when partner provides a complete implementation plan to execute in controlled batches with review checkpoints - loads plan, reviews critically, executes tasks in batches, reports for review between batches
 ---
 
 # Executing Plans
@@ -13,41 +13,38 @@ Load plan, review critically, execute tasks in batches, report for review betwee
 
 **Announce at start:** "I'm using the executing-plans skill to implement this plan."
 
-## Quick Reference
-
-| Step | Action | Exit Condition |
-|------|--------|----------------|
-| 1 | Load + Review | Concerns raised OR TodoWrite created |
-| 2 | Execute Batch | 3 tasks complete + verified |
-| 3 | Report | Show results, say "Ready for feedback" |
-| 4 | Continue | Apply feedback, next batch |
-| 5 | Complete | Use `finishing-a-development-branch` |
-
 ## The Process
 
 ### Step 1: Load and Review Plan
+
 1. Read plan file
 2. Review critically - identify any questions or concerns about the plan
 3. If concerns: Raise them with your human partner before starting
 4. If no concerns: Create TodoWrite and proceed
 
 ### Step 2: Execute Batch
+
 **Default: First 3 tasks**
 
 For each task:
+
 1. Mark as in_progress
 2. Follow each step exactly (plan has bite-sized steps)
 3. Run verifications as specified
 4. Mark as completed
 
 ### Step 3: Report
+
 When batch complete:
+
 - Show what was implemented
 - Show verification output
 - Say: "Ready for feedback."
 
 ### Step 4: Continue
+
 Based on feedback:
+
 - Apply changes if needed
 - Execute next batch
 - Repeat until complete
@@ -55,13 +52,15 @@ Based on feedback:
 ### Step 5: Complete Development
 
 After all tasks complete and verified:
+
 - Announce: "I'm using the finishing-a-development-branch skill to complete this work."
-- **REQUIRED SUB-SKILL:** `finishing-a-development-branch`
+- **REQUIRED SUB-SKILL:** Use finishing-a-development-branch
 - Follow that skill to verify tests, present options, execute choice
 
 ## When to Stop and Ask for Help
 
 **STOP executing immediately when:**
+
 - Hit a blocker mid-batch (missing dependency, test fails, instruction unclear)
 - Plan has critical gaps preventing starting
 - You don't understand an instruction
@@ -72,38 +71,14 @@ After all tasks complete and verified:
 ## When to Revisit Earlier Steps
 
 **Return to Review (Step 1) when:**
+
 - Partner updates the plan based on your feedback
 - Fundamental approach needs rethinking
 
 **Don't force through blockers** - stop and ask.
 
-## Common Mistakes
-
-**Executing without critical review**
-- Problem: Blindly following plan with gaps
-- Fix: Step 1 explicitly requires raising concerns first
-
-**Batch size drift**
-- Problem: Doing 5-10 tasks without checkpoint
-- Fix: Default is 3. Report after EVERY batch.
-
-**Guessing through blockers**
-- Problem: Making assumptions when stuck
-- Fix: STOP immediately, ask for clarification
-
-**Skipping verification commands**
-- Problem: Mark complete without running tests
-- Fix: Each task has verification - run it
-
-## Integration
-
-**Called by:**
-- **writing-plans** (Parallel Session choice)
-
-**Calls:**
-- **finishing-a-development-branch** (Step 5)
-
 ## Remember
+
 - Review plan critically first
 - Follow plan steps exactly
 - Don't skip verifications

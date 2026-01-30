@@ -1,7 +1,7 @@
 {
   "name": "design-audit",
-  "repo": "savvy-web/lint-staged",
+  "repo": "savvy-web/pnpm-monorepo-template",
   "path": ".claude/skills/design-audit/SKILL.md",
-  "source": "github.com/savvy-web/lint-staged",
-  "downloaded_at": "2026-01-28T04:19:49.293264Z"
+  "source": "github.com/savvy-web/pnpm-monorepo-template",
+  "downloaded_at": "2026-01-30T04:43:25.667809Z"
 }

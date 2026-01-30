@@ -1,46 +1,64 @@
 ---
 name: supabase-postgres-best-practices
-description: "Supabase 出品的 Postgres 性能优化与最佳实践。在编写、评审或优化 Postgres 查询、表结构设计或数据库配置时使用。"
+description: Postgres performance optimization and best practices from Supabase. Use this skill when writing, reviewing, or optimizing Postgres queries, schema designs, or database configurations.
 license: MIT
+metadata:
+  author: supabase
+  version: "1.1.0"
+  organization: Supabase
+  date: January 2026
+  abstract: Comprehensive Postgres performance optimization guide for developers using Supabase and Postgres. Contains performance rules across 8 categories, prioritized by impact from critical (query performance, connection management) to incremental (advanced features). Each rule includes detailed explanations, incorrect vs. correct SQL examples, query plan analysis, and specific performance metrics to guide automated optimization and code generation.
 ---
 
-# Supabase Postgres 最佳实践
+# Supabase Postgres Best Practices
 
-面向 Postgres 的性能优化指南，由 Supabase 维护。包含 8 大类规则，按影响程度排序，用于指导自动化查询优化与表结构设计。
+Comprehensive performance optimization guide for Postgres, maintained by Supabase. Contains rules across 8 categories, prioritized by impact to guide automated query optimization and schema design.
 
-## 何时使用
+## When to Apply
 
-在以下场景参考本指南：
-- 编写 SQL 查询或设计表结构
-- 实现索引或查询优化
-- 排查数据库性能问题
-- 配置连接池或扩展
-- 利用 Postgres 特有功能做优化
-- 使用行级安全（RLS）
+Reference these guidelines when:
+- Writing SQL queries or designing schemas
+- Implementing indexes or query optimization
+- Reviewing database performance issues
+- Configuring connection pooling or scaling
+- Optimizing for Postgres-specific features
+- Working with Row-Level Security (RLS)
 
-## 规则类别与优先级
+## Rule Categories by Priority
 
-| 优先级 | 类别 | 影响 | 前缀 |
-|--------|------|------|------|
-| 1 | 查询性能 | 关键 | `query-` |
-| 2 | 连接管理 | 关键 | `conn-` |
-| 3 | 安全与 RLS | 关键 | `security-` |
-| 4 | 表结构设计 | 高 | `schema-` |
-| 5 | 并发与锁 | 中高 | `lock-` |
-| 6 | 数据访问模式 | 中 | `data-` |
-| 7 | 监控与诊断 | 低中 | `monitor-` |
-| 8 | 高级特性 | 低 | `advanced-` |
+| Priority | Category | Impact | Prefix |
+|----------|----------|--------|--------|
+| 1 | Query Performance | CRITICAL | `query-` |
+| 2 | Connection Management | CRITICAL | `conn-` |
+| 3 | Security & RLS | CRITICAL | `security-` |
+| 4 | Schema Design | HIGH | `schema-` |
+| 5 | Concurrency & Locking | MEDIUM-HIGH | `lock-` |
+| 6 | Data Access Patterns | MEDIUM | `data-` |
+| 7 | Monitoring & Diagnostics | LOW-MEDIUM | `monitor-` |
+| 8 | Advanced Features | LOW | `advanced-` |
 
-## 使用方式
+## How to Use
 
-阅读单条规则文件获取说明与 SQL 示例：
+Read individual rule files for detailed explanations and SQL examples:
 
 ```
-rules/query-missing-indexes.md
-rules/query-partial-indexes.md
-rules/_sections.md
+references/query-missing-indexes.md
+references/schema-partial-indexes.md
+references/_sections.md
 ```
 
-每条规则包含：为何重要、错误 SQL 示例、正确 SQL 示例、可选的 EXPLAIN 输出或指标、补充说明与参考、以及适用时的 Supabase 说明。
+Each rule file contains:
+- Brief explanation of why it matters
+- Incorrect SQL example with explanation
+- Correct SQL example with explanation
+- Optional EXPLAIN output or metrics
+- Additional context and references
+- Supabase-specific notes (when applicable)
 
-完整展开版见 `rules/` 目录下各 .md 规则文件。
+## References
+
+- https://www.postgresql.org/docs/current/
+- https://supabase.com/docs
+- https://wiki.postgresql.org/wiki/Performance_Optimization
+- https://supabase.com/docs/guides/database/overview
+- https://supabase.com/docs/guides/auth/row-level-security

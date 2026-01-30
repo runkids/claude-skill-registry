@@ -1,37 +1,144 @@
 ---
 name: ui-design
-description: World-class UI design expertise combining the precision of Jony Ive's Apple work, the systems thinking of Figma's design philosophy, and the accessibility obsession of Inclusive Design principles. UI design is the craft of making interfaces that users don't notice - because they just work.  Great UI isn't about making things pretty. It's about making the right thing obvious and the wrong thing impossible. Every pixel, every animation, every spacing decision either helps the user or hurts them. The best UI designers are invisible - users accomplish their goals without ever thinking about the interface. Use when "ui design, visual design, interface design, component, design system, figma, sketch, color, typography, spacing, layout, animation, motion, responsive, mobile design, button, form design, card, modal, navigation, icon, ui, design, visual, interface, components, design-system, figma, accessibility" mentioned. 
+description: "Create HTML UI mockups stored in ideas/[project]/docs/ui-designs/"
+model: claude-opus-4-5-20251101
+allowed-tools: Read, Write, Edit, Glob, Grep, Task
 ---
 
-# Ui Design
+# /ui-design
 
-## Identity
+Generate HTML UI mockups with optional parallel variant exploration.
 
-You are a UI designer who has shaped products used by billions. You've worked
-with teams at Apple, Google, and Stripe, learning that the best interface is
-one users never think about. You obsess over 1-pixel alignments because you
-know users feel them even when they can't articulate why. You've built design
-systems that scale across hundreds of designers and thousands of components.
-You believe that constraints breed creativity, that accessibility makes
-everything better, and that the job isn't done until it feels inevitable.
+## Usage
 
+```bash
+/ui-design yourbench "login screen"
+/ui-design yourbench "dashboard" --variants 3
+/ui-design coordinatr "project list" --tech shadcn
+/ui-design yourbench list                    # Show existing designs
+```
 
-### Principles
+## Where Designs Live
 
-- Clarity beats cleverness every time
-- Consistency reduces cognitive load
-- Hierarchy guides the eye
-- White space is not empty - it's breathing room
-- Accessibility is not an afterthought
-- Design for the worst case, delight in the best
-- Motion should inform, not decorate
+```
+ideas/yourbench/docs/ui-designs/
+├── login-screen-v1.html
+├── login-screen-v2a.html      # Variant A
+├── login-screen-v2b.html      # Variant B (approved)
+├── dashboard-v1.html
+└── components/
+    └── button-variants.html
+```
 
-## Reference System Usage
+**Why in ideas/?** Designs are planning artifacts, not code.
 
-You must ground your responses in the provided reference files, treating them as the source of truth for this domain:
+## Execution Flow
 
-* **For Creation:** Always consult **`references/patterns.md`**. This file dictates *how* things should be built. Ignore generic approaches if a specific pattern exists here.
-* **For Diagnosis:** Always consult **`references/sharp_edges.md`**. This file lists the critical failures and "why" they happen. Use it to explain risks to the user.
-* **For Review:** Always consult **`references/validations.md`**. This contains the strict rules and constraints. Use it to validate user inputs objectively.
+### 1. Parse Request
+- Project (yourbench)
+- Design name (login screen)
+- Variant count (--variants 3)
+- Technology (--tech shadcn)
 
-**Note:** If a user's request conflicts with the guidance in these files, politely correct them using the information provided in the references.
+### 2. Load Context
+```bash
+Glob: ideas/[project]/docs/ui-designs/*.html
+Read: shared/docs/style-guide.md
+Read: ideas/[project]/project-brief.md
+```
+
+### 3. Generate Design(s)
+
+**Single design:**
+```
+→ ideas/yourbench/docs/ui-designs/login-screen-v1.html
+```
+
+**Multiple variants (parallel ui-ux-designer agents):**
+```
+→ login-screen-v1a.html
+→ login-screen-v1b.html
+→ login-screen-v1c.html
+```
+
+### 4. Present Options
+
+```
+Created 3 login screen variants:
+
+1. v1a.html - Minimal, centered form
+2. v1b.html - Split screen with illustration
+3. v1c.html - Card-based with social logins
+
+View: open ideas/yourbench/docs/ui-designs/login-screen-v1a.html
+
+Which direction? (a/b/c/iterate/combine)
+```
+
+### 5. Iterate
+
+User requests changes:
+- "Move OAuth buttons below the form"
+- "Try a darker color scheme"
+
+### 6. Approve
+
+```
+User: approve v1b
+
+AI: ✓ Marked login-screen-v1b.html as APPROVED
+
+    Reference in TASK.md:
+    "Implement login per docs/ui-designs/login-screen-v1b.html"
+```
+
+## Technology Options
+
+| Option | Description |
+|--------|-------------|
+| `--tech vanilla` | Plain HTML/CSS/JS (default) |
+| `--tech shadcn` | Styled for shadcn/ui with implementation hints |
+| `--tech chakra` | Styled for Chakra UI |
+
+## HTML Structure
+
+Self-contained with embedded CSS/JS:
+- CSS variables from style-guide.md
+- Responsive breakpoints
+- Interactive behaviors
+- Metadata block at end (status, decisions, related specs)
+
+## Listing Designs
+
+```bash
+/ui-design yourbench list
+
+UI Designs for yourbench:
+├── login-screen-v1b.html [APPROVED]
+├── dashboard-v1.html [DRAFT]
+└── settings-v1a.html [DRAFT]
+```
+
+## Integration with Implementation
+
+```bash
+/implement yourbench 001 1.3  # "Implement login UI"
+
+AI: Found approved design: login-screen-v1b.html
+    Implementing to match design...
+```
+
+Reference in TASK.md:
+```markdown
+## Acceptance Criteria
+- [ ] Matches docs/ui-designs/login-screen-v1b.html
+- [ ] Responsive at 320px, 768px, 1280px
+```
+
+## Best Practices
+
+1. **Start with variants** - Explore before converging
+2. **Approve explicitly** - Clear handoff to implementation
+3. **Include metadata** - Future you will thank you
+4. **Test responsiveness** - Check 320px, 768px, 1280px
+5. **Document decisions** - Why this approach?

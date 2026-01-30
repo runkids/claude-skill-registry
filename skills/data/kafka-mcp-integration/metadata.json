@@ -1,9 +1,7 @@
 {
   "name": "kafka-mcp-integration",
-  "description": "MCP server integration for Kafka operations. Auto-activates on keywords kafka mcp, mcp server, mcp configure, mcp setup, kanapuli, tuannvm, confluent mcp, kafka integration. Provides configuration exa",
   "repo": "anton-abyzov/specweave",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/anton-abyzov/specweave"
+  "path": "plugins/specweave-kafka/skills/kafka-mcp-integration/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-30T01:38:38.627712Z"
 }

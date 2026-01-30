@@ -1,7 +1,7 @@
 {
   "name": "github-workflow",
-  "repo": "amattas/retail-demo",
-  "path": ".claude/skills/github-workflow/SKILL.md",
-  "source": "github.com/amattas/retail-demo",
-  "downloaded_at": "2026-01-29T04:14:03.911258Z"
+  "repo": "yaakaito/env",
+  "path": "dotfiles/.claude/skills/github-workflow/SKILL.md",
+  "source": "github.com/yaakaito/env",
+  "downloaded_at": "2026-01-30T01:18:44.421937Z"
 }

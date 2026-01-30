@@ -1,7 +1,7 @@
 {
   "name": "ollama-setup",
-  "repo": "HelixDevelopment/HelixAgent",
-  "path": "skills/plugins/ai-ml/ollama-local-ai/ollama-setup/SKILL.md",
-  "source": "github.com/HelixDevelopment/HelixAgent",
-  "downloaded_at": "2026-01-29T04:14:09.733741Z"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/ollama-setup/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-30T04:24:24.395707Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "ruff",
-  "description": "This skill should be used when users need to lint, format, or validate Python code using the Ruff command-line tool. Use this skill for tasks involving Python code quality checks, automatic code forma",
-  "repo": "PovertyAction/ipa-stata-template",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Ven0m0/claude-config",
+  "path": "claude/skills/ruff/SKILL.md",
+  "source": "github.com/Ven0m0/claude-config",
+  "downloaded_at": "2026-01-30T04:01:32.710214Z"
 }

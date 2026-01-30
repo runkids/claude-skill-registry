@@ -1,9 +1,7 @@
 {
   "name": "common",
-  "description": "全ロール共通で使用できる基本ツール",
-  "repo": "Shin0205go/Aegis-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "wollfoo/codex-setup",
+  "path": "skills/common/SKILL.md",
+  "source": "github.com/wollfoo/codex-setup",
+  "downloaded_at": "2026-01-30T03:22:35.104225Z"
 }

@@ -1,389 +1,347 @@
 ---
-name: GitHub CLI
-description: Expert help with GitHub CLI (gh) for managing pull requests, issues, repositories, workflows, and releases. Use this when working with GitHub operations from the command line.
+name: GitHub CLI Workflows
+description: This skill should be used when the user asks to "use GitHub CLI", "use gh command", work with "pull requests", "create a PR", "merge pull request", "approve PR", "review PR comments", "check PR status", work with "issues", "triage issues", "list issues", "label issues", work with "GitHub Actions", "check CI status", "fix failing CI", "view workflow runs", "download workflow logs", "rerun workflow", or mentions "gh tool", "gh command", or GitHub automation tasks. Provides comprehensive guidance for autonomously creating and executing GitHub workflows using the official GitHub CLI.
+version: 0.1.0
 ---
 
-# GitHub CLI (gh)
+# GitHub CLI Workflows
 
-Expert guidance for GitHub CLI operations and workflows.
+## Purpose
 
-## Installation & Setup
+Enable autonomous creation and execution of GitHub workflows using the official GitHub CLI (`gh`). This skill provides the knowledge and patterns needed to work with pull requests, issues, GitHub Actions, and the GitHub API through command-line operations.
 
+## Core Philosophy
+
+Work autonomously within user-specified boundaries, respecting the current Claude Code mode (accept edits vs plan mode). Design multi-step workflows tailored to specific needs, handle errors intelligently, and always verify context before executing repository operations.
+
+## Prerequisites
+
+### Required Tools
+
+**GitHub CLI must be installed.** Check with:
 ```bash
-# Login to GitHub
-gh auth login
-
-# Check authentication status
-gh auth status
-
-# Configure git to use gh as credential helper
-gh auth setup-git
+gh --version
 ```
 
-## Pull Requests
+If not installed, guide the user to https://cli.github.com/ for installation instructions (brew, apt, etc.).
 
-### Creating PRs
+### Authentication Status
+
+**Do not proactively check authentication**, but be prepared to recognize and diagnose authentication errors. When auth issues occur, guide the user to resolve them (see `references/troubleshooting.md`).
+
+## The Golden Rule: Use `--help` First
+
+**CRITICAL:** Every `gh` command and subcommand supports `--help` to display comprehensive usage information, including:
+- Available flags and options
+- Argument formats
+- Detailed examples
+- Exit codes
+- Related commands
+
+**When to use `--help`:**
+- Before constructing any complex command
+- When uncertain about flag syntax
+- When encountering errors (verify command structure)
+- To discover available subcommands
+- To check for new features or options
+
+**Examples:**
 ```bash
-# Create PR interactively
-gh pr create
-
-# Create PR with title and body
-gh pr create --title "Add feature" --body "Description"
-
-# Create PR to specific branch
-gh pr create --base main --head feature-branch
-
-# Create draft PR
-gh pr create --draft
-
-# Create PR from current branch
-gh pr create --fill  # Uses commit messages
+gh --help                    # List all commands
+gh repo --help               # Repository commands
+gh repo create --help        # Specific command details
+gh pr create --help          # PR creation options
+gh api --help                # API usage with examples
 ```
 
-### Viewing PRs
+**Pattern:** `gh <command> <subcommand> --help` works at every level. Always check help before guessing command syntax.
+
+## Repository Context
+
+Before executing repo-specific commands, verify repository context:
+
 ```bash
-# List PRs
-gh pr list
-
-# List my PRs
-gh pr list --author @me
-
-# View PR details
-gh pr view 123
-
-# View PR in browser
-gh pr view 123 --web
-
-# View PR diff
-gh pr diff 123
-
-# Check PR status
-gh pr status
-```
-
-### Managing PRs
-```bash
-# Checkout PR locally
-gh pr checkout 123
-
-# Review PR
-gh pr review 123 --approve
-gh pr review 123 --comment --body "Looks good!"
-gh pr review 123 --request-changes --body "Please fix X"
-
-# Merge PR
-gh pr merge 123
-gh pr merge 123 --squash
-gh pr merge 123 --rebase
-gh pr merge 123 --merge
-
-# Close PR
-gh pr close 123
-
-# Reopen PR
-gh pr reopen 123
-
-# Ready draft PR
-gh pr ready 123
-```
-
-### PR Checks
-```bash
-# View PR checks
-gh pr checks 123
-
-# Watch PR checks
-gh pr checks 123 --watch
-```
-
-## Issues
-
-### Creating Issues
-```bash
-# Create issue interactively
-gh issue create
-
-# Create issue with title and body
-gh issue create --title "Bug report" --body "Description"
-
-# Create issue with labels
-gh issue create --title "Bug" --label bug,critical
-
-# Assign issue
-gh issue create --title "Task" --assignee @me
-```
-
-### Viewing Issues
-```bash
-# List issues
-gh issue list
-
-# List my issues
-gh issue list --assignee @me
-
-# List by label
-gh issue list --label bug
-
-# View issue details
-gh issue view 456
-
-# View in browser
-gh issue view 456 --web
-```
-
-### Managing Issues
-```bash
-# Close issue
-gh issue close 456
-
-# Reopen issue
-gh issue reopen 456
-
-# Edit issue
-gh issue edit 456 --title "New title"
-gh issue edit 456 --add-label bug
-gh issue edit 456 --add-assignee @user
-
-# Comment on issue
-gh issue comment 456 --body "Update"
-```
-
-## Repository Operations
-
-### Repository Info
-```bash
-# View repository
 gh repo view
-
-# View in browser
-gh repo view --web
-
-# Clone repository
-gh repo clone owner/repo
-
-# Fork repository
-gh repo fork owner/repo
-
-# List repositories
-gh repo list owner
 ```
 
-### Repository Management
-```bash
-# Create repository
-gh repo create my-repo --public
-gh repo create my-repo --private
+This confirms:
+- Current repository (owner/repo)
+- Authentication works
+- Proper permissions exist
 
-# Delete repository
-gh repo delete owner/repo
+**When context is unclear**, infer from the current directory unless explicitly specified otherwise. Use `-R owner/repo` flag to override when working across multiple repositories.
 
-# Sync fork
-gh repo sync owner/repo
+## Core Capabilities
 
-# Set default repository
-gh repo set-default
-```
+### Pull Requests
 
-## Workflows & Actions
+Create, review, comment, merge, and manage pull requests programmatically.
 
-### Viewing Workflows
-```bash
-# List workflows
-gh workflow list
+**Common operations:**
+- Create PR from current branch
+- List open PRs with filters
+- View PR details and checks
+- Review and comment on PRs
+- Merge PRs with various strategies
+- Checkout PR branches locally
 
-# View workflow runs
-gh run list
+See `references/pr-workflows.md` for detailed patterns.
 
-# View specific run
-gh run view 789
+### Issues
 
-# Watch run
-gh run watch 789
+Triage, label, comment, and manage issues systematically.
 
-# View run logs
-gh run view 789 --log
-```
+**Common operations:**
+- List new/open issues
+- Create issues with templates
+- Add/remove labels
+- Comment and discuss
+- Close with resolution notes
+- Link to PRs
 
-### Managing Workflows
-```bash
-# Trigger workflow
-gh workflow run workflow.yml
+See `references/issue-workflows.md` for detailed patterns.
 
-# Cancel run
-gh run cancel 789
+### GitHub Actions
 
-# Rerun workflow
-gh run rerun 789
+Monitor workflow runs, analyze failures, view logs, and trigger reruns.
 
-# Download artifacts
-gh run download 789
-```
+**Common operations:**
+- List workflow runs
+- Check run status and conclusion
+- Download and analyze logs
+- Rerun failed workflows
+- Cancel running workflows
+- View workflow definitions
 
-## Releases
+See `references/actions-workflows.md` for detailed patterns.
 
-### Creating Releases
-```bash
-# Create release
-gh release create v1.0.0
+### GitHub API
 
-# Create release with notes
-gh release create v1.0.0 --notes "Release notes"
+Execute custom operations not covered by core commands using `gh api`.
 
-# Create release with files
-gh release create v1.0.0 dist/*.tar.gz
+**Common operations:**
+- GraphQL queries for complex data
+- REST API operations
+- Pagination handling with `--paginate`
+- JSON output parsing with `--jq`
+- Custom integrations
 
-# Create draft release
-gh release create v1.0.0 --draft
+See `references/api-usage.md` for detailed patterns and examples.
 
-# Generate release notes automatically
-gh release create v1.0.0 --generate-notes
-```
+## Working with JSON Output
 
-### Managing Releases
-```bash
-# List releases
-gh release list
+Many `gh` commands support `--json` for structured output and `--jq` for filtering.
 
-# View release
-gh release view v1.0.0
+**When to use JSON:**
+- Parse results programmatically
+- Extract specific fields
+- Process multiple items
+- Make decisions based on output
 
-# Download release assets
-gh release download v1.0.0
+**When to use human-readable:**
+- Show output directly to user
+- Initial exploration
+- Debugging
 
-# Delete release
-gh release delete v1.0.0
-```
-
-## Gists
+**Pattern:** Fetch with JSON, format for humans in responses:
 
 ```bash
-# Create gist
-gh gist create file.txt
+# Get structured data
+gh pr list --json number,title,author,state
 
-# Create gist from stdin
-echo "content" | gh gist create -
+# Extract specific fields
+gh pr view 123 --json title,body --jq '.title'
 
-# List gists
-gh gist list
-
-# View gist
-gh gist view <gist-id>
-
-# Edit gist
-gh gist edit <gist-id>
-
-# Delete gist
-gh gist delete <gist-id>
+# Process and format for user display
 ```
 
-## Advanced Features
+Always show users formatted, readable output in responses, even when working with JSON internally.
 
-### Aliases
+## Destructive Operations
+
+**Always ask user confirmation** before executing operations that:
+- Close issues or PRs
+- Delete branches
+- Merge pull requests
+- Archive repositories
+- Modify labels or milestones permanently
+
+**Offer dry-run option when available:**
+```
+I can perform a dry-run first to show what would happen. Would you like me to:
+1. Execute the operation now
+2. Perform a dry-run and report the outcome
+3. Show you the exact command to review first
+```
+
+Use `--dry-run` flags where supported (check `--help` for availability).
+
+## Error Handling Workflow
+
+When a `gh` command fails, follow this sequence:
+
+### 1. Review Command Output
+Most errors have clear, actionable messages. Read the error carefully:
+- Authentication required
+- Permission denied
+- Resource not found
+- Invalid arguments
+- Rate limit exceeded
+
+### 2. Search Troubleshooting Documentation
+Use grep/search tools to find relevant information in `references/troubleshooting.md`:
 ```bash
-# Create alias
-gh alias set pv "pr view"
-gh alias set bugs "issue list --label bug"
-
-# List aliases
-gh alias list
-
-# Use alias
-gh pv 123
+# Search for specific error patterns
+grep -i "authentication" references/troubleshooting.md
 ```
 
-### API Access
+Avoid reading the entire troubleshooting file unless necessary.
+
+### 3. Verify Command with `--help`
+Check that command syntax matches the help documentation:
 ```bash
-# Make API call
-gh api repos/:owner/:repo/issues
-
-# With JSON data
-gh api repos/:owner/:repo/issues -f title="Bug" -f body="Description"
-
-# Paginated results
-gh api --paginate repos/:owner/:repo/issues
+gh <command> <subcommand> --help
 ```
 
-### Extensions
-```bash
-# List extensions
-gh extension list
+Common issues:
+- Wrong flag names
+- Missing required arguments
+- Incorrect argument order
+- Flag used with wrong command
 
-# Install extension
-gh extension install owner/gh-extension
+### 4. Report to User
+If the error persists after these steps, report detailed diagnostics:
+- Exact command executed
+- Complete error output
+- Steps already attempted
+- Relevant troubleshooting findings
+- Suggested next actions
 
-# Upgrade extensions
-gh extension upgrade --all
-```
+Ask for user guidance on how to proceed.
 
-## Common Workflows
+## Autonomy and User Boundaries
 
-### Code Review Workflow
-```bash
-# List PRs assigned to you
-gh pr list --assignee @me
+### Respect Current Mode
 
-# Checkout PR for testing
-gh pr checkout 123
+**In accept-edits mode:**
+- Make changes directly
+- Execute commands autonomously
+- Commit and push as needed
 
-# Run tests, review code...
+**In plan mode:**
+- Create detailed implementation plans
+- Get user approval before execution
+- Document each planned step
 
-# Approve PR
-gh pr review 123 --approve --body "LGTM!"
+### User-Specified Boundaries
 
-# Merge PR
-gh pr merge 123 --squash
-```
+Honor any constraints the user provides:
+- Repository limits
+- Branch protections
+- Label conventions
+- Review requirements
+- Approval workflows
 
-### Quick PR Creation
-```bash
-# Create feature branch, make changes, commit
-git checkout -b feature/new-feature
-# ... make changes ...
-git add .
-git commit -m "Add new feature"
-git push -u origin feature/new-feature
+### Workflow-Specific Autonomy
 
-# Create PR from commits
-gh pr create --fill
+**Fix Failing CI/CD:**
+View run → Download logs → Analyze errors → Suggest fixes → Implement → Push → (Rerun only if workflow won't auto-trigger)
 
-# View PR
-gh pr view --web
-```
+**Triage Issues:**
+Execute based on user-specified parameters (which labels to apply, what comments to add, etc.)
 
-### Issue Triage
-```bash
-# List open issues
-gh issue list
+**Implement PR Feedback:**
+Read comments → Make changes → Commit → Push (respecting current mode)
 
-# Add labels to issues
-gh issue edit 456 --add-label needs-triage
-gh issue edit 456 --add-label bug
+**Create Pull Requests:**
+Verify branch → Push if needed → Create PR with description → Link issues (respecting current mode)
 
-# Assign issue
-gh issue edit 456 --add-assignee @developer
-```
+Be as autonomous as possible within established boundaries.
 
-## Configuration
+## Common Patterns
+
+For frequently-used patterns and workflows, see `references/common-patterns.md`:
+- Authentication checks and recovery
+- Multi-repository operations
+- Batch processing issues/PRs
+- CI/CD integration patterns
+- Error recovery strategies
+- Working with draft PRs
+- Managing labels and milestones
+- Using PR templates
+
+## Command Discovery
+
+Discover available commands at any level:
 
 ```bash
-# Set default editor
-gh config set editor vim
-
-# Set default git protocol
-gh config set git_protocol ssh
-
-# View configuration
-gh config list
-
-# Set browser
-gh config set browser firefox
+gh --help                    # All core commands
+gh pr --help                 # PR subcommands
+gh issue --help              # Issue subcommands
+gh run --help                # Actions run commands
+gh workflow --help           # Workflow commands
+gh api --help                # API usage (extensive examples)
 ```
 
-## Tips
+Each help page includes:
+- Command descriptions
+- Available subcommands
+- Flags and options
+- Usage examples
+- Related commands
 
-1. **Use `--web` flag**: Open items in browser for detailed view
-2. **Interactive prompts**: Most commands work interactively if you omit parameters
-3. **Filters**: Use `--author`, `--label`, `--state` to filter lists
-4. **JSON output**: Add `--json` flag for scriptable output
-5. **Template repos**: Use `gh repo create --template` for templates
-6. **Auto-merge**: Enable with `gh pr merge --auto`
+## Output Visibility
+
+**Always show commands before execution** so users understand what's running:
+
+```
+Checking repository context with:
+$ gh repo view
+
+Creating pull request with:
+$ gh pr create --title "feat: Add user authentication" --body "..." --base main
+```
+
+This transparency helps users:
+- Understand the workflow
+- Learn `gh` commands
+- Verify correctness
+- Reproduce manually if needed
+
+## Additional Resources
+
+### Reference Files
+
+Detailed workflows and patterns are documented in `references/`:
+
+- **`references/pr-workflows.md`** - Pull request operations: create, review, merge, comment
+- **`references/issue-workflows.md`** - Issue management: triage, label, comment, close
+- **`references/actions-workflows.md`** - GitHub Actions: check runs, view logs, rerun
+- **`references/api-usage.md`** - Direct API calls with `gh api` for custom operations
+- **`references/common-patterns.md`** - Reusable patterns: auth checks, error recovery, batch operations
+- **`references/troubleshooting.md`** - Common problems and solutions
+
+### Example Files
+
+Real-world scenarios with expected outputs in `examples/`:
+
+- **`examples/fix-failing-ci.md`** - Complete workflow for diagnosing and fixing CI failures
+- **`examples/triage-issues.md`** - Systematic issue triage with labeling and commenting
+- **`examples/pr-review-cycle.md`** - End-to-end PR creation, review, and merge process
+
+## Key Reminders
+
+1. **Check `--help` before guessing** command syntax
+2. **Verify repository context** before repo-specific operations
+3. **Ask confirmation** for destructive operations
+4. **Follow error handling workflow**: output → troubleshooting → --help → report
+5. **Respect user mode** (accept-edits vs plan mode)
+6. **Show commands** before execution for transparency
+7. **Format output** for human readability in responses
+8. **Be autonomous** within user-specified boundaries
+9. **Use JSON/jq** for programmatic processing
+10. **Reference detailed docs** in references/ as needed
+
+---
+
+For comprehensive workflow details, consult the reference files. For working examples, see the examples directory. Always prioritize using `--help` to discover current command capabilities.

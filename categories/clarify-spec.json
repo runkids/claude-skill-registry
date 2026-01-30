@@ -1,0 +1,19 @@
+{
+  "category": "clarify-spec",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.767493Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "AKTIVIERT SICH AUTOMATISCH bei vagen Auftraegen. LIEBER EINMAL ZU OFT NACHFRAGEN als falsch implementieren.\n\nErkennungsmerkmale (EINES genuegt!):\n- Auftrag <25 Woerter\n- Keine konkreten Dateinamen/Pfa",
+      "repo": "freitasp1/claude-code-skills",
+      "path": "clarify-spec",
+      "branch": "main",
+      "category": "clarify-spec",
+      "tags": [],
+      "stars": 0,
+      "install": "freitasp1/claude-code-skills",
+      "source": "github.com/freitasp1/claude-code-skills"
+    }
+  ]
+}

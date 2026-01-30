@@ -1,92 +1,71 @@
 ---
 name: checkpoint
-description: ワークフローのチェックポイント管理ガイド。gitを活用して作業の進捗を記録・検証・比較する。チェックポイントの作成、検証、一覧表示、クリアをサポート。「チェックポイントを作成」「進捗を記録」「状態を保存」「チェックポイントと比較」「checkpoint」などのフレーズで発動。
+description: Save mid-session state for recovery without clearing context. Use after major milestones, before risky operations, or periodically during long sessions.
+allowed-tools: Read, Write
 ---
 
-# チェックポイント管理（Checkpoint）
+# Checkpoint
 
-ワークフローにおけるチェックポイントの作成・検証を行うためのガイド。
+Save session state at key points to enable recovery without losing progress. Unlike /compact (clears context), checkpoint preserves everything.
 
-## このスキルの目的
+## When to Use
 
-1. **進捗の記録** - 作業の節目でgit状態を保存
-2. **状態の検証** - 過去のチェックポイントとの比較
-3. **履歴の管理** - チェックポイント一覧の表示とクリーンアップ
+- After completing significant work
+- Before attempting something risky
+- Every 30-45 minutes in long sessions
+- Before spawning multiple parallel agents
+- When user takes a break
 
-## 使用方法
+## Checkpoint Types
 
-```
-checkpoint {action} {name}
-```
+| Type | Trigger | Depth |
+|------|---------|-------|
+| **Milestone** | Major work completed | Full |
+| **Periodic** | Time-based (30-45 min) | Standard |
+| **Pre-risk** | About to try uncertain operation | Full + rollback plan |
+| **Quick** | User stepping away | Minimal |
 
-アクション:
-- `create {name}` - 名前付きチェックポイントを作成
-- `verify {name}` - 名前付きチェックポイントと検証
-- `list` - すべてのチェックポイントを表示
-- `clear` - 古いチェックポイントを削除（最新5件は保持）
+## What Gets Saved
 
-## ワークフロー
+- Current objective and task in progress
+- Position in workflow (which steps complete)
+- Files changed and decisions made
+- Active agents and pending results
+- Docs loaded and key facts established
 
-### チェックポイントの作成
+## Process
 
-チェックポイントを作成する際の手順:
+1. Determine checkpoint type (milestone/periodic/pre-risk/quick)
+2. Write to `.context/checkpoints/checkpoint-[timestamp].md`
+3. Update `.context/checkpoints/INDEX.md`
+4. Confirm to user and continue work
 
-1. 現在の状態がクリーンであることを確認
-2. git stashまたはコミットをチェックポイント名で作成
-3. チェックポイントを `.claude/checkpoints.log` に記録:
+## Output Location
 
-```bash
-echo "$(date +%Y-%m-%d-%H:%M) | $CHECKPOINT_NAME | $(git rev-parse --short HEAD)" >> .claude/checkpoints.log
-```
+`.context/checkpoints/checkpoint-[timestamp].md`
 
-4. チェックポイント作成を報告
+## Quick Checkpoint
 
-### チェックポイントの検証
-
-チェックポイントと比較検証する際の手順:
-
-1. ログからチェックポイントを読み込む
-2. 現在の状態とチェックポイントを比較:
-   - チェックポイント以降に追加されたファイル
-   - チェックポイント以降に変更されたファイル
-   - テスト合格率の変化
-   - カバレッジの変化
-
-3. 以下の形式で報告:
-
-```
-チェックポイント比較: {name}
-============================
-変更ファイル数: X
-テスト: +Y 合格 / -Z 失敗
-カバレッジ: +X% / -Y%
-ビルド: [成功/失敗]
+For rapid saves:
+```markdown
+# Quick Checkpoint - [timestamp]
+**Task**: [current]
+**Position**: [where]
+**Next**: [next action]
+**Files**: [changed]
 ```
 
-### チェックポイント一覧
+## Comparison
 
-すべてのチェックポイントを以下の情報とともに表示:
-- 名前
-- タイムスタンプ
-- Git SHA
-- ステータス（現在、遅れ、先行）
+| Skill | When | Context | Purpose |
+|-------|------|---------|---------|
+| /checkpoint | Mid-session | Preserved | Recovery point |
+| /compact | Context saturated | Cleared | Continue working |
+| /handoff | Session ending | N/A | Pass to next session |
 
-## 典型的なワークフロー
+## Related
 
-```
-[開始] --> checkpoint create "feature-start"
-   |
-[実装] --> checkpoint create "core-done"
-   |
-[テスト] --> checkpoint verify "core-done"
-   |
-[リファクタリング] --> checkpoint create "refactor-done"
-   |
-[PR] --> checkpoint verify "feature-start"
-```
-
-## 重要な注意事項
-
-- チェックポイントはgitの状態を基準に動作する
-- `.claude/checkpoints.log` ファイルでチェックポイント履歴を管理
-- `clear` 実行時は最新5件を保持し、それ以前のものを削除
+- Full checkpoint template: See [reference/full-template.md](reference/full-template.md)
+- Pre-risk template: See [reference/pre-risk-template.md](reference/pre-risk-template.md)
+- Recovery instructions: See [reference/recovery.md](reference/recovery.md)
+- To resume: `/session-start --checkpoint [timestamp]`

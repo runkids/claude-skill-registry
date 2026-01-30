@@ -1,13 +1,7 @@
 {
   "name": "reflexion",
-  "description": "Record feedback on whether patterns retrieved via get-pattern were helpful. Essential for training the recommendation system.",
-  "repo": "dug-21/neural-data-platform",
-  "category": "data",
-  "tags": [
-    "reflexion"
-  ],
-  "stars": 0,
-  "dir_name": "reflexion",
-  "github_path": ".claude/skills/reflexion",
-  "github_branch": "main"
+  "repo": "gudzenkov/SuperClaudeZero",
+  "path": ".claude/skills/reflexion/SKILL.md",
+  "source": "github.com/gudzenkov/SuperClaudeZero",
+  "downloaded_at": "2026-01-30T03:39:05.040851Z"
 }

@@ -1,86 +1,148 @@
 ---
-name: web
-description: Use to browse or verify external info—run web searches, open pages, drive Chrome via CDP tools, and cite sources when facts may be outdated, niche, or user-requested.
+name: dev-web
+description: Create and manage modern React web applications using Bun, Vite, React 19, Tailwind CSS 4, and shadcn/ui. Use this skill when the user asks to build a frontend, a web app, or modify UI components.
+metadata:
+  author: Yuga Sun
+  version: "2026.01.29"
 ---
 
-# Web (search + browse + cite + CDP)
+# Web Development Skill
 
-## Overview
-Default to web search when info may have changed, is niche, or the user asks. Use `web.run` for queries; follow citation rules and prefer authoritative sources. If interaction with a live page is needed, start Chrome with the bundled CDP helpers (`tools/start.js`, `nav.js`, `eval.js`, `pick.js`, `screenshot.js`, `click-link.js`).
+## Instructions
 
-## When to Use
-- User says search/browse/look up/verify.
-- Topics likely to change: news, prices, releases, schedules, policies, versions, CEOs, rankings, travel, recommendations.
-- Niche/uncertain terms or potential typos.
-- Need direct quotes/links/citations.
-- Need to click, navigate, or extract structured data from a live site (use CDP tools).
+Use this skill to scaffold and maintain web frontend projects in the `web/` directory. Follow the stack preferences and configuration details below.
 
-## Core Pattern
-1) Clarify intent + recency if not given.
-2) Issue 1–3 targeted `search_query` calls (diverse terms/domains as needed).  
-3) Open promising results; skim with `find` for key patterns (names, dates, numbers).  
-4) Extract 3–5 load-bearing facts; ensure dates are explicit.  
-5) Cite each non-obvious fact with citeturnX… immediately after the sentence.  
-6) State assumptions; if data missing, say so briefly.
-7) If interaction is required, start Chrome and use CDP helpers (below) to click/navigate/screenshot.
+### Quick Start
 
-## Query Tips
-- Add qualifiers: `site:docs.example.com`, version numbers, region.
-- For names with ambiguity, include org or role.
-- For recency: set `recency` days on `search_query` when asking “today/latest”.
-- Run multiple queries in one `search_query` array to save turns.
+1.  **Initialize**: Use `bun create vite web --template react-ts`.
+2.  **Install**: `bun install`.
+3.  **Styling**: Configure Tailwind CSS 4.
+4.  **Components**: Initialize `shadcn/ui`.
 
-## Reading & Validation
-- Check publish date vs event date; prefer the latest credible source.
-- Cross-check at least two domains for important claims.
-- Avoid low-trust domains unless only source; if used, flag confidence.
+## Core Stack preferences
 
-## CDP Browser Controls (Chrome DevTools Protocol)
-- Start Chrome with remote debugging on :9222  
-  ```bash
-  ./tools/start.js          # fresh profile
-  ./tools/start.js --profile # reuse your profile/cookies
-  ```
-- Navigate current tab or open new tab  
-  ```bash
-  ./tools/nav.js https://example.com
-  ./tools/nav.js https://example.com --new
-  ```
-- Evaluate JS in active tab  
-  ```bash
-  ./tools/eval.js 'document.title'
-  ./tools/eval.js 'document.querySelectorAll(\"a\").length'
-  ```
-- Screenshot current viewport  
-  ```bash
-  ./tools/screenshot.js
-  ```
-- Pick elements interactively  
-  ```bash
-  ./tools/pick.js "Click the submit button"
-  ```
-- Click a known link/text  
-  ```bash
-  ./tools/click-link.js "Submit"
-  ```
-- All CDP scripts live in `skills/web/tools/`; ensure they’re executable.
+### Package Manager & Runtime (Bun)
 
-## Citations
-- Place after punctuation; avoid bold/italics/code fences.  
-- Group multiple sources: citeturn2search1turn2open0  
-- Cite every fact that isn’t obvious or could have changed since 2024.  
-- Don’t paste raw URLs; citations render as links.
+Use **Bun** as the primary package manager and runtime.
 
-## Output Style
-- Be concise; surface the answer first, then short context.  
-- Include exact dates (e.g., “as of 2025-12-12”).  
-- If unresolved, say what you tried and what’s missing.
+| Command | Description |
+|---------|-------------|
+| `bun install` | Install dependencies |
+| `bun add <pkg>` | Add dependency |
+| `bun add -d <pkg>` | Add dev dependency |
+| `bun run dev` | Start development server |
 
-## Red Flags
-- Answering from memory when the topic is time-sensitive.  
-- No dates on “latest/new/current”.  
-- Failing to cite or citing irrelevant pages.  
-- Over-long quotes; keep ≤25 words per source.  
-- Ignoring conflicting sources—mention disagreement briefly.
-- Using CDP without starting Chrome on :9222 via `tools/start.js`.
-- Forgetting to give citations when summarizing CDP-derived content.
+### Project Location
+
+The web frontend project should be initialized in the `web/` directory.
+
+### Framework & Build (Vite + React 19)
+
+Use **Vite** with **React 19** and **TypeScript 5**.
+
+To create a new project:
+```bash
+bun create vite web --template react-ts
+```
+
+### Styling (Tailwind CSS 4)
+
+Use **Tailwind CSS v4**.
+
+-   Install using the Vite plugin: `@tailwindcss/vite` and `tailwindcss`.
+-   Use the CSS-first configuration approach where possible (`@import "tailwindcss";`).
+
+Installation:
+```bash
+bun add tailwindcss@next @tailwindcss/vite
+```
+
+### UI Library (shadcn/ui 3)
+
+Use **shadcn/ui v3** for the component system.
+
+-   Initialize with `bunx --bun shadcn@latest init`.
+-   Configure `components.json` to resolve paths correctly (e.g., `@/components`, `@/lib/utils`).
+-   Use `bunx --bun shadcn@latest add <component>` to add components.
+
+### Data & Routing (TanStack)
+
+Use the **TanStack** suite for complex app needs:
+
+-   **@tanstack/react-query**: For async state management.
+-   **@tanstack/react-router**: For type-safe routing.
+
+Installation:
+```bash
+bun add @tanstack/react-query @tanstack/react-router
+```
+
+---
+
+## Configuration Details
+
+### TypeScript
+
+Ensure `tsconfig.json` is set to strict mode.
+
+```json
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+### Vite Configuration
+
+Update `vite.config.ts` to include the Tailwind CSS 4 plugin and path aliases.
+
+```ts
+import tailwindcss from '@tailwindcss/vite'
+import react from '@vitejs/plugin-react'
+import path from "node:path"
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [
+    react(),
+    tailwindcss(),
+  ],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+})
+```
+
+### Global CSS
+
+In `src/index.css`:
+
+```css
+@import "tailwindcss";
+
+/* Configuration for shadcn/ui CSS variables should be added here if not automatically handled by the CLI init */
+```
+
+---
+
+## References
+
+### Styling & Theming
+
+| Topic | Description | Reference |
+|-------|-------------|-----------|
+| Theming System | CSS variables, Dark mode, and Tailwind v4 configuration | [theme](references/theme.md) |
+
+

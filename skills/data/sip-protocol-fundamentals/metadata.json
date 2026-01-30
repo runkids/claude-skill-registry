@@ -1,9 +1,7 @@
 {
   "name": "sip-protocol-fundamentals",
-  "description": "Use when working with SIP messages, methods, call flows, and protocol fundamentals for VoIP applications.",
   "repo": "TheBushidoCollective/han",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-sip/skills/sip-protocol-fundamentals/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-30T03:34:01.691073Z"
 }

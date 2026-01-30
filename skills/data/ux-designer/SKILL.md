@@ -1,446 +1,682 @@
 ---
-name: UX Designer
-description: Expert UI/UX design guidance for building unique, accessible, and user-centered interfaces. Use when designing interfaces, making visual design decisions, choosing colors/typography, implementing responsive layouts, or when user mentions design, UI, UX, styling, or visual appearance. Always ask before making design decisions.
+name: ux-designer
+description: Perfect UX/UI designer that eliminates bugs, improves usability, and ensures flawless user experience. Use when user mentions "perfect the UI", "fix UX bugs", "improve demo", or "make it flawless".
 version: 1.0.0
+agents: [codex-deep-research, gemini-research-analyst]
 ---
 
-# UX Designer
-
-Expert UI/UX design skill that helps create unique, accessible, and thoughtfully designed interfaces. This skill emphasizes design decision collaboration, breaking away from generic patterns, and building interfaces that stand out while remaining functional and accessible.
-
-## Core Philosophy
-
-**CRITICAL: Design Decision Protocol**
-- **ALWAYS ASK** before making any design decisions (colors, fonts, sizes, layouts)
-- Never implement design changes until explicitly instructed
-- The guidelines below are practical guidance for when design decisions are approved
-- Present alternatives and trade-offs, not single "correct" solutions
-
-## Foundational Design Principles
-
-### Stand Out From Generic Patterns
-
-**Avoid Generic Training Dataset Patterns:**
-- Don't default to "Claude style" designs (excessive bauhaus, liquid glass, apple-like)
-- Don't use generic SaaS aesthetics that look machine-generated
-- Don't rely only on solid colors - suggest photography, patterns, textures
-- Think beyond typical patterns - you can step off the written path
-
-**Draw Inspiration From:**
-- Modern landing pages (Perplexity, Comet Browser, Dia Browser)
-- Framer templates and their innovative approaches
-- Leading brand design studios
-- Historical design movements (Bauhaus, Otl Aicher, Braun) - but as inspiration, not imitation
-- Beautiful background animations (CSS, SVG) - slow, looping, subtle
-
-**Visual Interest Strategies:**
-- Unique color pairs that aren't typical
-- Animation effects that feel fresh
-- Background patterns that add depth without distraction
-- Typography combinations that create contrast
-- Visual assets that tell a story
-
-### Core Design Philosophy
-
-1. **Simplicity Through Reduction**
-   - Identify the essential purpose and eliminate distractions
-   - Begin with complexity, then deliberately remove until reaching the simplest effective solution
-   - Every element must justify its existence
-
-2. **Material Honesty**
-   - Digital materials have unique properties - embrace them
-   - Buttons should feel pressable, cards should feel substantial
-   - Animations should reflect real-world physics while embracing digital possibilities
-   - **Prefer flat minimal design with no depth (no shadows, gradients, glass effects)**
-
-3. **Obsessive Detail**
-   - Consider every pixel, every interaction, every transition
-   - Excellence emerges from hundreds of thoughtful decisions
-   - Collectively project a feeling of quality
-
-4. **Coherent Design Language**
-   - Every element should visually communicate its function
-   - Elements should feel like part of a unified system
-   - Nothing should feel arbitrary
-
-5. **Invisibility of Technology**
-   - The best technology disappears
-   - Users should focus on content and goals, not on understanding the interface
-
-## Visual Design Standards
-
-### Color & Contrast
-
-**Intentional Color Usage:**
-- Every color must have a specific purpose
-- Avoid decorative colors that don't communicate function or hierarchy
-- Use color to convey meaning: success, warning, information, action
-- Maintain consistency in color relationships throughout
-
-**Sophisticated Palettes:**
-- Prefer subtle, slightly desaturated colors over bold primary colors
-- Consider colors that feel "photographed" rather than "rendered"
-- Use neutral pastel palettes with accent colors for focus
-- Use warm greys as base tones
-- Limit accent colors to guide attention to the most important actions
-
-**Accessibility:**
-- Ensure sufficient contrast for color-blind users
-- Follow WCAG 2.1 AA standards (minimum 4.5:1 for normal text)
-- Don't rely on color alone to convey information
-
-**Current Style Preferences:**
-- Prefer flat minimal design
-- Don't use shadows, gradients, or glass effects
-- Don't mimic Apple/iOS aesthetics
-- Use unique color pairs that aren't typical
-
-### Typography Excellence
-
-**Font Selection Philosophy:**
-- Typography is a core design element, not an afterthought
-- **Don't worship legibility** - pick fonts that trigger emotion for headlines
-- Every typeface choice should serve the app's purpose and personality
-- Limit to 2-3 typefaces maximum per application
-
-**Font Version Usage:**
-- **Display version:** For big headlines only
-- **Text version:** For long bodies of text
-- **Caption/Micro versions:** For small short texts (1-2 lines)
-
-**Recommended Fonts:**
-- Use Google Fonts for web typography
-- Consider: DM Sans, Mozilla Text, Lato, Arimo, system defaults
-- Clean, readable sans-serif and serif combinations
-- Trending fonts on Google Fonts for fresh, modern feel
-
-**Typographic Hierarchy:**
-- Create clear visual distinction between information levels
-- Headlines, subheadings, body text, captions should each have distinct appearance
-- Use mathematical relationships between text sizes (golden ratio or major third)
-
-**Spacing & Kerning:**
-- Line height: typically 1.5x font size for body text
-- Allow generous spacing around text elements
-- **Kerning Guidelines:**
-  - Adjust based on text size
-  - Bigger text = smaller kerning
-  - Large font: -4 kerning
-  - Average text: 0 kerning (optimal for most typefaces)
-  - Very small font: +4 kerning
-
-**Typography Contrast:**
-- Combine typefaces to grab attention and drive interest
-- Create contrast through weight, size, and style variations
-
-### Layout & Spatial Design
-
-**Compositional Balance:**
-- Every screen should feel balanced
-- Pay attention to visual weight and negative space
-- Use generous negative space to focus attention
-- Add sufficient margins and paddings for professional, spacious look
-
-**Grid Discipline:**
-- Maintain consistent underlying grid system
-- Create sense of order while allowing meaningful exceptions
-- Use grid/flex wrappers with `gap` for spacing
-- Prioritize wrappers over direct margins/padding on children
-
-**Spatial Relationships:**
-- Group related elements through proximity, alignment, and shared attributes
-- Use size, color, and spacing to highlight important elements
-- Guide user focus through visual hierarchy
-
-**Attention Guidance:**
-- Design interfaces that guide user attention effectively
-- Avoid cluttered interfaces where elements compete
-- Create clear paths through the content
-
-## Interaction Design
-
-### Motion & Animation
-
-**Purposeful Animation:**
-Every animation must serve a functional purpose:
-- Orient users during navigation changes
-- Establish relationships between elements
-- Provide feedback for interactions
-- Guide attention to important changes
-
-**Natural Physics:**
-- Follow real-world physics with appropriate acceleration/deceleration
-- Appropriate mass and momentum characteristics
-- Elasticity appropriate to context
-
-**Subtle Restraint:**
-- Animations should be felt rather than seen
-- Avoid animations that delay user actions unnecessarily
-- Don't call attention to themselves
-- Avoid mechanical or artificial feeling
-
-**Timing Guidelines:**
-- Quick actions (button press): 100-150ms
-- State changes: 200-300ms
-- Page transitions: 300-500ms
-- Attention-directing: 200-400ms
-
-**Implementation:**
-- Use `framer-motion` sparingly and purposefully
-- Use CSS animations over JavaScript when possible
-- Implement critical CSS for above-the-fold content
-
-### User Experience Patterns
-
-**Core UX Principles:**
-- **Direct Manipulation:** Users interact directly with content, not through abstract controls
-- **Immediate Feedback:** Every interaction provides instantaneous visual feedback (within 100ms)
-- **Consistent Behavior:** Similar-looking elements behave similarly
-- **Forgiveness:** Make errors difficult, but recovery easy
-- **Progressive Disclosure:** Reveal details as needed rather than overwhelming users
-
-**Modern UX Patterns:**
-- Conversational-first interfaces: prioritize natural language
-- Adaptive layouts: respond to context (dark mode at night, simplified on mobile)
-- Minimal, flat design with no depth
-
-**Navigation:**
-- Clear structure with intuitive navigation menus
-- Implement breadcrumbs for location awareness
-- Use standard components to reduce learning curve
-- Ensure predictable behavior for interactive elements
-
-## Styling Implementation
-
-### Component Library & Tools
-
-**Component Library:**
-- Strongly prefer shadcn components (v4, pre-installed in `@/components/ui`)
-- Import individually: `import { Button } from "@/components/ui/button";`
-- Use over plain HTML elements (`<Button>` over `<button>`)
-- Avoid creating custom components with names that clash with shadcn
-
-**Styling Engine:**
-- Use Tailwind utility classes exclusively
-- Adhere to theme variables in `index.css` via CSS custom properties
-- Map variables in `@theme` (see `tailwind.config.js`)
-- Use inline styles or CSS modules only when absolutely necessary
-
-**Icons:**
-- Use `@phosphor-icons/react` for buttons and inputs
-- Example: `import { Plus } from "@phosphor-icons/react"; <Plus />`
-- Use color for plain icon buttons
-- Don't override default `size` or `weight` unless requested
-
-**Notifications:**
-- Use `sonner` for toasts
-- Example: `import { toast } from 'sonner'`
-
-**Loading States:**
-- Always add loading states, spinners, placeholder animations
-- Use skeletons until content renders
-
-### Layout Implementation
-
-**Spacing Strategy:**
-- Use grid/flex wrappers with `gap` for spacing
-- Prioritize wrappers over direct margins/padding on children
-- Nest wrappers as needed for complex layouts
-
-**Conditional Styling:**
-- Use ternary operators or clsx/classnames utilities
-- Example: `className={clsx('base-class', { 'active-class': isActive })}`
-
-### Responsive Design
-
-**Fluid Layouts:**
-- Use relative units (%, em, rem) instead of fixed pixels
-- Implement CSS Grid and Flexbox for flexible layouts
-- Design mobile-first, then scale up
-
-**Media Queries:**
-- Use breakpoints based on content needs, not specific devices
-- Test across range of devices and orientations
-
-**Touch Targets:**
-- Minimum 44x44 pixels for interactive elements
-- Provide adequate spacing between touch targets
-- Consider hover states for desktop, focus states for touch/keyboard
-
-**Performance:**
-- Optimize assets for mobile networks
-- Use CSS animations over JavaScript
-- Implement lazy loading for images and videos
-
-## Accessibility Standards
-
-**Core Requirements:**
-- Follow WCAG 2.1 AA guidelines
-- Ensure keyboard navigability for all interactive elements
-- Minimum touch target size: 44×44px
-- Use semantic HTML for screen reader compatibility
-- Provide alternative text for images and non-text content
-
-**Implementation Details:**
-- Use descriptive variable and function names
-- Event functions: prefix with "handle" (handleClick, handleKeyDown)
-- Add accessibility attributes:
-  - `tabindex="0"` for custom interactive elements
-  - `aria-label` for buttons without text
-  - `role` attributes when semantic HTML isn't sufficient
-- Ensure logical tab order
-- Provide visible focus states
-
-## Design Process & Testing
-
-### Design Workflow
-
-1. **Understand Context:**
-   - What problem are we solving?
-   - Who are the users and when will they use this?
-   - What are the success criteria?
-
-2. **Explore Options:**
-   - Present 2-3 alternative approaches
-   - Explain trade-offs of each option
-   - Ask which direction resonates
-
-3. **Implement Iteratively:**
-   - Start with structure and hierarchy
-   - Add visual polish progressively
-   - Test at each stage
-
-4. **Validate:**
-   - Use playwright MCP to test visual changes
-   - Check across different screen sizes
-   - Verify accessibility
-
-### Testing Checklist
-
-**Visual Testing:**
-- Use playwright MCP when available for automated testing
-- Check responsive behavior at common breakpoints
-- Verify touch targets on mobile
-- Test with different content lengths (short, long, edge cases)
-
-**Accessibility Testing:**
-- Test keyboard navigation
-- Verify screen reader compatibility
-- Check color contrast ratios
-- Ensure focus states are visible
-
-**Cross-Device Testing:**
-- Test on actual devices, not just emulators
-- Check different browsers (Chrome, Firefox, Safari)
-- Verify touch interactions on mobile
-- Test landscape and portrait orientations
-
-## Examples
-
-### Example 1: Designing a Button
-
-**Initial Question to Ask:**
-```
-Before I implement this button, I have a few design questions:
-1. What's the primary action you want to emphasize?
-2. Do you have brand colors in mind, or should I suggest options?
-3. What emotion should this button convey? (urgent, calm, playful, professional)
+# UX Designer - Perfection-Focused UI/UX Skill
+
+**Goal: Zero bugs, perfect usability, flawless user experience.**
+
+## When to Use
+
+Invoke this skill when:
+- User mentions: "perfect the demo", "fix UX bugs", "make it flawless"
+- UI has inconsistencies or bugs
+- User experience is confusing or broken
+- Demo has visual issues
+- Interactive elements don't work properly
+
+## UX Perfection Methodology
+
+### Phase 1: Comprehensive UX Audit
+
+**1A. Visual Inspection**
+```bash
+# Check all HTML files for common issues
+find public -name "*.html" -type f
+
+# For each file, check:
+- Broken links (404s)
+- Missing images
+- JavaScript errors in console
+- CSS rendering issues
+- Responsive design breakpoints
+- Color contrast (accessibility)
+- Typography consistency
 ```
 
-**After Getting Approval, Implementation:**
-```tsx
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "@phosphor-icons/react";
+**1B. Interaction Testing**
+```markdown
+Test every interactive element:
+- [ ] Buttons: Click response, hover states, disabled states
+- [ ] Forms: Validation, error messages, success states
+- [ ] Navigation: All links work, breadcrumbs accurate
+- [ ] Modals: Open/close, backdrop click, ESC key
+- [ ] Dropdowns: Open/close, keyboard navigation
+- [ ] Tables: Sorting, filtering, pagination
+- [ ] Real-time updates: WebSocket connection, live data
+- [ ] Loading states: Spinners, skeletons, placeholders
+```
 
-<Button
-  className="bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-lg transition-colors duration-200"
+**1C. User Flow Analysis**
+```markdown
+Map critical user journeys:
+1. New user onboarding → Should be intuitive, max 3 steps
+2. Core feature usage → Should be discoverable, max 2 clicks
+3. Error recovery → Clear error messages, obvious next steps
+4. Success confirmation → Visible feedback, celebratory if appropriate
+```
+
+### Phase 2: Research Best Practices
+
+**Launch codex-deep-research agent**:
+```markdown
+Invoke Task tool with subagent_type="codex-deep-research"
+
+Prompt:
+"Research the best UX/UI practices for interactive demos and dashboards.
+
+Context:
+- Project Conductor is a workflow orchestration platform
+- Demo showcases 7-module workflow (Onboarding → Implementation)
+- Tech: HTML, CSS, JavaScript (vanilla), Socket.io
+- Users: Product managers, engineers, stakeholders
+
+Provide best practices for:
+1. **Demo UX Patterns**
+   - Interactive tutorials vs guided tours
+   - Progress indicators
+   - Contextual help
+   - Error handling in demos
+
+2. **Dashboard Design**
+   - Card layouts
+   - Data visualization
+   - Real-time updates (WebSocket)
+   - Empty states
+   - Loading states
+
+3. **Navigation**
+   - Module-to-module flow
+   - Breadcrumbs
+   - Back button behavior
+   - Deep linking
+
+4. **Accessibility**
+   - Keyboard navigation
+   - Screen reader support
+   - Focus management
+   - ARIA labels
+
+5. **Performance**
+   - Perceived performance
+   - Lazy loading
+   - Animation frame rate
+   - Memory leaks
+
+6. **Error Handling**
+   - User-friendly error messages
+   - Recovery actions
+   - Fallback UI
+   - Offline behavior
+
+Provide specific code examples and visual patterns."
+```
+
+**Check for AI-powered UX tools**:
+```markdown
+Invoke Task tool with subagent_type="gemini-research-analyst"
+
+Prompt:
+"Research if Google's Gemini AI provides any UX design, usability testing, or UI generation tools.
+
+Investigate:
+1. Gemini-powered UX analysis tools
+2. Automated accessibility testing
+3. UI component generation
+4. User flow optimization
+5. A/B testing recommendations
+6. Heatmap analysis tools
+
+If available, explain how to integrate with HTML/JS demos."
+```
+
+### Phase 3: Bug Hunting (Zero Tolerance)
+
+**3A. Console Error Check**
+```javascript
+// Check browser console for errors
+// Common issues:
+- Uncaught ReferenceError (missing variables)
+- Uncaught TypeError (null/undefined access)
+- Failed to fetch (broken API calls)
+- WebSocket connection failed
+- CORS errors
+- 404 for assets (images, CSS, JS)
+```
+
+**3B. Network Tab Analysis**
+```markdown
+Check Network tab for:
+- [ ] All resources load successfully (no 404s)
+- [ ] API endpoints respond <200ms
+- [ ] WebSocket connection established
+- [ ] No unnecessary requests (optimize)
+- [ ] Proper caching headers
+- [ ] Compressed assets (gzip)
+```
+
+**3C. Responsive Design Testing**
+```bash
+# Test breakpoints
+- Mobile: 320px, 375px, 414px
+- Tablet: 768px, 1024px
+- Desktop: 1280px, 1440px, 1920px
+
+# Check for:
+- Horizontal scroll (should be none)
+- Text overflow
+- Image scaling
+- Button touch targets (min 44x44px)
+- Readable font sizes (min 16px)
+```
+
+**3D. Cross-Browser Testing**
+```markdown
+Test in:
+- [ ] Chrome (latest)
+- [ ] Firefox (latest)
+- [ ] Safari (latest)
+- [ ] Edge (latest)
+
+Check for:
+- CSS compatibility (flexbox, grid)
+- JavaScript APIs (fetch, WebSocket)
+- Event handlers (click, keyboard)
+- CSS animations
+```
+
+### Phase 4: Usability Improvements
+
+**4A. First-Time User Experience**
+```markdown
+Checklist:
+- [ ] Clear value proposition (what is this?)
+- [ ] Obvious starting point (where do I begin?)
+- [ ] Contextual help (tooltips, hints)
+- [ ] Progress indicators (how far have I gone?)
+- [ ] Success feedback (I completed something!)
+- [ ] Error prevention (guard rails)
+- [ ] Easy recovery (undo, reset)
+```
+
+**4B. Visual Hierarchy**
+```css
+/* Apply visual hierarchy principles */
+- Primary actions: Bold, high contrast, larger
+- Secondary actions: Less prominent
+- Tertiary actions: Text links, subtle
+- Destructive actions: Red, confirmation required
+- Disabled states: Greyed out, not clickable
+
+/* Example */
+.btn-primary {
+  background: #007bff;
+  color: white;
+  font-weight: 600;
+  padding: 12px 24px;
+  font-size: 16px;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid #6c757d;
+  color: #6c757d;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+```
+
+**4C. Feedback & Confirmation**
+```javascript
+// Every user action needs feedback
+function handleAction(action) {
+  // 1. Immediate feedback (button state)
+  button.disabled = true;
+  button.textContent = 'Processing...';
+
+  // 2. Action execution
+  await performAction(action);
+
+  // 3. Success feedback
+  showToast('✅ Action completed successfully!', 'success');
+  button.disabled = false;
+  button.textContent = 'Done';
+
+  // 4. Update UI to reflect change
+  refreshData();
+}
+
+// Toast notification system
+function showToast(message, type = 'info', duration = 3000) {
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add('fade-out');
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+```
+
+**4D. Error Handling (User-Friendly)**
+```javascript
+// Bad: Generic error
+catch (error) {
+  alert('Error');
+}
+
+// Good: Helpful error with action
+catch (error) {
+  showError({
+    title: 'Unable to Load Projects',
+    message: 'We couldn\'t connect to the server. Please check your internet connection and try again.',
+    actions: [
+      { label: 'Retry', onClick: () => retryLoad() },
+      { label: 'Go Back', onClick: () => history.back() }
+    ],
+    icon: '🔌'
+  });
+
+  // Log detailed error for debugging
+  console.error('Project load failed:', error);
+}
+```
+
+### Phase 5: Accessibility Perfection
+
+**5A. Keyboard Navigation**
+```javascript
+// Ensure all interactive elements are keyboard accessible
+document.querySelectorAll('button, a, input, select, textarea').forEach(el => {
+  // Add focus visible styles
+  el.addEventListener('focus', (e) => {
+    e.target.classList.add('focus-visible');
+  });
+
+  // Support Enter/Space on custom buttons
+  if (el.getAttribute('role') === 'button') {
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        el.click();
+      }
+    });
+  }
+});
+
+// Trap focus in modals
+function trapFocus(modal) {
+  const focusableElements = modal.querySelectorAll(
+    'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
+  );
+  const firstElement = focusableElements[0];
+  const lastElement = focusableElements[focusableElements.length - 1];
+
+  modal.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      if (e.shiftKey && document.activeElement === firstElement) {
+        e.preventDefault();
+        lastElement.focus();
+      } else if (!e.shiftKey && document.activeElement === lastElement) {
+        e.preventDefault();
+        firstElement.focus();
+      }
+    } else if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
+}
+```
+
+**5B. ARIA Labels**
+```html
+<!-- Bad: No context for screen readers -->
+<button onclick="save()">
+  <svg>...</svg>
+</button>
+
+<!-- Good: Descriptive label -->
+<button onclick="save()" aria-label="Save project changes">
+  <svg aria-hidden="true">...</svg>
+</button>
+
+<!-- Dynamic content -->
+<div role="status" aria-live="polite" aria-atomic="true">
+  <span id="status-message">Loading projects...</span>
+</div>
+
+<!-- Form validation -->
+<input
+  type="email"
+  id="email"
+  aria-describedby="email-error"
+  aria-invalid="true"
 >
-  Get Started
-  <ArrowRight className="ml-2" />
-</Button>
+<span id="email-error" role="alert">
+  Please enter a valid email address
+</span>
 ```
 
-### Example 2: Typography Hierarchy
+**5C. Color Contrast Check**
+```javascript
+// Ensure WCAG AA compliance (4.5:1 for normal text, 3:1 for large)
+// Use tools: Chrome DevTools Lighthouse, axe DevTools
 
-**Question First:**
+// Example: Check programmatically
+function checkContrast(foreground, background) {
+  const ratio = getContrastRatio(foreground, background);
+  return {
+    passAA: ratio >= 4.5,
+    passAAA: ratio >= 7,
+    ratio: ratio.toFixed(2)
+  };
+}
+
+// Fix: Increase contrast
+/* Before */
+.text-muted { color: #999; } /* 2.8:1 - FAILS */
+
+/* After */
+.text-muted { color: #6c757d; } /* 4.5:1 - PASSES */
 ```
-For this content hierarchy, I'm thinking:
-- Headline: Large, bold, attention-grabbing
-- Subheading: Medium, regular weight
-- Body: Smaller, optimized for reading
 
-Should we go bold and contemporary, or subtle and refined?
+### Phase 6: Performance Optimization
+
+**6A. Perceived Performance**
+```javascript
+// Instant feedback, lazy load heavy content
+async function loadDashboard() {
+  // 1. Show skeleton immediately (0ms)
+  showSkeleton();
+
+  // 2. Load critical data first (100ms)
+  const criticalData = await fetchCritical();
+  renderCritical(criticalData);
+  hideSkeleton();
+
+  // 3. Load secondary data (background)
+  fetchSecondary().then(renderSecondary);
+
+  // 4. Prefetch likely next page
+  prefetchNextPage();
+}
+
+// Skeleton UI
+function showSkeleton() {
+  const skeleton = `
+    <div class="skeleton-card">
+      <div class="skeleton-line skeleton-title"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+    </div>
+  `;
+  container.innerHTML = skeleton.repeat(6);
+}
 ```
 
-**Implementation After Approval:**
-```tsx
-<div className="space-y-4">
-  <h1 className="text-5xl font-bold tracking-tight text-slate-900">
-    Headline Here
-  </h1>
-  <h2 className="text-2xl text-slate-600">
-    Supporting subheading
-  </h2>
-  <p className="text-base leading-relaxed text-slate-700">
-    Body text optimized for readability with proper line height.
-  </p>
+**6B. Animation Performance**
+```css
+/* Bad: Causes layout thrashing */
+.animate-bad {
+  animation: slide-in 0.3s ease;
+}
+@keyframes slide-in {
+  from { margin-left: -100px; }
+  to { margin-left: 0; }
+}
+
+/* Good: GPU-accelerated */
+.animate-good {
+  animation: slide-in 0.3s ease;
+}
+@keyframes slide-in {
+  from { transform: translateX(-100px); }
+  to { transform: translateX(0); }
+}
+
+/* Use will-change for complex animations */
+.will-animate {
+  will-change: transform, opacity;
+}
+```
+
+**6C. Memory Leak Prevention**
+```javascript
+// Bad: Event listeners not cleaned up
+socket.on('update', handleUpdate);
+
+// Good: Clean up on unmount
+const listeners = [];
+
+function addListener(event, handler) {
+  socket.on(event, handler);
+  listeners.push({ event, handler });
+}
+
+function cleanup() {
+  listeners.forEach(({ event, handler }) => {
+    socket.off(event, handler);
+  });
+  listeners.length = 0;
+}
+
+// Call cleanup when leaving page
+window.addEventListener('beforeunload', cleanup);
+```
+
+### Phase 7: Final Polish
+
+**7A. Micro-interactions**
+```css
+/* Smooth button interactions */
+button {
+  transition: all 0.2s ease;
+  transform: scale(1);
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Loading spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+```
+
+**7B. Empty States**
+```html
+<!-- Instead of blank screen -->
+<div class="empty-state">
+  <svg class="empty-icon"><!-- Icon --></svg>
+  <h3>No projects yet</h3>
+  <p>Create your first project to get started</p>
+  <button class="btn-primary">Create Project</button>
 </div>
 ```
 
-### Example 3: Unique Color Palette Suggestion
-
-**Presenting Options:**
-```
-I'd like to suggest three color directions that break from typical SaaS patterns:
-
-1. **Warm Earth Tones**
-   - Base: Warm grey (#E8E2DC)
-   - Accent: Terracotta (#C86E4B)
-   - For: Organic, trustworthy feel
-
-2. **Cool Midnight**
-   - Base: Deep navy (#1A2332)
-   - Accent: Cyan (#4ECDC4)
-   - For: Modern, tech-forward feel
-
-3. **Soft Pastels**
-   - Base: Soft pink (#FFE5E5)
-   - Accent: Sage green (#9DB5A4)
-   - For: Calm, approachable feel
-
-Which direction feels right for your brand?
+**7C. Consistency Check**
+```markdown
+Ensure consistency across:
+- [ ] Button styles (primary, secondary, danger)
+- [ ] Spacing (use 8px grid: 8, 16, 24, 32, 48, 64)
+- [ ] Typography (max 3 font sizes, consistent weights)
+- [ ] Colors (stick to design system palette)
+- [ ] Icons (same style, size, stroke width)
+- [ ] Shadows (consistent elevation levels)
+- [ ] Border radius (consistent rounding)
+- [ ] Animations (consistent timing, easing)
 ```
 
-## Common Patterns to Avoid
+## Validation Checklist
 
-❌ **Don't:**
-- Use generic SaaS blue (#3B82F6) without considering alternatives
-- Default to shadows and gradients for depth
-- Copy Apple's design language
-- Use glass morphism effects
-- Make design decisions without asking
-- Implement typography without considering the font version
-- Use animations that delay user actions
-- Create cluttered interfaces with competing elements
+Before marking UX as "perfect":
 
-✅ **Do:**
-- Ask before making design decisions
-- Suggest unique, contextually appropriate color pairs
-- Use flat, minimal design
-- Consider unconventional typography choices
-- Provide immediate feedback for interactions
-- Create generous white space
-- Test with real devices
-- Validate accessibility
+### Functionality
+- [ ] All buttons work (no broken onClick handlers)
+- [ ] All links go to correct destinations
+- [ ] Forms validate properly
+- [ ] API calls succeed
+- [ ] WebSocket connects and receives updates
+- [ ] Error states display correctly
+- [ ] Success states display correctly
+- [ ] Loading states show during async operations
 
-## Version History
+### Visual
+- [ ] No layout shift (CLS score <0.1)
+- [ ] No horizontal scroll
+- [ ] Consistent spacing
+- [ ] Consistent typography
+- [ ] High color contrast (WCAG AA)
+- [ ] Icons are clear and consistent
+- [ ] Images load correctly
+- [ ] No visual bugs (overlapping, cutoff text)
 
-- v1.0.0 (2025-10-18): Initial release with comprehensive UI/UX design guidance
+### Usability
+- [ ] Clear navigation
+- [ ] Obvious primary actions
+- [ ] Helpful error messages
+- [ ] Success confirmation
+- [ ] Undo/cancel available
+- [ ] Keyboard accessible
+- [ ] Screen reader compatible
+- [ ] Mobile responsive (320px - 1920px)
 
-## References
+### Performance
+- [ ] Page load <2s
+- [ ] API calls <200ms
+- [ ] Smooth animations (60fps)
+- [ ] No memory leaks
+- [ ] Efficient rendering (no jank)
 
-For additional context, see:
-- WCAG 2.1 Guidelines: https://www.w3.org/WAI/WCAG21/quickref/
-- Google Fonts: https://fonts.google.com/
-- Tailwind CSS Docs: https://tailwindcss.com/docs
-- Shadcn UI Components: https://ui.shadcn.com/
+### Browser Compatibility
+- [ ] Chrome (latest)
+- [ ] Firefox (latest)
+- [ ] Safari (latest)
+- [ ] Edge (latest)
+
+## Demo-Specific Checks
+
+For Project Conductor demo:
+
+### Module Navigation
+```bash
+# Test all module transitions
+Module 0 (Onboarding) → Module 1 (Dashboard)
+Module 1 (Dashboard) → Module 2 (BRD)
+Module 2 (BRD) → Module 3 (PRD)
+Module 3 (PRD) → Module 4 (Engineering Design)
+Module 4 (Engineering Design) → Module 5 (Conflicts)
+Module 5 (Conflicts) → Module 6 (Implementation)
+Module 6 (Implementation) → Module 1 (Dashboard)
+
+# Check:
+- [ ] All links work
+- [ ] Navigation breadcrumbs update
+- [ ] Back button works
+- [ ] State persists (if applicable)
+```
+
+### Real-Time Features
+```javascript
+// Test WebSocket functionality
+- [ ] Connection establishes on page load
+- [ ] Live updates appear without refresh
+- [ ] Multiple tabs stay in sync
+- [ ] Reconnects after disconnect
+- [ ] Shows offline indicator if disconnected
+- [ ] No duplicate updates
+```
+
+### Data Display
+```markdown
+- [ ] Projects list loads correctly
+- [ ] Requirements display properly
+- [ ] Status badges show correct colors
+- [ ] Progress bars update in real-time
+- [ ] Filters work correctly
+- [ ] Sorting works correctly
+- [ ] Pagination works correctly
+- [ ] Search works correctly
+```
+
+## Output Format
+
+After UX audit, provide:
+
+```markdown
+## UX Audit Report
+
+**Status**: [PERFECT ✅ / NEEDS FIXES ⚠️ / CRITICAL ISSUES ❌]
+
+### Issues Found
+
+#### Critical (Must Fix) 🔴
+1. [Issue description]
+   - Impact: [How this affects users]
+   - Fix: [Specific code changes needed]
+   - File: [path/to/file.html]
+   - Line: [line number]
+
+#### Important (Should Fix) 🟡
+1. [Issue description]
+   - Impact: [How this affects users]
+   - Fix: [Specific code changes needed]
+
+#### Nice to Have (Polish) 🟢
+1. [Issue description]
+   - Enhancement: [How this improves UX]
+   - Suggestion: [Code example]
+
+### UX Score
+
+- Functionality: [X/10]
+- Visual Design: [X/10]
+- Usability: [X/10]
+- Accessibility: [X/10]
+- Performance: [X/10]
+
+**Overall**: [X/50] - [Grade: A+ to F]
+
+### Next Steps
+
+1. Fix critical issues first
+2. Implement important fixes
+3. Add polish enhancements
+4. Re-test all flows
+5. Final validation
+
+### Code Fixes
+
+[Provide specific code changes with file paths and line numbers]
+```
+
+## Example Usage
+
+User: "Make sure the demo is perfect"
+
+This skill will:
+1. Audit all demo HTML files
+2. Test every interactive element
+3. Research best UX practices
+4. Find and document all bugs
+5. Provide specific fixes with code
+6. Validate accessibility
+7. Check performance
+8. Test across browsers
+9. Generate comprehensive report
+10. Implement fixes if requested

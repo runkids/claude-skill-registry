@@ -1,80 +1,51 @@
 ---
 name: commit
-description: "Create conventional commits. Use when: committing staged changes. Triggers on: '/commit', 'conventional commit'."
-allowed-tools: Bash
-disable-model-invocation: true
-argument-hint: <type>[scope]: <description> [optional body] [optional footer]
+description: Create git commits with user approval and no Claude attribution
 ---
 
-# Create a Conventional Commit
+# Commit Changes
 
-I'll help you create a commit following the Conventional Commits 1.0.0 specification.
+You are tasked with creating git commits for the changes made during this session.
 
-## Checking current changes
+## Process:
 
-!`git status --short`
-!`git diff --cached --stat`
+1. **Think about what changed:**
+   - Review the conversation history and understand what was accomplished
+   - Run `git status` to see current changes
+   - Run `git diff` to understand the modifications
+   - Consider whether changes should be one commit or multiple logical commits
 
-## Analyzing changes
+2. **Plan your commit(s):**
+   - Identify which files belong together
+   - Draft clear, descriptive commit messages
+   - Use imperative mood in commit messages
+   - Focus on why the changes were made, not just what
 
-Based on the changes, I'll create a commit message following this structure:
+3. **Present your plan to the user:**
+   - List the files you plan to add for each commit
+   - Show the commit message(s) you'll use
+   - Ask: "I plan to create [N] commit(s) with these changes. Shall I proceed?"
 
-```
-<type>[optional scope]: <description>
+4. **Execute upon confirmation:**
+   - Use `git add` with specific files (never use `-A` or `.`)
+   - Create commits with your planned messages
+   - Show the result with `git log --oneline -n [number]`
 
-[optional body]
+5. **Generate reasoning (after each commit):**
+   - Run: `bash .claude/scripts/generate-reasoning.sh <commit-hash> "<commit-message>"`
+   - This captures what was tried during development (build failures, fixes)
+   - The reasoning file helps future sessions understand past decisions
+   - Stored in `.git/claude/commits/<hash>/reasoning.md`
 
-[optional footer(s)]
-```
+## Important:
+- **NEVER add co-author information or Claude attribution**
+- Commits should be authored solely by the user
+- Do not include any "Generated with Claude" messages
+- Do not add "Co-Authored-By" lines
+- Write commit messages as if the user wrote them
 
-### Conventional Commit Types
-
-- **feat**: A new feature (correlates with MINOR in SemVer)
-- **fix**: A bug fix (correlates with PATCH in SemVer)
-- **docs**: Documentation only changes
-- **style**: Changes that don't affect code meaning (white-space, formatting, etc)
-- **refactor**: Code change that neither fixes a bug nor adds a feature
-- **perf**: Code change that improves performance
-- **test**: Adding or correcting tests
-- **build**: Changes to build system or dependencies
-- **ci**: Changes to CI configuration files and scripts
-- **chore**: Other changes that don't modify src or test files
-- **revert**: Reverts a previous commit
-
-### Breaking Changes
-
-- Add ! after type/scope for breaking changes (e.g., feat!: or feat(api)!:)
-- OR include BREAKING CHANGE: in the footer
-
-## Creating the commit
-
-**IMPORTANT**: This command will NEVER execute `git add`. It only creates commits from already staged changes.
-
-Based on the staged changes and any specific requirements in "$ARGUMENTS", I'll:
-
-1. Determine the appropriate commit type
-2. Identify if a scope is needed
-3. Write a clear, concise description
-4. Add body details if the changes are complex
-5. Include any necessary footers (BREAKING CHANGE, Refs, etc.)
-
-Then execute the commit with:
-```bash
-git commit -m "$(cat <<'EOF'
-[generated commit message here]
-EOF
-)"
-```
-
-**Important**: The commit message will be clean and professional, containing:
-
-- The conventional commit format (type, scope, description)
-- Optional body and footer as needed
-
-The commit will follow all Conventional Commits 1.0.0 rules:
-
-- Type prefix is required
-- Description immediately follows colon and space
-- Body (if included) starts one blank line after description
-- Footer (if included) starts one blank line after body
-- Breaking changes are clearly indicated
+## Remember:
+- You have the full context of what was done in this session
+- Group related changes together
+- Keep commits focused and atomic when possible
+- The user trusts your judgment - they asked you to commit

@@ -1,229 +1,188 @@
 ---
 name: git-hooks
-description: Set up and configure Git pre-commit hooks for code quality, secrets scanning, and commit message validation. Use when installing git hooks, configuring pre-commit checks, or enforcing code standards.
+description: Manage pre-commit hooks, performance optimization, and temp commits. Use when asked about "pre-commit slow", "commit taking forever", "skip hooks", "bypass pre-commit", "optimize commits", or multi-agent workflows. Covers fast Prettier-only hook, ESLint performance issues, and CI delegation strategy.
 ---
 
-# Git Hooks Skill
+# Git Hooks Management
 
-## When to Activate
+## Overview
 
-Activate this skill when:
-- Setting up pre-commit hooks
-- Configuring commit message validation
-- Installing secrets scanners
-- Enforcing code quality standards
-- Automating pre-push tests
+This monorepo uses a **fast pre-commit hook** that only runs Prettier (~1-2 seconds). ESLint, typecheck, and tests run in CI.
 
-## Quick Installation
+**Why?** ESLint with TypeScript type-aware rules takes ~2 minutes per file due to project-wide type loading.
 
-```bash
-# Use interactive installer (recommended)
-./AgentUsage/pre_commit_hooks/install_hooks.sh
+## Quick Reference
 
-# Or manual installation for Python project
-cp AgentUsage/pre_commit_hooks/commit-msg .git/hooks/
-cp AgentUsage/pre_commit_hooks/pre-commit-python .git/hooks/pre-commit
-cp AgentUsage/pre_commit_hooks/pre-commit-secrets-scanner .git/hooks/pre-commit-secrets
-cp AgentUsage/pre_commit_hooks/pre-push .git/hooks/
-chmod +x .git/hooks/*
-```
-
-## Available Hooks
-
-### Core Hooks (All Projects)
-
-| Hook | Purpose |
-|------|---------|
-| `commit-msg` | Validates conventional commit format |
-| `pre-commit-secrets-scanner` | Prevents leaked API keys/secrets |
-
-### Language-Specific
-
-| Hook | Language | Checks |
-|------|----------|--------|
-| `pre-commit-python` | Python | Black, Ruff |
-| `pre-commit-javascript` | JS/TS | Prettier, ESLint, TypeScript |
-| `pre-commit-go` | Go | gofmt, go vet |
-| `pre-commit-multi-language` | Mixed | Auto-detects and runs appropriate tools |
-
-### Automation Hooks
-
-| Hook | Purpose |
-|------|---------|
-| `pre-push` | Runs tests before push |
-| `post-checkout` | Auto-updates dependencies on branch switch |
-| `post-commit` | Shows commit summary and TODOs |
-
-## Hook Selection by Project
+### Normal Commit (~1-2 seconds)
 
 ```bash
-# Python Project
-commit-msg + pre-commit-python + pre-commit-secrets-scanner + pre-push
-
-# JavaScript Project
-commit-msg + pre-commit-javascript + pre-commit-secrets-scanner + pre-push
-
-# Go Project
-commit-msg + pre-commit-go + pre-commit-secrets-scanner + pre-push
-
-# Multi-language
-commit-msg + pre-commit-multi-language + pre-commit-secrets-scanner + pre-push
+git commit -m "feat: add feature"
 ```
 
-## What Each Hook Does
-
-### commit-msg
-Validates commit message format:
-```bash
-# Accepted formats
-feat: Add user authentication
-fix: Correct validation error
-docs(readme): Update installation
-
-# Rejected
-Update files  # No type
-feat add feature  # Missing colon
-```
-
-### pre-commit-secrets-scanner
-Scans for exposed secrets:
-- Anthropic API keys (`sk-ant-...`)
-- OpenAI API keys (`sk-...`)
-- AWS credentials (`AKIA...`)
-- GitHub tokens (`ghp_...`)
-- Hardcoded passwords
-
-### pre-commit-python
-```bash
-# Runs automatically on staged .py files
-uv run black --check $file
-uv run ruff check $file
-```
-
-### pre-push
-```bash
-# Runs before push
-uv run pytest tests/  # or pnpm test, go test, cargo test
-```
-
-## Testing Hooks
+### Bypass All Checks (instant)
 
 ```bash
-# Test pre-commit directly
-.git/hooks/pre-commit
-
-# Test with sample commit
-git add .
-git commit -m "test: verify hooks"
-
-# Run with debug output
-bash -x .git/hooks/pre-commit
+git commit --no-verify -m "message"
+# or
+TEMP_COMMIT=1 git commit -m "[temp] message"
 ```
 
-## Bypassing Hooks (Emergency Only)
+### Auto-bypass Prefixes
+
+Commits starting with these bypass the hook:
+
+- `[temp]` - temporary, will squash
+- `[wip]` - work in progress
+- `[skip-ci]` - skip CI
+- `[no-verify]` - explicit bypass
+
+## What Runs Where
+
+| Check      | Pre-commit    | CI  | Editor |
+| ---------- | ------------- | --- | ------ |
+| Prettier   | ✅ ~1s        | ✅  | ✅     |
+| ESLint     | ❌ (too slow) | ✅  | ✅     |
+| TypeScript | ❌ (too slow) | ✅  | ✅     |
+| Tests      | ❌            | ✅  | manual |
+
+## Performance History
+
+Original hook: **~3-5 minutes**
+
+- lint-staged (ESLint): ~2 minutes
+- Turbo typecheck: ~2 minutes
+- Vitest tests: ~90 seconds
+
+Optimized hook: **~1-2 seconds**
+
+- Prettier only on staged files
+
+## Before Optimizing Your Hook
+
+Benchmark each step to identify the bottleneck:
 
 ```bash
-# Skip all hooks
-git commit --no-verify -m "Emergency fix"
+# Benchmark lint-staged
+time npx lint-staged
 
-# Only use when:
-# - Emergency production fixes
-# - Hook malfunction
-# - Intentional override
+# Benchmark ESLint directly on a single file
+time pnpm exec eslint packages/core/src/index.ts --fix
+
+# Benchmark Prettier directly
+time pnpm exec prettier packages/core/src/index.ts --write
+
+# Benchmark typecheck
+time pnpm turbo run typecheck --filter='[HEAD]'
 ```
+
+## Performance Comparison (This Repo)
+
+| Approach                             | Time  | Notes                   |
+| ------------------------------------ | ----- | ----------------------- |
+| Full lint-staged (ESLint + Prettier) | ~2:05 | ESLint type-aware rules |
+| ESLint alone on 1 file               | ~2:00 | Type loading dominates  |
+| Prettier alone on 1 file             | ~0.3s | No type loading         |
+| Prettier-only hook                   | ~1-2s | **Current approach**    |
+
+## Why ESLint is Slow
+
+The `.eslintrc.js` has type-aware linting enabled:
+
+```javascript
+parserOptions: {
+  project: './tsconfig.eslint.json',  // This loads entire TS project
+}
+```
+
+This makes ESLint load and parse the entire TypeScript project for every file. In a monorepo with many packages, this can take 2+ minutes even for a single file.
+
+### Diagnosing Slow ESLint Rules
+
+```bash
+# Show timing for each rule
+TIMING=1 pnpm exec eslint packages/core/src/index.ts
+
+# Output shows which rules are slowest:
+# Rule                          | Time (ms)
+# @typescript-eslint/no-unsafe* | 45000ms  <- type-aware rules
+```
+
+### Options to Fix
+
+1. **Remove `project` option** - disables type-aware rules, fastest
+2. **Use `TIMING=1`** - identify and disable specific slow rules
+3. **Skip ESLint in pre-commit** - run in CI only (current approach)
+4. **Switch to Biome** - faster Rust-based linter
+
+## Manual Checks Before PR
+
+Run full validation before creating PRs:
+
+```bash
+# Full CI-equivalent check
+pnpm turbo run typecheck lint test
+
+# Or individually
+pnpm exec eslint .
+pnpm turbo run typecheck
+pnpm test
+```
+
+## Hook Configuration
+
+**Location:** `.husky/pre-commit`
+
+Current hook does:
+
+1. Get staged `.ts`, `.tsx`, `.json`, `.md`, `.yml` files
+2. Run Prettier on them
+3. Re-stage formatted files
 
 ## Troubleshooting
 
-### Hook Not Running
+### Hook still slow?
+
+Check if someone re-added lint-staged:
 
 ```bash
-# Check existence
-ls -l .git/hooks/
-
-# Fix permissions
-chmod +x .git/hooks/*
-
-# Check syntax
-bash -n .git/hooks/pre-commit
+grep -n "lint-staged\|eslint" .husky/pre-commit
 ```
 
-### Permission Denied
+### Need ESLint locally?
+
+Run it manually on specific files:
 
 ```bash
-chmod +x .git/hooks/*
+pnpm exec eslint packages/core/src/myfile.ts
 ```
 
-### Failed Quality Checks
+### CI failing but local passes?
+
+The hook doesn't run ESLint/typecheck. Run locally:
 
 ```bash
-# Run tools manually
-uv run black --check .
-uv run ruff check .
-
-# Fix issues
-uv run black .
-uv run ruff check --fix .
-
-# Retry commit
-git commit -m "Your message"
+pnpm turbo run typecheck lint
 ```
 
-### Missing Tools
+### Common ESLint Errors in CI
 
-```bash
-# Install code quality tools
-uv add --dev black ruff
+**no-case-declarations**: Lexical declarations (`const`, `let`, `class`, `function`) in `switch` case blocks must be wrapped in braces:
 
-# Verify installation
-which black
-uv run black --version
+```typescript
+// ❌ Bad - ESLint error
+switch (method) {
+  case 'storage.get':
+    const value = await db.get(key); // Error: Unexpected lexical declaration
+    return res.json({ data: value });
+}
+
+// ✅ Good - wrap case block in braces
+switch (method) {
+  case 'storage.get': {
+    const value = await db.get(key);
+    return res.json({ data: value });
+  }
+}
 ```
 
-## Custom Hook Configuration
-
-### Modify pre-commit for Your Project
-
-```bash
-#!/bin/bash
-# .git/hooks/pre-commit
-
-# Get staged Python files
-FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.py$')
-
-if [ -n "$FILES" ]; then
-    # Run your tools
-    uv run black --check $FILES || exit 1
-    uv run ruff check $FILES || exit 1
-fi
-
-exit 0
-```
-
-## Hook Execution Order
-
-1. **pre-commit** - Before commit (code quality)
-2. **commit-msg** - Validates message format
-3. **post-commit** - After commit (notifications)
-4. **pre-push** - Before push (tests)
-
-## Best Practices
-
-### DO ✅
-- Install secrets scanner on ALL projects
-- Use commit-msg for consistent history
-- Run tests in pre-push
-- Test hooks after installation
-
-### DON'T ❌
-- Skip hooks regularly
-- Disable secrets scanning
-- Ignore hook failures
-- Commit without testing hooks first
-
-## Related Resources
-
-See `AgentUsage/pre_commit_hooks/` for:
-- `setup_guide.md` - Complete installation guide
-- `examples.md` - Custom hook examples
-- `TROUBLESHOOTING.md` - Common issues
-- Individual hook scripts for reference
+This pattern is common in route handlers and bridge API implementations.

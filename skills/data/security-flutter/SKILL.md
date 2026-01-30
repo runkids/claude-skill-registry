@@ -1,9 +1,9 @@
 ---
 name: security-flutter
-description: Segurança Flutter. Use when reviewing security, implementing auth, or hardening code.
+description: Flutter Security. Use when reviewing security, implementing auth, or hardening code.
 ---
 
-# Segurança Flutter
+# Flutter Security
 
 This skill provides guidelines and best practices.
 

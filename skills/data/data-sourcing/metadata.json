@@ -1,7 +1,7 @@
 {
   "name": "data-sourcing",
-  "repo": "Activer007/ordinary-claude-skills",
-  "path": "skills_all/data-sourcing/SKILL.md",
-  "source": "github.com/Activer007/ordinary-claude-skills",
-  "downloaded_at": "2026-01-29T04:28:47.503742Z"
+  "repo": "gtmagents/gtm-agents",
+  "path": "plugins/data-enrichment-master/skills/data-sourcing/SKILL.md",
+  "source": "github.com/gtmagents/gtm-agents",
+  "downloaded_at": "2026-01-30T04:13:48.511676Z"
 }

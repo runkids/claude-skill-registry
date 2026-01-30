@@ -1,373 +1,304 @@
 ---
 name: springboot-patterns
-description: Spring Boot and Java best practices. Use when developing REST APIs, services, repositories, or any Java code. Applies DDD architecture, transaction management, and code style conventions.
+description: Spring Boot architecture patterns, REST API design, layered services, data access, caching, async processing, and logging. Use for Java Spring Boot backend work.
 ---
 
-# Spring Boot Best Practices
+# Spring Boot Development Patterns
 
-## Project Structure (Domain-Driven Design)
+Spring Boot architecture and API patterns for scalable, production-grade services.
 
-```
-src/main/java/com/example/
-├── {domain}/                    # One package per domain
-│   ├── domain/                  # Domain layer - entities and repository interfaces
-│   │   ├── {Entity}.java        # JPA entity
-│   │   └── {Entity}Repository.java  # Spring Data JPA repository interface
-│   ├── application/             # Application layer - business logic
-│   │   └── {Entity}ApplicationService.java
-│   └── interfaces/              # Interface layer - REST controllers
-│       └── rest/
-│           ├── {Entity}Controller.java
-│           └── {Entity}Mapper.java
-├── shared/                      # Cross-cutting concerns
-│   ├── application/
-│   ├── domain/
-│   └── interfaces/rest/
-└── api/generated/               # OpenAPI generated code (do not edit)
-```
-
-## Transaction Management
-
-### Minimize Transaction Scope
-Only wrap the actual database operation in a transaction, not the entire method:
-
-```java
-// Good - minimal transaction scope
-public EntityDto updateEntity(String ref, UpdateEntityRequestDto request) {
-    Entity entity = refResolver.resolve(ref);
-
-    if (request.getTitle() != null) {
-        entity.setTitle(request.getTitle());
-    }
-    // ... other field updates
-
-    Entity saved = transactionTemplate.execute(status -> entityRepository.save(entity));
-    return entityMapper.toDto(saved);
-}
-
-// Bad - entire method in transaction
-public EntityDto updateEntity(String ref, UpdateEntityRequestDto request) {
-    return transactionTemplate.execute(status -> {
-        Entity entity = refResolver.resolve(ref);  // Read doesn't need transaction
-        // ... field updates don't need transaction
-        Entity saved = entityRepository.save(entity);  // Only this needs transaction
-        return entityMapper.toDto(saved);
-    });
-}
-```
-
-### Use TransactionTemplate, Not @Transactional
-Prefer `TransactionTemplate` over `@Transactional` annotation for explicit control:
-
-```java
-@Service
-@RequiredArgsConstructor
-public class EntityApplicationService {
-    private final TransactionTemplate transactionTemplate;
-    private final EntityRepository entityRepository;
-
-    public void deleteEntity(String ref) {
-        Entity entity = refResolver.resolve(ref);
-        transactionTemplate.executeWithoutResult(status -> entityRepository.delete(entity));
-    }
-}
-```
-
-### When Full Transaction Is Needed
-Keep full transaction scope when operations must be atomic:
-
-```java
-// Create needs full transaction for sequence number atomicity
-public EntityDto createEntity(CreateEntityRequestDto request) {
-    return transactionTemplate.execute(status -> {
-        int sequenceNumber = getNextSequenceNumber();  // Read
-        Entity entity = new Entity(..., sequenceNumber, ...);  // Must be atomic
-        return entityMapper.toDto(entityRepository.save(entity));  // Write
-    });
-}
-```
-
-## Lombok Usage
-
-### Use @RequiredArgsConstructor for Dependency Injection
-Never write constructors manually for Spring beans:
-
-```java
-// Good
-@Service
-@RequiredArgsConstructor
-public class EntityApplicationService {
-    private final EntityRepository entityRepository;
-    private final RefResolver refResolver;
-    private final EntityMapper entityMapper;
-}
-
-// Bad
-@Service
-public class EntityApplicationService {
-    private final EntityRepository entityRepository;
-
-    public EntityApplicationService(EntityRepository entityRepository) {
-        this.entityRepository = entityRepository;
-    }
-}
-```
-
-### Standard Lombok Annotations for Entities
-
-```java
-@Entity
-@Table(name = "entities")
-@Getter
-@Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)  // JPA requires no-arg constructor
-public class Entity {
-    // fields...
-
-    // Required-args constructor for creating new instances
-    public Entity(String publicId, int sequenceNumber, ...) {
-        // initialization
-    }
-}
-```
-
-## OpenAPI Generated Code
-
-### DTO Suffix Convention
-All generated model classes have `Dto` suffix to distinguish from domain entities:
-
-- Domain: `Entity`, `Project`, `Task`
-- DTOs: `EntityDto`, `ProjectDto`, `TaskDto`, `CreateEntityRequestDto`
-
-### Never Import with Wildcards
-Always use explicit imports:
-
-```java
-// Good
-import com.example.api.generated.model.EntityDto;
-import com.example.api.generated.model.CreateEntityRequestDto;
-
-// Bad
-import com.example.api.generated.model.*;
-```
-
-### Controller Implementation
-Controllers implement generated API interfaces:
+## REST API Structure
 
 ```java
 @RestController
-@RequiredArgsConstructor
-public class EntityController implements EntitiesApi {
-    private final EntityApplicationService entityApplicationService;
+@RequestMapping("/api/markets")
+@Validated
+class MarketController {
+  private final MarketService marketService;
 
-    @Override
-    public ResponseEntity<EntityDto> createEntity(CreateEntityRequestDto request) {
-        EntityDto created = entityApplicationService.createEntity(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
-    }
+  MarketController(MarketService marketService) {
+    this.marketService = marketService;
+  }
+
+  @GetMapping
+  ResponseEntity<Page<MarketResponse>> list(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "20") int size) {
+    Page<Market> markets = marketService.list(PageRequest.of(page, size));
+    return ResponseEntity.ok(markets.map(MarketResponse::from));
+  }
+
+  @PostMapping
+  ResponseEntity<MarketResponse> create(@Valid @RequestBody CreateMarketRequest request) {
+    Market market = marketService.create(request);
+    return ResponseEntity.status(HttpStatus.CREATED).body(MarketResponse.from(market));
+  }
 }
 ```
 
-## Mapper Pattern
-
-Mappers convert between domain entities and DTOs:
+## Repository Pattern (Spring Data JPA)
 
 ```java
-@Component
-public class EntityMapper {
-
-    public EntityDto toDto(Entity domain) {
-        EntityDto dto = new EntityDto();
-        dto.setPublicId(domain.getPublicId());
-        dto.setTitle(domain.getTitle());
-        dto.setStatus(toApiStatus(domain.getStatus()));
-        // ... map all fields
-        return dto;
-    }
-
-    public EntityStatus toDomainStatus(EntityStatusDto apiStatus) {
-        return switch (apiStatus) {
-            case ACTIVE -> EntityStatus.ACTIVE;
-            case INACTIVE -> EntityStatus.INACTIVE;
-            case ARCHIVED -> EntityStatus.ARCHIVED;
-        };
-    }
-
-    private EntityStatusDto toApiStatus(EntityStatus domainStatus) {
-        return switch (domainStatus) {
-            case ACTIVE -> EntityStatusDto.ACTIVE;
-            case INACTIVE -> EntityStatusDto.INACTIVE;
-            case ARCHIVED -> EntityStatusDto.ARCHIVED;
-        };
-    }
+public interface MarketRepository extends JpaRepository<MarketEntity, Long> {
+  @Query("select m from MarketEntity m where m.status = :status order by m.volume desc")
+  List<MarketEntity> findActive(@Param("status") MarketStatus status, Pageable pageable);
 }
 ```
 
-## Reference Resolution Pattern
-
-Use `RefResolver` for looking up entities by publicId or displayKey:
+## Service Layer with Transactions
 
 ```java
-@Component
-@RequiredArgsConstructor
-public class RefResolver {
-    private final EntityRepository entityRepository;
+@Service
+public class MarketService {
+  private final MarketRepository repo;
 
-    public Entity resolve(String ref) {
-        return entityRepository.findByPublicId(ref)
-            .or(() -> entityRepository.findByKey(ref))
-            .orElseThrow(() -> new EntityNotFoundException("Entity", ref));
-    }
+  public MarketService(MarketRepository repo) {
+    this.repo = repo;
+  }
 
-    // For optional references (can be null or empty string to clear)
-    public Entity resolveOptional(String ref) {
-        if (ref == null || ref.isBlank()) {
-            return null;
-        }
-        return resolve(ref);
-    }
+  @Transactional
+  public Market create(CreateMarketRequest request) {
+    MarketEntity entity = MarketEntity.from(request);
+    MarketEntity saved = repo.save(entity);
+    return Market.from(saved);
+  }
+}
+```
+
+## DTOs and Validation
+
+```java
+public record CreateMarketRequest(
+    @NotBlank @Size(max = 200) String name,
+    @NotBlank @Size(max = 2000) String description,
+    @NotNull @FutureOrPresent Instant endDate,
+    @NotEmpty List<@NotBlank String> categories) {}
+
+public record MarketResponse(Long id, String name, MarketStatus status) {
+  static MarketResponse from(Market market) {
+    return new MarketResponse(market.id(), market.name(), market.status());
+  }
 }
 ```
 
 ## Exception Handling
 
-### Custom Exceptions
+```java
+@ControllerAdvice
+class GlobalExceptionHandler {
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  ResponseEntity<ApiError> handleValidation(MethodArgumentNotValidException ex) {
+    String message = ex.getBindingResult().getFieldErrors().stream()
+        .map(e -> e.getField() + ": " + e.getDefaultMessage())
+        .collect(Collectors.joining(", "));
+    return ResponseEntity.badRequest().body(ApiError.validation(message));
+  }
+
+  @ExceptionHandler(AccessDeniedException.class)
+  ResponseEntity<ApiError> handleAccessDenied() {
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ApiError.of("Forbidden"));
+  }
+
+  @ExceptionHandler(Exception.class)
+  ResponseEntity<ApiError> handleGeneric(Exception ex) {
+    // Log unexpected errors with stack traces
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .body(ApiError.of("Internal server error"));
+  }
+}
+```
+
+## Caching
+
+Requires `@EnableCaching` on a configuration class.
 
 ```java
-public class EntityNotFoundException extends RuntimeException {
-    public EntityNotFoundException(String entityType, String reference) {
-        super(entityType + " not found: " + reference);
-    }
-}
+@Service
+public class MarketCacheService {
+  private final MarketRepository repo;
 
-public class ResourceConflictException extends RuntimeException {
-    public ResourceConflictException(String message) {
-        super(message);
-    }
+  public MarketCacheService(MarketRepository repo) {
+    this.repo = repo;
+  }
+
+  @Cacheable(value = "market", key = "#id")
+  public Market getById(Long id) {
+    return repo.findById(id)
+        .map(Market::from)
+        .orElseThrow(() -> new EntityNotFoundException("Market not found"));
+  }
+
+  @CacheEvict(value = "market", key = "#id")
+  public void evict(Long id) {}
 }
 ```
 
-### Global Exception Handler
+## Async Processing
+
+Requires `@EnableAsync` on a configuration class.
 
 ```java
-@RestControllerAdvice
-public class GlobalExceptionHandler {
-
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> handleNotFound(EntityNotFoundException ex) {
-        ErrorResponseDto error = new ErrorResponseDto();
-        error.setCode("NOT_FOUND");
-        error.setMessage(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponseDto> handleValidation(MethodArgumentNotValidException ex) {
-        ErrorResponseDto error = new ErrorResponseDto();
-        error.setCode("VALIDATION_ERROR");
-        error.setMessage("Validation failed");
-        error.setDetails(ex.getBindingResult().getFieldErrors().stream()
-            .map(fe -> {
-                FieldErrorDto fieldError = new FieldErrorDto();
-                fieldError.setField(fe.getField());
-                fieldError.setMessage(fe.getDefaultMessage());
-                return fieldError;
-            })
-            .toList());
-        return ResponseEntity.badRequest().body(error);
-    }
+@Service
+public class NotificationService {
+  @Async
+  public CompletableFuture<Void> sendAsync(Notification notification) {
+    // send email/SMS
+    return CompletableFuture.completedFuture(null);
+  }
 }
 ```
 
-## Testing Patterns
-
-### Integration Tests with Schema Isolation
+## Logging (SLF4J)
 
 ```java
-@AutoConfigureMockMvc
-@Transactional
-class EntityControllerTest extends AbstractIntegrationTest {
+@Service
+public class ReportService {
+  private static final Logger log = LoggerFactory.getLogger(ReportService.class);
 
-    private static final String SCHEMA_NAME = "entity_controller_test";
-
-    @DynamicPropertySource
-    static void configureSchema(DynamicPropertyRegistry registry) {
-        AbstractIntegrationTest.configureSchema(registry, SCHEMA_NAME);
+  public Report generate(Long marketId) {
+    log.info("generate_report marketId={}", marketId);
+    try {
+      // logic
+    } catch (Exception ex) {
+      log.error("generate_report_failed marketId={}", marketId, ex);
+      throw ex;
     }
-
-    @Autowired private MockMvc mockMvc;
-    @MockitoBean private CurrentUserService currentUserService;
-
-    @BeforeEach
-    void setUp() {
-        testUser = userRepository.save(new User(...));
-        when(currentUserService.getCurrentUser()).thenReturn(testUser);
-    }
-
-    @Test
-    @WithMockUser(username = "user")
-    void createEntity_shouldReturnCreatedEntity() throws Exception {
-        CreateEntityRequestDto request = new CreateEntityRequestDto();
-        request.setTitle("Test Entity");
-
-        mockMvc.perform(post("/entities")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
-            .andExpect(status().isCreated())
-            .andExpect(jsonPath("$.title").value("Test Entity"));
-    }
+    return new Report();
+  }
 }
 ```
 
-## Code Style
-
-### Checkstyle Rules
-- No star imports (`import x.y.*`)
-- No unused imports
-- No redundant imports
-
-### Spotless Formatting
-Run `mvn spotless:apply` before committing.
-
-### Switch Expressions
-Use modern switch expressions:
+## Middleware / Filters
 
 ```java
-// Good
-private EntityStatusDto toApiStatus(EntityStatus status) {
-    return switch (status) {
-        case ACTIVE -> EntityStatusDto.ACTIVE;
-        case INACTIVE -> EntityStatusDto.INACTIVE;
-        case ARCHIVED -> EntityStatusDto.ARCHIVED;
-    };
-}
+@Component
+public class RequestLoggingFilter extends OncePerRequestFilter {
+  private static final Logger log = LoggerFactory.getLogger(RequestLoggingFilter.class);
 
-// Bad
-private EntityStatusDto toApiStatus(EntityStatus status) {
-    switch (status) {
-        case ACTIVE: return EntityStatusDto.ACTIVE;
-        case INACTIVE: return EntityStatusDto.INACTIVE;
-        case ARCHIVED: return EntityStatusDto.ARCHIVED;
-        default: throw new IllegalArgumentException();
+  @Override
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+      FilterChain filterChain) throws ServletException, IOException {
+    long start = System.currentTimeMillis();
+    try {
+      filterChain.doFilter(request, response);
+    } finally {
+      long duration = System.currentTimeMillis() - start;
+      log.info("req method={} uri={} status={} durationMs={}",
+          request.getMethod(), request.getRequestURI(), response.getStatus(), duration);
     }
+  }
 }
 ```
 
-## Build Commands
+## Pagination and Sorting
 
-```bash
-# Generate OpenAPI code
-mvn generate-sources
-
-# Format code
-mvn spotless:apply
-
-# Check style
-mvn checkstyle:check
-
-# Run tests
-mvn test
-
-# Full build
-mvn clean verify
+```java
+PageRequest page = PageRequest.of(pageNumber, pageSize, Sort.by("createdAt").descending());
+Page<Market> results = marketService.list(page);
 ```
+
+## Error-Resilient External Calls
+
+```java
+public <T> T withRetry(Supplier<T> supplier, int maxRetries) {
+  int attempts = 0;
+  while (true) {
+    try {
+      return supplier.get();
+    } catch (Exception ex) {
+      attempts++;
+      if (attempts >= maxRetries) {
+        throw ex;
+      }
+      try {
+        Thread.sleep((long) Math.pow(2, attempts) * 100L);
+      } catch (InterruptedException ie) {
+        Thread.currentThread().interrupt();
+        throw ex;
+      }
+    }
+  }
+}
+```
+
+## Rate Limiting (Filter + Bucket4j)
+
+**Security Note**: The `X-Forwarded-For` header is untrusted by default because clients can spoof it.
+Only use forwarded headers when:
+1. Your app is behind a trusted reverse proxy (nginx, AWS ALB, etc.)
+2. You have registered `ForwardedHeaderFilter` as a bean
+3. You have configured `server.forward-headers-strategy=NATIVE` or `FRAMEWORK` in application properties
+4. Your proxy is configured to overwrite (not append to) the `X-Forwarded-For` header
+
+When `ForwardedHeaderFilter` is properly configured, `request.getRemoteAddr()` will automatically
+return the correct client IP from the forwarded headers. Without this configuration, use
+`request.getRemoteAddr()` directly—it returns the immediate connection IP, which is the only
+trustworthy value.
+
+```java
+@Component
+public class RateLimitFilter extends OncePerRequestFilter {
+  private final Map<String, Bucket> buckets = new ConcurrentHashMap<>();
+
+  /*
+   * SECURITY: This filter uses request.getRemoteAddr() to identify clients for rate limiting.
+   *
+   * If your application is behind a reverse proxy (nginx, AWS ALB, etc.), you MUST configure
+   * Spring to handle forwarded headers properly for accurate client IP detection:
+   *
+   * 1. Set server.forward-headers-strategy=NATIVE (for cloud platforms) or FRAMEWORK in
+   *    application.properties/yaml
+   * 2. If using FRAMEWORK strategy, register ForwardedHeaderFilter:
+   *
+   *    @Bean
+   *    ForwardedHeaderFilter forwardedHeaderFilter() {
+   *        return new ForwardedHeaderFilter();
+   *    }
+   *
+   * 3. Ensure your proxy overwrites (not appends) the X-Forwarded-For header to prevent spoofing
+   * 4. Configure server.tomcat.remoteip.trusted-proxies or equivalent for your container
+   *
+   * Without this configuration, request.getRemoteAddr() returns the proxy IP, not the client IP.
+   * Do NOT read X-Forwarded-For directly—it is trivially spoofable without trusted proxy handling.
+   */
+  @Override
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+      FilterChain filterChain) throws ServletException, IOException {
+    // Use getRemoteAddr() which returns the correct client IP when ForwardedHeaderFilter
+    // is configured, or the direct connection IP otherwise. Never trust X-Forwarded-For
+    // headers directly without proper proxy configuration.
+    String clientIp = request.getRemoteAddr();
+
+    Bucket bucket = buckets.computeIfAbsent(clientIp,
+        k -> Bucket.builder()
+            .addLimit(Bandwidth.classic(100, Refill.greedy(100, Duration.ofMinutes(1))))
+            .build());
+
+    if (bucket.tryConsume(1)) {
+      filterChain.doFilter(request, response);
+    } else {
+      response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
+    }
+  }
+}
+```
+
+## Background Jobs
+
+Use Spring’s `@Scheduled` or integrate with queues (e.g., Kafka, SQS, RabbitMQ). Keep handlers idempotent and observable.
+
+## Observability
+
+- Structured logging (JSON) via Logback encoder
+- Metrics: Micrometer + Prometheus/OTel
+- Tracing: Micrometer Tracing with OpenTelemetry or Brave backend
+
+## Production Defaults
+
+- Prefer constructor injection, avoid field injection
+- Enable `spring.mvc.problemdetails.enabled=true` for RFC 7807 errors (Spring Boot 3+)
+- Configure HikariCP pool sizes for workload, set timeouts
+- Use `@Transactional(readOnly = true)` for queries
+- Enforce null-safety via `@NonNull` and `Optional` where appropriate
+
+**Remember**: Keep controllers thin, services focused, repositories simple, and errors handled centrally. Optimize for maintainability and testability.

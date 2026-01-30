@@ -1,6 +1,7 @@
 ---
 name: manage-solution-outline
 description: Manage solution outline documents - standards, examples, validation, and deliverable extraction
+user-invocable: false
 allowed-tools: Read, Glob, Bash
 ---
 
@@ -30,6 +31,7 @@ Solution outlines have a fixed structure with required and optional sections:
 
 plan_id: {plan_id}
 created: {timestamp}
+compatibility: {value} — {long description}
 
 ## Summary          ← REQUIRED: 2-3 sentences describing the approach
 
@@ -223,7 +225,7 @@ python3 .plan/execute-script.py pm-workflow:manage-solution-outline:manage-solut
 ## Integration
 
 **Loaded by**:
-- `pm-workflow:solution-outline-agent` (thin agent that loads domain skills from config.toon)
+- `pm-workflow:solution-outline-agent` (thin agent that loads domain skills from references.toon)
 - Domain skills: `pm-plugin-development:ext-outline-plugin`, etc.
 
 **Data Sources** (via skills):
@@ -239,7 +241,7 @@ python3 .plan/execute-script.py pm-workflow:manage-solution-outline:manage-solut
 |---------|------------|-------------|
 | `write` | `--plan-id [--force]` | Write solution from stdin (validates automatically) |
 | `validate` | `--plan-id` | Validate structure |
-| `read` | `--plan-id [--raw]` | Read solution (TOON or raw markdown) |
+| `read` | `--plan-id [--raw] [--deliverable-number N]` | Read solution or specific deliverable |
 | `list-deliverables` | `--plan-id` | Extract deliverables list |
 | `exists` | `--plan-id` | Check if solution exists |
 
@@ -261,9 +263,9 @@ plan_id: my-feature
 file: solution_outline.md
 action: created
 validation:
-  valid: true
   deliverable_count: 3
   sections_found: summary,overview,deliverables
+  compatibility: breaking — Clean-slate approach, no deprecation nor transitionary comments
 ```
 
 ### validate
@@ -280,6 +282,7 @@ validation:
     - 1. Create JwtValidationService class
     - 2. Add configuration support
     - 3. Create unit tests
+  compatibility: breaking — Clean-slate approach, no deprecation nor transitionary comments
 ```
 
 ### list-deliverables
@@ -313,6 +316,47 @@ content:
 ```
 
 With `--raw`: Returns raw markdown content.
+
+With `--deliverable-number N`: Returns a specific deliverable by number.
+
+**Example**: Read deliverable 3:
+```bash
+python3 .plan/execute-script.py pm-workflow:manage-solution-outline:manage-solution-outline read \
+  --plan-id {plan_id} \
+  --deliverable-number 3
+```
+
+**Output** (TOON):
+```toon
+status: success
+plan_id: my-feature
+deliverable:
+  number: 3
+  title: Implement unit tests
+  reference: 3. Implement unit tests
+  metadata:
+    change_type: create
+    execution_mode: automated
+    domain: java
+    module: jwt-service
+    depends: 1
+  profiles:
+    - testing
+  affected_files:
+    - src/test/java/de/cuioss/jwt/JwtValidationServiceTest.java
+```
+
+If deliverable not found, returns error with available numbers:
+```toon
+status: error
+error: deliverable_not_found
+plan_id: my-feature
+number: 999
+available:
+  - 1
+  - 2
+  - 3
+```
 
 ### exists
 

@@ -1,73 +1,136 @@
 ---
 name: swift-build
-description: "SwiftプロジェクトのビルドとテストをXcodeコマンドラインで実行（iOS/macOS対応）。Use when: ビルド、テスト、xcodebuild、swift test を依頼された時。"
+description: Build, archive, code signing, and App Store distribution for iOS/macOS apps. Use when configuring build settings, signing, TestFlight, notarization, or CI/CD pipelines.
+user-invocable: false
 ---
 
-# Swift ビルド＆テスト（iOS / macOS 対応）
+# Swift Build & Distribution
 
-## プラットフォーム別コマンド
-
-### iOS Simulator
-```bash
-xcodebuild build -scheme YourApp -destination 'platform=iOS Simulator,name=iPhone 16e'
-xcodebuild test -scheme YourApp -destination 'platform=iOS Simulator,name=iPhone 16e'
-```
-
-### macOS
-```bash
-xcodebuild build -scheme YourApp -destination 'platform=macOS'
-xcodebuild test -scheme YourApp -destination 'platform=macOS'
-```
-
-### Mac Catalyst
-```bash
-xcodebuild build -scheme YourApp -destination 'platform=macOS,variant=Mac Catalyst'
-```
-
-## 実行手順
-
-1. スキーム確認: `xcodebuild -list`
-2. フォーマットチェック: `swift-format lint -r Sources/`
-3. ビルド: 上記プラットフォーム別コマンド
-4. ユニットテスト: 上記プラットフォーム別コマンド
-5. 静的解析: `swiftlint lint`
-
-## Universal Binary（macOS）
+## Code Signing (Automatic - Recommended)
 
 ```bash
-# arm64 + x86_64 のユニバーサルビルド
-xcodebuild build -scheme YourApp -destination 'platform=macOS' \
-  ARCHS="arm64 x86_64" ONLY_ACTIVE_ARCH=NO
+# Xcode: Target → General → "Automatically manage signing" ✓
+# Select Development Team
+
+# Command line
+xcodebuild archive \
+  -scheme MyApp \
+  -archivePath ./build/MyApp.xcarchive \
+  -allowProvisioningUpdates \
+  DEVELOPMENT_TEAM="XXXXXXXXXX"
 ```
 
-## クリーンビルド
+## Archive & Export
 
 ```bash
-xcodebuild clean build -scheme YourApp -destination 'platform=macOS'
+# Archive
+xcodebuild archive \
+  -workspace MyApp.xcworkspace \
+  -scheme MyApp \
+  -configuration Release \
+  -archivePath ./build/MyApp.xcarchive
+
+# Export IPA
+xcodebuild -exportArchive \
+  -archivePath ./build/MyApp.xcarchive \
+  -exportPath ./build \
+  -exportOptionsPlist ExportOptions.plist
 ```
 
-## アーカイブ（リリース用）
+**ExportOptions.plist:**
+```xml
+<dict>
+    <key>method</key>
+    <string>app-store</string>
+    <key>teamID</key>
+    <string>XXXXXXXXXX</string>
+</dict>
+```
 
-### iOS
+## Privacy Manifest (REQUIRED)
+
+**PrivacyInfo.xcprivacy:**
+```xml
+<dict>
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array><string>CA92.1</string></array>
+        </dict>
+    </array>
+</dict>
+```
+
+## macOS Notarization
+
 ```bash
-xcodebuild archive -scheme YourApp -archivePath ./build/YourApp.xcarchive \
-  -destination 'generic/platform=iOS'
+# Store credentials
+xcrun notarytool store-credentials "notary-profile" \
+  --apple-id "dev@company.com" \
+  --team-id "XXXXXXXXXX"
+
+# Submit
+xcrun notarytool submit ./MyApp.dmg \
+  --keychain-profile "notary-profile" --wait
+
+# Staple ticket
+xcrun stapler staple ./MyApp.dmg
 ```
 
-### macOS
+## Build Configurations
+
+**Release.xcconfig:**
+```ini
+GCC_OPTIMIZATION_LEVEL = s
+SWIFT_OPTIMIZATION_LEVEL = -O
+SWIFT_COMPILATION_MODE = wholemodule
+DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
+```
+
+## fastlane Beta Deploy
+
+```ruby
+lane :beta do
+  match(type: "appstore", readonly: true)
+  increment_build_number
+  build_app(scheme: "MyApp", export_method: "app-store")
+  upload_to_testflight(groups: ["Beta Testers"])
+end
+```
+
+## Common Info.plist Keys
+
+```xml
+<!-- Export compliance (no encryption) -->
+<key>ITSAppUsesNonExemptEncryption</key>
+<false/>
+
+<!-- Required device capabilities -->
+<key>UIRequiredDeviceCapabilities</key>
+<array><string>arm64</string></array>
+```
+
+## Troubleshooting
+
 ```bash
-xcodebuild archive -scheme YourApp -archivePath ./build/YourApp.xcarchive \
-  -destination 'platform=macOS'
+# Check certificates
+security find-identity -v -p codesigning
+
+# Check provisioning profiles
+ls ~/Library/MobileDevice/Provisioning\ Profiles/
+
+# Verify code signing
+codesign -dvvv MyApp.app
 ```
 
-## トラブルシューティング
+## Pre-Release Checklist
 
-### シミュレーター一覧
-```bash
-xcrun simctl list devices available
-```
-
-### 利用可能なデスティネーション
-```bash
-xcodebuild -showdestinations -scheme YourApp
-```
+- [ ] Version & build number incremented
+- [ ] PrivacyInfo.xcprivacy complete
+- [ ] App Icon all variants (light/dark/tinted)
+- [ ] Release configuration selected
+- [ ] Archive validates in Organizer
+- [ ] TestFlight beta tested

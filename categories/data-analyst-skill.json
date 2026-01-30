@@ -1,0 +1,19 @@
+{
+  "category": "data-analyst-skill",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.299801Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in business intelligence, SQL, data visualization, and translating data into actionable business insights.",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "data-analyst-skill",
+      "branch": "main",
+      "category": "data-analyst-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

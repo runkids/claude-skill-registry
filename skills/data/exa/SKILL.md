@@ -1,36 +1,40 @@
 ---
 name: exa
-description: 使用 Exa.ai API 进行高质量的互联网搜索。需要 EXA_API_KEY 环境变量。
+description: Neural web search and code context via Exa AI API. Requires EXA_API_KEY. Use for finding documentation, code examples, research papers, or company info.
+metadata: {"clawdbot":{"emoji":"🧠","requires":{"env":["EXA_API_KEY"]}}}
 ---
 
-# Exa.ai 搜索技能
+# Exa - Neural Web Search
 
-一个简单的 Exa API 封装。
+Direct API access to Exa's neural search engine.
 
-## 执行环境
+## Setup
 
-| 路径类型 | 路径 | 基准目录 |
-|---------|------|---------|
-| **技能目录** | `~/.pi/agent/skills/exa/` | 固定位置 |
-| **使用方式** | API 调用，`pi` 自动激活 | 无需手动执行 |
+**1. Get your API Key:**
+Get a key from [Exa Dashboard](https://dashboard.exa.ai/api-keys).
 
-## 安装
-
+**2. Set it in your environment:**
 ```bash
-cd ~/.pi/agent/skills/exa
-pnpm install exa-js
+export EXA_API_KEY="your-key-here"
 ```
 
-## 配置
+## Usage
 
-在你的环境变量中设置 `EXA_API_KEY`。
+### Web Search
+```bash
+bash scripts/search.sh "query" [num_results] [type]
+```
+*   `type`: auto (default), neural, fast, deep
+*   `category`: company, research-paper, news, github, tweet, personal-site, pdf
 
-## 用法
+### Code Context
+Finds relevant code snippets and documentation.
+```bash
+bash scripts/code.sh "query" [num_results]
+```
 
-`pi` 会自动调用此技能进行搜索，无需手动执行命令。
-
-## 路径说明
-
-- **无需本地脚本执行**：此技能通过 API 调用使用
-- **依赖位置**：`~/.pi/agent/skills/exa/` 包含依赖包和配置
-- **环境变量**：`EXA_API_KEY` 需在系统环境变量中设置
+### Get Content
+Extract full text from URLs.
+```bash
+bash scripts/content.sh "url1" "url2"
+```

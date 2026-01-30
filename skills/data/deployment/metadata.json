@@ -1,7 +1,7 @@
 {
   "name": "deployment",
-  "repo": "masharratt/claude-flow-novice",
-  "path": ".claude/skills/cfn-deployment-lifecycle/lib/deployment/SKILL.md",
-  "source": "github.com/masharratt/claude-flow-novice",
-  "downloaded_at": "2026-01-29T04:27:58.621070Z"
+  "repo": "saknarinZ/agent_skills_gemini",
+  "path": ".agent/skills/deployment/SKILL.md",
+  "source": "github.com/saknarinZ/agent_skills_gemini",
+  "downloaded_at": "2026-01-30T04:46:35.143475Z"
 }

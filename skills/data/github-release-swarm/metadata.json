@@ -1,9 +1,7 @@
 {
   "name": "github-release-swarm",
-  "description": "Orchestrate complex software releases using AI swarms that handle everything from changelog generation to multi-platform deployment. Use for release planning, automated versioning, artifact building, ",
   "repo": "vamseeachanta/workspace-hub",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/development/github/github-release-swarm/SKILL.md",
+  "source": "github.com/vamseeachanta/workspace-hub",
+  "downloaded_at": "2026-01-30T04:11:49.583515Z"
 }

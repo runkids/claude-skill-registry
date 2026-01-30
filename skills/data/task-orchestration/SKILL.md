@@ -1,113 +1,94 @@
 ---
 name: task-orchestration
-description: Execute repo work one task at a time using a strict plan → execute → iterate loop tracked in .copilot-todo.yaml.
-compatibility: Designed for GitHub Copilot CLI; requires Python 3 and local filesystem access.
-metadata:
-  author: github-copilot-cli
-  version: "1.0"
+description: Orchestrate the complete development workflow for implementing sub-tasks from a task list. Use for end-to-end feature implementation with quality controls.
 ---
 
 # Task Orchestration
 
-Use this skill to drive work through a **single authoritative YAML todo file**: `.copilot-todo.yaml`.
+Orchestrate the complete development workflow for implementing sub-tasks from a task list.
 
-## Source of truth
-- `.copilot-todo.yaml` — **only** status tracker.
-- `.copilot-todo.md` — legacy/migration only (do not update by hand).
+## When to Use This Skill
 
-## Getting Started with Templates
+Use this skill when:
+- You need to implement a specific sub-task from a task list
+- You want to follow a structured development workflow with quality controls
+- Working on features with existing task lists in `.ai/[feature_name]/tasks.md`
+- You need to ensure code quality through linting and testing before committing
 
-### Creating a new plan from template
-```bash
-# Copy the template to your repo root or session folder
-cp .github/skills/task-orchestration/template/plan.md.template plan.md
+Don't use this skill:
+- When there are no existing task lists
+- For ad-hoc code changes without structured task management
+- When you need to work on multiple tasks simultaneously
 
-# Edit plan.md with your tasks (use Markdown checkboxes: - [ ] Task name)
+## What This Agent Does
 
-# Generate .copilot-todo.yaml from your plan
-python3 .github/skills/task-orchestration/scripts/task_orchestrator.py \
-  --plan-md plan.md \
-  --plan-mode regen \
-  init
-```
+1. **Task Selection**: Identifies and selects the appropriate sub-task from a task list
+2. **Implementation**: Uses the task-implementer skill to implement the selected sub-task
+3. **Quality Control**: Runs code linters and tests to ensure code quality
+4. **Task Management**: Updates task completion status in the task list
+5. **Version Control**: Stages and commits changes following proper git workflow
+6. **Iterative Process**: Continues with the next incomplete sub-task until all are done
 
-### Creating a .copilot-todo.yaml from scratch
-```bash
-# Copy the template
-cp .github/skills/task-orchestration/template/copilot-todo.yaml.template .copilot-todo.yaml
+## Task Selection Process
 
-# Edit the tasks section, then initialize
-python3 .github/skills/task-orchestration/scripts/task_orchestrator.py init
-```
+### Command Arguments
 
-**Template locations:**
-- `template/plan.md.template` — Markdown plan with task checkboxes
-- `template/copilot-todo.yaml.template` — YAML structure with example task
+- `feature_name` - Locates the relevant task list at `.ai/[feature_name]/tasks.md`
+- `subtask_number` - The specific sub-task number to implement
 
-## Loop (plan → execute → iterate)
-Repeat until no runnable tasks remain:
+### Selection Logic
 
-1) Sync / migrate state
+1. If `feature_name` is not provided:
+   - List all available task lists in `.ai/*/tasks.md`
+   - Show feature names as a numbered list
+   - Ask user to pick one to work on (excluding completed ones)
 
-- Reuse existing `.copilot-todo.yaml` (default):
-```bash
-python3 .github/skills/task-orchestration/scripts/task_orchestrator.py init
-```
+2. If `subtask_number` is not provided:
+   - Show all unimplemented sub-tasks
+   - Identify the first incomplete sub-task
+   - Ask user if they want to implement that one, or select another
 
-- (Optional) Seed/regenerate tasks from `plan.md` using **Markdown task list items** (`- [ ] ...` / `- [x] ...`).
-  - If an item starts with an explicit ID prefix like `A1. ...` or `T-001: ...`, that ID is used.
-  - Otherwise a stable-ish `P-XXXXXXXX` ID is generated from the text.
-```bash
-python3 .github/skills/task-orchestration/scripts/task_orchestrator.py \
-  --plan-md plan.md \
-  --plan-mode regen \
-  init
-```
+## Sub-task Completion Protocol
 
-2) Start next task
-```bash
-python3 .github/skills/task-orchestration/scripts/task_orchestrator.py next
-```
+**CRITICAL: Follow this exact sequence. NO EXCEPTIONS!**
 
-3) Plan (short bullets, only for the chosen task)
+1. **Implement**: Use the task-implementer skill to implement the selected sub-task
 
-4) Execute (minimal diff; run smallest relevant existing build/test)
+2. **Lint**: Use the code-linter skill to run all appropriate linters according to repository guidelines
 
-5) Update status
-```bash
-python3 .github/skills/task-orchestration/scripts/task_orchestrator.py update <ID> completed --note "..."
-# or
-python3 .github/skills/task-orchestration/scripts/task_orchestrator.py update <ID> blocked --note "..."
-```
+3. **Test**: Use the test-runner skill to run all appropriate tests according to repository guidelines
 
-5b) Commit (required when using `ralph_loop.py --require-commit`)
-```bash
-git add -A
-git commit -m "<ID>: <short summary>"
-```
+4. **Fix Issues**: If linting or testing fails, attempt to fix the issues. Do NOT proceed until both pass
 
-6) Iterate / expand
-If you discover missing work, **add follow-up tasks** (don’t silently expand scope):
-```bash
-python3 .github/skills/task-orchestration/scripts/task_orchestrator.py add "Title" --deps <ID1,ID2> --priority Medium --goal "..."
-```
+5. **Mark Complete**: Update the task list by changing `[ ]` to `[x]` for the completed sub-task. If all sub-tasks under a parent task are complete, also mark the parent task as complete
 
-## Ralph-style multi-session loop (Copilot CLI)
-To run **one fresh Copilot run per task** (uses `copilot -p`, consuming Copilot requests accordingly):
-```bash
-python3 .github/skills/task-orchestration/scripts/ralph_loop.py \
-  --non-interactive \
-  --max-steps 10
+6. **Stage Changes**: Use the git-stager skill to stage relevant changes, ensuring to include the updated `tasks.md` file
 
-# or: derive tasks from plan.md
-python3 .github/skills/task-orchestration/scripts/ralph_loop.py \
-  --non-interactive \
-  --plan-md plan.md \
-  --plan-mode regen \
-  --max-steps 10
-```
+7. **User Review**: Ask the user to review changes and approve with "good" or "vibe". If user responds with "vibe", skip this step for future iterations in the session
 
-Notes:
-- This does **not** bypass quotas; it just splits work into multiple sessions.
-- By default `ralph_loop.py` enforces **one commit per finished task** (use `--no-require-commit` to disable).
-- Keep `--max-steps` small to avoid burning requests if a task gets stuck.
+8. **Commit**: ONLY after user approval, use the git-committer skill to commit with a proper message
+
+9. **Continue**: Select the next incomplete sub-task and repeat from step 1
+
+## Quality Gates
+
+- **Linting**: All linters must pass before proceeding
+- **Testing**: All tests must pass before proceeding
+- **User Approval**: Changes must be reviewed and approved before committing
+- **Task Tracking**: Task completion must be properly recorded
+
+## Error Handling
+
+- If linting fails: Attempt to auto-fix, then ask user if manual fixes are needed
+- If testing fails: Attempt to fix issues, then ask user for guidance
+- If user rejects changes: Ask for specific feedback and iterate
+- If no more tasks: Inform user that all tasks are complete
+
+## Integration with Other Skills
+
+This orchestrator works closely with:
+- `task-implementation` - For actual code implementation
+- `code-linting` - For code quality checks
+- `test-running` - For test execution
+- `git-staging` - For staging changes
+- `git-commit` - For creating commits

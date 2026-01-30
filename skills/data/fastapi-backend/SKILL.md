@@ -1,644 +1,349 @@
 ---
 name: fastapi-backend
-description: Build production-grade FastAPI backends with SQLModel, Pydantic, and JWT authentication. Use this skill when building REST APIs, integrating with Neon PostgreSQL, implementing Better Auth JWT verification, or creating CRUD endpoints. Includes patterns for audit logging, worker/agent parity, and OpenAPI documentation.
+description: FastAPI routes, services, auth JWT, streaming, error handling, OpenAI integration
 ---
 
-# FastAPI Backend
+# FastAPI Backend — CEI-001
 
-Build production-grade FastAPI backends with SQLModel, Pydantic v2, and JWT/JWKS authentication patterns.
+## Architecture Pattern
 
-## When to Use
-
-- Building REST API endpoints with FastAPI
-- Creating SQLModel schemas for Neon PostgreSQL
-- Implementing JWT verification against Better Auth JWKS
-- Designing OpenAPI contracts for frontend consumption
-- Adding audit logging to API operations
-- Ensuring human-agent parity in API design
-
-## Quick Start
-
-```bash
-# Project setup
-uv init backend && cd backend
-uv add fastapi sqlmodel pydantic httpx python-jose uvicorn
-
-# Development
-uv run uvicorn main:app --reload --port 8000
-
-# Access docs
-open http://localhost:8000/docs  # Swagger UI with Authorize button
+```
+Route Layer (FastAPI)
+  ↓ (validates request)
+Service Layer (business logic)
+  ↓ (Pydantic schema validation)
+Data Layer (SQLAlchemy ORM)
+  ↓
+Response (Pydantic schema)
 ```
 
-## Core Patterns
+## Route Patterns
 
-### 1. SQLModel Schema (Database + API)
-
-SQLModel combines SQLAlchemy and Pydantic. Use `table=True` for database models:
-
+### Basic CRUD Route
 ```python
-from sqlmodel import SQLModel, Field
-from datetime import datetime
-from typing import Optional, Literal
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
 
-# Base model (shared fields, no table)
-class TaskBase(SQLModel):
-    title: str = Field(max_length=200)
-    description: Optional[str] = None
-    status: Literal["pending", "in_progress", "review", "completed", "blocked"] = "pending"
-    priority: Literal["low", "medium", "high", "critical"] = "medium"
-    progress_percent: int = Field(default=0, ge=0, le=100)
-    assigned_to: Optional[str] = None
-    project_slug: Optional[str] = None
-    parent_id: Optional[int] = None
+from app.schemas.evaluation import EvaluationCreate, EvaluationResponse
+from app.services.evaluation_service import EvaluationService
+from app.api.deps import get_db, get_current_user
 
-# Database model (has table)
-class Task(TaskBase, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    created_at: datetime = Field(default_factory=datetime.now)
-    updated_at: datetime = Field(default_factory=datetime.now)
+router = APIRouter(prefix="/api/evaluations", tags=["evaluations"])
 
-# API models (no table, for request/response)
-class TaskCreate(TaskBase):
-    pass
+@router.post("", response_model=EvaluationResponse, status_code=status.HTTP_201_CREATED)
+async def create_evaluation(
+    eval_data: EvaluationCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(get_current_user)
+) -> EvaluationResponse:
+    """
+    Create new evaluation for user
+    
+    Example:
+    ```
+    POST /api/evaluations
+    {
+        "company_id": "123e4567-e89b-12d3-a456-426614174000",
+        "project_type": "new_erp"
+    }
+    ```
+    """
+    service = EvaluationService(db)
+    return await service.create(current_user.id, eval_data)
 
-class TaskUpdate(SQLModel):
-    title: Optional[str] = None
-    description: Optional[str] = None
-    status: Optional[str] = None
-    priority: Optional[str] = None
-    progress_percent: Optional[int] = None
-    assigned_to: Optional[str] = None
+@router.get("/{eval_id}", response_model=EvaluationResponse)
+async def get_evaluation(
+    eval_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(get_current_user)
+) -> EvaluationResponse:
+    """Get evaluation by ID"""
+    service = EvaluationService(db)
+    evaluation = await service.get(eval_id, current_user.id)
+    if not evaluation:
+        raise HTTPException(status_code=404, detail="Evaluation not found")
+    return evaluation
 
-class TaskRead(TaskBase):
-    id: int
-    created_at: datetime
-    updated_at: datetime
+@router.get("", response_model=list[EvaluationResponse])
+async def list_evaluations(
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(get_current_user),
+    skip: int = 0,
+    limit: int = 10
+) -> list[EvaluationResponse]:
+    """List user's evaluations"""
+    service = EvaluationService(db)
+    return await service.list(current_user.id, skip, limit)
+
+@router.put("/{eval_id}", response_model=EvaluationResponse)
+async def update_evaluation(
+    eval_id: str,
+    eval_data: EvaluationUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(get_current_user)
+) -> EvaluationResponse:
+    """Update evaluation"""
+    service = EvaluationService(db)
+    evaluation = await service.update(eval_id, current_user.id, eval_data)
+    if not evaluation:
+        raise HTTPException(status_code=404, detail="Evaluation not found")
+    return evaluation
+
+@router.delete("/{eval_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_evaluation(
+    eval_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(get_current_user)
+):
+    """Delete evaluation"""
+    service = EvaluationService(db)
+    success = await service.delete(eval_id, current_user.id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Evaluation not found")
 ```
 
-### 2. Neon PostgreSQL Connection
-
+### Streaming Route (Chat)
 ```python
-from sqlmodel import create_engine, Session
-import os
+from fastapi.responses import StreamingResponse
 
-# Neon connection string
-DATABASE_URL = os.getenv("DATABASE_URL")  # postgresql://user:pass@host/db?sslmode=require
-
-engine = create_engine(DATABASE_URL, echo=True)
-
-def get_session():
-    with Session(engine) as session:
-        yield session
+@router.post("/api/chat/message")
+async def send_message(
+    message_data: ChatMessageCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(get_current_user)
+) -> StreamingResponse:
+    """
+    Send message to chat agent, stream response
+    
+    Streams back JSON lines: {"type": "content", "data": "text"}
+    """
+    service = ChatService(db)
+    
+    async def generate():
+        async for chunk in service.stream_response(
+            conversation_id=message_data.conversation_id,
+            user_id=current_user.id,
+            message=message_data.content
+        ):
+            # Send as JSON line
+            yield f"data: {json.dumps(chunk)}\n\n"
+    
+    return StreamingResponse(generate(), media_type="text/event-stream")
 ```
 
-### 3. CRUD Endpoints
-
+### Admin Protected Route
 ```python
-from fastapi import FastAPI, Depends, HTTPException, Query
-from sqlmodel import Session, select
+from app.api.deps import get_admin_user
 
-app = FastAPI(title="TaskFlow API", version="1.0.0")
-
-@app.post("/api/tasks", response_model=TaskRead, status_code=201)
-def create_task(
-    task: TaskCreate,
-    session: Session = Depends(get_session),
-    current_user: User = Depends(get_current_user),
+@router.post("/api/admin/documents/{doc_id}/pipeline")
+async def start_pipeline(
+    doc_id: str,
+    config: PipelineConfig,
+    db: AsyncSession = Depends(get_db),
+    admin_user = Depends(get_admin_user)
 ):
-    db_task = Task.model_validate(task)
-    session.add(db_task)
-    session.commit()
-    session.refresh(db_task)
-
-    # Audit log
-    log_action(session, "created", current_user.id, task_id=db_task.id)
-
-    return db_task
-
-@app.get("/api/tasks", response_model=list[TaskRead])
-def list_tasks(
-    session: Session = Depends(get_session),
-    current_user: User = Depends(get_current_user),
-    status: Optional[str] = Query(None),
-    assigned_to: Optional[str] = Query(None),
-    project: Optional[str] = Query(None),
-    limit: int = Query(50, le=100),
-    offset: int = Query(0, ge=0),
-):
-    query = select(Task)
-
-    if status:
-        query = query.where(Task.status == status)
-    if assigned_to:
-        query = query.where(Task.assigned_to == assigned_to)
-    if project:
-        query = query.where(Task.project_slug == project)
-
-    query = query.offset(offset).limit(limit)
-    return session.exec(query).all()
-
-@app.get("/api/tasks/{task_id}", response_model=TaskRead)
-def get_task(
-    task_id: int,
-    session: Session = Depends(get_session),
-    current_user: User = Depends(get_current_user),
-):
-    task = session.get(Task, task_id)
-    if not task:
-        raise HTTPException(status_code=404, detail="Task not found")
-    return task
-
-@app.patch("/api/tasks/{task_id}", response_model=TaskRead)
-def update_task(
-    task_id: int,
-    task_update: TaskUpdate,
-    session: Session = Depends(get_session),
-    current_user: User = Depends(get_current_user),
-):
-    task = session.get(Task, task_id)
-    if not task:
-        raise HTTPException(status_code=404, detail="Task not found")
-
-    update_data = task_update.model_dump(exclude_unset=True)
-    for key, value in update_data.items():
-        setattr(task, key, value)
-
-    task.updated_at = datetime.now()
-    session.add(task)
-    session.commit()
-    session.refresh(task)
-
-    # Audit log
-    log_action(session, "updated", current_user.id, task_id=task.id, context=update_data)
-
-    return task
+    """Start document pipeline (admin only)"""
+    service = DocumentPipelineService(db)
+    return await service.start(doc_id, config)
 ```
 
-### 4. JWT Authentication (Better Auth JWKS)
+## Service Layer Pattern
 
 ```python
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
+
+class EvaluationService:
+    def __init__(self, db: AsyncSession):
+        self.db = db
+    
+    async def create(self, user_id: str, eval_data: EvaluationCreate):
+        """Create evaluation with validation"""
+        # Validate user exists
+        user = await self.db.get(User, user_id)
+        if not user:
+            raise ValueError("User not found")
+        
+        # Create record
+        evaluation = Evaluation(
+            user_id=user_id,
+            **eval_data.dict()
+        )
+        self.db.add(evaluation)
+        await self.db.commit()
+        await self.db.refresh(evaluation)
+        return evaluation
+    
+    async def get(self, eval_id: str, user_id: str):
+        """Get evaluation (owner only)"""
+        stmt = select(Evaluation).where(
+            (Evaluation.id == eval_id) &
+            (Evaluation.user_id == user_id)
+        )
+        result = await self.db.execute(stmt)
+        return result.scalar_one_or_none()
+    
+    async def list(self, user_id: str, skip: int = 0, limit: int = 10):
+        """List user evaluations"""
+        stmt = select(Evaluation)\
+            .where(Evaluation.user_id == user_id)\
+            .offset(skip)\
+            .limit(limit)
+        result = await self.db.execute(stmt)
+        return result.scalars().all()
+```
+
+## Auth & Dependencies
+
+```python
+# app/api/deps.py
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from jose import jwt, jwk, JWTError
-import httpx
-import time
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.db.database import get_session
+from app.core.security import decode_access_token
+from app.models.user import User
 
 security = HTTPBearer()
 
-# Cache JWKS keys
-_jwks_cache = None
-_jwks_cache_time = 0
-JWKS_CACHE_TTL = 3600  # 1 hour
-
-AUTH_SERVER_URL = os.getenv("AUTH_SERVER_URL", "http://localhost:3001")
-JWKS_URL = f"{AUTH_SERVER_URL}/api/auth/jwks"
-
-async def get_jwks():
-    """Fetch and cache JWKS from Better Auth server."""
-    global _jwks_cache, _jwks_cache_time
-
-    now = time.time()
-    if _jwks_cache and (now - _jwks_cache_time) < JWKS_CACHE_TTL:
-        return _jwks_cache
-
-    async with httpx.AsyncClient() as client:
-        response = await client.get(JWKS_URL)
-        response.raise_for_status()
-        _jwks_cache = response.json()
-        _jwks_cache_time = now
-        return _jwks_cache
-
-async def verify_token(token: str) -> dict:
-    """Verify JWT against Better Auth JWKS."""
-    try:
-        # Get JWKS
-        jwks = await get_jwks()
-
-        # Get unverified header to find key ID
-        unverified_header = jwt.get_unverified_header(token)
-        kid = unverified_header.get("kid")
-
-        # Find matching key
-        rsa_key = None
-        for key in jwks.get("keys", []):
-            if key.get("kid") == kid:
-                rsa_key = key
-                break
-
-        if not rsa_key:
-            raise HTTPException(status_code=401, detail="Key not found")
-
-        # Verify token
-        payload = jwt.decode(
-            token,
-            rsa_key,
-            algorithms=["RS256"],
-            options={"verify_aud": False}  # Adjust based on your setup
-        )
-        return payload
-
-    except JWTError as e:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=f"Invalid token: {str(e)}",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+async def get_db() -> AsyncSession:
+    """Get async session"""
+    async with get_session() as session:
+        yield session
 
 async def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
-) -> dict:
-    """Extract and verify current user from JWT."""
+    db: AsyncSession = Depends(get_db)
+) -> User:
+    """Get authenticated user"""
     token = credentials.credentials
-    payload = await verify_token(token)
-
-    return {
-        "id": payload.get("sub"),
-        "email": payload.get("email"),
-        "role": payload.get("role", "user"),
-    }
-```
-
-### 5. Swagger UI Authentication
-
-FastAPI automatically adds an "Authorize" button when using `HTTPBearer`:
-
-```python
-from fastapi import FastAPI
-from fastapi.security import HTTPBearer
-
-app = FastAPI(
-    title="TaskFlow API",
-    description="Human-Agent Task Management API",
-    version="1.0.0",
-)
-
-# This adds the "Authorize" button to Swagger UI
-security = HTTPBearer()
-
-# Testing flow:
-# 1. Login to your SSO (browser) → Get JWT
-# 2. Open http://localhost:8000/docs
-# 3. Click "Authorize" button
-# 4. Paste JWT token (without "Bearer " prefix)
-# 5. All requests now include Authorization header
-```
-
-### 6. Audit Logging
-
-```python
-from sqlalchemy import JSON
-
-class AuditLog(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    task_id: Optional[int] = None
-    project_slug: Optional[str] = None
-    actor_id: str
-    actor_type: Literal["human", "agent"]
-    action: str
-    context: Optional[dict] = Field(default=None, sa_column_kwargs={"type_": JSON})
-    timestamp: datetime = Field(default_factory=datetime.now)
-
-def log_action(
-    session: Session,
-    action: str,
-    actor_id: str,
-    task_id: Optional[int] = None,
-    project_slug: Optional[str] = None,
-    context: Optional[dict] = None,
-):
-    """Create audit log entry."""
-    # Determine actor type from worker registry
-    worker = session.exec(select(Worker).where(Worker.id == actor_id)).first()
-    actor_type = worker.type if worker else "human"
-
-    log = AuditLog(
-        task_id=task_id,
-        project_slug=project_slug,
-        actor_id=actor_id,
-        actor_type=actor_type,
-        action=action,
-        context=context,
-    )
-    session.add(log)
-    session.commit()
-    return log
-```
-
-### 7. Agent Parity (MCP Compatibility)
-
-Design endpoints that work for both CLI and MCP clients:
-
-```python
-# Same endpoint serves:
-# - CLI: taskflow start 1 → POST /api/tasks/1/start
-# - MCP: claim_task(1) → POST /api/tasks/1/start
-# - Web: Button click → POST /api/tasks/1/start
-
-@app.post("/api/tasks/{task_id}/start", response_model=TaskRead)
-def start_task(
-    task_id: int,
-    session: Session = Depends(get_session),
-    current_user: dict = Depends(get_current_user),
-):
-    """Start a task (claim and begin work)."""
-    task = session.get(Task, task_id)
-    if not task:
-        raise HTTPException(status_code=404, detail="Task not found")
-
-    if task.status != "pending":
+    user_id = decode_access_token(token)
+    
+    if not user_id:
         raise HTTPException(
-            status_code=400,
-            detail=f"Cannot start task with status '{task.status}'"
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token invalide ou expiré"
         )
+    
+    user = await db.get(User, user_id)
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
+    return user
 
-    task.status = "in_progress"
-    task.assigned_to = current_user["id"]
-    task.updated_at = datetime.now()
-
-    session.add(task)
-    session.commit()
-    session.refresh(task)
-
-    log_action(session, "started", current_user["id"], task_id=task.id)
-
-    return task
-
-@app.post("/api/tasks/{task_id}/progress", response_model=TaskRead)
-def update_progress(
-    task_id: int,
-    percent: int = Query(..., ge=0, le=100),
-    note: Optional[str] = Query(None),
-    session: Session = Depends(get_session),
-    current_user: dict = Depends(get_current_user),
-):
-    """Update task progress."""
-    task = session.get(Task, task_id)
-    if not task:
-        raise HTTPException(status_code=404, detail="Task not found")
-
-    if task.status != "in_progress":
-        raise HTTPException(status_code=400, detail="Task must be in_progress")
-
-    task.progress_percent = percent
-    task.updated_at = datetime.now()
-
-    session.add(task)
-    session.commit()
-    session.refresh(task)
-
-    log_action(
-        session, "progressed", current_user["id"],
-        task_id=task.id,
-        context={"percent": percent, "note": note}
-    )
-
-    return task
-
-@app.post("/api/tasks/{task_id}/complete", response_model=TaskRead)
-def complete_task(
-    task_id: int,
-    session: Session = Depends(get_session),
-    current_user: dict = Depends(get_current_user),
-):
-    """Complete a task."""
-    task = session.get(Task, task_id)
-    if not task:
-        raise HTTPException(status_code=404, detail="Task not found")
-
-    if task.status not in ["in_progress", "review"]:
+async def get_admin_user(
+    current_user = Depends(get_current_user)
+) -> User:
+    """Get admin user (verify role)"""
+    if current_user.role != "admin":
         raise HTTPException(
-            status_code=400,
-            detail=f"Cannot complete task with status '{task.status}'"
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admin access required"
         )
-
-    task.status = "completed"
-    task.progress_percent = 100
-    task.updated_at = datetime.now()
-
-    session.add(task)
-    session.commit()
-    session.refresh(task)
-
-    log_action(session, "completed", current_user["id"], task_id=task.id)
-
-    return task
+    return current_user
 ```
 
-## Project Structure
-
-```
-backend/
-├── main.py              # FastAPI app, routes
-├── models.py            # SQLModel schemas
-├── database.py          # Neon connection
-├── auth.py              # JWT/JWKS verification
-├── audit.py             # Audit logging
-├── dependencies.py      # Shared dependencies
-└── tests/
-    ├── conftest.py      # Test fixtures
-    ├── test_tasks.py    # Task endpoint tests
-    └── test_auth.py     # Auth tests
-```
-
-## Critical: Async Session Patterns (MissingGreenlet Prevention)
-
-After `session.commit()`, SQLAlchemy objects become **detached**. Accessing attributes triggers lazy loading which fails in async context with `MissingGreenlet` error.
-
-### The Pattern: Extract → Flush → Commit
+## OpenAI Integration
 
 ```python
-@app.post("/api/tasks", response_model=TaskRead, status_code=201)
-async def create_task(
-    task: TaskCreate,
-    session: AsyncSession = Depends(get_session),
-    current_user: dict = Depends(get_current_user),
+from openai import AsyncOpenAI
+
+class ChatService:
+    def __init__(self, db: AsyncSession):
+        self.db = db
+        self.client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
+        self.rag_service = RAGService()
+    
+    async def stream_response(self, conversation_id: str, user_id: str, message: str):
+        """Stream chat response with RAG context"""
+        
+        # Save user message
+        user_msg = Message(
+            conversation_id=conversation_id,
+            role="user",
+            content=message
+        )
+        self.db.add(user_msg)
+        await self.db.commit()
+        
+        # Get RAG context
+        context = await self.rag_service.search(message, limit=3)
+        
+        # Build prompt
+        system_prompt = self._build_system_prompt(context)
+        
+        # Stream from OpenAI
+        async with self.client.messages.stream(
+            model="gpt-4-turbo-preview",
+            max_tokens=1024,
+            system=system_prompt,
+            messages=[
+                {"role": "user", "content": message}
+            ]
+        ) as stream:
+            full_response = ""
+            async for text in stream.text_stream:
+                full_response += text
+                yield {"type": "content", "data": text}
+        
+        # Save assistant response
+        assistant_msg = Message(
+            conversation_id=conversation_id,
+            role="assistant",
+            content=full_response,
+            sources=context
+        )
+        self.db.add(assistant_msg)
+        await self.db.commit()
+        
+        yield {"type": "done"}
+    
+    def _build_system_prompt(self, context: list) -> str:
+        """Build system prompt with RAG context"""
+        sources = "\n".join([f"- {c['title']}: {c['content'][:200]}..." for c in context])
+        return f"""Tu es un expert ERP pour PME manufacturières.
+
+Contexte de connaissances:
+{sources}
+
+Réponds aux questions de l'utilisateur en utilisant ce contexte.
+Cite les sources quand tu utilises le contexte.
+Sois concis et pratique."""
+```
+
+## Error Handling
+
+```python
+@router.post("/api/chat/message")
+async def send_message(
+    message_data: ChatMessageCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(get_current_user)
 ):
-    # 1. Extract primitives from user BEFORE any commits
-    actor_id = current_user["id"]
-
-    # 2. Create entity and flush to get ID
-    db_task = Task.model_validate(task)
-    session.add(db_task)
-    await session.flush()
-    task_id = db_task.id  # Extract immediately after flush
-
-    # 3. Call services with primitives (NOT objects)
-    await log_action(session, actor_id=actor_id, task_id=task_id)
-
-    # 4. Single commit at end
-    await session.commit()
-    await session.refresh(db_task)
-    return db_task
-```
-
-### Service Functions: Never Commit Internally
-
-```python
-# WRONG - breaks caller's transaction
-async def log_action(session: AsyncSession, ...):
-    log = AuditLog(...)
-    session.add(log)
-    await session.commit()  # ❌ Caller loses control
-
-# CORRECT - caller owns transaction
-async def log_action(session: AsyncSession, ...):
-    log = AuditLog(...)
-    session.add(log)
-    return log  # No commit
-```
-
-### Input Validation for API Schemas
-
-```python
-from pydantic import field_validator
-from datetime import UTC, datetime
-
-class TaskCreate(SQLModel):
-    assignee_id: int | None = None
-    due_date: datetime | None = None
-
-    @field_validator("assignee_id", mode="after")
-    @classmethod
-    def zero_to_none(cls, v: int | None) -> int | None:
-        """Swagger UI sends 0 for empty int fields."""
-        return None if v == 0 else v
-
-    @field_validator("due_date", mode="after")
-    @classmethod
-    def normalize_datetime(cls, v: datetime | None) -> datetime | None:
-        """Strip timezone for naive UTC database columns."""
-        if v and v.tzinfo:
-            return v.astimezone(UTC).replace(tzinfo=None)
-        return v
-```
-
-## Testing with Pytest
-
-```python
-# tests/conftest.py
-import pytest
-from fastapi.testclient import TestClient
-from sqlmodel import SQLModel, create_engine, Session
-from sqlmodel.pool import StaticPool
-
-from main import app, get_session
-
-@pytest.fixture
-def session():
-    engine = create_engine(
-        "sqlite://",
-        connect_args={"check_same_thread": False},
-        poolclass=StaticPool,
-    )
-    SQLModel.metadata.create_all(engine)
-    with Session(engine) as session:
-        yield session
-
-@pytest.fixture
-def client(session):
-    def get_session_override():
-        return session
-
-    app.dependency_overrides[get_session] = get_session_override
-    client = TestClient(app)
-    yield client
-    app.dependency_overrides.clear()
-
-@pytest.fixture
-def auth_headers():
-    """Mock authenticated headers for testing."""
-    return {"Authorization": "Bearer test-token"}
-
-# tests/test_tasks.py
-def test_create_task(client, auth_headers, mocker):
-    # Mock auth
-    mocker.patch("auth.get_current_user", return_value={"id": "@testuser"})
-
-    response = client.post(
-        "/api/tasks",
-        json={"title": "Test Task"},
-        headers=auth_headers,
-    )
-    assert response.status_code == 201
-    assert response.json()["title"] == "Test Task"
-```
-
-## Common Patterns
-
-### Error Handling
-
-```python
-from fastapi import HTTPException
-from fastapi.responses import JSONResponse
-
-@app.exception_handler(HTTPException)
-async def http_exception_handler(request, exc):
-    return JSONResponse(
-        status_code=exc.status_code,
-        content={
-            "error": exc.detail,
-            "status_code": exc.status_code,
-        },
-    )
-
-# Validation errors are handled automatically by Pydantic
-# Returns 422 with detailed error messages
-```
-
-### CORS Configuration
-
-```python
-from fastapi.middleware.cors import CORSMiddleware
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(","),
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-```
-
-### Health Check
-
-```python
-@app.get("/health")
-def health_check():
-    return {"status": "healthy", "version": "1.0.0"}
-
-@app.get("/api/health/db")
-def db_health(session: Session = Depends(get_session)):
+    """Send message with proper error handling"""
     try:
-        session.exec(select(1))
-        return {"database": "connected"}
+        service = ChatService(db)
+        async for chunk in service.stream_response(...):
+            yield chunk
+    except ValueError as e:
+        yield {"type": "error", "message": str(e)}
+    except HTTPException as e:
+        raise e
     except Exception as e:
-        raise HTTPException(status_code=503, detail=f"Database error: {e}")
+        logger.error(f"Chat error: {e}")
+        yield {"type": "error", "message": "Internal server error"}
 ```
 
-## References
+## Conventions
 
-For additional documentation, use Context7 MCP:
-```
-mcp__context7__resolve-library-id with libraryName="fastapi"
-mcp__context7__get-library-docs with topic="authentication" or "sqlmodel"
-```
-
-See also: `references/jwt-verification.md` for detailed JWKS patterns.
-
-## Environment Variables
-
-```env
-# Database
-DATABASE_URL=postgresql://user:pass@host/db?sslmode=require
-
-# Auth
-AUTH_SERVER_URL=http://localhost:3001
-JWKS_URL=http://localhost:3001/api/auth/jwks
-
-# CORS
-ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
-
-# Optional
-LOG_LEVEL=INFO
-```
+- Routes start with `/api/`
+- Use descriptive HTTP methods (POST create, PUT update, DELETE delete)
+- Always return status codes (201 create, 200 ok, 404 not found, 422 validation, 500 error)
+- Docstring required on all route functions
+- Use Pydantic schemas for request/response validation
+- Service layer handles business logic
+- Type hints everywhere
+- Use `async/await` for async operations
+- Error handling explicit with HTTPException
+- Log important operations
+- Pagination: `skip` and `limit` parameters

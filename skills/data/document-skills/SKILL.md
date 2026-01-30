@@ -1,60 +1,36 @@
 ---
 name: document-skills
-description: "Professional document creation, editing, and analysis for Office formats (docx, pdf, pptx, xlsx). Use when working with Word documents, PDFs, PowerPoint presentations, or Excel spreadsheets."
-tags: [documents, office, docx, pdf, pptx, xlsx, word, excel, powerpoint]
+description: Process and manipulate office documents including PDF, DOCX, PPTX, and XLSX files. Use when working with document extraction, conversion, form filling, or spreadsheet operations.
 ---
 
-# Document Skills Suite
+# Document Skills
 
-Comprehensive document handling for Microsoft Office formats and PDFs.
+Bộ skills xử lý các loại tài liệu văn phòng phổ biến.
 
-## Available Sub-Skills
+## Sub-Skills
 
-| Skill  | Format             | Capabilities                                     |
-| ------ | ------------------ | ------------------------------------------------ |
-| `docx` | Word (.docx)       | Create, edit, analyze, tracked changes, comments |
-| `pdf`  | PDF (.pdf)         | Extract text, tables, metadata, merge/split      |
-| `pptx` | PowerPoint (.pptx) | Create, edit presentations, layouts, charts      |
-| `xlsx` | Excel (.xlsx)      | Spreadsheet manipulation, formulas, charts       |
+| Skill | Description |
+|-------|-------------|
+| `pdf/` | Trích xuất text, điền form, merge/split PDF files |
+| `docx/` | Xử lý Microsoft Word documents |
+| `pptx/` | Xử lý PowerPoint presentations |
+| `xlsx/` | Xử lý Excel spreadsheets |
 
 ## When to Use
 
-- Creating professional documents from scratch
-- Editing existing Office files
-- Extracting content from PDFs
-- Working with tracked changes
-- Generating reports and presentations
-- Data analysis in spreadsheets
+- Đọc nội dung từ PDF, Word, Excel, PowerPoint
+- Điền form PDF tự động
+- Trích xuất bảng biểu từ documents
+- Chuyển đổi định dạng tài liệu
+- Merge/split PDF files
 
-## Workflow
+## Usage
 
-1. Identify document type needed
-2. Load appropriate sub-skill: `Skill(document-skills/docx)`, etc.
-3. Follow sub-skill specific workflow
+Mỗi sub-skill có SKILL.md riêng với hướng dẫn chi tiết. Load skill cụ thể:
 
-## Sub-Skill Details
-
-### docx (Word Documents)
-
-- **Create**: Use docx-js (JavaScript/TypeScript)
-- **Edit**: Use Document library (Python)
-- **Analyze**: Use pandoc for text extraction
-- See `document-skills/docx/SKILL.md` for full details
-
-### pdf (PDF Documents)
-
-- Extract text, tables, metadata
-- Merge and split documents
-- See `document-skills/pdf/SKILL.md` for full details
-
-### pptx (PowerPoint)
-
-- Create and edit presentations
-- Work with layouts and charts
-- See `document-skills/pptx/SKILL.md` for full details
-
-### xlsx (Excel)
-
-- Spreadsheet manipulation
-- Formulas and analysis
-- See `document-skills/xlsx/SKILL.md` for full details
+```
+Load: document-skills/pdf/SKILL.md
+Load: document-skills/docx/SKILL.md
+Load: document-skills/pptx/SKILL.md
+Load: document-skills/xlsx/SKILL.md
+```

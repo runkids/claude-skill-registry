@@ -1,103 +1,142 @@
 ---
 name: archive
-description: Archive an article while preserving its URL for external links.
+description: Archive completed task/spec work to ./.gtd/archive/
+argument-hint: "[task_name]"
+disable-model-invocation: true
 ---
 
-# Archive Article
+<role>
+You are an archiver. You move completed task work to the archive folder for historical reference.
 
-Move an article to the archive while preserving its URL for external links. Archived articles display a notice to visitors explaining the content is no longer maintained.
+**Core responsibilities:**
 
-## When to Use
+- Verify task work exists
+- Create archive with task name and timestamp
+- Move all task files to archive
+- Clean up task folder
+  </role>
 
-- When explicitly invoked: `/archive`
-- When removing content you no longer want on the site
-- When an article is outdated but may have external links pointing to it
-- When retiring content without breaking incoming URLs
+<objective>
+Archive completed task to keep workspace clean while preserving history.
 
-## Arguments
+**Flow:** Verify Exists → Create Archive → Move Files → Clean Up
+</objective>
 
-Provide as space-separated arguments or answer when prompted:
-1. **Article path**: `obsidian/concepts/article-to-archive.md`
-2. **Reason** (optional): Why this article is being archived
+<context>
+**Task name:** $ARGUMENTS (if not provided, ask user which task to archive)
 
-Example: `/archive obsidian/topics/old-article.md "Content no longer relevant"`
+**Source:**
 
-## Instructions
+- `./.gtd/<task_name>/` — Task work to archive
 
-### 1. Validate Input
+**Destination:**
 
-Verify the source file exists and is archivable:
-- File must exist in obsidian/
-- File must be in a sync directory (topics/, concepts/, voids/, apex/, etc.)
-- File must not already be in archive/
+- `./.gtd/archive/<task_name>-{timestamp}/` — Archived task work
 
-If no argument is provided, ask the user which article to archive.
+**Files to archive:**
 
-### 2. Check for References
+- SPEC.md
+- ROADMAP.md (if exists)
+- All phase folders with PLAN.md and SUMMARY.md
+- Any other task-related files
+  </context>
 
-Search for wikilinks to this article in active content:
-```
-grep -r "[[article-slug" obsidian/
-```
+<philosophy>
 
-Report any references found. The user may want to:
-- Update references to point elsewhere
-- Proceed anyway (references will link to archived version)
-- Cancel the archive
+## Archive When Done
 
-### 3. Calculate Archive Path
+Only archive when task is complete or abandoned.
 
-Map from obsidian path to archive path:
-- `obsidian/concepts/article.md` → `archive/concepts/article.md`
-- `obsidian/topics/article.md` → `archive/topics/article.md`
-- `obsidian/voids/article.md` → `archive/voids/article.md`
+## Preserve History
 
-Create the archive subdirectory if it doesn't exist.
+Keep all files for future reference and learning.
 
-### 4. Move and Update Article
+## Clean Workspace
 
-1. **Move file** to archive directory
+After archiving, task folder is removed to keep .gtd/ clean.
 
-2. **Update frontmatter** by adding archive metadata:
-```yaml
-archived: true
-archived_date: [current ISO timestamp in UTC]
-archive_reason: "[user-provided reason or 'Content retired']"
-original_path: "/[original-section]/[original-slug]/"
-```
+</philosophy>
 
-If the article is being replaced by another, also add:
-```yaml
-superseded_by: "/[replacement-section]/[replacement-slug]/"
+<process>
+
+## 1. Determine Task Name
+
+If no argument provided, ask user:
+
+```text
+Which task would you like to archive?
+
+Available tasks:
+- {task 1}
+- {task 2}
 ```
 
-The original content remains intact below the frontmatter. The archive notice will be displayed by Hugo templates.
+---
 
-### 5. Log to Changelog
+## 2. Check Task Exists
 
-Append to `obsidian/workflow/changelog.md`:
-```markdown
-### HH:MM - archive
-- **Status**: Success
-- **Archived**: [original path] → [archive path]
-- **Reason**: [reason]
-- **References found**: [count or "none"]
+Verify `./.gtd/<task_name>/` exists:
+
+```bash
+if [ ! -d "./.gtd/<task_name>" ]; then
+    echo "Error: Task '<task_name>' not found"
+    exit 1
+fi
 ```
 
-### 6. Commit Changes
+---
 
-Create a git commit:
+## 3. Create Archive Directory
+
+Generate archive name with timestamp:
+
+```bash
+TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+ARCHIVE_DIR="./.gtd/archive/<task_name>-${TIMESTAMP}"
+mkdir -p "./.gtd/archive"
 ```
-feat(auto): archive - [article-slug]
 
-Archived: [original-path] → [archive-path]
-Reason: [reason]
+---
+
+## 4. Move Task Folder
+
+Move entire task folder to archive:
+
+```bash
+mv "./.gtd/<task_name>" "${ARCHIVE_DIR}"
 ```
 
-## Important
+---
 
-- ALWAYS preserve the original content (never delete or truncate)
-- ALWAYS update frontmatter with archival metadata
-- The original URL will continue to work via the archive
-- Hugo templates handle displaying the archive notice
-- If the user wants to redirect to a replacement article, use the `superseded_by` field
+## 5. Commit Archive
+
+Commit the archive:
+
+```bash
+git add ./.gtd/archive/
+git commit -m "chore: archive task <task_name> to {task_name}-${TIMESTAMP}"
+```
+
+---
+
+## 6. Display Summary
+
+```text
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ GTD ► TASK ARCHIVED ✓
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Task: {task_name}
+Archived to: ./.gtd/archive/{task_name}-{timestamp}/
+
+Phases archived: {count}
+Files archived: {count}
+
+Task folder removed from ./.gtd/
+
+─────────────────────────────────────────────────────
+```
+
+---
+
+</process>

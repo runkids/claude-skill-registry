@@ -11,6 +11,30 @@ description: Mandatory gate for ending work sessions. Checks if minimum work dur
 
 Prevents early work termination by enforcing minimum work durations. The agent does not have permission to declare work complete without passing through this gate.
 
+## Relationship to Other "Finish" Tools
+
+**Different scopes - use in sequence:**
+
+| Tool | Scope | When to Use |
+|------|-------|-------------|
+| `finish-work` skill | **Session-level** | Check time gate BEFORE any completion |
+| `/finish` command | **Documentation** | Create handoff docs AFTER time gate passed |
+| `finishing-a-development-branch` | **Branch-level** | Git workflow (merge/PR/discard) AFTER work complete |
+| `verification-before-completion` | **Quality** | Verify tests/evidence BEFORE declaring done |
+
+**Correct sequence:**
+```
+Work Session
+  → finish-work skill (time gate check - must pass first)
+    → verification-before-completion (quality check)
+      → /finish command (handoff documentation)
+        → finishing-a-development-branch (git workflow - if applicable)
+```
+
+**Important:** 
+- `/finish` assumes work is complete - it doesn't check time gate. Run `finish-work` FIRST.
+- `finishing-a-development-branch` is for branch management after work is truly done.
+
 ## The Iron Rule
 
 ```

@@ -1,9 +1,7 @@
 {
   "name": "mcp-dynamic-orchestrator",
-  "description": "Dynamic MCP server discovery and code-mode execution via central registry. Use for multiple MCP integrations, tool discovery, progressive disclosure, or encountering MCP context bloat, changing server",
   "repo": "secondsky/claude-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "plugins/mcp-dynamic-orchestrator/skills/mcp-dynamic-orchestrator/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-30T03:41:16.731900Z"
 }

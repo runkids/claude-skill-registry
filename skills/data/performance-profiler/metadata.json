@@ -1,7 +1,7 @@
 {
   "name": "performance-profiler",
-  "repo": "pascallammers/mylo-travel-concierge-v2",
-  "path": ".factory/skills/performance-profiler/SKILL.md",
-  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
-  "downloaded_at": "2026-01-29T03:58:08.572607Z"
+  "repo": "WesleySmits/agent-skills",
+  "path": ".agent/skills/performance-profiler/SKILL.md",
+  "source": "github.com/WesleySmits/agent-skills",
+  "downloaded_at": "2026-01-30T02:12:06.333841Z"
 }

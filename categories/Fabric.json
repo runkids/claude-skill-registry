@@ -1,19 +1,19 @@
 {
   "category": "Fabric",
   "count": 1,
-  "updated_at": "2026-01-29T16:04:56.153482Z",
+  "updated_at": "2026-01-30T04:53:31.532551Z",
   "skills": [
     {
       "name": "SKILL.md",
-      "description": "Intelligent pattern selection for Fabric CLI. Automatically selects the right pattern from 242+ specialized prompts based on your intent - threat modeling, analysis, summarization, content creation, e",
-      "repo": "Microck/ordinary-claude-skills",
+      "description": "Native Fabric pattern execution for Claude Code. USE WHEN processing content with Fabric patterns (extract_wisdom, summarize, analyze_claims, threat modeling, etc.). Patterns run natively in Claude's ",
+      "repo": "blackpwnguin/Personal-AI",
       "path": "Fabric",
       "branch": "main",
       "category": "Fabric",
       "tags": [],
       "stars": 0,
-      "install": "Microck/ordinary-claude-skills",
-      "source": "github.com/Microck/ordinary-claude-skills"
+      "install": "blackpwnguin/Personal-AI",
+      "source": "github.com/blackpwnguin/Personal-AI"
     }
   ]
 }

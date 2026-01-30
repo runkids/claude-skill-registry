@@ -1,7 +1,7 @@
 {
   "name": "simple-pr",
-  "repo": "quickwit-oss/quickwit",
-  "path": ".claude/skills/simple-pr/SKILL.md",
-  "source": "github.com/quickwit-oss/quickwit",
-  "downloaded_at": "2026-01-29T01:57:41.361318Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/simple-pr/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-30T03:47:36.829759Z"
 }

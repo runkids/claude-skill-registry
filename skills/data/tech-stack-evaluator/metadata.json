@@ -1,7 +1,7 @@
 {
   "name": "tech-stack-evaluator",
-  "repo": "matteocervelli/llms",
-  "path": ".claude/skills/tech-stack-evaluator/SKILL.md",
-  "source": "github.com/matteocervelli/llms",
-  "downloaded_at": "2026-01-29T03:25:43.747890Z"
+  "repo": "alirezarezvani/claude-code-skill-factory",
+  "path": "generated-skills/tech-stack-evaluator/SKILL.md",
+  "source": "github.com/alirezarezvani/claude-code-skill-factory",
+  "downloaded_at": "2026-01-30T04:23:36.570674Z"
 }

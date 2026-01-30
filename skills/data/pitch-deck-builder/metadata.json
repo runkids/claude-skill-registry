@@ -1,9 +1,7 @@
 {
   "name": "pitch-deck-builder",
-  "description": "Comprehensive pitch deck creation with conversational discovery, narrative structuring, and context-aware chunking strategies. This skill should be used when users request help creating pitch decks, i",
-  "repo": "Exploration-labs/Nates-Substack-Skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "eddiebe147/claude-settings",
+  "path": "skills/pitch-deck-builder/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-30T03:50:59.216624Z"
 }

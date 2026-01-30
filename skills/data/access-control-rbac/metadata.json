@@ -1,7 +1,7 @@
 {
   "name": "access-control-rbac",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/access-control-rbac/skills/access-control-rbac/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-29T03:11:02.335417Z"
+  "repo": "aj-geddes/useful-ai-prompts",
+  "path": "skills/access-control-rbac/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-30T02:11:06.200675Z"
 }

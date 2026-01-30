@@ -1,7 +1,7 @@
 ---
 name: google-adk-python
-description: "Google Agent Development Kit (ADK) for Python. Capabilities: AI agent building, multi-agent systems, workflow agents (sequential/parallel/loop), tool integration (Google Search, Code Execution), Vertex AI deployment, agent evaluation, human-in-the-loop flows. Actions: build, create, deploy, evaluate, orchestrate AI agents. Keywords: Google ADK, Agent Development Kit, AI agent, multi-agent system, LlmAgent, SequentialAgent, ParallelAgent, LoopAgent, tool integration, Google Search, Code Execution, Vertex AI, Cloud Run, agent evaluation, human-in-the-loop, agent orchestration, workflow agent, hierarchical coordination. Use when: building AI agents, creating multi-agent systems, implementing workflow pipelines, integrating LLM agents with tools, deploying to Vertex AI, evaluating agent performance, implementing approval flows."
-license: Apache-2.0
+description: Build AI agents with Google's Agent Development Kit (ADK) Python - code-first toolkit for agent orchestration, tool integration, multi-agent systems, workflow agents (sequential, parallel, loop), and deployment to Vertex AI or Cloud Run. Use when building AI agents, implementing multi-agent coordination, creating workflow pipelines, or deploying agents to Google Cloud. | Sử dụng khi xây dựng AI agent, Google ADK, multi-agent, workflow agent.
+license: MIT
 ---
 
 # Google ADK Python Skill

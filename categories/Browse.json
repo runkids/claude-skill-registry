@@ -1,19 +1,19 @@
 {
   "category": "Browse",
   "count": 1,
-  "updated_at": "2026-01-29T16:04:56.314914Z",
+  "updated_at": "2026-01-30T04:53:31.222318Z",
   "skills": [
     {
       "name": "SKILL.md",
-      "description": "Complete guide for creating and deploying browser automation functions using the stagehand CLI",
-      "repo": "moltbot/skills",
+      "description": "Discover trending topics and content ideas from social feeds for post creation. Use when scanning Twitter timeline or finding content inspiration.",
+      "repo": "Gerstep/cybos",
       "path": "Browse",
       "branch": "main",
       "category": "Browse",
       "tags": [],
       "stars": 0,
-      "install": "moltbot/skills",
-      "source": "github.com/moltbot/skills"
+      "install": "Gerstep/cybos",
+      "source": "github.com/Gerstep/cybos"
     }
   ]
 }

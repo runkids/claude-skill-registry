@@ -1,168 +1,129 @@
 ---
 name: subagent-creator
-description: Guide for creating effective subagents (custom agents). Use when users want to create a new subagent that can be dispatched via Task tool for autonomous work. Covers frontmatter fields (name, description, tools, model, permissionMode, skills), prompt design, and when to use subagents vs skills.
+description: 创建具有自定义系统提示和工具配置的专业化 Claude Code 子代理。当用户要求创建新的子代理、自定义代理、专业助手，或为 Claude Code 配置特定任务的 AI 工作流时使用。
 ---
 
-# Subagent Creator
+# 子代理创建器
 
-Create effective subagents that handle autonomous tasks via the Task tool.
+为 Claude Code 创建专业化的 AI 子代理，以处理特定任务和自定义的提示访问权限。
 
-## Subagents vs Skills
+## 子代理文件格式
 
-| Aspect | Subagent | Skill |
-|--------|----------|-------|
-| **Invocation** | Explicit via Task tool | Auto-triggered by context |
-| **Context** | Isolated (fresh context window) | Shared with parent |
-| **Complexity** | Single .md file | Folder with resources |
-| **Use case** | Autonomous discrete tasks | Guidance and procedures |
-| **Nesting** | Cannot spawn other subagents | Can reference other skills |
+子代理是存储在以下位置的带 YAML 前置内容的 Markdown 文件：
 
-**Use subagent when:**
-- Task is discrete and autonomous
-- Fresh context window is beneficial
-- Task can run in parallel with other work
-- Specialized tool restrictions needed
+- **项目**: `.claude/agents/` (较高优先级)
+- **用户**: `~/.claude/agents/` (较低优先级)
 
-**Use skill when:**
-- Guidance needed throughout conversation
-- Context sharing is important
-- Multiple resources (scripts, references) needed
-
-## Subagent Structure
-
-```
-agents/
-└── agent-name.md
-    ├── YAML frontmatter (metadata)
-    └── Markdown body (system prompt)
-```
-
-### Frontmatter Fields
-
-| Field | Required | Description |
-|-------|----------|-------------|
-| `name` | Yes | Lowercase, hyphens only (e.g., `code-reviewer`) |
-| `description` | Yes | When to use - this triggers dispatch decisions |
-| `tools` | No | Comma-separated: `Bash, Glob, Grep, Read, Edit, Write` |
-| `model` | No | `sonnet`, `opus`, `haiku`, or `inherit` (default: inherit) |
-| `permissionMode` | No | `default`, `acceptEdits`, `bypassPermissions`, `plan` |
-| `skills` | No | Comma-separated skills to auto-load |
-
-### Tools Reference
-
-```
-Read-only:     Glob, Grep, Read, WebFetch, WebSearch
-Write:         Edit, Write, NotebookEdit
-Execute:       Bash
-All:           * (or omit field)
-```
-
-### Permission Modes
-
-| Mode | Description |
-|------|-------------|
-| `default` | Normal permission prompts |
-| `acceptEdits` | Auto-accept file edits |
-| `bypassPermissions` | Skip all permission prompts |
-| `plan` | Plan mode - explore but don't modify |
-
-## Writing Effective Prompts
-
-### Structure
+### 结构
 
 ```markdown
 ---
-name: agent-name
-description: When to use this agent. Be specific about triggers.
-tools: Tool1, Tool2
-model: sonnet
+name: 子代理名称
+description: 使用此子代理的时机 (包含"use proactively"以实现自动委派)
+tools: 工具1, 工具2, 工具3  # 可选 - 如果省略则继承所有工具
+model: sonnet               # 可选 - sonnet/opus/haiku/inherit
+permissionMode: default     # 可选 - default/acceptEdits/bypassPermissions/plan
+skills: 技能1, 技能2        # 可选 - 自动加载技能
 ---
 
-# Agent Name
-
-One-line role description.
-
-## Input Required
-What the agent expects to receive.
-
-## Process
-Step-by-step what the agent does.
-
-## Output Format
-Exact format of the response.
-
-## Rules
-- Constraints and boundaries
-- What to avoid
+系统提示放在这里。定义角色、职责和行为。
 ```
 
-### Best Practices
+### 配置字段
 
-1. **Be specific about role** - First line defines identity
-2. **Define clear inputs** - What must be provided
-3. **Structure the process** - Numbered steps
-4. **Specify output format** - Use code blocks for templates
-5. **Set boundaries** - What NOT to do
+| 字段 | 必需 | 描述 |
+|-------|----------|-------------|
+| `name` | 是 | 小写字母加连字符 |
+| `description` | 是 | 用途和使用时机（自动委派的关键） |
+| `tools` | 否 | 逗号分隔的工具列表（省略以继承所有） |
+| `model` | 否 | `sonnet`、`opus`、`haiku` 或 `inherit` |
+| `permissionMode` | 否 | `default`、`acceptEdits`、`bypassPermissions`、`plan` |
+| `skills` | 否 | 要自动加载的技能 |
 
-### Description Guidelines
+## 创建工作流程
 
-The `description` field triggers when the agent is suggested. Include:
-- Primary use case
-- Required inputs
-- Expected output type
+1. **收集需求**：询问子代理的用途、使用时机和所需能力
+2. **选择范围**：项目 (`.claude/agents/`) 或用户 (`~/.claude/agents/`)
+3. **定义配置**：名称、描述、工具、模型
+4. **编写系统提示**：明确的角色、职责和输出格式
+5. **创建文件**：将 `.md` 文件写入适当位置
+
+## 编写有效的子代理
+
+### 描述最佳实践
+
+`description` 字段对于自动委派至关重要：
 
 ```yaml
-# Good
-description: Use after completing a task to review code changes. Provide BASE_SHA, HEAD_SHA, and requirements. Returns issues with file:line references.
+# 良好 - 具体的触发条件
+description: 代码审查专家。在编写或修改代码后主动使用。
 
-# Bad
-description: Reviews code.
+# 良好 - 清晰的用例
+description: 专门处理错误、测试失败和异常行为的调试专家。
+
+# 不佳 - 过于模糊
+description: 帮助处理代码
 ```
 
-## Examples
+### 系统提示指南
 
-### Minimal Subagent
+1. **明确定义角色**："你是[特定专家角色]"
+2. **列出调用时的操作**：首先做什么
+3. **指定职责**：子代理处理什么
+4. **包含指导原则**：约束和最佳实践
+5. **定义输出格式**：如何组织响应
+
+### 工具选择
+
+- **只读任务**：`Read、Grep、Glob、Bash`
+- **代码修改**：`Read、Write、Edit、Grep、Glob、Bash`
+- **完全访问**：省略 `tools` 字段
+
+完整工具列表请参见 [references/available-tools.md](references/available-tools.md)。
+
+## 子代理示例
+
+完整示例请参见 [references/examples.md](references/examples.md)：
+
+- 代码审查员
+- 调试专家
+- 数据科学家
+- 测试运行器
+- 文档编写者
+- 安全审计员
+
+## 模板
+
+从 [assets/subagent-template.md](assets/subagent-template.md) 复制以开始新的子代理。
+
+## 快速开始示例
+
+创建一个代码审查子代理：
+
+```bash
+mkdir -p .claude/agents
+```
+
+写入 `.claude/agents/code-reviewer.md`：
 
 ```markdown
 ---
-name: summarizer
-description: Use to summarize long documents or conversations. Provide the content to summarize.
-tools: Read
-model: haiku
+name: code-reviewer
+description: 审查代码质量和安全性。在代码更改后主动使用。
+tools: Read, Grep, Glob, Bash
+model: inherit
 ---
 
-# Summarizer
+你是一位资深代码审查员。
 
-Summarize the provided content in 3-5 bullet points.
+被调用时：
+1. 运行 git diff 查看更改
+2. 审查修改的文件
+3. 按优先级报告问题
 
-Focus on: key decisions, action items, conclusions.
-Skip: greetings, filler, obvious context.
+重点关注：
+- 代码可读性
+- 安全漏洞
+- 错误处理
+- 最佳实践
 ```
-
-### Full Subagent
-
-See `references/subagent-examples.md` for complete examples.
-
-## Creation Process
-
-1. **Define the task** - What autonomous work does this agent do?
-2. **Choose tools** - Minimum needed (prefer restrictive)
-3. **Choose model** - haiku for simple, sonnet for complex, opus for critical
-4. **Write prompt** - Role, process, output, rules
-5. **Test** - Dispatch via Task tool, iterate
-
-### Init Script
-
-```bash
-scripts/init_subagent.py <agent-name> --path <output-directory>
-```
-
-Creates template agent file with proper structure.
-
-## Anti-Patterns
-
-- **Too broad** - Agent tries to do everything
-- **Too many tools** - Give minimum necessary
-- **Vague output** - Always specify exact format
-- **No boundaries** - Must define what NOT to do
-- **Wrong model** - Don't use opus for simple tasks

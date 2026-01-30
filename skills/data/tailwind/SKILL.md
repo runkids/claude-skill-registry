@@ -1,118 +1,125 @@
 ---
 name: tailwind
-description: Tailwind CSS v4 performance optimization and best practices guidelines (formerly tailwindcss-v4-style). This skill should be used when writing, reviewing, or refactoring Tailwind CSS v4 code to ensure optimal build performance, minimal CSS output, and correct usage of v4 features. Triggers on tasks involving Tailwind configuration, @theme directive, utility classes, responsive design, dark mode, container queries, or CSS generation optimization.
+description: |
+  Applies Tailwind CSS utilities for dark theme, animations, and responsive design
+  Use when: Styling components, creating layouts, implementing animations, or building responsive interfaces
+allowed-tools: Read, Edit, Write, Glob, Grep, Bash, mcp__context7__resolve-library-id, mcp__context7__query-docs
 ---
 
-# Tailwind Labs Tailwind CSS v4 Best Practices
+# Tailwind Skill
 
-Comprehensive performance optimization guide for Tailwind CSS v4 applications, maintained by Tailwind Labs. Contains 42 rules across 8 categories, prioritized by impact to guide automated refactoring and code generation.
+This project uses Tailwind CSS 3.x with a dark theme design system. The site features a black background (`bg-black`) with green, purple, and pink accent colors. Custom animations are defined in `app/globals.css` and applied via utility classes.
 
-## When to Apply
+## Quick Start
 
-Reference these guidelines when:
-- Configuring Tailwind CSS v4 build tooling (Vite plugin, PostCSS, CLI)
-- Writing or migrating styles using v4's CSS-first approach
-- Optimizing CSS bundle size and build performance
-- Implementing responsive designs with breakpoints or container queries
-- Setting up theming with @theme directive and design tokens
+### Page Layout Pattern
 
-## Rule Categories by Priority
+```tsx
+<div className="min-h-screen bg-black text-white">
+  <Navigation />
+  <section className="px-6 py-16">
+    <div className="max-w-7xl mx-auto">
+      {/* Content */}
+    </div>
+  </section>
+  <Footer />
+</div>
+```
 
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 1 | Build Configuration | CRITICAL | `build-` |
-| 2 | CSS Generation | CRITICAL | `gen-` |
-| 3 | Bundle Optimization | HIGH | `bundle-` |
-| 4 | Utility Patterns | HIGH | `util-` |
-| 5 | Component Architecture | MEDIUM-HIGH | `comp-` |
-| 6 | Theming & Design Tokens | MEDIUM | `theme-` |
-| 7 | Responsive & Adaptive | MEDIUM | `resp-` |
-| 8 | Animation & Transitions | LOW-MEDIUM | `anim-` |
+### Card Pattern
 
-## Quick Reference
+```tsx
+<div className="bg-gray-900 border border-gray-800 rounded-lg p-8">
+  <h2 className="text-2xl font-semibold mb-6">Card Title</h2>
+  <p className="text-gray-400">Card content</p>
+</div>
+```
 
-### 1. Build Configuration (CRITICAL)
+### CTA Button Pattern
 
-- [`build-vite-plugin`](references/build-vite-plugin.md) - Use Vite Plugin Over PostCSS
-- [`build-css-import`](references/build-css-import.md) - Use CSS Import Over @tailwind Directives
-- [`build-content-detection`](references/build-content-detection.md) - Leverage Automatic Content Detection
-- [`build-node-version`](references/build-node-version.md) - Use Node.js 20+ for Optimal Performance
-- [`build-postcss-simplify`](references/build-postcss-simplify.md) - Remove Redundant PostCSS Plugins
-- [`build-cli-package`](references/build-cli-package.md) - Use Correct CLI Package
+```tsx
+<button className="cta-button bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-4 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/50 transform hover:scale-105 transition-all duration-300">
+  Take Action
+</button>
+```
 
-### 2. CSS Generation (CRITICAL)
+## Key Concepts
 
-- [`gen-css-first-config`](references/gen-css-first-config.md) - Use CSS-First Configuration Over JavaScript
-- [`gen-avoid-theme-bloat`](references/gen-avoid-theme-bloat.md) - Avoid Excessive Theme Variables
-- [`gen-oklch-colors`](references/gen-oklch-colors.md) - Use OKLCH Color Space for Vivid Colors
-- [`gen-utility-directive`](references/gen-utility-directive.md) - Use @utility for Custom Utilities
-- [`gen-dynamic-utilities`](references/gen-dynamic-utilities.md) - Use Dynamic Utility Values
-- [`gen-css-variable-syntax`](references/gen-css-variable-syntax.md) - Use Parentheses for CSS Variable References
+| Concept | Usage | Example |
+|---------|-------|---------|
+| Dark theme base | All pages | `bg-black text-white` |
+| Accent colors | Links, highlights | `text-green-400`, `text-purple-400` |
+| Cards | Content containers | `bg-gray-900 border-gray-800 rounded-lg` |
+| Gradients | Buttons, highlights | `from-purple-600 to-pink-600` |
+| Custom animations | Entry effects | `animate-fadeIn`, `animate-float` |
+| Animation delays | Staggered entry | `.delay-100` through `.delay-500` |
 
-### 3. Bundle Optimization (HIGH)
+## Common Patterns
 
-- [`bundle-remove-unused-plugins`](references/bundle-remove-unused-plugins.md) - Remove Built-in Plugins
-- [`bundle-avoid-preprocessors`](references/bundle-avoid-preprocessors.md) - Avoid Sass/Less Preprocessors
-- [`bundle-css-minification`](references/bundle-css-minification.md) - Enable CSS Minification in Production
-- [`bundle-avoid-cdn-production`](references/bundle-avoid-cdn-production.md) - Avoid Play CDN in Production
-- [`bundle-split-critical-css`](references/bundle-split-critical-css.md) - Extract Critical CSS for Initial Render
+### Responsive Grid
 
-### 4. Utility Patterns (HIGH)
+**When:** Displaying cards or content in columns
 
-- [`util-renamed-utilities`](references/util-renamed-utilities.md) - Use Renamed Utility Classes
-- [`util-important-modifier`](references/util-important-modifier.md) - Use Trailing Important Modifier
-- [`util-variant-stacking`](references/util-variant-stacking.md) - Use Left-to-Right Variant Stacking
-- [`util-explicit-colors`](references/util-explicit-colors.md) - Use Explicit Border and Ring Colors
-- [`util-opacity-modifier`](references/util-opacity-modifier.md) - Use Slash Opacity Modifier
-- [`util-gradient-via-none`](references/util-gradient-via-none.md) - Use via-none to Reset Gradient Stops
+```tsx
+<div className="grid md:grid-cols-3 gap-6">
+  {items.map((item, index) => (
+    <div key={index} className="bg-gray-900 rounded-lg p-6">
+      {item.content}
+    </div>
+  ))}
+</div>
+```
 
-### 5. Component Architecture (MEDIUM-HIGH)
+### Form Input Styling
 
-- [`comp-avoid-apply-overuse`](references/comp-avoid-apply-overuse.md) - Avoid Overusing @apply
-- [`comp-reference-directive`](references/comp-reference-directive.md) - Use @reference for CSS Module Integration
-- [`comp-utility-file-scope`](references/comp-utility-file-scope.md) - Understand Utility File Scope
-- [`comp-smart-sorting`](references/comp-smart-sorting.md) - Leverage Smart Utility Sorting
-- [`comp-container-customize`](references/comp-container-customize.md) - Customize Container with @utility
+**When:** Creating form fields
 
-### 6. Theming & Design Tokens (MEDIUM)
+```tsx
+<input
+  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors"
+/>
+```
 
-- [`theme-semantic-tokens`](references/theme-semantic-tokens.md) - Use Semantic Design Token Names
-- [`theme-dark-mode-class`](references/theme-dark-mode-class.md) - Use Class-Based Dark Mode for Control
-- [`theme-prefix-variables`](references/theme-prefix-variables.md) - Use Prefix for Variable Namespacing
-- [`theme-runtime-variables`](references/theme-runtime-variables.md) - Leverage Runtime CSS Variables
-- [`theme-color-scheme`](references/theme-color-scheme.md) - Set color-scheme for Native Dark Mode
+### Status Messages
 
-### 7. Responsive & Adaptive (MEDIUM)
+**When:** Showing success or error states
 
-- [`resp-mobile-first`](references/resp-mobile-first.md) - Use Mobile-First Responsive Design
-- [`resp-container-queries`](references/resp-container-queries.md) - Use Container Queries for Component-Level Responsiveness
-- [`resp-custom-breakpoints`](references/resp-custom-breakpoints.md) - Define Custom Breakpoints in @theme
-- [`resp-hover-capability`](references/resp-hover-capability.md) - Understand Hover Behavior on Touch Devices
-- [`resp-logical-properties`](references/resp-logical-properties.md) - Use Logical Properties for RTL Support
+```tsx
+// Success
+<div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4 text-green-300">
+  Success message
+</div>
 
-### 8. Animation & Transitions (LOW-MEDIUM)
+// Error
+<div className="bg-red-900/20 border border-red-500/30 rounded-lg p-4 text-red-300">
+  Error message
+</div>
+```
 
-- [`anim-gpu-accelerated`](references/anim-gpu-accelerated.md) - Use GPU-Accelerated Transform Properties
-- [`anim-starting-style`](references/anim-starting-style.md) - Use @starting-style for Entry Animations
-- [`anim-gradient-interpolation`](references/anim-gradient-interpolation.md) - Use OKLCH Gradient Interpolation
-- [`anim-3d-transforms`](references/anim-3d-transforms.md) - Use Built-in 3D Transform Utilities
+## See Also
 
-## How to Use
+- [patterns](references/patterns.md)
+- [workflows](references/workflows.md)
 
-Read individual reference files for detailed explanations and code examples:
+## Related Skills
 
-- [Section definitions](references/_sections.md) - Category structure and impact levels
-- [Rule template](assets/templates/_template.md) - Template for adding new rules
+- See the **react** skill for component patterns and state management
+- See the **nextjs** skill for App Router conventions and page structure
+- See the **typescript** skill for type-safe component props
 
-## Full Compiled Document
+## Documentation Resources
 
-For a complete guide with all rules expanded, see [AGENTS.md](AGENTS.md).
+> Fetch latest Tailwind CSS documentation with Context7.
 
-## Reference Files
+**How to use Context7:**
+1. Use `mcp__context7__resolve-library-id` to search for "tailwindcss"
+2. **Prefer website documentation** (IDs starting with `/websites/`) over source code repositories
+3. Query with `mcp__context7__query-docs` using the resolved library ID
 
-| File | Description |
-|------|-------------|
-| [AGENTS.md](AGENTS.md) | Complete compiled guide with all rules |
-| [references/_sections.md](references/_sections.md) | Category definitions and ordering |
-| [assets/templates/_template.md](assets/templates/_template.md) | Template for new rules |
-| [metadata.json](metadata.json) | Version and reference information |
+**Library ID:** `/websites/v3_tailwindcss` _(Tailwind CSS v3 documentation - highest benchmark score)_
+
+**Recommended Queries:**
+- "responsive design breakpoints"
+- "dark mode configuration"
+- "custom animations keyframes"
+- "gradient backgrounds"

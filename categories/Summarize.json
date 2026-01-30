@@ -1,19 +1,19 @@
 {
   "category": "Summarize",
   "count": 1,
-  "updated_at": "2026-01-29T16:04:52.856515Z",
+  "updated_at": "2026-01-30T04:53:31.492243Z",
   "skills": [
     {
       "name": "SKILL.md",
-      "description": "Summarize URLs or files with the summarize CLI (web, PDFs, images, audio, YouTube).",
-      "repo": "rdsthomas/mission-control",
+      "description": "Summarize various content types (therapy sessions, meetings, documents) into structured notes. Use when processing transcripts or long-form content.",
+      "repo": "Gerstep/cybos",
       "path": "Summarize",
       "branch": "main",
       "category": "Summarize",
       "tags": [],
       "stars": 0,
-      "install": "rdsthomas/mission-control",
-      "source": "github.com/rdsthomas/mission-control"
+      "install": "Gerstep/cybos",
+      "source": "github.com/Gerstep/cybos"
     }
   ]
 }

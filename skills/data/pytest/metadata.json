@@ -1,7 +1,7 @@
 {
   "name": "pytest",
-  "repo": "prowler-cloud/prowler",
-  "path": "skills/pytest/SKILL.md",
-  "source": "github.com/prowler-cloud/prowler",
-  "downloaded_at": "2026-01-29T04:20:19.321094Z"
+  "repo": "SlanyCukr/riot-api-project",
+  "path": ".claude/skills/backend/pytest/SKILL.md",
+  "source": "github.com/SlanyCukr/riot-api-project",
+  "downloaded_at": "2026-01-30T04:02:29.399162Z"
 }

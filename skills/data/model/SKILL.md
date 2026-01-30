@@ -1,62 +1,175 @@
 ---
 name: model
-description: Algorithm/model development and fine-tuning skill. Use for tasks like dataset design/cleaning, supervised fine-tuning (SFT), preference optimization (DPO/RLHF concepts), LoRA/QLoRA, training configs, evaluation (offline/online), safety checks, deployment packaging, and cost/performance trade-offs.
+description: Create a new Eloquent model following this project's patterns. Use when adding new database entities with relationships, traits, and constants.
+argument-hint: [ModelName]
+disable-model-invocation: true
 ---
 
-# model
+# Create Eloquent Model
 
-Use this skill for 算法/模型开发/模型微调：从数据到训练到评测再到上线。
+Create a new Eloquent model for `$ARGUMENTS` following this project's established patterns.
 
-## Defaults / assumptions to confirm
+## Model Location
+All models are in `app/Models/`
 
-- Goal: improve quality, reduce cost/latency, add domain knowledge, safety alignment?
-- Base model and license constraints
-- Hardware: local GPU / multi-GPU / cloud
-- Target inference stack (vLLM, TGI, llama.cpp, etc.)
+## Standard Model Structure
 
-## Workflow
+```php
+<?php
 
-1) Define the objective and success metrics
-- Task definition and input/output format.
-- Primary metrics (task-specific) + guardrails (safety, latency, cost).
-- Failure analysis categories (hallucination, format errors, refusal, toxicity).
+namespace App\Models;
 
-2) Data strategy (most important)
-- Collect/curate dataset; define labeling guidelines.
-- Remove duplicates, leakage, PII, and near-duplicates.
-- Balance by scenario; ensure coverage of edge cases.
-- Split train/val/test with strict leakage prevention.
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-3) Choose training approach
-- SFT for instruction following and domain formatting.
-- LoRA/QLoRA for efficient fine-tuning (default for most cases).
-- DPO/Preference tuning when “style/quality preference” is the target.
-- Avoid fine-tuning when RAG or prompting solves it cheaper.
+class ModelName extends Model
+{
+    use HasFactory;
 
-4) Training setup
-- Pick tokenizer/model family compatibility.
-- Hyperparameters: LR, batch size, sequence length, warmup, weight decay.
-- Checkpoints and resume strategy; deterministic seeds.
-- Track experiments (configs, metrics, artifacts).
+    // Status/Type Constants (common pattern in this project)
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
 
-5) Evaluation
-- Offline eval set: small but representative; include hard negatives.
-- Automatic metrics where meaningful; human eval for subjective qualities.
-- Regression tests: keep a fixed “golden set” across iterations.
+    const TYPE_DEFAULT = 0;
+    const TYPE_SPECIAL = 1;
 
-6) Safety & compliance
-- Filter sensitive data; define refusal policy and tests.
-- Measure unsafe outputs; create adversarial eval prompts.
+    protected $table = 'table_name';
 
-7) Deployment
-- Export adapters/merged weights; document inference requirements.
-- Quantization plan if needed; benchmark latency and throughput.
-- Monitor in production: quality signals, drift, safety incidents.
+    protected $fillable = [
+        'name',
+        'description',
+        'status',
+        'type',
+        // ... other fields
+    ];
 
-## Outputs
+    protected $casts = [
+        'data' => 'array',        // For JSON columns
+        'is_active' => 'boolean',
+        'created_at' => 'datetime',
+    ];
 
-- Data spec: sources, schema, labeling rules, splits.
-- Training plan: method (SFT/LoRA/DPO), configs, compute estimate.
-- Eval plan: datasets, metrics, sampling, acceptance thresholds.
-- Deployment plan: packaging, quantization, benchmarks, monitoring.
+    // Relationships
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
+    // Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::STATUS_ACTIVE);
+    }
+}
+```
+
+## Project-Specific Patterns
+
+### Constants Pattern (from Invoice model)
+```php
+const STATUS_REFUNDED = 0;
+const STATUS_PAYED = 1;
+const STATUS_ON_THE_HOUSE = 2;
+```
+
+### JSON Column Pattern (from Invoice, Order models)
+```php
+protected $casts = [
+    'order' => 'array',  // Stores order items as JSON
+];
+```
+
+### Filtering Trait Pattern (from Invoice, Sales, Inventory)
+```php
+use App\Models\Traits\Revenue;
+// or
+use App\Models\Traits\SalesRevenue;
+// or
+use App\Models\Traits\InventoryFilters;
+
+class Invoice extends Model
+{
+    use Revenue;
+
+    // The trait provides filter() scope
+}
+```
+
+### UUID Trait (from SalesImportDetail)
+```php
+use App\Models\Traits\HasUuid;
+
+class SalesImportDetail extends Model
+{
+    use HasUuid;
+
+    public $incrementing = false;
+    protected $keyType = 'string';
+}
+```
+
+### Warehouse Status Pattern
+```php
+const TYPE_IN = 0;      // Stock received
+const TYPE_OUT = 1;     // Stock consumed (sales)
+const TYPE_RESET = 2;   // Inventory count reset
+```
+
+### Sold By Pattern (from Inventory)
+```php
+const SOLD_BY_PIECE = 0;
+const SOLD_BY_HALF_PORTION = 1;
+const SOLD_BY_GRAMS = 2;
+
+public static function skuMask($sku)
+{
+    return str_pad($sku, 4, '0', STR_PAD_LEFT);
+}
+```
+
+## Common Relationships in This Project
+
+```php
+// Table -> Orders -> Invoices flow
+class Table extends Model {
+    public function orders() { return $this->hasMany(Order::class); }
+}
+
+class Order extends Model {
+    public function table() { return $this->belongsTo(Table::class); }
+}
+
+class Invoice extends Model {
+    public function table() { return $this->belongsTo(Table::class); }
+    public function user() { return $this->belongsTo(User::class); }
+    public function refundReason() { return $this->belongsTo(RefundReason::class); }
+}
+
+// Inventory -> Category
+class Inventory extends Model {
+    public function category() { return $this->belongsTo(Category::class); }
+    public function pricing() { return $this->hasMany(InventoryPricing::class); }
+}
+
+// Warehouse system
+class WarehouseStatus extends Model {
+    public function warehouse() { return $this->belongsTo(Warehouse::class); }
+    public function inventory() { return $this->belongsTo(Inventory::class); }
+}
+```
+
+## Steps
+
+1. Create model in `app/Models/`
+2. Define constants for status/type fields
+3. Set `$fillable` array with all mass-assignable fields
+4. Define `$casts` for JSON, boolean, and date fields
+5. Add relationships (belongsTo, hasMany, etc.)
+6. Add any filtering traits if needed
+7. Create corresponding migration
+8. Create factory in `database/factories/` if needed for testing

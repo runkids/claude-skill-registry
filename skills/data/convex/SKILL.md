@@ -1,132 +1,62 @@
 ---
 name: convex
-description: |
-  Build and operate Convex backends: functions (queries/mutations/actions/http actions), schemas,
-  auth patterns, scheduling (cron/scheduled/workflows), file storage, testing, and debugging.
-  Triggers: "convex", "query", "mutation", "action", "httpAction", "schema", "validator",
-  "cron", "schedule", "workflow", "workpool", "ctx.db", "ctx.auth", "convex dev".
-license: MIT
-compatibility: Works best with Convex MCP (recommended) or Convex CLI (npx convex). Targets repos with a `convex/` directory.
-metadata:
-  version: "1.0"
+displayName: Convex Development
+description: Umbrella skill for all Convex development patterns. Routes to specific skills like convex-functions, convex-realtime, convex-agents, etc.
+version: 1.0.0
+author: Convex
+tags: [convex, backend, database, realtime]
 ---
 
-# Convex
+# Convex Development Skills
 
-Convex backend skill with a bias toward safety, observability, and index-backed queries.
+This is an index skill for Convex development. Use specific skills for detailed guidance:
 
-## Docs-First Rule (Blocking)
+## Core Development
 
-Before implementing a Convex feature or pattern, verify the latest official docs.
+| Skill | Command | Use When |
+|-------|---------|----------|
+| Functions | `/convex-functions` | Writing queries, mutations, actions |
+| Schema | `/convex-schema-validator` | Defining database schemas and validators |
+| Realtime | `/convex-realtime` | Building reactive subscriptions |
+| HTTP Actions | `/convex-http-actions` | Webhooks and HTTP endpoints |
 
-Primary sources:
+## Data & Storage
 
-- https://docs.convex.dev/
-- https://stack.convex.dev/
+| Skill | Command | Use When |
+|-------|---------|----------|
+| File Storage | `/convex-file-storage` | File uploads, serving, storage |
+| Migrations | `/convex-migrations` | Schema evolution, data backfills |
 
-If Convex MCP is available, use it to introspect the deployed function/table surface area and confirm assumptions.
+## Advanced Patterns
 
-## Environments (Dev / Preview / Prod)
+| Skill | Command | Use When |
+|-------|---------|----------|
+| Agents | `/convex-agents` | Building AI agents with tools |
+| Cron Jobs | `/convex-cron-jobs` | Scheduled background tasks |
+| Components | `/convex-component-authoring` | Reusable Convex packages |
 
-Convex projects typically have:
+## Security
 
-- Dev deployments (your local `npx convex dev` sync target)
-- Preview deployments (branch/PR deployments, beta feature)
-- Production deployment
+| Skill | Command | Use When |
+|-------|---------|----------|
+| Security Check | `/convex-security-check` | Quick security audit checklist |
+| Security Audit | `/convex-security-audit` | Deep security review |
 
-Use MCP `status` (if available) or the CLI to confirm which deployment you are connected to before making changes.
+## Guidelines
 
-## Components-First Rule
+| Skill | Command | Use When |
+|-------|---------|----------|
+| Best Practices | `/convex-best-practices` | General patterns and guidelines |
 
-Prefer Convex components and ecosystem packages over custom infrastructure.
+## Quick Start
 
-Start at:
+For most tasks:
+1. Start with `/convex-best-practices` for general patterns
+2. Use `/convex-functions` for writing backend logic
+3. Use `/convex-schema-validator` for data modeling
+4. Use specific skills as needed for your use case
 
-- https://docs.convex.dev/components
-- `references/ecosystem.md`
+## Documentation
 
-## Core Rule (Blocking)
-
-Never ship Convex backend changes without verifying runtime behavior.
-
-Preferred verification order:
-
-1) Convex MCP logs (structured, diffable)
-2) `npx convex dev` terminal logs
-3) Convex Dashboard logs
-
-## Project Conventions (Preferred)
-
-- Scoped backend: group functions by domain (folder) and by function type (separate files).
-- Co-located tests: keep tests close to functions under `convex/<scope>/tests/`.
-- Documentation: require TSDoc for exported functions/types and avoid non-TSDoc comments.
-
-See `references/style.md` and `references/testing.md`.
-
-## Router
-
-| User says | Load reference | Do |
-|---|---|---|
-| help / cli help / usage | `references/cli-help.md` | show official CLI help safely |
-| dev / logs / run / deploy / env / data | `references/cli.md` | common CLI workflows |
-| mcp / tools / introspect / logs | `references/mcp.md` | use Convex MCP tools |
-| tsdoc / docs / style | `references/style.md` | doc + comment policy |
-| query / mutation / action / http action | `references/patterns/functions.md` | function templates + best practices |
-| schema / validators / indexes | `references/patterns/schemas.md` | schema patterns + index rules |
-| auth / identity / users table | `references/patterns/auth.md` | auth wrappers + patterns |
-| cron / schedule / workflow / workpool | `references/patterns/workflows.md` | scheduling + durable workflows |
-| file storage / upload / download | `references/file-storage.md` | file storage patterns |
-| http / webhook | `references/patterns/http.md` | httpRouter/httpAction patterns |
-| testing | `references/testing.md` | testing patterns |
-| ecosystem / components | `references/ecosystem.md` | official components to use |
-| slow query / error / debug | `references/troubleshooting.md` | troubleshooting + anti-patterns |
-| validate / checklist | `checklists/validation.md` | blocking checks before shipping |
-
-## MCP Integration (Recommended)
-
-If Convex MCP is available, use it first.
-
-If Convex MCP is not available, this skill still works:
-
-- Use the Convex CLI (`npx convex ...`) and the dashboard.
-- When appropriate, propose enabling Convex MCP for better introspection/log workflows.
-
-- Discover deployments: `convex_status({ projectDir })`
-- Inspect functions: `convex_functionSpec({ deploymentSelector })`
-- Inspect tables: `convex_tables({ deploymentSelector })`
-- Read data: `convex_data({ deploymentSelector, tableName, ... })`
-- Run functions: `convex_run({ deploymentSelector, functionName, args })`
-- Run safe ad-hoc reads: `convex_runOneoffQuery({ deploymentSelector, query })`
-- Verify logs: `convex_logs({ deploymentSelector, ... })`
-
-Full workflow: `references/mcp.md`.
-
-## Critical Rules (7)
-
-1) Always use validators (`args` + `returns`) for functions.
-2) Always use explicit table names with `ctx.db.get/patch/replace`.
-3) Prefer index-backed queries (`withIndex`) and bounded reads (`take`/pagination).
-4) User identity comes from `ctx.auth`, never from args.
-5) Use `internal*` functions for sensitive operations.
-6) Schedule only internal functions.
-7) Use `v.null()` for void returns (return `null`).
-
-## References
-
-- Patterns:
-  - `references/patterns/schemas.md`
-  - `references/patterns/functions.md`
-  - `references/patterns/auth.md`
-  - `references/patterns/workflows.md`
-  - `references/patterns/http.md`
-- Other:
-  - `references/mcp.md`
-  - `references/cli.md`
-  - `references/cli-help.md`
-  - `references/style.md`
-  - `references/file-storage.md`
-  - `references/testing.md`
-  - `references/ecosystem.md`
-  - `references/troubleshooting.md`
-- Checklist:
-  - `checklists/validation.md`
+- Primary: https://docs.convex.dev
+- LLM-optimized: https://docs.convex.dev/llms.txt

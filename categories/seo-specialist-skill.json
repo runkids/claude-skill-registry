@@ -1,0 +1,19 @@
+{
+  "category": "seo-specialist-skill",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.647811Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in Search Engine Optimization, driving organic traffic through technical auditing, content strategy, and authority building.",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "seo-specialist-skill",
+      "branch": "main",
+      "category": "seo-specialist-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

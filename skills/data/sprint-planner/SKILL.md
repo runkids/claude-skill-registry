@@ -1,281 +1,480 @@
 ---
-name: Sprint Planner
-slug: sprint-planner
-description: Plan and execute Agile sprints with velocity tracking, capacity planning, and retrospective insights
-category: project
-complexity: complex
-version: "1.0.0"
-author: "ID8Labs"
-triggers:
-  - "plan sprint"
-  - "start sprint"
-  - "sprint planning"
-  - "create sprint"
-  - "sprint velocity"
-tags:
-  - agile
-  - scrum
-  - sprint
-  - velocity
-  - capacity
-  - backlog
+name: AILANG Sprint Planner
+description: Analyze design docs, calculate velocity from recent work, and create realistic sprint plans with day-by-day breakdowns. Use when user asks to "plan sprint", "create sprint plan", or wants to estimate development timeline.
 ---
 
-# Sprint Planner
+# AILANG Sprint Planner
 
-The Sprint Planner skill helps teams plan and execute effective Agile sprints using Scrum methodology. It focuses on capacity-based planning, velocity tracking, and continuous improvement through retrospectives. The skill ensures sprints are properly scoped, committed, and executed with clear goals and metrics.
+Create comprehensive, data-driven sprint plans by analyzing design documentation, current implementation status, and recent velocity.
 
-This skill excels at breaking down epics and user stories into sprint-sized work, estimating effort using story points or hours, tracking team velocity, and facilitating sprint ceremonies (planning, daily standups, reviews, retrospectives).
+## Quick Start
 
-Sprint Planner emphasizes sustainable pace, predictable delivery, and team empowerment through data-driven planning and retrospective learning.
+**Most common usage:**
+```bash
+# User says: "Plan the next sprint based on v0.4.0 roadmap"
+# This skill will:
+# 1. Read design doc (design_docs/planned/v0.4-roadmap.md)
+# 2. Analyze CHANGELOG for recent velocity
+# 3. Review current implementation status
+# 4. Propose realistic milestones with LOC estimates
+# 5. Create day-by-day task breakdown
+```
 
-## Core Workflows
+## When to Use This Skill
 
-### Workflow 1: Sprint Planning
+Invoke this skill when:
+- User says "plan sprint", "create sprint plan", "plan next phase"
+- User asks to estimate timeline for a feature or design doc
+- User wants to know how long implementation will take
+- User needs to prioritize work for upcoming development
 
-**Steps:**
-1. **Pre-Planning Preparation** (before ceremony)
-   - Ensure backlog is groomed and prioritized
-   - Verify user stories have acceptance criteria
-   - Review team capacity for upcoming sprint
-   - Gather velocity data from previous sprints
-   - Identify any holidays, PTO, or known interruptions
+## Documentation URLs
 
-2. **Set Sprint Goal**
-   - Review product roadmap and priorities
-   - Define 1-2 sentence sprint goal
-   - Align with stakeholders on desired outcomes
-   - Ensure goal is measurable and achievable
+When planning sprints that involve adding error messages, help text, or documentation links:
 
-3. **Calculate Team Capacity**
-   - List all team members and their availability
-   - Account for meetings, support rotation, planned time off
-   - Calculate total available hours or story points
-   - Apply 70% rule (plan for 70% of theoretical capacity)
+**Website**: https://ailang.sunholo.com/
 
-4. **Select Stories from Backlog**
-   - Start with highest-priority items
-   - Review story details and acceptance criteria
-   - Estimate effort (if not already estimated)
-   - Pull stories until capacity is reached
-   - Ensure stories align with sprint goal
+**Documentation Source**: The website documentation lives in this repo at `docs/`
+- Markdown files: `docs/docs/` (guides, reference, etc.)
+- Static assets: `docs/static/`
+- Docusaurus config: `docs/docusaurus.config.js`
 
-5. **Break Down Stories into Tasks**
-   - Decompose each story into technical tasks
-   - Estimate task hours (2-8 hour chunks)
-   - Identify dependencies between tasks
-   - Assign owners or leave for team self-organization
+**Common Documentation Paths**:
+- Language syntax: `/docs/reference/language-syntax`
+- Module system: `/docs/guides/module_execution`
+- Getting started: `/docs/guides/getting-started`
+- REPL guide: `/docs/guides/getting-started#repl`
+- Implementation status: `/docs/reference/implementation-status`
+- Benchmarking: `/docs/guides/benchmarking`
+- Evaluation: `/docs/guides/evaluation/README`
 
-6. **Sprint Commitment**
-   - Review total commitment vs. capacity
-   - Identify risks and mitigation strategies
-   - Get team agreement on sprint backlog
-   - Document sprint goal and commitment
+**Full URL Example**:
+```
+https://ailang.sunholo.com/docs/reference/language-syntax
+```
 
-**Output:** Sprint backlog with committed stories, tasks, capacity allocation, and sprint goal.
+**Best Practices**:
+- When planning features that include documentation links, verify the URLs exist before including them in sprint estimates
+- Look in `docs/docs/` to verify the file exists locally
+- Use `ls docs/docs/reference/` or `ls docs/docs/guides/` to find available pages
 
-### Workflow 2: Daily Standup Facilitation
+## Role in Long-Running Agent Pattern
 
-**15-minute time-boxed meeting:**
+**sprint-planner acts as the "Initializer" agent** in the two-phase pattern from [Anthropic's long-running agent article](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents):
 
-Each team member answers:
-1. **Yesterday**: What did I complete?
-2. **Today**: What will I work on?
-3. **Blockers**: What's preventing progress?
+- **Initializer (sprint-planner)**: Creates infrastructure for execution
+  - Analyzes design docs and calculates velocity
+  - Creates markdown sprint plan (human-readable)
+  - **NEW**: Creates JSON progress file (machine-readable)
+  - Sets up session resumption infrastructure
+  - Sends handoff message to sprint-executor
 
-**As facilitator:**
-- Keep updates brief (2 minutes per person)
-- Note blockers for offline resolution
-- Update sprint board in real-time
-- Identify risks to sprint goal
-- Schedule necessary follow-up conversations
+- **Coding Agent (sprint-executor)**: Works incrementally across sessions
+  - Reads JSON progress file on each session start
+  - Updates only `passes` field as milestones complete
+  - Can pause/resume work across multiple sessions
 
-**Output:** Updated sprint board and blocker resolution plan.
+This separation enables **multi-session continuity** - sprints can span days or weeks with Claude resuming work from where it left off.
 
-### Workflow 3: Sprint Review
+## Available Scripts
 
-**Steps:**
-1. **Demo Completed Work**
-   - Show each completed story in action
-   - Demonstrate acceptance criteria met
-   - Gather stakeholder feedback
-   - Note any change requests or new ideas
+### `scripts/analyze_velocity.sh [days]`
+Analyze recent development velocity from CHANGELOG and git commits.
 
-2. **Review Sprint Metrics**
-   - Completed vs. committed story points
-   - Burndown chart analysis
-   - Velocity trend
-   - Quality metrics (bugs, test coverage)
+**Usage:**
+```bash
+# Analyze last 7 days (default)
+.claude/skills/sprint-planner/scripts/analyze_velocity.sh
 
-3. **Capture Feedback**
-   - What did stakeholders like?
-   - What needs adjustment?
-   - New requirements or priorities?
-   - Add items to product backlog
+# Analyze last 14 days
+.claude/skills/sprint-planner/scripts/analyze_velocity.sh 14
+```
 
-**Output:** Demo recording, stakeholder feedback, updated backlog.
+**Output:**
+```
+Analyzing velocity for last 7 days...
 
-### Workflow 4: Sprint Retrospective
+=== Recent CHANGELOG Entries ===
+Total: ~1,200 LOC
+Total: ~800 LOC
 
-**Steps:**
-1. **Set the Stage** (5 min)
-   - Review retrospective goals and norms
-   - Choose retro format (Start/Stop/Continue, etc.)
+=== Recent Commits (last 7 days) ===
+abc1234 Complete M-DX1.5: Migrate all builtins
+def5678 Add Type Builder DSL
 
-2. **Gather Data** (15 min)
-   - What went well?
-   - What didn't go well?
-   - What puzzles us?
-   - Review metrics and sprint data
+=== Files Changed (last 7 days) ===
+15 files changed, 1200 insertions(+), 300 deletions(-)
 
-3. **Generate Insights** (15 min)
-   - Identify patterns and root causes
-   - Discuss why things happened
-   - Prioritize issues by impact
+=== Velocity Summary ===
+Based on CHANGELOG entries and git history, estimate:
+- Average LOC/day from recent milestones
+- Typical milestone duration
+- Current development pace
+```
 
-4. **Decide What to Do** (15 min)
-   - Choose 1-3 improvement actions
-   - Assign owners to each action
-   - Define success criteria
-   - Set follow-up date
+### `scripts/create_sprint_json.sh <sprint_id> <sprint_plan_md> [design_doc_md]`
+**NEW**: Create structured JSON progress file for multi-session sprint execution.
 
-5. **Close** (5 min)
-   - Summarize decisions
-   - Appreciate team contributions
-   - Document retro outcomes
+**Usage:**
+```bash
+# Create JSON progress file from sprint plan
+.claude/skills/sprint-planner/scripts/create_sprint_json.sh \
+  "M-S1" \
+  "design_docs/planned/v0_4_0/m-s1-sprint-plan.md" \
+  "design_docs/planned/v0_4_0/m-s1-parser-improvements.md"
+```
 
-**Output:** Retrospective notes with 1-3 committed improvement actions.
+**What it does:**
+- Creates `.ailang/state/sprints/sprint_<id>.json` with feature list
+- Implements "constrained modification" pattern (only `passes` field changes)
+- Enables session resumption via structured state
+- Provides template for milestone details (to be filled in)
 
-### Workflow 5: Velocity Tracking
+**Output:**
+- JSON progress file at `.ailang/state/sprints/sprint_<id>.json`
+- Validation check
+- Next steps instructions (edit JSON, send handoff message)
 
-**Steps:**
-1. Calculate completed story points per sprint
-2. Track velocity over rolling 3-sprint average
-3. Identify velocity trends (increasing, stable, declining)
-4. Analyze factors affecting velocity
-5. Use velocity for future sprint planning
+**File Organization:**
+Sprint JSON files are stored in `.ailang/state/sprints/` to keep the state directory organized.
 
-## Quick Reference
+**Integration with sprint-executor:**
+After creating the JSON file, sprint-executor can:
+- Resume work across multiple Claude Code sessions
+- Track progress programmatically
+- Update velocity metrics automatically
 
-| Action | Command/Trigger |
-|--------|-----------------|
-| Plan new sprint | "plan sprint [number]" |
-| Calculate capacity | "calculate team capacity" |
-| Check velocity | "what's our velocity" |
-| Create sprint goal | "set sprint goal" |
-| Daily standup | "daily standup update" |
-| Review sprint | "sprint review" |
-| Run retrospective | "facilitate retro" |
-| Burndown chart | "show sprint burndown" |
-| Add to sprint | "add story to sprint" |
-| Sprint health | "sprint health check" |
+## Sprint Planning Workflow
+
+**CRITICAL: Always end by handing off to sprint-executor after user approval!**
+
+### 1. Read and Analyze Design Document
+
+**Input**: Path to design doc (e.g., `design_docs/planned/v0.4-roadmap.md`)
+
+**What to extract:**
+- Completed milestones (marked ✅)
+- Remaining milestones (marked ❌, ⏳, 📋)
+- Target metrics (LOC estimates, timeline, acceptance criteria)
+- Dependencies between milestones
+
+### 2. Review Current Implementation Status
+
+**Check these sources:**
+- `CHANGELOG.md` - Recent features and LOC counts
+- `git log --oneline --since="1 week ago"` - Actual commits
+- `make test-coverage-badge` - Current test coverage
+- Design doc vs reality - gaps or partial implementations
+
+### 3. Analyze Recent Velocity
+
+**Use the velocity script:**
+```bash
+.claude/skills/sprint-planner/scripts/analyze_velocity.sh
+```
+
+**Calculate:**
+- LOC per day from recent milestones
+- Average milestone duration
+- Actual completion rate vs estimates
+
+### 4. Identify Remaining Work
+
+**List incomplete milestones with:**
+- Dependencies (what blocks what)
+- Estimated effort (from design doc)
+- Priority (based on dependencies, critical path)
+- Current velocity (can we realistically do this?)
+
+### 5. Propose Sprint Plan
+
+**Use the template:**
+See [`resources/sprint_plan_template.md`](resources/sprint_plan_template.md)
+
+**Include:**
+- **Sprint Summary**: Goal, duration, key deliverables
+- **Milestone Breakdown**: For each milestone:
+  - Name and description
+  - Estimated LOC (implementation + tests)
+  - **Example files to create/update** (CRITICAL - required for every new feature)
+  - Dependencies
+  - Acceptance criteria
+  - Risk factors
+- **Task List**: Day-by-day breakdown (if < 1 week) or weekly (if longer)
+- **Success Metrics**:
+  - Test coverage target
+  - **Example files created and verified working** (CRITICAL - see CLAUDE.md)
+  - Docs to update
+
+### 6. Present for Feedback
+
+**Show user:**
+- Proposed milestones with estimates
+- Assumptions made
+- Areas where input is needed
+- Realistic timeline based on actual velocity
+
+**Be ready to revise** based on user priorities or constraints.
+
+### 7. Finalize and Document
+
+**Once approved:**
+```bash
+# Create sprint plan document (markdown - human-readable)
+# Naming: M-<type><number>.md (M-P1 for parser, M-T1 for types, etc.)
+```
+
+**Include in sprint plan:**
+- Goal and motivation
+- Technical approach
+- Day-by-day implementation plan
+- Acceptance criteria
+- Estimated LOC
+- Dependencies
+
+**NEW: Create JSON progress file (machine-readable):**
+```bash
+# Create structured progress file for multi-session execution
+.claude/skills/sprint-planner/scripts/create_sprint_json.sh \
+  "<sprint-id>" \
+  "design_docs/planned/vX_Y/<sprint-id>-plan.md" \
+  "design_docs/planned/vX_Y/<feature>-design.md"
+```
+
+### 8. MANDATORY: Populate JSON with Real Milestones
+
+**The script creates a TEMPLATE - you MUST populate it with real data!**
+
+The `create_sprint_json.sh` script generates placeholder content. **Before handing off to sprint-executor, you MUST edit the JSON file to include actual milestones.**
+
+**Required edits to `.ailang/state/sprints/sprint_<id>.json`:**
+
+1. **Replace placeholder features array** with real milestones:
+   ```json
+   "features": [
+     {
+       "id": "M1_ACTUAL_NAME",
+       "description": "Real description from your sprint plan",
+       "estimated_loc": 150,
+       "dependencies": [],
+       "acceptance_criteria": [
+         "Actual criterion from sprint plan",
+         "Another real criterion"
+       ],
+       "passes": null,
+       "started": null,
+       "completed": null,
+       "notes": null
+     }
+   ]
+   ```
+
+2. **Update velocity estimates** to match your sprint plan:
+   ```json
+   "velocity": {
+     "target_loc_per_day": 150,
+     "estimated_total_loc": 670,
+     "estimated_days": 4
+   }
+   ```
+
+**Validation checklist before handoff:**
+- [ ] No milestone has `"id": "MILESTONE_ID"` (placeholder)
+- [ ] Each milestone has real acceptance criteria (not "Criterion 1")
+- [ ] `estimated_total_loc` matches sum of milestone LOC
+- [ ] `estimated_days` matches sprint plan duration
+- [ ] At least 2 milestones defined
+
+**sprint-executor will REJECT the sprint if placeholders remain!**
+
+### 8.1. Link GitHub Issues (Automatic via ailang messages)
+
+**The script automatically discovers related GitHub issues using `ailang messages` integration.**
+
+The `create_sprint_json.sh` script automatically:
+1. **Syncs GitHub issues** via `ailang messages import-github`
+2. Extracts message IDs from the design doc's "Bug Report" field (pattern: `msg_YYYYMMDD_HHMMSS_hash`)
+3. **Queries local messages** for issues matching design doc keywords
+4. Extracts explicit `#123` references from the design doc
+5. Adds `github_issues: [...]` to the sprint JSON
+
+**Why link GitHub issues?**
+- Development commits use `refs #123` to link without closing
+- Final commit uses `Fixes #123` to AUTO-CLOSE issue on merge
+- Issues are updated with links to commits/PRs
+- Audit trail from bug report → design doc → sprint → commits → release
+
+**Important: "refs" vs "Fixes"**
+- `refs #17` - Links commit to issue (NO auto-close) - use during development
+- `Fixes #17`, `Closes #17`, `Resolves #17` - AUTO-CLOSES issue when merged - use in final commit
+
+**Deduplication:** `ailang messages import-github` checks existing issues by number before importing. Issues are never duplicated.
+
+**Manual linking (if auto-extraction misses issues):**
+```bash
+# Add GitHub issues to sprint JSON
+jq '.github_issues = [17, 42]' .ailang/state/sprints/sprint_<id>.json > tmp && mv tmp .ailang/state/sprints/sprint_<id>.json
+```
+
+**Example JSON with linked issues:**
+```json
+{
+  "sprint_id": "M-BUG-FIX",
+  "github_issues": [17, 42],
+  "features": [...]
+}
+```
+
+**Workflow with GitHub integration:**
+1. External project sends bug report: `ailang messages send user "Bug: ..." --type bug --github`
+2. GitHub issue #17 is created and linked to message
+3. Design doc references message ID: `**Bug Report**: msg_20251210_..._abc123`
+4. `create_sprint_json.sh` extracts message ID, looks up issue #17, adds to JSON
+5. Sprint-executor includes `refs #17` in milestone commits (links, no close)
+6. Final sprint commit uses `Fixes #17` to auto-close issue on merge
+
+### 9. ALWAYS Hand Off to sprint-executor
+
+**CRITICAL: After creating an approved sprint plan, ALWAYS hand off to sprint-executor immediately.**
+
+This is the standard workflow:
+1. **sprint-planner** (this skill): Creates plan + JSON progress file
+2. **sprint-executor** (implementation agent): Executes the plan with TDD
+
+**Send handoff message:**
+```bash
+ailang agent send sprint-executor '{
+  "type": "plan_ready",
+  "correlation_id": "sprint_<sprint-id>_<date>",
+  "sprint_id": "<sprint-id>",
+  "plan_path": "design_docs/planned/vX_Y/<sprint-id>-plan.md",
+  "progress_path": ".ailang/state/sprints/sprint_<id>.json",
+  "estimated_duration": "X days (Y hours)",
+  "milestones": [
+    {"id": "M1", "name": "...", "estimated_hours": X},
+    {"id": "M2", "name": "...", "estimated_hours": Y}
+  ],
+  "discovery": "Key findings from analysis",
+  "total_loc_estimate": N,
+  "risk_level": "low|medium|high"
+}'
+```
+
+**Why this workflow?**
+- sprint-executor specializes in TDD, continuous linting, progress tracking
+- Enables multi-session work (sprints can span days/weeks)
+- Proper separation of concerns: planning vs execution
+
+**Optional: Commit before handoff:**
+```bash
+git add design_docs/YYYYMMDD/M-<milestone>.md
+git add .ailang/state/sprints/sprint_<id>.json
+git commit -m "Add M-<milestone> sprint plan with JSON progress tracking"
+```
+
+## Analysis Framework
+
+### Design Doc Analysis Checklist
+- [ ] Current status: What's ✅ vs ❌ vs ⏳
+- [ ] Timeline: Days/weeks remaining, velocity metrics
+- [ ] Priority matrix: Critical vs nice-to-have
+- [ ] Deferred items: Features pushed to later versions
+- [ ] Technical debt: Known issues or limitations
+
+### Implementation Analysis Checklist
+- [ ] CHANGELOG.md: Recent features, LOC counts, test counts
+- [ ] Git history: Actual work done (not just documented)
+- [ ] Test files: Coverage, test counts, test patterns
+- [ ] Code files: Actual implementation, not just stubs
+- [ ] TODO/FIXME: Inline comments about future work
+- [ ] **Example files: What works vs what's broken** (check `examples/` directory)
+- [ ] **Example coverage: Does every new feature have a working example?** (CRITICAL)
+
+### Gap Analysis Checklist
+- [ ] Features in design doc but not implemented
+- [ ] Features implemented but not in design doc
+- [ ] Estimated LOC vs actual LOC (for velocity)
+- [ ] Planned vs actual timeline
+- [ ] Test coverage gaps
+- [ ] Documentation gaps
+
+## Resources
+
+### Sprint Plan Template
+See [`resources/sprint_plan_template.md`](resources/sprint_plan_template.md) for complete sprint plan structure.
 
 ## Best Practices
 
-- **Consistent sprint length**: Use 1-2 week sprints; consistency enables predictability
-- **Sprint goal clarity**: Every sprint needs a clear, measurable goal that guides decisions
-- **Capacity-based planning**: Never commit to more than 70% of theoretical capacity
-- **No scope changes mid-sprint**: Protect the sprint commitment; changes go to backlog
-- **Done means DONE**: Define "Definition of Done" and enforce it (coded, tested, reviewed, deployed)
-- **Track velocity honestly**: Don't manipulate story points; accurate data enables better planning
-- **Time-box ceremonies**: Sprint planning (2h), daily standup (15min), review (1h), retro (1h)
-- **Visualize progress**: Use burndown charts and sprint boards for transparency
-- **Address blockers daily**: Don't let blockers linger; escalate and resolve quickly
-- **Retrospect every sprint**: Continuous improvement is non-negotiable
-- **Protect team from interruptions**: Buffer capacity for support, bugs, and unplanned work
-- **Carry over sparingly**: If stories regularly carry over, you're over-committing
+### 1. Be Conservative with Estimates
+- Use actual velocity from recent work
+- Add 20-30% buffer for unknowns
+- Don't promise more than recent velocity suggests
 
-## Sprint Ceremonies Schedule
+### 2. Prioritize Ruthlessly
+- Focus on highest-value items first
+- Don't try to do everything in one sprint
+- Defer nice-to-haves to future sprints
 
-| Ceremony | Duration | When | Purpose |
-|----------|----------|------|---------|
-| **Sprint Planning** | 2-4 hours | First day of sprint | Define sprint goal and commitment |
-| **Daily Standup** | 15 minutes | Every day, same time | Sync progress and blockers |
-| **Backlog Grooming** | 1 hour | Mid-sprint | Prepare upcoming work |
-| **Sprint Review** | 1 hour | Last day of sprint | Demo and gather feedback |
-| **Sprint Retrospective** | 1 hour | After review | Reflect and improve |
+### 3. Make Tasks Concrete
+- ❌ "Implement X" is too vague
+- ✅ "Write parser for X syntax (~100 LOC) + 15 test cases" is concrete
+- Each task should be achievable in 1 day or less
 
-## Velocity Calculation
+### 4. Consider Technical Debt
+- Don't just add features, also fix issues
+- Balance new work with quality improvements
+- Factor in time for bug fixes and refactoring
 
-**Story Points Method:**
-```
-Velocity = Sum of completed story points
+### 5. Plan for Testing
+- Every feature needs tests
+- Test LOC is usually 30-50% of implementation LOC
+- Include test writing in timeline estimates
 
-Example:
-Sprint 1: 23 points
-Sprint 2: 27 points
-Sprint 3: 25 points
-Average Velocity = (23 + 27 + 25) / 3 = 25 points/sprint
-```
+### 6. Document Assumptions
+- Make implicit assumptions explicit
+- Note areas of uncertainty
+- Highlight where you need user input
 
-**Hours Method:**
-```
-Velocity = Completed hours / Committed hours
+### 7. Verify Design Doc Has Systemic Analysis
 
-Example:
-Committed: 80 hours
-Completed: 68 hours
-Velocity = 68/80 = 85% completion rate
-```
+**Before planning a sprint for a bug fix, verify the design doc addresses systemic issues.**
 
-Use average velocity from last 3 sprints for planning next sprint.
+The `design-doc-creator` skill includes guidance for auditing related code paths before writing a design doc. If the design doc only fixes the reported symptom without checking for similar gaps, send it back for revision.
 
-## Capacity Planning Formula
+**Quick check:** Does the design doc mention:
+- [ ] Search for similar code paths performed?
+- [ ] Other types/cases checked for same gap?
+- [ ] Unified fix covering all cases (not just reported one)?
 
-```
-Team Capacity = Σ(Person Days Available) × Hours per Day × Utilization Factor
+**If not:** Ask user to revise design doc before planning sprint.
 
-Example:
-5 developers × 10 days × 6 hours/day × 0.7 = 210 hours
+See `design-doc-creator` skill for full systemic analysis checklist.
 
-Utilization Factor (0.7) accounts for:
-- Meetings and ceremonies (15%)
-- Context switching (10%)
-- Unplanned work (5%)
-```
+## Output Format
 
-## Burndown Chart Analysis
+See [`resources/sprint_plan_template.md`](resources/sprint_plan_template.md) for full template.
 
-**Healthy Burndown:**
-- Steady downward trend
-- Work completed daily
-- Reaches zero by sprint end
+**Key sections:**
+- Summary (goal, duration, risk level)
+- Current status analysis (completed, velocity, remaining)
+- Proposed milestones (with tasks, criteria, risks)
+- Success metrics
+- Dependencies and open questions
 
-**Warning Signs:**
-- Flat line (no progress)
-- Upward trend (scope added)
-- Late drop (work completed last day)
-- Staying above zero (over-committed)
+## Progressive Disclosure
 
-## Retrospective Formats
+This skill loads information progressively:
 
-### Start/Stop/Continue
-- **Start**: What should we start doing?
-- **Stop**: What should we stop doing?
-- **Continue**: What should we keep doing?
+1. **Always loaded**: This SKILL.md file (YAML frontmatter + workflow)
+2. **Execute as needed**: Scripts in `scripts/` (velocity analysis)
+3. **Load on demand**: `resources/sprint_plan_template.md` (template)
 
-### 4 L's
-- **Liked**: What went well?
-- **Learned**: What did we learn?
-- **Lacked**: What was missing?
-- **Longed For**: What do we wish we had?
+Scripts execute without loading into context window, saving tokens.
 
-### Mad/Sad/Glad
-- **Mad**: What frustrated us?
-- **Sad**: What disappointed us?
-- **Glad**: What made us happy?
+## Notes
 
-### Sailboat
-- **Wind**: What helped us move forward?
-- **Anchor**: What held us back?
-- **Rocks**: What risks did we face?
-- **Island**: What's our goal?
-
-## Integration Points
-
-- **Task Manager**: Daily task tracking and updates
-- **Project Planner**: Long-term roadmap alignment
-- **GitHub**: Issue and PR tracking
-- **Jira/Linear**: Sprint board management
-- **Slack**: Automated standup reminders and updates
-- **Calendar**: Sprint ceremony scheduling
+- This skill is interactive - expect back-and-forth with user
+- Sprint plans should be realistic, not aspirational
+- Use actual data (velocity, LOC counts) over guesses
+- Update design docs as reality diverges from plan
+- Don't commit plan until approved by user

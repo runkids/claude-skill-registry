@@ -124,7 +124,7 @@ fields:
     label: メールアドレス  # 必須: 表示ラベル
     type: email           # 必須: text|email|password|number|textarea|select|checkbox|radio|date|file|pin
     required: true        # 任意: 必須フラグ
-    placeholder: example@email.com  # 任意
+    placeholder: example`email` skill.com  # 任意
   - name: password
     label: パスワード
     type: password

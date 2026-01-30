@@ -1,7 +1,7 @@
 {
   "name": "frontend-code-review",
-  "repo": "pplmx/ethereal",
-  "path": ".claude/skills/frontend-code-review/SKILL.md",
-  "source": "github.com/pplmx/ethereal",
-  "downloaded_at": "2026-01-29T03:30:58.968409Z"
+  "repo": "ma1orek/replay",
+  "path": "skills/frontend-code-review/SKILL.md",
+  "source": "github.com/ma1orek/replay",
+  "downloaded_at": "2026-01-30T04:00:27.981193Z"
 }

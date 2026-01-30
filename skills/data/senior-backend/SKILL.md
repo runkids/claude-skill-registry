@@ -15,13 +15,13 @@ This skill provides three core capabilities through automated scripts:
 
 ```bash
 # Script 1: Api Scaffolder
-python3 ~/.{TOOL}/skills/senior-backend/scripts/api_scaffolder.py [options]
+python scripts/api_scaffolder.py [options]
 
 # Script 2: Database Migration Tool
-python3 ~/.{TOOL}/skills/senior-backend/scripts/database_migration_tool.py [options]
+python scripts/database_migration_tool.py [options]
 
 # Script 3: Api Load Tester
-python3 ~/.{TOOL}/skills/senior-backend/scripts/api_load_tester.py [options]
+python scripts/api_load_tester.py [options]
 ```
 
 ## Core Capabilities
@@ -38,7 +38,7 @@ Automated tool for api scaffolder tasks.
 
 **Usage:**
 ```bash
-python3 ~/.{TOOL}/skills/senior-backend/scripts/api_scaffolder.py <project-path> [options]
+python scripts/api_scaffolder.py <project-path> [options]
 ```
 
 ### 2. Database Migration Tool
@@ -53,7 +53,7 @@ Comprehensive analysis and optimization tool.
 
 **Usage:**
 ```bash
-python3 ~/.{TOOL}/skills/senior-backend/scripts/database_migration_tool.py <target-path> [--verbose]
+python scripts/database_migration_tool.py <target-path> [--verbose]
 ```
 
 ### 3. Api Load Tester
@@ -68,7 +68,7 @@ Advanced tooling for specialized tasks.
 
 **Usage:**
 ```bash
-python3 ~/.{TOOL}/skills/senior-backend/scripts/api_load_tester.py [arguments] [options]
+python scripts/api_load_tester.py [arguments] [options]
 ```
 
 ## Reference Documentation
@@ -130,7 +130,7 @@ cp .env.example .env
 
 ```bash
 # Use the analyzer script
-python3 ~/.{TOOL}/skills/senior-backend/scripts/database_migration_tool.py .
+python scripts/database_migration_tool.py .
 
 # Review recommendations
 # Apply fixes
@@ -179,8 +179,8 @@ npm run test
 npm run lint
 
 # Analysis
-python3 ~/.{TOOL}/skills/senior-backend/scripts/database_migration_tool.py .
-python3 ~/.{TOOL}/skills/senior-backend/scripts/api_load_tester.py --analyze
+python scripts/database_migration_tool.py .
+python scripts/api_load_tester.py --analyze
 
 # Deployment
 docker build -t app:latest .

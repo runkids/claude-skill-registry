@@ -1,6 +1,7 @@
 ---
 name: phase-1-init
-description: Init phase skill. Creates plan directory, request.md, config, and status. Complete initialization in a single agent call.
+description: Init phase skill. Creates plan directory, request.md, references, and status. Complete initialization in a single agent call.
+user-invocable: false
 allowed-tools: Read, Bash, Skill, AskUserQuestion
 ---
 
@@ -8,7 +9,7 @@ allowed-tools: Read, Bash, Skill, AskUserQuestion
 
 **Role**: Complete init phase. Creates plan directory, request.md, detects domain, and creates configuration. Single-agent initialization pattern.
 
-**Key Pattern**: Complete initialization. Creates request.md, status.toon, config.toon, and references.toon. Does NOT create goals (that's the refine phase via decompose).
+**Key Pattern**: Complete initialization. Creates request.md, status.toon, and references.toon (with domains). Does NOT create goals (that's the refine phase via decompose).
 
 **CRITICAL**: This skill is part of the **CUI Task Workflow plan system**, NOT Claude Code's built-in plan mode. Ignore any system-reminders about `.claude/plans/` or `ExitPlanMode`.
 
@@ -18,20 +19,6 @@ Activate when:
 - Starting a new plan (no existing plan_id)
 - User provides task via description, lesson_id, or issue URL
 - Called by plan-init-agent
-
----
-
-## Scripts
-
-| Script | Notation |
-|--------|----------|
-| manage-plan-document | `pm-workflow:manage-plan-documents` |
-| manage-files | `pm-workflow:manage-files` |
-| manage-references | `pm-workflow:manage-references` |
-| manage-lessons | `plan-marshall:manage-lessons` |
-| manage-log | `plan-marshall:manage-logging:manage-log` |
-| manage-config | `pm-workflow:manage-config` |
-| manage-lifecycle | `pm-workflow:manage-lifecycle` |
 
 ---
 
@@ -121,10 +108,11 @@ Extract: title, category, component, detail, related
 **From Issue**:
 
 ```bash
-gh issue view {issue} --json title,body,labels,milestone,assignees
+python3 .plan/execute-script.py plan-marshall:tools-integration-ci:github issue view \
+  --issue {issue}
 ```
 
-Extract: title, body, labels, milestone, assignees
+Parse TOON output to extract: title, body, labels, milestone, assignees
 
 ### Step 5: Write request.md
 
@@ -169,7 +157,7 @@ First, get the current branch:
 git branch --show-current
 ```
 
-Then create references with the branch value:
+Then create references with the branch value (domain is added after detection in Step 7):
 ```bash
 python3 .plan/execute-script.py pm-workflow:manage-references:manage-references create \
   --plan-id {plan_id} \
@@ -194,7 +182,7 @@ Query configured domains from marshal.json and select appropriate domain for the
 
 ```bash
 python3 .plan/execute-script.py plan-marshall:manage-plan-marshall-config:plan-marshall-config \
-  skill-domains list
+  skill-domains list --trace-plan-id {plan_id}
 ```
 
 **Domain selection logic**:
@@ -206,38 +194,34 @@ python3 .plan/execute-script.py plan-marshall:manage-plan-marshall-config:plan-m
 
 ```bash
 python3 .plan/execute-script.py plan-marshall:manage-logging:manage-log \
-  work {plan_id} INFO "[DECISION] (pm-workflow:phase-1-init) Detected domain: {domain} - {reasoning}"
+  decision {plan_id} INFO "(pm-workflow:phase-1-init) Detected domain: {domain} - {reasoning}"
 ```
 
 ### Step 8: Create Status
 
-Create status.toon with phases (5-phase model):
+Create status.toon with phases (7-phase model):
 
 ```bash
-python3 .plan/execute-script.py pm-workflow:manage-lifecycle:manage-lifecycle create \
+python3 .plan/execute-script.py pm-workflow:plan-marshall:manage-lifecycle create \
   --plan-id {plan_id} \
   --title "{title_from_task_md}" \
-  --phases 1-init,2-outline,3-plan,4-execute,5-finalize
+  --phases 1-init,2-refine,3-outline,4-plan,5-execute,6-verify,7-finalize
 ```
 
-**Note**: Domain information is stored in `config.toon` (as a `domains` array), not in `status.toon`. All plans use the standard 5-phase model.
+**Note**: Domain information is stored in `references.toon` (as a `domains` list), not in `status.toon`. All plans use the standard 7-phase model.
 
-### Step 9: Create Configuration
+### Step 9: Store Domains in References
 
-Create config.toon with base settings and finalize configuration:
+Store the detected domain(s) in references.toon:
 
 ```bash
-python3 .plan/execute-script.py pm-workflow:manage-config:manage-config create \
+python3 .plan/execute-script.py pm-workflow:manage-references:manage-references set-list \
   --plan-id {plan_id} \
-  --domains {domain}
+  --field domains \
+  --values {domain}
 ```
 
-This creates config.toon with:
-- `domains`: Array of detected domains (used for workflow_skill resolution from marshal.json)
-- `commit_strategy`: From marshal.json plan.defaults (per_task)
-- Finalize fields: `create_pr`, `verification_required`, `branch_strategy` (from marshal.json plan.defaults)
-
-Note: `workflow_skills` are NOT stored in config.toon. They are resolved at runtime from `marshal.json` via `plan-marshall-config resolve-workflow-skill`.
+Project-level settings (compatibility, commit_strategy, branch_strategy, verification steps, finalize steps) are read directly from `marshal.json` by each phase skill at runtime.
 
 ### Step 10: Log Creation
 
@@ -250,10 +234,10 @@ python3 .plan/execute-script.py plan-marshall:manage-logging:manage-log \
 
 ### Step 11: Transition Phase
 
-The phase transitions from init → outline after configuration completes:
+The phase transitions from init → refine after configuration completes:
 
 ```bash
-python3 .plan/execute-script.py pm-workflow:manage-lifecycle:manage-lifecycle transition \
+python3 .plan/execute-script.py pm-workflow:plan-marshall:manage-lifecycle transition \
   --plan-id {plan_id} \
   --completed 1-init
 ```
@@ -273,7 +257,7 @@ python3 .plan/execute-script.py plan-marshall:manage-logging:manage-log \
 status: success
 plan_id: {plan_id}
 domain: {domain}
-next_phase: outline
+next_phase: 2-refine
 
 source:
   type: {description|lesson|issue}
@@ -282,7 +266,6 @@ source:
 artifacts:
   request_md: request.md
   status: status.toon
-  config: config.toon
   references: references.toon
 ```
 
@@ -334,24 +317,12 @@ This skill is called by `pm-workflow:phase-1-init-agent`. The agent completes th
 
 ### Command Integration
 
-- **/plan-manage action=init** - Orchestrates the init agent
-
-### Scripts Used
-
-| Script | Purpose |
-|--------|---------|
-| `pm-workflow:manage-plan-documents` | Write request.md (typed document) |
-| `pm-workflow:manage-files` | Create/reference plan directory |
-| `pm-workflow:manage-references` | Initialize references |
-| `plan-marshall:manage-logging:manage-log` | Log creation |
-| `plan-marshall:manage-lessons` | Read lesson (if source=lesson) |
-| `pm-workflow:manage-config` | Create config.toon |
-| `pm-workflow:manage-lifecycle` | Create status.toon, phase transitions |
+- **/plan-marshall action=init** - Orchestrates the init agent
 
 ### Related Skills
 
 - **solution-outline** - Next phase after init completes (outline phase)
-- **Domain skills** - Loaded by thin agents via marshal.json workflow_skills (resolved at runtime)
+- **Domain skills** - Loaded by thin agents via marshal.json skill_domains (resolved at runtime)
 
 ---
 

@@ -941,3 +941,211 @@ rojo serve
 
 # 4. Connect in Roblox Studio and Play
 ```
+
+---
+
+## Roblox Open Cloud Asset Upload
+
+Upload generated images (icons, textures) to Roblox using the Open Cloud API.
+
+### API Key Setup
+
+1. Go to [Roblox Creator Dashboard](https://create.roblox.com/credentials)
+2. Create an API Key with **Asset** permissions
+3. Store in `.env` file:
+
+```
+ROBLOX_API_KEY=your_api_key_here
+ROBLOX_CREATOR_ID=your_user_id
+```
+
+### CRITICAL: Image vs Decal Asset Types
+
+**Use `"Image"` NOT `"Decal"` for ImageLabel/ImageButton assets!**
+
+| Asset Type | Use For | ImageLabel Works? |
+|------------|---------|-------------------|
+| `Image` | UI icons, textures for ImageLabel/ImageButton | ✅ YES |
+| `Decal` | Placing on 3D surfaces (SurfaceGui, Part faces) | ❌ NO - fails silently |
+
+If your `ImageLabel.Image = "rbxassetid://..."` shows nothing, the asset was likely uploaded as Decal instead of Image.
+
+### Upload Script (Python)
+
+```python
+#!/usr/bin/env python3
+"""Upload images to Roblox using Open Cloud API"""
+
+import os
+import requests
+import json
+import time
+from pathlib import Path
+
+API_KEY = os.environ.get("ROBLOX_API_KEY")
+CREATOR_ID = os.environ.get("ROBLOX_CREATOR_ID")  # Your Roblox user ID
+
+def upload_image(filepath: Path) -> dict:
+    """Upload a single image to Roblox"""
+
+    # Step 1: Create the asset
+    create_url = "https://apis.roblox.com/assets/v1/assets"
+
+    request_data = {
+        "assetType": "Image",  # CRITICAL: Use "Image" not "Decal"!
+        "displayName": filepath.stem,
+        "description": f"Game icon: {filepath.stem}",
+        "creationContext": {
+            "creator": {
+                "userId": CREATOR_ID
+            }
+        }
+    }
+
+    with open(filepath, "rb") as f:
+        files = {
+            "request": (None, json.dumps(request_data), "application/json"),
+            "fileContent": (filepath.name, f, "image/png")
+        }
+
+        headers = {"x-api-key": API_KEY}
+        response = requests.post(create_url, headers=headers, files=files)
+
+    if response.status_code not in [200, 202]:
+        print(f"Error uploading {filepath.name}: {response.status_code}")
+        print(response.text)
+        return None
+
+    result = response.json()
+    operation_path = result.get("path")
+
+    if not operation_path:
+        # Asset created immediately
+        asset_id = result.get("assetId")
+        return {"name": filepath.stem, "assetId": asset_id}
+
+    # Step 2: Poll for operation completion
+    operation_url = f"https://apis.roblox.com/assets/v1/{operation_path}"
+
+    for _ in range(30):  # Try for up to 30 seconds
+        time.sleep(1)
+        poll_response = requests.get(operation_url, headers={"x-api-key": API_KEY})
+
+        if poll_response.status_code == 200:
+            poll_result = poll_response.json()
+            if poll_result.get("done"):
+                asset_id = poll_result.get("response", {}).get("assetId")
+                return {"name": filepath.stem, "assetId": asset_id}
+
+    return None
+
+def upload_all_icons(icons_dir: str = "icons"):
+    """Upload all PNG icons from a directory"""
+
+    icons_path = Path(icons_dir)
+    results = {}
+
+    for icon_file in sorted(icons_path.glob("*.png")):
+        print(f"Uploading: {icon_file.name}")
+        result = upload_image(icon_file)
+
+        if result:
+            results[result["name"]] = result["assetId"]
+            print(f"  ✓ Asset ID: {result['assetId']}")
+        else:
+            print(f"  ✗ Failed")
+
+        time.sleep(0.5)  # Rate limiting
+
+    # Output Lua table format
+    print("\n-- Lua ImageIds table:")
+    print("local ImageIds = {")
+    for name, asset_id in results.items():
+        print(f'    {name} = {asset_id},')
+    print("}")
+
+    return results
+
+if __name__ == "__main__":
+    upload_all_icons()
+```
+
+### Usage in Lua
+
+```lua
+-- Asset IDs from upload script
+local ImageIds = {
+    cart = 90283386707571,
+    user = 72853438280365,
+    gift = 77873200486139,
+    star = 116490617957644,
+    settings = 74083320393999,
+    lightning = 81822478326252,
+    coin = 110273009388007,
+    gem = 73443096543152,
+    close = 113514151215598,
+    lock = 96486895661754,
+    snowflake = 131525484032997,
+    wings = 73570345607333,
+    heart = 73938811915569,
+    thumbsup = 80642926508347,
+    crown = 109249962609144,
+    trophy = 92957897014777,
+}
+
+-- Preload assets for smooth loading
+local ContentProvider = game:GetService("ContentProvider")
+
+local function preloadIcons()
+    local assets = {}
+    for name, id in pairs(ImageIds) do
+        table.insert(assets, "rbxassetid://" .. id)
+    end
+    ContentProvider:PreloadAsync(assets)
+end
+
+-- Use in ImageLabel
+local icon = Instance.new("ImageLabel")
+icon.Image = "rbxassetid://" .. ImageIds.coin  -- Works!
+```
+
+### Troubleshooting Upload Issues
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| ImageLabel shows nothing | Asset uploaded as "Decal" | Re-upload with `assetType: "Image"` |
+| 403 Forbidden | API key lacks permissions | Add Asset permissions in Creator Dashboard |
+| 400 Bad Request | Invalid creator ID | Use your Roblox user ID as CREATOR_ID |
+| Asset stuck "processing" | Large file or server busy | Wait and poll, or retry |
+| Rate limited | Too many requests | Add `time.sleep(0.5)` between uploads |
+
+### Full Pipeline: Generate → Upload → Use
+
+```bash
+# 1. Generate icon grid with Gemini
+python generate_icons.py
+
+# 2. Upload to Roblox
+python upload_icons.py
+
+# 3. Copy the Lua ImageIds table to your game script
+
+# 4. Use in Roblox Studio
+```
+
+### Directory Structure for Asset Pipeline
+
+```
+project/
+├── .env                    # API keys (gitignored!)
+├── generate_icons.py       # Gemini icon grid generation
+├── upload_icons.py         # Roblox Open Cloud upload
+├── icon_grid.png           # Generated 4x4 grid
+├── icons/                  # Cropped individual icons
+│   ├── cart.png
+│   ├── user.png
+│   ├── gift.png
+│   └── ...
+└── src/
+    └── ObbyUI_Show.lua     # Game script using uploaded assets
+```

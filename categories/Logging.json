@@ -1,19 +1,19 @@
 {
   "category": "Logging",
   "count": 1,
-  "updated_at": "2026-01-29T16:04:56.937068Z",
+  "updated_at": "2026-01-30T04:53:31.490125Z",
   "skills": [
     {
       "name": "SKILL.md",
-      "description": "Guide logging practices based on Dave Cheney's minimalist philosophy. Use when adding log.Info/Debug/Error/Warn/Fatal calls, reviewing logging code, handling errors with log+return pattern, discussing",
-      "repo": "staticWagomU/dotfiles",
+      "description": "UTF-8 file logging with automatic date-based filenames and thread-safe operations for RocsMiddleware services",
+      "repo": "lawless-m/Earwig",
       "path": "Logging",
       "branch": "main",
       "category": "Logging",
       "tags": [],
       "stars": 0,
-      "install": "staticWagomU/dotfiles",
-      "source": "github.com/staticWagomU/dotfiles"
+      "install": "lawless-m/Earwig",
+      "source": "github.com/lawless-m/Earwig"
     }
   ]
 }

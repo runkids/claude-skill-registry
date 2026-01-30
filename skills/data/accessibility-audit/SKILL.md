@@ -1,185 +1,109 @@
 ---
 name: accessibility-audit
-description: Use when auditing UI components or pages for accessibility compliance, checking WCAG conformance, identifying keyboard navigation issues, color contrast problems, and pre-launch accessibility verification
+description: Fast, high-signal accessibility triage for pages, components, or PRs targeting WCAG 2.2 AA compliance.
+keywords:
+  - accessibility
+  - a11y
+  - wcag
+  - audit
+  - compliance
+triggers:
+  - accessibility check
+  - a11y audit
+  - wcag compliance
+  - screen reader
+  - keyboard navigation
 ---
 
 # Accessibility Audit Skill
 
-Audit UI accessibility against WCAG 2.1/2.2 guidelines.
+Fast, high-signal accessibility triage for pages, components, or PRs. This is a lightweight check, not a full compliance audit.
 
-## When to Use
+## When to Use This Skill
 
-- Reviewing UI components for accessibility compliance
-- Auditing pages for WCAG conformance
-- Identifying keyboard navigation issues
-- Checking color contrast
-- Pre-launch accessibility verification
+- Quick accessibility triage before releases
+- Component-level a11y verification
+- PR review for accessibility regressions
+- Smoke checks for WCAG compliance
+- Validating keyboard navigation on new features
 
-## Core Workflow
+## Quick Audit Checklist
 
-### Phase 1: Visual Accessibility Analysis
+### 1. Automated Snapshot (Recommended)
 
-```
-Perform a comprehensive accessibility audit:
+Run one of these automated tools first:
+- `npx @axe-core/cli <url>` - Quick axe-core scan
+- `npx pa11y <url> --standard WCAG2AA` - Pa11y audit
+- Lighthouse Accessibility score (Chrome DevTools > Lighthouse > Accessibility)
 
-1. COLOR CONTRAST
-   - Check text/background contrast ratios
-   - WCAG AA: 4.5:1 normal text, 3:1 large text
-   - Identify failing elements
+### 2. Keyboard Basics
 
-2. VISUAL HIERARCHY
-   - Heading structure (logical H1-H6)
-   - Visual grouping of related elements
-   - Touch targets (44x44px minimum)
+| Check | Expected |
+|-------|----------|
+| All interactive elements reachable via Tab | Yes |
+| Focus indicator always visible | Yes |
+| No keyboard traps | Yes |
+| Logical tab order | Yes |
+| Skip link works for long pages | Yes |
 
-3. CONTENT ACCESSIBILITY
-   - Images needing alt text
-   - Icons without text labels
-   - Color-only information
+### 3. Semantics and Labels
 
-4. INTERACTIVE ELEMENTS
-   - Buttons/links with unclear purpose
-   - Form fields without labels
-   - Missing error states
+| Check | Expected |
+|-------|----------|
+| Single, descriptive H1 | Yes |
+| Logical heading order (no large jumps) | Yes |
+| Form inputs have visible labels or aria-label | Yes |
+| Buttons and links have clear names | Yes |
+| Images have meaningful alt text (or empty for decorative) | Yes |
 
-5. MOTION
-   - Auto-playing content
-   - Potential vestibular triggers
+### 4. Visual Contrast
 
-Provide WCAG criterion references for each issue.
-```
+| Element | Minimum Ratio |
+|---------|---------------|
+| Normal text | 4.5:1 |
+| Large text (18pt+ or 14pt bold+) | 3:1 |
+| UI components (inputs, buttons, focus rings) | 3:1 |
 
-### Phase 2: Component Checklist
+### 5. Motion and Updates
 
-For each interactive component:
+| Check | Expected |
+|-------|----------|
+| Respects `prefers-reduced-motion` | Yes |
+| Dynamic updates announced (aria-live) | Yes |
 
-```markdown
-## Component: [Name]
+## Output Format
 
-### Keyboard Navigation
-
-- [ ] Focusable with Tab
-- [ ] Visible focus indicator
-- [ ] Operable with Enter/Space
-- [ ] Escape closes modals
-- [ ] Arrow keys for menus
-
-### Screen Reader
-
-- [ ] Meaningful accessible name
-- [ ] Role announced correctly
-- [ ] State changes announced
-- [ ] Errors associated with inputs
-
-### Visual
-
-- [ ] 4.5:1 contrast ratio (text)
-- [ ] 3:1 contrast ratio (UI)
-- [ ] 44x44px touch targets
-- [ ] No color-only information
-
-### Motion
-
-- [ ] Respects prefers-reduced-motion
-- [ ] No auto-play >5 seconds
-```
-
-## WCAG Quick Reference
-
-### Level A (Minimum)
-
-| Criterion | Description            | Fix               |
-| --------- | ---------------------- | ----------------- |
-| 1.1.1     | Non-text Content       | Add alt text      |
-| 1.3.1     | Info and Relationships | Use semantic HTML |
-| 2.1.1     | Keyboard               | All via keyboard  |
-| 2.4.1     | Bypass Blocks          | Skip links        |
-| 4.1.2     | Name, Role, Value      | ARIA labels       |
-
-### Level AA (Recommended)
-
-| Criterion | Description   | Fix                    |
-| --------- | ------------- | ---------------------- |
-| 1.4.3     | Contrast      | 4.5:1 text, 3:1 UI     |
-| 1.4.4     | Resize Text   | Support 200% zoom      |
-| 2.4.6     | Headings      | Descriptive headings   |
-| 2.4.7     | Focus Visible | Clear focus indicators |
-
-## Common Fixes
-
-### Accessible Button
-
-```tsx
-// Bad
-<div onClick={handleClick}>Click me</div>
-
-// Good
-<button type="button" onClick={handleClick}>
-  Click me
-</button>
-```
-
-### Accessible Icon Button
-
-```tsx
-// Bad
-<button><Icon /></button>
-
-// Good
-<button aria-label="Close dialog">
-  <Icon aria-hidden="true" />
-</button>
-```
-
-### Form with Error
-
-```tsx
-<label htmlFor="email">Email</label>
-<input
-  id="email"
-  aria-describedby="email-error"
-  aria-invalid={hasError}
-/>
-{hasError && (
-  <span id="email-error" role="alert">
-    Please enter a valid email
-  </span>
-)}
-```
-
-## Report Template
+After running the audit, report findings as:
 
 ```markdown
-# Accessibility Audit Report
+## Accessibility Audit: [Component/Page Name]
 
-**Date:** [Date]
-**Page:** [Name]
-**WCAG Level:** AA
+### Result: [Pass | Needs Fixes | Escalate to Full Audit]
 
-## Summary
+### Findings
 
-- Critical Issues: X
-- Major Issues: X
-- Minor Issues: X
+| Severity | Issue | Location | Fix Guidance |
+|----------|-------|----------|--------------|
+| Critical | [Description] | [Selector/Line] | [How to fix] |
+| Major | [Description] | [Selector/Line] | [How to fix] |
+| Minor | [Description] | [Selector/Line] | [How to fix] |
 
-## Issues
-
-### [Issue Title]
-
-- **Severity:** Critical/Major/Minor
-- **WCAG:** [X.X.X]
-- **Element:** [selector]
-- **Issue:** [Description]
-- **Fix:** [Recommendation]
+### Escalation Recommendation
+[If applicable, explain why a full audit is needed]
 ```
 
-## Storage
+## Escalate to Full Audit When
 
-Save audit reports to `.opencode/memory/design/accessibility/`
+- New or changed navigation structure
+- Complex forms or authentication flows
+- Custom widgets or advanced interactions (modals, accordions, tabs)
+- Public releases or compliance requirements
+- Significant page structure changes
+- Failed automated scans with multiple critical issues
 
-## Related Skills
+## Notes
 
-| Need           | Skill                 |
-| -------------- | --------------------- |
-| Design quality | `frontend-design` |
-| UI research    | `ui-ux-research`      |
+- This smoke check targets **WCAG 2.2 AA** by default
+- If a different compliance level is required, state it explicitly
+- Automated tools catch ~30-40% of issues; manual testing is essential
+- Test with actual screen readers (VoiceOver, NVDA) for comprehensive coverage

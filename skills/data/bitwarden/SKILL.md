@@ -1,101 +1,110 @@
 ---
 name: bitwarden
-description: Manage passwords and credentials via Bitwarden CLI (bw). Use for storing, retrieving, creating, or updating logins, credit cards, secure notes, and identities. Trigger when automating authentication, filling payment forms, or managing secrets programmatically.
+description: Open-source password manager with self-hosting option.
+category: utilities
 ---
+# Bitwarden Skill
 
-# Bitwarden CLI
+Open-source password manager with self-hosting option.
 
-Full read/write vault access via `bw` command.
-
-## Prerequisites
-
-```bash
-brew install bitwarden-cli
-bw login <email>  # one-time, prompts for master password
-```
-
-## Session Management
-
-Bitwarden requires an unlocked session. Use the helper script:
+## Quick Install
 
 ```bash
-source scripts/bw-session.sh <master_password>
-# Sets BW_SESSION env var
+curl -sSL https://canifi.com/skills/bitwarden/install.sh | bash
 ```
 
 Or manually:
 ```bash
-export BW_SESSION=$(echo '<password>' | bw unlock --raw)
-bw sync  # always sync after unlock
+cp -r skills/bitwarden ~/.canifi/skills/
 ```
 
-## Common Operations
+## Setup
 
-### Retrieve credentials
+Configure via [canifi-env](https://canifi.com/setup/scripts):
+
 ```bash
-bw get password "Site Name"
-bw get username "Site Name"
-bw get item "Site Name" --pretty | jq '.login'
+# First, ensure canifi-env is installed:
+# curl -sSL https://canifi.com/install.sh | bash
+
+canifi-env set BW_SESSION "your_session_key"
+canifi-env set BW_CLIENTID "your_client_id"
+canifi-env set BW_CLIENTSECRET "your_client_secret"
 ```
 
-### Create login
+## Privacy & Authentication
+
+**Your credentials, your choice.** Canifi LifeOS respects your privacy.
+
+### Option 1: Manual Browser Login (Recommended)
+If you prefer not to share credentials with Claude Code:
+1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode
+2. Login to the service manually in the Playwright-controlled Chrome window
+3. Claude will use your authenticated session without ever seeing your password
+
+### Option 2: Environment Variables
+If you're comfortable sharing credentials, you can store them locally:
 ```bash
-bw get template item | jq '
-  .type = 1 |
-  .name = "Site Name" |
-  .login.username = "user@email.com" |
-  .login.password = "secret123" |
-  .login.uris = [{uri: "https://example.com"}]
-' | bw encode | bw create item
+canifi-env set SERVICE_EMAIL "your-email"
+canifi-env set SERVICE_PASSWORD "your-password"
 ```
 
-### Create credit card
-```bash
-bw get template item | jq '
-  .type = 3 |
-  .name = "Card Name" |
-  .card.cardholderName = "John Doe" |
-  .card.brand = "Visa" |
-  .card.number = "4111111111111111" |
-  .card.expMonth = "12" |
-  .card.expYear = "2030" |
-  .card.code = "123"
-' | bw encode | bw create item
+**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.
+
+## Capabilities
+
+1. **Get Secrets**: Retrieve passwords and items
+2. **Store Credentials**: Save login information
+3. **Generate Passwords**: Create secure passwords
+4. **Organization Vaults**: Manage team secrets
+5. **Send Files**: Secure file sharing
+
+## Usage Examples
+
+### Get Password
+```
+User: "Get my GitHub password"
+Assistant: Retrieves from Bitwarden
 ```
 
-### Get card for payment automation
-```bash
-bw get item "Card Name" | jq -r '.card | "\(.number) \(.expMonth)/\(.expYear) \(.code)"'
+### Create Item
+```
+User: "Save this login to Bitwarden"
+Assistant: Creates vault item
 ```
 
-### List items
-```bash
-bw list items | jq -r '.[] | "\(.type)|\(.name)"'
-# Types: 1=login, 2=note, 3=card, 4=identity
+### Generate Password
+```
+User: "Generate a 20-character password"
+Assistant: Creates secure password
 ```
 
-### Search
-```bash
-bw list items --search "vilaviniteca" | jq '.[0]'
+### Send File
+```
+User: "Share this file securely"
+Assistant: Creates Bitwarden Send
 ```
 
-## Item Types
+## Authentication Flow
 
-| Type | Value | Use |
-|------|-------|-----|
-| Login | 1 | Website credentials |
-| Secure Note | 2 | Freeform text |
-| Card | 3 | Credit/debit cards |
-| Identity | 4 | Personal info |
+1. API key authentication
+2. CLI session-based
+3. Self-hosted support
+4. Two-step login supported
 
-## References
+## Error Handling
 
-- [templates.md](references/templates.md) — Full jq templates for all item types
-- [Bitwarden CLI docs](https://bitwarden.com/help/cli/)
+| Error | Cause | Solution |
+|-------|-------|----------|
+| Session Expired | Timeout | Re-authenticate |
+| Item Not Found | Wrong search | Check vault |
+| Access Denied | Permissions | Verify access |
+| Sync Failed | Connection | Retry |
 
-## Tips
+## Notes
 
-1. **Always sync** after creating/editing items: `bw sync`
-2. **Session expires** — re-unlock if you get auth errors
-3. **Delete sensitive messages** after receiving credentials
-4. **Card numbers** may not import from other managers (security restriction)
+- Open source
+- Self-host option
+- Bitwarden Send
+- Organizations
+- CLI available (bw)
+- Secrets Manager

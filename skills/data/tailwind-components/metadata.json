@@ -1,9 +1,7 @@
 {
   "name": "tailwind-components",
-  "description": "Use when building reusable component patterns with Tailwind CSS. Covers component extraction, @apply directive, and composable design patterns.",
   "repo": "TheBushidoCollective/han",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-tailwind/skills/tailwind-components/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-30T03:34:01.166168Z"
 }

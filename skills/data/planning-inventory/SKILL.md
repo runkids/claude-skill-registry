@@ -1,9 +1,8 @@
 ---
 name: planning-inventory
 description: Scans and reports all planning-related components across marketplace bundles
-allowed-tools:
-  - Read
-  - Bash
+user-invocable: false
+allowed-tools: Read, Bash
 ---
 
 # Planning Inventory Skill
@@ -21,7 +20,7 @@ Planning-related components are distributed across bundles:
 
 This skill provides a single command to discover all planning components.
 
-**Note**: pm-dev-java and pm-dev-frontend no longer contain planning-specific components. The thin agent architecture in pm-workflow loads domain skills dynamically via config.toon.
+**Note**: pm-dev-java and pm-dev-frontend no longer contain planning-specific components. The thin agent architecture in pm-workflow loads domain skills dynamically via references.toon.
 
 ## When to Use This Skill
 
@@ -111,7 +110,7 @@ python3 .plan/execute-script.py pm-workflow:planning-inventory:scan-planning-inv
   "core_components": [
     {"type": "skills", "names": ["plan-init", "plan-execute", "plan-finalize", ...]},
     {"type": "agents", "names": ["plan-init-agent", "solution-outline-agent", "task-plan-agent", "task-execute-agent"]},
-    {"type": "commands", "names": ["task-implement", "plan-manage", "plan-execute", "pr-doctor"]}
+    {"type": "commands", "names": ["task-implement", "plan-marshall", "pr-doctor"]}
   ],
   "derived_bundles": [
     {"bundle": "pm-plugin-development", "agents": [], "skills": ["plugin-task-plan", "plugin-solution-outline", "plugin-plan-implement"]}
@@ -127,7 +126,7 @@ python3 .plan/execute-script.py pm-workflow:planning-inventory:scan-planning-inv
 | Pattern | Examples |
 |---------|----------|
 | `plan-*` | plan-init, plan-execute, plan-finalize |
-| `manage-*` | manage-tasks, manage-plan-documents, manage-config, manage-lifecycle |
+| `manage-*` | manage-tasks, manage-plan-documents, manage-references, manage-lifecycle |
 | `*-workflow` | pr-workflow, git-workflow, sonar-workflow |
 | `task-*` | task-implement |
 | `pr-*` | pr-doctor |
@@ -144,7 +143,7 @@ python3 .plan/execute-script.py pm-workflow:planning-inventory:scan-planning-inv
 |--------|--------|
 | pm-plugin-development | plugin-task-plan, plugin-solution-outline, plugin-plan-implement |
 
-**Note**: pm-dev-java and pm-dev-frontend no longer have planning-specific components. Domain skills are loaded by thin agents via config.toon.
+**Note**: pm-dev-java and pm-dev-frontend no longer have planning-specific components. Domain skills are loaded by thin agents via references.toon.
 
 ## Dependencies
 

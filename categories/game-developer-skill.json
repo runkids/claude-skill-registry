@@ -1,0 +1,19 @@
+{
+  "category": "game-developer-skill",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.886002Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Expert in interactive entertainment, creating immersive experiences with Unity, Unreal Engine, and Godot.",
+      "repo": "404kidwiz/claude-supercode-skills",
+      "path": "game-developer-skill",
+      "branch": "main",
+      "category": "game-developer-skill",
+      "tags": [],
+      "stars": 0,
+      "install": "404kidwiz/claude-supercode-skills",
+      "source": "github.com/404kidwiz/claude-supercode-skills"
+    }
+  ]
+}

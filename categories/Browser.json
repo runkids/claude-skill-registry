@@ -1,19 +1,19 @@
 {
   "category": "Browser",
   "count": 1,
-  "updated_at": "2026-01-29T16:04:54.127975Z",
+  "updated_at": "2026-01-30T04:53:31.707849Z",
   "skills": [
     {
       "name": "SKILL.md",
-      "description": "Web browser automation with AI-optimized snapshots for claude-flow agents",
-      "repo": "EarthmanWeb/claude-flow-plugin",
+      "description": "Code-first browser automation and web verification. USE WHEN browser, screenshot, navigate, web testing, verify UI, VERIFY phase. Replaces Playwright MCP with 99% token savings.",
+      "repo": "robdtaylor/personal-ai-infrastructure",
       "path": "Browser",
       "branch": "main",
       "category": "Browser",
       "tags": [],
       "stars": 0,
-      "install": "EarthmanWeb/claude-flow-plugin",
-      "source": "github.com/EarthmanWeb/claude-flow-plugin"
+      "install": "robdtaylor/personal-ai-infrastructure",
+      "source": "github.com/robdtaylor/personal-ai-infrastructure"
     }
   ]
 }

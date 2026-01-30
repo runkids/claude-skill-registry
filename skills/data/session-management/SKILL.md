@@ -1,132 +1,148 @@
 ---
 name: session-management
-description: Apply when initializing, saving, resuming, or closing a work session
+description: |
+  Triggers: session, resume, rename, checkpoint
+  Manage Claude Code sessions with naming, checkpointing, and resume strategies.
+  Use when: organizing long-running work, creating debug checkpoints, managing PR reviews
+category: workflow
+tags: [session, resume, checkpoint, debugging]
+tools: [Bash]
+complexity: low
+estimated_tokens: 400
+version: 1.3.5
 ---
 
-# Session Management Guide
+# Session Management
 
-## Phase Tracking
+## Overview
 
-Sessions track EDIRD phases:
-- NOTES.md: "Current Phase" section with phase, last verb, gate status
-- PROGRESS.md: "Phase Plan" section with 5 phases and status
+Claude Code supports named sessions for better workflow organization. Use this skill to manage complex, long-running work across multiple sessions.
 
-## MUST-NOT-FORGET
+## Available Commands
 
-- Session folder location: `[DEFAULT_SESSIONS_FOLDER]/_YYYY-MM-DD_[SessionTopicCamelCase]/`
-- Default: `[DEFAULT_SESSIONS_FOLDER]` = `[WORKSPACE_FOLDER]` (override in `!NOTES.md`)
-- Required files: NOTES.md, PROBLEMS.md, PROGRESS.md
-- Lifecycle: Init → Work → Save → Resume → Finalize → Archive
-- Sync session PROBLEMS.md to project on /session-finalize
-- Phase tracking: NOTES.md has current phase, PROGRESS.md has full phase plan
+| Command | Description |
+|---------|-------------|
+| `/rename` | Name the current session |
+| `/resume` | Resume a previous session (REPL) |
+| `claude --resume <name>` | Resume from terminal |
 
-## Session Lifecycle
+## Workflow Patterns
 
-1. **Init** (`/session-new`): Create session folder with tracking files
-2. **Work**: Create specs, plans, implement, track progress
-3. **Save** (`/session-save`): Document findings, commit changes
-4. **Resume** (`/session-load`): Re-read session documents, continue work
-5. **Finalize** (`/session-finalize`): Sync findings to project files, prepare for archive
+### 1. Debugging Sessions
 
-## Session Folder Location
-
-**Base:** `[DEFAULT_SESSIONS_FOLDER]` (default: `[WORKSPACE_FOLDER]`, can be overridden in `!NOTES.md`)
-
-**Format:** `[DEFAULT_SESSIONS_FOLDER]/_YYYY-MM-DD_[SessionTopicCamelCase]/`
-
-**Example:** `_PrivateSessions/_2026-01-12_FixAuthenticationBug/`
-
-## Required Session Files
-
-Use templates from this skill folder:
-
-- **NOTES.md** (`NOTES_TEMPLATE.md`): Key information, agent instructions, working patterns, large initial prompts (>120 tokens)
-- **PROBLEMS.md** (`PROBLEMS_TEMPLATE.md`): All problems to be addressed - initial prompts, questions, feature requests, bugs, strange behavior, investigation topics. Each problem gets a unique ID and tracks status (Open/Resolved/Deferred)
-- **PROGRESS.md** (`PROGRESS_TEMPLATE.md`): Task execution tracking - to-do list, done items, tried-but-not-used approaches
-
-**Key distinction:**
-- **NOTES.md** = Context and reference information (static knowledge)
-- **PROBLEMS.md** = All topics requiring attention (dynamic problem list with IDs)
-- **PROGRESS.md** = Task execution status (what's being worked on)
-
-## Assumed Workflow
+Name debug sessions for easy resumption:
 
 ```
-1. INIT: User initializes session (`/session-new`)
-   └── Session folder, NOTES.md, PROBLEMS.md, PROGRESS.md created
+# Start debugging
+/rename debugging-auth-issue
 
-2. PREPARE (one of):
-   A) User prepares work manually
-      └── Creates INFO / SPEC / IMPL documents, tracks progress
-   B) User explains problem, agent assists
-      └── Updates Problems, Progress, Notes → researches → creates documents
+# ... work on the issue ...
 
-3. WORK: User or agent implements
-   └── Makes decisions, creates tests, implements, verifies
-   └── Progress and findings tracked continuously
-
-4. SAVE: User saves session for later (`/session-save`)
-   └── Everything updated and committed
-
-5. RESUME: User resumes session (`/session-load`)
-   └── Agent primes from session files, executes workflows in Notes
-   └── Continue with steps 2-3
-
-6. FINALIZE: User finalizes session (`/session-finalize`)
-   └── Everything updated, committed, synced to project/workspace
-
-7. ARCHIVE: User archives session
-   └── Session folder moved to _Archive/
+# If you need to pause, session is auto-saved
+# Resume later:
+claude --resume debugging-auth-issue
 ```
 
-## ID System
+### 2. Feature Development Checkpoints
 
-See `[AGENT_FOLDER]/rules/devsystem-ids.md` rule (always-on) for complete ID system.
+Create checkpoints during long feature work:
 
-**Quick Reference:**
-- Document: `[TOPIC]-[DOC][NN]` (IN, SP, IP, TP)
-  - Example: `CRWL-SP01`, `AUTH-IP01`
-- Tracking: `[TOPIC]-[TYPE]-[NNN]` (BG = Bug, FT = Feature, PR = Problem, FX = Fix, TK = Task)
-  - Example: `SAP-BG-001`, `UI-PR-003`, `GLOB-TK-015`
-- Topic Registry: Maintained in project NOTES.md
+```
+# After completing milestone 1
+/rename feature-x-milestone-1
 
-## Session Init Template
-
-### NOTES.md
-```markdown
-# Session Notes
-
-## Session Info
-- **Started**: [DATE]
-- **Goal**: [Brief description]
-
-## Key Decisions
-
-## Important Findings
-
-## Workflows to Run on Resume
+# Continue in new session
+# Reference old session if needed
 ```
 
-### PROBLEMS.md
-```markdown
-# Session Problems
+### 3. PR Review Sessions
 
-## Open
+For complex PR reviews that span multiple sittings:
 
-## Resolved
+```
+# Start review
+/rename pr-review-123
 
-## Deferred
+# Take breaks without losing context
+# Resume:
+claude --resume pr-review-123
 ```
 
-### PROGRESS.md
-```markdown
-# Session Progress
+### 4. Investigation Sessions
 
-## To Do
+When investigating issues that may require research:
 
-## In Progress
-
-## Done
-
-## Tried But Not Used
 ```
+# Start investigation
+/rename investigate-memory-leak
+
+# Pause to gather more info externally
+# Resume with full context:
+claude --resume investigate-memory-leak
+```
+
+## Resume Screen Features
+
+The `/resume` screen provides:
+
+- **Grouped forked sessions**: See related sessions together
+- **Keyboard shortcuts**:
+  - `P` - Preview session content
+  - `R` - Rename a session
+- **Recent sessions**: Sorted by last activity
+
+## Best Practices
+
+### Naming Conventions
+
+Use descriptive, hyphenated names:
+
+| Pattern | Example | Use Case |
+|---------|---------|----------|
+| `debugging-<issue>` | `debugging-auth-401` | Bug investigation |
+| `feature-<name>-<milestone>` | `feature-search-v2` | Feature development |
+| `pr-review-<number>` | `pr-review-156` | PR reviews |
+| `investigate-<topic>` | `investigate-perf` | Research |
+| `refactor-<area>` | `refactor-api-layer` | Refactoring work |
+
+### When to Name Sessions
+
+Name sessions when:
+- Work will span multiple days
+- You might need to pause unexpectedly
+- The session contains valuable context
+- You want to reference it later
+
+### Session Cleanup
+
+Unnamed sessions are eventually garbage collected. Named sessions persist longer. Periodically clean up old named sessions you no longer need.
+
+## Integration with Sanctum
+
+Combine session management with other Sanctum skills:
+
+1. **Before starting**: Run `Skill(sanctum:git-workspace-review)` to capture context
+2. **Name the session**: `/rename <descriptive-name>`
+3. **Work**: Use appropriate skills for the task
+4. **Resume if needed**: `claude --resume <name>`
+
+## Troubleshooting
+
+### Session Not Found
+
+If a named session isn't appearing in `/resume`:
+- Check for typos in the name
+- Sessions may expire after extended inactivity
+- Use `/resume` screen to browse available sessions
+
+### Lost Context After Resume
+
+If context seems incomplete after resuming:
+- Use `/catchup` to refresh git state
+- Re-run `Skill(sanctum:git-workspace-review)` if needed
+
+## See Also
+
+- `/catchup` - Refresh context from git changes
+- `/clear` - Start fresh session
+- `Skill(sanctum:git-workspace-review)` - Capture repo context

@@ -1,19 +1,19 @@
 {
   "category": "CreateSkill",
   "count": 1,
-  "updated_at": "2026-01-29T16:04:52.654264Z",
+  "updated_at": "2026-01-30T04:53:31.078856Z",
   "skills": [
     {
       "name": "SKILL.md",
-      "description": "MANDATORY skill creation framework for ALL skill creation requests. USE WHEN user wants to create, validate, update, or canonicalize a skill, OR user mentions skill creation, skill development, new sk",
-      "repo": "blackpwnguin/Personal-AI",
+      "description": "Create and validate skills. USE WHEN create skill, new skill, skill structure, canonicalize. SkillSearch('createskill') for docs.",
+      "repo": "robdtaylor/personal-ai-infrastructure",
       "path": "CreateSkill",
       "branch": "main",
       "category": "CreateSkill",
       "tags": [],
       "stars": 0,
-      "install": "blackpwnguin/Personal-AI",
-      "source": "github.com/blackpwnguin/Personal-AI"
+      "install": "robdtaylor/personal-ai-infrastructure",
+      "source": "github.com/robdtaylor/personal-ai-infrastructure"
     }
   ]
 }

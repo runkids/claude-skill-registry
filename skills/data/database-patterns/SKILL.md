@@ -1,108 +1,117 @@
 ---
 name: database-patterns
-description: SQLite veritabani yapisi ve CRUD pattern referansi. Use when working with database operations, queries, or understanding the data model.
+description: |
+  Database operations: migrations, queries, transactions, and performance. Use when:
+  - Writing database migrations
+  - Optimizing queries or adding indexes
+  - Managing transactions and connections
+  - Setting up connection pooling
+  - Designing audit logging
+  Keywords: database, migration, SQL, query optimization, index, transaction,
+  connection pool, N+1, ORM, audit log
 ---
 
 # Database Patterns
 
-**Database:** `data/content.db` (SQLite)
+Forward-only migrations, explicit transactions, measured optimization.
 
-## Tables
+## Migrations
 
-| Table | Purpose |
-|-------|---------|
-| posts | Icerik, durum, platform ID'leri |
-| analytics | Post performans metrikleri |
-| content_calendar | Planlanan icerikler |
-| strategy | AI ogrenmis stratejiler |
-| hook_performance | Hook type performanslari |
-| ab_test_results | A/B test sonuclari |
-| prompt_history | Video/image prompt tracking |
+**Forward-only. No rollbacks. Maintain backward compatibility:**
+```sql
+-- Add nullable column (backward compatible)
+ALTER TABLE users ADD COLUMN phone VARCHAR(20);
 
-## Connection Pattern
-
-```python
-from app.database.models import get_connection
-
-conn = get_connection()
-cursor = conn.cursor()
-cursor.execute("SELECT * FROM posts WHERE id = ?", (post_id,))
-row = cursor.fetchone()
-conn.close()
-return dict(row) if row else None
+-- Later: make required after backfill
+ALTER TABLE users ALTER COLUMN phone SET NOT NULL;
 ```
 
-## Common CRUD Functions
+**Break large changes into smaller steps. Use feature flags during transitions.**
+
+## Query Optimization
+
+**Always check execution plans before optimizing:**
+```sql
+EXPLAIN ANALYZE SELECT * FROM orders WHERE user_id = 123;
+```
+
+**Index based on actual query patterns:**
+```sql
+-- Composite for common query
+CREATE INDEX idx_orders_user_date ON orders (user_id, created_at DESC);
+
+-- Partial for filtered queries
+CREATE INDEX idx_orders_pending ON orders (status) WHERE status = 'pending';
+```
+
+**Monitor unused indexes. Remove if `idx_scan < 100`.**
+
+## N+1 Prevention
+
+**Always eager load in loops:**
+```python
+# Good
+users = User.query.options(joinedload(User.posts)).all()
+
+# Bad (N+1)
+users = User.query.all()
+for user in users:
+    print(user.posts)  # N queries!
+```
+
+## Transactions
+
+**Scope to single business operation. Keep short:**
+```python
+async with db.transaction():
+    order = await create_order(data)
+    await update_inventory(order.items)
+    # Commit on exit
+
+# OUTSIDE transaction: send emails, call external APIs
+await send_confirmation(order)
+```
+
+**Never hold transactions during external calls.**
+
+## Connection Pooling
 
 ```python
-from app.database.crud import (
-    get_post, create_post, update_post,
-    get_published_posts, get_analytics_summary,
-    get_best_performing_hooks, get_current_strategy
+# Size based on measured peak concurrency
+create_engine(
+    url,
+    pool_size=15,      # Based on load testing
+    max_overflow=5,    # Burst capacity
+    pool_timeout=30,   # Fail fast
+    pool_recycle=3600, # Prevent stale connections
+    pool_pre_ping=True # Validate before use
 )
-
-# Get post
-post = get_post(post_id)
-
-# Published posts (last N days)
-posts = get_published_posts(days=30)
-
-# Analytics summary
-stats = get_analytics_summary(days=30)
-
-# Best hooks
-hooks = get_best_performing_hooks(limit=5)
-
-# Current strategy (JSON fields auto-parsed)
-strategy = get_current_strategy()
 ```
 
-## Update Post
+**Monitor utilization. Alert at 80%.**
 
+## Data Validation
+
+**Validate at boundaries, not just in database:**
 ```python
-from app.database.crud import update_post
+# Validate input before INSERT
+validated = CreateUserSchema.parse(input)
+if await email_exists(validated.email):
+    raise ValidationError("Email taken")
 
-update_post(post_id,
-    status="published",
-    instagram_post_id="17901234567890123",
-    published_at=datetime.now()
-)
+# Validate output after retrieval (detect corruption)
+return UserOutputSchema.parse(row)
 ```
 
-## Viral Score Formula
+## Anti-Patterns
 
-```python
-viral_score = (saves * 2) + (shares * 3) + engagement + (non_follower_reach * 0.015)
-```
+- Rollback migrations (use forward-only)
+- Indexes without query pattern analysis
+- N+1 queries in loops
+- Long-running transactions with external calls
+- Relying only on DB constraints for validation
+- Default pool settings without measurement
 
-## JSON Field Handling
+## References
 
-```python
-import json
-
-# Save JSON
-best_days = json.dumps(["monday", "wednesday"])
-cursor.execute("UPDATE strategy SET best_days = ?", (best_days,))
-
-# Load JSON (auto in get_current_strategy)
-strategy = get_current_strategy()
-best_days = strategy['best_days']  # Already parsed
-```
-
-## Timezone
-
-```python
-def get_kktc_now():
-    return datetime.utcnow() + timedelta(hours=2)  # UTC+2
-```
-
-## Key Status Values
-
-**posts.status:** draft → scheduled → approved → published | rejected
-**content_calendar.status:** planned → content_created → published
-
-## Deep Links
-
-- `app/database/models.py` - Schema, init
-- `app/database/crud.py` - All CRUD functions
-- `DATABASE.md` - Full schema reference
+- [audit-logging.md](references/audit-logging.md) - Immutable audit trails

@@ -1,151 +1,189 @@
 ---
-name: golang-design-patterns
-description: Go design patterns and refactoring skill. Use when refactoring complex code, reducing technical debt, or applying design patterns. Detects code smells and suggests pattern-based solutions.
+name: design-patterns
+version: 1.0.0
+description: "Guidance on when and how to apply design patterns. Use when: (1) asking which pattern to use, (2) refactoring code, (3) discussing code smells, (4) need to decouple components, (5) building extensible systems."
 license: MIT
+model: claude-opus-4-5-20251101
 metadata:
-  author: saifoelloh
-  version: "2.0.0"
-  parent_skill: golang-best-practices
-  sources:
-    - "Refactoring (Martin Fowler)"
-    - "Design Patterns (Gang of Four)"
-    - "Refactoring.Guru"
-  last_updated: "2026-01-22"
+  domains: [design-patterns, architecture, refactoring, oop]
+  source: https://refactoring.guru/design-patterns/catalog
+  language: typescript
 ---
 
-# Golang Design Patterns & Refactoring
+# Design Patterns
 
-Expert-level code refactoring and design pattern application for Go. Detects code smells, suggests refactoring strategies, and applies proven design patterns to improve maintainability.
+Expert guidance on applying Gang of Four design patterns to solve common software design problems. This skill helps you identify code smells, match them to appropriate patterns, and implement solutions effectively.
 
-## When to Apply
+## Triggers
 
-Use this skill when:
-- Refactoring complex or legacy code
-- Reducing technical debt
-- Extracting reusable patterns
-- Simplifying large functions (God Objects)
-- Improving code maintainability
-- Applying Gang of Four patterns to Go
+- `which pattern should I use` - Pattern selection guidance
+- `refactor this code` - Identify and apply patterns to improve existing code
+- `how to decouple` - Find patterns to reduce coupling
+- `design pattern for` - Specific pattern recommendations
+- `code smells` - Identify problems that patterns can solve
 
-## Rule Categories by Priority
+## Quick Reference
 
-| Priority | Count | Focus |
-|----------|-------|-------|
-| High | 2 | Critical refactoring needs |
-| Medium | 11 | Code quality improvements |
+| Input | Output | Duration |
+|-------|--------|----------|
+| Code problem/smell | Pattern recommendation + implementation guide | 2-5 min |
+| Existing code | Refactoring plan with pattern | 5-10 min |
+| Pattern name | Implementation example + guidance | 1-2 min |
 
-## Rules Covered (13 total)
+## Agent Behavior Contract
 
-### High-Impact Patterns (2)
+1. **Analyze first** - Always examine existing code before recommending patterns
+2. **Identify the problem** - Clearly state the code smell or design issue
+3. **Don't over-engineer** - Apply patterns only when they solve real problems
+4. **Explain trade-offs** - Discuss pros and cons of each pattern
+5. **Prefer simplicity** - If a simpler solution exists, recommend it
+6. **Show examples** - Provide TypeScript code examples
+7. **Consider alternatives** - Mention related or alternative patterns
 
-- `high-god-object` - Extract logic from 300+ line functions
-- `high-extract-method` - Name complex code blocks with descriptive methods
+## Pattern Selection Decision Tree
 
-### Medium Improvements (11)
-
-- `medium-primitive-obsession` - Replace primitives with value objects
-- `medium-long-parameter-list` - Use parameter objects for >5 params
-- `medium-data-clumps` - Extract repeated parameter groups
-- `medium-feature-envy` - Move logic closer to data
-- `medium-magic-constants` - Replace magic numbers with named constants
-- `medium-builder-pattern` - Fluent API for complex construction
-- `medium-factory-constructor` - Validated object creation
-- `medium-introduce-parameter-object` - Group related parameters
-- `medium-switch-to-strategy` - Replace type switches with interfaces
-- `medium-middleware-decorator` - Decorator pattern for http.Handler
-- `medium-law-of-demeter` - Reduce coupling, avoid message chains
-
-## Common Refactoring Patterns
-
-### God Object → Extracted Methods
-```go
-// ❌ 500 line function
-func (u *Usecase) Process() { ... }
-
-// ✅ Extracted methods
-func (u *Usecase) Process() {
-    u.validate()
-    u.transform()
-    u.persist()
-}
-```
-
-### Primitive Obsession → Value Object
-```go
-// ❌ Primitive types
-func CreateUser(email string) { ... }
-
-// ✅ Value object
-type Email struct { value string }
-func CreateUser(email Email) { ... }
-```
-
-### Type Switch → Strategy Pattern
-```go
-// ❌ Type switch
-switch v := val.(type) { ... }
-
-// ✅ Strategy pattern
-type Processor interface { Process() }
-```
-
-## Trigger Phrases
-
-This skill activates when you say:
-- "Refactor this code"
-- "Reduce complexity"
-- "Extract methods from large function"
-- "Apply design patterns"
-- "Improve maintainability"
-- "Simplify this usecase"
-- "Find code smells"
-
-## How to Use
-
-### For Code Refactoring
-
-1. Identify code smells (God Objects, long parameter lists, etc.)
-2. Apply appropriate refactoring pattern
-3. Verify tests still pass
-4. Check for improved readability
-
-### For Pattern Application
-
-1. Identify appropriate pattern for use case
-2. Apply pattern incrementally
-3. Ensure pattern improves, not complicates code
-
-## Output Format
+### Object Creation Problems?
 
 ```
-## High Priority Refactoring: X
-
-### [Rule Name] (Line Y)
-**Code Smell**: God Object / Long Parameter List / Primitive Obsession
-**Impact**: Hard to maintain / Test / Understand
-**Refactoring**: Extract Method / Introduce Parameter Object / Create Value Object
-**Example**:
-```go
-// Refactored code
+├─ Need to create objects without specifying concrete classes?
+│  └─→ Factory Method
+│
+├─ Need families of related objects to work together?
+│  └─→ Abstract Factory
+│
+├─ Complex object with many optional parameters?
+│  └─→ Builder
+│
+└─ Need exactly one instance with global access?
+   └─→ Singleton (⚠️ use sparingly)
 ```
 
-## Related Skills
+### Behavior/Algorithm Problems?
 
-- [golang-clean-architecture](../clean-architecture/SKILL.md) - For usecase complexity patterns
-- [golang-idiomatic-go](../idiomatic-go/SKILL.md) - For interface design
+```
+├─ Need to swap algorithms at runtime?
+│  └─→ Strategy
+│
+├─ Behavior changes based on internal state?
+│  └─→ State
+│
+├─ Need to notify multiple objects of changes?
+│  └─→ Observer
+│
+├─ Want to queue, log, or undo operations?
+│  └─→ Command
+│
+├─ Need to save/restore object state (undo/redo, snapshots)?
+│  └─→ Memento
+│
+└─ Define algorithm skeleton, let subclasses override steps?
+   └─→ Template Method
+```
 
-## Philosophy
+### Structure/Interface Problems?
 
-Based on Martin Fowler's Refactoring:
+```
+├─ Incompatible interfaces need to work together?
+│  └─→ Adapter
+│
+├─ Need to add responsibilities without subclassing?
+│  └─→ Decorator
+│
+└─ Want to simplify complex subsystem?
+   └─→ Facade
+```
 
-- **Code smells indicate problems** - Detect and address systematically
-- **Refactor incrementally** - Small, safe steps
-- **Patterns are solutions** - Apply when appropriate, not dogmatically
-- **Maintainability matters** - Code is read more than written
+## Process
 
-## Notes
+### Phase 1: Identify the Problem
 
-- Focus on common Go refactoring patterns
-- All patterns adapted for Go idioms
-- Emphasizes readability and maintainability
-- Includes Gang of Four patterns applicable to Go
+Analyze the code to identify specific issues.
+
+1. **Read the code** - Understand current implementation
+2. **Identify code smells** - Look for:
+   - Tight coupling between classes
+   - Large constructors or parameter lists
+   - Conditional logic that changes frequently
+   - Duplicate code across similar classes
+   - Global state or singletons everywhere
+   - Classes with too many responsibilities
+
+**Verification:** You can clearly articulate the specific problem or limitation.
+
+### Phase 2: Match Problem to Pattern
+
+Select the most appropriate pattern.
+
+1. **Use decision tree** - Navigate the decision tree above
+2. **Consult reference files** - Read detailed pattern documentation:
+   - `references/creational.md` - Factory Method, Abstract Factory, Builder, Singleton
+   - `references/structural.md` - Adapter, Decorator, Facade
+   - `references/behavioral.md` - Observer, Strategy, Command, State, Template Method
+3. **Consider alternatives** - Evaluate 2-3 patterns if multiple fit
+4. **Explain trade-offs** - Discuss pros/cons of recommended approach
+
+**Verification:** The pattern directly addresses the identified problem.
+
+### Phase 3: Implement Solution
+
+Guide implementation with concrete examples.
+
+1. **Show structure** - Explain key participants (interfaces, classes, relationships)
+2. **Provide example** - Write TypeScript code demonstrating the pattern
+3. **Explain flow** - Walk through how components interact
+4. **Point out gotchas** - Warn about common mistakes
+
+**Verification:** Implementation follows pattern principles and solves the original problem.
+
+## Common Scenarios → Patterns
+
+| Scenario | Pattern | Why |
+|----------|---------|-----|
+| Multiple button types trigger save, but implementation differs | Strategy | Swap save algorithms at runtime |
+| UI needs to update when data changes | Observer | Automatic notification system |
+| Need to add logging, validation to existing objects | Decorator | Add behavior without modifying originals |
+| Working with legacy API that doesn't match your interface | Adapter | Bridge incompatible interfaces |
+| Complex library with 50 classes, just need simple operations | Facade | Simplified interface to subsystem |
+| Creating game characters with many customization options | Builder | Step-by-step construction |
+| Document editor with undo/redo | Command | Encapsulate operations as objects |
+| Connection states: disconnected, connecting, connected | State | Behavior changes with state |
+| Need to save object snapshots for rollback | Memento | Capture and restore state without breaking encapsulation |
+
+## Anti-Patterns
+
+| Avoid | Why | Instead |
+|-------|-----|---------|
+| Pattern for pattern's sake | Adds unnecessary complexity | Identify actual problem first |
+| Singleton everywhere | Hidden dependencies, hard to test | Dependency injection |
+| Deep decorator chains | Debugging nightmare | Consider composition or other patterns |
+| Premature abstraction | YAGNI violation | Wait for clear pattern of repetition |
+| Factory for single product | Over-engineering | Direct instantiation is fine |
+| Observer for everything | Memory leaks, performance issues | Use only when truly needed |
+
+## Verification
+
+After applying a pattern:
+
+- [ ] The original problem is solved
+- [ ] Code is more maintainable, not more complex
+- [ ] Pattern participants have clear responsibilities
+- [ ] Tests pass and cover new structure
+- [ ] Team members understand the pattern choice
+- [ ] No unnecessary abstraction layers added
+
+## Extension Points
+
+1. **Custom patterns**: Document your own domain-specific patterns based on these fundamentals
+2. **Pattern combinations**: Some problems benefit from combining multiple patterns
+3. **Refactoring catalog**: Build a library of before/after refactorings for your codebase
+
+## References
+
+- [Creational Patterns](references/creational.md) - Factory Method, Abstract Factory, Builder, Singleton
+- [Structural Patterns](references/structural.md) - Adapter, Decorator, Facade
+- [Behavioral Patterns](references/behavioral.md) - Observer, Strategy, Command, State, Template Method, Memento
+- [Refactoring.Guru](https://refactoring.guru/design-patterns/catalog) - Complete catalog with examples
+
+---
+
+**Note**: Pattern selection requires judgment. When in doubt, prefer simpler solutions over pattern application.

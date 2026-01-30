@@ -1,9 +1,7 @@
 {
   "name": "jk",
-  "description": "Jenkins CLI for controllers. Use when users need to manage jobs, pipelines, runs, logs, artifacts, credentials, nodes, or queues in Jenkins. Triggers include \"jenkins\", \"jk\", \"pipeline\", \"build\", \"run",
   "repo": "avivsinai/jenkins-cli",
-  "category": "development",
-  "tags": [],
-  "stars": 16,
-  "source": "github.com/avivsinai/jenkins-cli"
+  "path": ".claude/skills/jk/SKILL.md",
+  "source": "github.com/avivsinai/jenkins-cli",
+  "downloaded_at": "2026-01-30T02:46:42.804632Z"
 }

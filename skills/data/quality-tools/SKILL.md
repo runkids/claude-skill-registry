@@ -1,9 +1,9 @@
 ---
 name: quality-tools
-description: Outils de Qualité de Code. Use when setting up quality tools or CI.
+description: Quality Tools - ESLint, TypeScript, Prettier. Use when setting up quality tools or CI.
 ---
 
-# Outils de Qualité de Code
+# Quality Tools - ESLint, TypeScript, Prettier
 
 This skill provides guidelines and best practices.
 

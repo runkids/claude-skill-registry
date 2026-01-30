@@ -8,11 +8,13 @@ description: Playwright-based game playtesting and design validation. Use when v
 ## When Playtest Is NOT Required
 
 **Skip playtest for:**
+
 - Test infrastructure bugfixes (unit tests, E2E tests, build fixes)
 - Non-gameplay tasks (CI/CD, tooling, documentation)
 - Backend-only changes without visual impact
 
 **Playtest IS required for:**
+
 - Gameplay mechanics (movement, shooting, physics)
 - Visual features (shaders, materials, effects)
 - UI/UX changes (HUD, menus, interactions)
@@ -22,6 +24,7 @@ description: Playwright-based game playtesting and design validation. Use when v
 ## Playtest Initiation
 
 **Triggers (any of these):**
+
 - `.claude/session/retrospective.txt` contains "[ ] Request playtest"
 - `prd.json.session.currentTask.status = "playtest_phase"`
 - PM sends `playtest_session_request` message
@@ -62,10 +65,8 @@ Bash("npm run dev:all:sh")
 ### Step 2: Launch Game via Playwright
 
 ```javascript
-// Navigate to game
+// Navigate to game (detect port first: netstat -an | grep LISTEN | grep -E ":(3000|3001|5173|8080)")
 await page.goto('http://localhost:3000');
-
-// Wait for game to load
 await page.waitForLoadState('networkidle');
 
 // Capture initial state
@@ -419,18 +420,21 @@ After completing playtest, use Write tool to send message to PM's inbox:
 
 ```javascript
 // Use Write tool to send message:
-Write(".claude/session/messages/pm/msg-playtest-{timestamp}.json", JSON.stringify({
-  "id": "msg-playtest-{timestamp}",
-  "from": "gamedesigner",
-  "to": "pm",
-  "type": "playtest_report",
-  "priority": "high",
-  "payload": {
-    // Include all findings from playtest
-  },
-  "timestamp": "{UTC-timestamp}",
-  "status": "pending"
-}))
+Write(
+  '.claude/session/messages/pm/msg-playtest-{timestamp}.json',
+  JSON.stringify({
+    id: 'msg-playtest-{timestamp}',
+    from: 'gamedesigner',
+    to: 'pm',
+    type: 'playtest_report',
+    priority: 'high',
+    payload: {
+      // Include all findings from playtest
+    },
+    timestamp: '{UTC-timestamp}',
+    status: 'pending',
+  })
+);
 ```
 
 ## Retrospective Participation
@@ -459,3 +463,64 @@ Before completing playtest:
 - [ ] GDD compliance validated
 - [ ] Findings documented
 - [ ] Report sent to PM
+
+---
+
+## Visual Quality Assessment Criteria (Added: ui-001 Playtest)
+
+**Learned from ui-001 playtest:** Functionally complete UI can still be visually inadequate for shipping.
+
+### Visual Quality Assessment Matrix
+
+| Category                | Pass Criteria                                  | Weight |
+| ----------------------- | --------------------------------------------- | ------ |
+| Aspect Ratio            | 16:9 enforced, letterbox on non-16:9           | High   |
+| Design System           | Tokens, consistent styling, reusable components | High   |
+| Typography              | Gaming fonts, readable, appropriate scale       | Medium |
+| Button Polish           | Hover/active states, feedback animations       | High   |
+| Color Palette           | Theme-appropriate, accessible contrast         | Medium |
+| Animations              | Smooth, custom easing, not default/linear       | Medium |
+| Professional Appearance | Not prototype-like, shipping quality            | High   |
+
+### Visual Quality Levels
+
+| Level        | Description                                      | Action                  |
+| ------------ | ------------------------------------------------ | ----------------------- |
+| SHIPPABLE    | All visual criteria met, professional appearance | PASS                    |
+| CONDITIONAL  | Functional but needs polish                      | CONDITIONAL_PASS        |
+| PROTOTYPE    | Looks like prototype, not shipping game          | FAIL - Create redesign task |
+
+### When to Issue CONDITIONAL_PASS
+
+**Use CONDITIONAL_PASS when:**
+- All functional requirements work correctly
+- Core mechanics are playable
+- Visual design is functional but lacks polish
+- UI looks prototype-like, not production-ready
+
+**Mandatory Actions on CONDITIONAL_PASS:**
+1. Document specific visual gaps in report
+2. Create dedicated visual redesign task (TIER_0_BLOCKER if UI is primary feature)
+3. Create specification document for redesign
+4. Block original task completion until visual redesign done
+
+**Example:**
+```json
+{
+  "result": "CONDITIONAL_PASS",
+  "functionalStatus": "PASS",
+  "visualStatus": "NEEDS_REDESIGN",
+  "gaps": [
+    "No 16:9 aspect ratio enforcement",
+    "Basic Tailwind styling instead of custom design",
+    "Generic fonts instead of gaming typography",
+    "No custom easing curves for animations"
+  ],
+  "recommendation": "BLOCK until visual design addressed",
+  "newTask": {
+    "id": "ui-002",
+    "title": "Professional UI/UX Redesign",
+    "priority": "TIER_0_BLOCKER"
+  }
+}
+```

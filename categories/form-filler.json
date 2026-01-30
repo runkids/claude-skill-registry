@@ -1,0 +1,19 @@
+{
+  "category": "form-filler",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.131115Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Fill PDF forms programmatically with data from JSON, CSV, or dictionaries. Support for text fields, checkboxes, and dropdowns. Batch filling available.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "form-filler",
+      "branch": "main",
+      "category": "form-filler",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

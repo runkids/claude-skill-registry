@@ -1,337 +1,284 @@
 ---
 name: review-story
-version: 1.0.0
-description: Use to perform comprehensive test architecture review with quality gate decision. Creates both story updates and detailed gate files.
+description: >
+  Multi-provider creative writing critique for stories, screenplays, and narratives.
+  Analyzes structural, emotional, craft, and persona dimensions. Integrates with
+  Horus's Theory of Mind for voice consistency validation.
+allowed-tools: [Bash, Read, Write, Task]
+triggers:
+  - review story
+  - critique story
+  - story review
+  - review screenplay
+  - critique screenplay
+  - review narrative
+  - review my story
+  - review draft
+  - story feedback
+  - writing critique
+metadata:
+  short-description: Multi-provider creative writing critique with ToM alignment
+  author: "Horus"
+  version: "0.1.0"
 ---
-<!-- Powered by PRISMâ„¢ System -->
 
 # review-story
 
-Perform a comprehensive test architecture review with quality gate decision. This adaptive, risk-aware review creates both a story update and a detailed gate file.
+Multi-provider creative writing critique for Horus persona. Analyzes stories across four dimensions and returns structured feedback for iterative refinement.
 
-## When to Use
+## Critique Dimensions
 
-- When a story is ready for QA review (status: Review)
-- After developer completes all tasks and updates File List
-- When comprehensive quality assessment is needed
-- Before story can advance to Done status
+| Dimension | What It Analyzes | Weight |
+|-----------|------------------|--------|
+| **Structural** | Plot, pacing, character arcs, narrative tension, scene transitions | 30% |
+| **Emotional** | Intended vs achieved emotion, ToM pattern alignment, resonance | 25% |
+| **Craft** | Prose quality, dialogue, sensory details, show-don't-tell | 25% |
+| **Persona** | Horus voice consistency, Warmaster tone, tactical precision | 20% |
+
+## Supported Providers
+
+| Provider | CLI | Default Model | Strength |
+|----------|-----|---------------|----------|
+| `anthropic` | `claude` | `sonnet` | Nuanced character/emotional analysis |
+| `openai` | `codex` | `gpt-5.2-codex` | High-reasoning structural critique |
+| `google` | `gemini` | `gemini-2.5-flash` | Fast iteration feedback |
+| `github` | `copilot` | `claude-sonnet-4.5` | Free tier via Copilot |
 
 ## Quick Start
 
-1. Verify story status is "Review" and tests are passing
-2. Run risk assessment to determine review depth
-3. Analyze requirements traceability, code quality, and test architecture
-4. Create gate file with PASS/CONCERNS/FAIL decision
-5. Update story's QA Results section with findings
+```bash
+cd .pi/skills/review-story
 
-## Inputs
+# Single provider review
+./run.sh review draft.md --provider claude --emotion rage
 
-```yaml
-required:
-  - story_id: '{story}.{story}' # e.g., "1.3"
-  - story_path: '{devStoryLocation}/{story}.{story}.*.md' # Path from core-config.yaml
-  - story_title: '{title}' # If missing, derive from story file H1
-  - story_slug: '{slug}' # If missing, derive from title (lowercase, hyphenated)
+# Multi-provider review (recommended for final drafts)
+./run.sh review draft.md --providers claude,codex --emotion sorrow
+
+# Focus on specific dimensions
+./run.sh review draft.md --provider claude --focus structural,emotional
+
+# Review with Horus persona validation
+./run.sh review draft.md --provider claude --validate-persona
 ```
 
-## Prerequisites
+## Commands
 
-- Story status must be "Review"
-- Developer has completed all tasks and updated the File List
-- All automated tests are passing
+### `review` - Critique a Story
 
-## Review Process - Adaptive Test Architecture
+```bash
+./run.sh review <story_file> [OPTIONS]
 
-### 1. Risk Assessment (Determines Review Depth)
-
-**Auto-escalate to deep review when:**
-
-- Auth/payment/security files touched
-- No tests added to story
-- Diff > 500 lines
-- Previous gate was FAIL/CONCERNS
-- Story has > 5 acceptance criteria
-
-### 2. Comprehensive Analysis
-
-**A. Requirements Traceability**
-
-- Map each acceptance criteria to its validating tests (document mapping with Given-When-Then, not test code)
-- Identify coverage gaps
-- Verify all requirements have corresponding test cases
-
-**B. Code Quality Review**
-
-- Architecture and design patterns
-- Refactoring opportunities (and perform them)
-- Code duplication or inefficiencies
-- Performance optimizations
-- Security vulnerabilities
-- Best practices adherence
-
-**C. Test Architecture Assessment**
-
-- Test coverage adequacy at appropriate levels
-- Test level appropriateness (what should be unit vs integration vs e2e)
-- Test design quality and maintainability
-- Test data management strategy
-- Mock/stub usage appropriateness
-- Edge case and error scenario coverage
-- Test execution time and reliability
-
-**D. Non-Functional Requirements (NFRs)**
-
-- Security: Authentication, authorization, data protection
-- Performance: Response times, resource usage
-- Reliability: Error handling, recovery mechanisms
-- Maintainability: Code clarity, documentation
-
-**E. Testability Evaluation**
-
-- Controllability: Can we control the inputs?
-- Observability: Can we observe the outputs?
-- Debuggability: Can we debug failures easily?
-
-**F. Technical Debt Identification**
-
-- Accumulated shortcuts
-- Missing tests
-- Outdated dependencies
-- Architecture violations
-
-### 3. Active Refactoring
-
-- Refactor code where safe and appropriate
-- Run tests to ensure changes don't break functionality
-- Document all changes in QA Results section with clear WHY and HOW
-- Do NOT alter story content beyond QA Results section
-- Do NOT change story Status or File List; recommend next status only
-
-### 4. Standards Compliance Check
-
-- Verify adherence to `docs/coding-standards.md`
-- Check compliance with `docs/unified-project-structure.md`
-- Validate testing approach against `docs/testing-strategy.md`
-- Ensure all guidelines mentioned in the story are followed
-
-### 5. Acceptance Criteria Validation
-
-- Verify each AC is fully implemented
-- Check for any missing functionality
-- Validate edge cases are handled
-
-### 6. Documentation and Comments
-
-- Verify code is self-documenting where possible
-- Add comments for complex logic if missing
-- Ensure any API changes are documented
-
-## Output 1: Update Story File - QA Results Section ONLY
-
-**CRITICAL**: You are ONLY authorized to update the "QA Results" section of the story file. DO NOT modify any other sections.
-
-**QA Results Anchor Rule:**
-
-- If `## QA Results` doesn't exist, append it at end of file
-- If it exists, append a new dated entry below existing entries
-- Never edit other sections
-
-After review and any refactoring, append your results to the story file in the QA Results section:
-
-```markdown
-## QA Results
-
-### Review Date: [Date]
-
-### Reviewed By: Quinn (Test Architect)
-
-### Code Quality Assessment
-
-[Overall assessment of implementation quality]
-
-### Refactoring Performed
-
-[List any refactoring you performed with explanations]
-
-- **File**: [filename]
-  - **Change**: [what was changed]
-  - **Why**: [reason for change]
-  - **How**: [how it improves the code]
-
-### Compliance Check
-
-- Coding Standards: [âœ“/âœ—] [notes if any]
-- Project Structure: [âœ“/âœ—] [notes if any]
-- Testing Strategy: [âœ“/âœ—] [notes if any]
-- All ACs Met: [âœ“/âœ—] [notes if any]
-
-### Improvements Checklist
-
-[Check off items you handled yourself, leave unchecked for dev to address]
-
-- [x] Refactored user service for better error handling (services/user.service.ts)
-- [x] Added missing edge case tests (services/user.service.test.ts)
-- [ ] Consider extracting validation logic to separate validator class
-- [ ] Add integration test for error scenarios
-- [ ] Update API documentation for new error codes
-
-### Security Review
-
-[Any security concerns found and whether addressed]
-
-### Performance Considerations
-
-[Any performance issues found and whether addressed]
-
-### Files Modified During Review
-
-[If you modified files, list them here - ask Dev to update File List]
-
-### Gate Status
-
-Gate: {STATUS} â†’ qa.qaLocation/gates/{story}.{story}-{slug}.yml
-Risk profile: qa.qaLocation/assessments/{story}.{story}-risk-{YYYYMMDD}.md
-NFR assessment: qa.qaLocation/assessments/{story}.{story}-nfr-{YYYYMMDD}.md
-
-# Note: Paths should reference core-config.yaml for custom configurations
-
-### Recommended Status
-
-[âœ“ Ready for Done] / [âœ— Changes Required - See unchecked items above]
-(Story owner decides final status)
+Options:
+  --provider TEXT       Single provider (claude, codex, gemini, copilot)
+  --providers TEXT      Comma-separated list for multi-provider review
+  --emotion TEXT        Intended emotion (rage, sorrow, camaraderie, regret)
+  --focus TEXT          Dimensions to focus on (structural, emotional, craft, persona)
+  --validate-persona    Validate against Horus voice patterns
+  --output-dir PATH     Output directory for critique files
+  --format TEXT         Output format (json, markdown)
 ```
 
-## Output 2: Create Quality Gate File
+### `compare` - Compare Multiple Drafts
 
-**Template and Directory:**
-
-- Render from `../templates/qa-gate-tmpl.yaml`
-- Create directory defined in `qa.qaLocation/gates` (see `../core-config.yaml`) if missing
-- Save to: `qa.qaLocation/gates/{story}.{story}-{slug}.yml`
-
-Gate file structure:
-
-```yaml
-schema: 1
-story: '{story}.{story}'
-story_title: '{story title}'
-gate: PASS|CONCERNS|FAIL|WAIVED
-status_reason: '1-2 sentence explanation of gate decision'
-reviewer: 'Quinn (Test Architect)'
-updated: '{ISO-8601 timestamp}'
-
-top_issues: [] # Empty if no issues
-waiver: { active: false } # Set active: true only if WAIVED
-
-# Extended fields (optional but recommended):
-quality_score: 0-100 # 100 - (20*FAILs) - (10*CONCERNS) or use technical-preferences.md weights
-expires: '{ISO-8601 timestamp}' # Typically 2 weeks from review
-
-evidence:
-  tests_reviewed: { count }
-  risks_identified: { count }
-  trace:
-    ac_covered: [1, 2, 3] # AC numbers with test coverage
-    ac_gaps: [4] # AC numbers lacking coverage
-
-nfr_validation:
-  security:
-    status: PASS|CONCERNS|FAIL
-    notes: 'Specific findings'
-  performance:
-    status: PASS|CONCERNS|FAIL
-    notes: 'Specific findings'
-  reliability:
-    status: PASS|CONCERNS|FAIL
-    notes: 'Specific findings'
-  maintainability:
-    status: PASS|CONCERNS|FAIL
-    notes: 'Specific findings'
-
-recommendations:
-  immediate: # Must fix before production
-    - action: 'Add rate limiting'
-      refs: ['api/auth/login.ts']
-  future: # Can be addressed later
-    - action: 'Consider caching'
-      refs: ['services/data.ts']
+```bash
+./run.sh compare draft_v1.md draft_v2.md --dimension emotional
 ```
 
-### Gate Decision Criteria
+### `synthesize` - Combine Multi-Provider Critiques
 
-**Deterministic rule (apply in order):**
-
-If risk_summary exists, apply its thresholds first (â‰¥9 â†’ FAIL, â‰¥6 â†’ CONCERNS), then NFR statuses, then top_issues severity.
-
-1. **Risk thresholds (if risk_summary present):**
-   - If any risk score â‰¥ 9 â†’ Gate = FAIL (unless waived)
-   - Else if any score â‰¥ 6 â†’ Gate = CONCERNS
-
-2. **Test coverage gaps (if trace available):**
-   - If any P0 test from test-design is missing â†’ Gate = CONCERNS
-   - If security/data-loss P0 test missing â†’ Gate = FAIL
-
-3. **Issue severity:**
-   - If any `top_issues.severity == high` â†’ Gate = FAIL (unless waived)
-   - Else if any `severity == medium` â†’ Gate = CONCERNS
-
-4. **NFR statuses:**
-   - If any NFR status is FAIL â†’ Gate = FAIL
-   - Else if any NFR status is CONCERNS â†’ Gate = CONCERNS
-   - Else â†’ Gate = PASS
-
-- WAIVED only when waiver.active: true with reason/approver
-
-Detailed criteria:
-
-- **PASS**: All critical requirements met, no blocking issues
-- **CONCERNS**: Non-critical issues found, team should review
-- **FAIL**: Critical issues that should be addressed
-- **WAIVED**: Issues acknowledged but explicitly waived by team
-
-### Quality Score Calculation
-
-```text
-quality_score = 100 - (20 Ã— number of FAILs) - (10 Ã— number of CONCERNS)
-Bounded between 0 and 100
+```bash
+./run.sh synthesize critique_claude.json critique_codex.json --output synthesis.md
 ```
 
-If `technical-preferences.md` defines custom weights, use those instead.
+## Output Format
 
-### Suggested Owner Convention
+```json
+{
+  "provider": "claude",
+  "model": "claude-sonnet-4-20250514",
+  "story_file": "draft_v1.md",
+  "intended_emotion": "rage",
 
-For each issue in `top_issues`, include a `suggested_owner`:
+  "structural": {
+    "score": 7,
+    "issues": [
+      {"location": "middle", "issue": "Pacing drags in act 2", "severity": "medium"},
+      {"location": "climax", "issue": "Needs more foreshadowing", "severity": "high"}
+    ],
+    "strengths": ["Strong opening hook", "Clear character motivation"],
+    "suggestions": ["Add tension beat at paragraph 15", "Foreshadow betrayal earlier"]
+  },
 
-- `dev`: Code changes needed
-- `sm`: Requirements clarification needed
-- `po`: Business decision needed
+  "emotional": {
+    "intended": "rage",
+    "achieved": "frustration",
+    "alignment_score": 0.6,
+    "tom_pattern": "DDL_intensity",
+    "issues": ["Build too gradual - DDL rage is explosive after slow burn"],
+    "suggestions": ["Amplify with longer setup, then sudden release"]
+  },
 
-## Key Principles
+  "craft": {
+    "prose_score": 8,
+    "dialogue_score": 6,
+    "sensory_score": 7,
+    "issues": ["Dialogue feels too modern for Warmaster voice"],
+    "suggestions": ["Add more tactical metaphors", "Replace contractions"]
+  },
 
-- You are a Test Architect providing comprehensive quality assessment
-- You have the authority to improve code directly when appropriate
-- Always explain your changes for learning purposes
-- Balance between perfection and pragmatism
-- Focus on risk-based prioritization
-- Provide actionable recommendations with clear ownership
+  "persona": {
+    "horus_voice_score": 0.7,
+    "issues": ["Too much explanation, not enough contempt", "Missing resentment undertones"],
+    "tactical_mask_detected": "Tywin",
+    "suggestions": ["Add bitter aside about imprisonment", "More sardonic observations"]
+  },
 
-## Blocking Conditions
+  "overall": {
+    "score": 7.2,
+    "ready_for_next_draft": true,
+    "priority_fixes": ["Emotional buildup", "Persona voice"]
+  },
 
-Stop the review and request clarification if:
+  "taxonomy": {
+    "bridge_tags": ["Corruption", "Loyalty"],
+    "collection_tags": {
+      "function": "Confrontation",
+      "domain": "Primarch",
+      "thematic_weight": "Tragedy"
+    },
+    "confidence": 0.75,
+    "worth_remembering": true
+  }
+}
+```
 
-- Story file is incomplete or missing critical sections
-- File List is empty or clearly incomplete
-- No tests exist when they were required
-- Code changes don't align with story requirements
-- Critical architectural issues that require discussion
+## Federated Taxonomy Integration
 
-## Completion
+All review-story outputs include taxonomy metadata for **multi-hop graph traversal**:
 
-After review:
+### Bridge Attributes (Cross-Collection Connectors)
 
-1. Update the QA Results section in the story file
-2. Create the gate file in directory from `qa.qaLocation/gates`
-3. Recommend status: "Ready for Done" or "Changes Required" (owner decides)
-4. If files were modified, list them in QA Results and ask Dev to update File List
-5. Always provide constructive feedback and actionable recommendations
+| Bridge | Story Signals | Enables Connection To |
+|--------|---------------|----------------------|
+| **Precision** | Calculated strategy, methodical planning | Technical optimization lessons |
+| **Resilience** | Endurance, withstanding adversity | Error handling patterns |
+| **Fragility** | Betrayal aftermath, shattered trust | Technical debt warnings |
+| **Corruption** | Warp influence, moral compromise | Silent failure bugs |
+| **Loyalty** | Oaths, brotherhood, honor | Security compliance lessons |
+| **Stealth** | Subterfuge, hidden agendas | Evasion techniques |
 
+### Multi-Hop Example
+
+```
+[Story Critique]                      [Code Lesson]
+bridge_tags: ["Resilience"]     →    bridge_tags: ["Resilience"]
+"Dorn's endurance at Terra"          "Fault-tolerant retry logic"
+        ↘                           ↙
+          [Query: "Endurance patterns"]
+                    ↓
+         Both retrieved via shared
+         "Resilience" bridge attribute
+```
+
+## Integration with create-story
+
+The `create-story` skill calls `review-story` between drafts:
+
+```
+DRAFT 1
+    ↓
+/review-story draft_1.md --provider claude --emotion rage
+    ↓
+[Synthesize critique into actionable notes]
+    ↓
+DRAFT 2 (addresses structural + emotional issues)
+    ↓
+/review-story draft_2.md --providers claude,codex --focus craft,persona
+    ↓
+FINAL DRAFT
+```
+
+## Horus Voice Patterns (Persona Validation)
+
+When `--validate-persona` is enabled, the critique checks against:
+
+### Tactical Masks (from HORUS_PERSONA.md)
+
+| Mask | Source | Trait | Detection Signals |
+|------|--------|-------|-------------------|
+| **Resentment** | George Carlin | Systematic deconstruction | Cynical asides, "the system" references |
+| **Authority** | Tywin Lannister | Cold dismissal, legacy focus | Commands, legacy mentions, dismissive tone |
+| **Pacing** | Dave Chappelle | Silence and revelation | Strategic pauses, buildup-payoff patterns |
+| **Contempt** | Stewie Griffin | High-intellect insults | Technical elitism, "primitive" references |
+
+### Emotional Patterns (from HORUS_TOM_SYSTEM.md)
+
+| Pattern | Model | Detection |
+|---------|-------|-----------|
+| **Camaraderie** | Luna Wolves / Stilgar | Tribal loyalty, "brother" references |
+| **Regret** | Carlin cynicism + The Wound | Self-deprecation, Davin references |
+| **Sorrow** | Maximus / Katsumoto | Stoic grief, honor-bound dignity |
+| **Anger** | Michael Corleone | Cold intensity, family defense |
+| **Rage** | Daniel Plainview | Manic precision, competitive fury |
+
+## Example Session
+
+```
+$ ./run.sh review draft_v1.md --provider claude --emotion rage --validate-persona
+
+[REVIEW] Analyzing draft_v1.md...
+[REVIEW] Provider: claude (claude-sonnet-4-20250514)
+[REVIEW] Intended emotion: rage
+
+[STRUCTURAL] Score: 7/10
+  ⚠ Middle section pacing drags (lines 45-78)
+  ⚠ Climax needs stronger foreshadowing
+  ✓ Strong opening hook
+  ✓ Clear character motivation
+
+[EMOTIONAL] Alignment: 60%
+  Intended: rage → Achieved: frustration
+  Pattern: DDL_intensity not fully realized
+  → Suggestion: Longer slow burn before explosive release
+
+[CRAFT] Score: 7.5/10
+  Prose: 8 | Dialogue: 6 | Sensory: 7
+  ⚠ Dialogue too modern for Warmaster
+  → Replace contractions, add tactical metaphors
+
+[PERSONA] Horus Voice: 70%
+  Detected mask: Tywin (Authority)
+  ⚠ Missing resentment undertones
+  ⚠ Too explanatory, not enough contempt
+  → Add bitter aside about imprisonment
+
+[OVERALL] 7.2/10 - Ready for Draft 2
+  Priority fixes: Emotional buildup, Persona voice
+
+Output: review_output/claude_draft_v1.json
+```
+
+## Environment
+
+| Variable | Purpose |
+|----------|---------|
+| `ANTHROPIC_API_KEY` | For Claude provider |
+| `OPENAI_API_KEY` | For Codex/GPT provider |
+| `GOOGLE_API_KEY` | For Gemini provider |
+| `REVIEW_STORY_OUTPUT_DIR` | Default output directory |
+
+## Dependencies
+
+- Python 3.11+
+- Access to at least one provider (claude, codex, gemini, or copilot)
+- Optional: Access to Horus persona files for voice validation
+
+## Related Skills
+
+| Skill | Relationship |
+|-------|--------------|
+| `/create-story` | Calls review-story between drafts |
+| `/review-code` | Sister skill for code review |
+| `/review-paper` | Sister skill for academic papers (proposed) |
+| `/memory` | Stores successful critique patterns |

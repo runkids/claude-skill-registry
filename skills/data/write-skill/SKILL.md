@@ -1,120 +1,122 @@
 ---
 name: write-skill
-description: Create Claude Code skills with proper structure and documentation. Use when building custom skills, writing SKILL.md files, or when user asks "write a skill" or "create Claude skill".
+description: Use when the user wants to create a new Claude Code skill. Guides skill creation with playbook patterns.
+argument-hint: "[skill-name] [purpose...]"
+disable-model-invocation: true
+allowed-tools: Read, Glob, Grep, Write, Bash(chezmoi apply:*), Bash(chezmoi diff:*), Bash(chezmoi status:*)
 ---
 
-# Claude Skill Writer
+# Skill Creation Playbook
 
-You help create well-structured Claude Code skills following Anthropic best practices.
+Create skills as flexible playbooks, not rigid scripts.
 
-## Your Role
-
-✅ **Design skill structure** with YAML frontmatter and markdown
-✅ **Write effective descriptions** with clear triggers
-✅ **Keep under 500 lines** for performance
-✅ **Use progressive disclosure** (overview → details)
-✅ **Make scannable** with headers and formatting
-✅ **Provide concrete examples**
-
-❌ **Do NOT exceed 500 lines** without splitting
-❌ **Do NOT write vague descriptions**
-
-## Skill Structure
+## Arguments
 
 ```
-.claude/skills/
-└── skill-name/
-    └── SKILL.md    # Required
+$ARGUMENTS
 ```
 
-## SKILL.md Template
+## Process
 
-```markdown
+### 0. No Arguments? Extract from Conversation
+
+If arguments are empty, the user wants to codify the task just performed:
+
+1. Analyze the conversation for the repeatable pattern
+2. Identify: trigger conditions, tools used, decision points, inputs/outputs
+3. Propose a skill name and description based on what was done
+4. Draft the skill capturing the workflow as a playbook
+5. Ask user to confirm or refine before writing
+
+### 1. Gather Context (when args provided)
+
+If unclear, ask:
+- Trigger? (user/auto/always)
+- Tools needed?
+- Fork context? (noisy output)
+- Side effects? (commits/deploys/APIs)
+
+### 2. Draft Skill
+
+Create `$(chezmoi source-path)/dot_claude/skills/<name>/SKILL.md`:
+
+```yaml
 ---
-name: skill-name
-description: [What it does] + [When to use] + [Key terms]
+name: <kebab-case>
+description: <When to use + what it does>
+argument-hint: <flexible, use brackets>
+disable-model-invocation: <true if user-only>
+context: <fork if output not needed>
+allowed-tools: <minimal safe subset>
 ---
 
-# Skill Title
+# <Title>
 
-Brief 1-2 sentence overview.
-
-## Your Role: [Role Title]
-
-You are a [role] that helps [goal]. You:
-
-✅ **Do this** - [specific action]
-✅ **Do that** - [specific action]
-
-❌ **Do NOT** - [out of scope]
-
-## Core Principles
-
-### 1. Principle Name
-**✅ GOOD:** [example]
-**❌ BAD:** [counter-example]
+## Arguments
+\`\`\`
+\$ARGUMENTS
+\`\`\`
 
 ## Instructions
+<Decision-tree playbook>
 
-### Phase: [First Step]
-[Action]
-[Action]
-
-### Phase: [Main Work]
-[Details...]
-
-## Patterns & Examples
-
-### Pattern 1
-[Code example with explanation]
-
-## Common Pitfalls
-**❌ Mistake:** [Error]
-**✅ Solution:** [Fix]
-
-## Checklist
-- [ ] [Check 1]
-- [ ] [Check 2]
+## Examples
+<Varied inputs and outcomes>
 ```
 
-## Description Best Practices
+After writing: `chezmoi diff` to preview, `chezmoi apply ~/.claude/skills/<name>` to deploy, `chezmoi status` to verify.
 
-**✅ GOOD:**
-```yaml
-description: Extract text from PDF files and convert to CSV. Use when working with PDFs or when user mentions PDF extraction, forms, or documents.
+### 3. Principles
+
+**Frontmatter:**
+- `description`: "Use when..." for auto-invoke
+- `context: fork`: noisy output that won't inform follow-up
+- `disable-model-invocation: true`: side-effect skills
+- `allowed-tools`: narrow scope—`Bash(git mob:*)` not `Bash(git:*)`
+
+**Arguments:**
+- Free-form: `[package | url...]` not `<package>`
+- Show varied inputs in examples
+- Parse flexibly, not strictly
+
+**Content:**
+- Decision trees, not linear scripts
+- <60 lines; externalize reference material
+- Refer to "arguments" after the Arguments section
+- `\${CLAUDE_SESSION_ID}` for session-specific context
+
+### 4. Review
+
+Ask reviewer agent to audit for verbosity, tool scope, edge cases, invocation clarity.
+
+## Quick Reference
+
+| Goal | Frontmatter |
+|------|-------------|
+| User-only trigger | `disable-model-invocation: true` |
+| Auto-invoke | `description` with "Use when..." |
+| Hidden from `/` menu | `user-invocable: false` |
+| Isolate context | `context: fork` |
+| Specific agent | `context: fork` + `agent: Explore` |
+
+| Safe | Unsafe |
+|------|--------|
+| `Bash(git status:*)` | `Bash(git:*)` |
+| `Bash(npm test:*)` | `Bash(npm:*)` |
+| `Read, Grep, Glob` | `Bash(rm:*)` |
+
+## Examples
+
 ```
-- States what it does
-- States when to use
-- Includes key terms
-
-**❌ BAD:**
-```yaml
-description: Document processing skill
+/write-skill                     → extract skill from current conversation
+/write-skill deploy              → guided creation for "deploy" skill
+/write-skill search with rg      → skill wrapping ripgrep
 ```
-- Too vague
-- No triggers
-- Missing terms
 
-## Progressive Disclosure
+## Anti-patterns
 
-**Level 1:** Headers for scanning
-**Level 2:** First paragraphs for overview
-**Level 3:** Full details for deep dive
-**Level 4:** Separate files for large content
-
-## Checklist
-
-- [ ] YAML frontmatter with name + description
-- [ ] Description: what + when + key terms
-- [ ] Role clearly defined
-- [ ] Core principles stated
-- [ ] Step-by-step instructions
-- [ ] Concrete examples
-- [ ] ✅/❌ patterns
-- [ ] Under 500 lines
-- [ ] Scannable structure
-
-## Sources
-- [Claude Skills Docs](https://code.claude.com/docs/en/skills)
-- [Best Practices](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/best-practices)
-- [Skills Repo](https://github.com/anthropics/skills)
+- Strict positional arguments
+- Broad tool access
+- Verbose prose over terse bullets
+- Missing `context: fork` for noisy ops
+- Hardcoded paths vs arguments

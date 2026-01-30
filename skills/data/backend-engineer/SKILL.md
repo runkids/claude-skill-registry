@@ -1,326 +1,91 @@
 ---
 name: backend-engineer
-description: Expert in Template Project backend architecture, service patterns, testing, and API development using Express.js, TypeScript, and Drizzle ORM. Use when implementing backend services, APIs, controllers, database queries, error handling, testing server code, or writing migrations.
+description: Build robust backend systems with modern technologies (Node.js, Python, Go, Rust), frameworks (NestJS, FastAPI, Django), databases (PostgreSQL, MongoDB, Redis), APIs (REST, GraphQL, gRPC), authentication (OAuth 2.1, JWT), testing strategies, security best practices (OWASP Top 10), performance optimization, scalability patterns (microservices, caching, sharding), DevOps practices (Docker, Kubernetes, CI/CD), and monitoring. Use when designing APIs, implementing authentication, optimizing database queries, setting up CI/CD pipelines, handling security vulnerabilities, building microservices, or developing production-ready backend systems.
+license: MIT
+version: 1.0.0
 ---
 
-# Template Backend Engineer
+# Backend Engineer
 
-Expert knowledge of backend patterns and architecture for the Template Project.
+Production-ready backend development with modern technologies, best practices, and proven patterns.
 
-## Core Architecture
+## When to Use
 
-### Technology Stack
+- Designing RESTful, GraphQL, or gRPC APIs
+- Building authentication/authorization systems
+- Optimizing database queries and schemas
+- Implementing caching and performance optimization
+- OWASP Top 10 security mitigation
+- Designing scalable microservices
+- Testing strategies (unit, integration, E2E)
+- CI/CD pipelines and deployment
+- Monitoring and debugging production systems
 
-- **Runtime**: Node.js with TypeScript
-- **Framework**: Express.js
-- **Database**: PostgreSQL with Drizzle ORM
-- **DI Container**: Awilix (Proxy injection mode)
-- **Testing**: Vitest with vitest-mock-extended
-- **Validation**: Zod schemas (CRITICAL: Use across ALL layers)
+## Technology Selection Guide
 
-### Service Layer Architecture
+**Languages:** Node.js/TypeScript (full-stack), Python (data/ML), Go (concurrency), Rust (performance)
+**Frameworks:** NestJS, FastAPI, Django, Express, Gin
+**Databases:** PostgreSQL (ACID), MongoDB (flexible schema), Redis (caching)
+**APIs:** REST (simple), GraphQL (flexible), gRPC (performance)
 
-```
-HTTP Request -> Routes -> Middleware -> Controller -> Service -> Repository -> Database
-                                            |           |           |
-                                       Validation  Business    Drizzle
-                                       & Mapping     Logic        ORM
-```
-
-## CRITICAL: Where to Look Before Making Changes
-
-### Pattern References (ALWAYS CHECK THESE FIRST)
-
-| Pattern               | Primary Reference                          | Example Implementation          |
-| --------------------- | ------------------------------------------ | ------------------------------- |
-| **New Service**       | `src/services/todo.service.ts`             | CRUD service with repository    |
-| **New Controller**    | `src/controllers/todo.controller.ts`       | Request validation, error handling |
-| **New Repository**    | `src/repositories/todo.repository.ts`      | Drizzle patterns, queries       |
-| **New Route**         | `src/routes/todo.routes.ts`                | DI scope resolution             |
-| **Unit Tests**        | `src/services/__tests__/*.test.ts`         | Mock setup, test structure      |
-| **API Schemas**       | `packages/schema/src/api/todos.ts`         | Zod validation schemas          |
+See: `references/technologies.md` for detailed comparisons
 
-## CRITICAL: Zod Validation Across All Layers
-
-### Why Zod Everywhere?
+## Reference Navigation
 
-Strong typing with Zod schemas ensures type safety between server and client, catching errors at compile/validation time rather than runtime. **EVERY data boundary must have Zod validation.**
-
-### Use Enums and Constants, Not Magic Strings
+**Core Technologies:**
+- `references/technologies.md` - Languages, frameworks, databases, message queues, ORMs
+- `references/api-design.md` - REST, GraphQL, gRPC patterns and best practices
 
-**Never use magic strings.** Always use enums or constants for:
-
-- **Status values**: Use Zod enums for type safety
-- **Configuration**: Store in constants files, not inline strings
-
-**Example - Zod Enums**:
-
-```typescript
-// GOOD: Zod enum for validation + TypeScript type
-const StatusSchema = z.enum(['pending', 'completed']);
-type Status = z.infer<typeof StatusSchema>;
+**Security & Authentication:**
+- `references/security.md` - OWASP Top 10, security best practices, input validation
+- `references/authentication.md` - OAuth 2.1, JWT, RBAC, MFA, session management
 
-// BAD: Plain strings
-type Status = string;
-```
-
-### Layer-by-Layer Validation
-
-#### 1. Controller Layer (Request Validation)
-
-```typescript
-// Define request/response schemas in @todos/schema/src/api/
-const CreateTodoRequestSchema = z.object({
-  title: z.string().min(1).max(200),
-  description: z.string().optional(),
-});
-
-// In controller method
-async createTodo(req: Request, res: Response) {
-  // Validate request body
-  const validatedData = CreateTodoRequestSchema.parse(req.body);
-
-  // Pass to service (type-safe)
-  const result = await this.todoService.create(validatedData);
-}
-```
-
-#### 2. Service Layer (Business Logic)
-
-```typescript
-// Service method
-async create(input: CreateTodoInput) {
-  // Business rules validation
-  return await this.repository.create(input);
-}
-```
-
-#### 3. Repository Layer (Database Operations)
-
-```typescript
-// Repository method with Drizzle
-async create(data: NewTodo) {
-  const [todo] = await this.db
-    .insert(todos)
-    .values(data)
-    .returning();
-  return todo;
-}
-```
-
-### Shared Schema Patterns
-
-#### Location Strategy
-
-```
-packages/
-├── schema/
-│   └── src/
-│       ├── api/                        # API Contracts (PRIMARY - ALWAYS USE)
-│       │   ├── todos.ts                # Todo request/response schemas
-│       │   ├── common.ts               # Shared API schemas (pagination, etc.)
-│       │   └── index.ts                # Re-exports all API schemas
-│       ├── schema.ts                   # Drizzle database schema
-│       └── types.ts                    # Database type exports
-└── server/
-    └── src/
-        ├── controllers/                # Import from @todos/schema/src/api
-        ├── services/                   # Import from @todos/schema/src/api
-        └── repositories/               # Drizzle ORM operations
-```
-
-**CRITICAL**:
-
-- All API request/response contracts MUST be defined in `@todos/schema/src/api/`
-- Never create validation schemas in `server/src/` - always use `@todos/schema/src/api/`
-- Controllers import and use these schemas directly
-- This ensures type safety between frontend and backend
-
-### Zod with Drizzle ORM
-
-```typescript
-// Generate Zod schemas from Drizzle tables
-import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
-import { todos } from '@todos/schema';
-
-// Auto-generate schemas from Drizzle table definitions
-export const insertTodoSchema = createInsertSchema(todos);
-export const selectTodoSchema = createSelectSchema(todos);
-
-// Extend with custom validations
-export const createTodoSchema = insertTodoSchema
-  .extend({
-    title: z.string().min(1).max(200),
-  })
-  .omit({ id: true, createdAt: true });
-```
-
-## Unit Testing Patterns
-
-### Test Structure (TDD Approach)
-
-```typescript
-// Standard test file structure
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { mock } from 'vitest-mock-extended';
-
-describe('ServiceName', () => {
-  let service: ServiceName;
-  let mockRepo: MockType<Repository>;
-
-  beforeEach(() => {
-    vi.clearAllMocks();
-    mockRepo = mock<Repository>();
-    service = new ServiceName(mockRepo);
-  });
-
-  describe('methodName', () => {
-    it('should handle success case', async () => {
-      // Arrange
-      const input = { /* test data */ };
-      const expected = { /* expected result */ };
-      mockRepo.findById.mockResolvedValue(expected);
-
-      // Act
-      const result = await service.method(input);
-
-      // Assert
-      expect(result).toEqual(expected);
-      expect(mockRepo.findById).toHaveBeenCalledWith(input.id);
-    });
-
-    it('should handle error case', async () => {
-      // Test error scenarios
-    });
-  });
-});
-```
-
-### Common Mock Patterns
-
-```typescript
-// Mock with specific return
-mockService.method.mockResolvedValue(result);
-
-// Mock with implementation
-mockService.method.mockImplementation(async (id) => {
-  return id === 'valid' ? data : null;
-});
-
-// Reset mocks
-mockReset(mockService); // Clear all mock data
-mockClear(mockService); // Clear call history only
-```
-
-## Database & Schema
-
-### Schema Management
-
-- **Schema Location**: `packages/schema/src/schema.ts`
-- **Migrations**: `packages/schema/migrations/`
-- **Commands**:
-  ```bash
-  cd packages/schema
-  pnpm db:generate --name migration_name  # Generate migration
-  pnpm db:migrate                         # Run migrations
-  pnpm db:studio                          # Open Drizzle Studio
-  ```
-
-### Drizzle ORM Patterns
-
-```typescript
-// Repository pattern example
-class TodoRepository {
-  constructor(private db: NodePgDatabase) {}
-
-  async findById(id: string) {
-    return this.db.query.todos.findFirst({
-      where: eq(todos.id, id),
-    });
-  }
-
-  async findAll() {
-    return this.db
-      .select()
-      .from(todos)
-      .orderBy(desc(todos.createdAt));
-  }
-}
-```
-
-## Error Handling
-
-### Standard Error Response
-
-```typescript
-// In controller - return standardized response
-return res.status(400).json({
-  success: false,
-  error: {
-    code: 'VALIDATION_ERROR',
-    message: 'Validation failed',
-    details: error.issues,
-  },
-});
-
-// Success response
-return res.status(200).json({
-  success: true,
-  data: result,
-});
-```
-
-## Development Workflow
-
-### Before Making Changes
-
-1. **Check Pattern References** (table above)
-2. **Read Existing Implementation** of similar feature
-3. **Write Tests First** (TDD approach)
-
-### Common Commands
-
-```bash
-# From packages/server
-pnpm test:unit              # Run unit tests only (fast)
-pnpm test                   # All tests including integration
-pnpm dev                    # Start dev server
-
-# Run specific test file (fastest for TDD)
-pnpm vitest run --no-coverage src/services/__tests__/todo.service.test.ts
-
-# From project root (Nx commands)
-pnpm test:changed           # Test only changed packages
-pnpm test:changed:all       # Include e2e for changed packages
-```
-
-## Quick Reference
-
-### DI Container Tokens
-
-```typescript
-// Infrastructure
-CONTAINER_TOKENS.DATABASE;
-CONTAINER_TOKENS.LOGGER;
-
-// Services
-CONTAINER_TOKENS.TODO_SERVICE;
-
-// Controllers
-CONTAINER_TOKENS.TODO_CONTROLLER;
-```
-
-### Test Coverage Requirements
-
-- **Target**: 80% coverage minimum
-- **Check Coverage**: `pnpm test:coverage`
-
-### Performance Considerations
-
-- **Query Optimization**: Use Drizzle's query builder over raw SQL
-- **Pagination**: Always paginate lists (default 20, max 100)
-- **N+1 Prevention**: Use joins or batch queries
-
----
-
-**Remember**: Always check existing patterns before implementing new ones. This maintains consistency and reduces technical debt.
+**Performance & Architecture:**
+- `references/performance.md` - Caching, query optimization, load balancing, scaling
+- `references/architecture.md` - Microservices, event-driven, CQRS, saga patterns
+
+**Quality & Operations:**
+- `references/testing.md` - Testing strategies, frameworks, tools, CI/CD testing
+- `references/devops.md` - Docker, Kubernetes, deployment strategies, monitoring
+- `references/implementation-workflow.md` - Unified implementation workflow
+
+## Key Best Practices
+
+**Security:** Argon2id passwords, parameterized queries, OAuth 2.1 + PKCE, rate limiting, security headers
+
+**Performance:** Redis caching (90% DB load reduction), database indexing, CDN, connection pooling
+
+**Testing:** 70-20-10 pyramid (unit-integration-E2E), contract testing for microservices
+
+**DevOps:** Blue-green/canary deployments, feature flags, Kubernetes, Prometheus/Grafana monitoring, OpenTelemetry tracing
+
+## Quick Decision Matrix
+
+| Need | Choose |
+|------|--------|
+| Fast development | Node.js + NestJS |
+| Data/ML integration | Python + FastAPI |
+| High concurrency | Go + Gin |
+| Max performance | Rust + Axum |
+| ACID transactions | PostgreSQL |
+| Flexible schema | MongoDB |
+| Caching | Redis |
+| Internal services | gRPC |
+| Public APIs | GraphQL/REST |
+| Real-time events | Kafka |
+
+## Implementation Checklist
+
+**API:** Choose style → Design schema → Validate input → Add auth → Rate limiting → Documentation → Error handling
+
+**Database:** Choose DB → Design schema → Create indexes → Connection pooling → Migration strategy → Backup/restore → Test performance
+
+**Security:** OWASP Top 10 → Parameterized queries → OAuth 2.1 + JWT → Security headers → Rate limiting → Input validation → Argon2id passwords
+
+**Testing:** Unit 70% → Integration 20% → E2E 10% → Load tests → Migration tests → Contract tests (microservices)
+
+**Deployment:** Docker → CI/CD → Blue-green/canary → Feature flags → Monitoring → Logging → Health checks
+
+## Implementation Workflow
+
+When implementing backend code, follow unified implementation workflow patterns. See `references/implementation-workflow.md` for details.

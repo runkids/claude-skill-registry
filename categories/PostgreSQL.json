@@ -1,19 +1,19 @@
 {
   "category": "PostgreSQL",
   "count": 1,
-  "updated_at": "2026-01-29T16:04:50.057861Z",
+  "updated_at": "2026-01-30T04:53:31.617269Z",
   "skills": [
     {
       "name": "SKILL.md",
-      "description": "Design a PostgreSQL-specific schema. Covers best-practices, data types, indexing, constraints, performance patterns, and advanced features",
-      "repo": "GaitanS/AI-Mancare",
+      "description": "PostgreSQL database operations using PgQuery tool for DDL execution, schema management, and query operations",
+      "repo": "lawless-m/claude-skills",
       "path": "PostgreSQL",
       "branch": "main",
       "category": "PostgreSQL",
       "tags": [],
       "stars": 0,
-      "install": "GaitanS/AI-Mancare",
-      "source": "github.com/GaitanS/AI-Mancare"
+      "install": "lawless-m/claude-skills",
+      "source": "github.com/lawless-m/claude-skills"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "name": "fix-ci",
-  "repo": "llama-farm/llamafarm",
-  "path": ".claude/skills/fix-ci/SKILL.md",
-  "source": "github.com/llama-farm/llamafarm",
-  "downloaded_at": "2026-01-29T03:03:51.644469Z"
+  "repo": "phrazzld/claude-config",
+  "path": "skills/fix-ci/SKILL.md",
+  "source": "github.com/phrazzld/claude-config",
+  "downloaded_at": "2026-01-30T04:28:42.855721Z"
 }

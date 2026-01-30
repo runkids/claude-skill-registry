@@ -1,7 +1,7 @@
 {
   "name": "moai-baas-clerk-ext",
-  "repo": "AJBcoding/claude-skill-eval",
-  "path": "skills/moai-baas-clerk-ext/SKILL.md",
-  "source": "github.com/AJBcoding/claude-skill-eval",
-  "downloaded_at": "2026-01-29T04:39:16.229648Z"
+  "repo": "jg-chalk-io/Nora-LiveKit",
+  "path": ".claude/skills/moai-baas-clerk-ext/SKILL.md",
+  "source": "github.com/jg-chalk-io/Nora-LiveKit",
+  "downloaded_at": "2026-01-30T03:42:17.170310Z"
 }

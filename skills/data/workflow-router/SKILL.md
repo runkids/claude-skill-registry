@@ -76,12 +76,12 @@ Route to the appropriate specialist based on goal:
 
 | Goal | Primary Agent | Alias | Description |
 |------|---------------|-------|-------------|
-| **Research** | oracle | Librarian | Comprehensive research using MCP tools (nia, perplexity, repoprompt, firecrawl) |
+| **Research** | planner | Librarian | Comprehensive research using MCP tools (nia, perplexity, repoprompt, firecrawl) |
 | **Plan** | plan-agent | Oracle | Create implementation plans with phased approach |
-| **Build** | kraken | Kraken | Implementation agent - handles coding tasks via Task tool |
+| **Build** | implementer | Kraken | Implementation agent - handles coding tasks via Task tool |
 | **Fix** | debug-agent | Sentinel | Investigate issues using codebase exploration and logs |
 
-**Fix workflow special case:** For Fix goals, first spawn debug-agent (Sentinel) to investigate. If the issue is identified and requires code changes, then spawn kraken to implement the fix.
+**Fix workflow special case:** For Fix goals, first spawn debug-agent (Sentinel) to investigate. If the issue is identified and requires code changes, then spawn implementer to implement the fix.
 
 ### Step 5: Confirmation
 
@@ -122,7 +122,7 @@ Wait for user confirmation before spawning agents. If user selects "Adjust setti
 ### Research (Librarian)
 ```
 Task(
-  subagent_type="oracle",
+  subagent_type="planner",
   prompt="""
   Research: [topic]
 
@@ -157,7 +157,7 @@ This identifies risks and blocks if HIGH severity issues found. User can accept,
 **After premortem passes:**
 ```
 Task(
-  subagent_type="kraken",
+  subagent_type="implementer",
   prompt="""
   Implement: [task]
 
@@ -180,9 +180,9 @@ Task(
   """
 )
 
-# Step 2: If fix identified, spawn kraken
+# Step 2: If fix identified, spawn implementer
 Task(
-  subagent_type="kraken",
+  subagent_type="implementer",
   prompt="""
   Fix: [issue based on Sentinel's diagnosis]
   """
@@ -194,5 +194,5 @@ Task(
 - **Infer when possible:** If the user says "this test is failing", that's clearly a Fix goal
 - **Be adaptive:** Start with Balanced allocation; scale up if task proves complex
 - **Chain agents:** For complex tasks, Research -> Plan -> Premortem -> Build is the recommended flow
-- **Run premortem:** Before Build, always run `/premortem deep` on the plan to catch risks early
+- **Run premortem:** Before Build, always run `/maestro:premortem deep` on the plan to catch risks early
 - **Preserve context:** Use handoffs between agents to maintain continuity

@@ -1,11 +1,7 @@
 {
   "name": "django-orm-patterns",
   "repo": "TheBushidoCollective/han",
-  "category": "data",
-  "description": "Use when Django ORM patterns with models, queries, and relationships. Use when building database-driven Django applications.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:02.614859Z",
-  "dir_name": "django-orm-patterns",
-  "github_path": "jutsu/jutsu-django/skills/django-orm-patterns",
-  "github_branch": "main"
+  "path": "jutsu/jutsu-django/skills/django-orm-patterns/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-30T03:34:00.385047Z"
 }

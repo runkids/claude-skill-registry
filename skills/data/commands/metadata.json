@@ -1,7 +1,7 @@
 {
   "name": "commands",
-  "repo": "alfredolopez80/multi-agent-ralph-loop",
-  "path": ".claude/commands/skill.md",
-  "source": "github.com/alfredolopez80/multi-agent-ralph-loop",
-  "downloaded_at": "2026-01-29T04:40:05.739269Z"
+  "repo": "fcakyon/claude-codex-settings",
+  "path": "plugins/claude-tools/commands/load-frontend-skill.md",
+  "source": "github.com/fcakyon/claude-codex-settings",
+  "downloaded_at": "2026-01-30T04:42:12.326110Z"
 }

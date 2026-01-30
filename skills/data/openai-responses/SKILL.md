@@ -1,547 +1,471 @@
 ---
 name: openai-responses
-description: |
-  Build agentic AI with OpenAI Responses API - stateful conversations with preserved reasoning, built-in tools (Code Interpreter, File Search, Web Search), and MCP integration. Prevents 11 documented errors.
+description: OpenAI Responses API for stateful agentic applications with reasoning preservation. Use for MCP integration, built-in tools, background processing, or migrating from Chat Completions.
 
-  Use when: building agents with persistent reasoning, using server-side tools, or migrating from Chat Completions/Assistants for better multi-turn performance.
-user-invocable: true
+  Keywords: responses api, openai responses, stateful openai, openai mcp, code interpreter openai, file search openai, web search openai, image generation openai, reasoning preservation, agentic workflows, conversation state, background mode, chat completions migration, gpt-5, polymorphic outputs
+license: MIT
+metadata:
+  version: "2.0.0"
+  last_verified: "2025-11-18"
+  api_launch: "March 2025"
+  sdk_version: "openai@5.19.1+"
+  templates_included: 10
+  references_included: 8
 ---
 
 # OpenAI Responses API
 
-**Status**: Production Ready
-**Last Updated**: 2026-01-21
-**API Launch**: March 2025
-**Dependencies**: openai@6.16.0 (Node.js) or fetch API (Cloudflare Workers)
+**Status**: Production Ready | **API Launch**: March 2025 | **SDK**: openai@5.19.1+
+
+---
+
+## Quick Start (5 Minutes)
+
+### Node.js
+
+```typescript
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const response = await openai.responses.create({
+  model: 'gpt-5',
+  input: 'What are the 5 Ds of dodgeball?',
+});
+
+console.log(response.output_text);
+```
+
+### Cloudflare Workers
+
+```typescript
+const response = await fetch('https://api.openai.com/v1/responses', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${env.OPENAI_API_KEY}`,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    model: 'gpt-5',
+    input: 'Hello, world!',
+  }),
+});
+
+const data = await response.json();
+console.log(data.output_text);
+```
+
+**Load `references/setup-guide.md` for complete setup with stateful conversations and built-in tools.**
 
 ---
 
 ## What Is the Responses API?
 
-OpenAI's unified interface for agentic applications, launched **March 2025**. Provides **stateful conversations** with **preserved reasoning state** across turns.
+The Responses API (`/v1/responses`) is OpenAI's unified interface for agentic applications launched March 2025. **Key Innovation**: Preserved reasoning state across turns (unlike Chat Completions which discards it), improving multi-turn performance by ~5% on TAUBench.
 
-**Key Innovation:** Unlike Chat Completions (reasoning discarded between turns), Responses **preserves the model's reasoning notebook**, improving performance by **5% on TAUBench** and enabling better multi-turn interactions.
+**Why Use Responses Over Chat Completions?** Automatic state management, preserved reasoning, server-side tools, 40-80% better cache utilization, and built-in MCP support.
 
-**vs Chat Completions:**
-
-| Feature | Chat Completions | Responses API |
-|---------|-----------------|---------------|
-| State | Manual history tracking | Automatic (conversation IDs) |
-| Reasoning | Dropped between turns | Preserved across turns (+5% TAUBench) |
-| Tools | Client-side round trips | Server-side hosted |
-| Output | Single message | Polymorphic (8 types) |
-| Cache | Baseline | **40-80% better utilization** |
-| MCP | Manual | Built-in |
+**Load `references/responses-vs-chat-completions.md` for complete comparison and decision guide.**
 
 ---
 
-## Quick Start
+## Top 3 Critical Rules
 
-```bash
-npm install openai@6.16.0
-```
+### Always Do ✅
+
+1. **Store conversation_id** - Preserve state between turns (most critical)
+2. **Use environment variables** for API keys (NEVER hardcode)
+3. **Handle polymorphic outputs** - Check `output.type` (message, reasoning, function_call)
+
+### Never Do ❌
+
+1. **Never ignore conversation_id** - State will be lost
+2. **Never assume single output type** - Always check `output.type`
+3. **Never mix Chat Completions and Responses** in same conversation
+
+**Load `references/setup-guide.md` for complete rules and best practices.**
+
+---
+
+## Top 5 Use Cases
+
+### Use Case 1: Stateful Conversation
 
 ```typescript
-import OpenAI from 'openai';
-
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-const response = await openai.responses.create({
+// First turn
+const response1 = await openai.responses.create({
   model: 'gpt-5',
-  input: 'What are the 5 Ds of dodgeball?',
+  input: 'My favorite color is blue.',
 });
 
-console.log(response.output_text);
+const conversationId = response1.conversation_id;
+
+// Second turn - model remembers
+const response2 = await openai.responses.create({
+  model: 'gpt-5',
+  conversation_id: conversationId,
+  input: 'What is my favorite color?',
+});
+// Output: "Your favorite color is blue."
 ```
 
-**Key differences from Chat Completions:**
-- Endpoint: `/v1/responses` (not `/v1/chat/completions`)
-- Parameter: `input` (not `messages`)
-- Role: `developer` (not `system`)
-- Output: `response.output_text` (not `choices[0].message.content`)
+**Load**: `references/stateful-conversations.md` + `templates/stateful-conversation.ts`
 
 ---
 
-## When to Use Responses vs Chat Completions
+### Use Case 2: Web Search Agent
 
-**Use Responses:**
-- Agentic applications (reasoning + actions)
-- Multi-turn conversations (preserved reasoning = +5% TAUBench)
-- Built-in tools (Code Interpreter, File Search, Web Search, MCP)
-- Background processing (60s standard, 10min extended timeout)
+```typescript
+const response = await openai.responses.create({
+  model: 'gpt-5',
+  input: 'Search the web for latest AI news.',
+  tools: {
+    web_search: { enabled: true },
+  },
+});
+```
 
-**Use Chat Completions:**
-- Simple one-off generation
-- Fully stateless interactions
-- Legacy integrations
+**Load**: `references/built-in-tools-guide.md` + `templates/web-search.ts`
+
+---
+
+### Use Case 3: Code Interpreter
+
+```typescript
+const response = await openai.responses.create({
+  model: 'gpt-5',
+  input: 'Calculate the sum of squares from 1 to 100.',
+  tools: {
+    code_interpreter: { enabled: true },
+  },
+});
+```
+
+**Load**: `references/built-in-tools-guide.md` + `templates/code-interpreter.ts`
+
+---
+
+### Use Case 4: File Search (RAG)
+
+```typescript
+// Upload file
+const file = await openai.files.create({
+  file: fs.createReadStream('document.pdf'),
+  purpose: 'user_data',
+});
+
+// Search file
+const response = await openai.responses.create({
+  model: 'gpt-5',
+  input: 'Summarize key points from the uploaded document.',
+  tools: {
+    file_search: {
+      enabled: true,
+      file_ids: [file.id],
+    },
+  },
+});
+```
+
+**Load**: `references/built-in-tools-guide.md` + `templates/file-search.ts`
+
+---
+
+### Use Case 5: MCP Server Integration
+
+```typescript
+const response = await openai.responses.create({
+  model: 'gpt-5',
+  input: 'Get weather for San Francisco.',
+  tools: {
+    mcp_servers: [
+      {
+        url: 'https://weather-mcp.example.com',
+        tool_choice: 'auto',
+      },
+    ],
+  },
+});
+```
+
+**Load**: `references/mcp-integration-guide.md` + `templates/mcp-integration.ts`
+
+---
+
+## Built-in Tools
+
+All tools run server-side: **Code Interpreter** (Python execution), **File Search** (RAG), **Web Search** (real-time), **Image Generation** (DALL-E).
+
+Enable explicitly:
+
+```typescript
+tools: {
+  code_interpreter: { enabled: true },
+  file_search: { enabled: true, file_ids: ['file-123'] },
+  web_search: { enabled: true },
+  image_generation: { enabled: true },
+}
+```
+
+**Load `references/built-in-tools-guide.md` for complete guide with examples and configuration options.**
 
 ---
 
 ## Stateful Conversations
 
-**Automatic State Management** using conversation IDs:
+Automatic state management with conversation IDs eliminates manual message tracking, preserves reasoning, and improves cache utilization by 40-80%.
 
 ```typescript
 // Create conversation
-const conv = await openai.conversations.create({
-  metadata: { user_id: 'user_123' },
-});
-
-// First turn
 const response1 = await openai.responses.create({
   model: 'gpt-5',
-  conversation: conv.id,
-  input: 'What are the 5 Ds of dodgeball?',
+  input: 'Remember: my name is Alice.',
 });
 
-// Second turn - model remembers context + reasoning
+// Continue conversation
 const response2 = await openai.responses.create({
   model: 'gpt-5',
-  conversation: conv.id,
-  input: 'Tell me more about the first one',
+  conversation_id: response1.conversation_id,
+  input: 'What is my name?',
 });
 ```
 
-**Benefits:** No manual history tracking, reasoning preserved, 40-80% better cache utilization
-
-**Conversation Limits:** 90-day expiration
-
----
-
-## Built-in Tools (Server-Side)
-
-**Server-side hosted tools** eliminate backend round trips:
-
-| Tool | Purpose | Notes |
-|------|---------|-------|
-| `code_interpreter` | Execute Python code | Sandboxed, 30s timeout (use `background: true` for longer) |
-| `file_search` | RAG without vector stores | Max 512MB per file, supports PDF/Word/Markdown/HTML/code |
-| `web_search` | Real-time web information | Automatic source citations |
-| `image_generation` | DALL-E integration | DALL-E 3 default |
-| `mcp` | Connect external tools | OAuth supported, tokens NOT stored |
-
-**Usage:**
-```typescript
-const response = await openai.responses.create({
-  model: 'gpt-5',
-  input: 'Calculate mean of: 10, 20, 30, 40, 50',
-  tools: [{ type: 'code_interpreter' }],
-});
-```
-
-### Web Search TypeScript Note
-
-**TypeScript Limitation**: The `web_search` tool's `external_web_access` option is missing from SDK types (as of v6.16.0).
-
-**Workaround**:
-```typescript
-const response = await openai.responses.create({
-  model: 'gpt-5',
-  input: 'Search for recent news',
-  tools: [{
-    type: 'web_search',
-    external_web_access: true,
-  } as any],  // ✅ Type assertion to suppress error
-});
-```
-
-**Source**: [GitHub Issue #1716](https://github.com/openai/openai-node/issues/1716)
-
----
-
-## MCP Server Integration
-
-Built-in support for **Model Context Protocol (MCP)** servers to connect external tools (Stripe, databases, custom APIs).
-
-### User Approval Requirement
-
-**By default, explicit user approval is required** before any data is shared with a remote MCP server (security feature).
-
-**Handling Approval**:
-```typescript
-const response = await openai.responses.create({
-  model: 'gpt-5',
-  input: 'Get my Stripe balance',
-  tools: [{
-    type: 'mcp',
-    server_label: 'stripe',
-    server_url: 'https://mcp.stripe.com',
-    authorization: process.env.STRIPE_TOKEN,
-  }],
-});
-
-if (response.status === 'requires_approval') {
-  // Show user: "This action requires sharing data with Stripe. Approve?"
-  // After user approves, retry with approval token
-}
-```
-
-**Alternative**: Pre-approve MCP servers in OpenAI dashboard (users configure trusted servers via settings)
-
-**Source**: [Official MCP Guide](https://platform.openai.com/docs/guides/tools-connectors-mcp)
-
-### Basic MCP Usage
-
-```typescript
-const response = await openai.responses.create({
-  model: 'gpt-5',
-  input: 'Roll 2d6 dice',
-  tools: [{
-    type: 'mcp',
-    server_label: 'dice',
-    server_url: 'https://example.com/mcp',
-    authorization: process.env.TOKEN, // ⚠️ NOT stored, required each request
-  }],
-});
-```
-
-**MCP Output Types:**
-- `mcp_list_tools` - Tools discovered on server
-- `mcp_call` - Tool invocation + result
-- `message` - Final response
-
----
-
-## Reasoning Preservation
-
-**Key Innovation:** Model's internal reasoning state survives across turns (unlike Chat Completions which discards it).
-
-**Visual Analogy:**
-- Chat Completions: Model tears out scratchpad page before responding
-- Responses API: Scratchpad stays open for next turn
-
-**Performance:** +5% on TAUBench (GPT-5) purely from preserved reasoning
-
-**Reasoning Summaries** (free):
-```typescript
-response.output.forEach(item => {
-  if (item.type === 'reasoning') console.log(item.summary[0].text);
-  if (item.type === 'message') console.log(item.content[0].text);
-});
-```
-
-### Important: Reasoning Traces Privacy
-
-**What You Get**: Reasoning summaries (not full internal traces)
-**What OpenAI Keeps**: Full chain-of-thought reasoning (proprietary, for security/privacy)
-
-For GPT-5-Thinking models:
-- OpenAI preserves reasoning **internally** in their backend
-- This preserved reasoning improves multi-turn performance (+5% TAUBench)
-- But developers only receive **summaries**, not the actual chain-of-thought
-- Full reasoning traces are not exposed (OpenAI's IP protection)
-
-**Source**: [Sean Goedecke Analysis](https://www.seangoedecke.com/responses-api/)
-
----
-
-## Background Mode
-
-For long-running tasks, use `background: true`:
-
-```typescript
-const response = await openai.responses.create({
-  model: 'gpt-5',
-  input: 'Analyze 500-page document',
-  background: true,
-  tools: [{ type: 'file_search', file_ids: [fileId] }],
-});
-
-// Poll for completion (check every 5s)
-const result = await openai.responses.retrieve(response.id);
-if (result.status === 'completed') console.log(result.output_text);
-```
-
-**Timeout Limits:**
-- Standard: 60 seconds
-- Background: 10 minutes
-
-### Performance Considerations
-
-**Time-to-First-Token (TTFT) Latency:**
-Background mode currently has higher TTFT compared to synchronous responses. OpenAI is working to reduce this gap.
-
-**Recommendation:**
-- For user-facing real-time responses, use sync mode (lower latency)
-- For long-running async tasks, use background mode (latency acceptable)
-
-**Source**: [OpenAI Background Mode Docs](https://platform.openai.com/docs/guides/background)
-
----
-
-## Data Retention and Privacy
-
-**Default Retention**: 30 days when `store: true` (default)
-**Zero Data Retention (ZDR)**: Organizations with ZDR automatically enforce `store: false`
-**Background Mode**: NOT ZDR compatible (stores data ~10 minutes for polling)
-
-**Timeline**:
-- September 26, 2025: OpenAI court-ordered retention ended
-- Current: 30-day default retention with `store: true`
-
-**Control Storage**:
-```typescript
-// Disable storage (no retention)
-const response = await openai.responses.create({
-  model: 'gpt-5',
-  input: 'Hello!',
-  store: false,  // ✅ No retention
-});
-
-// ZDR organizations: store always treated as false
-const response = await openai.responses.create({
-  model: 'gpt-5',
-  input: 'Hello!',
-  store: true,  // ⚠️ Ignored by OpenAI for ZDR orgs, treated as false
-});
-```
-
-**ZDR Compliance**:
-- Avoid background mode (requires temporary storage)
-- Explicitly set `store: false` for clarity
-- Note: 60s timeout applies in sync mode
-
-**Source**: [OpenAI Data Controls](https://platform.openai.com/docs/guides/your-data)
-
----
-
-## Polymorphic Outputs
-
-Returns **8 output types** instead of single message:
-
-| Type | Example |
-|------|---------|
-| `message` | Final answer, explanation |
-| `reasoning` | Step-by-step thought process (free!) |
-| `code_interpreter_call` | Python code + results |
-| `mcp_call` | Tool name, args, output |
-| `mcp_list_tools` | Tool definitions from MCP server |
-| `file_search_call` | Matched chunks, citations |
-| `web_search_call` | URLs, snippets |
-| `image_generation_call` | Image URL |
-
-**Processing:**
-```typescript
-response.output.forEach(item => {
-  if (item.type === 'reasoning') console.log(item.summary[0].text);
-  if (item.type === 'web_search_call') console.log(item.results);
-  if (item.type === 'message') console.log(item.content[0].text);
-});
-
-// Or use helper for text-only
-console.log(response.output_text);
-```
+**Load `references/stateful-conversations.md` for persistence patterns (Node.js/Redis/KV) and lifecycle management.**
 
 ---
 
 ## Migration from Chat Completions
 
-**Breaking Changes:**
+Quick changes: `messages` → `input`, `system` role → `developer`, `choices[0].message.content` → `output_text`, `/v1/chat/completions` → `/v1/responses`.
 
-| Feature | Chat Completions | Responses API |
-|---------|-----------------|---------------|
-| Endpoint | `/v1/chat/completions` | `/v1/responses` |
-| Parameter | `messages` | `input` |
-| Role | `system` | `developer` |
-| Output | `choices[0].message.content` | `output_text` |
-| State | Manual array | Automatic (conversation ID) |
-| Streaming | `data: {"choices":[...]}` | SSE with 8 item types |
+**Before (Chat Completions):**
 
-**Example:**
 ```typescript
-// Before
+const messages = [{ role: 'user', content: 'Hello' }];
 const response = await openai.chat.completions.create({
-  model: 'gpt-5',
-  messages: [
-    { role: 'system', content: 'You are a helpful assistant.' },
-    { role: 'user', content: 'Hello!' },
-  ],
+  model: 'gpt-4o',
+  messages: messages,
 });
-console.log(response.choices[0].message.content);
+messages.push(response.choices[0].message); // Manual history
+```
 
-// After
+**After (Responses API):**
+
+```typescript
 const response = await openai.responses.create({
   model: 'gpt-5',
-  input: [
-    { role: 'developer', content: 'You are a helpful assistant.' },
-    { role: 'user', content: 'Hello!' },
-  ],
+  input: 'Hello',
 });
+
+const response2 = await openai.responses.create({
+  model: 'gpt-5',
+  conversation_id: response.conversation_id, // Automatic state
+  input: 'Follow-up question',
+});
+```
+
+**Load `references/migration-guide.md` for complete migration checklist with tool migration patterns.**
+
+---
+
+## Polymorphic Outputs
+
+Responses can return multiple output types (message, reasoning, function_call, image). Handle each type or use `output_text` convenience property.
+
+```typescript
+for (const output of response.output) {
+  if (output.type === 'message') {
+    console.log('Message:', output.content);
+  } else if (output.type === 'reasoning') {
+    console.log('Reasoning:', output.summary);
+  } else if (output.type === 'function_call') {
+    console.log('Function:', output.name, output.arguments);
+  }
+}
+
+// Or use convenience property
 console.log(response.output_text);
 ```
 
+**Load `references/reasoning-preservation.md` for reasoning output details and debugging patterns.**
+
 ---
 
-## Migration from Assistants API
+## Background Mode
 
-**CRITICAL: Assistants API Sunset Timeline**
+For long-running tasks (>60 seconds), use `background: true` to run asynchronously and poll for completion.
 
-- **August 26, 2025**: Assistants API officially deprecated
-- **2025-2026**: OpenAI providing migration utilities
-- **August 26, 2026**: Assistants API sunset (stops working)
-
-**Migrate before August 26, 2026** to avoid breaking changes.
-
-**Source**: [Assistants API Sunset Announcement](https://community.openai.com/t/assistants-api-beta-deprecation-august-26-2026-sunset/1354666)
-
-**Key Breaking Changes:**
-
-| Assistants API | Responses API |
-|----------------|---------------|
-| Assistants (created via API) | Prompts (created in dashboard) |
-| Threads | Conversations (store items, not just messages) |
-| Runs (server-side lifecycle) | Responses (stateless calls) |
-| Run-Steps | Items (polymorphic outputs) |
-
-**Migration Example:**
 ```typescript
-// Before (Assistants API - deprecated)
-const assistant = await openai.beta.assistants.create({
-  model: 'gpt-4',
-  instructions: 'You are helpful.',
-});
-
-const thread = await openai.beta.threads.create();
-
-const run = await openai.beta.threads.runs.create(thread.id, {
-  assistant_id: assistant.id,
-});
-
-// After (Responses API - current)
-const conversation = await openai.conversations.create({
-  metadata: { purpose: 'customer_support' },
-});
-
 const response = await openai.responses.create({
   model: 'gpt-5',
-  conversation: conversation.id,
-  input: [
-    { role: 'developer', content: 'You are helpful.' },
-    { role: 'user', content: 'Hello!' },
+  input: 'Analyze this 50-page document.',
+  background: true,
+});
+
+// Poll for completion
+const completed = await openai.responses.retrieve(response.id);
+```
+
+**Load `templates/background-mode.ts` for complete polling pattern with exponential backoff.**
+
+---
+
+## Top 3 Errors & Solutions
+
+### Error 1: Session State Not Persisting
+
+**Symptom**: Model doesn't remember previous turns.
+
+**Cause**: Not using conversation IDs or creating new conversation each time.
+
+**Solution**:
+
+```typescript
+// ✅ GOOD: Reuse conversation ID
+const conv = await openai.conversations.create();
+const response1 = await openai.responses.create({
+  model: 'gpt-5',
+  conversation: conv.id, // Same ID
+  input: 'Question 1',
+});
+const response2 = await openai.responses.create({
+  model: 'gpt-5',
+  conversation: conv.id, // Same ID - remembers previous
+  input: 'Question 2',
+});
+```
+
+---
+
+### Error 2: MCP Server Connection Failed
+
+**Cause**: Invalid server URL, missing/expired authorization token.
+
+**Solution**:
+
+```typescript
+const response = await openai.responses.create({
+  model: 'gpt-5',
+  input: 'Test MCP',
+  tools: [
+    {
+      type: 'mcp',
+      server_url: 'https://mcp.stripe.com', // ✅ Full HTTPS URL
+      authorization: process.env.STRIPE_OAUTH_TOKEN, // ✅ Valid token
+    },
   ],
 });
 ```
 
-**Migration Guide**: [Official Assistants Migration Docs](https://platform.openai.com/docs/guides/migrate-to-responses)
+**Prevention**: Use environment variables for secrets, implement token refresh logic, add retry with exponential backoff.
 
 ---
 
-## Known Issues Prevention
+### Error 3: Code Interpreter Timeout
 
-This skill prevents **11** documented errors:
+**Cause**: Code runs longer than 30 seconds (standard mode limit).
 
-**1. Session State Not Persisting**
-- Cause: Not using conversation IDs or using different IDs per turn
-- Fix: Create conversation once (`const conv = await openai.conversations.create()`), reuse `conv.id` for all turns
-
-**2. MCP Server Connection Failed** (`mcp_connection_error`)
-- Causes: Invalid URL, missing/expired auth token, server down
-- Fix: Verify URL is correct, test manually with `fetch()`, check token expiration
-
-**3. Code Interpreter Timeout** (`code_interpreter_timeout`)
-- Cause: Code runs longer than 30 seconds
-- Fix: Use `background: true` for extended timeout (up to 10 min)
-
-**4. Image Generation Rate Limit** (`rate_limit_error`)
-- Cause: Too many DALL-E requests
-- Fix: Implement exponential backoff retry (1s, 2s, 3s delays)
-
-**5. File Search Relevance Issues**
-- Cause: Vague queries return irrelevant results
-- Fix: Use specific queries ("pricing in Q4 2024" not "find pricing"), filter by `chunk.score > 0.7`
-
-**6. Cost Tracking Confusion**
-- Cause: Responses bills for input + output + tools + stored conversations (vs Chat Completions: input + output only)
-- Fix: Set `store: false` if not needed, monitor `response.usage.tool_tokens`
-
-**7. Conversation Not Found** (`invalid_request_error`)
-- Causes: ID typo, conversation deleted, or expired (90-day limit)
-- Fix: Verify exists with `openai.conversations.list()` before using
-
-**8. Tool Output Parsing Failed**
-- Cause: Accessing wrong output structure
-- Fix: Use `response.output_text` helper or iterate `response.output.forEach(item => ...)` checking `item.type`
-
-**9. Zod v4 Incompatibility with Structured Outputs**
-- **Error**: `Invalid schema for response_format 'name': schema must be a JSON Schema of 'type: "object"', got 'type: "string"'.`
-- **Source**: [GitHub Issue #1597](https://github.com/openai/openai-node/issues/1597)
-- **Why It Happens**: SDK's vendored `zod-to-json-schema` library doesn't support Zod v4 (missing `ZodFirstPartyTypeKind` export)
-- **Prevention**: Pin to Zod v3 (`"zod": "^3.23.8"`) or use custom `zodTextFormat` with `z.toJSONSchema({ target: "draft-7" })`
+**Solution**:
 
 ```typescript
-// Workaround: Pin to Zod v3 (recommended)
-{
-  "dependencies": {
-    "openai": "^6.16.0",
-    "zod": "^3.23.8"  // DO NOT upgrade to v4 yet
-  }
-}
-```
-
-**10. Background Mode Web Search Missing Sources**
-- **Error**: `web_search_call` output items contain query but no sources/results
-- **Source**: [GitHub Issue #1676](https://github.com/openai/openai-node/issues/1676)
-- **Why It Happens**: When using `background: true` + `web_search` tool, OpenAI doesn't return sources in the response
-- **Prevention**: Use synchronous mode (`background: false`) when web search sources are needed
-
-```typescript
-// ✅ Sources available in sync mode
+// ✅ GOOD: Use background mode for long tasks
 const response = await openai.responses.create({
   model: 'gpt-5',
-  input: 'Latest AI news?',
-  background: false,  // Required for sources
-  tools: [{ type: 'web_search' }],
+  input: 'Process this massive dataset',
+  background: true, // ✅ Up to 10 minutes
+  tools: [{ type: 'code_interpreter' }],
 });
-```
 
-**11. Streaming Mode Missing output_text Helper**
-- **Error**: `finalResponse().output_text` is `undefined` in streaming mode
-- **Source**: [GitHub Issue #1662](https://github.com/openai/openai-node/issues/1662)
-- **Why It Happens**: `stream.finalResponse()` doesn't include `output_text` convenience field (only available in non-streaming responses)
-- **Prevention**: Listen for `output_text.done` event or manually extract from `output` items
-
-```typescript
-// Workaround: Listen for event
-const stream = openai.responses.stream({ model: 'gpt-5', input: 'Hello!' });
-let outputText = '';
-for await (const event of stream) {
-  if (event.type === 'output_text.done') {
-    outputText = event.output_text;  // ✅ Available in event
-  }
+// Poll for results
+let result = await openai.responses.retrieve(response.id);
+while (result.status === 'in_progress') {
+  await new Promise(r => setTimeout(r, 5000));
+  result = await openai.responses.retrieve(response.id);
 }
 ```
 
----
-
-## Critical Patterns
-
-**✅ Always:**
-- Use conversation IDs for multi-turn (40-80% better cache)
-- Handle all 8 output types in polymorphic responses
-- Use `background: true` for tasks >30s
-- Provide MCP `authorization` tokens (NOT stored, required each request)
-- Monitor `response.usage.total_tokens` for cost control
-
-**❌ Never:**
-- Expose API keys in client-side code
-- Assume single message output (use `response.output_text` helper)
-- Reuse conversation IDs across users (security risk)
-- Ignore error types (handle `rate_limit_error`, `mcp_connection_error` specifically)
-- Poll faster than 1s for background tasks (use 5s intervals)
+**Load `references/top-errors.md` for all 8 errors with detailed solutions and prevention strategies.**
 
 ---
 
-## References
+## When to Load References
 
-**Official Docs:**
-- Responses API Guide: https://platform.openai.com/docs/guides/responses
-- API Reference: https://platform.openai.com/docs/api-reference/responses
-- MCP Integration: https://platform.openai.com/docs/guides/tools-connectors-mcp
-- Blog Post: https://developers.openai.com/blog/responses-api/
-- Starter App: https://github.com/openai/openai-responses-starter-app
+### Load `references/setup-guide.md` when:
+- First-time Responses API user needing complete Node.js or Cloudflare Workers setup
+- Want production deployment checklist with environment-specific best practices
+- Troubleshooting setup issues or implementing streaming/background patterns
 
-**Skill Resources:** `templates/`, `references/responses-vs-chat-completions.md`, `references/mcp-integration-guide.md`, `references/built-in-tools-guide.md`, `references/migration-guide.md`, `references/top-errors.md`
+### Load `references/responses-vs-chat-completions.md` when:
+- Deciding between Responses and Chat Completions APIs
+- Understanding performance benchmarks (TAUBench results, cache utilization)
+- Evaluating migration effort or comparing cost structures
+
+### Load `references/migration-guide.md` when:
+- Migrating from Chat Completions API with step-by-step checklist
+- Need code comparison examples (before/after patterns)
+- Migrating tools from custom functions to built-in/MCP
+
+### Load `references/built-in-tools-guide.md` when:
+- Using Code Interpreter, File Search, Web Search, or Image Generation
+- Need tool configuration options, combining multiple tools, or troubleshooting
+
+### Load `references/mcp-integration-guide.md` when:
+- Integrating external MCP servers or building custom MCP tools
+- Need MCP configuration examples or authentication patterns
+
+### Load `references/stateful-conversations.md` when:
+- Implementing conversation persistence with KV/Redis/database
+- Need conversation lifecycle management or metadata tracking patterns
+
+### Load `references/reasoning-preservation.md` when:
+- Want to access model reasoning for debugging or transparency
+- Building auditable AI systems or need reasoning output examples
+
+### Load `references/top-errors.md` when:
+- Encountering API errors (8 common errors covered with solutions)
+- Need error code reference, prevention strategies, or error handling patterns
 
 ---
 
-**Last verified**: 2026-01-21 | **Skill version**: 2.1.0 | **Changes**: Added 3 TIER 1 issues (Zod v4, background web search, streaming output_text), 2 TIER 2 findings (MCP approval, reasoning privacy), Data Retention & ZDR section, Assistants API sunset timeline, background mode TTFT note, web search TypeScript limitation. Updated SDK version to 6.16.0.
+## Production Checklist
+
+Before deploying:
+
+- [ ] API key stored securely (environment variable or secret)
+- [ ] Error handling implemented (401, 429, 400, 500)
+- [ ] Rate limiting handled (exponential backoff)
+- [ ] Conversation IDs persisted (database/KV)
+- [ ] Streaming enabled for long responses
+- [ ] Tools enabled explicitly
+- [ ] Polymorphic output handling
+
+**Load `references/setup-guide.md` for complete production checklist with platform-specific considerations.**
+
+---
+
+## Related Skills
+
+- **openai-api** - Classic Chat Completions API
+- **openai-agents** - OpenAI Agents SDK (wrapper for Responses)
+- **claude-api** - Claude API for comparison
+- **ai-sdk-core** - Vercel AI SDK (supports Responses)
+
+---
+
+## Official Documentation
+
+- **Responses API**: https://platform.openai.com/docs/api-reference/responses
+- **Migration Guide**: https://platform.openai.com/docs/guides/responses-migration
+- **Built-in Tools**: https://platform.openai.com/docs/guides/responses-tools
+- **MCP Integration**: https://platform.openai.com/docs/guides/mcp
+
+---
+
+**Questions? Issues?**
+
+1. Check `references/top-errors.md` for error solutions
+2. Review `references/setup-guide.md` for complete setup
+3. See `references/migration-guide.md` for Chat Completions migration
+4. Load templates from `templates/` for working examples

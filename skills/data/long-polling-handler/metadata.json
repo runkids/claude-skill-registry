@@ -1,9 +1,7 @@
 {
   "name": "long-polling-handler",
-  "description": "Long Polling Handler - Auto-activating skill for API Integration.Triggers on: long polling handler, long polling handlerPart of the API Integration skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/long-polling-handler/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-30T04:24:26.142950Z"
 }

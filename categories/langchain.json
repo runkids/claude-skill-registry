@@ -1,0 +1,19 @@
+{
+  "category": "langchain",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:31.215235Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Framework for building LLM-powered applications with agents, chains, and RAG. Supports multiple providers (OpenAI, Anthropic, Google), 500+ integrations, ReAct agents, tool calling, memory management,",
+      "repo": "zechenzhangAGI/AI-research-SKILLs",
+      "path": "langchain",
+      "branch": "main",
+      "category": "langchain",
+      "tags": [],
+      "stars": 0,
+      "install": "zechenzhangAGI/AI-research-SKILLs",
+      "source": "github.com/zechenzhangAGI/AI-research-SKILLs"
+    }
+  ]
+}

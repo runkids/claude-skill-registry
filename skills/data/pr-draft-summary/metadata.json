@@ -1,7 +1,7 @@
 {
   "name": "pr-draft-summary",
-  "repo": "zaziedlm/openai-agents-python",
+  "repo": "openai/openai-agents-python",
   "path": ".codex/skills/pr-draft-summary/SKILL.md",
-  "source": "github.com/zaziedlm/openai-agents-python",
-  "downloaded_at": "2026-01-29T04:40:24.685623Z"
+  "source": "github.com/openai/openai-agents-python",
+  "downloaded_at": "2026-01-30T04:09:37.733077Z"
 }

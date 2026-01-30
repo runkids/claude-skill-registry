@@ -1,7 +1,7 @@
 {
   "name": "context-health",
   "repo": "NickCrew/claude-cortex",
-  "path": "claude_ctx_py/assets/skills/context-health/SKILL.md",
+  "path": "skills/context-health/SKILL.md",
   "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-29T01:25:24.577261Z"
+  "downloaded_at": "2026-01-30T02:17:28.442128Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "load-testing",
-  "repo": "pascallammers/mylo-travel-concierge-v2",
-  "path": ".factory/skills/load-testing/SKILL.md",
-  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
-  "downloaded_at": "2026-01-29T03:58:05.121714Z"
+  "repo": "VilnaCRM-Org/user-service",
+  "path": ".claude/skills/load-testing/SKILL.md",
+  "source": "github.com/VilnaCRM-Org/user-service",
+  "downloaded_at": "2026-01-30T04:07:39.223574Z"
 }

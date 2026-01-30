@@ -1,19 +1,19 @@
 {
   "category": "Content",
   "count": 1,
-  "updated_at": "2026-01-29T16:04:53.135317Z",
+  "updated_at": "2026-01-30T04:53:30.967769Z",
   "skills": [
     {
       "name": "SKILL.md",
-      "description": "Skill: content",
-      "repo": "frankxai/agentic-creator-os",
+      "description": "Generate posts, essays and images following brand guidelines. Use for tweets, essays, Telegram posts, and image generation. Load identity from ~/CybosVault/private/context/identity.md.",
+      "repo": "Gerstep/cybos",
       "path": "Content",
       "branch": "main",
       "category": "Content",
       "tags": [],
       "stars": 0,
-      "install": "frankxai/agentic-creator-os",
-      "source": "github.com/frankxai/agentic-creator-os"
+      "install": "Gerstep/cybos",
+      "source": "github.com/Gerstep/cybos"
     }
   ]
 }

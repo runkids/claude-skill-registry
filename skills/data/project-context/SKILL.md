@@ -1,62 +1,42 @@
 ---
 name: project-context
-description: Loads project structure, tech stack, and coding conventions for the Photography Order Management ERP. Use when understanding the codebase, onboarding, or needing project context.
+description: プロジェクト固有の技術スタック、アーキテクチャ、実装ルールを提供。プロジェクト構成確認時に使用。
 ---
 
-# Project Context Skill
+# プロジェクトコンテキスト
 
-Provides quick access to project structure and conventions without reading full documentation.
+## 基本設定
 
-## Tech Stack
+### プロジェクトの性質
+- **プロジェクト形態**: Claude Code専用TypeScriptプロジェクトテンプレート
+- **利用範囲**: プロジェクトの要件に応じて設定可能
+- **実装方針**: LLM主導実装、品質重視、YAGNI原則徹底
 
-| Layer | Technology | Version |
-| :--- | :--- | :--- |
-| Framework | React | 19.x |
-| Build | Vite | 7.x |
-| Styling | Tailwind CSS | 4.x |
-| UI Library | HeroUI v3 Beta 5 | @heroui/react |
-| Routing | TanStack Router | 1.x |
-| Data | TanStack Query | 5.x |
-| Icons | Iconify (lucide) | latest |
+### 技術スタック
+- **基盤技術**: TypeScript、Node.js
+- **テストフレームワーク**: Vitest
+- **品質管理**: Biome、TypeScript strict mode
 
-## Directory Structure
+## 実装原則
 
-```text
-src/
-├── components/         # PascalCase: OrderInfo.tsx, ServiceConfigCard.tsx
-├── data/               # kebab-case: mock-order.ts
-├── hooks/              # camelCase: useOrder.ts, useProjectPage.ts
-├── providers/          # QueryProvider.tsx
-├── router.tsx          # TanStack Router configuration
-├── App.tsx             # Entry point
-└── index.css           # Tailwind v4 + HeroUI styles
-```
+### 実装方針の特徴
+- **LLM主導実装**: Claude Codeが主要な実装者として機能
+- **品質重視**: 速度より品質を優先する文化
+- **YAGNI原則**: 必要になるまで実装しない
+- **体系的な設計**: ADR/Design Doc/作業計画書による設計プロセス
 
-## Key Conventions
+## カスタマイズガイド
 
-1. **Named exports only**: `export function ComponentName() {}`
-2. **HeroUI compound components**: `<Card.Content>`, `<Modal.Body>`
-3. **Use `onPress`** for interactions (not `onClick`)
-4. **Direct imports** from `@heroui/react` — no wrappers
-5. **TanStack Router** for navigation: `<Link to="/path">`
-6. **TanStack Query** for data: `useQuery({ queryKey, queryFn })`
+新しいプロジェクトでこのテンプレートを使用する場合：
 
-## MCP Tools
+1. **プロジェクト固有情報の追加**
+   - ターゲットユーザー特性
+   - ビジネス要件と制約
+   - 技術的制約事項
 
-Before creating any UI component or implementing new logic, use these tools:
+2. **アーキテクチャの選択**
+   - アーキテクチャスキルから適切なパターンを選択
 
-- **HeroUI**:
-  - `mcp_heroui-react_list_components` — Check availability
-  - `mcp_heroui-react_get_component_docs` — Full anatomy, props, and examples
-  - `mcp_heroui-react_get_component_source_code` — Understand internal logic
-- **Documentation**:
-  - `mcp_context7_resolve-library-id` — Find library ID (e.g., TanStack, React 19)
-  - `mcp_context7_query-docs` — Query latest documentation and code snippets
-
-## References
-
-For full details, read these files:
-
-- `dev_instruction_v3.md` — Primary source of truth
-- `package.json` — All dependencies
-- `.agent/workflows/onboarding.md` — Onboarding process
+3. **環境設定**
+   - プロジェクトに適した環境変数管理方法の実装
+   - プロジェクト固有の設定ファイル追加

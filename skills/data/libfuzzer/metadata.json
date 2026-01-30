@@ -1,7 +1,7 @@
 {
   "name": "libfuzzer",
-  "repo": "plurigrid/asi",
-  "path": "skills/libfuzzer/SKILL.md",
-  "source": "github.com/plurigrid/asi",
-  "downloaded_at": "2026-01-29T04:19:18.041251Z"
+  "repo": "trailofbits/skills",
+  "path": "plugins/testing-handbook-skills/skills/libfuzzer/SKILL.md",
+  "source": "github.com/trailofbits/skills",
+  "downloaded_at": "2026-01-30T04:22:31.674788Z"
 }

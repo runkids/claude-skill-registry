@@ -1,9 +1,7 @@
 {
   "name": "phoenix-views-templates",
-  "description": "Render views and templates in Phoenix using HEEx templates, function components, slots, and assigns",
   "repo": "TheBushidoCollective/han",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-phoenix/skills/phoenix-views-templates/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-30T03:34:02.534377Z"
 }

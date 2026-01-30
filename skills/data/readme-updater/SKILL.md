@@ -1,89 +1,340 @@
 ---
 name: readme-updater
-description: 更新 README.md。觸發：readme、說明、文檔、怎麼用、安裝說明。
+description: Keep README files current with project changes. Use when project structure changes, features added, or setup instructions modified. Suggests README updates based on code changes. Triggers on significant project changes, new features, dependency changes.
+allowed-tools: Read, Write, Edit, Grep
 ---
 
-# README 更新技能
+# README Updater Skill
 
-## 觸發條件
+Keep your README current with project changes.
 
-| 用戶說法 | 觸發 |
-|----------|------|
-| 更新 README、文檔 | ✅ |
-| 怎麼用、安裝說明 | ✅ |
-| 被 git-precommit 調用 | ✅ 自動觸發 |
+## When I Activate
 
----
+- ✅ New features added
+- ✅ Project structure changes
+- ✅ Dependencies added/removed
+- ✅ Setup instructions change
+- ✅ User mentions README or documentation
+- ✅ Configuration files modified
 
-## 可用工具
+## What I Update
 
-此技能使用標準檔案操作：
+### README Sections
 
-| 操作 | 工具 |
-|------|------|
-| 讀取 | `read_file("README.md")` |
-| 更新 | `replace_string_in_file()` |
-| 目錄列表 | `list_dir()` |
-| Git diff | `get_changed_files()` |
+**Installation:**
+- New dependencies
+- Setup steps
+- Prerequisites
+- Environment variables
 
----
+**Features:**
+- New capabilities
+- Functionality changes
+- Feature deprecation
 
-## 更新區塊對應
+**Usage:**
+- API changes
+- New examples
+- Updated screenshots
 
-| 變更類型 | 更新區塊 |
-|----------|----------|
-| 新功能 | 功能列表 |
-| 新依賴 | 安裝說明 |
-| API 變更 | 使用範例 |
-| 目錄變更 | 專案結構 |
-| 新設定 | 配置說明 |
+**Configuration:**
+- New options
+- Environment variables
+- Config file changes
 
----
+## Examples
 
-## 保護區塊（不自動修改）
+### New Feature Addition
 
-- 授權資訊
-- 貢獻指南
-- 致謝
+```bash
+# You add authentication:
+git diff
+# + auth.service.ts
+# + login.component.tsx
+# + JWT middleware
 
----
-
-## 標準工作流程
-
-```python
-# 1. 讀取 README
-read_file("README.md")
-
-# 2. 分析變更
-get_changed_files()
-
-# 3. 更新對應區塊
-replace_string_in_file(
-    filePath="README.md",
-    oldString="## Features\n\n- Feature A",
-    newString="## Features\n\n- Feature A\n- Feature B (新增)"
-)
+# I suggest README update:
+## Features
+- ✨ User authentication with JWT  # NEW
+- 🔐 Role-based access control    # NEW
+- User management
+- Dashboard
 ```
 
----
+### New Dependency
 
-## 輸出範例
+```bash
+# You add: npm install stripe
 
-```
-📝 README 更新分析
+# I suggest:
+## Installation
 
-變更偵測：
-  ✅ 新增功能：用戶認證模組
-  ✅ 新增依賴：bcrypt
-
-建議更新：
-  [功能列表] 新增「🔐 用戶認證」
-  [安裝說明] 新增 bcrypt 安裝指令
+```bash
+npm install
+npm install stripe  # Added for payment processing
 ```
 
----
+## Environment Variables
+```bash
+STRIPE_SECRET_KEY=your_stripe_key  # Required for payments
+```
+```
 
-## 相關技能
+### Setup Instructions
 
-- `readme-i18n` - 多語言 README 同步
-- `git-precommit` - 提交前自動調用
+```bash
+# You modify docker-compose.yml
+
+# I update README:
+## Development Setup
+
+```bash
+# 1. Clone repository
+git clone [url]
+
+# 2. Install dependencies
+npm install
+
+# 3. Start services (UPDATED)
+docker-compose up -d  # Now includes Redis cache
+
+# 4. Run migrations
+npm run migrate
+```
+```
+
+## Detection Logic
+
+### Change Analysis
+
+I detect these changes automatically:
+- **package.json** → Update dependencies section
+- **New routes** → Update API documentation
+- **.env.example** → Update environment variables
+- **docker-compose.yml** → Update setup instructions
+- **New features** → Update features list
+
+### Section Mapping
+
+```yaml
+Code Change → README Section:
+  - New API endpoint → Usage / API Reference
+  - New dependency → Installation
+  - New env var → Configuration
+  - New feature → Features list
+  - Architecture change → Architecture section
+```
+
+## Intelligent Updates
+
+### Keep Structure
+
+I maintain your README structure:
+- Preserve emoji style
+- Keep formatting consistent
+- Maintain tone and voice
+- Respect existing organization
+
+### Add Missing Sections
+
+```markdown
+# Suggested additions:
+
+## Prerequisites
+- Node.js 18+
+- Docker (for development)
+- PostgreSQL 14+
+
+## Environment Variables
+```bash
+DATABASE_URL=postgresql://localhost/mydb
+API_KEY=your_api_key
+```
+
+## Testing
+```bash
+npm test
+```
+```
+
+### Update Examples
+
+```markdown
+# Before:
+```javascript
+const result = api.getUsers();
+```
+
+# After (API changed):
+```javascript
+const result = await api.getUsers({ page: 1, limit: 10 });
+```
+```
+
+## Version Compatibility
+
+I track version-specific documentation:
+
+```markdown
+## Requirements
+
+- Node.js 18+ (updated from 16+)
+- TypeScript 5.0+ (new requirement)
+- React 18+ (unchanged)
+```
+
+## Changelog Integration
+
+I can sync with CHANGELOG.md:
+
+```markdown
+## Recent Changes
+
+See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
+
+### Latest (v2.1.0)
+- ✨ Added user authentication
+- 🔧 Fixed memory leak in data processing
+- 📝 Updated API documentation
+```
+
+## Screenshot Management
+
+```markdown
+# I suggest when UI changes:
+## Screenshots
+
+![Dashboard](screenshots/dashboard.png)
+*Updated: 2025-10-24 - New authentication panel*
+
+![User Profile](screenshots/profile.png)
+*New feature - user profile management*
+```
+
+## Relationship with @docs-writer
+
+**Me (Skill):** Keep README current with code changes
+**@docs-writer (Sub-Agent):** Comprehensive documentation strategy
+
+### Workflow
+1. I detect changes
+2. I suggest README updates
+3. For full docs → Invoke **@docs-writer** sub-agent
+4. Sub-agent creates complete documentation
+
+## Sandboxing Compatibility
+
+**Works without sandboxing:** ✅ Yes
+**Works with sandboxing:** ✅ Yes
+
+- **Filesystem**: Writes to README.md
+- **Network**: None required
+- **Configuration**: None required
+
+## Best Practices
+
+1. **Keep it current** - Update README with every feature
+2. **Be specific** - Include version numbers, prerequisites
+3. **Add examples** - Show actual usage, not just API
+4. **Include troubleshooting** - Common issues and solutions
+5. **Badge status** - Keep build/coverage badges current
+
+## README Templates
+
+### Basic Structure
+
+```markdown
+# Project Name
+
+Brief description
+
+## Features
+- Feature 1
+- Feature 2
+
+## Installation
+```bash
+npm install
+```
+
+## Usage
+```javascript
+// Example
+```
+
+## Configuration
+Environment variables needed
+
+## Contributing
+How to contribute
+
+## License
+MIT
+```
+
+### Comprehensive Structure
+
+```markdown
+# Project Name
+> Tagline
+
+[Badges]
+
+## Table of Contents
+- Features
+- Installation
+- Usage
+- API Reference
+- Configuration
+- Development
+- Testing
+- Deployment
+- Contributing
+- License
+
+[Sections with detailed content]
+```
+
+## Integration
+
+### With /docs-gen Command
+
+```bash
+/docs-gen --format markdown
+
+# Generates:
+# 1. README.md (via me)
+# 2. Full documentation site (via @docs-writer)
+# 3. API reference (via api-documenter)
+```
+
+### With CI/CD
+
+```yaml
+# .github/workflows/docs.yml
+- name: Update README
+  run: |
+    # Skill suggests updates based on changes
+    # Review and commit
+```
+
+## Customization
+
+Add company-specific README standards:
+
+```bash
+cp -r ~/.claude/skills/documentation/readme-updater \
+      ~/.claude/skills/documentation/company-readme-updater
+
+# Edit to add:
+# - Company README template
+# - Required sections
+# - Badge standards
+```
+
+## Related Tools
+
+- **api-documenter skill**: API documentation
+- **@docs-writer sub-agent**: Comprehensive docs
+- **git-commit-helper skill**: Commit messages for updates
+- **/docs-gen command**: Full documentation generation

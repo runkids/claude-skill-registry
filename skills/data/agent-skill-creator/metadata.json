@@ -1,7 +1,7 @@
 {
   "name": "agent-skill-creator",
-  "repo": "illogical/InstructionLibrary",
-  "path": "skills/agent-skill-creator/SKILL.MD",
-  "source": "github.com/illogical/InstructionLibrary",
-  "downloaded_at": "2026-01-27T03:40:42.332572Z"
+  "repo": "ravnhq/ai-toolkit",
+  "path": "skills/agent-skill-creator/SKILL.md",
+  "source": "github.com/ravnhq/ai-toolkit",
+  "downloaded_at": "2026-01-30T01:59:42.476713Z"
 }

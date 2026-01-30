@@ -1,7 +1,7 @@
 {
   "category": "product",
-  "count": 1058,
-  "updated_at": "2026-01-29T16:04:49.629167Z",
+  "count": 1079,
+  "updated_at": "2026-01-30T04:53:30.062766Z",
   "skills": [
     {
       "name": "using-git-worktrees",
@@ -1882,6 +1882,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "advanced-features-2025",
+      "description": "Complete guide to 2025 Claude Code plugin features: Agent Skills, Hooks, MCP integration, and repository-level configuration. PROACTIVELY activate for: (1) Agent Skills implementation, (2) Hook automa",
+      "repo": "JosiahSiegel/claude-plugin-marketplace",
+      "path": "plugins/plugin-master/skills/advanced-features-2025",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "JosiahSiegel/claude-plugin-marketplace/plugins/plugin-master/skills/advanced-features-2025",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "advanced-formily-patterns",
       "description": "This skill should be used when the user asks to \"implement dynamic forms\", \"formily complex forms\", \"formily conditional fields\", \"formily nested forms\", \"formily async validation\", \"formily performan",
       "repo": "whinc/my-claude-plugins",
@@ -2111,6 +2123,18 @@
       "tags": [],
       "stars": 0,
       "install": "jongwony/cc-plugin",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "analyze-equations",
+      "description": "Parse and interpret mathematical equations from research papers. Use when extracting formulas for implementation.",
+      "repo": "mvillmow/ProjectOdyssey",
+      "path": ".claude/skills/tier-2/analyze-equations",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "mvillmow/ProjectOdyssey/.claude/skills/tier-2/analyze-equations",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -2660,6 +2684,18 @@
       "name": "bigcommerce",
       "description": "BigCommerce API patterns and enterprise features",
       "repo": "violetio/violet-ai-plugins",
+      "path": "archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-bigcommerce",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "violetio/violet-ai-plugins/archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-bigcommerce",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "bigcommerce",
+      "description": "BigCommerce API patterns and enterprise features",
+      "repo": "violetio/violet-ai-plugins",
       "path": "data/bigcommerce",
       "branch": "main",
       "category": "product",
@@ -3079,6 +3115,18 @@
       "stars": 0,
       "install": "dmccreary/claude-skills",
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "chain-flow-150",
+      "description": "Orchestrate skills into dynamic chains for complex tasks. Analyzes the task, discovers available skills, builds an optimal chain, explains why each skill is needed, and executes step-by-step with user",
+      "repo": "MykhailoDmytriakha/my-preacher-helper",
+      "path": ".codex/skills/00-meta-chain-flow-150",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "MykhailoDmytriakha/my-preacher-helper/.codex/skills/00-meta-chain-flow-150",
+      "source": "GitHub Search API"
     },
     {
       "name": "chain-flow-150",
@@ -3702,6 +3750,18 @@
       "source": "local"
     },
     {
+      "name": "competitive-positioning",
+      "description": "Analyze competitors, identify positioning weaknesses, and craft sharp differentiators with taglines and tweet-length pitches. Use when entering competitive markets or refining product positioning.",
+      "repo": "majesticlabs-dev/majestic-marketplace",
+      "path": "plugins/majestic-sales/skills/competitive-positioning",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "majesticlabs-dev/majestic-marketplace/plugins/majestic-sales/skills/competitive-positioning",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "competitive-research",
       "description": "Research competitors, analyze market positioning, identify differentiators, and understand competitive landscape to inform product strategy and positioning. Use when researching competitors, analyzing",
       "repo": "korallis/Droidz",
@@ -4092,6 +4152,18 @@
       "name": "customer-feedback-taxonomy",
       "description": "Standardized tagging schema for personas, lifecycle stages, drivers, and sentiment.",
       "repo": "gtmagents/gtm-agents",
+      "path": "plugins/voice-of-customer/skills/customer-feedback-taxonomy",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "gtmagents/gtm-agents/plugins/voice-of-customer/skills/customer-feedback-taxonomy",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "customer-feedback-taxonomy",
+      "description": "Standardized tagging schema for personas, lifecycle stages, drivers, and sentiment.",
+      "repo": "gtmagents/gtm-agents",
       "path": "data/customer-feedback-taxonomy",
       "branch": "main",
       "category": "product",
@@ -4209,6 +4281,18 @@
       "tags": [],
       "stars": 0,
       "install": "princespaghetti/claude-marketplace",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "deployment-config",
+      "description": "Vercel deployment configuration and optimization for Next.js applications including vercel.json setup, environment variables, build optimization, edge functions, and deployment troubleshooting. Use wh",
+      "repo": "vanman2024/ai-dev-marketplace",
+      "path": "plugins/redis/skills/deployment-configs",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "vanman2024/ai-dev-marketplace/plugins/redis/skills/deployment-configs",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -4720,6 +4804,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "energize-denver",
+      "description": "Use when working with Denver's Energize Denver Article XIV building performance regulations. Provides compliance requirements, pathways, deadlines, penalties, MAI production efficiency metrics, benchm",
+      "repo": "mbcoalson/skills",
+      "path": ".claude/skills/energize-denver",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "mbcoalson/skills/.claude/skills/energize-denver",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "engineering-features-for-machine-learning",
       "description": "Create, select, and transform features to improve machine learning model performance. Handles feature scaling, encoding, and importance analysis. Use when asked to \"engineer features\" or \"select featu",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -5017,6 +5113,18 @@
       "name": "explaining-machine-learning-models",
       "description": "This skill enables AI assistant to provide interpretability and explainability for machine learning models. it is triggered when the user requests explanations for model predictions, insights into fea",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+      "path": "plugins/ai-ml/model-explainability-tool/skills/explaining-machine-learning-models",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "jeremylongshore/claude-code-plugins-plus-skills/plugins/ai-ml/model-explainability-tool/skills/explaining-machine-learning-models",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "explaining-machine-learning-models",
+      "description": "This skill enables AI assistant to provide interpretability and explainability for machine learning models. it is triggered when the user requests explanations for model predictions, insights into fea",
+      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
       "path": "data/explaining-machine-learning-models",
       "branch": "main",
       "category": "product",
@@ -5236,6 +5344,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "feature-review",
+      "description": "Feature review and prioritization with RICE/WSJF/Kano scoring. Creates GitHub issues for suggestions.Triggers: feature review, prioritization, RICE, WSJF, roadmap, backlogUse when: reviewing features ",
+      "repo": "athola/claude-night-market",
+      "path": "plugins/imbue/skills/feature-review",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "athola/claude-night-market/plugins/imbue/skills/feature-review",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "feature-scaffolding",
       "description": "BoxLogの新しいFeatureモジュールを作成。stores, hooks, components, types の統一構造を生成。",
       "repo": "t3-nico/boxlog-app",
@@ -5248,6 +5368,38 @@
       ],
       "stars": 0,
       "install": "t3-nico/boxlog-app/.claude/skills/feature-scaffolding",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "feature-spec-author",
+      "description": "Draft detailed engineering specs from an approved PRD. Use when generating or updating the engineering specification for a feature, before implementation begins.",
+      "repo": "pcortes/swarm-attack",
+      "path": ".claude/skills/feature-spec-author",
+      "branch": "main",
+      "category": "product",
+      "tags": [
+        "feature",
+        "spec",
+        "author"
+      ],
+      "stars": 0,
+      "install": "pcortes/swarm-attack/.claude/skills/feature-spec-author",
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "feature-spec-moderator",
+      "description": "Chief Architect review - critically evaluate peer feedback on an engineering spec. Integrate valid suggestions, push back on scope creep, and maintain alignment with the PRD. Enforce startup simplicit",
+      "repo": "pcortes/swarm-attack",
+      "path": ".claude/skills/feature-spec-moderator",
+      "branch": "main",
+      "category": "product",
+      "tags": [
+        "feature",
+        "spec",
+        "moderator"
+      ],
+      "stars": 0,
+      "install": "pcortes/swarm-attack/.claude/skills/feature-spec-moderator",
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -5608,6 +5760,18 @@
       "tags": [],
       "stars": 0,
       "install": "atrawog/bazzite-ai-plugins/bazzite/skills/gaming",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "gemini-batch",
+      "description": "This skill should be used when the user asks to \"use Gemini Batch API\", \"process documents at scale\", \"submit a batch job\", \"upload files to Gemini\", or needs large-scale LLM processing. Includes prod",
+      "repo": "edwinhu/workflows",
+      "path": "skills/gemini-batch",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "edwinhu/workflows/skills/gemini-batch",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -7083,6 +7247,18 @@
       "tags": [],
       "stars": 0,
       "install": "mberto10/web_research_agent",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "langgraph-human-in-loop",
+      "description": "LangGraph human-in-the-loop patterns. Use when implementing approval workflows, manual review gates, user feedback integration, or interactive agent supervision.",
+      "repo": "yonatangross/skillforge-claude-plugin",
+      "path": "skills/langgraph-human-in-loop",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "yonatangross/skillforge-claude-plugin/skills/langgraph-human-in-loop",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -8732,6 +8908,18 @@
       "name": "openwebf-release-versioning-rollback",
       "description": "Design versioning, cache busting, progressive rollout, and rollback for remote WebF bundles. Use when the user mentions version pinning, cache busting, force update, rollback, feature flags, or staged",
       "repo": "archview-ai/webf-plugin",
+      "path": "webf-plugin/skills/openwebf-release-versioning-rollback",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "archview-ai/webf-plugin/webf-plugin/skills/openwebf-release-versioning-rollback",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "openwebf-release-versioning-rollback",
+      "description": "Design versioning, cache busting, progressive rollout, and rollback for remote WebF bundles. Use when the user mentions version pinning, cache busting, force update, rollback, feature flags, or staged",
+      "repo": "archview-ai/webf-plugin",
       "path": "data/openwebf-release-versioning-rollback",
       "branch": "main",
       "category": "product",
@@ -9290,6 +9478,18 @@
       "tags": [],
       "stars": 0,
       "install": "klaushofrichter/een-api-toolkit",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "pr-comment-responder",
+      "description": "PR review coordinator who gathers comment context, acknowledges every piece of feedback, and ensures all reviewer comments are addressed systematically. Triages by actionability, tracks thread convers",
+      "repo": "rjmurillo/ai-agents",
+      "path": ".claude/skills/pr-comment-responder",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "rjmurillo/ai-agents/.claude/skills/pr-comment-responder",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -10251,6 +10451,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "rag-expert",
+      "description": "Expert in Retrieval-Augmented Generation systems - knowledge bases, chunking strategies, embedding optimization, and production RAG architectures",
+      "repo": "frankxai/ai-architect",
+      "path": "skills/rag-expert",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "frankxai/ai-architect/skills/rag-expert",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "rails-architect",
       "description": "Expert Ruby on Rails architect for reviewing existing Rails applications, suggesting architectural improvements, and designing new features following modern Rails best practices. Use when working with",
       "repo": "brianfoshee/dotfiles",
@@ -10659,6 +10871,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "research-publication",
+      "description": "Prepare research outputs for publication with compliance to venue rules, evidence integrity, and confidence ceilings.",
+      "repo": "DNYoussef/context-cascade",
+      "path": "skills/research/research-publication",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "DNYoussef/context-cascade/skills/research/research-publication",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "research-synthesis-guidelines",
       "description": "Research documentation and evidence synthesis framework for MYCURE healthcare products using HIGH/MEDIUM/LOW confidence grading, triangulation methodology, and rigorous citation standards. Auto-activa",
       "repo": "mycurelabs/easyjoey.com",
@@ -10986,6 +11210,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "scanning-tools",
+      "description": "This skill should be used when the user asks to",
+      "repo": "zebbern/claude-code-guide",
+      "path": "skills/scanning-tools",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "zebbern/claude-code-guide/skills/scanning-tools",
+      "source": "GitHub Search API"
+    },
+    {
       "name": "scoping",
       "description": "Conduct scoping conversation with user to define research question, key findings, and constraints. Generates scope.md that guides all subsequent steps. Second step of biomedical-science-writer workflo",
       "repo": "sxg/biomedical-science-writer",
@@ -11019,6 +11255,18 @@
       "tags": [],
       "stars": 0,
       "install": "markus1189/nixos-config",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "security-first",
+      "description": "Universal security checklist based on OWASP Top 10 for ANY project type or language. Use before deploying to production, handling sensitive data, or processing user input.",
+      "repo": "j0KZ/mcp-agents",
+      "path": "docs/universal-skills/security-first",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "j0KZ/mcp-agents/docs/universal-skills/security-first",
       "source": "SkillsMP + GitHub Raw"
     },
     {
@@ -12103,6 +12351,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "task-implementation",
+      "description": "Execute next task from Implementation Plan. Use when user asks to implement next task, start next feature, or continue implementation.",
+      "repo": "doraemonkeys/sloc-guard",
+      "path": ".cursor/skills/task-implementation",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "doraemonkeys/sloc-guard/.cursor/skills/task-implementation",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
       "name": "tasks-generator",
       "description": "Generate structured task roadmaps from project specifications. Use when the user asks to create tasks, sprint plans, roadmaps, or work breakdowns based on PRD (Product Requirements Document), Tech Spe",
       "repo": "Emz1998/avaris-ai",
@@ -12787,6 +13047,18 @@
       "name": "violetconnect",
       "description": "VioletConnect core features - merchant onboarding application architecture",
       "repo": "violetio/violet-ai-plugins",
+      "path": "archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-patterns",
+      "branch": "main",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "install": "violetio/violet-ai-plugins/archive/plugins-2025-12-30/v-violetconnect/skills/violetconnect-patterns",
+      "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "violetconnect",
+      "description": "VioletConnect core features - merchant onboarding application architecture",
+      "repo": "violetio/violet-ai-plugins",
       "path": "data/violetconnect",
       "branch": "main",
       "category": "product",
@@ -12913,18 +13185,6 @@
       "tags": [],
       "stars": 0,
       "install": "cjmellor/mella-marketplace/plugins/mella/skills/walkthrough",
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "walkthrough",
-      "description": "Generate step-by-step walkthrough guides for testing features or bug fixes. Use when the user asks to create testing instructions, QA guides, walkthrough documentation, or says something like \"write a",
-      "repo": "cjmellor/mella-marketplace",
-      "path": "data/walkthrough",
-      "branch": "main",
-      "category": "product",
-      "tags": [],
-      "stars": 0,
-      "install": "cjmellor/mella-marketplace",
       "source": "SkillsMP + GitHub Raw"
     },
     {

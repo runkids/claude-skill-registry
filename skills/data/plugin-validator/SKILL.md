@@ -1,538 +1,429 @@
 ---
 name: plugin-validator
-description: 生成したプラグイン全体の整合性・完全性を検証する。プラグイン検証時、品質チェック時、またはユーザーがプラグイン検証、整合性確認、完全性チェック、品質保証、バリデーションに言及した際に使用する。
+description: Validates SpecWeave plugin installation when EXPLICITLY requested by user. Use for checking if plugins are installed correctly, validating marketplace registration, or troubleshooting missing plugins. Only triggers on explicit requests to avoid false positives during normal workflow.
+allowed-tools: Read, Bash, Grep
 ---
 
-# Plugin Validator
+# Plugin Validator Skill
 
-## 概要
+**Purpose**: Validate and install SpecWeave plugins when explicitly requested by the user.
 
-このSkillは、生成したプラグイン全体の整合性・完全性を検証する。プラグインのディレクトリ構造、ファイル形式、要素間の整合性、ドキュメント品質を確認し、問題を検出して改善提案を行う。
+**Activation**: Triggers ONLY when user explicitly requests plugin validation (e.g., "validate plugins", "check plugins", or runs `specweave validate-plugins` command). Does NOT auto-activate for workflow commands to prevent false positive errors.
 
-## 責任範囲
+## What This Skill Does
 
-このSkillは以下の範囲をカバーする:
+This skill ensures that your SpecWeave environment is properly configured with all required plugins BEFORE you start working. It prevents frustrating errors and wasted time from missing components.
 
-- プラグインディレクトリ構造の検証
-- 必須ファイルの存在確認
-- フロントマター形式の検証
-- 要素間の整合性検証
-- ドキュメント品質の検証（markdownlint）
-- アーキテクチャ規約の遵守確認
-- 検証レポートの作成
+### Key Features
 
-## ワークフロー
+1. **Marketplace Validation**: Ensures SpecWeave marketplace is registered in `~/.claude/settings.json`
+2. **Core Plugin Check**: Verifies `specweave` plugin is installed
+3. **Context Detection**: Analyzes your increment description and suggests relevant plugins
+4. **Auto-Installation**: Can automatically install missing components (with your permission)
+5. **Clear Guidance**: Shows exactly what's missing and how to fix it
 
-### フェーズ1: プラグイン読込
+## When This Skill Activates
 
-プラグインディレクトリを読み込み、全ファイルを収集する。
+✅ **ONLY activates when explicitly requested**:
+- You mention "plugin validation" or "validate plugins"
+- You mention "environment setup" or "check plugins"
+- You run: `specweave validate-plugins`
+- You ask: "Can you validate my plugins?"
+- You report: "I'm getting plugin errors"
+- During: `specweave init` (initial setup only)
 
-**実施内容:**
+❌ **Does NOT auto-activate for**:
+- `/sw:increment` commands
+- `/sw:do` commands
+- Any other workflow commands
+- Reason: Prevents false positive errors when plugins are installed but detection fails
 
-1. プラグインディレクトリのパスを確認する
-2. ディレクトリ構造を読み込む
-3. 全ファイルのリストを作成する
-4. 各ファイルの内容を読み込む
-5. フロントマター情報を抽出する
+## Validation Process
 
-**確認対象:**
+### Phase 1: Marketplace Check
 
-- README.md（プラグインルート）
-- agents/*.md
-- skills/*/SKILL.md
-- commands/*.md
-- .claudeignore（オプション）
-
-**良い例:**
-
-```markdown
-【プラグイン読込結果】
-
-プラグイン名: database-design-plugin
-プラグインディレクトリ: D:\projects\database-design-plugin
-
-ファイル構造:
-database-design-plugin/
-  README.md
-  agents/
-    database-design-agent/
-      AGENT.md
-  skills/
-    entity-definition-collector/
-      SKILL.md
-    normalization-processor/
-      SKILL.md
-    er-diagram-generator/
-      SKILL.md
-    table-definition-writer/
-      SKILL.md
-    ddl-script-generator/
-      SKILL.md
-    database-naming-conventions/
-      SKILL.md
-    normalization-rules/
-      SKILL.md
-  commands/
-    design-database/
-      COMMAND.md
-    generate-schema/
-      COMMAND.md
-
-ファイル数:
-- README.md: 1個
-- AGENT.md: 1個
-- SKILL.md: 7個
-- COMMAND.md: 2個
-- 合計: 11個
+**What**: Checks if SpecWeave marketplace is registered in Claude Code
+**Where**: `~/.claude/settings.json`
+**Expected**:
+```json
+{
+  "extraKnownMarketplaces": {
+    "specweave": {
+      "source": {
+        "source": "github",
+        "repo": "anton-abyzov/specweave",
+        "path": ".claude-plugin"
+      }
+    }
+  }
+}
 ```
 
-**悪い例:**
+**If missing**: Auto-creates the configuration
 
-```markdown
-【プラグイン読込結果】
+### Phase 2: Core Plugin Check
 
-何かファイルがある
+**What**: Verifies `specweave` plugin is installed
+**Command**: `/plugin list --installed | grep "specweave"`
+**Expected**: Plugin appears in the list
+
+**If missing**: Suggests `/plugin install specweave`
+
+### Phase 3: Context-Aware Plugin Detection
+
+**What**: Scans your increment description for keywords
+**Examples**:
+
+| Your Description | Detected Keywords | Suggested Plugin |
+|-----------------|-------------------|------------------|
+| "Add GitHub sync" | github, sync | specweave-github |
+| "Stripe billing with React UI" | stripe, billing, react, ui | specweave-payments, specweave-frontend |
+| "Deploy to Kubernetes" | kubernetes, deploy | specweave-kubernetes |
+| "Add Jira integration" | jira, integration | specweave-jira |
+
+**Full Keyword Map** (15+ plugins):
+- **specweave-github**: github, git, issues, pull request, pr, repository
+- **specweave-jira**: jira, epic, story, sprint, backlog
+- **specweave-ado**: azure devops, ado, work item, boards
+- **specweave-payments**: stripe, billing, payment, subscription, invoice
+- **specweave-frontend**: react, nextjs, vue, angular, frontend, ui
+- **specweave-kubernetes**: kubernetes, k8s, helm, pod, deployment
+- **specweave-ml**: machine learning, ml, tensorflow, pytorch, model
+- **specweave-observability**: prometheus, grafana, monitoring, metrics
+- **specweave-security**: security, owasp, vulnerability, audit
+- **specweave-diagrams**: diagram, c4, mermaid, architecture
+- **specweave-backend-nodejs**: nodejs, express, fastify, nestjs, backend
+- **specweave-backend-python**: python, fastapi, django, flask
+- **specweave-backend-dotnet**: dotnet, .net, aspnet, c#
+- **specweave-e2e-testing**: playwright, e2e, end-to-end, browser
+
+## Usage Examples
+
+### Example 1: Fresh Environment
+
+**Scenario**: You cloned a project to a new VM and want to start working.
+
+**Action**: Run `/sw:increment "Add authentication"`
+
+**What Happens**:
+```
+🔍 Validating SpecWeave environment...
+
+❌ Missing components detected:
+   • SpecWeave marketplace not registered
+   • Core plugin (specweave) not installed
+
+📦 Installing missing components...
+   ✅ Marketplace registered (.claude/settings.json)
+   ✅ Core plugin installed (specweave v0.9.4)
+
+🎉 Environment ready! Proceeding with increment planning...
 ```
 
-### フェーズ2: 構造検証
+### Example 2: Context Detection
 
-プラグインのディレクトリ構造とファイル形式が正しいか検証する。
+**Scenario**: You're adding a new feature that uses GitHub and React.
 
-**実施内容:**
+**Action**: Run `/sw:increment "Add GitHub sync with React UI"`
 
-1. 必須ファイルの存在を確認する
-2. ディレクトリ構造が規約に従っているか確認する
-3. ファイル名が規約に従っているか確認する
-4. フロントマター形式が正しいか確認する
-5. 必須フロントマターフィールドの存在を確認する
+**What Happens**:
+```
+🔍 Validating SpecWeave environment...
 
-**検証項目:**
+✅ Marketplace registered
+✅ Core plugin installed (specweave v0.9.4)
 
-- README.md が存在するか
-- agents/, skills/, commands/ ディレクトリが存在するか
-- 各要素がサブディレクトリに配置されているか
-- AGENT.md, SKILL.md, COMMAND.md のファイル名が正しいか
-- フロントマターが正しくパースできるか
-- 必須フィールド（name, description）が存在するか
+🔎 Detected context plugins from your description:
+   • specweave-github (keywords: github, sync)
+   • specweave-frontend (keywords: react, ui)
 
-**良い例:**
+❌ Missing context plugins:
+   • specweave-github
+   • specweave-frontend
 
-```markdown
-【構造検証結果】
+📦 Would you like to install these plugins?
+   They provide specialized expertise for your use case.
 
-必須ファイル: ✓ OK
-- ✓ README.md が存在する
-- ✓ agents/ ディレクトリが存在する
-- ✓ skills/ ディレクトリが存在する
-- ✓ commands/ ディレクトリが存在する
+   1. Yes, install now (recommended)
+   2. No, skip for now (limited capabilities)
 
-ディレクトリ構造: ✓ OK
-- ✓ agents/database-design-agent.md
-- ✓ skills/entity-definition-collector/SKILL.md
-- ✓ skills/normalization-processor/SKILL.md
-- ✓ skills/er-diagram-generator/SKILL.md
-- ✓ skills/table-definition-writer/SKILL.md
-- ✓ skills/ddl-script-generator/SKILL.md
-- ✓ skills/database-naming-conventions/SKILL.md
-- ✓ skills/normalization-rules/SKILL.md
-- ✓ commands/design-database.md
-- ✓ commands/generate-schema.md
-
-フロントマター形式: ✓ OK
-- ✓ 全てのファイルでフロントマターがパースできる
-
-必須フィールド: ✓ OK
-- ✓ 全てのファイルで name フィールドが存在する
-- ✓ 全てのファイルで description フィールドが存在する
-
-エージェント固有フィールド: ✓ OK
-- ✓ database-design-agent に tools フィールドが存在する
-
-構造検証: 合格
+Your choice [1]:
 ```
 
-**悪い例（問題がある場合）:**
+### Example 3: Manual Validation
 
-```markdown
-【構造検証結果】
+**Scenario**: You want to check your environment without running a command.
 
-必須ファイル: ✗ NG
-- ✗ README.md が存在しない
+**Action**: Run `specweave validate-plugins --verbose`
 
-ディレクトリ構造: ✗ NG
-- ✗ agents/database-design-agent.md が存在しない
-- ✗ skills/entity-collector.md（ファイル名が SKILL.md ではない）
+**What Happens**:
+```
+[PluginValidator] Checking marketplace registration...
+[PluginValidator] Marketplace registered ✓
+[PluginValidator] Checking core plugin (specweave)...
+[PluginValidator] Core plugin installed ✓ (0.9.4)
 
-フロントマター形式: ✗ NG
-- ✗ agents/database-design-agent.md でフロントマターがパースできない
-
-必須フィールド: ✗ NG
-- ✗ skills/entity-definition-collector/SKILL.md に description フィールドが存在しない
-
-構造検証: 不合格（4個の問題）
+✅ All plugins validated!
+   • Core plugin: installed (v0.9.4)
+   • Cache: miss
 ```
 
-### フェーズ3: 整合性検証
+### Example 4: Dry-Run Mode
 
-要素間の整合性を検証する。
+**Scenario**: You want to see what would be installed without actually installing.
 
-**実施内容:**
+**Action**: Run `specweave validate-plugins --context="Add Stripe billing" --dry-run`
 
-1. コマンドが参照するエージェントが存在するか確認する
-2. コマンドが参照するスキルが存在するか確認する
-3. 要素名の一貫性を確認する（ファイル名とフロントマターのname）
-4. 循環依存がないか確認する
-5. アーキテクチャ規約の遵守を確認する
+**What Happens**:
+```
+🔍 Validating SpecWeave environment...
 
-**検証項目:**
+✅ Marketplace registered
+✅ Core plugin installed
 
-- コマンドが参照するエージェントが実在するか
-- コマンドが参照するスキルが実在するか
-- ディレクトリ名とフロントマターのnameが一致するか
-- エージェントが他の要素を直接参照していないか
-- スキルが他のスキルを参照していないか
-- 循環依存がないか
+🔎 Detected context plugins:
+   • specweave-payments (keywords: stripe, billing)
 
-**良い例:**
+❌ Missing: specweave-payments
 
-```markdown
-【整合性検証結果】
-
-エージェント参照: ✓ OK
-- ✓ design-database が参照する database-design-agent は存在する
-- ✓ generate-schema が参照する database-design-agent は存在する
-
-スキル参照: ✓ OK
-- ✓ design-database が参照する全てのスキル（7個）が存在する
-- ✓ generate-schema が参照する全てのスキル（4個）が存在する
-
-要素名の一貫性: ✓ OK
-- ✓ ディレクトリ名とフロントマターのnameが全て一致する
-
-循環依存: ✓ OK
-- ✓ 循環依存は検出されませんでした
-
-アーキテクチャ規約: ✓ OK
-- ✓ エージェントは他の要素を直接参照していない
-- ✓ スキルは他のスキルを参照していない
-- ✓ コマンドのみがエージェントとスキルを参照している
-
-整合性検証: 合格
+💡 Dry-run mode: No changes made.
+   To install, remove --dry-run flag.
 ```
 
-**悪い例（問題がある場合）:**
+## CLI Command Reference
 
-```markdown
-【整合性検証結果】
-
-エージェント参照: ✗ NG
-- ✗ design-database が参照する db-agent が存在しない
-
-スキル参照: ✗ NG
-- ✗ design-database が参照する entity-collector が存在しない
-
-要素名の一貫性: ✗ NG
-- ✗ agents/database-design-agent/ のnameが "db-agent" になっている
-
-循環依存: ✗ NG
-- ✗ skill-a → skill-b → skill-c → skill-a の循環依存が検出された
-
-アーキテクチャ規約: ✗ NG
-- ✗ database-design-agent が entity-definition-collector を直接参照している
-- ✗ normalization-processor が database-naming-conventions を参照している
-
-整合性検証: 不合格（6個の問題）
+**Basic validation**:
+```bash
+specweave validate-plugins
 ```
 
-### フェーズ4: 品質検証
-
-ドキュメントの品質を検証する。
-
-**実施内容:**
-
-1. markdownlint検証を実施する
-2. 必須セクションの存在を確認する
-3. セクションの順序を確認する
-4. ドキュメントの充実度を評価する
-5. 良い例/悪い例の存在を確認する（該当する場合）
-
-**検証項目:**
-
-- markdownlintエラーがないか
-- 必須セクション（概要、責任範囲、ワークフローなど）が存在するか
-- セクションの順序が正しいか
-- 各セクションに内容が記述されているか
-- 良い例/悪い例が記述されているか（ワークフロースキル、コンベンションスキル）
-
-**良い例:**
-
-```markdown
-【品質検証結果】
-
-markdownlint検証: ✓ OK
-- ✓ 全てのファイルでmarkdownlintエラーなし
-
-必須セクション: ✓ OK
-エージェント:
-- ✓ database-design-agent: 役割、責任範囲、注意事項が存在する
-
-スキル（ワークフロー）:
-- ✓ entity-definition-collector: 概要、責任範囲、ワークフロー、アウトプットが存在する
-- ✓ normalization-processor: 概要、責任範囲、ワークフロー、アウトプットが存在する
-- ✓ er-diagram-generator: 概要、責任範囲、ワークフロー、アウトプットが存在する
-- ✓ table-definition-writer: 概要、責任範囲、ワークフロー、アウトプットが存在する
-- ✓ ddl-script-generator: 概要、責任範囲、ワークフロー、アウトプットが存在する
-
-スキル（コンベンション）:
-- ✓ database-naming-conventions: 概要、責任範囲、カテゴリ別規約が存在する
-- ✓ normalization-rules: 概要、責任範囲、カテゴリ別規約が存在する
-
-コマンド:
-- ✓ design-database: 概要、使用するエージェント、使用するスキル、実行フローが存在する
-- ✓ generate-schema: 概要、使用するエージェント、使用するスキル、実行フローが存在する
-
-ドキュメント充実度: ✓ 優良
-- ✓ 全てのセクションに詳細な内容が記述されている
-- ✓ ワークフロースキルに良い例/悪い例が記述されている
-- ✓ コンベンションスキルに良い例/悪い例が記述されている
-- ✓ チェックリストが詳細に記述されている
-
-品質検証: 合格
+**Auto-install missing components**:
+```bash
+specweave validate-plugins --auto-install
 ```
 
-**悪い例（問題がある場合）:**
-
-```markdown
-【品質検証結果】
-
-markdownlint検証: ✗ NG
-- ✗ entity-definition-collector/SKILL.md: MD009（行末の空白）
-- ✗ normalization-processor/SKILL.md: MD013（行の長さ）
-- ✗ design-database/COMMAND.md: MD022（見出しの前後の空行）
-
-必須セクション: ✗ NG
-- ✗ entity-definition-collector: ワークフローセクションが存在しない
-- ✗ normalization-processor: アウトプットセクションが存在しない
-
-ドキュメント充実度: △ 改善の余地あり
-- △ 概要セクションの記述が不十分（2ファイル）
-- △ ワークフロースキルに良い例/悪い例が記述されていない（3ファイル）
-- △ チェックリストが簡素すぎる（4ファイル）
-
-品質検証: 不合格（8個の問題）
+**With context detection**:
+```bash
+specweave validate-plugins --context="Add GitHub sync for mobile app"
 ```
 
-### フェーズ5: レポート作成
-
-検証結果をまとめ、改善提案をレポートとして作成する。
-
-**実施内容:**
-
-1. 全ての検証結果をサマリー化する
-2. 検出された問題を重要度別に分類する
-3. 各問題の改善方法を提案する
-4. プラグインの品質スコアを算出する
-5. 次のステップを案内する
-
-**提示形式:**
-
-```markdown
-【プラグイン検証レポート】
-
-プラグイン名: database-design-plugin
-検証日時: 2025-11-15
-
-【総合評価】
-
-総合スコア: 95/100（優良）
-
-内訳:
-- 構造検証: 25/25 ✓
-- 整合性検証: 25/25 ✓
-- 品質検証: 20/25 △
-- アーキテクチャ規約: 25/25 ✓
-
-評価: 優良
-- プラグインは高品質で、リリース可能な状態です
-
-【検証結果サマリー】
-
-構造検証: ✓ 合格
-- 必須ファイル: OK
-- ディレクトリ構造: OK
-- フロントマター形式: OK
-- 必須フィールド: OK
-
-整合性検証: ✓ 合格
-- エージェント参照: OK
-- スキル参照: OK
-- 要素名の一貫性: OK
-- 循環依存: OK
-- アーキテクチャ規約: OK
-
-品質検証: △ 改善の余地あり
-- markdownlint検証: OK
-- 必須セクション: OK
-- ドキュメント充実度: 一部改善の余地あり
-
-【検出された問題】
-
-重要度1（必須修正）: 0個
-
-重要度2（推奨修正）: 2個
-1. ワークフロースキルの一部で良い例/悪い例が不足している
-   - 対象: er-diagram-generator, table-definition-writer
-   - 改善方法: 各フェーズに良い例/悪い例を追加する
-
-2. チェックリストの粒度が粗い
-   - 対象: ddl-script-generator
-   - 改善方法: チェックリストをより詳細にする
-
-重要度3（任意修正）: 0個
-
-【改善提案】
-
-1. ワークフロースキルに良い例/悪い例を追加する
-   - er-diagram-generator: ER図の良い例/悪い例
-   - table-definition-writer: テーブル定義書の良い例/悪い例
-
-2. チェックリストを詳細化する
-   - ddl-script-generator: DDLスクリプト生成時のチェックリストを詳細にする
-
-3. README.mdを充実させる（推奨）
-   - プラグインの概要、使い方、コマンド一覧を追加する
-
-【次のステップ】
-
-1. 検出された問題を修正する（任意）
-2. プラグインをパッケージングする（plugin-packager スキルを使用）
-3. プラグインをリリースする
-
-【詳細レポート】
-
-（各検証フェーズの詳細結果を添付）
+**Dry-run (preview only)**:
+```bash
+specweave validate-plugins --dry-run --context="Add Stripe billing"
 ```
 
-**良い例:**
-
-検証結果が明確で、問題点、改善提案、次のステップが示されている。
-
-**悪い例:**
-
-```markdown
-【プラグイン検証レポート】
-
-検証した
-問題なし
+**Verbose mode**:
+```bash
+specweave validate-plugins --verbose
 ```
 
-## アウトプット
-
-このスキルは以下を生成する:
-
-- **プラグイン検証レポート**: 構造、整合性、品質の検証結果をまとめたレポート
-- **問題リスト**: 検出された問題と改善方法のリスト
-- **品質スコア**: プラグインの品質を数値化したスコア
-
-## 想定されるエラーと対処法
-
-### エラー1: 必須ファイルが存在しない
-
-**検出例:**
-
-```markdown
-README.md が存在しない
+**Combined flags**:
+```bash
+specweave validate-plugins --auto-install --context="Deploy to Kubernetes" --verbose
 ```
 
-**対処法:**
+## Troubleshooting
 
-- README.md を作成する
-- プラグインの概要、使い方、コマンド一覧を記述する
+### Error: "Claude CLI not available"
 
-### エラー2: フロントマターが不正
+**Symptom**: Validation fails with "command not found"
 
-**検出例:**
+**Solution**:
+1. Ensure Claude Code is installed
+2. Restart your terminal
+3. Verify: `claude --version`
+4. If still failing, install plugins manually using `/plugin install` command
 
-```markdown
-フロントマターがパースできない
+### Error: "Marketplace configuration invalid"
+
+**Symptom**: Marketplace is registered but validation fails
+
+**Solution**:
+1. Check `~/.claude/settings.json` structure
+2. Ensure marketplace points to GitHub source
+3. If using local marketplace (dev mode), this is expected
+4. Re-run validation to auto-fix configuration
+
+### Error: "Plugin installation failed"
+
+**Symptom**: Auto-install tries but fails
+
+**Solution**:
+1. Check internet connection (GitHub access required)
+2. Verify Claude Code is running
+3. Try manual installation: `/plugin install specweave`
+4. Check Claude Code logs for detailed errors
+
+### False Positive: Wrong Plugin Suggested
+
+**Symptom**: Context detection suggests irrelevant plugin
+
+**Example**: Description "Add GitHub Actions" suggests specweave-github (but you meant CI/CD, not issue tracking)
+
+**Solution**:
+1. Skip the suggestion (choose option 2)
+2. Install correct plugin manually later
+3. This is rare (2+ keyword matches required for suggestion)
+
+## Performance
+
+**Validation Speed**:
+- ✅ With cache: <2 seconds
+- ✅ Without cache: <5 seconds
+- ✅ With auto-install: <30 seconds (1-2 plugins)
+
+**Caching**:
+- Results cached for 5 minutes
+- Speeds up repeated commands
+- Invalidated after plugin changes
+- Cache location: `~/.specweave/validation-cache.json`
+
+## Configuration
+
+**Validation can be configured** in `.specweave/config.json`:
+
+```json
+{
+  "pluginValidation": {
+    "enabled": true,           // Enable/disable validation (default: true)
+    "autoInstall": true,       // Auto-install missing components (default: true)
+    "verbose": false,          // Show detailed logs (default: false)
+    "cacheValidation": true,   // Cache results (default: true)
+    "cacheTTL": 300            // Cache TTL in seconds (default: 300 = 5 min)
+  }
+}
 ```
 
-**対処法:**
-
-- フロントマターの形式を確認する（YAML形式）
-- 必須フィールド（name, description）が存在するか確認する
-- インデントやコロンの位置を確認する
-
-### エラー3: 循環依存が検出された
-
-**検出例:**
-
-```markdown
-skill-a → skill-b → skill-a
+**Disable validation** (not recommended):
+```json
+{
+  "pluginValidation": {
+    "enabled": false
+  }
+}
 ```
 
-**対処法:**
+## Integration with Commands
 
-- スキル間の参照を削除する
-- 共通の処理をコンベンションスキルに分離する
-- コマンドで依存関係を管理する
+**All SpecWeave commands validate plugins** before execution (STEP 0):
 
-## ベストプラクティス
+- `/sw:increment` - Validates before PM agent runs
+- `/sw:do` - Validates before task execution
+- `/sw:next` - Validates before next increment
+- `/sw:done` - Validates before completion
+- ... (all 22 commands)
 
-- 定期的にプラグインを検証する
-- 問題を早期に検出して修正する
-- markdownlintエラーをゼロにする
-- アーキテクチャ規約を遵守する
-- ドキュメントを充実させる（良い例/悪い例、チェックリスト）
-- README.mdを詳細に記述する
+**Workflow**:
+```
+User: /sw:increment "Add feature"
+        ↓
+   [STEP 0: Plugin Validation]
+        ↓ (only proceeds if valid)
+   [STEP 1: PM Agent Planning]
+        ↓
+   [STEP 2: Architect Design]
+        ↓
+   [STEP 3: Implementation]
+```
 
-## チェックリスト
+## Benefits
 
-### プラグイン読込完了時
+✅ **Zero manual setup** - Plugins install automatically
+✅ **Seamless migration** - Works across local/VM/Cloud IDE
+✅ **Context-aware** - Suggests relevant plugins based on your work
+✅ **Clear errors** - No more cryptic "command not found" messages
+✅ **Fast** - Caching ensures minimal overhead (<2s cached, <5s uncached)
+✅ **Non-blocking** - Can skip validation if needed (not recommended)
 
-- [ ] プラグインディレクトリのパスが確認されている
-- [ ] ディレクトリ構造が読み込まれている
-- [ ] 全ファイルのリストが作成されている
-- [ ] 各ファイルの内容が読み込まれている
-- [ ] フロントマター情報が抽出されている
+## Edge Cases
 
-### 構造検証完了時
+**1. Offline Mode**
+- Validation detects missing plugins but can't install
+- Shows manual instructions instead
+- Validation still useful (identifies what's missing)
 
-- [ ] 必須ファイルの存在が確認されている
-- [ ] ディレクトリ構造が規約に従っているか確認されている
-- [ ] ファイル名が規約に従っているか確認されている
-- [ ] フロントマター形式が正しいか確認されている
-- [ ] 必須フロントマターフィールドの存在が確認されている
+**2. Development Mode**
+- Local marketplace detected (not GitHub)
+- Shows warning: "Development mode detected"
+- Validation passes (assumes dev knows what they're doing)
 
-### 整合性検証完了時
+**3. Concurrent Validation**
+- Multiple commands run simultaneously
+- Uses cache to prevent duplicate validations
+- Race conditions handled gracefully
 
-- [ ] コマンドが参照するエージェントの存在が確認されている
-- [ ] コマンドが参照するスキルの存在が確認されている
-- [ ] 要素名の一貫性が確認されている
-- [ ] 循環依存がないか確認されている
-- [ ] アーキテクチャ規約の遵守が確認されている
+**4. Partial Installation**
+- Marketplace exists, but plugin missing (or vice versa)
+- Installs only missing components
+- Doesn't reinstall existing components
 
-### 品質検証完了時
+## Manual Installation (Fallback)
 
-- [ ] markdownlint検証が実施されている
-- [ ] 必須セクションの存在が確認されている
-- [ ] セクションの順序が確認されている
-- [ ] ドキュメントの充実度が評価されている
-- [ ] 良い例/悪い例の存在が確認されている（該当する場合）
+**If auto-install fails**, follow these steps:
 
-### レポート作成完了時
+### Step 1: Register Marketplace
 
-- [ ] 全ての検証結果がサマリー化されている
-- [ ] 検出された問題が重要度別に分類されている
-- [ ] 各問題の改善方法が提案されている
-- [ ] プラグインの品質スコアが算出されている
-- [ ] 次のステップが案内されている
-- [ ] ユーザーの承認を得ている
+Edit `~/.claude/settings.json`:
+```json
+{
+  "extraKnownMarketplaces": {
+    "specweave": {
+      "source": {
+        "source": "github",
+        "repo": "anton-abyzov/specweave",
+        "path": ".claude-plugin"
+      }
+    }
+  }
+}
+```
 
-### 最終確認
+### Step 2: Install Core Plugin
 
-- [ ] プラグイン検証レポートが作成されている
-- [ ] 問題リストが作成されている
-- [ ] 品質スコアが算出されている
-- [ ] すべてのアウトプットが明確で理解しやすい
-- [ ] ユーザーが次のステップに進める状態になっている
+In Claude Code, run:
+```
+/plugin install specweave
+```
+
+### Step 3: Restart Claude Code
+
+Close and reopen Claude Code for changes to take effect.
+
+### Step 4: Verify Installation
+
+Run:
+```bash
+specweave validate-plugins
+```
+
+Should show:
+```
+✅ All plugins validated!
+   • Core plugin: installed (v0.9.4)
+```
+
+### Step 5: Install Context Plugins (Optional)
+
+If you need specific plugins:
+```
+/plugin install sw-github@specweave
+/plugin install sw-payments@specweave
+/plugin install sw-frontend@specweave
+```
+
+## Summary
+
+**This skill ensures you NEVER waste time debugging plugin issues.**
+
+It proactively validates your environment, auto-installs missing components, and suggests relevant plugins based on your work. The result: you focus on building features, not troubleshooting setup.
+
+**Questions?**
+- Check troubleshooting section above
+- Run `specweave validate-plugins --help`
+- Visit: https://spec-weave.com/docs/plugin-validation
+
+---
+
+**Skill Version**: 1.0.0
+**Introduced**: SpecWeave v0.9.4
+**Last Updated**: 2025-11-09

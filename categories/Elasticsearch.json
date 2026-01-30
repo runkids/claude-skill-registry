@@ -1,19 +1,19 @@
 {
   "category": "Elasticsearch",
   "count": 1,
-  "updated_at": "2026-01-29T16:04:57.078364Z",
+  "updated_at": "2026-01-30T04:53:30.759825Z",
   "skills": [
     {
       "name": "SKILL.md",
-      "description": "Provides comprehensive guidance for Elasticsearch including indexing, searching, aggregations, mappings, and cluster management. Use when the user asks about Elasticsearch, needs to implement search f",
-      "repo": "partme-ai/full-stack-skills",
+      "description": "Elasticsearch 5.2 operations using HTTP API - searching, indexing, bulk operations, scroll API, and alias management",
+      "repo": "lawless-m/Earwig",
       "path": "Elasticsearch",
       "branch": "main",
       "category": "Elasticsearch",
       "tags": [],
       "stars": 0,
-      "install": "partme-ai/full-stack-skills",
-      "source": "github.com/partme-ai/full-stack-skills"
+      "install": "lawless-m/Earwig",
+      "source": "github.com/lawless-m/Earwig"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "name": "biorxiv-database",
-  "repo": "jimmc414/Kosmos",
-  "path": "kosmos-claude-scientific-skills/scientific-skills/biorxiv-database/SKILL.md",
-  "source": "github.com/jimmc414/Kosmos",
-  "downloaded_at": "2026-01-29T04:45:49.285406Z"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/scientific-skills/skills/biorxiv-database/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-01-30T03:01:20.799258Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "aws",
-  "repo": "slappforge/sigma",
-  "path": "docs/components/aws/alexa_skill.md",
-  "source": "github.com/slappforge/sigma",
-  "downloaded_at": "2026-01-29T03:37:05.712494Z"
+  "repo": "liauw-media/CodeAssist",
+  "path": "skills/cloud-providers/aws/SKILL.md",
+  "source": "github.com/liauw-media/CodeAssist",
+  "downloaded_at": "2026-01-30T04:19:04.760023Z"
 }

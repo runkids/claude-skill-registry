@@ -1,7 +1,7 @@
 {
   "name": "article-extractor",
-  "repo": "AJBcoding/claude-skill-eval",
-  "path": ".claude/skills/article-extractor/SKILL.md",
-  "source": "github.com/AJBcoding/claude-skill-eval",
-  "downloaded_at": "2026-01-29T04:39:15.488390Z"
+  "repo": "ovachiever/droid-tings",
+  "path": "skills/article-extractor/SKILL.md",
+  "source": "github.com/ovachiever/droid-tings",
+  "downloaded_at": "2026-01-30T04:39:07.661183Z"
 }

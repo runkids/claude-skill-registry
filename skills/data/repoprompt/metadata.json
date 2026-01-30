@@ -1,7 +1,7 @@
 {
   "name": "repoprompt",
-  "repo": "scooter-lacroix/Maestro",
-  "path": "maestro/skills/research/repoprompt/SKILL.md",
-  "source": "github.com/scooter-lacroix/Maestro",
-  "downloaded_at": "2026-01-29T03:43:43.672773Z"
+  "repo": "carmandale/agent-config",
+  "path": "skills/cc3/repoprompt/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-30T04:46:41.526047Z"
 }

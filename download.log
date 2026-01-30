@@ -1,12 +1,12 @@
 INFO:__main__:============================================================
 INFO:__main__:STEP 3: Downloading SKILL.md files
 INFO:__main__:============================================================
-INFO:__main__:Total skills in registry: 78837
-INFO:__main__:Already downloaded: 39086
-INFO:__main__:To download: 6844
-INFO:__main__:Batch 1/23: ✅ 1 | ❌ 299 | ⚡ 0.4/s
+INFO:__main__:Total skills in registry: 93031
+INFO:__main__:Already downloaded: 40046
+INFO:__main__:To download: 6801
+INFO:__main__:Batch 1/23: ✅ 0 | ❌ 300 | ⚡ 0.0/s
 INFO:__main__:Batch 2/23: ✅ 1 | ❌ 599 | ⚡ 0.2/s
-INFO:__main__:Batch 3/23: ✅ 1 | ❌ 899 | ⚡ 0.2/s
+INFO:__main__:Batch 3/23: ✅ 1 | ❌ 899 | ⚡ 0.1/s
 INFO:__main__:Batch 4/23: ✅ 1 | ❌ 1199 | ⚡ 0.1/s
 INFO:__main__:Batch 5/23: ✅ 1 | ❌ 1499 | ⚡ 0.1/s
 INFO:__main__:Batch 6/23: ✅ 1 | ❌ 1799 | ⚡ 0.1/s
@@ -26,15 +26,15 @@ INFO:__main__:Batch 19/23: ✅ 1 | ❌ 5699 | ⚡ 0.0/s
 INFO:__main__:Batch 20/23: ✅ 1 | ❌ 5999 | ⚡ 0.0/s
 INFO:__main__:Batch 21/23: ✅ 1 | ❌ 6299 | ⚡ 0.0/s
 INFO:__main__:Batch 22/23: ✅ 1 | ❌ 6599 | ⚡ 0.0/s
-INFO:__main__:Batch 23/23: ✅ 1 | ❌ 6843 | ⚡ 0.0/s
+INFO:__main__:Batch 23/23: ✅ 1 | ❌ 6800 | ⚡ 0.0/s
 INFO:__main__:============================================================
 INFO:__main__:DOWNLOAD COMPLETE
 INFO:__main__:============================================================
 INFO:__main__:Downloaded: 1
-INFO:__main__:Failed: 6843
-INFO:__main__:Total skills: 39088
+INFO:__main__:Failed: 6800
+INFO:__main__:Total skills: 40048
 INFO:__main__:Failure report saved to /home/runner/work/claude-skill-registry/claude-skill-registry/failure_report.json
 INFO:__main__:============================================================
 INFO:__main__:PIPELINE COMPLETE
-INFO:__main__:Total time: 52.9s (0.9 min)
+INFO:__main__:Total time: 54.2s (0.9 min)
 INFO:__main__:============================================================

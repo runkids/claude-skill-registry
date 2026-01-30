@@ -1,184 +1,312 @@
 ---
 name: ui-patterns
-description: UI design patterns for React + TailwindCSS. Use when creating new UI components, styling elements, implementing dark mode support, or working on any React component that needs consistent styling.
+description: Plaited UI patterns for templates, behavioral elements, and styling. Use when creating bElements or FunctionalTemplates, writing stories for testing, using createStyles, building form controls, or coordinating cross-island communication.
+license: ISC
+compatibility: Requires bun
 ---
 
-# UI Patterns
+# Plaited UI Patterns
 
-## Required: Dark Mode Support
+## Purpose
 
-All UI components MUST support dark mode using Tailwind's `class` strategy.
+This skill provides **training data** for the Plaited agent—patterns that establish the agent's understanding of UI architecture, styling systems, and element coordination. These patterns inform code generation for user interfaces.
 
-```tsx
-// Always provide dark: variants
-className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
+**Use this when:**
+- Creating templates with bElement or FunctionalTemplate
+- Building form-associated custom elements
+- Coordinating cross-island communication
+- Styling elements with CSS-in-JS (createStyles, createHostStyles)
+- Writing stories for testing (`.stories.tsx`)
+- Offloading computation to web workers
+
+**For core BP patterns** (event selection, rule composition, useBehavioral), see **behavioral-core** skill.
+
+## Training Philosophy
+
+### Patterns Are Training Data
+
+All patterns in this skill train the Plaited agent's world model. They are NOT:
+- Reusable templates to import directly
+- Published packages
+- Shared across projects
+
+They ARE:
+- Knowledge for the agent to learn from
+- Self-contained examples demonstrating best practices
+- Training material that improves generation quality
+
+### Training Pipeline
+
+```mermaid
+flowchart LR
+    A[UI Patterns] --> B[Agent World Model]
+    C[Web Patterns] --> B
+    D[User Design Inputs] --> B
+    B --> E[Generated Stories]
+    E --> F[Human Feedback]
+    F --> B
 ```
 
-## Color System
+**User Design Inputs include:**
+- Color palettes and brand colors
+- Type scales (font sizes, weights, line heights)
+- Spacing scales
+- Border radii, shadows
+- Existing design tokens
 
-### Brand Colors (Blue) - Primary actions
-- `brand-500` / `brand-600` - Primary buttons, links
-- `brand-100` / `dark:brand-900/30` - Highlighted backgrounds
-- `brand-700` / `dark:brand-300` - Text on brand backgrounds
+The agent uses `createTokens`, `createStyles`, `createHostStyles`, `createKeyframes`, and `joinStyles` to translate these inputs into the Plaited styling system.
 
-### System Colors (Slate) - UI chrome
-- `slate-50` / `dark:slate-950` - Page backgrounds
-- `slate-100` / `dark:slate-800` - Secondary/card backgrounds
-- `slate-200` / `dark:slate-700` - Borders
-- `slate-400` - Muted text
-- `slate-700` / `dark:white` - Primary text
+### Human-on-the-Loop
 
-### Semantic Colors
-- Success: `emerald-*` (done, approved)
-- Warning: `amber-*` (pending, paused)
-- Error: `red-*` (failed, stopped)
+The agent generates patterns, but humans provide feedback and can edit:
 
-## Component Classes
+1. **Agent generates** → Stories with bElements, styles, tokens
+2. **Human reviews** → Runs stories, checks visual output
+3. **Human provides feedback** → "Make the button larger", "Use different colors"
+4. **Agent adjusts** → Regenerates based on feedback
+5. **Human can edit** → Developers can modify generated code directly
 
-Use pre-defined component classes for consistency:
+This is a **collaborative** workflow, not fully autonomous.
 
-```tsx
-// Buttons
-<button className="btn btn-primary">Create</button>
-<button className="btn btn-secondary">Cancel</button>
-<button className="btn btn-ghost">Refresh</button>
-<button className="btn btn-danger">Delete</button>
+## Quick Reference
 
-// Inputs
-<input className="input" />
-<textarea className="input resize-none" />
+**Terminology**: Plaited uses **templates** for user interfaces. Use "template" not "component". Refer to browser APIs by specific names (Custom Elements, Shadow DOM) not "Web Components".
 
-// Select dropdowns
-<select className="select w-[180px]">
-  <option>Option</option>
-</select>
+**Testing**: UI templates are tested with stories (`.stories.tsx`) using browser automation via the workshop CLI.
 
-// Cards
-<div className="card p-4">Content</div>
+**TypeScript LSP**: Use the `typescript-lsp@plaited_development-skills` skill for type inference from `plaited` package imports.
+
+## CSS-in-JS API
+
+**createStyles** returns objects with `classNames: string[]` and `stylesheets: string[]`:
+
+```typescript
+// button.css.ts
+import { createStyles } from 'plaited'
+
+export const styles = createStyles({
+  button: {
+    padding: '0.5rem 1rem',
+    borderRadius: '4px',
+  },
+})
+
+// Usage in JSX - spread syntax
+<button {...styles.button}>Click me</button>
 ```
 
-## Status Badges
+## Pattern Categories
 
-Use consistent status badge pattern with icons:
+### Templates & Styling
 
-```tsx
-const STATUS_CONFIG = {
-  backlog: { icon: "inbox", classes: "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700" },
-  ready: { icon: "circle-dashed", classes: "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700" },
-  in_progress: { icon: "timer", classes: "bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800" },
-  pending_review: { icon: "eye", classes: "bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800" },
-  done: { icon: "check-circle", classes: "bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-800" },
-};
+**[styling.md](references/styling.md)** - Templates (JSX, FT, useTemplate, SSR) + CSS-in-JS
 
-// Badge structure
-<span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium border whitespace-nowrap {classes}">
-  <Icon className="w-3.5 h-3.5" />
-  {label}
-</span>
+Use for:
+- JSX syntax and template security
+- FunctionalTemplate pattern
+- Atomic CSS with createStyles
+- Host styling with createHostStyles
+- Design tokens with createTokens
+- Keyframes animation with createKeyframes
+- Style composition with joinStyles
+
+### Behavioral Elements
+
+**[b-element.md](references/b-element.md)** - Creating custom elements with bElement
+
+Use for:
+- Islands architecture
+- Decorator pattern (wrapping native elements)
+- Stateful elements
+- Form controls
+
+**When to use bElement:**
+- Interactive islands requiring state
+- Wrapping hard-to-style native elements
+- Complex behavioral coordination
+- Form integration with ElementInternals
+
+### Form Integration
+
+**[form-associated-elements.md](references/form-associated-elements.md)** - Capturing user intent through forms
+
+Use for:
+- Custom form controls with ElementInternals API
+- Custom states (`:state()`) for styling
+- Form validation
+- Type-driven form generation
+
+### Cross-Island Communication
+
+**[cross-island-communication.md](references/cross-island-communication.md)** - Three communication patterns
+
+| Pattern | Direction | API | Use Case |
+|---------|-----------|-----|----------|
+| A | Parent → Child | `trigger()` | Direct method call |
+| B | Child → Parent | `emit()` | Event bubbling |
+| C | Cross-island | `useSignal()` | Pub/sub actor pattern |
+
+### Testing
+
+**[stories.md](references/stories.md)** - Story-based testing with browser automation
+
+Use for:
+- Writing stories for templates and bElements
+- Workshop CLI usage (`bun plaited test`, `bun --hot plaited dev`)
+- Accessibility testing
+- Inspector debugging
+
+Workshop commands:
+```bash
+bun run test:stories src/main  # Run story tests
+bun --hot plaited dev          # Dev server with hot reload
 ```
 
-## Typography
+### Performance
 
-```tsx
-// Page titles
-<h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
+**[web-workers.md](references/web-workers.md)** - Offloading computation to background threads
 
-// Section titles
-<h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+Use for:
+- CPU-intensive calculations
+- Data processing
+- Complex algorithms
 
-// Subsection headers (uppercase)
-<h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+APIs:
+- `useWorker()` - Main thread interface
+- `bWorker()` - Worker thread behavioral program
+
+## Decision Trees
+
+### When to Use Which Pattern?
+
+**Creating UI Elements:**
+```mermaid
+flowchart TD
+    A[Is it simple and<br/>presentational?] -->|YES| B[Use FunctionalTemplate<br/>in *.stories.tsx]
+    A -->|NO| C{Need interactivity?}
+    C -->|YES| D[Use bElement]
+    D --> D1[Islands architecture]
+    D --> D2[Decorator pattern]
+    D --> D3[Stateful elements]
+    D --> D4[Form controls]
+    B -.-> S1[See references/styling.md]
+    D -.-> S2[See references/b-element.md]
 ```
 
-## Layout Patterns
-
-### Split Pane (50/50)
-```tsx
-<div className="flex flex-1 min-h-0 overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800">
-  <div className="w-1/2 border-r border-slate-200 dark:border-slate-800 p-6 overflow-y-auto bg-white dark:bg-slate-900">
-    {/* Left panel */}
-  </div>
-  <div className="w-1/2 flex flex-col min-w-0">
-    {/* Right panel */}
-  </div>
-</div>
+**Communication Between Elements:**
+```mermaid
+flowchart TD
+    A{Parent-Child<br/>relationship?} -->|YES| B{Direction?}
+    A -->|NO| C[Cross-island]
+    B -->|Parent → Child| D[Pattern A: trigger]
+    B -->|Child → Parent| E[Pattern B: emit]
+    C --> F[Pattern C: useSignal]
 ```
 
-### Section Card
-```tsx
-<div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-  <h3 className="text-sm font-medium text-slate-900 dark:text-white mb-3">
-    Section Title
-  </h3>
-  {/* Content */}
-</div>
+## File Organization
+
+### Pattern File Structure
+
+Each pattern follows this structure:
+
+```
+pattern/
+  accordion.css.ts        # Styles (createStyles) - ALWAYS separate
+  accordion.tokens.ts     # Design tokens (optional)
+  accordion.stories.tsx   # bElement/FT + stories (imports from css.ts)
 ```
 
-## Modal Pattern
+**Key principles:**
+1. **Styles in `*.css.ts`** - createStyles always in separate file
+2. **bElement or FunctionalTemplate is local** - Defined in stories, NOT exported
+3. **Stories ARE exported** - Required for testing and training
+4. **Tokens in `*.tokens.ts`** - Design system values when needed
 
-```tsx
-<div className="fixed inset-0 z-50 flex items-center justify-center">
-  <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-  <div className="relative bg-white dark:bg-slate-800 rounded-lg shadow-xl w-full max-w-lg mx-4 border border-slate-200 dark:border-slate-700">
-    {/* Header */}
-    <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700">
-      <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Title</h2>
-      <button onClick={onClose}>...</button>
-    </div>
-    {/* Body */}
-    <div className="px-6 py-4">...</div>
-    {/* Footer */}
-    <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-slate-200 dark:border-slate-700">
-      <button className="btn btn-secondary">Cancel</button>
-      <button className="btn btn-primary">Submit</button>
-    </div>
-  </div>
-</div>
+### For Generated Applications
+
+When the agent generates code for an actual application, file structure is determined collaboratively between the agent and developer based on project needs.
+
+### Naming Conventions
+- **bElement-specific styles**: Export as `styles` and `hostStyles`
+- **Reusable pattern styles**: Export with descriptive names (e.g., `buttonStyles`)
+- **Token files**: Use `*.tokens.ts` extension
+
+## Story API
+
+Every story **requires an `intent` property** describing what it demonstrates:
+
+```typescript
+// Interaction story (with play function)
+export const defaultButton = story({
+  intent: 'Demonstrates button click handling',
+  template: () => <Button>Click me</Button>,
+  play: async ({ findByAttribute, assert, fireEvent }) => {
+    const button = await findByAttribute('p-target', 'button')
+    if (button) await fireEvent(button, 'click')
+    // assertions...
+  },
+})
+
+// Snapshot story (no play function)
+export const disabledButton = story({
+  intent: 'Shows disabled button appearance',
+  template: () => <Button disabled>Disabled</Button>,
+})
 ```
 
-## Spacing Guidelines
+## Best Practices
 
-| Size | Usage |
-|------|-------|
-| `gap-1.5` | Icon + text in badges |
-| `gap-2` | Button groups |
-| `gap-3` | Form fields |
-| `gap-4` | Section spacing |
-| `gap-6` | Major section spacing |
-| `p-4` | Card padding |
-| `p-6` | Modal/panel padding |
+### Templates Are Static
 
-## Scrollbars
-
-Use `.scrollbar-thin` for custom scrollbars:
-```tsx
-<div className="overflow-y-auto scrollbar-thin">
+```typescript
+// Templates render once, use attributes for updates
+const btn = $('btn')[0]
+btn?.attr('data-variant', 'primary')  // Change via attributes
 ```
 
-## Loading States
+### Token Usage
 
-```tsx
-// Skeleton loader
-<div className="animate-pulse bg-slate-200 dark:bg-slate-700 rounded h-4 w-32" />
-
-// Spinner
-<svg className="animate-spin h-5 w-5 text-blue-500" viewBox="0 0 24 24">
-  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-</svg>
+```typescript
+// Pass token references directly, don't invoke
+backgroundColor: tokens.primary    // Correct
+backgroundColor: tokens.primary()  // Wrong
 ```
 
-## Empty States
+### Communication Hierarchy
 
-```tsx
-<div className="flex flex-col items-center justify-center py-12 text-center">
-  <Icon className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
-  <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-2">
-    No items found
-  </h3>
-  <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-    Get started by creating your first item.
-  </p>
-  <button className="btn btn-primary">Create Item</button>
-</div>
+```typescript
+// Parent-child: Use trigger/emit
+parent.trigger({ type: 'event' })
+child.emit({ type: 'event', bubbles: true, composed: true })
+
+// Cross-island: Use useSignal
+const signal = useSignal<Data>()
+signal.set(data)
+signal.listen('evt', trigger)
 ```
+
+## Examples
+
+Complete working examples in `assets/`:
+
+| Example | Pattern | Key Concepts |
+|---------|---------|--------------|
+| [DecoratedCheckbox](assets/decorator-pattern/) | Decorator | Wrapping native elements, attribute observation |
+| [InputAddon](assets/slot-styling/) | Slot styling | `::slotted()` CSS, light DOM styling |
+| [ToggleInput](assets/form-associated/) | Form-associated | ElementInternals, custom states |
+| [Popover](assets/stateful-elements/) | Stateful | Native popover API, emit() |
+| [Tic-Tac-Toe](assets/bp-coordination/) | BP coordination | Complex thread interaction |
+
+## Code Standards
+
+For code conventions, standards, and verification workflow, see the **standards** skill:
+- `code-conventions.md` - Type system, function style, imports
+- `standards.md` - 95% confidence threshold, documentation, Bun APIs
+- `verification-workflow.md` - Code generation workflow
+
+## Related Skills
+
+- **standards** - Code conventions, development standards, verification workflow
+- **behavioral-core** - Core BP patterns (foundation)
+- **web-patterns** - Web API patterns for bElement architecture
+- **typescript-lsp@plaited_development-skills** - Type verification and symbol discovery

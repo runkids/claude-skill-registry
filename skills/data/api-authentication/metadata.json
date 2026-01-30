@@ -1,7 +1,7 @@
 {
   "name": "api-authentication",
-  "repo": "dengineproblem/agents-monorepo",
-  "path": ".claude/skills/api-authentication/SKILL.md",
-  "source": "github.com/dengineproblem/agents-monorepo",
-  "downloaded_at": "2026-01-29T03:30:53.104287Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/api-authentication/skills/api-authentication/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-30T03:41:11.245138Z"
 }

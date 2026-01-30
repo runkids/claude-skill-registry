@@ -1,752 +1,458 @@
 ---
 name: c-systems-programming
-description: Use when writing low-level system software in C requiring file I/O, process management, signals, and system calls.
+description: Use when c systems programming including file I/O, processes, signals, and system calls for low-level system interaction.
 allowed-tools:
-  - Bash
   - Read
   - Write
   - Edit
+  - Grep
+  - Glob
+  - Bash
 ---
 
 # C Systems Programming
 
-Master C systems programming including file I/O, process management,
-inter-process communication, signals, and system calls for writing robust
-low-level system software.
+Systems programming in C provides direct access to operating system resources
+through system calls, enabling control over files, processes, signals, and
+inter-process communication. This skill covers essential systems programming
+patterns for building robust low-level applications.
 
 ## File I/O Operations
 
-### File Descriptors
+C provides both standard library I/O (buffered) and system-level I/O
+(unbuffered) operations. Understanding when to use each is crucial for
+performance and correctness.
 
-File descriptors are integers that represent open files in Unix-like
-systems. Standard file descriptors:
+### Standard I/O Functions
 
-- `0` - Standard input (STDIN_FILENO)
-- `1` - Standard output (STDOUT_FILENO)
-- `2` - Standard error (STDERR_FILENO)
+Standard I/O provides buffering and convenience functions for common operations.
 
-### Basic File Operations
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+// Reading and writing with standard I/O
+int file_copy_stdio(const char *src, const char *dst) {
+    FILE *source = fopen(src, "rb");
+    if (!source) {
+        perror("Failed to open source");
+        return -1;
+    }
+
+    FILE *dest = fopen(dst, "wb");
+    if (!dest) {
+        perror("Failed to open destination");
+        fclose(source);
+        return -1;
+    }
+
+    char buffer[4096];
+    size_t bytes;
+    while ((bytes = fread(buffer, 1, sizeof(buffer), source)) > 0) {
+        if (fwrite(buffer, 1, bytes, dest) != bytes) {
+            perror("Write failed");
+            fclose(source);
+            fclose(dest);
+            return -1;
+        }
+    }
+
+    if (ferror(source)) {
+        perror("Read failed");
+        fclose(source);
+        fclose(dest);
+        return -1;
+    }
+
+    fclose(source);
+    fclose(dest);
+    return 0;
+}
+```
+
+### System-Level I/O
+
+System calls provide direct access to kernel I/O operations without buffering.
 
 ```c
 #include <fcntl.h>
 #include <unistd.h>
-#include <stdio.h>
 #include <errno.h>
 #include <string.h>
 
-int main(void) {
-    int fd;
-    char buffer[1024];
+// Reading and writing with system calls
+int file_copy_syscall(const char *src, const char *dst) {
+    int source_fd = open(src, O_RDONLY);
+    if (source_fd == -1) {
+        perror("Failed to open source");
+        return -1;
+    }
+
+    int dest_fd = open(dst, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (dest_fd == -1) {
+        perror("Failed to open destination");
+        close(source_fd);
+        return -1;
+    }
+
+    char buffer[4096];
     ssize_t bytes_read, bytes_written;
 
-    // Open file for reading
-    fd = open("input.txt", O_RDONLY);
-    if (fd == -1) {
-        perror("open");
-        return 1;
+    while ((bytes_read = read(source_fd, buffer, sizeof(buffer))) > 0) {
+        bytes_written = write(dest_fd, buffer, bytes_read);
+        if (bytes_written != bytes_read) {
+            perror("Write failed");
+            close(source_fd);
+            close(dest_fd);
+            return -1;
+        }
     }
 
-    // Read from file
-    bytes_read = read(fd, buffer, sizeof(buffer) - 1);
     if (bytes_read == -1) {
-        perror("read");
-        close(fd);
-        return 1;
-    }
-    buffer[bytes_read] = '\0';
-
-    // Close file
-    if (close(fd) == -1) {
-        perror("close");
-        return 1;
-    }
-
-    printf("Read %zd bytes: %s\n", bytes_read, buffer);
-    return 0;
-}
-```
-
-### Writing to Files
-
-```c
-#include <fcntl.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdio.h>
-
-int write_file(const char *filename, const char *data) {
-    int fd;
-    ssize_t bytes_written;
-    size_t len = strlen(data);
-
-    // Open file for writing, create if doesn't exist, truncate if exists
-    fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (fd == -1) {
-        perror("open");
+        perror("Read failed");
+        close(source_fd);
+        close(dest_fd);
         return -1;
     }
 
-    // Write data
-    bytes_written = write(fd, data, len);
-    if (bytes_written == -1) {
-        perror("write");
-        close(fd);
-        return -1;
-    }
-
-    if ((size_t)bytes_written != len) {
-        fprintf(stderr, "Partial write: %zd of %zu bytes\n",
-                bytes_written, len);
-        close(fd);
-        return -1;
-    }
-
-    if (close(fd) == -1) {
-        perror("close");
-        return -1;
-    }
-
-    return 0;
-}
-```
-
-### File Positioning
-
-```c
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-
-int main(void) {
-    int fd;
-    char buffer[10];
-    off_t offset;
-
-    fd = open("data.txt", O_RDONLY);
-    if (fd == -1) {
-        perror("open");
-        return 1;
-    }
-
-    // Seek to byte 10 from start
-    offset = lseek(fd, 10, SEEK_SET);
-    if (offset == -1) {
-        perror("lseek");
-        close(fd);
-        return 1;
-    }
-
-    // Read 10 bytes
-    if (read(fd, buffer, sizeof(buffer)) == -1) {
-        perror("read");
-        close(fd);
-        return 1;
-    }
-
-    // Seek to end of file
-    offset = lseek(fd, 0, SEEK_END);
-    printf("File size: %lld bytes\n", (long long)offset);
-
-    close(fd);
+    close(source_fd);
+    close(dest_fd);
     return 0;
 }
 ```
 
 ## Process Management
 
-### Creating Processes with fork()
+Creating and managing processes is fundamental to systems programming. The
+`fork()` and `exec()` family of functions enable process creation and execution.
 
 ```c
-#include <unistd.h>
-#include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-int main(void) {
-    pid_t pid;
-    int status;
+// Create child process and execute command
+int execute_command(const char *program, char *const argv[]) {
+    pid_t pid = fork();
 
-    printf("Parent process (PID: %d)\n", getpid());
-
-    pid = fork();
     if (pid == -1) {
-        perror("fork");
-        return 1;
+        perror("fork failed");
+        return -1;
     }
 
     if (pid == 0) {
         // Child process
-        printf("Child process (PID: %d, Parent: %d)\n",
-               getpid(), getppid());
-        sleep(2);
-        printf("Child exiting\n");
-        return 42;
-    } else {
-        // Parent process
-        printf("Parent created child (PID: %d)\n", pid);
-
-        // Wait for child to exit
-        if (waitpid(pid, &status, 0) == -1) {
-            perror("waitpid");
-            return 1;
-        }
-
-        if (WIFEXITED(status)) {
-            printf("Child exited with status: %d\n",
-                   WEXITSTATUS(status));
-        }
+        execvp(program, argv);
+        // execvp only returns on error
+        perror("execvp failed");
+        exit(EXIT_FAILURE);
     }
 
-    return 0;
-}
-```
+    // Parent process
+    int status;
+    pid_t waited = waitpid(pid, &status, 0);
 
-### Executing Programs with exec()
-
-```c
-#include <unistd.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-
-int main(void) {
-    pid_t pid;
-
-    pid = fork();
-    if (pid == -1) {
-        perror("fork");
-        return 1;
+    if (waited == -1) {
+        perror("waitpid failed");
+        return -1;
     }
 
-    if (pid == 0) {
-        // Child process - execute ls command
-        char *args[] = {"ls", "-l", "/tmp", NULL};
-        char *envp[] = {NULL};
-
-        execve("/bin/ls", args, envp);
-
-        // If execve returns, an error occurred
-        perror("execve");
-        return 1;
-    } else {
-        // Parent process - wait for child
-        int status;
-        waitpid(pid, &status, 0);
-        printf("Child completed\n");
+    if (WIFEXITED(status)) {
+        return WEXITSTATUS(status);
+    } else if (WIFSIGNALED(status)) {
+        fprintf(stderr, "Child terminated by signal %d\n",
+                WTERMSIG(status));
+        return -1;
     }
 
-    return 0;
-}
-```
-
-### Process Information
-
-```c
-#include <unistd.h>
-#include <stdio.h>
-#include <sys/types.h>
-
-void print_process_info(void) {
-    printf("Process ID (PID): %d\n", getpid());
-    printf("Parent Process ID (PPID): %d\n", getppid());
-    printf("Process Group ID (PGID): %d\n", getpgrp());
-    printf("User ID (UID): %d\n", getuid());
-    printf("Effective User ID (EUID): %d\n", geteuid());
-    printf("Group ID (GID): %d\n", getgid());
-    printf("Effective Group ID (EGID): %d\n", getegid());
-}
-
-int main(void) {
-    print_process_info();
-    return 0;
-}
-```
-
-## Inter-Process Communication
-
-### Pipes
-
-```c
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/wait.h>
-
-int main(void) {
-    int pipefd[2];
-    pid_t pid;
-    char buffer[100];
-
-    // Create pipe
-    if (pipe(pipefd) == -1) {
-        perror("pipe");
-        return 1;
-    }
-
-    pid = fork();
-    if (pid == -1) {
-        perror("fork");
-        return 1;
-    }
-
-    if (pid == 0) {
-        // Child process - writes to pipe
-        close(pipefd[0]);  // Close read end
-
-        const char *msg = "Hello from child process!";
-        write(pipefd[1], msg, strlen(msg) + 1);
-        close(pipefd[1]);
-
-        return 0;
-    } else {
-        // Parent process - reads from pipe
-        close(pipefd[1]);  // Close write end
-
-        read(pipefd[0], buffer, sizeof(buffer));
-        printf("Parent received: %s\n", buffer);
-        close(pipefd[0]);
-
-        wait(NULL);
-    }
-
-    return 0;
-}
-```
-
-### Named Pipes (FIFOs)
-
-```c
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-
-// Writer process
-void fifo_writer(void) {
-    const char *fifo_path = "/tmp/myfifo";
-    int fd;
-    const char *msg = "Message through FIFO";
-
-    // Create FIFO if it doesn't exist
-    if (mkfifo(fifo_path, 0666) == -1) {
-        perror("mkfifo");
-        // Continue if already exists
-    }
-
-    fd = open(fifo_path, O_WRONLY);
-    if (fd == -1) {
-        perror("open");
-        return;
-    }
-
-    write(fd, msg, strlen(msg) + 1);
-    close(fd);
-}
-
-// Reader process
-void fifo_reader(void) {
-    const char *fifo_path = "/tmp/myfifo";
-    int fd;
-    char buffer[100];
-
-    fd = open(fifo_path, O_RDONLY);
-    if (fd == -1) {
-        perror("open");
-        return;
-    }
-
-    read(fd, buffer, sizeof(buffer));
-    printf("Received: %s\n", buffer);
-    close(fd);
-
-    unlink(fifo_path);
+    return -1;
 }
 ```
 
 ## Signal Handling
 
-### Basic Signal Handling
+Signals provide asynchronous event notification. Proper signal handling is
+essential for graceful shutdown and error recovery.
 
 ```c
 #include <signal.h>
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <stdbool.h>
 
-volatile sig_atomic_t keep_running = 1;
+// Global flag for signal handling
+static volatile sig_atomic_t keep_running = 1;
 
+// Signal handler for graceful shutdown
 void signal_handler(int signum) {
-    if (signum == SIGINT) {
-        printf("\nReceived SIGINT (Ctrl+C)\n");
-        keep_running = 0;
-    } else if (signum == SIGTERM) {
-        printf("Received SIGTERM\n");
+    if (signum == SIGINT || signum == SIGTERM) {
         keep_running = 0;
     }
 }
 
-int main(void) {
+// Setup signal handlers
+int setup_signals(void) {
     struct sigaction sa;
-
-    // Setup signal handler
     sa.sa_handler = signal_handler;
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = 0;
 
     if (sigaction(SIGINT, &sa, NULL) == -1) {
         perror("sigaction SIGINT");
-        return 1;
+        return -1;
     }
 
     if (sigaction(SIGTERM, &sa, NULL) == -1) {
         perror("sigaction SIGTERM");
-        return 1;
+        return -1;
     }
 
-    printf("Running... Press Ctrl+C to stop\n");
-    while (keep_running) {
-        printf("Working...\n");
-        sleep(1);
-    }
-
-    printf("Cleaning up and exiting\n");
     return 0;
+}
+
+// Main loop with signal handling
+void run_with_signals(void) {
+    if (setup_signals() == -1) {
+        return;
+    }
+
+    while (keep_running) {
+        // Do work
+        sleep(1);
+        printf("Working...\n");
+    }
+
+    printf("Shutting down gracefully\n");
 }
 ```
 
-### Sending Signals
+## Inter-Process Communication
+
+Pipes enable communication between related processes, commonly used for
+command pipelines and parent-child communication.
 
 ```c
-#include <signal.h>
 #include <unistd.h>
 #include <stdio.h>
-#include <sys/types.h>
+#include <string.h>
 #include <sys/wait.h>
 
-int main(void) {
-    pid_t pid;
+// Create a pipeline: ls | wc -l
+int pipeline_example(void) {
+    int pipefd[2];
 
-    pid = fork();
-    if (pid == -1) {
+    if (pipe(pipefd) == -1) {
+        perror("pipe");
+        return -1;
+    }
+
+    pid_t pid1 = fork();
+    if (pid1 == -1) {
         perror("fork");
-        return 1;
+        return -1;
     }
 
-    if (pid == 0) {
-        // Child process - pause until signal received
-        printf("Child waiting for signal...\n");
-        pause();
-        printf("Child received signal\n");
-        return 0;
-    } else {
-        // Parent process - send signal after delay
-        printf("Parent sleeping...\n");
-        sleep(2);
-
-        printf("Parent sending SIGUSR1 to child\n");
-        if (kill(pid, SIGUSR1) == -1) {
-            perror("kill");
-            return 1;
-        }
-
-        wait(NULL);
-        printf("Child process completed\n");
+    if (pid1 == 0) {
+        // First child: ls
+        close(pipefd[0]);  // Close read end
+        dup2(pipefd[1], STDOUT_FILENO);
+        close(pipefd[1]);
+        execlp("ls", "ls", NULL);
+        perror("execlp ls");
+        exit(EXIT_FAILURE);
     }
+
+    pid_t pid2 = fork();
+    if (pid2 == -1) {
+        perror("fork");
+        return -1;
+    }
+
+    if (pid2 == 0) {
+        // Second child: wc -l
+        close(pipefd[1]);  // Close write end
+        dup2(pipefd[0], STDIN_FILENO);
+        close(pipefd[0]);
+        execlp("wc", "wc", "-l", NULL);
+        perror("execlp wc");
+        exit(EXIT_FAILURE);
+    }
+
+    // Parent
+    close(pipefd[0]);
+    close(pipefd[1]);
+
+    waitpid(pid1, NULL, 0);
+    waitpid(pid2, NULL, 0);
 
     return 0;
 }
 ```
 
-### Signal Masking
+## File Locking
+
+File locking prevents concurrent access issues in multi-process environments.
 
 ```c
-#include <signal.h>
-#include <stdio.h>
-#include <unistd.h>
-
-int main(void) {
-    sigset_t set, oldset;
-
-    // Initialize signal set
-    sigemptyset(&set);
-    sigaddset(&set, SIGINT);
-
-    // Block SIGINT
-    if (sigprocmask(SIG_BLOCK, &set, &oldset) == -1) {
-        perror("sigprocmask");
-        return 1;
-    }
-
-    printf("SIGINT blocked for 5 seconds (Ctrl+C won't work)\n");
-    sleep(5);
-
-    // Unblock SIGINT
-    if (sigprocmask(SIG_SETMASK, &oldset, NULL) == -1) {
-        perror("sigprocmask");
-        return 1;
-    }
-
-    printf("SIGINT unblocked (Ctrl+C will work now)\n");
-    sleep(5);
-
-    return 0;
-}
-```
-
-## System Calls
-
-### Common System Calls
-
-```c
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <stdio.h>
-#include <time.h>
-
-void demonstrate_system_calls(void) {
-    struct stat file_stat;
-    char cwd[1024];
-    time_t current_time;
-
-    // Get current working directory
-    if (getcwd(cwd, sizeof(cwd)) != NULL) {
-        printf("Current directory: %s\n", cwd);
-    }
-
-    // Get file information
-    if (stat("/etc/passwd", &file_stat) == 0) {
-        printf("File size: %lld bytes\n",
-               (long long)file_stat.st_size);
-        printf("Permissions: %o\n", file_stat.st_mode & 0777);
-        printf("Last modified: %s", ctime(&file_stat.st_mtime));
-    }
-
-    // Get current time
-    current_time = time(NULL);
-    printf("Current time: %s", ctime(&current_time));
-
-    // Get process times
-    printf("Process times:\n");
-    printf("  Ticks per second: %ld\n", sysconf(_SC_CLK_TCK));
-}
-```
-
-### Directory Operations
-
-```c
-#include <sys/types.h>
-#include <dirent.h>
-#include <stdio.h>
-#include <errno.h>
-
-int list_directory(const char *path) {
-    DIR *dir;
-    struct dirent *entry;
-
-    dir = opendir(path);
-    if (dir == NULL) {
-        perror("opendir");
-        return -1;
-    }
-
-    printf("Contents of %s:\n", path);
-    errno = 0;
-    while ((entry = readdir(dir)) != NULL) {
-        printf("  %s (type: %d)\n", entry->d_name, entry->d_type);
-    }
-
-    if (errno != 0) {
-        perror("readdir");
-        closedir(dir);
-        return -1;
-    }
-
-    if (closedir(dir) == -1) {
-        perror("closedir");
-        return -1;
-    }
-
-    return 0;
-}
-```
-
-## Error Handling
-
-### Using errno
-
-```c
-#include <errno.h>
-#include <string.h>
-#include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <errno.h>
 
-void demonstrate_error_handling(void) {
-    int fd;
+// Advisory file locking
+int lock_file(int fd, int lock_type) {
+    struct flock fl;
+    fl.l_type = lock_type;    // F_RDLCK, F_WRLCK, F_UNLCK
+    fl.l_whence = SEEK_SET;
+    fl.l_start = 0;
+    fl.l_len = 0;             // Lock entire file
+    fl.l_pid = getpid();
 
-    // Attempt to open non-existent file
-    fd = open("/nonexistent/file.txt", O_RDONLY);
+    if (fcntl(fd, F_SETLKW, &fl) == -1) {
+        perror("fcntl");
+        return -1;
+    }
+
+    return 0;
+}
+
+// Write to file with exclusive lock
+int write_locked(const char *filename, const char *data) {
+    int fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
     if (fd == -1) {
-        int saved_errno = errno;  // Save errno immediately
-
-        printf("Error code: %d\n", saved_errno);
-        printf("Error message (strerror): %s\n", strerror(saved_errno));
-
-        // Alternative using perror
-        errno = saved_errno;
         perror("open");
-
-        // Check specific error
-        if (saved_errno == ENOENT) {
-            fprintf(stderr, "File does not exist\n");
-        } else if (saved_errno == EACCES) {
-            fprintf(stderr, "Permission denied\n");
-        }
+        return -1;
     }
+
+    // Acquire exclusive lock
+    if (lock_file(fd, F_WRLCK) == -1) {
+        close(fd);
+        return -1;
+    }
+
+    // Write data
+    ssize_t written = write(fd, data, strlen(data));
+    if (written == -1) {
+        perror("write");
+        lock_file(fd, F_UNLCK);
+        close(fd);
+        return -1;
+    }
+
+    // Release lock
+    lock_file(fd, F_UNLCK);
+    close(fd);
+
+    return 0;
 }
 ```
 
-### Robust Error Handling Pattern
+## Directory Operations
+
+Working with directories requires understanding directory streams and entry
+manipulation.
+
+```c
+#include <dirent.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <string.h>
+
+// List all files in directory recursively
+void list_directory(const char *path, int indent) {
+    DIR *dir = opendir(path);
+    if (!dir) {
+        perror("opendir");
+        return;
+    }
+
+    struct dirent *entry;
+    while ((entry = readdir(dir)) != NULL) {
+        // Skip . and ..
+        if (strcmp(entry->d_name, ".") == 0 ||
+            strcmp(entry->d_name, "..") == 0) {
+            continue;
+        }
+
+        // Print with indentation
+        for (int i = 0; i < indent; i++) {
+            printf("  ");
+        }
+        printf("%s", entry->d_name);
+
+        // Check if directory
+        char fullpath[1024];
+        snprintf(fullpath, sizeof(fullpath), "%s/%s", path,
+                 entry->d_name);
+
+        struct stat statbuf;
+        if (stat(fullpath, &statbuf) == 0) {
+            if (S_ISDIR(statbuf.st_mode)) {
+                printf("/\n");
+                list_directory(fullpath, indent + 1);
+            } else {
+                printf(" (%ld bytes)\n", statbuf.st_size);
+            }
+        } else {
+            printf("\n");
+        }
+    }
+
+    closedir(dir);
+}
+```
+
+## Error Handling in System Calls
+
+Proper error handling is critical in systems programming. System calls
+indicate errors through return values and `errno`.
 
 ```c
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
 #include <errno.h>
 #include <string.h>
+#include <fcntl.h>
+#include <unistd.h>
 
-int copy_file(const char *src, const char *dst) {
-    int src_fd = -1, dst_fd = -1;
-    char buffer[4096];
-    ssize_t bytes_read, bytes_written;
-    int ret = -1;
-
-    // Open source file
-    src_fd = open(src, O_RDONLY);
-    if (src_fd == -1) {
-        fprintf(stderr, "Cannot open source file %s: %s\n",
-                src, strerror(errno));
-        goto cleanup;
-    }
-
-    // Open destination file
-    dst_fd = open(dst, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (dst_fd == -1) {
-        fprintf(stderr, "Cannot open destination file %s: %s\n",
-                dst, strerror(errno));
-        goto cleanup;
-    }
-
-    // Copy data
-    while ((bytes_read = read(src_fd, buffer, sizeof(buffer))) > 0) {
-        bytes_written = write(dst_fd, buffer, bytes_read);
-        if (bytes_written != bytes_read) {
-            fprintf(stderr, "Write error: %s\n", strerror(errno));
-            goto cleanup;
+// Robust file operation with error handling
+int safe_file_operation(const char *filename) {
+    int fd = open(filename, O_RDONLY);
+    if (fd == -1) {
+        switch (errno) {
+            case ENOENT:
+                fprintf(stderr, "File not found: %s\n", filename);
+                break;
+            case EACCES:
+                fprintf(stderr, "Permission denied: %s\n", filename);
+                break;
+            default:
+                fprintf(stderr, "Error opening %s: %s\n",
+                        filename, strerror(errno));
         }
+        return -1;
+    }
+
+    char buffer[1024];
+    ssize_t bytes_read;
+
+    while ((bytes_read = read(fd, buffer, sizeof(buffer))) > 0) {
+        // Process data
+        write(STDOUT_FILENO, buffer, bytes_read);
     }
 
     if (bytes_read == -1) {
-        fprintf(stderr, "Read error: %s\n", strerror(errno));
-        goto cleanup;
+        fprintf(stderr, "Error reading: %s\n", strerror(errno));
+        close(fd);
+        return -1;
     }
 
-    ret = 0;  // Success
-
-cleanup:
-    if (src_fd != -1) close(src_fd);
-    if (dst_fd != -1) close(dst_fd);
-    return ret;
-}
-```
-
-## POSIX APIs
-
-### POSIX Threads Basics
-
-```c
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-void *thread_function(void *arg) {
-    int *value = (int *)arg;
-    printf("Thread running with value: %d\n", *value);
-    sleep(1);
-    *value = 100;
-    return value;
-}
-
-int main(void) {
-    pthread_t thread;
-    int value = 42;
-    void *result;
-
-    if (pthread_create(&thread, NULL, thread_function, &value) != 0) {
-        perror("pthread_create");
-        return 1;
+    if (close(fd) == -1) {
+        fprintf(stderr, "Error closing file: %s\n", strerror(errno));
+        return -1;
     }
-
-    printf("Main thread waiting...\n");
-
-    if (pthread_join(thread, &result) != 0) {
-        perror("pthread_join");
-        return 1;
-    }
-
-    printf("Thread returned: %d\n", *(int *)result);
-    return 0;
-}
-```
-
-### POSIX Shared Memory
-
-```c
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-
-int main(void) {
-    const char *name = "/my_shm";
-    const size_t size = 4096;
-    int shm_fd;
-    void *ptr;
-
-    // Create shared memory object
-    shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666);
-    if (shm_fd == -1) {
-        perror("shm_open");
-        return 1;
-    }
-
-    // Set size
-    if (ftruncate(shm_fd, size) == -1) {
-        perror("ftruncate");
-        return 1;
-    }
-
-    // Map shared memory
-    ptr = mmap(0, size, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
-    if (ptr == MAP_FAILED) {
-        perror("mmap");
-        return 1;
-    }
-
-    // Write to shared memory
-    strcpy((char *)ptr, "Hello, shared memory!");
-
-    // Cleanup
-    munmap(ptr, size);
-    close(shm_fd);
-    shm_unlink(name);
 
     return 0;
 }
@@ -754,109 +460,49 @@ int main(void) {
 
 ## Best Practices
 
-1. **Always Check Return Values**: Every system call can fail. Check return
-   values and handle errors appropriately using errno, perror, or strerror.
-
-2. **Use Signal-Safe Functions**: In signal handlers, only use
-   async-signal-safe functions. Avoid printf, malloc, and other non-reentrant
-   functions.
-
-3. **Close File Descriptors**: Always close file descriptors when done to
-   prevent resource leaks. Use cleanup patterns with goto for complex error
-   handling.
-
-4. **Handle Partial I/O**: read() and write() may transfer fewer bytes than
-   requested. Always check return values and loop when necessary.
-
-5. **Use O_CLOEXEC**: When opening files, use O_CLOEXEC flag to prevent
-   file descriptor leaks across exec() calls.
-
-6. **Proper Process Cleanup**: Always wait for child processes using wait()
-   or waitpid() to prevent zombie processes.
-
-7. **Use sigaction Over signal**: The sigaction() interface is more portable
-   and reliable than the older signal() function.
-
-8. **Avoid Race Conditions**: Be careful with signals and file operations.
-   Use proper synchronization mechanisms like mutexes or semaphores.
-
-9. **Set Signal Masks Carefully**: Block signals during critical sections to
-   prevent race conditions, but restore the original mask afterward.
-
-10. **Use POSIX Standards**: Prefer POSIX-compliant functions over
-    system-specific extensions for better portability across Unix-like
-    systems.
+1. Always check return values from system calls and handle errors appropriately
+2. Use `errno` and `strerror()` for detailed error reporting
+3. Close file descriptors and free resources in all code paths including errors
+4. Use `sigaction()` instead of deprecated `signal()` for signal handling
+5. Avoid blocking operations in signal handlers; use `sig_atomic_t` flags
+6. Prefer standard I/O for buffered operations; use syscalls for direct control
+7. Use advisory locks consistently across all processes accessing shared files
+8. Set appropriate file permissions using umask or explicit mode bits
+9. Handle `EINTR` errors by retrying interrupted system calls when appropriate
+10. Use `waitpid()` to prevent zombie processes and handle child termination
 
 ## Common Pitfalls
 
-1. **Ignoring errno**: Not checking errno after system call failures or
-   checking it when no error occurred can lead to misleading error messages.
+1. Forgetting to check return values from system calls leading to silent errors
+2. Using `signal()` instead of `sigaction()`, missing important control flags
+3. Performing complex operations in signal handlers causing race conditions
+4. Not closing file descriptors in error paths, causing resource leaks
+5. Mixing buffered and unbuffered I/O on same file, causing data corruption
+6. Forgetting to wait for child processes, creating zombie processes
+7. Using unsafe functions in signal handlers (printf, malloc, etc.)
+8. Not handling `EINTR` errors, causing premature operation termination
+9. Ignoring race conditions in file operations without proper locking
+10. Using `kill()` without checking if process exists, sending signals to wrong
+    processes
 
-2. **File Descriptor Leaks**: Forgetting to close file descriptors in error
-   paths causes resource exhaustion over time.
+## When to Use C Systems Programming
 
-3. **Zombie Processes**: Not waiting for child processes leaves zombie
-   processes that consume system resources until parent exits.
+Use C systems programming when you need:
 
-4. **Signal Handler Complexity**: Using non-async-signal-safe functions in
-   signal handlers can cause deadlocks or crashes.
-
-5. **Assuming Complete I/O**: Assuming read() or write() transfers all
-   requested bytes can lead to data corruption or loss.
-
-6. **Race Conditions with fork**: File descriptors and signals can cause race
-   conditions when forking. Use careful synchronization.
-
-7. **Incorrect exec() Usage**: Forgetting the NULL terminator in argument
-   arrays for exec() family functions causes undefined behavior.
-
-8. **Buffer Overflows**: Not checking sizes when reading into buffers can
-   cause security vulnerabilities and crashes.
-
-9. **Mixing I/O Methods**: Mixing low-level I/O (open, read, write) with
-   stdio (fopen, fread, fwrite) on the same file can cause buffering issues.
-
-10. **Hardcoded Paths**: Using hardcoded paths instead of environment
-    variables or configuration files reduces portability and flexibility.
-
-## When to Use This Skill
-
-Use C systems programming when you need to:
-
-- Develop operating system components or kernel modules
-- Create system utilities and command-line tools
-- Write device drivers or low-level hardware interfaces
-- Build high-performance servers requiring direct system control
-- Implement process managers or job schedulers
-- Create inter-process communication mechanisms
-- Develop embedded systems with limited resources
-- Build tools requiring precise control over processes and signals
-- Implement custom file systems or storage solutions
-- Work with real-time systems requiring deterministic behavior
-
-This skill is essential for systems programmers, embedded developers, and
-anyone working close to the operating system level.
+- Direct access to operating system resources and kernel interfaces
+- Maximum control over process execution and resource management
+- Low-level I/O operations without buffering overhead
+- Building system utilities, daemons, or services
+- Inter-process communication using pipes, signals, or shared memory
+- Fine-grained control over file operations and permissions
+- Signal handling for graceful shutdown and error recovery
+- High-performance applications requiring minimal overhead
+- Interfacing with legacy systems or porting Unix utilities
+- Understanding how higher-level abstractions work under the hood
 
 ## Resources
 
-### Documentation
-
-- The Linux Programming Interface by Michael Kerrisk
-- Advanced Programming in the UNIX Environment by W. Richard Stevens
-- POSIX.1-2017 specification
-- Linux man-pages project: <https://man7.org/linux/man-pages/>
-
-### Online Resources
-
-- Linux System Call Reference: <https://syscalls.w3challs.com/>
-- GNU C Library Manual: <https://www.gnu.org/software/libc/manual/>
-- The Open Group Base Specifications: <https://pubs.opengroup.org/onlinepubs/9699919799/>
-- Linux kernel documentation: <https://www.kernel.org/doc/html/latest/>
-
-### Tools
-
-- strace: Trace system calls and signals
-- ltrace: Library call tracer
-- gdb: GNU debugger for debugging system programs
-- valgrind: Memory debugging and profiling
-- perf: Linux profiling tool for performance analysis
+- [Advanced Programming in the UNIX Environment](https://www.apuebook.com/)
+- [The Linux Programming Interface](https://man7.org/tlpi/)
+- [POSIX Standards Documentation](https://pubs.opengroup.org/onlinepubs/9699919799/)
+- [Linux System Programming](https://www.oreilly.com/library/view/linux-system-programming/9781449341527/)

@@ -1,7 +1,7 @@
 {
   "name": "git-worktree",
-  "repo": "kimny1143/claude-code-template",
+  "repo": "alexanderop/workoutTracker",
   "path": ".claude/skills/git-worktree/SKILL.md",
-  "source": "github.com/kimny1143/claude-code-template",
-  "downloaded_at": "2026-01-29T04:45:18.882785Z"
+  "source": "github.com/alexanderop/workoutTracker",
+  "downloaded_at": "2026-01-30T04:25:21.604115Z"
 }

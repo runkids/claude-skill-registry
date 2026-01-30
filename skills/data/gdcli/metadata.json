@@ -1,11 +1,7 @@
 {
   "name": "gdcli",
-  "description": "Google Drive CLI for listing, searching, uploading, downloading, and sharing files and folders.",
-  "repo": "badlogic/pi-skills",
-  "category": "development",
-  "tags": [
-    "gdcli"
-  ],
-  "stars": 72,
-  "source": "SkillsMP Synced Skills"
+  "repo": "w-winter/dot314",
+  "path": "skills/gdcli/SKILL.md",
+  "source": "github.com/w-winter/dot314",
+  "downloaded_at": "2026-01-30T04:40:26.456064Z"
 }

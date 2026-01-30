@@ -1,7 +1,7 @@
 {
   "name": "commit-prepare",
-  "repo": "ByronWilliamsCPA/template-sample",
+  "repo": "williaby/image-preprocessing-detector",
   "path": ".claude/skills/commit-prepare/SKILL.md",
-  "source": "github.com/ByronWilliamsCPA/template-sample",
-  "downloaded_at": "2026-01-29T03:33:56.931108Z"
+  "source": "github.com/williaby/image-preprocessing-detector",
+  "downloaded_at": "2026-01-30T01:37:19.155370Z"
 }

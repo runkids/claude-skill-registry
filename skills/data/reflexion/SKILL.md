@@ -1,251 +1,160 @@
 ---
-name: "reflexion"
-description: "Record feedback on pattern effectiveness. Stores episodes that train the recommendation system and enable pattern discovery via learner."
+name: reflexion
+description: Capture significant errors, root causes, and prevention strategies for future reference
+argument-hint: [issue description]
+user-invocable: true
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
 ---
 
-# Reflexion - Evaluate Pattern Effectiveness
+# /reflexion - Error Learning and Prevention
 
-## What This Skill Does
+Capture significant issues encountered during development for future reference.
 
-Records feedback on patterns and approaches used during work. This feedback:
-1. Trains the recommendation system for better pattern suggestions
-2. Provides data for `learner` skill to auto-discover new patterns
-3. Tracks what works and what doesn't over time
+## Purpose
 
-**Use this AFTER completing work** to record what helped and what didn't.
+Document errors and their resolutions to:
+- Prevent repeating the same mistakes
+- Build a knowledge base of solutions
+- Enable pattern matching for similar issues
+- Improve agent effectiveness over time
 
+## Inputs
+
+- `$ARGUMENTS`: Description of the issue (optional, can be inferred from context)
+- `${PROJECT_NAME}`: Current project context
+- `${CLAUDE_SESSION_ID}`: Session identifier for linking
+- Current conversation context (errors, debugging, resolutions)
+
+## Outputs
+
+Reflexion record stored in Serena project memory under `reflexion/` namespace.
+
+## High Signal/Noise Threshold
+
+Only record issues that are:
+- **Significant**: Required meaningful debugging effort
+- **Non-Obvious**: The solution wasn't immediately clear
+- **Preventable**: Could be avoided in future with the right knowledge
+- **Generalizable**: Applies beyond this specific instance
+
+Do NOT record:
+- Simple typos or syntax errors
+- Issues fixed in seconds
+- One-off configuration problems
+- Highly project-specific issues with no general lesson
+
+## Workflow
+
+### 1. Identify the Issue
+From context or `$ARGUMENTS`:
+- What went wrong?
+- What was the symptom?
+- When did it manifest?
+
+### 2. Analyze Root Cause
+- Why did this happen?
+- What assumption was incorrect?
+- What information was missing?
+- Was documentation unclear or absent?
+
+### 3. Document Solution
+- What fixed the issue?
+- What was the key insight?
+- How long did resolution take?
+
+### 4. Define Prevention
+- How can this be avoided in future?
+- What should be checked first?
+- Are there patterns to recognize?
+- Should documentation be updated?
+
+### 5. Store Reflexion
+Create a reflexion record with the schema below.
+
+## Reflexion Schema
+
+```yaml
+# reflexion/YYYY-MM-DD-short-description.md
+---
+date: YYYY-MM-DD
+session_id: ${CLAUDE_SESSION_ID}
+agent: [Which agent encountered this]
+task: [What task was being performed]
+severity: low | medium | high | critical
+tags:
+  - [category]
+  - [technology]
 ---
 
-## Quick Reference
+## Known Issue
+[Clear description of what went wrong]
 
-```bash
-# Store feedback
-npx agentdb reflexion store "session-id" "task description" reward success "critique"
+## Symptoms
+- [Observable symptom 1]
+- [Observable symptom 2]
 
-# Retrieve similar experiences
-npx agentdb reflexion retrieve "search query" --k 5 --only-successes
+## Root Cause
+[Why this happened - the underlying issue]
 
-# Get critique summary
-npx agentdb reflexion critique-summary "topic" true
+## Solution
+1. [Step 1 of the fix]
+2. [Step 2 of the fix]
+3. [Verification step]
+
+## Prevention
+- [How to avoid this in future]
+- [What to check first when seeing similar symptoms]
+- [Patterns to recognize]
+
+## Related
+- [Link to relevant docs]
+- [Similar past issues]
 ```
 
+## Example
+
+```yaml
+---
+date: 2026-01-24
+session_id: abc123
+agent: Developer
+task: Implement OAuth authentication
+severity: high
+tags:
+  - authentication
+  - token-refresh
+  - error-handling
 ---
 
-## Primary Method: Store Feedback
+## Known Issue
+Authentication fails silently when refresh token expires during long-running session.
 
-```bash
-npx agentdb reflexion store \
-  "dp-004" \
-  "Used domain-adapter pattern for new HTTP source" \
-  1.0 \
-  true \
-  "Pattern was complete - followed Source trait steps exactly, tests passed first try"
+## Symptoms
+- Users logged out unexpectedly after ~1 hour
+- No error messages displayed
+- Network tab showed 401 responses being swallowed
+
+## Root Cause
+Token refresh endpoint returns 401 when refresh token is expired, but error handler was catching all 401s and returning a generic "unauthorized" without distinguishing between invalid token and expired refresh token.
+
+## Solution
+1. Added explicit check for refresh token expiry in 401 handler
+2. Implemented token refresh retry logic with exponential backoff
+3. Added user notification prompting re-authentication when refresh fails
+
+## Prevention
+- Always handle 401 responses explicitly in auth flows
+- Distinguish between token types (access vs refresh) in error handling
+- Add logging for token lifecycle events
+- Consider health check endpoint for token validity before operations
 ```
 
-### Parameters (positional)
-
-| Position | Parameter | Description |
-|----------|-----------|-------------|
-| 1 | session-id | Feature ID (e.g., `dp-004`, `air-011`) |
-| 2 | task | Description of what you did |
-| 3 | reward | Success score 0-1 |
-| 4 | success | `true` or `false` |
-| 5 | critique | Specific feedback (required) |
-| 6 | input | Optional: task input |
-| 7 | output | Optional: task output |
-| 8 | latency-ms | Optional: execution time |
-| 9 | tokens | Optional: tokens used |
-
----
-
-## Examples
-
-### Pattern Worked Well
-
-```bash
-npx agentdb reflexion store \
-  "dp-004" \
-  "Used domain-adapter pattern for new HTTP source" \
-  1.0 \
-  true \
-  "Pattern was complete - followed Source trait steps exactly, tests passed first try"
-```
-
-### Pattern Partially Worked
-
-```bash
-npx agentdb reflexion store \
-  "dp-004" \
-  "Used add-stream pattern but needed adjustment" \
-  0.6 \
-  true \
-  "Pattern missing retention field requirement added in v2.0 - should update pattern via save-pattern"
-```
-
-### Pattern Failed
-
-```bash
-npx agentdb reflexion store \
-  "dp-004" \
-  "Pattern mqtt-routing failed for multi-topic subscription" \
-  0.2 \
-  false \
-  "Pattern assumes single topic per source - needs update for multi-topic. Used workaround with topic array."
-```
-
-### No Pattern Found
-
-```bash
-npx agentdb reflexion store \
-  "dp-004" \
-  "Implemented TimescaleDB continuous aggregate - no existing pattern" \
-  0.85 \
-  true \
-  "No pattern existed. Created new approach using hypertable + continuous_aggregate. Should save as new pattern."
-```
-
----
-
-## Retrieve Similar Experiences
-
-```bash
-# Find successful similar work
-npx agentdb reflexion retrieve "HTTP source implementation" \
-  --k 5 \
-  --only-successes \
-  --min-reward 0.7
-
-# Find failures to learn from
-npx agentdb reflexion retrieve "MQTT configuration" \
-  --k 5 \
-  --only-failures
-
-# Get synthesized summary
-npx agentdb reflexion retrieve "parquet storage" \
-  --k 10 \
-  --synthesize-context
-```
-
-### Retrieve Parameters
-
-| Parameter | Description |
-|-----------|-------------|
-| `--k` | Number of results |
-| `--only-successes` | Only successful episodes |
-| `--only-failures` | Only failed episodes |
-| `--min-reward` | Minimum reward threshold |
-| `--synthesize-context` | Generate summary |
-
----
-
-## Get Critique Summary
-
-Aggregate lessons from critiques:
-
-```bash
-# Get critique summary for failures
-npx agentdb reflexion critique-summary "mqtt" true
-
-# Get all critiques for a topic
-npx agentdb reflexion critique-summary "architecture" false
-```
-
----
-
-## Reward Scale
-
-| Score | Meaning | When to Use |
-|-------|---------|-------------|
-| 1.0 | Perfect | Pattern/approach worked exactly as expected |
-| 0.8 | Good | Minor adjustments needed |
-| 0.6 | Partial | Significant modifications required |
-| 0.4 | Weak | Marginally helpful, major workarounds |
-| 0.2 | Failed | Didn't work, caused issues |
-| 0.0 | Harmful | Actively wrong, wasted time |
-
----
-
-## Session ID Convention
-
-Use consistent session IDs for aggregation:
-
-| Session ID | Use For |
-|------------|---------|
-| `{feature-id}` | Feature work (e.g., `dp-004`, `air-011`) |
-| `{feature-id}-{phase}` | Specific phase (e.g., `dp-004-spec`) |
-| `maintenance` | Bug fixes, refactoring |
-| `exploration` | Research, spikes, experiments |
-
----
-
-## Critique Best Practices
-
-**Good critiques** (specific, actionable):
-```
-"Pattern was complete - followed steps exactly and deployment succeeded"
-"Missing retention field that's now required in v2.0 schema"
-"TimescaleDB connection pattern assumed localhost but we use Docker networking"
-"Architecture pattern outdated - ADR-005 superseded the approach"
-```
-
-**Poor critiques** (vague, unusable):
-```
-"It worked"              # Too vague
-"Failed"                 # No actionable info
-"Good pattern"           # Doesn't explain what made it good
-```
-
----
-
-## The Pattern Workflow
-
-```
-1. BEFORE work:  get-pattern  → Search for relevant patterns
-2. DURING work:  Apply patterns, note gaps and discoveries
-3. AFTER work:   reflexion    → Record what helped (THIS SKILL)
-                 save-pattern → Store NEW discoveries (if any)
-                 learner      → Auto-discover patterns from episodes (periodic)
-```
-
----
-
-## After Recording Feedback
-
-If your critique identifies a pattern that needs updating:
-
-```bash
-# 1. Record the feedback (this skill)
-npx agentdb reflexion store \
-  "dp-004" \
-  "Used add-stream pattern" \
-  0.6 \
-  true \
-  "Pattern missing required retention field"
-
-# 2. Update the pattern (save-pattern skill)
-npx agentdb skill create \
-  "add-stream-v2" \
-  "Add Data Stream (v2.0): Now requires retention field. Steps: 1) Create config.yaml, 2) Add retention field (required), 3) Run sync..." \
-  "tags: streams, config, updated"
-```
-
----
-
-## Related Skills
-
-- **`get-pattern`** - Search patterns BEFORE work
-- **`save-pattern`** - Store NEW patterns after discovering reusable approaches
-- **`learner`** - Auto-discover patterns from reflexion episodes
-
----
-
-## What NOT to Use This For
-
-| Don't Record | Use Instead |
-|--------------|-------------|
-| New patterns you discovered | `save-pattern` |
-| Swarm coordination state | claude-flow memory tools |
-| Transient task/agent memory | claude-flow memory tools |
-| Architecture decisions | `save-pattern` |
-
-**Reflexion is for FEEDBACK on work done, not storing new knowledge.**
+## Validation Checklist
+- [ ] Issue is significant (worth recording)
+- [ ] Root cause is identified (not just symptoms)
+- [ ] Solution is actionable and specific
+- [ ] Prevention strategies are generalizable
+- [ ] Severity accurately reflects impact

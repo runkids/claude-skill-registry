@@ -1,7 +1,7 @@
 {
   "name": "vercel-deployment",
-  "repo": "pascallammers/mylo-travel-concierge-v2",
-  "path": ".factory/skills/vercel-deployment/SKILL.md",
-  "source": "github.com/pascallammers/mylo-travel-concierge-v2",
-  "downloaded_at": "2026-01-29T03:58:07.568371Z"
+  "repo": "erichowens/some_claude_skills",
+  "path": ".claude/skills/vercel-deployment/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-30T04:18:09.193277Z"
 }

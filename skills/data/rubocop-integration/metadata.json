@@ -1,9 +1,7 @@
 {
   "name": "rubocop-integration",
-  "description": "Use when ruboCop CI integration including GitHub Actions, plugins, and performance optimization.",
   "repo": "TheBushidoCollective/han",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "jutsu/jutsu-rubocop/skills/rubocop-integration/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-30T03:33:55.619590Z"
 }

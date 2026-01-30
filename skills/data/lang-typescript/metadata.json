@@ -1,9 +1,7 @@
 {
   "name": "lang-typescript",
-  "description": "TypeScript 5.9+ development specialist covering SolidJS, TanStack Start, Valibot validation, and modern TypeScript patterns. Use when developing TypeScript applications, SolidJS components, TanStack S",
-  "repo": "joncrangle/.dotfiles",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "ravnhq/ai-toolkit",
+  "path": "skills/lang-typescript/SKILL.md",
+  "source": "github.com/ravnhq/ai-toolkit",
+  "downloaded_at": "2026-01-30T01:59:41.671880Z"
 }

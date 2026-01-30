@@ -1,537 +1,535 @@
 ---
 name: jest
-description: Write JavaScript/TypeScript tests with Jest including unit tests, mocking, snapshots, and coverage. Test React components, async code, and Node.js. Use for JavaScript testing, React testing, or test automation.
+description: Tests JavaScript and TypeScript applications with Jest test runner including mocking, snapshot testing, and code coverage. Use when setting up testing, writing unit tests, or when user mentions Jest, test runner, or JavaScript testing.
 ---
 
-# Jest Testing Framework
+# Jest
 
-## Quick Reference
+Delightful JavaScript testing framework with zero configuration and rich mocking capabilities.
 
-| Command | Purpose |
-|---------|---------|
-| `jest` | Run all tests |
-| `jest --watch` | Watch mode |
-| `jest --coverage` | Generate coverage |
-| `jest path/to/test` | Run specific test |
-| `jest -t "pattern"` | Run matching tests |
-
-## 1. Setup
-
-### Installation
+## Quick Start
 
 ```bash
-# JavaScript
-npm install --save-dev jest
+# Install
+npm install -D jest @types/jest
 
-# TypeScript
-npm install --save-dev jest ts-jest @types/jest
+# With TypeScript
+npm install -D jest ts-jest @types/jest
 npx ts-jest config:init
 
-# React
-npm install --save-dev @testing-library/react @testing-library/jest-dom
+# Or with Babel
+npm install -D jest @babel/preset-env @babel/preset-typescript
 ```
 
-### Configuration (jest.config.js)
+## Configuration
 
-```javascript
-module.exports = {
-  // Test environment
-  testEnvironment: 'node', // or 'jsdom' for browser
+### jest.config.ts
 
-  // TypeScript
+```typescript
+import type { Config } from 'jest';
+
+const config: Config = {
   preset: 'ts-jest',
-
-  // Test file patterns
-  testMatch: ['**/__tests__/**/*.test.[jt]s?(x)'],
-
-  // Coverage
-  collectCoverageFrom: ['src/**/*.{js,ts,tsx}', '!src/**/*.d.ts'],
+  testEnvironment: 'node',
+  roots: ['<rootDir>/src'],
+  testMatch: ['**/__tests__/**/*.ts', '**/*.test.ts', '**/*.spec.ts'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/**/__tests__/**',
+  ],
   coverageThreshold: {
     global: {
       branches: 80,
       functions: 80,
       lines: 80,
-      statements: 80
-    }
+      statements: 80,
+    },
   },
-
-  // Module resolution
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-    '\\.(css|less|scss)$': 'identity-obj-proxy'
-  },
-
-  // Setup files
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-
-  // Transform
-  transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest'
-  }
+  clearMocks: true,
+  verbose: true,
 };
+
+export default config;
 ```
 
-### Setup File (jest.setup.js)
+### For React (with Testing Library)
 
-```javascript
+```typescript
+import type { Config } from 'jest';
+
+const config: Config = {
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  moduleNameMapper: {
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/__mocks__/fileMock.js',
+  },
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.jest.json' }],
+  },
+};
+
+export default config;
+```
+
+### jest.setup.ts
+
+```typescript
 import '@testing-library/jest-dom';
 
 // Global mocks
 global.fetch = jest.fn();
 
-// Cleanup after each test
-afterEach(() => {
-  jest.clearAllMocks();
+// Extend expect
+expect.extend({
+  toBeWithinRange(received: number, floor: number, ceiling: number) {
+    const pass = received >= floor && received <= ceiling;
+    return {
+      pass,
+      message: () =>
+        `expected ${received} ${pass ? 'not ' : ''}to be within range ${floor} - ${ceiling}`,
+    };
+  },
 });
+
+declare global {
+  namespace jest {
+    interface Matchers<R> {
+      toBeWithinRange(floor: number, ceiling: number): R;
+    }
+  }
+}
 ```
 
-## 2. Basic Tests
+## Basic Tests
 
 ### Test Structure
 
-```javascript
+```typescript
+import { describe, it, expect, test, beforeEach, afterEach } from '@jest/globals';
+
 describe('Calculator', () => {
-  // Setup before all tests
-  beforeAll(() => {
-    console.log('Starting Calculator tests');
-  });
+  let calculator: Calculator;
 
-  // Setup before each test
   beforeEach(() => {
-    // Reset state
+    calculator = new Calculator();
   });
 
-  // Cleanup after each test
   afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  // Cleanup after all tests
-  afterAll(() => {
-    console.log('Finished Calculator tests');
+    // Cleanup
   });
 
   describe('add', () => {
-    it('adds two positive numbers', () => {
-      expect(add(2, 3)).toBe(5);
+    it('should add two positive numbers', () => {
+      expect(calculator.add(1, 2)).toBe(3);
     });
 
-    it('adds negative numbers', () => {
-      expect(add(-1, -2)).toBe(-3);
+    it('should handle negative numbers', () => {
+      expect(calculator.add(-1, -2)).toBe(-3);
     });
 
-    it.each([
+    test.each([
       [1, 2, 3],
       [0, 0, 0],
-      [-1, 1, 0]
-    ])('adds %i + %i to equal %i', (a, b, expected) => {
-      expect(add(a, b)).toBe(expected);
+      [-1, 1, 0],
+      [100, 200, 300],
+    ])('add(%i, %i) should return %i', (a, b, expected) => {
+      expect(calculator.add(a, b)).toBe(expected);
     });
   });
 
-  // Skip test
-  it.skip('skipped test', () => {
-    // This test is skipped
-  });
-
-  // Only run this test
-  it.only('only this test runs', () => {
-    // Only this test runs in this file
+  describe('divide', () => {
+    it('should throw when dividing by zero', () => {
+      expect(() => calculator.divide(10, 0)).toThrow('Division by zero');
+    });
   });
 });
 ```
 
-### Matchers
+### Common Matchers
 
-```javascript
+```typescript
 // Equality
-expect(value).toBe(expected);           // Strict equality
+expect(value).toBe(expected);           // ===
 expect(value).toEqual(expected);        // Deep equality
-expect(value).toStrictEqual(expected);  // Strict deep equality
+expect(value).toStrictEqual(expected);  // Deep + undefined props
 
 // Truthiness
-expect(value).toBeTruthy();
-expect(value).toBeFalsy();
 expect(value).toBeNull();
 expect(value).toBeUndefined();
 expect(value).toBeDefined();
+expect(value).toBeTruthy();
+expect(value).toBeFalsy();
 
 // Numbers
 expect(value).toBeGreaterThan(3);
 expect(value).toBeGreaterThanOrEqual(3);
 expect(value).toBeLessThan(5);
-expect(value).toBeCloseTo(0.3, 5);      // Floating point
+expect(value).toBeCloseTo(0.3, 5);  // Floating point
 
 // Strings
-expect(string).toMatch(/regex/);
+expect(string).toMatch(/pattern/);
 expect(string).toContain('substring');
+expect(string).toHaveLength(5);
 
 // Arrays
 expect(array).toContain(item);
+expect(array).toContainEqual(object);
 expect(array).toHaveLength(3);
-expect(array).toContainEqual({ id: 1 }); // Deep equality
 
 // Objects
-expect(obj).toHaveProperty('key');
-expect(obj).toHaveProperty('key', 'value');
-expect(obj).toMatchObject({ subset: true });
+expect(object).toHaveProperty('key');
+expect(object).toHaveProperty('nested.key', value);
+expect(object).toMatchObject({ key: value });
 
 // Exceptions
-expect(() => throwError()).toThrow();
-expect(() => throwError()).toThrow('error message');
-expect(() => throwError()).toThrow(ErrorClass);
+expect(() => fn()).toThrow();
+expect(() => fn()).toThrow('message');
+expect(() => fn()).toThrow(ErrorType);
 
 // Negation
-expect(value).not.toBe(expected);
+expect(value).not.toBe(other);
+
+// Asymmetric matchers
+expect(value).toEqual(expect.any(Number));
+expect(value).toEqual(expect.stringContaining('sub'));
+expect(value).toEqual(expect.arrayContaining([1, 2]));
+expect(value).toEqual(expect.objectContaining({ key: value }));
 ```
 
-## 3. Mocking
+## Async Testing
 
-### Mock Functions
+### Promises
 
-```javascript
-// Create mock function
-const mockFn = jest.fn();
-const mockFnWithReturn = jest.fn().mockReturnValue(42);
-const mockFnWithImpl = jest.fn((x) => x * 2);
-
-// Mock implementations
-mockFn.mockReturnValue(10);
-mockFn.mockReturnValueOnce(5);
-mockFn.mockResolvedValue({ data: 'async' });
-mockFn.mockRejectedValue(new Error('failed'));
-mockFn.mockImplementation((x) => x * 2);
-
-// Assertions
-expect(mockFn).toHaveBeenCalled();
-expect(mockFn).toHaveBeenCalledTimes(3);
-expect(mockFn).toHaveBeenCalledWith(arg1, arg2);
-expect(mockFn).toHaveBeenLastCalledWith(arg);
-expect(mockFn).toHaveBeenNthCalledWith(2, arg);
-expect(mockFn).toHaveReturnedWith(value);
-```
-
-### Mock Modules
-
-```javascript
-// Mock entire module
-jest.mock('./database');
-
-// With implementation
-jest.mock('./api', () => ({
-  fetchUser: jest.fn().mockResolvedValue({ id: 1, name: 'John' }),
-  updateUser: jest.fn().mockResolvedValue({ success: true })
-}));
-
-// Partial mock
-jest.mock('./utils', () => ({
-  ...jest.requireActual('./utils'),
-  formatDate: jest.fn().mockReturnValue('2024-01-01')
-}));
-
-// Manual mock (__mocks__/module.js)
-// Automatically used when jest.mock('./module') is called
-```
-
-### Mock Classes
-
-```javascript
-jest.mock('./UserService');
-
-const UserService = require('./UserService');
-
-// Mock instance methods
-UserService.prototype.getUser = jest.fn().mockResolvedValue({ id: 1 });
-
-// Or mock the constructor
-UserService.mockImplementation(() => ({
-  getUser: jest.fn().mockResolvedValue({ id: 1 }),
-  createUser: jest.fn().mockResolvedValue({ id: 2 })
-}));
-```
-
-### Spy on Methods
-
-```javascript
-const obj = {
-  method: () => 'original'
-};
-
-// Spy without changing behavior
-const spy = jest.spyOn(obj, 'method');
-obj.method();
-expect(spy).toHaveBeenCalled();
-
-// Spy with mock implementation
-jest.spyOn(obj, 'method').mockReturnValue('mocked');
-expect(obj.method()).toBe('mocked');
-
-// Restore original
-spy.mockRestore();
-```
-
-### Mock Timers
-
-```javascript
-beforeEach(() => {
-  jest.useFakeTimers();
+```typescript
+// Return promise
+test('fetches user data', () => {
+  return fetchUser(1).then((user) => {
+    expect(user.name).toBe('Alice');
+  });
 });
 
-afterEach(() => {
-  jest.useRealTimers();
+// Async/await
+test('fetches user data', async () => {
+  const user = await fetchUser(1);
+  expect(user.name).toBe('Alice');
 });
 
-it('calls callback after delay', () => {
-  const callback = jest.fn();
-
-  setTimeout(callback, 1000);
-
-  expect(callback).not.toHaveBeenCalled();
-
-  jest.advanceTimersByTime(1000);
-
-  expect(callback).toHaveBeenCalled();
+// Resolves/rejects
+test('resolves to user', async () => {
+  await expect(fetchUser(1)).resolves.toEqual({ name: 'Alice' });
 });
 
-it('runs all timers', () => {
-  const callback = jest.fn();
-
-  setTimeout(callback, 1000);
-  setTimeout(callback, 2000);
-
-  jest.runAllTimers();
-
-  expect(callback).toHaveBeenCalledTimes(2);
+test('rejects with error', async () => {
+  await expect(fetchUser(-1)).rejects.toThrow('User not found');
 });
 ```
 
-## 4. Async Testing
+### Callbacks
 
-```javascript
-// Promises
-it('resolves with data', async () => {
-  const data = await fetchData();
-  expect(data).toEqual({ id: 1 });
-});
-
-// Or with resolves/rejects
-it('resolves with data', () => {
-  return expect(fetchData()).resolves.toEqual({ id: 1 });
-});
-
-it('rejects with error', () => {
-  return expect(failingFetch()).rejects.toThrow('Network error');
-});
-
-// Callbacks
-it('calls callback with data', (done) => {
-  fetchDataCallback((error, data) => {
+```typescript
+test('callback with done', (done) => {
+  fetchDataWithCallback((error, data) => {
     try {
       expect(error).toBeNull();
-      expect(data).toEqual({ id: 1 });
+      expect(data).toEqual({ success: true });
       done();
     } catch (e) {
       done(e);
     }
   });
 });
+```
 
-// Async with expect.assertions
-it('handles multiple assertions', async () => {
-  expect.assertions(2);
+### Timers
 
-  const data = await fetchData();
-  expect(data.id).toBe(1);
-  expect(data.name).toBe('John');
+```typescript
+jest.useFakeTimers();
+
+test('delays execution', () => {
+  const callback = jest.fn();
+
+  delayedCall(callback, 1000);
+  expect(callback).not.toHaveBeenCalled();
+
+  jest.advanceTimersByTime(1000);
+  expect(callback).toHaveBeenCalledTimes(1);
+});
+
+test('with modern timers', () => {
+  jest.useFakeTimers({ advanceTimers: true });
+
+  const callback = jest.fn();
+  setTimeout(callback, 1000);
+
+  jest.runAllTimers();
+  expect(callback).toHaveBeenCalled();
+});
+
+afterEach(() => {
+  jest.useRealTimers();
 });
 ```
 
-## 5. Snapshot Testing
+## Mocking
 
-```javascript
+### Function Mocks
+
+```typescript
+// Create mock function
+const mockFn = jest.fn();
+
+// With implementation
+const mockAdd = jest.fn((a, b) => a + b);
+
+// Mock return values
+mockFn.mockReturnValue(42);
+mockFn.mockReturnValueOnce(1).mockReturnValueOnce(2);
+mockFn.mockResolvedValue({ data: 'value' });
+mockFn.mockRejectedValue(new Error('Failed'));
+
+// Assertions
+expect(mockFn).toHaveBeenCalled();
+expect(mockFn).toHaveBeenCalledTimes(2);
+expect(mockFn).toHaveBeenCalledWith('arg1', 'arg2');
+expect(mockFn).toHaveBeenLastCalledWith('lastArg');
+expect(mockFn).toHaveBeenNthCalledWith(1, 'firstCallArg');
+expect(mockFn).toHaveReturnedWith(42);
+```
+
+### Module Mocks
+
+```typescript
+// __mocks__/axios.ts
+const axios = {
+  get: jest.fn(),
+  post: jest.fn(),
+  create: jest.fn(() => axios),
+};
+export default axios;
+
+// In test file
+jest.mock('axios');
+import axios from 'axios';
+
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+test('fetches data', async () => {
+  mockedAxios.get.mockResolvedValue({ data: { users: [] } });
+
+  const result = await fetchUsers();
+
+  expect(mockedAxios.get).toHaveBeenCalledWith('/api/users');
+  expect(result).toEqual({ users: [] });
+});
+```
+
+### Partial Mocks
+
+```typescript
+// Mock specific exports
+jest.mock('./utils', () => ({
+  ...jest.requireActual('./utils'),
+  expensiveOperation: jest.fn(),
+}));
+
+// Mock with factory
+jest.mock('./database', () => {
+  return {
+    connect: jest.fn().mockResolvedValue(true),
+    query: jest.fn(),
+  };
+});
+```
+
+### Spy on Methods
+
+```typescript
+const video = {
+  play() {
+    return true;
+  },
+};
+
+test('plays video', () => {
+  const spy = jest.spyOn(video, 'play');
+  video.play();
+
+  expect(spy).toHaveBeenCalled();
+  spy.mockRestore();
+});
+
+// Spy on prototype
+jest.spyOn(Date.prototype, 'toISOString').mockReturnValue('2024-01-01');
+```
+
+### Manual Mocks
+
+```typescript
+// __mocks__/fs.ts
+const fs = jest.createMockFromModule('fs') as typeof import('fs');
+
+let mockFiles: Record<string, string> = {};
+
+fs.readFileSync = jest.fn((path: string) => {
+  if (path in mockFiles) {
+    return mockFiles[path];
+  }
+  throw new Error(`ENOENT: ${path}`);
+});
+
+(fs as any).__setMockFiles = (files: Record<string, string>) => {
+  mockFiles = files;
+};
+
+export default fs;
+```
+
+## Snapshot Testing
+
+```typescript
 // Basic snapshot
-it('renders correctly', () => {
-  const tree = renderer.create(<Button>Click</Button>).toJSON();
+test('renders correctly', () => {
+  const tree = renderer.create(<Button label="Click me" />).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 // Inline snapshot
-it('returns user object', () => {
-  const user = getUser(1);
-  expect(user).toMatchInlineSnapshot(`
-    Object {
-      "id": 1,
-      "name": "John",
-    }
-  `);
+test('formats date', () => {
+  expect(formatDate(new Date('2024-01-15'))).toMatchInlineSnapshot(
+    `"January 15, 2024"`
+  );
 });
 
-// Custom serializer
-expect.addSnapshotSerializer({
-  test: (val) => val && val.testId,
-  print: (val) => `TestID: ${val.testId}`
+// Property matchers for dynamic values
+test('creates user', () => {
+  const user = createUser('Alice');
+  expect(user).toMatchSnapshot({
+    id: expect.any(String),
+    createdAt: expect.any(Date),
+  });
 });
 
-// Update snapshots
-// Run: jest --updateSnapshot or jest -u
+// Update snapshots: jest --updateSnapshot
 ```
 
-## 6. React Testing
-
-```javascript
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-
-describe('LoginForm', () => {
-  it('renders form fields', () => {
-    render(<LoginForm />);
-
-    expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
-  });
-
-  it('shows error for invalid email', async () => {
-    const user = userEvent.setup();
-    render(<LoginForm />);
-
-    await user.type(screen.getByLabelText(/email/i), 'invalid');
-    await user.click(screen.getByRole('button', { name: /login/i }));
-
-    expect(screen.getByText(/invalid email/i)).toBeInTheDocument();
-  });
-
-  it('submits form with valid data', async () => {
-    const onSubmit = jest.fn();
-    const user = userEvent.setup();
-
-    render(<LoginForm onSubmit={onSubmit} />);
-
-    await user.type(screen.getByLabelText(/email/i), 'test@example.com');
-    await user.type(screen.getByLabelText(/password/i), 'password123');
-    await user.click(screen.getByRole('button', { name: /login/i }));
-
-    await waitFor(() => {
-      expect(onSubmit).toHaveBeenCalledWith({
-        email: 'test@example.com',
-        password: 'password123'
-      });
-    });
-  });
-
-  it('renders async content', async () => {
-    render(<UserProfile userId={1} />);
-
-    // Wait for loading to finish
-    expect(screen.getByText(/loading/i)).toBeInTheDocument();
-
-    await waitFor(() => {
-      expect(screen.getByText(/john doe/i)).toBeInTheDocument();
-    });
-  });
-});
-```
-
-## 7. API/HTTP Testing
-
-```javascript
-import axios from 'axios';
-
-jest.mock('axios');
-
-describe('API Service', () => {
-  it('fetches users', async () => {
-    const users = [{ id: 1, name: 'John' }];
-    axios.get.mockResolvedValue({ data: users });
-
-    const result = await fetchUsers();
-
-    expect(axios.get).toHaveBeenCalledWith('/api/users');
-    expect(result).toEqual(users);
-  });
-
-  it('handles error', async () => {
-    axios.get.mockRejectedValue(new Error('Network error'));
-
-    await expect(fetchUsers()).rejects.toThrow('Network error');
-  });
-});
-
-// With MSW (Mock Service Worker)
-import { setupServer } from 'msw/node';
-import { http, HttpResponse } from 'msw';
-
-const server = setupServer(
-  http.get('/api/users', () => {
-    return HttpResponse.json([{ id: 1, name: 'John' }]);
-  })
-);
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
-
-it('fetches users', async () => {
-  const users = await fetchUsers();
-  expect(users).toHaveLength(1);
-});
-```
-
-## 8. Coverage
+## Code Coverage
 
 ```bash
-# Generate coverage report
+# Run with coverage
 jest --coverage
 
-# Coverage thresholds in jest.config.js
-coverageThreshold: {
-  global: {
-    branches: 80,
-    functions: 80,
-    lines: 80,
-    statements: 80
+# Coverage report options
+jest --coverage --coverageReporters="text" --coverageReporters="html"
+```
+
+```typescript
+// jest.config.ts coverage options
+{
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'lcov', 'html'],
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/index.ts',
+  ],
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
+    './src/utils/': {
+      branches: 100,
+      statements: 100,
+    },
   },
-  './src/utils/': {
-    branches: 100,
-    statements: 100
-  }
 }
 ```
 
-## 9. Custom Matchers
+## Testing React Components
 
-```javascript
-// jest.setup.js
-expect.extend({
-  toBeWithinRange(received, floor, ceiling) {
-    const pass = received >= floor && received <= ceiling;
-    if (pass) {
-      return {
-        message: () => `expected ${received} not to be within range ${floor} - ${ceiling}`,
-        pass: true
-      };
-    } else {
-      return {
-        message: () => `expected ${received} to be within range ${floor} - ${ceiling}`,
-        pass: false
-      };
-    }
-  }
+```typescript
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+test('submits form with user data', async () => {
+  const handleSubmit = jest.fn();
+  const user = userEvent.setup();
+
+  render(<LoginForm onSubmit={handleSubmit} />);
+
+  await user.type(screen.getByLabelText(/email/i), 'test@example.com');
+  await user.type(screen.getByLabelText(/password/i), 'password123');
+  await user.click(screen.getByRole('button', { name: /submit/i }));
+
+  expect(handleSubmit).toHaveBeenCalledWith({
+    email: 'test@example.com',
+    password: 'password123',
+  });
 });
 
-// Usage
-expect(100).toBeWithinRange(90, 110);
+test('shows error on invalid input', async () => {
+  render(<LoginForm />);
+
+  fireEvent.click(screen.getByRole('button', { name: /submit/i }));
+
+  await waitFor(() => {
+    expect(screen.getByText(/email is required/i)).toBeInTheDocument();
+  });
+});
+
+test('fetches and displays users', async () => {
+  const mockUsers = [{ id: 1, name: 'Alice' }];
+  global.fetch = jest.fn().mockResolvedValue({
+    ok: true,
+    json: () => Promise.resolve(mockUsers),
+  });
+
+  render(<UserList />);
+
+  expect(screen.getByText(/loading/i)).toBeInTheDocument();
+
+  await waitFor(() => {
+    expect(screen.getByText('Alice')).toBeInTheDocument();
+  });
+});
 ```
 
-## Best Practices
+## Running Tests
 
-1. **Test behavior, not implementation** - Focus on what, not how
-2. **Use descriptive names** - Clear test descriptions
-3. **One assertion per test** - When possible
-4. **Arrange-Act-Assert** - Structure tests clearly
-5. **Mock external dependencies** - Isolate units
-6. **Use beforeEach for setup** - DRY test code
-7. **Clean up after tests** - Prevent test pollution
-8. **Run tests in watch mode** - Faster feedback
-9. **Maintain high coverage** - But focus on quality
-10. **Use snapshot tests wisely** - For UI components
+```bash
+# Run all tests
+jest
+
+# Watch mode
+jest --watch
+
+# Run specific file
+jest path/to/test.spec.ts
+
+# Run tests matching pattern
+jest --testNamePattern="should add"
+
+# Run only changed files
+jest --onlyChanged
+
+# Parallel execution
+jest --maxWorkers=4
+
+# Debug mode
+node --inspect-brk node_modules/.bin/jest --runInBand
+```
+
+## Reference Files
+
+- [mocking-patterns.md](references/mocking-patterns.md) - Advanced mocking techniques
+- [performance.md](references/performance.md) - Optimizing test performance

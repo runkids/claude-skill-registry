@@ -1,475 +1,286 @@
 ---
 name: discord
-description: Use when you need to control Discord from Moltbot via the discord tool: send messages, react, post or upload stickers, upload emojis, run polls, manage threads/pins/search, create/edit/delete channels and categories, fetch permissions or member/role/channel info, or handle moderation actions in Discord DMs or channels.
-metadata: {"moltbot":{"emoji":"🎮","requires":{"config":["channels.discord"]}}}
+description: Post announcements and messages to Discord channels. Use when sharing updates, releases, or team communications.
 ---
 
-# Discord Actions
+# Discord
 
-## Overview
+Post messages and announcements to Discord channels via the REST API. Navigate channels by name, send formatted messages with embeds, manage reactions, threads, and more.
 
-Use `discord` to manage messages, reactions, threads, polls, and moderation. You can disable groups via `discord.actions.*` (defaults to enabled, except roles/moderation). The tool uses the bot token configured for Moltbot.
+## Setup
 
-## Inputs to collect
+Run the setup script to authenticate via Discord:
 
-- For reactions: `channelId`, `messageId`, and an `emoji`.
-- For fetchMessage: `guildId`, `channelId`, `messageId`, or a `messageLink` like `https://discord.com/channels/<guildId>/<channelId>/<messageId>`.
-- For stickers/polls/sendMessage: a `to` target (`channel:<id>` or `user:<id>`). Optional `content` text.
-- Polls also need a `question` plus 2–10 `answers`.
-- For media: `mediaUrl` with `file:///path` for local files or `https://...` for remote.
-- For emoji uploads: `guildId`, `name`, `mediaUrl`, optional `roleIds` (limit 256KB, PNG/JPG/GIF).
-- For sticker uploads: `guildId`, `name`, `description`, `tags`, `mediaUrl` (limit 512KB, PNG/APNG/Lottie JSON).
-
-Message context lines include `discord message id` and `channel` fields you can reuse directly.
-
-**Note:** `sendMessage` uses `to: "channel:<id>"` format, not `channelId`. Other actions like `react`, `readMessages`, `editMessage` use `channelId` directly.
-**Note:** `fetchMessage` accepts message IDs or full links like `https://discord.com/channels/<guildId>/<channelId>/<messageId>`.
-
-## Actions
-
-### React to a message
-
-```json
-{
-  "action": "react",
-  "channelId": "123",
-  "messageId": "456",
-  "emoji": "✅"
-}
+```bash
+node .claude/skills/discord/setup.mjs https://discord-proxy.civitai.com
 ```
 
-### List reactions + users
+This will:
+1. Open your browser for Discord authentication
+2. Verify you're in the team server
+3. Save your personal API token to `.env`
 
-```json
-{
-  "action": "reactions",
-  "channelId": "123",
-  "messageId": "456",
-  "limit": 100
-}
+### Admin Only: Direct Bot Token
+
+If you manage the bot directly and need to bypass the proxy:
+
+1. Copy `.env.example` to `.env` in this skill directory
+2. Uncomment and set `DISCORD_BOT_TOKEN`
+3. Optionally set `DISCORD_GUILD` for auto-detection
+
+```bash
+cp .claude/skills/discord/.env.example .claude/skills/discord/.env
 ```
 
-### Send a sticker
+## Running Commands
 
-```json
-{
-  "action": "sticker",
-  "to": "channel:123",
-  "stickerIds": ["9876543210"],
-  "content": "Nice work!"
-}
+```bash
+node .claude/skills/discord/query.mjs <command> [options]
 ```
 
-- Up to 3 sticker IDs per message.
-- `to` can be `user:<id>` for DMs.
+### Commands
 
-### Upload a custom emoji
+| Command | Description |
+|---------|-------------|
+| `guilds` | List all guilds (servers) the bot is in |
+| `channels [guild]` | List text channels in a guild |
+| `send <channel> "message"` | Send a plain text message |
+| `announce <channel> "message"` | Send a formatted announcement embed |
+| `me` | Show bot information |
+| `users` | List all members in the guild |
+| `user <name\|id>` | Get user info and mention format |
+| `roles` | List all roles in the guild |
+| `role <name\|id>` | Get role info and mention format |
+| `messages <channel>` | Get recent messages from a channel |
+| `edit <msg_link> "content"` | Edit a message (bot's own only) |
+| `delete <msg_link>` | Delete a message |
+| `reply <msg_link> "content"` | Reply to a message |
+| `rich-embed <channel>` | Send embed with structured fields |
+| `react <msg_link> <emoji>` | Add reaction to a message |
+| `unreact <msg_link> <emoji>` | Remove reaction from a message |
+| `pin <msg_link>` | Pin a message |
+| `unpin <msg_link>` | Unpin a message |
+| `pins <channel>` | List pinned messages in a channel |
+| `thread <channel> --thread "name"` | Create a thread |
+| `dm <user> "message"` | Send a direct message to a user |
+| `dm-messages <user>` | Read DM history with a user |
 
-```json
-{
-  "action": "emojiUpload",
-  "guildId": "999",
-  "name": "party_blob",
-  "mediaUrl": "file:///tmp/party.png",
-  "roleIds": ["222"]
-}
+### Options
+
+| Flag | Description |
+|------|-------------|
+| `--json` | Output raw JSON response |
+| `--title "text"` | Set embed title |
+| `--color <hex>` | Set embed color (default: #1E88E5 blue) |
+| `--footer "text"` | Set embed footer text |
+| `--url "link"` | Add a URL to the embed title |
+| `--limit, -n <N>` | Limit results (users: default 100, messages: default 20) |
+| `--field "Name\|Value\|inline"` | Add field to rich embed (repeatable) |
+| `--thumbnail "url"` | Add thumbnail image to embed |
+| `--image "url"` | Add large image to embed |
+| `--thread "name"` | Thread name (for thread command) |
+
+## Examples
+
+### Send Messages
+
+```bash
+# Send to channel by name
+node .claude/skills/discord/query.mjs send dev-general "Deployment complete!"
+
+# Send to channel by ID
+node .claude/skills/discord/query.mjs send 966054537880289330 "Build passed"
 ```
 
-- Emoji images must be PNG/JPG/GIF and <= 256KB.
-- `roleIds` is optional; omit to make the emoji available to everyone.
+### Send Announcements
 
-### Upload a sticker
+```bash
+# Basic announcement with auto-formatting
+node .claude/skills/discord/query.mjs announce dev-alerts "New feature deployed!"
 
-```json
-{
-  "action": "stickerUpload",
-  "guildId": "999",
-  "name": "moltbot_wave",
-  "description": "Moltbot waving hello",
-  "tags": "👋",
-  "mediaUrl": "file:///tmp/wave.png"
-}
+# Announcement with custom title and color
+node .claude/skills/discord/query.mjs announce deployments "v5.0.1381 released" --title "Release" --color "#00C853"
 ```
 
-- Stickers require `name`, `description`, and `tags`.
-- Uploads must be PNG/APNG/Lottie JSON and <= 512KB.
+### Rich Embeds with Fields
 
-### Create a poll
-
-```json
-{
-  "action": "poll",
-  "to": "channel:123",
-  "question": "Lunch?",
-  "answers": ["Pizza", "Sushi", "Salad"],
-  "allowMultiselect": false,
-  "durationHours": 24,
-  "content": "Vote now"
-}
+```bash
+# Structured release announcement
+node .claude/skills/discord/query.mjs rich-embed dev-general "New release is live!" \
+  --title "Release v5.0.1382" \
+  --field "Version|5.0.1382|inline" \
+  --field "Author|@justin|inline" \
+  --field "Changes|3 files modified" \
+  --footer "Civitai" \
+  --color "#00C853"
 ```
 
-- `durationHours` defaults to 24; max 32 days (768 hours).
+### Edit Messages
 
-### Check bot permissions for a channel
+```bash
+# Edit using message link
+node .claude/skills/discord/query.mjs edit "https://discord.com/channels/955.../966.../123..." "Updated content"
 
-```json
-{
-  "action": "permissions",
-  "channelId": "123"
-}
+# Edit using channel + message ID
+node .claude/skills/discord/query.mjs edit dev-general 1234567890 "Updated content"
 ```
 
-## Ideas to try
+### Delete Messages
 
-- React with ✅/⚠️ to mark status updates.
-- Post a quick poll for release decisions or meeting times.
-- Send celebratory stickers after successful deploys.
-- Upload new emojis/stickers for release moments.
-- Run weekly “priority check” polls in team channels.
-- DM stickers as acknowledgements when a user’s request is completed.
+```bash
+# Delete using message link
+node .claude/skills/discord/query.mjs delete "https://discord.com/channels/955.../966.../123..."
 
-## Action gating
-
-Use `discord.actions.*` to disable action groups:
-- `reactions` (react + reactions list + emojiList)
-- `stickers`, `polls`, `permissions`, `messages`, `threads`, `pins`, `search`
-- `emojiUploads`, `stickerUploads`
-- `memberInfo`, `roleInfo`, `channelInfo`, `voiceStatus`, `events`
-- `roles` (role add/remove, default `false`)
-- `channels` (channel/category create/edit/delete/move, default `false`)
-- `moderation` (timeout/kick/ban, default `false`)
-### Read recent messages
-
-```json
-{
-  "action": "readMessages",
-  "channelId": "123",
-  "limit": 20
-}
+# Delete using channel + message ID
+node .claude/skills/discord/query.mjs delete dev-general 1234567890
 ```
 
-### Fetch a single message
+### Reply to Messages
 
-```json
-{
-  "action": "fetchMessage",
-  "guildId": "999",
-  "channelId": "123",
-  "messageId": "456"
-}
+```bash
+# Reply using message link
+node .claude/skills/discord/query.mjs reply "https://discord.com/channels/955.../966.../123..." "Thanks for the update!"
+
+# Reply using channel + message ID
+node .claude/skills/discord/query.mjs reply dev-general 1234567890 "Got it!"
 ```
 
-```json
-{
-  "action": "fetchMessage",
-  "messageLink": "https://discord.com/channels/999/123/456"
-}
+### Reactions
+
+```bash
+# Add a reaction (use Unicode emoji)
+node .claude/skills/discord/query.mjs react "https://discord.com/channels/..." "U+2705"
+node .claude/skills/discord/query.mjs react dev-general 1234567890 "U+1F44D"
+
+# Remove a reaction
+node .claude/skills/discord/query.mjs unreact "https://discord.com/channels/..." "U+2705"
 ```
 
-### Send/edit/delete a message
+### Pin/Unpin Messages
 
-```json
-{
-  "action": "sendMessage",
-  "to": "channel:123",
-  "content": "Hello from Moltbot"
-}
-```
+```bash
+# Pin a message
+node .claude/skills/discord/query.mjs pin "https://discord.com/channels/..."
 
-**With media attachment:**
+# Unpin a message
+node .claude/skills/discord/query.mjs unpin "https://discord.com/channels/..."
 
-```json
-{
-  "action": "sendMessage",
-  "to": "channel:123",
-  "content": "Check out this audio!",
-  "mediaUrl": "file:///tmp/audio.mp3"
-}
-```
-
-- `to` uses format `channel:<id>` or `user:<id>` for DMs (not `channelId`!)
-- `mediaUrl` supports local files (`file:///path/to/file`) and remote URLs (`https://...`)
-- Optional `replyTo` with a message ID to reply to a specific message
-
-```json
-{
-  "action": "editMessage",
-  "channelId": "123",
-  "messageId": "456",
-  "content": "Fixed typo"
-}
-```
-
-```json
-{
-  "action": "deleteMessage",
-  "channelId": "123",
-  "messageId": "456"
-}
+# List pinned messages
+node .claude/skills/discord/query.mjs pins dev-general
 ```
 
 ### Threads
 
-```json
-{
-  "action": "threadCreate",
-  "channelId": "123",
-  "name": "Bug triage",
-  "messageId": "456"
-}
+```bash
+# Create thread from a message
+node .claude/skills/discord/query.mjs thread "https://discord.com/channels/..." --thread "Discussion"
+
+# Create thread in channel (no parent message)
+node .claude/skills/discord/query.mjs thread dev-general --thread "New Topic"
 ```
 
-```json
-{
-  "action": "threadList",
-  "guildId": "999"
-}
+### Direct Messages
+
+```bash
+# Send DM to a user by name
+node .claude/skills/discord/query.mjs dm justin "Hey, can you review this PR?"
+
+# Send DM to a user by ID
+node .claude/skills/discord/query.mjs dm 303445765865603073 "Quick question about the deployment"
+
+# Read DM history with a user
+node .claude/skills/discord/query.mjs dm-messages justin
+
+# Read last 50 DMs
+node .claude/skills/discord/query.mjs dm-messages justin --limit 50
 ```
 
-```json
-{
-  "action": "threadReply",
-  "channelId": "777",
-  "content": "Replying in thread"
-}
+### Users and Roles
+
+```bash
+# List users
+node .claude/skills/discord/query.mjs users --limit 50
+
+# Find user to get mention format
+node .claude/skills/discord/query.mjs user justin
+# Output: Mention: <@303445765865603073>
+
+# List roles
+node .claude/skills/discord/query.mjs roles
+
+# Find role to get mention format
+node .claude/skills/discord/query.mjs role devs
+# Output: Mention: <@&955572624992382996>
 ```
 
-### Pins
+### Mention Users and Roles
 
-```json
-{
-  "action": "pinMessage",
-  "channelId": "123",
-  "messageId": "456"
-}
+```bash
+# Mention a user in a message
+node .claude/skills/discord/query.mjs send dev-general "<@303445765865603073> check this PR"
+
+# Mention a role
+node .claude/skills/discord/query.mjs announce dev-general "<@&955572624992382996> new release!" --title "Attention Devs"
 ```
 
-```json
-{
-  "action": "listPins",
-  "channelId": "123"
-}
+### Read Messages
+
+```bash
+# Get last 20 messages (default)
+node .claude/skills/discord/query.mjs messages dev-general
+
+# Get last 50 messages
+node .claude/skills/discord/query.mjs messages dev-general --limit 50
 ```
 
-### Search messages
+## Message Links
 
-```json
-{
-  "action": "searchMessages",
-  "guildId": "999",
-  "content": "release notes",
-  "channelIds": ["123", "456"],
-  "limit": 10
-}
-```
+Most commands accept Discord message links directly:
+- Format: `https://discord.com/channels/GUILD_ID/CHANNEL_ID/MESSAGE_ID`
+- Right-click any message in Discord > "Copy Message Link"
 
-### Member + role info
+Commands that accept message links: `edit`, `delete`, `reply`, `react`, `unreact`, `pin`, `unpin`, `thread`
 
-```json
-{
-  "action": "memberInfo",
-  "guildId": "999",
-  "userId": "111"
-}
-```
+## Channel Name Matching
 
-```json
-{
-  "action": "roleInfo",
-  "guildId": "999"
-}
-```
+Channel names are matched flexibly:
+- Exact match: `dev-general`
+- Partial match: `dev-gen` matches `dev-general`
+- With or without emoji prefix: `team` matches `team`
+- Case insensitive: `DEV-GENERAL` matches `dev-general`
 
-### List available custom emojis
+## When to Use
 
-```json
-{
-  "action": "emojiList",
-  "guildId": "999"
-}
-```
+- **Deployments**: Announce releases to `deployments` or `dev-alerts`
+- **Bug fixes**: Share fixes with the team in `dev-general`
+- **Feature announcements**: Post to relevant channels
+- **Team updates**: Share progress in `team` or project-specific channels
+- **Automated notifications**: Post from CI/CD or scripts
+- **Mentioning users**: Look up user IDs with `user` command, then @mention them
+- **Mentioning roles**: Look up role IDs with `role` command, then @mention them
+- **Reading context**: Check recent messages with `messages` command
+- **Reactions**: Acknowledge messages with emoji reactions
+- **Organizing discussions**: Create threads for focused conversations
+- **Direct messages**: Send private DMs to team members, read DM history
 
-### Role changes (disabled by default)
+## Tips
 
-```json
-{
-  "action": "roleAdd",
-  "guildId": "999",
-  "userId": "111",
-  "roleId": "222"
-}
-```
+- Use `announce` for important updates (creates rich embed)
+- Use `send` for quick messages or automated notifications
+- Use `rich-embed` for structured data with multiple fields
+- Channel names are cached after first lookup
+- Bot must have appropriate permissions in target channel
+- Use `--json` for scripting or piping to other tools
+- Message links work across all message-targeting commands
 
-### Channel info
+## Permissions Required
 
-```json
-{
-  "action": "channelInfo",
-  "channelId": "123"
-}
-```
-
-```json
-{
-  "action": "channelList",
-  "guildId": "999"
-}
-```
-
-### Channel management (disabled by default)
-
-Create, edit, delete, and move channels and categories. Enable via `discord.actions.channels: true`.
-
-**Create a text channel:**
-
-```json
-{
-  "action": "channelCreate",
-  "guildId": "999",
-  "name": "general-chat",
-  "type": 0,
-  "parentId": "888",
-  "topic": "General discussion"
-}
-```
-
-- `type`: Discord channel type integer (0 = text, 2 = voice, 4 = category; other values supported)
-- `parentId`: category ID to nest under (optional)
-- `topic`, `position`, `nsfw`: optional
-
-**Create a category:**
-
-```json
-{
-  "action": "categoryCreate",
-  "guildId": "999",
-  "name": "Projects"
-}
-```
-
-**Edit a channel:**
-
-```json
-{
-  "action": "channelEdit",
-  "channelId": "123",
-  "name": "new-name",
-  "topic": "Updated topic"
-}
-```
-
-- Supports `name`, `topic`, `position`, `parentId` (null to remove from category), `nsfw`, `rateLimitPerUser`
-
-**Move a channel:**
-
-```json
-{
-  "action": "channelMove",
-  "guildId": "999",
-  "channelId": "123",
-  "parentId": "888",
-  "position": 2
-}
-```
-
-- `parentId`: target category (null to move to top level)
-
-**Delete a channel:**
-
-```json
-{
-  "action": "channelDelete",
-  "channelId": "123"
-}
-```
-
-**Edit/delete a category:**
-
-```json
-{
-  "action": "categoryEdit",
-  "categoryId": "888",
-  "name": "Renamed Category"
-}
-```
-
-```json
-{
-  "action": "categoryDelete",
-  "categoryId": "888"
-}
-```
-
-### Voice status
-
-```json
-{
-  "action": "voiceStatus",
-  "guildId": "999",
-  "userId": "111"
-}
-```
-
-### Scheduled events
-
-```json
-{
-  "action": "eventList",
-  "guildId": "999"
-}
-```
-
-### Moderation (disabled by default)
-
-```json
-{
-  "action": "timeout",
-  "guildId": "999",
-  "userId": "111",
-  "durationMinutes": 10
-}
-```
-
-## Discord Writing Style Guide
-
-**Keep it conversational!** Discord is a chat platform, not documentation.
-
-### Do
-- Short, punchy messages (1-3 sentences ideal)
-- Multiple quick replies > one wall of text
-- Use emoji for tone/emphasis 🦞
-- Lowercase casual style is fine
-- Break up info into digestible chunks
-- Match the energy of the conversation
-
-### Don't
-- No markdown tables (Discord renders them as ugly raw `| text |`)
-- No `## Headers` for casual chat (use **bold** or CAPS for emphasis)
-- Avoid multi-paragraph essays
-- Don't over-explain simple things
-- Skip the "I'd be happy to help!" fluff
-
-### Formatting that works
-- **bold** for emphasis
-- `code` for technical terms
-- Lists for multiple items
-- > quotes for referencing
-- Wrap multiple links in `<>` to suppress embeds
-
-### Example transformations
-
-❌ Bad:
-```
-I'd be happy to help with that! Here's a comprehensive overview of the versioning strategies available:
-
-## Semantic Versioning
-Semver uses MAJOR.MINOR.PATCH format where...
-
-## Calendar Versioning
-CalVer uses date-based versions like...
-```
-
-✅ Good:
-```
-versioning options: semver (1.2.3), calver (2026.01.04), or yolo (`latest` forever). what fits your release cadence?
-```
+The bot needs these Discord permissions:
+- `View Channels` - to list and find channels
+- `Send Messages` - to post messages
+- `Embed Links` - for rich announcements
+- `Read Message History` - to read channel messages
+- `Add Reactions` - to add reactions
+- `Manage Messages` - to pin/unpin and delete messages
+- `Create Public Threads` - to create threads
+- Server Members Intent - enabled in Discord Developer Portal (for listing members)

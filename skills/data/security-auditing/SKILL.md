@@ -1,98 +1,85 @@
 ---
-name: 'security-auditing'
-description: 'Audits code for security vulnerabilities and OWASP issues. Use when reviewing security, checking for vulnerabilities, or when asked to audit code security.'
+name: security-auditing
+description: Assess system designs, data flows, and controls for security vulnerabilities and compliance. Use when performing threat modeling, penetration assessments, or policy alignment (Zero-Trust, Duke Verified) on pilot architectures and integrations.
 ---
 
 # Security Auditing
 
-## OWASP Top 10 Checklist
+## Overview
 
-### 1. Injection
+[TODO: 1-2 sentences explaining what this skill enables]
 
-- [ ] SQL queries use parameterized statements
-- [ ] Shell commands don't include user input
-- [ ] LDAP/XPath queries are sanitized
+## Structuring This Skill
 
-```typescript
-// VULNERABLE - SQL injection
-db.query(`SELECT * FROM users WHERE id = ${userId}`);
+[TODO: Choose the structure that best fits this skill's purpose. Common patterns:
 
-// SAFE - parameterized query
-db.query('SELECT * FROM users WHERE id = $1', [userId]);
-```
+**1. Workflow-Based** (best for sequential processes)
+- Works well when there are clear step-by-step procedures
+- Example: DOCX skill with "Workflow Decision Tree" -> "Reading" -> "Creating" -> "Editing"
+- Structure: ## Overview -> ## Workflow Decision Tree -> ## Step 1 -> ## Step 2...
 
-### 2. Broken Authentication
+**2. Task-Based** (best for tool collections)
+- Works well when the skill offers different operations/capabilities
+- Example: PDF skill with "Quick Start" -> "Merge PDFs" -> "Split PDFs" -> "Extract Text"
+- Structure: ## Overview -> ## Quick Start -> ## Task Category 1 -> ## Task Category 2...
 
-- [ ] Passwords hashed with bcrypt/argon2
-- [ ] Session tokens are secure random
-- [ ] Rate limiting on auth endpoints
-- [ ] MFA supported for sensitive operations
+**3. Reference/Guidelines** (best for standards or specifications)
+- Works well for brand guidelines, coding standards, or requirements
+- Example: Brand styling with "Brand Guidelines" -> "Colors" -> "Typography" -> "Features"
+- Structure: ## Overview -> ## Guidelines -> ## Specifications -> ## Usage...
 
-### 3. Sensitive Data Exposure
+**4. Capabilities-Based** (best for integrated systems)
+- Works well when the skill provides multiple interrelated features
+- Example: Product Management with "Core Capabilities" -> numbered capability list
+- Structure: ## Overview -> ## Core Capabilities -> ### 1. Feature -> ### 2. Feature...
 
-- [ ] No secrets in code or logs
-- [ ] HTTPS enforced
-- [ ] Sensitive data encrypted at rest
-- [ ] PII masked in logs
+Patterns can be mixed and matched as needed. Most skills combine patterns (e.g., start with task-based, add workflow for complex operations).
 
-### 4. XML External Entities (XXE)
+Delete this entire "Structuring This Skill" section when done - it's just guidance.]
 
-- [ ] XML parsers disable external entities
-- [ ] DTD processing disabled
+## [TODO: Replace with the first main section based on chosen structure]
 
-### 5. Broken Access Control
+[TODO: Add content here. See examples in existing skills:
+- Code samples for technical skills
+- Decision trees for complex workflows
+- Concrete examples with realistic user requests
+- References to scripts/templates/references as needed]
 
-- [ ] Authorization checked on every request
-- [ ] No direct object references exposed
-- [ ] CORS configured correctly
+## Resources (optional)
 
-### 6. Security Misconfiguration
+Create only the resource directories this skill actually needs. Delete this section if no resources are required.
 
-- [ ] Debug mode disabled in production
-- [ ] Default credentials changed
-- [ ] Security headers configured
+### scripts/
+Executable code (Python/Bash/etc.) that can be run directly to perform specific operations.
 
-### 7. Cross-Site Scripting (XSS)
+**Examples from other skills:**
+- PDF skill: `fill_fillable_fields.py`, `extract_form_field_info.py` - utilities for PDF manipulation
+- DOCX skill: `document.py`, `utilities.py` - Python modules for document processing
 
-- [ ] Output encoding applied
-- [ ] CSP headers configured
-- [ ] User input sanitized
-- [ ] Use textContent instead of innerHTML for user data
+**Appropriate for:** Python scripts, shell scripts, or any executable code that performs automation, data processing, or specific operations.
 
-### 8. Insecure Deserialization
+**Note:** Scripts may be executed without loading into context, but can still be read by Codex for patching or environment adjustments.
 
-- [ ] No untrusted data deserialized
-- [ ] Type checking on deserialized data
+### references/
+Documentation and reference material intended to be loaded into context to inform Codex's process and thinking.
 
-### 9. Known Vulnerabilities
+**Examples from other skills:**
+- Product management: `communication.md`, `context_building.md` - detailed workflow guides
+- BigQuery: API reference documentation and query examples
+- Finance: Schema documentation, company policies
 
-- [ ] Dependencies up to date
-- [ ] `npm audit` / `pip check` clean
-- [ ] No deprecated packages
+**Appropriate for:** In-depth documentation, API references, database schemas, comprehensive guides, or any detailed information that Codex should reference while working.
 
-### 10. Insufficient Logging
+### assets/
+Files not intended to be loaded into context, but rather used within the output Codex produces.
 
-- [ ] Security events logged
-- [ ] No sensitive data in logs
-- [ ] Log integrity protected
+**Examples from other skills:**
+- Brand styling: PowerPoint template files (.pptx), logo files
+- Frontend builder: HTML/React boilerplate project directories
+- Typography: Font files (.ttf, .woff2)
 
-## Quick Checks
+**Appropriate for:** Templates, boilerplate code, document templates, images, icons, fonts, or any files meant to be copied or used in the final output.
 
-```bash
-# Check for secrets in code
-grep -r "password\|secret\|api_key\|token" --include="*.ts" src/
+---
 
-# Check dependencies
-npm audit
-```
-
-## Report Format
-
-```markdown
-## [SEVERITY] Vulnerability Title
-
-**Location**: `file:line`
-**Type**: OWASP category
-**Impact**: What an attacker could do
-**Fix**: How to remediate
-```
+**Not every skill requires all three types of resources.**

@@ -1,9 +1,7 @@
 {
   "name": "performance-patterns",
-  "description": "Use when user asks about N+1 queries, performance optimization, query optimization, reduce API calls, improve render performance, fix slow code, optimize database, or reduce bundle size. Provides guid",
-  "repo": "hculap/better-code",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "LimaTechnologies/admin-telegram-bot",
+  "path": ".claude/skills/performance-patterns/SKILL.md",
+  "source": "github.com/LimaTechnologies/admin-telegram-bot",
+  "downloaded_at": "2026-01-30T03:37:20.799706Z"
 }

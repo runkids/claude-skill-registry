@@ -1,7 +1,7 @@
 {
   "name": "cloudflare-workflows",
-  "repo": "dennislee928/Smart_Zone",
-  "path": ".claude/skills/cloudflare-workflows/SKILL.md",
-  "source": "github.com/dennislee928/Smart_Zone",
-  "downloaded_at": "2026-01-29T04:26:54.311794Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/cloudflare-workflows/skills/cloudflare-workflows/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-30T03:41:11.667979Z"
 }

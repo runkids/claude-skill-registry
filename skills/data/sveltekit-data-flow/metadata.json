@@ -1,7 +1,7 @@
 {
   "name": "sveltekit-data-flow",
-  "repo": "dawiddutoit/custom-claude",
-  "path": "skills/sveltekit-data-flow/SKILL.md",
-  "source": "github.com/dawiddutoit/custom-claude",
-  "downloaded_at": "2026-01-27T02:53:48.408316Z"
+  "repo": "dandedotdev/dotfiles",
+  "path": ".claude/skills/sveltekit-data-flow/SKILL.md",
+  "source": "github.com/dandedotdev/dotfiles",
+  "downloaded_at": "2026-01-30T02:47:40.214405Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "render-output",
-  "description": "Renders structured data to terminal with optimal formatting. Use when presenting agent results, displaying data to users, formatting command output, or showing validation reports. Transforms raw data ",
-  "repo": "rayk/lucid-toolkit",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Ven0m0/claude-config",
+  "path": "claude/skills/render-output/SKILL.md",
+  "source": "github.com/Ven0m0/claude-config",
+  "downloaded_at": "2026-01-30T04:01:30.992722Z"
 }

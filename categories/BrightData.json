@@ -1,19 +1,19 @@
 {
   "category": "BrightData",
   "count": 1,
-  "updated_at": "2026-01-29T16:04:52.386810Z",
+  "updated_at": "2026-01-30T04:53:31.687121Z",
   "skills": [
     {
       "name": "SKILL.md",
       "description": "Progressive four-tier URL content scraping with automatic fallback strategy.\n\nUSE WHEN user says \"scrape this URL\", \"fetch this page\", \"get content from\",\n\"can't access this site\", \"use Bright Data\", ",
-      "repo": "Microck/ordinary-claude-skills",
+      "repo": "blackpwnguin/Personal-AI",
       "path": "BrightData",
       "branch": "main",
       "category": "BrightData",
       "tags": [],
       "stars": 0,
-      "install": "Microck/ordinary-claude-skills",
-      "source": "github.com/Microck/ordinary-claude-skills"
+      "install": "blackpwnguin/Personal-AI",
+      "source": "github.com/blackpwnguin/Personal-AI"
     }
   ]
 }

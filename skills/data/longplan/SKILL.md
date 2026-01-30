@@ -10,6 +10,46 @@ Use this when the user requests `/longplan`.
 Follow `.claude/commands/longplan.md`. If a step requires tools not
 available, note the adaptation and proceed with the closest equivalent.
 
+## When to Use This vs Alternatives
+
+| Your Situation | Use This | Not These |
+|----------------|----------|-----------|
+| Complex multi-step feature, 30+ min work | `/longplan` | `/ralph` (asset gen only) |
+| Plan exists, stay in session, 5-10+ subagents | `/longplan` | `executing-plans` (new session) |
+| Need plan + autonomous execution | `/longplan` | `subagent-driven-development` (plan required) |
+| Debug/investigate first | Use `systematic-debugging` | Any execution skill |
+
+**Relationship to other skills:**
+- vs `ralph`: `ralph` is for batch asset generation (tiles, sprites). `/longplan` is for complex features.
+- vs `executing-plans`: Use that for parallel session (separate window). `/longplan` stays in this session.
+- vs `subagent-driven-development`: That skill executes existing plans with fresh subagent per task + 2 reviewers.
+
+## Autonomous Work Mode (2A Phase)
+
+**When working without human interaction during 2A phase:**
+
+### Self-Checkpoints (Every 30 min or 5 file operations)
+- [ ] Re-verify alignment with plan file
+- [ ] Run quick tests if available
+- [ ] Update progress tracking (checkpoint in plan file)
+- [ ] Clear context if approaching token limit
+
+### Blocker Response (Without Asking User)
+1. **Try 2-3 alternative approaches** (5 min)
+2. **Spawn MiniMax subagent** for research/sanity check (5 min)
+3. **Try subagent suggestions** (5 min)
+4. **Document and skip to next task** - circle back later
+5. **ONLY after 30+ min of real attempts** → consider user escalation
+
+### Quality Gates (Self-Enforced Before Declaring Done)
+- [ ] All explicit success criteria from plan are met
+- [ ] Time commitment fulfilled (check `.session_manifest.json`)
+- [ ] Visual proof captured (screenshots for visual work)
+- [ ] Narrative consistency verified (for story/dialogue work)
+- [ ] Tests pass (if applicable)
+
+**Remember:** Checkpointing (clearing context) is NOT stopping. It's managing token budget to continue working.
+
 ## Compound Engineering: Multi-Agent Delegation
 
 **Core Philosophy:** Each unit of work should make future work easier.
@@ -65,7 +105,7 @@ Main Agent (Orchestrator):
    /context status  # Verify it's actually cleared
 
    # Option 2: Start completely fresh (most reliable)
-   - Close Cursor/Claude Code completely
+   - Close Kimi Code CLI completely
    - Reopen and start new session
    - Reference plan: @temp/autonomous-work-[task].md
    ```
@@ -84,7 +124,7 @@ Main Agent (Orchestrator):
 - GLM-4.7 has ~200K context (vs Claude's 1M)
 - File operations are the primary context consumers
 - `/clear` command is BUGGY - use `/context clear` or restart session entirely
-- Consider using native Claude model for very long file-heavy sessions
+- Consider using native Claude model for very long file-heavy sessions (as an alternative with larger context)
 
 **Example checkpoint format:**
 ```markdown

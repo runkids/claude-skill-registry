@@ -1,7 +1,7 @@
 {
   "name": "sql-query-optimization",
-  "repo": "secondsky/claude-skills",
-  "path": "plugins/sql-query-optimization/skills/sql-query-optimization/SKILL.md",
-  "source": "github.com/secondsky/claude-skills",
-  "downloaded_at": "2026-01-29T03:11:01.494086Z"
+  "repo": "MUmerRazzaq/fast-next-todo",
+  "path": ".claude/skills/sql-query-optimization/SKILL.md",
+  "source": "github.com/MUmerRazzaq/fast-next-todo",
+  "downloaded_at": "2026-01-30T04:10:41.869771Z"
 }

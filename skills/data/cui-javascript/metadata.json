@@ -1,9 +1,7 @@
 {
   "name": "cui-javascript",
-  "description": "Core JavaScript development standards covering ES modules, modern patterns, code quality, async programming, and tooling",
-  "repo": "cuioss/cui-llm-rules",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "cuioss/plan-marshall",
+  "path": "marketplace/bundles/pm-dev-frontend/skills/cui-javascript/SKILL.md",
+  "source": "github.com/cuioss/plan-marshall",
+  "downloaded_at": "2026-01-30T03:21:21.966643Z"
 }

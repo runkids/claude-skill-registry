@@ -1,6 +1,13 @@
 ---
 name: learning-objectives
-description: Generate measurable learning outcomes aligned with Bloom's taxonomy and CEFR proficiency levels for educational content. Use when educators need to define what students will achieve, create learning objectives for curriculum planning, or ensure objectives are specific and testable rather than vague.
+description: |
+  Generate measurable learning outcomes aligned with Bloom's taxonomy and CEFR proficiency levels for educational content.
+  Use this skill when educators need to define what students will achieve, create learning objectives
+  for curriculum planning, or ensure objectives are specific and testable rather than vague.
+  This skill helps break down complex topics into progressively building learning goals with clear
+  assessment methods and success criteria.
+version: "2.1.0"
+constitution_alignment: v4.0.1
 ---
 
 # Learning Objectives Skill
@@ -204,7 +211,7 @@ LO-001: Implement user authentication working with AI as co-learning partner
 Once you've generated objectives, invoke the validation script to check they're measurable:
 
 ```bash
-python .claude/skills/learning-objectives/scripts/validate-objectives.py objectives.yml
+python .claude/skills/authoring/learning-objectives/scripts/validate-objectives.py objectives.yml
 ```
 
 The script checks:

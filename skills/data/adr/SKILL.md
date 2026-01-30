@@ -1,38 +1,130 @@
 ---
-description: Create and review Architecture Decision Records. Use `/adr create <title>` to create a new ADR, `/adr review` to check an existing one, `/adr audit` to validate code compliance, `/adr consistency` to check ADRs for conflicts, `/adr list` to show all ADRs, `/adr accept <number>` to mark as accepted, or `/adr supersede <old> <new>` to mark an ADR as superseded.
-argument-hint: create <title> | review [file] | audit [--base <branch>] | consistency | list | accept <number> | supersede <old> <new>
-allowed-tools: Glob, Grep, Read, Write, Edit, Bash, AskUserQuestion, Task
+name: adr
+description: "Create Architecture Decision Records through interactive conversation. Use when making technology choices, architecture patterns, or third-party service selections."
+model: claude-opus-4-5-20251101
+allowed-tools: Read, Write, Edit, Glob, Grep, WebSearch
 ---
 
-# ADR Skill
+# /adr
 
-Create, review, and audit Architecture Decision Records.
+Create Architecture Decision Records through interactive conversation.
 
-**Format rules:** See `docs/adr/000-adr-format-standard.md` for size limits, required sections, and excluded content.
+## Usage
 
-## Arguments
+```bash
+/adr                                      # Start conversation
+/adr "database selection for coordinatr"  # Provide topic
+```
 
-- `$ARGUMENTS`: One of:
-  - `create <title>` - Create a new ADR
-  - `review [file]` - Review an existing ADR
-  - `audit [--base <branch>]` - Validate code against ADR decisions
-  - `consistency` - Check ADRs for conflicts and ambiguities
-  - `list` - List all ADRs with status and title
-  - `accept <number>` - Transition ADR status to Accepted
-  - `supersede <old> <new>` - Mark old ADR as superseded by new one
+## Output Location
 
-## Subcommand Instructions
+ADRs live with code in `spaces/`:
 
-Each subcommand has detailed instructions in a separate file:
+```
+spaces/[project]/docs/project/adrs/
+├── ADR-001-database-choice.md
+├── ADR-002-auth-strategy.md
+└── ADR-003-testing-strategy.md
+```
 
-| Command | Instructions |
-|---------|--------------|
-| `create` | See `create.md` |
-| `review` | See `review.md` |
-| `audit` | See `audit.md` |
-| `consistency` | See `consistency.md` |
-| `list` | See `list.md` |
-| `accept` | See `accept.md` |
-| `supersede` | See `supersede.md` |
+## Execution Flow
 
-Read the appropriate file based on the first argument, then follow its instructions.
+### 1. Gather Context
+
+```bash
+# Current architecture
+Read: spaces/[project]/docs/project/architecture-overview.md
+
+# Existing ADRs
+Glob: spaces/[project]/docs/project/adrs/ADR-*.md
+
+# Project context
+Read: ideas/[project]/project-brief.md
+
+# Relevant research
+Glob: resources/research/*.md
+```
+
+### 2. Interactive Conversation
+
+Ask one at a time:
+
+1. **What decision needs to be made?**
+2. **Why is this decision needed now?**
+3. **What options are you considering?** (2-4 alternatives)
+4. **What are the constraints?** (time, budget, skills)
+5. **What are the trade-offs for each?**
+6. **Which option do you prefer and why?**
+
+### 3. Research Support
+
+If user unsure about options:
+- Check existing research in `resources/research/`
+- Suggest `/research` for deeper dive
+- Use WebSearch for current best practices
+
+### 4. Create ADR Document
+
+```markdown
+# ADR-###: [Decision Title]
+
+**Status**: Accepted
+**Date**: YYYY-MM-DD
+**Decision Makers**: [who was involved]
+
+## Context
+[Why this decision is needed]
+
+## Decision
+We will use **[chosen option]** because [rationale].
+
+## Options Considered
+
+### Option 1: [Name]
+**Pros**: ...
+**Cons**: ...
+
+### Option 2: [Name]
+**Pros**: ...
+**Cons**: ...
+
+## Consequences
+
+### Positive
+- What we gain
+
+### Negative
+- What we lose
+- Technical debt accepted
+
+### Risks
+- Risk and mitigation
+
+## Related Decisions
+- Links to related ADRs/specs
+
+## References
+- Documentation links
+```
+
+## When to Use
+
+- Technology/framework selection
+- Architecture patterns
+- Third-party service choices
+- Data modeling approaches
+- Cross-project standards
+
+**Not for**: Implementation details, temporary decisions, already-decided standards
+
+## ADR Lifecycle
+
+1. **Accepted** - Decision made, actively followed
+2. **Deprecated** - No longer relevant
+3. **Superseded** - Replaced by newer ADR
+
+## Workflow
+
+```
+/brief -> /research -> /adr -> /spec
+```

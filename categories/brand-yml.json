@@ -1,0 +1,19 @@
+{
+  "category": "brand-yml",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.296045Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create and use brand.yml files for consistent branding across Shiny apps and Quarto documents. Use when working with brand styling, colors, fonts, logos, or corporate identity in Shiny or Quarto proje",
+      "repo": "posit-dev/skills",
+      "path": "brand-yml",
+      "branch": "main",
+      "category": "brand-yml",
+      "tags": [],
+      "stars": 0,
+      "install": "posit-dev/skills",
+      "source": "github.com/posit-dev/skills"
+    }
+  ]
+}

@@ -1,261 +1,254 @@
 ---
 name: manage-adr
-description: |
-  Architecture Decision Records (ADRs)をdocs/adr/ディレクトリで管理します。
-  新しいADRの作成、既存ADRの編集、ADR索引の確認を行います。
-  ユーザーがアーキテクチャ決定の記録、ADRの作成・更新・検索を依頼したときに使用してください。
-  番号の自動採番、プロジェクト固有のフォーマット（日本語、メタデータ構造）を遵守します。
-allowed-tools: Read, Edit, Glob, Grep
+description: Manage Architectural Decision Records (ADRs) with CRUD operations, automatic numbering, and AsciiDoc formatting
+user-invocable: false
+allowed-tools: Read, Edit, Write, Bash, Grep, Glob, Skill
 ---
 
-# ADR（Architecture Decision Record）管理スキル
+# ADR Management Skill
 
-このスキルはdocs/adr/内のArchitecture Decision Recordsを、プロジェクト固有のルールに従って管理します。
+Manage Architectural Decision Records (ADRs) stored in `doc/adr/` directory.
 
-## プロジェクト固有のルール
+## Purpose
 
-### ADRディレクトリ構造
+Provide structured management of architectural decisions:
 
-```
-docs/adr/
-├── 0001-security.md
-├── 0002-realtime.md
-├── 0003-cost.md
-├── 0004-services.md
-├── 0005-centralize-runtime-config.md
-├── 0006-transcript-subscription-simplification.md
-├── 0007-orchestrator-browser-interaction.md
-├── 0008-chime-media-pipelines-for-server-side-transcription.md
-├── 0009-third-party-meeting-service-integration.md
-└── 0011-sqs-fifo-for-transcript-streaming.md
-```
+- **Create** ADRs with automatic numbering and template
+- **Read** ADR content by number
+- **Update** ADR status through lifecycle
+- **Delete** ADRs when necessary
+- **List** all ADRs with optional filtering
+- **Validate** ADR format using ref-documentation
 
-### ADRファイル命名規則
+## Available Workflows
 
-- ファイル名: `[4桁番号]-[ケバブケース説明].md`
-- 例: `0001-security.md`, `0011-sqs-fifo-for-transcript-streaming.md`
-- 番号は連番だが、欠番があってもOK（削除・スキップされたADRの場合）
+| Workflow | Purpose | Script Used |
+|----------|---------|-------------|
+| **list-adrs** | List all ADRs with optional filtering | `manage-adr.py list` |
+| **create-adr** | Create new ADR from template | `manage-adr.py create` |
+| **read-adr** | Read ADR content | `manage-adr.py read` |
+| **update-adr** | Update ADR status | `manage-adr.py update` |
+| **delete-adr** | Delete ADR (with confirmation) | `manage-adr.py delete` |
+| **validate-adr** | Validate ADR format | ref-documentation workflows |
 
-### ADRメタデータフォーマット
+## Workflow: list-adrs
 
-各ADRファイルは以下のメタデータを含む必要があります：
+List all ADRs with optional status filtering.
 
-```markdown
-# ADR 0001: タイトル
+### Parameters
 
-- Status: Proposed | Accepted | Rejected | Superseded | TBD
-- Date: YYYY-MM-DD
-- Owners: プロジェクトチーム名 または 個人名
-```
+- `status` (optional): Filter by status (Proposed, Accepted, Deprecated, Superseded)
 
-**Statusの意味**:
-- **Proposed**: 提案段階（レビュー中）
-- **Accepted**: 承認済み（実装中または実装済み）
-- **Rejected**: 却下
-- **Superseded**: 別のADRに置き換えられた
-- **TBD**: 未決定（調査中、議論中）
+### Steps
 
-### ADR構造テンプレート
-
-```markdown
-# ADR [番号]: タイトル
-
-- Status: [Status]
-- Date: [YYYY-MM-DD]
-- Owners: [チーム名]
-
-## 背景 / Context
-
-[意思決定が必要になった背景、問題、要件]
-
-## 決定 / Decision
-
-[何を決定したか。明確に、簡潔に]
-
-## 影響 / Consequences
-
-[この決定によって生じる影響（ポジティブ、ネガティブ両方）]
-
-## 代替案 / Alternatives Considered
-
-[検討した他の選択肢とその理由]
-
-## 参考 / References
-
-[関連リンク、ドキュメント、関連ADR]
-```
-
-### 言語
-
-- **日本語で記述**: セクション見出しは「背景 / Context」のように日英併記
-- 技術用語は英語でもOK（Kinesis, SQS, Lambda等）
-- コード例、構造図は英語でOK
-
-### 関連ADRの参照
-
-ADR間で関連がある場合、明示的に参照する：
-
-```markdown
-## 参考 / References
-
-### 関連ADR
-- ADR 0002: リアルタイム性（レイテンシ要件）
-- ADR 0003: コスト（コスト最適化方針）
-- ADR 0007: Orchestratorとブラウザの連携
-```
-
-## 使用シナリオ
-
-### 新規ADRの作成
-
-1. **番号の確認**: docs/adr/ディレクトリをGlobで確認し、未使用の次の番号を決定
-2. **テンプレート適用**: 上記のADR構造テンプレートを使用
-3. **メタデータ設定**:
-   - Status: 通常は"Proposed"または"TBD"でスタート
-   - Date: 今日の日付（YYYY-MM-DD形式）
-   - Owners: デフォルトは"timtam PoC チーム"
-4. **ファイル作成**: Writeツールで新規ファイルを作成
-
-### 既存ADRの読み込み
-
-1. **番号で検索**: Globで`docs/adr/[番号]*.md`パターンで検索
-2. **キーワード検索**: Grepで内容を検索
-3. **全ADR一覧**: Globで`docs/adr/*.md`を一覧表示
-
-### 既存ADRの更新
-
-1. **Readで読み込み**: 対象ADRファイルを読み込む
-2. **メタデータ更新**:
-   - Status変更（Proposed → Accepted等）
-   - Date更新（最終更新日）
-3. **内容更新**: Editツールでセクションを追加・修正
-4. **Superseded設定**: 別のADRに置き換えられた場合、古いADRのStatusを"Superseded"に変更し、参照を追記
-
-### ADR索引の確認
-
-現在は専用のREADME.mdは存在しないが、全ADRを一覧する場合：
+**Step 1: Execute List**
 
 ```bash
-Glob: docs/adr/*.md
+python3 .plan/execute-script.py pm-documents:manage-adr:manage-adr list [--status {status}]
 ```
 
-で一覧を取得し、ユーザーに提示する。
+**Step 3: Parse Output**
 
-## 作業フロー
+Parse JSON output containing ADR list with metadata.
 
-1. **読み込み**: docs/adr/ディレクトリの現在の状態を確認（Glob使用）
-2. **番号確認**: 最新のADR番号を確認し、次の番号を決定
-3. **テンプレート適用**: プロジェクト固有のフォーマットとメタデータを適用
-4. **内容作成**: ユーザーの要件に基づいて各セクションを記述
-5. **実行**: WriteまたはEditツールでファイルを作成・更新
+### Output
 
-## 例
-
-### 良い例：新規ADR作成時
-
-ユーザー: 「SQSの使用について新しいADRを書いて」
-
-1. Glob で `docs/adr/*.md` を確認
-2. 最新番号が0011なので、次は0012を使用
-3. テンプレートを適用:
-
-```markdown
-# ADR 0012: SQS使用方針
-
-- Status: Proposed
-- Date: 2025-12-25
-- Owners: timtam PoC チーム
-
-## 背景 / Context
-
-[SQS導入の背景]
-
-## 決定 / Decision
-
-[SQS使用の決定]
-
-## 影響 / Consequences
-
-[影響分析]
-
-## 代替案 / Alternatives Considered
-
-[他の選択肢]
-
-## 参考 / References
-
-[関連情報]
+```json
+{
+  "success": true,
+  "operation": "list",
+  "count": 3,
+  "adrs": [
+    {"number": 1, "title": "Use PostgreSQL", "status": "Accepted", "path": "doc/adr/001-Use_PostgreSQL.adoc"},
+    {"number": 2, "title": "Adopt Quarkus", "status": "Proposed", "path": "doc/adr/002-Adopt_Quarkus.adoc"}
+  ]
+}
 ```
 
-4. Write で `/home/yattom/work/timtam/docs/adr/0012-sqs-usage-policy.md` を作成
+## Workflow: create-adr
 
-### 良い例：既存ADRの更新
+Create a new ADR with automatic numbering.
 
-ユーザー: 「ADR 0011のStatusをAcceptedに変更して」
+### Parameters
 
-1. Read で `docs/adr/0011-*.md` を読み込む
-2. Editでメタデータを更新:
+- `title` (required): ADR title
+- `status` (optional, default: "Proposed"): Initial status
 
-```markdown
-- Status: Proposed
-+ Status: Accepted
-- Date: 2025-12-25
-+ Date: 2025-12-26
+### Steps
+
+**Step 1: Create ADR**
+
+```bash
+python3 .plan/execute-script.py pm-documents:manage-adr:manage-adr create --title "{title}" [--status "{status}"]
 ```
 
-### 良い例：ADR検索
+**Step 3: Parse Output**
 
-ユーザー: 「Kinesisに関するADRを教えて」
+Extract created file path from JSON output.
 
-1. Grep で `pattern: "Kinesis"`, `path: docs/adr/` を検索
-2. 該当するADRファイルをリストアップ
-3. ユーザーに提示
+**Step 4: Open for Editing**
 
-### 悪い例：番号の重複
+Read the created file and inform user to fill in content sections.
 
-❌ 既存のADR番号を再利用しない
-❌ 番号を遡って挿入しない（0001と0002の間に0001.5を作らない）
-✅ 常に最新番号+1を使用
+**Step 5: Validate Format**
 
-### 悪い例：メタデータの省略
+```
+Skill: pm-documents:ref-documentation
+Execute workflow: validate-format
+Parameters:
+  target: {created_path}
+```
 
-❌ Statusを省略
-❌ Dateフォーマットが不統一（2025/12/25等）
-✅ 必須メタデータ（Status, Date, Owners）を必ず含める
+### Output
 
-## ユーザー依頼例
+```
+ADR Created: doc/adr/004-{title}.adoc
+Number: ADR-004
+Status: Proposed
 
-- 「新しいADRを作成して」
-- 「ADR 0011をAcceptedに変更して」
-- 「Kinesisに関するADRを探して」
-- 「最新のADRを教えて」
-- 「ADR 0008の内容を読んで」
-- 「ADRの一覧を見せて」
+Next steps:
+1. Edit doc/adr/004-{title}.adoc to fill in:
+   - Context
+   - Decision
+   - Consequences
+   - Alternatives
+2. Update status to "Accepted" when approved
+```
 
-## パス指定の注意
+## Workflow: read-adr
 
-常に絶対パスを使用：
-- ✅ `/home/yattom/work/timtam/docs/adr/0001-security.md`
-- ❌ `docs/adr/0001-security.md`
+Read ADR content by number.
 
-## 補足：ADRのベストプラクティス
+### Parameters
 
-### いつADRを書くか
+- `number` (required): ADR number (1, 2, 3, etc.)
 
-- アーキテクチャに影響する重要な技術選択をした時
-- 複数の選択肢があり、トレードオフを検討した時
-- 将来の意思決定者が「なぜこうしたのか」を知る必要がある時
+### Steps
 
-### ADRに含めるべき内容
+**Step 1: Read ADR**
 
-- **背景**: なぜこの決定が必要になったか
-- **決定**: 何を選択したか（明確に）
-- **理由**: なぜその選択をしたか
-- **トレードオフ**: 何を得て、何を失うか
-- **代替案**: 検討した他の選択肢と却下理由
+```bash
+python3 .plan/execute-script.py pm-documents:manage-adr:manage-adr read --number {number}
+```
 
-### ADRに含めなくてよい内容
+**Step 3: Display Content**
 
-- 実装の詳細（コードで表現すべき）
-- チュートリアル（ドキュメントで表現すべき）
-- 変更履歴（Gitで管理されている）
+Show ADR metadata and content to user.
+
+## Workflow: update-adr
+
+Update ADR status through lifecycle.
+
+### Parameters
+
+- `number` (required): ADR number
+- `status` (required): New status (Proposed, Accepted, Deprecated, Superseded)
+
+### Steps
+
+**Step 1: Update ADR**
+
+```bash
+python3 .plan/execute-script.py pm-documents:manage-adr:manage-adr update --number {number} --status {status}
+```
+
+**Step 3: Confirm Update**
+
+Report updated status to user.
+
+## Workflow: delete-adr
+
+Delete ADR with confirmation.
+
+### Parameters
+
+- `number` (required): ADR number
+- `force` (required): Must be true to confirm deletion
+
+### Steps
+
+**Step 1: Delete ADR**
+
+```bash
+python3 .plan/execute-script.py pm-documents:manage-adr:manage-adr delete --number {number} --force
+```
+
+**Step 3: Confirm Deletion**
+
+Report deletion to user.
+
+## Workflow: validate-adr
+
+Validate ADR format using ref-documentation skill.
+
+### Parameters
+
+- `number` (required): ADR number to validate
+
+### Steps
+
+**Step 1: Find ADR Path**
+
+Use list-adrs workflow to get ADR path by number.
+
+**Step 2: Validate Format**
+
+```
+Skill: pm-documents:ref-documentation
+Execute workflow: validate-format
+Parameters:
+  target: {adr_path}
+```
+
+**Step 3: Report Results**
+
+Report validation results to user.
+
+## Integration with ref-documentation
+
+This skill integrates with `ref-documentation` for:
+
+- **Format validation**: Ensures AsciiDoc formatting compliance
+- **Link verification**: Validates cross-references
+- **Content review**: Reviews ADR content quality
+
+## ADR Lifecycle
+
+```
+Proposed → Accepted → [Deprecated | Superseded]
+```
+
+| Status | Meaning |
+|--------|---------|
+| Proposed | Under discussion, not yet approved |
+| Accepted | Approved and active |
+| Deprecated | No longer relevant or applicable |
+| Superseded | Replaced by another ADR |
+
+## ADR Template Structure
+
+Each ADR contains these sections:
+
+1. **Status** - Current lifecycle status
+2. **Context** - Problem context and background
+3. **Decision** - The architectural decision made
+4. **Consequences** - Positive, negative outcomes and risks
+5. **Alternatives Considered** - Options that were not chosen
+6. **References** - Related documents and links
+
+## File Naming Convention
+
+ADRs follow this naming pattern:
+
+```
+doc/adr/{NNN}-{Title_With_Underscores}.adoc
+```
+
+Examples:
+- `doc/adr/001-Use_PostgreSQL_for_Persistence.adoc`
+- `doc/adr/002-Adopt_Quarkus_Framework.adoc`
+- `doc/adr/003-Implement_CQRS_Pattern.adoc`
+
+## References
+
+- [ref-documentation SKILL](../ref-documentation/SKILL.md) - Format validation

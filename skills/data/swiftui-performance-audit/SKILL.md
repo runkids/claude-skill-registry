@@ -5,8 +5,6 @@ description: Audit and improve SwiftUI runtime performance from code review and 
 
 # SwiftUI Performance Audit
 
-_Attribution: copied from @Dimillian’s `Dimillian/Skills` (2025-12-31)._
-
 ## Overview
 
 Audit SwiftUI view performance end-to-end, from instrumentation and baselining to root-cause analysis and concrete remediation steps.

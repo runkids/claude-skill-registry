@@ -1,7 +1,7 @@
 {
   "name": "claude-code",
-  "repo": "raintree-technology/claude-starter",
-  "path": "templates/.claude/skills/anthropic/claude-code/skill.md",
-  "source": "github.com/raintree-technology/claude-starter",
-  "downloaded_at": "2026-01-29T04:44:22.261768Z"
+  "repo": "pur3v4d3r/pur3-pkb-codebase",
+  "path": ".claude/skills/claude-code/skill.md",
+  "source": "github.com/pur3v4d3r/pur3-pkb-codebase",
+  "downloaded_at": "2026-01-30T04:48:20.664034Z"
 }

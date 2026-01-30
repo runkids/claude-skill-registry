@@ -1,9 +1,7 @@
 {
   "name": "landing-page-architect",
-  "description": "Generate content strategy and component recommendations for landing pages. Analyzes implementations to create StoryBrand-structured pages with brand-aligned Shadcn component queries.",
-  "repo": "letsgomaslow/think",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Spectaculous-Code/raamattu-nyt",
+  "path": ".claude/skills/landing-page-architect/SKILL.md",
+  "source": "github.com/Spectaculous-Code/raamattu-nyt",
+  "downloaded_at": "2026-01-30T03:18:27.963064Z"
 }

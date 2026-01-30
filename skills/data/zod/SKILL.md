@@ -1,127 +1,559 @@
 ---
 name: zod
-description: Zod schema validation best practices for type safety, parsing, and error handling. This skill should be used when defining z.object schemas, using z.string validations, safeParse, or z.infer. This skill does NOT cover React Hook Form integration patterns (use react-hook-form skill) or OpenAPI client generation (use orval skill).
+description: Validates data with Zod schemas including type inference, transformations, error handling, and form integration. Use when validating API inputs, form data, environment variables, or any runtime data validation.
 ---
 
-# Zod Best Practices
+# Zod
 
-Comprehensive schema validation guide for Zod in TypeScript applications. Contains 43 rules across 8 categories, prioritized by impact to guide automated refactoring and code generation.
+TypeScript-first schema validation with static type inference.
 
-## When to Apply
+## Quick Start
 
-Reference these guidelines when:
-- Writing new Zod schemas
-- Choosing between parse() and safeParse()
-- Implementing type inference with z.infer
-- Handling validation errors for user feedback
-- Composing complex object schemas
-- Using refinements and transforms
-- Optimizing bundle size and validation performance
-- Reviewing Zod code for best practices
+**Install:**
+```bash
+npm install zod
+```
 
-## Rule Categories by Priority
+**Basic usage:**
+```typescript
+import { z } from 'zod';
 
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 1 | Schema Definition | CRITICAL | `schema-` |
-| 2 | Parsing & Validation | CRITICAL | `parse-` |
-| 3 | Type Inference | HIGH | `type-` |
-| 4 | Error Handling | HIGH | `error-` |
-| 5 | Object Schemas | MEDIUM-HIGH | `object-` |
-| 6 | Schema Composition | MEDIUM | `compose-` |
-| 7 | Refinements & Transforms | MEDIUM | `refine-` |
-| 8 | Performance & Bundle | LOW-MEDIUM | `perf-` |
+// Define schema
+const UserSchema = z.object({
+  name: z.string(),
+  email: z.string().email(),
+  age: z.number().min(18),
+});
 
-## Quick Reference
+// Infer TypeScript type
+type User = z.infer<typeof UserSchema>;
 
-### 1. Schema Definition (CRITICAL)
+// Validate data
+const result = UserSchema.safeParse(data);
+if (result.success) {
+  console.log(result.data); // Typed as User
+} else {
+  console.log(result.error.issues);
+}
+```
 
-- `schema-use-primitives-correctly` - Use correct primitive schemas for each type
-- `schema-use-unknown-not-any` - Use z.unknown() instead of z.any() for type safety
-- `schema-avoid-optional-abuse` - Avoid overusing optional fields
-- `schema-string-validations` - Apply string validations at schema definition
-- `schema-use-enums` - Use enums for fixed string values
-- `schema-coercion-for-form-data` - Use coercion for form and query data
+## Primitive Types
 
-### 2. Parsing & Validation (CRITICAL)
+```typescript
+// Strings
+const name = z.string();
+const email = z.string().email();
+const url = z.string().url();
+const uuid = z.string().uuid();
+const cuid = z.string().cuid();
+const regex = z.string().regex(/^[a-z]+$/);
+const minMax = z.string().min(1).max(100);
+const length = z.string().length(10);
+const nonempty = z.string().min(1, 'Required');
 
-- `parse-use-safeparse` - Use safeParse() for user input
-- `parse-async-for-async-refinements` - Use parseAsync for async refinements
-- `parse-handle-all-issues` - Handle all validation issues not just first
-- `parse-validate-early` - Validate at system boundaries
-- `parse-avoid-double-validation` - Avoid validating same data twice
-- `parse-never-trust-json` - Never trust JSON.parse output
+// Numbers
+const age = z.number();
+const positive = z.number().positive();
+const negative = z.number().negative();
+const integer = z.number().int();
+const range = z.number().min(0).max(100);
+const finite = z.number().finite();
 
-### 3. Type Inference (HIGH)
+// BigInt
+const bigint = z.bigint();
 
-- `type-use-z-infer` - Use z.infer instead of manual types
-- `type-input-vs-output` - Distinguish z.input from z.infer for transforms
-- `type-export-schemas-and-types` - Export both schemas and inferred types
-- `type-branded-types` - Use branded types for domain safety
-- `type-enable-strict-mode` - Enable TypeScript strict mode
+// Boolean
+const active = z.boolean();
 
-### 4. Error Handling (HIGH)
+// Date
+const date = z.date();
+const minDate = z.date().min(new Date('2024-01-01'));
+const maxDate = z.date().max(new Date());
 
-- `error-custom-messages` - Provide custom error messages
-- `error-use-flatten` - Use flatten() for form error display
-- `error-path-for-nested` - Use issue.path for nested error location
-- `error-i18n` - Implement internationalized error messages
-- `error-avoid-throwing-in-refine` - Return false instead of throwing in refine
+// Undefined/Null
+const undef = z.undefined();
+const nul = z.null();
+const nullable = z.string().nullable(); // string | null
+const optional = z.string().optional(); // string | undefined
+const nullish = z.string().nullish();   // string | null | undefined
+```
 
-### 5. Object Schemas (MEDIUM-HIGH)
+## Objects
 
-- `object-strict-vs-strip` - Choose strict() vs strip() for unknown keys
-- `object-partial-for-updates` - Use partial() for update schemas
-- `object-pick-omit` - Use pick() and omit() for schema variants
-- `object-extend-for-composition` - Use extend() for adding fields
-- `object-optional-vs-nullable` - Distinguish optional() from nullable()
-- `object-discriminated-unions` - Use discriminated unions for type narrowing
+### Basic Objects
 
-### 6. Schema Composition (MEDIUM)
+```typescript
+const UserSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string().min(1),
+  email: z.string().email(),
+  age: z.number().optional(),
+});
 
-- `compose-shared-schemas` - Extract shared schemas into reusable modules
-- `compose-intersection` - Use intersection() for type combinations
-- `compose-lazy-recursive` - Use z.lazy() for recursive schemas
-- `compose-preprocess` - Use preprocess() for data normalization
-- `compose-pipe` - Use pipe() for multi-stage validation
+type User = z.infer<typeof UserSchema>;
+// { id: string; name: string; email: string; age?: number }
+```
 
-### 7. Refinements & Transforms (MEDIUM)
+### Modifiers
 
-- `refine-vs-superrefine` - Choose refine() vs superRefine() correctly
-- `refine-transform-coerce` - Distinguish transform() from refine() and coerce()
-- `refine-add-path` - Add path to refinement errors
-- `refine-defaults` - Use default() for optional fields with defaults
-- `refine-catch` - Use catch() for fault-tolerant parsing
+```typescript
+const schema = z.object({
+  name: z.string(),
+  email: z.string(),
+  age: z.number(),
+});
 
-### 8. Performance & Bundle (LOW-MEDIUM)
+// All properties optional
+const PartialSchema = schema.partial();
+// { name?: string; email?: string; age?: number }
 
-- `perf-cache-schemas` - Cache schema instances
-- `perf-zod-mini` - Use Zod Mini for bundle-sensitive applications
-- `perf-avoid-dynamic-creation` - Avoid dynamic schema creation in hot paths
-- `perf-lazy-loading` - Lazy load large schemas
-- `perf-arrays` - Optimize large array validation
+// All properties required
+const RequiredSchema = schema.required();
 
-## How to Use
+// Pick specific properties
+const NameEmail = schema.pick({ name: true, email: true });
+// { name: string; email: string }
 
-Read individual reference files for detailed explanations and code examples:
+// Omit specific properties
+const NoAge = schema.omit({ age: true });
+// { name: string; email: string }
 
-- [Section definitions](references/_sections.md) - Category structure and impact levels
-- [Rule template](assets/templates/_template.md) - Template for adding new rules
-- Individual rules: `references/{prefix}-{slug}.md`
+// Extend with new properties
+const ExtendedSchema = schema.extend({
+  role: z.enum(['admin', 'user']),
+});
 
-## Full Compiled Document
+// Merge schemas
+const merged = schema.merge(z.object({ role: z.string() }));
 
-For the complete guide with all rules expanded: `AGENTS.md`
+// Make specific properties optional
+const PartialAge = schema.partial({ age: true });
+// { name: string; email: string; age?: number }
+```
 
-## Related Skills
+### Strict and Passthrough
 
-- For React Hook Form integration, see `react-hook-form` skill
-- For API client generation, see `orval` skill
+```typescript
+// Strict: fail if unknown keys present
+const StrictSchema = z.object({ name: z.string() }).strict();
 
-## Sources
+// Passthrough: allow and preserve unknown keys
+const PassthroughSchema = z.object({ name: z.string() }).passthrough();
 
-- [Zod Official Documentation](https://zod.dev/)
-- [Zod v4 Release Notes](https://zod.dev/v4)
-- [Zod GitHub Repository](https://github.com/colinhacks/zod)
-- [Zod Mini](https://zod.dev/packages/mini)
-- [Total TypeScript Zod Tutorial](https://www.totaltypescript.com/tutorials/zod)
+// Strip: remove unknown keys (default)
+const StripSchema = z.object({ name: z.string() }).strip();
+```
+
+## Arrays and Tuples
+
+```typescript
+// Arrays
+const strings = z.array(z.string());
+const numbers = z.number().array(); // Alternative syntax
+const nonEmpty = z.array(z.string()).nonempty();
+const lengthRange = z.array(z.string()).min(1).max(10);
+const exactLength = z.array(z.string()).length(5);
+
+// Tuples (fixed length, specific types)
+const tuple = z.tuple([z.string(), z.number(), z.boolean()]);
+// [string, number, boolean]
+
+// Tuple with rest
+const tupleWithRest = z.tuple([z.string()]).rest(z.number());
+// [string, ...number[]]
+```
+
+## Unions and Enums
+
+### Unions
+
+```typescript
+// Union types
+const StringOrNumber = z.union([z.string(), z.number()]);
+// string | number
+
+// Shorthand
+const StringOrNumber2 = z.string().or(z.number());
+
+// Discriminated unions (better performance, error messages)
+const Result = z.discriminatedUnion('status', [
+  z.object({ status: z.literal('success'), data: z.string() }),
+  z.object({ status: z.literal('error'), error: z.string() }),
+]);
+```
+
+### Enums
+
+```typescript
+// Zod enum
+const RoleSchema = z.enum(['admin', 'user', 'guest']);
+type Role = z.infer<typeof RoleSchema>; // 'admin' | 'user' | 'guest'
+
+// Get enum values
+RoleSchema.options; // ['admin', 'user', 'guest']
+
+// Native enum
+enum Status {
+  Active = 'active',
+  Inactive = 'inactive',
+}
+const StatusSchema = z.nativeEnum(Status);
+```
+
+### Literals
+
+```typescript
+const admin = z.literal('admin');
+const fortyTwo = z.literal(42);
+const trueLiteral = z.literal(true);
+```
+
+## Transformations
+
+### Transform
+
+```typescript
+// Transform string to number
+const StringToNumber = z.string().transform((val) => parseInt(val, 10));
+
+// Parse and transform
+const DateString = z.string().transform((val) => new Date(val));
+
+// With validation after transform
+const PositiveNumber = z.string()
+  .transform((val) => parseInt(val, 10))
+  .pipe(z.number().positive());
+```
+
+### Coercion
+
+```typescript
+// Automatic coercion
+const coercedString = z.coerce.string();   // Any -> string
+const coercedNumber = z.coerce.number();   // Any -> number
+const coercedBoolean = z.coerce.boolean(); // Any -> boolean
+const coercedDate = z.coerce.date();       // Any -> Date
+
+// Common use: form data
+const FormSchema = z.object({
+  age: z.coerce.number().min(0).max(120),
+  active: z.coerce.boolean(),
+  date: z.coerce.date(),
+});
+```
+
+### Preprocess
+
+```typescript
+// Run function before validation
+const TrimmedString = z.preprocess(
+  (val) => (typeof val === 'string' ? val.trim() : val),
+  z.string()
+);
+
+// Handle null/undefined
+const NullableToDefault = z.preprocess(
+  (val) => val ?? 'default',
+  z.string()
+);
+```
+
+### Default Values
+
+```typescript
+const WithDefault = z.string().default('default value');
+const WithDefaultFn = z.string().default(() => generateId());
+
+// Catch: use default on parse failure
+const SafeNumber = z.number().catch(0);
+const SafeString = z.string().catch('');
+```
+
+## Refinements
+
+### Custom Validation
+
+```typescript
+// Simple refinement
+const PasswordSchema = z.string()
+  .min(8, 'Password must be at least 8 characters')
+  .refine((val) => /[A-Z]/.test(val), {
+    message: 'Password must contain uppercase letter',
+  })
+  .refine((val) => /[0-9]/.test(val), {
+    message: 'Password must contain number',
+  });
+
+// Superrefine (multiple issues)
+const PasswordSchema2 = z.string().superRefine((val, ctx) => {
+  if (val.length < 8) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.too_small,
+      minimum: 8,
+      type: 'string',
+      inclusive: true,
+      message: 'Password must be at least 8 characters',
+    });
+  }
+
+  if (!/[A-Z]/.test(val)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'Password must contain uppercase letter',
+    });
+  }
+});
+```
+
+### Cross-Field Validation
+
+```typescript
+const SignupSchema = z.object({
+  password: z.string().min(8),
+  confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ['confirmPassword'], // Error on specific field
+});
+```
+
+## Error Handling
+
+### Safe Parse
+
+```typescript
+const result = UserSchema.safeParse(data);
+
+if (result.success) {
+  // result.data is typed
+  console.log(result.data);
+} else {
+  // result.error is ZodError
+  console.log(result.error.issues);
+}
+```
+
+### Parse (throws)
+
+```typescript
+try {
+  const user = UserSchema.parse(data);
+  // user is typed
+} catch (error) {
+  if (error instanceof z.ZodError) {
+    console.log(error.issues);
+  }
+}
+```
+
+### Format Errors
+
+```typescript
+const result = UserSchema.safeParse(data);
+
+if (!result.success) {
+  // Flat format
+  const flat = result.error.flatten();
+  // { formErrors: string[], fieldErrors: { [key]: string[] } }
+
+  // Formatted
+  const formatted = result.error.format();
+  // { _errors: string[], field: { _errors: string[] } }
+
+  // Custom format
+  const issues = result.error.issues.map((issue) => ({
+    path: issue.path.join('.'),
+    message: issue.message,
+  }));
+}
+```
+
+### Custom Error Messages
+
+```typescript
+const UserSchema = z.object({
+  name: z.string({
+    required_error: 'Name is required',
+    invalid_type_error: 'Name must be a string',
+  }).min(1, 'Name cannot be empty'),
+
+  email: z.string()
+    .email({ message: 'Invalid email format' }),
+
+  age: z.number()
+    .min(18, { message: 'Must be 18 or older' })
+    .max(120, { message: 'Invalid age' }),
+});
+```
+
+## Common Patterns
+
+### API Request Validation
+
+```typescript
+const CreatePostSchema = z.object({
+  title: z.string().min(1).max(100),
+  content: z.string().min(1),
+  tags: z.array(z.string()).default([]),
+  published: z.boolean().default(false),
+});
+
+// In API handler
+export async function POST(request: Request) {
+  const body = await request.json();
+  const result = CreatePostSchema.safeParse(body);
+
+  if (!result.success) {
+    return Response.json(
+      { error: result.error.flatten().fieldErrors },
+      { status: 400 }
+    );
+  }
+
+  const post = await createPost(result.data);
+  return Response.json(post);
+}
+```
+
+### Environment Variables
+
+```typescript
+const EnvSchema = z.object({
+  DATABASE_URL: z.string().url(),
+  API_KEY: z.string().min(1),
+  PORT: z.coerce.number().default(3000),
+  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+});
+
+export const env = EnvSchema.parse(process.env);
+```
+
+### Form Data
+
+```typescript
+const ContactFormSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  email: z.string().email('Invalid email'),
+  message: z.string().min(10, 'Message too short').max(1000),
+  subscribe: z.coerce.boolean().default(false),
+});
+
+// Parse FormData
+function parseFormData(formData: FormData) {
+  return ContactFormSchema.safeParse({
+    name: formData.get('name'),
+    email: formData.get('email'),
+    message: formData.get('message'),
+    subscribe: formData.get('subscribe'),
+  });
+}
+```
+
+### React Hook Form Integration
+
+```typescript
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const FormSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+type FormData = z.infer<typeof FormSchema>;
+
+function LoginForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(FormSchema),
+  });
+
+  const onSubmit = (data: FormData) => {
+    console.log(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register('email')} />
+      {errors.email && <span>{errors.email.message}</span>}
+
+      <input type="password" {...register('password')} />
+      {errors.password && <span>{errors.password.message}</span>}
+
+      <button type="submit">Login</button>
+    </form>
+  );
+}
+```
+
+### Server Actions (Next.js)
+
+```typescript
+'use server';
+
+import { z } from 'zod';
+
+const CreatePostSchema = z.object({
+  title: z.string().min(1).max(100),
+  content: z.string().min(1),
+});
+
+export async function createPost(formData: FormData) {
+  const result = CreatePostSchema.safeParse({
+    title: formData.get('title'),
+    content: formData.get('content'),
+  });
+
+  if (!result.success) {
+    return { error: result.error.flatten().fieldErrors };
+  }
+
+  const post = await db.posts.create({ data: result.data });
+  return { data: post };
+}
+```
+
+## Type Inference
+
+```typescript
+const UserSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string().email(),
+});
+
+// Infer type from schema
+type User = z.infer<typeof UserSchema>;
+
+// Input type (before transforms)
+type UserInput = z.input<typeof UserSchema>;
+
+// Output type (after transforms)
+type UserOutput = z.output<typeof UserSchema>;
+```
+
+## Best Practices
+
+1. **Define schemas once** - Reuse across validation points
+2. **Use safeParse** - Handle errors gracefully
+3. **Infer types** - Don't duplicate type definitions
+4. **Use coercion for forms** - Handle string inputs
+5. **Custom error messages** - User-friendly validation
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Using parse without try/catch | Use safeParse instead |
+| Not handling errors | Check result.success |
+| Duplicating types | Use z.infer<typeof Schema> |
+| Ignoring transforms | Remember input vs output types |
+| Over-complex schemas | Break into smaller schemas |
+
+## Reference Files
+
+- [references/advanced.md](references/advanced.md) - Advanced patterns
+- [references/integration.md](references/integration.md) - Framework integrations

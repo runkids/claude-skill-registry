@@ -1,103 +1,253 @@
 ---
-description: Imported skill clipboard from langchain
 name: clipboard
-signature: a65a1285474ab4e7d1b8320313f4cbf675627396e1defbf4444796a61a1db27a
-source: /a0/tmp/skills_research/langchain/libs/deepagents-cli/deepagents_cli/clipboard.py
+description: Copy track content (lyrics, style prompts) to system clipboard
+argument-hint: <content-type> <album-name> <track-number>
+model: claude-haiku-4-5-20251001
+allowed-tools:
+  - Read
+  - Bash
 ---
 
-"""Clipboard utilities for deepagents-cli."""
+## Your Task
 
-from __future__ import annotations
+**Input**: $ARGUMENTS
 
-import base64
-import os
-from typing import TYPE_CHECKING
+Copy content from track files to the system clipboard for pasting into Suno or other tools.
 
-if TYPE_CHECKING:
-    from textual.app import App
+---
 
-_PREVIEW_MAX_LENGTH = 40
+# Clipboard Skill
 
+Copy specific sections from track files directly to your clipboard.
 
-def _copy_osc52(text: str) -> None:
-    """Copy text using OSC 52 escape sequence (works over SSH/tmux)."""
-    encoded = base64.b64encode(text.encode("utf-8")).decode("ascii")
-    osc52_seq = f"\033]52;c;{encoded}\a"
-    if os.environ.get("TMUX"):
-        osc52_seq = f"\033Ptmux;\033{osc52_seq}\033\\"
+## Step 1: Detect Platform & Check Clipboard Tool
 
-    with open("/dev/tty", "w") as tty:
-        tty.write(osc52_seq)
-        tty.flush()
+Run detection:
 
+```bash
+if command -v pbcopy >/dev/null 2>&1; then
+  echo "macOS"
+elif command -v clip.exe >/dev/null 2>&1; then
+  echo "WSL"
+elif command -v xclip >/dev/null 2>&1; then
+  echo "Linux-xclip"
+elif command -v xsel >/dev/null 2>&1; then
+  echo "Linux-xsel"
+else
+  echo "NONE"
+fi
+```
 
-def _shorten_preview(texts: list[str]) -> str:
-    """Shorten text for notification preview."""
-    dense_text = "⏎".join(texts).replace("\n", "⏎")
-    if len(dense_text) > _PREVIEW_MAX_LENGTH:
-        return f"{dense_text[: _PREVIEW_MAX_LENGTH - 1]}…"
-    return dense_text
+**If NONE:**
 
+```
+Error: No clipboard utility found.
 
-def copy_selection_to_clipboard(app: App) -> None:
-    """Copy selected text from app widgets to clipboard.
+Install instructions:
+- macOS: pbcopy (built-in)
+- Linux: sudo apt install xclip
+- WSL: clip.exe (built-in)
+```
 
-    This queries all widgets for their text_selection and copies
-    any selected text to the system clipboard.
-    """
-    selected_texts = []
+## Step 2: Parse Arguments
 
-    for widget in app.query("*"):
-        if not hasattr(widget, "text_selection") or not widget.text_selection:
-            continue
+Expected format: `<content-type> <album-name> <track-number>`
 
-        selection = widget.text_selection
+**Content types:**
+- `lyrics` - Suno Lyrics Box
+- `style` - Suno Style Box
+- `streaming-lyrics` - Streaming Lyrics (for distributors)
+- `all` - All Suno inputs (Style + Lyrics combined)
 
-        try:
-            result = widget.get_selection(selection)
-        except Exception:
-            continue
+Examples:
+- `/clipboard lyrics shell-no 03`
+- `/clipboard style shell-no 05`
+- `/clipboard streaming-lyrics shell-no 02`
+- `/clipboard all shell-no 01`
 
-        if not result:
-            continue
+If arguments are missing:
+```
+Usage: /clipboard <content-type> <album-name> <track-number>
 
-        selected_text, _ = result
-        if selected_text.strip():
-            selected_texts.append(selected_text)
+Content types: lyrics, style, streaming-lyrics, all
 
-    if not selected_texts:
-        return
+Example: /clipboard lyrics shell-no 03
+```
 
-    combined_text = "\n".join(selected_texts)
+## Step 3: Read Config (REQUIRED)
 
-    # Try multiple clipboard methods
-    copy_methods = [_copy_osc52, app.copy_to_clipboard]
+```bash
+cat ~/.bitwize-music/config.yaml
+```
 
-    # Try pyperclip if available
-    try:
-        import pyperclip
+Extract:
+- `paths.content_root` → Base content directory
+- `artist.name` → Artist name
 
-        copy_methods.insert(1, pyperclip.copy)
-    except ImportError:
-        pass
+## Step 4: Find Track File
 
-    for copy_fn in copy_methods:
-        try:
-            copy_fn(combined_text)
-            # Use markup=False to prevent copied text from being parsed as Rich markup
-            app.notify(
-                f'"{_shorten_preview(selected_texts)}" copied',
-                severity="information",
-                timeout=2,
-                markup=False,
-            )
-            return
-        except Exception:
-            continue
+Search for track file matching the number:
 
-    # If all methods fail, still notify but warn
-    app.notify(
-        "Failed to copy - no clipboard method available",
-        severity="warning",
-        timeout=3,
-    )
+```bash
+find {content_root}/artists/{artist}/albums/*/{{album}}/tracks/ -name "{track-number}-*.md" 2>/dev/null
+```
+
+Example: For track `03`, finds `03-t-day-beach.md` or `03-whatever.md`
+
+**If not found:**
+```
+Error: Track {track-number} not found in album {album}
+```
+
+## Step 5: Extract Content
+
+Read the track file and extract the requested section.
+
+### For "lyrics" (Suno Lyrics Box)
+
+Extract everything between:
+```markdown
+#### Lyrics Box (Suno)
+```
+and the next `###` or `####` heading.
+
+### For "style" (Suno Style Box)
+
+Extract everything between:
+```markdown
+#### Style Box (Suno)
+```
+and the next `###` or `####` heading.
+
+### For "streaming-lyrics" (Streaming Lyrics)
+
+Extract everything between:
+```markdown
+## Streaming Lyrics
+```
+and the next `##` heading.
+
+### For "all" (Combined Suno Inputs)
+
+Combine both Style Box and Lyrics Box with a separator:
+```
+[Style Box content]
+
+---
+
+[Lyrics Box content]
+```
+
+## Step 6: Copy to Clipboard
+
+Use the detected platform's clipboard command:
+
+| Platform | Command |
+|----------|---------|
+| macOS | `pbcopy` |
+| WSL | `clip.exe` |
+| Linux (xclip) | `xclip -selection clipboard` |
+| Linux (xsel) | `xsel --clipboard --input` |
+
+Example:
+```bash
+echo "content" | pbcopy  # macOS
+echo "content" | xclip -selection clipboard  # Linux
+```
+
+## Step 7: Confirm
+
+Report:
+```
+✓ Copied to clipboard: {content-type} from track {track-number}
+  Album: {album}
+  Track: {track-filename}
+```
+
+## Error Handling
+
+**Track file not found:**
+```
+Error: Track {track-number} not found in album {album}
+
+Available tracks:
+- 01-track-name.md
+- 02-track-name.md
+```
+
+**Content section not found:**
+```
+Error: {content-type} section not found in track {track-number}
+
+The track file may not have this section yet.
+```
+
+**Config missing:**
+```
+Error: Config not found at ~/.bitwize-music/config.yaml
+Run /configure to set up.
+```
+
+---
+
+## Examples
+
+### Copy Suno Lyrics
+
+```
+/clipboard lyrics shell-no 03
+```
+
+Output:
+```
+✓ Copied to clipboard: lyrics from track 03
+  Album: shell-no
+  Track: 03-t-day-beach.md
+```
+
+### Copy Style Prompt
+
+```
+/clipboard style shell-no 05
+```
+
+### Copy Streaming Lyrics
+
+```
+/clipboard streaming-lyrics shell-no 02
+```
+
+### Copy All Suno Inputs
+
+```
+/clipboard all shell-no 01
+```
+
+Output:
+```
+✓ Copied to clipboard: all suno inputs from track 01
+  Album: shell-no
+  Track: 01-intro.md
+
+Contents:
+- Style Box
+- Lyrics Box
+```
+
+---
+
+## Implementation Notes
+
+**Clipboard Detection:**
+- Check multiple tools in order of preference
+- WSL has `clip.exe` which works from Linux subsystem
+- Linux users may have either `xclip` or `xsel`
+
+**Content Extraction:**
+- Use sed/awk to extract sections between markdown headings
+- Trim leading/trailing whitespace
+- Preserve internal formatting (blank lines, indentation)
+
+**Multiple Matches:**
+- If track number matches multiple files (shouldn't happen), use the first match
+- Warn user if directory structure looks wrong

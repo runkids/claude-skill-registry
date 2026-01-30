@@ -1,36 +1,17 @@
 ---
 name: documentation-guidelines
-description: Write or update backend feature documentation that follows a repo's DOCUMENTATION_GUIDELINES.md (or equivalent) across any project. Use when asked to create/update module docs, API contracts, or backend documentation that must include architecture, endpoints, payloads, Mermaid diagrams, and seeding instructions.
-author: Official
+description: Explain documentation strategy and rules to respect all over any realization.
 ---
+Lexique : 
+- ***project folder*** : Current folder of user, referece too the root of the project folder. 
+- ***documentation files*** : all files containing text explanations, like : spécifications, README, LICENSE, Backlog and all non file writing for human readibility. It could concern media file too, like : image, video, sound, etc...
 
-# Documentation Guidelines
+When create or read file, always respect thoses rules :
+- All documentation files must be in markdown format
+- All documentation files except README.md and LICENCE.md must be into the folder /docs of the project folder
+- The folder /docs should be organized with subfolder. Do not acumulate files into the /docs folder, try to aggragate fils into thematical subfolders.
+- The specification files must be into the /docs/specs folder of the project folder.
+- Do not over documente, keep documentation clear and concise.
+- Do not write too long documentation files. Documentation files must not to be longer than 300 lines. If you need to write large file of specification you should split it into sperated small files and organisze folder with subfolders. Group files with same topic into subfolders. Iterations backlog file /docs/ITERATIONS_BACKLOG.md is the only file wich had no size limit.
 
-## Overview
-Produce a single, canonical module doc that matches the repository's documentation rules and keeps backend/API contracts consistent and skimmable.
-
-## Workflow
-1. Locate the repo's documentation rules (prefer `docs/memories/DOCUMENTATION_GUIDELINES.md`). If missing, load `references/documentation-guidelines.md`.
-2. Determine the correct documentation path for the current project. Use the repo's conventions; if no zones exist, default to `docs/features/<module>.md` (or the project's documented location).
-3. Create or update the module doc before changing logic. Remove outdated content instead of appending.
-4. Follow the required section order from the guidelines and keep the doc in English.
-
-## Required Content Checklist
-- Add the metadata header (Version, Last Updated, Maintained By).
-- Include Mermaid ERD and Mermaid flowchart.
-- Document controllers/routes, requests, resources, models, services, jobs, and providers.
-- Provide endpoint table, headers, payloads, response examples, and error dictionary.
-- State permissions, feature flags, and client consumption rules.
-- Add local development + seeding commands and troubleshooting/log hints.
-
-## Style Rules
-- Describe contracts and behavior, not UI.
-- Use tables for endpoints and business rules.
-- Keep Mermaid labels short and safe; wrap special characters in quotes if needed.
-- Delete obsolete text to keep the doc clean and non-duplicative.
-
-## Frontend API Documentation
-If the user explicitly asks for frontend-facing API docs, load the repo's frontend guideline file (typically `docs/memories/FRONTEND_API_DOCUMENTATION_GUIDELINES.md`) and follow it.
-
-## Resources
-- `references/documentation-guidelines.md`: Canonical structure and ordering for backend feature documentation.
+Keep documentation clear and compliant to thoses rules conversational.

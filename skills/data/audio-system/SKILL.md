@@ -6,6 +6,24 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 # Roblox Audio Systems
 
+## Quick Reference Links
+
+**Official Documentation:**
+- [Audio Overview](https://create.roblox.com/docs/sound) - Complete audio guide
+- [Sound Objects](https://create.roblox.com/docs/sound/objects) - Sound, SoundGroup, SoundService
+- [Audio Effects](https://create.roblox.com/docs/sound/dynamic-effects) - Reverb, EQ, Distortion
+- [Sound API](https://create.roblox.com/docs/reference/engine/classes/Sound)
+- [SoundService API](https://create.roblox.com/docs/reference/engine/classes/SoundService)
+- [SoundGroup API](https://create.roblox.com/docs/reference/engine/classes/SoundGroup)
+- [AudioEmitter API](https://create.roblox.com/docs/reference/engine/classes/AudioEmitter)
+- [AudioListener API](https://create.roblox.com/docs/reference/engine/classes/AudioListener)
+
+**Wiki References:**
+- [Sound (Wiki)](https://roblox.fandom.com/wiki/Sound)
+- [SoundService (Wiki)](https://roblox.fandom.com/wiki/SoundService)
+
+---
+
 When implementing audio, follow these patterns for immersive and performant sound design.
 
 ## Sound Management

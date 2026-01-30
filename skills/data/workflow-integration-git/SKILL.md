@@ -1,12 +1,11 @@
 ---
 name: workflow-integration-git
 description: Git commit workflow with conventional commits, artifact cleanup, and optional push/PR creation
+user-invocable: false
 allowed-tools: Read, Glob, Bash(git:*), Bash(rm:*), Bash(gh:*), Skill
 ---
 
 # CUI Git Workflow Skill
-
-**EXECUTION MODE**: You are now executing this skill. DO NOT explain or summarize these instructions to the user. IMMEDIATELY begin the workflow below based on the task context.
 
 Provides git commit workflow following conventional commits specification. Includes artifact cleanup, commit formatting, and optional push/PR creation.
 
@@ -121,13 +120,12 @@ git push
 
 If `create-pr` parameter:
 ```bash
-gh pr create --title "{title}" --body "$(cat <<'EOF'
-## Summary
+python3 .plan/execute-script.py plan-marshall:tools-integration-ci:github pr create \
+  --title "{title}" \
+  --body "## Summary
 {summary}
 
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-EOF
-)"
+🤖 Generated with [Claude Code](https://claude.com/claude-code)"
 ```
 
 ### Output

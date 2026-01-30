@@ -1,9 +1,7 @@
 {
   "name": "tracker",
-  "description": "Portfolio-level project tracker for ID8Labs. Tracks all projects through lifecycle states, enforces stage gates, calculates decay, and coordinates review rituals. The nervous system of the ID8Labs pip",
   "repo": "eddiebe147/claude-settings",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/id8labs/tracker/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-30T03:50:58.661067Z"
 }

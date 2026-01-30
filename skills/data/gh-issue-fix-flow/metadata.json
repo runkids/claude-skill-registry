@@ -1,13 +1,7 @@
 {
   "name": "gh-issue-fix-flow",
-  "description": "End-to-end GitHub issue fix workflow using gh, local code changes, builds/tests, and git push. Use when asked to take an issue number, inspect the issue via gh, implement a fix, run XcodeBuildMCP buil",
-  "repo": "Dimillian/Skills",
-  "category": "development",
-  "tags": [
-    "issue",
-    "fix",
-    "flow"
-  ],
-  "stars": 283,
-  "source": "SkillsMP Synced Skills"
+  "repo": "dandedotdev/dotfiles",
+  "path": ".claude/skills/gh-issue-fix-flow/SKILL.md",
+  "source": "github.com/dandedotdev/dotfiles",
+  "downloaded_at": "2026-01-30T02:47:39.932288Z"
 }

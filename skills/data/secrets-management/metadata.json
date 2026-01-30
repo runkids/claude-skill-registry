@@ -1,7 +1,7 @@
 {
   "name": "secrets-management",
-  "repo": "a5c-ai/babysitter",
-  "path": "plugins/babysitter/skills/babysit/process/specializations/devops-sre-platform/skills/secrets-management/SKILL.md",
-  "source": "github.com/a5c-ai/babysitter",
-  "downloaded_at": "2026-01-29T04:47:43.357913Z"
+  "repo": "HermeticOrmus/Alqvimia-Contador",
+  "path": "plugins/cicd-automation/skills/secrets-management/SKILL.md",
+  "source": "github.com/HermeticOrmus/Alqvimia-Contador",
+  "downloaded_at": "2026-01-30T04:47:39.102083Z"
 }

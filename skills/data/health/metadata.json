@@ -1,11 +1,7 @@
 {
   "name": "health",
-  "description": "Soul system health check with remediation. Use to verify setup or diagnose issues.",
-  "repo": "genomewalker/cc-soul",
-  "category": "development",
-  "tags": [
-    "health"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "zeyxx/CYNIC",
+  "path": ".claude/skills/health/SKILL.md",
+  "source": "github.com/zeyxx/CYNIC",
+  "downloaded_at": "2026-01-30T01:23:55.796648Z"
 }

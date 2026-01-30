@@ -20,11 +20,12 @@ Use `type/short-description` format.
 ## Examples
 
 ```text
-feat/cache-policy
-fix/robots-txt-503
+feat/infinite-scroll
+fix/album-path-validation
+refactor/state-management
 chore/pre-commit-hooks
 docs/update-readme
-refactor/simplify-cache-behaviors
+test/e2e-login-flow
 ```
 
 ## Instructions

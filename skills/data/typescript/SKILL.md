@@ -1,116 +1,128 @@
-# TypeScript Development Skill
+# TypeScript
 
-## نظرة عامة
-أفضل الممارسات لكتابة كود TypeScript قوي، آمن، وقابل للصيانة.
+## Description
+
+TypeScript development with strict typing, advanced type utilities, and modern patterns.
+
+## When to Use
+
+- Working with TypeScript files (.ts, .tsx)
+- Building typed JavaScript applications
+- React/Next.js development
+- Node.js backend development
 
 ---
 
-## الأساسيات (Basics)
+## Core Patterns
 
-### تعريف الأنواع (Type Definitions)
+### Type Definitions
 
 ```typescript
-// استخدام Interface للكائنات
+// Interfaces for objects
 interface User {
   id: string;
-  name: string;
   email: string;
-  role: 'admin' | 'user';
-  isActive: boolean;
+  name: string;
   createdAt: Date;
 }
 
-// استخدام Type للاتحادات (Unions) والتقاطعات (Intersections)
-type Status = 'pending' | 'approved' | 'rejected';
-type UserResponse = User & { status: Status };
-```
+// Types for unions and utilities
+type Status = 'pending' | 'active' | 'inactive';
+type UserWithStatus = User & { status: Status };
 
-### النمط الصارم (Strict Mode)
-تأكد من تفعيل `strict: true` في `tsconfig.json` لضمان أقصى درجات الأمان.
-
----
-
-## الواجهات والأنواع المتقدمة (Advanced Interfaces & Types)
-
-### Generics
-
-استخدم Generics لإنشاء مكونات ودوال قابلة لإعادة الاستخدام مع الحفاظ على سلامة الأنواع.
-
-```typescript
-interface ApiResponse<T> {
+// Generic types
+type ApiResponse<T> = {
   data: T;
+  error?: string;
   status: number;
-  message: string;
-}
-
-async function fetchData<T>(url: string): Promise<ApiResponse<T>> {
-  const response = await fetch(url);
-  return response.json();
-}
-
-// الاستخدام
-const user = await fetchData<User>('/api/user');
+};
 ```
 
 ### Utility Types
 
-استخدم Utility Types المدمجة لتقليل التكرار:
-
-- `Partial<T>`: جعل كل الخصائص اختيارية.
-- `Pick<T, K>`: اختيار مجموعة محددة من الخصائص.
-- `Omit<T, K>`: استبعاد مجموعة محددة من الخصائص.
-- `Readonly<T>`: جعل الكائن للقراءة فقط.
-
 ```typescript
-type UpdateUserDto = Partial<Omit<User, 'id' | 'createdAt'>>;
+// Partial - all properties optional
+type UserUpdate = Partial<User>;
+
+// Pick - select properties
+type UserPreview = Pick<User, 'id' | 'name'>;
+
+// Omit - exclude properties
+type UserWithoutId = Omit<User, 'id'>;
+
+// Record - dictionary type
+type UserMap = Record<string, User>;
 ```
 
----
-
-## حراس النوع (Type Guards)
-
-استخدم Type Guards للتحقق من النوع في وقت التشغيل.
+### Async Patterns
 
 ```typescript
-function isAdmin(user: User): user is User & { role: 'admin' } {
-  return user.role === 'admin';
+async function fetchUser(id: string): Promise<User> {
+  const response = await fetch(`/api/users/${id}`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch user: ${response.status}`);
+  }
+  return response.json();
 }
 
-if (isAdmin(currentUser)) {
-  // TypeScript يعرف الآن أن currentUser هو admin
-  console.log('Admin Access Granted');
-}
-```
-
----
-
-## أفضل الممارسات (Best Practices)
-
-1.  **تجنب `any`**: استخدم `unknown` إذا كنت لا تعرف النوع، ثم قم بالتحقق منه.
-2.  **استخدم `const`**: للمتغيرات التي لا تتغير قيمتها.
-3.  **Async/Await**: استخدم `async/await` بدلاً من `then/catch` لقراءة أفضل.
-4.  **Explicit Return Types**: حدد نوع الإرجاع للدوال المهمة لتوثيق الكود ومنع الأخطاء العرضية.
-
-```typescript
-// سيء
-function getData(id) {
-  return db.find(id);
-}
-
-// جيد
-async function getData(id: string): Promise<User | null> {
-  return await db.find(id);
+// Error handling
+async function safeOperation<T>(
+  operation: () => Promise<T>
+): Promise<[T, null] | [null, Error]> {
+  try {
+    const result = await operation();
+    return [result, null];
+  } catch (error) {
+    return [null, error as Error];
+  }
 }
 ```
 
----
-
-## اختبار الأنواع (Testing Types)
-
-تأكد من أن الأنواع تعمل كما هو متوقع، خاصة عند استخدام مكتبات خارجية أو أنواع معقدة.
+### Class Patterns
 
 ```typescript
-import { expectType } from 'tsd';
+class UserService {
+  constructor(private readonly db: Database) {}
 
-expectType<string>(someFunction());
+  async findById(id: string): Promise<User | null> {
+    return this.db.users.findUnique({ where: { id } });
+  }
+
+  async create(data: UserCreate): Promise<User> {
+    return this.db.users.create({ data });
+  }
+}
 ```
+
+### Zod Validation
+
+```typescript
+import { z } from 'zod';
+
+const UserSchema = z.object({
+  email: z.string().email(),
+  name: z.string().min(1).max(100),
+  password: z.string().min(8),
+});
+
+type UserInput = z.infer<typeof UserSchema>;
+
+function validateUser(data: unknown): UserInput {
+  return UserSchema.parse(data);
+}
+```
+
+## Best Practices
+
+1. Enable strict mode in tsconfig.json
+2. Avoid `any` - use `unknown` and type guards
+3. Use interfaces for object shapes, types for unions
+4. Prefer `const` assertions for literal types
+5. Use discriminated unions for state
+
+## Common Pitfalls
+
+- **Using `any`**: Defeats type safety
+- **Not handling null/undefined**: Use strict null checks
+- **Type assertions**: Prefer type guards
+- **Ignoring errors**: Handle all promise rejections

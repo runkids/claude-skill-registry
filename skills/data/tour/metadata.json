@@ -1,7 +1,7 @@
 {
   "name": "tour",
-  "repo": "allierays/agentic-loop",
-  "path": ".claude/skills/tour/SKILL.md",
-  "source": "github.com/allierays/agentic-loop",
-  "downloaded_at": "2026-01-29T04:41:17.543780Z"
+  "repo": "carmandale/agent-config",
+  "path": "skills/cc3/tour/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-30T04:46:38.229419Z"
 }

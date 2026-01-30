@@ -43,7 +43,7 @@ All of these scripts use network, so when running in the sandbox, request escala
 - Defaults to direct download for public GitHub repos.
 - If download fails with auth/permission errors, falls back to git sparse checkout.
 - Aborts if the destination skill directory already exists.
-- In this repo, install into `.claude/skills/<skill-name>`. Elsewhere, `$CODEX_HOME/skills/<skill-name>` is typical.
+- Installs into `$CODEX_HOME/skills/<skill-name>` (defaults to `~/.codex/skills`).
 - Multiple `--path` values install multiple skills in one run, each named from the path basename unless `--name` is supplied.
 - Options: `--ref <ref>` (default `main`), `--dest <path>`, `--method auto|download|git`.
 

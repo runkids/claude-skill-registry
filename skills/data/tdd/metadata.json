@@ -1,7 +1,7 @@
 {
   "name": "tdd",
-  "repo": "brief-hq/brief-wiggum",
-  "path": ".claude/skills/tdd/SKILL.md",
-  "source": "github.com/brief-hq/brief-wiggum",
-  "downloaded_at": "2026-01-29T04:42:14.238537Z"
+  "repo": "carmandale/agent-config",
+  "path": "skills/cc3/tdd/SKILL.md",
+  "source": "github.com/carmandale/agent-config",
+  "downloaded_at": "2026-01-30T04:46:38.029176Z"
 }

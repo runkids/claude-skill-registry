@@ -1,0 +1,19 @@
+{
+  "category": "sankey-diagram-creator",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.413149Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Create interactive Sankey diagrams for flow visualization from CSV, DataFrame, or dict data. Supports node/link styling and HTML/PNG/SVG export.",
+      "repo": "dkyazzentwatwa/chatgpt-skills",
+      "path": "sankey-diagram-creator",
+      "branch": "main",
+      "category": "sankey-diagram-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "dkyazzentwatwa/chatgpt-skills",
+      "source": "github.com/dkyazzentwatwa/chatgpt-skills"
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 ---
 name: security-react
-description: React Security. Use when reviewing security, implementing auth, or hardening code.
+description: Seguridad React. Use when reviewing security, implementing auth, or hardening code.
 ---
 
-# React Security
+# Seguridad React
 
 This skill provides guidelines and best practices.
 

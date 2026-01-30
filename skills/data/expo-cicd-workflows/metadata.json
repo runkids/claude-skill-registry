@@ -1,7 +1,7 @@
 {
   "name": "expo-cicd-workflows",
-  "repo": "Dknight203/AesopIDE",
-  "path": ".agent/skills/expo-cicd-workflows/SKILL.md",
-  "source": "github.com/Dknight203/AesopIDE",
-  "downloaded_at": "2026-01-29T04:04:29.822967Z"
+  "repo": "luthebao/expo-template",
+  "path": ".claude/skills/expo-cicd-workflows/SKILL.md",
+  "source": "github.com/luthebao/expo-template",
+  "downloaded_at": "2026-01-30T03:51:50.475850Z"
 }

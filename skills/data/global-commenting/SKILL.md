@@ -1,21 +1,23 @@
 ---
 name: Global Commenting
-description: Write self-documenting code with minimal, evergreen comments that explain complex logic without documenting changes or temporary fixes. Use this skill when adding comments to any code file. When deciding whether code needs a comment or should be made more self-explanatory. When writing comments for complex algorithms or business logic. When tempted to add comments about recent changes, fixes, or TODOs. When reviewing existing comments for relevance and accuracy.
+description: Write self-documenting code that explains itself through clear structure and naming, adding only minimal, evergreen comments for complex logic sections. Use this skill when deciding whether code needs comments, removing outdated temporal comments about changes/fixes, or writing concise explanations. Applies to all code files when balancing code clarity with necessary documentation, ensuring comments remain relevant far into the future rather than describing temporary states.
 ---
 
-## When to use this skill:
+# Global Commenting
 
-- When deciding whether to add a comment to code
-- When writing comments for complex logic or algorithms
-- When commenting large sections of business logic
-- When tempted to write a comment about a recent change or fix
-- When considering adding TODO or FIXME comments
-- When the code could be made self-documenting through better naming
-- When reviewing existing comments for accuracy
-- When removing outdated or misleading comments
-- When ensuring comments are evergreen and future-relevant
-- When documenting why code exists, not what it does
-- When working on any file that may need explanatory comments
+## When to use this skill
+
+- When deciding whether code needs comments or can be made self-explanatory through better naming
+- When writing comments for complex algorithms or business logic that isn't immediately obvious
+- When removing temporal comments like "fixed bug yesterday" or "TODO: refactor later"
+- When reviewing existing comments to ensure they're still accurate and evergreen
+- When explaining WHY code makes a particular decision rather than WHAT it does
+- When documenting large sections of code logic with concise, helpful summaries
+- When avoiding redundant comments that just restate what the code obviously does
+- When refactoring code to eliminate the need for explanatory comments through clarity
+- When adding comments to configuration files explaining non-obvious settings
+- When documenting workarounds for third-party library quirks or platform limitations
+- When ensuring comments will remain relevant months or years into the future
 
 # Global Commenting
 

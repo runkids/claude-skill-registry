@@ -1,9 +1,7 @@
 {
   "name": "kafka-architecture",
-  "description": "Expert knowledge of Apache Kafka architecture, cluster design, capacity planning, partitioning strategies, replication, and high availability. Auto-activates on keywords kafka architecture, cluster si",
   "repo": "anton-abyzov/specweave",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/anton-abyzov/specweave"
+  "path": "plugins/specweave-kafka/skills/kafka-architecture/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-30T01:38:38.154413Z"
 }

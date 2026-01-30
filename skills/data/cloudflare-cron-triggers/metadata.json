@@ -1,7 +1,7 @@
 {
   "name": "cloudflare-cron-triggers",
-  "repo": "jackspace/ClaudeSkillz",
-  "path": "skills/cloudflare-cron-triggers/SKILL.md",
-  "source": "github.com/jackspace/ClaudeSkillz",
-  "downloaded_at": "2026-01-29T02:09:05.180706Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/cloudflare-cron-triggers/skills/cloudflare-cron-triggers/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-30T03:41:13.081665Z"
 }

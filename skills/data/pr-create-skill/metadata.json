@@ -1,12 +1,7 @@
 {
   "name": "pr-create-skill",
-  "description": "明示的に呼び出されたときにのみ読み込みます。エージェントが自律的に呼び出す必要はありません。",
   "repo": "rimanem18/hoxt-backlog",
-  "category": "development",
-  "tags": [
-    "create",
-    "skill"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/pr-create-skill/SKILL.md",
+  "source": "github.com/rimanem18/hoxt-backlog",
+  "downloaded_at": "2026-01-30T03:56:19.569273Z"
 }

@@ -1,24 +1,127 @@
 ---
-name: growth-hacker
-description: Growth Hacker Agent. 성장 전략 수립, 빠른 실험 설계, 그로스 해킹을 담당합니다.
-allowed-tools: Read, Write, Edit, Glob, Grep, WebSearch, WebFetch
+name: Growth Hacker
+slug: growth-hacker
+description: Design and execute growth experiments using lean, data-driven tactics
+category: business
+complexity: simple
+version: "1.0.0"
+author: "ID8Labs"
+triggers:
+  - "growth hacking"
+  - "growth experiments"
+  - "growth strategy"
+  - "viral growth"
+  - "growth tactics"
+tags:
+  - growth
+  - hacking
+  - experiments
+  - acquisition
+  - viral
 ---
 
-# Growth Hacker Agent
+# Growth Hacker
 
-## 역할
-성장 전략을 수립하고 빠른 실험을 설계합니다.
+Design and execute growth experiments using lean, data-driven tactics
 
-## 담당 업무
-- 성장 전략 수립
-- 성장 기회 식별
-- 실험 가설 수립
-- ICE Score 우선순위 결정
-- 그로스 해킹 기법 적용
+## When to Use This Skill
 
-## 트리거 키워드
-성장, growth, 해킹, 전략, 스케일, 바이럴
+Use this skill when you need to:
+- Improve business operations and strategy
+- Make data-driven business decisions
+- Optimize processes and outcomes
 
-## 산출물 위치
-- 전략 문서: `docs/growth/strategy/`
-- 실험 백로그: `docs/growth/experiments/`
+**Not recommended for:**
+- Tasks requiring creative design work
+- technical coding
+
+## Quick Reference
+
+| Action | Command/Trigger |
+|--------|-----------------|
+| Create growth hacker | `growth hacking` |
+| Review and optimize | `review growth hacker` |
+| Get best practices | `growth hacker best practices` |
+
+## Core Workflows
+
+### Workflow 1: Initial Growth Hacker Creation
+
+**Goal:** Create a high-quality growth hacker from scratch
+
+**Steps:**
+1. **Discovery** - Understand requirements and objectives
+2. **Planning** - Develop strategy and approach
+3. **Execution** - Implement the plan
+4. **Review** - Evaluate results and iterate
+5. **Optimization** - Refine based on feedback
+
+### Workflow 2: Advanced Growth Hacker Optimization
+
+**Goal:** Refine and optimize existing growth hacker for better results
+
+**Steps:**
+1. **Research** - Gather relevant information
+2. **Analysis** - Evaluate options and approaches
+3. **Decision** - Choose the best path forward
+4. **Implementation** - Execute with precision
+5. **Measurement** - Track success metrics
+
+## Best Practices
+
+1. **Start with Clear Objectives**
+   Define what success looks like before beginning work.
+
+2. **Follow Industry Standards**
+   Leverage proven frameworks and best practices in business.
+
+3. **Iterate Based on Feedback**
+   Continuously improve based on results and user input.
+
+4. **Document Your Process**
+   Keep track of decisions and outcomes for future reference.
+
+5. **Focus on Quality**
+   Prioritize excellence over speed, especially in early iterations.
+
+## Checklist
+
+Before considering your work complete:
+
+- [ ] Objectives clearly defined and understood
+- [ ] Research and discovery phase completed
+- [ ] Strategy or plan documented
+- [ ] Implementation matches requirements
+- [ ] Quality standards met
+- [ ] Stakeholders informed and aligned
+- [ ] Results measured against goals
+- [ ] Documentation updated
+- [ ] Feedback collected
+- [ ] Next steps identified
+
+## Common Mistakes
+
+| Mistake | Why It's Bad | Better Approach |
+|---------|--------------|-----------------|
+| Skipping research | Leads to misaligned solutions | Invest time in understanding context |
+| Ignoring best practices | Reinventing the wheel | Study successful examples first |
+| No clear metrics | Can't measure success | Define KPIs upfront |
+
+## Integration Points
+
+- **Tools**: Integration with common business platforms and tools
+- **Workflows**: Fits into existing business operations workflows
+- **Team**: Collaborates with leadership and operations stakeholders
+
+## Success Metrics
+
+Track these metrics to measure effectiveness:
+- Quality of output
+- Time to completion
+- Stakeholder satisfaction
+- Impact on business goals
+- Reusability of approach
+
+---
+
+*This skill is part of the ID8Labs Skills Marketplace. Last updated: 2026-01-07*

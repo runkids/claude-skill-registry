@@ -1,7 +1,7 @@
 {
   "name": "citation-management",
-  "repo": "danieldekay/copilot-config-promptops",
-  "path": "skills/citation-management/SKILL.md",
-  "source": "github.com/danieldekay/copilot-config-promptops",
-  "downloaded_at": "2026-01-29T03:10:49.802704Z"
+  "repo": "K-Dense-AI/claude-scientific-skills",
+  "path": "scientific-skills/citation-management/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "downloaded_at": "2026-01-30T04:13:55.734205Z"
 }

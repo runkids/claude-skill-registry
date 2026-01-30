@@ -1,9 +1,7 @@
 {
   "name": "visualization-algorithms",
-  "description": "Evaluate and implement visualization algorithms for ocean/foam rendering. Use when discussing rendering techniques, contour algorithms, performance optimization for graphics, or evaluating algorithm t",
-  "repo": "surfdeeper/surfing-game",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "joshribakoff/surfsim",
+  "path": ".claude/skills/visualization-algorithms/SKILL.md",
+  "source": "github.com/joshribakoff/surfsim",
+  "downloaded_at": "2026-01-30T02:28:03.463068Z"
 }

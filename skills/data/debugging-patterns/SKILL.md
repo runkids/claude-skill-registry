@@ -1,382 +1,485 @@
 ---
 name: debugging-patterns
-description: "Internal skill. Use cc10x-router for all development tasks."
-allowed-tools: Read, Grep, Glob, Bash
+description: Debugging strategies and error resolution patterns. Stack trace analysis, runtime errors, build errors, network issues. Use when debugging any type of error.
+allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
-# Systematic Debugging
+# Debugging Patterns - Error Resolution Best Practices
 
-## Overview
+## Purpose
 
-Random fixes waste time and create new bugs. Quick patches mask underlying issues.
+Expert guidance for debugging:
 
-**Core principle:** ALWAYS find root cause before attempting fixes. Symptom fixes are failure.
+- **Error Analysis** - Stack traces, error messages
+- **Runtime Issues** - Type errors, null references
+- **Build Errors** - Compilation, bundling
+- **Network Issues** - API, CORS, HTTP errors
+- **Performance Bugs** - Slow operations, memory leaks
 
-**Violating the letter of this process is violating the spirit of debugging.**
+---
 
-## The Iron Law
-
-```
-NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
-```
-
-If you haven't completed Phase 1, you cannot propose fixes.
-
-## Quick Five-Step Process (Reference Pattern)
-
-For rapid debugging, use this concise flow:
+## Debug Process
 
 ```
-1. Capture error message and stack trace
-2. Identify reproduction steps
-3. Isolate the failure location
-4. Implement minimal fix
-5. Verify solution works
+1. UNDERSTAND - What should happen vs what happens
+   ↓
+2. REPRODUCE - Consistent steps to trigger bug
+   ↓
+3. ISOLATE - Narrow down to specific code
+   ↓
+4. IDENTIFY - Find root cause
+   ↓
+5. FIX - Implement solution
+   ↓
+6. VERIFY - Confirm fix works + no regressions
 ```
 
-**Debugging techniques:**
-- Analyze error messages and logs
-- Check recent code changes
-- Form and test hypotheses
-- **Add strategic debug logging**
-- **Inspect variable states**
+---
 
-**Root Cause Tracing Technique:**
+## Stack Trace Analysis
+
+### Reading Error Stack
+
 ```
-1. Observe symptom - Where does error manifest?
-2. Find immediate cause - Which code produces the error?
-3. Ask "What called this?" - Map call chain upward
-4. Keep tracing up - Follow invalid data backward
-5. Find original trigger - Where did problem actually start?
-```
-**Never fix solely where errors appear—trace to the original trigger.**
-
-**For each issue provide:**
-- Root cause explanation
-- Evidence supporting diagnosis
-- Specific code fix
-- Testing approach
-- Prevention recommendations
-
-## Common Debugging Scenarios
-
-### Test Failures
-```
-1. Read FULL error message and stack trace
-2. Identify which assertion failed and why
-3. Check test setup - is environment correct?
-4. Check test data - are mocks/fixtures correct?
-5. Trace to source of unexpected value
+TypeError: Cannot read properties of undefined (reading 'name')
+    at getUserName (src/utils/user.ts:45:23)
+    at ProfileCard (src/components/ProfileCard.tsx:12:18)
+    at renderWithHooks (node_modules/react-dom/...)
 ```
 
-### Runtime Errors
-```
-1. Capture full stack trace
-2. Identify line that throws
-3. Check what values are undefined/null
-4. Trace backward to where bad value originated
-5. Add validation at the source
-```
-
-### "It worked before"
-```
-1. Use `git bisect` to find breaking commit
-2. Compare change with previous working version
-3. Identify what assumption changed
-4. Fix at source of assumption violation
-```
-
-### Intermittent Failures
-```
-1. Look for race conditions
-2. Check for shared mutable state
-3. Examine async operation ordering
-4. Look for timing dependencies
-5. Add deterministic waits or proper synchronization
-```
-
-## When to Use
-
-Use for ANY technical issue:
-- Test failures
-- Bugs in production
-- Unexpected behavior
-- Performance problems
-- Build failures
-- Integration issues
-
-**Use this ESPECIALLY when:**
-- Under time pressure (emergencies make guessing tempting)
-- "Just one quick fix" seems obvious
-- You've already tried multiple fixes
-- Previous fix didn't work
-- You don't fully understand the issue
-
-**Don't skip when:**
-- Issue seems simple (simple bugs have root causes too)
-- You're in a hurry (rushing guarantees rework)
-- Manager wants it fixed NOW (systematic is faster than thrashing)
-
-## The Four Phases
-
-You MUST complete each phase before proceeding to the next.
-
-### Phase 1: Root Cause Investigation
-
-**BEFORE attempting ANY fix:**
-
-1. **Read Error Messages Carefully**
-   - Don't skip past errors or warnings
-   - They often contain the exact solution
-   - Read stack traces completely
-   - Note line numbers, file paths, error codes
-
-2. **Reproduce Consistently**
-   - Can you trigger it reliably?
-   - What are the exact steps?
-   - Does it happen every time?
-   - If not reproducible → gather more data, don't guess
-
-3. **Check Recent Changes**
-   - What changed that could cause this?
-   - Git diff, recent commits
-   - New dependencies, config changes
-   - Environmental differences
-
-4. **Gather Evidence in Multi-Component Systems**
-
-   **WHEN system has multiple components (CI → build → signing, API → service → database):**
-
-   **BEFORE proposing fixes, add diagnostic instrumentation:**
-   ```
-   For EACH component boundary:
-     - Log what data enters component
-     - Log what data exits component
-     - Verify environment/config propagation
-     - Check state at each layer
-
-   Run once to gather evidence showing WHERE it breaks
-   THEN analyze evidence to identify failing component
-   THEN investigate that specific component
-   ```
-
-   **Example (multi-layer system):**
-   ```bash
-   # Layer 1: Entry point
-   echo "=== Input data: ==="
-   echo "Request: ${REQUEST}"
-
-   # Layer 2: Processing layer
-   echo "=== After processing: ==="
-   echo "Transformed: ${TRANSFORMED}"
-
-   # Layer 3: Output layer
-   echo "=== Final state: ==="
-   echo "Result: ${RESULT}"
-   ```
-
-   **This reveals:** Which layer fails (input → processing ✓, processing → output ✗)
-
-5. **Trace Data Flow**
-
-   **WHEN error is deep in call stack:**
-   - Where does bad value originate?
-   - What called this with bad value?
-   - Keep tracing up until you find the source
-   - Fix at source, not at symptom
-
-### Phase 2: Pattern Analysis
-
-**Find the pattern before fixing:**
-
-1. **Find Working Examples**
-   - Locate similar working code in same codebase
-   - What works that's similar to what's broken?
-
-2. **Compare Against References**
-   - If implementing pattern, read reference implementation COMPLETELY
-   - Don't skim - read every line
-   - Understand the pattern fully before applying
-
-3. **Identify Differences**
-   - What's different between working and broken?
-   - List every difference, however small
-   - Don't assume "that can't matter"
-
-4. **Understand Dependencies**
-   - What other components does this need?
-   - What settings, config, environment?
-   - What assumptions does it make?
-
-### Phase 3: Hypothesis and Testing
-
-**Scientific method:**
-
-1. **Form Single Hypothesis**
-   - State clearly: "I think X is the root cause because Y"
-   - Write it down
-   - Be specific, not vague
-
-2. **Test Minimally**
-   - Make the SMALLEST possible change to test hypothesis
-   - One variable at a time
-   - Don't fix multiple things at once
-
-3. **Verify Before Continuing**
-   - Did it work? Yes → Phase 4
-   - Didn't work? Form NEW hypothesis
-   - DON'T add more fixes on top
-
-4. **When You Don't Know**
-   - Say "I don't understand X"
-   - Don't pretend to know
-   - Ask for help
-   - Research more
-
-### Phase 4: Implementation
-
-**Fix the root cause, not the symptom:**
-
-1. **Create Failing Test Case**
-   - Simplest possible reproduction
-   - Automated test if possible
-   - One-off test script if no framework
-   - MUST have before fixing
-
-2. **Implement Single Fix**
-   - Address the root cause identified
-   - ONE change at a time
-   - No "while I'm here" improvements
-   - No bundled refactoring
-
-3. **Verify Fix**
-   - Test passes now?
-   - No other tests broken?
-   - Issue actually resolved?
-
-4. **If Fix Doesn't Work**
-   - STOP
-   - Count: How many fixes have you tried?
-   - If < 3: Return to Phase 1, re-analyze with new information
-   - **If >= 3: STOP and question the architecture (step 5 below)**
-   - DON'T attempt Fix #4 without architectural discussion
-
-5. **If 3+ Fixes Failed: Question Architecture**
-
-   **Pattern indicating architectural problem:**
-   - Each fix reveals new shared state/coupling/problem in different place
-   - Fixes require "massive refactoring" to implement
-   - Each fix creates new symptoms elsewhere
-
-   **STOP and question fundamentals:**
-   - Is this pattern fundamentally sound?
-   - Are we "sticking with it through sheer inertia"?
-   - Should we refactor architecture vs. continue fixing symptoms?
-
-   **Discuss with your human partner before attempting more fixes**
-
-   This is NOT a failed hypothesis - this is a wrong architecture.
-
-## Red Flags - STOP and Follow Process
-
-If you catch yourself thinking:
-
-- "Quick fix for now, investigate later"
-- "Just try changing X and see if it works"
-- "Add multiple changes, run tests"
-- "Skip the test, I'll manually verify"
-- "It's probably X, let me fix that"
-- "I don't fully understand but this might work"
-- "Pattern says X but I'll adapt it differently"
-- "Here are the main problems: [lists fixes without investigation]"
-- Proposing solutions before tracing data flow
-- **"One more fix attempt" (when already tried 2+)**
-- **Each fix reveals new problem in different place**
-
-**ALL of these mean: STOP. Return to Phase 1.**
-
-**If 3+ fixes failed:** Question the architecture (see Phase 4.5)
-
-## User's Signals You're Doing It Wrong
-
-**Watch for these redirections:**
-- "Is that not happening?" - You assumed without verifying
-- "Will it show us...?" - You should have added evidence gathering
-- "Stop guessing" - You're proposing fixes without understanding
-- "Ultrathink this" - Question fundamentals, not just symptoms
-- "We're stuck?" (frustrated) - Your approach isn't working
-
-**When you see these:** STOP. Return to Phase 1.
-
-## Rationalization Prevention
-
-| Excuse | Reality |
-|--------|---------|
-| "Issue is simple, don't need process" | Simple issues have root causes too. Process is fast for simple bugs. |
-| "Emergency, no time for process" | Systematic debugging is FASTER than guess-and-check thrashing. |
-| "Just try this first, then investigate" | First fix sets the pattern. Do it right from the start. |
-| "I'll write test after confirming fix works" | Untested fixes don't stick. Test first proves it. |
-| "Multiple fixes at once saves time" | Can't isolate what worked. Causes new bugs. |
-| "Reference too long, I'll adapt the pattern" | Partial understanding guarantees bugs. Read it completely. |
-| "I see the problem, let me fix it" | Seeing symptoms ≠ understanding root cause. |
-| "One more fix attempt" (after 2+ failures) | 3+ failures = architectural problem. Question pattern, don't fix again. |
-
-## Quick Reference
-
-| Phase | Key Activities | Success Criteria |
-|-------|---------------|------------------|
-| **1. Root Cause** | Read errors, reproduce, check changes, gather evidence | Understand WHAT and WHY |
-| **2. Pattern** | Find working examples, compare | Identify differences |
-| **3. Hypothesis** | Form theory, test minimally | Confirmed or new hypothesis |
-| **4. Implementation** | Create test, fix, verify | Bug resolved, tests pass |
-
-## When Process Reveals "No Root Cause"
-
-If systematic investigation reveals issue is truly environmental, timing-dependent, or external:
-
-1. You've completed the process
-2. Document what you investigated
-3. Implement appropriate handling (retry, timeout, error message)
-4. Add monitoring/logging for future investigation
-
-**But:** 95% of "no root cause" cases are incomplete investigation.
-
-## Output Format
-
-```markdown
-## Bug Investigation
-
-### Phase 1: Evidence Gathered
-- **Error**: [exact error message]
-- **Stack trace**: [relevant lines]
-- **Reproduction**: [steps to reproduce]
-- **Recent changes**: [commits/changes]
-
-### Phase 2: Pattern Analysis
-- **Working example**: [similar working code]
-- **Key differences**: [what's different]
-
-### Phase 3: Hypothesis
-- **Theory**: [I think X because Y]
-- **Test**: [minimal change made]
-- **Result**: [confirmed/refuted]
-
-### Phase 4: Fix
-- **Root cause**: [actual cause with evidence]
-- **Change**: [summary of fix]
-- **File**: [path:line]
-- **Regression test**: [test added]
-
-### Verification
-- Test command: [command] → exit 0
-- All tests: PASS
-- Functionality: Restored
+**Key Information:**
+
+- **Error Type**: `TypeError`
+- **Message**: `Cannot read properties of undefined`
+- **Property**: `name`
+- **Location**: `src/utils/user.ts:45:23` (file:line:column)
+- **Call Stack**: Shows how we got here
+
+### Fix Pattern
+
+```typescript
+// Error at line 45
+function getUserName(user: User) {
+	return user.name; // ERROR: user is undefined
+}
+
+// Fix: Add null check
+function getUserName(user: User | undefined): string {
+	return user?.name ?? 'Unknown';
+}
+
+// Or use assertion with clear error
+function getUserName(user: User | undefined): string {
+	if (!user) {
+		throw new Error('User is required for getUserName');
+	}
+	return user.name;
+}
 ```
 
-## Real-World Impact
+---
 
-From debugging sessions:
-- Systematic approach: 15-30 minutes to fix
-- Random fixes approach: 2-3 hours of thrashing
-- First-time fix rate: 95% vs 40%
-- New bugs introduced: Near zero vs common
+## Common Error Patterns
+
+### TypeError: Cannot read properties of undefined
+
+```typescript
+// Pattern: Accessing property on undefined
+const name = user.profile.name;
+
+// Fix 1: Optional chaining
+const name = user?.profile?.name ?? 'Unknown';
+
+// Fix 2: Early return
+if (!user?.profile) return null;
+const name = user.profile.name;
+
+// Fix 3: Default value
+const profile = user?.profile ?? { name: 'Unknown' };
+```
+
+### TypeError: X is not a function
+
+```typescript
+// Pattern: Calling non-function
+onClick(); // onClick is undefined
+
+// Fix 1: Check before calling
+onClick?.();
+
+// Fix 2: Provide default
+const handleClick = onClick ?? (() => {});
+handleClick();
+```
+
+### ReferenceError: X is not defined
+
+```typescript
+// Pattern: Using undefined variable
+console.log(userData); // userData not imported/declared
+
+// Fix: Import or declare
+import { userData } from './data';
+// or
+const userData = await fetchUserData();
+```
+
+### SyntaxError: Unexpected token
+
+```typescript
+// Pattern: Invalid JSON
+const data = JSON.parse(response);
+// SyntaxError: Unexpected token '<'
+
+// Fix: Check response before parsing
+if (!response.ok) {
+	throw new Error(`HTTP ${response.status}`);
+}
+const text = await response.text();
+try {
+	return JSON.parse(text);
+} catch {
+	throw new Error(`Invalid JSON: ${text.slice(0, 100)}`);
+}
+```
+
+---
+
+## TypeScript Errors
+
+### TS2339: Property does not exist
+
+```typescript
+// Error
+const env = process.env.NODE_ENV;
+// Property 'NODE_ENV' does not exist on type 'ProcessEnv'
+
+// Fix: Use bracket notation
+const env = process.env['NODE_ENV'];
+```
+
+### TS2532: Object is possibly undefined
+
+```typescript
+// Error
+const items = array.map((x) => x.value);
+// Object is possibly 'undefined'
+
+// Fix 1: Non-null assertion (if certain)
+const items = array!.map((x) => x.value);
+
+// Fix 2: Default value
+const items = (array ?? []).map((x) => x.value);
+
+// Fix 3: Conditional
+const items = array ? array.map((x) => x.value) : [];
+```
+
+### TS2345: Argument type mismatch
+
+```typescript
+// Error
+function greet(name: string) {}
+greet(user.name); // Argument of type 'string | undefined'
+
+// Fix 1: Provide default
+greet(user.name ?? 'Guest');
+
+// Fix 2: Assert
+greet(user.name!);
+
+// Fix 3: Guard
+if (user.name) greet(user.name);
+```
+
+### TS7053: Index signature
+
+```typescript
+// Error
+const value = obj[key];
+// Element implicitly has 'any' type
+
+// Fix: Type the index
+const value = (obj as Record<string, unknown>)[key];
+
+// Or define proper type
+interface MyObj {
+	[key: string]: string | undefined;
+}
+```
+
+---
+
+## Build Errors
+
+### Module Not Found
+
+```bash
+# Error
+Cannot find module './utils' or its corresponding type declarations
+
+# Check 1: File exists?
+ls src/utils.ts
+
+# Check 2: Extension needed?
+import { helper } from './utils.js';  # ESM requires extension
+
+# Check 3: Path alias configured?
+# Check tsconfig.json paths
+```
+
+### Duplicate Identifier
+
+```bash
+# Error
+Duplicate identifier 'User'
+
+# Fix: Check imports for conflicts
+# May have both named and default import
+import User from './User';
+import { User } from './types';  # Conflict!
+
+# Solution: Rename one
+import { User as UserType } from './types';
+```
+
+### ESM/CJS Compatibility
+
+```typescript
+// Error: require is not defined in ES module
+const fs = require('fs');
+
+// Fix: Use ESM import
+import fs from 'fs';
+import { readFileSync } from 'fs';
+
+// If must use require in ESM
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+```
+
+---
+
+## Network & API Errors
+
+### CORS Errors
+
+```
+Access to fetch at 'https://api.example.com' has been blocked by CORS policy
+```
+
+```typescript
+// Server-side fix (add headers)
+res.setHeader('Access-Control-Allow-Origin', 'https://yoursite.com');
+res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+// Client-side workaround (proxy in dev)
+// vite.config.ts
+export default {
+	server: {
+		proxy: {
+			'/api': {
+				target: 'https://api.example.com',
+				changeOrigin: true,
+			},
+		},
+	},
+};
+```
+
+### HTTP Error Handling
+
+```typescript
+async function fetchWithErrorHandling<T>(url: string): Promise<T> {
+	const response = await fetch(url);
+
+	if (!response.ok) {
+		// Get error details
+		let message: string;
+		try {
+			const error = await response.json();
+			message = error.message || response.statusText;
+		} catch {
+			message = response.statusText;
+		}
+
+		throw new Error(`${response.status} ${message}`);
+	}
+
+	return response.json();
+}
+```
+
+### Network Timeout
+
+```typescript
+async function fetchWithTimeout(url: string, timeout = 5000) {
+	const controller = new AbortController();
+	const id = setTimeout(() => controller.abort(), timeout);
+
+	try {
+		const response = await fetch(url, { signal: controller.signal });
+		clearTimeout(id);
+		return response;
+	} catch (error) {
+		clearTimeout(id);
+		if (error instanceof Error && error.name === 'AbortError') {
+			throw new Error(`Request timeout after ${timeout}ms`);
+		}
+		throw error;
+	}
+}
+```
+
+---
+
+## React Debugging
+
+### "Cannot update a component while rendering"
+
+```typescript
+// Error: State update during render
+function Component({ value }) {
+	const [state, setState] = useState(0);
+	setState(value); // ERROR!
+
+	// Fix: Use useEffect
+	useEffect(() => {
+		setState(value);
+	}, [value]);
+}
+```
+
+### "Too many re-renders"
+
+```typescript
+// Error: Infinite loop
+function Component() {
+	const [count, setCount] = useState(0);
+	setCount(count + 1); // Causes re-render, which sets count...
+
+	// Fix: Add condition or use effect
+	useEffect(() => {
+		if (count < 10) {
+			setCount((c) => c + 1);
+		}
+	}, [count]);
+}
+```
+
+### "Invalid hook call"
+
+```typescript
+// Error: Hook outside component or conditional
+function Component() {
+	if (condition) {
+		const [state] = useState(0); // ERROR!
+	}
+}
+
+// Fix: Hooks must be at top level
+function Component() {
+	const [state] = useState(0); // OK
+	if (condition) {
+		// use state here
+	}
+}
+```
+
+---
+
+## Debug Commands
+
+### Git - Find Breaking Commit
+
+```bash
+# Start bisect
+git bisect start
+git bisect bad HEAD
+git bisect good abc123  # Last known good commit
+
+# Test and mark each commit
+git bisect good  # or bad
+
+# End bisect
+git bisect reset
+```
+
+### Find Error in Code
+
+```bash
+# Search for error message
+grep -rn "specific error text" src/
+
+# Search for pattern
+grep -rn "throw new Error" src/ --include="*.ts"
+
+# Find file with symbol
+grep -rn "functionName" src/ --include="*.ts" -l
+```
+
+### Bun Debugging
+
+```bash
+# Debug mode
+bun --inspect src/index.ts
+
+# With breakpoint on start
+bun --inspect-brk src/index.ts
+
+# Low memory mode (for memory issues)
+bun --smol src/index.ts
+```
+
+---
+
+## Debugging Checklist
+
+### Before You Start
+
+- [ ] Can you reproduce the bug?
+- [ ] Do you have the exact error message?
+- [ ] What changed recently? (`git log`, `git diff`)
+
+### Investigation
+
+- [ ] Read the full error message and stack trace
+- [ ] Check the line number mentioned in error
+- [ ] Add console.log at key points
+- [ ] Check network tab for API errors
+
+### After Fix
+
+- [ ] Does the fix work for all cases?
+- [ ] Did you add tests to prevent regression?
+- [ ] Did you handle edge cases?
+
+---
+
+## Agent Integration
+
+This skill is used by:
+
+- **debugger** agent
+- **error-stack-analyzer** agent
+- **type-error-resolver** agent
+- **runtime-error-fixer** agent
+- **network-debugger** agent
+- **build-error-fixer** agent
+
+---
+
+## FORBIDDEN
+
+1. **Swallowing errors silently** - Always log or handle
+2. **Using `any` to hide errors** - Fix the actual type issue
+3. **`@ts-ignore` without comment** - Use `@ts-expect-error` with explanation
+4. **Empty catch blocks** - At minimum, log the error
+5. **Fixing symptoms not causes** - Find and fix root cause
+
+---
+
+## Version
+
+- **v1.0.0** - Initial implementation based on 2024-2025 debugging patterns

@@ -1,94 +1,52 @@
 ---
 name: prometheus
-description: Strategic planner - decomposes complex goals into actionable steps
-version: 1.0.0
-author: Oh My Antigravity
-specialty: planning
+description: Prometheus ops skill for metrics instrumentation, scraping configuration, alerting (Alertmanager), dashboarding (Grafana), SLO/SLA monitoring, and troubleshooting missing/incorrect metrics. Use for tasks like designing alert rules, improving observability, and building production monitoring runbooks.
 ---
 
-# Prometheus - The Strategic Planner
+# prometheus
 
-You are **Prometheus**, the strategic planning specialist. You break down complex goals into clear, actionable steps.
+Use this skill for Prometheus + Alertmanager + Grafana 监控体系建设与运维。
 
-## Core Responsibilities
+## Defaults / assumptions to confirm
 
-- Task decomposition (3-7 independent stages)
-- Dependency identification
-- Resource estimation
-- Risk assessment
-- Timeline planning
+- Deployment: kube-prometheus-stack / standalone
+- Alert routing: Alertmanager receivers (Slack/WeCom/PagerDuty)
+- Metrics source: app exporters, node-exporter, kube-state-metrics
+- Naming conventions and label cardinality constraints
 
-## Planning Methodology
+## Workflow
 
-### 1. Goal Analysis
-- What is the end state?
-- What are the success criteria?
-- What constraints exist?
+1) Understand what to measure
+- Identify golden signals: latency, traffic, errors, saturation.
+- Map business KPIs and critical user journeys to technical indicators.
 
-### 2. Decomposition
-Break goals into 3-7 stages:
-- Each stage should be independently completable
-- Clear input/output for each stage
-- Minimal inter-stage dependencies
+2) Instrumentation guidance
+- Prefer stable metric names and bounded label sets.
+- Avoid high-cardinality labels (user_id, request_id, raw URLs).
+- Use histograms for latency (p50/p95/p99 via `histogram_quantile`).
 
-### 3. Resource Planning
-For each stage, identify:
-- Which specialist agent is best suited
-- Estimated time/complexity
-- Required tools or APIs
-- Potential blockers
+3) Scraping configuration
+- Confirm scrape targets (ServiceMonitor/PodMonitor or static configs).
+- Ensure relabeling rules are correct; set scrape intervals/timeouts appropriately.
 
-### 4. Execution Strategy
-- Sequential vs parallel opportunities
-- Critical path identification
-- Fallback plans
+4) Alert design (practical)
+- Alerts should be actionable and low-noise.
+- Use multi-window multi-burn-rate for SLO alerts where applicable.
+- Add `for:` to avoid flapping; include runbook links in annotations.
 
-## Plan Format
+5) Dashboarding
+- Provide per-service dashboards: RPS, p95 latency, error rate, resource usage.
+- Add drill-down: by route group, instance, and dependency.
 
-```markdown
-# Goal: [High-level objective]
+6) Troubleshooting checklist
+- Missing metrics: target down, wrong labels, scrape failures, RBAC/network issues.
+- Wrong metrics: unit mismatch, counter resets, histogram buckets incorrect.
+- High load: cardinality explosion, too frequent scrapes, heavy queries.
 
-## Success Criteria
-- [ ] Criterion 1
-- [ ] Criterion 2
+## Outputs
 
-## Stages
+- Metrics plan: required metrics, labels, and thresholds.
+- Alert rules: PromQL + severity + routing + runbook.
+- Grafana dashboard layout and key panels.
+- Runbook: symptom → checks → mitigation → rollback.
 
-### Stage 1: [Name]
-**Agent**: Oracle
-**Goal**: Design system architecture
-**Input**: Requirements document
-**Output**: Architecture diagram + tech stack decision
-**Estimated Effort**: 2 hours
-**Dependencies**: None
-
-### Stage 2: [Name]
-**Agent**: CodeSmith
-**Goal**: Implement core API
-**Input**: Architecture from Stage 1
-**Output**: Working API endpoints
-**Estimated Effort**: 4 hours
-**Dependencies**: Stage 1
-
-[... continued]
-
-## Execution Order
-1. Stage 1 (Oracle) - Start immediately
-2. Stage 2 (CodeSmith) - After Stage 1
-3. Stage 3, 4, 5 (Pixel, Tester, Scribe) - Parallel after Stage 2
-
-## Risks
-- Risk 1: Database schema may need iteration
-  - Mitigation: Architect reviews before CodeSmith implements
-```
-
-## When Called by Sisyphus
-
-Sisyphus delegates to you when:
-- Task is complex (>30 min estimated)
-- Multiple agents needed
-- User says "plan", "ralplan", or "strategy"
-
----
-
-*"Give me six hours to chop down a tree and I will spend the first four sharpening the axe." - Abraham Lincoln*

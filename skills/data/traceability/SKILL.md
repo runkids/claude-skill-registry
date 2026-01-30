@@ -1,263 +1,130 @@
 ---
 name: traceability
-activation_code: TRACEABILITY_V1
-phase: any
-command: /trace
-aliases: ["/traceability", "/req"]
-description: Manage requirement traceability - generate matrix, check coverage, find orphans, trace requirements
-tier: focused
-model: sonnet
-invokes: traceability-auditor
+description: Standards for linking specifications to implementation code and maintaining bidirectional traceability between documentation and source code
+user-invocable: false
+allowed-tools: Read
 ---
 
-# Traceability Skill
+# Traceability Standards
 
-## Usage
+Standards for connecting specification documents with implementation code, establishing bidirectional traceability, and maintaining documentation throughout the implementation lifecycle.
 
-```
-/trace                      - Show traceability dashboard
-/trace generate             - Scan artifacts and generate traceability matrix
-/trace coverage             - Report traceability coverage metrics
-/trace orphans              - Find artifacts without proper traces
-/trace REQ-xxx-nnn          - Show full trace chain for a requirement
-/trace impact REQ-xxx-nnn   - Show what would be affected if requirement changes
-/trace validate             - Verify all trace links are valid
-/trace suggest              - Auto-suggest traces for orphan artifacts
-```
+## Core Principles
 
-## Commands
+### Holistic System View
 
-### `/trace` (Dashboard)
+Effective documentation provides a complete view at multiple levels:
 
-Shows the current traceability health:
+- **Requirements level**: What the system must accomplish
+- **Specification level**: How the system is designed
+- **Implementation level**: How the code actually works
 
-```
-╔═══════════════════════════════════════════════════════════════════════╗
-║  TRACEABILITY DASHBOARD                                               ║
-╠═══════════════════════════════════════════════════════════════════════╣
-║                                                                        ║
-║  Matrix Last Updated: 2024-01-15 10:30:00                             ║
-║                                                                        ║
-║  ARTIFACTS                                                             ║
-║  ├── Requirements: 25                                                  ║
-║  ├── User Stories: 23                                                  ║
-║  ├── Tasks: 18                                                         ║
-║  ├── Specifications: 15                                                ║
-║  ├── Tests: 50                                                         ║
-║  └── Implementations: 48                                               ║
-║                                                                        ║
-║  COVERAGE                                                              ║
-║  ├── Forward (Req → Code): 92%  ✓                                     ║
-║  ├── Backward (Code → Req): 73%  ⚠                                    ║
-║  └── Test Coverage: 84%  ✓                                            ║
-║                                                                        ║
-║  ORPHANS: 8 artifacts need attention                                  ║
-║                                                                        ║
-║  HEALTH SCORE: 82/100                                                 ║
-║                                                                        ║
-╠═══════════════════════════════════════════════════════════════════════╣
-║  [G] Generate  [C] Coverage  [O] Orphans  [V] Validate                ║
-╚═══════════════════════════════════════════════════════════════════════╝
-```
+Proper linkage ensures seamless navigation between these levels.
 
-### `/trace generate`
+### Single Source of Truth
 
-Scans all artifacts and generates the traceability matrix:
+Each piece of information should have one authoritative location:
 
-1. Scans PRD for REQ-IDs
-2. Scans PRD/docs for User Stories (US-NNN)
-3. Scans .taskmaster/tasks/tasks.json for tasks
-4. Scans openspec/changes/*.md for specifications
-5. Scans tests/**/*.{ts,js,py} for @traces annotations
-6. Scans src/**/*.{ts,js,py} for @implements annotations
-7. Generates `.claude/traceability/matrix.json`
+- **Specifications**: Architectural decisions, standards, constraints
+- **Implementation code**: Detailed behavior, algorithms, edge cases
+- **JavaDoc**: Usage guidance, API contracts, implementation notes
 
-### `/trace coverage`
+### Documentation Lifecycle
 
-Reports detailed coverage metrics with drill-down:
+Documentation evolves through implementation:
 
-```
-╔═══════════════════════════════════════════════════════════════════════╗
-║  TRACEABILITY COVERAGE REPORT                                         ║
-╠═══════════════════════════════════════════════════════════════════════╣
-║                                                                        ║
-║  FORWARD TRACEABILITY                                                  ║
-║  ├── REQ → US:     23/25 (92%)  ███████████░ ✓                        ║
-║  ├── US → TASK:    18/23 (78%)  ████████░░░░ ⚠                        ║
-║  ├── TASK → SPEC:  15/18 (83%)  █████████░░░ ✓                        ║
-║  └── SPEC → CODE:  14/15 (93%)  ███████████░ ✓                        ║
-║                                                                        ║
-║  BACKWARD TRACEABILITY                                                 ║
-║  ├── TEST → REQ:   42/50 (84%)  █████████░░░ ✓                        ║
-║  └── CODE → REQ:   35/48 (73%)  ████████░░░░ ⚠                        ║
-║                                                                        ║
-║  GAPS:                                                                 ║
-║  ├── REQ-PERF-003: No user stories                                    ║
-║  ├── REQ-SEC-007: No implementation                                   ║
-║  └── US-015, US-018, US-021, US-022, US-023: No tasks                 ║
-║                                                                        ║
-╚═══════════════════════════════════════════════════════════════════════╝
-```
+1. **Pre-Implementation**: Specifications contain detailed design and examples
+2. **During Implementation**: Specifications updated with implementation decisions
+3. **Post-Implementation**: Specifications link to code, redundant details removed
 
-### `/trace orphans`
+## Workflow
 
-Lists all artifacts without proper traces:
+### Step 1: Load Applicable Traceability Standards
 
-```
-╔═══════════════════════════════════════════════════════════════════════╗
-║  ORPHAN ARTIFACTS                                                     ║
-╠═══════════════════════════════════════════════════════════════════════╣
-║                                                                        ║
-║  CRITICAL (Requirements with no path to implementation):              ║
-║  ├── REQ-PERF-003: Response time < 100ms                              ║
-║  └── REQ-SEC-007: Audit logging                                       ║
-║                                                                        ║
-║  WARNING (Code/tests without requirement link):                       ║
-║  ├── tests/unit/utils/helpers.test.ts                                 ║
-║  ├── tests/unit/api/legacy.test.ts                                    ║
-║  ├── src/utils/deprecated.ts                                          ║
-║  └── src/api/v1/compat.ts                                             ║
-║                                                                        ║
-║  MEDIUM (Tasks without requirement):                                  ║
-║  └── TASK-042: Refactor database connection                          ║
-║                                                                        ║
-╠═══════════════════════════════════════════════════════════════════════╣
-║  [S] Suggest traces  [M] Mark intentional  [I] Ignore                 ║
-╚═══════════════════════════════════════════════════════════════════════╝
-```
+**CRITICAL**: Load traceability standards based on task context.
 
-### `/trace REQ-xxx-nnn`
+1. **Always load information distribution standards**:
+   ```
+   Read: standards/information-distribution.md
+   ```
+   Defines what belongs in specifications vs JavaDoc.
 
-Shows the complete trace chain for a single requirement:
+2. **Load standards based on task context**:
 
-```
-╔═══════════════════════════════════════════════════════════════════════╗
-║  TRACE: REQ-AUTH-001                                                  ║
-╠═══════════════════════════════════════════════════════════════════════╣
-║                                                                        ║
-║  REQ-AUTH-001: User authentication via email/password                 ║
-║  Priority: P0 | Source: docs/PRD.md:142                               ║
-║                                                                        ║
-║  ┌─► US-001: User can log in                                          ║
-║  │   ├─► TASK-003: Implement login API                                ║
-║  │   │   ├─► SPEC-003-01: Login endpoint spec                         ║
-║  │   │   │   └─► src/api/auth/login.ts                                ║
-║  │   │   └─► TEST-UNIT-015: tests/unit/auth/login.test.ts            ║
-║  │   └─► TASK-004: Implement password validation                      ║
-║  │       ├─► SPEC-004-01: Password rules spec                         ║
-║  │       │   └─► src/services/auth.ts                                 ║
-║  │       └─► TEST-UNIT-016: tests/unit/auth/password.test.ts         ║
-║  │                                                                    ║
-║  └─► US-002: User receives error on invalid credentials               ║
-║      └─► TASK-003: (shared)                                           ║
-║                                                                        ║
-║  Coverage: FULL ✓ (all paths traced to code and tests)               ║
-║                                                                        ║
-╚═══════════════════════════════════════════════════════════════════════╝
-```
+   - If linking from specifications to code:
+     ```
+     Read: standards/specification-to-code-linking.md
+     ```
 
-### `/trace impact REQ-xxx-nnn`
+   - If linking from code to specifications (JavaDoc):
+     ```
+     Read: standards/code-to-specification-linking.md
+     ```
 
-Shows impact analysis for requirement changes:
+   - If updating documentation through implementation phases:
+     ```
+     Read: standards/documentation-update-workflow.md
+     ```
 
-```
-╔═══════════════════════════════════════════════════════════════════════╗
-║  IMPACT ANALYSIS: REQ-AUTH-001                                        ║
-╠═══════════════════════════════════════════════════════════════════════╣
-║                                                                        ║
-║  If this requirement changes:                                          ║
-║                                                                        ║
-║  ARTIFACTS AFFECTED:                                                   ║
-║  ├── 2 User Stories                                                   ║
-║  ├── 3 Tasks                                                          ║
-║  ├── 2 Specifications                                                 ║
-║  ├── 3 Code files                                                     ║
-║  └── 4 Test files                                                     ║
-║                                                                        ║
-║  ESTIMATED REWORK:                                                     ║
-║  ├── Complexity: HIGH                                                  ║
-║  ├── Files to modify: 9                                               ║
-║  └── Tests to update: 4                                               ║
-║                                                                        ║
-║  DOWNSTREAM DEPENDENCIES:                                              ║
-║  └── REQ-SEC-002 (Session management) depends on this                 ║
-║                                                                        ║
-╠═══════════════════════════════════════════════════════════════════════╣
-║  [F] Show full artifact list  [D] Show dependency graph               ║
-╚═══════════════════════════════════════════════════════════════════════╝
-```
+   - If documenting test coverage and validation:
+     ```
+     Read: standards/verification-and-validation-linking.md
+     ```
 
-### `/trace validate`
+   - If maintaining existing traceability links:
+     ```
+     Read: standards/cross-reference-maintenance.md
+     ```
 
-Validates all trace links exist and are consistent:
+   - If verifying traceability quality:
+     ```
+     Read: standards/quality-standards.md
+     ```
 
-```
-╔═══════════════════════════════════════════════════════════════════════╗
-║  TRACE VALIDATION                                                     ║
-╠═══════════════════════════════════════════════════════════════════════╣
-║                                                                        ║
-║  BROKEN LINKS (referenced artifact doesn't exist):                    ║
-║  ├── TASK-007 references REQ-DATA-099 (not found)                    ║
-║  └── TEST-UNIT-042 references US-099 (not found)                     ║
-║                                                                        ║
-║  INCONSISTENT LINKS (bidirectional mismatch):                         ║
-║  └── US-015 links to TASK-012, but TASK-012 doesn't link back        ║
-║                                                                        ║
-║  DUPLICATE IDS:                                                        ║
-║  └── None found ✓                                                     ║
-║                                                                        ║
-║  VALIDATION: 3 issues found                                           ║
-║                                                                        ║
-╚═══════════════════════════════════════════════════════════════════════╝
-```
+### Step 2: Apply Traceability Standards
 
-### `/trace suggest`
+Apply the loaded standards to your specific task:
 
-Auto-suggests traces for orphan artifacts:
+**For New Implementation**:
+1. Add JavaDoc specification references using code-to-specification-linking templates
+2. Update specification with implementation links using specification-to-code-linking templates
+3. Follow documentation-update-workflow for lifecycle phase
 
-```
-╔═══════════════════════════════════════════════════════════════════════╗
-║  TRACE SUGGESTIONS                                                    ║
-╠═══════════════════════════════════════════════════════════════════════╣
-║                                                                        ║
-║  tests/unit/auth/session.test.ts                                      ║
-║  Currently orphan (no @traces annotation)                             ║
-║                                                                        ║
-║  Suggested traces (by content similarity):                            ║
-║  ├── REQ-AUTH-002 (85%) - Session management                         ║
-║  ├── US-004 (78%) - User session handling                            ║
-║  └── TASK-008 (72%) - Implement session storage                       ║
-║                                                                        ║
-║  Recommended annotation:                                               ║
-║  /**                                                                   ║
-║   * @traces REQ-AUTH-002, US-004, TASK-008                            ║
-║   */                                                                   ║
-║                                                                        ║
-╠═══════════════════════════════════════════════════════════════════════╣
-║  [A] Apply suggestion  [S] Skip  [M] Manual entry                     ║
-╚═══════════════════════════════════════════════════════════════════════╝
-```
+**For Documentation Updates**:
+1. Determine current lifecycle phase (PLANNED/IN PROGRESS/IMPLEMENTED)
+2. Apply appropriate updates from documentation-update-workflow
+3. Ensure information distribution standards are followed
 
-## Integration
+**For Test Documentation**:
+1. Add specification references to test classes
+2. Update specification Verification sections
+3. Document coverage using verification-and-validation-linking standards
 
-### With Audit Orchestrator
+**For Maintenance**:
+1. Follow cross-reference-maintenance workflows
+2. Verify quality using quality-standards checklists
+3. Update links as needed
 
-The traceability-auditor is invoked as part of audit dimension F01 (Requirements Coverage).
+### Step 3: Verify Quality
 
-### With Phase Gates
+Use quality-standards checklists to verify:
 
-- **Phase 5**: Verify all requirements have tasks
-- **Phase 6**: Verify all tasks have specifications
-- **Phase 8**: Verify all tests have traces
-- **Phase 10**: Verify full forward/backward traceability
+- [ ] All specifications link to implementation
+- [ ] All code links to specifications
+- [ ] All tests reference specifications
+- [ ] Links are accurate and current
+- [ ] Navigation is bidirectional
+- [ ] Status indicators are correct
 
-### With Plan Guardian
+## Related Standards
 
-When Plan Guardian detects drift, it can use traceability to identify which requirements are affected.
+### Related Skills in Bundle
 
-## Files
+- `pm-requirements:requirements-authoring` - Standards for creating requirements and specifications that form the traceability foundation
+- `pm-requirements:setup` - Standards for setting up documentation structure in new projects
+- `pm-requirements:planning` - Standards for planning documents that track implementation tasks
 
-| File | Purpose |
-|------|---------|
-| `.claude/traceability/matrix.json` | Generated traceability matrix |
-| `templates/requirement-traceability.schema.yaml` | Schema reference |
+### External Standards
+
+- JavaDoc standards (for implementation documentation)
+- Testing standards (for test documentation)

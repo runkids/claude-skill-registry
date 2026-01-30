@@ -1,399 +1,182 @@
 ---
 name: error-recovery
-description: Use when encountering failures - assess severity, preserve evidence, execute rollback decision tree, and verify post-recovery state
+description: Expert knowledge in error diagnosis, debugging strategies, and self-healing patterns. Use when tasks fail or errors occur.
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 ---
 
-# Error Recovery
+# Error Recovery Skill
 
-## Overview
+Comprehensive strategies for diagnosing, fixing, and preventing errors.
 
-Handle failures gracefully with structured recovery.
+## Error Classification
 
-**Core principle:** When things break, don't panic. Assess, preserve, recover, verify.
+### Compile-Time Errors
+| Code | Type | Common Cause |
+|------|------|--------------|
+| TS2322 | Type mismatch | Wrong type assigned |
+| TS2345 | Argument type | Wrong parameter type |
+| TS2339 | Property missing | Typo or missing interface property |
+| TS2304 | Not found | Missing import or declaration |
+| TS2307 | Module not found | Wrong path or missing package |
+| TS7006 | Implicit any | Missing type annotation |
+| TS2531 | Possibly null | Missing null check |
 
-**Announce at start:** "I'm using error-recovery to handle this failure."
+### Runtime Errors
+| Error | Description | Common Fix |
+|-------|-------------|------------|
+| ReferenceError | Variable not defined | Check declaration, scope |
+| TypeError | Wrong type operation | Add null check, fix type |
+| RangeError | Value out of range | Validate input range |
+| SyntaxError | Invalid syntax | Check JSON, string format |
 
-## The Recovery Protocol
+### Build Errors
+| Error | Description | Fix |
+|-------|-------------|-----|
+| Module not found | Package missing | npm install |
+| Out of memory | Heap limit | Increase NODE_OPTIONS |
+| Config error | Invalid config | Check tsconfig, vite.config |
 
-```
-Error Detected
-      │
-      ▼
-┌─────────────┐
-│ 1. ASSESS   │ ← Severity? Scope? Impact?
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│ 2. PRESERVE │ ← Capture evidence before it's lost
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│ 3. RECOVER  │ ← Follow decision tree
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│ 4. VERIFY   │ ← Confirm clean state
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│ 5. DOCUMENT │ ← Record what happened
-└─────────────┘
-```
+### Test Failures
+| Type | Cause | Fix |
+|------|-------|-----|
+| Assertion | Logic error | Fix implementation or expectation |
+| Timeout | Async issue | Add await, increase timeout |
+| Mock error | Wrong mock setup | Fix mock configuration |
 
-## Step 1: Assess Severity
+## Recovery Strategies
 
-### Severity Levels
-
-| Level | Description | Examples |
-|-------|-------------|----------|
-| **Critical** | System unusable, data at risk | Build completely broken, tests cause data loss |
-| **Major** | Significant functionality broken | Feature doesn't work, many tests failing |
-| **Minor** | Isolated issue, workaround exists | Single test flaky, style error |
-| **Info** | Warning only, not blocking | Deprecation notice, performance hint |
-
-### Assessment Questions
-
-```markdown
-## Error Assessment
-
-**Error:** [Description of error]
-**Location:** [Where it occurred]
-
-### Severity Checklist
-- [ ] Is the system still functional?
-- [ ] Is any data at risk?
-- [ ] Are other features affected?
-- [ ] Is this blocking progress?
-
-### Scope
-- Files affected: [list]
-- Features affected: [list]
-- Users affected: [none/some/all]
-```
-
-## Step 2: Preserve Evidence
-
-**Capture BEFORE attempting fixes:**
-
-### Error Logs
-
+### Strategy 1: Auto-Fix (Lint/Format)
 ```bash
-# Capture error output
-pnpm test 2>&1 | tee error-log.txt
+# ESLint auto-fix
+npx eslint . --fix
 
-# Or from failed command
-./failing-command 2>&1 | tee error-log.txt
+# Prettier format
+npx prettier --write .
+
+# TypeScript strict fixes
+# Some can be auto-fixed with ts-fix
 ```
 
-### Stack Traces
-
-```markdown
-## Stack Trace
-
-```
-Error: Connection refused
-    at Database.connect (src/db/connection.ts:45)
-    at UserService.init (src/services/user.ts:23)
-    at main (src/index.ts:12)
-```
-```
-
-### State Capture
-
+### Strategy 2: Dependency Fix
 ```bash
-# Git state
-git status
-git diff
-
-# Environment state
-env | grep -E "NODE|NPM|PATH"
-
-# Dependency state
-pnpm list
-```
-
-### Screenshot (if visual)
-
-For UI errors, capture screenshots before changes.
-
-## Step 3: Recover
-
-### Decision Tree
-
-```
-What type of failure?
-         │
-    ┌────┴────┬────────────┬────────────┐
-    │         │            │            │
-  Code      Build      Environment   External
-  Error     Error        Issue       Service
-    │         │            │            │
-    ▼         ▼            ▼            ▼
-  ┌────┐   ┌────┐      ┌────┐      ┌────┐
-  │Git │   │Clean│     │Re-  │     │Wait/│
-  │reco│   │build│     │init │     │Retry│
-  │very│   │     │     │     │     │     │
-  └────┘   └────┘      └────┘      └────┘
-```
-
-### Code Error Recovery
-
-**Single file broken:**
-
-```bash
-# Revert just that file
-git checkout HEAD -- path/to/file.ts
-```
-
-**Feature broken (multiple files):**
-
-```bash
-# Find last good commit
-git log --oneline
-
-# Revert to that commit (soft reset keeps changes staged)
-git reset --soft [GOOD_COMMIT]
-
-# Or hard reset (discards changes)
-git reset --hard [GOOD_COMMIT]
-```
-
-**Working directory is a mess:**
-
-```bash
-# Stash current changes
-git stash
-
-# Verify clean state
-git status
-
-# Optionally recover stash later
-git stash pop
-```
-
-### Build Error Recovery
-
-```bash
-# Clean build artifacts
-rm -rf node_modules dist build .cache
-
 # Reinstall dependencies
-pnpm install --frozen-lockfile  # Clean install from lock file
+rm -rf node_modules package-lock.json
+npm install
 
-# Rebuild
-pnpm build
+# Update specific package
+npm update package-name
+
+# Fix peer dependencies
+npm install --legacy-peer-deps
 ```
 
-### Environment Error Recovery
+### Strategy 3: Type Error Fix
+```typescript
+// TS2322: Type mismatch
+// Before
+const value: string = 123;
+// After
+const value: number = 123;
 
-```bash
-# Check environment
-env | grep -E "NODE|PNPM"
+// TS2531: Possibly null
+// Before
+element.innerHTML = 'text';
+// After
+if (element) element.innerHTML = 'text';
 
-# Reset Node modules
-rm -rf node_modules
-pnpm install --frozen-lockfile
-
-# If using nvm, verify version
-nvm use
-
-# Re-run init script
-./scripts/init.sh
+// TS2339: Property missing
+// Before
+user.email
+// After
+if ('email' in user) user.email
 ```
 
-### External Service Error
+### Strategy 4: Runtime Error Fix
+```typescript
+// TypeError: Cannot read property of undefined
+// Before
+const name = user.profile.name;
+// After
+const name = user?.profile?.name ?? 'Unknown';
 
-```bash
-# Check if service is up
-curl -I https://service.example.com/health
-
-# If down, wait and retry
-sleep 60
-curl -I https://service.example.com/health
-
-# If still down, check status page
-# Document as external blocker
+// ReferenceError: not defined
+// Check: Is it imported?
+// Check: Is it in scope?
+// Check: Is it spelled correctly?
 ```
 
-## Step 4: Verify
+### Strategy 5: Test Failure Fix
+```typescript
+// Assertion failure - debug first
+console.log('Actual:', result);
+console.log('Expected:', expected);
 
-After recovery, verify clean state:
+// Async timeout
+test('async test', async () => {
+  // Add proper awaits
+  const result = await asyncOperation();
+  expect(result).toBeDefined();
+}, 10000); // Increase timeout if needed
 
-### Basic Verification
-
-```bash
-# Clean working directory
-git status
-# Expected: "nothing to commit, working tree clean" or known changes
-
-# Tests pass
-pnpm test
-
-# Build succeeds
-pnpm build
-
-# Types check
-pnpm typecheck
+// Mock not working
+vi.mock('./module', () => ({
+  default: vi.fn().mockReturnValue('mocked'),
+}));
 ```
 
-### Functionality Verification
+## Recovery Protocol
 
-```bash
-# Run the specific thing that was broken
-pnpm test --grep "specific test"
-
-# Or verify the feature manually
+```
+┌─────────────────────────────────────────┐
+│           ERROR DETECTED                │
+└─────────────────┬───────────────────────┘
+                  ▼
+┌─────────────────────────────────────────┐
+│         1. CLASSIFY ERROR               │
+│  Syntax | Type | Runtime | Build | Test │
+└─────────────────┬───────────────────────┘
+                  ▼
+┌─────────────────────────────────────────┐
+│         2. IDENTIFY FIX                 │
+│   Auto-fix | Manual | Delegate          │
+└─────────────────┬───────────────────────┘
+                  ▼
+┌─────────────────────────────────────────┐
+│         3. APPLY FIX                    │
+│   Make minimal, targeted change         │
+└─────────────────┬───────────────────────┘
+                  ▼
+┌─────────────────────────────────────────┐
+│         4. VERIFY FIX                   │
+│   tsc && eslint && npm test             │
+└─────────────────┬───────────────────────┘
+                  ▼
+        ┌─────────┴─────────┐
+        │ Fixed?            │
+        └─────────┬─────────┘
+          Yes     │     No
+           │      │      │
+           ▼      │      ▼
+        ┌─────┐   │   ┌─────────────────┐
+        │ Done│   │   │ Increment retry │
+        └─────┘   │   │ (max 3)         │
+                  │   └────────┬────────┘
+                  │            ▼
+                  │   ┌─────────────────┐
+                  │   │ Retry < 3?      │
+                  │   └────────┬────────┘
+                  │      Yes   │   No
+                  │       │    │    │
+                  │       ▼    │    ▼
+                  │   ┌──────┐ │ ┌────────┐
+                  └───│Retry │ │ │Escalate│
+                      └──────┘ │ └────────┘
 ```
 
-## Step 5: Document
+## Prevention Strategies
 
-### Issue Comment
-
-```bash
-gh issue comment [ISSUE_NUMBER] --body "## Error Recovery
-
-**Error encountered:** [Description]
-
-**Severity:** Major
-
-**Evidence:**
-\`\`\`
-[Error output]
-\`\`\`
-
-**Recovery actions:**
-1. [Action 1]
-2. [Action 2]
-
-**Verification:**
-- [x] Tests pass
-- [x] Build succeeds
-
-**Root cause:** [If known]
-
-**Prevention:** [If applicable]
-"
-```
-
-### Knowledge Graph
-
-```javascript
-// Store for future reference
-mcp__memory__add_observations({
-  observations: [{
-    entityName: "Issue #[NUMBER]",
-    contents: [
-      "Encountered [error type] on [date]",
-      "Caused by: [root cause]",
-      "Resolved by: [recovery action]"
-    ]
-  }]
-});
-```
-
-## Common Recovery Patterns
-
-### "Tests were passing, now failing"
-
-```bash
-# What changed?
-git diff HEAD~3
-
-# Did dependencies change?
-git diff HEAD~3 pnpm-lock.yaml
-
-# Clean reinstall
-rm -rf node_modules && pnpm install --frozen-lockfile
-```
-
-### "Works locally, fails in CI"
-
-```bash
-# Check for environment differences
-# - Node version
-# - OS differences
-# - Env vars
-
-# Run with CI-like settings
-CI=true pnpm test
-```
-
-### "Build was working, now broken"
-
-```bash
-# Check TypeScript errors
-pnpm typecheck
-
-# Check for circular dependencies
-pnpm dlx madge --circular src/
-
-# Clean build
-rm -rf dist && pnpm build
-```
-
-### "I broke everything"
-
-```bash
-# Don't panic
-# Find last known good state
-git log --oneline
-
-# Reset to that state
-git reset --hard [GOOD_COMMIT]
-
-# Verify
-pnpm test
-
-# Start again more carefully
-```
-
-## Escalation
-
-If recovery fails after 2-3 attempts:
-
-```markdown
-## Escalation: Unrecoverable Error
-
-**Issue:** #[NUMBER]
-
-**Error:** [Description]
-
-**Recovery attempts:**
-1. [Attempt 1] - [Result]
-2. [Attempt 2] - [Result]
-
-**Current state:** [Broken/Partially working]
-
-**Evidence preserved:** [Links to logs, screenshots]
-
-**Requesting help with:** [Specific question]
-```
-
-Mark issue as Blocked and await human input.
-
-## Checklist
-
-When error occurs:
-
-- [ ] Severity assessed
-- [ ] Evidence preserved (logs, state, screenshots)
-- [ ] Recovery action selected
-- [ ] Recovery executed
-- [ ] Clean state verified
-- [ ] Tests pass
-- [ ] Build succeeds
-- [ ] Issue documented
-
-## Integration
-
-This skill is called by:
-- `issue-driven-development` - When errors occur
-- `ci-monitoring` - CI failures
-
-This skill may trigger:
-- `research-after-failure` - If cause is unknown
-- Issue update via `issue-lifecycle`
+1. **TypeScript Strict Mode** - Catch errors at compile time
+2. **ESLint Rules** - Enforce best practices
+3. **Pre-commit Hooks** - Validate before commit
+4. **Unit Tests** - Catch regressions
+5. **Code Review** - Human verification

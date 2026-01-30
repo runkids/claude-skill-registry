@@ -1,9 +1,7 @@
 {
   "name": "markdown-documentation",
-  "description": "Use when writing technical documentation, READMEs, or project documentation in markdown. Covers structure, conventions, and best practices.",
   "repo": "TheBushidoCollective/han",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/TheBushidoCollective/han"
+  "path": "jutsu/jutsu-markdown/skills/markdown-documentation/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-30T03:34:02.463661Z"
 }

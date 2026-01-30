@@ -6,23 +6,6 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 # Roblox NPC & AI Systems
 
-## Quick Reference Links
-
-**Official Documentation:**
-- [Pathfinding](https://create.roblox.com/docs/characters/pathfinding) - Navigation and movement
-- [Character Spawning](https://create.roblox.com/docs/characters) - NPC creation
-- [PathfindingService API](https://create.roblox.com/docs/reference/engine/classes/PathfindingService)
-- [Path API](https://create.roblox.com/docs/reference/engine/classes/Path)
-- [PathWaypoint API](https://create.roblox.com/docs/reference/engine/datatypes/PathWaypoint)
-- [Humanoid API](https://create.roblox.com/docs/reference/engine/classes/Humanoid) - NPC movement/state
-
-**Wiki References:**
-- [Pathfinding (Wiki)](https://roblox.fandom.com/wiki/Pathfinding)
-- [NPC (Wiki)](https://roblox.fandom.com/wiki/Non-player_character)
-- [AI (Wiki)](https://roblox.fandom.com/wiki/Artificial_intelligence)
-
----
-
 When implementing AI systems, use these Roblox-specific patterns for performant and intelligent NPCs.
 
 ## NPC Creation (CRITICAL: Use Modern Patterns)

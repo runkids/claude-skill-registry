@@ -1,164 +1,195 @@
 ---
 name: manage-python-env
-description: Python virtual environment management using uv for fast and reliable environment setup. Create, maintain, and manage Python virtual environments with dependency management. Use uv for environment creation, package installation, dependency resolution, and project configuration. Use when setting up new Python projects, managing dependencies, troubleshooting environment issues, or ensuring reproducible development environments.
+description: Quick reference for uv (fast Python package manager) operations to save tokens. Use when creating virtual environments, installing packages, managing dependencies, or when user asks about uv commands. Provides concise patterns for Python project setup and package management.
 ---
 
-# Python Environment Management Skill
+# UV Management
 
-This skill provides tools and workflows for managing Python virtual environments using uv, a fast Python package installer and resolver.
+Quick reference for uv - the fast Python package installer and environment manager.
 
-## Quick Start
+## Installation
 
-1. **Install uv**: Ensure uv is installed on your system
-2. **Create environment**: Use uv to create a new virtual environment
-3. **Install dependencies**: Add packages from requirements.txt or pyproject.toml
-4. **Manage environment**: Update, freeze, or clean up dependencies
-5. **Troubleshoot**: Resolve common environment issues
-
-## Core Workflow
-
-### 1. Environment Setup
+### Install UV
 ```bash
-# Initialize project with uv
-uv init project-name
-cd project-name
+# macOS/Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Create virtual environment
-uv venv
+# Or with pip
+pip install uv
 
-# Activate environment
-# On Windows:
-.venv\Scripts\activate
-# On Unix/Mac:
-source .venv/bin/activate
+# Verify installation
+uv --version
 ```
 
-### 2. Dependency Management
+## Project Initialization
+
+### Create New Project
 ```bash
-# Install packages
-uv add package-name
-uv add "package-name>=1.0.0"
-uv add "package-name[extra]"
+# Initialize new project
+uv init project-name
+
+# Initialize in current directory
+uv init
+
+# With specific Python version
+uv init --python 3.11
+```
+
+### Project Structure Created
+```
+project-name/
+├── pyproject.toml    # Project configuration
+├── .python-version   # Python version specification
+└── src/
+    └── project_name/
+        └── __init__.py
+```
+
+## Virtual Environment
+
+### Create Virtual Environment
+```bash
+# Create venv (automatic with uv)
+uv venv
+
+# With specific Python version
+uv venv --python 3.11
+
+# With custom name
+uv venv .venv-custom
+
+# Activate (same as regular venv)
+source .venv/bin/activate  # macOS/Linux
+.venv\Scripts\activate     # Windows
+```
+
+### Python Version Management
+```bash
+# List available Python versions
+uv python list
+
+# Install specific Python version
+uv python install 3.11
+
+# Pin Python version for project
+uv python pin 3.11
+```
+
+## Package Management
+
+### Install Packages
+```bash
+# Install single package
+uv pip install package-name
+
+# Install specific version
+uv pip install package-name==1.2.3
 
 # Install from requirements.txt
 uv pip install -r requirements.txt
 
-# Install with development dependencies
-uv add --dev pytest black
+# Install from pyproject.toml
+uv pip install -e .
+
+# Install development dependencies
+uv pip install -e ".[dev]"
 ```
 
-### 3. Project Configuration
+### Add Dependencies (Modern Way)
 ```bash
-# Generate requirements.txt
+# Add package to project
+uv add numpy
+
+# Add with version constraint
+uv add "numpy>=1.24,<2.0"
+
+# Add multiple packages
+uv add numpy pandas matplotlib
+
+# Add as dev dependency
+uv add --dev pytest black ruff
+
+# Add from git
+uv add git+https://github.com/user/repo.git
+```
+
+### Remove Packages
+```bash
+# Remove package
+uv remove package-name
+
+# Remove dev dependency
+uv remove --dev pytest
+```
+
+### Update Packages
+```bash
+# Update single package
+uv pip install --upgrade package-name
+
+# Update all packages
+uv pip install --upgrade -r requirements.txt
+
+# Sync dependencies (recommended)
+uv sync
+```
+
+## Dependency Management
+
+### Lock Dependencies
+```bash
+# Generate lock file
+uv lock
+
+# Lock and sync
+uv lock --sync
+```
+
+### Export Requirements
+```bash
+# Export to requirements.txt
 uv pip freeze > requirements.txt
 
-# Sync environment
-uv sync
-
-# Update packages
-uv update
-uv update package-name
+# Export from pyproject.toml
+uv export --format requirements-txt > requirements.txt
 ```
 
-## uv vs Traditional Tools
+## Running Commands
 
-### Advantages of uv
-- **Speed**: 10-100x faster than pip
-- **Reliability**: Better dependency resolution
-- **Unified tool**: Replaces pip, venv, pip-tools
-- **Cross-platform**: Consistent behavior across systems
-- **Modern features**: Built-in virtual environments, lock files
-
-### Command Comparison
-| Task | uv Command | Traditional Command |
-|------|------------|---------------------|
-| Create venv | `uv venv` | `python -m venv .venv` |
-| Install package | `uv add package` | `pip install package` |
-| Install dev package | `uv add --dev package` | `pip install package` |
-| Freeze deps | `uv pip freeze` | `pip freeze` |
-| Sync env | `uv sync` | `pip install -r requirements.txt` |
-| Update package | `uv update package` | `pip install --upgrade package` |
-
-## Environment Types
-
-### Development Environment
+### Run Python
 ```bash
-# Complete development setup
-uv venv
-uv add --dev pytest black flake8 mypy
-uv add pandas numpy matplotlib
-uv sync
+# Run Python script
+uv run python script.py
+
+# Run module
+uv run -m module_name
+
+# Run with arguments
+uv run python script.py --arg value
 ```
 
-### Production Environment
+### Run Tools
 ```bash
-# Production-ready with pinned versions
-uv venv --python 3.11
-uv add "package==1.2.3"  # Pin exact versions
-uv pip compile requirements.in -o requirements.txt
+# Run pytest
+uv run pytest
+
+# Run black
+uv run black .
+
+# Run ruff
+uv run ruff check .
+
+# Run any tool
+uv run tool-name [args]
 ```
 
-### CI/CD Environment
-```bash
-# Minimal environment for CI
-uv venv --python 3.11
-uv add --no-dev package-name
-uv sync --frozen
-```
+## VRP Project Setup
 
-## Project Structure
-
-### Recommended Layout
-```
-project/
-├── .venv/                 # Virtual environment (gitignored)
-├── src/                   # Source code
-├── tests/                 # Test files
-├── pyproject.toml         # Project configuration
-├── requirements.txt       # Pinned dependencies
-├── requirements-dev.txt   # Development dependencies
-└── .python-version       # Python version specification
-```
-
-### Configuration Files
-
-#### pyproject.toml
-```toml
-[project]
-name = "my-project"
-version = "0.1.0"
-description = "My project description"
-requires-python = ">=3.8"
-dependencies = [
-    "requests>=2.28.0",
-    "pandas>=1.5.0",
-]
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.0.0",
-    "black>=23.0.0",
-    "flake8>=6.0.0",
-]
-
-[tool.uv]
-# uv-specific settings
-```
-
-#### requirements.txt
-```
-# Pinned dependencies
-requests==2.28.2
-pandas==1.5.3
-numpy==1.24.3
-```
-
-## Common Workflows
-
-### New Project Setup
+### Initial Project Setup
 ```bash
 # 1. Create project directory
-mkdir my-project && cd my-project
+mkdir vrp-toolkit
+cd vrp-toolkit
 
 # 2. Initialize with uv
 uv init
@@ -167,248 +198,177 @@ uv init
 uv venv
 
 # 4. Activate environment
-source .venv/bin/activate  # or .venv\Scripts\activate on Windows
+source .venv/bin/activate
 
-# 5. Add initial dependencies
-uv add requests pandas
-uv add --dev pytest black
+# 5. Install core dependencies
+uv add numpy pandas matplotlib networkx
 
-# 6. Create basic project structure
-mkdir src tests
-touch src/__init__.py tests/__init__.py
+# 6. Install dev dependencies
+uv add --dev pytest black ruff ipython jupyter
 
-# 7. Create .gitignore
-echo ".venv/" >> .gitignore
-echo "__pycache__/" >> .gitignore
-echo "*.pyc" >> .gitignore
+# 7. Install OSMnx (for real map support)
+uv add osmnx geopandas
+
+# 8. Install package in editable mode
+uv pip install -e .
 ```
 
-### Existing Project Setup
+### pyproject.toml for VRP Toolkit
+```toml
+[project]
+name = "vrp-toolkit"
+version = "0.1.0"
+description = "Reusable VRP/PDPTW solving framework"
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "matplotlib>=3.7.0",
+    "networkx>=3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "ipython>=8.0.0",
+    "jupyter>=1.0.0",
+]
+osmnx = [
+    "osmnx>=1.6.0",
+    "geopandas>=0.14.0",
+    "folium>=0.15.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+
+[tool.black]
+line-length = 100
+target-version = ["py38"]
+```
+
+### Install All Dependencies
 ```bash
-# 1. Clone repository
-git clone https://github.com/user/project.git
-cd project
+# Install main dependencies
+uv add numpy pandas matplotlib networkx
 
-# 2. Create environment with specific Python version
-uv venv --python 3.11
+# Install dev tools
+uv add --dev pytest black ruff ipython jupyter
 
-# 3. Install dependencies
+# Install OSMnx group
+uv add osmnx geopandas folium
+
+# Or install from pyproject.toml
+uv sync
+```
+
+## Common Workflows
+
+### Daily Development
+```bash
+# Activate environment
+source .venv/bin/activate
+
+# Run tests
+uv run pytest
+
+# Format code
+uv run black .
+
+# Lint code
+uv run ruff check .
+
+# Run Jupyter
+uv run jupyter lab
+```
+
+### Add New Dependency
+```bash
+# Add package
+uv add package-name
+
+# Test it works
+uv run python -c "import package_name; print('OK')"
+
+# Commit updated pyproject.toml
+git add pyproject.toml uv.lock
+git commit -m "chore: add package-name dependency"
+```
+
+### Clean Install
+```bash
+# Remove existing environment
+rm -rf .venv
+
+# Recreate
+uv venv
+
+# Reinstall all dependencies
 uv sync
 
-# 4. Activate environment
-source .venv/bin/activate
+# Verify
+uv run python -c "import numpy; print(numpy.__version__)"
 ```
 
-**Real-world example**: The YouTube-SC project includes complete setup scripts (`setup-environment.bat` and `setup-environment.sh`) and a comprehensive `requirements.txt` file. See `examples/youtube-sc/` for details.
+## Comparison with pip/venv
 
-### Dependency Updates
-```bash
-# Check for updates
-uv update --outdated
+| Task | Traditional | UV |
+|------|------------|-----|
+| Create venv | `python -m venv .venv` | `uv venv` |
+| Activate | `source .venv/bin/activate` | Same |
+| Install package | `pip install package` | `uv add package` |
+| Install requirements | `pip install -r requirements.txt` | `uv pip install -r requirements.txt` |
+| Freeze deps | `pip freeze > requirements.txt` | `uv pip freeze > requirements.txt` |
+| Run tool | `python -m pytest` | `uv run pytest` |
 
-# Update all packages
-uv update
+**Key Advantages of UV:**
+- ⚡ 10-100x faster than pip
+- 🔒 Built-in dependency locking
+- 🐍 Python version management
+- 📦 Cleaner dependency specification in pyproject.toml
 
-# Update specific package
-uv update package-name
+## Additional Resources
 
-# Update with constraints
-uv update --pre  # Include pre-release versions
-```
+### Troubleshooting
+Common issues and solutions: **See [troubleshooting.md](references/troubleshooting.md)**
+- UV not found after install
+- Wrong Python version
+- Dependency conflicts
+- Package not found
 
-## Troubleshooting
+### Advanced Usage
+Power user features: **See [advanced.md](references/advanced.md)**
+- Multiple environments
+- Dependency groups
+- Build and publish
+- Integration with other skills
 
-### Common Issues
+### Migration from pip
+Convert existing projects: **See [migration.md](references/migration.md)**
+- Convert requirements.txt to pyproject.toml
+- Migrate existing project step-by-step
+- pip vs UV comparison
 
-#### 1. Environment Activation Fails
-**Symptoms**: `source .venv/bin/activate` doesn't work
-**Solutions**:
-```bash
-# Check if .venv exists
-ls -la .venv/
+## Quick Reference
 
-# Try alternative activation
-. .venv/bin/activate  # Note the space after the dot
-
-# On Windows, use:
-.venv\Scripts\activate
-```
-
-#### 2. Package Installation Failures
-**Symptoms**: `uv add package` fails with errors
-**Solutions**:
-```bash
-# Clear uv cache
-uv cache clean
-
-# Try with verbose output
-uv add package -v
-
-# Check Python version compatibility
-python --version
-
-# Try different package version
-uv add "package>=1.0.0,<2.0.0"
-```
-
-#### 3. Dependency Conflicts
-**Symptoms**: `uv sync` fails with resolution errors
-**Solutions**:
-```bash
-# Use resolution strategy
-uv sync --resolution=highest
-uv sync --resolution=lowest-direct
-
-# Check existing dependencies
-uv pip list
-
-# Remove conflicting package
-uv remove conflicting-package
-```
-
-#### 4. Slow Package Installation
-**Symptoms**: uv is slow (unusual)
-**Solutions**:
-```bash
-# Use uv's native resolver (already fast)
-# Check network connection
-
-# Use mirror or local cache
-uv config set global.index-url "https://pypi.tuna.tsinghua.edu.cn/simple"
-
-# Pre-download packages
-uv pip download package -d ./packages
-```
-
-## Advanced Features
-
-### Lock Files
-```bash
-# Generate lock file
-uv pip compile requirements.in -o requirements.txt
-
-# Install from lock file
-uv sync --frozen
-```
-
-### Multiple Python Versions
-```bash
-# Create environment with specific Python version
-uv venv --python 3.11
-uv venv --python 3.10
-uv venv --python 3.9
-
-# List available Python versions
-uv python list
-```
-
-### Environment Isolation
-```bash
-# Create isolated environment
-uv venv --isolated
-
-# Copy existing environment
-uv venv --copies
-```
-
-### Cross-Platform Compatibility
-```bash
-# Generate platform-specific requirements
-uv pip compile requirements.in --platform linux --platform macos --platform windows
-
-# Install platform-specific packages
-uv add "package; sys_platform == 'linux'"
-```
-
-## Integration with Other Tools
-
-### IDE Integration
-**VS Code**: Add to settings.json:
-```json
-{
-    "python.defaultInterpreterPath": ".venv/bin/python",
-    "terminal.integrated.env.windows": {
-        "VIRTUAL_ENV": "${workspaceFolder}/.venv"
-    }
-}
-```
-
-**PyCharm**: 
-- File → Settings → Project → Python Interpreter
-- Add → Existing environment → Select .venv/bin/python
-
-### Docker Integration
-```dockerfile
-FROM python:3.11-slim
-
-# Install uv
-RUN pip install uv
-
-# Copy project files
-COPY . /app
-WORKDIR /app
-
-# Create virtual environment and install dependencies
-RUN uv venv && uv sync --frozen
-
-# Use the virtual environment
-ENV PATH="/app/.venv/bin:$PATH"
-
-CMD ["python", "main.py"]
-```
-
-### CI/CD Integration
-```yaml
-# GitHub Actions example
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v3
-      - run: uv sync --frozen
-      - run: uv run pytest
-```
-
-## Best Practices
-
-### 1. Version Pinning
-- Pin exact versions in production (`==`)
-- Use ranges in development (`>=`)
-- Maintain separate requirements files for dev/prod
-
-### 2. Environment Management
-- Keep `.venv` in project directory (not global)
-- Include `.venv` in `.gitignore`
-- Document Python version requirement
-
-### 3. Dependency Hygiene
-- Regularly update dependencies
-- Remove unused packages
-- Audit for security vulnerabilities
-
-### 4. Reproducibility
-- Use lock files for exact reproducibility
-- Document environment setup in README
-- Test across Python versions
-
-## Resources
-
-- **uv Documentation**: See `references/uv-docs.md` for complete uv reference
-- **Common Recipes**: See `references/recipes.md` for common environment setups
-- **Troubleshooting Guide**: See `references/troubleshooting.md` for solving common issues
-- **Migration Guide**: See `references/migration.md` for migrating from pip/venv
-- **Project Examples**: See `examples/youtube-sc/` for real-world configuration files from the YouTube-SC project
-
-## When to Use This Skill
-
-Use this skill when:
-
-- Setting up new Python projects
-- Managing dependencies for existing projects
-- Troubleshooting environment issues
-- Creating reproducible environments
-- Migrating from pip/venv to uv
-- Setting up CI/CD pipelines
-- Managing multiple Python versions
-- Ensuring cross-platform compatibility
+| Task | Command |
+|------|---------|
+| Init project | `uv init` |
+| Create venv | `uv venv` |
+| Add package | `uv add package` |
+| Add dev dep | `uv add --dev tool` |
+| Install all | `uv sync` |
+| Run script | `uv run python script.py` |
+| Run tool | `uv run pytest` |
+| Update all | `uv sync --upgrade` |
+| Lock deps | `uv lock` |
+| Export reqs | `uv pip freeze > requirements.txt` |
+| Python version | `uv python install 3.11` |
+| Pin Python | `uv python pin 3.11` |

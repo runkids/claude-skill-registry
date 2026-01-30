@@ -1,0 +1,19 @@
+{
+  "category": "claude-md-creator",
+  "count": 1,
+  "updated_at": "2026-01-30T04:53:30.345680Z",
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "description": "Use when creating CLAUDE.md files, updating existing CLAUDE.md, validating CLAUDE.md structure, or auto-fixing CLAUDE.md issues. Load for setting up project instructions, global guidelines, local over",
+      "repo": "ingpoc/SKILLS",
+      "path": "claude-md-creator",
+      "branch": "main",
+      "category": "claude-md-creator",
+      "tags": [],
+      "stars": 0,
+      "install": "ingpoc/SKILLS",
+      "source": "github.com/ingpoc/SKILLS"
+    }
+  ]
+}

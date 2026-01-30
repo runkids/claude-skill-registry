@@ -1,163 +1,547 @@
 ---
 name: performance-patterns
-description: Use when user asks about N+1 queries, performance optimization, query optimization, reduce API calls, improve render performance, fix slow code, optimize database, or reduce bundle size. Provides guidance on identifying and fixing performance anti-patterns across database, backend, frontend, and API layers.
-allowed-tools: Read, Grep, Glob
+description: Performance profiling and optimization patterns. React optimization, bundle analysis, memory leaks, API latency, database queries. Use when optimizing application performance.
+allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
-# Performance Anti-Patterns Reference
+# Performance Patterns - Optimization Best Practices
 
-## N+1 Query Problem
+## Purpose
 
-The N+1 problem occurs when code executes N additional queries to fetch related data for N items from an initial query.
+Expert guidance for performance:
 
-**Identification:**
-- Queries inside loops
-- Lazy loading of associations during iteration
-- GraphQL resolvers fetching per-item
+- **React Optimization** - Re-renders, memoization, lazy loading
+- **Bundle Analysis** - Code splitting, tree shaking
+- **Memory Management** - Leak detection and prevention
+- **API Performance** - Latency reduction, caching
+- **Database Optimization** - Query efficiency, indexing
 
-**Fix Strategies:**
-1. **Eager Loading**: Load related data in initial query
-2. **Batching**: Collect IDs, fetch all at once
-3. **DataLoader**: For GraphQL, batch and cache per-request
-4. **Denormalization**: Store computed/related data together
+---
 
-**Severity**: HIGH - Scales linearly with data size, causes exponential slowdown
+## React Performance
 
-## Over-Fetching
+### Prevent Unnecessary Re-renders
 
-Retrieving more data than needed from API or database.
+```typescript
+// WRONG - New object on every render
+<Component style={{ color: 'red' }} />
 
-**Identification:**
-- SELECT * queries
-- API endpoints returning full objects
-- No field selection support
-- Loading nested relations by default
+// CORRECT - Stable reference
+const style = useMemo(() => ({ color: 'red' }), []);
+<Component style={style} />
+```
 
-**Fix Strategies:**
-1. **Field Selection**: Only query needed columns
-2. **Sparse Fieldsets**: Support `?fields=id,name` parameter
-3. **GraphQL**: Let clients specify exact fields
-4. **DTOs**: Map to response-specific objects
+### React.memo for Pure Components
 
-**Severity**: MEDIUM - Increases bandwidth, memory, serialization time
+```typescript
+// Memoize component that receives stable props
+const UserCard = React.memo(function UserCard({ user }: { user: User }) {
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <p>{user.email}</p>
+    </div>
+  );
+});
 
-## Under-Fetching
+// Custom comparison for complex props
+const ExpensiveList = React.memo(
+  function ExpensiveList({ items }: { items: Item[] }) {
+    return <>{items.map(item => <Item key={item.id} {...item} />)}</>;
+  },
+  (prev, next) => prev.items.length === next.items.length
+);
+```
 
-Requiring multiple requests to get needed data.
+### useMemo for Expensive Computations
 
-**Identification:**
-- Waterfall requests (request depends on previous)
-- Multiple endpoints for related data
-- No include/expand support
+```typescript
+function Analytics({ data }: { data: DataPoint[] }) {
+  // Memoize expensive calculation
+  const statistics = useMemo(() => {
+    return {
+      total: data.reduce((sum, d) => sum + d.value, 0),
+      average: data.reduce((sum, d) => sum + d.value, 0) / data.length,
+      max: Math.max(...data.map(d => d.value)),
+    };
+  }, [data]);
 
-**Fix Strategies:**
-1. **Compound Endpoints**: `/users?include=orders`
-2. **GraphQL**: Single query for nested data
-3. **BFF Pattern**: Backend aggregates for frontend
-4. **Parallel Requests**: When dependencies allow
+  return <StatsDisplay stats={statistics} />;
+}
+```
 
-**Severity**: MEDIUM - Increases latency, connection overhead
+### useCallback for Event Handlers
 
-## Missing Pagination
+```typescript
+function TodoList({ todos, onToggle }: Props) {
+  // Stable callback reference
+  const handleToggle = useCallback((id: string) => {
+    onToggle(id);
+  }, [onToggle]);
 
-Returning unbounded result sets.
+  return todos.map(todo => (
+    <TodoItem key={todo.id} todo={todo} onToggle={handleToggle} />
+  ));
+}
+```
 
-**Identification:**
-- List endpoints without limit
-- `findAll()` without pagination
-- No cursor for large datasets
+### Lazy Loading Components
 
-**Fix Strategies:**
-1. **Offset Pagination**: `?page=1&limit=20`
-2. **Cursor Pagination**: `?cursor=abc&limit=20` (better for large sets)
-3. **Default Limits**: Always apply max limit server-side
-4. **Streaming**: For very large exports
+```typescript
+import { lazy, Suspense } from 'react';
 
-**Severity**: HIGH - Can crash server/client with large data
+// Lazy load heavy components
+const HeavyChart = lazy(() => import('./components/HeavyChart'));
+const AdminPanel = lazy(() => import('./components/AdminPanel'));
 
-## Inefficient Algorithms
+function App() {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <HeavyChart data={chartData} />
+    </Suspense>
+  );
+}
+```
 
-O(n²) or worse complexity where better solutions exist.
+### Virtual Lists for Large Data
 
-**Identification:**
-- Nested loops on collections
-- Repeated array.find/includes in loops
-- String concatenation in loops
-- Sort inside loops
+```typescript
+import { useVirtualizer } from '@tanstack/react-virtual';
 
-**Fix Strategies:**
-1. **Use Maps/Sets**: O(1) lookup instead of O(n)
-2. **Single Pass**: Combine operations
-3. **Pre-compute**: Calculate once, reuse
-4. **Better Algorithms**: Binary search for sorted data
+function VirtualList({ items }: { items: Item[] }) {
+  const parentRef = useRef<HTMLDivElement>(null);
 
-**Severity**: HIGH - Becomes unusable with large data
+  const virtualizer = useVirtualizer({
+    count: items.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 50,
+  });
 
-## Unnecessary Re-renders (Frontend)
+  return (
+    <div ref={parentRef} style={{ height: '400px', overflow: 'auto' }}>
+      <div style={{ height: `${virtualizer.getTotalSize()}px`, position: 'relative' }}>
+        {virtualizer.getVirtualItems().map((virtualItem) => (
+          <div
+            key={virtualItem.key}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: `${virtualItem.size}px`,
+              transform: `translateY(${virtualItem.start}px)`,
+            }}
+          >
+            <ItemRow item={items[virtualItem.index]} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
 
-Components re-rendering when their output hasn't changed.
+---
 
-**Identification:**
-- Inline objects/arrays in JSX
-- Inline function handlers
-- Missing React.memo/useMemo/useCallback
-- Context changes affecting all consumers
+## Bundle Optimization
 
-**Fix Strategies:**
-1. **Memoization**: React.memo for components
-2. **Stable References**: useMemo for objects, useCallback for functions
-3. **Context Splitting**: Separate frequently-changing state
-4. **Selectors**: Only subscribe to needed state slices
+### Code Splitting
 
-**Severity**: MEDIUM-HIGH - Causes janky UI, especially on lists
+```typescript
+// Route-based splitting
+const routes = [
+	{
+		path: '/dashboard',
+		component: lazy(() => import('./pages/Dashboard')),
+	},
+	{
+		path: '/settings',
+		component: lazy(() => import('./pages/Settings')),
+	},
+];
 
-## Sequential Async Operations
+// Feature-based splitting
+const HeavyEditor = lazy(() => import(/* webpackChunkName: "editor" */ './components/HeavyEditor'));
+```
 
-Running async operations one-by-one when parallel is possible.
+### Bundle Analysis
 
-**Identification:**
-- Sequential await statements
-- Waterfall promises
-- Loop with await inside
+```bash
+# Analyze bundle size
+bunx vite-bundle-analyzer
 
-**Fix Strategies:**
-1. **Promise.all**: Run independent operations in parallel
-2. **Promise.allSettled**: When some can fail
-3. **Batching**: Group operations efficiently
-4. **Pipelining**: Stream processing
+# Alternative: source-map-explorer
+bunx source-map-explorer dist/assets/*.js
 
-**Severity**: MEDIUM - Multiplies latency
+# Check specific package size
+bunx bundlephobia zod
+```
 
-## Quick Reference by Layer
+### Tree Shaking
 
-### Database
-| Issue | Detect | Fix |
-|-------|--------|-----|
-| N+1 queries | Query in loop | Eager load / batch |
-| Missing index | Slow WHERE/JOIN | Add index |
-| SELECT * | No column list | Specify columns |
-| No LIMIT | Unbounded query | Add pagination |
+```typescript
+// WRONG - Imports entire library
+import _ from 'lodash';
+const result = _.debounce(fn, 300);
 
-### Backend
-| Issue | Detect | Fix |
-|-------|--------|-----|
-| O(n²) loop | Nested iteration | Use Set/Map |
-| Sequential await | await in sequence | Promise.all |
-| Sync I/O | fs.readFileSync | Use async version |
-| No caching | Repeated computation | Memoize |
+// CORRECT - Import only what you need
+import debounce from 'lodash/debounce';
+const result = debounce(fn, 300);
 
-### Frontend
-| Issue | Detect | Fix |
-|-------|--------|-----|
-| Re-renders | Inline objects/functions | Memoize |
-| Bundle size | Large imports | Tree-shake/split |
-| Memory leak | No cleanup | useEffect cleanup |
-| Layout thrash | Read+write DOM | Batch DOM ops |
+// BEST - Use native or smaller alternative
+function debounce<T extends (...args: any[]) => any>(fn: T, ms: number) {
+	let timeoutId: ReturnType<typeof setTimeout>;
+	return (...args: Parameters<T>) => {
+		clearTimeout(timeoutId);
+		timeoutId = setTimeout(() => fn(...args), ms);
+	};
+}
+```
 
-### API
-| Issue | Detect | Fix |
-|-------|--------|-----|
-| Over-fetching | All fields returned | Field selection |
-| Under-fetching | Multiple requests | Include/expand |
-| No pagination | Unbounded lists | Add limit/cursor |
-| N+1 calls | Fetch in loop | Batch endpoint |
+---
+
+## Memory Leak Prevention
+
+### Common Leak Patterns
+
+```typescript
+// LEAK - Event listener not removed
+useEffect(() => {
+	window.addEventListener('resize', handleResize);
+	// Missing cleanup!
+}, []);
+
+// FIXED - Proper cleanup
+useEffect(() => {
+	window.addEventListener('resize', handleResize);
+	return () => window.removeEventListener('resize', handleResize);
+}, []);
+```
+
+### Abort Controllers for Fetch
+
+```typescript
+useEffect(() => {
+	const controller = new AbortController();
+
+	async function fetchData() {
+		try {
+			const response = await fetch('/api/data', {
+				signal: controller.signal,
+			});
+			const data = await response.json();
+			setData(data);
+		} catch (error) {
+			if (error instanceof Error && error.name === 'AbortError') {
+				return; // Ignore abort errors
+			}
+			throw error;
+		}
+	}
+
+	fetchData();
+
+	return () => controller.abort();
+}, []);
+```
+
+### Closure Leaks
+
+```typescript
+// LEAK - Timer holds reference after unmount
+function Component() {
+	const [count, setCount] = useState(0);
+
+	useEffect(() => {
+		const id = setInterval(() => {
+			setCount((c) => c + 1); // Uses stale closure
+		}, 1000);
+		return () => clearInterval(id); // MUST cleanup
+	}, []);
+}
+```
+
+### WeakMap for Object References
+
+```typescript
+// Use WeakMap to avoid holding strong references
+const cache = new WeakMap<object, ComputedValue>();
+
+function getComputed(obj: object): ComputedValue {
+	if (cache.has(obj)) {
+		return cache.get(obj)!;
+	}
+	const computed = expensiveComputation(obj);
+	cache.set(obj, computed);
+	return computed;
+}
+```
+
+---
+
+## API Latency Optimization
+
+### Response Caching
+
+```typescript
+// In-memory cache with TTL
+const cache = new Map<string, { data: unknown; expires: number }>();
+
+async function cachedFetch<T>(url: string, ttl = 60000): Promise<T> {
+	const cached = cache.get(url);
+	if (cached && cached.expires > Date.now()) {
+		return cached.data as T;
+	}
+
+	const response = await fetch(url);
+	const data = await response.json();
+
+	cache.set(url, { data, expires: Date.now() + ttl });
+	return data;
+}
+```
+
+### Request Deduplication
+
+```typescript
+const pending = new Map<string, Promise<Response>>();
+
+async function dedupedFetch(url: string): Promise<Response> {
+	if (pending.has(url)) {
+		return pending.get(url)!;
+	}
+
+	const promise = fetch(url).finally(() => {
+		pending.delete(url);
+	});
+
+	pending.set(url, promise);
+	return promise;
+}
+```
+
+### Parallel Requests
+
+```typescript
+// SLOW - Sequential requests
+const user = await fetchUser(id);
+const posts = await fetchPosts(id);
+const comments = await fetchComments(id);
+
+// FAST - Parallel requests
+const [user, posts, comments] = await Promise.all([
+	fetchUser(id),
+	fetchPosts(id),
+	fetchComments(id),
+]);
+```
+
+### Response Compression
+
+```typescript
+// Enable compression in server
+import compression from 'compression';
+app.use(compression());
+
+// Or in Bun
+Bun.serve({
+	fetch(request) {
+		const response = Response.json(largeData);
+		// Bun auto-compresses based on Accept-Encoding
+		return response;
+	},
+});
+```
+
+---
+
+## MongoDB Query Optimization
+
+### Use Indexes
+
+```typescript
+// Create indexes for frequent queries
+const userSchema = new Schema({
+	email: { type: String, unique: true, index: true },
+	createdAt: { type: Date, index: true },
+	status: { type: String, index: true },
+});
+
+// Compound index for common query pattern
+userSchema.index({ status: 1, createdAt: -1 });
+```
+
+### Avoid N+1 Queries
+
+```typescript
+// WRONG - N+1 problem
+const posts = await Post.find();
+for (const post of posts) {
+	post.author = await User.findById(post.authorId);
+}
+
+// CORRECT - Use populate
+const posts = await Post.find().populate('author');
+
+// CORRECT - Manual batch fetch
+const posts = await Post.find();
+const authorIds = [...new Set(posts.map((p) => p.authorId))];
+const authors = await User.find({ _id: { $in: authorIds } });
+const authorMap = new Map(authors.map((a) => [a._id.toString(), a]));
+posts.forEach((p) => (p.author = authorMap.get(p.authorId.toString())));
+```
+
+### Projection - Select Only Needed Fields
+
+```typescript
+// WRONG - Fetches all fields
+const users = await User.find({ status: 'active' });
+
+// CORRECT - Select only needed fields
+const users = await User.find({ status: 'active' }).select('name email avatar').lean();
+```
+
+### Use .lean() for Read-Only
+
+```typescript
+// Returns plain JS objects (faster)
+const users = await User.find().lean();
+
+// vs Mongoose documents (slower, but has methods)
+const users = await User.find();
+```
+
+### Aggregation Pipeline
+
+```typescript
+// Efficient aggregation
+const stats = await Order.aggregate([
+	{ $match: { status: 'completed' } },
+	{
+		$group: {
+			_id: '$userId',
+			totalOrders: { $sum: 1 },
+			totalSpent: { $sum: '$amount' },
+		},
+	},
+	{ $sort: { totalSpent: -1 } },
+	{ $limit: 10 },
+]);
+```
+
+---
+
+## Profiling Tools
+
+### React DevTools Profiler
+
+```typescript
+// Wrap component to profile
+import { Profiler } from 'react';
+
+function onRender(
+  id: string,
+  phase: 'mount' | 'update',
+  actualDuration: number,
+  baseDuration: number,
+) {
+  console.log(`${id} ${phase}: ${actualDuration.toFixed(2)}ms`);
+}
+
+<Profiler id="ExpensiveComponent" onRender={onRender}>
+  <ExpensiveComponent />
+</Profiler>
+```
+
+### Performance API
+
+```typescript
+// Measure operation time
+performance.mark('fetch-start');
+await fetchData();
+performance.mark('fetch-end');
+
+performance.measure('fetch-duration', 'fetch-start', 'fetch-end');
+const measure = performance.getEntriesByName('fetch-duration')[0];
+console.log(`Fetch took ${measure?.duration.toFixed(2)}ms`);
+```
+
+### MongoDB Query Explain
+
+```bash
+# In MongoDB shell
+db.users.find({ email: "test@example.com" }).explain("executionStats")
+
+# Check if using index
+# "winningPlan.inputStage.stage" should be "IXSCAN" not "COLLSCAN"
+```
+
+---
+
+## Core Web Vitals
+
+### LCP (Largest Contentful Paint) < 2.5s
+
+```typescript
+// Preload critical resources
+<link rel="preload" href="/hero-image.webp" as="image" />
+
+// Use priority hints
+<img src="/hero.webp" fetchpriority="high" />
+```
+
+### FID (First Input Delay) < 100ms
+
+```typescript
+// Break up long tasks
+async function processLargeArray(items: Item[]) {
+	for (let i = 0; i < items.length; i += 100) {
+		const chunk = items.slice(i, i + 100);
+		await processChunk(chunk);
+		// Yield to main thread
+		await new Promise((r) => setTimeout(r, 0));
+	}
+}
+```
+
+### CLS (Cumulative Layout Shift) < 0.1
+
+```typescript
+// Always set dimensions on images
+<img src="/photo.jpg" width={800} height={600} alt="Photo" />
+
+// Use aspect-ratio CSS
+<div style={{ aspectRatio: '16/9' }}>
+  <img src="/video-thumb.jpg" />
+</div>
+```
+
+---
+
+## Agent Integration
+
+This skill is used by:
+
+- **performance-profiler** agent
+- **bundle-analyzer** agent
+- **memory-leak-detector** agent
+- **api-latency-analyzer** agent
+- **query-optimizer** agent
+- **render-optimizer** agent
+
+---
+
+## FORBIDDEN
+
+1. **Premature optimization** - Measure first, optimize second
+2. **Missing cleanup in useEffect** - Always return cleanup function
+3. **N+1 queries** - Use batch fetching or populate
+4. **Fetching all fields** - Use projection/select
+5. **Blocking main thread** - Use web workers for heavy computation
+6. **Ignoring Core Web Vitals** - Monitor LCP, FID, CLS
+
+---
+
+## Version
+
+- **v1.0.0** - Initial implementation based on 2024-2025 performance patterns

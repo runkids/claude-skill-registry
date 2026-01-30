@@ -316,6 +316,6 @@ docs/designs/detailed/{親機能名}/
 
 ## 参照
 
-- 各設計書のテンプレートは `@detailed-design-writer` を参照
+- 各設計書のテンプレートは ``detailed-design-writer` skill` を参照
 - 共通設計書は `docs/designs/detailed/{親機能名}/共通/` に配置
 - プロジェクト全体の共通設計は `docs/designs/detailed/共通設計/` に配置

@@ -1,57 +1,78 @@
 ---
 name: cleanup
-description: >
-  Assess the project to reorganize or deprecate unused/outdated files. 
-  Cleans the git workspace and commits changes.
-allowed-tools: Bash, Read, Grep, Glob
-triggers:
-  - cleanup this project
-  - reorganize the codebase
-  - remove outdated files
-  - deprecate unused code
-  - git cleanup
-metadata:
-  short-description: Deep codebase assessment and technical debt cleanup
+description: Archive processed inbox items. Activate when user says "cleanup", "archive inbox". Moves session summaries to archive, keeps inbox clean for new items.
+allowed-tools: Bash, Read
 ---
 
-# Cleanup Skill
+# Cleanup (Inbox Archive)
 
-This skill performs a deep assessment of the codebase to identify technical debt, unused files, and outdated documentation, then performs cleanup operations with confirmation.
+Archive processed inbox items to keep inbox clean for new work.
 
-## Workflow
+## When to Activate
 
-1. **Assessment** (`--dry-run`): Scan the codebase for:
-   - Untracked "junk" files (logs, temp images, build artifacts).
-   - Tracked files that are no longer referenced in the codebase.
-   - Outdated documentation files.
-   - Project structure inconsistencies.
-2. **Planning** (`--plan`): Generate a **Cleanup Plan** markdown file for review.
-3. **Execution** (`--execute`): Perform cleanup operations with user confirmation:
-   - Remove junk files (with optional `--force` to skip prompts)
-   - Remove dead tracked files (always requires confirmation, never auto-deleted)
-   - Log all actions to `local/CLEANUP_LOG.md`
+- User says: "cleanup", "archive inbox", "clean inbox"
+- After learn skill completes
+- When inbox has accumulated processed items
 
-## How to Use
+## Process
 
-1. Trigger with "cleanup this project" or "reorganize codebase".
-2. Run `bash .pi/skills/cleanup/run.sh --dry-run` to see JSON findings.
-3. Run `bash .pi/skills/cleanup/run.sh --plan` to generate a readable cleanup plan.
-4. Review the plan and run `bash .pi/skills/cleanup/run.sh --execute` to perform cleanup.
-5. Use `--force` to skip confirmation for junk files only (dead files still require confirmation).
+### 1. Check Inbox Contents
 
-## Safety Features
+```bash
+ls -la inbox/
+ls -la inbox/session-summaries/ 2>/dev/null
+```
 
-- **Dead files always require confirmation**: The skill will never auto-delete tracked files that appear unreferenced. You must explicitly confirm each deletion.
-- **Uncommitted changes warning**: The skill warns and asks for confirmation if you have uncommitted changes.
-- **Detailed logging**: All actions are recorded in `local/CLEANUP_LOG.md`.
-- **Junk file detection**: Uses patterns to identify common junk files (logs, temp files, build artifacts).
+### 2. Archive Session Summaries
 
-## Command Options
+Move processed summaries to monthly archive:
 
-| Option            | Description                                                                   |
-| ----------------- | ----------------------------------------------------------------------------- |
-| `--dry-run`       | Print JSON findings without making changes                                    |
-| `--plan`          | Generate a Cleanup Plan markdown file                                         |
-| `--execute`       | Perform cleanup operations with confirmation                                  |
-| `--force`         | Skip confirmation for junk files only (dead files still require confirmation) |
-| `--output <file>` | Specify output file for plan (default: CLEANUP_PLAN.md)                       |
+```bash
+# Create archive directory
+mkdir -p inbox/session-summaries/archive/$(date +%Y-%m)
+
+# Move files older than 1 hour (not currently being written)
+find inbox/session-summaries/ -maxdepth 1 -name "*.md" -mmin +60 -exec mv {} inbox/session-summaries/archive/$(date +%Y-%m)/ \;
+```
+
+### 3. Clean Other Processed Items
+
+```bash
+# Remove ephemeral files after processing
+rm -f inbox/role-review-needed.txt 2>/dev/null
+```
+
+### 4. Verify Clean State
+
+```bash
+ls inbox/
+```
+
+### 5. Report
+
+```
+Inbox cleanup complete.
+
+Archived:
+- [N] session summaries → inbox/session-summaries/archive/YYYY-MM/
+
+Inbox ready for new items.
+```
+
+## Archive Structure
+
+```
+inbox/
+├── session-summaries/
+│   ├── archive/
+│   │   ├── 2025-11/
+│   │   └── 2025-12/
+│   └── (empty - ready for new)
+└── (clean)
+```
+
+## Safety
+
+- Only archive files older than 1 hour
+- Never delete session summaries (archive instead)
+- Idempotent - safe to run multiple times

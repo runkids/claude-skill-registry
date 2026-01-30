@@ -1,9 +1,7 @@
 {
   "name": "key-rotation-manager",
-  "description": "Key Rotation Manager - Auto-activating skill for Security Advanced.Triggers on: key rotation manager, key rotation managerPart of the Security Advanced skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "security",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/key-rotation-manager/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-30T04:24:26.268253Z"
 }

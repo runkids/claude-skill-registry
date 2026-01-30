@@ -1,7 +1,7 @@
 {
   "name": "plan-create",
-  "repo": "JordanGunn/nunchuck",
-  "path": "skills/plan/plan-create/SKILL.md",
-  "source": "github.com/JordanGunn/nunchuck",
-  "downloaded_at": "2026-01-29T03:00:19.475025Z"
+  "repo": "savvy-web/pnpm-monorepo-template",
+  "path": ".claude/skills/plan-create/SKILL.md",
+  "source": "github.com/savvy-web/pnpm-monorepo-template",
+  "downloaded_at": "2026-01-30T04:43:27.003442Z"
 }

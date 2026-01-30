@@ -1,7 +1,7 @@
 {
   "name": "vue",
-  "repo": "michsindlinger/agent-os-extended",
-  "path": "agent-os/templates/skills/frontend/vue/Skill.md",
-  "source": "github.com/michsindlinger/agent-os-extended",
-  "downloaded_at": "2026-01-29T04:44:42.406428Z"
+  "repo": "mgd34msu/goodvibes-gemini",
+  "path": "skills/vue/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-gemini",
+  "downloaded_at": "2026-01-30T04:12:43.536140Z"
 }

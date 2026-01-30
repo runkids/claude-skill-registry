@@ -1,7 +1,7 @@
 {
   "name": "docker-compose",
-  "repo": "oriolrius/nifi-cluster",
-  "path": ".claude/skills/docker-compose/SKILL.md",
-  "source": "github.com/oriolrius/nifi-cluster",
-  "downloaded_at": "2026-01-29T04:34:55.319211Z"
+  "repo": "AIDotNet/MoYuCode",
+  "path": "skills/community/docker-compose/SKILL.md",
+  "source": "github.com/AIDotNet/MoYuCode",
+  "downloaded_at": "2026-01-30T03:46:47.329030Z"
 }

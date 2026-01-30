@@ -1,7 +1,7 @@
 {
   "name": "plugin-validator",
-  "repo": "RevTechStudio/rts-plugins",
-  "path": "rts-plugin-generator/skills/plugin-validator/SKILL.md",
-  "source": "github.com/RevTechStudio/rts-plugins",
-  "downloaded_at": "2026-01-29T03:19:37.788423Z"
+  "repo": "anton-abyzov/specweave",
+  "path": "plugins/specweave/skills/plugin-validator/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-30T01:38:30.941482Z"
 }

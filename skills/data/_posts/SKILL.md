@@ -1,126 +1,87 @@
 ---
 layout: post
-title: Openskill vs TrueSkill Implementations
-date: 2020-06-03T00:42:00Z
-categories: []
-tags:
-  - openskill
-  - weng-lin
-  - rating
-  - prediction
-  - trueskill
+title: "소프트스킬 : 평범한 개발자의 비범한 인생 전략 71가지"
+subtitle:  
+categories: etc
+tags: review
+comments: true
 ---
 
-This presents a Javascript implementation of a [Weng-Lin rating](https://www.csie.ntu.edu.tw/~cjlin/papers/online_ranking/online_journal.pdf) scheme, using various models described in the paper. The principle difference between this and the more popular Microsoft TrueSkill scheme is that this is not encumbered by patents and licensing. Additionally, this is an order of magnitude faster, and delivers competitively accurate match predictions.
+- 길벗
+- 존 손메즈 지음 / 이미령, 김태곤 옮김
+- 책소개 Link : <http://www.gilbut.co.kr/book/bookView.aspx?bookcode=BN001351&page=1&TF=T>
 
-## Dataset
+ ![](https://github.com/DevStarSJ/Study/blob/master/Blog/Review/Books/image/softskill.01.jpg?raw=true)  
 
-For team games, a dataset of 61867 matches from [OverTrack.gg](https://overtrack.gg) was loaded into memory. Most matches represent a team of 5 vs. 5, with no possibility for ties. Since tracking matches is volutary, a not insignificant percentage of matches (7.82%) are played against a team of unrated/unknown players. The average number of matchs per unique player is about 2.338, however a decent number of players were tracked for over a hundred matches.
+안녕하세요. 이번에 소개해 드릴 책은 `나는 프로그래머다`에서 `정개발`님이 추천해주신 `소프트스킬`이라는 책입니다.  
+이전에 읽은 `훌륭한 프로그래머가 되는 법 : 프로젝트와 팀을 성공으로 이끄는 선배 개발자의 노하우`와는 또 완전히 다른 느낌의 책이었습니다.   
+`훌륭한 프로그래머가 되는 법`은 뭔가 `율법서` 같이 딱딱하면서 실제 업무를 훌륭하게 하는 방법에 대해서 레퍼런스 식으로 소개하는 책이라면 `소프트스킬`은 개발 이외의 개발자의 삶에 대해서 저자가 조곤조곤 조언해 주는 내용으로 부드러운 대화같은 책입니다.
 
-For multiplayer games, a dataset of 2727 games played on [rr18xx.com](http://www.rr18xx.com). Abandoned and partial games were not included. Most of these games are played with previously-rated players; of these games, 76 (2.79%) were played where all players were unrated/unknown, and 595 (21.82%) were played where any players were unrated/unknown. The average number of matches per unique player is about 10.90, and the match count of game sizes 2-6 are distributed as
+여기서의 `소프트스킬`은  Software의 소프트가 아니라  
+- Hard Skill : 업무적으로 필요한 기술들
+- Soft Skill : 업무이외의 필요한 기술들  
+로 구분했을 때의 `소프트스킬`입니다.
 
-| Players | Matches |
-| ------: | ------: |
-|       2 |      40 |
-|       3 |     595 |
-|       4 |    1300 |
-|       5 |     619 |
-|       6 |     173 |
+책표지의 작은 글씨로 `흔한 개발자. 나는 어떻게 살아야 하나 ?` 란 문구가 참 짠~하게 와닿더라구요.  
+총 7개의 큰 부분으로 나뉘어져 있습니다.
 
-## Faster
+### 1부 경력
 
-Due to the iterative nature of Trueskill needing more CPU time to converge, it can be expected that Openskill is faster. This is measured using the [Benchmark](https://www.npmjs.com/package/benchmark), which samples until a reasonable confidence of the variance is attained. Each operation here represents measuring the impact of one 5v5 Overwatch game.
+스타트업, 중소기업, 대기업 별 근무환경 및 특징에 대한 간략한 소개와  
+개발회사와 비개발회사에서의 개발자의 처우 등... 부터해서  
+승진, 면접, 이력서 등 다양한 내용들을 다루고 있습니다.  
 
-| Model                           | Speed (higher is better) | Variance |         Samples |
-| ------------------------------- | -----------------------: | -------: | --------------: |
-| TrueSkill                       |            2,962 ops/sec |   ±3.23% | 82 runs sampled |
-| Openskill/bradleyTerryFull      |           62,643 ops/sec |   ±1.09% | 91 runs sampled |
-| Openskill/bradleyTerryPart      |           40,152 ops/sec |   ±0.73% | 91 runs sampled |
-| Openskill/thurstonMostellerFull |           59,336 ops/sec |   ±0.74% | 93 runs sampled |
-| Openskill/thurstonMostellerPart |           38,666 ops/sec |   ±1.21% | 92 runs sampled |
-| Openskill/plackettLuce          |           23,492 ops/sec |   ±0.26% | 91 runs sampled |
+기술을 너무 신봉하지 말라는 말과 3년이 지난 기술 중 많은 부분은 더 이상 쓸모없는 기술이다 라는 말이 가장 기억에 남네요.  
 
-When measuring the impact of a 5 player free-for-all 18xx game, we see similar improvement. The models `bradleyTerryPart` and `thurstonMostellerPart` are faster than their `bradleyTerryFull` and `thurstonMostellerFull` counterparts because the Full implementations scale O(n^2) with the number of independent teams. Part implementations only change ratings based on the next best and next worse team (a.l. a stepladder), which is also why the accuracy
+### 2부 셀프마케팅
 
-| Model                           | Speed (higher is better) | Variance |         Samples |
-| ------------------------------- | -----------------------: | -------: | --------------: |
-| TrueSkill                       |            2,462 ops/sec |   ±3.08% | 84 runs sampled |
-| Openskill/bradleyTerryFull      |           15,589 ops/sec |   ±0.54% | 92 runs sampled |
-| Openskill/bradleyTerryPart      |           20,381 ops/sec |   ±0.77% | 86 runs sampled |
-| Openskill/thurstonMostellerFull |           14,456 ops/sec |   ±0.36% | 93 runs sampled |
-| Openskill/thurstonMostellerPart |           19,889 ops/sec |   ±0.74% | 95 runs sampled |
-| Openskill/plackettLuce          |           12,296 ops/sec |   ±0.74% | 89 runs sampled |
+블로그, SNS, 외부강연 등을 통해서 자신을 마케팅하는 방법을 소개하고 있습니다.
 
-These were run on a 2013 Mac Pro 8-core 3.5 GHz 6-Core Intel Xeon E5, with nodejs 13.11.0 from a command line. The source code for this can be found in the package's `benchmark` directory. The high variance of TrueSkill is likely a result of being an iterative algorithm.
+### 3부 학습
 
-## Accuracy
+개발자의 공부법을 소개해주고 있습니다.
 
-Measuring accuracy is subjective. In a 2 team game, this is simple since there are only two possible outcomes; either the red team or the blue team wins. When we exclude games where two unknown/unrated teams play (which was only 0.4% of games from OverTrack), we find the following
+![](https://github.com/DevStarSJ/Study/blob/master/Blog/Review/Books/image/softskill.02.jpg?raw=true) 
+ 
+우리는 한번도 독학하는 법을 배워본적이 없는데 개발자로서 공부할 때 가장 필요한 것은 독학을 하는 방법이라는 말로 시작하여, 새로운 기술을 익이는 10단계 학습법은 주니어 개발자들에겐 반드시 알려줘야 할 내용이라 생각됩니다. 남을 가르치는 과정에서 자신이 얼마나 더 많이 배울 수 있는가에 대한 얘기는 참 많이 공감이 갔습니다.
 
-| Model                 | Correct (higher is better) |
-| --------------------- | -------------------------: |
-| bradleyTerryFull      |             **54.336254%** |
-| bradleyTerryPart      |             **54.336254%** |
-| thurstonMostellerFull |                 54.143135% |
-| thurstonMostellerPart |                 54.143135% |
-| plackettLuce          |             **54.336254%** |
-| trueskill             |                 54.193443% |
+필자도 블로그에 뭔가를 정리하는 이유가 책을 읽는 것은 그냥 그 당시에만 머리에 남고 시간이 조금만 지나도 잊혀지게 되며, 그것을 직접 실습해보면 조금 더 그 기억이 오래가며, 해당 기술에 대한 두려움이 있었던 경우에는 그 두려움을 없에주는데 도움이 되며, 블로그에서 글로 정리를 하다보면 어떤 순서로 쓸것인지를 생각하면서 그 동안 머리속에 뒤죽박죽으로 있던 지식을 체계적으로 모아서 분류하는 과정이 일어나서 큰 도움이 되었습니다.  
 
-It seems that any ranking algorithm should be able to predict more than 54% of the time, but in pairing a team against another team in Overwatch, the game's matchmaking system attempts to pair players of similar skill.
+하지만, 아직도 늘 누군가가 책, 강연 이런 얘기를 하면...
 
-With 18xx data, we see a different story. Many matches are either organized among friends, or randomly queued without regard to skill. Predicting the outcome of a match with 3 or more players can be objectively difficult. What is important? Predicting only 1st place? Predicting 1st, 2nd, and 3rd place? The context of the game is also important, for example in a Poker tournament the top 20-25% of players may receive a payout.
+> 책은 읽는 것이지 쓰는게 아니다.  
+강연은 듣는 것이지 하는게 아니다.
 
-### Picking Winner, Picking Top 3
+라고 발뺌을 하고 있습니다. ;;;
 
-First, we look at only the predicted winner of a match. In this case, we're either right or wrong. This is simplest, and often times the only relevant metric. This is probably the easiest to understand. For this, some marginal leniancy is given toward all algorithms where when multiple players compete with the same rating, if any of them win then the result is considered a success. This reduces noise from new players whose rating sigma might be considered infinite, without biasing any method. Higher here is better.
+### 4부 생산성
 
-Second, we consider that the predicted winner is in the top 3 finishers. Again, higher is better, and it can be expected that this should be correct much more often.
+집중력을 높여서 작업의 생산성을 높이는 방법에 대해서 소개해 주고 있습니다.
 
-| Model                           | Predicting winner | Predicted in top 3 |
-| ------------------------------- | ----------------: | -----------------: |
-| TrueSkill                       |        **45.14%** |         **87.82%** |
-| Openskill/bradleyTerryFull      |            44.44% |             87.34% |
-| Openskill/bradleyTerryPart      |        **45.14%** |             87.56% |
-| Openskill/thurstonMostellerFull |            39.12% |             85.00% |
-| Openskill/thurstonMostellerPart |            44.15% |             86.98% |
-| Openskill/plackettLuce          |            44.92% |             87.16% |
+뽀모도로 기법(<https://ko.wikipedia.org/wiki/뽀모도로_기법>)에 대해 소개해 주고 있어서 한번 날잡고 해봤습니다.  
+정말로 한 2,3일 정도 걸릴 것이라 생각했던 작업이 하루만에 끝나는걸 보고 스스로 놀랐습니다.  
 
-### Picking entire outcome
+하지만, 그때 했던 작업이 뭔가를 구현하기 위해서 개발하는 과정이라서 가능했던 것이지, 회사의 모든 업무에서 완벽하게 25분간 주위의 방해를 받지 않고 집중하는 것은 무리가 있어 보이며, `TDD`가 되지 않는 개발환경에서 UI를 손으로 직접 조작해가면서, 일정 시간 이상 조작하며 테스트 하며 디버깅 하기에는 25분의 집중이라는게 큰 의미가 없어 보였습니다.  
 
-Third, we create an artifical metric for comparing the predicted outcome vs. the actual outcome. This is the sum for all players of the distance they are from their predicted rank. For example, if the predicted outcome is `[1, 2, 3, 4]` and the actual outcome is `[1, 3, 2, 4]`, then two players are 1 away from their predicted rank, and the metric for this would be 2. For games with more players, the highest that this could be is higher, so we divide this by the maximum difference; which would be the reverse of the predicted outcome. The negative of this is then taken and added to 1, so that 0.0 means _totally wrong_, and 1.0 means _totally right_
+자택근무나 카페 같은데서 `모각코(모여서 각자 코딩)`하는 경우에는 상당히 효과적인 방법으로 보입니다.
 
-| Model                           | Picking entire outcome |
-| ------------------------------- | ---------------------: |
-| TrueSkill                       |              **0.464** |
-| Openskill/bradleyTerryFull      |                  0.455 |
-| Openskill/bradleyTerryPart      |                  0.456 |
-| Openskill/thurstonMostellerFull |                  0.423 |
-| Openskill/thurstonMostellerPart |                  0.451 |
-| Openskill/plackettLuce          |                  0.458 |
+### 5부 재무관리
 
-### Picking entire outcome with license
+월급을 어떻게 효율적으로 관리를 하는 방법과 부동산투자, 옵션투자에 대해 소개하고 있습니다.  
 
-Fourth, we measure the difference from predicted to actual by computing the cosine similarity of the two vectors. This could be more meaningful, since we may have a game of four players, _Alice_ `mu: 40`, _Betty_ `mu: 39.999`, _Cindy_, `mu: 20`, _Daisy_, `mu: 0`. In this match-up, we would predict the most likely outcome of `Alice, Betty, Cindy, Daisy`, however almost as likely would be `Betty, Alice, Cindy, Daisy`. That outcome would be much more reasonable than an outcome of `Alice, Betty, Daisy, Cindy`, as the difference in Daisy and Cindy is much greater.
+### 6부 건강
 
-| Model                           | Cosine Similarity to Predicted |
-| ------------------------------- | -----------------------------: |
-| TrueSkill                       |             0.9871333882702259 |
-| Openskill/bradleyTerryFull      |             0.9670280189093087 |
-| Openskill/bradleyTerryPart      |              0.991254308108686 |
-| Openskill/thurstonMostellerFull |             0.9292664200294969 |
-| Openskill/thurstonMostellerPart |         **0.9940281068887633** |
-| Openskill/plackettLuce          |             0.9691814764747895 |
+음식, 수면, 운동의 중요성과 효율적인 방법에 대해 소개하고 있습니다.
 
-Here this shows that partial paring during re-ranking appears to be significantly better. Further work could be done to incorporate the _sigma_ of each player's rating, but this should show that
+###7부 영혼
 
-## Summary
+정신이 신체를 지배한다는 사실과 긍정적 사고의 중요성, 심지어 연애문제까지도 짧게나다 다루고 있습니다.
 
-In addition to being unencumbered by patents, it has been shown by various methods that our library is faster, which would be important for large scale machine learning applications; and comparably accurate using the default parameters. It would be appropriate to tune these parameters depending on the application and the specific facets of our game data, for instance Openskill's &epsilon; parameter could be increased to reduce the impact of rating plateaus. Discusson of how these parameters affect prediction is left for future work.
+### 총평
 
-## Availability
-
-This Openskill package is available on npm as [openskill](https://github.com/philihp/openskill.js). It is also available as an Elixir package on hex.pm as [openskill](https://hex.pm/packages/openskill).
-
-The TrueSkill package used here is [ts-trueskill](https://github.com/scttcper/ts-trueskill), a TypeScript port of the Python package.
-
-<a href="https://github.com/philihp/openskill.js" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+개발자를 위한 자기개발서가 몇년전만 하더라도 많이 없었는데, 요즘은 많아 졌습니다.
+이책은 다른 책과는 다르게 개발자를 위한 자기개발서이지만, 기술적인 내용이 아니라 기술 이외의 자기관리를 하는 방법에 대해서 총괄적으로 다룬 책입니다.
+모두들 한번씩은 꼭 읽어보셨으면 합니다.
+이 책의 저자는 33세에 이미 은퇴를 한 성공한 개발자입니다.
+이 책 한권에 모든 내용이 다 들어있지 않습니다. 저자가 이 책에서 소개한 내용중 더 자세한 것을 알고 싶을 경우 보면 좋은 책에 대해서도 소개해 주고 있습니다.
+물론 한국과 미국과는 여러가지 상황이 다르긴 하겠지만 그걸 감안하고 보더라도 이책을 보기 전의 나와 보고난 후의 내가 확실히 달라졌고, 앞으로도 계속 달라져야 할 것이다라고 느끼고 있습니다.

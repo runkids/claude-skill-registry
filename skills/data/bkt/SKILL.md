@@ -46,6 +46,12 @@ bkt auth login https://bitbucket.org --kind cloud --web
 bkt auth status
 ```
 
+**Bitbucket Cloud Token Requirements:**
+- Create an "API token with scopes" (not a general API token)
+- Select **Bitbucket** as the application
+- Required scope: **Account: Read** (`read:user:bitbucket`)
+- Additional scopes as needed: Repositories, Pull requests, Issues
+
 ## Contexts
 
 Contexts store host, project/workspace, and default repo settings:
@@ -185,7 +191,7 @@ For endpoints not yet wrapped:
 
 ```bash
 bkt api /rest/api/1.0/projects --param limit=100 --json
-bkt api /2.0/repositories --param workspace=myteam --field pagelen=50
+bkt api /repositories --param workspace=myteam --field pagelen=50
 ```
 
 ## Output Modes

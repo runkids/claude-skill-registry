@@ -1,7 +1,7 @@
 {
   "name": "testing-strategies",
-  "repo": "michsindlinger/agent-os-extended",
-  "path": "agent-os/templates/skills/testing-strategies/SKILL.md",
-  "source": "github.com/michsindlinger/agent-os-extended",
-  "downloaded_at": "2026-01-29T04:44:41.465160Z"
+  "repo": "frankxai/arcanea",
+  "path": ".claude/skills/community/testing-strategies/SKILL.md",
+  "source": "github.com/frankxai/arcanea",
+  "downloaded_at": "2026-01-30T04:44:28.623328Z"
 }

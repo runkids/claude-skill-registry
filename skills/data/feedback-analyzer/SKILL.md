@@ -1,388 +1,159 @@
 ---
-name: Feedback Analyzer
-slug: feedback-analyzer
-description: Analyze customer feedback to extract actionable insights, identify patterns, and prioritize improvements
-category: customer-support
-complexity: complex
-version: "1.0.0"
-author: "ID8Labs"
-triggers:
-  - "feedback analysis"
-  - "customer feedback"
-  - "sentiment analysis"
-  - "voice of customer"
-  - "feature requests"
-  - "user feedback"
-tags:
-  - feedback
-  - analytics
-  - sentiment
-  - voice-of-customer
-  - customer-insights
+name: feedback-analyzer
+description: Analyze skill effectiveness through usage feedback, metrics analysis, and outcome assessment. Task-based operations for feedback collection, effectiveness measurement, trend analysis, and insight extraction. Use when analyzing skill effectiveness, measuring ROI, understanding usage patterns, or evaluating toolkit impact based on real usage data.
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch
 ---
 
 # Feedback Analyzer
 
-Expert customer feedback analysis system that transforms unstructured feedback into actionable product and service insights. This skill provides structured workflows for collecting, categorizing, analyzing, and acting on customer feedback from multiple sources.
+## Overview
 
-Customer feedback is the most direct signal of what's working and what isn't. But raw feedback is noisy, contradictory, and overwhelming. This skill helps you extract patterns, prioritize themes, and close the feedback loop effectively.
+feedback-analyzer evaluates skill effectiveness through analysis of usage data, feedback, metrics, and outcomes.
 
-Built on voice-of-customer best practices and qualitative research methods, this skill combines text analysis, pattern recognition, and stakeholder communication to turn feedback into action.
+**Purpose**: Data-driven understanding of what works and what doesn't
 
-## Core Workflows
+**The 4 Analysis Operations**:
+1. **Collect Usage Data** - Gather metrics on skill usage and effectiveness
+2. **Measure Effectiveness** - Quantify impact and ROI of skills
+3. **Analyze Trends** - Identify patterns in usage and effectiveness
+4. **Extract Insights** - Generate actionable insights from data
 
-### Workflow 1: Feedback Collection & Aggregation
-**Gather feedback from all sources into unified view**
+## When to Use
 
-1. **Feedback Sources**
-   - **Direct Surveys**: NPS, CSAT, CES, custom surveys
-   - **Support Channels**: Tickets, chat transcripts, calls
-   - **In-App Feedback**: Feature requests, bug reports, ratings
-   - **Social Media**: Mentions, reviews, comments
-   - **Sales Conversations**: Objections, lost deal reasons
-   - **User Research**: Interviews, usability tests
-   - **Community**: Forums, Slack, Discord
+- After skills have been used (have usage data)
+- Measuring toolkit ROI and impact
+- Understanding which skills provide most value
+- Identifying underutilized skills
+- Data-driven improvement decisions
 
-2. **Data Standardization**
-   | Field | Description |
-   |-------|-------------|
-   | Source | Where feedback came from |
-   | Date | When received |
-   | Customer ID | Link to customer record |
-   | Segment | Customer type/tier |
-   | Raw Text | Original feedback |
-   | Category | Topic classification |
-   | Sentiment | Positive/neutral/negative |
-   | Priority | Urgency/impact level |
+## Operations
 
-3. **Collection Automation**
-   - API integrations with feedback tools
-   - Automatic ticket tagging
-   - Survey response routing
-   - Social listening alerts
-   - Scheduled data syncs
+### Operation 1: Collect Usage Data
 
-4. **Quality Filters**
-   - Remove spam and duplicates
-   - Flag potentially inaccurate data
-   - Note context (e.g., during outage)
-   - Weight by customer segment
-   - Identify feedback loops (same issue, multiple channels)
+**Purpose**: Gather data on how skills are used
 
-### Workflow 2: Categorization & Tagging
-**Organize feedback into meaningful categories**
+**Data Sources**:
+- Build times (how long to build skills?)
+- Usage frequency (which skills used most?)
+- Effectiveness metrics (do skills achieve purposes?)
+- Quality scores (from reviews)
+- User feedback (satisfaction, issues)
 
-1. **Category Taxonomy**
-   - **Product Features**: Specific functionality feedback
-   - **Usability/UX**: Interface and experience issues
-   - **Performance**: Speed, reliability, bugs
-   - **Pricing/Value**: Cost concerns and value perception
-   - **Support Experience**: Service quality feedback
-   - **Onboarding**: Getting started experience
-   - **Documentation**: Help content feedback
-   - **Integration**: Third-party connection issues
+**Process**:
+1. Identify data sources
+2. Collect available metrics
+3. Document usage patterns
+4. Organize data for analysis
 
-2. **Subcategory Examples**
-   ```
-   Product Features
-   ├── Feature Requests
-   │   ├── New feature ideas
-   │   └── Feature enhancements
-   ├── Missing Features
-   │   ├── Competitor comparisons
-   │   └── Workflow gaps
-   └── Feature Feedback
-       ├── What works well
-       └── What doesn't work
-   ```
+**Output**: Usage data collection
 
-3. **Tagging Best Practices**
-   - Use consistent, specific tags
-   - Allow multiple tags per feedback
-   - Create tag hierarchy (parent/child)
-   - Review and consolidate tags quarterly
-   - Train team on tagging standards
+**Time**: 30-60 minutes
 
-4. **Automated Classification**
-   - Keyword-based routing rules
-   - ML-based topic classification
-   - Sentiment detection
-   - Priority scoring algorithms
-   - Entity extraction (features, pages, actions)
+---
 
-### Workflow 3: Sentiment & Urgency Analysis
-**Understand emotional context and priority**
+### Operation 2: Measure Effectiveness
 
-1. **Sentiment Classification**
-   | Sentiment | Indicators | Action Level |
-   |-----------|------------|--------------|
-   | Very Negative | Anger, threats to leave | Urgent escalation |
-   | Negative | Frustration, complaints | Address in sprint |
-   | Neutral | Suggestions, questions | Standard review |
-   | Positive | Praise, appreciation | Share with team |
-   | Very Positive | Advocacy, testimonial | Request case study |
+**Purpose**: Quantify skill impact and ROI
 
-2. **Urgency Scoring Factors**
-   - Customer tier (enterprise = higher weight)
-   - Revenue at risk
-   - Frequency of same issue
-   - Time sensitivity mentioned
-   - Escalation history
-   - Regulatory/compliance implications
+**Metrics**:
+- Time savings (vs without tool)
+- Quality improvements (before/after)
+- Efficiency gains (percentage faster)
+- Usage rate (frequency of use)
+- Satisfaction (user ratings)
 
-3. **Trend Detection**
-   - Volume spikes (sudden increase in topic)
-   - Sentiment shifts (getting worse/better)
-   - New issues emerging
-   - Seasonal patterns
-   - Release-correlated feedback
+**Process**:
+1. Define effectiveness criteria
+2. Calculate metrics
+3. Compare to baseline or targets
+4. Assess ROI
 
-4. **Alert Triggers**
-   - High-value customer escalation
-   - Sentiment score below threshold
-   - Issue volume exceeds normal
-   - Churn-risk keywords detected
-   - Security/privacy concerns
+**Output**: Effectiveness measurements with evidence
 
-### Workflow 4: Pattern Recognition & Insights
-**Extract actionable patterns from feedback mass**
+**Time**: 45-90 minutes
 
-1. **Quantitative Analysis**
-   - Frequency by category
-   - Trend over time
-   - Segment distribution
-   - Correlation with churn
-   - Impact on NPS/CSAT
+---
 
-2. **Qualitative Analysis**
-   - Representative quote extraction
-   - Use case pattern identification
-   - User journey mapping
-   - Pain point articulation
-   - Unmet need discovery
+### Operation 3: Analyze Trends
 
-3. **Insight Synthesis**
-   ```
-   Insight Template:
+**Purpose**: Identify patterns in effectiveness over time
 
-   FINDING: [What the data shows]
-   EVIDENCE: [Supporting data points and quotes]
-   IMPACT: [Business/customer impact if unaddressed]
-   RECOMMENDATION: [Suggested action]
-   PRIORITY: [High/Medium/Low with rationale]
-   ```
+**Process**:
+1. Plot metrics over time
+2. Identify trends (improving/degrading/stable)
+3. Find correlations
+4. Detect anomalies
 
-4. **Root Cause Analysis**
-   - Group related feedback
-   - Identify underlying causes
-   - Map to user journey stages
-   - Connect to product/process gaps
-   - Distinguish symptoms from causes
+**Output**: Trend analysis with insights
 
-### Workflow 5: Reporting & Action
-**Communicate insights and drive improvements**
+**Time**: 45-90 minutes
 
-1. **Stakeholder Reports**
-   | Audience | Focus | Frequency |
-   |----------|-------|-----------|
-   | Product | Feature requests, usability | Weekly |
-   | Support | Training needs, process issues | Weekly |
-   | Executive | Strategic themes, churn drivers | Monthly |
-   | Engineering | Bugs, performance issues | Real-time |
-   | Marketing | Positioning, messaging gaps | Monthly |
+---
 
-2. **Report Components**
-   - Executive summary
-   - Key metrics and trends
-   - Top themes with supporting data
-   - Representative customer quotes
-   - Recommended actions
-   - Open questions
+### Operation 4: Extract Insights
 
-3. **Feedback Loop Closure**
-   - Track feedback → action connection
-   - Communicate changes to customers
-   - Measure impact of changes
-   - Update customers on feature requests
-   - Publish "You Asked, We Built" updates
+**Purpose**: Generate actionable insights from data
 
-4. **Action Prioritization**
-   - Impact on retention/growth
-   - Effort to address
-   - Customer segment affected
-   - Strategic alignment
-   - Quick wins vs. long-term investments
+**Process**:
+1. Synthesize findings
+2. Identify high-impact insights
+3. Make recommendations
+4. Prioritize actions
+
+**Output**: Data-driven insights and recommendations
+
+**Time**: 30-60 minutes
+
+---
+
+## Example Analysis
+
+```
+Effectiveness Analysis: Development Toolkit
+===========================================
+
+Usage Data (Skills 1-23):
+- Build times: 2h - 20h (mean: 6.8h)
+- Efficiency: 35% - 97% faster than baseline (mean: 85%)
+- Quality: 100% pass rate (5/5 structure)
+
+Effectiveness Metrics:
+- Time Saved: 392 hours total (85% reduction)
+- Quality: Maintained (100% Grade A)
+- Completion: 100% (all 23 finished)
+- ROI: 392h saved / 68h invested = 576% ROI
+
+Trends:
+✅ Improving: Efficiency compounds (72% → 97%)
+✅ Stable: Quality consistent (all 5/5)
+⚠️ Plateau: Efficiency plateaus ~85-90% for simple skills
+
+Insights:
+1. Toolkit highly effective (576% ROI, 85% efficiency)
+2. Quality maintained despite speed (100% pass rate)
+3. Efficiency plateaus at 85-90% (cannot exceed certain minimum times)
+4. Complex skills still benefit (35-50% faster)
+
+Recommendations:
+1. Continue using toolkit (proven effective)
+2. Expect 85-90% efficiency for simple/medium skills
+3. Adjust estimates for complex skills (30-50% faster, not 85%)
+4. Focus on quality maintenance (already excellent)
+```
+
+---
 
 ## Quick Reference
 
-| Action | Command/Trigger |
-|--------|-----------------|
-| Import feedback | "Import feedback from [source]" |
-| Categorize feedback | "Categorize feedback batch" |
-| Analyze sentiment | "Run sentiment analysis on [data]" |
-| Find patterns | "Identify patterns in feedback" |
-| Generate report | "Create feedback report for [audience]" |
-| Extract quotes | "Find quotes about [topic]" |
-| Trend analysis | "Analyze feedback trends" |
-| Segment analysis | "Compare feedback by segment" |
-| Priority scoring | "Score feedback by priority" |
-| Action tracking | "Track feedback to action" |
+| Operation | Focus | Time | Output |
+|-----------|-------|------|--------|
+| Collect Usage Data | Gather metrics | 30-60m | Data collection |
+| Measure Effectiveness | Quantify impact, ROI | 45-90m | Effectiveness metrics |
+| Analyze Trends | Patterns over time | 45-90m | Trend analysis |
+| Extract Insights | Actionable insights | 30-60m | Recommendations |
 
-## Best Practices
+**Integration**: Uses data from skill-evolution-tracker, analysis skill
 
-### Collection
-- Capture feedback at moments of truth
-- Use consistent rating scales
-- Include open-ended questions
-- Don't over-survey (survey fatigue)
-- Thank customers for feedback
+---
 
-### Categorization
-- Create mutually exclusive categories
-- Allow multi-tagging for complex feedback
-- Review taxonomy quarterly
-- Train team on consistent tagging
-- Use automation for high-volume
-
-### Analysis
-- Look for patterns, not anecdotes
-- Weight by customer segment value
-- Consider feedback context
-- Triangulate across sources
-- Separate signal from noise
-
-### Reporting
-- Lead with insights, not data
-- Use customer quotes strategically
-- Connect to business impact
-- Recommend specific actions
-- Track what gets done
-
-### Closing the Loop
-- Communicate what you've heard
-- Update on progress
-- Thank specific contributors
-- Measure impact of changes
-- Celebrate wins publicly
-
-## Analysis Frameworks
-
-### Framework 1: Jobs-to-be-Done Lens
-Analyze feedback through customer goals:
-- What job is the customer trying to do?
-- What's preventing success?
-- What would "done" look like for them?
-- How does our product help or hinder?
-
-### Framework 2: Kano Model
-Categorize feature feedback:
-- **Basic**: Expected, causes dissatisfaction if missing
-- **Performance**: More is better, linear satisfaction
-- **Delighters**: Unexpected, causes delight if present
-- **Indifferent**: No impact on satisfaction
-
-### Framework 3: Impact/Effort Matrix
-Prioritize actions:
-```
-High Impact
-    │   Quick Wins    │   Major Projects
-    │   (Do Now)      │   (Plan Carefully)
-────┼─────────────────┼───────────────────
-    │   Fill-ins      │   Thankless Tasks
-    │   (Do If Time)  │   (Reconsider)
-Low │                 │                  High
-    └─────────────────┴───────────────────
-                    Effort
-```
-
-### Framework 4: Customer Journey Mapping
-Map feedback to journey stages:
-1. Awareness & Discovery
-2. Evaluation & Decision
-3. Onboarding & Activation
-4. Regular Usage
-5. Growth & Expansion
-6. Support & Recovery
-7. Renewal & Advocacy
-
-## Report Templates
-
-### Weekly Product Feedback Summary
-```markdown
-# Feedback Summary: [Week]
-
-## Key Numbers
-- Total feedback received: [X]
-- Sentiment breakdown: [+/neutral/-]
-- Top category: [Category] ([%])
-
-## This Week's Themes
-
-### Theme 1: [Title]
-[Brief description of pattern]
-- Volume: [X] mentions
-- Segments affected: [List]
-- Representative quote: "[Quote]"
-- Recommendation: [Action]
-
-### Theme 2: [Title]
-[Same format]
-
-## Emerging Issues
-- [New issue to watch]
-
-## Positive Highlights
-- "[Positive quote]" - [Customer]
-
-## Actions from Last Week
-- [Action taken] → [Result]
-```
-
-### Monthly Executive Report
-```markdown
-# Voice of Customer: [Month]
-
-## Executive Summary
-[2-3 sentences on key findings and business impact]
-
-## Metrics
-| Metric | This Month | Last Month | Trend |
-|--------|------------|------------|-------|
-| NPS | [Score] | [Score] | [↑↓] |
-| CSAT | [Score] | [Score] | [↑↓] |
-| Feedback Volume | [X] | [X] | [↑↓] |
-
-## Strategic Themes
-
-### 1. [Theme Name]
-**Impact**: [Business impact if unaddressed]
-**Evidence**: [Data summary]
-**Recommendation**: [Strategic action]
-
-### 2. [Theme Name]
-[Same format]
-
-## Competitive Intelligence
-[What customers are saying about competitors]
-
-## Customer Quotes
-[3-5 impactful quotes with context]
-
-## Recommended Actions
-1. [Priority action with owner]
-2. [Priority action with owner]
-
-## Appendix
-[Detailed data tables]
-```
-
-## Red Flags
-
-- **Echo chamber**: Only hearing from vocal minority
-- **Recency bias**: Overweighting recent feedback
-- **Volume bias**: Prioritizing loudest over important
-- **Missing segments**: Not hearing from key customers
-- **Action gap**: Collecting but not acting
-- **No closure**: Customers don't know they were heard
-- **Stale categories**: Taxonomy doesn't match current product
-- **Sentiment-only**: Missing nuance in analysis
+**feedback-analyzer provides data-driven understanding of toolkit effectiveness for evidence-based improvement decisions.**

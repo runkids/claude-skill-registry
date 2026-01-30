@@ -1,317 +1,609 @@
 ---
 name: device-testing
-description: Interact with iOS simulators and verify app behavior using xcobra
+description: React Native testing with Jest, Detox E2E, and React Native Testing Library. Use for mobile test strategies or native module mocking.
 ---
 
-Use `bunx xcobra` to interact with iOS simulators and debug Expo apps.
+# Device Testing Expert
 
-## Inspecting the UI
+Comprehensive expertise in React Native testing strategies, from unit tests to end-to-end testing on real devices and simulators. Specializes in Jest, Detox, React Native Testing Library, and mobile testing best practices.
 
-Get the accessibility tree to understand current screen state:
+## What I Know
 
-```bash
-bunx xcobra sim xml
+### Testing Pyramid for Mobile
+
+**Three Layers**
+1. **Unit Tests** (70%): Fast, isolated, test logic
+2. **Integration Tests** (20%): Test component integration
+3. **E2E Tests** (10%): Test full user flows on devices
+
+**Tools**
+- **Jest**: Unit and integration testing
+- **React Native Testing Library**: Component testing
+- **Detox**: E2E testing on simulators/emulators
+- **Maestro**: Alternative E2E testing (newer)
+
+### Unit Testing with Jest
+
+**Basic Component Test**
+```javascript
+// UserProfile.test.js
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react-native';
+import UserProfile from './UserProfile';
+
+describe('UserProfile', () => {
+  it('renders user name correctly', () => {
+    const user = { name: 'John Doe', email: 'john@example.com' };
+    const { getByText } = render(<UserProfile user={user} />);
+
+    expect(getByText('John Doe')).toBeTruthy();
+    expect(getByText('john@example.com')).toBeTruthy();
+  });
+
+  it('calls onPress when button is pressed', () => {
+    const onPress = jest.fn();
+    const { getByText } = render(
+      <UserProfile user={{ name: 'John' }} onPress={onPress} />
+    );
+
+    fireEvent.press(getByText('Edit Profile'));
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+});
 ```
 
-This returns XML with all UI elements, their labels, identifiers, and positions. Use this to:
-- Find element identifiers for tapping
-- Verify UI state after actions
-- Debug layout issues
+**Testing Hooks**
+```javascript
+// useCounter.test.js
+import { renderHook, act } from '@testing-library/react-hooks';
+import useCounter from './useCounter';
 
-## Tapping Elements
+describe('useCounter', () => {
+  it('increments counter', () => {
+    const { result } = renderHook(() => useCounter());
 
-Tap by accessibility label (preferred):
+    act(() => {
+      result.current.increment();
+    });
 
-```bash
-bunx xcobra sim tap --label "Submit"
+    expect(result.current.count).toBe(1);
+  });
+
+  it('decrements counter', () => {
+    const { result } = renderHook(() => useCounter(5));
+
+    act(() => {
+      result.current.decrement();
+    });
+
+    expect(result.current.count).toBe(4);
+  });
+});
 ```
 
-Tap by accessibility identifier:
+**Async Testing**
+```javascript
+// api.test.js
+import { fetchUser } from './api';
 
-```bash
-bunx xcobra sim tap --id "submit-button"
+describe('fetchUser', () => {
+  it('fetches user data successfully', async () => {
+    const user = await fetchUser('123');
+
+    expect(user).toEqual({
+      id: '123',
+      name: 'John Doe',
+      email: 'john@example.com'
+    });
+  });
+
+  it('handles errors gracefully', async () => {
+    await expect(fetchUser('invalid')).rejects.toThrow('User not found');
+  });
+});
 ```
 
-Tap by coordinates:
+**Snapshot Testing**
+```javascript
+// Button.test.js
+import React from 'react';
+import { render } from '@testing-library/react-native';
+import Button from './Button';
 
-```bash
-bunx xcobra sim tap --x 200 --y 400
+describe('Button', () => {
+  it('renders correctly', () => {
+    const { toJSON } = render(<Button title="Press Me" />);
+    expect(toJSON()).toMatchSnapshot();
+  });
+
+  it('renders with custom color', () => {
+    const { toJSON } = render(<Button title="Press Me" color="red" />);
+    expect(toJSON()).toMatchSnapshot();
+  });
+});
 ```
 
-Add delays for animations:
+### Mocking
 
-```bash
-bunx xcobra sim tap --label "Next" --pre-delay 500 --post-delay 300
+**Mocking Native Modules**
+```javascript
+// __mocks__/react-native-camera.js
+export const RNCamera = {
+  Constants: {
+    Type: {
+      back: 'back',
+      front: 'front'
+    }
+  }
+};
+
+// In test file
+jest.mock('react-native-camera', () => require('./__mocks__/react-native-camera'));
+
+// Or inline mock
+jest.mock('react-native-camera', () => ({
+  RNCamera: {
+    Constants: {
+      Type: { back: 'back', front: 'front' }
+    }
+  }
+}));
 ```
 
-## Typing Text
+**Mocking AsyncStorage**
+```javascript
+// Setup file (jest.setup.js)
+import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 
-Type text into focused input:
+jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
 
-```bash
-bunx xcobra sim type "Hello World"
+// In test
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+describe('Storage', () => {
+  beforeEach(() => {
+    AsyncStorage.clear();
+  });
+
+  it('stores and retrieves data', async () => {
+    await AsyncStorage.setItem('key', 'value');
+    const value = await AsyncStorage.getItem('key');
+    expect(value).toBe('value');
+  });
+});
 ```
 
-Type from stdin:
+**Mocking Navigation**
+```javascript
+// Mock React Navigation
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: () => ({
+    navigate: jest.fn(),
+    goBack: jest.fn()
+  })
+}));
 
-```bash
-echo "test@example.com" | bunx xcobra sim type --stdin
+// In test
+import { useNavigation } from '@react-navigation/native';
+
+describe('ProfileScreen', () => {
+  it('navigates to settings on button press', () => {
+    const navigate = jest.fn();
+    useNavigation.mockReturnValue({ navigate });
+
+    const { getByText } = render(<ProfileScreen />);
+    fireEvent.press(getByText('Settings'));
+
+    expect(navigate).toHaveBeenCalledWith('Settings');
+  });
+});
 ```
 
-## Gestures
+**Mocking API Calls**
+```javascript
+// Using jest.mock
+jest.mock('./api', () => ({
+  fetchUser: jest.fn(() => Promise.resolve({
+    id: '123',
+    name: 'Mock User'
+  }))
+}));
 
-Preset gestures:
+// Using MSW (Mock Service Worker)
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
 
-```bash
-bunx xcobra sim gesture scroll-up
-bunx xcobra sim gesture scroll-down
-bunx xcobra sim gesture swipe-from-left-edge
+const server = setupServer(
+  rest.get('/api/user/:id', (req, res, ctx) => {
+    return res(ctx.json({
+      id: req.params.id,
+      name: 'Mock User'
+    }));
+  })
+);
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 ```
 
-Custom swipe:
+### Component Testing with React Native Testing Library
 
-```bash
-bunx xcobra sim swipe --start-x 200 --start-y 400 --end-x 200 --end-y 100
+**Queries**
+```javascript
+import { render, screen } from '@testing-library/react-native';
+
+// By text
+screen.getByText('Submit');
+screen.findByText('Loading...');  // Async
+screen.queryByText('Error');  // Returns null if not found
+
+// By testID
+<View testID="profile-container" />
+screen.getByTestId('profile-container');
+
+// By placeholder
+<TextInput placeholder="Enter email" />
+screen.getByPlaceholderText('Enter email');
+
+// By display value
+screen.getByDisplayValue('john@example.com');
+
+// Multiple queries
+screen.getAllByText('Item');  // Returns array
 ```
 
-## Hardware Buttons
+**User Interactions**
+```javascript
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
-Press hardware buttons:
+describe('LoginForm', () => {
+  it('submits form with valid data', async () => {
+    const onSubmit = jest.fn();
+    const { getByPlaceholderText, getByText } = render(
+      <LoginForm onSubmit={onSubmit} />
+    );
 
-```bash
-bunx xcobra sim button home
-bunx xcobra sim button lock
-bunx xcobra sim button siri
+    // Type into inputs
+    fireEvent.changeText(getByPlaceholderText('Email'), 'test@example.com');
+    fireEvent.changeText(getByPlaceholderText('Password'), 'password123');
+
+    // Press button
+    fireEvent.press(getByText('Login'));
+
+    // Wait for async operation
+    await waitFor(() => {
+      expect(onSubmit).toHaveBeenCalledWith({
+        email: 'test@example.com',
+        password: 'password123'
+      });
+    });
+  });
+});
 ```
 
-## Screenshots
+### E2E Testing with Detox
 
-Capture screenshot:
-
+**Installation**
 ```bash
-bunx xcobra sim screenshot --output screenshot.png
+# Install Detox
+npm install --save-dev detox
+
+# iOS: Install dependencies
+brew tap wix/brew
+brew install applesimutils
+
+# Initialize Detox
+detox init
+
+# Build app for testing (iOS)
+detox build --configuration ios.sim.debug
+
+# Run tests
+detox test --configuration ios.sim.debug
 ```
 
-## Video Recording
-
-Record simulator video:
-
-```bash
-bunx xcobra sim record-video --output recording.mp4
+**Configuration (.detoxrc.js)**
+```javascript
+module.exports = {
+  testRunner: 'jest',
+  runnerConfig: 'e2e/config.json',
+  apps: {
+    'ios.debug': {
+      type: 'ios.app',
+      binaryPath: 'ios/build/Build/Products/Debug-iphonesimulator/MyApp.app',
+      build: 'xcodebuild -workspace ios/MyApp.xcworkspace -scheme MyApp -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build'
+    },
+    'android.debug': {
+      type: 'android.apk',
+      binaryPath: 'android/app/build/outputs/apk/debug/app-debug.apk',
+      build: 'cd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug'
+    }
+  },
+  devices: {
+    simulator: {
+      type: 'ios.simulator',
+      device: { type: 'iPhone 15 Pro' }
+    },
+    emulator: {
+      type: 'android.emulator',
+      device: { avdName: 'Pixel_6_API_34' }
+    }
+  },
+  configurations: {
+    'ios.sim.debug': {
+      device: 'simulator',
+      app: 'ios.debug'
+    },
+    'android.emu.debug': {
+      device: 'emulator',
+      app: 'android.debug'
+    }
+  }
+};
 ```
 
-## Evaluating JavaScript
+**Writing Detox Tests**
+```javascript
+// e2e/login.test.js
+describe('Login Flow', () => {
+  beforeAll(async () => {
+    await device.launchApp();
+  });
 
-Execute JS in the running Expo app:
+  beforeEach(async () => {
+    await device.reloadReactNative();
+  });
 
-```bash
-bunx xcobra expo eval "Date.now()"
+  it('should login successfully with valid credentials', async () => {
+    // Type email
+    await element(by.id('email-input')).typeText('test@example.com');
+
+    // Type password
+    await element(by.id('password-input')).typeText('password123');
+
+    // Tap login button
+    await element(by.id('login-button')).tap();
+
+    // Verify navigation to home screen
+    await expect(element(by.id('home-screen'))).toBeVisible();
+  });
+
+  it('should show error with invalid credentials', async () => {
+    await element(by.id('email-input')).typeText('invalid@example.com');
+    await element(by.id('password-input')).typeText('wrong');
+    await element(by.id('login-button')).tap();
+
+    await expect(element(by.text('Invalid credentials'))).toBeVisible();
+  });
+
+  it('should scroll to bottom of list', async () => {
+    await element(by.id('user-list')).scrollTo('bottom');
+    await expect(element(by.id('load-more-button'))).toBeVisible();
+  });
+});
 ```
 
-Get app state:
+**Advanced Detox Actions**
+```javascript
+// Swipe
+await element(by.id('carousel')).swipe('left', 'fast', 0.75);
 
-```bash
-bunx xcobra expo eval "global.__REDUX_STORE__?.getState()"
+// Scroll
+await element(by.id('scroll-view')).scroll(200, 'down');
+
+// Long press
+await element(by.id('item-1')).longPress();
+
+// Multi-tap
+await element(by.id('like-button')).multiTap(2);
+
+// Wait for element
+await waitFor(element(by.id('success-message')))
+  .toBeVisible()
+  .withTimeout(5000);
+
+// Take screenshot
+await device.takeScreenshot('login-success');
 ```
 
-Call exposed functions:
+### Maestro (Alternative E2E Tool)
 
+**Installation**
 ```bash
-bunx xcobra expo eval "globalThis.testHelper?.getCurrentRoute()"
+# Install Maestro
+curl -Ls "https://get.maestro.mobile.dev" | bash
+
+# Verify installation
+maestro --version
 ```
 
-## Console Logs
+**Maestro Flow (YAML-based)**
+```yaml
+# flows/login.yaml
+appId: com.myapp
 
-Stream console output:
+---
+# Launch app
+- launchApp
 
-```bash
-bunx xcobra expo console
+# Wait for login screen
+- assertVisible: "Login"
+
+# Enter credentials
+- tapOn: "Email"
+- inputText: "test@example.com"
+- tapOn: "Password"
+- inputText: "password123"
+
+# Submit
+- tapOn: "Login"
+
+# Verify success
+- assertVisible: "Welcome"
 ```
 
-JSON format for parsing:
-
+**Run Maestro Flow**
 ```bash
-bunx xcobra expo console --json
+# iOS Simulator
+maestro test flows/login.yaml
+
+# Android Emulator
+maestro test --platform android flows/login.yaml
+
+# Real device (USB connected)
+maestro test --device <device-id> flows/login.yaml
 ```
 
-## Network Monitoring
+## When to Use This Skill
 
-Monitor network requests:
+Ask me when you need help with:
+- Setting up Jest for React Native
+- Writing unit tests for components and hooks
+- Mocking native modules and dependencies
+- Writing integration tests
+- Setting up Detox or Maestro for E2E testing
+- Testing asynchronous operations
+- Snapshot testing strategies
+- Testing navigation flows
+- Debugging test failures
+- Running tests in CI/CD pipelines
+- Testing on real devices
+- Performance testing strategies
 
-```bash
-bunx xcobra expo network
+## Test Configuration
+
+**Jest Configuration (jest.config.js)**
+```javascript
+module.exports = {
+  preset: 'react-native',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  transformIgnorePatterns: [
+    'node_modules/(?!(react-native|@react-native|@react-navigation|expo|@expo)/)'
+  ],
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!src/**/*.test.{js,jsx,ts,tsx}',
+    '!src/**/__tests__/**'
+  ],
+  coverageThreshold: {
+    global: {
+      statements: 80,
+      branches: 75,
+      functions: 80,
+      lines: 80
+    }
+  }
+};
 ```
 
-## Reloading the App
+**Jest Setup (jest.setup.js)**
+```javascript
+import 'react-native-gesture-handler/jestSetup';
 
-Trigger a reload to refresh the JavaScript bundle:
+// Mock native modules
+jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 
-```bash
-bunx xcobra expo reload
+// Mock AsyncStorage
+import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock';
+jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
+
+// Global test utilities
+global.fetch = jest.fn();
+
+// Silence console warnings in tests
+global.console = {
+  ...console,
+  warn: jest.fn(),
+  error: jest.fn()
+};
 ```
 
-This is useful when:
-- The Metro connection becomes stale
-- Hot reload isn't picking up changes
-- The app state needs a fresh start
-- Deep links or navigation seem stuck
+## Pro Tips & Tricks
 
-## Crash Reports
+### 1. Test IDs for E2E Testing
 
-View latest crash:
+Add testID to components for reliable selectors:
 
-```bash
-bunx xcobra crash latest
+```javascript
+// In component
+<TouchableOpacity testID="submit-button" onPress={handleSubmit}>
+  <Text>Submit</Text>
+</TouchableOpacity>
+
+// In Detox test
+await element(by.id('submit-button')).tap();
+
+// Avoid using text or accessibility labels (can change with i18n)
 ```
 
-List recent crashes:
+### 2. Test Factories for Mock Data
 
-```bash
-bunx xcobra crash list
+```javascript
+// testUtils/factories.js
+export const createMockUser = (overrides = {}) => ({
+  id: '123',
+  name: 'John Doe',
+  email: 'john@example.com',
+  ...overrides
+});
+
+// In test
+const user = createMockUser({ name: 'Jane Doe' });
 ```
 
-Show specific crash:
+### 3. Custom Render with Providers
 
-```bash
-bunx xcobra crash show <crash-id>
+```javascript
+// testUtils/render.js
+import { render } from '@testing-library/react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { Provider } from 'react-redux';
+import { store } from '../store';
+
+export function renderWithProviders(ui, options = {}) {
+  return render(
+    <Provider store={store}>
+      <NavigationContainer>
+        {ui}
+      </NavigationContainer>
+    </Provider>,
+    options
+  );
+}
+
+// In test
+import { renderWithProviders } from './testUtils/render';
+renderWithProviders(<MyScreen />);
 ```
 
-## Source Inspection
+### 4. Parallel Test Execution
 
-List loaded scripts:
-
-```bash
-bunx xcobra expo src scripts
-```
-
-Get source code by script ID:
-
-```bash
-bunx xcobra expo src source <script-id>
-```
-
-List Metro modules:
-
-```bash
-bunx xcobra expo src modules
-```
-
-## Simulator Management
-
-List all simulators:
-
-```bash
-bunx xcobra sim list
-```
-
-Target specific simulator:
-
-```bash
-bunx xcobra sim tap --udid "DEVICE-UDID" --label "OK"
-```
-
-## Testing Workflow
-
-1. **Get current UI state**
-   ```bash
-   bunx xcobra sim xml
-   ```
-
-2. **Perform action**
-   ```bash
-   bunx xcobra sim tap --label "Login"
-   ```
-
-3. **Wait and verify**
-   ```bash
-   sleep 1
-   bunx xcobra sim xml | grep "Welcome"
-   ```
-
-4. **Check for errors**
-   ```bash
-   bunx xcobra expo console --json | head -20
-   ```
-
-## Verifying Screen Content
-
-After navigating, verify you're on the expected screen:
-
-```bash
-# Check for expected text content
-bunx xcobra sim xml | grep -i "expected title"
-
-# Get full accessibility tree and search for elements
-bunx xcobra sim xml > /tmp/ui.xml && cat /tmp/ui.xml
-```
-
-Use JavaScript eval to check the current route:
-
-```bash
-bunx xcobra expo eval "window.location?.pathname"
-```
-
-## Troubleshooting Unexpected Routes
-
-If deep links navigate to the wrong screen or you see unexpected content:
-
-**1. Check the current route in the app:**
-
-```bash
-bunx xcobra expo eval "globalThis.testHelper?.getCurrentRoute()"
-```
-
-**2. Verify the app directory structure:**
-
-Look for unexpected index routes that may be intercepting navigation:
-
-```bash
-# List all index files - these define default routes
-find app -name "index.tsx" -o -name "index.ts" -o -name "index.js"
-
-# Check for index routes inside groups that may override expected behavior
-find app -path "*/(*)/*" -name "index.*"
-```
-
-**3. Common issues:**
-
-- **Unexpected index in a group**: A file like `app/(tabs)/index.tsx` will be the default route for the `(tabs)` group, potentially overriding `app/index.tsx`
-- **Missing layout**: Groups need a `_layout.tsx` to properly nest routes
-- **Conflicting routes**: Two files resolving to the same URL path
-
-**4. Verify route structure matches expectations:**
-
-```bash
-# List all route files
-find app -name "*.tsx" | grep -v "_layout" | sort
-
-# Check group structure
-find app -type d -name "(*)"`
-```
-
-**5. Test deep link resolution:**
-
-```bash
-# Open a deep link and immediately check the route
-xcrun simctl openurl booted "myapp://settings" && sleep 1 && bunx xcobra expo eval "window.location?.pathname"
-```
-
-## Exposing Test Helpers
-
-Add global helpers in your app for testing:
-
-```tsx
-if (__DEV__) {
-  globalThis.testHelper = {
-    getCurrentRoute: () => navigationRef.current?.getCurrentRoute(),
-    getState: () => store.getState(),
-    resetApp: () => { /* reset logic */ },
-  };
+```json
+// package.json
+{
+  "scripts": {
+    "test": "jest --maxWorkers=4",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  }
 }
 ```
 
-Then call via eval:
+## Integration with SpecWeave
 
-```bash
-bunx xcobra expo eval "testHelper.getCurrentRoute()"
-```
+**Test Planning**
+- Document test strategy in `spec.md`
+- Include test coverage targets in `tasks.md`
+- Embed test cases in tasks (BDD format)
+
+**Coverage Tracking**
+- Set coverage thresholds (80%+ for critical paths)
+- Track coverage trends across increments
+- Document testing gaps in increment reports
+
+**CI/CD Integration**
+- Run tests on every commit
+- Block merges if tests fail
+- Generate coverage reports
+- Run E2E tests on staging builds

@@ -1,7 +1,7 @@
 {
   "name": "claude-hook-builder",
-  "repo": "raintree-technology/claude-starter",
-  "path": "templates/.claude/skills/anthropic/claude-hook-builder/skill.md",
-  "source": "github.com/raintree-technology/claude-starter",
-  "downloaded_at": "2026-01-29T04:44:20.272033Z"
+  "repo": "pur3v4d3r/pur3-pkb-codebase",
+  "path": ".claude/skills/claude-hook-builder/skill.md",
+  "source": "github.com/pur3v4d3r/pur3-pkb-codebase",
+  "downloaded_at": "2026-01-30T04:48:21.014488Z"
 }

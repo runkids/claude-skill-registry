@@ -1,9 +1,7 @@
 {
   "name": "vue-composable-creator",
-  "description": "Vue Composable Creator - Auto-activating skill for Frontend Development.Triggers on: vue composable creator, vue composable creatorPart of the Frontend Development skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/vue-composable-creator/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-30T04:24:27.197519Z"
 }

@@ -1,82 +1,85 @@
 ---
 name: task-decomposition
-description: Break down complex tasks into atomic, actionable goals with clear dependencies and success criteria. Use when planning multi-step projects, coordinating agents, or decomposing complex requests.
+description: Break down high-level objectives into actionable tasks with dependencies, estimates, and priorities. Use when decomposing pilot scopes into work packages, timelines, and resource allocations to guide execution planning.
 ---
 
 # Task Decomposition
 
-Break down complex tasks into atomic, actionable goals with clear dependencies.
+## Overview
 
-## When to Use
+[TODO: 1-2 sentences explaining what this skill enables]
 
-- Complex user requests with multiple components
-- Multi-phase projects requiring coordination
-- Tasks that could benefit from parallel execution
-- Planning agent coordination strategies
+## Structuring This Skill
 
-## Decomposition Framework
+[TODO: Choose the structure that best fits this skill's purpose. Common patterns:
 
-### 1. Requirements Analysis
+**1. Workflow-Based** (best for sequential processes)
+- Works well when there are clear step-by-step procedures
+- Example: DOCX skill with "Workflow Decision Tree" -> "Reading" -> "Creating" -> "Editing"
+- Structure: ## Overview -> ## Workflow Decision Tree -> ## Step 1 -> ## Step 2...
 
-- Primary objective
-- Implicit requirements (quality, performance)
-- Constraints (time, resources)
-- Success criteria
+**2. Task-Based** (best for tool collections)
+- Works well when the skill offers different operations/capabilities
+- Example: PDF skill with "Quick Start" -> "Merge PDFs" -> "Split PDFs" -> "Extract Text"
+- Structure: ## Overview -> ## Quick Start -> ## Task Category 1 -> ## Task Category 2...
 
-### 2. Goal Hierarchy
+**3. Reference/Guidelines** (best for standards or specifications)
+- Works well for brand guidelines, coding standards, or requirements
+- Example: Brand styling with "Brand Guidelines" -> "Colors" -> "Typography" -> "Features"
+- Structure: ## Overview -> ## Guidelines -> ## Specifications -> ## Usage...
 
-```
-Main Goal
-├─ Sub-goal 1
-│  ├─ Task 1.1 (atomic)
-│  └─ Task 1.2 (atomic)
-├─ Sub-goal 2
-└─ Sub-goal 3
-```
+**4. Capabilities-Based** (best for integrated systems)
+- Works well when the skill provides multiple interrelated features
+- Example: Product Management with "Core Capabilities" -> numbered capability list
+- Structure: ## Overview -> ## Core Capabilities -> ### 1. Feature -> ### 2. Feature...
 
-### 3. Dependency Types
+Patterns can be mixed and matched as needed. Most skills combine patterns (e.g., start with task-based, add workflow for complex operations).
 
-| Type | Symbol | Example |
-|------|--------|---------|
-| Sequential | A → B → C | B needs A's output |
-| Parallel | A─┐ B─┐ C─┘ | Independent, concurrent |
-| Converging | A─┐ B─┼─> D | D needs A, B, C |
-| Resource | A, B | Sequential or pooled |
+Delete this entire "Structuring This Skill" section when done - it's just guidance.]
 
-### 4. Success Criteria
+## [TODO: Replace with the first main section based on chosen structure]
 
-For each task:
-- **Input**: What data/state is needed
-- **Output**: What artifacts will be produced
-- **Quality**: Performance, testing, docs requirements
+[TODO: Add content here. See examples in existing skills:
+- Code samples for technical skills
+- Decision trees for complex workflows
+- Concrete examples with realistic user requests
+- References to scripts/templates/references as needed]
 
-## Decomposition Patterns
+## Resources (optional)
 
-| Pattern | Use Case |
-|---------|----------|
-| Layer-Based | Architectural changes (data, logic, API, test, docs) |
-| Feature-Based | New features (MVP, error handling, optimization, integration) |
-| Phase-Based | Large projects (research, foundation, core, integration, polish) |
-| Problem-Solution | Debugging (reproduce, diagnose, design, fix, verify, prevent) |
+Create only the resource directories this skill actually needs. Delete this section if no resources are required.
 
-## Quality Checklist
+### scripts/
+Executable code (Python/Bash/etc.) that can be run directly to perform specific operations.
 
-✓ Atomic and actionable
-✓ Dependencies clearly identified
-✓ Success criteria measurable
-✓ No task too large (>4 hours)
-✓ Parallelization opportunities identified
+**Examples from other skills:**
+- PDF skill: `fill_fillable_fields.py`, `extract_form_field_info.py` - utilities for PDF manipulation
+- DOCX skill: `document.py`, `utilities.py` - Python modules for document processing
 
-✗ Tasks too large or vague
-✗ Missing dependencies
-✗ Unclear success criteria
-✗ Missing quality/testing tasks
+**Appropriate for:** Python scripts, shell scripts, or any executable code that performs automation, data processing, or specific operations.
 
-## Integration with GOAP
+**Note:** Scripts may be executed without loading into context, but can still be read by Codex for patching or environment adjustments.
 
-Task decomposition is Phase 1 of GOAP:
-1. Receive request
-2. Apply decomposition
-3. Create execution plan
-4. Execute with monitoring
-5. Report results
+### references/
+Documentation and reference material intended to be loaded into context to inform Codex's process and thinking.
+
+**Examples from other skills:**
+- Product management: `communication.md`, `context_building.md` - detailed workflow guides
+- BigQuery: API reference documentation and query examples
+- Finance: Schema documentation, company policies
+
+**Appropriate for:** In-depth documentation, API references, database schemas, comprehensive guides, or any detailed information that Codex should reference while working.
+
+### assets/
+Files not intended to be loaded into context, but rather used within the output Codex produces.
+
+**Examples from other skills:**
+- Brand styling: PowerPoint template files (.pptx), logo files
+- Frontend builder: HTML/React boilerplate project directories
+- Typography: Font files (.ttf, .woff2)
+
+**Appropriate for:** Templates, boilerplate code, document templates, images, icons, fonts, or any files meant to be copied or used in the final output.
+
+---
+
+**Not every skill requires all three types of resources.**

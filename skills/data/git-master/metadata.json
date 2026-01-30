@@ -1,7 +1,7 @@
 {
   "name": "git-master",
-  "repo": "JosiahSiegel/claude-plugin-marketplace",
-  "path": "plugins/git-master/skills/git-master/SKILL.md",
-  "source": "github.com/JosiahSiegel/claude-plugin-marketplace",
-  "downloaded_at": "2026-01-29T03:21:51.900023Z"
+  "repo": "code-yeongyu/oh-my-opencode",
+  "path": "src/features/builtin-skills/git-master/SKILL.md",
+  "source": "github.com/code-yeongyu/oh-my-opencode",
+  "downloaded_at": "2026-01-30T03:50:37.624774Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "levn-ln-724-replit-cleaner",
-  "description": "Removes all Replit artifacts from exported projects (configs, packages, code comments)",
   "repo": "boisenoise/skills-collections",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/boisenoise/skills-collections"
+  "path": "skills/levn-ln-724-replit-cleaner/SKILL.md",
+  "source": "github.com/boisenoise/skills-collections",
+  "downloaded_at": "2026-01-30T03:20:11.652767Z"
 }

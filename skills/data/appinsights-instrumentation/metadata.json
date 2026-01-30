@@ -1,7 +1,7 @@
 {
   "name": "appinsights-instrumentation",
-  "repo": "HelixDevelopment/HelixAgent",
+  "repo": "vasic-digital/SuperAgent",
   "path": "skills/github-copilot/appinsights-instrumentation/SKILL.md",
-  "source": "github.com/HelixDevelopment/HelixAgent",
-  "downloaded_at": "2026-01-29T04:14:09.808462Z"
+  "source": "github.com/vasic-digital/SuperAgent",
+  "downloaded_at": "2026-01-30T04:08:56.948277Z"
 }

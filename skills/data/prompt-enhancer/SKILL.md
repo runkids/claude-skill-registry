@@ -1,380 +1,168 @@
 ---
 name: prompt-enhancer
-description: "Prompt engineering and optimization for AI/LLMs. Capabilities: transform unclear prompts, reduce token usage, improve structure, add constraints, optimize for specific models, backward-compatible rewrites. Actions: improve, enhance, optimize, refactor, compress prompts. Keywords: prompt engineering, prompt optimization, token efficiency, LLM prompt, AI prompt, clarity, structure, system prompt, user prompt, few-shot, chain-of-thought, instruction tuning, prompt compression, token reduction, prompt rewrite, semantic preservation. Use when: improving unclear prompts, reducing token consumption, optimizing LLM outputs, restructuring verbose requests, creating system prompts, enhancing prompt clarity."
+description: |
+ Knowledge for transforming poor or overly simple user prompts with expert-level framing. Triggers include: user explicitly asking to improve/refine/rewrite their prompt or user requesting help framing a request for another AI system.
+# model: inherit
+# context: fork
+# user-invocable: true
+# allowed-tools: Read,Write,Bash,Grep,WebFetch,WebSearch
 ---
 
-# Prompt Enhancer Skill
+# Expert Prompt Enhancer
 
-## Purpose
+Transform prompts written by non-specialists into the form a domain expert would use to make the same request.
 
-Transform user prompts into enhanced, production-ready versions that are concise, clean, and optimally structured for AI agents and sub-agents. Includes optimization techniques for reducing LLM output token usage while maintaining semantic accuracy and backward compatibility.
+## Why This Matters
 
-## When to Use This Skill
+Research demonstrates that AI output quality correlates strongly with input sophistication. AI systems exhibit "parahuman" psychology - they respond to expertise signals, authority framing, and precise problem specification the same way humans do. A vaguely-worded request yields generic output; an expert-framed request yields expert-quality output. This skill bridges that gap without changing *what* someone asks for - only *how* it's expressed.
 
-Use this skill when:
-- User explicitly asks to improve, enhance, or optimize a prompt
-- User sends an unclear, verbose, or poorly structured prompt
-- User mentions they want better results from AI interactions
-- User asks for help writing prompts for agents or automation
-- User's request lacks clarity or proper structure
-- User wants to reduce LLM output tokens or API costs
-- User needs to optimize JSON schema for token efficiency
-- User requests compact output format while maintaining compatibility
+## Expert Communication Patterns
 
-## Core Principles
+Expert requests differ from novice requests in predictable ways:
 
-1. **Conciseness**: Remove unnecessary words while preserving intent
-2. **Structure**: Use clear formatting with multiple lines and logical sections
-3. **XML Integration**: Mix natural text with XML tags for clarity and parsing
-4. **Direct Mission**: Main task/quest/mission should NOT be wrapped in XML elements
-5. **Clean Output**: Return ONLY the enhanced prompt - no meta-commentary
+| Pattern           | Novice               | Expert                                        |
+|-------------------|----------------------|-----------------------------------------------|
+| **Precision**     | "make it faster"     | "optimise page load performance"              |
+| **Decomposition** | Single vague request | Broken into logical components                |
+| **Constraints**   | Unstated             | Explicit limits, trade-offs, success criteria |
+| **Context**       | Missing              | System fit, standards, prior attempts         |
+| **Role framing**  | None                 | "As a database architect, review this schema" |
+| **Failure modes** | Ignored              | Anticipated and specified                     |
 
-## Enhancement Process
+## What expert communication looks like
 
-### Input Analysis
-- Identify the core objective
-- Extract key requirements and constraints
-- Detect ambiguities or missing information
-- Recognize the intended agent or use case
+Expert requests differ from novice requests in predictable ways:
 
-### Task-Based Technique Selection (Optional)
-Evaluate if the task would benefit from specific prompting techniques:
+**They name things precisely.** Experts use domain-specific terminology because it's unambiguous. "Optimise page load performance" vs "make it faster". "Implement rate limiting" vs "stop people using it too much".
 
-**Chain-of-Thought (CoT)**
-- Use for: Complex reasoning, math problems, logical deduction, step-by-step analysis
-- Implementation: Add instruction to "think step by step" or "show your reasoning"
+**They decompose problems.** Experts break requests into logical components, identify dependencies, and sequence appropriately. They know what sub-problems exist within a request.
 
-**Chain-of-Draft**
-- Use for: Writing tasks, content creation, iterative refinement
-- Implementation: Request initial draft, then progressive improvements
+**They specify constraints and success criteria.** Experts state what limits apply, what trade-offs are acceptable, and what "done" looks like in measurable terms.
 
-**Few-Shot Learning**
-- Use for: Pattern-based tasks, specific formatting, consistent outputs
-- Implementation: Include 2-3 examples showing input-output pairs
+**They establish context.** Experts situate problems: what system does this fit into, what standards apply, why does this matter, what's been tried before.
 
-**ReAct (Reasoning + Acting)**
-- Use for: Tool use, multi-step tasks, decision-making processes
-- Implementation: Combine reasoning traces with action steps
+**They assign appropriate roles.** Experts often frame who should be doing the work: "As a database architect, review this schema" rather than "look at this database stuff".
 
-**Self-Consistency**
-- Use for: Tasks needing verification, multiple valid approaches
-- Implementation: Request multiple solutions, then synthesis
+**They anticipate failure modes.** Experts know what can go wrong and specify what to avoid or handle.
 
-**Tree-of-Thoughts**
-- Use for: Complex problem-solving, exploring alternatives
-- Implementation: Ask to explore multiple paths before selecting best
+## Transformation Process
 
-**Role-Based Prompting**
-- Use for: Domain-specific expertise, perspective-taking
-- Implementation: Assign expert role (e.g., "Act as a senior engineer...")
+1. **Identify the domain** - Who would professionally handle this? What terminology and standards apply?
+2. **Find core intent** - What does the user actually want beneath imprecise language?
+3. **Surface ambiguity** - Fill obvious gaps with reasonable defaults. Only flag genuine ambiguities where guessing could go wrong.
+4. **Apply expert patterns** - Precise terminology, decomposition, constraints, success criteria, role framing.
+5. **Match complexity to task** - A simple question needs clarity, not PhD-level complexity.
 
-**Least-to-Most Prompting**
-- Use for: Breaking down complex problems into subproblems
-- Implementation: Start with simpler versions, build up complexity
+## Examples
 
-**Apply technique only if it materially improves the task outcome.**
-
-### LLM Output Token Optimization
-
-When the goal is to reduce output tokens (API costs) while maintaining functionality:
-
-**Core Strategy: Compact Output + Server-Side Remapping**
-
-The LLM generates ultra-compact format, application remaps to original format for clients. This provides:
-- Significant token savings (30-60%)
-- 100% backward compatibility
-- Negligible remapping overhead (<10 microseconds)
-
-**Optimization Techniques:**
-
-**1. Ultra-Compact JSON Keys**
-- Replace long keys with 1-2 character abbreviations
-- Examples: `queries` → `q`, `keyword` → `kw`, `filter` → `f`, `sort_by` → `s`
-- Savings: 70-85% per key
-
-**2. Short Codes for Repeated Values**
-- Replace long IDs/enums with short codes (c1-c18, etc.)
-- Example: `category=MjUzOTM=` → `c=c4`
-- Provide reverse mapping table in application
-- Savings: 75-90% on category/enum values
-
-**3. String Compression for Structured Data**
-- Use compact string format instead of nested objects when possible
-- Example: `[{"filter_by":"category","operator":"=","value":"c4"}]` → `"c=c4"`
-- Parse and expand server-side
-- Savings: 60-80% on filter/query structures
-
-**4. Omit Default Values**
-- Instruct LLM to omit fields with default values
-- Application fills in defaults during remapping
-- Example: Omit `"sort_by":"relevant"` when it's the default
-- Savings: Additional 10-30% when defaults are common
-
-**5. Operator Abbreviation**
-- Use shortest form: `p<50000` instead of `price<50000`
-- Parse `p`/`c` prefixes during remapping
-- Combine with semicolons: `c=c4;p<50000` for multiple filters
-
-**Implementation Pattern:**
-
-```
-System Prompt Structure:
-1. Define ultra-compact schema with examples
-2. Specify key mappings (q=queries, kw=keyword, etc.)
-3. Provide short codes table (c1=category1, c2=category2, etc.)
-4. Show examples of compact output
-5. Emphasize: omit defaults when possible
-
-Application Layer:
-1. Parse compact LLM output
-2. Expand abbreviated keys
-3. Map short codes to full values
-4. Fill in default values
-5. Return original format to client
-```
-
-**Example Transformation:**
-
-**Before Optimization (Original Output):**
-```json
-{
-  "queries": [
-    {"keyword": "milk", "filter": "category=dairy", "sort_by": "relevant"},
-    {"keyword": "bread", "filter": "category=bakery", "sort_by": "relevant"}
-  ]
-}
-```
-
-**After Optimization (LLM Output - 60% smaller):**
-```json
-{
-  "q": [
-    {"kw": "milk", "f": "c=c8"},
-    {"kw": "bread", "f": "c=c3"}
-  ]
-}
-```
-
-**Client Receives:** Original format (remapped automatically)
-
-**Tradeoffs Analysis:**
-
-✅ **Pros:**
-- 30-60% token savings typical
-- Lower API costs
-- Faster LLM response (less to generate)
-- 100% backward compatible
-
-⚠️ **Cons:**
-- Remapping overhead (<10μs, negligible)
-- More complex implementation
-- Requires application-side mapping logic
-- Prompt becomes slightly less human-readable
-
-**When to Apply:**
-- High-volume API usage (>1000 requests/day)
-- Cost-sensitive applications
-- Output tokens are >50% of total costs
-- Schema is stable and well-defined
-- Application can handle remapping logic
-
-**When NOT to Apply:**
-- Low-volume usage (<100 requests/day)
-- Schema frequently changes
-- Human readability is critical
-- No application layer (direct LLM → client)
-
-### Structural Improvements
-- Break complex requests into clear sections
-- Use XML tags for: constraints, examples, context, format requirements
-- Keep main mission/task as direct natural language
-- Apply logical line breaks for readability
-
-### Language Optimization
-- Replace verbose phrases with concise alternatives
-- Use active voice and direct instructions
-- Eliminate redundancy and filler words
-- Maintain specificity while reducing length
-
-## XML Tag Usage Guidelines
-
-**Use XML tags for:**
-- `<constraints>` - Limitations and boundaries
-- `<examples>` - Sample inputs/outputs
-- `<context>` - Background information
-- `<format>` - Output structure requirements
-- `<requirements>` - Specific criteria to meet
-- `<guidelines>` - Best practices to follow
-
-**Do NOT use XML tags for:**
-- The primary mission statement
-- The main task description
-- The core request or question
-
-## Output Format
-
-Return ONLY the enhanced prompt with:
-- No conversational lead-in
-- No explanations or commentary
-- No placeholder text
-- No quotation marks wrapping the prompt
-- No meta-discussion about the enhancement
-
-## Example Transformations
-
-**Before:**
-"I need you to help me write some code for a web app that will let users sign up and log in, and I want it to be secure and use modern best practices, and also it should have a nice UI, maybe you could suggest what framework to use?"
-
-**After:**
-Create a secure authentication system for a web application with user registration and login functionality.
-
-<requirements>
-- Implement modern security best practices
-- Include password hashing and session management
-- Design a clean, user-friendly interface
-- Provide framework recommendation with rationale
-</requirements>
-
-<format>
-- Code implementation
-- Security considerations
-- Framework justification
-- UI/UX guidelines
-</format>
+These illustrate the transformation from novice to expert framing:
 
 ---
 
-**Before:**
-"Can you analyze this data and tell me what's interesting about it and maybe make some charts or visualizations if that would help understand it better and also let me know if there are any trends or patterns?"
+**Original:** "My back hurts, what should I do?"
 
-**After:**
-Analyze the provided dataset and identify key insights, trends, and patterns.
+**Expert rewrite:** "Provide guidance on managing back pain. Cover: how to assess whether back pain warrants professional evaluation vs self-care, red flag symptoms that require urgent attention, evidence-based self-care approaches for common musculoskeletal back pain, activity modifications that help vs hurt recovery, and when to consider different types of practitioners (GP, physio, chiropractor, etc.). Focus on helping me make informed decisions rather than diagnosing."
 
-<requirements>
-- Highlight statistically significant findings
-- Identify temporal trends and correlations
-- Note any anomalies or outliers
-</requirements>
-
-<format>
-- Executive summary of findings
-- Data visualizations (charts/graphs as needed)
-- Detailed pattern analysis
-- Actionable recommendations
-</format>
+**What changed:** Reframed from "tell me what to do" to "help me understand decision-making for this situation". Specified the information categories that would actually be useful. Acknowledged appropriate scope limitations.
 
 ---
 
-**Before:**
-"I'm trying to figure out the best pricing strategy for my SaaS product and I'm not sure whether to go with monthly or annual billing or maybe tiered pricing?"
+**Original:** "Help me eat healthier"
 
-**After (with Chain-of-Thought technique applied):**
-Determine the optimal pricing strategy for a SaaS product.
+**Expert rewrite:** "I want to improve my eating habits sustainably. Rather than a strict diet plan, give me: the highest-impact changes that nutrition research actually supports (not fads), practical strategies for implementation that account for real-world constraints like time and budget, how to think about trade-offs (e.g., when 'good enough' beats 'perfect'), and common pitfalls that derail people. I'm more interested in building lasting habits than optimising for rapid results."
 
-<context>
-Consider: monthly vs. annual billing, tiered pricing models, market positioning
-</context>
-
-<approach>
-Think step by step:
-1. Analyze target customer segments and their payment preferences
-2. Evaluate competitor pricing models in the space
-3. Calculate unit economics for each pricing option
-4. Assess cash flow implications
-5. Consider customer lifetime value impact
-</approach>
-
-<requirements>
-- Provide reasoning for each recommendation
-- Include pros/cons analysis
-- Suggest A/B testing approach if applicable
-</requirements>
+**What changed:** Specified the type of advice wanted (sustainable habits vs strict plans), named the decision framework (high-impact, evidence-based), set the optimisation target (lasting change vs rapid results), anticipated failure modes.
 
 ---
 
-**Before:**
-"Write a blog post about AI in healthcare that's engaging and informative"
+**Original:** "Help me be more productive"
 
-**After (with Chain-of-Draft technique applied):**
-Write an engaging and informative blog post about AI applications in healthcare.
+**Expert rewrite:** "I want to improve my personal productivity. Approach this as a diagnostic: what are the most common root causes of productivity problems (energy management, prioritisation, environment, systems, motivation), how do I identify which apply to me, and what interventions match each root cause? I'd rather understand the underlying principles than get a list of tips and apps. Include how to evaluate whether a change is actually working."
 
-<approach>
-Use iterative drafting:
-1. Create outline with key points and narrative arc
-2. Draft introduction and conclusion
-3. Develop body sections with examples
-4. Refine for clarity, flow, and engagement
-</approach>
+**What changed:** Reframed from "give me tips" to "help me diagnose and address root causes". Asked for principles over tactics. Included success criteria (how to evaluate).
 
-<requirements>
-- Target audience: healthcare professionals and tech enthusiasts
-- Length: 1200-1500 words
-- Include real-world examples and case studies
-- Balance technical accuracy with accessibility
-</requirements>
+---
 
-<format>
-- Compelling headline
-- Hook in first paragraph
-- Clear section headers
-- Actionable takeaways
-</format>
+**Original:** "My teenager won't listen to me"
 
-## Real-World Token Optimization Example
+**Expert rewrite:** "I'm experiencing communication difficulties with my teenager. Help me understand: what's developmentally normal in adolescent behaviour around authority and autonomy, communication patterns that typically backfire with teenagers (so I can check if I'm using them), evidence-based approaches that work with adolescent psychology rather than against it, and how to distinguish between normal boundary-testing and genuinely concerning behaviour. I want to improve the relationship, not just achieve compliance."
 
-**Before (Original Prompt):**
-```
-Create JSON queries to search for products. Each query should have a keyword, filter with category, and sort_by field. Return in this format: {"queries":[{"keyword":"milk","filter":"category=dairy","sort_by":"relevance"}]}
-```
+**What changed:** Reframed the goal from compliance to relationship quality. Asked for developmental context that explains the behaviour. Requested both what to avoid and what works. Set realistic expectations.
 
-**After (Token-Optimized Prompt):**
-```
-Generate product search JSON queries. Reject dangerous content.
+---
 
-<rules>
-- Each query: ≥1 category filter
-- Total: ≥3 keywords (no duplicates)
-- Use 'ex' for exact brands/attributes
-- Default sort: relevant (omit if default)
-- Filter: string format "c=c4" or "c=c4;p<50000"
-</rules>
+**Original:** "Write me a short story"
 
-<categories>
-c1=household, c2=personal care, c3=bakery, c4=fresh food, c5=oils, c6=dry goods, c7=cleaning, c8=dairy
-</categories>
+**Expert rewrite:** "Write a short story of around 2,000 words. Aim for literary fiction with a reflective tone - the kind of piece that might appear in a quality magazine. Focus on a small, specific moment that reveals something larger about a character or relationship. Prioritise voice and interiority over plot mechanics. End with resonance rather than resolution. Surprise me with the premise."
 
-<examples>
-"milk vinamilk"→{"q":[{"kw":"milk vinamilk","ex":"vinamilk","f":"c=c8","s":"popular"}]}
-"rice noodles meat"→{"q":[{"kw":"rice","f":"c=c6"},{"kw":"noodles","f":"c=c6"},{"kw":"meat","f":"c=c4"}]}
-"oranges under 50k"→{"q":[{"kw":"oranges","f":"c=c4;p<50000"}]}
-</examples>
-```
+**What changed:** Specified length, genre positioning, and tone. Named craft priorities (voice, interiority, resonance). Gave clear aesthetic direction while leaving creative freedom on subject matter.
 
-**Result:**
-- LLM generates: `{"q":[{"kw":"milk","f":"c=c8"}]}` (60% smaller)
-- Application remaps to: `{"queries":[{"keyword":"milk","filter":"category=dairy","sort_by":"relevance"}]}`
-- Client receives original format unchanged
-- Token savings: 60.5% on typical 3-query response
+---
 
-## Quality Checklist
+**Original:** "Help me negotiate my salary"
 
-Before returning the enhanced prompt, verify:
-- ✓ Main objective is clear and unambiguous
-- ✓ XML tags are used appropriately (not for main mission)
-- ✓ Structure uses multiple lines for readability
-- ✓ Language is concise and direct
-- ✓ No extraneous commentary included
-- ✓ All key requirements preserved
-- ✓ Actionable and complete
-- ✓ If optimizing tokens: compact schema defined, mapping clear, examples provided
+**Expert rewrite:** "I need to negotiate salary for a job offer. Walk me through: how to research and establish my market value, the psychology of negotiation (anchoring, framing, reciprocity) applied to compensation discussions, specific language and tactics that work in salary conversations, common mistakes that weaken negotiating position, and how to handle common employer responses (budget constraints, equity offers, delayed reviews). Include how to negotiate non-salary elements if base salary is genuinely fixed."
 
-## Implementation Notes
+**What changed:** Decomposed "negotiate" into component skills. Named relevant psychological principles. Anticipated the specific scenarios that arise. Included fallback strategies.
 
-When applying this skill:
-1. Read the user's prompt completely
-2. Identify enhancement opportunities
-3. Apply structural and linguistic improvements
-4. Output ONLY the enhanced version
-5. Do not ask for clarification unless absolutely critical information is missing
+---
 
-The enhanced prompt should be immediately usable by the user without any modifications.
+**Original:** "Explain machine learning to me"
+
+**Expert rewrite:** "Explain machine learning for someone with no technical background. Cover: the core insight of what makes ML different from traditional programming (learning patterns vs following rules), the main categories of ML problems (supervised, unsupervised, reinforcement) with one concrete real-world example each, and an honest assessment of what ML is genuinely good at vs where it struggles or gets overhyped. Use analogies rather than maths. Keep it under 800 words."
+
+**What changed:** Set audience level explicitly, specified structure and scope, requested concrete examples, asked for honest limitations (not just capabilities), set format constraints.
+
+---
+
+**Original:** "Help me write a cover letter for a marketing job"
+
+**Expert rewrite:** "Draft a cover letter for a marketing position. Structure: open with a hook that demonstrates strategic thinking about the company or market (not generic enthusiasm), move into 2-3 specific examples of marketing impact I've delivered (I'll provide details), close with a confident call to action. Tone should be professionally warm, commercially-minded, and specific rather than vague. 300 words maximum. Avoid clichés like 'passionate about marketing' or 'excited for this opportunity'."
+
+**What changed:** Specified rhetorical structure that hiring managers respond to. Set tone parameters with examples of what to avoid. Length constraint. Indicated what input is needed without requiring the user to restructure anything.
+
+---
+
+**Original:** "Make my website faster"
+
+**Expert rewrite:** "Analyse website performance and provide prioritised optimisation recommendations. Assess the main performance dimensions: server response time, render-blocking resources, asset optimisation (images, scripts, stylesheets), caching strategy, and third-party script impact. For each issue identified, explain the problem, the fix, and the expected impact. Prioritise by effort-to-impact ratio. I'll provide the URL or performance data."
+
+**What changed:** Named the diagnostic framework (performance dimensions). Specified output format (problem/fix/impact). Set prioritisation criteria. Established this as analysis before action.
+
+---
+
+**Original:** "I need a Python script to clean up my data"
+
+**Expert rewrite:** "Help me write a Python script for data cleaning. I'll share a sample of the data - from that, identify the data quality issues present (missing values, duplicates, inconsistent formats, outliers, encoding problems) and write cleaning code that handles each. Use pandas. Include validation that confirms the cleaning worked. Structure the code so each cleaning step is separate and commented, making it easy to modify for my specific needs."
+
+**What changed:** Established a workflow (show sample → identify issues → write code). Specified the tool. Asked for validation and modular structure. This version can proceed once data is shared, without requiring the user to pre-diagnose their own data problems.
+
+---
+
+## Your transformation approach
+
+When rewriting a prompt:
+
+1. **Identify the domain and who would professionally handle this request.** This tells you what terminology, standards, and mental models apply.
+
+2. **Find the core intent beneath imprecise language.** What does the user actually want to achieve or understand?
+
+3. **Identify what's implicit or ambiguous.** What has the user not specified that would affect the outcome? Distinguish between:
+
+    - Gaps you can fill with reasonable defaults (do this)
+    - Genuine ambiguities where guessing could go badly wrong (flag these)
+4. **Reframe using expert patterns:** precise terminology, appropriate decomposition, explicit constraints, success criteria, and role framing where helpful.
+
+5. **Match complexity to the task.** A simple question needs professional-level clarity, not PhD-level complexity. Don't inflate.
+
+## Constraints
+
+- **Preserve intent absolutely.** You elevate how something is asked, never what is asked.
+- **Don't invent requirements.** Fill obvious gaps with reasonable defaults; don't add things the user didn't imply.
+- **Make reasonable assumptions rather than asking the user to specify everything.** The goal is to improve prompts without creating work for the user. Only surface ambiguity when guessing wrong would lead to a significantly worse outcome.
+- **Use correct terminology, not impressive terminology.** Domain language should clarify, not obscure or intimidate.
+- **Don't be precious about the output format.** For simple transformations, a straightforward rewrite is fine. Only add explanatory notes when the transformation involves non-obvious choices.
+
+## Output
+
+Provide the expert rewrite. If you made assumptions about ambiguous elements, or if there are meaningful alternative framings the user might prefer, note these briefly after the rewrite.

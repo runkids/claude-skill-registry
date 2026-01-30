@@ -1,258 +1,333 @@
 ---
-name: skill-authoring
-description: Guide for creating and maintaining user-facing agent skills
+name: Skill Authoring
+description: Guidelines for writing effective AI agent skills
+version: 1.0.0
+triggers:
+  - write a skill
+  - create skill
+  - author skill
+  - skill template
+  - how to write skills
+tags:
+  - meta
+  - authoring
+  - skills
+  - writing
+difficulty: intermediate
+estimatedTime: 20
+relatedSkills: []
 ---
 
 # Skill Authoring Guide
 
-This skill guides you through creating user-facing agent skills. For the canonical reference, see [agentskills.io](https://agentskills.io/home).
+You are authoring a skill for AI coding agents. A well-written skill provides clear, actionable guidance that agents can follow consistently.
 
-## Skill Structure
+## Core Principle
 
-A skill is a folder containing a `SKILL.md` file with metadata and instructions:
+**A skill should be the description that triggers it, NOT a summary of the workflow.**
 
-```
-my-skill/
-├── SKILL.md          # Required: instructions + metadata
-├── scripts/          # Optional: executable code
-├── references/       # Optional: additional documentation
-└── assets/           # Optional: templates, resources
-```
+The trigger/description tells the agent WHEN to use the skill. The content tells the agent HOW to execute it.
 
-## SKILL.md Format
+## Skill Anatomy
 
-### Required Frontmatter
-
-```yaml
----
-name: skill-name
-description: Brief description of what the skill does
----
-```
-
-- **name**: Unique identifier (lowercase, hyphens)
-- **description**: Rich description for skill discovery (1-1024 characters)
-
-### Writing Effective Descriptions
-
-The description field is **critical for skill discovery** by coding agents. It should include:
-
-1. **What the skill does** - Core functionality
-2. **When to use it** - Trigger scenarios
-3. **Keywords** - Task-oriented phrases that help agents connect questions to skills
-
-**Format:**
-```yaml
-description: "[What it does]. Use when [scenarios]. Keywords/phrases."
-```
-
-**Good examples:**
-```yaml
-# Task-oriented phrases help agents connect "how do I" questions
-description: Search and read B2C Commerce Script API documentation and XSD schemas. Use when writing B2C scripts, looking up classes like URLUtils/ProductMgr/CustomerMgr, or answering "how do I" questions about generating URLs, querying products, processing orders, or any dw.* API task.
-
-# Include common error scenarios
-description: View and debug B2C CLI configuration. Use when authentication fails, connection errors occur, wrong instance is used, or you need to verify dw.json settings, environment variables, or OAuth credentials.
-
-# Disambiguation helps agents choose the right skill
-description: Run and monitor existing jobs, import/export site archives. Use when executing batch jobs, importing site data, or checking job status. For creating new job code, use b2c-custom-job-steps instead.
-```
-
-**Bad examples:**
-```yaml
-# Too brief - no discovery keywords
-description: Using the b2c CLI for documentation
-
-# Action-oriented instead of problem-oriented
-description: Using the b2c CLI to search and read Script API documentation
-```
-
-**Key insight:** Include **task-oriented phrases** ("generating URLs", "querying products") not just class names, since users ask about tasks they want to accomplish.
-
-### Instructions Body
-
-The body contains markdown instructions that tell the agent how to perform the task.
+### SKILL.md Structure
 
 ```markdown
 ---
-name: my-skill
-description: Does something useful. Use when [scenarios]. Keywords: [task phrases].
+name: [Human-readable name]
+description: [What this skill does - for triggers]
+version: [Semantic version]
+triggers:
+  - [keyword 1]
+  - [keyword 2]
+tags:
+  - [tag 1]
+  - [tag 2]
+difficulty: [beginner|intermediate|advanced]
+estimatedTime: [minutes]
+relatedSkills:
+  - [pack/skill-name]
 ---
 
-# Skill Title
+# [Skill Title]
 
-Brief overview of what this skill helps accomplish.
+[Introduction paragraph explaining the skill's purpose]
 
-## Examples
+## Core Principle
 
-Concrete examples demonstrating usage.
+**[Single most important rule in bold]**
 
-## Reference
+[Brief explanation of why this principle matters]
 
-- [Detailed Reference](references/REFERENCE.md) - Link to additional docs
+## [Main Content Sections]
+
+[Detailed guidance organized into logical sections]
+
+## [Decision Points / When to Use]
+
+[Help the agent know when to apply this skill]
+
+## [Verification / Checklist]
+
+[How to verify the skill was applied correctly]
 ```
 
-Note: The description frontmatter is the **only** discovery mechanism. "When to Use" sections in the body are not used for discovery. Put all discovery-relevant information in the description.
+### Frontmatter Fields
 
-## Progressive Disclosure
+| Field | Required | Description |
+|-------|----------|-------------|
+| name | Yes | Human-readable skill name |
+| description | Yes | Brief description (triggers) |
+| version | Yes | Semantic version (1.0.0) |
+| triggers | Recommended | Keywords that activate skill |
+| tags | Recommended | Categorization tags |
+| difficulty | Optional | beginner/intermediate/advanced |
+| estimatedTime | Optional | Minutes to apply |
+| relatedSkills | Optional | Related skill IDs |
 
-Structure skills for efficient context usage:
+## Writing Effective Triggers
 
-| Layer | Token Budget | When Loaded |
-|-------|--------------|-------------|
-| Metadata | ~100 tokens | At startup (all skills) |
-| Instructions | < 5000 tokens | When skill activated |
-| References | As needed | On demand |
+Triggers should be phrases users naturally type:
 
-### Guidelines
+**Good triggers:**
+- "write tests first"
+- "tdd"
+- "test driven development"
+- "failing test before code"
 
-1. **Keep SKILL.md under 500 lines** - Move detailed content to references
-2. **Front-load key information** - Put most important patterns first
-3. **Use tables for quick reference** - Easy to scan
-4. **Link to references** - Don't inline everything
+**Bad triggers:**
+- "testing methodology" (too vague)
+- "red-green-refactor-cycle-for-test-driven-development" (too specific)
+- "skill-123" (not natural language)
 
-## Optional Directories
+### Trigger Guidelines
 
-### scripts/
+1. **Natural language** - How would a human ask for this?
+2. **Multiple variations** - Different ways to say the same thing
+3. **Specific enough** - Don't trigger on too many queries
+4. **Common terms** - Use terms people actually use
 
-Executable code that agents can run:
+## Writing Skill Content
 
-```
-scripts/
-├── validate.sh       # Validation script
-├── generate.py       # Code generator
-└── setup.js          # Setup helper
-```
+### Voice and Tone
 
-Scripts should:
-- Be self-contained or document dependencies
-- Include helpful error messages
-- Handle edge cases gracefully
+Use **second person, present tense, active voice**:
 
-### references/
+- "You are implementing TDD"
+- "Write the test first"
+- "Verify the output"
 
-Additional documentation loaded on demand:
+Avoid:
+- "The developer should..." (passive)
+- "One might consider..." (vague)
+- "It is recommended that..." (wordy)
 
-```
-references/
-├── PATTERNS.md       # Common patterns
-├── API.md            # API reference
-└── EXAMPLES.md       # Extended examples
-```
+### Structure Guidelines
 
-Keep individual reference files focused. Smaller files = less context usage.
+1. **Start with context** - What is the agent doing and why
+2. **State the core principle** - Most important rule upfront
+3. **Provide process** - Step-by-step guidance
+4. **Include examples** - Concrete illustrations
+5. **Add checklists** - Verification criteria
+6. **End with integration** - How this connects to other skills
 
-### assets/
+### Directive Language
 
-Static resources:
+Use clear, unambiguous directives:
 
-```
-assets/
-├── template.xml      # File templates
-├── schema.json       # Schemas
-└── diagram.png       # Visual aids
-```
+**Strong directives:**
+- "You MUST..."
+- "ALWAYS..."
+- "NEVER..."
+- "Do NOT..."
 
-## File References
+**Softer guidance:**
+- "Prefer..."
+- "Consider..."
+- "When possible..."
 
-Use relative paths from the skill root:
+Use strong directives for critical rules, softer guidance for recommendations.
+
+## Content Patterns
+
+### Decision Trees
+
+When the agent needs to choose paths:
 
 ```markdown
-See [the reference guide](references/REFERENCE.md) for details.
+## Decision: [What to Decide]
 
-Run the setup script:
-scripts/setup.sh
+If [condition A]:
+→ [Action for A]
+
+If [condition B]:
+→ [Action for B]
+
+If uncertain:
+→ [Default action]
 ```
 
-Keep references one level deep. Avoid deeply nested chains.
+### Process Steps
 
-## Skill Categories
-
-### Developer Skills (`.claude/skills/`)
-
-Skills for contributors working on this codebase:
-
-- Command development patterns
-- Testing approaches
-- API client patterns
-- Documentation standards
-
-### User-Facing Skills (`plugins/*/skills/`)
-
-Skills for users of the tool:
-
-- CLI command usage
-- Platform-specific patterns (B2C Commerce)
-- Integration guides
-
-## Writing Effective Skills
-
-### 1. Start with the User's Goal
+For sequential workflows:
 
 ```markdown
-## Overview
+### Step 1: [Action]
 
-This skill helps you [accomplish X] by [doing Y].
+[Detailed explanation]
+
+**Verification:** [How to know step is complete]
+
+### Step 2: [Action]
+...
 ```
 
-### 2. Provide Quick Reference Tables
+### Tables for Comparisons
 
 ```markdown
-| Command | Description |
-|---------|-------------|
-| `cmd1`  | Does X      |
-| `cmd2`  | Does Y      |
+| Situation | Action | Rationale |
+|-----------|--------|-----------|
+| [Case 1] | [Do X] | [Why] |
+| [Case 2] | [Do Y] | [Why] |
 ```
 
-### 3. Show Concrete Examples
+### Code Examples
+
+Show, don't just tell:
+
+```typescript
+// BAD - Shows what NOT to do
+const result = doTheThing(badInput);
+
+// GOOD - Shows correct approach
+const validated = validate(input);
+const result = doTheThing(validated);
+```
+
+### Checklists
+
+For verification:
 
 ```markdown
-## Examples
+## Verification Checklist
 
-### Basic Usage
+Before marking complete:
 
-\`\`\`bash
-b2c command --flag value
-\`\`\`
-
-### Advanced Usage
-
-\`\`\`bash
-b2c command --complex-flag
-\`\`\`
+- [ ] [Criterion 1]
+- [ ] [Criterion 2]
+- [ ] [Criterion 3]
 ```
 
-### 4. Explain When NOT to Use
+## Anti-Patterns to Avoid
+
+### The Encyclopedia
+
+**Problem:** Too much information, agent gets lost
+**Fix:** Focus on actionable guidance, link to details
+
+### The Vague Guide
+
+**Problem:** "Consider best practices" (What practices?)
+**Fix:** Be specific: "Use Arrange-Act-Assert pattern"
+
+### The Constraint-Free Skill
+
+**Problem:** No clear rules, agent improvises
+**Fix:** Include explicit constraints and rules
+
+### The Monologue
+
+**Problem:** Wall of text with no structure
+**Fix:** Use headers, lists, tables, code blocks
+
+### The Outdated Skill
+
+**Problem:** References deprecated patterns/tools
+**Fix:** Version skills, include validity dates
+
+## Skill Testing
+
+Before publishing, verify:
+
+1. **Trigger test** - Does it activate on expected phrases?
+2. **Completeness test** - Can agent follow without external info?
+3. **Clarity test** - Is every instruction unambiguous?
+4. **Contradiction test** - No conflicting guidance?
+5. **Edge case test** - Handles unusual situations?
+
+### Manual Verification
+
+```
+Test Query: "[trigger phrase]"
+Expected: Skill activates and provides relevant guidance
+Actual: [Record what happened]
+```
+
+## Pack Organization
+
+Skills should be organized into methodology packs:
+
+```
+packs/
+├── testing/
+│   ├── pack.json
+│   ├── red-green-refactor/
+│   │   └── SKILL.md
+│   └── test-patterns/
+│       └── SKILL.md
+├── debugging/
+│   ├── pack.json
+│   └── ...
+```
+
+### Pack Manifest
+
+```json
+{
+  "name": "testing",
+  "version": "1.0.0",
+  "description": "Testing methodology skills",
+  "skills": ["red-green-refactor", "test-patterns"],
+  "tags": ["testing", "tdd", "quality"],
+  "compatibility": ["all"]
+}
+```
+
+## Skill Maintenance
+
+### Version Updates
+
+When to increment version:
+- **Patch (1.0.x):** Typos, clarifications, minor fixes
+- **Minor (1.x.0):** New sections, examples, capabilities
+- **Major (x.0.0):** Breaking changes, fundamental rewrites
+
+### Deprecation
+
+If skill becomes obsolete:
 
 ```markdown
-## When NOT to Use
+---
+deprecated: true
+deprecatedReason: "Superseded by skill-v2"
+deprecatedSince: "2024-01-15"
+---
 
-- Scenario A (use skill-x instead)
-- Scenario B (manual approach better)
+> **DEPRECATED:** This skill is deprecated. Use [skill-v2] instead.
+
+[Original content for reference]
 ```
 
-### 5. Link to Authoritative Sources
+## Quality Checklist
 
-Reference official documentation rather than duplicating it:
+Before publishing:
 
-```markdown
-## Reference
-
-For complete API documentation, see [Official Docs](https://example.com/docs).
-```
-
-## Validation Checklist
-
-Before publishing a skill:
-
-- [ ] Frontmatter has `name` and `description`
-- [ ] SKILL.md under 500 lines
-- [ ] Key information appears early
-- [ ] Examples are concrete and runnable
-- [ ] Reference links are valid
-- [ ] No deeply nested reference chains
-- [ ] Tested with target agent
-
-## Detailed Reference
-
-- [Patterns and Examples](references/PATTERNS.md) - Patterns from B2C skills
+- [ ] Frontmatter is complete and valid
+- [ ] Triggers are natural and specific
+- [ ] Core principle is clear and prominent
+- [ ] Content is structured with headers
+- [ ] Examples are included
+- [ ] Verification checklist exists
+- [ ] Related skills are linked
+- [ ] No spelling/grammar errors
+- [ ] Tested with target agents

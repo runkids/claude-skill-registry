@@ -1,349 +1,259 @@
 ---
-skill_id: cfn-changelog-management
-name: CFN Changelog Management
-version: 1.0.0
-category: documentation
-tags: [changelog, versioning, release-notes, sparse-logging]
-dependencies: []
+name: changelog
+description: |
+  Complete changelog and release notes infrastructure. Audits current state,
+  implements missing components, and verifies the release pipeline works end-to-end.
+argument-hint: "[focus area, e.g. 'LLM synthesis' or 'public page']"
 ---
 
-# CFN Changelog Management Skill
+# /changelog
 
-## Purpose
-Systematically track implementation changes with sparse, structured entries appended to project changelog. Enables quick visibility into what changed, when, and why without verbose commit-style messages.
+Automated changelogs, semantic versioning, and user-friendly release notes. Audit, fix, verify—every time.
 
-## Problem Solved
-Traditional changelogs require manual curation and often become stale or inconsistent. Agents completing features, fixing bugs, or making architectural changes need a lightweight way to document impact without context-switching to git commits or detailed documentation.
+## What This Does
 
-## When to Use
+Examines your release infrastructure, identifies every gap, implements fixes, and verifies the full pipeline works. No partial modes. Every run does the full cycle.
 
-### ✅ REQUIRED Usage Scenarios
-- **After feature implementation** - Agent completes feature work
-- **After bug fix** - Agent resolves issue with code changes
-- **After breaking change** - API/interface modifications that affect consumers
-- **After dependency update** - Major version bumps or security patches
-- **After architectural change** - Coordination pattern modifications, skill refactors
+## Process
 
-### ⚠️ OPTIONAL Usage Scenarios
-- **After performance optimization** - Measurable improvements (>10% speedup)
-- **After security enhancement** - Hardening, vulnerability fixes
-- **Internal refactoring** - Code cleanup without behavioral changes (use judgment)
+### 1. Audit
 
-### ❌ DO NOT USE For
-- **Routine maintenance** - Formatting, linting, comment updates
-- **Work-in-progress** - Incomplete features or experimental changes
-- **Test-only changes** - Adding tests without production code changes
-- **Documentation-only updates** - README edits, comment clarifications
+Check what exists and what's broken:
 
-## Interface
-
-### Primary Script: `add-changelog-entry.sh`
-
-**Required Parameters:**
-- `--type`: Entry type (feature|bugfix|breaking|dependency|architecture|performance|security)
-- `--summary`: One-line description (10-100 chars)
-- `--impact`: What changed and why it matters
-
-**Optional Parameters:**
-- `--version`: Target version (default: auto-increment patch)
-- `--issue`: Related issue/bug number (e.g., "BUG-123", "#456")
-- `--files`: Key files affected (comma-separated, max 5)
-- `--migration`: Migration notes for breaking changes
-
-**Usage:**
 ```bash
-./.claude/skills/cfn-changelog-management/add-changelog-entry.sh \
-  --type "feature" \
-  --summary "Add backlog management skill for deferred work tracking" \
-  --impact "Agents can now systematically capture deferred items with structured metadata instead of losing context in chat history" \
-  --files ".claude/skills/cfn-backlog-management/SKILL.md,readme/BACKLOG.md"
+# Configuration
+[ -f ".releaserc.js" ] || [ -f ".releaserc.json" ] && echo "✓ semantic-release" || echo "✗ semantic-release"
+[ -f "commitlint.config.js" ] || [ -f "commitlint.config.cjs" ] && echo "✓ commitlint" || echo "✗ commitlint"
+grep -q "commit-msg" lefthook.yml 2>/dev/null && echo "✓ commit-msg hook" || echo "✗ commit-msg hook"
+
+# GitHub Actions
+[ -f ".github/workflows/release.yml" ] && echo "✓ release workflow" || echo "✗ release workflow"
+grep -q "semantic-release" .github/workflows/release.yml 2>/dev/null && echo "✓ runs semantic-release" || echo "✗ doesn't run semantic-release"
+grep -q "GEMINI_API_KEY" .github/workflows/release.yml 2>/dev/null && echo "✓ LLM synthesis configured" || echo "✗ LLM synthesis missing"
+
+# Public page
+ls app/changelog/page.tsx src/app/changelog/page.tsx 2>/dev/null && echo "✓ changelog page" || echo "✗ changelog page"
+
+# Health
+gh release list --limit 3 2>/dev/null || echo "✗ no releases"
 ```
 
-### Output Location
-All entries appended to: `readme/CHANGELOG.md`
-
-## Changelog File Structure
-
-```markdown
-# Claude Flow Novice Changelog
-
-## [Unreleased]
-
-### Features
-- Add backlog management skill (2025-10-31)
-  - Impact: Systematic deferred work tracking with priority/tag organization
-  - Files: `.claude/skills/cfn-backlog-management/`
-
-### Bug Fixes
-
-### Breaking Changes
-
-### Dependencies
-
-### Architecture
-
-### Performance
-
-### Security
-
----
-
-## [2.11.0] - 2025-10-31
-
-### Features
-- Backlog management skill implementation
-  - Impact: Centralized tracking of deferred work items
-  - Files: `.claude/skills/cfn-backlog-management/add-backlog-item.sh`
-
-...
-```
-
-## Entry Types
-
-### Feature
-New functionality, skills, commands, or capabilities.
+**Commit history check:**
 ```bash
---type "feature"
---summary "Implement Redis pub/sub coordination for zero-token waiting"
---impact "Agents block on BLPOP instead of polling, eliminating API calls during wait cycles"
+git log --oneline -10 | while read line; do
+  echo "$line" | grep -qE "^[a-f0-9]+ (feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?: " || echo "NON-CONVENTIONAL: $line"
+done
 ```
 
-### Bug Fix
-Defect resolution, error handling improvements.
+### 2. Plan
+
+From audit findings, build remediation plan. Every project needs:
+
+**Must have:**
+- semantic-release configured with changelog, git, github plugins
+- commitlint enforcing conventional commits
+- Lefthook commit-msg hook running commitlint
+- GitHub Actions workflow running semantic-release on push to main
+
+**Should have:**
+- LLM synthesis transforming technical changelog to user-friendly notes
+- Public `/changelog` page fetching from GitHub Releases API
+- RSS feed at `/changelog.xml` or `/changelog/rss`
+
+### 3. Execute
+
+**Fix everything.** Don't stop at a report.
+
+**Installing semantic-release:**
 ```bash
---type "bugfix"
---summary "Fix race condition in Loop 3 confidence collection"
---impact "Orchestrator now uses synchronous temp file capture instead of polling Redis keys"
---issue "BUG-10"
+pnpm add -D semantic-release @semantic-release/changelog @semantic-release/git @semantic-release/github
 ```
 
-### Breaking Change
-Incompatible changes requiring user/agent migration.
+Create `.releaserc.js`:
+```javascript
+module.exports = {
+  branches: ['main'],
+  plugins: [
+    '@semantic-release/commit-analyzer',
+    '@semantic-release/release-notes-generator',
+    ['@semantic-release/changelog', { changelogFile: 'CHANGELOG.md' }],
+    ['@semantic-release/git', { assets: ['CHANGELOG.md', 'package.json'] }],
+    '@semantic-release/github',
+  ],
+};
+```
+
+**Installing commitlint:**
 ```bash
---type "breaking"
---summary "Rename skill cfn-redis-coordination → cfn-swarm-coordination"
---impact "All agent spawn commands must update skill references"
---migration "Run: sed -i 's/cfn-redis-coordination/cfn-swarm-coordination/g' .claude/agents/**/*.md"
+pnpm add -D @commitlint/cli @commitlint/config-conventional
 ```
 
-### Dependency
-Package updates, version bumps, security patches.
+Create `commitlint.config.js`:
+```javascript
+module.exports = { extends: ['@commitlint/config-conventional'] };
+```
+
+Add to `lefthook.yml`:
+```yaml
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm commitlint --edit {1}
+```
+
+**Creating release workflow:**
+Create `.github/workflows/release.yml` per `changelog-setup` reference.
+
+**Adding LLM synthesis:**
+
+> **REQUIRED:** Before implementing, read `llm-infrastructure/references/model-research-required.md`
+>
+> Do NOT use model names from this document or your training data.
+> Run the OpenRouter fetch script and web search to determine current best model for this task.
+
+Steps:
+1. **Research current models** (MANDATORY):
+   ```bash
+   # Query OpenRouter for current fast/cheap models
+   python3 ~/.claude/skills/llm-infrastructure/scripts/fetch-openrouter-models.py \
+     --task fast --filter "google|anthropic|openai" --top 10
+
+   # Web search: "best LLM for text summarization 2026"
+   # Web search: "Gemini API current models 2026"
+   ```
+
+2. Create `scripts/synthesize-release-notes.mjs` that:
+   - Fetches latest release from GitHub API
+   - Uses OpenRouter API (not direct provider APIs) for flexibility
+   - Model name comes from environment variable, NOT hardcoded
+   - Gets user-friendly summary back
+   - Updates release body via GitHub API
+
+3. Configure secrets in GitHub:
+   - `OPENROUTER_API_KEY` (preferred) or provider-specific key
+   - Model name as environment variable (e.g., `LLM_MODEL_SYNTHESIS`)
+
+**Creating public changelog page:**
+Per `changelog-page`, create:
+- `app/changelog/page.tsx` - Fetches from GitHub Releases API
+- Groups releases by minor version
+- No auth required (public page)
+- RSS feed support
+
+**Making changelog discoverable (CRITICAL):**
+A changelog page that users can't find is useless. Ensure:
+- **Footer link**: Add "changelog" link to global footer (visible on landing page)
+- **Settings link**: Add "View changelog" link in app settings/about section
+- **Version display**: Show current app version in settings (use `NEXT_PUBLIC_APP_VERSION` env var)
+- **RSS link**: Mention RSS feed on the changelog page itself
+
+Example footer links:
+```tsx
+<Link href="/changelog">changelog</Link>
+<Link href="/support">support</Link>
+<Link href="/privacy">privacy</Link>
+```
+
+Example settings "About" section:
+```tsx
+<div className="flex items-center justify-between">
+  <span>Version</span>
+  <span className="font-mono">{process.env.NEXT_PUBLIC_APP_VERSION || '0.1.0'}</span>
+</div>
+<Link href="/changelog">View changelog →</Link>
+```
+
+Delegate implementation to Codex where appropriate.
+
+### 4. Verify
+
+**Prove it works.** Not "config exists"—actually works.
+
+**Commitlint test:**
 ```bash
---type "dependency"
---summary "Upgrade redis 5.0.0 → 5.8.3"
---impact "Fixes CVE-2024-1234, adds BLPOP timeout parameter support"
+echo "bad message" | pnpm commitlint
+# Should fail
+
+echo "feat: valid message" | pnpm commitlint
+# Should pass
 ```
 
-### Architecture
-Coordination pattern changes, skill refactors, system design updates.
+**Commit hook test:**
 ```bash
---type "architecture"
---summary "Extract output processing into dedicated skill"
---impact "95% code reuse between Loop 3 and Loop 2 consensus collection"
---files ".claude/skills/cfn-agent-output-processing/SKILL.md"
+# Try to commit with bad message (should be rejected)
+git commit --allow-empty -m "bad message"
+# Should fail due to commitlint hook
 ```
 
-### Performance
-Optimizations with measurable impact.
-```bash
---type "performance"
---summary "Parallel agent spawning with background processes"
---impact "3x speedup for 3-agent coordination (sequential: 15s → parallel: 5s max latency)"
+**Release workflow test:**
+If you can trigger a release:
+1. Merge a PR with `feat:` or `fix:` commit
+2. Watch GitHub Actions run
+3. Verify:
+   - Version bumped in package.json
+   - CHANGELOG.md updated
+   - GitHub Release created
+   - Release notes populated (LLM synthesis ran)
+
+**Public page test:**
+- Navigate to `/changelog`
+- Verify releases displayed
+- Verify grouped by minor version
+- Check RSS feed works
+
+If any verification fails, go back and fix it.
+
+## The Release Flow
+
+```
+Commit with conventional format (enforced by Lefthook)
+       ↓
+Push/merge to main
+       ↓
+GitHub Actions runs semantic-release
+       ↓
+Version bumped, CHANGELOG.md updated, GitHub Release created
+       ↓
+Post-release action triggers LLM synthesis
+       ↓
+LLM (via OpenRouter) transforms changelog → user notes
+       ↓
+Enhanced notes stored in GitHub Release
+       ↓
+Public /changelog page displays latest
 ```
 
-### Security
-Hardening, vulnerability fixes, audit improvements.
-```bash
---type "security"
---summary "Add pre-edit backup hook for safe file revert"
---impact "Prevents git conflicts in parallel sessions, 24h backup retention"
-```
+## Key Principles
 
-## Validation Rules
+**Every merge is a release.** Web apps deploy on merge. Embrace frequent releases.
 
-1. **Type validation**: Must be one of 7 defined types
-2. **Summary length**: 10-100 characters (enforces brevity)
-3. **Impact required**: Cannot be empty (enforces "why it matters")
-4. **File limit**: Max 5 files (prevents noise)
-5. **Version format**: Semantic versioning (X.Y.Z)
+**Every change gets notes.** Even `chore:` commits become "Behind-the-scenes improvements."
 
-## Sparse Language Guidelines
+**Group for readability.** Public page groups patches under their minor version.
 
-### ✅ Good Examples
-```
-Summary: "Add Redis coordination skill"
-Impact: "Zero-token agent waiting via BLPOP"
+**Auto-publish.** No human gate on LLM synthesis. Trust the pipeline.
 
-Summary: "Fix confidence parsing edge case"
-Impact: "Handles percentage format (85%) in addition to decimal (0.85)"
+## Default Stack
 
-Summary: "Upgrade better-sqlite3 to v12.4.1"
-Impact: "Node 22 compatibility, fixes installation errors on WSL2"
-```
+Assumes Next.js + TypeScript + GitHub. Adapts gracefully to other stacks.
 
-### ❌ Bad Examples (Too Verbose)
-```
-Summary: "We have implemented a comprehensive Redis-based coordination system..."
-Impact: "This change allows agents to coordinate more efficiently by using a blocking..."
+## What You Get
 
-Summary: "Fixed a bug"
-Impact: "There was an issue that has been resolved"
-```
+When complete:
+- semantic-release configured and working
+- Conventional commits enforced (can't commit without format)
+- GitHub Actions workflow for releases
+- LLM synthesis for user-friendly notes (model via env var)
+- Public `/changelog` page with RSS feed
+- **Discoverable links** from footer and settings
+- **Version displayed** in app settings
+- Verified end-to-end
 
-### Sparse Pattern Rules
-- **Active voice**: "Add feature" not "Feature added"
-- **No articles**: "Fix bug" not "Fix the bug"
-- **No fluff**: "Enables X" not "This change enables X"
-- **Measurable impact**: Include numbers when relevant (3x speedup, 95% reduction)
-
-## Integration Examples
-
-### Loop 3 Agent (After Feature Implementation)
-```bash
-# Agent completes feature work
-Edit: file_path="src/new-feature.ts" ...
-
-# Document change
-./.claude/skills/cfn-changelog-management/add-changelog-entry.sh \
-  --type "feature" \
-  --summary "JWT authentication middleware" \
-  --impact "Stateless auth reduces session storage by 80%" \
-  --files "src/middleware/auth.ts,src/types/jwt.ts"
-```
-
-### Loop 2 Validator (After Identifying Bug Fix)
-```bash
-# Validator reviews fix
-./.claude/skills/cfn-changelog-management/add-changelog-entry.sh \
-  --type "bugfix" \
-  --summary "Prevent null pointer in Redis connection retry" \
-  --impact "Eliminates crashes during Redis unavailability" \
-  --issue "BUG-42" \
-  --files "src/redis/client.ts"
-```
-
-### Product Owner (After Architectural Decision)
-```bash
-# Product Owner approves design change
-./.claude/skills/cfn-changelog-management/add-changelog-entry.sh \
-  --type "architecture" \
-  --summary "Split orchestrator into modular helper scripts" \
-  --impact "78% code reduction, improved testability" \
-  --files ".claude/skills/cfn-loop-orchestration/helpers/"
-```
-
-## Versioning Strategy
-
-### Auto-Increment (Default)
-Script reads current version from `package.json`, increments patch:
-- Current: `2.11.0` → Entry added to: `[Unreleased]`
-- On release: Move `[Unreleased]` → `[2.11.1] - YYYY-MM-DD`
-
-### Manual Version (Override)
-```bash
---version "3.0.0"  # Specify major/minor bump explicitly
-```
-
-### Release Workflow
-1. Agents add entries to `[Unreleased]` section
-2. On release trigger (manual or automated):
-   - Rename `[Unreleased]` → `[X.Y.Z] - DATE`
-   - Create new empty `[Unreleased]` section
-   - Update `package.json` version
-
-## Query Interface
-
-**Filter by type:**
-```bash
-sed -n '/### Features/,/### Bug Fixes/p' readme/CHANGELOG.md
-```
-
-**Recent entries (last 10):**
-```bash
-grep -A 2 "^- " readme/CHANGELOG.md | head -30
-```
-
-**Search by keyword:**
-```bash
-grep -i "redis" readme/CHANGELOG.md
-```
-
-**Entries for specific version:**
-```bash
-sed -n '/## \[2.11.0\]/,/## \[2.10.0\]/p' readme/CHANGELOG.md
-```
-
-## Best Practices
-
-1. **Immediate logging**: Add entry immediately after completing work, not batched
-2. **User perspective**: Describe impact from user/agent consumer viewpoint
-3. **File references**: Include key files for context (not exhaustive list)
-4. **Link issues**: Reference bug numbers or GitHub issues when applicable
-5. **Migration notes**: Always include for breaking changes
-
-## Anti-Patterns
-
-❌ **Verbose commit messages**: "This commit implements a new feature that..."
-❌ **Generic summaries**: "Fixed bugs", "Updated code", "Improvements"
-❌ **Missing impact**: "Added function X" (Why does it matter?)
-❌ **Duplicate entries**: Check existing changelog before adding
-❌ **Version conflicts**: Don't manually edit version, use --version flag
-
-## Example Entry Lifecycle
-
-**Step 1: Agent completes feature**
-```bash
-add-changelog-entry.sh \
-  --type "feature" \
-  --summary "Multi-pattern confidence parsing" \
-  --impact "100% extraction success, supports explicit/percentage/qualitative formats"
-```
-
-**Result in CHANGELOG.md:**
-```markdown
-## [Unreleased]
-
-### Features
-- Multi-pattern confidence parsing (2025-10-31)
-  - Impact: 100% extraction success, supports explicit/percentage/qualitative formats
-  - Files: `.claude/skills/cfn-agent-output-processing/parse-confidence.sh`
-```
-
-**Step 2: Release triggered**
-```bash
-# Manual or automated
-npm version minor  # 2.11.0 → 2.12.0
-```
-
-**Result:**
-```markdown
-## [2.12.0] - 2025-11-01
-
-### Features
-- Multi-pattern confidence parsing (2025-10-31)
-  - Impact: 100% extraction success, supports explicit/percentage/qualitative formats
-  - Files: `.claude/skills/cfn-agent-output-processing/parse-confidence.sh`
-
----
-
-## [Unreleased]
-
-### Features
-
-### Bug Fixes
-...
-```
-
-## Success Metrics
-
-- **Entry quality**: ≥90% of entries include measurable impact
-- **Sparse language**: Average summary length ≤60 characters
-- **Timeliness**: ≥80% of entries added within same sprint as implementation
-- **Coverage**: 100% of features/breaking changes documented
-- **Queryability**: Users can find relevant changes in <30 seconds
-
-## References
-
-- **Sparse Language**: readme/CLAUDE.md - Documentation Guidelines
-- **Backlog Management**: `.claude/skills/cfn-backlog-management/SKILL.md`
-- **Versioning**: `package.json` - Single source of truth
+User can:
+- Merge a PR with conventional commit
+- See automatic version bump
+- See GitHub Release created
+- See user-friendly notes synthesized
+- **Find changelog from footer or settings** (not hidden)
+- **See what version they're running**
+- Subscribe to RSS feed for updates

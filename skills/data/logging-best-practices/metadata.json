@@ -1,7 +1,7 @@
 {
   "name": "logging-best-practices",
-  "repo": "kunhai-88/skills",
-  "path": "logging-best-practices/SKILL.md",
-  "source": "github.com/kunhai-88/skills",
-  "downloaded_at": "2026-01-29T04:21:25.462027Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/logging-best-practices/skills/logging-best-practices/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-30T03:41:14.848786Z"
 }

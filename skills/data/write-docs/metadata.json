@@ -1,7 +1,7 @@
 {
   "name": "write-docs",
-  "repo": "NeverSight/skills.sh_feed",
-  "path": "data/skills-md/tldraw/tldraw/write-docs/SKILL.md",
-  "source": "github.com/NeverSight/skills.sh_feed",
-  "downloaded_at": "2026-01-29T03:27:55.120491Z"
+  "repo": "tldraw/tldraw",
+  "path": ".claude/skills/write-docs/SKILL.md",
+  "source": "github.com/tldraw/tldraw",
+  "downloaded_at": "2026-01-30T03:00:16.294039Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "reminder-system-creator",
-  "description": "Reminder System Creator - Auto-activating skill for Business Automation.Triggers on: reminder system creator, reminder system creatorPart of the Business Automation skill category.",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "byteworthy/Upstream",
+  "path": ".agents/skills/reminder-system-creator/SKILL.md",
+  "source": "github.com/byteworthy/Upstream",
+  "downloaded_at": "2026-01-30T04:24:28.296925Z"
 }

@@ -16,11 +16,11 @@ A focused skill for creating simple, performant Three.js web applications using 
 
 | Topic | File | Use When |
 |-------|------|----------|
-| **GLTF Models** | [gltf-loading-guide.md](references/gltf-loading-guide.md) | Loading, caching, cloning 3D models, SkeletonUtils |
+| **FBX Models** | [fbx-loading-guide.md](references/fbx-loading-guide.md) | Loading, caching, cloning 3D models, SkeletonUtils |
 | **Reference Frames** | [reference-frame-contract.md](references/reference-frame-contract.md) | Calibration, anchoring, axis correctness, debugging |
 | **Game Development** | [game-patterns.md](references/game-patterns.md) | State machines, animation switching, parallax, object pooling |
 | **Advanced Topics** | [advanced-topics.md](references/advanced-topics.md) | Post-processing, shaders, physics, instancing |
-| **Calibration Helpers** | [scripts/README.md](scripts/README.md) | GLTF calibration helper installation and usage |
+| **Calibration Helpers** | [scripts/README.md](scripts/README.md) | FBX calibration helper installation and usage |
 
 ---
 
@@ -68,15 +68,22 @@ Understanding Three.js's right-handed coordinate system is **essential** to avoi
 | +Y   | Up        | Jump, height |
 | -Y   | Down      | Fall, gravity |
 | +Z   | Toward camera | Approach viewer, "forward" in many setups |
-| -Z   | Away from camera | Retreat, **GLTF models face -Z by default** |
+| -Z   | Away from camera | Retreat, **glTF models face -Z by default (FBX typically +Z)** |
 
-### GLTF Model Default Orientation
+### Model Default Orientation
 
-**CRITICAL**: GLTF models exported from Blender/Maya face **-Z** (into the screen) by default.
+**CRITICAL**: The default forward direction depends on the model format:
+- **FBX models** (from Blender/Maya): Typically face **+Z** (toward viewer) by default
+- **glTF models**: Face **-Z** (into the screen) by default
+
+**Always calibrate** using the reference frame contract to confirm forward direction for your specific asset pack.
 
 ```javascript
-// GLTF model faces -Z. To face +Z (toward camera):
+// For glTF models (face -Z), to face +Z (toward camera):
 model.rotation.y = Math.PI;  // 180° rotation
+
+// For FBX models (typically face +Z), may not need rotation
+// Always verify with calibration!
 
 // To face +X (right):
 model.rotation.y = -Math.PI / 2;  // -90°

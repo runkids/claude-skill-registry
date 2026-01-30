@@ -1,259 +1,277 @@
 ---
 name: ruff
-description: This skill should be used when users need to lint, format, or validate Python code using the Ruff command-line tool. Use this skill for tasks involving Python code quality checks, automatic code formatting, enforcing style rules (PEP 8), identifying bugs and security issues, or modernizing Python code. This skill should be invoked PROACTIVELY whenever Python code is written or modified to ensure code quality.
+description: |
+  Python linting and formatting with ruff. Extremely fast linter and formatter replacing
+  Flake8, Black, isort, and pyupgrade. Use when linting, formatting, or checking Python
+  code quality. Triggers: "ruff", "lint python", "format python", "[tool.ruff]".
+allowed-tools: Bash, Read, Edit, Write, Grep, Glob
 ---
 
-# Ruff Skill
+# ruff
 
-## Contents
+Ruff is an extremely fast Python linter and code formatter written in Rust. It replaces
+Flake8, isort, Black, pyupgrade, autoflake, and dozens of other tools.
 
-- [Proactive Usage](#proactive-usage)
-- [Quick Reference](#quick-reference)
-- [Linting Workflow](#linting-workflow)
-- [Formatting Workflow](#formatting-workflow)
-- [Rule Selection](#rule-selection)
-- [Troubleshooting](#troubleshooting)
-- [References](#references)
+## When to Use ruff
 
-## Proactive Usage
+**Always use ruff for Python linting and formatting**, especially if you see:
 
-**IMPORTANT**: Use this skill proactively after writing or modifying Python code.
+- `[tool.ruff]` section in `pyproject.toml`
+- A `ruff.toml` or `.ruff.toml` configuration file
 
-### Standard Workflow
+**Avoid unnecessary changes:**
 
-```bash
-# Step 1: Format the code
-uv run ruff format .
+- **Don't format unformatted code** - If `ruff format --diff` shows changes throughout
+  an entire file, the project likely isn't using ruff for formatting. Skip to avoid
+  obscuring actual changes.
+- **Scope fixes to code being edited** - Use `ruff check --diff` to see fixes relevant
+  to the code you're changing.
 
-# Step 2: Fix auto-fixable linting issues
-uv run ruff check --fix .
-
-# Step 3: Report remaining issues
-uv run ruff check .
-```
-
-### Project Commands
+## How to Invoke ruff
 
 ```bash
-just fmt-python    # Format Python code
-just lint-python   # Lint Python code
+uv run ruff ...   # When ruff is in project dependencies (use pinned version)
+uvx ruff ...      # When ruff is not a project dependency
+ruff ...          # When ruff is installed globally
 ```
 
-## Quick Reference
+## Linting
 
-### Commands
-
-| Command | Purpose |
-|---------|---------|
-| `uv run ruff check .` | Lint code |
-| `uv run ruff check --fix .` | Fix auto-fixable issues |
-| `uv run ruff format .` | Format code |
-| `uv run ruff format --check .` | Check formatting |
-| `uv run ruff check --diff .` | Preview fixes |
-
-### Common Flags
-
-| Flag | Effect |
-|------|--------|
-| `--fix` | Auto-fix issues |
-| `--unsafe-fixes` | Apply risky fixes |
-| `--diff` | Show changes without applying |
-| `--select E,F` | Check specific rules |
-| `--ignore E501` | Skip specific rules |
-| `--statistics` | Show issue counts |
-| `--watch` | Continuous linting |
-
-## Linting Workflow
-
-### 1. Check for Issues
+### Basic Commands
 
 ```bash
-uv run ruff check .                    # All files
-uv run ruff check src/                 # Directory
-uv run ruff check script.py            # Single file
+ruff check                        # Check current directory
+ruff check path/to/file.py        # Check specific file
+ruff check src/ tests/            # Check multiple directories
+ruff check --fix                  # Auto-fix fixable violations
+ruff check --fix --unsafe-fixes   # Include unsafe fixes (review first!)
+ruff check --watch                # Watch for changes
 ```
 
-### 2. Auto-fix Safe Issues
+**Important:** Always pass directory as parameter, don't use `cd`:
+```bash
+# ✅ Good
+ruff check services/orchestrator
+
+# ❌ Bad
+cd services/orchestrator && ruff check
+```
+
+### Rule Selection
 
 ```bash
-uv run ruff check --fix .
+ruff check --select E,F,B,I       # Select specific rules
+ruff check --extend-select UP,SIM # Extend default selection
+ruff check --ignore E501,E402     # Ignore specific rules
+ruff rule F401                    # Explain a specific rule
+ruff linter                       # List available linters
 ```
 
-### 3. Review Unsafe Fixes
+### Common Rule Codes
+
+| Code | Description | Example |
+|------|-------------|---------|
+| `E` | pycodestyle errors | E501 (line too long) |
+| `F` | Pyflakes | F401 (unused import) |
+| `W` | pycodestyle warnings | W605 (invalid escape) |
+| `B` | flake8-bugbear | B006 (mutable default) |
+| `I` | isort | I001 (unsorted imports) |
+| `UP` | pyupgrade | UP006 (deprecated types) |
+| `SIM` | flake8-simplify | SIM102 (nested if) |
+| `D` | pydocstyle | D100 (missing docstring) |
+| `S` | flake8-bandit | S101 (assert usage) |
+| `C4` | flake8-comprehensions | C400 (unnecessary generator) |
+
+### Output Formats
 
 ```bash
-uv run ruff check --diff --unsafe-fixes .   # Preview
-uv run ruff check --fix --unsafe-fixes .    # Apply
+ruff check --statistics           # Show violation counts
+ruff check --output-format json   # JSON output
+ruff check --output-format github # GitHub Actions annotations
+ruff check --output-format gitlab # GitLab Code Quality report
 ```
 
-### 4. Address Remaining Issues
+## Formatting
 
-Fix manually or suppress with `# noqa`:
-
-```python
-import unused_module  # noqa: F401
-```
-
-## Formatting Workflow
-
-### 1. Format Code
+### Basic Commands
 
 ```bash
-uv run ruff format .
+ruff format                       # Format current directory
+ruff format path/to/file.py       # Format specific file
+ruff format --check               # Check if formatted (exit 1 if not)
+ruff format --diff                # Show diff without modifying
 ```
 
-### 2. Check Without Modifying (CI/CD)
+### Format Workflow
+
+1. **Preview**: `ruff format --diff` (see changes)
+2. **Check**: `ruff format --check` (CI validation)
+3. **Apply**: `ruff format` (modify files)
+4. **Verify**: `ruff format --check` (confirm)
+
+### Combined Workflow
+
+Run linting fixes before formatting:
 
 ```bash
-uv run ruff format --check .
+ruff check --fix && ruff format
 ```
 
-### 3. Preview Changes
+## Configuration
 
-```bash
-uv run ruff format --diff .
-```
-
-## Rule Selection
-
-### Essential Rules (Start Here)
+### pyproject.toml
 
 ```toml
 [tool.ruff]
-select = ["F", "E", "I"]
-```
-
-| Prefix | Source | Purpose |
-|--------|--------|---------|
-| F | Pyflakes | Errors, undefined names |
-| E | pycodestyle | PEP 8 errors |
-| I | isort | Import sorting |
-
-### Recommended Rules
-
-```toml
-[tool.ruff]
-select = ["F", "E", "I", "W", "UP", "B", "SIM"]
-```
-
-| Prefix | Source | Purpose |
-|--------|--------|---------|
-| W | pycodestyle | PEP 8 warnings |
-| UP | pyupgrade | Modernize syntax |
-| B | bugbear | Likely bugs |
-| SIM | simplify | Simplification |
-
-### Security Rules
-
-```toml
-[tool.ruff]
-extend-select = ["S"]
-```
-
-## Project Configuration
-
-### Basic pyproject.toml
-
-```toml
-[tool.ruff]
-line-length = 100
+line-length = 88
 target-version = "py311"
+exclude = [".git", ".venv", "__pycache__", "build", "dist"]
 
-select = ["E", "F", "I", "B", "UP"]
+[tool.ruff.lint]
+select = ["E", "F", "B", "I", "UP", "SIM"]
 ignore = ["E501"]
+fixable = ["ALL"]
+unfixable = ["B"]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401", "E402"]
 "tests/**/*.py" = ["S101"]
-"__init__.py" = ["F401"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["myapp"]
 
 [tool.ruff.format]
 quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+docstring-code-format = true
+line-ending = "auto"
 ```
 
-### Per-file Ignores
+### ruff.toml (standalone)
 
-| Pattern | Common Ignores | Reason |
-| --------- | ---------------- | -------- |
-| `tests/**/*.py` | S101 | Allow assert |
-| `__init__.py` | F401 | Allow unused imports |
-| `scripts/*.py` | T201 | Allow print |
+```toml
+line-length = 88
+target-version = "py311"
 
-## Inline Suppression
+[lint]
+select = ["E", "F", "B", "I"]
+ignore = ["E501"]
 
-```python
-# Ignore all rules for line
-import os  # noqa
+[lint.isort]
+known-first-party = ["myapp"]
 
-# Ignore specific rule
-import os  # noqa: F401
-
-# Ignore for entire file (at top)
-# ruff: noqa: F401
+[format]
+quote-style = "double"
+indent-style = "space"
 ```
 
-## Troubleshooting
+## CI/CD Integration
 
-### Too Many Issues
+### Pre-commit Hook
 
-1. Start with essential rules only:
-   ```bash
-   uv run ruff check --select=F,E .
-   ```
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.0
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+```
 
-2. Add noqa comments to existing violations:
-   ```bash
-   uv run ruff check --add-noqa .
-   ```
+### GitHub Actions
 
-3. Fix auto-fixable issues first:
-   ```bash
-   uv run ruff check --fix .
-   ```
+```yaml
+name: Lint
+on: [push, pull_request]
 
-4. Enable rules gradually over time
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/ruff-action@v3
+        with:
+          args: 'check --output-format github'
+```
 
-### Configuration Not Loading
+## Migration from Other Tools
 
-1. Check file names: `ruff.toml`, `.ruff.toml`, or `pyproject.toml`
-2. Validate syntax: `uv run ruff check --config=ruff.toml .`
-3. Check for conflicts in parent directories
-
-### Formatter vs Linter Conflicts
-
-Run formatter before linter to avoid conflicts:
+### Black → ruff format
 
 ```bash
-uv run ruff format .
-uv run ruff check --fix .
+black .              → ruff format .
+black --check .      → ruff format --check .
+black --diff .       → ruff format --diff .
 ```
 
-### Output Formats for CI
+### Flake8 → ruff check
 
 ```bash
-uv run ruff check --output-format=github .   # GitHub Actions
-uv run ruff check --output-format=gitlab .   # GitLab CI
-uv run ruff check --output-format=json .     # JSON
+flake8 .             → ruff check .
+flake8 --select E,F  → ruff check --select E,F
 ```
 
-## References
+### isort → ruff check
 
-### Project References
+```bash
+isort .              → ruff check --select I --fix
+isort --check .      → ruff check --select I
+```
 
-- [Rules Reference](references/rules.md) - Complete rule descriptions by category
-- [Configuration Reference](references/configuration.md) - Config templates and options
+## Common Patterns
 
-### External Resources
+### Find Specific Issues
 
-- [Ruff Documentation](https://docs.astral.sh/ruff/)
-- [Linter Rules](https://docs.astral.sh/ruff/rules/)
-- [Formatter Docs](https://docs.astral.sh/ruff/formatter/)
-- [Configuration](https://docs.astral.sh/ruff/configuration/)
+```bash
+ruff check --select F401          # Unused imports
+ruff check --select B006          # Mutable default arguments
+ruff check --select S             # Security issues
+ruff check --select C901          # Code complexity
+```
+
+### Gradual Adoption
+
+```bash
+# Start minimal
+ruff check --select E,F
+
+# Add bugbear
+ruff check --select E,F,B
+
+# Add imports
+ruff check --select E,F,B,I
+
+# Add pyupgrade
+ruff check --select E,F,B,I,UP
+```
+
+### Check Changed Files
+
+```bash
+git diff --name-only --diff-filter=d | grep '\.py$' | xargs ruff check
+git diff --name-only main...HEAD | grep '\.py$' | xargs ruff format
+```
 
 ## Best Practices
 
-1. **Format first** - Run `ruff format` before `ruff check`
-2. **Use --fix liberally** - Most auto-fixes are safe
-3. **Review unsafe fixes** - Always check `--unsafe-fixes` changes
-4. **Start simple** - Begin with F, E, I rules; expand gradually
-5. **Configure CI/CD** - Enforce checks in continuous integration
-6. **Document exceptions** - Comment why rules are disabled
+**Rule Selection Strategy:**
+1. Start minimal: `select = ["E", "F"]`
+2. Add bugbear: `select = ["E", "F", "B"]`
+3. Add imports: `select = ["E", "F", "B", "I"]`
+4. Add pyupgrade: `select = ["E", "F", "B", "I", "UP"]`
+
+**Fixable vs Unfixable:**
+- Mark uncertain rules as `unfixable` for manual review
+- Common unfixables: `B` (bugbear), some `F` rules
+- Safe to auto-fix: `I` (isort), `UP` (pyupgrade)
+
+**Critical: Directory Parameters**
+- ✅ Always pass directory: `ruff check services/orchestrator`
+- ❌ Never use cd: `cd services/orchestrator && ruff check`
+
+## Documentation
+
+- https://docs.astral.sh/ruff/

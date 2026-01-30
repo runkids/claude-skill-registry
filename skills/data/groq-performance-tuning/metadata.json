@@ -1,9 +1,7 @@
 {
   "name": "groq-performance-tuning",
-  "description": "Optimize Groq API performance with caching, batching, and connection pooling.\nUse when experiencing slow API responses, implementing caching strategies,\nor optimizing request throughput for Groq integ",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills"
+  "path": "plugins/saas-packs/groq-pack/skills/groq-performance-tuning/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-30T01:00:43.716438Z"
 }

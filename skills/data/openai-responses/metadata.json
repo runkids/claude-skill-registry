@@ -1,7 +1,7 @@
 {
   "name": "openai-responses",
-  "repo": "dennislee928/Smart_Zone",
-  "path": ".claude/skills/openai-responses/SKILL.md",
-  "source": "github.com/dennislee928/Smart_Zone",
-  "downloaded_at": "2026-01-29T04:26:56.293700Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/openai-responses/skills/openai-responses/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-30T03:41:13.525167Z"
 }

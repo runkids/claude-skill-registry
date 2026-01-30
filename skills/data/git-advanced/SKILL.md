@@ -1,497 +1,1022 @@
 ---
 name: git-advanced
-description: "Advanced Git operations and workflows including interactive rebasing, conflict resolution, history manipulation, bisecting for bugs, cherry-picking, reflog recovery, and branch management strategies. Use for: (1) Interactive rebasing and commit cleanup, (2) Complex merge conflict resolution, (3) Git bisect for bug hunting, (4) History rewriting and cleanup, (5) Branch strategy implementation (Git Flow, trunk-based), (6) Recovering lost commits with reflog"
+version: 1.0.0
+description: Advanced git workflows including rebase, worktrees, bisect, hooks, and monorepo patterns
+author: workspace-hub
+category: devtools
+capabilities:
+  - Interactive rebase and history rewriting
+  - Git worktrees for parallel development
+  - Bisect for bug hunting
+  - Rerere for conflict resolution
+  - Reflog for recovery
+  - Hooks and custom commands
+  - Submodules and monorepo patterns
+tools:
+  - git
+  - gh
+  - git-lfs
+  - pre-commit
+  - husky
+tags: [git, version-control, rebase, worktrees, bisect, hooks, monorepo]
+platforms: [linux, macos, windows]
+related_skills:
+  - docker
+  - cli-productivity
+  - github-actions
 ---
 
-# Advanced Git Operations
+# Git Advanced Skill
 
-## Overview
+Master advanced git workflows for efficient version control. This skill covers interactive rebase, worktrees, bisect, rerere, reflog, hooks, and patterns for monorepos and submodules.
 
-Master advanced Git workflows for complex version control scenarios. This skill covers sophisticated operations beyond basic commits and merges, including interactive rebasing, advanced conflict resolution, history manipulation, and strategic branch management.
+## When to Use This Skill
 
-Use this skill when you need to:
-- Clean up messy commit history before code review
-- Resolve complex merge conflicts strategically
-- Hunt down bugs with binary search (bisect)
-- Recover lost commits or undo mistakes
-- Implement team branching strategies
-- Rewrite history safely
+### USE when:
+- Managing complex branch strategies
+- Working on multiple features simultaneously
+- Hunting down bugs with bisect
+- Maintaining clean commit history
+- Setting up team workflows with hooks
+- Managing multi-repo dependencies
+- Recovering from git mistakes
+
+### DON'T USE when:
+- Simple linear development (basic git suffices)
+- Solo projects with simple history
+- When team isn't familiar with advanced git
+- Time-critical fixes (use simple commits)
+
+## Prerequisites
+
+### Installation
+
+**Git Configuration:**
+```bash
+# Verify git version (2.23+ recommended)
+git --version
+
+# Global configuration
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+
+# Recommended settings
+git config --global init.defaultBranch main
+git config --global pull.rebase true
+git config --global push.autoSetupRemote true
+git config --global rerere.enabled true
+git config --global core.autocrlf input
+git config --global core.editor "vim"
+
+# Better diff
+git config --global diff.algorithm histogram
+git config --global merge.conflictStyle diff3
+```
+
+**GitHub CLI (optional):**
+```bash
+# macOS
+brew install gh
+
+# Linux
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+sudo apt update
+sudo apt install gh
+
+# Authenticate
+gh auth login
+```
+
+**Pre-commit (for hooks):**
+```bash
+# Install pre-commit
+pip install pre-commit
+
+# Or with homebrew
+brew install pre-commit
+```
 
 ## Core Capabilities
 
-### Interactive Rebasing
-- Reorder commits for logical history
-- Squash multiple commits into one
-- Edit commit messages retroactively
-- Split commits into smaller pieces
-- Remove unwanted commits from history
+### 1. Interactive Rebase
 
-### Conflict Resolution
-- Strategic merge conflict handling
-- Three-way merge understanding
-- Ours vs theirs strategy selection
-- Conflict marker interpretation
-- Partial file staging during conflicts
-
-### Git Bisect
-- Binary search for bug introduction
-- Automated bisect with scripts
-- Good/bad commit identification
-- Efficient debugging of regressions
-
-### History Manipulation
-- Amend commits safely
-- Filter-branch operations
-- BFG Repo-Cleaner for large files
-- Rewrite history with caution
-- Preserve attribution and dates
-
-### Branch Strategies
-- Git Flow workflow
-- Trunk-based development
-- Feature branch workflows
-- Release branch management
-- Hotfix procedures
-
-## Quick Command Reference
-
-### Interactive Rebase
+**Basic Interactive Rebase:**
 ```bash
-# Rebase last 5 commits interactively
+# Rebase last 5 commits
 git rebase -i HEAD~5
 
-# Rebase onto main branch
+# Rebase onto main
 git rebase -i main
 
-# Continue after resolving conflicts
+# Rebase from specific commit
+git rebase -i abc123^
+```
+
+**Interactive Rebase Commands:**
+```
+pick   abc123 First commit     # Use commit as-is
+reword def456 Second commit    # Edit commit message
+edit   ghi789 Third commit     # Stop to amend
+squash jkl012 Fourth commit    # Combine with previous
+fixup  mno345 Fifth commit     # Combine, discard message
+drop   pqr678 Sixth commit     # Remove commit
+```
+
+**Common Rebase Workflows:**
+```bash
+# Squash all commits into one
+git rebase -i main
+# Change all but first 'pick' to 'squash'
+
+# Reorder commits
+git rebase -i HEAD~3
+# Rearrange the pick lines
+
+# Split a commit
+git rebase -i HEAD~3
+# Change 'pick' to 'edit' on target commit
+git reset HEAD^
+git add -p  # Add pieces
+git commit -m "First part"
+git add .
+git commit -m "Second part"
 git rebase --continue
 
-# Abort and return to original state
-git rebase --abort
+# Edit commit message
+git rebase -i HEAD~3
+# Change 'pick' to 'reword'
 ```
 
-### Conflict Resolution
+**Autosquash Pattern:**
 ```bash
-# Accept ours (current branch)
-git checkout --ours <file>
+# Create fixup commit
+git commit --fixup=abc123
 
-# Accept theirs (incoming branch)
-git checkout --theirs <file>
+# Create squash commit
+git commit --squash=abc123
 
-# List conflicted files
-git diff --name-only --diff-filter=U
+# Apply autosquash
+git rebase -i --autosquash main
 
-# Mark as resolved
-git add <file>
+# Enable autosquash by default
+git config --global rebase.autosquash true
 ```
 
-### Git Bisect
+### 2. Git Worktrees
+
+**Basic Worktree Usage:**
 ```bash
-# Start bisect session
-git bisect start
-git bisect bad
-git bisect good <commit-hash>
+# List worktrees
+git worktree list
 
-# Automate with test script
-git bisect run ./test-script.sh
+# Add worktree for existing branch
+git worktree add ../feature-branch feature/new-feature
 
-# End bisect session
-git bisect reset
+# Add worktree with new branch
+git worktree add -b hotfix/urgent ../hotfix-urgent main
+
+# Remove worktree
+git worktree remove ../feature-branch
+
+# Prune stale worktrees
+git worktree prune
 ```
 
-### Cherry-Pick
+**Worktree Workflow:**
 ```bash
-# Apply specific commit
-git cherry-pick <commit-hash>
+# Project structure
+workspace/
+├── main/           # Main development
+├── feature-auth/   # Feature branch
+├── hotfix-critical/# Hotfix branch
+└── experiment/     # Experimental work
 
-# Cherry-pick without committing
-git cherry-pick -n <commit-hash>
+# Setup
+cd main
+git worktree add ../feature-auth feature/authentication
+git worktree add ../hotfix-critical -b hotfix/critical-bug
+git worktree add ../experiment -b experiment/new-approach
 
-# Cherry-pick range of commits
-git cherry-pick A^..B
+# Work on feature
+cd ../feature-auth
+# make changes...
+git commit -am "Add authentication"
+
+# Quick switch to fix bug
+cd ../hotfix-critical
+# fix bug...
+git commit -am "Fix critical bug"
+git push
+
+# Back to feature
+cd ../feature-auth
 ```
 
-### Reflog Recovery
+**Worktree Helper Script:**
 ```bash
-# View reflog history
-git reflog
+#!/bin/bash
+# scripts/worktree.sh
+# ABOUTME: Git worktree management helper
+# ABOUTME: Simplifies creating and managing worktrees
 
-# Recover lost commit
-git checkout -b recovery <commit-hash>
+set -e
 
-# Reset to previous state
-git reset --hard HEAD@{2}
+WORKTREE_BASE="${WORKTREE_BASE:-$(dirname $(git rev-parse --git-dir))}"
+
+case "$1" in
+    add)
+        BRANCH="$2"
+        DIR="${3:-$WORKTREE_BASE/../$(echo $BRANCH | tr '/' '-')}"
+        if git show-ref --verify --quiet "refs/heads/$BRANCH"; then
+            git worktree add "$DIR" "$BRANCH"
+        else
+            git worktree add -b "$BRANCH" "$DIR"
+        fi
+        echo "Created worktree at: $DIR"
+        ;;
+    remove)
+        git worktree remove "$2"
+        ;;
+    list)
+        git worktree list
+        ;;
+    *)
+        echo "Usage: $0 {add|remove|list} [branch] [directory]"
+        exit 1
+        ;;
+esac
 ```
 
-## Core Workflows
+### 3. Git Bisect
 
-### 1. Interactive Rebase Workflow
-
-**When to Use:**
-- Clean up messy commit history before pushing
-- Combine "WIP" or "fix typo" commits
-- Reorder commits for logical progression
-- Split large commits into focused changes
-
-**Steps:**
-
+**Basic Bisect:**
 ```bash
-# 1. Start interactive rebase for last N commits
-git rebase -i HEAD~5
-
-# Interactive editor opens with commit list
-# Modify commands to reorganize history
-```
-
-**Rebase Commands:**
-- `pick` (p): Keep commit as-is
-- `reword` (r): Keep commit, edit message
-- `edit` (e): Keep commit, stop to amend
-- `squash` (s): Combine with previous commit, keep message
-- `fixup` (f): Combine with previous commit, discard message
-- `drop` (d): Remove commit entirely
-
-**Example:**
-```bash
-# Before
-pick abc1234 Add feature X
-pick def5678 Fix typo
-pick ghi9012 WIP commit
-pick jkl3456 Update documentation
-
-# After cleanup
-pick abc1234 Add feature X
-fixup def5678 Fix typo
-drop ghi9012 WIP commit
-reword jkl3456 Update documentation
-```
-
-**Safety Tips:**
-- Never rebase commits already pushed to shared branches
-- Create backup branch: `git branch backup`
-- Use `git reflog` if something goes wrong
-- Force push carefully: `git push --force-with-lease`
-
-For detailed examples and advanced techniques, see `examples/interactive_rebase.md`.
-
-### 2. Conflict Resolution Workflow
-
-**Understanding Conflict Markers:**
-```
-<<<<<<< HEAD (Current Change)
-Your code from current branch
-=======
-Their code from merging branch
->>>>>>> branch-name (Incoming Change)
-```
-
-**Resolution Process:**
-
-```bash
-# 1. Identify conflicts
-git status
-
-# 2. Choose resolution strategy:
-
-# Strategy A: Manual resolution
-vim <file>  # Edit between markers
-git add <file>
-
-# Strategy B: Accept one side
-git checkout --ours <file>    # Keep yours
-git checkout --theirs <file>  # Keep theirs
-git add <file>
-
-# Strategy C: Use merge tool
-git mergetool
-
-# 3. Continue operation
-git merge --continue
-# or
-git rebase --continue
-```
-
-**Three-Way Diff:**
-```bash
-# Show what YOU changed
-git diff --ours <file>
-
-# Show what THEY changed
-git diff --theirs <file>
-
-# Show common ancestor
-git diff --base <file>
-```
-
-For common conflict patterns and solutions, see `examples/conflict_resolution.md`.
-
-### 3. Git Bisect for Bug Hunting
-
-**Scenario:** Bug exists in current version, find which commit introduced it.
-
-**Manual Bisect:**
-```bash
-# 1. Start bisect
+# Start bisect
 git bisect start
 
-# 2. Mark current state as bad
+# Mark current version as bad
 git bisect bad
 
-# 3. Mark known good commit
+# Mark known good commit
 git bisect good v1.0.0
 
-# 4. Test the code (Git checks out middle commit)
-# Run app, check if bug exists
+# Git checks out a commit - test it
+# If bad:
+git bisect bad
+# If good:
+git bisect good
 
-# 5. Mark result
-git bisect bad   # If bug exists
-git bisect good  # If bug doesn't exist
+# Continue until found
+# Git will show: "abc123 is the first bad commit"
 
-# Repeat until Git finds first bad commit
-
-# 6. End bisect
+# End bisect
 git bisect reset
 ```
 
 **Automated Bisect:**
 ```bash
-# Create test script (test.sh)
+# Create test script
+cat > test-bug.sh << 'EOF'
 #!/bin/bash
-npm test
-exit $?
+# Return 0 if good, non-zero if bad
+npm test -- --grep "specific test"
+EOF
+chmod +x test-bug.sh
 
 # Run automated bisect
 git bisect start
-git bisect bad
+git bisect bad HEAD
 git bisect good v1.0.0
-git bisect run ./test.sh
+git bisect run ./test-bug.sh
 
-# Git automatically finds bad commit
+# Git will find the bad commit automatically
 git bisect reset
 ```
 
-### 4. Branch Management
-
-**Quick Cleanup:**
+**Bisect with Skip:**
 ```bash
-# Use helper script
-bash scripts/git_helper.sh cleanup-branches
+# If commit can't be tested (won't build)
+git bisect skip
 
-# Or manual cleanup
-git branch --merged main | grep -v "\*\|main\|develop" | xargs git branch -d
-git fetch --prune
+# Skip range of commits
+git bisect skip abc123..def456
 ```
 
-**Stale Branch Detection:**
+**Bisect Log and Replay:**
 ```bash
-# Show branches with last commit date
-for branch in $(git branch -r | grep -v HEAD); do
-    echo -e "$(git show --format="%ci %cr" $branch | head -n 1)\t$branch"
-done | sort -r
+# Save bisect session
+git bisect log > bisect.log
+
+# Replay session
+git bisect replay bisect.log
 ```
 
-For detailed branch management strategies, see `references/branch-management.md`.
+### 4. Git Rerere (Reuse Recorded Resolution)
 
-### 5. Reflog Recovery
-
-**Recover Deleted Branch:**
+**Enable Rerere:**
 ```bash
-# View reflog
+# Enable globally
+git config --global rerere.enabled true
+
+# Check status
+git config --get rerere.enabled
+```
+
+**Using Rerere:**
+```bash
+# When you resolve a conflict, git records the resolution
+git merge feature-branch
+# Resolve conflicts...
+git add .
+git commit
+
+# Next time same conflict occurs, git auto-applies resolution
+git merge another-branch
+# "Resolved 'file.txt' using previous resolution."
+
+# If auto-resolution is wrong, forget it
+git rerere forget path/to/file
+```
+
+**Rerere Management:**
+```bash
+# View recorded resolutions
+ls .git/rr-cache/
+
+# Clean old resolutions
+git rerere gc
+
+# Show diff of recorded resolution
+git rerere diff
+```
+
+### 5. Git Reflog
+
+**Basic Reflog:**
+```bash
+# Show reflog
 git reflog
 
-# Find commit where branch was deleted
-# Restore branch
-git checkout -b feature-x <commit-hash>
+# Show reflog with dates
+git reflog --date=relative
+
+# Show reflog for specific ref
+git reflog show feature-branch
+
+# Output
+# abc123 HEAD@{0}: commit: Latest commit
+# def456 HEAD@{1}: checkout: moving from main to feature
+# ghi789 HEAD@{2}: commit: Previous commit
 ```
 
-**Undo Bad Reset:**
+**Recovery with Reflog:**
 ```bash
-# Accidentally ran: git reset --hard HEAD~5
-
-# View reflog
+# Recover deleted branch
 git reflog
+# Find last commit of deleted branch: abc123
+git checkout -b recovered-branch abc123
 
-# Restore previous state
-git reset --hard HEAD@{1}
+# Undo hard reset
+git reflog
+# Find state before reset: HEAD@{2}
+git reset --hard HEAD@{2}
+
+# Recover lost stash
+git fsck --unreachable | grep commit
+git show <commit-hash>
+git stash apply <commit-hash>
+
+# Recover from bad rebase
+git reflog
+# Find pre-rebase state: HEAD@{5}
+git reset --hard HEAD@{5}
 ```
 
-**Recover Lost Commits:**
+**Reflog Expiration:**
 ```bash
-# Find dangling commits
-git fsck --lost-found
+# Check expiration settings
+git config --get gc.reflogexpire  # Default: 90 days
+git config --get gc.reflogexpireunreachable  # Default: 30 days
 
-# Cherry-pick recovered commit
-git cherry-pick <lost-commit-hash>
+# Extend reflog retention
+git config --global gc.reflogexpire 180.days
 ```
 
-For comprehensive recovery techniques, see `references/reflog-recovery.md`.
+### 6. Git Hooks
 
-## Branch Strategy Implementation
+**Available Hooks:**
+```
+client-side:
+  pre-commit      # Before commit message prompt
+  prepare-commit-msg  # Edit default message
+  commit-msg      # Validate commit message
+  post-commit     # After commit completes
+  pre-push        # Before push
 
-This skill supports implementing various branching strategies. Choose based on your team's needs:
-
-### Git Flow
-**Best for:** Projects with scheduled releases, multiple production versions
-
-**Branch Types:**
-- `main`: Production-ready code
-- `develop`: Integration branch
-- `feature/*`: New features
-- `release/*`: Release preparation
-- `hotfix/*`: Production fixes
-
-**Quick Start:**
-```bash
-# Feature development
-git checkout develop
-git checkout -b feature/user-auth
-# Work on feature
-git checkout develop
-git merge --no-ff feature/user-auth
+server-side:
+  pre-receive     # Before accepting push
+  update          # Per-branch check
+  post-receive    # After push completes
 ```
 
-### Trunk-Based Development
-**Best for:** Continuous deployment, fast-moving teams
-
-**Principles:**
-- Single main branch
-- Short-lived feature branches (< 1 day)
-- Frequent integration
-- Feature flags for incomplete work
-
-**Quick Start:**
+**Pre-commit Hook Example:**
 ```bash
-# Create short-lived branch
+#!/bin/bash
+# .git/hooks/pre-commit
+# ABOUTME: Pre-commit hook for code quality
+# ABOUTME: Runs linting and tests before commit
+
+set -e
+
+echo "Running pre-commit checks..."
+
+# Check for debug statements
+if git diff --cached --name-only | xargs grep -l 'console.log\|debugger\|binding.pry' 2>/dev/null; then
+    echo "ERROR: Debug statements found. Remove before committing."
+    exit 1
+fi
+
+# Run linter
+if [ -f "package.json" ] && grep -q '"lint"' package.json; then
+    echo "Running linter..."
+    npm run lint --quiet || exit 1
+fi
+
+# Run tests
+if [ -f "package.json" ] && grep -q '"test"' package.json; then
+    echo "Running tests..."
+    npm test --quiet || exit 1
+fi
+
+echo "Pre-commit checks passed!"
+```
+
+**Commit-msg Hook Example:**
+```bash
+#!/bin/bash
+# .git/hooks/commit-msg
+# ABOUTME: Validates commit message format
+# ABOUTME: Enforces conventional commits
+
+COMMIT_MSG_FILE="$1"
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Conventional commit pattern
+PATTERN="^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?: .{1,50}"
+
+if ! echo "$COMMIT_MSG" | grep -qE "$PATTERN"; then
+    echo "ERROR: Invalid commit message format."
+    echo ""
+    echo "Expected format: <type>(<scope>): <subject>"
+    echo "Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert"
+    echo ""
+    echo "Examples:"
+    echo "  feat(auth): add login functionality"
+    echo "  fix(api): handle null response"
+    echo "  docs: update README"
+    exit 1
+fi
+```
+
+**Pre-push Hook Example:**
+```bash
+#!/bin/bash
+# .git/hooks/pre-push
+# ABOUTME: Pre-push hook for safety checks
+# ABOUTME: Prevents pushing to protected branches
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+PROTECTED_BRANCHES="^(main|master|production)$"
+
+if echo "$BRANCH" | grep -qE "$PROTECTED_BRANCHES"; then
+    echo "ERROR: Direct push to $BRANCH is not allowed."
+    echo "Please create a pull request instead."
+    exit 1
+fi
+
+# Run full test suite before push
+echo "Running tests before push..."
+npm test || exit 1
+
+echo "Pre-push checks passed!"
+```
+
+**Using pre-commit Framework:**
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  - repo: https://github.com/psf/black
+    rev: 24.1.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+
+  - repo: local
+    hooks:
+      - id: run-tests
+        name: Run tests
+        entry: npm test
+        language: system
+        pass_filenames: false
+        always_run: true
+```
+
+**Install pre-commit hooks:**
+```bash
+# Install pre-commit
+pip install pre-commit
+
+# Install hooks
+pre-commit install
+
+# Install commit-msg hook
+pre-commit install --hook-type commit-msg
+
+# Run manually
+pre-commit run --all-files
+```
+
+### 7. Git Aliases
+
+**Useful Aliases:**
+```bash
+# Add to ~/.gitconfig
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+git config --global alias.unstage 'reset HEAD --'
+git config --global alias.last 'log -1 HEAD'
+git config --global alias.visual '!gitk'
+```
+
+**Advanced Aliases:**
+```gitconfig
+# ~/.gitconfig
+[alias]
+    # Status
+    st = status -sb
+    ss = status
+
+    # Branch operations
+    br = branch
+    bra = branch -a
+    brd = branch -d
+    brD = branch -D
+
+    # Checkout
+    co = checkout
+    cob = checkout -b
+    com = checkout main
+
+    # Commit
+    ci = commit
+    cia = commit --amend
+    ciane = commit --amend --no-edit
+    wip = !git add -A && git commit -m 'WIP'
+
+    # Diff
+    df = diff
+    dfs = diff --staged
+    dfw = diff --word-diff
+
+    # Log
+    lg = log --graph --oneline --decorate -20
+    lga = log --graph --oneline --decorate --all
+    ll = log --pretty=format:'%C(yellow)%h%C(reset) %s %C(blue)<%an>%C(reset) %C(green)(%cr)%C(reset)' -20
+    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+
+    # Stash
+    sl = stash list
+    sp = stash pop
+    ss = stash save
+    sd = stash drop
+
+    # Remote
+    pu = push
+    puf = push --force-with-lease
+    pl = pull
+    plr = pull --rebase
+    fe = fetch --all --prune
+
+    # Rebase
+    rb = rebase
+    rbi = rebase -i
+    rbc = rebase --continue
+    rba = rebase --abort
+
+    # Reset
+    undo = reset --soft HEAD~1
+    nuke = reset --hard HEAD
+
+    # Clean
+    clean-branches = !git branch --merged | grep -v '*' | xargs -n 1 git branch -d
+
+    # Find
+    find = !git ls-files | grep -i
+    grep = grep -Ii
+
+    # Utility
+    aliases = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/' | sort
+    contributors = shortlog -sn
+```
+
+### 8. Submodules
+
+**Basic Submodule Operations:**
+```bash
+# Add submodule
+git submodule add https://github.com/user/repo libs/repo
+
+# Clone with submodules
+git clone --recurse-submodules https://github.com/user/main-repo
+
+# Initialize submodules after clone
+git submodule init
+git submodule update
+
+# Or combined
+git submodule update --init --recursive
+
+# Update submodule to latest
+cd libs/repo
 git checkout main
-git checkout -b feature/quick-fix
-# Work and merge same day
-git checkout main
-git merge feature/quick-fix
+git pull
+cd ../..
+git add libs/repo
+git commit -m "Update submodule"
+
+# Update all submodules
+git submodule update --remote
 ```
 
-For complete branch strategy workflows, see `examples/branch_strategies.md`.
+**Submodule Configuration:**
+```bash
+# Track specific branch
+git config -f .gitmodules submodule.libs/repo.branch main
+
+# Shallow clone submodules
+git config -f .gitmodules submodule.libs/repo.shallow true
+
+# Update strategy
+git submodule update --remote --merge  # Merge changes
+git submodule update --remote --rebase # Rebase changes
+```
+
+**Submodule Workflow Script:**
+```bash
+#!/bin/bash
+# scripts/submodule-sync.sh
+# ABOUTME: Synchronize all submodules
+# ABOUTME: Updates submodules to latest remote commits
+
+set -e
+
+echo "Synchronizing submodules..."
+
+# Initialize any new submodules
+git submodule init
+
+# Update all submodules to tracked branch
+git submodule update --remote --merge
+
+# Show status
+git submodule status
+
+echo "Submodules synchronized!"
+```
+
+### 9. Monorepo Patterns
+
+**Sparse Checkout:**
+```bash
+# Enable sparse checkout
+git sparse-checkout init
+
+# Set patterns
+git sparse-checkout set packages/app packages/shared
+
+# Add more patterns
+git sparse-checkout add docs
+
+# Disable sparse checkout
+git sparse-checkout disable
+```
+
+**Working with Monorepos:**
+```bash
+# Clone specific directory only
+git clone --filter=blob:none --sparse https://github.com/user/monorepo
+cd monorepo
+git sparse-checkout set packages/my-package
+
+# Shallow clone for faster checkout
+git clone --depth 1 --filter=blob:none --sparse https://github.com/user/monorepo
+
+# Partial clone (fetch objects on demand)
+git clone --filter=blob:none https://github.com/user/monorepo
+```
+
+**Monorepo Commit Strategy:**
+```bash
+# Commit message with scope
+git commit -m "feat(package-name): add feature X"
+
+# Using conventional commits
+feat(api): add new endpoint
+fix(web): resolve routing issue
+chore(deps): update dependencies
+docs(shared): improve API documentation
+```
+
+## Integration Examples
+
+### 1. Complete .gitconfig
+
+```gitconfig
+# ~/.gitconfig
+
+[user]
+    name = Your Name
+    email = your.email@example.com
+
+[core]
+    editor = vim
+    autocrlf = input
+    pager = delta
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = true
+
+[push]
+    autoSetupRemote = true
+    default = current
+
+[fetch]
+    prune = true
+    pruneTags = true
+
+[merge]
+    conflictStyle = diff3
+    ff = false
+
+[rebase]
+    autosquash = true
+    autostash = true
+
+[rerere]
+    enabled = true
+
+[diff]
+    algorithm = histogram
+    colorMoved = default
+
+[status]
+    showUntrackedFiles = all
+
+[credential]
+    helper = cache --timeout=3600
+
+[alias]
+    # Core aliases
+    st = status -sb
+    co = checkout
+    br = branch
+    ci = commit
+    lg = log --graph --oneline --decorate -20
+
+    # Workflow aliases
+    undo = reset --soft HEAD~1
+    wip = !git add -A && git commit -m 'WIP'
+    sync = !git fetch --all --prune && git pull --rebase
+
+    # Branch cleanup
+    cleanup = !git branch --merged main | grep -v '^[ *]*main$' | xargs git branch -d
+
+[delta]
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+
+[interactive]
+    diffFilter = delta --color-only
+```
+
+### 2. GitHub Workflow with Hooks
+
+```yaml
+# .github/workflows/pr-check.yml
+name: PR Checks
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate commit messages
+        run: |
+          COMMITS=$(git log --format="%s" origin/main..HEAD)
+          PATTERN="^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?: .+"
+          while IFS= read -r commit; do
+            if ! echo "$commit" | grep -qE "$PATTERN"; then
+              echo "Invalid commit message: $commit"
+              exit 1
+            fi
+          done <<< "$COMMITS"
+
+      - name: Check for merge commits
+        run: |
+          MERGE_COMMITS=$(git log --merges origin/main..HEAD --oneline)
+          if [ -n "$MERGE_COMMITS" ]; then
+            echo "Merge commits found. Please rebase instead."
+            echo "$MERGE_COMMITS"
+            exit 1
+          fi
+
+      - name: Run tests
+        run: npm test
+```
+
+### 3. Git Flow Helper Functions
+
+```bash
+# Add to ~/.bashrc
+
+# Start feature
+gf-start() {
+    local feature="$1"
+    git checkout main
+    git pull
+    git checkout -b "feature/$feature"
+}
+
+# Finish feature
+gf-finish() {
+    local branch=$(git rev-parse --abbrev-ref HEAD)
+    git checkout main
+    git pull
+    git merge --no-ff "$branch"
+    git branch -d "$branch"
+}
+
+# Start hotfix
+gh-start() {
+    local hotfix="$1"
+    git checkout main
+    git pull
+    git checkout -b "hotfix/$hotfix"
+}
+
+# Sync branch with main
+gsync() {
+    local branch=$(git rev-parse --abbrev-ref HEAD)
+    git fetch origin main:main
+    git rebase main
+}
+```
 
 ## Best Practices
 
-### Before Rebase
-- Create backup branch: `git branch backup`
-- Ensure working directory is clean: `git status`
-- Know your commit history: `git log --oneline`
-- Never rebase public/shared branches
+### 1. Commit History
 
-### During Conflicts
-- Understand both sides of the conflict
-- Test thoroughly after resolution
-- Use meaningful merge commit messages
-- Document complex resolutions
+```bash
+# Write good commit messages
+git commit -m "feat(auth): add OAuth2 support
 
-### Branch Management
-- Delete merged branches promptly
-- Use descriptive branch names: `feature/user-login`
-- Keep branches focused and short-lived
-- Sync with main branch regularly
+- Add Google OAuth provider
+- Implement token refresh logic
+- Add user profile sync
 
-### History Hygiene
-- Squash "fixup" commits before pushing
-- Write clear, descriptive commit messages
-- Keep commits atomic (one logical change)
-- Use conventional commit format when possible
+Closes #123"
 
-For comprehensive best practices, see `references/best-practices.md`.
+# Keep commits atomic
+# One logical change per commit
+
+# Use conventional commits
+# feat: new feature
+# fix: bug fix
+# docs: documentation
+# style: formatting
+# refactor: code restructure
+# test: add tests
+# chore: maintenance
+```
+
+### 2. Branch Strategy
+
+```bash
+# Feature branches from main
+git checkout -b feature/add-auth main
+
+# Hotfix branches from main
+git checkout -b hotfix/fix-login main
+
+# Keep branches short-lived
+# Merge frequently
+
+# Delete merged branches
+git branch -d feature/add-auth
+```
+
+### 3. Rebase vs Merge
+
+```bash
+# Use rebase for:
+# - Cleaning up local commits
+# - Updating feature branch from main
+git rebase main
+
+# Use merge for:
+# - Integrating feature into main
+# - Preserving branch history
+git merge --no-ff feature/add-auth
+```
 
 ## Troubleshooting
 
-### Rebase Conflicts
+### Common Issues
+
+**Accidental commit to wrong branch:**
 ```bash
-# If conflicts are too complex
+# Move commit to new branch
+git branch new-branch
+git reset --hard HEAD~1
+git checkout new-branch
+```
+
+**Undo merge:**
+```bash
+# If not pushed
+git reset --hard HEAD~1
+
+# If pushed
+git revert -m 1 <merge-commit>
+```
+
+**Lost changes after checkout:**
+```bash
+# Check reflog
+git reflog
+
+# Recover from reflog
+git checkout HEAD@{2}
+```
+
+**Resolve rebase conflicts:**
+```bash
+# During rebase conflict
+git status
+# Edit conflicted files
+git add <resolved-files>
+git rebase --continue
+
+# Abort if needed
 git rebase --abort
-
-# Start over with different approach
-git merge --no-ff <branch>
 ```
 
-### Lost Commits
+**Clean up after failed rebase:**
 ```bash
-# Always check reflog first
-git reflog
-
-# Find and recover
-git checkout -b recovery <commit-hash>
-```
-
-### Detached HEAD State
-```bash
-# Create branch from detached HEAD
-git checkout -b new-branch-name
-
-# Or go back to branch
-git checkout main
-```
-
-### Failed Push After Rebase
-```bash
-# Only if you're certain and branch is not shared
-git push --force-with-lease
-
-# Safer: Create new branch
-git checkout -b feature-v2
-git push origin feature-v2
-```
-
-For detailed troubleshooting, see `references/troubleshooting.md`.
-
-## Additional Resources
-
-### Detailed Guides
-- `examples/interactive_rebase.md`: Step-by-step rebase examples with scenarios
-- `examples/conflict_resolution.md`: Common conflict patterns and solutions
-- `examples/branch_strategies.md`: Complete Git Flow and trunk-based workflows
-
-### Reference Documentation
-- `references/branch-management.md`: Branch cleanup automation and strategies
-- `references/reflog-recovery.md`: Recovery techniques and history rewriting
-- `references/best-practices.md`: Comprehensive best practices and quality standards
-- `references/troubleshooting.md`: Common issues and emergency recovery
-
-### Helper Scripts
-- `scripts/git_helper.sh`: Branch cleanup and conflict resolution utilities
-
-## Quick Reference Commands
-
-### Must-Know Commands
-```bash
-# Interactive rebase
-git rebase -i HEAD~N
-
-# Abort operations
 git rebase --abort
-git merge --abort
-git cherry-pick --abort
-
-# View history
-git log --oneline --graph --all
+# Or
 git reflog
-
-# Conflict resolution
-git checkout --ours <file>
-git checkout --theirs <file>
-
-# Recovery
-git fsck --lost-found
-git reflog
-
-# Cleanup
-git branch --merged | xargs git branch -d
-git fetch --prune
+git reset --hard HEAD@{n}
 ```
 
-### Safety First
-1. Always backup before history rewrite: `git branch backup`
-2. Never force push to shared branches: Use `--force-with-lease`
-3. Test after conflicts: Don't assume resolution is correct
-4. Document complex operations: Leave comments in merge commits
-5. Use reflog: It's your safety net for 30+ days
+## Version History
+
+- **1.0.0** (2026-01-17): Initial release
+  - Interactive rebase patterns
+  - Git worktrees for parallel development
+  - Bisect for bug hunting
+  - Rerere and reflog for recovery
+  - Hooks and custom commands
+  - Submodules and monorepo patterns
 
 ---
 
-Master these advanced Git operations to maintain clean history, resolve conflicts efficiently, and manage complex development workflows with confidence.
+**Use this skill to master advanced git workflows and maintain clean, professional version control!**

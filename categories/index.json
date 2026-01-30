@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-29T16:04:57.552022Z",
+  "updated_at": "2026-01-30T04:53:31.710387Z",
   "categories": [
     {
       "name": ".github-skills",
@@ -590,6 +590,10 @@
       "count": 1
     },
     {
+      "name": "CORE",
+      "count": 1
+    },
+    {
       "name": "CSharpener",
       "count": 1
     },
@@ -619,6 +623,10 @@
     },
     {
       "name": "CreateSkill",
+      "count": 1
+    },
+    {
+      "name": "Createskill",
       "count": 1
     },
     {
@@ -811,6 +819,10 @@
     },
     {
       "name": "PowerPlatform",
+      "count": 1
+    },
+    {
+      "name": "Productivity",
       "count": 1
     },
     {
@@ -1570,6 +1582,10 @@
       "count": 1
     },
     {
+      "name": "address-parser",
+      "count": 1
+    },
+    {
       "name": "address-sanitizer",
       "count": 1
     },
@@ -2167,6 +2183,10 @@
     },
     {
       "name": "agent-orchestrator",
+      "count": 1
+    },
+    {
+      "name": "agent-organizer-skill",
       "count": 1
     },
     {
@@ -3091,6 +3111,10 @@
     },
     {
       "name": "ai-engineer-expert",
+      "count": 1
+    },
+    {
+      "name": "ai-engineer-skill",
       "count": 1
     },
     {
@@ -4070,6 +4094,10 @@
       "count": 1
     },
     {
+      "name": "api-designer-skill",
+      "count": 1
+    },
+    {
       "name": "api-development",
       "count": 1
     },
@@ -4227,10 +4255,6 @@
     },
     {
       "name": "api-request-builder",
-      "count": 1
-    },
-    {
-      "name": "api-response-mocker",
       "count": 1
     },
     {
@@ -4550,6 +4574,10 @@
       "count": 1
     },
     {
+      "name": "architect",
+      "count": 1
+    },
+    {
       "name": "architect-refinement",
       "count": 1
     },
@@ -4802,6 +4830,10 @@
       "count": 1
     },
     {
+      "name": "art",
+      "count": 1
+    },
+    {
       "name": "artefact-logger",
       "count": 1
     },
@@ -4883,6 +4915,10 @@
     },
     {
       "name": "ask-questions-if-underspecified",
+      "count": 1
+    },
+    {
+      "name": "asking-questions",
       "count": 1
     },
     {
@@ -4978,6 +5014,10 @@
       "count": 1
     },
     {
+      "name": "async-programming-skill",
+      "count": 1
+    },
+    {
       "name": "async-python",
       "count": 1
     },
@@ -5062,6 +5102,10 @@
       "count": 1
     },
     {
+      "name": "audio-analyzer",
+      "count": 1
+    },
+    {
       "name": "audio-converter",
       "count": 1
     },
@@ -5070,7 +5114,15 @@
       "count": 1
     },
     {
+      "name": "audio-normalizer",
+      "count": 1
+    },
+    {
       "name": "audio-quality-checker",
+      "count": 1
+    },
+    {
+      "name": "audio-trimmer",
       "count": 1
     },
     {
@@ -5734,6 +5786,10 @@
       "count": 1
     },
     {
+      "name": "aws-sigv4-req-builder",
+      "count": 1
+    },
+    {
       "name": "aws-solution-architect",
       "count": 1
     },
@@ -6250,10 +6306,6 @@
       "count": 1
     },
     {
-      "name": "background-remover",
-      "count": 1
-    },
-    {
       "name": "backlog-champion",
       "count": 1
     },
@@ -6395,6 +6447,10 @@
     },
     {
       "name": "batch-processing",
+      "count": 1
+    },
+    {
+      "name": "batch-qr-generator",
       "count": 1
     },
     {
@@ -6826,10 +6882,6 @@
       "count": 1
     },
     {
-      "name": "blog-post-optimizer",
-      "count": 1
-    },
-    {
       "name": "blog-post-writer",
       "count": 1
     },
@@ -6855,6 +6907,10 @@
     },
     {
       "name": "bluesky",
+      "count": 1
+    },
+    {
+      "name": "bmad-master-skill",
       "count": 1
     },
     {
@@ -6990,6 +7046,10 @@
       "count": 1
     },
     {
+      "name": "brainstorming",
+      "count": 1
+    },
+    {
       "name": "brainstorming-skill",
       "count": 1
     },
@@ -7094,6 +7154,10 @@
       "count": 1
     },
     {
+      "name": "brand-yml",
+      "count": 1
+    },
+    {
       "name": "branded-document-suite",
       "count": 1
     },
@@ -7154,6 +7218,10 @@
       "count": 1
     },
     {
+      "name": "brightdata",
+      "count": 1
+    },
+    {
       "name": "broadcast-api",
       "count": 1
     },
@@ -7163,6 +7231,14 @@
     },
     {
       "name": "brownfield-onboarder",
+      "count": 1
+    },
+    {
+      "name": "browse",
+      "count": 1
+    },
+    {
+      "name": "browser",
       "count": 1
     },
     {
@@ -7219,10 +7295,6 @@
     },
     {
       "name": "browserslistrc",
-      "count": 1
-    },
-    {
-      "name": "browsing-bluesky",
       "count": 1
     },
     {
@@ -7311,6 +7383,10 @@
     },
     {
       "name": "bug-review",
+      "count": 1
+    },
+    {
+      "name": "bug-triage",
       "count": 1
     },
     {
@@ -7463,6 +7539,10 @@
     },
     {
       "name": "building-forms",
+      "count": 1
+    },
+    {
+      "name": "building-github-index",
       "count": 1
     },
     {
@@ -8186,6 +8266,10 @@
       "count": 1
     },
     {
+      "name": "categorizing-bsky-accounts",
+      "count": 1
+    },
+    {
       "name": "category-a",
       "count": 1
     },
@@ -8335,10 +8419,6 @@
     },
     {
       "name": "ceo-advisor",
-      "count": 1
-    },
-    {
-      "name": "certificate-generator",
       "count": 1
     },
     {
@@ -8550,6 +8630,10 @@
       "count": 1
     },
     {
+      "name": "chaos-engineer-skill",
+      "count": 1
+    },
+    {
       "name": "chaos-engineering",
       "count": 1
     },
@@ -8603,6 +8687,10 @@
     },
     {
       "name": "charm-stack",
+      "count": 1
+    },
+    {
+      "name": "charting-vega-lite",
       "count": 1
     },
     {
@@ -8711,6 +8799,10 @@
     },
     {
       "name": "check-spots",
+      "count": 1
+    },
+    {
+      "name": "check-tools",
       "count": 1
     },
     {
@@ -9026,6 +9118,10 @@
       "count": 1
     },
     {
+      "name": "clarify-spec",
+      "count": 1
+    },
+    {
       "name": "classifier",
       "count": 1
     },
@@ -9179,6 +9275,10 @@
     },
     {
       "name": "claude-md-authoring",
+      "count": 1
+    },
+    {
+      "name": "claude-md-creator",
       "count": 1
     },
     {
@@ -9530,10 +9630,6 @@
       "count": 1
     },
     {
-      "name": "cli-developer-skill",
-      "count": 1
-    },
-    {
       "name": "cli-doc-maintainer",
       "count": 1
     },
@@ -9819,10 +9915,6 @@
     },
     {
       "name": "cloud-architect",
-      "count": 1
-    },
-    {
-      "name": "cloud-architect-skill",
       "count": 1
     },
     {
@@ -10114,6 +10206,10 @@
       "count": 1
     },
     {
+      "name": "clustering-analyzer",
+      "count": 1
+    },
+    {
       "name": "clustermarkers",
       "count": 1
     },
@@ -10306,6 +10402,14 @@
       "count": 1
     },
     {
+      "name": "code-like-djangonout",
+      "count": 1
+    },
+    {
+      "name": "code-like-gopher",
+      "count": 1
+    },
+    {
       "name": "code-linting",
       "count": 1
     },
@@ -10323,6 +10427,10 @@
     },
     {
       "name": "code-priority",
+      "count": 1
+    },
+    {
+      "name": "code-profiler",
       "count": 1
     },
     {
@@ -10431,6 +10539,10 @@
     },
     {
       "name": "code-reviewer",
+      "count": 1
+    },
+    {
+      "name": "code-reviewer-skill",
       "count": 1
     },
     {
@@ -11810,6 +11922,10 @@
       "count": 1
     },
     {
+      "name": "content",
+      "count": 1
+    },
+    {
       "name": "content-agent",
       "count": 1
     },
@@ -11910,10 +12026,6 @@
       "count": 1
     },
     {
-      "name": "content-similarity-checker",
-      "count": 1
-    },
-    {
       "name": "content-spec",
       "count": 1
     },
@@ -11999,10 +12111,6 @@
     },
     {
       "name": "context-manager",
-      "count": 1
-    },
-    {
-      "name": "context-manager-skill",
       "count": 1
     },
     {
@@ -12147,10 +12255,6 @@
     },
     {
       "name": "contract-first-api-development",
-      "count": 1
-    },
-    {
-      "name": "contract-generator",
       "count": 1
     },
     {
@@ -12479,6 +12583,10 @@
     },
     {
       "name": "correct",
+      "count": 1
+    },
+    {
+      "name": "correlation-explorer",
       "count": 1
     },
     {
@@ -13034,6 +13142,10 @@
       "count": 1
     },
     {
+      "name": "creating-pds-issues",
+      "count": 1
+    },
+    {
       "name": "creating-plugins",
       "count": 1
     },
@@ -13043,6 +13155,10 @@
     },
     {
       "name": "creating-pull-requests",
+      "count": 1
+    },
+    {
+      "name": "creating-skill",
       "count": 1
     },
     {
@@ -13338,6 +13454,10 @@
       "count": 1
     },
     {
+      "name": "csv-data-wrangler-skill",
+      "count": 1
+    },
+    {
       "name": "csv-parser",
       "count": 1
     },
@@ -13383,6 +13503,10 @@
     },
     {
       "name": "curl",
+      "count": 1
+    },
+    {
+      "name": "currency-converter",
       "count": 1
     },
     {
@@ -13670,6 +13794,10 @@
       "count": 1
     },
     {
+      "name": "d3js-visualization",
+      "count": 1
+    },
+    {
       "name": "d4e5f6a7-b8c9-4d5e-8f9a-4b5c6d7e8f9a",
       "count": 1
     },
@@ -13811,7 +13939,7 @@
     },
     {
       "name": "data",
-      "count": 22197
+      "count": 23681
     },
     {
       "name": "data-access",
@@ -13823,6 +13951,14 @@
     },
     {
       "name": "data-analyst",
+      "count": 1
+    },
+    {
+      "name": "data-analyst-skill",
+      "count": 1
+    },
+    {
+      "name": "data-anonymizer",
       "count": 1
     },
     {
@@ -13843,6 +13979,10 @@
     },
     {
       "name": "data-engineer",
+      "count": 1
+    },
+    {
+      "name": "data-engineer-skill",
       "count": 1
     },
     {
@@ -13966,11 +14106,19 @@
       "count": 1
     },
     {
+      "name": "data-researcher-skill",
+      "count": 1
+    },
+    {
       "name": "data-science-expert",
       "count": 1
     },
     {
       "name": "data-scientist",
+      "count": 1
+    },
+    {
+      "name": "data-scientist-skill",
       "count": 1
     },
     {
@@ -13987,6 +14135,10 @@
     },
     {
       "name": "data-stats-analysis",
+      "count": 1
+    },
+    {
+      "name": "data-storyteller",
       "count": 1
     },
     {
@@ -14222,6 +14374,10 @@
       "count": 1
     },
     {
+      "name": "databases",
+      "count": 1
+    },
+    {
       "name": "databricks-2025",
       "count": 1
     },
@@ -14247,6 +14403,14 @@
     },
     {
       "name": "datamol",
+      "count": 1
+    },
+    {
+      "name": "dataset-comparer",
+      "count": 1
+    },
+    {
+      "name": "date-normalizer",
       "count": 1
     },
     {
@@ -14462,6 +14626,10 @@
       "count": 1
     },
     {
+      "name": "debugger-skill",
+      "count": 1
+    },
+    {
       "name": "debugging",
       "count": 1
     },
@@ -14583,6 +14751,10 @@
     },
     {
       "name": "deel",
+      "count": 1
+    },
+    {
+      "name": "deep-analysis",
       "count": 1
     },
     {
@@ -15039,7 +15211,7 @@
     },
     {
       "name": "design",
-      "count": 5761
+      "count": 5576
     },
     {
       "name": "design-and-build",
@@ -15654,6 +15826,10 @@
       "count": 1
     },
     {
+      "name": "developing-preact",
+      "count": 1
+    },
+    {
       "name": "developing-with-flutter",
       "count": 1
     },
@@ -15679,7 +15855,7 @@
     },
     {
       "name": "development",
-      "count": 18864
+      "count": 18359
     },
     {
       "name": "development-code",
@@ -15731,7 +15907,7 @@
     },
     {
       "name": "devops",
-      "count": 3203
+      "count": 3191
     },
     {
       "name": "devops-agent",
@@ -15759,10 +15935,6 @@
     },
     {
       "name": "devops-engineer",
-      "count": 1
-    },
-    {
-      "name": "devops-engineer-skill",
       "count": 1
     },
     {
@@ -16070,6 +16242,10 @@
       "count": 1
     },
     {
+      "name": "distance-calculator",
+      "count": 1
+    },
+    {
       "name": "distributed-lock",
       "count": 1
     },
@@ -16362,6 +16538,10 @@
       "count": 1
     },
     {
+      "name": "docker-workflow",
+      "count": 1
+    },
+    {
       "name": "docker-workflows",
       "count": 1
     },
@@ -16534,10 +16714,6 @@
       "count": 1
     },
     {
-      "name": "document-quality-standards",
-      "count": 1
-    },
-    {
       "name": "document-summarizer",
       "count": 1
     },
@@ -16651,7 +16827,7 @@
     },
     {
       "name": "documents",
-      "count": 2642
+      "count": 2738
     },
     {
       "name": "docusaurus",
@@ -16706,7 +16882,7 @@
       "count": 1
     },
     {
-      "name": "docx-template-filling",
+      "name": "docx-skill",
       "count": 1
     },
     {
@@ -16911,6 +17087,10 @@
     },
     {
       "name": "dotnet-cpp-localizer",
+      "count": 1
+    },
+    {
+      "name": "dotnet-cqrs-api",
       "count": 1
     },
     {
@@ -17254,6 +17434,10 @@
       "count": 1
     },
     {
+      "name": "duotone-identity",
+      "count": 1
+    },
+    {
       "name": "duplicate-example",
       "count": 1
     },
@@ -17267,10 +17451,6 @@
     },
     {
       "name": "dx-optimizer",
-      "count": 1
-    },
-    {
-      "name": "dx-optimizer-skill",
       "count": 1
     },
     {
@@ -17682,6 +17862,10 @@
       "count": 1
     },
     {
+      "name": "elasticsearch",
+      "count": 1
+    },
+    {
       "name": "electron",
       "count": 1
     },
@@ -17695,6 +17879,10 @@
     },
     {
       "name": "electron-egg",
+      "count": 1
+    },
+    {
+      "name": "electron-pro-skill",
       "count": 1
     },
     {
@@ -17743,6 +17931,10 @@
     },
     {
       "name": "elixir-expert",
+      "count": 1
+    },
+    {
+      "name": "elixir-expert-skill",
       "count": 1
     },
     {
@@ -17834,10 +18026,6 @@
       "count": 1
     },
     {
-      "name": "embedded-systems-skill",
-      "count": 1
-    },
-    {
       "name": "embedded-thinking",
       "count": 1
     },
@@ -17919,6 +18107,10 @@
     },
     {
       "name": "enforce-security-vigilance",
+      "count": 1
+    },
+    {
+      "name": "enforcement",
       "count": 1
     },
     {
@@ -18311,6 +18503,10 @@
     },
     {
       "name": "error-detective-skill",
+      "count": 1
+    },
+    {
+      "name": "error-detector-skill",
       "count": 1
     },
     {
@@ -18914,6 +19110,10 @@
       "count": 1
     },
     {
+      "name": "expense-report-generator",
+      "count": 1
+    },
+    {
       "name": "experience-library",
       "count": 1
     },
@@ -19002,7 +19202,7 @@
       "count": 1
     },
     {
-      "name": "exploring-data",
+      "name": "explore-skill",
       "count": 1
     },
     {
@@ -19199,6 +19399,10 @@
     },
     {
       "name": "f6a7b8c9-d0e1-4f5a-8b9c-6d7e8f9a0b1c",
+      "count": 1
+    },
+    {
+      "name": "fabric",
       "count": 1
     },
     {
@@ -19459,6 +19663,10 @@
     },
     {
       "name": "feature-engineering",
+      "count": 1
+    },
+    {
+      "name": "feature-engineering-kit",
       "count": 1
     },
     {
@@ -19938,10 +20146,6 @@
       "count": 1
     },
     {
-      "name": "financial-calculator",
-      "count": 1
-    },
-    {
       "name": "financial-model-architect",
       "count": 1
     },
@@ -20027,6 +20231,10 @@
     },
     {
       "name": "finops-expert",
+      "count": 1
+    },
+    {
+      "name": "fintech-engineer-skill",
       "count": 1
     },
     {
@@ -20282,10 +20490,6 @@
       "count": 1
     },
     {
-      "name": "flowchart-generator",
-      "count": 1
-    },
-    {
       "name": "flowio",
       "count": 1
     },
@@ -20463,6 +20667,10 @@
     },
     {
       "name": "form-extraction",
+      "count": 1
+    },
+    {
+      "name": "form-filler",
       "count": 1
     },
     {
@@ -21178,6 +21386,10 @@
       "count": 1
     },
     {
+      "name": "game-developer-skill",
+      "count": 1
+    },
+    {
       "name": "game-development",
       "count": 1
     },
@@ -21590,10 +21802,6 @@
       "count": 1
     },
     {
-      "name": "general-skill",
-      "count": 1
-    },
-    {
       "name": "general-skill-maker",
       "count": 1
     },
@@ -21750,6 +21958,10 @@
       "count": 1
     },
     {
+      "name": "generating-release-notes",
+      "count": 1
+    },
+    {
       "name": "generation",
       "count": 1
     },
@@ -21779,6 +21991,14 @@
     },
     {
       "name": "geo-fundamentals",
+      "count": 1
+    },
+    {
+      "name": "geo-visualizer",
+      "count": 1
+    },
+    {
+      "name": "geocoder",
       "count": 1
     },
     {
@@ -22579,6 +22799,10 @@
     },
     {
       "name": "go-testing",
+      "count": 1
+    },
+    {
+      "name": "go-to-market-planner",
       "count": 1
     },
     {
@@ -23454,6 +23678,10 @@
       "count": 1
     },
     {
+      "name": "hash-calculator",
+      "count": 1
+    },
+    {
       "name": "hashbrown-core",
       "count": 1
     },
@@ -23958,6 +24186,10 @@
       "count": 1
     },
     {
+      "name": "hummbl-framework",
+      "count": 1
+    },
+    {
       "name": "hunt",
       "count": 1
     },
@@ -24262,7 +24494,15 @@
       "count": 1
     },
     {
+      "name": "image-comparison-tool",
+      "count": 1
+    },
+    {
       "name": "image-crop-rotate",
+      "count": 1
+    },
+    {
+      "name": "image-enhancement-suite",
       "count": 1
     },
     {
@@ -24275,6 +24515,10 @@
     },
     {
       "name": "image-fetcher",
+      "count": 1
+    },
+    {
+      "name": "image-filter-lab",
       "count": 1
     },
     {
@@ -25214,15 +25458,19 @@
       "count": 1
     },
     {
-      "name": "invoice-generator",
-      "count": 1
-    },
-    {
       "name": "invoice-organizer",
       "count": 1
     },
     {
       "name": "invoke-opencode-acp",
+      "count": 1
+    },
+    {
+      "name": "invoking-gemini",
+      "count": 1
+    },
+    {
+      "name": "invoking-github",
       "count": 1
     },
     {
@@ -25634,6 +25882,10 @@
       "count": 1
     },
     {
+      "name": "javascript-pro-skill",
+      "count": 1
+    },
+    {
       "name": "javascript-testing",
       "count": 1
     },
@@ -25910,7 +26162,7 @@
       "count": 1
     },
     {
-      "name": "json-render-ui",
+      "name": "json-schema-validator",
       "count": 1
     },
     {
@@ -26067,6 +26319,10 @@
     },
     {
       "name": "kafka-cli-tools",
+      "count": 1
+    },
+    {
+      "name": "kafka-engineer-skill",
       "count": 1
     },
     {
@@ -26234,6 +26490,10 @@
       "count": 1
     },
     {
+      "name": "keyword-extractor",
+      "count": 1
+    },
+    {
       "name": "keyword-research",
       "count": 1
     },
@@ -26283,6 +26543,10 @@
     },
     {
       "name": "klingai-prod-checklist",
+      "count": 1
+    },
+    {
+      "name": "kml-geojson-converter",
       "count": 1
     },
     {
@@ -26650,6 +26914,10 @@
       "count": 1
     },
     {
+      "name": "langchain",
+      "count": 1
+    },
+    {
       "name": "langchain-agents",
       "count": 1
     },
@@ -26722,6 +26990,10 @@
       "count": 1
     },
     {
+      "name": "langgraph",
+      "count": 1
+    },
+    {
       "name": "langgraph-development-skill",
       "count": 1
     },
@@ -26759,6 +27031,10 @@
     },
     {
       "name": "language-detection-expert",
+      "count": 1
+    },
+    {
+      "name": "language-detector",
       "count": 1
     },
     {
@@ -27834,10 +28110,6 @@
       "count": 1
     },
     {
-      "name": "linkedin-personal-branding",
-      "count": 1
-    },
-    {
       "name": "linkedin-post",
       "count": 1
     },
@@ -28066,7 +28338,31 @@
       "count": 1
     },
     {
+      "name": "ln-001-standards-researcher",
+      "count": 1
+    },
+    {
+      "name": "ln-002-best-practices-researcher",
+      "count": 1
+    },
+    {
       "name": "ln-100-documents-pipeline",
+      "count": 1
+    },
+    {
+      "name": "ln-110-project-docs-coordinator",
+      "count": 1
+    },
+    {
+      "name": "ln-112-project-core-creator",
+      "count": 1
+    },
+    {
+      "name": "ln-113-backend-docs-creator",
+      "count": 1
+    },
+    {
+      "name": "ln-114-frontend-docs-creator",
       "count": 1
     },
     {
@@ -28078,6 +28374,14 @@
       "count": 1
     },
     {
+      "name": "ln-140-test-docs-creator",
+      "count": 1
+    },
+    {
+      "name": "ln-150-presentation-creator",
+      "count": 1
+    },
+    {
       "name": "ln-210-epic-coordinator",
       "count": 1
     },
@@ -28086,15 +28390,19 @@
       "count": 1
     },
     {
+      "name": "ln-221-story-creator",
+      "count": 1
+    },
+    {
+      "name": "ln-222-story-replanner",
+      "count": 1
+    },
+    {
       "name": "ln-230-story-prioritizer",
       "count": 1
     },
     {
       "name": "ln-300-task-coordinator",
-      "count": 1
-    },
-    {
-      "name": "ln-301-task-creator",
       "count": 1
     },
     {
@@ -28114,11 +28422,7 @@
       "count": 1
     },
     {
-      "name": "ln-500-story-quality-gate",
-      "count": 1
-    },
-    {
-      "name": "ln-501-code-quality-checker",
+      "name": "ln-404-test-executor",
       "count": 1
     },
     {
@@ -28126,15 +28430,11 @@
       "count": 1
     },
     {
-      "name": "ln-510-test-planner",
-      "count": 1
-    },
-    {
       "name": "ln-512-manual-tester",
       "count": 1
     },
     {
-      "name": "ln-513-auto-test-planner",
+      "name": "ln-600-docs-auditor",
       "count": 1
     },
     {
@@ -28154,11 +28454,19 @@
       "count": 1
     },
     {
-      "name": "ln-623-architecture-auditor",
+      "name": "ln-624-code-quality-auditor",
+      "count": 1
+    },
+    {
+      "name": "ln-625-dependencies-auditor",
       "count": 1
     },
     {
       "name": "ln-626-dead-code-auditor",
+      "count": 1
+    },
+    {
+      "name": "ln-627-observability-auditor",
       "count": 1
     },
     {
@@ -28174,11 +28482,31 @@
       "count": 1
     },
     {
+      "name": "ln-632-test-e2e-priority-auditor",
+      "count": 1
+    },
+    {
+      "name": "ln-633-test-value-auditor",
+      "count": 1
+    },
+    {
       "name": "ln-700-project-bootstrap",
       "count": 1
     },
     {
       "name": "ln-710-dependency-upgrader",
+      "count": 1
+    },
+    {
+      "name": "ln-711-npm-upgrader",
+      "count": 1
+    },
+    {
+      "name": "ln-712-nuget-upgrader",
+      "count": 1
+    },
+    {
+      "name": "ln-713-pip-upgrader",
       "count": 1
     },
     {
@@ -28202,7 +28530,15 @@
       "count": 1
     },
     {
+      "name": "ln-730-devops-setup",
+      "count": 1
+    },
+    {
       "name": "ln-731-docker-generator",
+      "count": 1
+    },
+    {
+      "name": "ln-732-cicd-generator",
       "count": 1
     },
     {
@@ -28218,7 +28554,7 @@
       "count": 1
     },
     {
-      "name": "ln-743-test-infrastructure",
+      "name": "ln-742-precommit-setup",
       "count": 1
     },
     {
@@ -28270,7 +28606,7 @@
       "count": 1
     },
     {
-      "name": "ln-781-build-verifier",
+      "name": "ln-782-test-runner",
       "count": 1
     },
     {
@@ -28435,6 +28771,10 @@
     },
     {
       "name": "logger",
+      "count": 1
+    },
+    {
+      "name": "logging",
       "count": 1
     },
     {
@@ -28670,6 +29010,10 @@
       "count": 1
     },
     {
+      "name": "macos-developer-skill",
+      "count": 1
+    },
+    {
       "name": "macos-security",
       "count": 1
     },
@@ -28890,11 +29234,19 @@
       "count": 1
     },
     {
+      "name": "malware-dynamic-analysis",
+      "count": 1
+    },
+    {
       "name": "malware-forensics",
       "count": 1
     },
     {
       "name": "malware-report-writer",
+      "count": 1
+    },
+    {
+      "name": "malware-triage",
       "count": 1
     },
     {
@@ -29162,10 +29514,6 @@
       "count": 1
     },
     {
-      "name": "markdown-content-formatter",
-      "count": 1
-    },
-    {
       "name": "markdown-converter",
       "count": 1
     },
@@ -29183,10 +29531,6 @@
     },
     {
       "name": "markdown-optimization",
-      "count": 1
-    },
-    {
-      "name": "markdown-pro",
       "count": 1
     },
     {
@@ -29247,7 +29591,7 @@
     },
     {
       "name": "marketing",
-      "count": 447
+      "count": 459
     },
     {
       "name": "marketing-audit",
@@ -29530,6 +29874,10 @@
       "count": 1
     },
     {
+      "name": "mcp-developer-skill",
+      "count": 1
+    },
+    {
       "name": "mcp-development",
       "count": 1
     },
@@ -29787,6 +30135,10 @@
     },
     {
       "name": "meeting-notes",
+      "count": 1
+    },
+    {
+      "name": "meeting-notes-and-actions",
       "count": 1
     },
     {
@@ -30503,10 +30855,6 @@
     },
     {
       "name": "ml-model-deployment",
-      "count": 1
-    },
-    {
-      "name": "ml-model-explainer",
       "count": 1
     },
     {
@@ -31306,6 +31654,10 @@
       "count": 1
     },
     {
+      "name": "mobile-developer-skill",
+      "count": 1
+    },
+    {
       "name": "mobile-development",
       "count": 1
     },
@@ -31435,10 +31787,6 @@
     },
     {
       "name": "model-checkpoint-manager",
-      "count": 1
-    },
-    {
-      "name": "model-comparison-tool",
       "count": 1
     },
     {
@@ -32238,6 +32586,10 @@
       "count": 1
     },
     {
+      "name": "named-entity-extractor",
+      "count": 1
+    },
+    {
       "name": "naming",
       "count": 1
     },
@@ -32698,6 +33050,10 @@
       "count": 1
     },
     {
+      "name": "nextjs-developer-skill",
+      "count": 1
+    },
+    {
       "name": "nextjs-development",
       "count": 1
     },
@@ -32795,6 +33151,10 @@
     },
     {
       "name": "nexus-graph-visualizer",
+      "count": 1
+    },
+    {
+      "name": "nexus-prompt-engineer-en",
       "count": 1
     },
     {
@@ -33354,6 +33714,10 @@
       "count": 1
     },
     {
+      "name": "observability",
+      "count": 1
+    },
+    {
       "name": "observability-alert-manager",
       "count": 1
     },
@@ -33451,6 +33815,10 @@
     },
     {
       "name": "obsidian-qa-saver",
+      "count": 1
+    },
+    {
+      "name": "obsidian-study-vault-builder",
       "count": 1
     },
     {
@@ -34058,6 +34426,10 @@
       "count": 1
     },
     {
+      "name": "oracle-skill",
+      "count": 1
+    },
+    {
       "name": "oracle-teach",
       "count": 1
     },
@@ -34071,6 +34443,10 @@
     },
     {
       "name": "orchestrate",
+      "count": 1
+    },
+    {
+      "name": "orchestrating-agents",
       "count": 1
     },
     {
@@ -34115,10 +34491,6 @@
     },
     {
       "name": "org",
-      "count": 1
-    },
-    {
-      "name": "org-chart-generator",
       "count": 1
     },
     {
@@ -34171,7 +34543,7 @@
     },
     {
       "name": "other",
-      "count": 18912
+      "count": 18812
     },
     {
       "name": "other-entries",
@@ -34718,6 +35090,10 @@
       "count": 1
     },
     {
+      "name": "pdf-skill",
+      "count": 1
+    },
+    {
       "name": "pdf-text-replace",
       "count": 1
     },
@@ -35110,6 +35486,14 @@
       "count": 1
     },
     {
+      "name": "phone-number-formatter",
+      "count": 1
+    },
+    {
+      "name": "photo-collage-maker",
+      "count": 1
+    },
+    {
       "name": "photo-composition-critic",
       "count": 1
     },
@@ -35207,6 +35591,10 @@
     },
     {
       "name": "pivot-table-creator",
+      "count": 1
+    },
+    {
+      "name": "pivot-table-generator",
       "count": 1
     },
     {
@@ -35331,6 +35719,10 @@
     },
     {
       "name": "plan-rfc",
+      "count": 1
+    },
+    {
+      "name": "plan-skill",
       "count": 1
     },
     {
@@ -35750,6 +36142,10 @@
       "count": 1
     },
     {
+      "name": "podcast-splitter",
+      "count": 1
+    },
+    {
       "name": "podcast-writer",
       "count": 1
     },
@@ -36038,11 +36434,19 @@
       "count": 1
     },
     {
+      "name": "postgresql",
+      "count": 1
+    },
+    {
       "name": "postgresql-expert",
       "count": 1
     },
     {
       "name": "postgresql-psql",
+      "count": 1
+    },
+    {
+      "name": "postgresql-skill",
       "count": 1
     },
     {
@@ -36167,6 +36571,10 @@
     },
     {
       "name": "pptx-processing-anthropic",
+      "count": 1
+    },
+    {
+      "name": "pptx-skill",
       "count": 1
     },
     {
@@ -36723,7 +37131,7 @@
     },
     {
       "name": "product",
-      "count": 1058
+      "count": 1079
     },
     {
       "name": "product-analytics-integrator",
@@ -36751,6 +37159,10 @@
     },
     {
       "name": "product-manager",
+      "count": 1
+    },
+    {
+      "name": "product-manager-skill",
       "count": 1
     },
     {
@@ -36839,7 +37251,7 @@
     },
     {
       "name": "productivity",
-      "count": 1499
+      "count": 1546
     },
     {
       "name": "professeur_lycee",
@@ -37019,6 +37431,10 @@
     },
     {
       "name": "project-health-checker",
+      "count": 1
+    },
+    {
+      "name": "project-hook-setup",
       "count": 1
     },
     {
@@ -37251,6 +37667,10 @@
     },
     {
       "name": "prompt-engineer-llm",
+      "count": 1
+    },
+    {
+      "name": "prompt-engineer-skill",
       "count": 1
     },
     {
@@ -37523,6 +37943,10 @@
     },
     {
       "name": "prp-generator",
+      "count": 1
+    },
+    {
+      "name": "prp-manager",
       "count": 1
     },
     {
@@ -38090,6 +38514,10 @@
       "count": 1
     },
     {
+      "name": "qa-expert-skill",
+      "count": 1
+    },
+    {
       "name": "qa-gameplay-testing",
       "count": 1
     },
@@ -38223,10 +38651,6 @@
     },
     {
       "name": "qr-barcode-reader",
-      "count": 1
-    },
-    {
-      "name": "qr-code-generator",
       "count": 1
     },
     {
@@ -39090,6 +39514,10 @@
       "count": 1
     },
     {
+      "name": "react-specialist-skill",
+      "count": 1
+    },
+    {
       "name": "react-state",
       "count": 1
     },
@@ -39746,10 +40174,6 @@
       "count": 1
     },
     {
-      "name": "reindex-docs",
-      "count": 1
-    },
-    {
       "name": "reinforcement-drills",
       "count": 1
     },
@@ -40046,6 +40470,10 @@
       "count": 1
     },
     {
+      "name": "repo-docs",
+      "count": 1
+    },
+    {
       "name": "repo-mapping",
       "count": 1
     },
@@ -40219,6 +40647,10 @@
     },
     {
       "name": "rerender-memo",
+      "count": 1
+    },
+    {
+      "name": "research",
       "count": 1
     },
     {
@@ -40862,6 +41294,10 @@
       "count": 1
     },
     {
+      "name": "risk-manager-skill",
+      "count": 1
+    },
+    {
       "name": "risk-metrics-calculation",
       "count": 1
     },
@@ -40955,10 +41391,6 @@
     },
     {
       "name": "roi-analyzer",
-      "count": 1
-    },
-    {
-      "name": "roi-calculator",
       "count": 1
     },
     {
@@ -41274,6 +41706,10 @@
       "count": 1
     },
     {
+      "name": "rust",
+      "count": 1
+    },
+    {
       "name": "rust-actor",
       "count": 1
     },
@@ -41379,6 +41815,10 @@
     },
     {
       "name": "rust-engineer",
+      "count": 1
+    },
+    {
+      "name": "rust-engineer-skill",
       "count": 1
     },
     {
@@ -41726,6 +42166,10 @@
       "count": 1
     },
     {
+      "name": "sampling-bluesky-zeitgeist",
+      "count": 1
+    },
+    {
       "name": "samtec",
       "count": 1
     },
@@ -41763,6 +42207,10 @@
     },
     {
       "name": "sanity-check",
+      "count": 1
+    },
+    {
+      "name": "sankey-diagram-creator",
       "count": 1
     },
     {
@@ -42019,6 +42467,10 @@
     },
     {
       "name": "scheduler-agent",
+      "count": 1
+    },
+    {
+      "name": "scheduling",
       "count": 1
     },
     {
@@ -42762,10 +43214,6 @@
       "count": 1
     },
     {
-      "name": "scroll-storyteller",
-      "count": 1
-    },
-    {
       "name": "scrum",
       "count": 1
     },
@@ -42991,7 +43439,7 @@
     },
     {
       "name": "security",
-      "count": 777
+      "count": 770
     },
     {
       "name": "security-agent",
@@ -43027,10 +43475,6 @@
     },
     {
       "name": "security-auditor",
-      "count": 1
-    },
-    {
-      "name": "security-auditor-skill",
       "count": 1
     },
     {
@@ -43487,6 +43931,10 @@
     },
     {
       "name": "seo-review",
+      "count": 1
+    },
+    {
+      "name": "seo-specialist-skill",
       "count": 1
     },
     {
@@ -44494,6 +44942,10 @@
       "count": 1
     },
     {
+      "name": "skill-creator-skill",
+      "count": 1
+    },
+    {
       "name": "skill-deploy-update",
       "count": 1
     },
@@ -44703,6 +45155,10 @@
     },
     {
       "name": "skillcraft",
+      "count": 1
+    },
+    {
+      "name": "skillforge",
       "count": 1
     },
     {
@@ -45174,10 +45630,6 @@
       "count": 1
     },
     {
-      "name": "sonarcloud-security-audit",
-      "count": 1
-    },
-    {
       "name": "sonarcloud-sprint",
       "count": 1
     },
@@ -45526,6 +45978,10 @@
       "count": 1
     },
     {
+      "name": "spreadsheet-formula-helper",
+      "count": 1
+    },
+    {
       "name": "spring",
       "count": 1
     },
@@ -45738,10 +46194,6 @@
       "count": 1
     },
     {
-      "name": "sql-pro-skill",
-      "count": 1
-    },
-    {
       "name": "sql-query-helper",
       "count": 1
     },
@@ -45807,6 +46259,10 @@
     },
     {
       "name": "sre-engineer",
+      "count": 1
+    },
+    {
+      "name": "sre-engineer-skill",
       "count": 1
     },
     {
@@ -46179,6 +46635,10 @@
     },
     {
       "name": "statistical-analysis",
+      "count": 1
+    },
+    {
+      "name": "statistical-analyzer",
       "count": 1
     },
     {
@@ -46722,6 +47182,10 @@
       "count": 1
     },
     {
+      "name": "summarize",
+      "count": 1
+    },
+    {
       "name": "summarize-epic",
       "count": 1
     },
@@ -46914,6 +47378,10 @@
       "count": 1
     },
     {
+      "name": "survey-analyzer",
+      "count": 1
+    },
+    {
       "name": "survey-creator",
       "count": 1
     },
@@ -47002,6 +47470,10 @@
       "count": 1
     },
     {
+      "name": "svg-precision-skill",
+      "count": 1
+    },
+    {
       "name": "swap-analyzer",
       "count": 1
     },
@@ -47075,6 +47547,10 @@
     },
     {
       "name": "swift-expert",
+      "count": 1
+    },
+    {
+      "name": "swift-expert-skill",
       "count": 1
     },
     {
@@ -47794,6 +48270,10 @@
       "count": 1
     },
     {
+      "name": "task-distributor-skill",
+      "count": 1
+    },
+    {
       "name": "task-effective-git",
       "count": 1
     },
@@ -48470,6 +48950,10 @@
       "count": 1
     },
     {
+      "name": "territory-mapper",
+      "count": 1
+    },
+    {
       "name": "tesla",
       "count": 1
     },
@@ -48991,7 +49475,7 @@
     },
     {
       "name": "testing",
-      "count": 3951
+      "count": 4037
     },
     {
       "name": "testing-agent",
@@ -49206,10 +49690,6 @@
       "count": 1
     },
     {
-      "name": "text-summarizer",
-      "count": 1
-    },
-    {
       "name": "text-to-speech",
       "count": 1
     },
@@ -49283,6 +49763,10 @@
     },
     {
       "name": "theme-factory",
+      "count": 1
+    },
+    {
+      "name": "theme-factory-skill",
       "count": 1
     },
     {
@@ -49378,6 +49862,10 @@
       "count": 1
     },
     {
+      "name": "thumbnail-generator",
+      "count": 1
+    },
+    {
       "name": "ti",
       "count": 1
     },
@@ -49431,6 +49919,10 @@
     },
     {
       "name": "time-series-database",
+      "count": 1
+    },
+    {
+      "name": "time-series-decomposer",
       "count": 1
     },
     {
@@ -49618,6 +50110,10 @@
       "count": 1
     },
     {
+      "name": "token-efficient",
+      "count": 1
+    },
+    {
       "name": "token-fix",
       "count": 1
     },
@@ -49739,6 +50235,10 @@
     },
     {
       "name": "topic-manager",
+      "count": 1
+    },
+    {
+      "name": "topic-modeler",
       "count": 1
     },
     {
@@ -49890,6 +50390,10 @@
       "count": 1
     },
     {
+      "name": "transformation-workflow",
+      "count": 1
+    },
+    {
       "name": "transformer-lens",
       "count": 1
     },
@@ -49959,6 +50463,10 @@
     },
     {
       "name": "trello",
+      "count": 1
+    },
+    {
+      "name": "trend-analyst-skill",
       "count": 1
     },
     {
@@ -50082,6 +50590,10 @@
       "count": 1
     },
     {
+      "name": "tufte-slide-design",
+      "count": 1
+    },
+    {
       "name": "tuple-nav-composition",
       "count": 1
     },
@@ -50155,6 +50667,10 @@
     },
     {
       "name": "twitter-thread-builder",
+      "count": 1
+    },
+    {
+      "name": "two-agent-harness",
       "count": 1
     },
     {
@@ -50267,10 +50783,6 @@
     },
     {
       "name": "typescript-pro",
-      "count": 1
-    },
-    {
-      "name": "typescript-pro-skill",
       "count": 1
     },
     {
@@ -50623,6 +51135,10 @@
     },
     {
       "name": "unicode_daemon_monitor_prototype",
+      "count": 1
+    },
+    {
+      "name": "unifi",
       "count": 1
     },
     {
@@ -51382,6 +51898,10 @@
       "count": 1
     },
     {
+      "name": "using-webctl",
+      "count": 1
+    },
+    {
       "name": "uspto-database",
       "count": 1
     },
@@ -51511,6 +52031,10 @@
     },
     {
       "name": "ux-researcher-designer",
+      "count": 1
+    },
+    {
+      "name": "ux-researcher-skill",
       "count": 1
     },
     {
@@ -52206,6 +52730,10 @@
       "count": 1
     },
     {
+      "name": "video-engineer-skill",
+      "count": 1
+    },
+    {
       "name": "video-frame-processing-react",
       "count": 1
     },
@@ -52223,6 +52751,10 @@
     },
     {
       "name": "video-marketing",
+      "count": 1
+    },
+    {
+      "name": "video-metadata-inspector",
       "count": 1
     },
     {
@@ -52271,10 +52803,6 @@
     },
     {
       "name": "video-to-content",
-      "count": 1
-    },
-    {
-      "name": "video-to-gif",
       "count": 1
     },
     {
@@ -52730,10 +53258,6 @@
       "count": 1
     },
     {
-      "name": "wandb-plot",
-      "count": 1
-    },
-    {
       "name": "wap",
       "count": 1
     },
@@ -52838,11 +53362,11 @@
       "count": 1
     },
     {
-      "name": "weaviate-collection-manager",
+      "name": "weaviate-connection",
       "count": 1
     },
     {
-      "name": "weaviate-data-ingestion",
+      "name": "weaviate-local-setup",
       "count": 1
     },
     {
@@ -53574,6 +54098,10 @@
       "count": 1
     },
     {
+      "name": "word-cloud-generator",
+      "count": 1
+    },
+    {
       "name": "word-processor-expert",
       "count": 1
     },
@@ -54275,6 +54803,10 @@
     },
     {
       "name": "xlsx-processing-openai",
+      "count": 1
+    },
+    {
+      "name": "xlsx-skill",
       "count": 1
     },
     {

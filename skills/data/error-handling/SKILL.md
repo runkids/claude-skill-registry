@@ -1,416 +1,280 @@
 ---
 name: error-handling
-description: Enforce proper error handling patterns. Use when writing async code, API calls, or user-facing features. Covers try-catch, error boundaries, graceful degradation, and user feedback.
-allowed-tools: Read, Glob, Grep, Edit, Write, Bash
-license: MIT
+description: Centralized error handling system for StepLeague using AppError class, error codes, and reporting. Use when implementing error handling, catching exceptions, or displaying error messages to users. Keywords: error, exception, AppError, ErrorCode, catch, try, toast, logging.
+compatibility: Antigravity, Claude Code, Cursor
 metadata:
-  author: antigravity-team
-  version: "1.0"
+  version: "1.1"
+  project: "stepleague"
 ---
 
-# Error Handling Patterns
+# Error Handling Skill
 
-적절한 에러 처리 패턴을 강제하는 스킬입니다.
+## Overview
 
-## Core Principle
+StepLeague uses a centralized error handling system in `src/lib/errors.ts`.
 
-> **"에러는 숨기지 않고, 적절히 처리하고, 사용자에게 알린다."**
-> **"Fail gracefully, recover when possible."**
+**Key Components:**
+- `AppError` - Typed error class with codes and context
+- `ErrorCode` - Enum of all error types
+- `normalizeError()` - Convert any error to AppError
+- `reportError()` / `reportErrorClient()` - Log and report errors
 
-## Rules
+---
 
-| 규칙 | 상태 | 설명 |
-|------|------|------|
-| 빈 catch 블록 금지 | 🔴 필수 | 최소 로깅 필수 |
-| 사용자 친화적 메시지 | 🔴 필수 | 기술적 에러 메시지 노출 금지 |
-| Error Boundary 사용 | 🔴 필수 (React) | 컴포넌트 에러 격리 |
-| Graceful Degradation | 🟡 권장 | 부분 실패 시 대안 제공 |
+## Throwing Errors
 
-## 기본 패턴
-
-### Try-Catch 올바른 사용
+### Use AppError with Specific Codes
 
 ```typescript
-// ❌ BAD: 빈 catch 블록
+import { AppError, ErrorCode } from "@/lib/errors";
+
+throw new AppError({
+  code: ErrorCode.UPLOAD_TOO_LARGE,
+  message: "File exceeds 5MB limit",
+  context: { fileSize: file.size, maxSize: MAX_SIZE },
+  recoverable: true, // Can user retry?
+});
+```
+
+### AppError Options
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `code` | `ErrorCode` | **Required.** Error type for programmatic handling |
+| `message` | `string` | **Required.** Human-readable description |
+| `context` | `object` | Additional debug info |
+| `cause` | `Error` | Original error that caused this |
+| `recoverable` | `boolean` | Can user retry? Default: `true` |
+
+---
+
+## Available Error Codes
+
+### Upload/Attachment Errors
+- `UPLOAD_FAILED` - General upload failure
+- `UPLOAD_TOO_LARGE` - File size limit exceeded
+- `UPLOAD_INVALID_TYPE` - Wrong file type
+- `UPLOAD_INVALID_FORMAT` - Invalid file format
+- `UPLOAD_PROCESSING_FAILED` - Image processing failed
+- `UPLOAD_STORAGE_ERROR` - Storage service error
+- `ATTACHMENT_NOT_FOUND` - Attachment doesn't exist
+- `ATTACHMENT_FETCH_FAILED` - Failed to retrieve attachment
+- `ATTACHMENT_DELETE_FAILED` - Failed to delete attachment
+
+### API Errors
+- `API_REQUEST_FAILED` - General API failure
+- `API_FETCH_FAILED` - Network fetch failed
+- `API_VALIDATION_ERROR` - Request validation failed
+- `API_UNAUTHORIZED` - Not authenticated (401)
+- `API_FORBIDDEN` - Not authorized (403)
+- `API_NOT_FOUND` - Resource not found (404)
+
+### Database Errors
+- `DB_INSERT_FAILED` - Insert operation failed
+- `DB_UPDATE_FAILED` - Update operation failed
+- `DB_DELETE_FAILED` - Delete operation failed
+- `DB_QUERY_FAILED` - Select query failed
+
+### Menu Errors
+- `MENU_NOT_FOUND` - Menu doesn't exist
+- `MENU_CREATE_FAILED` - Failed to create menu
+- `MENU_ITEM_NOT_FOUND` - Menu item doesn't exist
+- `MENU_ITEM_CREATE_FAILED` - Failed to create item
+- `MENU_ITEM_UPDATE_FAILED` - Failed to update item
+- `MENU_ITEM_DELETE_FAILED` - Failed to delete item
+- `MENU_BATCH_UPDATE_FAILED` - Failed to reorder items
+- `MENU_INVALID_HIERARCHY` - Invalid parent/child structure
+
+### Form/Validation Errors
+- `VALIDATION_FAILED` - General validation failure
+- `REQUIRED_FIELD_MISSING` - Required field is empty
+
+### Network Errors
+- `NETWORK_ERROR` - No network connection
+- `TIMEOUT_ERROR` - Request timed out
+- `REQUEST_TIMEOUT` - Operation timed out
+- `RATE_LIMIT_EXCEEDED` - Too many requests
+
+### Fallback
+- `UNKNOWN_ERROR` - Catch-all for unexpected errors
+
+---
+
+## Catching & Reporting Errors
+
+### Standard Pattern
+
+```typescript
+import { normalizeError, reportErrorClient, ErrorCode } from "@/lib/errors";
+import { toast } from "@/hooks/use-toast";
+
 try {
-  await fetchData();
-} catch (e) {
-  // 아무것도 안 함 - 에러 무시
-}
+  await doSomething();
+} catch (err) {
+  // 1. Normalize to AppError
+  const appError = normalizeError(err, ErrorCode.API_REQUEST_FAILED);
 
-// ❌ BAD: 모든 에러 동일 처리
-try {
-  await fetchData();
-} catch (e) {
-  console.log('에러 발생');  // 정보 부족
-}
+  // 2. Report (logs to console, future: Sentry)
+  reportErrorClient(appError);
 
-// ✅ GOOD: 적절한 에러 처리
-try {
-  await fetchData();
-} catch (error) {
-  // 1. 에러 로깅 (개발자용)
-  console.error('fetchData failed:', error);
-
-  // 2. 에러 추적 서비스 전송
-  errorTracker.capture(error);
-
-  // 3. 사용자에게 알림
-  showToast('데이터를 불러오는데 실패했습니다. 다시 시도해주세요.');
-
-  // 4. 필요시 재시도 또는 대안 제공
-  return fallbackData;
-}
-```
-
-### 에러 타입 구분
-
-```typescript
-// ✅ GOOD: 에러 타입별 처리
-async function fetchUser(id: string) {
-  try {
-    const response = await api.get(`/users/${id}`);
-    return response.data;
-  } catch (error) {
-    if (error instanceof NetworkError) {
-      // 네트워크 에러: 재시도 제안
-      showToast('네트워크 연결을 확인해주세요.');
-      return null;
-    }
-
-    if (error instanceof NotFoundError) {
-      // 404: 사용자 없음
-      showToast('사용자를 찾을 수 없습니다.');
-      return null;
-    }
-
-    if (error instanceof AuthError) {
-      // 인증 에러: 로그인 페이지로
-      router.push('/login');
-      return null;
-    }
-
-    // 예상치 못한 에러
-    console.error('Unexpected error:', error);
-    errorTracker.capture(error);
-    showToast('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-    return null;
-  }
-}
-```
-
-## 커스텀 에러 클래스
-
-```typescript
-// errors.ts
-export class AppError extends Error {
-  constructor(
-    message: string,
-    public code: string,
-    public statusCode?: number,
-    public isOperational: boolean = true
-  ) {
-    super(message);
-    this.name = 'AppError';
-  }
-}
-
-export class ValidationError extends AppError {
-  constructor(message: string, public field?: string) {
-    super(message, 'VALIDATION_ERROR', 400);
-    this.name = 'ValidationError';
-  }
-}
-
-export class NetworkError extends AppError {
-  constructor(message: string = '네트워크 연결을 확인해주세요') {
-    super(message, 'NETWORK_ERROR', 0);
-    this.name = 'NetworkError';
-  }
-}
-
-export class NotFoundError extends AppError {
-  constructor(resource: string) {
-    super(`${resource}을(를) 찾을 수 없습니다`, 'NOT_FOUND', 404);
-    this.name = 'NotFoundError';
-  }
-}
-```
-
-## React Error Boundary
-
-### 기본 Error Boundary
-
-```tsx
-// ErrorBoundary.tsx
-import { Component, ReactNode } from 'react';
-
-interface Props {
-  children: ReactNode;
-  fallback?: ReactNode;
-  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
-}
-
-interface State {
-  hasError: boolean;
-  error?: Error;
-}
-
-export class ErrorBoundary extends Component<Props, State> {
-  state: State = { hasError: false };
-
-  static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
-    this.props.onError?.(error, errorInfo);
-
-    // 에러 추적 서비스로 전송
-    errorTracker.captureException(error, { extra: errorInfo });
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return this.props.fallback || <DefaultErrorFallback error={this.state.error} />;
-    }
-    return this.props.children;
-  }
-}
-
-// 기본 폴백 UI
-function DefaultErrorFallback({ error }: { error?: Error }) {
-  return (
-    <div className="error-fallback">
-      <h2>문제가 발생했습니다</h2>
-      <p>페이지를 새로고침하거나 잠시 후 다시 시도해주세요.</p>
-      <button onClick={() => window.location.reload()}>
-        새로고침
-      </button>
-    </div>
-  );
-}
-```
-
-### Error Boundary 사용
-
-```tsx
-// 앱 전체 감싸기
-function App() {
-  return (
-    <ErrorBoundary fallback={<FullPageError />}>
-      <Router>
-        <Routes />
-      </Router>
-    </ErrorBoundary>
-  );
-}
-
-// 특정 섹션만 감싸기
-function Dashboard() {
-  return (
-    <div>
-      <Header />
-      <ErrorBoundary fallback={<ChartError />}>
-        <Chart data={data} />
-      </ErrorBoundary>
-      <ErrorBoundary fallback={<TableError />}>
-        <DataTable data={data} />
-      </ErrorBoundary>
-    </div>
-  );
-}
-```
-
-## Async 에러 처리
-
-### Promise 에러
-
-```typescript
-// ❌ BAD: unhandled rejection
-fetchData().then(data => setData(data));
-
-// ✅ GOOD: catch 처리
-fetchData()
-  .then(data => setData(data))
-  .catch(error => {
-    console.error('Failed to fetch:', error);
-    setError(error);
+  // 3. Show user-friendly message
+  toast({
+    title: "Error",
+    description: appError.toUserMessage(),
+    variant: "destructive",
   });
-
-// ✅ BETTER: async/await
-async function loadData() {
-  try {
-    const data = await fetchData();
-    setData(data);
-  } catch (error) {
-    console.error('Failed to fetch:', error);
-    setError(error);
-  }
 }
 ```
 
-### 여러 Promise 처리
+### User-Friendly Messages
+
+`appError.toUserMessage()` converts technical errors to friendly text:
+
+| Code | User Message |
+|------|-------------|
+| `UPLOAD_TOO_LARGE` | "The file is too large. Please choose a smaller file." |
+| `NETWORK_ERROR` | "Connection lost. Please check your internet and try again." |
+| `API_UNAUTHORIZED` | "Please sign in to continue." |
+| `API_FORBIDDEN` | "You don't have permission to do this." |
+
+---
+
+## Creating Errors from API Responses
 
 ```typescript
-// ❌ BAD: 하나라도 실패하면 전체 실패
-const [users, posts] = await Promise.all([
-  fetchUsers(),
-  fetchPosts(),
-]);
+import { errorFromResponse } from "@/lib/errors";
 
-// ✅ GOOD: 개별 결과 처리
-const results = await Promise.allSettled([
-  fetchUsers(),
-  fetchPosts(),
-]);
+const response = await fetch("/api/something");
 
-const users = results[0].status === 'fulfilled' ? results[0].value : [];
-const posts = results[1].status === 'fulfilled' ? results[1].value : [];
-
-// 실패한 것만 로깅
-results
-  .filter((r): r is PromiseRejectedResult => r.status === 'rejected')
-  .forEach(r => console.error('Failed:', r.reason));
-```
-
-## Graceful Degradation
-
-### 기능 저하 패턴
-
-```typescript
-// ✅ GOOD: 실패 시 대안 제공
-async function getRecommendations(userId: string) {
-  try {
-    // 1차: 개인화된 추천
-    return await fetchPersonalizedRecommendations(userId);
-  } catch (error) {
-    console.warn('Personalized recommendations failed:', error);
-
-    try {
-      // 2차: 인기 콘텐츠
-      return await fetchPopularContent();
-    } catch (error) {
-      console.warn('Popular content failed:', error);
-
-      // 3차: 캐시된 기본 추천
-      return getCachedDefaultRecommendations();
-    }
-  }
+if (!response.ok) {
+  const appError = await errorFromResponse(response, "Failed to save");
+  throw appError;
 }
 ```
 
-### UI 대안 제공
+This automatically:
+- Extracts error message from JSON body
+- Maps HTTP status to ErrorCode
+- Sets `recoverable` based on status (5xx = retryable)
 
-```tsx
-function UserAvatar({ userId }: { userId: string }) {
-  const [imageError, setImageError] = useState(false);
-  const user = useUser(userId);
+---
 
-  if (imageError || !user?.avatarUrl) {
-    // 이미지 로드 실패 시 대안
-    return (
-      <div className="avatar-placeholder">
-        {user?.name?.charAt(0) || '?'}
-      </div>
-    );
-  }
+## Server-Side Error Reporting
 
-  return (
-    <img
-      src={user.avatarUrl}
-      alt={user.name}
-      onError={() => setImageError(true)}
-    />
-  );
+```typescript
+import { reportError } from "@/lib/errors";
+
+// In API route
+try {
+  await doServerThing();
+} catch (error) {
+  await reportError(error, user?.id, requestId);
+  return serverError("Operation failed");
 }
 ```
 
-## 사용자 친화적 메시지
+Server-side reporting uses `@/lib/server/logger` for Vercel logs.
 
-### 메시지 매핑
+---
+
+## Best Practices
+
+### 1. Always Normalize Unknown Errors
 
 ```typescript
-const errorMessages: Record<string, string> = {
-  NETWORK_ERROR: '네트워크 연결을 확인해주세요.',
-  UNAUTHORIZED: '로그인이 필요합니다.',
-  FORBIDDEN: '접근 권한이 없습니다.',
-  NOT_FOUND: '요청한 정보를 찾을 수 없습니다.',
-  VALIDATION_ERROR: '입력 정보를 확인해주세요.',
-  RATE_LIMIT: '요청이 너무 많습니다. 잠시 후 다시 시도해주세요.',
-  SERVER_ERROR: '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
-  DEFAULT: '오류가 발생했습니다. 다시 시도해주세요.',
-};
+// ✅ Normalize any caught error
+const appError = normalizeError(err, ErrorCode.UNKNOWN_ERROR);
 
-function getUserFriendlyMessage(error: unknown): string {
-  if (error instanceof AppError) {
-    return errorMessages[error.code] || errorMessages.DEFAULT;
-  }
-  return errorMessages.DEFAULT;
-}
+// ❌ Don't assume error type
+console.log(err.message); // May not be an Error!
 ```
 
-### 🔴 금지: 기술적 메시지 노출
+### 2. Provide Context for Debugging
 
 ```typescript
-// ❌ BAD: 사용자에게 기술적 메시지 표시
-showToast(error.message);  // "TypeError: Cannot read property 'id' of undefined"
-showToast(error.stack);    // 스택 트레이스 노출
-
-// ✅ GOOD: 친화적 메시지
-showToast(getUserFriendlyMessage(error));
-```
-
-## 로깅 전략
-
-```typescript
-// logger.ts
-export const logger = {
-  error: (message: string, error: unknown, context?: object) => {
-    // 개발 환경: 콘솔 출력
-    if (process.env.NODE_ENV === 'development') {
-      console.error(message, error, context);
-    }
-
-    // 프로덕션: 에러 추적 서비스
-    errorTracker.captureException(error, {
-      tags: { message },
-      extra: context,
-    });
+throw new AppError({
+  code: ErrorCode.UPLOAD_FAILED,
+  message: "Failed to upload image",
+  context: {
+    filename: file.name,
+    size: file.size,
+    type: file.type,
+    userId: user.id,
   },
+});
+```
 
-  warn: (message: string, context?: object) => {
-    console.warn(message, context);
-  },
+### 3. Chain Errors with Cause
+
+```typescript
+try {
+  await uploadToStorage(file);
+} catch (cause) {
+  throw new AppError({
+    code: ErrorCode.UPLOAD_STORAGE_ERROR,
+    message: "Storage upload failed",
+    cause: cause instanceof Error ? cause : undefined,
+  });
+}
+```
+
+### 4. Use recoverable Flag
+
+```typescript
+// User can retry
+throw new AppError({
+  code: ErrorCode.NETWORK_ERROR,
+  message: "Request failed",
+  recoverable: true, // Show "Try Again" button
+});
+
+// User cannot recover
+throw new AppError({
+  code: ErrorCode.API_FORBIDDEN,
+  message: "Access denied",
+  recoverable: false, // Show "Contact Support"
+});
+```
+
+---
+
+## Adding New Error Codes
+
+When adding new features that need specific error handling:
+
+1. **Add to ErrorCode enum** in `src/lib/errors.ts`:
+
+```typescript
+export enum ErrorCode {
+  // ... existing codes
+  
+  // New feature errors
+  MY_FEATURE_FAILED = 'MY_FEATURE_FAILED',
+  MY_FEATURE_INVALID = 'MY_FEATURE_INVALID',
+}
+```
+
+2. **Add user-friendly message** in `toUserMessage()`:
+
+```typescript
+const friendlyMessages: Partial<Record<ErrorCode, string>> = {
+  // ... existing messages
+  [ErrorCode.MY_FEATURE_FAILED]: 'Unable to complete operation. Please try again.',
 };
 ```
 
-## Checklist
+---
 
-### 코드 작성 시
+## Reference Files
 
-- [ ] try-catch에 적절한 에러 처리 로직
-- [ ] 빈 catch 블록 없음
-- [ ] 에러 타입별 분기 처리
-- [ ] 사용자 친화적 메시지 표시
-- [ ] 에러 로깅/추적
+| File | Purpose |
+|------|---------|
+| `src/lib/errors.ts` | AppError class, ErrorCode enum, utilities |
+| `src/lib/server/logger.ts` | Server-side logging |
 
-### React 컴포넌트
+---
 
-- [ ] Error Boundary 적용
-- [ ] 로딩/에러 상태 UI
-- [ ] 재시도 기능 제공
-- [ ] 폴백 UI 구현
+## Related Skills
 
-### API 호출
-
-- [ ] 네트워크 에러 처리
-- [ ] 타임아웃 처리
-- [ ] 재시도 로직 (필요시)
-- [ ] 캐시 폴백 (필요시)
-
-## References
-
-- [React Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)
-- [JavaScript Error Handling](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling)
+- `api-handler` - Uses error handling for API routes
+- `architecture-philosophy` - Error handling is key defensive pattern

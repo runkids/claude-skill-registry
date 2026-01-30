@@ -1,123 +1,90 @@
 ---
 name: github-workflow
-description: Workflow for processing GitHub issues as development tasks with worktrees and CI validation.
+description: Write and edit GitHub Actions workflow files. Use when creating new workflows, editing existing .github/workflows/*.yml files, or setting up CI/CD pipelines. Triggers on requests like "create a workflow", "add GitHub Actions", "set up CI", or "edit the workflow file".
 ---
 
-# GitHub Issue Development Workflow
+# GitHub Workflow
 
-This skill defines the systematic process for working through GitHub issues.
+Write clear, minimal GitHub Actions workflow files.
 
-## Priority Order
+## Naming Guidelines
 
-1. **Bug issues** (lowest number first)
-2. **Enhancement issues** (lowest number first)
-3. **Documentation issues** (lowest number first)
+### Do NOT name
 
-## Issue Classification
+- `run` steps that are self-explanatory from the command itself
+- `uses` steps for common, obvious actions like:
+  - `actions/checkout`
+  - `actions/setup-node`
+  - `oven-sh/setup-bun`
+  - `pnpm/action-setup`
+  - `actions/cache`
 
-All issues must have at least one primary label:
+### DO name
 
-| Label | When to Apply |
-|-------|---------------|
-| `bug` | Something is broken, incorrect, or failing |
-| `enhancement` | New feature or improvement request |
-| `documentation` | Docs, README, comments, guides |
+- `uses` steps with `actions/github-script` (explain what the script does)
+- Complex multi-line shell scripts (summarize the purpose)
+- Steps where the intent is not obvious from the code
 
-## Dependency Handling
+## Examples
 
-Before starting an issue, check for dependencies:
+### Good
 
-```markdown
-## Parent Issue
-Part of #123
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - run: bun run build
+      - run: bun test
 
-## Blocked By
-- #456 (must complete first)
-
-## Dependencies
-- Requires #789 to be merged
+      - name: Post build status to Slack
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const webhook = process.env.SLACK_WEBHOOK;
+            // ... complex logic
 ```
 
-If dependencies exist and are open:
-1. Work on the dependency first
-2. Complete and merge the dependency PR
-3. Return to the original issue
+### Bad
 
-## Git Worktree Strategy
-
-Each issue gets its own worktree for isolation:
-
-```bash
-# Create worktree
-git worktree add ../retail-demo-issue-42 -b issue-42-fix-login origin/main
-
-# List worktrees
-git worktree list
-
-# Remove after PR merged
-git worktree remove ../retail-demo-issue-42
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+      - name: Install dependencies
+        run: bun install
+      - name: Build project
+        run: bun run build
+      - name: Run tests
+        run: bun test
 ```
 
-### Naming Convention
-- Worktree path: `../retail-demo-issue-<number>`
-- Branch name: `issue-<number>-<short-slug>`
+## Best Practices
 
-### Parallelization Rules
-- Multiple worktrees can run in parallel
-- Never parallelize dependent issues
-- Each worktree = independent development environment
+- Pin action versions with full SHA or major version tag (`@v4`, not `@main`)
+- Use `workflow_dispatch` for manual triggers when useful
+- Set appropriate `permissions` to follow least privilege
+- Use `concurrency` to cancel redundant runs
+- Prefer `${{ github.token }}` over PAT when possible
+- Avoid emoji in workflow names and step names
+- Use `$GITHUB_STEP_SUMMARY` to output execution results in Markdown format
+- Avoid obvious comments; only add comments to explain complex logic
 
-## Pull Request Requirements
+## Step Summary Example
 
-### One Issue = One PR
-- Each issue gets exactly one PR
-- PR title follows conventional commit format
-- PR body must include `Closes #<number>` or `Fixes #<number>`
-
-### PR Template
-```markdown
-## Summary
-- Brief description of changes
-
-## Test Plan
-- How to verify the changes work
-
-Closes #<issue-number>
+```yaml
+- name: Report test results
+  run: |
+    echo "## Test Results" >> $GITHUB_STEP_SUMMARY
+    echo "| Suite | Passed | Failed |" >> $GITHUB_STEP_SUMMARY
+    echo "|-------|--------|--------|" >> $GITHUB_STEP_SUMMARY
+    echo "| Unit  | 42     | 0      |" >> $GITHUB_STEP_SUMMARY
 ```
-
-### CI Validation
-PRs must pass all GitHub Actions checks:
-
-```bash
-# Watch CI status
-gh pr checks <pr-number> --watch
-
-# View failed run logs
-gh run view <run-id> --log-failed
-```
-
-If CI fails:
-1. Analyze the failure
-2. Fix in the worktree
-3. Commit and push
-4. Wait for CI to re-run
-5. Repeat until green
-
-## Completion Criteria
-
-An issue is complete when:
-1. PR is created and linked to issue
-2. All CI checks pass
-3. Code review approved (if required)
-4. PR is merged
-5. Issue is automatically closed
-
-## Commands Reference
-
-| Command | Purpose |
-|---------|---------|
-| `/work` | Start the full workflow |
-| `/work classify` | Only classify unlabeled issues |
-| `/work next` | Show next issue to work on |
-| `/work 42` | Work on specific issue #42 |
-| `/work status` | Show active worktrees |

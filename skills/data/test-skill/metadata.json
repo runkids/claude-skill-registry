@@ -1,7 +1,7 @@
 {
   "name": "test-skill",
-  "repo": "miethe/skillmeat",
-  "path": "tests/fixtures/sample_skills/test-skill/SKILL.md",
-  "source": "github.com/miethe/skillmeat",
-  "downloaded_at": "2026-01-29T04:43:20.712265Z"
+  "repo": "Karanjot786/agent-skills-cli",
+  "path": "skills/test-skill/SKILL.md",
+  "source": "github.com/Karanjot786/agent-skills-cli",
+  "downloaded_at": "2026-01-30T04:29:29.828766Z"
 }

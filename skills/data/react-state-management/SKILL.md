@@ -1,767 +1,429 @@
 ---
-name: React State Management
-description: Gestion d'état React avec Zustand, hooks personnalisés, et patterns de cleanup. MANDATORY pour state management. À utiliser lors de state global, custom hooks, ou quand l'utilisateur mentionne "state", "zustand", "useState", "useEffect", "cleanup".
-allowed-tools: [Read, Write, Edit]
+name: react-state-management
+description: Master modern React state management with Redux Toolkit, Zustand, Jotai, and React Query. Use when setting up global state, managing server state, or choosing between state management solutions.
 ---
 
 # React State Management
 
-## 🎯 Mission
+Comprehensive guide to modern React state management patterns, from local component state to global stores and server state synchronization.
 
-Implémenter une **gestion d'état robuste** avec Zustand, hooks personnalisés, et **patterns de cleanup** pour éviter les memory leaks.
+## When to Use This Skill
 
-## ⚠️ IMPORTANT: Server-First Data Fetching
+- Setting up global state management in a React app
+- Choosing between Redux Toolkit, Zustand, or Jotai
+- Managing server state with React Query or SWR
+- Implementing optimistic updates
+- Debugging state-related issues
+- Migrating from legacy Redux to modern patterns
 
-**CRITICAL** : Depuis Next.js 16, **useEffect n'est PLUS pour le fetch initial des données**.
+## Core Concepts
 
-### ❌ ANTI-PATTERN: useEffect pour fetch initial
+### 1. State Categories
+
+| Type | Description | Solutions |
+|------|-------------|-----------|
+| **Local State** | Component-specific, UI state | useState, useReducer |
+| **Global State** | Shared across components | Redux Toolkit, Zustand, Jotai |
+| **Server State** | Remote data, caching | React Query, SWR, RTK Query |
+| **URL State** | Route parameters, search | React Router, nuqs |
+| **Form State** | Input values, validation | React Hook Form, Formik |
+
+### 2. Selection Criteria
+
+```
+Small app, simple state → Zustand or Jotai
+Large app, complex state → Redux Toolkit
+Heavy server interaction → React Query + light client state
+Atomic/granular updates → Jotai
+```
+
+## Quick Start
+
+### Zustand (Simplest)
 
 ```typescript
-// ❌ MAUVAIS - useEffect pour fetch initial (OLD PATTERN)
-"use client";
+// store/useStore.ts
+import { create } from 'zustand'
+import { devtools, persist } from 'zustand/middleware'
 
-export function TeamsList() {
-  const [teams, setTeams] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    async function loadTeams() {
-      const data = await fetchTeams();
-      setTeams(data);
-      setIsLoading(false);
-    }
-    void loadTeams();
-  }, []); // ❌ Fetch initial = ANTI-PATTERN
-
-  return <div>{teams.map(...)}</div>;
-}
-```
-
-### ✅ PATTERN CORRECT: Server Component
-
-```typescript
-// ✅ BON - Server Component (NEW PATTERN)
-// Pas de "use client"
-
-export async function TeamsList() {
-  const teams = await getTeams(); // ✅ Fetch server-side
-
-  return <div>{teams.map(...)}</div>;
-}
-```
-
-### 📋 Quand utiliser useEffect
-
-**useEffect est UNIQUEMENT pour** :
-1. **Polling** : Rafraîchir les données périodiquement
-2. **Refetch après mutation** : Recharger après une action utilisateur
-3. **Event listeners** : window.addEventListener, etc.
-4. **Subscriptions** : WebSocket, EventEmitter
-5. **Cleanup** : Timers, listeners, subscriptions
-
-**useEffect n'est PAS pour** :
-- ❌ Fetch initial des données (utiliser Server Components)
-- ❌ Cache de données serveur (utiliser Server Components + Suspense)
-- ❌ Loading states initiaux (utiliser Suspense)
-
-### 📚 Zustand: État CLIENT uniquement
-
-**Zustand est pour** :
-- ✅ État UI (modals open/closed, selected items)
-- ✅ État de formulaire (draft, validation)
-- ✅ Préférences utilisateur (theme, language)
-- ✅ État éphémère (notifications, toasts)
-
-**Zustand n'est PAS pour** :
-- ❌ Cache de données serveur (teams, users, etc.)
-- ❌ Données fetchées du backend (utiliser Server Components)
-
-## 🏗️ Architecture State
-
-```
-src/
-├── features/
-│   └── club-management/
-│       ├── stores/
-│       │   ├── club.store.ts         # Zustand store
-│       │   └── subscription.store.ts
-│       └── hooks/
-│           ├── useClub.ts            # Custom hooks
-│           ├── useSubscription.ts
-│           └── useMembers.ts
-└── store/
-    ├── auth.store.ts                 # Global stores
-    └── ui.store.ts
-```
-
-## 📦 Zustand Store Pattern
-
-### Template Store
-
-```typescript
-// features/club-management/stores/club.store.ts
-
-import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
-
-interface ClubState {
-  // State
-  currentClub: Club | null;
-  clubs: Club[];
-  isLoading: boolean;
-  error: string | null;
-
-  // Actions
-  setCurrentClub: (club: Club | null) => void;
-  setClubs: (clubs: Club[]) => void;
-  addClub: (club: Club) => void;
-  updateClub: (id: string, updates: Partial<Club>) => void;
-  removeClub: (id: string) => void;
-  setLoading: (loading: boolean) => void;
-  setError: (error: string | null) => void;
-  reset: () => void;
+interface AppState {
+  user: User | null
+  theme: 'light' | 'dark'
+  setUser: (user: User | null) => void
+  toggleTheme: () => void
 }
 
-const initialState = {
-  currentClub: null,
-  clubs: [],
-  isLoading: false,
-  error: null,
-};
-
-export const useClubStore = create<ClubState>()(
+export const useStore = create<AppState>()(
   devtools(
-    (set) => ({
-      ...initialState,
-
-      setCurrentClub: (club) => set({ currentClub: club }),
-
-      setClubs: (clubs) => set({ clubs }),
-
-      addClub: (club) =>
-        set((state) => ({
-          clubs: [...state.clubs, club],
+    persist(
+      (set) => ({
+        user: null,
+        theme: 'light',
+        setUser: (user) => set({ user }),
+        toggleTheme: () => set((state) => ({
+          theme: state.theme === 'light' ? 'dark' : 'light'
         })),
-
-      updateClub: (id, updates) =>
-        set((state) => ({
-          clubs: state.clubs.map((club) =>
-            club.id === id ? { ...club, ...updates } : club
-          ),
-          currentClub:
-            state.currentClub?.id === id
-              ? { ...state.currentClub, ...updates }
-              : state.currentClub,
-        })),
-
-      removeClub: (id) =>
-        set((state) => ({
-          clubs: state.clubs.filter((club) => club.id !== id),
-          currentClub: state.currentClub?.id === id ? null : state.currentClub,
-        })),
-
-      setLoading: (loading) => set({ isLoading: loading }),
-
-      setError: (error) => set({ error }),
-
-      reset: () => set(initialState),
-    }),
-    { name: 'ClubStore' }
+      }),
+      { name: 'app-storage' }
+    )
   )
-);
+)
+
+// Usage in component
+function Header() {
+  const { user, theme, toggleTheme } = useStore()
+  return (
+    <header className={theme}>
+      {user?.name}
+      <button onClick={toggleTheme}>Toggle Theme</button>
+    </header>
+  )
+}
 ```
 
-### Store avec Async Actions
+## Patterns
+
+### Pattern 1: Redux Toolkit with TypeScript
 
 ```typescript
-// features/club-management/stores/subscription.store.ts
+// store/index.ts
+import { configureStore } from '@reduxjs/toolkit'
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import userReducer from './slices/userSlice'
+import cartReducer from './slices/cartSlice'
 
-import { create } from 'zustand';
-import { subscriptionsApi } from '../api/subscriptions.api';
+export const store = configureStore({
+  reducer: {
+    user: userReducer,
+    cart: cartReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST'],
+      },
+    }),
+})
 
-interface SubscriptionState {
-  subscription: Subscription | null;
-  plans: SubscriptionPlan[];
-  isLoading: boolean;
-  error: string | null;
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
 
-  // Async actions
-  fetchSubscription: (clubId: string) => Promise<void>;
-  fetchPlans: () => Promise<void>;
-  upgradePlan: (planId: string) => Promise<void>;
+// Typed hooks
+export const useAppDispatch: () => AppDispatch = useDispatch
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+```
+
+```typescript
+// store/slices/userSlice.ts
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
+
+interface User {
+  id: string
+  email: string
+  name: string
 }
 
-export const useSubscriptionStore = create<SubscriptionState>((set, get) => ({
-  subscription: null,
-  plans: [],
-  isLoading: false,
+interface UserState {
+  current: User | null
+  status: 'idle' | 'loading' | 'succeeded' | 'failed'
+  error: string | null
+}
+
+const initialState: UserState = {
+  current: null,
+  status: 'idle',
   error: null,
+}
 
-  fetchSubscription: async (clubId) => {
-    set({ isLoading: true, error: null });
+export const fetchUser = createAsyncThunk(
+  'user/fetchUser',
+  async (userId: string, { rejectWithValue }) => {
     try {
-      const subscription = await subscriptionsApi.get(clubId);
-      set({ subscription, isLoading: false });
+      const response = await fetch(`/api/users/${userId}`)
+      if (!response.ok) throw new Error('Failed to fetch user')
+      return await response.json()
     } catch (error) {
-      set({ error: (error as Error).message, isLoading: false });
+      return rejectWithValue((error as Error).message)
     }
+  }
+)
+
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    setUser: (state, action: PayloadAction<User>) => {
+      state.current = action.payload
+      state.status = 'succeeded'
+    },
+    clearUser: (state) => {
+      state.current = null
+      state.status = 'idle'
+    },
   },
-
-  fetchPlans: async () => {
-    set({ isLoading: true, error: null });
-    try {
-      const plans = await subscriptionsApi.getPlans();
-      set({ plans, isLoading: false });
-    } catch (error) {
-      set({ error: (error as Error).message, isLoading: false });
-    }
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUser.pending, (state) => {
+        state.status = 'loading'
+        state.error = null
+      })
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.current = action.payload
+      })
+      .addCase(fetchUser.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.payload as string
+      })
   },
+})
 
-  upgradePlan: async (planId) => {
-    const { subscription } = get();
-    if (!subscription) return;
+export const { setUser, clearUser } = userSlice.actions
+export default userSlice.reducer
+```
 
-    set({ isLoading: true, error: null });
-    try {
-      const updated = await subscriptionsApi.upgrade(subscription.clubId, planId);
-      set({ subscription: updated, isLoading: false });
-    } catch (error) {
-      set({ error: (error as Error).message, isLoading: false });
-    }
+### Pattern 2: Zustand with Slices (Scalable)
+
+```typescript
+// store/slices/createUserSlice.ts
+import { StateCreator } from 'zustand'
+
+export interface UserSlice {
+  user: User | null
+  isAuthenticated: boolean
+  login: (credentials: Credentials) => Promise<void>
+  logout: () => void
+}
+
+export const createUserSlice: StateCreator<
+  UserSlice & CartSlice, // Combined store type
+  [],
+  [],
+  UserSlice
+> = (set, get) => ({
+  user: null,
+  isAuthenticated: false,
+  login: async (credentials) => {
+    const user = await authApi.login(credentials)
+    set({ user, isAuthenticated: true })
   },
-}));
+  logout: () => {
+    set({ user: null, isAuthenticated: false })
+    // Can access other slices
+    // get().clearCart()
+  },
+})
+
+// store/index.ts
+import { create } from 'zustand'
+import { createUserSlice, UserSlice } from './slices/createUserSlice'
+import { createCartSlice, CartSlice } from './slices/createCartSlice'
+
+type StoreState = UserSlice & CartSlice
+
+export const useStore = create<StoreState>()((...args) => ({
+  ...createUserSlice(...args),
+  ...createCartSlice(...args),
+}))
+
+// Selective subscriptions (prevents unnecessary re-renders)
+export const useUser = () => useStore((state) => state.user)
+export const useCart = () => useStore((state) => state.cart)
 ```
 
-## 🪝 Custom Hooks Patterns
-
-### Hook Simple (Read-only)
+### Pattern 3: Jotai for Atomic State
 
 ```typescript
-// features/club-management/hooks/useClub.ts
-
-import { useEffect } from 'react';
-import { useClubStore } from '../stores/club.store';
-import { clubsApi } from '../api/clubs.api';
-
-export function useClub(clubId: string) {
-  const { currentClub, isLoading, error, setCurrentClub, setLoading, setError } =
-    useClubStore();
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function loadClub() {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const club = await clubsApi.getById(clubId);
-        if (!cancelled) {
-          setCurrentClub(club);
-        }
-      } catch (err) {
-        if (!cancelled) {
-          setError((err as Error).message);
-        }
-      } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
-      }
-    }
-
-    void loadClub();
-
-    // ✅ CLEANUP: Annule les updates si le composant unmount
-    return () => {
-      cancelled = true;
-    };
-  }, [clubId, setCurrentClub, setLoading, setError]);
-
-  return { club: currentClub, isLoading, error };
-}
-```
-
-### Hook avec Polling
-
-```typescript
-// features/club-management/hooks/useSubscriptionStatus.ts
-
-import { useEffect } from 'react';
-import { useSubscriptionStore } from '../stores/subscription.store';
-
-export function useSubscriptionStatus(clubId: string, pollInterval = 5000) {
-  const { subscription, fetchSubscription } = useSubscriptionStore();
-
-  useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-    let cancelled = false;
-
-    async function poll() {
-      if (!cancelled) {
-        await fetchSubscription(clubId);
-      }
-    }
-
-    // Initial fetch
-    void poll();
-
-    // Start polling
-    intervalId = setInterval(poll, pollInterval);
-
-    // ✅ CLEANUP: Clear interval + cancel pending updates
-    return () => {
-      cancelled = true;
-      clearInterval(intervalId);
-    };
-  }, [clubId, pollInterval, fetchSubscription]);
-
-  return { subscription };
-}
-```
-
-### Hook avec AbortController (API Fetch)
-
-```typescript
-// features/club-management/hooks/useMembers.ts
-
-import { useState, useEffect } from 'react';
-import { membersApi } from '../api/members.api';
-
-export function useMembers(clubId: string) {
-  const [members, setMembers] = useState<Member[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const abortController = new AbortController();
-
-    async function loadMembers() {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const result = await membersApi.list(clubId, {
-          signal: abortController.signal,
-        });
-        setMembers(result);
-      } catch (err) {
-        if ((err as Error).name !== 'AbortError') {
-          setError((err as Error).message);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    void loadMembers();
-
-    // ✅ CLEANUP: Abort pending request
-    return () => {
-      abortController.abort();
-    };
-  }, [clubId]);
-
-  return { members, isLoading, error };
-}
-```
-
-### Hook avec Event Listeners
-
-```typescript
-// hooks/useWindowSize.ts
-
-import { useState, useEffect } from 'react';
-
-export function useWindowSize() {
-  const [size, setSize] = useState({
-    width: typeof window !== 'undefined' ? window.innerWidth : 0,
-    height: typeof window !== 'undefined' ? window.innerHeight : 0,
-  });
-
-  useEffect(() => {
-    function handleResize() {
-      setSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
-
-    window.addEventListener('resize', handleResize);
-
-    // ✅ CLEANUP: Remove event listener
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  return size;
-}
-```
-
-### Hook avec Subscription (WebSocket, EventEmitter)
-
-```typescript
-// hooks/useRealtimeNotifications.ts
-
-import { useState, useEffect } from 'react';
-import { notificationService } from '@/lib/notifications';
-
-export function useRealtimeNotifications(userId: string) {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-
-  useEffect(() => {
-    // Subscribe to notifications
-    const subscription = notificationService.subscribe(userId, (notification) => {
-      setNotifications((prev) => [notification, ...prev]);
-    });
-
-    // ✅ CLEANUP: Unsubscribe
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [userId]);
-
-  return { notifications };
-}
-```
-
-## 🚨 Patterns de Cleanup CRITIQUES
-
-### 1. Async Data Fetching
-
-```typescript
-// ❌ MAUVAIS - Pas de cleanup
-useEffect(() => {
-  async function loadData() {
-    const result = await fetchData(userId);
-    setData(result); // Peut set state après unmount = ERROR
-  }
-  void loadData();
-}, [userId]);
-
-// ✅ BON - Avec cancelled flag
-useEffect(() => {
-  let cancelled = false;
-
-  async function loadData() {
-    const result = await fetchData(userId);
-    if (!cancelled) {
-      setData(result);
-    }
-  }
-
-  void loadData();
-
-  return () => {
-    cancelled = true;
-  };
-}, [userId]);
-```
-
-### 2. Timers & Intervals
-
-```typescript
-// ❌ MAUVAIS - Interval jamais cleared
-useEffect(() => {
-  const id = setInterval(() => {
-    fetchStats();
-  }, 5000);
-}, []);
-
-// ✅ BON - Clear interval
-useEffect(() => {
-  const id = setInterval(() => {
-    fetchStats();
-  }, 5000);
-
-  return () => {
-    clearInterval(id);
-  };
-}, []);
-```
-
-### 3. Event Listeners
-
-```typescript
-// ❌ MAUVAIS - Listener jamais removed
-useEffect(() => {
-  window.addEventListener('scroll', handleScroll);
-}, []);
-
-// ✅ BON - Remove listener
-useEffect(() => {
-  window.addEventListener('scroll', handleScroll);
-
-  return () => {
-    window.removeEventListener('scroll', handleScroll);
-  };
-}, []);
-```
-
-### 4. AbortController (Fetch)
-
-```typescript
-// ❌ MAUVAIS - Request continue après unmount
-useEffect(() => {
-  async function load() {
-    const data = await fetch('/api/data');
-    setData(data);
-  }
-  void load();
-}, []);
-
-// ✅ BON - Abort request
-useEffect(() => {
-  const controller = new AbortController();
-
-  async function load() {
-    try {
-      const data = await fetch('/api/data', { signal: controller.signal });
-      setData(data);
-    } catch (err) {
-      if (err.name !== 'AbortError') {
-        setError(err);
-      }
-    }
-  }
-
-  void load();
-
-  return () => {
-    controller.abort();
-  };
-}, []);
-```
-
-### 5. Subscriptions (WebSocket, EventEmitter)
-
-```typescript
-// ❌ MAUVAIS - Subscription jamais unsubscribed
-useEffect(() => {
-  const sub = service.subscribe('event', handler);
-}, []);
-
-// ✅ BON - Unsubscribe
-useEffect(() => {
-  const sub = service.subscribe('event', handler);
-
-  return () => {
-    sub.unsubscribe();
-  };
-}, []);
-```
-
-## 🎨 Patterns Avancés
-
-### Hook avec Debounce
-
-```typescript
-// hooks/useDebounce.ts
-
-import { useState, useEffect } from 'react';
-
-export function useDebounce<T>(value: T, delay: number): T {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    // ✅ CLEANUP: Clear timeout si value change
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-
-  return debouncedValue;
-}
+// atoms/userAtoms.ts
+import { atom } from 'jotai'
+import { atomWithStorage } from 'jotai/utils'
+
+// Basic atom
+export const userAtom = atom<User | null>(null)
+
+// Derived atom (computed)
+export const isAuthenticatedAtom = atom((get) => get(userAtom) !== null)
+
+// Atom with localStorage persistence
+export const themeAtom = atomWithStorage<'light' | 'dark'>('theme', 'light')
+
+// Async atom
+export const userProfileAtom = atom(async (get) => {
+  const user = get(userAtom)
+  if (!user) return null
+  const response = await fetch(`/api/users/${user.id}/profile`)
+  return response.json()
+})
+
+// Write-only atom (action)
+export const logoutAtom = atom(null, (get, set) => {
+  set(userAtom, null)
+  set(cartAtom, [])
+  localStorage.removeItem('token')
+})
 
 // Usage
-function SearchComponent() {
-  const [search, setSearch] = useState('');
-  const debouncedSearch = useDebounce(search, 500);
+function Profile() {
+  const [user] = useAtom(userAtom)
+  const [, logout] = useAtom(logoutAtom)
+  const [profile] = useAtom(userProfileAtom) // Suspense-enabled
 
-  useEffect(() => {
-    if (debouncedSearch) {
-      // API call avec valeur debounced
-      searchApi.search(debouncedSearch);
-    }
-  }, [debouncedSearch]);
-
-  return <input value={search} onChange={(e) => setSearch(e.target.value)} />;
-}
-```
-
-### Hook avec Ref pour Latest Value
-
-```typescript
-// hooks/useLatest.ts
-
-import { useRef, useEffect } from 'react';
-
-export function useLatest<T>(value: T) {
-  const ref = useRef(value);
-
-  useEffect(() => {
-    ref.current = value;
-  }, [value]);
-
-  return ref;
-}
-
-// Usage: Évite de recréer callback à chaque render
-function Component({ onSuccess }: Props) {
-  const latestOnSuccess = useLatest(onSuccess);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      // Utilise toujours la dernière version de onSuccess
-      latestOnSuccess.current();
-    }, 1000);
-
-    return () => clearInterval(id);
-  }, []); // Pas besoin de dépendance onSuccess
-}
-```
-
-### Store avec Persist (LocalStorage)
-
-```typescript
-// store/auth.store.ts
-
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-
-interface AuthState {
-  user: User | null;
-  token: string | null;
-  setUser: (user: User | null) => void;
-  setToken: (token: string | null) => void;
-  logout: () => void;
-}
-
-export const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      user: null,
-      token: null,
-
-      setUser: (user) => set({ user }),
-
-      setToken: (token) => set({ token }),
-
-      logout: () => set({ user: null, token: null }),
-    }),
-    {
-      name: 'auth-storage', // LocalStorage key
-      partialize: (state) => ({
-        // Ne persiste que token (pas user)
-        token: state.token,
-      }),
-    }
+  return (
+    <Suspense fallback={<Skeleton />}>
+      <ProfileContent profile={profile} onLogout={logout} />
+    </Suspense>
   )
-);
+}
 ```
 
-### Selector Pattern (Performance)
+### Pattern 4: React Query for Server State
 
 ```typescript
-// ❌ MAUVAIS - Re-render à chaque changement du store
-function Component() {
-  const { clubs, currentClub, isLoading } = useClubStore();
-  return <div>{currentClub?.name}</div>;
+// hooks/useUsers.ts
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+
+// Query keys factory
+export const userKeys = {
+  all: ['users'] as const,
+  lists: () => [...userKeys.all, 'list'] as const,
+  list: (filters: UserFilters) => [...userKeys.lists(), filters] as const,
+  details: () => [...userKeys.all, 'detail'] as const,
+  detail: (id: string) => [...userKeys.details(), id] as const,
 }
 
-// ✅ BON - Selector (re-render uniquement si currentClub change)
-function Component() {
-  const currentClub = useClubStore((state) => state.currentClub);
-  return <div>{currentClub?.name}</div>;
+// Fetch hook
+export function useUsers(filters: UserFilters) {
+  return useQuery({
+    queryKey: userKeys.list(filters),
+    queryFn: () => fetchUsers(filters),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 30 * 60 * 1000, // 30 minutes (formerly cacheTime)
+  })
 }
 
-// ✅ BON - Multiple selectors
-function Component() {
-  const currentClub = useClubStore((state) => state.currentClub);
-  const isLoading = useClubStore((state) => state.isLoading);
+// Single user hook
+export function useUser(id: string) {
+  return useQuery({
+    queryKey: userKeys.detail(id),
+    queryFn: () => fetchUser(id),
+    enabled: !!id, // Don't fetch if no id
+  })
+}
 
-  return <div>{isLoading ? 'Loading...' : currentClub?.name}</div>;
+// Mutation with optimistic update
+export function useUpdateUser() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: updateUser,
+    onMutate: async (newUser) => {
+      // Cancel outgoing refetches
+      await queryClient.cancelQueries({ queryKey: userKeys.detail(newUser.id) })
+
+      // Snapshot previous value
+      const previousUser = queryClient.getQueryData(userKeys.detail(newUser.id))
+
+      // Optimistically update
+      queryClient.setQueryData(userKeys.detail(newUser.id), newUser)
+
+      return { previousUser }
+    },
+    onError: (err, newUser, context) => {
+      // Rollback on error
+      queryClient.setQueryData(
+        userKeys.detail(newUser.id),
+        context?.previousUser
+      )
+    },
+    onSettled: (data, error, variables) => {
+      // Refetch after mutation
+      queryClient.invalidateQueries({ queryKey: userKeys.detail(variables.id) })
+    },
+  })
 }
 ```
 
-## ✅ Checklist State Management
-
-- [ ] Zustand stores dans `features/[feature]/stores/`
-- [ ] Custom hooks dans `features/[feature]/hooks/`
-- [ ] **TOUS les useEffect ont un cleanup function**
-- [ ] Async operations avec `cancelled` flag
-- [ ] Timers avec `clearTimeout/clearInterval`
-- [ ] Event listeners avec `removeEventListener`
-- [ ] Fetch requests avec `AbortController`
-- [ ] Subscriptions avec `unsubscribe()`
-- [ ] Selectors pour optimiser re-renders
-- [ ] DevTools middleware activé en dev
-- [ ] Persist middleware pour auth/settings uniquement
-
-## 🚨 Erreurs Courantes
-
-### 1. Oublier Cleanup
+### Pattern 5: Combining Client + Server State
 
 ```typescript
-// ❌ MAUVAIS
-useEffect(() => {
-  const id = setInterval(tick, 1000);
-}, []); // Memory leak !
+// Zustand for client state
+const useUIStore = create<UIState>((set) => ({
+  sidebarOpen: true,
+  modal: null,
+  toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
+  openModal: (modal) => set({ modal }),
+  closeModal: () => set({ modal: null }),
+}))
 
-// ✅ BON
-useEffect(() => {
-  const id = setInterval(tick, 1000);
-  return () => clearInterval(id);
-}, []);
-```
+// React Query for server state
+function Dashboard() {
+  const { sidebarOpen, toggleSidebar } = useUIStore()
+  const { data: users, isLoading } = useUsers({ active: true })
+  const { data: stats } = useStats()
 
-### 2. setState après Unmount
+  if (isLoading) return <DashboardSkeleton />
 
-```typescript
-// ❌ MAUVAIS
-useEffect(() => {
-  fetchData().then(setData); // Si unmount avant then = ERROR
-}, []);
-
-// ✅ BON
-useEffect(() => {
-  let cancelled = false;
-  fetchData().then((data) => {
-    if (!cancelled) setData(data);
-  });
-  return () => {
-    cancelled = true;
-  };
-}, []);
-```
-
-### 3. Re-renders Excessifs
-
-```typescript
-// ❌ MAUVAIS - Re-render à chaque changement
-function Component() {
-  const store = useClubStore(); // Tout le store
-  return <div>{store.currentClub?.name}</div>;
-}
-
-// ✅ BON - Selector
-function Component() {
-  const name = useClubStore((state) => state.currentClub?.name);
-  return <div>{name}</div>;
+  return (
+    <div className={sidebarOpen ? 'with-sidebar' : ''}>
+      <Sidebar open={sidebarOpen} onToggle={toggleSidebar} />
+      <main>
+        <StatsCards stats={stats} />
+        <UserTable users={users} />
+      </main>
+    </div>
+  )
 }
 ```
 
-## 📚 Skills Complémentaires
+## Best Practices
 
-- **atomic-component** : Composants utilisant les hooks
-- **server-actions** : Server Actions avec state management
-- **use-optimistic** : Optimistic updates + Zustand
+### Do's
+- **Colocate state** - Keep state as close to where it's used as possible
+- **Use selectors** - Prevent unnecessary re-renders with selective subscriptions
+- **Normalize data** - Flatten nested structures for easier updates
+- **Type everything** - Full TypeScript coverage prevents runtime errors
+- **Separate concerns** - Server state (React Query) vs client state (Zustand)
 
----
+### Don'ts
+- **Don't over-globalize** - Not everything needs to be in global state
+- **Don't duplicate server state** - Let React Query manage it
+- **Don't mutate directly** - Always use immutable updates
+- **Don't store derived data** - Compute it instead
+- **Don't mix paradigms** - Pick one primary solution per category
 
-**Rappel CRITIQUE** : **TOUS les useEffect doivent avoir un cleanup function** pour éviter memory leaks et setState après unmount.
+## Migration Guides
+
+### From Legacy Redux to RTK
+
+```typescript
+// Before (legacy Redux)
+const ADD_TODO = 'ADD_TODO'
+const addTodo = (text) => ({ type: ADD_TODO, payload: text })
+function todosReducer(state = [], action) {
+  switch (action.type) {
+    case ADD_TODO:
+      return [...state, { text: action.payload, completed: false }]
+    default:
+      return state
+  }
+}
+
+// After (Redux Toolkit)
+const todosSlice = createSlice({
+  name: 'todos',
+  initialState: [],
+  reducers: {
+    addTodo: (state, action: PayloadAction<string>) => {
+      // Immer allows "mutations"
+      state.push({ text: action.payload, completed: false })
+    },
+  },
+})
+```
+
+## Resources
+
+- [Redux Toolkit Documentation](https://redux-toolkit.js.org/)
+- [Zustand GitHub](https://github.com/pmndrs/zustand)
+- [Jotai Documentation](https://jotai.org/)
+- [TanStack Query](https://tanstack.com/query)

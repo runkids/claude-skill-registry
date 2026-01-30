@@ -1,7 +1,7 @@
 {
   "name": "just",
-  "repo": "enuno/claude-command-and-control",
-  "path": "skills-templates/just/SKILL.md",
-  "source": "github.com/enuno/claude-command-and-control",
-  "downloaded_at": "2026-01-29T03:18:13.946081Z"
+  "repo": "kettleofketchup/dotfiles",
+  "path": ".claude/skills/just/SKILL.md",
+  "source": "github.com/kettleofketchup/dotfiles",
+  "downloaded_at": "2026-01-30T04:06:25.610263Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "ad-copy-writer",
-  "description": "Write high-converting advertising copy for paid media campaigns",
   "repo": "eddiebe147/claude-settings",
-  "category": "other",
-  "tags": [],
-  "stars": 0,
-  "source": "github.com/eddiebe147/claude-settings"
+  "path": "skills/ad-copy-writer/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-30T03:50:56.430589Z"
 }

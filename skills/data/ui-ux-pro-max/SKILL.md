@@ -1,241 +1,237 @@
 ---
 name: ui-ux-pro-max
-description: "UI/UX design intelligence. Plan, build, design, implement, review, improve UI/UX code. Styles: glassmorphism, minimalism, dark mode, responsive. Projects: landing page, dashboard, SaaS, mobile app."
+description: 'UI/UX design intelligence. 50 styles, 21 palettes, 50 font pairings, 20 charts, 8 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind). Actions: plan, build, create, design, implement, review, fix, improve, optimize, enhance, refactor, check UI/UX code. Projects: website, landing page, dashboard, admin panel, e-commerce, SaaS, portfolio, blog, mobile app, .html, .tsx, .vue, .svelte. Elements: button, modal, navbar, sidebar, card, table, form, chart. Styles: glassmorphism, claymorphism, minimalism, brutalism, neumorphism, bento grid, dark mode, responsive, skeuomorphism, flat design. Topics: color palette, accessibility, animation, layout, typography, font pairing, spacing, hover, shadow, gradient.'
 ---
 
-# UI/UX Pro Max
+# UI/UX Pro Max - Design Intelligence
 
-UI/UXデザインおよび実装の専門スキル。
+Searchable database of UI styles, color palettes, font pairings, chart types, product recommendations, UX guidelines, and stack-specific best practices.
 
-## 対応領域
+## Prerequisites
 
-- ランディングページ設計
-- ダッシュボードUI
-- SaaSプロダクト
-- モバイルアプリ（レスポンシブ）
+Check if Python is installed:
 
----
-
-## CRITICAL: アクセシビリティ優先
-
-**このセクションは最優先事項。デザインの美しさよりもアクセシビリティを優先する。**
-
-### WCAG 2.1 コントラスト要件
-
-| テキストサイズ | 最小コントラスト比 |
-|---------------|-------------------|
-| 通常テキスト (< 18px) | **4.5:1** |
-| 大きいテキスト (≥ 18px bold / ≥ 24px) | **3:1** |
-| UI コンポーネント・アイコン | **3:1** |
-
-### 必須: プロジェクトの globals.css を使用
-
-**Tailwind のデフォルト色を直接使わない。** プロジェクトの `globals.css` で定義されたトークンを優先する。
-
-```tsx
-// NG: Tailwind デフォルトをそのまま使用
-<p className="text-slate-400">...</p>
-<p className="text-slate-500">...</p>
-
-// OK: プロジェクトトークンを使用
-<p className="text-muted">...</p>
-<p className="text-subtle">...</p>
+```bash
+python3 --version || python --version
 ```
 
-実装前に必ず `app/globals.css` を確認し、定義済みトークンを把握すること。
+If Python is not installed, install it based on user's OS:
 
-### Glassmorphism とアクセシビリティの両立
+**macOS:**
 
-**警告: 半透明背景はコントラスト計算を複雑にする**
-
-| 背景タイプ | 問題 | 対策 |
-|-----------|------|------|
-| `bg-white/5` | 実効背景色が不確定 | テキストは `text-white` or 十分明るい色を使用 |
-| `bg-black/45` オーバーレイ | 下層と混ざる | 重要テキストは `text-white` を使用 |
-| 半透明セクション | 背景画像と混ざる | muted text は避け、白系を使用 |
-
-**安全な組み合わせ:**
-
-```tsx
-// Glass card 内のテキスト
-<div className="bg-white/5 backdrop-blur-xl ...">
-  <h3 className="text-white">タイトル</h3>       {/* OK: 白は常に安全 */}
-  <p className="text-white/80">説明文</p>         {/* OK: 80%白は十分 */}
-</div>
-
-// 危険な組み合わせ（避ける）
-<div className="bg-white/5 ...">
-  <p className="text-slate-400">説明文</p>        {/* NG: コントラスト不足の可能性 */}
-</div>
+```bash
+brew install python3
 ```
 
-### バッジ・タグのコントラスト
+**Ubuntu/Debian:**
 
-**同系色の組み合わせは危険:**
-
-```tsx
-// NG: 同系色でコントラスト不足
-<span className="bg-indigo-600/20 text-indigo-400">Badge</span>
-<span className="bg-amber-500/20 text-amber-400">開発中</span>
-
-// OK: 十分なコントラストを確保
-<span className="bg-indigo-600/30 text-indigo-300">Badge</span>
-<span className="bg-amber-600/30 text-amber-200">開発中</span>
+```bash
+sudo apt update && sudo apt install python3
 ```
 
-### 無効状態のテキスト
+**Windows:**
 
-```tsx
-// NG: 薄すぎてコントラスト不足
-<button className="text-white/50" disabled>...</button>
-
-// OK: 無効でも読める濃さ
-<button className="text-white/70" disabled>...</button>
+```powershell
+winget install Python.Python.3.12
 ```
 
 ---
 
-## デザインスタイル
+## How to Use This Skill
 
-### グラスモーフィズム
+When user requests UI/UX work (design, build, create, implement, review, fix, improve), follow this workflow:
 
-```css
-/* Glass card - a11y compliant */
-.glass-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-}
+### Step 1: Analyze User Requirements
+
+Extract key information from user request:
+
+- **Product type**: SaaS, e-commerce, portfolio, dashboard, landing page, etc.
+- **Style keywords**: minimal, playful, professional, elegant, dark mode, etc.
+- **Industry**: healthcare, fintech, gaming, education, etc.
+- **Stack**: React, Vue, Next.js, or default to `html-tailwind`
+
+### Step 2: Search Relevant Domains
+
+Use `search.py` multiple times to gather comprehensive information. Search until you have enough context.
+
+```bash
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "<keyword>" --domain <domain> [-n <max_results>]
 ```
 
-**注意:** Glass card 内のテキストは `text-white` または `text-white/80` 以上を使用。
+**Recommended search order:**
 
-### ダークモード優先
+1. **Product** - Get style recommendations for product type
+2. **Style** - Get detailed style guide (colors, effects, frameworks)
+3. **Typography** - Get font pairings with Google Fonts imports
+4. **Color** - Get color palette (Primary, Secondary, CTA, Background, Text, Border)
+5. **Landing** - Get page structure (if landing page)
+6. **Chart** - Get chart recommendations (if dashboard/analytics)
+7. **UX** - Get best practices and anti-patterns
+8. **Stack** - Get stack-specific guidelines (default: html-tailwind)
 
-```css
-/* Dark mode base - WCAG compliant */
-:root {
-  --bg-primary: #0F0F1A;
-  --bg-secondary: #1A1A2E;
-  --text-primary: #FFFFFF;
-  --text-muted: #CBD5E1;    /* slate-300: 4.5:1+ on dark */
-  --text-subtle: #9CA3AF;   /* gray-400: 使用注意 */
-  --accent: #4F46E5;
-}
+### Step 3: Stack Guidelines (Default: html-tailwind)
+
+If user doesn't specify a stack, **default to `html-tailwind`**.
+
+```bash
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "<keyword>" --stack html-tailwind
 ```
 
-### ミニマリズム
-
-- 余白を恐れない
-- 1画面1アクション
-- 視覚的ノイズを減らす
+Available stacks: `html-tailwind`, `react`, `nextjs`, `vue`, `svelte`, `swiftui`, `react-native`, `flutter`
 
 ---
 
-## コンポーネント規約
+## Search Reference
 
-### ボタン
+### Available Domains
 
-```tsx
-// Primary CTA
-<button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg transition-colors cursor-pointer">
-  CTA
-</button>
+| Domain       | Use For                              | Example Keywords                                         |
+| ------------ | ------------------------------------ | -------------------------------------------------------- |
+| `product`    | Product type recommendations         | SaaS, e-commerce, portfolio, healthcare, beauty, service |
+| `style`      | UI styles, colors, effects           | glassmorphism, minimalism, dark mode, brutalism          |
+| `typography` | Font pairings, Google Fonts          | elegant, playful, professional, modern                   |
+| `color`      | Color palettes by product type       | saas, ecommerce, healthcare, beauty, fintech, service    |
+| `landing`    | Page structure, CTA strategies       | hero, hero-centric, testimonial, pricing, social-proof   |
+| `chart`      | Chart types, library recommendations | trend, comparison, timeline, funnel, pie                 |
+| `ux`         | Best practices, anti-patterns        | animation, accessibility, z-index, loading               |
+| `prompt`     | AI prompts, CSS keywords             | (style name)                                             |
 
-// Secondary
-<button className="bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-lg transition-colors cursor-pointer">
-  Secondary
-</button>
+### Available Stacks
 
-// Disabled - コントラスト維持
-<button className="bg-white/5 text-white/70 cursor-not-allowed" disabled>
-  Disabled
-</button>
-```
-
-### カード
-
-```tsx
-// Glass card with accessible text
-<div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
-  <h3 className="text-white font-semibold">Title</h3>
-  <p className="text-white/80">Description with sufficient contrast</p>
-</div>
-```
-
-### テキスト階層
-
-```tsx
-// ソリッド背景（#0F0F1A 等）での使用
-<h1 className="text-4xl font-bold text-white">見出し</h1>
-<h2 className="text-2xl font-semibold text-white">サブ見出し</h2>
-<p className="text-lg text-muted">本文（プロジェクトトークン使用）</p>
-<span className="text-sm text-subtle">補足</span>
-
-// Glass card 内での使用
-<h3 className="text-white">タイトル</h3>
-<p className="text-white/80">説明文</p>
-```
+| Stack           | Focus                                          |
+| --------------- | ---------------------------------------------- |
+| `html-tailwind` | Tailwind utilities, responsive, a11y (DEFAULT) |
+| `react`         | State, hooks, performance, patterns            |
+| `nextjs`        | SSR, routing, images, API routes               |
+| `vue`           | Composition API, Pinia, Vue Router             |
+| `svelte`        | Runes, stores, SvelteKit                       |
+| `swiftui`       | Views, State, Navigation, Animation            |
+| `react-native`  | Components, Navigation, Lists                  |
+| `flutter`       | Widgets, State, Layout, Theming                |
 
 ---
 
-## アイコン
+## Example Workflow
 
-- **使用ライブラリ**: Lucide Icons
-- **禁止**: 絵文字をアイコンとして使用しない
+**User request:** "Làm landing page cho dịch vụ chăm sóc da chuyên nghiệp"
 
-```tsx
-import { Music, Brain, Sparkles, Check, X } from 'lucide-react';
+**AI should:**
+
+```bash
+# 1. Search product type
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "beauty spa wellness service" --domain product
+
+# 2. Search style (based on industry: beauty, elegant)
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "elegant minimal soft" --domain style
+
+# 3. Search typography
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "elegant luxury" --domain typography
+
+# 4. Search color palette
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "beauty spa wellness" --domain color
+
+# 5. Search landing page structure
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "hero-centric social-proof" --domain landing
+
+# 6. Search UX guidelines
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "animation" --domain ux
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "accessibility" --domain ux
+
+# 7. Search stack guidelines (default: html-tailwind)
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "layout responsive" --stack html-tailwind
 ```
+
+**Then:** Synthesize all search results and implement the design.
 
 ---
 
-## レスポンシブブレークポイント
+## Tips for Better Results
 
-```css
-/* Mobile first */
-/* sm: 640px */
-/* md: 768px */
-/* lg: 1024px */
-/* xl: 1280px */
-/* 2xl: 1536px */
-```
+1. **Be specific with keywords** - "healthcare SaaS dashboard" > "app"
+2. **Search multiple times** - Different keywords reveal different insights
+3. **Combine domains** - Style + Typography + Color = Complete design system
+4. **Always check UX** - Search "animation", "z-index", "accessibility" for common issues
+5. **Use stack flag** - Get implementation-specific best practices
+6. **Iterate** - If first search doesn't match, try different keywords
 
-検証すべき画面幅:
-- 320px (最小モバイル)
-- 768px (タブレット)
-- 1024px (デスクトップ)
-- 1440px (大画面)
+---
+
+## Common Rules for Professional UI
+
+These are frequently overlooked issues that make UI look unprofessional:
+
+### Icons & Visual Elements
+
+| Rule                       | Do                                              | Don't                                  |
+| -------------------------- | ----------------------------------------------- | -------------------------------------- |
+| **No emoji icons**         | Use SVG icons (Heroicons, Lucide, Simple Icons) | Use emojis like 🎨 🚀 ⚙️ as UI icons   |
+| **Stable hover states**    | Use color/opacity transitions on hover          | Use scale transforms that shift layout |
+| **Correct brand logos**    | Research official SVG from Simple Icons         | Guess or use incorrect logo paths      |
+| **Consistent icon sizing** | Use fixed viewBox (24x24) with w-6 h-6          | Mix different icon sizes randomly      |
+
+### Interaction & Cursor
+
+| Rule                   | Do                                                    | Don't                                        |
+| ---------------------- | ----------------------------------------------------- | -------------------------------------------- |
+| **Cursor pointer**     | Add `cursor-pointer` to all clickable/hoverable cards | Leave default cursor on interactive elements |
+| **Hover feedback**     | Provide visual feedback (color, shadow, border)       | No indication element is interactive         |
+| **Smooth transitions** | Use `transition-colors duration-200`                  | Instant state changes or too slow (>500ms)   |
+
+### Light/Dark Mode Contrast
+
+| Rule                      | Do                                  | Don't                                   |
+| ------------------------- | ----------------------------------- | --------------------------------------- |
+| **Glass card light mode** | Use `bg-white/80` or higher opacity | Use `bg-white/10` (too transparent)     |
+| **Text contrast light**   | Use `#0F172A` (slate-900) for text  | Use `#94A3B8` (slate-400) for body text |
+| **Muted text light**      | Use `#475569` (slate-600) minimum   | Use gray-400 or lighter                 |
+| **Border visibility**     | Use `border-gray-200` in light mode | Use `border-white/10` (invisible)       |
+
+### Layout & Spacing
+
+| Rule                     | Do                                  | Don't                                  |
+| ------------------------ | ----------------------------------- | -------------------------------------- |
+| **Floating navbar**      | Add `top-4 left-4 right-4` spacing  | Stick navbar to `top-0 left-0 right-0` |
+| **Content padding**      | Account for fixed navbar height     | Let content hide behind fixed elements |
+| **Consistent max-width** | Use same `max-w-6xl` or `max-w-7xl` | Mix different container widths         |
 
 ---
 
 ## Pre-Delivery Checklist
 
-- [ ] **Lighthouse アクセシビリティ 100%**（最重要）
-- [ ] プロジェクトの globals.css トークンを使用
-- [ ] Glass card 内テキストは text-white/80 以上
-- [ ] バッジのコントラスト確認
-- [ ] 絵文字アイコン不使用（Lucide使用）
-- [ ] ダークモード対応
-- [ ] グラスモーフィズム適用
-- [ ] cursor-pointer on clickables
-- [ ] レスポンシブ対応
-- [ ] パフォーマンス最適化（画像、アニメーション）
+Before delivering UI code, verify these items:
 
----
+### Visual Quality
 
-## コントラスト確認方法
+- [ ] No emojis used as icons (use SVG instead)
+- [ ] All icons from consistent icon set (Heroicons/Lucide)
+- [ ] Brand logos are correct (verified from Simple Icons)
+- [ ] Hover states don't cause layout shift
+- [ ] Use theme colors directly (bg-primary) not var() wrapper
 
-実装後は必ず Lighthouse でアクセシビリティを確認:
+### Interaction
 
-```bash
-# ローカル確認
-npm run dev
-lighthouse http://localhost:3000 --only-categories=accessibility --view
+- [ ] All clickable elements have `cursor-pointer`
+- [ ] Hover states provide clear visual feedback
+- [ ] Transitions are smooth (150-300ms)
+- [ ] Focus states visible for keyboard navigation
 
-# 詳細な失敗項目の確認
-lighthouse http://localhost:3000 --only-categories=accessibility --output=json | jq '.audits["color-contrast"]'
-```
+### Light/Dark Mode
 
-**目標: Lighthouse Accessibility Score 100%**
+- [ ] Light mode text has sufficient contrast (4.5:1 minimum)
+- [ ] Glass/transparent elements visible in light mode
+- [ ] Borders visible in both modes
+- [ ] Test both modes before delivery
+
+### Layout
+
+- [ ] Floating elements have proper spacing from edges
+- [ ] No content hidden behind fixed navbars
+- [ ] Responsive at 320px, 768px, 1024px, 1440px
+- [ ] No horizontal scroll on mobile
+
+### Accessibility
+
+- [ ] All images have alt text
+- [ ] Form inputs have labels
+- [ ] Color is not the only indicator
+- [ ] `prefers-reduced-motion` respected

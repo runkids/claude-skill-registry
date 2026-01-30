@@ -1,7 +1,7 @@
 {
   "name": "gpui-test",
-  "repo": "zerx-lab/zTerm",
+  "repo": "longbridge/gpui-component",
   "path": ".claude/skills/gpui-test/SKILL.md",
-  "source": "github.com/zerx-lab/zTerm",
-  "downloaded_at": "2026-01-29T02:51:09.198605Z"
+  "source": "github.com/longbridge/gpui-component",
+  "downloaded_at": "2026-01-30T04:24:40.509862Z"
 }

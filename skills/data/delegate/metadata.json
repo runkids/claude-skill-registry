@@ -1,7 +1,7 @@
 {
   "name": "delegate",
-  "repo": "Jamie-BitFlight/claude_skills",
-  "path": ".claude/skills/delegate/SKILL.md",
-  "source": "github.com/Jamie-BitFlight/claude_skills",
-  "downloaded_at": "2026-01-29T02:11:22.741552Z"
+  "repo": "phrazzld/claude-config",
+  "path": "skills/delegate/SKILL.md",
+  "source": "github.com/phrazzld/claude-config",
+  "downloaded_at": "2026-01-30T04:28:43.099164Z"
 }
